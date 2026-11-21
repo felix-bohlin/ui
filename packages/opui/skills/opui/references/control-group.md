@@ -128,7 +128,7 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--u
 
 ## Astro
 
-`import { Button, ControlGroup, TextField } from "opui-css/astro"`
+`import { Button, ControlGroup } from "opui-css/astro"`
 
 ### Example: Variants
 
@@ -164,7 +164,7 @@ import { Button, ControlGroup } from "opui-css/astro"
 
 ## React
 
-`import { Button, ControlGroup, TextField } from "opui-css/react"`
+`import { Button, ControlGroup } from "opui-css/react"`
 
 ### Example: Variants
 
@@ -204,7 +204,7 @@ export default function Variants() {
 
 ## Solid
 
-`import { Button, ControlGroup, TextField } from "opui-css/solid"`
+`import { Button, ControlGroup } from "opui-css/solid"`
 
 ### Example: Variants
 
@@ -245,7 +245,7 @@ export default function Variants() {
 
 ## Svelte
 
-`import { Button, ControlGroup, TextField } from "opui-css/svelte"`
+`import { Button, ControlGroup } from "opui-css/svelte"`
 
 ### Example: Variants
 
@@ -281,7 +281,7 @@ export default function Variants() {
 
 ## Vue
 
-`import { Button, ControlGroup, TextField } from "opui-css/vue"`
+`import { Button, ControlGroup } from "opui-css/vue"`
 
 ### Example: Variants
 

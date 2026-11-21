@@ -8,14 +8,13 @@ import {
   Drawer,
   DrawerHeader,
   DrawerTitle,
+  Field,
   FieldGroup,
   List,
   ListItem,
   Menu,
   Message,
   MessageList,
-  Textarea,
-  TextField,
 } from "opui-css/vue"
 </script>
 
@@ -41,7 +40,7 @@ import {
                 ></path></svg
             ></Button>
           </div>
-          <TextField for="chat-search" size="small">
+          <Field for="chat-search" size="small">
             <input
               aria-describedby="chat-search-start"
               aria-label="Search messages"
@@ -65,7 +64,7 @@ import {
                 ></path>
               </svg>
             </template>
-          </TextField>
+          </Field>
         </div>
         <List variant="transparent">
           <ListItem
@@ -309,14 +308,14 @@ import {
                     d="M16.5 6v11.5a4 4 0 0 1-8 0V5a2.5 2.5 0 0 1 5 0v10.5a1 1 0 0 1-2 0V6H10v9.5a2.5 2.5 0 0 0 5 0V5a4 4 0 0 0-8 0v12.5a5.5 5.5 0 0 0 11 0V6z"
                   ></path></svg
               ></Button>
-              <Textarea for="chat-chat-message">
+              <Field for="chat-chat-message">
                 <textarea
                   aria-label="Message Stella Nut"
                   id="chat-chat-message"
                   name="chat-message"
                   placeholder="Write something rad…"
                 ></textarea>
-              </Textarea>
+              </Field>
               <Button
                 aria-label="Send"
                 color="primary"

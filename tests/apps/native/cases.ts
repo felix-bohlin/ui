@@ -54,9 +54,6 @@ export const NATIVE_CASES: NativeCase[] = [
   { after: { click: 0 }, before: { click: 0 }, name: "toggle-empty" },
 ]
 
-export const SOLID_SELECT_DEFAULT =
-  "Solid has no defaultValue on a select, so the Select's defaultValue marks its options as the default, as React's native defaultValue does"
-
 export const SVELTE_GROUP =
   "a component can't use bind:group, so Radio, Rating, TabsItem and ToggleButton write checked from the bound value with the seedChecked attachment (components/svelte.ts), which keeps the first state as defaultChecked to tell a choice made before hydration from the server's"
 

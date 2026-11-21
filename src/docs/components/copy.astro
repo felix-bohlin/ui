@@ -7,7 +7,7 @@ import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
-import { Button as UIButton, TextField as UITextField } from "opui-css/astro"
+import { Button as UIButton, Field as UIField } from "opui-css/astro"
 
 import CopyCSS from "@opui/css/components/copy.css?raw"
 import CopyJS from "@opui/elements/copy.js?raw"
@@ -77,7 +77,7 @@ export const keywords = ["clipboard", "copy to clipboard"]
           inline-size: 20rem;
         "
       >
-        <UITextField
+        <UIField
           for="copy-invite-link"
           hideLabel
           label="Invite link"
@@ -88,7 +88,7 @@ export const keywords = ["clipboard", "copy to clipboard"]
             readonly
             value="https://example.com/invite/8f3k2"
           />
-        </UITextField>
+        </UIField>
         <UIButton style="anchor-name: --copy-anatomy-button" variant="outlined"
           >Copy</UIButton
         >

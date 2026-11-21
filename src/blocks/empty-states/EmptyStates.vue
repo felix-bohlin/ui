@@ -6,7 +6,7 @@ import {
   Card,
   CardContent,
   Chip,
-  TextField,
+  Field,
 } from "opui-css/vue"
 </script>
 
@@ -97,7 +97,7 @@ import {
         variant="outlined"
       >
         <CardContent>
-          <TextField
+          <Field
             class="empty-states-search"
             for="empty-states-q"
             hideLabel
@@ -125,7 +125,7 @@ import {
                 ></path>
               </svg>
             </template>
-          </TextField>
+          </Field>
           <hgroup>
             <h2 class="ui-h5" id="empty-states-no-results">
               No results for “flatwond strings”

@@ -1,16 +1,18 @@
 <script lang="ts">
   import {
+    CharacterCount,
     Checkbox,
+    Field,
     Menu,
     NumberField,
+    PasswordToggle,
     Rating,
-    Select,
+    SelectButton,
     Stepper,
     Tabs,
     TabsItem,
     TabsLabel,
     TabsPanel,
-    TextField,
     ToggleButton,
     ToggleGroup,
   } from "opui-css/svelte"
@@ -51,20 +53,23 @@
 </script>
 
 <form>
-  <TextField for="models-city" label="City">
+  <Field for="models-city" label="City">
     <input
       aria-invalid={error ? "true" : undefined}
       id="models-city"
       defaultValue="Lund"
     />
-  </TextField>
-  <TextField for="models-password" label="Password" passwordToggle>
+  </Field>
+  <Field for="models-password" label="Password">
     <input
       aria-invalid={error ? "true" : undefined}
       id="models-password"
       type="password"
     />
-  </TextField>
+    {#snippet end()}
+      <PasswordToggle for="models-password" />
+    {/snippet}
+  </Field>
   <NumberField for="models-quantity" label="Quantity">
     <input
       aria-invalid={error ? "true" : undefined}
@@ -74,26 +79,38 @@
     />
   </NumberField>
   <Checkbox checked={false} {error}>Newsletter</Checkbox>
-  <Select {error} label="Size" value="small">
-    <option value="small">Small</option>
-    <option value="large">Large</option>
-  </Select>
-  <Select label="Color" value="blue">
-    <option value="red">Red</option>
-    <option value="blue">Blue</option>
-  </Select>
-  <TextField characterCount for="models-name" label="Name">
+  <Field for="models-size" label="Size">
+    <select aria-invalid={error ? "true" : undefined} id="models-size">
+      <SelectButton />
+      <option selected value="small">Small</option>
+      <option value="large">Large</option>
+    </select>
+  </Field>
+  <Field for="models-color" label="Color">
+    <select id="models-color">
+      <SelectButton />
+      <option value="red">Red</option>
+      <option selected value="blue">Blue</option>
+    </select>
+  </Field>
+  <Field for="models-name" label="Name">
     <input
       aria-describedby="models-name-end-text"
       id="models-name"
       maxlength={20}
       bind:value={name}
     />
-  </TextField>
-  <Select label="Plan" bind:value={plan}>
-    <option value="free">Free</option>
-    <option value="paid">Paid</option>
-  </Select>
+    {#snippet endText()}
+      <CharacterCount />
+    {/snippet}
+  </Field>
+  <Field for="models-plan" label="Plan">
+    <select bind:value={plan} id="models-plan">
+      <SelectButton />
+      <option value="free">Free</option>
+      <option value="paid">Paid</option>
+    </select>
+  </Field>
   <Tabs name="refused-tabs" role="radiogroup" value="profile">
     <TabsItem value="profile">
       <TabsLabel>Profile</TabsLabel>
@@ -139,7 +156,14 @@
     }}
     popover="manual"
   />
-  <Select items={fruits} label="Fruit" />
+  <Field for="models-fruit" label="Fruit">
+    <select id="models-fruit">
+      <SelectButton />
+      {#each fruits as fruit (fruit.value)}
+        <option value={fruit.value}>{fruit.label}</option>
+      {/each}
+    </select>
+  </Field>
   <Stepper current={2} items={steps} />
   <button
     onclick={() => {

@@ -12,7 +12,6 @@ import {
   compareNative,
   differences,
   NATIVE_CASES,
-  SOLID_SELECT_DEFAULT,
   SVELTE_GROUP,
   SVELTE_SPREAD,
 } from "./native/cases.ts"
@@ -581,7 +580,6 @@ const NATIVE_DIFFERENCES = [
     "toggle-bound",
   ]),
   ...differences("sveltekit", SVELTE_SPREAD, ["checkbox-bound", "range-bound"]),
-  ...differences("vite-solid", SOLID_SELECT_DEFAULT, ["select-default"]),
   ...differences("vite-svelte", SVELTE_GROUP, [
     "group-bound",
     "radio-bound",

@@ -9,25 +9,19 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  Field,
   FieldGroup,
   FieldLegend,
   Fieldset,
   Form,
   OneTimeCode,
   Radio,
-  Select,
+  SelectButton,
   Switch,
-  TextField,
 } from "opui-css/vue"
 import { verifyCode } from "reference-shared"
 
 useHead({ title: "Settings" })
-
-const languages = [
-  { label: "Deutsch", value: "de" },
-  { label: "English", value: "en" },
-  { label: "Svenska", value: "sv" },
-]
 
 const status = ref("")
 const code = ref("")
@@ -53,10 +47,10 @@ const deleteAccount = () => {
       <Fieldset>
         <FieldLegend>Account</FieldLegend>
         <FieldGroup>
-          <TextField for="settings-display-name" label="Display name">
+          <Field for="settings-display-name" label="Display name">
             <input id="settings-display-name" name="name" value="Sam Rivera" />
-          </TextField>
-          <TextField for="settings-email" label="Email">
+          </Field>
+          <Field for="settings-email" label="Email">
             <input
               id="settings-email"
               name="email"
@@ -64,13 +58,15 @@ const deleteAccount = () => {
               type="email"
               value="sam@example.com"
             />
-          </TextField>
-          <Select
-            :items="languages"
-            label="Language"
-            name="language"
-            value="en"
-          />
+          </Field>
+          <Field for="settings-language" label="Language">
+            <select id="settings-language" name="language">
+              <SelectButton />
+              <option value="de">Deutsch</option>
+              <option selected value="en">English</option>
+              <option value="sv">Svenska</option>
+            </select>
+          </Field>
         </FieldGroup>
       </Fieldset>
       <Fieldset>

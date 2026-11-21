@@ -3,11 +3,10 @@ import {
   Button,
   Checkbox,
   Chip,
+  Field,
   Radio,
-  Select,
+  SelectButton,
   Switch,
-  TextField,
-  Textarea,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/astro"
@@ -43,19 +42,19 @@ const name = (part: string) => `states-${scheme}-${part}`
       >
       <Switch checked disabled name={name("disabled-switch")}>On</Switch>
     </div>
-    <TextField for={`${statesId}-disabled-field`} label="Disabled field">
+    <Field for={`${statesId}-disabled-field`} label="Disabled field">
       <input
         disabled
         id={`${statesId}-disabled-field`}
         name={name("disabled-field")}
         value="Read but not written"
       />
-    </TextField>
+    </Field>
   </div>
 
   <div class="states-block">
     <p class="states-caption">Invalid</p>
-    <TextField
+    <Field
       endText="Use at least 8 characters."
       for={`${statesId}-password`}
       label="Password"
@@ -68,10 +67,17 @@ const name = (part: string) => `states-${scheme}-${part}`
         type="password"
         value="1234"
       />
-    </TextField>
-    <Select error label="Country" name={name("invalid-select")}>
-      <option>Choose one</option>
-    </Select>
+    </Field>
+    <Field for={`${statesId}-country`} label="Country">
+      <select
+        aria-invalid="true"
+        id={`${statesId}-country`}
+        name={name("invalid-select")}
+      >
+        <SelectButton />
+        <option>Choose one</option>
+      </select>
+    </Field>
     <div class="states-row">
       <Checkbox error name={name("invalid-check")}
         >I agree to the terms</Checkbox
@@ -105,22 +111,22 @@ const name = (part: string) => `states-${scheme}-${part}`
 
   <div class="states-block">
     <p class="states-caption">Read-only and placeholder</p>
-    <TextField for={`${statesId}-order-number`} label="Order number">
+    <Field for={`${statesId}-order-number`} label="Order number">
       <input
         id={`${statesId}-order-number`}
         name={name("readonly")}
         readonly
         value="A-10492"
       />
-    </TextField>
-    <Textarea for={`${statesId}-notes`} label="Notes">
+    </Field>
+    <Field for={`${statesId}-notes`} label="Notes">
       <textarea
         id={`${statesId}-notes`}
         name={name("placeholder")}
         placeholder="Placeholder text"
         rows="2"
       ></textarea>
-    </Textarea>
+    </Field>
   </div>
 
   <p class="states-note">

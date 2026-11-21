@@ -1,8 +1,8 @@
-import { Button, Textarea } from "opui-css/react"
+import { Button, Field } from "opui-css/react"
 
 export default function AffixButton() {
   return (
-    <Textarea
+    <Field
       end={
         <Button
           aria-label="Send"
@@ -31,6 +31,6 @@ export default function AffixButton() {
         id="textarea-affix-button-1"
         placeholder="Write a message..."
       ></textarea>
-    </Textarea>
+    </Field>
   )
 }

@@ -1,11 +1,11 @@
 import {
   Button,
+  Field,
   FieldDescription,
   FieldGroup,
   FieldLegend,
   Fieldset,
   Form,
-  TextField,
 } from "opui-css/react"
 
 export default function Basics() {
@@ -17,12 +17,12 @@ export default function Basics() {
           How can we reach you?
         </FieldDescription>
         <FieldGroup>
-          <TextField htmlFor="form-basics-2" label="Name">
+          <Field htmlFor="form-basics-2" label="Name">
             <input autoComplete="name" id="form-basics-2" />
-          </TextField>
-          <TextField htmlFor="form-basics-3" label="Email">
+          </Field>
+          <Field htmlFor="form-basics-3" label="Email">
             <input autoComplete="email" id="form-basics-3" type="email" />
-          </TextField>
+          </Field>
         </FieldGroup>
       </Fieldset>
       <FieldGroup>

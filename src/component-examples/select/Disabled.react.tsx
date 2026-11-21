@@ -1,17 +1,23 @@
-import { Select } from "opui-css/react"
+import { Field, SelectButton } from "opui-css/react"
 
 export default function Disabled() {
   return (
     <>
-      <Select disabled label="Plan">
-        <option>Gold</option>
-        <option>Platinum</option>
-      </Select>
+      <Field htmlFor="select-disabled-1" label="Plan">
+        <select disabled id="select-disabled-1">
+          <SelectButton />
+          <option>Gold</option>
+          <option>Platinum</option>
+        </select>
+      </Field>
 
-      <Select disabled label="Billing cycle" variant="filled">
-        <option>Yearly</option>
-        <option>Monthly</option>
-      </Select>
+      <Field htmlFor="select-disabled-2" label="Billing cycle" variant="filled">
+        <select disabled id="select-disabled-2">
+          <SelectButton />
+          <option>Yearly</option>
+          <option>Monthly</option>
+        </select>
+      </Field>
     </>
   )
 }

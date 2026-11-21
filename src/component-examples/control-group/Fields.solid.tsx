@@ -2,12 +2,12 @@
 import {
   Button,
   ControlGroup,
+  Field,
   FieldGroup,
   FieldLegend,
   Fieldset,
   NumberField,
-  Select,
-  TextField,
+  SelectButton,
 } from "opui-css/solid"
 
 export default function Fields() {
@@ -18,7 +18,7 @@ export default function Fields() {
         color="primary"
         variant="filled"
       >
-        <TextField
+        <Field
           for="control-group-fields-2"
           hideLabel
           label="Bassist name or handle"
@@ -28,7 +28,7 @@ export default function Fields() {
             placeholder="Search bassists"
             type="search"
           />
-        </TextField>
+        </Field>
         <Button>Search</Button>
       </ControlGroup>
 
@@ -36,24 +36,22 @@ export default function Fields() {
         <FieldLegend>Price</FieldLegend>
         <FieldGroup>
           <ControlGroup>
-            <Select
-              hideLabel
-              items={[
-                { label: "EUR", value: "eur" },
-                { label: "SEK", value: "sek" },
-                { label: "USD", value: "usd" },
-              ]}
-              label="Currency"
-              name="currency"
-            />
-            <TextField for="control-group-fields-3" hideLabel label="Amount">
+            <Field for="control-group-fields-4" hideLabel label="Currency">
+              <select id="control-group-fields-4" name="currency">
+                <SelectButton />
+                <option value="eur">EUR</option>
+                <option value="sek">SEK</option>
+                <option value="usd">USD</option>
+              </select>
+            </Field>
+            <Field for="control-group-fields-3" hideLabel label="Amount">
               <input
                 id="control-group-fields-3"
                 inputmode="decimal"
                 name="amount"
                 placeholder="0.00"
               />
-            </TextField>
+            </Field>
           </ControlGroup>
         </FieldGroup>
       </Fieldset>

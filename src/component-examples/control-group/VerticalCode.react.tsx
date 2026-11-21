@@ -1,4 +1,4 @@
-import { Button, ControlGroup, Textarea } from "opui-css/react"
+import { Button, ControlGroup, Field } from "opui-css/react"
 
 export default function VerticalCode() {
   return (
@@ -88,7 +88,7 @@ export default function VerticalCode() {
         orientation="vertical"
         variant="filled"
       >
-        <Textarea
+        <Field
           hideLabel
           htmlFor="control-group-vertical-1"
           label="Delivery note"
@@ -97,7 +97,7 @@ export default function VerticalCode() {
             id="control-group-vertical-1"
             placeholder="Leave it at the back door"
           ></textarea>
-        </Textarea>
+        </Field>
         <Button>Send note</Button>
       </ControlGroup>
     </>

@@ -5,7 +5,7 @@ import {
   Card,
   CardContent,
   Chip,
-  TextField,
+  Field,
 } from "opui-css/react"
 
 export default function EmptyStates() {
@@ -101,7 +101,7 @@ export default function EmptyStates() {
             variant="outlined"
           >
             <CardContent>
-              <TextField
+              <Field
                 className="empty-states-search"
                 hideLabel
                 htmlFor="empty-states-q"
@@ -129,7 +129,7 @@ export default function EmptyStates() {
                   type="search"
                   defaultValue="flatwond strings"
                 />
-              </TextField>
+              </Field>
               <hgroup>
                 <h2 className="ui-h5" id="empty-states-no-results">
                   No results for “flatwond strings”

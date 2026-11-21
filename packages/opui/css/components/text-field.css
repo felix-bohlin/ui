@@ -151,12 +151,18 @@
       text-overflow: ellipsis;
     }
 
-    .ui-field-container > :is(.ui-start, .ui-end):has(> .ui-button) {
+    .ui-field-container
+      > :is(.ui-start, .ui-end):has(> .ui-button, > opui-password-toggle) {
       padding-inline: var(--ui-space-1);
 
-      & > .ui-button {
+      & > .ui-button,
+      & > opui-password-toggle > .ui-button {
         --_size: var(--_affix-button-size);
       }
+    }
+
+    .ui-field-container opui-password-toggle {
+      display: contents;
     }
 
     .ui-field-container .ui-button[aria-pressed="false"] > .ui-icon-checked,
@@ -194,9 +200,9 @@
       }
     }
 
-    &:not(:defined)
-      .ui-field-container
-      .ui-button[command="--toggle-password"] {
+    .ui-field-container
+      opui-password-toggle:not(:defined)
+      > .ui-button[command="--toggle-password"] {
       display: none;
     }
 
@@ -736,31 +742,24 @@
     }
 
     .ui-field-container::after {
+      background-color: var(--ui-text-strong);
+      block-size: var(--_chevron-size);
+      content: "";
+      inline-size: var(--_chevron-size);
       inset-block: 0;
       inset-inline: auto var(--_arrow-inset);
       margin-block: auto;
+      mask: var(--_chevron-image) center / contain no-repeat;
+      pointer-events: none;
       position: absolute;
-    }
-  }
 
-  :where(
-    .ui-field:has(> .ui-field-container > select):not(:has(select > button))
-  )::after,
-  :where(.ui-field:has(> .ui-field-container > input[list]))
-    .ui-field-container::after {
-    background-color: var(--ui-text-strong);
-    block-size: var(--_chevron-size);
-    content: "";
-    inline-size: var(--_chevron-size);
-    mask: var(--_chevron-image) center / contain no-repeat;
-    pointer-events: none;
+      @media (forced-colors: active) {
+        background-color: ButtonText;
+      }
 
-    @media (forced-colors: active) {
-      background-color: ButtonText;
-    }
-
-    @media print {
-      print-color-adjust: exact;
+      @media print {
+        print-color-adjust: exact;
+      }
     }
   }
 }

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
-  Select,
+  Field,
+  SelectButton,
   Table,
   TableBody,
   TableCaption,
@@ -8,7 +9,6 @@ import {
   TableHead,
   TableHeaderCell,
   TableRow,
-  TextField,
 } from "opui-css/vue"
 
 const roles = [
@@ -33,15 +33,25 @@ const roles = [
       <TableRow>
         <TableCell>Lou Headstock</TableCell>
         <TableCell>
-          <Select
+          <Field
+            for="table-controls-3"
             hideLabel
-            :items="roles"
             label="Specialty for Lou Headstock"
-            value="flatwound-collector"
-          />
+          >
+            <select id="table-controls-3">
+              <SelectButton />
+              <option
+                v-for="role in roles"
+                :key="role.value"
+                :value="role.value"
+              >
+                {{ role.label }}
+              </option>
+            </select>
+          </Field>
         </TableCell>
         <TableCell>
-          <TextField
+          <Field
             for="table-controls-1"
             hideLabel
             label="Notes for Lou Headstock"
@@ -50,21 +60,31 @@ const roles = [
               id="table-controls-1"
               placeholder="Add a note about their tone"
             />
-          </TextField>
+          </Field>
         </TableCell>
       </TableRow>
       <TableRow>
         <TableCell>Percy Groove</TableCell>
         <TableCell>
-          <Select
+          <Field
+            for="table-controls-4"
             hideLabel
-            :items="roles"
             label="Specialty for Percy Groove"
-            value="slap-enthusiast"
-          />
+          >
+            <select id="table-controls-4">
+              <SelectButton />
+              <option
+                v-for="role in roles"
+                :key="role.value"
+                :value="role.value"
+              >
+                {{ role.label }}
+              </option>
+            </select>
+          </Field>
         </TableCell>
         <TableCell>
-          <TextField
+          <Field
             for="table-controls-2"
             hideLabel
             label="Notes for Percy Groove"
@@ -73,7 +93,7 @@ const roles = [
               id="table-controls-2"
               placeholder="Add a note about their tone"
             />
-          </TextField>
+          </Field>
         </TableCell>
       </TableRow>
     </TableBody>

@@ -18,10 +18,10 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  Field,
   Form,
   List,
   ListItem,
-  TextField,
   Timeline,
   TimelineItem,
 } from "opui-css/react"
@@ -449,10 +449,7 @@ export default function ServerStatus() {
           </DialogHeader>
           <DialogContent>
             <Form action="#" id="server-status-subscribe-form" method="dialog">
-              <TextField
-                htmlFor="server-status-server-status-email"
-                label="Email"
-              >
+              <Field htmlFor="server-status-server-status-email" label="Email">
                 <input
                   autoComplete="email"
                   id="server-status-server-status-email"
@@ -461,7 +458,7 @@ export default function ServerStatus() {
                   required
                   type="email"
                 />
-              </TextField>
+              </Field>
             </Form>
           </DialogContent>
           <DialogFooter>

@@ -7,7 +7,7 @@ import {
   CardActions,
   CardContent,
   Chip,
-  TextField,
+  Field,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/solid"
@@ -43,7 +43,7 @@ export default function UserDirectory() {
           </Button>
         </div>
         <search class="ui-layout-row ui-spread user-directory-filters">
-          <TextField
+          <Field
             for="user-directory-q"
             hideLabel
             label="Search bassists"
@@ -70,7 +70,7 @@ export default function UserDirectory() {
               placeholder="Search by name, gear or city"
               type="search"
             />
-          </TextField>
+          </Field>
           <ToggleGroup
             aria-label="Bass type"
             name="user-directory-department"

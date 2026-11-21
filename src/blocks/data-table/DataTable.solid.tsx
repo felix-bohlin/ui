@@ -5,10 +5,11 @@ import {
   Checkbox,
   Chip,
   ControlGroup,
+  Field,
   FieldGroup,
   Menu,
-  Select,
   SelectAll,
+  SelectButton,
   SortableTable,
   Table,
   TableBody,
@@ -17,7 +18,6 @@ import {
   TableHead,
   TableHeaderCell,
   TableRow,
-  TextField,
 } from "opui-css/solid"
 
 export default function DataTable() {
@@ -70,7 +70,7 @@ export default function DataTable() {
         </div>
         <search>
           <FieldGroup orientation="horizontal">
-            <TextField
+            <Field
               for="data-table-q"
               hideLabel
               label="Search members"
@@ -97,32 +97,26 @@ export default function DataTable() {
                 placeholder="Search by name or email"
                 type="search"
               />
-            </TextField>
-            <Select
-              hideLabel
-              id="data-table-status"
-              items={[
-                { label: "All statuses", value: "" },
-                { label: "Active", value: "active" },
-                { label: "On a break", value: "on-break" },
-                { label: "Past due", value: "past-due" },
-                { label: "Trial", value: "trial" },
-              ]}
-              label="Status"
-              name="status"
-            />
-            <Select
-              hideLabel
-              id="data-table-plan"
-              items={[
-                { label: "All plans", value: "" },
-                { label: "Platinum", value: "platinum" },
-                { label: "Silver", value: "silver" },
-                { label: "Gold", value: "gold" },
-              ]}
-              label="Plan"
-              name="plan"
-            />
+            </Field>
+            <Field for="data-table-status" hideLabel label="Status">
+              <select id="data-table-status" name="status">
+                <SelectButton />
+                <option value="">All statuses</option>
+                <option value="active">Active</option>
+                <option value="on-break">On a break</option>
+                <option value="past-due">Past due</option>
+                <option value="trial">Trial</option>
+              </select>
+            </Field>
+            <Field for="data-table-plan" hideLabel label="Plan">
+              <select id="data-table-plan" name="plan">
+                <SelectButton />
+                <option value="">All plans</option>
+                <option value="platinum">Platinum</option>
+                <option value="silver">Silver</option>
+                <option value="gold">Gold</option>
+              </select>
+            </Field>
           </FieldGroup>
         </search>
         <div class="ui-layout-row ui-small ui-spread data-table-bulk">

@@ -4,7 +4,8 @@ import { fileURLToPath } from "node:url"
 import { gzipSync } from "node:zlib"
 import {
   Chip,
-  Select,
+  Field,
+  SelectButton,
   Table,
   TableBody,
   TableCell,
@@ -170,27 +171,35 @@ const PATHS = { full: check, none: cross, partial: warn } satisfies Record<
   SupportLevel,
   string
 >
+const viewId = Astro.locals.$id("support-matrix-view")
+const baselineId = Astro.locals.$id("support-matrix-baseline")
 ---
 
 <div class="support-matrix ui-not-rich-text" id={id}>
   <div class="support-matrix-controls">
-    <Select label="View" name={`${id}-view`} size="small">
-      <option selected value="features">Features by engine</option>
-      <option value="compat">What the compat layer covers</option>
-    </Select>
-    <Select
+    <Field for={viewId} label="View" size="small">
+      <select id={viewId} name={`${id}-view`}>
+        <SelectButton />
+        <option selected value="features">Features by engine</option>
+        <option value="compat">What the compat layer covers</option>
+      </select>
+    </Field>
+    <Field
       class="support-matrix-filter"
+      for={baselineId}
       label="Baseline"
-      name={`${id}-filter`}
       size="small"
     >
-      {FILTERS.map((filter) => <option
-        selected={filter.value === "all"}
-        value={filter.value}
-      >
-        {filter.label}
-      </option>)}
-    </Select>
+      <select id={baselineId} name={`${id}-filter`}>
+        <SelectButton />
+        {FILTERS.map((filter) => <option
+          selected={filter.value === "all"}
+          value={filter.value}
+        >
+          {filter.label}
+        </option>)}
+      </select>
+    </Field>
   </div>
 
   <div class="support-matrix-views">

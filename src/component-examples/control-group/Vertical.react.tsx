@@ -1,4 +1,4 @@
-import { Button, ControlGroup, Textarea } from "opui-css/react"
+import { Button, ControlGroup, Field } from "opui-css/react"
 
 const plusIcon = (
   <svg
@@ -107,7 +107,7 @@ export default function Vertical() {
         orientation="vertical"
         variant="filled"
       >
-        <Textarea
+        <Field
           hideLabel
           htmlFor="control-group-vertical-1"
           label="Delivery note"
@@ -116,7 +116,7 @@ export default function Vertical() {
             id="control-group-vertical-1"
             placeholder="Leave it at the back door"
           ></textarea>
-        </Textarea>
+        </Field>
         <Button>Send note</Button>
       </ControlGroup>
     </>

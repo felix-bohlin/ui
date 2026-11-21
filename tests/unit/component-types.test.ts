@@ -42,6 +42,11 @@ import type * as DrawerReact from "../../packages/opui/components/Drawer/types.r
 import type * as DrawerSolid from "../../packages/opui/components/Drawer/types.solid"
 import type * as DrawerSvelte from "../../packages/opui/components/Drawer/types.svelte"
 import type * as DrawerVue from "../../packages/opui/components/Drawer/types.vue-props"
+import type * as FieldAstro from "../../packages/opui/components/Field/types.astro"
+import type * as FieldReact from "../../packages/opui/components/Field/types.react"
+import type * as FieldSolid from "../../packages/opui/components/Field/types.solid"
+import type * as FieldSvelte from "../../packages/opui/components/Field/types.svelte"
+import type * as FieldVue from "../../packages/opui/components/Field/types.vue-props"
 import type * as FieldLegendVue from "../../packages/opui/components/FieldLegend/types.vue-props"
 import type * as MenuReact from "../../packages/opui/components/Menu/types.react"
 import type * as MenuSolid from "../../packages/opui/components/Menu/types.solid"
@@ -61,8 +66,6 @@ import type * as RatingReact from "../../packages/opui/components/Rating/types.r
 import type * as RatingSolid from "../../packages/opui/components/Rating/types.solid"
 import type * as RatingSvelte from "../../packages/opui/components/Rating/types.svelte"
 import type * as RatingVue from "../../packages/opui/components/Rating/types.vue-props"
-import type * as SelectReact from "../../packages/opui/components/Select/types.react"
-import type * as SelectSolid from "../../packages/opui/components/Select/types.solid"
 import type { SortDetail } from "../../packages/opui/components/SortableTable/types"
 import type * as SortableTableSolid from "../../packages/opui/components/SortableTable/types.solid"
 import type * as SortableTableSvelte from "../../packages/opui/components/SortableTable/types.svelte"
@@ -73,14 +76,6 @@ import type * as TabsReact from "../../packages/opui/components/Tabs/types.react
 import type * as TabsSolid from "../../packages/opui/components/Tabs/types.solid"
 import type * as TabsSvelte from "../../packages/opui/components/Tabs/types.svelte"
 import type * as TabsVue from "../../packages/opui/components/Tabs/types.vue-props"
-import type * as TextareaReact from "../../packages/opui/components/Textarea/types.react"
-import type * as TextareaSvelte from "../../packages/opui/components/Textarea/types.svelte"
-import type * as TextareaVue from "../../packages/opui/components/Textarea/types.vue-props"
-import type * as TextFieldAstro from "../../packages/opui/components/TextField/types.astro"
-import type * as TextFieldReact from "../../packages/opui/components/TextField/types.react"
-import type * as TextFieldSolid from "../../packages/opui/components/TextField/types.solid"
-import type * as TextFieldSvelte from "../../packages/opui/components/TextField/types.svelte"
-import type * as TextFieldVue from "../../packages/opui/components/TextField/types.vue-props"
 import type * as ToggleButtonVue from "../../packages/opui/components/ToggleButton/types.vue-props"
 import type * as ToggleGroupReact from "../../packages/opui/components/ToggleGroup/types.react"
 import type * as ToggleGroupSolid from "../../packages/opui/components/ToggleGroup/types.solid"
@@ -91,15 +86,13 @@ type Multiple<T> = Extract<T, { multiple: true }>
 type Single<T> = Exclude<T, { multiple: true }>
 
 test("a string-or-slot prop takes the framework's slot type, and Vue keeps the string", () => {
-  expectTypeOf<TextareaReact.Props["label"]>().toEqualTypeOf<ReactNode>()
-  expectTypeOf<TextareaSvelte.Props["label"]>().toEqualTypeOf<
+  expectTypeOf<FieldReact.Props["label"]>().toEqualTypeOf<ReactNode>()
+  expectTypeOf<FieldSvelte.Props["label"]>().toEqualTypeOf<
     string | Snippet | undefined
   >()
-  expectTypeOf<TextareaVue.Props["label"]>().toEqualTypeOf<string | undefined>()
-  expectTypeOf<TextareaVue.Slots["end-text"]>().toEqualTypeOf<
-    Slot | undefined
-  >()
-  expectTypeOf<TextareaVue.Slots["default"]>().toEqualTypeOf<Slot | undefined>()
+  expectTypeOf<FieldVue.Props["label"]>().toEqualTypeOf<string | undefined>()
+  expectTypeOf<FieldVue.Slots["end-text"]>().toEqualTypeOf<Slot | undefined>()
+  expectTypeOf<FieldVue.Slots["default"]>().toEqualTypeOf<Slot | undefined>()
 })
 
 test("a slot without a string form is only the slot type", () => {
@@ -111,10 +104,7 @@ test("a slot without a string form is only the slot type", () => {
   expectTypeOf<BadgeVue.Slots["indicator"]>().toEqualTypeOf<Slot | undefined>()
 })
 
-test("a value model keeps the element's value in React and Svelte and declares it in Vue", () => {
-  expectTypeOf<SelectReact.Props["value"]>().toEqualTypeOf<
-    ComponentProps<"select">["value"]
-  >()
+test("a value model is a prop in Svelte and declared in Vue", () => {
   expectTypeOf<RangeSvelte.Props>().toHaveProperty("value")
   expectTypeOf<RangeVue.Props["value"]>().toEqualTypeOf<
     number | string | undefined
@@ -368,12 +358,9 @@ test("an event is on<Event> in React, on<event> in Svelte and an emit in Vue, wi
   >()
 })
 
-test("Solid types a slot as JSX.Element, keeps the element's value, and takes defaultValue and onValueChange on a group and a radio group like React", () => {
-  expectTypeOf<TextFieldSolid.Props["endText"]>().toEqualTypeOf<
+test("Solid types a slot as JSX.Element, and takes defaultValue and onValueChange on a group and a radio group like React", () => {
+  expectTypeOf<FieldSolid.Props["endText"]>().toEqualTypeOf<
     SolidJSX.Element | undefined
-  >()
-  expectTypeOf<SelectSolid.Props["value"]>().toEqualTypeOf<
-    SolidComponentProps<"select">["value"]
   >()
   expectTypeOf<TabsSolid.Props["defaultValue"]>().toEqualTypeOf<
     string | undefined
@@ -395,10 +382,7 @@ test("Solid types a slot as JSX.Element, keeps the element's value, and takes de
   >()
 })
 
-test("Solid gives a select its own defaultValue, an item the input's props, and an event on<Event> with the element's event object", () => {
-  expectTypeOf<SelectSolid.Props["defaultValue"]>().toEqualTypeOf<
-    string | number | (string | number)[] | undefined
-  >()
+test("Solid gives an item the input's props, and an event on<Event> with the element's event object", () => {
   expectTypeOf<TabsSolid.TabsItemProps["defaultChecked"]>().toEqualTypeOf<
     SolidComponentProps<"input">["defaultChecked"]
   >()
@@ -452,17 +436,17 @@ test("the label, target and icon of a generated control need the boolean that ad
     | CalloutSolid.Props
     | CalloutSvelte.Props
     | CalloutVue.Props
-  type EveryTextField = TextFieldAstro.Props &
-    TextFieldReact.Props &
-    TextFieldSolid.Props &
-    TextFieldSvelte.Props &
-    TextFieldVue.Props
-  type AnyTextField =
-    | TextFieldAstro.Props
-    | TextFieldReact.Props
-    | TextFieldSolid.Props
-    | TextFieldSvelte.Props
-    | TextFieldVue.Props
+  type EveryField = FieldAstro.Props &
+    FieldReact.Props &
+    FieldSolid.Props &
+    FieldSvelte.Props &
+    FieldVue.Props
+  type AnyField =
+    | FieldAstro.Props
+    | FieldReact.Props
+    | FieldSolid.Props
+    | FieldSvelte.Props
+    | FieldVue.Props
   type EveryCarousel = CarouselAstro.Props &
     CarouselReact.Props &
     CarouselSolid.Props &
@@ -518,26 +502,8 @@ test("the label, target and icon of a generated control need the boolean that ad
   expectTypeOf<{}>().toExtend<EveryCallout>()
 
   type Labelled = { for: string; htmlFor: string }
-  expectTypeOf<
-    Labelled & { passwordToggleLabel: string }
-  >().not.toExtend<AnyTextField>()
-  expectTypeOf<
-    Labelled & {
-      passwordToggle: true
-      passwordToggleLabel: string
-    }
-  >().toExtend<EveryTextField>()
-  expectTypeOf<
-    Labelled & {
-      passwordToggle: boolean
-      passwordToggleLabel: string
-    }
-  >().toExtend<EveryTextField>()
-  expectTypeOf<
-    Labelled & { passwordToggle: boolean }
-  >().toExtend<EveryTextField>()
-  expectTypeOf<Labelled>().toExtend<EveryTextField>()
-  expectTypeOf<{}>().not.toExtend<AnyTextField>()
+  expectTypeOf<Labelled>().toExtend<EveryField>()
+  expectTypeOf<{}>().not.toExtend<AnyField>()
 
   expectTypeOf<{
     "aria-label": string
@@ -619,7 +585,7 @@ test("an attribute the base props narrow keeps the narrow type, under the elemen
 })
 
 test("React keeps a renamed attribute required when the shared props require it", () => {
-  expectTypeOf<TextFieldReact.Props["htmlFor"]>().toEqualTypeOf<string>()
-  expectTypeOf<TextFieldSolid.Props["for"]>().toEqualTypeOf<string>()
-  expectTypeOf<TextFieldReact.Props>().not.toHaveProperty("for")
+  expectTypeOf<FieldReact.Props["htmlFor"]>().toEqualTypeOf<string>()
+  expectTypeOf<FieldSolid.Props["for"]>().toEqualTypeOf<string>()
+  expectTypeOf<FieldReact.Props>().not.toHaveProperty("for")
 })

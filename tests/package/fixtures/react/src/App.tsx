@@ -1,11 +1,11 @@
-import { Button, Checkbox, TextField } from "opui-css/react"
+import { Button, Checkbox, Field } from "opui-css/react"
 
 export default function App() {
   return (
     <form>
-      <TextField htmlFor="name" label="Name">
+      <Field htmlFor="name" label="Name">
         <input id="name" name="name" />
-      </TextField>
+      </Field>
       <Checkbox name="subscribe">Subscribe</Checkbox>
       <Button type="submit" variant="filled" color="primary">
         Save

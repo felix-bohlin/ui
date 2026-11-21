@@ -2,11 +2,11 @@
 
 import {
   Button,
+  Field,
   List,
   ListItem,
   Message,
   MessageList,
-  Textarea,
 } from "opui-css/react"
 import {
   ME,
@@ -91,9 +91,9 @@ export default function Chat({ handle }: { handle: string | null }) {
             aria-label="Send a message"
             className="ui-layout-column"
           >
-            <Textarea hideLabel htmlFor="chat-message" label="Message">
+            <Field hideLabel htmlFor="chat-message" label="Message">
               <textarea id="chat-message" name="text" required />
-            </Textarea>
+            </Field>
             <div>
               <Button type="submit" variant="filled">
                 Send

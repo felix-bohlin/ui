@@ -4,9 +4,9 @@ import {
   Callout,
   CalloutContent,
   CalloutIcon,
+  Field,
   FieldGroup,
   Form,
-  TextField,
 } from "opui-css/solid"
 
 export default function ErrorSummary() {
@@ -35,7 +35,7 @@ export default function ErrorSummary() {
         </CalloutContent>
       </Callout>
       <FieldGroup>
-        <TextField
+        <Field
           endText="Enter your work email."
           for="form-error-summary-2"
           label="Email"
@@ -47,8 +47,8 @@ export default function ErrorSummary() {
             id="form-error-summary-2"
             type="email"
           />
-        </TextField>
-        <TextField
+        </Field>
+        <Field
           endText="Choose a password with at least 12 characters."
           for="form-error-summary-3"
           label="Password"
@@ -61,7 +61,7 @@ export default function ErrorSummary() {
             type="password"
             defaultValue="hunter2"
           />
-        </TextField>
+        </Field>
       </FieldGroup>
       <FieldGroup>
         <Button type="submit" variant="filled">

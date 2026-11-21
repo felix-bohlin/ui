@@ -4,9 +4,9 @@ import {
   CardContent,
   Checkbox,
   Divider,
+  Field,
   FieldGroup,
   Form,
-  TextField,
 } from "opui-css/react"
 
 export default function SignIn() {
@@ -60,7 +60,7 @@ export default function SignIn() {
             <Divider>or use your email, easy peasy</Divider>
             <Form action="#">
               <FieldGroup>
-                <TextField htmlFor="sign-in-email" label="Email">
+                <Field htmlFor="sign-in-email" label="Email">
                   <input
                     autoComplete="email"
                     id="sign-in-email"
@@ -69,8 +69,8 @@ export default function SignIn() {
                     required
                     type="email"
                   />
-                </TextField>
-                <TextField htmlFor="sign-in-password" label="Password">
+                </Field>
+                <Field htmlFor="sign-in-password" label="Password">
                   <input
                     autoComplete="current-password"
                     id="sign-in-password"
@@ -78,7 +78,7 @@ export default function SignIn() {
                     required
                     type="password"
                   />
-                </TextField>
+                </Field>
                 <div className="ui-layout-row ui-small ui-spread">
                   <Checkbox name="remember">Remember me &lt;3</Checkbox>
                   <a className="ui-link" href="#forgot-password">

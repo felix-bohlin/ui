@@ -3,25 +3,21 @@
 import { useState } from "react"
 import {
   Checkbox,
+  Field,
   NumberField,
   Radio,
   Range,
   Rating,
-  Select,
+  SelectButton,
   Tabs,
   TabsItem,
   TabsLabel,
   TabsPanel,
-  TextField,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/react"
 
-const colors = [
-  { label: "blue", value: "blue" },
-  { label: "green", value: "green" },
-  { label: "red", value: "red" },
-]
+const colors = ["blue", "green", "red"]
 const tabs = ["one", "two", "three"]
 const views = ["day", "week", "month"]
 
@@ -154,16 +150,33 @@ export default function Opui() {
         <Rating label="Score" name="score" />
       </form>
       <form data-case="select-bound">
-        <Select
-          items={colors}
-          label="Color"
-          onChange={(event) => set("select", event.currentTarget.value)}
-          value={state.select}
-        />
+        <Field htmlFor="select-bound" label="Color">
+          <select
+            id="select-bound"
+            onChange={(event) => set("select", event.currentTarget.value)}
+            value={state.select}
+          >
+            <SelectButton />
+            {colors.map((color) => (
+              <option key={color} value={color}>
+                {color}
+              </option>
+            ))}
+          </select>
+        </Field>
         <output>{state.select}</output>
       </form>
       <form data-case="select-default">
-        <Select defaultValue="green" items={colors} label="Color" />
+        <Field htmlFor="select-default" label="Color">
+          <select defaultValue="green" id="select-default">
+            <SelectButton />
+            {colors.map((color) => (
+              <option key={color} value={color}>
+                {color}
+              </option>
+            ))}
+          </select>
+        </Field>
       </form>
       <form data-case="tabs-bound">
         <Tabs
@@ -191,29 +204,29 @@ export default function Opui() {
         </Tabs>
       </form>
       <form data-case="text-bound">
-        <TextField htmlFor="text-bound" label="Name">
+        <Field htmlFor="text-bound" label="Name">
           <input
             id="text-bound"
             onChange={(event) => set("text", event.currentTarget.value)}
             value={state.text}
           />
-        </TextField>
+        </Field>
         <output>{state.text}</output>
       </form>
       <form data-case="text-default">
-        <TextField htmlFor="text-default" label="Name">
+        <Field htmlFor="text-default" label="Name">
           <input defaultValue="Ada" id="text-default" />
-        </TextField>
+        </Field>
       </form>
       <form data-case="text-empty">
-        <TextField htmlFor="text-empty" label="Name">
+        <Field htmlFor="text-empty" label="Name">
           <input id="text-empty" />
-        </TextField>
+        </Field>
       </form>
       <form data-case="text-rerender">
-        <TextField htmlFor="text-rerender" label="Name">
+        <Field htmlFor="text-rerender" label="Name">
           <input data-round={round} defaultValue="Ada" id="text-rerender" />
-        </TextField>
+        </Field>
       </form>
       <form data-case="toggle-bound">
         <ToggleButton

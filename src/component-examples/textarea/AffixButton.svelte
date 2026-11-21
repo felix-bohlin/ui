@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { Button, Textarea } from "opui-css/svelte"
+  import { Button, Field } from "opui-css/svelte"
 </script>
 
-<Textarea for="textarea-affix-button-1" label="Message">
+<Field for="textarea-affix-button-1" label="Message">
   <textarea
     aria-describedby="textarea-affix-button-1-end"
     id="textarea-affix-button-1"
@@ -27,4 +27,4 @@
       </svg>
     </Button>
   {/snippet}
-</Textarea>
+</Field>

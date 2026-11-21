@@ -3,6 +3,7 @@
     Button,
     Checkbox,
     Divider,
+    Field,
     FieldDescription,
     FieldGroup,
     FieldLegend,
@@ -10,17 +11,9 @@
     Form,
     Radio,
     Range,
-    Select,
+    SelectButton,
     Switch,
-    Textarea,
-    TextField,
   } from "opui-css/svelte"
-
-  const roleItems = [
-    { label: "Bassist", value: "bass" },
-    { label: "Drummer", value: "drums" },
-    { label: "Guitarist", value: "guitar" },
-  ]
 </script>
 
 <Form id="form-kitchen-sink-1">
@@ -30,15 +23,15 @@
       Heyyy, tell us who you are so your fans can find you.
     </FieldDescription>
     <FieldGroup>
-      <TextField for="form-kitchen-sink-7" label="Full name">
+      <Field for="form-kitchen-sink-7" label="Full name">
         <input
           autocomplete="name"
           id="form-kitchen-sink-7"
           placeholder="Holly Humbucker"
           required
         />
-      </TextField>
-      <TextField for="form-kitchen-sink-8" label="Email address">
+      </Field>
+      <Field for="form-kitchen-sink-8" label="Email address">
         <input
           autocomplete="email"
           id="form-kitchen-sink-8"
@@ -46,8 +39,15 @@
           required
           type="email"
         />
-      </TextField>
-      <Select items={roleItems} label="Role" />
+      </Field>
+      <Field for="form-kitchen-sink-10" label="Role">
+        <select id="form-kitchen-sink-10">
+          <SelectButton />
+          <option value="bass">Bassist</option>
+          <option value="drums">Drummer</option>
+          <option value="guitar">Guitarist</option>
+        </select>
+      </Field>
     </FieldGroup>
   </Fieldset>
   <Divider />
@@ -97,13 +97,13 @@
       >Favorite strings, dream rig, the band that ignores you?</FieldDescription
     >
     <FieldGroup>
-      <Textarea for="form-kitchen-sink-9" label="Biography">
+      <Field for="form-kitchen-sink-9" label="Biography">
         <textarea
           id="form-kitchen-sink-9"
           name="biography"
           placeholder="I play a fretless 5-string and nobody watches me..."
           rows="4"></textarea>
-      </Textarea>
+      </Field>
     </FieldGroup>
   </Fieldset>
   <Divider />

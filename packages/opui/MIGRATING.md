@@ -657,14 +657,19 @@ The default slot is gone. Pass the text as `label`, or rich content in the `labe
 
 ## Classic select
 
-`ClassicSelect` is removed. Use `Select` with the same `label`, `items` (now `SelectItem[]`, with `text` renamed `label`), `endText`, `size`, `variant` and `error`. Options passed as children go in Select's default slot. Browsers without customizable select show the native picker.
+`ClassicSelect` is removed. Use a `Field` with your `<select>` inside, as in [Select](#select), with the same `label`, `endText`, `size` and `variant`. Browsers without customizable select show the native picker.
 
 ```diff
 - <ClassicSelect label="Fruit" items={items} />
-+ <Select label="Fruit" items={items} />
++ <Field for="fruit" label="Fruit">
++   <select id="fruit">
++     <SelectButton />
++     <option value="apple">Apple</option>
++   </select>
++ </Field>
 ```
 
-In HTML, add `<button><selectedcontent></selectedcontent></button>` and wrap the options in `<div class="ui-list">` inside the `<select>`.
+In HTML, add `<button><selectedcontent></selectedcontent></button>` inside the `<select>`, before the options.
 
 ## Control group
 
@@ -1109,38 +1114,27 @@ Deep type imports from `opui-css/components/*` are renamed, see [Package and imp
 
 Same as Text field: the root is `.ui-field` instead of `.ui-select`, and the box around the select `.ui-field-container` instead of `.ui-field`.
 
-The picker is `--ui-surface-elevated` with a `--ui-border-color-on-raised` edge, like `Menu`, instead of `--ui-surface-filled` with the field border. Set `--_bg-color` on the picker's `.ui-list` to keep the old fill, or `--ui-border-color-raised` in your theme to outline every raised surface at once.
+The picker is `--ui-surface-elevated` with a `--ui-border-color-on-raised` edge, like `Menu`, instead of `--ui-surface-filled` with the field border. Set `--_bg-color` on `.ui-field select::picker(select)` to keep the old fill, or `--ui-border-color-raised` in your theme to outline every raised surface at once.
 
-Astro and Vue generate an `id` for the select only when the label points at it. Pass `id` when something outside the component references it.
+`Select` is `Field`, which takes your `<select>` instead of rendering one, and a required `for` (`htmlFor` in React) with the select's `id`. Write the options in it after a `SelectButton`, instead of passing `items`, and move `name`, `required`, `disabled`, `multiple` and the bound value onto the select: bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. `SelectItem` is gone. Attributes that aren't Field's props go to the root, `style` included.
 
-In Astro and Vue, `style` goes to the root instead of the `<select>`, like `class`. Set `--_` properties through `style`, and style the select itself with a class or CSS.
+```diff
+- <Select label="Country" items={countries} v-model="country" />
++ <Field for="country" label="Country">
++   <select id="country" v-model="country">
++     <SelectButton />
++     <option v-for="item in countries" :key="item.value" :value="item.value">{{ item.label }}</option>
++   </select>
++ </Field>
+```
 
-Same as Text field: the root is a `<div>` with a `<label for>` inside, instead of a `<label>`, the label alone names the select, and the start and end text, the affixes and the `top` and `bottom` parts describe it. A click on those parts no longer opens the select. Target `.ui-field` instead of `label.ui-select`, and in HTML give the select an `id` for the label's `for` and mark its `<button>` `inert`, so the select alone takes clicks, focus and the name.
+Same as Text field: the root is a `<div>` with a `<label for>` inside, instead of a `<label>`, the label alone names the select, and the start and end text, the affixes and the `top` and `bottom` parts describe it. A click on those parts no longer opens the select. Target `.ui-field` instead of `label.ui-select`, and in HTML give the select an `id` for the label's `for`.
 
 With `spread`, label and field split the container into equal columns. Selects keep a `12ch` minimum width in table cells, and the arrow is a chevron instead of a triangle.
 
 Same as Text field: `aria-invalid="true"` on the `<select>` replaces `data-invalid` on `.ui-select`.
 
-The `items` type is `SelectItem`, exported from every framework barrel, and its `value` is `number | string` instead of `any`.
-
-```diff
-- import type { Item } from "opui-css/components/Select/types"
-+ import type { SelectItem } from "opui-css/react"
-```
-
-Items take `label` instead of `text`, like `Menu` and `Range` items.
-
-```diff
-- items={[{ text: "Sweden", value: "se" }]}
-+ items={[{ label: "Sweden", value: "se" }]}
-```
-
 `description` is `startText` (the `start-text` slot in Astro and Vue), like Text field.
-
-```diff
-- <Select label="Country" description="Where you live" items={items} />
-+ <Select label="Country" startText="Where you live" items={items} />
-```
 
 The slots inside the field's border are `start` and `end` instead of `prefix` and `suffix`, and `top` and `bottom` instead of `header` and `footer`. In HTML, the classes are `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`.
 
@@ -1151,7 +1145,7 @@ The slots inside the field's border are `start` and `end` instead of `prefix` an
 
 ```diff
 - <Select label="Price" items={items}><span slot="prefix">€</span></Select>
-+ <Select label="Price" items={items}><span slot="start">€</span></Select>
++ <Field for="price" label="Price"><select aria-describedby="price-start" id="price"><SelectButton /><option>EUR</option></select><span slot="start">€</span></Field>
 ```
 
 In Vue, use `<template #start>€</template>`.
@@ -1301,20 +1295,20 @@ The root is `.ui-field` instead of `.ui-text-field`, and the box around the inpu
   </div>
 ```
 
-`TextField` takes your `<input>` instead of rendering one, and a required `for` (`htmlFor` in React) with the input's `id`, which the types enforce. Move the input's attributes, `type`, `name`, `value`, `placeholder`, `required`, `disabled` and the rest, onto the input, bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts the field shows, in this order: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`. `id` on the component is gone, and attributes that aren't its props go to the root, as in 5.x. Inside a `FieldGroup`, name the input yourself.
+`TextField` is `Field`, which takes your `<input>` instead of rendering one, and a required `for` (`htmlFor` in React) with the input's `id`, which the types enforce. Move the input's attributes, `type`, `name`, `value`, `placeholder`, `required`, `disabled` and the rest, onto the input, bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts the field shows, in this order: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`. `id` on the component is gone, and attributes that aren't its props go to the root, as in 5.x. Inside a `FieldGroup`, name the input yourself.
 
 ```diff
 - <TextField endText="Use your work email." error label="Email" type="email" v-model="email" />
-+ <TextField endText="Use your work email." for="email" label="Email">
++ <Field endText="Use your work email." for="email" label="Email">
 +   <input aria-describedby="email-end-text" aria-invalid="true" id="email" type="email" v-model="email" />
-+ </TextField>
++ </Field>
 ```
 
 `TextField` takes a `size` prop like `Select`, with `x-small`, `small` and `large`.
 
 ```diff
 - <TextField small label="Name" />
-+ <TextField size="small" label="Name" />
++ <Field for="name" size="small" label="Name"><input id="name" /></Field>
 ```
 
 The root is a `<div>` with a `<label for>` inside, instead of a `<label>` around the whole field, so the field can hold buttons. The label alone names the input. The start and end text, the `start` and `end` affixes and the `top` and `bottom` parts describe it through `aria-describedby`, read after the name, where the affixes used to join the name. A click on the start or end text, an affix or the `top` or `bottom` part no longer focuses the input, since only the label is a `<label>`. Target `.ui-field` instead of `label.ui-text-field` in your CSS, and give a field without `label` an `aria-label` or `aria-labelledby`. In HTML, the input needs an `id` for the label's `for`, and an affix or a hint an `id` for `aria-describedby`. Put `.ui-top` and `.ui-start` before the input, in the order they're drawn, so Tab reaches them there in every browser.
@@ -1336,18 +1330,18 @@ The root is a `<div>` with a `<label for>` inside, instead of a `<label>` around
 
 ```diff
 - <TextField startText="Search the docs" />
-+ <TextField for="search" startText="Search the docs">
++ <Field for="search" startText="Search the docs">
 +   <input aria-describedby="search-start-text" aria-label="Search" id="search" />
-+ </TextField>
++ </Field>
 ```
 
 `description` is `startText` (the `start-text` slot in Astro and Vue), matching `endText`. `supportingText` (the `supporting-text` slot) is gone. Use `endText`.
 
 ```diff
 - <TextField label="Name"><Fragment slot="supporting-text">Required</Fragment></TextField>
-+ <TextField endText="Required" for="name" label="Name">
++ <Field endText="Required" for="name" label="Name">
 +   <input aria-describedby="name-end-text" id="name" />
-+ </TextField>
++ </Field>
 ```
 
 With `spread`, label and field split the container into equal columns. Fields keep a `12ch` minimum width in table cells, the invalid state uses `--ui-invalid`, and the auto-suggest arrow is a chevron with the `Select` arrow size.
@@ -1356,7 +1350,7 @@ The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is
 
 ```diff
 - <TextField filled label="Name" />
-+ <TextField variant="filled" label="Name" />
++ <Field for="name" variant="filled" label="Name"><input id="name" /></Field>
 ```
 
 `data-invalid` on `.ui-text-field` no longer does anything. Put `aria-invalid="true"` on the `<input>`. Styles that targeted `[data-invalid]` should target `:has([aria-invalid="true"])`.
@@ -1382,7 +1376,7 @@ The slots inside the field's border are `start` and `end` instead of `prefix` an
 
 ```diff
 - <TextField label="Amount"><span slot="prefix">€</span><span slot="suffix">EUR</span></TextField>
-+ <TextField label="Amount"><span slot="start">€</span><span slot="end">EUR</span></TextField>
++ <Field for="amount" label="Amount"><input aria-describedby="amount-start amount-end" id="amount" /><span slot="start">€</span><span slot="end">EUR</span></Field>
 ```
 
 In Vue, use `<template #start>€</template>` and `<template #end>EUR</template>`.
@@ -1391,29 +1385,29 @@ In Vue, use `<template #start>€</template>` and `<template #end>EUR</template>
 
 ```diff
 - <TextField label="Card number" type="numeric" />
-+ <TextField for="card" label="Card number">
++ <Field for="card" label="Card number">
 +   <input id="card" inputmode="numeric" pattern="[0-9]*" />
-+ </TextField>
++ </Field>
 ```
 
 ## Textarea
 
 Same as Text field: the root is `.ui-field` instead of `.ui-textarea`, and the box around the textarea `.ui-field-container` instead of `.ui-field`.
 
-Same as Text field: `Textarea` takes your `<textarea>` instead of rendering one, and a required `for` (`htmlFor` in React) with its `id`. Move `name`, `required`, `disabled`, `maxlength` and the rest onto the textarea, write its value as its content or bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts the field shows: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`, in that order. `id` on the component is gone, and attributes that aren't its props go to the root, as in 5.x.
+Same as Text field: `Textarea` is `Field`, which takes your `<textarea>` instead of rendering one, and a required `for` (`htmlFor` in React) with its `id`. Move `name`, `required`, `disabled`, `maxlength` and the rest onto the textarea, write its value as its content or bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts the field shows: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`, in that order. `id` on the component is gone, and attributes that aren't its props go to the root, as in 5.x.
 
 ```diff
 - <Textarea endText="Up to 160 characters." label="Bio" name="bio" value="Bassist." />
-+ <Textarea endText="Up to 160 characters." for="bio" label="Bio">
++ <Field endText="Up to 160 characters." for="bio" label="Bio">
 +   <textarea aria-describedby="bio-end-text" id="bio" name="bio">Bassist.</textarea>
-+ </Textarea>
++ </Field>
 ```
 
 `Textarea` takes a `size` prop instead of `small`, like `TextField`.
 
 ```diff
 - <Textarea small label="Message" />
-+ <Textarea size="small" label="Message" />
++ <Field for="message" size="small" label="Message"><textarea id="message"></textarea></Field>
 ```
 
 `description` is `startText` (the `start-text` slot), like Text field. `supportingText` (the `supporting-text` slot) is gone. Use `endText`.
@@ -1426,7 +1420,7 @@ The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is
 
 ```diff
 - <Textarea filled label="Name" />
-+ <Textarea variant="filled" label="Name" />
++ <Field for="name" variant="filled" label="Name"><textarea id="name"></textarea></Field>
 ```
 
 Same as Text field: `aria-invalid="true"` on the `<textarea>` replaces `data-invalid` on `.ui-textarea`.
@@ -1440,7 +1434,7 @@ The slots inside the field's border are `start` and `end` instead of `prefix` an
 
 ```diff
 - <Textarea label="Bio"><span slot="footer">0 / 160</span></Textarea>
-+ <Textarea label="Bio"><span slot="bottom">0 / 160</span></Textarea>
++ <Field for="bio" label="Bio"><textarea id="bio"></textarea><span slot="bottom">0 / 160</span></Field>
 ```
 
 In Vue, use `<template #bottom>0 / 160</template>`.

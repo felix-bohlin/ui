@@ -2,6 +2,7 @@ import {
   Button,
   Checkbox,
   Divider,
+  Field,
   FieldDescription,
   FieldGroup,
   FieldLegend,
@@ -9,17 +10,9 @@ import {
   Form,
   Radio,
   Range,
-  Select,
+  SelectButton,
   Switch,
-  Textarea,
-  TextField,
 } from "opui-css/react"
-
-const roleItems = [
-  { label: "Bassist", value: "bass" },
-  { label: "Drummer", value: "drums" },
-  { label: "Guitarist", value: "guitar" },
-]
 
 export default function KitchenSink() {
   return (
@@ -30,15 +23,15 @@ export default function KitchenSink() {
           Heyyy, tell us who you are so your fans can find you.
         </FieldDescription>
         <FieldGroup>
-          <TextField htmlFor="form-kitchen-sink-7" label="Full name">
+          <Field htmlFor="form-kitchen-sink-7" label="Full name">
             <input
               autoComplete="name"
               id="form-kitchen-sink-7"
               placeholder="Holly Humbucker"
               required
             />
-          </TextField>
-          <TextField htmlFor="form-kitchen-sink-8" label="Email address">
+          </Field>
+          <Field htmlFor="form-kitchen-sink-8" label="Email address">
             <input
               autoComplete="email"
               id="form-kitchen-sink-8"
@@ -46,8 +39,15 @@ export default function KitchenSink() {
               required
               type="email"
             />
-          </TextField>
-          <Select items={roleItems} label="Role" />
+          </Field>
+          <Field htmlFor="form-kitchen-sink-10" label="Role">
+            <select id="form-kitchen-sink-10">
+              <SelectButton />
+              <option value="bass">Bassist</option>
+              <option value="drums">Drummer</option>
+              <option value="guitar">Guitarist</option>
+            </select>
+          </Field>
         </FieldGroup>
       </Fieldset>
       <Divider />
@@ -101,14 +101,14 @@ export default function KitchenSink() {
           Favorite strings, dream rig, the band that ignores you?
         </FieldDescription>
         <FieldGroup>
-          <Textarea htmlFor="form-kitchen-sink-9" label="Biography">
+          <Field htmlFor="form-kitchen-sink-9" label="Biography">
             <textarea
               id="form-kitchen-sink-9"
               name="biography"
               placeholder="I play a fretless 5-string and nobody watches me..."
               rows={4}
             ></textarea>
-          </Textarea>
+          </Field>
         </FieldGroup>
       </Fieldset>
       <Divider />

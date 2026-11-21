@@ -2,25 +2,21 @@
 import { ref } from "vue"
 import {
   Checkbox,
+  Field,
   NumberField,
   Radio,
   Range,
   Rating,
-  Select,
+  SelectButton,
   Tabs,
   TabsItem,
   TabsLabel,
   TabsPanel,
-  TextField,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/vue"
 
-const colors = [
-  { label: "blue", value: "blue" },
-  { label: "green", value: "green" },
-  { label: "red", value: "red" },
-]
+const colors = ["blue", "green", "red"]
 const tabs = ["one", "two", "three"]
 const views = ["day", "week", "month"]
 
@@ -116,11 +112,30 @@ const state = ref({
     <Rating label="Score" name="score" />
   </form>
   <form data-case="select-bound">
-    <Select v-model="state.select" :items="colors" label="Color" />
+    <Field for="select-bound" label="Color">
+      <select id="select-bound" v-model="state.select">
+        <SelectButton />
+        <option v-for="color in colors" :key="color" :value="color">
+          {{ color }}
+        </option>
+      </select>
+    </Field>
     <output>{{ state.select }}</output>
   </form>
   <form data-case="select-default">
-    <Select :items="colors" label="Color" value="green" />
+    <Field for="select-default" label="Color">
+      <select id="select-default">
+        <SelectButton />
+        <option
+          v-for="color in colors"
+          :key="color"
+          :selected="color === 'green'"
+          :value="color"
+        >
+          {{ color }}
+        </option>
+      </select>
+    </Field>
   </form>
   <form data-case="tabs-bound">
     <Tabs v-model="state.tabs" name="tab">
@@ -145,25 +160,25 @@ const state = ref({
     </Tabs>
   </form>
   <form data-case="text-bound">
-    <TextField for="text-bound" label="Name">
+    <Field for="text-bound" label="Name">
       <input id="text-bound" v-model="state.text" />
-    </TextField>
+    </Field>
     <output>{{ state.text }}</output>
   </form>
   <form data-case="text-default">
-    <TextField for="text-default" label="Name">
+    <Field for="text-default" label="Name">
       <input id="text-default" value="Ada" />
-    </TextField>
+    </Field>
   </form>
   <form data-case="text-empty">
-    <TextField for="text-empty" label="Name">
+    <Field for="text-empty" label="Name">
       <input id="text-empty" />
-    </TextField>
+    </Field>
   </form>
   <form data-case="text-rerender">
-    <TextField for="text-rerender" label="Name">
+    <Field for="text-rerender" label="Name">
       <input :data-round="round" id="text-rerender" value="Ada" />
-    </TextField>
+    </Field>
   </form>
   <form data-case="toggle-bound">
     <ToggleButton v-model="state.toggle">Bold</ToggleButton>

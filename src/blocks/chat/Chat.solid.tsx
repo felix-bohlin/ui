@@ -8,14 +8,13 @@ import {
   Drawer,
   DrawerHeader,
   DrawerTitle,
+  Field,
   FieldGroup,
   List,
   ListItem,
   Menu,
   Message,
   MessageList,
-  Textarea,
-  TextField,
 } from "opui-css/solid"
 
 export default function Chat() {
@@ -53,7 +52,7 @@ export default function Chat() {
                   </svg>
                 </Button>
               </div>
-              <TextField
+              <Field
                 for="chat-search"
                 size="small"
                 start={
@@ -80,7 +79,7 @@ export default function Chat() {
                   placeholder="Search"
                   type="search"
                 />
-              </TextField>
+              </Field>
             </div>
             <List variant="transparent">
               <ListItem
@@ -360,14 +359,14 @@ export default function Chat() {
                       ></path>
                     </svg>
                   </Button>
-                  <Textarea for="chat-chat-message">
+                  <Field for="chat-chat-message">
                     <textarea
                       aria-label="Message Stella Nut"
                       id="chat-chat-message"
                       name="chat-message"
                       placeholder="Write something rad…"
                     ></textarea>
-                  </Textarea>
+                  </Field>
                   <Button
                     aria-label="Send"
                     color="primary"

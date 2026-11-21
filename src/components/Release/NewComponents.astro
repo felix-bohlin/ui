@@ -4,6 +4,7 @@ import {
   Avatar,
   Button,
   Copy,
+  Field,
   Message,
   MessageList,
   NumberField,
@@ -11,7 +12,6 @@ import {
   Rating,
   Stat,
   Stepper,
-  TextField,
   Timeline,
   TimelineItem,
   Toaster,
@@ -122,7 +122,7 @@ if (count < 1) {
     </p>
     <div class="new-components-row">
       <Copy id={`${id}-copy`}>
-        <TextField
+        <Field
           for="new-components-install-command"
           hideLabel
           label="Install command"
@@ -133,7 +133,7 @@ if (count < 1) {
             readonly
             value="npm i opui-css"
           />
-        </TextField>
+        </Field>
       </Copy>
       <Button
         command="--copy"

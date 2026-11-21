@@ -825,7 +825,7 @@ interaction(
 
 interaction(
   "select",
-  "Variants",
+  "Preselected",
   "select picks an option with the keyboard",
   async ({ page, root }) => {
     test.skip(
@@ -852,7 +852,7 @@ interaction(
 
 interaction(
   "select",
-  "Variants",
+  "Preselected",
   "select keeps its padding when a script adds the button",
   async ({ root }) => {
     const { expected, padding } = await root
@@ -1192,7 +1192,7 @@ interaction(
 )
 
 interaction(
-  "text-field",
+  "field",
   "Validation",
   "a required text field only looks invalid once the user leaves it empty",
   async ({ page, root }) => {
@@ -3319,28 +3319,28 @@ interaction(
 )
 
 interaction(
-  "text-field",
+  "textarea",
   "CharacterCount",
-  "text field character count follows the text and announces near the limit",
+  "the character count follows the text and announces near the limit",
   async ({ page, root }) => {
-    const input = root.locator("input")
+    const textarea = root.locator("textarea")
     const count = root.locator("opui-character-count")
 
-    await expect(count).toHaveText("0/20")
-    await input.fill("opui-fan-2026")
-    await expect(count).toHaveText("13/20")
-    await expect(input).toHaveAccessibleName("Username")
-    await expect(input).toHaveAccessibleDescription(
-      "Up to 20 letters, numbers and dashes.",
+    await expect(count).toHaveText("0/160")
+    await textarea.fill("b".repeat(150))
+    await expect(count).toHaveText("150/160")
+    await expect(textarea).toHaveAccessibleName("Bio")
+    await expect(textarea).toHaveAccessibleDescription(
+      "Up to 160 characters, shown on your profile.",
     )
     await expect(page.locator("[data-opui-announcer]")).toHaveText(
-      "Characters left: 7",
+      "10 characters to go",
     )
   },
 )
 
 interaction(
-  "text-field",
+  "textarea",
   "CharacterCount",
   "the character count announces in the language of its field",
   async ({ page, root }) => {
@@ -3350,33 +3350,33 @@ interaction(
     await root
       .locator("opui-character-count")
       .evaluate((count) => count.setAttribute("label", "Tecken kvar: {count}"))
-    await root.locator("input").fill("opui-fan-2026")
+    await root.locator("textarea").fill("b".repeat(150))
     const announcer = page.locator("[data-opui-announcer]")
-    await expect(announcer).toHaveText("Tecken kvar: 7")
+    await expect(announcer).toHaveText("Tecken kvar: 10")
     await expect(announcer).toHaveAttribute("lang", "sv")
   },
 )
 
 interaction(
-  "text-field",
+  "textarea",
   "CharacterCount",
   "the character count announces in the language set on its input",
   async ({ page, root }) => {
     await root
-      .locator("input")
-      .evaluate((input) => input.setAttribute("lang", "sv"))
+      .locator("textarea")
+      .evaluate((textarea) => textarea.setAttribute("lang", "sv"))
     await root
       .locator("opui-character-count")
       .evaluate((count) => count.setAttribute("label", "Tecken kvar: {count}"))
-    await root.locator("input").fill("opui-fan-2026")
+    await root.locator("textarea").fill("b".repeat(150))
     const announcer = page.locator("[data-opui-announcer]")
-    await expect(announcer).toHaveText("Tecken kvar: 7")
+    await expect(announcer).toHaveText("Tecken kvar: 10")
     await expect(announcer).toHaveAttribute("lang", "sv")
   },
 )
 
 interaction(
-  "text-field",
+  "field",
   "Validation",
   "a labelled field is named by its label and described by its end text",
   async ({ root }) => {
@@ -3389,7 +3389,7 @@ interaction(
 )
 
 interaction(
-  "text-field",
+  "field",
   "Affix",
   "the label alone names a field, and its affixes describe it",
   async ({ root }) => {
@@ -3399,17 +3399,6 @@ interaction(
     await expect(
       root.getByRole("textbox", { name: "Weight", exact: true }),
     ).toHaveAccessibleDescription("kg")
-  },
-)
-
-interaction(
-  "select",
-  "Affix",
-  "the label alone names a select, and its affix describes it",
-  async ({ root }) => {
-    await expect(
-      root.getByRole("combobox", { name: "Delivery time", exact: true }),
-    ).toHaveAccessibleDescription("days")
   },
 )
 

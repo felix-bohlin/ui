@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import {
   Button,
+  Field,
   FieldDescription,
   FieldGroup,
   FieldLegend,
   Fieldset,
   Form,
-  TextField,
 } from "opui-css/vue"
 </script>
 
@@ -18,12 +18,12 @@ import {
         >How can we reach you?</FieldDescription
       >
       <FieldGroup>
-        <TextField for="form-basics-2" label="Name">
+        <Field for="form-basics-2" label="Name">
           <input autocomplete="name" id="form-basics-2" />
-        </TextField>
-        <TextField for="form-basics-3" label="Email">
+        </Field>
+        <Field for="form-basics-3" label="Email">
           <input autocomplete="email" id="form-basics-3" type="email" />
-        </TextField>
+        </Field>
       </FieldGroup>
     </Fieldset>
     <FieldGroup>

@@ -11,13 +11,12 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  Field,
   Stat,
   Tabs,
   TabsItem,
   TabsLabel,
   TabsPanel,
-  TextField,
-  Textarea,
 } from "opui-css/react"
 import { ME, photosBy, postsBy, type User } from "reference-shared"
 import { useEffect, useState, type FormEvent } from "react"
@@ -123,17 +122,17 @@ export default function Profile({ profile }: { profile: User }) {
           </DialogHeader>
           <form key={form.key} method="dialog" onSubmit={save}>
             <DialogContent>
-              <TextField htmlFor="profile-name" label="Name">
+              <Field htmlFor="profile-name" label="Name">
                 <input
                   defaultValue={form.name}
                   id="profile-name"
                   name="name"
                   required
                 />
-              </TextField>
-              <Textarea htmlFor="profile-bio" label="Bio">
+              </Field>
+              <Field htmlFor="profile-bio" label="Bio">
                 <textarea defaultValue={form.bio} id="profile-bio" name="bio" />
-              </Textarea>
+              </Field>
             </DialogContent>
             <DialogFooter>
               <Button command="close" commandfor="edit-profile">

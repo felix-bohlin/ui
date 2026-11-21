@@ -1,60 +1,38 @@
 # Text field
 
-A single-line text input with a label, start and end text, and validation.
+A single-line text input in a Field: input types, numbers as text, a password toggle and suggestions.
 
 - CSS: `opui-css/css/components/text-field.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/text-field.md), [Astro](https://opui.dev/astro/components/text-field.md), [React](https://opui.dev/react/components/text-field.md), [Solid](https://opui.dev/solid/components/text-field.md), [Svelte](https://opui.dev/svelte/components/text-field.md), [Vue](https://opui.dev/vue/components/text-field.md).
 
-## TextField
+## PasswordToggle
 
 ### Parts
 
-- `.ui-field` (root): Container element: a `<div>`, or the `<opui-text-field>` custom element with a password toggle. The label inside is a `<label for>` that names the input by itself.
-- `.ui-label` (prop `label`, slot `label`): The label for the field.
-- `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
-- `.ui-field-container`: The boxed input area.
-- `.ui-field-container > .ui-top` (slot `top`): Content above the input, inside the border, with a divider.
-- `.ui-field-container > .ui-start` (slot `start`): Content at the inline-start of the field, inside the border.
-- `<input>`: Your input, written directly inside `.ui-field-container` with its `id` set to `for`. Bind it, name it and mark it `required`, `disabled` or `aria-invalid="true"` like any input.
-- `.ui-field-container > .ui-end` (slot `end`): Content at the inline-end of the field, inside the border, and the password toggle.
-- `.ui-field-container > .ui-end > .ui-button` (prop `passwordToggle`, prop `passwordToggleLabel`, slot `icon-checked`, slot `icon-unchecked`): The password toggle, with `aria-pressed` and `command="--toggle-password"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is, and `aria-disabled` while the input is. `<opui-text-field>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-text-field>` is defined.
-- `.ui-field-container > .ui-bottom` (slot `bottom`): Content below the input, inside the border, with a divider.
-- `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
-- `<opui-character-count>` (prop `characterCount`, prop `characterCountLabel`): The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left.
+- `<opui-password-toggle>` (root): A `.ui-button` with `aria-pressed` and `command="--toggle-password"` that shows and hides the password. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is, and `aria-disabled` while the input is. `<opui-password-toggle>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-password-toggle>` is defined.
 
 ### Props and modifiers
 
-- `autoFit`: `boolean`, `.ui-auto-fit`. Lets the width follow the content, from `25ch`.
-- `characterCount`: `boolean`. Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count.
-- `characterCountLabel`: `string`, default `"Characters left: {count}"`. The announcement near the limit, with `{count}` for the characters left. Pass it translated.
-- `dropZone`: `boolean`, `.ui-drop-zone`. Makes a `type="file"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker.
-- `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of your `<input>`. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`. Point the input's `aria-describedby` at the ones it shows, in that order.
-- `hideLabel`: `boolean`, `.ui-field > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
-- `htmlFor` (React): `string`. The `id` of your `<input>`, as `htmlFor` like on the element. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `htmlFor="x"`. Point the input's `aria-describedby` at the ones it shows, in that order.
-- `passwordToggle`: `boolean`. Adds a button to the end of a `type="password"` field that shows and hides the password. The root becomes `<opui-text-field>`, and the button stays out of the input's description, unless there's also an `end` slot, whose part it shares. The component loads `opui-css/elements/text-field.js`, which runs the button.
-- `passwordToggleLabel`: `string`, default `"Show password"`. The accessible name of the password toggle. The types take it only with `passwordToggle`.
-- `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
-- `spread`: `boolean`, `.ui-spread`. Pushes the label and start text to one side and the input to the other.
-- `variant`: `"filled"` (`.ui-filled`), `"outlined"` (default). The variant to use.
+- `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of the password input the toggle shows and hides, as its button's `commandfor`.
+- `htmlFor` (React): `string`. The `id` of the password input the toggle shows and hides, as `htmlFor` like on a label, and its button's `commandfor`.
+- `label`: `string`, `aria-label`, default `"Show password"`. The accessible name of the toggle. Pass it translated.
 
 ### Slots
 
-- `default`: Your `<input>`, and a `<datalist>` for it when it has suggestions. Both go in `.ui-field-container`.
+- `icon-unchecked`: The icon while the password is hidden.
+- `icon-checked`: The icon while the password shows.
 
-### Elements
+### Element
 
-- `<opui-character-count>`, defined by `opui-css/elements/character-count.js`:
-  - `control`: The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.
-- `<opui-text-field>`, defined by `opui-css/elements/text-field.js`:
+- `<opui-password-toggle>`, defined by `opui-css/elements/password-toggle.js`:
   - `hidePassword()`: Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits.
-  - `input`: The `<input>` inside, or `null`. Read-only.
+  - `input`: The `<input>` its button's `commandfor` names, or `null`. Read-only.
   - `showPassword()`: Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.
 
 ### Notes
 
-- HTML: The same `.ui-field` root holds a `<select>` or a `<textarea>`. Put a `<datalist>` next to the input in `.ui-field-container`. For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. For a password toggle, use `<opui-text-field class="ui-field">` with a `<label class="ui-label" for>`, put a `.ui-button` with `aria-pressed="false"`, `commandfor` naming the input and `command="--toggle-password"` in `.ui-end`, and import `opui-css/elements/text-field.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field's `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Put `.ui-top` and `.ui-start` before the `<input>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they're drawn.
-- Astro, Solid, Svelte and Vue: Write the `<input>` inside, with its `id` set to `for`, and bind it like any input. Other attributes go to the `.ui-field` root.
-- React: Write the `<input>` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-field` root.
+- HTML: Put `<opui-password-toggle>` in `.ui-end`, around a `.ui-button` with `aria-pressed="false"`, `commandfor` naming the input and `command="--toggle-password"`, and import `opui-css/elements/password-toggle.js`. Leave `.ui-end` out of the input's `aria-describedby` when it only holds the toggle.
+- Astro, React, Solid, Svelte and Vue: Put it in the field's `end` slot, next to a `type="password"` input, and leave that part out of the input's `aria-describedby` when it only holds the toggle. It loads `opui-css/elements/password-toggle.js`, which runs the button.
 
 ## Component properties
 
@@ -89,69 +67,165 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--u
 
 ## HTML
 
-### Example: Variants
+### Example: Password toggle
 
 ```html
 <div class="ui-field">
-  <label class="ui-label" for="text-field-variants-1">Outlined</label>
+  <label class="ui-label" for="text-field-password-toggle-1">Password</label>
   <span class="ui-field-container">
-    <input id="text-field-variants-1" placeholder="Your name" />
+    <input
+      autocomplete="current-password"
+      id="text-field-password-toggle-1"
+      type="password"
+    />
+    <span class="ui-end" id="text-field-password-toggle-1-end">
+      <opui-password-toggle>
+        <button
+          class="ui-button ui-round"
+          type="button"
+          aria-label="Show password"
+          aria-pressed="false"
+          command="--toggle-password"
+          commandfor="text-field-password-toggle-1"
+        >
+          <svg
+            aria-hidden="true"
+            class="ui-icon-unchecked"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          ></svg>
+          <svg aria-hidden="true" class="ui-icon-checked" viewBox="0 0 24 24"></svg>
+        </button>
+      </opui-password-toggle>
+    </span>
   </span>
 </div>
-<div class="ui-field ui-filled">
-  <label class="ui-label" for="text-field-variants-2">Filled</label>
+<div class="ui-field">
+  <label class="ui-label" for="text-field-password-toggle-2"
+    >New password</label
+  >
   <span class="ui-field-container">
-    <input id="text-field-variants-2" placeholder="Your name" />
+    <input
+      aria-describedby="text-field-password-toggle-2-end-text"
+      autocomplete="new-password"
+      id="text-field-password-toggle-2"
+      minlength="12"
+      type="password"
+    />
+    <span class="ui-end" id="text-field-password-toggle-2-end">
+      <opui-password-toggle>
+        <button
+          class="ui-button ui-round"
+          type="button"
+          aria-label="Show new password"
+          aria-pressed="false"
+          command="--toggle-password"
+          commandfor="text-field-password-toggle-2"
+        >
+          <svg aria-hidden="true" class="ui-icon-unchecked" viewBox="0 0 24 24"></svg>
+          <svg aria-hidden="true" class="ui-icon-checked" viewBox="0 0 24 24"></svg>
+        </button>
+      </opui-password-toggle>
+    </span>
   </span>
+  <span class="ui-end-text" id="text-field-password-toggle-2-end-text"
+    >At least 12 characters.</span
+  >
 </div>
+
+<script type="module">
+  import "opui-css/elements/password-toggle.js"
+</script>
 ```
 
 ## Astro
 
-`import { TextField } from "opui-css/astro"`
+`import { PasswordToggle } from "opui-css/astro"`
 
-- `TextField` named slots: `bottom`, `end`, `end-text`, `icon-checked`, `icon-unchecked`, `label`, `start`, `start-text` and `top`. Fill one with `slot="bottom"` on a child.
+- `PasswordToggle` named slots: `icon-checked` and `icon-unchecked`. Fill one with `slot="icon-checked"` on a child.
 
-### Example: Variants
+### Example: Password toggle
 
 ```astro
 ---
-import { TextField } from "opui-css/astro"
+import { Field, PasswordToggle } from "opui-css/astro"
 ---
 
-<TextField for="text-field-variants-1" label="Outlined">
-  <input id="text-field-variants-1" placeholder="Your name" />
-</TextField>
-<TextField for="text-field-variants-2" label="Filled" variant="filled">
-  <input id="text-field-variants-2" placeholder="Your name" />
-</TextField>
+<Field for="text-field-password-toggle-1" label="Password">
+  <input
+    autocomplete="current-password"
+    id="text-field-password-toggle-1"
+    type="password"
+  />
+  <PasswordToggle for="text-field-password-toggle-1" slot="end" />
+</Field>
+<Field
+  endText="At least 12 characters."
+  for="text-field-password-toggle-2"
+  label="New password"
+>
+  <input
+    aria-describedby="text-field-password-toggle-2-end-text"
+    autocomplete="new-password"
+    id="text-field-password-toggle-2"
+    minlength="12"
+    type="password"
+  />
+  <PasswordToggle
+    for="text-field-password-toggle-2"
+    label="Show new password"
+    slot="end"
+  />
+</Field>
 ```
 
 ## React
 
-`import { TextField } from "opui-css/react"`
+`import { PasswordToggle } from "opui-css/react"`
 
-- `TextField` slot props (`ReactNode`): `bottom`, `children`, `end`, `endText`, `iconChecked`, `iconUnchecked`, `label`, `start`, `startText` and `top`.
-- Client components (`"use client"`): `TextField`.
+- `PasswordToggle` slot props (`ReactNode`): `iconChecked` and `iconUnchecked`.
+- Client components (`"use client"`): `PasswordToggle`.
 
-### Example: Variants
+### Example: Password toggle
 
 ```tsx
-import { TextField } from "opui-css/react"
+import { Field, PasswordToggle } from "opui-css/react"
 
-export default function Variants() {
+export default function PasswordToggleExample() {
   return (
     <>
-      <TextField htmlFor="text-field-variants-1" label="Outlined">
-        <input id="text-field-variants-1" placeholder="Your name" />
-      </TextField>
-      <TextField
-        htmlFor="text-field-variants-2"
-        label="Filled"
-        variant="filled"
+      <Field
+        end={<PasswordToggle htmlFor="text-field-password-toggle-1" />}
+        htmlFor="text-field-password-toggle-1"
+        label="Password"
       >
-        <input id="text-field-variants-2" placeholder="Your name" />
-      </TextField>
+        <input
+          autoComplete="current-password"
+          id="text-field-password-toggle-1"
+          type="password"
+        />
+      </Field>
+      <Field
+        end={
+          <PasswordToggle
+            htmlFor="text-field-password-toggle-2"
+            label="Show new password"
+          />
+        }
+        endText="At least 12 characters."
+        htmlFor="text-field-password-toggle-2"
+        label="New password"
+      >
+        <input
+          aria-describedby="text-field-password-toggle-2-end-text"
+          autoComplete="new-password"
+          id="text-field-password-toggle-2"
+          minLength={12}
+          type="password"
+        />
+      </Field>
     </>
   )
 }
@@ -159,25 +233,49 @@ export default function Variants() {
 
 ## Solid
 
-`import { TextField } from "opui-css/solid"`
+`import { PasswordToggle } from "opui-css/solid"`
 
-- `TextField` slot props (`JSX.Element`): `bottom`, `children`, `end`, `endText`, `iconChecked`, `iconUnchecked`, `label`, `start`, `startText` and `top`.
+- `PasswordToggle` slot props (`JSX.Element`): `iconChecked` and `iconUnchecked`.
 
-### Example: Variants
+### Example: Password toggle
 
 ```tsx
 /** @jsxImportSource @solidjs/web */
-import { TextField } from "opui-css/solid"
+import { Field, PasswordToggle } from "opui-css/solid"
 
-export default function Variants() {
+export default function PasswordToggleExample() {
   return (
     <>
-      <TextField for="text-field-variants-1" label="Outlined">
-        <input id="text-field-variants-1" placeholder="Your name" />
-      </TextField>
-      <TextField for="text-field-variants-2" label="Filled" variant="filled">
-        <input id="text-field-variants-2" placeholder="Your name" />
-      </TextField>
+      <Field
+        end={<PasswordToggle for="text-field-password-toggle-1" />}
+        for="text-field-password-toggle-1"
+        label="Password"
+      >
+        <input
+          autocomplete="current-password"
+          id="text-field-password-toggle-1"
+          type="password"
+        />
+      </Field>
+      <Field
+        end={
+          <PasswordToggle
+            for="text-field-password-toggle-2"
+            label="Show new password"
+          />
+        }
+        endText="At least 12 characters."
+        for="text-field-password-toggle-2"
+        label="New password"
+      >
+        <input
+          aria-describedby="text-field-password-toggle-2-end-text"
+          autocomplete="new-password"
+          id="text-field-password-toggle-2"
+          minlength="12"
+          type="password"
+        />
+      </Field>
     </>
   )
 }
@@ -185,44 +283,90 @@ export default function Variants() {
 
 ## Svelte
 
-`import { TextField } from "opui-css/svelte"`
+`import { PasswordToggle } from "opui-css/svelte"`
 
-- `TextField` slot snippets: `bottom`, `children`, `end`, `endText`, `iconChecked`, `iconUnchecked`, `label`, `start`, `startText` and `top`.
+- `PasswordToggle` slot snippets: `iconChecked` and `iconUnchecked`.
 
-### Example: Variants
+### Example: Password toggle
 
 ```svelte
 <script lang="ts">
-  import { TextField } from "opui-css/svelte"
+  import { Field, PasswordToggle } from "opui-css/svelte"
 </script>
 
-<TextField for="text-field-variants-1" label="Outlined">
-  <input id="text-field-variants-1" placeholder="Your name" />
-</TextField>
-<TextField for="text-field-variants-2" label="Filled" variant="filled">
-  <input id="text-field-variants-2" placeholder="Your name" />
-</TextField>
+<Field for="text-field-password-toggle-1" label="Password">
+  <input
+    autocomplete="current-password"
+    id="text-field-password-toggle-1"
+    type="password"
+  />
+  {#snippet end()}
+    <PasswordToggle for="text-field-password-toggle-1" />
+  {/snippet}
+</Field>
+<Field
+  endText="At least 12 characters."
+  for="text-field-password-toggle-2"
+  label="New password"
+>
+  <input
+    aria-describedby="text-field-password-toggle-2-end-text"
+    autocomplete="new-password"
+    id="text-field-password-toggle-2"
+    minlength="12"
+    type="password"
+  />
+  {#snippet end()}
+    <PasswordToggle
+      for="text-field-password-toggle-2"
+      label="Show new password"
+    />
+  {/snippet}
+</Field>
 ```
 
 ## Vue
 
-`import { TextField } from "opui-css/vue"`
+`import { PasswordToggle } from "opui-css/vue"`
 
-- `TextField` named slots: `bottom`, `end`, `end-text`, `icon-checked`, `icon-unchecked`, `label`, `start`, `start-text` and `top`. Fill one with `<template #bottom>`.
+- `PasswordToggle` named slots: `icon-checked` and `icon-unchecked`. Fill one with `<template #icon-checked>`.
 
-### Example: Variants
+### Example: Password toggle
 
 ```vue
 <script setup lang="ts">
-import { TextField } from "opui-css/vue"
+import { Field, PasswordToggle } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField for="text-field-variants-1" label="Outlined">
-    <input id="text-field-variants-1" placeholder="Your name" />
-  </TextField>
-  <TextField for="text-field-variants-2" label="Filled" variant="filled">
-    <input id="text-field-variants-2" placeholder="Your name" />
-  </TextField>
+  <Field for="text-field-password-toggle-1" label="Password">
+    <input
+      autocomplete="current-password"
+      id="text-field-password-toggle-1"
+      type="password"
+    />
+    <template #end>
+      <PasswordToggle for="text-field-password-toggle-1" />
+    </template>
+  </Field>
+  <Field
+    endText="At least 12 characters."
+    for="text-field-password-toggle-2"
+    label="New password"
+  >
+    <input
+      aria-describedby="text-field-password-toggle-2-end-text"
+      autocomplete="new-password"
+      id="text-field-password-toggle-2"
+      minlength="12"
+      type="password"
+    />
+    <template #end>
+      <PasswordToggle
+        for="text-field-password-toggle-2"
+        label="Show new password"
+      />
+    </template>
+  </Field>
 </template>
 ```

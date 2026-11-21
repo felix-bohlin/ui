@@ -2,7 +2,6 @@
   "^\\[@vue/compiler-sfc\\] <(button|div)> cannot be child of <select>": "Vue's compiler knows the content model of select from before customizable select, which allows a button and option groups in it; packages/opui/scripts/build-frameworks.mjs accepts the same warning",
   "^\\[@vue/compiler-sfc\\] <legend> cannot be child of <optgroup>": "Vue's compiler knows the content model of optgroup from before customizable select, which allows a legend in it",
   "^\\[@vue/compiler-sfc\\] <span> cannot be child of <option>": "Vue's compiler knows the content model of option from before customizable select, which allows phrasing content in it",
-  "^a11y_invalid_attribute: '#' is not a valid href attribute": "the Top and bottom example of Select shows a link that leads nowhere on the docs page",
   "^a11y_label_has_associated_control: ": "the Grouped example of Select names each option group with a label through aria-labelledby, as customizable select allows",
   "^a11y_media_has_caption: ": "the clips in the Videos example of Carousel have no speech to caption",
   "^a11y_no_noninteractive_tabindex: ": "a scroll container in an example takes tabindex=\"0\" so the keyboard can scroll it",

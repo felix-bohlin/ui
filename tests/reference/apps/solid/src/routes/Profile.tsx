@@ -10,13 +10,12 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  Field,
   Stat,
   Tabs,
   TabsItem,
   TabsLabel,
   TabsPanel,
-  TextField,
-  Textarea,
 } from "opui-css/solid"
 import { ME, photosBy, postsBy, user, type User } from "reference-shared"
 import { createMemo, createSignal, createStore, For, Show } from "solid-js"
@@ -151,7 +150,7 @@ function ProfileScreen(props: { profile: User }) {
           </DialogHeader>
           <form method="dialog" onSubmit={save}>
             <DialogContent>
-              <TextField for="profile-name" label="Name">
+              <Field for="profile-name" label="Name">
                 <input
                   id="profile-name"
                   name="name"
@@ -159,15 +158,15 @@ function ProfileScreen(props: { profile: User }) {
                   required
                   value={draftName()}
                 />
-              </TextField>
-              <Textarea for="profile-bio" label="Bio">
+              </Field>
+              <Field for="profile-bio" label="Bio">
                 <textarea
                   id="profile-bio"
                   name="bio"
                   onInput={(event) => setDraftBio(event.currentTarget.value)}
                   value={draftBio()}
                 />
-              </Textarea>
+              </Field>
             </DialogContent>
             <DialogFooter>
               <Button command="close" commandfor="edit-profile">

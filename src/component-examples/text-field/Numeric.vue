@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { TextField } from "opui-css/vue"
+import { Field } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField for="text-field-numeric-1" label="Verification code">
+  <Field for="text-field-numeric-1" label="Verification code">
     <input
       id="text-field-numeric-1"
       inputmode="numeric"
       pattern="[0-9]*"
       placeholder="123456"
     />
-  </TextField>
+  </Field>
 </template>

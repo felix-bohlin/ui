@@ -30,6 +30,13 @@ export const builtInLabels = [
     prop: "previousLabel",
   },
   {
+    component: "CharacterCount",
+    default: "Characters left: {count}",
+    html: "label",
+    page: "textarea",
+    prop: "label",
+  },
+  {
     component: "Copy",
     default: "Copied",
     html: "copied-label",
@@ -86,6 +93,13 @@ export const builtInLabels = [
     prop: "increaseLabel",
   },
   {
+    component: "PasswordToggle",
+    default: "Show password",
+    html: "aria-label",
+    page: "text-field",
+    prop: "label",
+  },
+  {
     component: "Rating",
     default: "No rating",
     html: "aria-label",
@@ -127,27 +141,6 @@ export const builtInLabels = [
     html: ".ui-sr-only",
     page: "stepper",
     prop: "errorLabel",
-  },
-  {
-    component: "TextField",
-    default: "Characters left: {count}",
-    html: "label",
-    page: "text-field",
-    prop: "characterCountLabel",
-  },
-  {
-    component: "TextField",
-    default: "Show password",
-    html: "aria-label",
-    page: "text-field",
-    prop: "passwordToggleLabel",
-  },
-  {
-    component: "Textarea",
-    default: "Characters left: {count}",
-    html: "label",
-    page: "textarea",
-    prop: "characterCountLabel",
   },
   {
     component: "Toaster",

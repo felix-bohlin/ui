@@ -4,9 +4,9 @@ import {
   Carousel,
   Checkbox,
   Chip,
+  Field,
   Progress,
   Switch,
-  TextField,
 } from "opui-css/astro"
 import AstroLogo from "../components/AstroLogo.astro"
 import ComponentCard from "../components/ComponentShowcase/ComponentCard.astro"
@@ -258,9 +258,9 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
             </div>
 
             <div class="specimen-row">
-              <TextField for="home-text-field" label="Text field">
+              <Field for="home-text-field" label="Text field">
                 <input id="home-text-field" inert placeholder="Type here" />
-              </TextField>
+              </Field>
             </div>
 
             <Progress

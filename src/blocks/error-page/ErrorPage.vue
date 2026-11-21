@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, FieldGroup, List, ListItem, TextField } from "opui-css/vue"
+import { Button, Field, FieldGroup, List, ListItem } from "opui-css/vue"
 </script>
 
 <template>
@@ -22,7 +22,7 @@ import { Button, FieldGroup, List, ListItem, TextField } from "opui-css/vue"
     <component is="search">
       <form action="#">
         <FieldGroup orientation="horizontal">
-          <TextField for="error-page-q" hideLabel label="Search Bassbook">
+          <Field for="error-page-q" hideLabel label="Search Bassbook">
             <input
               aria-describedby="error-page-q-start"
               id="error-page-q"
@@ -45,7 +45,7 @@ import { Button, FieldGroup, List, ListItem, TextField } from "opui-css/vue"
                 ></path>
               </svg>
             </template>
-          </TextField>
+          </Field>
           <Button type="submit" variant="filled">Search</Button>
         </FieldGroup>
       </form>

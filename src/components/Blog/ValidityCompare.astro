@@ -1,5 +1,5 @@
 ---
-import { Button, TextField } from "opui-css/astro"
+import { Button, Field } from "opui-css/astro"
 
 const columns = [
   { label: "Styled with :invalid", mode: "invalid", selector: ":invalid" },
@@ -24,7 +24,7 @@ const columns = [
           doesn't match
         </span>
       </p>
-      <TextField
+      <Field
         endText="Enter an email address."
         for={`validity-compare-${column.mode}`}
         label={column.label}
@@ -36,7 +36,7 @@ const columns = [
           required
           type="email"
         />
-      </TextField>
+      </Field>
     </div>)}
   </div>
   <div class="validity-compare-actions">

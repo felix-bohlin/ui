@@ -1,10 +1,23 @@
 import { isServer, setProperty } from "@solidjs/web"
 import { createRenderEffect, untrack } from "solid-js"
-import { keepSelected } from "./Select/selection"
 
 const INITIAL = {
   checked: "defaultChecked",
   value: "defaultValue",
+}
+
+const sameValue = (a: unknown, b: unknown) => String(a) === String(b)
+
+const keepSelected = (select: HTMLSelectElement, value: unknown) => {
+  const values = [value].flat()
+  for (const option of select.options) {
+    if (
+      !option.defaultSelected &&
+      values.some((selected) => sameValue(selected, option.value))
+    ) {
+      option.defaultSelected = true
+    }
+  }
 }
 
 export const control = <V>(

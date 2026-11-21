@@ -1,20 +1,22 @@
 <script setup lang="ts">
-import { TextField } from "opui-css/vue"
+import { Field, PasswordToggle } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField for="text-field-password-toggle-1" label="Password" passwordToggle>
+  <Field for="text-field-password-toggle-1" label="Password">
     <input
       autocomplete="current-password"
       id="text-field-password-toggle-1"
       type="password"
     />
-  </TextField>
-  <TextField
+    <template #end>
+      <PasswordToggle for="text-field-password-toggle-1" />
+    </template>
+  </Field>
+  <Field
     endText="At least 12 characters."
     for="text-field-password-toggle-2"
     label="New password"
-    passwordToggle
   >
     <input
       aria-describedby="text-field-password-toggle-2-end-text"
@@ -23,5 +25,11 @@ import { TextField } from "opui-css/vue"
       minlength="12"
       type="password"
     />
-  </TextField>
+    <template #end>
+      <PasswordToggle
+        for="text-field-password-toggle-2"
+        label="Show new password"
+      />
+    </template>
+  </Field>
 </template>

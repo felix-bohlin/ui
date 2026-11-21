@@ -17,7 +17,8 @@ import {
   Card as UICard,
   CardHeader as UICardHeader,
   Carousel as UICarousel,
-  Select as UISelect,
+  Field as UIField,
+  SelectButton as UISelectButton,
   Switch as UISwitch,
 } from "opui-css/astro"
 
@@ -59,6 +60,10 @@ const translation = `.ui-carousel:lang(sv) {
   --_button-previous-label: "Föregående";
   --_marker-label: "Bild " counter(ui-carousel-item);
 }`
+const contentId = Astro.locals.$id("carousel-content")
+const buttonsId = Astro.locals.$id("carousel-buttons")
+const itemsPerViewId = Astro.locals.$id("carousel-items-per-view")
+const aspectRatioId = Astro.locals.$id("carousel-aspect-ratio")
 ---
 
 <Component
@@ -265,40 +270,59 @@ const translation = `.ui-carousel:lang(sv) {
 
     <Example showCode={false}>
       <div class="carousel-playground-controls" slot="controls">
-        <UISelect
+        <UIField
           data-control="content"
-          items={[
-            { label: "Images", value: "images" },
-            { label: "Cards", value: "cards" },
-          ]}
+          for={contentId}
           label="Content"
           size="small"
-        />
-        <UISelect
+        >
+          <select id={contentId}>
+            <UISelectButton />
+            <option value="images">Images</option>
+            <option value="cards">Cards</option>
+          </select>
+        </UIField>
+        <UIField
           data-control="buttons"
-          items={[
-            { label: "Inside", value: "inside" },
-            { label: "Outside", value: "outside" },
-            { label: "None", value: "none" },
-          ]}
+          for={buttonsId}
           label="Buttons"
           size="small"
-        />
-        <UISelect
+        >
+          <select id={buttonsId}>
+            <UISelectButton />
+            <option value="inside">Inside</option>
+            <option value="outside">Outside</option>
+            <option value="none">None</option>
+          </select>
+        </UIField>
+        <UIField
           data-control="items-per-view"
-          items={["1", "2", "3", "4"].map((value) => ({ label: value, value }))}
+          for={itemsPerViewId}
           label="Items per view"
           size="small"
-        />
-        <UISelect
+        >
+          <select id={itemsPerViewId}>
+            <UISelectButton />
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+        </UIField>
+        <UIField
           data-control="aspect-ratio"
-          items={["16 / 9", "4 / 3", "1", "3 / 4"].map((value) => ({
-            label: value,
-            value,
-          }))}
+          for={aspectRatioId}
           label="Aspect ratio"
           size="small"
-        />
+        >
+          <select id={aspectRatioId}>
+            <UISelectButton />
+            <option value="16 / 9">16 / 9</option>
+            <option value="4 / 3">4 / 3</option>
+            <option value="1">1</option>
+            <option value="3 / 4">3 / 4</option>
+          </select>
+        </UIField>
         {[
           ["persistent", "Persistent buttons"],
           ["markers", "Markers"],

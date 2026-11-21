@@ -7,12 +7,12 @@ import {
   CardActions,
   CardContent,
   Chip,
+  Field,
   FieldGroup,
   List,
   ListItem,
   Menu,
   Progress,
-  TextField,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/react"
@@ -31,7 +31,7 @@ export default function OrderHistory() {
           </hgroup>
         </div>
         <FieldGroup orientation="horizontal">
-          <TextField
+          <Field
             htmlFor="order-history-search"
             start={
               <svg
@@ -57,7 +57,7 @@ export default function OrderHistory() {
               placeholder="Search by order number or gear"
               type="search"
             />
-          </TextField>
+          </Field>
           <ToggleGroup aria-label="Order status" name="order-history-status">
             <ToggleButton defaultChecked value="all">
               All

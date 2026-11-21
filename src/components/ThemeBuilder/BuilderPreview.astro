@@ -1,6 +1,7 @@
 ---
 import {
-  Select,
+  Field,
+  SelectButton,
   Tabs,
   TabsItem,
   TabsLabel,
@@ -42,6 +43,7 @@ const schemes = [
 
 const { link } = Astro.locals
 const siteHref = link("/")
+const blockSelectId = Astro.locals.$id("preview-block")
 ---
 
 <section aria-label="Preview" class="builder-preview" data-defaults={defaults}>
@@ -79,21 +81,24 @@ const siteHref = link("/")
       <TabsLabel>Blocks</TabsLabel>
       <TabsPanel data-tab="blocks">
         <div class="preview-toolbar">
-          <Select
+          <Field
             class="preview-block-select"
+            for={blockSelectId}
             hideLabel
             label="Block"
-            name="preview-block"
             size="small"
           >
-            {blocks.map((block) => <option
-              data-href={block.href}
-              data-width={block.width}
-              value={block.slug}
-            >
-              {block.name}
-            </option>)}
-          </Select>
+            <select id={blockSelectId} name="preview-block">
+              <SelectButton />
+              {blocks.map((block) => <option
+                data-href={block.href}
+                data-width={block.width}
+                value={block.slug}
+              >
+                {block.name}
+              </option>)}
+            </select>
+          </Field>
           <PreviewView name="preview-blocks" />
           <a
             class="ui-link preview-open"

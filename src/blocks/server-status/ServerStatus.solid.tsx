@@ -19,10 +19,10 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  Field,
   Form,
   List,
   ListItem,
-  TextField,
   Timeline,
   TimelineItem,
 } from "opui-css/solid"
@@ -411,7 +411,7 @@ export default function ServerStatus() {
           </DialogHeader>
           <DialogContent>
             <Form action="#" id="server-status-subscribe-form" method="dialog">
-              <TextField for="server-status-server-status-email" label="Email">
+              <Field for="server-status-server-status-email" label="Email">
                 <input
                   autocomplete="email"
                   id="server-status-server-status-email"
@@ -420,7 +420,7 @@ export default function ServerStatus() {
                   required
                   type="email"
                 />
-              </TextField>
+              </Field>
             </Form>
           </DialogContent>
           <DialogFooter>

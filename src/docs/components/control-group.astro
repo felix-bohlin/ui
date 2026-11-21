@@ -8,7 +8,7 @@ import Anatomy from "../../components/Anatomy.astro"
 import {
   Button as UIButton,
   ControlGroup as UIControlGroup,
-  TextField as UITextField,
+  Field as UIField,
 } from "opui-css/astro"
 
 import ButtonCSS from "@opui/css/components/button.css?raw"
@@ -126,7 +126,7 @@ export const description =
     </li>
     <li slot="when-not">
       A unit like € or kg: use
-      <DocLink href="/components/text-field#affix">Text field affixes</DocLink>.
+      <DocLink href="/components/field#affix">Field affixes</DocLink>.
     </li>
     <li slot="when-not">
       More than five actions: put the rest in a
@@ -257,13 +257,13 @@ export const description =
         style="inline-size: 22rem"
         variant="outlined"
       >
-        <UITextField
+        <UIField
           for="control-group-order-number"
           hideLabel
           label="Order number"
         >
           <input id="control-group-order-number" placeholder="Order" />
-        </UITextField>
+        </UIField>
         <UIButton>Search</UIButton>
         <UIButton>Clear</UIButton>
       </UIControlGroup>

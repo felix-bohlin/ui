@@ -3,6 +3,7 @@ import {
   Card,
   CardContent,
   Checkbox,
+  Field,
   FieldDescription,
   FieldGroup,
   FieldLegend,
@@ -10,9 +11,9 @@ import {
   Form,
   List,
   ListItem,
+  PasswordToggle,
   Progress,
   RadioInput,
-  TextField,
 } from "opui-css/react"
 
 export default function SignUp() {
@@ -37,7 +38,7 @@ export default function SignUp() {
               <Form action="#">
                 <FieldGroup>
                   <FieldGroup orientation="horizontal">
-                    <TextField htmlFor="sign-up-first-name" label="First name">
+                    <Field htmlFor="sign-up-first-name" label="First name">
                       <input
                         autoComplete="given-name"
                         id="sign-up-first-name"
@@ -46,8 +47,8 @@ export default function SignUp() {
                         required
                         type="text"
                       />
-                    </TextField>
-                    <TextField htmlFor="sign-up-last-name" label="Last name">
+                    </Field>
+                    <Field htmlFor="sign-up-last-name" label="Last name">
                       <input
                         autoComplete="family-name"
                         id="sign-up-last-name"
@@ -56,9 +57,9 @@ export default function SignUp() {
                         required
                         type="text"
                       />
-                    </TextField>
+                    </Field>
                   </FieldGroup>
-                  <TextField htmlFor="sign-up-email" label="Email">
+                  <Field htmlFor="sign-up-email" label="Email">
                     <input
                       autoComplete="email"
                       id="sign-up-email"
@@ -67,12 +68,12 @@ export default function SignUp() {
                       required
                       type="email"
                     />
-                  </TextField>
-                  <TextField
+                  </Field>
+                  <Field
+                    end={<PasswordToggle htmlFor="sign-up-password" />}
                     endText="At least 12 characters, with a number or a symbol. Go wild!"
                     htmlFor="sign-up-password"
                     label="Password"
-                    passwordToggle
                   >
                     <input
                       aria-describedby="sign-up-password-end-text"
@@ -84,7 +85,7 @@ export default function SignUp() {
                       type="password"
                       defaultValue="four-strings-4ever"
                     />
-                  </TextField>
+                  </Field>
                   <div className="ui-layout-column ui-x-small">
                     <span
                       className="ui-layout-row ui-spread sign-up-strength-label"

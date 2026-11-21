@@ -1,4 +1,4 @@
-import { Button, FieldGroup, List, ListItem, TextField } from "opui-css/react"
+import { Button, Field, FieldGroup, List, ListItem } from "opui-css/react"
 
 export default function ErrorPage() {
   return (
@@ -24,7 +24,7 @@ export default function ErrorPage() {
         <search>
           <form action="#">
             <FieldGroup orientation="horizontal">
-              <TextField
+              <Field
                 hideLabel
                 htmlFor="error-page-q"
                 label="Search Bassbook"
@@ -51,7 +51,7 @@ export default function ErrorPage() {
                   placeholder="Search bassists and bands"
                   type="search"
                 />
-              </TextField>
+              </Field>
               <Button type="submit" variant="filled">
                 Search
               </Button>

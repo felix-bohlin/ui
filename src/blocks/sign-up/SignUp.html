@@ -56,7 +56,7 @@
                 />
               </span>
             </div>
-            <opui-text-field class="ui-field">
+            <div class="ui-field">
               <label class="ui-label" for="sign-up-password">Password</label>
               <span class="ui-field-container">
                 <input
@@ -69,39 +69,41 @@
                   type="password"
                   value="four-strings-4ever"
                 />
-                <span class="ui-end">
-                  <button
-                    class="ui-button ui-round"
-                    type="button"
-                    aria-label="Show password"
-                    aria-pressed="false"
-                    command="--toggle-password"
-                    commandfor="sign-up-password"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      class="ui-icon-unchecked"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    ></svg>
-                    <svg
-                      aria-hidden="true"
-                      class="ui-icon-checked"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    ></svg>
-                  </button>
+                <span class="ui-end" id="sign-up-password-end">
+                  <opui-password-toggle>
+                    <button
+                      class="ui-button ui-round"
+                      type="button"
+                      aria-label="Show password"
+                      aria-pressed="false"
+                      command="--toggle-password"
+                      commandfor="sign-up-password"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="ui-icon-unchecked"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      ></svg>
+                      <svg
+                        aria-hidden="true"
+                        class="ui-icon-checked"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      ></svg>
+                    </button>
+                  </opui-password-toggle>
                 </span>
               </span>
               <span class="ui-end-text" id="sign-up-password-end-text"
                 >At least 12 characters, with a number or a symbol. Go
                 wild!</span
               >
-            </opui-text-field>
+            </div>
             <div class="ui-layout-column ui-x-small">
               <span
                 class="ui-layout-row ui-spread sign-up-strength-label"
@@ -338,5 +340,5 @@
 </style>
 
 <script type="module">
-  import "opui-css/elements/text-field.js"
+  import "opui-css/elements/password-toggle.js"
 </script>

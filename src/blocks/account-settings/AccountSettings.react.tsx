@@ -8,19 +8,18 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  Field,
   FieldDescription,
   FieldGroup,
   FieldLegend,
   Fieldset,
   Form,
-  Select,
+  SelectButton,
   Switch,
   Tabs,
   TabsItem,
   TabsLabel,
   TabsPanel,
-  TextField,
-  Textarea,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/react"
@@ -78,7 +77,7 @@ export default function AccountSettings() {
                       className="ui-layout-grid"
                       style={{ "--_min-inline-size": "18rem" }}
                     >
-                      <TextField
+                      <Field
                         htmlFor="account-settings-first-name"
                         label="First name"
                       >
@@ -90,8 +89,8 @@ export default function AccountSettings() {
                           type="text"
                           defaultValue="Percy"
                         />
-                      </TextField>
-                      <TextField
+                      </Field>
+                      <Field
                         htmlFor="account-settings-last-name"
                         label="Last name"
                       >
@@ -103,9 +102,9 @@ export default function AccountSettings() {
                           type="text"
                           defaultValue="Groove"
                         />
-                      </TextField>
+                      </Field>
                     </div>
-                    <TextField
+                    <Field
                       endText={
                         <>
                           <span className="ui-p ui-success">Verified</span>,
@@ -124,8 +123,8 @@ export default function AccountSettings() {
                         type="email"
                         defaultValue="percy@lowend.example"
                       />
-                    </TextField>
-                    <TextField
+                    </Field>
+                    <Field
                       htmlFor="account-settings-username"
                       label="Username"
                       start="bassbook.example/"
@@ -138,8 +137,8 @@ export default function AccountSettings() {
                         type="text"
                         defaultValue="percygroove"
                       />
-                    </TextField>
-                    <Textarea
+                    </Field>
+                    <Field
                       bottom="84 / 160"
                       htmlFor="account-settings-bio"
                       label="Bio"
@@ -152,7 +151,7 @@ export default function AccountSettings() {
                         rows={3}
                         defaultValue="Fretless bassist in a garage band. Into flatwounds, drop D and very long root notes."
                       ></textarea>
-                    </Textarea>
+                    </Field>
                   </FieldGroup>
                 </Fieldset>
                 <FieldGroup className="acct-actions">
@@ -174,7 +173,7 @@ export default function AccountSettings() {
                     Last changed on 12 June 2026. Wow, so fresh!
                   </FieldDescription>
                   <FieldGroup>
-                    <TextField
+                    <Field
                       htmlFor="account-settings-current-password"
                       label="Current password"
                     >
@@ -185,8 +184,8 @@ export default function AccountSettings() {
                         required
                         type="password"
                       />
-                    </TextField>
-                    <TextField
+                    </Field>
+                    <Field
                       endText='At least 12 characters. "slap-that-low-B" works great.'
                       htmlFor="account-settings-new-password"
                       label="New password"
@@ -200,8 +199,8 @@ export default function AccountSettings() {
                         required
                         type="password"
                       />
-                    </TextField>
-                    <TextField
+                    </Field>
+                    <Field
                       htmlFor="account-settings-confirm-password"
                       label="Confirm new password"
                     >
@@ -212,7 +211,7 @@ export default function AccountSettings() {
                         required
                         type="password"
                       />
-                    </TextField>
+                    </Field>
                   </FieldGroup>
                 </Fieldset>
                 <Fieldset>
@@ -264,32 +263,35 @@ export default function AccountSettings() {
                     className="ui-layout-grid"
                     style={{ "--_min-inline-size": "18rem" }}
                   >
-                    <Select
-                      id="account-settings-language"
-                      items={[
-                        { label: "Dansk", value: "da" },
-                        { label: "Deutsch", value: "de" },
-                        { label: "English", selected: true, value: "en" },
-                        { label: "Norsk", value: "nb" },
-                        { label: "Svenska", value: "sv" },
-                      ]}
-                      label="Language"
-                      name="language"
-                    />
-                    <Select
-                      id="account-settings-timezone"
-                      items={[
-                        { label: "London (GMT+1)", value: "london" },
-                        {
-                          label: "Stockholm (GMT+2)",
-                          selected: true,
-                          value: "stockholm",
-                        },
-                        { label: "Helsinki (GMT+3)", value: "helsinki" },
-                      ]}
+                    <Field htmlFor="account-settings-language" label="Language">
+                      <select
+                        id="account-settings-language"
+                        name="language"
+                        defaultValue="en"
+                      >
+                        <SelectButton />
+                        <option value="da">Dansk</option>
+                        <option value="de">Deutsch</option>
+                        <option value="en">English</option>
+                        <option value="nb">Norsk</option>
+                        <option value="sv">Svenska</option>
+                      </select>
+                    </Field>
+                    <Field
+                      htmlFor="account-settings-timezone"
                       label="Time zone"
-                      name="timezone"
-                    />
+                    >
+                      <select
+                        id="account-settings-timezone"
+                        name="timezone"
+                        defaultValue="stockholm"
+                      >
+                        <SelectButton />
+                        <option value="london">London (GMT+1)</option>
+                        <option value="stockholm">Stockholm (GMT+2)</option>
+                        <option value="helsinki">Helsinki (GMT+3)</option>
+                      </select>
+                    </Field>
                   </div>
                 </Fieldset>
                 <Fieldset>

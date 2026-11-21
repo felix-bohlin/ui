@@ -1,15 +1,17 @@
 import {
+  CharacterCount,
   Checkbox,
+  Field,
   Menu,
   NumberField,
+  PasswordToggle,
   Rating,
-  Select,
+  SelectButton,
   Stepper,
   Tabs,
   TabsItem,
   TabsLabel,
   TabsPanel,
-  TextField,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/react"
@@ -50,20 +52,24 @@ export default function Models() {
 
   return (
     <form>
-      <TextField htmlFor="models-city" label="City">
+      <Field htmlFor="models-city" label="City">
         <input
           aria-invalid={error ? "true" : undefined}
           defaultValue="Lund"
           id="models-city"
         />
-      </TextField>
-      <TextField htmlFor="models-password" label="Password" passwordToggle>
+      </Field>
+      <Field
+        end={<PasswordToggle htmlFor="models-password" />}
+        htmlFor="models-password"
+        label="Password"
+      >
         <input
           aria-invalid={error ? "true" : undefined}
           id="models-password"
           type="password"
         />
-      </TextField>
+      </Field>
       <NumberField htmlFor="models-quantity" label="Quantity">
         <input
           aria-invalid={error ? "true" : undefined}
@@ -75,15 +81,25 @@ export default function Models() {
       <Checkbox defaultChecked={false} error={error}>
         Newsletter
       </Checkbox>
-      <Select defaultValue="small" error={error} label="Size">
-        <option value="small">Small</option>
-        <option value="large">Large</option>
-      </Select>
-      <Select defaultValue="blue" label="Color">
-        <option value="red">Red</option>
-        <option value="blue">Blue</option>
-      </Select>
-      <TextField characterCount htmlFor="models-name" label="Name">
+      <Field htmlFor="models-size" label="Size">
+        <select
+          aria-invalid={error ? "true" : undefined}
+          defaultValue="small"
+          id="models-size"
+        >
+          <SelectButton />
+          <option value="small">Small</option>
+          <option value="large">Large</option>
+        </select>
+      </Field>
+      <Field htmlFor="models-color" label="Color">
+        <select defaultValue="blue" id="models-color">
+          <SelectButton />
+          <option value="red">Red</option>
+          <option value="blue">Blue</option>
+        </select>
+      </Field>
+      <Field endText={<CharacterCount />} htmlFor="models-name" label="Name">
         <input
           aria-describedby="models-name-end-text"
           id="models-name"
@@ -91,15 +107,18 @@ export default function Models() {
           onChange={(event) => setName(event.target.value)}
           value={name}
         />
-      </TextField>
-      <Select
-        label="Plan"
-        onChange={(event) => setPlan(event.target.value)}
-        value={plan}
-      >
-        <option value="free">Free</option>
-        <option value="paid">Paid</option>
-      </Select>
+      </Field>
+      <Field htmlFor="models-plan" label="Plan">
+        <select
+          id="models-plan"
+          onChange={(event) => setPlan(event.target.value)}
+          value={plan}
+        >
+          <SelectButton />
+          <option value="free">Free</option>
+          <option value="paid">Paid</option>
+        </select>
+      </Field>
       <Tabs name="refused-tabs" role="radiogroup" value="profile">
         <TabsItem value="profile">
           <TabsLabel>Profile</TabsLabel>
@@ -154,7 +173,16 @@ export default function Models() {
         }}
         popover="manual"
       />
-      <Select items={fruits} label="Fruit" />
+      <Field htmlFor="models-fruit" label="Fruit">
+        <select id="models-fruit">
+          <SelectButton />
+          {fruits.map((fruit) => (
+            <option key={fruit.value} value={fruit.value}>
+              {fruit.label}
+            </option>
+          ))}
+        </select>
+      </Field>
       <Stepper current={2} items={steps} />
       <button onClick={() => setFruits(fruitsOf(1))} type="button">
         Refresh fruits

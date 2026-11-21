@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { Button, TextField } from "opui-css/solid"
+import { Button, Field } from "opui-css/solid"
 import { createSignal, createUniqueId } from "solid-js"
 
 export default function SolidRoots() {
@@ -7,9 +7,9 @@ export default function SolidRoots() {
   const nameId = createUniqueId()
   return (
     <div class="example-row">
-      <TextField for={nameId} label="Name">
+      <Field for={nameId} label="Name">
         <input id={nameId} />
-      </TextField>
+      </Field>
       <Button onClick={() => setCount(count() + 1)}>Count {count()}</Button>
     </div>
   )

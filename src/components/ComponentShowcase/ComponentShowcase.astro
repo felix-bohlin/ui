@@ -24,6 +24,7 @@ import {
   DescriptionListItem,
   DescriptionListTerm,
   Divider,
+  Field,
   FieldDescription,
   FieldGroup,
   FieldLegend,
@@ -54,8 +55,6 @@ import {
   TabsItem,
   TabsLabel,
   TabsPanel,
-  Textarea,
-  TextField,
   Timeline,
   TimelineItem,
   ToggleButton,
@@ -72,6 +71,7 @@ type Props = {
 
 const { label = "Components", slugs, wrap } = Astro.props
 const Wrapper = wrap ? "ul" : Carousel
+const emailId = Astro.locals.$id("component-showcase-email")
 ---
 
 <Wrapper
@@ -221,13 +221,13 @@ const Wrapper = wrap ? "ul" : Carousel
 
     <Fragment slot="control-group">
       <ControlGroup aria-hidden="true" inert size="small" variant="outlined">
-        <TextField
+        <Field
           for="component-showcase-order-number"
           hideLabel
           label="Order number"
         >
           <input id="component-showcase-order-number" placeholder="Order" />
-        </TextField>
+        </Field>
         <Button>Search</Button>
       </ControlGroup>
     </Fragment>
@@ -238,7 +238,7 @@ const Wrapper = wrap ? "ul" : Carousel
         class="ui-layout-row ui-small showcase-copy"
         inert
       >
-        <TextField
+        <Field
           for="component-showcase-invite-link"
           hideLabel
           label="Invite link"
@@ -248,7 +248,7 @@ const Wrapper = wrap ? "ul" : Carousel
             readonly
             value="opui.dev/invite/8f3k"
           />
-        </TextField>
+        </Field>
         <Button aria-label="Copy" round variant="outlined">
           <svg
             aria-hidden="true"
@@ -308,6 +308,17 @@ const Wrapper = wrap ? "ul" : Carousel
       </div>
     </Fragment>
 
+    <Fragment slot="field">
+      <Field for="component-showcase-band" label="Band">
+        <input
+          aria-hidden="true"
+          id="component-showcase-band"
+          inert
+          value="Low End Theory"
+        />
+      </Field>
+    </Fragment>
+
     <Fragment slot="file-upload">
       <div aria-hidden="true" inert style="inline-size: 100%">
         <FileUpload
@@ -338,12 +349,12 @@ const Wrapper = wrap ? "ul" : Carousel
           <FieldLegend>Newsletter</FieldLegend>
           <FieldDescription>We will spam you to hell.</FieldDescription>
           <div class="showcase-form-row">
-            <TextField for="component-showcase-youexamplecom">
+            <Field for="component-showcase-youexamplecom">
               <input
                 id="component-showcase-youexamplecom"
                 placeholder="you@example.com"
               />
-            </TextField>
+            </Field>
             <Button variant="filled">Subscribe</Button>
           </div>
         </Fieldset>
@@ -550,25 +561,25 @@ const Wrapper = wrap ? "ul" : Carousel
     </Fragment>
 
     <Fragment slot="text-field">
-      <TextField for="component-showcase-youexamplecom-2">
+      <Field for={emailId}>
         <input
           aria-hidden="true"
-          id="component-showcase-youexamplecom-2"
+          id={emailId}
           inert
           placeholder="you@example.com"
         />
-      </TextField>
+      </Field>
     </Fragment>
 
     <Fragment slot="textarea">
-      <Textarea for="component-showcase-write-a-comment">
+      <Field for="component-showcase-write-a-comment">
         <textarea
           aria-hidden="true"
           id="component-showcase-write-a-comment"
           inert
           placeholder="Write a comment…"
         ></textarea>
-      </Textarea>
+      </Field>
     </Fragment>
 
     <Fragment slot="timeline">

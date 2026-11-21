@@ -1,11 +1,11 @@
 import {
   Button,
   Divider,
+  Field,
   FieldGroup,
   FieldLegend,
   Fieldset,
   Form,
-  TextField,
 } from "opui-css/react"
 
 export default function DividerExample() {
@@ -14,9 +14,9 @@ export default function DividerExample() {
       <Fieldset>
         <FieldLegend>Post content</FieldLegend>
         <FieldGroup>
-          <TextField htmlFor="form-divider-1" label="Title">
+          <Field htmlFor="form-divider-1" label="Title">
             <input id="form-divider-1" placeholder="My new post" />
-          </TextField>
+          </Field>
         </FieldGroup>
       </Fieldset>
       <Divider />

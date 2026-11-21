@@ -11,12 +11,12 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
+  Field,
   FieldGroup,
   FieldLegend,
   Fieldset,
   Radio,
-  Select,
-  TextField,
+  SelectButton,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/astro"
@@ -189,7 +189,7 @@ const actions = ["None", ...actionValues]
     />
 
     <div class="review-toolbar ui-not-rich-text" id="todo-filters">
-      <TextField
+      <Field
         class="review-search"
         for="todo-search"
         hideLabel
@@ -202,7 +202,7 @@ const actions = ["None", ...actionValues]
           placeholder="Filter todos"
           type="search"
         />
-      </TextField>
+      </Field>
       <ToggleGroup
         aria-label="Show todos"
         class="review-stages"
@@ -228,48 +228,52 @@ const actions = ["None", ...actionValues]
         </ToggleButton>)}
       </ToggleGroup>
       <div class="todo-selects">
-        <Select
+        <Field
           autoFit
+          for="todo-filter-section"
           hideLabel
-          id="todo-filter-section"
-          items={[
-            { label: "All sections", value: "" },
-            ...todoSections.map((section) => ({
-              label: section.title,
-              value: section.id,
-            })),
-          ]}
           label="Section"
           size="small"
-        />
-        <Select
+        >
+          <select id="todo-filter-section">
+            <SelectButton />
+            <option value="">All sections</option>
+            {todoSections.map((section) => <option value={section.id}>
+              {section.title}
+            </option>)}
+          </select>
+        </Field>
+        <Field
           autoFit
+          for="todo-filter-severity"
           hideLabel
-          id="todo-filter-severity"
-          items={[
-            { label: "All severities", value: "" },
-            { label: "Severity 1", value: "1" },
-            { label: "Severity 2", value: "2" },
-            { label: "Severity 3", value: "3" },
-            { label: "Severity 4 and up", value: "4" },
-          ]}
           label="Severity"
           size="small"
-        />
-        <Select
+        >
+          <select id="todo-filter-severity">
+            <SelectButton />
+            <option value="">All severities</option>
+            <option value="1">Severity 1</option>
+            <option value="2">Severity 2</option>
+            <option value="3">Severity 3</option>
+            <option value="4">Severity 4 and up</option>
+          </select>
+        </Field>
+        <Field
           autoFit
+          for="todo-filter-component"
           hideLabel
-          id="todo-filter-component"
-          items={[
-            { label: "All components", value: "" },
-            ...components.map((component) => ({
-              label: component,
-              value: slugify(component),
-            })),
-          ]}
           label="Component"
           size="small"
-        />
+        >
+          <select id="todo-filter-component">
+            <SelectButton />
+            <option value="">All components</option>
+            {components.map((component) => <option value={slugify(component)}>
+              {component}
+            </option>)}
+          </select>
+        </Field>
       </div>
       <Button id="todo-expand" size="small" variant="transparent"
         >Expand all</Button

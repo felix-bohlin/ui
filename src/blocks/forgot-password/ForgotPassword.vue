@@ -7,9 +7,9 @@ import {
   CalloutIcon,
   Card,
   CardContent,
+  Field,
   FieldGroup,
   Form,
-  TextField,
 } from "opui-css/vue"
 </script>
 
@@ -54,7 +54,7 @@ import {
           </hgroup>
           <Form action="#">
             <FieldGroup>
-              <TextField
+              <Field
                 endText="The link works for 30 minutes, so be quick!"
                 for="forgot-password-email"
                 label="Email"
@@ -68,7 +68,7 @@ import {
                   required
                   type="email"
                 />
-              </TextField>
+              </Field>
               <Button
                 class="forgot-password-submit"
                 type="submit"

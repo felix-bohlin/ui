@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { Button, Checkbox, TextField } from "opui-css/vue"
+import { Button, Checkbox, Field } from "opui-css/vue"
 </script>
 
 <template>
   <form>
-    <TextField for="name" label="Name">
+    <Field for="name" label="Name">
       <input id="name" name="name" />
-    </TextField>
+    </Field>
     <Checkbox name="subscribe">Subscribe</Checkbox>
     <Button type="submit" variant="filled" color="primary">Save</Button>
   </form>

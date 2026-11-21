@@ -1,5 +1,11 @@
 ---
-import { Button, Textarea, ToggleButton, ToggleGroup } from "opui-css/astro"
+import {
+  Button,
+  CharacterCount,
+  Field,
+  ToggleButton,
+  ToggleGroup,
+} from "opui-css/astro"
 import { FEED_FILTERS, PAGE_SIZE, POSTS, newPost } from "reference-shared"
 import PostCard from "../components/PostCard.astro"
 import Layout from "../layouts/Layout.astro"
@@ -9,7 +15,7 @@ import Layout from "../layouts/Layout.astro"
   <div class="app-screen" data-screen="feed">
     <h1>Feed</h1>
     <form aria-label="New post" class="ui-layout-column" data-composer>
-      <Textarea characterCount for="feed-post" label="What's on your mind?">
+      <Field for="feed-post" label="What's on your mind?">
         <textarea
           aria-describedby="feed-post-end-text"
           id="feed-post"
@@ -17,7 +23,8 @@ import Layout from "../layouts/Layout.astro"
           name="text"
           required
         ></textarea>
-      </Textarea>
+        <CharacterCount slot="end-text" />
+      </Field>
       <div>
         <Button type="submit" variant="filled">Post</Button>
       </div>

@@ -1,12 +1,15 @@
 /** @jsxImportSource @solidjs/web */
-import { Textarea } from "opui-css/solid"
+import { CharacterCount, Field } from "opui-css/solid"
 
-export default function CharacterCount() {
+export default function CharacterCountExample() {
   return (
-    <Textarea
-      characterCount
-      characterCountLabel="{count} characters to go"
-      endText="Up to 160 characters, shown on your profile."
+    <Field
+      endText={
+        <>
+          Up to 160 characters, shown on your profile.
+          <CharacterCount label="{count} characters to go" />
+        </>
+      }
       for="textarea-character-count-1"
       label="Bio"
     >
@@ -15,6 +18,6 @@ export default function CharacterCount() {
         id="textarea-character-count-1"
         maxlength="160"
       ></textarea>
-    </Textarea>
+    </Field>
   )
 }

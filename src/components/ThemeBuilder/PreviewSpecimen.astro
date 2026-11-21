@@ -13,6 +13,7 @@ import {
   CardHeader,
   Checkbox,
   Chip,
+  Field,
   FieldGroup,
   FieldLegend,
   Fieldset,
@@ -21,7 +22,7 @@ import {
   Progress,
   Radio,
   Range,
-  Select,
+  SelectButton,
   Switch,
   Table,
   TableBody,
@@ -33,8 +34,6 @@ import {
   TabsItem,
   TabsLabel,
   TabsPanel,
-  TextField,
-  Textarea,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/astro"
@@ -144,7 +143,7 @@ const callouts = [
 
   <div class="specimen-block specimen-form">
     <p class="specimen-caption">Fields</p>
-    <TextField
+    <Field
       endText="We never share it."
       for={`${specimenId}-email`}
       label="Email"
@@ -157,8 +156,8 @@ const callouts = [
         required
         type="email"
       />
-    </TextField>
-    <TextField
+    </Field>
+    <Field
       endText="That name is taken."
       for={`${specimenId}-username`}
       label="Username"
@@ -170,20 +169,23 @@ const callouts = [
         name={name("username")}
         value="slapqueen"
       />
-    </TextField>
-    <Select label="Plan" name={name("plan")}>
-      <option>Free</option>
-      <option selected>Gold</option>
-      <option>Platinum</option>
-    </Select>
-    <Textarea for={`${specimenId}-message`} label="Message">
+    </Field>
+    <Field for={`${specimenId}-plan`} label="Plan">
+      <select id={`${specimenId}-plan`} name={name("plan")}>
+        <SelectButton />
+        <option>Free</option>
+        <option selected>Gold</option>
+        <option>Platinum</option>
+      </select>
+    </Field>
+    <Field for={`${specimenId}-message`} label="Message">
       <textarea
         id={`${specimenId}-message`}
         name={name("message")}
         placeholder="Tell us about your bass"
         rows="2"
       ></textarea>
-    </Textarea>
+    </Field>
   </div>
 
   <div class="specimen-block specimen-form">

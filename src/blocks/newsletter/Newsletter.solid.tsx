@@ -3,6 +3,7 @@ import {
   Button,
   Card,
   Checkbox,
+  Field,
   FieldDescription,
   FieldGroup,
   FieldLegend,
@@ -10,7 +11,6 @@ import {
   Form,
   List,
   ListItem,
-  TextField,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/solid"
@@ -58,7 +58,7 @@ export default function Newsletter() {
           </div>
           <Form action="#" class="newsletter-form">
             <FieldGroup orientation="horizontal">
-              <TextField for="newsletter-email" label="Email">
+              <Field for="newsletter-email" label="Email">
                 <input
                   autocomplete="email"
                   id="newsletter-email"
@@ -67,7 +67,7 @@ export default function Newsletter() {
                   required
                   type="email"
                 />
-              </TextField>
+              </Field>
               <Button type="submit" variant="filled">
                 Sign me up!
               </Button>

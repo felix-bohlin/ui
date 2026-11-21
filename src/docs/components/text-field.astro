@@ -2,41 +2,34 @@
 import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
 import DefaultIcon from "./partials/DefaultIcon.astro"
-import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
-import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import {
   Callout as UICallout,
   CalloutContent as UICalloutContent,
   CalloutIcon as UICalloutIcon,
   Switch as UISwitch,
-  TextField as UITextField,
 } from "opui-css/astro"
 import Conditional from "../../components/Conditional.astro"
-import ValidationNotes from "./partials/ValidationNotes.astro"
-import PropOrClass from "../../components/PropOrClass.astro"
 
 import TextFieldCSS from "@opui/css/components/text-field.css?raw"
 
-import textFieldApi from "../../component-api/text-field/api"
+import passwordToggleApi from "../../component-api/password-toggle/api"
 import TextFieldBuild from "../../components/UnderTheHood/TextFieldBuild.astro"
 
 export const description =
-  "A single-line text input with a label, start and end text, and validation."
+  "A single-line text input in a Field: input types, numbers as text, a password toggle and suggestions."
 
 export const keywords = ["email", "input", "password", "search", "text box"]
 ---
 
 <Component
   description={description}
-  heroAnatomy
   slug="text-field"
   browserSupport={[
     "alt-text-generated-content",
     "container-queries",
     "datalist",
-    "field-sizing",
     "has",
     "invoker-commands",
     "lh",
@@ -48,7 +41,7 @@ export const keywords = ["email", "input", "password", "search", "text box"]
     "reading-flow":
       "Without `reading-flow`, Tab and screen readers follow the markup, which puts the top and start parts before the control, as they're drawn. Hand-written HTML needs that order too.",
   }}
-  apis={[{ title: "Text field API", api: textFieldApi }]}
+  apis={[{ title: "Password toggle API", api: passwordToggleApi }]}
   installationTabs={[
     { title: "text-field.css", code: TextFieldCSS, lang: "css" },
   ]}
@@ -87,6 +80,12 @@ export const keywords = ["email", "input", "password", "search", "text box"]
 
   <section id="input">
     <h2>Input</h2>
+    <p>
+      A text field is a <DocLink href="/components/field">Field</DocLink> with
+      an <code>&lt;input&gt;</code> inside. The Field page shows the variants,
+      sizes, start and end text, affixes, validation and layout every field
+      shares.
+    </p>
     <Conditional as="p">
       <Fragment slot="components">
         Write the <code>&lt;input&gt;</code> inside the field, with its
@@ -114,70 +113,23 @@ export const keywords = ["email", "input", "password", "search", "text box"]
     </p>
   </section>
 
-  <section id="variants">
-    <h2>Variants</h2>
-    <p>
-      Outlined by default. Use
-      <PropOrClass prop='variant="filled"' class=".ui-filled" /> for a filled
-      field.
-    </p>
-    <AutoExample name="Variants" row />
-  </section>
-
-  <section id="sizes">
-    <h2>Sizes</h2>
-    <AutoExample name="Sizes" row />
-  </section>
-
-  <section id="hidden-label">
-    <h2>Hidden label</h2>
-    <p>
-      <PropOrClass prop="hideLabel" class=".ui-sr-only" /> hides the label but
-      keeps the accessible name.
-    </p>
-    <AutoExample name="HiddenLabel" />
-    <p>Without a label, add <code>aria-label</code> to the input.</p>
-    <AutoExample name="NoLabel" />
-  </section>
-
-  <section id="start-text">
-    <h2>Start text</h2>
-    <p>Use <PropOrClass prop="startText" class=".ui-start-text" />.</p>
-    <AutoExample name="StartText" row />
-  </section>
-
-  <section id="end-text">
-    <h2>End text</h2>
-    <p>
-      Use <PropOrClass prop="endText" class=".ui-end-text" />, and point the
-      input's <code>aria-describedby</code> at it.
-    </p>
-    <AutoExample name="EndText" centered />
-  </section>
-
-  <section id="character-count">
-    <h2>Character count</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        With <code>maxlength</code> on the input, set <code>characterCount</code
-        >. Screen readers only hear the count near the limit, so name the limit
-        in the end text.
-      </Fragment>
-      <Fragment slot="html">
-        With <code>maxlength</code>, import
-        <code>opui-css/elements/character-count.js</code>. Screen readers only
-        hear the count near the limit, so name the limit in the end text.
-      </Fragment>
-    </Conditional>
-    <AutoExample name="CharacterCount" centered />
-  </section>
-
   <section id="password-toggle">
     <h2>Password toggle</h2>
     <Conditional as="p">
-      <Fragment slot="components"> Set <code>passwordToggle</code>. </Fragment>
+      <Fragment slot="components">
+        Put a <code>PasswordToggle</code> in the field's <code>end</code>, with
+        <code>for</code> set to the input's <code>id</code>, and leave the end
+        part out of the input's <code>aria-describedby</code>.
+      </Fragment>
+      <Fragment slot="react">
+        Put a <code>PasswordToggle</code> in the field's <code>end</code>, with
+        <code>htmlFor</code> set to the input's <code>id</code>, and leave the
+        end part out of the input's <code>aria-describedby</code>.
+      </Fragment>
       <Fragment slot="html">
-        Import <code>opui-css/elements/text-field.js</code>.
+        Put <code>&lt;opui-password-toggle&gt;</code> around the button in
+        <code>.ui-end</code>, and import
+        <code>opui-css/elements/password-toggle.js</code>.
       </Fragment>
     </Conditional>
     <DefaultIcon
@@ -185,31 +137,6 @@ export const keywords = ["email", "input", "password", "search", "text box"]
       tokens={["--ui-icon-show", "--ui-icon-hide"]}
     />
     <AutoExample name="PasswordToggle" row />
-  </section>
-
-  <section id="affix">
-    <h2>Affix</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Use <code>start</code>, <code>end</code>, <code>top</code> and
-        <code>bottom</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Use <code>.ui-start</code>, <code>.ui-end</code>, <code>.ui-top</code>
-        and <code>.ui-bottom</code>.
-      </Fragment>
-    </Conditional>
-    <p>
-      A text affix too long for the field ends in an ellipsis, so the input
-      keeps at least <code>--_min-inline-size</code> (<code>8ch</code>). The
-      full text stays in the field's accessible name.
-    </p>
-
-    <AutoExample name="Affix" column />
-
-    <h3 id="top-and-bottom">Top and bottom</h3>
-
-    <AutoExample name="TopAndBottom" column />
   </section>
 
   <section id="binding">
@@ -233,33 +160,6 @@ export const keywords = ["email", "input", "password", "search", "text box"]
       <Fragment slot="vue">Use <code>v-model</code> on the input.</Fragment>
     </Conditional>
     <AutoExample name="Binding" column />
-  </section>
-
-  <section id="validation">
-    <h2>Validation</h2>
-    <ValidationNotes element="input" own subject="Fields" />
-
-    <AutoExample name="Validation" column spacious />
-  </section>
-
-  <section id="spread">
-    <h2>Spread</h2>
-    <p>
-      <PropOrClass prop="spread" class=".ui-spread" /> puts the label beside the
-      input.
-    </p>
-
-    <AutoExample name="Spread" column spacious />
-  </section>
-
-  <section id="auto-fit">
-    <h2>Auto-fit</h2>
-    <p>
-      <PropOrClass prop="autoFit" class=".ui-auto-fit" /> sizes the field to its
-      content.
-    </p>
-
-    <AutoExample name="AutoFit" class="flex" />
   </section>
 
   <section id="input-types">
@@ -348,15 +248,6 @@ export const keywords = ["email", "input", "password", "search", "text box"]
     <h3 id="file">File</h3>
 
     <AutoExample name="File" row />
-
-    <h3 id="drop-zone">Drop zone</h3>
-    <p>
-      Use <PropOrClass prop="dropZone" class=".ui-drop-zone" />. For files that
-      upload as they're picked, use a
-      <DocLink href="/components/file-upload">File upload</DocLink>.
-    </p>
-
-    <AutoExample name="DropZone" />
   </section>
 
   <section id="autosuggest">
@@ -379,31 +270,5 @@ export const keywords = ["email", "input", "password", "search", "text box"]
         in the affixes stay out of the name.
       </li>
     </ul>
-    <KeyboardSupport />
-  </Fragment>
-
-  <Fragment slot="anatomy">
-    <Anatomy zoom={1.25}>
-      <UITextField
-        characterCount
-        endText="Supporting text"
-        for="text-field-anatomy"
-        label="Label"
-        passwordToggle
-        startText="Start text"
-      >
-        <input
-          aria-describedby="text-field-anatomy-start-text text-field-anatomy-top text-field-anatomy-start text-field-anatomy-bottom text-field-anatomy-end-text"
-          id="text-field-anatomy"
-          maxlength={24}
-          placeholder="Placeholder"
-          type="password"
-          value="Value"
-        />
-        <span slot="top">Top</span>
-        <span slot="start">€</span>
-        <span slot="bottom">Bottom</span>
-      </UITextField>
-    </Anatomy>
   </Fragment>
 </Component>

@@ -7,7 +7,7 @@ import {
   CardActions,
   CardContent,
   Chip,
-  TextField,
+  Field,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/vue"
@@ -44,7 +44,7 @@ import {
       is="search"
       class="ui-layout-row ui-spread user-directory-filters"
     >
-      <TextField for="user-directory-q" hideLabel label="Search bassists">
+      <Field for="user-directory-q" hideLabel label="Search bassists">
         <input
           aria-describedby="user-directory-q-start"
           id="user-directory-q"
@@ -67,7 +67,7 @@ import {
             ></path>
           </svg>
         </template>
-      </TextField>
+      </Field>
       <ToggleGroup
         aria-label="Bass type"
         name="user-directory-department"

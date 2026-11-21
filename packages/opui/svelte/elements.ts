@@ -29,6 +29,7 @@ declare module "svelte/elements" {
         | null
     }
     "opui-number-field": HTMLAttributes<HTMLElement>
+    "opui-password-toggle": HTMLAttributes<HTMLElement>
     "opui-reactions": HTMLAttributes<HTMLElement> & {
       onreaction?:
         | EventHandler<CustomEvent<ReactionDetail>, HTMLElement>
@@ -47,7 +48,6 @@ declare module "svelte/elements" {
         | undefined
         | null
     }
-    "opui-text-field": HTMLAttributes<HTMLElement>
     "opui-toaster": HTMLAttributes<HTMLElement> & {
       "close-label"?: string | undefined | null
       duration?: number | undefined | null

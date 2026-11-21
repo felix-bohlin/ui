@@ -8,25 +8,19 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  Field,
   FieldGroup,
   FieldLegend,
   Fieldset,
   Form,
   OneTimeCode,
   Radio,
-  Select,
+  SelectButton,
   Switch,
-  TextField,
 } from "opui-css/solid"
 import { verifyCode } from "reference-shared"
 import { createSignal, Show } from "solid-js"
 import { useTitle } from "../lib/title"
-
-const LANGUAGES = [
-  { label: "Deutsch", value: "de" },
-  { label: "English", value: "en" },
-  { label: "Svenska", value: "sv" },
-]
 
 export default function Settings() {
   useTitle(() => "Settings")
@@ -54,14 +48,14 @@ export default function Settings() {
           <Fieldset>
             <FieldLegend>Account</FieldLegend>
             <FieldGroup>
-              <TextField for="settings-display-name" label="Display name">
+              <Field for="settings-display-name" label="Display name">
                 <input
                   defaultValue="Sam Rivera"
                   id="settings-display-name"
                   name="name"
                 />
-              </TextField>
-              <TextField for="settings-email" label="Email">
+              </Field>
+              <Field for="settings-email" label="Email">
                 <input
                   defaultValue="sam@example.com"
                   id="settings-email"
@@ -69,13 +63,17 @@ export default function Settings() {
                   required
                   type="email"
                 />
-              </TextField>
-              <Select
-                items={LANGUAGES}
-                label="Language"
-                name="language"
-                value="en"
-              />
+              </Field>
+              <Field for="settings-language" label="Language">
+                <select id="settings-language" name="language">
+                  <SelectButton />
+                  <option value="de">Deutsch</option>
+                  <option selected value="en">
+                    English
+                  </option>
+                  <option value="sv">Svenska</option>
+                </select>
+              </Field>
             </FieldGroup>
           </Fieldset>
           <Fieldset>

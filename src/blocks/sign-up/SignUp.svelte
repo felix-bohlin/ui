@@ -4,6 +4,7 @@
     Card,
     CardContent,
     Checkbox,
+    Field,
     FieldDescription,
     FieldGroup,
     FieldLegend,
@@ -11,9 +12,9 @@
     Form,
     List,
     ListItem,
+    PasswordToggle,
     Progress,
     RadioInput,
-    TextField,
   } from "opui-css/svelte"
 </script>
 
@@ -31,7 +32,7 @@
         <Form action="#">
           <FieldGroup>
             <FieldGroup orientation="horizontal">
-              <TextField for="sign-up-first-name" label="First name">
+              <Field for="sign-up-first-name" label="First name">
                 <input
                   autocomplete="given-name"
                   id="sign-up-first-name"
@@ -40,8 +41,8 @@
                   required
                   type="text"
                 />
-              </TextField>
-              <TextField for="sign-up-last-name" label="Last name">
+              </Field>
+              <Field for="sign-up-last-name" label="Last name">
                 <input
                   autocomplete="family-name"
                   id="sign-up-last-name"
@@ -50,9 +51,9 @@
                   required
                   type="text"
                 />
-              </TextField>
+              </Field>
             </FieldGroup>
-            <TextField for="sign-up-email" label="Email">
+            <Field for="sign-up-email" label="Email">
               <input
                 autocomplete="email"
                 id="sign-up-email"
@@ -61,12 +62,11 @@
                 required
                 type="email"
               />
-            </TextField>
-            <TextField
+            </Field>
+            <Field
               endText="At least 12 characters, with a number or a symbol. Go wild!"
               for="sign-up-password"
               label="Password"
-              passwordToggle
             >
               <input
                 aria-describedby="sign-up-password-end-text"
@@ -78,7 +78,10 @@
                 type="password"
                 value="four-strings-4ever"
               />
-            </TextField>
+              {#snippet end()}
+                <PasswordToggle for="sign-up-password" />
+              {/snippet}
+            </Field>
             <div class="ui-layout-column ui-x-small">
               <span
                 class="ui-layout-row ui-spread sign-up-strength-label"

@@ -56,8 +56,6 @@ const KNOWN: Record<string, string> = {
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "svelte/Reactions without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
-  'svelte/Select with items=[{"label":"A","value":"a"}], set after a render without it':
-    "TODO.md Bugs: Select: items that arrive after mount select nothing",
   "svelte/SelectAll without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "svelte/SortableTable without native attributes, unset after a render with it":

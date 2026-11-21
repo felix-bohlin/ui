@@ -12,6 +12,7 @@ import {
   DescriptionListItem,
   DescriptionListTerm,
   Divider,
+  Field,
   FieldGroup,
   FieldLegend,
   Fieldset,
@@ -19,13 +20,12 @@ import {
   List,
   ListItem,
   RadioInput,
-  Select,
+  SelectButton,
   Stepper,
   Tabs,
   TabsItem,
   TabsLabel,
   TabsPanel,
-  TextField,
 } from "opui-css/vue"
 </script>
 
@@ -53,7 +53,7 @@ import {
         <Fieldset>
           <FieldLegend>Contact</FieldLegend>
           <FieldGroup>
-            <TextField for="checkout-email" label="Email">
+            <Field for="checkout-email" label="Email">
               <input
                 autocomplete="email"
                 id="checkout-email"
@@ -63,7 +63,7 @@ import {
                 type="email"
                 value="ines.hertz@example.com"
               />
-            </TextField>
+            </Field>
             <Checkbox checked id="checkout-news" name="news">
               Email me about new gear and totally rad offers
             </Checkbox>
@@ -73,7 +73,7 @@ import {
           <FieldLegend>Shipping address</FieldLegend>
           <FieldGroup>
             <FieldGroup orientation="horizontal">
-              <TextField for="checkout-first-name" label="First name">
+              <Field for="checkout-first-name" label="First name">
                 <input
                   autocomplete="given-name"
                   id="checkout-first-name"
@@ -82,8 +82,8 @@ import {
                   type="text"
                   value="Ines"
                 />
-              </TextField>
-              <TextField for="checkout-last-name" label="Last name">
+              </Field>
+              <Field for="checkout-last-name" label="Last name">
                 <input
                   autocomplete="family-name"
                   id="checkout-last-name"
@@ -92,9 +92,9 @@ import {
                   type="text"
                   value="Hertz"
                 />
-              </TextField>
+              </Field>
             </FieldGroup>
-            <TextField for="checkout-address" label="Street address">
+            <Field for="checkout-address" label="Street address">
               <input
                 autocomplete="address-line1"
                 id="checkout-address"
@@ -103,9 +103,9 @@ import {
                 type="text"
                 value="4 Drop D Drive"
               />
-            </TextField>
+            </Field>
             <FieldGroup orientation="horizontal">
-              <TextField for="checkout-postal-code" label="Postal code">
+              <Field for="checkout-postal-code" label="Postal code">
                 <input
                   autocomplete="postal-code"
                   id="checkout-postal-code"
@@ -115,8 +115,8 @@ import {
                   type="text"
                   value="444 44"
                 />
-              </TextField>
-              <TextField for="checkout-city" label="City">
+              </Field>
+              <Field for="checkout-city" label="City">
                 <input
                   autocomplete="address-level2"
                   id="checkout-city"
@@ -125,22 +125,23 @@ import {
                   type="text"
                   value="Bassville"
                 />
-              </TextField>
+              </Field>
             </FieldGroup>
             <FieldGroup orientation="horizontal">
-              <Select
-                autocomplete="country-name"
-                id="checkout-country"
-                :items="[
-                  { label: 'Denmark', value: 'dk' },
-                  { label: 'Finland', value: 'fi' },
-                  { label: 'Norway', value: 'no' },
-                  { label: 'Sweden', selected: true, value: 'se' },
-                ]"
-                label="Country"
-                name="country"
-              />
-              <TextField
+              <Field for="checkout-country" label="Country">
+                <select
+                  autocomplete="country-name"
+                  id="checkout-country"
+                  name="country"
+                >
+                  <SelectButton />
+                  <option value="dk">Denmark</option>
+                  <option value="fi">Finland</option>
+                  <option value="no">Norway</option>
+                  <option selected value="se">Sweden</option>
+                </select>
+              </Field>
+              <Field
                 endText="Only for delivery updates, promise!"
                 for="checkout-phone"
                 label="Phone"
@@ -153,7 +154,7 @@ import {
                   type="tel"
                   value="555 0144"
                 />
-              </TextField>
+              </Field>
             </FieldGroup>
           </FieldGroup>
         </Fieldset>
@@ -221,7 +222,7 @@ import {
               <TabsLabel>Card</TabsLabel>
               <TabsPanel>
                 <FieldGroup>
-                  <TextField for="checkout-card-number" label="Card number">
+                  <Field for="checkout-card-number" label="Card number">
                     <input
                       aria-describedby="checkout-card-number-start"
                       autocomplete="cc-number"
@@ -246,9 +247,9 @@ import {
                         ></path>
                       </svg>
                     </template>
-                  </TextField>
+                  </Field>
                   <FieldGroup orientation="horizontal">
-                    <TextField for="checkout-card-expiry" label="Expiry date">
+                    <Field for="checkout-card-expiry" label="Expiry date">
                       <input
                         autocomplete="cc-exp"
                         id="checkout-card-expiry"
@@ -257,8 +258,8 @@ import {
                         placeholder="MM / YY"
                         type="text"
                       />
-                    </TextField>
-                    <TextField for="checkout-card-cvc" label="Security code">
+                    </Field>
+                    <Field for="checkout-card-cvc" label="Security code">
                       <input
                         autocomplete="cc-csc"
                         id="checkout-card-cvc"
@@ -267,7 +268,7 @@ import {
                         placeholder="CVC"
                         type="text"
                       />
-                    </TextField>
+                    </Field>
                   </FieldGroup>
                   <Checkbox checked name="billing-same">
                     Billing address is the same as shipping
@@ -386,14 +387,14 @@ import {
           </List>
           <Divider />
           <ControlGroup size="small" variant="outlined">
-            <TextField for="checkout-discount" label="Discount code">
+            <Field for="checkout-discount" label="Discount code">
               <input
                 id="checkout-discount"
                 name="discount"
                 type="text"
                 value="LOWEND10"
               />
-            </TextField>
+            </Field>
             <Button type="button">Apply</Button>
           </ControlGroup>
           <DescriptionList border="solid" orientation="horizontal">

@@ -8,13 +8,14 @@ import {
   CardHeader,
   Checkbox,
   Chip,
-  Select,
-  TextField,
+  Field,
+  SelectButton,
 } from "opui-css/astro"
 
 const id = "theme-dice"
 
 const { link } = Astro.locals
+const roleId = Astro.locals.$id("theme-dice-role")
 ---
 
 <div class="theme-dice ui-not-rich-text" id={id}>
@@ -54,19 +55,22 @@ const { link } = Astro.locals
             <Fragment slot="indicator">3</Fragment>
           </Badge>
         </div>
-        <TextField for="theme-dice-email" label="Email">
+        <Field for="theme-dice-email" label="Email">
           <input
             id="theme-dice-email"
             name="theme-dice-email"
             placeholder="bassist@lowend.example"
             type="email"
           />
-        </TextField>
-        <Select label="Role" name="theme-dice-role">
-          <option>Admin</option>
-          <option>Fan</option>
-          <option>Member</option>
-        </Select>
+        </Field>
+        <Field for={roleId} label="Role">
+          <select id={roleId} name="theme-dice-role">
+            <SelectButton />
+            <option>Admin</option>
+            <option>Fan</option>
+            <option>Member</option>
+          </select>
+        </Field>
         <Checkbox label="Send me a copy" name="theme-dice-copy" />
       </CardContent>
       <CardActions>

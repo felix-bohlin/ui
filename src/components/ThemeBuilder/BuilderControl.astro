@@ -1,8 +1,9 @@
 ---
 import {
   Button,
+  Field,
   Range,
-  Select,
+  SelectButton,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/astro"
@@ -44,6 +45,7 @@ const options =
       : []
 const isColor = control.kind === "color" || control.kind === "brand"
 const name = control.kind === "brand" ? "Brand color" : control.label
+const selectId = Astro.locals.$id("builder-select")
 ---
 
 <div
@@ -175,36 +177,38 @@ const name = control.kind === "brand" ? "Brand color" : control.label
     >)}
   </ToggleGroup>}
 
-  {control.kind === "choice" && control.display === "select" && <Select
-    aria-describedby={describedBy}
+  {control.kind === "choice" && control.display === "select" && <Field
+    for={selectId}
     hideLabel
     label={control.label}
-    name={base}
     size="small"
   >
-    <option disabled hidden value="custom">Custom</option>
-    {optionGroups.map((group) => {
-      const options = groupedOptions(group).map((option) => <option
-        style={
-          control.font && fontOf(option.label)
-            ? `font-family: ${fontOf(option.label)}`
-            : undefined
-        }
-        value={option.value}
-      >
-        {control.icons && option.preview && <span
-          aria-hidden="true"
-          class="builder-icon-preview"
+    <select aria-describedby={describedBy} id={selectId} name={base}>
+      <SelectButton />
+      <option disabled hidden value="custom">Custom</option>
+      {optionGroups.map((group) => {
+        const options = groupedOptions(group).map((option) => <option
+          style={
+            control.font && fontOf(option.label)
+              ? `font-family: ${fontOf(option.label)}`
+              : undefined
+          }
+          value={option.value}
         >
-          {option.preview.map((image) => (
-            <span style={`mask-image: ${image}`} />
-          ))}
-        </span>}
-        {option.label}
-      </option>)
-      return group ? <optgroup label={group}>{options}</optgroup> : options
-    })}
-  </Select>}
+          {control.icons && option.preview && <span
+            aria-hidden="true"
+            class="builder-icon-preview"
+          >
+            {option.preview.map((image) => (
+              <span style={`mask-image: ${image}`} />
+            ))}
+          </span>}
+          {option.label}
+        </option>)
+        return group ? <optgroup label={group}>{options}</optgroup> : options
+      })}
+    </select>
+  </Field>}
 
   {control.kind === "range" && (
     <Range

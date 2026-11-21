@@ -1,5 +1,5 @@
 ---
-import { Select } from "opui-css/astro"
+import { Field, SelectButton } from "opui-css/astro"
 import { FRAMEWORKS } from "../utils/framework"
 
 type Props = {
@@ -9,16 +9,20 @@ type Props = {
 const { size } = Astro.props
 
 const currentFramework = Astro.locals.framework
+const frameworkId = Astro.locals.$id("framework-picker")
 ---
 
-<Select aria-label="Framework" class="framework-picker" size={size}>
-  {FRAMEWORKS.map((framework) => <option
-    value={framework.id}
-    selected={framework.id === currentFramework}
-  >
-    {framework.label}
-  </option>)}
-</Select>
+<Field class="framework-picker" for={frameworkId} size={size}>
+  <select aria-label="Framework" id={frameworkId}>
+    <SelectButton />
+    {FRAMEWORKS.map((framework) => <option
+      value={framework.id}
+      selected={framework.id === currentFramework}
+    >
+      {framework.label}
+    </option>)}
+  </select>
+</Field>
 
 <script>
   import {

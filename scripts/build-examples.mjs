@@ -69,13 +69,7 @@ export const REACT_FIXED_VALUE_TYPES = [
   "submit",
 ]
 
-export const REACT_DEFAULT_VALUE = [
-  "Range",
-  "Rating",
-  "Select",
-  "Tabs",
-  "ToggleGroup",
-]
+export const REACT_DEFAULT_VALUE = ["Range", "Rating", "Tabs", "ToggleGroup"]
 
 export const SVELTE_DEFAULT_VALUE = ["Range"]
 

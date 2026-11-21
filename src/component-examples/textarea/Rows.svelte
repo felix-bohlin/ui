@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { Textarea } from "opui-css/svelte"
+  import { Field } from "opui-css/svelte"
 </script>
 
-<Textarea for="textarea-rows-1" label="Reply">
+<Field for="textarea-rows-1" label="Reply">
   <textarea id="textarea-rows-1" placeholder="Write a reply" rows="1"
   ></textarea>
-</Textarea>
-<Textarea for="textarea-rows-2" label="Review">
+</Field>
+<Field for="textarea-rows-2" label="Review">
   <textarea id="textarea-rows-2" placeholder="Write a review" rows="6"
   ></textarea>
-</Textarea>
+</Field>

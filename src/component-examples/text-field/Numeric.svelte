@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { TextField } from "opui-css/svelte"
+  import { Field } from "opui-css/svelte"
 </script>
 
-<TextField for="text-field-numeric-1" label="Verification code">
+<Field for="text-field-numeric-1" label="Verification code">
   <input
     id="text-field-numeric-1"
     inputmode="numeric"
     pattern="[0-9]*"
     placeholder="123456"
   />
-</TextField>
+</Field>

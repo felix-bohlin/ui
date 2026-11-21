@@ -6,7 +6,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  Textarea,
+  Field,
 } from "opui-css/astro"
 
 type Props = {
@@ -25,10 +25,10 @@ const { label } = Astro.props
       This browser blocked copying. The text is selected: press and hold it,
       then copy.
     </p>
-    <Textarea class="copy-fallback-field" for="copy-fallback-label">
+    <Field class="copy-fallback-field" for="copy-fallback-label">
       <textarea id="copy-fallback-label" readonly rows={8}></textarea>
       <span class="ui-sr-only" slot="label">{label}</span>
-    </Textarea>
+    </Field>
   </DialogContent>
   <DialogFooter>
     <Button commandfor="copy-fallback" command="close">Close</Button>

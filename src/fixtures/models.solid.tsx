@@ -1,20 +1,22 @@
 /** @jsxImportSource @solidjs/web */
 import {
+  CharacterCount,
   Checkbox,
+  Field,
   Menu,
   NumberField,
+  PasswordToggle,
   Rating,
-  Select,
+  SelectButton,
   Stepper,
   Tabs,
   TabsItem,
   TabsLabel,
   TabsPanel,
-  TextField,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/solid"
-import { createSignal } from "solid-js"
+import { createSignal, For } from "solid-js"
 
 const actionsOf = (round: number) => [
   { keepOpen: true, label: "Refresh" },
@@ -46,20 +48,24 @@ const Models = () => {
 
   return (
     <form>
-      <TextField for="models-city" label="City">
+      <Field for="models-city" label="City">
         <input
           aria-invalid={error() ? "true" : undefined}
           id="models-city"
           defaultValue="Lund"
         />
-      </TextField>
-      <TextField for="models-password" label="Password" passwordToggle>
+      </Field>
+      <Field
+        end={<PasswordToggle for="models-password" />}
+        for="models-password"
+        label="Password"
+      >
         <input
           aria-invalid={error() ? "true" : undefined}
           id="models-password"
           type="password"
         />
-      </TextField>
+      </Field>
       <NumberField for="models-quantity" label="Quantity">
         <input
           aria-invalid={error() ? "true" : undefined}
@@ -71,26 +77,39 @@ const Models = () => {
       <Checkbox checked={false} error={error()}>
         Newsletter
       </Checkbox>
-      <Select error={error()} label="Size" value="small">
-        <option value="small">Small</option>
-        <option value="large">Large</option>
-      </Select>
-      <Select defaultValue="blue" label="Color">
-        <option value="red">Red</option>
-        <option value="blue">Blue</option>
-      </Select>
-      <TextField characterCount for="models-name" label="Name">
+      <Field for="models-size" label="Size">
+        <select aria-invalid={error() ? "true" : undefined} id="models-size">
+          <SelectButton />
+          <option selected value="small">
+            Small
+          </option>
+          <option value="large">Large</option>
+        </select>
+      </Field>
+      <Field for="models-color" label="Color">
+        <select id="models-color">
+          <SelectButton />
+          <option value="red">Red</option>
+          <option selected value="blue">
+            Blue
+          </option>
+        </select>
+      </Field>
+      <Field endText={<CharacterCount />} for="models-name" label="Name">
         <input
           aria-describedby="models-name-end-text"
           id="models-name"
           maxlength={20}
           value={name()}
         />
-      </TextField>
-      <Select label="Plan" value={plan()}>
-        <option value="free">Free</option>
-        <option value="paid">Paid</option>
-      </Select>
+      </Field>
+      <Field for="models-plan" label="Plan">
+        <select id="models-plan" value={plan()}>
+          <SelectButton />
+          <option value="free">Free</option>
+          <option value="paid">Paid</option>
+        </select>
+      </Field>
       <Tabs name="refused-tabs" role="radiogroup" value="profile">
         <TabsItem value="profile">
           <TabsLabel>Profile</TabsLabel>
@@ -145,7 +164,14 @@ const Models = () => {
         }}
         popover="manual"
       />
-      <Select items={fruits()} label="Fruit" />
+      <Field for="models-fruit" label="Fruit">
+        <select id="models-fruit">
+          <SelectButton />
+          <For each={fruits()} keyed={(fruit) => fruit.value}>
+            {(fruit) => <option value={fruit().value}>{fruit().label}</option>}
+          </For>
+        </select>
+      </Field>
       <Stepper current={2} items={steps()} />
       <button onClick={() => setFruits(fruitsOf(1))} type="button">
         Refresh fruits

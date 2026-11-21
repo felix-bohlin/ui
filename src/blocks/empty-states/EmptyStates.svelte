@@ -6,7 +6,7 @@
     Card,
     CardContent,
     Chip,
-    TextField,
+    Field,
   } from "opui-css/svelte"
 </script>
 
@@ -92,7 +92,7 @@
       variant="outlined"
     >
       <CardContent>
-        <TextField
+        <Field
           class="empty-states-search"
           for="empty-states-q"
           hideLabel
@@ -120,7 +120,7 @@
               ></path>
             </svg>
           {/snippet}
-        </TextField>
+        </Field>
         <hgroup>
           <h2 class="ui-h5" id="empty-states-no-results">
             No results for “flatwond strings”

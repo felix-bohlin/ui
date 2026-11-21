@@ -27,9 +27,12 @@ const hasClass = (element: Element, name: string) =>
 
 const BUTTON_COMMANDS = ["--step-down", "--step-up", "--toggle-password"]
 
-const buttonsOnly = (element: Element) =>
+const buttonsOnly = (element: Element): boolean =>
+  children(element).length > 0 &&
   children(element).every((child) =>
-    BUTTON_COMMANDS.includes(attribute(child, "command") ?? ""),
+    child.tagName === "opui-password-toggle"
+      ? buttonsOnly(child)
+      : BUTTON_COMMANDS.includes(attribute(child, "command") ?? ""),
   )
 
 export const wiringProblems = (html: string) =>
@@ -61,11 +64,7 @@ export const wiringProblems = (html: string) =>
         )
         if (!element) return []
         const partId = attribute(element, "id")
-        if (
-          !partId &&
-          ["end", "start"].includes(part) &&
-          buttonsOnly(element)
-        ) {
+        if (["end", "start"].includes(part) && buttonsOnly(element)) {
           return []
         }
         if (partId !== `${id}-${part}`) {
@@ -129,10 +128,10 @@ describe("every field in the HTML examples and blocks points at the control you 
     ).toEqual([])
   })
 
-  test("a password toggle alone needs no end id", () => {
+  test("an end part that only holds a password toggle stays out of the description", () => {
     expect(
       wiringProblems(
-        '<opui-text-field class="ui-field"><label class="ui-label" for="x">Password</label><span class="ui-field-container"><input id="x" type="password"><span class="ui-end"><button command="--toggle-password" commandfor="x"></button></span></span></opui-text-field>',
+        '<div class="ui-field"><label class="ui-label" for="x">Password</label><span class="ui-field-container"><input id="x" type="password"><span class="ui-end" id="x-end"><opui-password-toggle><button command="--toggle-password" commandfor="x"></button></opui-password-toggle></span></span></div>',
       ),
     ).toEqual([])
   })

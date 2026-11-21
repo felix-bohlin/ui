@@ -6,7 +6,7 @@ import {
   CardActions,
   CardContent,
   Chip,
-  TextField,
+  Field,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/react"
@@ -42,7 +42,7 @@ export default function UserDirectory() {
           </Button>
         </div>
         <search className="ui-layout-row ui-spread user-directory-filters">
-          <TextField
+          <Field
             hideLabel
             htmlFor="user-directory-q"
             label="Search bassists"
@@ -69,7 +69,7 @@ export default function UserDirectory() {
               placeholder="Search by name, gear or city"
               type="search"
             />
-          </TextField>
+          </Field>
           <ToggleGroup
             aria-label="Bass type"
             name="user-directory-department"

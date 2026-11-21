@@ -9,10 +9,12 @@ const findLabels = (file: string, source: string) => {
   const found: Found[] = []
   const add = (name = "", value = "") => found.push({ file, name, value })
   if (file.endsWith(".astro")) {
-    for (const [, name, value] of source.matchAll(/\b(\w+Label) = "([^"]*)"/g))
+    for (const [, name, value] of source.matchAll(
+      /\b(label|\w+Label) = "([^"]*)"/g,
+    ))
       add(name, value)
     for (const [, name, value] of source.matchAll(
-      /\b(\w+Label) = (\{(?:[^{}"]|"[^"]*")*\})/g,
+      /\b(label|\w+Label) = (\{(?:[^{}"]|"[^"]*")*\})/g,
     ))
       add(name, value.replace(/\s+/g, " "))
   }
@@ -60,6 +62,7 @@ const listed = (label: Found) =>
 test("finds a default label in a component, an element and a stylesheet", () => {
   const samples = [
     findLabels("Sample.astro", 'const { fooLabel = "Foo" } = Astro.props'),
+    findLabels("Part.astro", 'const { label = "Show" } = Astro.props'),
     findLabels(
       "Plural.astro",
       'const { barLabel = { one: "{count} bar", other: "{count} bars" } } = Astro.props',
@@ -69,11 +72,12 @@ test("finds a default label in a component, an element and a stylesheet", () => 
   ].flat()
   expect(samples.map(({ name, value }) => `${name}=${value}`)).toEqual([
     "fooLabel=Foo",
+    "label=Show",
     'barLabel={ one: "{count} bar", other: "{count} bars" }',
     "foo-label=Foo",
     "--_foo-label=Foo",
   ])
-  expect(samples.filter((label) => !listed(label))).toHaveLength(4)
+  expect(samples.filter((label) => !listed(label))).toHaveLength(5)
 })
 
 test("every English default label is in the Built-in labels list of the Accessibility guide", () => {

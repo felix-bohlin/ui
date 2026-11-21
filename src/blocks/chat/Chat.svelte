@@ -8,14 +8,13 @@
     Drawer,
     DrawerHeader,
     DrawerTitle,
+    Field,
     FieldGroup,
     List,
     ListItem,
     Menu,
     Message,
     MessageList,
-    Textarea,
-    TextField,
   } from "opui-css/svelte"
 </script>
 
@@ -41,7 +40,7 @@
             </svg></Button
           >
         </div>
-        <TextField for="chat-search" size="small">
+        <Field for="chat-search" size="small">
           <input
             aria-describedby="chat-search-start"
             aria-label="Search messages"
@@ -65,7 +64,7 @@
               ></path>
             </svg>
           {/snippet}
-        </TextField>
+        </Field>
       </div>
       <List variant="transparent">
         <ListItem
@@ -303,13 +302,13 @@
                 ></path>
               </svg></Button
             >
-            <Textarea for="chat-chat-message">
+            <Field for="chat-chat-message">
               <textarea
                 aria-label="Message Stella Nut"
                 id="chat-chat-message"
                 name="chat-message"
                 placeholder="Write something rad…"></textarea>
-            </Textarea>
+            </Field>
             <Button
               aria-label="Send"
               color="primary"

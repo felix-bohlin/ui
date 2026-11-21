@@ -1,5 +1,5 @@
 ---
-import { Button, Card, CardContent, Switch, TextField } from "opui-css/astro"
+import { Button, Card, CardContent, Field, Switch } from "opui-css/astro"
 ---
 
 <div class="busy-toggle">
@@ -13,13 +13,13 @@ import { Button, Card, CardContent, Switch, TextField } from "opui-css/astro"
         <p aria-busy="false">Fetching the latest comments</p>
       </CardContent>
     </Card>
-    <TextField for="busy-toggle-search" label="Search">
+    <Field for="busy-toggle-search" label="Search">
       <input
         aria-busy="false"
         id="busy-toggle-search"
         placeholder="Skipped by :not()"
       />
-    </TextField>
+    </Field>
   </div>
   <Switch label="Busy" name="busy" />
 </div>

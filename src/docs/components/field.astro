@@ -1,0 +1,302 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import {
+  CharacterCount as UICharacterCount,
+  Field as UIField,
+} from "opui-css/astro"
+import Conditional from "../../components/Conditional.astro"
+import ValidationNotes from "./partials/ValidationNotes.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+
+import ListCSS from "@opui/css/components/list.css?raw"
+import SelectCSS from "@opui/css/components/select.css?raw"
+import TextFieldCSS from "@opui/css/components/text-field.css?raw"
+import TextareaCSS from "@opui/css/components/textarea.css?raw"
+
+import fieldApi from "../../component-api/field/api"
+
+export const description =
+  "The label, hints and box around a form control you write: an input, a select or a textarea."
+
+export const keywords = ["form", "input", "label", "select", "textarea"]
+---
+
+<Component
+  description={description}
+  heroAnatomy
+  slug="field"
+  browserSupport={[
+    "alt-text-generated-content",
+    "attr",
+    "color-mix",
+    "container-queries",
+    "customizable-select",
+    "dir-pseudo",
+    "display-animation",
+    "field-sizing",
+    "has",
+    "lh",
+    "open-pseudo",
+    "overlay",
+    "reading-flow",
+    "registered-custom-properties",
+    "relative-color",
+    "starting-style",
+    "transition-behavior",
+    "user-pseudos",
+  ]}
+  fallbacks={{
+    attr: "Without typed `attr()`, a textarea is at least three lines tall, whatever `rows` says.",
+    "customizable-select":
+      "Without customizable select, the field draws its own chevron on a select and the browser's own picker opens, with the text of each option only.",
+    "display-animation":
+      "Without display animation, the select picker disappears at once instead of fading out.",
+    overlay:
+      "Without `overlay`, the page can cover the select picker while it fades out.",
+    "reading-flow":
+      "Without `reading-flow`, Tab and screen readers follow the markup, which puts the top and start parts before the control, as they're drawn. Hand-written HTML needs that order too.",
+  }}
+  apis={[{ title: "Field API", api: fieldApi }]}
+  installationTabs={[
+    {
+      title: "text-field.css",
+      code: TextFieldCSS,
+      lang: "css",
+      isDependency: true,
+    },
+    { title: "select.css", code: SelectCSS, lang: "css", isDependency: true },
+    {
+      title: "textarea.css",
+      code: TextareaCSS,
+      lang: "css",
+      isDependency: true,
+    },
+    { title: "list.css", code: ListCSS, lang: "css", isDependency: true },
+  ]}
+>
+  <Fragment slot="title">Field</Fragment>
+  <Fragment slot="preamble">
+    The label, the start and end text and the box around a control you write: an
+    <code>&lt;input&gt;</code>, a <code>&lt;select&gt;</code> or a
+    <code>&lt;textarea&gt;</code>. Each control has its own page, with what only
+    it does: <DocLink href="/components/text-field">Text field</DocLink>,
+    <DocLink href="/components/select">Select</DocLink> and
+    <DocLink href="/components/textarea">Textarea</DocLink>.
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">A labelled control with a hint, a unit or an error.</li>
+    <li slot="when">
+      Your own <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code> or
+      <code>&lt;textarea&gt;</code>, bound the way your framework binds any
+      control.
+    </li>
+    <li slot="when-not">
+      A choice you check: use a
+      <DocLink href="/components/checkbox">Checkbox</DocLink>, a
+      <DocLink href="/components/radio">Radio</DocLink> or a
+      <DocLink href="/components/switch">Switch</DocLink>, which bring their own
+      label.
+    </li>
+    <li slot="when-not">
+      An amount you step: use a
+      <DocLink href="/components/number-field">Number field</DocLink>.
+    </li>
+    <li slot="when-not">
+      A code sent to the user: use a
+      <DocLink href="/components/one-time-code">One-time code</DocLink>.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Write the control inside the field, with its <code>id</code> set to
+        <code>for</code>, and bind, name and validate it like any control. The
+        types require <code>for</code>.
+      </Fragment>
+      <Fragment slot="react">
+        Write the control inside the field, with its <code>id</code> set to
+        <code>htmlFor</code>, and bind, name and validate it like any control.
+        The types require <code>htmlFor</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Put the control directly in <code>.ui-field-container</code>, and point
+        the <code>&lt;label for&gt;</code> at its <code>id</code>.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Basics" column />
+    <p>
+      Each part the field shows has an id that starts with the control's:
+      <code>x-start-text</code>, <code>x-top</code>, <code>x-start</code>,
+      <code>x-end</code>, <code>x-bottom</code> and <code>x-end-text</code> for
+      a control with <code>id="x"</code>. Point the control's
+      <code>aria-describedby</code> at the ones it shows, in that order, so a
+      unit, a hint or an error is read after the name.
+    </p>
+  </section>
+
+  <section id="variants">
+    <h2>Variants</h2>
+    <p>
+      Outlined by default. Use
+      <PropOrClass prop='variant="filled"' class=".ui-filled" /> for a filled
+      field.
+    </p>
+    <AutoExample name="Variants" row />
+  </section>
+
+  <section id="sizes">
+    <h2>Sizes</h2>
+    <AutoExample name="Sizes" row />
+  </section>
+
+  <section id="hidden-label">
+    <h2>Hidden label</h2>
+    <p>
+      <PropOrClass prop="hideLabel" class=".ui-sr-only" /> hides the label but
+      keeps the accessible name.
+    </p>
+    <AutoExample name="HiddenLabel" />
+    <p>Without a label, add <code>aria-label</code> to the control.</p>
+    <AutoExample name="NoLabel" />
+  </section>
+
+  <section id="start-text">
+    <h2>Start text</h2>
+    <p>Use <PropOrClass prop="startText" class=".ui-start-text" />.</p>
+    <AutoExample name="StartText" row />
+  </section>
+
+  <section id="end-text">
+    <h2>End text</h2>
+    <p>
+      Use <PropOrClass prop="endText" class=".ui-end-text" />, and point the
+      control's <code>aria-describedby</code> at it.
+    </p>
+    <AutoExample name="EndText" centered />
+  </section>
+
+  <section id="character-count">
+    <h2>Character count</h2>
+    <p>
+      A <code>CharacterCount</code> in the end text shows the characters typed
+      out of the control's <code>maxlength</code>. See
+      <DocLink href="/components/textarea#character-count">Textarea</DocLink>.
+    </p>
+  </section>
+
+  <section id="affix">
+    <h2>Affix</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Use <code>start</code>, <code>end</code>, <code>top</code> and
+        <code>bottom</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Use <code>.ui-start</code>, <code>.ui-end</code>, <code>.ui-top</code>
+        and <code>.ui-bottom</code>.
+      </Fragment>
+    </Conditional>
+    <p>
+      A text affix too long for the field ends in an ellipsis, so the control
+      keeps at least <code>--_min-inline-size</code> (<code>8ch</code>). The
+      full text stays in the field's accessible description.
+    </p>
+
+    <AutoExample name="Affix" column />
+
+    <h3 id="top-and-bottom">Top and bottom</h3>
+
+    <AutoExample name="TopAndBottom" column />
+  </section>
+
+  <section id="validation">
+    <h2>Validation</h2>
+    <ValidationNotes element="input" own subject="Fields" />
+
+    <AutoExample name="Validation" column spacious />
+  </section>
+
+  <section id="spread">
+    <h2>Spread</h2>
+    <p>
+      <PropOrClass prop="spread" class=".ui-spread" /> puts the label beside the
+      control.
+    </p>
+
+    <AutoExample name="Spread" column spacious />
+  </section>
+
+  <section id="auto-fit">
+    <h2>Auto-fit</h2>
+    <p>
+      <PropOrClass prop="autoFit" class=".ui-auto-fit" /> sizes the field to its
+      content.
+    </p>
+
+    <AutoExample name="AutoFit" class="flex" />
+  </section>
+
+  <section id="dense">
+    <h2>Dense</h2>
+    <p>
+      <PropOrClass prop="dense" class=".ui-dense" /> packs the options of a
+      select tighter.
+    </p>
+    <AutoExample name="Dense" row spacious />
+  </section>
+
+  <section id="drop-zone">
+    <h2>Drop zone</h2>
+    <p>
+      Use <PropOrClass prop="dropZone" class=".ui-drop-zone" /> on a field with
+      a file input. For files that upload as they're picked, use a
+      <DocLink href="/components/file-upload">File upload</DocLink>.
+    </p>
+
+    <AutoExample name="DropZone" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        The label alone is the control's name, through
+        <code>&lt;label for&gt;</code>. The affixes, the start text, end text
+        and the top and bottom regions are its description once the control's
+        <code>aria-describedby</code> points at them, so a unit, a hint or an
+        error is read after the name in any language's word order, and buttons
+        in the affixes stay out of the name.
+      </li>
+    </ul>
+    <KeyboardSupport />
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy zoom={1.25}>
+      <UIField for="field-anatomy" label="Label" startText="Start text">
+        <input
+          aria-describedby="field-anatomy-start-text field-anatomy-top field-anatomy-start field-anatomy-end field-anatomy-bottom field-anatomy-end-text"
+          id="field-anatomy"
+          maxlength={24}
+          placeholder="Placeholder"
+          value="Value"
+        />
+        <span slot="top">Top</span>
+        <span slot="start">€</span>
+        <span slot="end">EUR</span>
+        <span slot="bottom">Bottom</span>
+        <Fragment slot="end-text">
+          Supporting text
+          <UICharacterCount />
+        </Fragment>
+      </UIField>
+    </Anatomy>
+  </Fragment>
+</Component>

@@ -18,38 +18,6 @@ const PARTS = { bottom: "B", end: "N", start: "T", top: "P" }
 
 const DRAWN = ["top", "start", "control", "end", "bottom"]
 
-const NAMING = {
-  "aria-describedby": "outside",
-  "aria-labelledby": "elsewhere",
-  id: "x",
-  label: "L",
-}
-
-const cases: {
-  describedBy: string[]
-  name: string
-  props: Record<string, unknown>
-  slots: Slots
-}[] = [
-  {
-    describedBy: [
-      "x-start-text",
-      "x-top",
-      "x-start",
-      "x-end",
-      "x-bottom",
-      "x-end-text",
-    ],
-    name: "Select",
-    props: {
-      endText: "E",
-      items: [{ label: "A", value: "a" }],
-      startText: "S",
-    },
-    slots: PARTS,
-  },
-]
-
 const elements = (node: Node): Element[] =>
   "childNodes" in node
     ? [
@@ -66,63 +34,19 @@ const renderField = async (
   framework: ComponentFramework,
   props: Record<string, unknown>,
   slots: Slots,
+  folder = name,
 ) => {
   const component =
     await components[
-      `../../packages/opui/components/${name}/${frameworks[framework].component(name)}`
+      `../../packages/opui/components/${folder}/${frameworks[framework].component(name)}`
     ]()
   const html = await render[framework](component, props, slots)
   const all = elements(parseFragment(html) as unknown as Node)
   const byId = (id: string) => all.find((el) => attribute(el, "id") === id)
-  return { all, byId, control: byId("x") }
+  return { all, byId }
 }
 
 const FRAMEWORKS = Object.keys(render) as ComponentFramework[]
-
-describe.each(cases)("$name", ({ describedBy, name, props, slots }) => {
-  test.each(FRAMEWORKS)(
-    "%s: the label names the control, and its parts describe it in visual order",
-    async (framework) => {
-      const { all, byId, control } = await renderField(
-        name,
-        framework,
-        { ...props, ...NAMING },
-        slots,
-      )
-      expect(["input", "select", "textarea"]).toContain(control?.tagName)
-      expect(
-        all.filter(
-          (el) => el.tagName === "label" && attribute(el, "for") === "x",
-        ),
-      ).toHaveLength(1)
-      expect(attribute(control, "aria-labelledby")).toBe("elsewhere")
-      expect(attribute(control, "aria-describedby")?.split(" ")).toEqual([
-        ...describedBy,
-        "outside",
-      ])
-      expect(describedBy.filter((id) => !byId(id))).toEqual([])
-    },
-  )
-
-  test.each(FRAMEWORKS)(
-    "%s: the field's parts come in the order they're drawn",
-    async (framework) => {
-      const { all } = await renderField(name, framework, props, slots)
-      const field = all.find(
-        (el) => attribute(el, "class") === "ui-field-container",
-      )!
-      const parts = field.childNodes
-        .filter((node): node is Element => "tagName" in node)
-        .map((el) =>
-          ["input", "select", "textarea"].includes(el.tagName)
-            ? "control"
-            : attribute(el, "class")!.replace("ui-", ""),
-        )
-      expect(parts).toEqual(DRAWN.filter((part) => parts.includes(part)))
-      expect(parts).toContain("control")
-    },
-  )
-})
 
 const BOXED = ["start-text", "top", "start", "end", "bottom", "end-text"]
 
@@ -145,24 +69,15 @@ const OWN_CONTROL = [
     slots: {},
     tag: "input",
   },
-  {
-    control: '<input id="x">',
+  ...(["input", "select", "textarea"] as const).map((tag) => ({
+    control: tag === "input" ? '<input id="x">' : `<${tag} id="x"></${tag}>`,
     drawn: DRAWN,
-    name: "TextField",
+    name: "Field",
     parts: BOXED,
     props: { endText: "E", startText: "S" },
     slots: PARTS,
-    tag: "input",
-  },
-  {
-    control: '<textarea id="x"></textarea>',
-    drawn: DRAWN,
-    name: "Textarea",
-    parts: BOXED,
-    props: { endText: "E", startText: "S" },
-    slots: PARTS,
-    tag: "textarea",
-  },
+    tag,
+  })),
 ]
 
 const ownField = (
@@ -183,7 +98,7 @@ const ownField = (
   )
 
 describe.each(OWN_CONTROL)(
-  "$name",
+  "$name with $tag",
   ({ control, drawn, name, parts, props, slots, tag }) => {
     test.each(FRAMEWORKS)(
       "%s: the label points at the control from for, and each part has the id the control's description names",
@@ -232,37 +147,20 @@ describe.each(OWN_CONTROL)(
   },
 )
 
-describe("TextField password toggle", () => {
+describe("PasswordToggle", () => {
   test.each(FRAMEWORKS)(
-    "%s: the toggle points at the input and has no part id on its own",
+    "%s: the toggle's button points at the input",
     async (framework) => {
-      const { all, byId } = await ownField(
-        "TextField",
+      const { all } = await renderField(
+        "PasswordToggle",
         framework,
-        { passwordToggle: true },
-        { default: '<input id="x" type="password">' },
+        { [framework === "react" ? "htmlFor" : "for"]: "x" },
+        {},
       )
-      expect(
-        all.find((el) => attribute(el, "commandfor") === "x")?.tagName,
-      ).toBe("button")
-      expect(byId("x-end")).toBeUndefined()
-    },
-  )
-
-  test.each(FRAMEWORKS)(
-    "%s: with an end slot, the end part holds the toggle",
-    async (framework) => {
-      const { byId } = await ownField(
-        "TextField",
-        framework,
-        { passwordToggle: true },
-        { default: '<input id="x" type="password">', end: PARTS.end },
-      )
-      expect(
-        elements(byId("x-end")!).some(
-          (el) => attribute(el, "commandfor") === "x",
-        ),
-      ).toBe(true)
+      const button = all.find((el) => attribute(el, "commandfor") === "x")
+      expect(button?.tagName).toBe("button")
+      expect(attribute(button, "command")).toBe("--toggle-password")
+      expect(all[0]?.tagName).toBe("opui-password-toggle")
     },
   )
 })

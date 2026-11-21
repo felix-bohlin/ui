@@ -1,5 +1,5 @@
 ---
-import { Button, Chip, TextField } from "opui-css/astro"
+import { Button, Chip, Field } from "opui-css/astro"
 import themeCss from "../../../packages/opui/css/theme.css?raw"
 import { GROUPS, libraryDefaults } from "../../utils/theme-builder-controls"
 import { MOODS } from "../../utils/theme-remix"
@@ -70,7 +70,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
             Paste anything
           </p>
           <div class="builder-paste-row">
-            <TextField
+            <Field
               class="builder-paste-field"
               for="builder-paste"
               hideLabel
@@ -85,7 +85,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
                 placeholder="A color, a theme.css or an image"
                 spellcheck="false"
               />
-            </TextField>
+            </Field>
             <Button data-paste-image size="small" variant="outlined">
               Choose image
             </Button>

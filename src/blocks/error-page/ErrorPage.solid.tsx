@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { Button, FieldGroup, List, ListItem, TextField } from "opui-css/solid"
+import { Button, Field, FieldGroup, List, ListItem } from "opui-css/solid"
 
 export default function ErrorPage() {
   return (
@@ -25,7 +25,7 @@ export default function ErrorPage() {
         <search>
           <form action="#">
             <FieldGroup orientation="horizontal">
-              <TextField
+              <Field
                 for="error-page-q"
                 hideLabel
                 label="Search Bassbook"
@@ -52,7 +52,7 @@ export default function ErrorPage() {
                   placeholder="Search bassists and bands"
                   type="search"
                 />
-              </TextField>
+              </Field>
               <Button type="submit" variant="filled">
                 Search
               </Button>

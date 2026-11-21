@@ -36,6 +36,10 @@ declare module "react" {
         HTMLAttributes<HTMLElement>,
         HTMLElement
       >
+      "opui-password-toggle": DetailedHTMLProps<
+        HTMLAttributes<HTMLElement>,
+        HTMLElement
+      >
       "opui-reactions": DetailedHTMLProps<
         HTMLAttributes<HTMLElement>,
         HTMLElement
@@ -55,10 +59,6 @@ declare module "react" {
         "ascending-label"?: string | undefined
         "descending-label"?: string | undefined
       }
-      "opui-text-field": DetailedHTMLProps<
-        HTMLAttributes<HTMLElement>,
-        HTMLElement
-      >
       "opui-toaster": DetailedHTMLProps<
         HTMLAttributes<HTMLElement>,
         HTMLElement

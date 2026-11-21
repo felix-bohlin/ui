@@ -1,26 +1,25 @@
-import { Select } from "opui-css/react"
+import { Field, SelectButton } from "opui-css/react"
 
 export default function Preselected() {
   return (
     <>
-      <Select
-        defaultValue="bass"
-        items={[
-          { label: "Backing vocals", value: "backing-vocals" },
-          { label: "Bass", value: "bass" },
-          { label: "Tambourine", value: "tambourine" },
-        ]}
-        label="Role"
-      />
+      <Field htmlFor="select-preselected-1" label="Role">
+        <select id="select-preselected-1" defaultValue="bass">
+          <SelectButton />
+          <option value="backing-vocals">Backing vocals</option>
+          <option value="bass">Bass</option>
+          <option value="tambourine">Tambourine</option>
+        </select>
+      </Field>
 
-      <Select
-        items={[
-          { label: "Brad and the Brads", value: "brad-and-the-brads" },
-          { label: "Low End Theory", selected: true, value: "low-end-theory" },
-          { label: "The Low Enders", value: "the-low-enders" },
-        ]}
-        label="Band"
-      />
+      <Field htmlFor="select-preselected-2" label="Band">
+        <select id="select-preselected-2" defaultValue="low-end-theory">
+          <SelectButton />
+          <option value="brad-and-the-brads">Brad and the Brads</option>
+          <option value="low-end-theory">Low End Theory</option>
+          <option value="the-low-enders">The Low Enders</option>
+        </select>
+      </Field>
     </>
   )
 }

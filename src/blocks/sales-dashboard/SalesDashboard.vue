@@ -5,8 +5,9 @@ import {
   CardActions,
   CardContent,
   Chip,
+  Field,
   Progress,
-  Select,
+  SelectButton,
   Stat,
   Table,
   TableBody,
@@ -28,16 +29,21 @@ import {
         <h1 class="ui-h3">Merch sales</h1>
       </hgroup>
       <div class="ui-layout-row ui-small sales-actions">
-        <Select
-          id="sales-dashboard-sales-dashboard-period"
+        <Field
+          for="sales-dashboard-sales-dashboard-period"
           label="Period"
-          name="sales-dashboard-period"
           size="small"
         >
-          <option selected>Year to date</option>
-          <option>Last 90 days</option>
-          <option>Last 12 months</option>
-        </Select>
+          <select
+            id="sales-dashboard-sales-dashboard-period"
+            name="sales-dashboard-period"
+          >
+            <SelectButton />
+            <option selected>Year to date</option>
+            <option>Last 90 days</option>
+            <option>Last 12 months</option>
+          </select>
+        </Field>
         <Button size="small" type="button" variant="outlined">
           <svg
             data-icon="download"

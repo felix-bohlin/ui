@@ -65,7 +65,7 @@ import controlGroupApi from "../../component-api/control-group/api"
 
 ## Data-driven APIs (`api.ts`)
 
-`src/component-api/<slug>/api.ts` default-exports a `ComponentApi` ([types.ts](types.ts)) and replaces the hand-written tables for every framework. [text-field/api.ts](text-field/api.ts) is the reference implementation.
+`src/component-api/<slug>/api.ts` default-exports a `ComponentApi` ([types.ts](types.ts)) and replaces the hand-written tables for every framework. [field/api.ts](field/api.ts) is the reference implementation.
 
 - `component`: (Required) the name shown in tables and `[component-api]` problems, such as `TextField` or `TabsItem`. It is also the component file name in `source`. Props are read from the `Props` type when `component` is the `source` folder's own component, and from the `<component>Props` type otherwise (`TableColumnProps`), so a sub-API never picks up its root's props.
 - `source`: the component folder in `packages/opui/components/`. Omit it for CSS-only components, such as `spinner`; every framework then shows the HTML tables plus its `notes`, followed by "There is no {Framework} component.".
@@ -128,4 +128,4 @@ Prop names and types are read from each framework's types file (from every membe
 
 Pages pass it to `<Component>` as `apis={[{ title: "Text field API", api }]}`, or let `<Component slug="...">` pick it up without a title. `<Anatomy>` finds it from the page slug. `tests/e2e/anatomy.spec.ts` checks every page with `heroAnatomy` for overflow and spacing, and for axe violations on the HTML pages.
 
-Refer to [card/api.ts](card/api.ts) and [text-field/api.ts](text-field/api.ts) for the preferred implementations of multi-framework APIs.
+Refer to [card/api.ts](card/api.ts) and [field/api.ts](field/api.ts) for the preferred implementations of multi-framework APIs.

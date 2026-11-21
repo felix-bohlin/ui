@@ -1,11 +1,10 @@
 <script lang="ts">
   import {
+    Field,
     FieldDescription,
     FieldGroup,
     FieldLegend,
     Fieldset,
-    Textarea,
-    TextField,
   } from "opui-css/svelte"
 </script>
 
@@ -15,12 +14,12 @@
     >Where should we send your order?</FieldDescription
   >
   <FieldGroup>
-    <TextField for="form-fieldset-required-2" label="Recipient">
+    <Field for="form-fieldset-required-2" label="Recipient">
       <input id="form-fieldset-required-2" name="recipient" />
-    </TextField>
-    <Textarea for="form-fieldset-required-3" label="Address">
+    </Field>
+    <Field for="form-fieldset-required-3" label="Address">
       <textarea id="form-fieldset-required-3" name="address" required
       ></textarea>
-    </Textarea>
+    </Field>
   </FieldGroup>
 </Fieldset>

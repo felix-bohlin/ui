@@ -5,7 +5,7 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
-  TextField,
+  Field,
 } from "opui-css/astro"
 import { inlineTokens } from "../../utils/theme-art"
 import { artDefaults } from "../../utils/theme-art-defaults"
@@ -34,7 +34,7 @@ const gallery = GALLERY.map((entry) => ({
   </DrawerHeader>
   <DrawerContent class="builder-saved">
     <form class="builder-save-form" data-save-form>
-      <TextField
+      <Field
         class="builder-save-name"
         for="builder-saved-save-the-current-theme-as"
         label="Save the current theme as"
@@ -47,7 +47,7 @@ const gallery = GALLERY.map((entry) => ({
           name="snapshot-name"
           placeholder="Name"
         />
-      </TextField>
+      </Field>
       <Button color="primary" size="small" type="submit" variant="filled"
         >Save</Button
       >

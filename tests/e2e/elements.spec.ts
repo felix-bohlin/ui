@@ -382,6 +382,78 @@ const ELEMENTS: Scenario[] = [
     },
   },
   {
+    file: "password-toggle.js",
+    markup: `<form><fieldset>
+      <div class="ui-field">
+        <label class="ui-label" for="password">Password</label>
+        <span class="ui-field-container">
+          <input id="password" type="password" value="hunter2" />
+          <span class="ui-end"><opui-password-toggle><button class="ui-button" type="button" aria-label="Show password" aria-pressed="false" command="--toggle-password" commandfor="password">o</button></opui-password-toggle></span>
+        </span>
+      </div>
+      </fieldset><button type="reset">Reset</button>
+    </form>`,
+    ready: async (page) => {
+      await expect(
+        page.getByRole("button", { name: "Show password" }),
+      ).toHaveAttribute("aria-pressed", "false")
+    },
+    selector: "opui-password-toggle",
+    title: "shows and hides the password",
+    works: async (page) => {
+      const toggle = page.getByRole("button", { name: "Show password" })
+      const input = page.locator("#password")
+      await toggle.click()
+      await expect(input).toHaveAttribute("type", "text")
+      await expect(toggle).toHaveAttribute("aria-pressed", "true")
+      await page.getByRole("button", { name: "Reset" }).click()
+      await expect(input).toHaveAttribute("type", "password")
+      await expect(toggle).toHaveAttribute("aria-pressed", "false")
+      await page.evaluate(() =>
+        document.querySelector("opui-password-toggle")!.showPassword(),
+      )
+      await expect(toggle).toHaveAttribute("aria-pressed", "true")
+      await page.evaluate(() =>
+        document.querySelector("opui-password-toggle")!.hidePassword(),
+      )
+      await expect(input).toHaveAttribute("type", "password")
+      await toggle.click()
+      await expect(input).toHaveAttribute("type", "text")
+      await input.evaluate((element: HTMLInputElement) => {
+        element.disabled = true
+      })
+      await expect(toggle).toBeDisabled()
+      await expect(input).toHaveAttribute("type", "password")
+      await expect(toggle).toHaveAttribute("aria-pressed", "false")
+      await input.evaluate((element: HTMLInputElement) => {
+        element.disabled = false
+      })
+      await expect(toggle).toBeEnabled()
+      await toggle.click()
+      await expect(input).toHaveAttribute("type", "text")
+      const fieldset = page.locator("fieldset")
+      await fieldset.evaluate((element: HTMLFieldSetElement) => {
+        element.disabled = true
+      })
+      await expect(input).toHaveAttribute("type", "password")
+      await expect(toggle).toBeDisabled()
+      await fieldset.evaluate((element: HTMLFieldSetElement) => {
+        element.disabled = false
+      })
+      await expect(toggle).toBeEnabled()
+      await input.evaluate((element) => {
+        element.setAttribute("aria-disabled", "true")
+      })
+      await expect(toggle).toHaveAttribute("aria-disabled", "true")
+      await toggle.click({ force: true })
+      await expect(input).toHaveAttribute("type", "password")
+      await input.evaluate((element) => {
+        element.removeAttribute("aria-disabled")
+      })
+      await expect(toggle).not.toHaveAttribute("aria-disabled")
+    },
+  },
+  {
     file: "reactions.js",
     markup: `<opui-reactions class="ui-reactions" quick-label="Thumbs up" quick-text="Up" quick-value="+1">
       <div class="ui-toggle-group" role="group" aria-label="Reactions">
@@ -534,78 +606,6 @@ const ELEMENTS: Scenario[] = [
         element.sort(element.table!.tHead!.rows[0]!.cells[1]!, "descending")
       })
       await expect(planets).toHaveText(["Jupiter", "Mars", "Earth"])
-    },
-  },
-  {
-    file: "text-field.js",
-    markup: `<form><fieldset>
-      <opui-text-field class="ui-field">
-        <label class="ui-label" for="password">Password</label>
-        <span class="ui-field-container">
-          <input id="password" type="password" value="hunter2" />
-          <span class="ui-end"><button class="ui-button" type="button" aria-label="Show password" aria-pressed="false" command="--toggle-password" commandfor="password">o</button></span>
-        </span>
-      </opui-text-field>
-      </fieldset><button type="reset">Reset</button>
-    </form>`,
-    ready: async (page) => {
-      await expect(
-        page.getByRole("button", { name: "Show password" }),
-      ).toHaveAttribute("aria-pressed", "false")
-    },
-    selector: "opui-text-field",
-    title: "shows and hides the password",
-    works: async (page) => {
-      const toggle = page.getByRole("button", { name: "Show password" })
-      const input = page.locator("#password")
-      await toggle.click()
-      await expect(input).toHaveAttribute("type", "text")
-      await expect(toggle).toHaveAttribute("aria-pressed", "true")
-      await page.getByRole("button", { name: "Reset" }).click()
-      await expect(input).toHaveAttribute("type", "password")
-      await expect(toggle).toHaveAttribute("aria-pressed", "false")
-      await page.evaluate(() =>
-        document.querySelector("opui-text-field")!.showPassword(),
-      )
-      await expect(toggle).toHaveAttribute("aria-pressed", "true")
-      await page.evaluate(() =>
-        document.querySelector("opui-text-field")!.hidePassword(),
-      )
-      await expect(input).toHaveAttribute("type", "password")
-      await toggle.click()
-      await expect(input).toHaveAttribute("type", "text")
-      await input.evaluate((element: HTMLInputElement) => {
-        element.disabled = true
-      })
-      await expect(toggle).toBeDisabled()
-      await expect(input).toHaveAttribute("type", "password")
-      await expect(toggle).toHaveAttribute("aria-pressed", "false")
-      await input.evaluate((element: HTMLInputElement) => {
-        element.disabled = false
-      })
-      await expect(toggle).toBeEnabled()
-      await toggle.click()
-      await expect(input).toHaveAttribute("type", "text")
-      const fieldset = page.locator("fieldset")
-      await fieldset.evaluate((element: HTMLFieldSetElement) => {
-        element.disabled = true
-      })
-      await expect(input).toHaveAttribute("type", "password")
-      await expect(toggle).toBeDisabled()
-      await fieldset.evaluate((element: HTMLFieldSetElement) => {
-        element.disabled = false
-      })
-      await expect(toggle).toBeEnabled()
-      await input.evaluate((element) => {
-        element.setAttribute("aria-disabled", "true")
-      })
-      await expect(toggle).toHaveAttribute("aria-disabled", "true")
-      await toggle.click({ force: true })
-      await expect(input).toHaveAttribute("type", "password")
-      await input.evaluate((element) => {
-        element.removeAttribute("aria-disabled")
-      })
-      await expect(toggle).not.toHaveAttribute("aria-disabled")
     },
   },
   {

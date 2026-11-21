@@ -38,15 +38,15 @@ const cases = [
     slots: ["close-icon"],
   },
   {
+    file: "PasswordToggle/PasswordToggle",
+    props: { for: "password" },
+    slots: ["icon-checked", "icon-unchecked"],
+    wrapped: true,
+  },
+  {
     file: "NumberField/NumberField",
     props: { label: "Quantity" },
     slots: ["decrease-icon", "increase-icon"],
-  },
-  {
-    file: "TextField/TextField",
-    props: { label: "Password", passwordToggle: true, type: "password" },
-    slots: ["icon-checked", "icon-unchecked"],
-    wrapped: true,
   },
 ]
 

@@ -1,23 +1,25 @@
 /** @jsxImportSource @solidjs/web */
 import { createSignal } from "solid-js"
-import { Button, Select } from "opui-css/solid"
+import { Button, Field, SelectButton } from "opui-css/solid"
 
 export default function Binding() {
   const [fruit, setFruit] = createSignal("apples")
 
   return (
     <>
-      <Select
-        label="Fruit"
-        name="select-binding"
-        items={[
-          { label: "Apples", value: "apples" },
-          { label: "Bananas", value: "bananas" },
-          { label: "Cherries", value: "cherries" },
-        ]}
-        value={fruit()}
-        onChange={(event) => setFruit(event.currentTarget.value)}
-      />
+      <Field for="select-binding-1" label="Fruit">
+        <select
+          id="select-binding-1"
+          name="select-binding"
+          onChange={(event) => setFruit(event.currentTarget.value)}
+          value={fruit()}
+        >
+          <SelectButton />
+          <option value="apples">Apples</option>
+          <option value="bananas">Bananas</option>
+          <option value="cherries">Cherries</option>
+        </select>
+      </Field>
       <p class="select-binding-text">Selected: {fruit()}</p>
       <Button class="select-binding-reset" onClick={() => setFruit("apples")}>
         Reset

@@ -8,12 +8,12 @@
     CardActions,
     CardContent,
     Chip,
+    Field,
     FieldGroup,
     List,
     ListItem,
     Menu,
     Progress,
-    TextField,
     ToggleButton,
     ToggleGroup,
   } from "opui-css/svelte"
@@ -30,7 +30,7 @@
     </hgroup>
   </div>
   <FieldGroup orientation="horizontal">
-    <TextField for="order-history-search">
+    <Field for="order-history-search">
       <input
         aria-describedby="order-history-search-start"
         aria-label="Search orders"
@@ -54,7 +54,7 @@
           ></path>
         </svg>
       {/snippet}
-    </TextField>
+    </Field>
     <ToggleGroup aria-label="Order status" name="order-history-status">
       <ToggleButton defaultChecked value="all">All</ToggleButton>
       <ToggleButton value="open">Open</ToggleButton>

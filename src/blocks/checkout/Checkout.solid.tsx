@@ -12,6 +12,7 @@ import {
   DescriptionListItem,
   DescriptionListTerm,
   Divider,
+  Field,
   FieldGroup,
   FieldLegend,
   Fieldset,
@@ -19,13 +20,12 @@ import {
   List,
   ListItem,
   RadioInput,
-  Select,
+  SelectButton,
   Stepper,
   Tabs,
   TabsItem,
   TabsLabel,
   TabsPanel,
-  TextField,
 } from "opui-css/solid"
 
 export default function Checkout() {
@@ -54,7 +54,7 @@ export default function Checkout() {
             <Fieldset>
               <FieldLegend>Contact</FieldLegend>
               <FieldGroup>
-                <TextField for="checkout-email" label="Email">
+                <Field for="checkout-email" label="Email">
                   <input
                     autocomplete="email"
                     id="checkout-email"
@@ -64,7 +64,7 @@ export default function Checkout() {
                     type="email"
                     defaultValue="ines.hertz@example.com"
                   />
-                </TextField>
+                </Field>
                 <Checkbox defaultChecked id="checkout-news" name="news">
                   Email me about new gear and totally rad offers
                 </Checkbox>
@@ -74,7 +74,7 @@ export default function Checkout() {
               <FieldLegend>Shipping address</FieldLegend>
               <FieldGroup>
                 <FieldGroup orientation="horizontal">
-                  <TextField for="checkout-first-name" label="First name">
+                  <Field for="checkout-first-name" label="First name">
                     <input
                       autocomplete="given-name"
                       id="checkout-first-name"
@@ -83,8 +83,8 @@ export default function Checkout() {
                       type="text"
                       defaultValue="Ines"
                     />
-                  </TextField>
-                  <TextField for="checkout-last-name" label="Last name">
+                  </Field>
+                  <Field for="checkout-last-name" label="Last name">
                     <input
                       autocomplete="family-name"
                       id="checkout-last-name"
@@ -93,9 +93,9 @@ export default function Checkout() {
                       type="text"
                       defaultValue="Hertz"
                     />
-                  </TextField>
+                  </Field>
                 </FieldGroup>
-                <TextField for="checkout-address" label="Street address">
+                <Field for="checkout-address" label="Street address">
                   <input
                     autocomplete="address-line1"
                     id="checkout-address"
@@ -104,9 +104,9 @@ export default function Checkout() {
                     type="text"
                     defaultValue="4 Drop D Drive"
                   />
-                </TextField>
+                </Field>
                 <FieldGroup orientation="horizontal">
-                  <TextField for="checkout-postal-code" label="Postal code">
+                  <Field for="checkout-postal-code" label="Postal code">
                     <input
                       autocomplete="postal-code"
                       id="checkout-postal-code"
@@ -116,8 +116,8 @@ export default function Checkout() {
                       type="text"
                       defaultValue="444 44"
                     />
-                  </TextField>
-                  <TextField for="checkout-city" label="City">
+                  </Field>
+                  <Field for="checkout-city" label="City">
                     <input
                       autocomplete="address-level2"
                       id="checkout-city"
@@ -126,22 +126,25 @@ export default function Checkout() {
                       type="text"
                       defaultValue="Bassville"
                     />
-                  </TextField>
+                  </Field>
                 </FieldGroup>
                 <FieldGroup orientation="horizontal">
-                  <Select
-                    autocomplete="country-name"
-                    id="checkout-country"
-                    items={[
-                      { label: "Denmark", value: "dk" },
-                      { label: "Finland", value: "fi" },
-                      { label: "Norway", value: "no" },
-                      { label: "Sweden", selected: true, value: "se" },
-                    ]}
-                    label="Country"
-                    name="country"
-                  />
-                  <TextField
+                  <Field for="checkout-country" label="Country">
+                    <select
+                      autocomplete="country-name"
+                      id="checkout-country"
+                      name="country"
+                    >
+                      <SelectButton />
+                      <option value="dk">Denmark</option>
+                      <option value="fi">Finland</option>
+                      <option value="no">Norway</option>
+                      <option selected value="se">
+                        Sweden
+                      </option>
+                    </select>
+                  </Field>
+                  <Field
                     endText="Only for delivery updates, promise!"
                     for="checkout-phone"
                     label="Phone"
@@ -154,7 +157,7 @@ export default function Checkout() {
                       type="tel"
                       defaultValue="555 0144"
                     />
-                  </TextField>
+                  </Field>
                 </FieldGroup>
               </FieldGroup>
             </Fieldset>
@@ -228,7 +231,7 @@ export default function Checkout() {
                   <TabsLabel>Card</TabsLabel>
                   <TabsPanel>
                     <FieldGroup>
-                      <TextField
+                      <Field
                         for="checkout-card-number"
                         label="Card number"
                         start={
@@ -256,12 +259,9 @@ export default function Checkout() {
                           placeholder="1234 1234 1234 1234"
                           type="text"
                         />
-                      </TextField>
+                      </Field>
                       <FieldGroup orientation="horizontal">
-                        <TextField
-                          for="checkout-card-expiry"
-                          label="Expiry date"
-                        >
+                        <Field for="checkout-card-expiry" label="Expiry date">
                           <input
                             autocomplete="cc-exp"
                             id="checkout-card-expiry"
@@ -270,11 +270,8 @@ export default function Checkout() {
                             placeholder="MM / YY"
                             type="text"
                           />
-                        </TextField>
-                        <TextField
-                          for="checkout-card-cvc"
-                          label="Security code"
-                        >
+                        </Field>
+                        <Field for="checkout-card-cvc" label="Security code">
                           <input
                             autocomplete="cc-csc"
                             id="checkout-card-cvc"
@@ -283,7 +280,7 @@ export default function Checkout() {
                             placeholder="CVC"
                             type="text"
                           />
-                        </TextField>
+                        </Field>
                       </FieldGroup>
                       <Checkbox defaultChecked name="billing-same">
                         Billing address is the same as shipping
@@ -401,14 +398,14 @@ export default function Checkout() {
               </List>
               <Divider />
               <ControlGroup size="small" variant="outlined">
-                <TextField for="checkout-discount" label="Discount code">
+                <Field for="checkout-discount" label="Discount code">
                   <input
                     id="checkout-discount"
                     name="discount"
                     type="text"
                     defaultValue="LOWEND10"
                   />
-                </TextField>
+                </Field>
                 <Button type="button">Apply</Button>
               </ControlGroup>
               <DescriptionList border="solid" orientation="horizontal">

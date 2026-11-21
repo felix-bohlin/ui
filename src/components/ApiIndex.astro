@@ -6,7 +6,7 @@ import type { AstroInstance } from "astro"
 import { kebab } from "../component-api/catalog"
 import { catalog } from "../component-api/catalog.glob"
 import type { ComponentApi } from "../component-api/types"
-import { TextField } from "opui-css/astro"
+import { Field } from "opui-css/astro"
 import { componentName, components } from "../utils/components"
 import {
   componentHasFramework,
@@ -111,7 +111,7 @@ const apiList = Object.values(groups)
   </style>
 
   <search class="api-filter ui-not-rich-text">
-    <TextField for="api-index-filter" label="Filter">
+    <Field for="api-index-filter" label="Filter">
       <input
         autocomplete="off"
         id="api-index-filter"
@@ -119,7 +119,7 @@ const apiList = Object.values(groups)
         placeholder="Component, prop or class"
         type="search"
       />
-    </TextField>
+    </Field>
     <p aria-live="polite" class="api-filter-status" role="status"></p>
   </search>
 

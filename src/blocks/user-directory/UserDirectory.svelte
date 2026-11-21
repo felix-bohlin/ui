@@ -7,7 +7,7 @@
     CardActions,
     CardContent,
     Chip,
-    TextField,
+    Field,
     ToggleButton,
     ToggleGroup,
   } from "opui-css/svelte"
@@ -40,7 +40,7 @@
     </Button>
   </div>
   <search class="ui-layout-row ui-spread user-directory-filters">
-    <TextField for="user-directory-q" hideLabel label="Search bassists">
+    <Field for="user-directory-q" hideLabel label="Search bassists">
       <input
         aria-describedby="user-directory-q-start"
         id="user-directory-q"
@@ -63,7 +63,7 @@
           ></path>
         </svg>
       {/snippet}
-    </TextField>
+    </Field>
     <ToggleGroup
       aria-label="Bass type"
       name="user-directory-department"

@@ -11,7 +11,7 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  TextField,
+  Field,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/astro"
@@ -66,7 +66,7 @@ const doneIn = (list: typeof items) =>
   </p>)}
 
   <div class="review-toolbar ui-not-rich-text">
-    <TextField
+    <Field
       class="review-search"
       for="checks-search"
       hideLabel
@@ -79,7 +79,7 @@ const doneIn = (list: typeof items) =>
         placeholder="Filter items"
         type="search"
       />
-    </TextField>
+    </Field>
     <ToggleGroup
       aria-label="Show items"
       class="review-stages"
@@ -319,7 +319,7 @@ const doneIn = (list: typeof items) =>
         {`Add an item to ${section.title}`}
       </Button>
       <form class="checks-add-form" data-check-add hidden>
-        <TextField
+        <Field
           class="checks-add-field"
           for={`${section.id}-new-item`}
           hideLabel
@@ -332,7 +332,7 @@ const doneIn = (list: typeof items) =>
             name="item"
             placeholder="What's missing?"
           />
-        </TextField>
+        </Field>
         <Button size="small" type="submit" variant="filled">Add</Button>
         <Button data-add-cancel size="small" variant="transparent"
           >Cancel</Button

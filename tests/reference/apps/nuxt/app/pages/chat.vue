@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import {
   Button,
+  Field,
   List,
   ListItem,
   Message,
   MessageList,
-  Textarea,
 } from "opui-css/vue"
 import {
   ME,
@@ -89,14 +89,14 @@ const send = () => {
           class="ui-layout-column"
           @submit.prevent="send"
         >
-          <Textarea for="chat-message" hideLabel label="Message">
+          <Field for="chat-message" hideLabel label="Message">
             <textarea
               id="chat-message"
               name="text"
               required
               v-model="text"
             ></textarea>
-          </Textarea>
+          </Field>
           <div>
             <Button type="submit" variant="filled">Send</Button>
           </div>

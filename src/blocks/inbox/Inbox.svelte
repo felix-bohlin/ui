@@ -8,9 +8,9 @@
     DrawerContent,
     DrawerHeader,
     DrawerTitle,
+    Field,
     List,
     ListItem,
-    Textarea,
   } from "opui-css/svelte"
 </script>
 
@@ -463,12 +463,12 @@
           </Chip>
         </div>
         <form action="#" class="ui-layout-column ui-small inbox-reply">
-          <Textarea for="inbox-inbox-reply" label="Reply to Holly">
+          <Field for="inbox-inbox-reply" label="Reply to Holly">
             <textarea
               id="inbox-inbox-reply"
               name="inbox-reply"
               placeholder="Write something rad…"></textarea>
-          </Textarea>
+          </Field>
           <Button size="small" type="submit" variant="filled">Send</Button>
         </form>
       </article>

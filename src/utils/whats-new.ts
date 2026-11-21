@@ -796,6 +796,87 @@ export const whatsNew = {
       `A <code>Drawer</code> without an <code>id</code> warns in development, since its trigger and <code>DrawerHeader</code> point at it (<a href="#basics">Basics</a>).`,
     ),
   ],
+  field: [
+    {
+      ...components(
+        `New component. A <a href="#basics">Field</a> holds the label, the start and end text, the affixes and the box around your own <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code> or <code>&lt;textarea&gt;</code>, which you bind like any control. It replaces <code>TextField</code>, <code>Textarea</code> and <code>Select</code>.`,
+      ),
+      html: `New page. <a href="#basics"><code>.ui-field</code></a> is the root of every field, around your own <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code> or <code>&lt;textarea&gt;</code> in <code>.ui-field-container</code>.`,
+    },
+    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and Tab reaches the top, start, end and bottom in the order they're drawn, in every browser.`,
+    {
+      default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside, so the <a href="#affix">affixes</a> can hold buttons. The label alone <a href="#accessibility">names the field</a>, and the start text, top, affixes, bottom and end text describe it through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, in any language's word order. A click on them no longer focuses the field. The ids start with the input's <code>id</code>: <code>x-start-text</code>, <code>x-start</code>, <code>x-end-text</code> and so on for <code>id="x"</code>.`,
+      html: `Breaking: the root is <code>&lt;div class="ui-field"&gt;</code>, shared with every field, and the box inside it <code>.ui-field-container</code>. Give the root a <code>&lt;label class="ui-label" for&gt;</code> that <a href="#accessibility">names the field</a> alone, and describe it with the start text, the affixes and the end text through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, not in it.`,
+    },
+    `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>.`,
+    `Themes can set <a href="#api"><code>--ui-field-bg-color</code></a>, <code>--ui-field-padding-inline</code> (<code>--ui-field-padding-inline-large</code> for large fields) and <code>--ui-field-placeholder-text-color</code>.`,
+    components(
+      `<a href="#api"><code>hideLabel</code></a> hides the label visually and keeps it as the accessible name.`,
+    ),
+    {
+      ...slots(
+        `Breaking: the <a href="#affix">affix</a> slots are <code>start</code> and <code>end</code> instead of <code>prefix</code> and <code>suffix</code>, and <a href="#top-and-bottom"><code>top</code> and <code>bottom</code></a> instead of <code>header</code> and <code>footer</code>.`,
+      ),
+      html: `Breaking: <a href="#affix"><code>.ui-start</code> and <code>.ui-end</code></a> replace <code>.ui-prefix</code> and <code>.ui-suffix</code>, and <a href="#top-and-bottom"><code>.ui-top</code> and <code>.ui-bottom</code></a> replace <code>.ui-header</code> and <code>.ui-footer</code>.`,
+    },
+    `<a href="#sizes">Small and x-small fields</a> set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons. On iPhone and iPad every field keeps at least 16px, so iOS Safari doesn't zoom in on focus.`,
+    `The field border, <a href="#api"><code>--ui-field-border-color</code></a>, reaches 3:1 against the page by default.`,
+    `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
+    slots(
+      `Breaking: <a href="#sizes"><code>size="small"</code></a> replaces <code>small</code>.`,
+    ),
+    {
+      default: `<a href="#sizes">x-small and large</a> sizes with the <code>size</code> prop.`,
+      html: `<a href="#sizes">x-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
+    },
+    `<a href="#spread">Spread</a> fields line up at one width.`,
+    {
+      astro: `Breaking: extra attributes such as <code>autocomplete</code> and <code>aria-*</code> go to the input. <code>class</code> and <code>style</code> stay on the label (<a href="#api">API</a>).`,
+      vue: `Breaking: <code>style</code> goes to the label instead of the input (<a href="#api">API</a>).`,
+    },
+    slots(
+      `Breaking: <a href="#variants"><code>variant="filled"</code></a> replaces the boolean <code>filled</code>.`,
+    ),
+    {
+      ...slots(
+        `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the input, no more <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
+      ),
+      html: `Breaking: mark an invalid field with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
+    },
+    `Breaking: <code>--_accent-color</code> is <code>--_accent</code>, <code>--_height</code> is <code>--_size</code>, and <code>--_label-color</code> and <code>--_end-text-color</code> are gone: set <code>--ui-text</code> or <code>--ui-field-helper-text-color</code> (<a href="#api">API</a>).`,
+    slots(
+      `Breaking: <a href="#start-text"><code>startText</code></a> replaces <code>description</code>, matching <code>endText</code>. <code>supportingText</code> is gone, use <a href="#end-text"><code>endText</code></a>.`,
+    ),
+    `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#api">API</a>).`,
+    `Corners follow <code>--ui-radius</code>, and <a href="#api"><code>--ui-field-radius</code></a> overrides it when a theme sets it, so one token squares or rounds every component.`,
+    `The field reads <a href="#api"><code>--ui-field-shadow</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
+    `With more contrast, <a href="#validation">invalid</a> fields keep the lighter <code>--ui-invalid</code> of dark mode, which every invalid control now shares.`,
+    `The <a href="#variants">filled</a> hover reads <code>--ui-surface-tonal-hover</code>, shared with clickable chips.`,
+    components(
+      `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
+    ),
+    `Borders read <a href="#api"><code>--ui-field-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
+    `<a href="#variants">Filled fields</a> only show hover styles on devices that can hover, so they no longer stick after a tap.`,
+    `The container query reads <code>inline-size</code>, so <a href="#spread">spread</a> layouts follow the writing mode.`,
+    `<a href="#variants">Filled fields</a> fade their hover background, like the border.`,
+    {
+      default: `<a href="#drop-zone"><code>dropZone</code></a> makes a file field a tall area that takes dropped files.`,
+      html: `<a href="#drop-zone"><code>.ui-drop-zone</code></a> makes a file field a tall area that takes dropped files.`,
+    },
+    {
+      ...slots(
+        `Breaking: the start and end text describe the input instead of naming it, so give a field without a <code>label</code> <a href="#hidden-label"><code>aria-label</code></a> or <code>aria-labelledby</code>.`,
+      ),
+      react: `A field without a <code>label</code> is named by <a href="#hidden-label"><code>aria-label</code></a> or <code>aria-labelledby</code> alone, and the start and end text describe the input.`,
+      solid: `A field without a <code>label</code> is named by <a href="#hidden-label"><code>aria-label</code></a> or <code>aria-labelledby</code> alone, and the start and end text describe the input.`,
+      svelte: `A field without a <code>label</code> is named by <a href="#hidden-label"><code>aria-label</code></a> or <code>aria-labelledby</code> alone, and the start and end text describe the input.`,
+    },
+    `A field in a table cell keeps a <code>12ch</code> minimum width, so it stays usable with a <a href="#hidden-label">hidden label</a> in a narrow column.`,
+    {
+      default: `<a href="#auto-fit"><code>autoFit</code></a> lets the width follow the selected option of a select, from <code>25ch</code>.`,
+      html: `<a href="#auto-fit"><code>.ui-auto-fit</code></a> lets the width follow the selected option of a select, from <code>25ch</code>.`,
+    },
+  ],
   "file-upload": [
     {
       default: `New component. A <a href="#basics">drop zone</a> that lists the <a href="#files">files</a> your app uploads, with a preview, a progress bar, a message and a remove button for each. It uploads nothing: start each upload from its <a href="#upload-as-you-pick"><code>select</code> event</a> and pass the state back in <code>items</code>. Narrower than 28rem it is a <a href="#compact">compact row</a> of previews behind an add tile.`,
@@ -1198,90 +1279,33 @@ export const whatsNew = {
   ],
   select: [
     {
-      default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside. The label alone <a href="#accessibility">names the select</a>, and the affixes describe it with the start and end text, so they're read after the name. A click on them no longer opens the select.`,
-      html: `Breaking: the root is <code>&lt;div class="ui-field"&gt;</code>, shared with every field, and the box inside it <code>.ui-field-container</code>. Give the root a <code>&lt;label class="ui-label" for&gt;</code> that <a href="#accessibility">names the select</a> alone, and describe it with the affixes and the start and end text through <code>aria-describedby</code>. Mark the select's <code>&lt;button&gt;</code> <code>inert</code>, so the select alone takes clicks, focus and the name.`,
-    },
-    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and Tab reaches the top, start, end and bottom in the order they're drawn, in every browser.`,
-    `The picker marks the <a href="#preselected">selected option</a> with a check at the end, which <code>--ui-icon-check</code> changes.`,
-    components(
-      `The ids the select generates start with its <a href="#api"><code>id</code></a>: <code>x-start-text</code>, <code>x-end-text</code>, <code>x-start</code>, <code>x-end</code>, <code>x-top</code> and <code>x-bottom</code> for <code>id="x"</code>.`,
-    ),
-    `The <a href="#variants">picker</a> is <code>--ui-surface-elevated</code> with the raised edge, like menus, and reads <code>--ui-border-color-raised</code> when a theme sets it.`,
-    `Helper text reads <a href="#api"><code>--ui-text-subtle</code></a>, options take <code>--ui-list-item-padding-inline</code>.`,
-    `Themes can set <a href="#api"><code>--ui-field-bg-color</code></a>, <code>--ui-field-padding-inline</code> (<code>--ui-field-padding-inline-large</code> for large fields) and <code>--ui-field-placeholder-text-color</code>.`,
-    components(
-      `<a href="#api"><code>hideLabel</code></a> hides the label visually and keeps it as the accessible name.`,
-    ),
-    slots(
-      `Breaking: <a href="#api"><code>items</code></a> take <code>label</code> instead of <code>text</code>.`,
-    ),
-    {
-      ...slots(
-        `Breaking: the <a href="#affix">affix</a> slots are <code>start</code> and <code>end</code> instead of <code>prefix</code> and <code>suffix</code>, and <a href="#top-and-bottom"><code>top</code> and <code>bottom</code></a> instead of <code>header</code> and <code>footer</code>.`,
+      ...components(
+        `Breaking: <code>Select</code> is a <code>Field</code> with your <a href="#select"><code>&lt;select&gt;</code></a> inside, its <code>id</code> set to the required <code>for</code>. Write the options straight in it, after a <code>SelectButton</code>, instead of <code>items</code>.`,
       ),
-      html: `Breaking: <a href="#affix"><code>.ui-start</code> and <code>.ui-end</code></a> replace <code>.ui-prefix</code> and <code>.ui-suffix</code>, and <a href="#top-and-bottom"><code>.ui-top</code> and <code>.ui-bottom</code></a> replace <code>.ui-header</code> and <code>.ui-footer</code>.`,
+      react: `Breaking: <code>Select</code> is a <code>Field</code> with your <a href="#select"><code>&lt;select&gt;</code></a> inside, its <code>id</code> set to the required <code>htmlFor</code>. Write the options straight in it, after a <code>SelectButton</code>, instead of <code>items</code>.`,
+      html: `Breaking: the root is <code>&lt;div class="ui-field"&gt;</code>, shared with every field, and the options go straight in the <a href="#select"><code>&lt;select&gt;</code></a>, after its <code>&lt;button&gt;</code>, without a <code>.ui-list</code>.`,
     },
-    `<a href="#sizes">Small and x-small fields</a> set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons. On iPhone and iPad every field keeps at least 16px, so iOS Safari doesn't zoom in on focus.`,
-    `The field border reaches <a href="#accessibility">3:1</a> against the page by default.`,
+    `The picker marks the <a href="#preselected">selected option</a> with a check at the end, which <code>--ui-icon-check</code> changes.`,
+    `The <a href="#select">picker</a> is <code>--ui-surface-elevated</code> with the raised edge, like menus, and reads <code>--ui-border-color-raised</code> when a theme sets it.`,
+    `Helper text reads <a href="#api"><code>--ui-text-subtle</code></a>, options take <code>--ui-list-item-padding-inline</code>.`,
     `<a href="#option-groups">Group labels</a> take a shade of the picker's surface and <code>--ui-text</code> instead of fixed grays.`,
     `The selected option reads <a href="#api"><code>--ui-selected</code></a> and <code>--ui-on-selected</code> when a theme sets them.`,
-    `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
-    `The chevron flips when the <a href="#variants">picker</a> opens.`,
+    `The chevron flips when the <a href="#select">picker</a> opens.`,
     {
-      default: `<a href="#sizes">x-small and large</a> sizes with the <code>size</code> prop.`,
-      html: `<a href="#sizes">x-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
-    },
-    `<a href="#spread">Spread</a> fields line up at one width.`,
-    {
-      default: `<a href="#preselected">Preselect</a> options with <code>value</code> or <code>selected</code> on an item.`,
+      default: `<a href="#preselected">Preselect</a> options with <code>selected</code>, or bind the select's value.`,
+      react: `<a href="#preselected">Preselect</a> options with the select's <code>defaultValue</code>, or its <code>value</code>.`,
       html: `<a href="#preselected">Preselect</a> options with <code>selected</code>.`,
     },
-    `The <a href="#variants">arrow</a> is a chevron.`,
+    `The <a href="#select">arrow</a> is a chevron.`,
     slots(
-      `Breaking: no generated input <code>id</code>. Pass <a href="#api"><code>id</code></a> when something outside the component references the input.`,
+      `Breaking: <code>ClassicSelect</code> is gone. Use a <code>Field</code> with a <code>&lt;select&gt;</code>, which falls back to the browser's own picker (<a href="#browser-support">Browser support</a>).`,
     ),
-    {
-      ...slots(
-        `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the select, no more <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
-      ),
-      html: `Breaking: mark an invalid select with <code>aria-invalid="true"</code> on the <code>&lt;select&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
-    },
-    `Breaking: <code>--_accent-color</code> is <code>--_accent</code>, <code>--_height</code> is <code>--_size</code>, and <code>--_label-color</code> and <code>--_end-text-color</code> are gone: set <code>--ui-text</code> or <code>--ui-field-helper-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
-    {
-      ...slots(
-        `Breaking: <a href="#preselected"><code>items</code></a> takes <code>SelectItem[]</code>, exported under that name.`,
-      ),
-      react: `<a href="#preselected"><code>items</code></a> is typed as <code>SelectItem[]</code>, exported from every framework.`,
-      solid: `<a href="#preselected"><code>items</code></a> is typed as <code>SelectItem[]</code>, exported from every framework.`,
-      svelte: `<a href="#preselected"><code>items</code></a> is typed as <code>SelectItem[]</code>, exported from every framework.`,
-    },
-    slots(
-      `Breaking: <code>ClassicSelect</code> is gone. Use <code>Select</code>, which falls back to the browser's own picker (<a href="#browser-support">Browser support</a>).`,
-    ),
-    slots(
-      `Breaking: <code>startText</code> replaces <code>description</code>, matching <code>endText</code> (<a href="#spread">Spread</a>).`,
-    ),
-    slots(
-      `Breaking: <code>style</code> goes to the root, like <code>class</code>, instead of the <code>&lt;select&gt;</code> (<a href="#api">API</a>).`,
-    ),
-    `Corners follow <code>--ui-radius</code>, and <a href="#api"><code>--ui-field-radius</code></a> overrides it when a theme sets it, so one token squares or rounds every component.`,
-    `The <a href="#variants">picker</a> reads <a href="#api"><code>--ui-menu-radius</code></a> when a theme sets it, so it matches menus, and the field radius when it doesn't.`,
+    `The <a href="#select">picker</a> reads <a href="#api"><code>--ui-menu-radius</code></a> when a theme sets it, so it matches menus, and the field radius when it doesn't.`,
     `The picker shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with menus and drawers.`,
-    `The field reads <a href="#api"><code>--ui-field-shadow</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
-    `The <a href="#variants">filled</a> hover reads <code>--ui-surface-tonal-hover</code>, shared with clickable chips.`,
-    components(
-      `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
-    ),
-    {
-      default: `<a href="#auto-fit"><code>autoFit</code></a> lets the width follow the selected option, from <code>25ch</code>.`,
-      html: `<a href="#auto-fit"><code>.ui-auto-fit</code></a> lets the width follow the selected option, from <code>25ch</code>.`,
-    },
     `<a href="#optgroup"><code>&lt;optgroup&gt;</code></a> groups get the heading styles, with a <code>&lt;legend&gt;</code> as the heading.`,
-    `The container query reads <code>inline-size</code>, so <a href="#spread">spread</a> layouts follow the writing mode.`,
-    `<a href="#variants">Filled selects</a> fade their hover background, and options highlight at once on hover and fade back over <code>--ui-duration-fast</code>.`,
+    `<a href="#select">Filled selects</a> fade their hover background, and options highlight at once on hover and fade back over <code>--ui-duration-fast</code>.`,
     `Themes can make the picker spring open with <a href="#api"><code>--ui-ease-move</code></a>.`,
     `Options take <a href="#rich-options">avatars, icons, swatches and descriptions</a>, and the field shows the icon and label of the selected one.`,
-    `A select in a table cell keeps a <code>12ch</code> minimum width, so it stays usable with a <a href="#hidden-label">hidden label</a> in a narrow column.`,
   ],
   spinner: [
     `Busy buttons and links with <code>aria-describedby</code> <a href="#blocked-by-another-use-case">get a spinner</a> now.`,
@@ -1487,183 +1511,38 @@ export const whatsNew = {
   "text-field": [
     {
       ...components(
-        `Breaking: write the <a href="#input"><code>&lt;input&gt;</code></a> inside the field, with its <code>id</code> set to the required <code>for</code>, and bind, name and validate it like any input. <code>error</code>, <code>type</code>, <code>id</code>, <code>disabled</code>, <code>name</code> and the bound value move onto it, <code>aria-invalid="true"</code> for <code>error</code>.`,
+        `Breaking: <code>TextField</code> is a <code>Field</code> with your <a href="#input"><code>&lt;input&gt;</code></a> inside, its <code>id</code> set to the required <code>for</code>. A <code>PasswordToggle</code> in the <code>end</code> slot replaces <code>passwordToggle</code>.`,
       ),
-      react: `Breaking: write the <a href="#input"><code>&lt;input&gt;</code></a> inside the field, with its <code>id</code> set to the required <code>htmlFor</code>, and bind, name and validate it like any input. <code>error</code>, <code>type</code>, <code>id</code>, <code>disabled</code>, <code>name</code>, <code>value</code> and <code>onChange</code> move onto it, <code>aria-invalid="true"</code> for <code>error</code>.`,
+      react: `Breaking: <code>TextField</code> is a <code>Field</code> with your <a href="#input"><code>&lt;input&gt;</code></a> inside, its <code>id</code> set to the required <code>htmlFor</code>. A <code>PasswordToggle</code> in <code>end</code> replaces <code>passwordToggle</code>.`,
+      html: `Breaking: the root is <code>&lt;div class="ui-field"&gt;</code>, shared with every field (<a href="#input">Input</a>).`,
     },
-    `A <code>Button</code> in the <a href="#affix">start or end</a> fits the field, a little inside its border, and Tab reaches the top, start, end and bottom in the order they're drawn, in every browser.`,
     {
-      default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside, so the <a href="#affix">affixes</a> can hold buttons. The label alone <a href="#accessibility">names the field</a>, and the start text, top, affixes, bottom and end text describe it through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, in any language's word order. A click on them no longer focuses the field. The ids start with the input's <code>id</code>: <code>x-start-text</code>, <code>x-start</code>, <code>x-end-text</code> and so on for <code>id="x"</code>.`,
-      html: `Breaking: the root is <code>&lt;div class="ui-field"&gt;</code>, shared with every field, and the box inside it <code>.ui-field-container</code>. Give the root a <code>&lt;label class="ui-label" for&gt;</code> that <a href="#accessibility">names the field</a> alone, and describe it with the start text, the affixes and the end text through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, not in it.`,
-    },
-    `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>.`,
-    `Themes can set <a href="#api"><code>--ui-field-bg-color</code></a>, <code>--ui-field-padding-inline</code> (<code>--ui-field-padding-inline-large</code> for large fields) and <code>--ui-field-placeholder-text-color</code>.`,
-    components(
-      `<a href="#api"><code>hideLabel</code></a> hides the label visually and keeps it as the accessible name.`,
-    ),
-    {
-      ...slots(
-        `Breaking: the <a href="#affix">affix</a> slots are <code>start</code> and <code>end</code> instead of <code>prefix</code> and <code>suffix</code>, and <a href="#top-and-bottom"><code>top</code> and <code>bottom</code></a> instead of <code>header</code> and <code>footer</code>.`,
-      ),
-      html: `Breaking: <a href="#affix"><code>.ui-start</code> and <code>.ui-end</code></a> replace <code>.ui-prefix</code> and <code>.ui-suffix</code>, and <a href="#top-and-bottom"><code>.ui-top</code> and <code>.ui-bottom</code></a> replace <code>.ui-header</code> and <code>.ui-footer</code>.`,
-    },
-    `<a href="#sizes">Small and x-small fields</a> set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons. On iPhone and iPad every field keeps at least 16px, so iOS Safari doesn't zoom in on focus.`,
-    `The field border, <a href="#api"><code>--ui-field-border-color</code></a>, reaches 3:1 against the page by default.`,
-    `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
-    slots(
-      `Breaking: <a href="#sizes"><code>size="small"</code></a> replaces <code>small</code>.`,
-    ),
-    {
-      default: `<a href="#sizes">x-small and large</a> sizes with the <code>size</code> prop.`,
-      html: `<a href="#sizes">x-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
+      default: `<a href="#password-toggle"><code>PasswordToggle</code></a> shows and hides the password, with an eye or your own icons.`,
+      html: `<a href="#password-toggle">Password toggle</a>: <code>&lt;opui-password-toggle&gt;</code> around a <code>command="--toggle-password"</code> button shows and hides the password. Import <code>opui-css/elements/password-toggle.js</code>.`,
     },
     slots(
       `Breaking: <code>type="numeric"</code> is gone. Pass <a href="#numeric-vs-input-type-number"><code>inputmode="numeric"</code> and <code>pattern="[0-9]*"</code></a>, or use a <code>NumberField</code> for an amount.`,
     ),
-    `<a href="#spread">Spread</a> fields line up at one width.`,
-    {
-      astro: `Breaking: extra attributes such as <code>autocomplete</code> and <code>aria-*</code> go to the input. <code>class</code> and <code>style</code> stay on the label (<a href="#api">API</a>).`,
-      vue: `Breaking: <code>style</code> goes to the label instead of the input (<a href="#api">API</a>).`,
-    },
     `The <a href="#autosuggest">auto-suggest</a> arrow is the Select chevron at every size.`,
-    slots(
-      `Breaking: <a href="#variants"><code>variant="filled"</code></a> replaces the boolean <code>filled</code>.`,
-    ),
-    slots(
-      `Breaking: no generated input <code>id</code>. Pass <a href="#api"><code>id</code></a> when something outside the component references the input.`,
-    ),
-    {
-      ...slots(
-        `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the input, no more <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
-      ),
-      html: `Breaking: mark an invalid field with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
-    },
-    `Breaking: <code>--_accent-color</code> is <code>--_accent</code>, <code>--_height</code> is <code>--_size</code>, and <code>--_label-color</code> and <code>--_end-text-color</code> are gone: set <code>--ui-text</code> or <code>--ui-field-helper-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
-    slots(
-      `Breaking: <a href="#start-text"><code>startText</code></a> replaces <code>description</code>, matching <code>endText</code>. <code>supportingText</code> is gone, use <a href="#end-text"><code>endText</code></a>.`,
-    ),
     `Breaking: the <a href="#autosuggest">autosuggest</a> and other input styles are in <code>text-field.css</code>, and <code>text-input.css</code> is gone. Remove its import.`,
-    `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `Corners follow <code>--ui-radius</code>, and <a href="#api"><code>--ui-field-radius</code></a> overrides it when a theme sets it, so one token squares or rounds every component.`,
-    `The field reads <a href="#api"><code>--ui-field-shadow</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
-    `With more contrast, <a href="#validation">invalid</a> fields keep the lighter <code>--ui-invalid</code> of dark mode, which every invalid control now shares.`,
-    `The <a href="#variants">filled</a> hover reads <code>--ui-surface-tonal-hover</code>, shared with clickable chips.`,
-    components(
-      `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
-    ),
-    `Borders read <a href="#api"><code>--ui-field-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
-    `<a href="#variants">Filled fields</a> only show hover styles on devices that can hover, so they no longer stick after a tap.`,
-    `The container query reads <code>inline-size</code>, so <a href="#spread">spread</a> layouts follow the writing mode.`,
-    {
-      ...slots(
-        `<a href="#password-toggle"><code>passwordToggle</code></a> adds a button that shows and hides the password, run by the <code>&lt;opui-text-field&gt;</code> custom element, which the component loads. Its icons take the <code>icon-unchecked</code> and <code>icon-checked</code> slots.`,
-      ),
-      react: `<a href="#password-toggle"><code>passwordToggle</code></a> adds a button that shows and hides the password, run by the <code>&lt;opui-text-field&gt;</code> custom element, which the component loads. Its icons take the <code>iconUnchecked</code> and <code>iconChecked</code> props.`,
-      solid: `<a href="#password-toggle"><code>passwordToggle</code></a> adds a button that shows and hides the password, run by the <code>&lt;opui-text-field&gt;</code> custom element, which the component loads. Its icons take the <code>iconUnchecked</code> and <code>iconChecked</code> props.`,
-      svelte: `<a href="#password-toggle"><code>passwordToggle</code></a> adds a button that shows and hides the password, run by the <code>&lt;opui-text-field&gt;</code> custom element, which the component loads. Its icons take the <code>iconUnchecked</code> and <code>iconChecked</code> snippets.`,
-      html: `<a href="#password-toggle">Password toggle</a>: <code>&lt;opui-text-field&gt;</code> with a <code>&lt;label for&gt;</code> and a <code>command="--toggle-password"</code> button shows and hides the password. Import <code>opui-css/elements/text-field.js</code>.`,
-    },
-    {
-      ...components(
-        `<a href="#character-count"><code>characterCount</code></a> shows the characters typed out of <code>maxlength</code> and announces how many are left near the limit.`,
-      ),
-      html: `<a href="#character-count">Character count</a>: <code>&lt;opui-character-count&gt;</code> in the end text shows the characters typed out of <code>maxlength</code> and announces how many are left near the limit. Import <code>opui-css/elements/character-count.js</code>.`,
-    },
-    `<a href="#variants">Filled fields</a> fade their hover background, like the border.`,
-    {
-      default: `<a href="#drop-zone"><code>dropZone</code></a> makes a file field a tall area that takes dropped files.`,
-      html: `<a href="#drop-zone"><code>.ui-drop-zone</code></a> makes a file field a tall area that takes dropped files.`,
-    },
-    {
-      ...slots(
-        `Breaking: the start and end text describe the input instead of naming it, so give a field without a <code>label</code> <a href="#hidden-label"><code>aria-label</code></a> or <code>aria-labelledby</code>.`,
-      ),
-      react: `A field without a <code>label</code> is named by <a href="#hidden-label"><code>aria-label</code></a> or <code>aria-labelledby</code> alone, and the start and end text describe the input.`,
-      solid: `A field without a <code>label</code> is named by <a href="#hidden-label"><code>aria-label</code></a> or <code>aria-labelledby</code> alone, and the start and end text describe the input.`,
-      svelte: `A field without a <code>label</code> is named by <a href="#hidden-label"><code>aria-label</code></a> or <code>aria-labelledby</code> alone, and the start and end text describe the input.`,
-    },
-    `A field in a table cell keeps a <code>12ch</code> minimum width, so it stays usable with a <a href="#hidden-label">hidden label</a> in a narrow column.`,
   ],
   textarea: [
     {
       ...components(
-        `Breaking: write the <a href="#textarea"><code>&lt;textarea&gt;</code></a> inside the field, with its <code>id</code> set to the required <code>for</code>, and bind, name and validate it like any textarea. <code>error</code>, <code>id</code>, <code>disabled</code>, <code>name</code> and the bound value move onto it, the value as its content and <code>aria-invalid="true"</code> for <code>error</code>.`,
+        `Breaking: <code>Textarea</code> is a <code>Field</code> with your <a href="#textarea"><code>&lt;textarea&gt;</code></a> inside, its <code>id</code> set to the required <code>for</code>. A <code>CharacterCount</code> in the end text replaces <code>characterCount</code>.`,
       ),
-      react: `Breaking: write the <a href="#textarea"><code>&lt;textarea&gt;</code></a> inside the field, with its <code>id</code> set to the required <code>htmlFor</code>, and bind, name and validate it like any textarea. <code>error</code>, <code>id</code>, <code>disabled</code>, <code>name</code>, <code>value</code> and <code>onChange</code> move onto it, <code>aria-invalid="true"</code> for <code>error</code>.`,
+      react: `Breaking: <code>Textarea</code> is a <code>Field</code> with your <a href="#textarea"><code>&lt;textarea&gt;</code></a> inside, its <code>id</code> set to the required <code>htmlFor</code>. A <code>CharacterCount</code> in <code>endText</code> replaces <code>characterCount</code>.`,
+      html: `Breaking: the root is <code>&lt;div class="ui-field"&gt;</code>, shared with every field (<a href="#textarea">Textarea</a>).`,
     },
     `A <code>Button</code> in the <a href="#affix">start or end</a> fits the first line and centers on it, taller content starts a little below the field's top, and Tab reaches the parts in the order they're drawn, in every browser.`,
-    {
-      default: `Breaking: the root is a <code>&lt;div&gt;</code> with a <code>&lt;label for&gt;</code> inside, so the <a href="#affix">affixes</a> can hold buttons. The label alone <a href="#accessibility">names the field</a>, and the start text, top, affixes, bottom and end text describe it through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, in any language's word order. A click on them no longer focuses the field.`,
-      html: `Breaking: the root is <code>&lt;div class="ui-field"&gt;</code>, shared with every field, and the box inside it <code>.ui-field-container</code>. Give the root a <code>&lt;label class="ui-label" for&gt;</code> that <a href="#accessibility">names the field</a> alone, and describe it with the start text, the affixes and the end text through <code>aria-describedby</code>, so a unit, a hint or an error is read after the name, not in it.`,
-    },
-    `A <a href="#buttons">button</a> can go in an affix, like a send button, and stays out of the field's name.`,
-    `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>.`,
-    `Themes can set <a href="#api"><code>--ui-field-bg-color</code></a>, <code>--ui-field-padding-inline</code> (<code>--ui-field-padding-inline-large</code> for large fields) and <code>--ui-field-placeholder-text-color</code>.`,
-    components(
-      `<a href="#api"><code>hideLabel</code></a> hides the label visually and keeps it as the accessible name.`,
-    ),
-    {
-      ...slots(
-        `Breaking: the <a href="#affix">affix</a> slots are <code>start</code> and <code>end</code> instead of <code>prefix</code> and <code>suffix</code>, and <a href="#top-and-bottom"><code>top</code> and <code>bottom</code></a> instead of <code>header</code> and <code>footer</code>.`,
-      ),
-      html: `Breaking: <a href="#affix"><code>.ui-start</code> and <code>.ui-end</code></a> replace <code>.ui-prefix</code> and <code>.ui-suffix</code>, and <a href="#top-and-bottom"><code>.ui-top</code> and <code>.ui-bottom</code></a> replace <code>.ui-header</code> and <code>.ui-footer</code>.`,
-    },
-    `<a href="#sizes">Small and x-small fields</a> set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons. On iPhone and iPad every field keeps at least 16px, so iOS Safari doesn't zoom in on focus.`,
-    `The field border, <a href="#api"><code>--ui-field-border-color</code></a>, reaches 3:1 against the page by default.`,
-    `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
-    slots(
-      `Breaking: <a href="#sizes"><code>size="small"</code></a> replaces <code>small</code>.`,
-    ),
-    {
-      default: `<a href="#sizes">x-small and large</a> sizes with the <code>size</code> prop.`,
-      html: `<a href="#sizes">x-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
-    },
-    `<a href="#spread">Spread</a> fields line up at one width.`,
-    `The minimum height is three lines plus padding at every <a href="#sizes">size</a>, or the lines in <a href="#rows"><code>rows</code></a> in browsers with typed <code>attr()</code>.`,
-    {
-      astro: `Breaking: extra attributes such as <code>autocomplete</code> and <code>aria-*</code> go to the textarea. <code>class</code> and <code>style</code> stay on the label (<a href="#api">API</a>).`,
-      vue: `Breaking: <code>style</code> goes to the label instead of the textarea (<a href="#api">API</a>).`,
-    },
-    slots(
-      `Breaking: <a href="#variants"><code>variant="filled"</code></a> replaces the boolean <code>filled</code>.`,
-    ),
-    slots(
-      `Breaking: no generated input <code>id</code>. Pass <a href="#api"><code>id</code></a> when something outside the component references the input.`,
-    ),
-    {
-      ...slots(
-        `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the textarea, no more <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
-      ),
-      html: `Breaking: mark an invalid field with <code>aria-invalid="true"</code> on the <code>&lt;textarea&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
-    },
-    `Breaking: <code>--_accent-color</code> is <code>--_accent</code>, <code>--_height</code> is <code>--_size</code>, and <code>--_label-color</code> and <code>--_end-text-color</code> are gone: set <code>--ui-text</code> or <code>--ui-field-helper-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
-    slots(
-      `Breaking: <a href="#start-text"><code>startText</code></a> replaces <code>description</code>, matching <code>endText</code>. <code>supportingText</code> is gone, use <a href="#end-text"><code>endText</code></a>.`,
-    ),
-    `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `Corners follow <code>--ui-radius</code>, and <a href="#api"><code>--ui-field-radius</code></a> overrides it when a theme sets it, so one token squares or rounds every component.`,
-    `The field reads <a href="#api"><code>--ui-field-shadow</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
-    `The <a href="#variants">filled</a> hover reads <code>--ui-surface-tonal-hover</code>, shared with clickable chips.`,
-    components(
-      `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
-    ),
-    `Styles use logical properties only, so the <a href="#variants">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
+    `A <a href="#affix">button</a> can go in an affix, like a send button, and stays out of the field's name.`,
+    `The minimum height is three lines plus padding at every size, or the lines in <a href="#rows"><code>rows</code></a> in browsers with typed <code>attr()</code>.`,
     {
       ...components(
-        `<a href="#character-count"><code>characterCount</code></a> shows the characters typed out of <code>maxlength</code> and announces how many are left near the limit.`,
+        `<a href="#character-count"><code>CharacterCount</code></a> in the end text shows the characters typed out of <code>maxlength</code> and announces how many are left near the limit.`,
       ),
       html: `<a href="#character-count">Character count</a>: <code>&lt;opui-character-count&gt;</code> in the end text shows the characters typed out of <code>maxlength</code> and announces how many are left near the limit. Import <code>opui-css/elements/character-count.js</code>.`,
     },
-    `<a href="#variants">Filled textareas</a> fade their hover background, like the border.`,
-    {
-      ...slots(
-        `Breaking: the start and end text describe the textarea instead of naming it, so give a textarea without a <code>label</code> <code>aria-label</code> or <code>aria-labelledby</code> (<a href="#api">API</a>).`,
-      ),
-      react: `A textarea without a <code>label</code> is named by <code>aria-label</code> or <code>aria-labelledby</code> alone, and the start and end text describe it (<a href="#api">API</a>).`,
-      solid: `A textarea without a <code>label</code> is named by <code>aria-label</code> or <code>aria-labelledby</code> alone, and the start and end text describe it (<a href="#api">API</a>).`,
-      svelte: `A textarea without a <code>label</code> is named by <code>aria-label</code> or <code>aria-labelledby</code> alone, and the start and end text describe it (<a href="#api">API</a>).`,
-    },
-    `A textarea in a table cell keeps a <code>12ch</code> minimum width, so it stays usable with a <a href="#hidden-label">hidden label</a> in a narrow column.`,
   ],
   timeline: [
     `New: a <a href="#basics">Timeline</a> lists dated events with markers and a connecting line, with <a href="#colors">colors</a>, a <a href="#current">current item</a> and a <a href="#tracked">tracked</a> line.`,
@@ -1845,6 +1724,7 @@ export const highlighted = new Set<string>([
   "carousel",
   "control-group",
   "copy",
+  "field",
   "file-upload",
   "layout",
   "menu",
@@ -1864,6 +1744,7 @@ export const highlighted = new Set<string>([
 export const added = new Set<string>([
   "carousel",
   "copy",
+  "field",
   "file-upload",
   "layout",
   "menu",

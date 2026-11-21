@@ -1,11 +1,11 @@
 import { useSearchParams } from "@solidjs/router"
 import {
   Button,
+  Field,
   List,
   ListItem,
   Message,
   MessageList,
-  Textarea,
 } from "opui-css/solid"
 import {
   ME,
@@ -95,7 +95,7 @@ export default function Chat() {
             class="ui-layout-column"
             onSubmit={send}
           >
-            <Textarea for="chat-message" hideLabel label="Message">
+            <Field for="chat-message" hideLabel label="Message">
               <textarea
                 id="chat-message"
                 name="text"
@@ -103,7 +103,7 @@ export default function Chat() {
                 required
                 value={text()}
               />
-            </Textarea>
+            </Field>
             <div>
               <Button type="submit" variant="filled">
                 Send

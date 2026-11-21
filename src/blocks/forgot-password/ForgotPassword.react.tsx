@@ -6,9 +6,9 @@ import {
   CalloutIcon,
   Card,
   CardContent,
+  Field,
   FieldGroup,
   Form,
-  TextField,
 } from "opui-css/react"
 
 export default function ForgotPassword() {
@@ -55,7 +55,7 @@ export default function ForgotPassword() {
               </hgroup>
               <Form action="#">
                 <FieldGroup>
-                  <TextField
+                  <Field
                     endText="The link works for 30 minutes, so be quick!"
                     htmlFor="forgot-password-email"
                     label="Email"
@@ -69,7 +69,7 @@ export default function ForgotPassword() {
                       required
                       type="email"
                     />
-                  </TextField>
+                  </Field>
                   <Button
                     className="forgot-password-submit"
                     type="submit"

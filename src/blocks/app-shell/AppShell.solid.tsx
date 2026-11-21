@@ -10,11 +10,11 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
+  Field,
   List,
   ListItem,
   Menu,
   Stat,
-  TextField,
 } from "opui-css/solid"
 
 export default function AppShell() {
@@ -62,7 +62,7 @@ export default function AppShell() {
             </svg>
             Bassbook
           </a>
-          <TextField
+          <Field
             class="shell-search"
             for="app-shell-search"
             size="small"
@@ -90,7 +90,7 @@ export default function AppShell() {
               placeholder="Search bassists and bands"
               type="search"
             />
-          </TextField>
+          </Field>
           <Button
             aria-label="Notifications, 3 unread"
             round

@@ -6,9 +6,10 @@ import {
   Button,
   Carousel,
   Chip,
+  Field,
   FieldLegend,
   Fieldset,
-  Select,
+  SelectButton,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/astro"
@@ -155,6 +156,7 @@ const filterCss = [
       ),
   ),
 ].join("\n")
+const topicId = Astro.locals.$id("blog-topic")
 ---
 
 <Blog
@@ -272,17 +274,15 @@ const filterCss = [
             >)}
           </ToggleGroup>
         </Fieldset>
-        <Select
-          autoFit
-          items={[
-            { label: "All", value: "" },
-            ...topics.map((topic) => ({ label: topic.label, value: topic.id })),
-          ]}
-          label="Topic"
-          name="blog-topic"
-          size="small"
-          value=""
-        />
+        <Field autoFit for={topicId} label="Topic" size="small">
+          <select id={topicId} name="blog-topic">
+            <SelectButton />
+            <option selected value="">All</option>
+            {topics.map((topic) => <option value={topic.id}>
+              {topic.label}
+            </option>)}
+          </select>
+        </Field>
       </div>
     </div>
 

@@ -1108,6 +1108,119 @@
     "url": "/html/components/drawer/#keyboard-support"
   },
   {
+    "id": "component-field-html",
+    "title": "Field",
+    "description": "The label, hints and box around a form control you write: an input, a select or a textarea.",
+    "keywords": "form input label select textarea",
+    "category": "Component",
+    "url": "/html/components/field/"
+  },
+  {
+    "id": "component-field-html-basics",
+    "title": "Basics",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#basics"
+  },
+  {
+    "id": "component-field-html-variants",
+    "title": "Variants",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#variants"
+  },
+  {
+    "id": "component-field-html-sizes",
+    "title": "Sizes",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#sizes"
+  },
+  {
+    "id": "component-field-html-hidden-label",
+    "title": "Hidden label",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#hidden-label"
+  },
+  {
+    "id": "component-field-html-start-text",
+    "title": "Start text",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#start-text"
+  },
+  {
+    "id": "component-field-html-end-text",
+    "title": "End text",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#end-text"
+  },
+  {
+    "id": "component-field-html-character-count",
+    "title": "Character count",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#character-count"
+  },
+  {
+    "id": "component-field-html-affix",
+    "title": "Affix",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#affix"
+  },
+  {
+    "id": "component-field-html-top-and-bottom",
+    "title": "Top and bottom",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#top-and-bottom"
+  },
+  {
+    "id": "component-field-html-validation",
+    "title": "Validation",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#validation"
+  },
+  {
+    "id": "component-field-html-spread",
+    "title": "Spread",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#spread"
+  },
+  {
+    "id": "component-field-html-auto-fit",
+    "title": "Auto-fit",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#auto-fit"
+  },
+  {
+    "id": "component-field-html-dense",
+    "title": "Dense",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#dense"
+  },
+  {
+    "id": "component-field-html-drop-zone",
+    "title": "Drop zone",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#drop-zone"
+  },
+  {
+    "id": "component-field-html-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#keyboard-support"
+  },
+  {
     "id": "component-file-upload-html",
     "title": "File upload",
     "description": "A drop zone around a file input that lists the files your app is uploading, with a preview, progress, a message and a remove button for each.",
@@ -2270,53 +2383,11 @@
     "url": "/html/components/select/"
   },
   {
-    "id": "component-select-html-variants",
-    "title": "Variants",
+    "id": "component-select-html-select",
+    "title": "Select",
     "page": "Select",
     "category": "Component",
-    "url": "/html/components/select/#variants"
-  },
-  {
-    "id": "component-select-html-sizes",
-    "title": "Sizes",
-    "page": "Select",
-    "category": "Component",
-    "url": "/html/components/select/#sizes"
-  },
-  {
-    "id": "component-select-html-dense",
-    "title": "Dense",
-    "page": "Select",
-    "category": "Component",
-    "url": "/html/components/select/#dense"
-  },
-  {
-    "id": "component-select-html-end-text",
-    "title": "End text",
-    "page": "Select",
-    "category": "Component",
-    "url": "/html/components/select/#end-text"
-  },
-  {
-    "id": "component-select-html-hidden-label",
-    "title": "Hidden label",
-    "page": "Select",
-    "category": "Component",
-    "url": "/html/components/select/#hidden-label"
-  },
-  {
-    "id": "component-select-html-affix",
-    "title": "Affix",
-    "page": "Select",
-    "category": "Component",
-    "url": "/html/components/select/#affix"
-  },
-  {
-    "id": "component-select-html-top-and-bottom",
-    "title": "Top and bottom",
-    "page": "Select",
-    "category": "Component",
-    "url": "/html/components/select/#top-and-bottom"
+    "url": "/html/components/select/#select"
   },
   {
     "id": "component-select-html-preselected",
@@ -2359,34 +2430,6 @@
     "page": "Select",
     "category": "Component",
     "url": "/html/components/select/#disabled"
-  },
-  {
-    "id": "component-select-html-validation",
-    "title": "Validation",
-    "page": "Select",
-    "category": "Component",
-    "url": "/html/components/select/#validation"
-  },
-  {
-    "id": "component-select-html-spread",
-    "title": "Spread",
-    "page": "Select",
-    "category": "Component",
-    "url": "/html/components/select/#spread"
-  },
-  {
-    "id": "component-select-html-auto-fit",
-    "title": "Auto-fit",
-    "page": "Select",
-    "category": "Component",
-    "url": "/html/components/select/#auto-fit"
-  },
-  {
-    "id": "component-select-html-keyboard-support",
-    "title": "Keyboard support",
-    "page": "Select",
-    "category": "Component",
-    "url": "/html/components/select/#keyboard-support"
   },
   {
     "id": "component-spinner-html",
@@ -2831,7 +2874,7 @@
   {
     "id": "component-text-field-html",
     "title": "Text field",
-    "description": "A single-line text input with a label, start and end text, and validation.",
+    "description": "A single-line text input in a Field: input types, numbers as text, a password toggle and suggestions.",
     "keywords": "email input password search text box",
     "category": "Component",
     "url": "/html/components/text-field/"
@@ -2844,48 +2887,6 @@
     "url": "/html/components/text-field/#input"
   },
   {
-    "id": "component-text-field-html-variants",
-    "title": "Variants",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/html/components/text-field/#variants"
-  },
-  {
-    "id": "component-text-field-html-sizes",
-    "title": "Sizes",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/html/components/text-field/#sizes"
-  },
-  {
-    "id": "component-text-field-html-hidden-label",
-    "title": "Hidden label",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/html/components/text-field/#hidden-label"
-  },
-  {
-    "id": "component-text-field-html-start-text",
-    "title": "Start text",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/html/components/text-field/#start-text"
-  },
-  {
-    "id": "component-text-field-html-end-text",
-    "title": "End text",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/html/components/text-field/#end-text"
-  },
-  {
-    "id": "component-text-field-html-character-count",
-    "title": "Character count",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/html/components/text-field/#character-count"
-  },
-  {
     "id": "component-text-field-html-password-toggle",
     "title": "Password toggle",
     "page": "Text field",
@@ -2893,46 +2894,11 @@
     "url": "/html/components/text-field/#password-toggle"
   },
   {
-    "id": "component-text-field-html-affix",
-    "title": "Affix",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/html/components/text-field/#affix"
-  },
-  {
-    "id": "component-text-field-html-top-and-bottom",
-    "title": "Top and bottom",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/html/components/text-field/#top-and-bottom"
-  },
-  {
     "id": "component-text-field-html-binding",
     "title": "Binding",
     "page": "Text field",
     "category": "Component",
     "url": "/html/components/text-field/#binding"
-  },
-  {
-    "id": "component-text-field-html-validation",
-    "title": "Validation",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/html/components/text-field/#validation"
-  },
-  {
-    "id": "component-text-field-html-spread",
-    "title": "Spread",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/html/components/text-field/#spread"
-  },
-  {
-    "id": "component-text-field-html-auto-fit",
-    "title": "Auto-fit",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/html/components/text-field/#auto-fit"
   },
   {
     "id": "component-text-field-html-input-types",
@@ -2956,13 +2922,6 @@
     "url": "/html/components/text-field/#file"
   },
   {
-    "id": "component-text-field-html-drop-zone",
-    "title": "Drop zone",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/html/components/text-field/#drop-zone"
-  },
-  {
     "id": "component-text-field-html-autosuggest",
     "title": "Autosuggest",
     "page": "Text field",
@@ -2970,16 +2929,9 @@
     "url": "/html/components/text-field/#autosuggest"
   },
   {
-    "id": "component-text-field-html-keyboard-support",
-    "title": "Keyboard support",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/html/components/text-field/#keyboard-support"
-  },
-  {
     "id": "component-textarea-html",
     "title": "Textarea",
-    "description": "A multi-line text input with a label, start and end text, and validation.",
+    "description": "A multi-line text input in a Field that grows with its text, with a character count.",
     "keywords": "multiline text area",
     "category": "Component",
     "url": "/html/components/textarea/"
@@ -2990,41 +2942,6 @@
     "page": "Textarea",
     "category": "Component",
     "url": "/html/components/textarea/#textarea"
-  },
-  {
-    "id": "component-textarea-html-variants",
-    "title": "Variants",
-    "page": "Textarea",
-    "category": "Component",
-    "url": "/html/components/textarea/#variants"
-  },
-  {
-    "id": "component-textarea-html-sizes",
-    "title": "Sizes",
-    "page": "Textarea",
-    "category": "Component",
-    "url": "/html/components/textarea/#sizes"
-  },
-  {
-    "id": "component-textarea-html-hidden-label",
-    "title": "Hidden label",
-    "page": "Textarea",
-    "category": "Component",
-    "url": "/html/components/textarea/#hidden-label"
-  },
-  {
-    "id": "component-textarea-html-start-text",
-    "title": "Start text",
-    "page": "Textarea",
-    "category": "Component",
-    "url": "/html/components/textarea/#start-text"
-  },
-  {
-    "id": "component-textarea-html-end-text",
-    "title": "End text",
-    "page": "Textarea",
-    "category": "Component",
-    "url": "/html/components/textarea/#end-text"
   },
   {
     "id": "component-textarea-html-character-count",
@@ -3041,20 +2958,6 @@
     "url": "/html/components/textarea/#affix"
   },
   {
-    "id": "component-textarea-html-buttons",
-    "title": "Buttons",
-    "page": "Textarea",
-    "category": "Component",
-    "url": "/html/components/textarea/#buttons"
-  },
-  {
-    "id": "component-textarea-html-top-and-bottom",
-    "title": "Top and bottom",
-    "page": "Textarea",
-    "category": "Component",
-    "url": "/html/components/textarea/#top-and-bottom"
-  },
-  {
     "id": "component-textarea-html-binding",
     "title": "Binding",
     "page": "Textarea",
@@ -3062,39 +2965,11 @@
     "url": "/html/components/textarea/#binding"
   },
   {
-    "id": "component-textarea-html-validation",
-    "title": "Validation",
-    "page": "Textarea",
-    "category": "Component",
-    "url": "/html/components/textarea/#validation"
-  },
-  {
-    "id": "component-textarea-html-spread",
-    "title": "Spread",
-    "page": "Textarea",
-    "category": "Component",
-    "url": "/html/components/textarea/#spread"
-  },
-  {
     "id": "component-textarea-html-rows",
     "title": "Rows",
     "page": "Textarea",
     "category": "Component",
     "url": "/html/components/textarea/#rows"
-  },
-  {
-    "id": "component-textarea-html-auto-fit",
-    "title": "Auto-fit",
-    "page": "Textarea",
-    "category": "Component",
-    "url": "/html/components/textarea/#auto-fit"
-  },
-  {
-    "id": "component-textarea-html-keyboard-support",
-    "title": "Keyboard support",
-    "page": "Textarea",
-    "category": "Component",
-    "url": "/html/components/textarea/#keyboard-support"
   },
   {
     "id": "component-timeline-html",
@@ -4688,6 +4563,14 @@
     "url": "/html/api/#carousel"
   },
   {
+    "id": "api-character-count-html",
+    "title": "Character count API",
+    "description": "Reference for Character count HTML component.",
+    "api": ".ui-end-text > .ui-value Shows the characters typed out of the control's `maxlength`, `aria-hidden` so it stays out of the field's description. Once 10% or 10 are left, whichever is more, a live region outside the label announces the characters left. label Label The announcement near the limit, with `{count}` for the characters left. Pass it translated. control The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.",
+    "category": "API",
+    "url": "/html/api/#character-count"
+  },
+  {
     "id": "api-checkbox-input-html",
     "title": "Checkbox input API",
     "description": "Reference for Checkbox input HTML component.",
@@ -4824,6 +4707,14 @@
     "url": "/html/api/#field-legend"
   },
   {
+    "id": "api-field-html",
+    "title": "Field API",
+    "description": "Reference for Field HTML component.",
+    "api": ".ui-field Container element, a `<div>`. The label inside is a `<label for>` that names the control by itself. The label for the field. .ui-label Start text displayed above the field. .ui-start-text The boxed control area. .ui-field-container Content above the control, inside the border, with a divider. .ui-field-container > .ui-top Content at the inline-start of the field, inside the border. .ui-field-container > .ui-start Your control, written directly inside `.ui-field-container` with its `id` set to `for`. Bind it, name it and mark it `required`, `disabled` or `aria-invalid=\"true\"` like any control. A `<textarea>` grows with its content, and a `<select>` is a customizable select. .ui-field-container > :is(input, select, textarea) Content at the inline-end of the field, inside the border, such as a `PasswordToggle`. .ui-field-container > .ui-end Content below the control, inside the border, with a divider. .ui-field-container > .ui-bottom Supporting text displayed below the field, and a `CharacterCount`. .ui-end-text .ui-auto-fit Auto fit Lets the width follow the content, from `25ch`. .ui-dense Dense Packs the options of a select tighter. .ui-drop-zone Drop zone Makes a `type=\"file\"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker. .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Spread Pushes the label and start text to one side and the control to the other. .ui-filled Variants The variant to use.",
+    "category": "API",
+    "url": "/html/api/#field"
+  },
+  {
     "id": "api-fieldset-html",
     "title": "Fieldset API",
     "description": "Reference for Fieldset HTML component.",
@@ -4920,6 +4811,14 @@
     "url": "/html/api/#one-time-code"
   },
   {
+    "id": "api-password-toggle-html",
+    "title": "Password toggle API",
+    "description": "Reference for Password toggle HTML component.",
+    "api": "opui-password-toggle > .ui-button A `.ui-button` with `aria-pressed` and `command=\"--toggle-password\"` that shows and hides the password. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is, and `aria-disabled` while the input is. `<opui-password-toggle>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-password-toggle>` is defined. aria-label Label The accessible name of the toggle. Pass it translated. hidePassword() Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits. input The `<input>` its button's `commandfor` names, or `null`. Read-only. showPassword() Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
+    "category": "API",
+    "url": "/html/api/#password-toggle"
+  },
+  {
     "id": "api-progress-html",
     "title": "Progress API",
     "description": "Reference for Progress HTML component.",
@@ -4976,12 +4875,12 @@
     "url": "/html/api/#select-all"
   },
   {
-    "id": "api-select-html",
-    "title": "Select API",
-    "description": "Reference for Select HTML component.",
-    "api": "div.ui-field Container element. The label for the field. .ui-label Start text displayed above the field. .ui-start-text The boxed select area. .ui-field-container Content above the select, inside the border, with a divider. .ui-field-container > .ui-top Content at the inline-start of the field, inside the border. .ui-field-container > .ui-start The select. Its options are in a popover list. select Content at the inline-end of the field, inside the border. .ui-field-container > .ui-end Content below the select, inside the border, with a divider. .ui-field-container > .ui-bottom Supporting text displayed below the field. .ui-end-text .ui-auto-fit Auto fit Lets the width follow the selected option, from `25ch`. .ui-dense Dense Packs the items tighter. [disabled] Disabled Dims the select and blocks input. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. [required] Required Adds a required mark after the label. The form won't submit until an option with a value is selected. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Spread Pushes the label and start text to one side and the select to the other. .ui-filled Variants The variant to use.",
+    "id": "api-select-button-html",
+    "title": "Select button API",
+    "description": "Reference for Select button HTML component.",
+    "api": "select > button The select's button, with `<selectedcontent>` inside, which shows the selected option.",
     "category": "API",
-    "url": "/html/api/#select"
+    "url": "/html/api/#select-button"
   },
   {
     "id": "api-sortable-table-html",
@@ -5110,22 +5009,6 @@
     "api": ".ui-tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. .ui-input:not(:checked) + .ui-label A tab. .ui-input:checked + .ui-label The panel of the selected tab. .ui-input:checked + .ui-label + .ui-panel [name] Group The name shared by the tab inputs. Generated when omitted. .ui-vertical Orientation The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them. .ui-overflow-wrap Overflow What the tabs do when they don't fit. `scroll` keeps them on one row and scrolls it sideways, and `wrap` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column. [role=\"radiogroup\"] Role Makes tabs without panels a radio group, which `aria-label` names. Tabs with panels take no role: the root holds the panels, and a radio group holds only radios. .ui-filled .ui-line .ui-outlined Variants The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.",
     "category": "API",
     "url": "/html/api/#tabs"
-  },
-  {
-    "id": "api-text-field-html",
-    "title": "Text field API",
-    "description": "Reference for Text field HTML component.",
-    "api": ".ui-field Container element: a `<div>`, or the `<opui-text-field>` custom element with a password toggle. The label inside is a `<label for>` that names the input by itself. The label for the field. .ui-label Start text displayed above the field. .ui-start-text The boxed input area. .ui-field-container Content above the input, inside the border, with a divider. .ui-field-container > .ui-top Content at the inline-start of the field, inside the border. .ui-field-container > .ui-start Your input, written directly inside `.ui-field-container` with its `id` set to `for`. Bind it, name it and mark it `required`, `disabled` or `aria-invalid=\"true\"` like any input. .ui-field-container > input Content at the inline-end of the field, inside the border, and the password toggle. .ui-field-container > .ui-end The password toggle, with `aria-pressed` and `command=\"--toggle-password\"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is, and `aria-disabled` while the input is. `<opui-text-field>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-text-field>` is defined. .ui-field-container > .ui-end > .ui-button Content below the input, inside the border, with a divider. .ui-field-container > .ui-bottom Supporting text displayed below the field. .ui-end-text The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left. .ui-end-text > .ui-value .ui-auto-fit Auto fit Lets the width follow the content, from `25ch`. .ui-drop-zone Drop zone Makes a `type=\"file\"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker. .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Spread Pushes the label and start text to one side and the input to the other. .ui-filled Variants The variant to use. control The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only. hidePassword() Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits. input The `<input>` inside, or `null`. Read-only. showPassword() Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
-    "category": "API",
-    "url": "/html/api/#text-field"
-  },
-  {
-    "id": "api-textarea-html",
-    "title": "Textarea API",
-    "description": "Reference for Textarea HTML component.",
-    "api": ".ui-field Container element, a `<div>`. The label inside is a `<label for>` that names the textarea by itself. The label for the field. .ui-label Start text displayed above the field. .ui-start-text The boxed textarea area. .ui-field-container Content above the textarea, inside the border, with a divider. .ui-field-container > .ui-top Content at the inline-start of the field, inside the border, centered on the first line. Taller content starts `--_affix-padding-block` below the field's top, or below `.ui-top`. .ui-field-container > .ui-start Your textarea, written directly inside `.ui-field-container` with its `id` set to `for` and its value as its content. Bind it, name it and mark it `required`, `disabled` or `aria-invalid=\"true\"` like any textarea. .ui-field-container > textarea Content at the inline-end of the field, inside the border, centered on the first line. Taller content starts `--_affix-padding-block` below the field's top, or below `.ui-top`. .ui-field-container > .ui-end Content below the textarea, inside the border, with a divider. .ui-field-container > .ui-bottom Supporting text displayed below the field. .ui-end-text The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left. .ui-end-text > .ui-value .ui-auto-fit Auto fit Lets the width follow the content and allows resizing in both directions. .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Spread Pushes the label and start text to one side and the textarea to the other. .ui-filled Variants The variant to use. control The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.",
-    "category": "API",
-    "url": "/html/api/#textarea"
   },
   {
     "id": "api-timeline-item-html",

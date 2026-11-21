@@ -7,9 +7,9 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
+  Field,
   List,
   ListItem,
-  Textarea,
 } from "opui-css/react"
 
 export default function Inbox() {
@@ -540,13 +540,13 @@ export default function Inbox() {
                 action="#"
                 className="ui-layout-column ui-small inbox-reply"
               >
-                <Textarea htmlFor="inbox-inbox-reply" label="Reply to Holly">
+                <Field htmlFor="inbox-inbox-reply" label="Reply to Holly">
                   <textarea
                     id="inbox-inbox-reply"
                     name="inbox-reply"
                     placeholder="Write something rad…"
                   ></textarea>
-                </Textarea>
+                </Field>
                 <Button size="small" type="submit" variant="filled">
                   Send
                 </Button>

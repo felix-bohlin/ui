@@ -1,11 +1,11 @@
 ---
 import {
   Button,
+  Field,
   List,
   ListItem,
   Message,
   MessageList,
-  Textarea,
 } from "opui-css/astro"
 import { ME, conversation, conversations, me, user } from "reference-shared"
 import UserAvatar from "../components/UserAvatar.astro"
@@ -61,9 +61,9 @@ const open = conversation(Astro.url.searchParams.get("with"))
           </Message>
         </template>
         <form aria-label="Send a message" class="ui-layout-column">
-          <Textarea for="chat-message" hideLabel label="Message">
+          <Field for="chat-message" hideLabel label="Message">
             <textarea id="chat-message" name="text" required></textarea>
-          </Textarea>
+          </Field>
           <div>
             <Button type="submit" variant="filled">Send</Button>
           </div>

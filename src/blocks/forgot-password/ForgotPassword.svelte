@@ -7,9 +7,9 @@
     CalloutIcon,
     Card,
     CardContent,
+    Field,
     FieldGroup,
     Form,
-    TextField,
   } from "opui-css/svelte"
 </script>
 
@@ -53,7 +53,7 @@
         </hgroup>
         <Form action="#">
           <FieldGroup>
-            <TextField
+            <Field
               endText="The link works for 30 minutes, so be quick!"
               for="forgot-password-email"
               label="Email"
@@ -67,7 +67,7 @@
                 required
                 type="email"
               />
-            </TextField>
+            </Field>
             <Button
               class="forgot-password-submit"
               type="submit"

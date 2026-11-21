@@ -1,12 +1,12 @@
 import {
   Button,
   ControlGroup,
+  Field,
   FieldGroup,
   FieldLegend,
   Fieldset,
   NumberField,
-  Select,
-  TextField,
+  SelectButton,
 } from "opui-css/react"
 
 export default function Fields() {
@@ -17,7 +17,7 @@ export default function Fields() {
         color="primary"
         variant="filled"
       >
-        <TextField
+        <Field
           hideLabel
           htmlFor="control-group-fields-2"
           label="Bassist name or handle"
@@ -27,7 +27,7 @@ export default function Fields() {
             placeholder="Search bassists"
             type="search"
           />
-        </TextField>
+        </Field>
         <Button>Search</Button>
       </ControlGroup>
 
@@ -35,28 +35,22 @@ export default function Fields() {
         <FieldLegend>Price</FieldLegend>
         <FieldGroup>
           <ControlGroup>
-            <Select
-              hideLabel
-              items={[
-                { label: "EUR", value: "eur" },
-                { label: "SEK", value: "sek" },
-                { label: "USD", value: "usd" },
-              ]}
-              label="Currency"
-              name="currency"
-            />
-            <TextField
-              hideLabel
-              htmlFor="control-group-fields-3"
-              label="Amount"
-            >
+            <Field hideLabel htmlFor="control-group-fields-4" label="Currency">
+              <select id="control-group-fields-4" name="currency">
+                <SelectButton />
+                <option value="eur">EUR</option>
+                <option value="sek">SEK</option>
+                <option value="usd">USD</option>
+              </select>
+            </Field>
+            <Field hideLabel htmlFor="control-group-fields-3" label="Amount">
               <input
                 id="control-group-fields-3"
                 inputMode="decimal"
                 name="amount"
                 placeholder="0.00"
               />
-            </TextField>
+            </Field>
           </ControlGroup>
         </FieldGroup>
       </Fieldset>

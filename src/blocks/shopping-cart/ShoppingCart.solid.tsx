@@ -9,9 +9,9 @@ import {
   DescriptionListDescription,
   DescriptionListItem,
   DescriptionListTerm,
+  Field,
   NumberField,
   Progress,
-  TextField,
 } from "opui-css/solid"
 
 export default function ShoppingCart() {
@@ -205,14 +205,14 @@ export default function ShoppingCart() {
                 />
               </div>
               <ControlGroup size="small" variant="outlined">
-                <TextField for="shopping-cart-discount" label="Discount code">
+                <Field for="shopping-cart-discount" label="Discount code">
                   <input
                     id="shopping-cart-discount"
                     name="discount"
                     placeholder="Enter code"
                     type="text"
                   />
-                </TextField>
+                </Field>
                 <Button type="button">Apply</Button>
               </ControlGroup>
               <div>

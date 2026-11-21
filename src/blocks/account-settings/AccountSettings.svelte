@@ -9,19 +9,18 @@
     DialogFooter,
     DialogHeader,
     DialogTitle,
+    Field,
     FieldDescription,
     FieldGroup,
     FieldLegend,
     Fieldset,
     Form,
-    Select,
+    SelectButton,
     Switch,
     Tabs,
     TabsItem,
     TabsLabel,
     TabsPanel,
-    TextField,
-    Textarea,
     ToggleButton,
     ToggleGroup,
   } from "opui-css/svelte"
@@ -65,7 +64,7 @@
             <FieldLegend>Personal details</FieldLegend>
             <FieldGroup>
               <div class="ui-layout-grid" style="--_min-inline-size: 18rem">
-                <TextField for="account-settings-first-name" label="First name">
+                <Field for="account-settings-first-name" label="First name">
                   <input
                     autocomplete="given-name"
                     id="account-settings-first-name"
@@ -74,8 +73,8 @@
                     type="text"
                     value="Percy"
                   />
-                </TextField>
-                <TextField for="account-settings-last-name" label="Last name">
+                </Field>
+                <Field for="account-settings-last-name" label="Last name">
                   <input
                     autocomplete="family-name"
                     id="account-settings-last-name"
@@ -84,9 +83,9 @@
                     type="text"
                     value="Groove"
                   />
-                </TextField>
+                </Field>
               </div>
-              <TextField for="account-settings-email" label="Email">
+              <Field for="account-settings-email" label="Email">
                 <input
                   aria-describedby="account-settings-email-end-text"
                   autocomplete="email"
@@ -99,8 +98,8 @@
                 {#snippet endText()}
                   <span class="ui-p ui-success">Verified</span>, used for
                   sign-in and wall scribble alerts{/snippet}
-              </TextField>
-              <TextField for="account-settings-username" label="Username">
+              </Field>
+              <Field for="account-settings-username" label="Username">
                 <input
                   aria-describedby="account-settings-username-start"
                   autocomplete="username"
@@ -110,8 +109,8 @@
                   value="percygroove"
                 />
                 {#snippet start()}bassbook.example/{/snippet}
-              </TextField>
-              <Textarea
+              </Field>
+              <Field
                 for="account-settings-bio"
                 label="Bio"
                 startText="Shown on your profile for the whole world to admire"
@@ -124,7 +123,7 @@
                   >Fretless bassist in a garage band. Into flatwounds, drop D and very long root notes.</textarea
                 >
                 {#snippet bottom()}84 / 160{/snippet}
-              </Textarea>
+              </Field>
             </FieldGroup>
           </Fieldset>
           <FieldGroup class="acct-actions">
@@ -144,7 +143,7 @@
               >Last changed on 12 June 2026. Wow, so fresh!</FieldDescription
             >
             <FieldGroup>
-              <TextField
+              <Field
                 for="account-settings-current-password"
                 label="Current password"
               >
@@ -155,8 +154,8 @@
                   required
                   type="password"
                 />
-              </TextField>
-              <TextField
+              </Field>
+              <Field
                 endText={'At least 12 characters. "slap-that-low-B" works great.'}
                 for="account-settings-new-password"
                 label="New password"
@@ -170,8 +169,8 @@
                   required
                   type="password"
                 />
-              </TextField>
-              <TextField
+              </Field>
+              <Field
                 for="account-settings-confirm-password"
                 label="Confirm new password"
               >
@@ -182,7 +181,7 @@
                   required
                   type="password"
                 />
-              </TextField>
+              </Field>
             </FieldGroup>
           </Fieldset>
           <Fieldset>
@@ -225,32 +224,24 @@
           <Fieldset>
             <FieldLegend>Region</FieldLegend>
             <div class="ui-layout-grid" style="--_min-inline-size: 18rem">
-              <Select
-                id="account-settings-language"
-                items={[
-                  { label: "Dansk", value: "da" },
-                  { label: "Deutsch", value: "de" },
-                  { label: "English", selected: true, value: "en" },
-                  { label: "Norsk", value: "nb" },
-                  { label: "Svenska", value: "sv" },
-                ]}
-                label="Language"
-                name="language"
-              />
-              <Select
-                id="account-settings-timezone"
-                items={[
-                  { label: "London (GMT+1)", value: "london" },
-                  {
-                    label: "Stockholm (GMT+2)",
-                    selected: true,
-                    value: "stockholm",
-                  },
-                  { label: "Helsinki (GMT+3)", value: "helsinki" },
-                ]}
-                label="Time zone"
-                name="timezone"
-              />
+              <Field for="account-settings-language" label="Language">
+                <select id="account-settings-language" name="language">
+                  <SelectButton />
+                  <option value="da">Dansk</option>
+                  <option value="de">Deutsch</option>
+                  <option selected value="en">English</option>
+                  <option value="nb">Norsk</option>
+                  <option value="sv">Svenska</option>
+                </select>
+              </Field>
+              <Field for="account-settings-timezone" label="Time zone">
+                <select id="account-settings-timezone" name="timezone">
+                  <SelectButton />
+                  <option value="london">London (GMT+1)</option>
+                  <option selected value="stockholm">Stockholm (GMT+2)</option>
+                  <option value="helsinki">Helsinki (GMT+3)</option>
+                </select>
+              </Field>
             </div>
           </Fieldset>
           <Fieldset>

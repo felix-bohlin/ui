@@ -22,6 +22,7 @@ Each component reference covers HTML, Astro, React, Solid, Svelte and Vue: the p
 | Dialog | `dialog.md` | A window over the page for a question or a short task, modal or not. |
 | Divider | `divider.md` | A line between content, plain or with a label at the start, middle or end. |
 | Drawer | `drawer.md` | A panel that slides in from an edge of the screen, for navigation, filters or side content. |
+| Field | `field.md` | The label, hints and box around a form control you write: an input, a select or a textarea. |
 | File upload | `file-upload.md` | A drop zone around a file input that lists the files your app is uploading, with a preview, progress, a message and a remove button for each. |
 | Form | `form.md` | Classes that space and group form fields, with fieldsets and field groups. |
 | Layout | `layout.md` | Classes for the space between components, in columns, rows and grids. |
@@ -42,8 +43,8 @@ Each component reference covers HTML, Astro, React, Solid, Svelte and Vue: the p
 | Switch | `switch.md` | An on and off switch for a setting that applies right away. |
 | Table | `table.md` | A table for data people scan and compare, with sticky headers, sorting and expandable rows. |
 | Tabs | `tabs.md` | Tabs that switch between panels of related content, built on radio inputs. |
-| Text field | `text-field.md` | A single-line text input with a label, start and end text, and validation. |
-| Textarea | `textarea.md` | A multi-line text input with a label, start and end text, and validation. |
+| Text field | `text-field.md` | A single-line text input in a Field: input types, numbers as text, a password toggle and suggestions. |
+| Textarea | `textarea.md` | A multi-line text input in a Field that grows with its text, with a character count. |
 | Timeline | `timeline.md` | A list of dated events with markers and a connecting line. |
 | Toast | `toast.md` | Short messages that confirm an action and dismiss themselves. |
 | Toggle | `toggle.md` | Buttons that switch options on and off, alone or in a group, like bold in a toolbar. |
@@ -65,6 +66,7 @@ Components documented on another component's page:
 | CardActions | `card.md` |
 | CardContent | `card.md` |
 | CardHeader | `card.md` |
+| CharacterCount | `textarea.md` |
 | CheckboxInput | `checkbox.md` |
 | DescriptionListDescription | `description-list.md` |
 | DescriptionListItem | `description-list.md` |
@@ -83,9 +85,11 @@ Components documented on another component's page:
 | Fieldset | `form.md` |
 | ListItem | `list.md` |
 | MessageList | `message.md` |
+| PasswordToggle | `text-field.md` |
 | RadioInput | `radio.md` |
 | Reactions | `message.md` |
 | SelectAll | `checkbox.md` |
+| SelectButton | `select.md` |
 | SortableTable | `table.md` |
 | StepperItem | `stepper.md` |
 | SwitchInput | `switch.md` |

@@ -2,11 +2,11 @@
   import { page } from "$app/state"
   import {
     Button,
+    Field,
     List,
     ListItem,
     Message,
     MessageList,
-    Textarea,
   } from "opui-css/svelte"
   import {
     ME,
@@ -84,10 +84,10 @@
         class="ui-layout-column"
         onsubmit={send}
       >
-        <Textarea for="chat-message" hideLabel label="Message">
+        <Field for="chat-message" hideLabel label="Message">
           <textarea bind:value={text} id="chat-message" name="text" required
           ></textarea>
-        </Textarea>
+        </Field>
         <div>
           <Button type="submit" variant="filled">Send</Button>
         </div>

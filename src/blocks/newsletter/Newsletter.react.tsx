@@ -2,6 +2,7 @@ import {
   Button,
   Card,
   Checkbox,
+  Field,
   FieldDescription,
   FieldGroup,
   FieldLegend,
@@ -9,7 +10,6 @@ import {
   Form,
   List,
   ListItem,
-  TextField,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/react"
@@ -62,7 +62,7 @@ export default function Newsletter() {
           </div>
           <Form action="#" className="newsletter-form">
             <FieldGroup orientation="horizontal">
-              <TextField htmlFor="newsletter-email" label="Email">
+              <Field htmlFor="newsletter-email" label="Email">
                 <input
                   autoComplete="email"
                   id="newsletter-email"
@@ -71,7 +71,7 @@ export default function Newsletter() {
                   required
                   type="email"
                 />
-              </TextField>
+              </Field>
               <Button type="submit" variant="filled">
                 Sign me up!
               </Button>

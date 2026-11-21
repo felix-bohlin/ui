@@ -4,9 +4,10 @@ Lists meant to be used stand-alone or as part of Select elements
 
   Intended use-case:
   - ul.ui-list > li
-  - .ui-field select > .ui-list > option
+  - .ui-field select > option
 */
-  :where(.ui-list, .ui-menu) {
+  :where(.ui-list, .ui-menu),
+  :where(.ui-field > .ui-field-container > select)::picker(select) {
     --_bg-color: var(--ui-surface-filled);
     --_check-image: var(--ui-icon-check);
     --_description-text-color: var(--ui-text-subtle);
@@ -45,19 +46,19 @@ Lists meant to be used stand-alone or as part of Select elements
     list-style: none;
     padding-block: var(--ui-space-2);
     padding-inline: 0;
+  }
 
-    &:not(.ui-menu, .ui-tonal, .ui-transparent, select .ui-list) {
+  :where(.ui-list, .ui-menu) {
+    &:not(.ui-menu, .ui-tonal, .ui-transparent) {
       --ui-border-color: var(--ui-border-color-on-filled);
       --ui-field-border-color: var(--ui-field-border-color-on-filled);
     }
 
     &.ui-list {
+      --_motion: var(--ui-motion);
+
       border-radius: var(--_radius);
       overflow: clip;
-
-      &:not(select .ui-list) {
-        --_motion: var(--ui-motion);
-      }
 
       :where(.ui-accordion, .ui-card, .ui-dialog) > & {
         --_radius: 0;
@@ -72,13 +73,6 @@ Lists meant to be used stand-alone or as part of Select elements
       --_selected-shadow: none;
     }
 
-    @media (pointer: coarse) {
-      & > :where(li, option) > :where(a, button, label) {
-        -webkit-user-select: none;
-        user-select: none;
-      }
-    }
-
     /* Background color */
     &.ui-transparent {
       --_bg-color: transparent;
@@ -91,6 +85,21 @@ Lists meant to be used stand-alone or as part of Select elements
         var(--ui-border-color),
         var(--ui-text-strong) 20%
       );
+    }
+
+    &.ui-dense {
+      --_divider-gap: var(--ui-space-2);
+      --_item-gap: var(--ui-space-2);
+      --_start-size: var(--ui-icon-size-small);
+    }
+  }
+
+  :where(.ui-list, .ui-menu, .ui-field > .ui-field-container > select) {
+    @media (pointer: coarse) {
+      & > :where(li, option) > :where(a, button, label) {
+        -webkit-user-select: none;
+        user-select: none;
+      }
     }
 
     /* Borders on all list items */
@@ -115,11 +124,8 @@ Lists meant to be used stand-alone or as part of Select elements
     }
 
     /* Dense - less gaps and spacing */
-    &.ui-dense {
-      --_divider-gap: var(--ui-space-2);
-      --_item-gap: var(--ui-space-2);
-      --_start-size: var(--ui-icon-size-small);
-
+    &.ui-dense,
+    .ui-dense:where(.ui-field) > :where(.ui-field-container) > & {
       & > :where(li, option),
       & > :where([role="group"], optgroup) > :where(label, legend, option) {
         min-block-size: var(--ui-control-size-small);
@@ -517,7 +523,13 @@ Lists meant to be used stand-alone or as part of Select elements
     :is(.ui-list, .ui-menu).ui-dense > :where(li, option),
     :is(.ui-list, .ui-menu).ui-dense
       > :where([role="group"], optgroup)
-      > :where(label, legend, option)
+      > :where(label, legend, option),
+    .ui-field.ui-dense > .ui-field-container > select > option,
+    .ui-field.ui-dense
+      > .ui-field-container
+      > select
+      > optgroup
+      > :where(legend, option)
   ) {
     & > :where(label.ui-checkbox, label.ui-radio),
     & > :where(.ui-start, .ui-end) :where(.ui-checkbox, .ui-radio),
@@ -544,7 +556,13 @@ Lists meant to be used stand-alone or as part of Select elements
       :is(.ui-list, .ui-menu) > :where(li, option),
       :is(.ui-list, .ui-menu)
         > :where([role="group"], optgroup)
-        > :where(label, legend, option)
+        > :where(label, legend, option),
+      .ui-field > .ui-field-container > select > option,
+      .ui-field
+        > .ui-field-container
+        > select
+        > optgroup
+        > :where(legend, option)
     )
     > :where(label.ui-switch) {
     --ui-switch-thumb-size: var(--ui-switch-thumb-size-small);

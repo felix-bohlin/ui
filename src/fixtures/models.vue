@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from "vue"
 import {
+  CharacterCount,
   Checkbox,
+  Field,
   Menu,
   NumberField,
+  PasswordToggle,
   Rating,
-  Select,
+  SelectButton,
   Stepper,
   Tabs,
   TabsItem,
   TabsLabel,
   TabsPanel,
-  TextField,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/vue"
@@ -68,20 +70,23 @@ onBeforeUnmount(() =>
 
 <template>
   <form>
-    <TextField for="models-city" label="City">
+    <Field for="models-city" label="City">
       <input
         :aria-invalid="error ? 'true' : undefined"
         id="models-city"
         value="Lund"
       />
-    </TextField>
-    <TextField for="models-password" label="Password" password-toggle>
+    </Field>
+    <Field for="models-password" label="Password">
       <input
         :aria-invalid="error ? 'true' : undefined"
         id="models-password"
         type="password"
       />
-    </TextField>
+      <template #end>
+        <PasswordToggle for="models-password" />
+      </template>
+    </Field>
     <NumberField for="models-quantity" label="Quantity">
       <input
         :aria-invalid="error ? 'true' : undefined"
@@ -91,26 +96,38 @@ onBeforeUnmount(() =>
       />
     </NumberField>
     <Checkbox :checked="false" :error>Newsletter</Checkbox>
-    <Select :error label="Size" value="small">
-      <option value="small">Small</option>
-      <option value="large">Large</option>
-    </Select>
-    <Select label="Color" value="blue">
-      <option value="red">Red</option>
-      <option value="blue">Blue</option>
-    </Select>
-    <TextField character-count for="models-name" label="Name">
+    <Field for="models-size" label="Size">
+      <select :aria-invalid="error ? 'true' : undefined" id="models-size">
+        <SelectButton />
+        <option selected value="small">Small</option>
+        <option value="large">Large</option>
+      </select>
+    </Field>
+    <Field for="models-color" label="Color">
+      <select id="models-color">
+        <SelectButton />
+        <option value="red">Red</option>
+        <option selected value="blue">Blue</option>
+      </select>
+    </Field>
+    <Field for="models-name" label="Name">
       <input
         aria-describedby="models-name-end-text"
         id="models-name"
         maxlength="20"
         v-model="name"
       />
-    </TextField>
-    <Select label="Plan" v-model="plan">
-      <option value="free">Free</option>
-      <option value="paid">Paid</option>
-    </Select>
+      <template #end-text>
+        <CharacterCount />
+      </template>
+    </Field>
+    <Field for="models-plan" label="Plan">
+      <select id="models-plan" v-model="plan">
+        <SelectButton />
+        <option value="free">Free</option>
+        <option value="paid">Paid</option>
+      </select>
+    </Field>
     <Tabs model-value="profile" name="refused-tabs" role="radiogroup">
       <TabsItem value="profile">
         <TabsLabel>Profile</TabsLabel>
@@ -153,7 +170,14 @@ onBeforeUnmount(() =>
       popover="manual"
       @click="refreshActions"
     />
-    <Select :items="fruits" label="Fruit" />
+    <Field for="models-fruit" label="Fruit">
+      <select id="models-fruit">
+        <SelectButton />
+        <option v-for="fruit in fruits" :key="fruit.value" :value="fruit.value">
+          {{ fruit.label }}
+        </option>
+      </select>
+    </Field>
     <Stepper :current="2" :items="steps" />
     <button type="button" @click="fruits = fruitsOf(1)">Refresh fruits</button>
     <button type="button" @click="error = !error">Toggle error</button>

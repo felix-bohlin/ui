@@ -4,8 +4,9 @@ import {
   CardActions,
   CardContent,
   Chip,
+  Field,
   Progress,
-  Select,
+  SelectButton,
   Stat,
   Table,
   TableBody,
@@ -28,17 +29,22 @@ export default function SalesDashboard() {
             <h1 className="ui-h3">Merch sales</h1>
           </hgroup>
           <div className="ui-layout-row ui-small sales-actions">
-            <Select
-              defaultValue="Year to date"
-              id="sales-dashboard-sales-dashboard-period"
+            <Field
+              htmlFor="sales-dashboard-sales-dashboard-period"
               label="Period"
-              name="sales-dashboard-period"
               size="small"
             >
-              <option>Year to date</option>
-              <option>Last 90 days</option>
-              <option>Last 12 months</option>
-            </Select>
+              <select
+                id="sales-dashboard-sales-dashboard-period"
+                name="sales-dashboard-period"
+                defaultValue="Year to date"
+              >
+                <SelectButton />
+                <option>Year to date</option>
+                <option>Last 90 days</option>
+                <option>Last 12 months</option>
+              </select>
+            </Field>
             <Button size="small" type="button" variant="outlined">
               <svg
                 data-icon="download"

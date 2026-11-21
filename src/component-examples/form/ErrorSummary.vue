@@ -4,9 +4,9 @@ import {
   Callout,
   CalloutContent,
   CalloutIcon,
+  Field,
   FieldGroup,
   Form,
-  TextField,
 } from "opui-css/vue"
 </script>
 
@@ -33,7 +33,7 @@ import {
       </CalloutContent>
     </Callout>
     <FieldGroup>
-      <TextField
+      <Field
         endText="Enter your work email."
         for="form-error-summary-2"
         label="Email"
@@ -45,8 +45,8 @@ import {
           id="form-error-summary-2"
           type="email"
         />
-      </TextField>
-      <TextField
+      </Field>
+      <Field
         endText="Choose a password with at least 12 characters."
         for="form-error-summary-3"
         label="Password"
@@ -59,7 +59,7 @@ import {
           type="password"
           value="hunter2"
         />
-      </TextField>
+      </Field>
     </FieldGroup>
     <FieldGroup>
       <Button type="submit" variant="filled">Create account</Button>

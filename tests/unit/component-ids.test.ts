@@ -11,6 +11,11 @@ import DialogReact from "../../packages/opui/components/Dialog/Dialog.react"
 import DialogSolid from "../../packages/opui/components/Dialog/Dialog.solid"
 import DialogSvelte from "../../packages/opui/components/Dialog/Dialog.svelte"
 import DialogVue from "../../packages/opui/components/Dialog/Dialog.vue"
+import FieldAstro from "../../packages/opui/components/Field/Field.astro"
+import FieldReact from "../../packages/opui/components/Field/Field.react"
+import FieldSolid from "../../packages/opui/components/Field/Field.solid"
+import FieldSvelte from "../../packages/opui/components/Field/Field.svelte"
+import FieldVue from "../../packages/opui/components/Field/Field.vue"
 import NumberFieldAstro from "../../packages/opui/components/NumberField/NumberField.astro"
 import NumberFieldReact from "../../packages/opui/components/NumberField/NumberField.react"
 import NumberFieldSolid from "../../packages/opui/components/NumberField/NumberField.solid"
@@ -26,21 +31,6 @@ import RangeReact from "../../packages/opui/components/Range/Range.react"
 import RangeSolid from "../../packages/opui/components/Range/Range.solid"
 import RangeSvelte from "../../packages/opui/components/Range/Range.svelte"
 import RangeVue from "../../packages/opui/components/Range/Range.vue"
-import SelectAstro from "../../packages/opui/components/Select/Select.astro"
-import SelectReact from "../../packages/opui/components/Select/Select.react"
-import SelectSolid from "../../packages/opui/components/Select/Select.solid"
-import SelectSvelte from "../../packages/opui/components/Select/Select.svelte"
-import SelectVue from "../../packages/opui/components/Select/Select.vue"
-import TextFieldAstro from "../../packages/opui/components/TextField/TextField.astro"
-import TextFieldReact from "../../packages/opui/components/TextField/TextField.react"
-import TextFieldSolid from "../../packages/opui/components/TextField/TextField.solid"
-import TextFieldSvelte from "../../packages/opui/components/TextField/TextField.svelte"
-import TextFieldVue from "../../packages/opui/components/TextField/TextField.vue"
-import TextareaAstro from "../../packages/opui/components/Textarea/Textarea.astro"
-import TextareaReact from "../../packages/opui/components/Textarea/Textarea.react"
-import TextareaSolid from "../../packages/opui/components/Textarea/Textarea.solid"
-import TextareaSvelte from "../../packages/opui/components/Textarea/Textarea.svelte"
-import TextareaVue from "../../packages/opui/components/Textarea/Textarea.vue"
 
 type Components = Record<ComponentFramework, unknown>
 
@@ -122,24 +112,6 @@ const CASES: {
       valueSuffix: "%",
     },
   },
-  {
-    base: (html) => /<select[^>]*\sid="([^"]+)"/.exec(html)?.[1],
-    components: {
-      astro: SelectAstro,
-      react: SelectReact,
-      solid: SelectSolid,
-      svelte: SelectSvelte,
-      vue: SelectVue,
-    },
-    name: "Select",
-    prefix: "select",
-    props: {
-      endText: "E",
-      items: [{ label: "A", value: "a" }],
-      label: "L",
-      startText: "S",
-    },
-  },
 ]
 
 const FRAMEWORKS = Object.keys(render) as ComponentFramework[]
@@ -198,6 +170,17 @@ const OWN_CONTROL: {
 }[] = [
   {
     components: {
+      astro: FieldAstro,
+      react: FieldReact,
+      solid: FieldSolid,
+      svelte: FieldSvelte,
+      vue: FieldVue,
+    },
+    name: "Field",
+    props: { endText: "E", label: "L", startText: "S" },
+  },
+  {
+    components: {
       astro: NumberFieldAstro,
       react: NumberFieldReact,
       solid: NumberFieldSolid,
@@ -217,28 +200,6 @@ const OWN_CONTROL: {
     },
     name: "OneTimeCode",
     props: { endText: "E", label: "L" },
-  },
-  {
-    components: {
-      astro: TextFieldAstro,
-      react: TextFieldReact,
-      solid: TextFieldSolid,
-      svelte: TextFieldSvelte,
-      vue: TextFieldVue,
-    },
-    name: "TextField",
-    props: { endText: "E", label: "L", passwordToggle: true, startText: "S" },
-  },
-  {
-    components: {
-      astro: TextareaAstro,
-      react: TextareaReact,
-      solid: TextareaSolid,
-      svelte: TextareaSvelte,
-      vue: TextareaVue,
-    },
-    name: "Textarea",
-    props: { endText: "E", label: "L", startText: "S" },
   },
 ]
 

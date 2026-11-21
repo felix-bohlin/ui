@@ -1,5 +1,5 @@
 ---
-import { Select } from "opui-css/astro"
+import { Field, SelectButton } from "opui-css/astro"
 import {
   examplePath,
   exampleModules,
@@ -168,6 +168,7 @@ const activeSourceCss = FRAMEWORKS.map(
     `#${id}:is([data-framework="${framework}"], :not([data-framework]):has([name="${groupName}"] [value="${framework}"]:checked)) .shells-source[data-framework="${framework}"] { display: block; view-transition-name: ${id}-code; }
 #${id}:is([data-framework="${framework}"], :not([data-framework]):has([name="${groupName}"] [value="${framework}"]:checked)) .shells-source[data-framework="${framework}"] .shells-part { view-transition-name: var(--shells-part); }`,
 ).join("\n")
+const frameworkId = Astro.locals.$id("shells-framework")
 ---
 
 <div class="shells ui-not-rich-text" id={id}>
@@ -196,20 +197,23 @@ const activeSourceCss = FRAMEWORKS.map(
     </p>
   </figure>
   <div class="shells-morph">
-    <Select
+    <Field
       class="shells-toggle"
+      for={frameworkId}
       hideLabel
       label="Framework"
-      name={groupName}
       size="small"
     >
-      {renders.map(({ framework, label }) => <option
-        selected={framework === reference}
-        value={framework}
-      >
-        {label}
-      </option>)}
-    </Select>
+      <select id={frameworkId} name={groupName}>
+        <SelectButton />
+        {renders.map(({ framework, label }) => <option
+          selected={framework === reference}
+          value={framework}
+        >
+          {label}
+        </option>)}
+      </select>
+    </Field>
     <div class="shells-code">
       {renders.map(({ framework, marked }) => (
         <pre

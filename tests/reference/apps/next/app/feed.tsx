@@ -1,6 +1,12 @@
 "use client"
 
-import { Button, Textarea, ToggleButton, ToggleGroup } from "opui-css/react"
+import {
+  Button,
+  CharacterCount,
+  Field,
+  ToggleButton,
+  ToggleGroup,
+} from "opui-css/react"
 import {
   FEED_FILTERS,
   POSTS,
@@ -80,8 +86,8 @@ export default function Feed() {
     <div className="app-screen" data-screen="feed">
       <h1>Feed</h1>
       <form action={post} aria-label="New post" className="ui-layout-column">
-        <Textarea
-          characterCount
+        <Field
+          endText={<CharacterCount />}
           htmlFor="feed-post"
           label="What's on your mind?"
         >
@@ -92,7 +98,7 @@ export default function Feed() {
             name="text"
             required
           />
-        </Textarea>
+        </Field>
         <div>
           <Button type="submit" variant="filled">
             Post

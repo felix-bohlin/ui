@@ -1,5 +1,5 @@
 ---
-import { Range, Textarea } from "opui-css/astro"
+import { Field, Range } from "opui-css/astro"
 
 const lines = { max: 8, min: 3 }
 
@@ -22,7 +22,7 @@ const columns = [
         <code>field-sizing: {column.sizing}</code>
         <span>{column.caption}</span>
       </p>
-      <Textarea
+      <Field
         for={`field-sizing-compare-${column.sizing}`}
         label={`Notes, field-sizing: ${column.sizing}`}
       >
@@ -32,7 +32,7 @@ const columns = [
           placeholder="Type a few lines"
           rows={lines.min}
         ></textarea>
-      </Textarea>
+      </Field>
       <p class="field-sizing-compare-readout">Box: <span data-lines /></p>
     </div>)}
   </div>

@@ -56,8 +56,8 @@ describe("the React prop table", () => {
     ["div", false, "interestfor", "interestfor", "string"],
     ["p", false, "aria-label", "aria-label", "string"],
     ["p", false, "data-anything", "data-anything", "string"],
-    ["Select", true, "multiple", "multiple", "boolean"],
-    ["Select", true, "variant", "variant", "string"],
+    ["Field", true, "variant", "variant", "string"],
+    ["ToggleGroup", true, "multiple", "multiple", "boolean"],
     ["Carousel", true, "itemsPerView", "itemsPerView", "number"],
     ["Table", true, "tabindex", "tabIndex", "number"],
   ])("%s %s: %s is %s (%s)", (tag, component, name, expected, kind) => {
@@ -162,24 +162,24 @@ describe("the order of props", () => {
 
   test("a component's attributes are sorted in Svelte and Vue", async () => {
     const source = astro(
-      '<Select variant="filled" label="x" spread />',
-      "Select",
+      '<Field variant="filled" label="x" spread for="x" />',
+      "Field",
     )
     expect(await convertExample(source, "svelte", sampleFile)).toContain(
-      '<Select label="x" spread variant="filled" />',
+      '<Field for="x" label="x" spread variant="filled" />',
     )
     expect(await convertExample(source, "vue", sampleFile)).toContain(
-      '<Select label="x" spread variant="filled" />',
+      '<Field for="x" label="x" spread variant="filled" />',
     )
   })
 
   test("checkAttributeOrder names the tag and the order to write", async () => {
     expect(
       await checkAttributeOrder(
-        astro('<Select variant="filled" label="x" spread />', "Select"),
+        astro('<Field variant="filled" label="x" spread for="x" />', "Field"),
       ),
     ).toEqual([
-      "the attributes of <Select> are not in alphabetical order: write label, spread, variant",
+      "the attributes of <Field> are not in alphabetical order: write for, label, spread, variant",
     ])
   })
 
@@ -187,8 +187,8 @@ describe("the order of props", () => {
     expect(
       await checkAttributeOrder(
         astro(
-          '<Select label="x" spread variant="filled" /><p id="b" class="a">x</p>',
-          "Select",
+          '<Field for="x" label="x" spread variant="filled" /><p id="b" class="a">x</p>',
+          "Field",
         ),
       ),
     ).toEqual([])
@@ -266,34 +266,28 @@ describe("form state in React", () => {
   })
 
   const optgroup = sample(
-    "<Select><optgroup label='g'><option>a</option><option selected value='b'>B</option></optgroup></Select>",
-    "Select",
+    "<select><optgroup label='g'><option>a</option><option selected value='b'>B</option></optgroup></select>",
   )
 
   test("lifts the selected option to defaultValue, through optgroup", async () => {
     const code = await optgroup()
-    expect(code).toContain('<Select defaultValue="b">')
+    expect(code).toContain('<select defaultValue="b">')
     expect(code).not.toContain("selected")
   })
 
   const optionText = sample(
-    "<Select><option selected>\n  Tom   &amp;\n  Jerry\n</option></Select>",
-    "Select",
+    "<select><option selected>\n  Tom   &amp;\n  Jerry\n</option></select>",
   )
 
   test("takes the option value by the HTML rule from its text", async () => {
     expect(await optionText()).toContain('defaultValue="Tom & Jerry"')
     expect(
-      await react(
-        "<Select><option selected>&nbsp;a</option></Select>",
-        "Select",
-      ),
+      await react("<select><option selected>&nbsp;a</option></select>"),
     ).toContain('defaultValue=" a"')
   })
 
   const multiple = sample(
-    "<Select multiple><option selected>a</option><option>b</option><option selected value='c'>C</option></Select>",
-    "Select",
+    "<select multiple><option selected>a</option><option>b</option><option selected value='c'>C</option></select>",
   )
 
   test("writes several selected options of a multiple select as an array", async () => {
@@ -311,16 +305,16 @@ describe("form state in React", () => {
   test.each([
     [
       "several selected options without multiple",
-      "<Select><option selected>a</option><option selected>b</option></Select>",
-      "several selected options in <Select> without multiple",
+      "<select><option selected>a</option><option selected>b</option></select>",
+      "several selected options in <select> without multiple",
     ],
     [
       "a selected option next to a value",
-      "<Select value='a'><option selected>a</option></Select>",
-      "a selected <option> next to a value on <Select>",
+      "<select value='a'><option selected>a</option></select>",
+      "a selected <option> next to a value on <select>",
     ],
   ])("rejects %s", async (_, body, reason) => {
-    await expect(react(body, "Select")).rejects.toThrow(reason)
+    await expect(react(body)).rejects.toThrow(reason)
   })
 
   const textarea = sample("<textarea>Hello</textarea>")

@@ -93,17 +93,17 @@ The stylesheets read `--ui-border-width`, `--ui-button-accent`, `--ui-button-fon
 
 ```astro
 ---
-import { Button, Copy, TextField } from "opui-css/astro"
+import { Button, Copy, Field } from "opui-css/astro"
 ---
 
 <Copy id="copy-basics-1">
-  <TextField for="copy-basics-2" hideLabel label="Invite link">
+  <Field for="copy-basics-2" hideLabel label="Invite link">
     <input
       id="copy-basics-2"
       readonly
       value="https://example.com/invite/8f3k2"
     />
-  </TextField>
+  </Field>
 </Copy>
 <Button command="--copy" commandfor="copy-basics-1" variant="outlined"
   >Copy</Button
@@ -119,19 +119,19 @@ import { Button, Copy, TextField } from "opui-css/astro"
 ### Example: Basics
 
 ```tsx
-import { Button, Copy, TextField } from "opui-css/react"
+import { Button, Copy, Field } from "opui-css/react"
 
 export default function Basics() {
   return (
     <>
       <Copy id="copy-basics-1">
-        <TextField hideLabel htmlFor="copy-basics-2" label="Invite link">
+        <Field hideLabel htmlFor="copy-basics-2" label="Invite link">
           <input
             id="copy-basics-2"
             readOnly
             value="https://example.com/invite/8f3k2"
           />
-        </TextField>
+        </Field>
       </Copy>
       <Button command="--copy" commandfor="copy-basics-1" variant="outlined">
         Copy
@@ -149,19 +149,19 @@ export default function Basics() {
 
 ```tsx
 /** @jsxImportSource @solidjs/web */
-import { Button, Copy, TextField } from "opui-css/solid"
+import { Button, Copy, Field } from "opui-css/solid"
 
 export default function Basics() {
   return (
     <>
       <Copy id="copy-basics-1">
-        <TextField for="copy-basics-2" hideLabel label="Invite link">
+        <Field for="copy-basics-2" hideLabel label="Invite link">
           <input
             id="copy-basics-2"
             readonly
             value="https://example.com/invite/8f3k2"
           />
-        </TextField>
+        </Field>
       </Copy>
       <Button command="--copy" commandfor="copy-basics-1" variant="outlined">
         Copy
@@ -179,17 +179,17 @@ export default function Basics() {
 
 ```svelte
 <script lang="ts">
-  import { Button, Copy, TextField } from "opui-css/svelte"
+  import { Button, Copy, Field } from "opui-css/svelte"
 </script>
 
 <Copy id="copy-basics-1">
-  <TextField for="copy-basics-2" hideLabel label="Invite link">
+  <Field for="copy-basics-2" hideLabel label="Invite link">
     <input
       id="copy-basics-2"
       readonly
       value="https://example.com/invite/8f3k2"
     />
-  </TextField>
+  </Field>
 </Copy>
 <Button command="--copy" commandfor="copy-basics-1" variant="outlined"
   >Copy</Button
@@ -204,18 +204,18 @@ export default function Basics() {
 
 ```vue
 <script setup lang="ts">
-import { Button, Copy, TextField } from "opui-css/vue"
+import { Button, Copy, Field } from "opui-css/vue"
 </script>
 
 <template>
   <Copy id="copy-basics-1">
-    <TextField for="copy-basics-2" hideLabel label="Invite link">
+    <Field for="copy-basics-2" hideLabel label="Invite link">
       <input
         id="copy-basics-2"
         readonly
         value="https://example.com/invite/8f3k2"
       />
-    </TextField>
+    </Field>
   </Copy>
   <Button command="--copy" commandfor="copy-basics-1" variant="outlined"
     >Copy</Button

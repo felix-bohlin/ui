@@ -1,5 +1,5 @@
 ---
-import { Select } from "opui-css/astro"
+import { Field, SelectButton } from "opui-css/astro"
 
 const columns = [
   { appearance: "base-select", caption: "styled with CSS" },
@@ -7,6 +7,7 @@ const columns = [
 ]
 
 const options = ["Citroën", "Peugeot", "Renault", "Saab", "Volvo"]
+const carId = Astro.locals.$id("base-select-car")
 ---
 
 <div class="base-select-compare">
@@ -18,10 +19,16 @@ const options = ["Citroën", "Peugeot", "Renault", "Saab", "Volvo"]
       <code>appearance: {column.appearance}</code>
       <span>{column.caption}</span>
     </legend>
-    <Select label="Car" name={`base-select-${column.appearance}`}>
-      <option value="">Pick one</option>
-      {options.map((option) => <option>{option}</option>)}
-    </Select>
+    <Field for={`${carId}-${column.appearance}`} label="Car">
+      <select
+        id={`${carId}-${column.appearance}`}
+        name={`base-select-${column.appearance}`}
+      >
+        <SelectButton />
+        <option value="">Pick one</option>
+        {options.map((option) => <option>{option}</option>)}
+      </select>
+    </Field>
   </fieldset>)}
 </div>
 

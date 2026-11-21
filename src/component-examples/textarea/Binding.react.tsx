@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Button, Textarea } from "opui-css/react"
+import { Button, Field } from "opui-css/react"
 
 const initial = "Thanks for the update."
 
@@ -10,14 +10,14 @@ export default function Binding() {
 
   return (
     <>
-      <Textarea htmlFor="textarea-binding-1" label="Message">
+      <Field htmlFor="textarea-binding-1" label="Message">
         <textarea
           id="textarea-binding-1"
           name="textarea-binding"
           value={message}
           onChange={(event) => setMessage(event.currentTarget.value)}
         />
-      </Textarea>
+      </Field>
       <p className="textarea-binding-text">{message.length} characters</p>
       <Button
         className="textarea-binding-reset"

@@ -1,4 +1,10 @@
-import { Button, Textarea, ToggleButton, ToggleGroup } from "opui-css/solid"
+import {
+  Button,
+  CharacterCount,
+  Field,
+  ToggleButton,
+  ToggleGroup,
+} from "opui-css/solid"
 import {
   FEED_FILTERS,
   POSTS,
@@ -88,7 +94,11 @@ export default function Feed() {
     <div class="app-screen" data-screen="feed">
       <h1>Feed</h1>
       <form aria-label="New post" class="ui-layout-column" onSubmit={submit}>
-        <Textarea characterCount for="feed-post" label="What's on your mind?">
+        <Field
+          endText={<CharacterCount />}
+          for="feed-post"
+          label="What's on your mind?"
+        >
           <textarea
             aria-describedby="feed-post-end-text"
             id="feed-post"
@@ -98,7 +108,7 @@ export default function Feed() {
             required
             value={text()}
           />
-        </Textarea>
+        </Field>
         <div>
           <Button type="submit" variant="filled">
             Post

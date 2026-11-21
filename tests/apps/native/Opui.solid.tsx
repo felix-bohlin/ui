@@ -2,25 +2,21 @@
 import { createSignal, For } from "solid-js"
 import {
   Checkbox,
+  Field,
   NumberField,
   Radio,
   Range,
   Rating,
-  Select,
+  SelectButton,
   Tabs,
   TabsItem,
   TabsLabel,
   TabsPanel,
-  TextField,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/solid"
 
-const colors = [
-  { label: "blue", value: "blue" },
-  { label: "green", value: "green" },
-  { label: "red", value: "red" },
-]
+const colors = ["blue", "green", "red"]
 const tabs = ["one", "two", "three"]
 const views = ["day", "week", "month"]
 
@@ -140,16 +136,33 @@ export default function Opui() {
         <Rating label="Score" name="score" />
       </form>
       <form data-case="select-bound">
-        <Select
-          items={colors}
-          label="Color"
-          onChange={(event) => setSelect(event.currentTarget.value)}
-          value={select()}
-        />
+        <Field for="select-bound" label="Color">
+          <select
+            id="select-bound"
+            onChange={(event) => setSelect(event.currentTarget.value)}
+            value={select()}
+          >
+            <SelectButton />
+            <For each={colors}>
+              {(color) => <option value={color}>{color}</option>}
+            </For>
+          </select>
+        </Field>
         <output>{select()}</output>
       </form>
       <form data-case="select-default">
-        <Select defaultValue="green" items={colors} label="Color" />
+        <Field for="select-default" label="Color">
+          <select id="select-default">
+            <SelectButton />
+            <For each={colors}>
+              {(color) => (
+                <option selected={color === "green"} value={color}>
+                  {color}
+                </option>
+              )}
+            </For>
+          </select>
+        </Field>
       </form>
       <form data-case="tabs-bound">
         <Tabs name="tab" onValueChange={setTab} value={tab()}>
@@ -177,29 +190,29 @@ export default function Opui() {
         </Tabs>
       </form>
       <form data-case="text-bound">
-        <TextField for="text-bound" label="Name">
+        <Field for="text-bound" label="Name">
           <input
             id="text-bound"
             onInput={(event) => setText(event.currentTarget.value)}
             value={text()}
           />
-        </TextField>
+        </Field>
         <output>{text()}</output>
       </form>
       <form data-case="text-default">
-        <TextField for="text-default" label="Name">
+        <Field for="text-default" label="Name">
           <input defaultValue="Ada" id="text-default" />
-        </TextField>
+        </Field>
       </form>
       <form data-case="text-empty">
-        <TextField for="text-empty" label="Name">
+        <Field for="text-empty" label="Name">
           <input id="text-empty" />
-        </TextField>
+        </Field>
       </form>
       <form data-case="text-rerender">
-        <TextField for="text-rerender" label="Name">
+        <Field for="text-rerender" label="Name">
           <input data-round={round()} defaultValue="Ada" id="text-rerender" />
-        </TextField>
+        </Field>
       </form>
       <form data-case="toggle-bound">
         <ToggleButton

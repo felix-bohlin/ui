@@ -74,7 +74,7 @@ Icons are inline `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke
 ### Feed (`/`, `data-screen="feed"`)
 
 - `<h1>Feed</h1>`.
-- A composer `<form aria-label="New post">` with a `Textarea` (`label="What's on your mind?"`, `for="feed-post"`, `characterCount`, its textarea `name="text"`, `maxlength="280"`, `required`) and a filled `Button` `Post` (`type="submit"`). Submitting adds a post by Sam at the top of the list with the time `Just now`, and empties the field.
+- A composer `<form aria-label="New post">` with a `Field` (`label="What's on your mind?"`, `for="feed-post"`, a `CharacterCount` as its end text, its textarea `aria-describedby="feed-post-end-text"`, `name="text"`, `maxlength="280"`, `required`) and a filled `Button` `Post` (`type="submit"`). Submitting adds a post by Sam at the top of the list with the time `Just now`, and empties the field.
 - A `ToggleGroup` (`aria-label="Filter posts"`, `name="filter"`) with `All`, `Photos` and `Saved` from `FEED_FILTERS`, `All` checked. `Photos` shows only posts with photos. `Saved` shows the posts saved this session, or the empty state `<p class="app-empty">No saved posts yet.</p>` after the list. The `Load more` button only shows for `All`.
 - `<ol aria-label="Posts" class="app-posts" tabindex="-1">`, rendered even when empty so it can take focus, with one `<li>` per post, each a `Card` with `as="article"`, `variant="outlined"` and `aria-labelledby` naming the author's name element:
   - a `CardHeader` with `as="header"` holding a decorative `Avatar` (no `label`, the photo as `src` or the initials as content, not a link), then an `<hgroup>` with the author's name as a link to `/u/<handle>` in `<h2 id="post-<id>-author">` and a `<p>` with a `<time datetime>` holding the post time.
@@ -92,7 +92,7 @@ Icons are inline `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke
 - `<nav aria-label="Conversations">` with a `List` of links, one per conversation, to `/chat?with=<handle>`, as `ListItem`s with a decorative avatar in `start`, the name as `label` and, when `unread` is above 0, `description="<n> unread"`. The open conversation has `aria-current="page"`.
 - `/chat` opens the first conversation, `/chat?with=<handle>` that one, and an unknown handle the first.
 - `<section aria-labelledby="chat-title">` with `<h2 id="chat-title">` naming the other person, then a `MessageList` (`aria-label="Messages with <name>"`, `direct`) with a `<li class="ui-divider">` per divider line and a `Message` per message (`outgoing` for Sam, `author`, `time`, `datetime`, the other person's decorative `Avatar` in `start`).
-- A `<form aria-label="Send a message">` under it with a `Textarea` (`label="Message"`, `hideLabel`, `for="chat-message"`, its textarea `name="text"`, `required`) and a filled `Button` `Send` (`type="submit"`). Sending appends an outgoing message with `outgoing()` and empties the field. Switching conversations keeps each one's sent messages for the session.
+- A `<form aria-label="Send a message">` under it with a `Field` (`label="Message"`, `hideLabel`, `for="chat-message"`, its textarea `name="text"`, `required`) and a filled `Button` `Send` (`type="submit"`). Sending appends an outgoing message with `outgoing()` and empties the field. Switching conversations keeps each one's sent messages for the session.
 
 ### Photos (`/photos`, `data-screen="photos"`)
 
@@ -106,7 +106,7 @@ Icons are inline `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke
 - An unknown handle is a 404 page with `<h1>Not found</h1>` in the shell, `data-screen="not-found"`. The response has the status text `Not Found`, since the spec matches the console message Chromium logs for it, and some frameworks send another text unless the app sets it.
 - `<h1>` with the name, a large decorative `Avatar` (`size="large"`), the bio in `<p>`.
 - A `DescriptionList` with `Location` and `Joined`, and two `Stat`s, `Posts` and `Photos`, with the counts from `postsBy()` and `photosBy()`.
-- On `/u/sam`, an `Edit profile` button (`variant="outlined"`) opens a `Dialog` (`id="edit-profile"`) with `DialogHeader` `closeButton`, `DialogTitle` `Edit profile`, and a `<form method="dialog">` around `DialogContent` (`TextField` `Name`, `for="profile-name"`, its input `name="name"`, `required`, the current name; `Textarea` `Bio`, `for="profile-bio"`, its textarea `name="bio"`, the current bio) and `DialogFooter` (`Cancel`, `type="button"`, closes; `Save`, filled, `type="submit"`). Saving updates the `<h1>`, the title and the bio; Cancel and Escape leave them, and the fields show the saved name and bio the next time the dialog opens.
+- On `/u/sam`, an `Edit profile` button (`variant="outlined"`) opens a `Dialog` (`id="edit-profile"`) with `DialogHeader` `closeButton`, `DialogTitle` `Edit profile`, and a `<form method="dialog">` around `DialogContent` (`Field` `Name`, `for="profile-name"`, its input `name="name"`, `required`, the current name; `Field` `Bio`, `for="profile-bio"`, its textarea `name="bio"`, the current bio) and `DialogFooter` (`Cancel`, `type="button"`, closes; `Save`, filled, `type="submit"`). Saving updates the `<h1>`, the title and the bio; Cancel and Escape leave them, and the fields show the saved name and bio the next time the dialog opens.
 - On other profiles, a `Send message` button links to `/chat?with=<handle>`.
 - `Tabs` (`name="profile-tabs"`) with `Posts` (checked: the user's posts as `<article>`s with the text and time, or `<p class="app-empty">No posts yet.</p>`) and `Photos` (the user's photos as images, or `<p class="app-empty">No photos yet.</p>`).
 
@@ -114,7 +114,7 @@ Icons are inline `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke
 
 - `<h1>Settings</h1>`.
 - `<form aria-label="Settings" class="ui-form">` (`Form`) with:
-  - `Fieldset` `Account`: `TextField` `Display name` (`for="settings-display-name"`, its input `name="name"`, `Sam Rivera`), `TextField` `Email` (`for="settings-email"`, its input `type="email"`, `name="email"`, `required`, `sam@example.com`), `Select` `Language` (`name="language"`, `Deutsch`, `English`, `Svenska`; English selected).
+  - `Fieldset` `Account`: `Field` `Display name` (`for="settings-display-name"`, its input `name="name"`, `Sam Rivera`), `Field` `Email` (`for="settings-email"`, its input `type="email"`, `name="email"`, `required`, `sam@example.com`), `Field` `Language` (`for="settings-language"`, its select `name="language"` with a `SelectButton` and the options `Deutsch`, `English`, `Svenska`; English selected).
   - `Fieldset` `Who can see your posts` with `Radio`s `Everyone`, `Friends` (checked) and `Only me` (`name="visibility"`).
   - `Fieldset` `Notifications` with `Switch`es `Email notifications` (`name="email-notifications"`, checked) and `Push notifications` (`name="push-notifications"`).
   - A filled `Save` button (`type="submit"`). Above it, a `<div role="status" id="settings-status">` that is empty until the form is submitted: a valid submit puts a `Callout` with `severity="success"` and the text `Settings saved.` in it. An invalid form shows the browser's validation and nothing in the status.

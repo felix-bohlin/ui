@@ -136,12 +136,12 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-field-helper-font-size`, `--
 ---
 import {
   Button,
+  Field,
   FieldDescription,
   FieldGroup,
   FieldLegend,
   Fieldset,
   Form,
-  TextField,
 } from "opui-css/astro"
 ---
 
@@ -152,12 +152,12 @@ import {
       >How can we reach you?</FieldDescription
     >
     <FieldGroup>
-      <TextField for="form-basics-2" label="Name">
+      <Field for="form-basics-2" label="Name">
         <input autocomplete="name" id="form-basics-2" />
-      </TextField>
-      <TextField for="form-basics-3" label="Email">
+      </Field>
+      <Field for="form-basics-3" label="Email">
         <input autocomplete="email" id="form-basics-3" type="email" />
-      </TextField>
+      </Field>
     </FieldGroup>
   </Fieldset>
   <FieldGroup>
@@ -177,12 +177,12 @@ import {
 ```tsx
 import {
   Button,
+  Field,
   FieldDescription,
   FieldGroup,
   FieldLegend,
   Fieldset,
   Form,
-  TextField,
 } from "opui-css/react"
 
 export default function Basics() {
@@ -194,12 +194,12 @@ export default function Basics() {
           How can we reach you?
         </FieldDescription>
         <FieldGroup>
-          <TextField htmlFor="form-basics-2" label="Name">
+          <Field htmlFor="form-basics-2" label="Name">
             <input autoComplete="name" id="form-basics-2" />
-          </TextField>
-          <TextField htmlFor="form-basics-3" label="Email">
+          </Field>
+          <Field htmlFor="form-basics-3" label="Email">
             <input autoComplete="email" id="form-basics-3" type="email" />
-          </TextField>
+          </Field>
         </FieldGroup>
       </Fieldset>
       <FieldGroup>
@@ -222,12 +222,12 @@ export default function Basics() {
 /** @jsxImportSource @solidjs/web */
 import {
   Button,
+  Field,
   FieldDescription,
   FieldGroup,
   FieldLegend,
   Fieldset,
   Form,
-  TextField,
 } from "opui-css/solid"
 
 export default function Basics() {
@@ -239,12 +239,12 @@ export default function Basics() {
           How can we reach you?
         </FieldDescription>
         <FieldGroup>
-          <TextField for="form-basics-2" label="Name">
+          <Field for="form-basics-2" label="Name">
             <input autocomplete="name" id="form-basics-2" />
-          </TextField>
-          <TextField for="form-basics-3" label="Email">
+          </Field>
+          <Field for="form-basics-3" label="Email">
             <input autocomplete="email" id="form-basics-3" type="email" />
-          </TextField>
+          </Field>
         </FieldGroup>
       </Fieldset>
       <FieldGroup>
@@ -267,12 +267,12 @@ export default function Basics() {
 <script lang="ts">
   import {
     Button,
+    Field,
     FieldDescription,
     FieldGroup,
     FieldLegend,
     Fieldset,
     Form,
-    TextField,
   } from "opui-css/svelte"
 </script>
 
@@ -283,12 +283,12 @@ export default function Basics() {
       >How can we reach you?</FieldDescription
     >
     <FieldGroup>
-      <TextField for="form-basics-2" label="Name">
+      <Field for="form-basics-2" label="Name">
         <input autocomplete="name" id="form-basics-2" />
-      </TextField>
-      <TextField for="form-basics-3" label="Email">
+      </Field>
+      <Field for="form-basics-3" label="Email">
         <input autocomplete="email" id="form-basics-3" type="email" />
-      </TextField>
+      </Field>
     </FieldGroup>
   </Fieldset>
   <FieldGroup>
@@ -307,12 +307,12 @@ export default function Basics() {
 <script setup lang="ts">
 import {
   Button,
+  Field,
   FieldDescription,
   FieldGroup,
   FieldLegend,
   Fieldset,
   Form,
-  TextField,
 } from "opui-css/vue"
 </script>
 
@@ -324,12 +324,12 @@ import {
         >How can we reach you?</FieldDescription
       >
       <FieldGroup>
-        <TextField for="form-basics-2" label="Name">
+        <Field for="form-basics-2" label="Name">
           <input autocomplete="name" id="form-basics-2" />
-        </TextField>
-        <TextField for="form-basics-3" label="Email">
+        </Field>
+        <Field for="form-basics-3" label="Email">
           <input autocomplete="email" id="form-basics-3" type="email" />
-        </TextField>
+        </Field>
       </FieldGroup>
     </Fieldset>
     <FieldGroup>

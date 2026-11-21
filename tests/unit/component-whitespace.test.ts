@@ -154,8 +154,8 @@ describe("whitespace around slot content", () => {
     },
   )
 
-  test("the Astro Select closes its selectedcontent", async () => {
-    const html = await astro("Select", "label", TIGHT)
+  test("the Astro SelectButton closes its selectedcontent", async () => {
+    const html = await astro("SelectButton", "default", TIGHT)
     expect(html).toContain("<selectedcontent></selectedcontent>")
     expect(html).not.toContain("<selectedcontent/>")
   })

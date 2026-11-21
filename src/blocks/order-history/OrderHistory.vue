@@ -8,12 +8,12 @@ import {
   CardActions,
   CardContent,
   Chip,
+  Field,
   FieldGroup,
   List,
   ListItem,
   Menu,
   Progress,
-  TextField,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/vue"
@@ -31,7 +31,7 @@ import {
       </hgroup>
     </div>
     <FieldGroup orientation="horizontal">
-      <TextField for="order-history-search">
+      <Field for="order-history-search">
         <input
           aria-describedby="order-history-search-start"
           aria-label="Search orders"
@@ -55,7 +55,7 @@ import {
             ></path>
           </svg>
         </template>
-      </TextField>
+      </Field>
       <ToggleGroup aria-label="Order status" name="order-history-status">
         <ToggleButton checked value="all">All</ToggleButton>
         <ToggleButton value="open">Open</ToggleButton>

@@ -5,48 +5,16 @@ A dropdown for picking one value from a list in a form.
 - CSS: `opui-css/css/components/text-field.css`, `opui-css/css/components/select.css` and `opui-css/css/components/list.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/select.md), [Astro](https://opui.dev/astro/components/select.md), [React](https://opui.dev/react/components/select.md), [Solid](https://opui.dev/solid/components/select.md), [Svelte](https://opui.dev/svelte/components/select.md), [Vue](https://opui.dev/vue/components/select.md).
 
-## Select
+## SelectButton
 
 ### Parts
 
-- `div.ui-field` (root): Container element.
-- `.ui-label` (prop `label`, slot `label`): The label for the field.
-- `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
-- `.ui-field-container`: The boxed select area.
-- `.ui-field-container > .ui-top` (slot `top`): Content above the select, inside the border, with a divider.
-- `.ui-field-container > .ui-start` (slot `start`): Content at the inline-start of the field, inside the border.
-- `<select>` (model): The select. Its options are in a popover list.
-- `.ui-field-container > .ui-end` (slot `end`): Content at the inline-end of the field, inside the border.
-- `.ui-field-container > .ui-bottom` (slot `bottom`): Content below the select, inside the border, with a divider.
-- `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
-
-### Props and modifiers
-
-- `autoFit`: `boolean`, `.ui-auto-fit`. Lets the width follow the selected option, from `25ch`.
-- `defaultValue` (Solid): `(string | number)[] | number | string`. The value selected at the start, or the values with `multiple`, when `value` is omitted.
-- `dense`: `boolean`, `.ui-list.ui-dense`. Packs the items tighter.
-- `disabled`: `boolean`, `select[disabled]`. Dims the select and blocks input.
-- `error`: `boolean`, `select[aria-invalid="true"]`. Marks the control invalid and shows error styles.
-- `hideLabel`: `boolean`, `.ui-field > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
-- `id`: `string`. The id of the `<select>`. The `<label for>` points at it, so the component generates one when it's left out and there's a label. The ids the component generates start with it: `x-start-text`, `x-end-text`, `x-start`, `x-end`, `x-top` and `x-bottom` for `id="x"`.
-- `items`: `SelectItem[]`, default `[]`. The options, as `{ label, selected, value }` objects. `value` selects among them; child `<option>` elements set `selected` themselves.
-- `name`: `string`. The name of the `<select>`. Inside a `FieldGroup`, the group's `name` when omitted.
-- `required`: `boolean`, `select[required]`. Adds a required mark after the label. The form won't submit until an option with a value is selected.
-- `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
-- `spread`: `boolean`, `.ui-spread`. Pushes the label and start text to one side and the select to the other.
-- `variant`: `"filled"` (`.ui-filled`), `"outlined"` (default). The variant to use.
-
-### Slots
-
-- `default`: Extra `<option>` and `<optgroup>` elements.
-
-Model: `value` (`string | number | (string | number)[]`), the selected value, or values with `multiple`. It picks among `items`; a child `<option>` takes `selected` itself, as in HTML, since Astro and Vue's server markup only mark the `items` options. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
+- `<button>` (root): The select's button, with `<selectedcontent>` inside, which shows the selected option.
 
 ### Notes
 
-- HTML: The `<select>` holds an `inert` `<button>` and a `.ui-list`. The button holds `<selectedcontent>`, and `inert` leaves clicks, focus and the name to the select. The list holds the options. Browsers without customizable selects show a native select. Put `.ui-top` and `.ui-start` before the `<select>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they're drawn.
-- Astro, Solid, Svelte and Vue: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `class` and `style` go to the `.ui-field` root.
-- React: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `className` and `style` go to the `.ui-field` root.
+- HTML: Put `<button><selectedcontent></selectedcontent></button>` first in the `<select>`, before the options.
+- Astro, React, Solid, Svelte and Vue: Put it first in your `<select>`, before the options. The select keeps clicks, focus and the name, and the browser fills `<selectedcontent>` with a copy of the selected option, so an option with an icon or a description shows them in the field. Browsers without customizable select leave it out.
 
 ## Component properties
 
@@ -77,9 +45,12 @@ Outputs: `--_affix-block-size`, `--_affix-button-size`, `--_affix-padding-block`
 
 ### select.css
 
-- `--_bg-color`: Background of the picker's `.ui-list`. Set it on the `.ui-list`; on the root it is the field background. Defaults to `--ui-surface-elevated`, like `Menu`.
+- `--_bg-color`: Background of the picker. Set it on `::picker(select)`; on the root it is the field background. Defaults to `--ui-surface-elevated`, like `Menu`.
+- `--_divider-gap`: Space around the lines between options on `.ui-border-top`, on the picker. Smaller in `.ui-dense`.
+- `--_item-gap`: Gap between the content of an option, on the picker. Smaller in `.ui-dense`.
+- `--_start-size`: Size of the icons in an option and of the check, on the picker. Smaller in `.ui-dense`.
 
-Outputs: `--_ease-move` and `--_selected-shadow`.
+Outputs: `--_ease-move`, `--_selected-indicator-offset` and `--_selected-shadow`.
 
 ### list.css
 
@@ -109,39 +80,33 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 
 ## HTML
 
-### Example: Variants
+### Example: Preselected
 
 ```html
 <div class="ui-field">
-  <label class="ui-label" for="select-variants-1">Role</label>
+  <label class="ui-label" for="select-preselected-1">Role</label>
   <span class="ui-field-container">
-    <select id="select-variants-1">
-      <button inert>
+    <select id="select-preselected-1">
+      <button>
         <selectedcontent></selectedcontent>
       </button>
-      <div class="ui-list">
-        <option value="">-</option>
-        <option>Backing vocals</option>
-        <option>Bass</option>
-        <option>Tambourine</option>
-      </div>
+      <option value="backing-vocals">Backing vocals</option>
+      <option selected value="bass">Bass</option>
+      <option value="tambourine">Tambourine</option>
     </select>
   </span>
 </div>
 
-<div class="ui-field ui-filled">
-  <label class="ui-label" for="select-variants-2">Band</label>
+<div class="ui-field">
+  <label class="ui-label" for="select-preselected-2">Band</label>
   <span class="ui-field-container">
-    <select id="select-variants-2">
-      <button inert>
+    <select id="select-preselected-2">
+      <button>
         <selectedcontent></selectedcontent>
       </button>
-      <div class="ui-list">
-        <option value="">-</option>
-        <option>Brad and the Brads</option>
-        <option>Low End Theory</option>
-        <option>The Low Enders</option>
-      </div>
+      <option value="brad-and-the-brads">Brad and the Brads</option>
+      <option selected value="low-end-theory">Low End Theory</option>
+      <option value="the-low-enders">The Low Enders</option>
     </select>
   </span>
 </div>
@@ -149,60 +114,63 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 
 ## Astro
 
-`import { Select } from "opui-css/astro"`
+`import { SelectButton } from "opui-css/astro"`
 
-- `Select` named slots: `bottom`, `end`, `end-text`, `label`, `start`, `start-text` and `top`. Fill one with `slot="bottom"` on a child.
-
-### Example: Variants
+### Example: Preselected
 
 ```astro
 ---
-import { Select } from "opui-css/astro"
+import { Field, SelectButton } from "opui-css/astro"
 ---
 
-<Select label="Role">
-  <option value="">-</option>
-  <option>Backing vocals</option>
-  <option>Bass</option>
-  <option>Tambourine</option>
-</Select>
+<Field for="select-preselected-1" label="Role">
+  <select id="select-preselected-1">
+    <SelectButton />
+    <option value="backing-vocals">Backing vocals</option>
+    <option selected value="bass">Bass</option>
+    <option value="tambourine">Tambourine</option>
+  </select>
+</Field>
 
-<Select label="Band" variant="filled">
-  <option value="">-</option>
-  <option>Brad and the Brads</option>
-  <option>Low End Theory</option>
-  <option>The Low Enders</option>
-</Select>
+<Field for="select-preselected-2" label="Band">
+  <select id="select-preselected-2">
+    <SelectButton />
+    <option value="brad-and-the-brads">Brad and the Brads</option>
+    <option selected value="low-end-theory">Low End Theory</option>
+    <option value="the-low-enders">The Low Enders</option>
+  </select>
+</Field>
 ```
 
 ## React
 
-`import { Select } from "opui-css/react"`
+`import { SelectButton } from "opui-css/react"`
 
-- `Select` slot props (`ReactNode`): `bottom`, `children`, `end`, `endText`, `label`, `start`, `startText` and `top`.
-- Client components (`"use client"`): `Select`.
-
-### Example: Variants
+### Example: Preselected
 
 ```tsx
-import { Select } from "opui-css/react"
+import { Field, SelectButton } from "opui-css/react"
 
-export default function Variants() {
+export default function Preselected() {
   return (
     <>
-      <Select label="Role">
-        <option value="">-</option>
-        <option>Backing vocals</option>
-        <option>Bass</option>
-        <option>Tambourine</option>
-      </Select>
+      <Field htmlFor="select-preselected-1" label="Role">
+        <select id="select-preselected-1" defaultValue="bass">
+          <SelectButton />
+          <option value="backing-vocals">Backing vocals</option>
+          <option value="bass">Bass</option>
+          <option value="tambourine">Tambourine</option>
+        </select>
+      </Field>
 
-      <Select label="Band" variant="filled">
-        <option value="">-</option>
-        <option>Brad and the Brads</option>
-        <option>Low End Theory</option>
-        <option>The Low Enders</option>
-      </Select>
+      <Field htmlFor="select-preselected-2" label="Band">
+        <select id="select-preselected-2" defaultValue="low-end-theory">
+          <SelectButton />
+          <option value="brad-and-the-brads">Brad and the Brads</option>
+          <option value="low-end-theory">Low End Theory</option>
+          <option value="the-low-enders">The Low Enders</option>
+        </select>
+      </Field>
     </>
   )
 }
@@ -210,32 +178,38 @@ export default function Variants() {
 
 ## Solid
 
-`import { Select } from "opui-css/solid"`
+`import { SelectButton } from "opui-css/solid"`
 
-- `Select` slot props (`JSX.Element`): `bottom`, `children`, `end`, `endText`, `label`, `start`, `startText` and `top`.
-
-### Example: Variants
+### Example: Preselected
 
 ```tsx
 /** @jsxImportSource @solidjs/web */
-import { Select } from "opui-css/solid"
+import { Field, SelectButton } from "opui-css/solid"
 
-export default function Variants() {
+export default function Preselected() {
   return (
     <>
-      <Select label="Role">
-        <option value="">-</option>
-        <option>Backing vocals</option>
-        <option>Bass</option>
-        <option>Tambourine</option>
-      </Select>
+      <Field for="select-preselected-1" label="Role">
+        <select id="select-preselected-1">
+          <SelectButton />
+          <option value="backing-vocals">Backing vocals</option>
+          <option selected value="bass">
+            Bass
+          </option>
+          <option value="tambourine">Tambourine</option>
+        </select>
+      </Field>
 
-      <Select label="Band" variant="filled">
-        <option value="">-</option>
-        <option>Brad and the Brads</option>
-        <option>Low End Theory</option>
-        <option>The Low Enders</option>
-      </Select>
+      <Field for="select-preselected-2" label="Band">
+        <select id="select-preselected-2">
+          <SelectButton />
+          <option value="brad-and-the-brads">Brad and the Brads</option>
+          <option selected value="low-end-theory">
+            Low End Theory
+          </option>
+          <option value="the-low-enders">The Low Enders</option>
+        </select>
+      </Field>
     </>
   )
 }
@@ -243,60 +217,62 @@ export default function Variants() {
 
 ## Svelte
 
-`import { Select } from "opui-css/svelte"`
+`import { SelectButton } from "opui-css/svelte"`
 
-- `Select` slot snippets: `bottom`, `children`, `end`, `endText`, `label`, `start`, `startText` and `top`.
-- Hydration: `bind:value` on `Select`. The bound value only updates on the client. The native control still changes and submits with its form. Without hydration: Read the value from the form instead.
-
-### Example: Variants
+### Example: Preselected
 
 ```svelte
 <script lang="ts">
-  import { Select } from "opui-css/svelte"
+  import { Field, SelectButton } from "opui-css/svelte"
 </script>
 
-<Select label="Role">
-  <option value="">-</option>
-  <option>Backing vocals</option>
-  <option>Bass</option>
-  <option>Tambourine</option>
-</Select>
+<Field for="select-preselected-1" label="Role">
+  <select id="select-preselected-1">
+    <SelectButton />
+    <option value="backing-vocals">Backing vocals</option>
+    <option selected value="bass">Bass</option>
+    <option value="tambourine">Tambourine</option>
+  </select>
+</Field>
 
-<Select label="Band" variant="filled">
-  <option value="">-</option>
-  <option>Brad and the Brads</option>
-  <option>Low End Theory</option>
-  <option>The Low Enders</option>
-</Select>
+<Field for="select-preselected-2" label="Band">
+  <select id="select-preselected-2">
+    <SelectButton />
+    <option value="brad-and-the-brads">Brad and the Brads</option>
+    <option selected value="low-end-theory">Low End Theory</option>
+    <option value="the-low-enders">The Low Enders</option>
+  </select>
+</Field>
 ```
 
 ## Vue
 
-`import { Select } from "opui-css/vue"`
+`import { SelectButton } from "opui-css/vue"`
 
-- `Select` named slots: `bottom`, `end`, `end-text`, `label`, `start`, `start-text` and `top`. Fill one with `<template #bottom>`.
-- Hydration: `v-model` on `Select`. The bound value only updates on the client. The native control still changes and submits with its form. Without hydration: Read the value from the form instead.
-
-### Example: Variants
+### Example: Preselected
 
 ```vue
 <script setup lang="ts">
-import { Select } from "opui-css/vue"
+import { Field, SelectButton } from "opui-css/vue"
 </script>
 
 <template>
-  <Select label="Role">
-    <option value="">-</option>
-    <option>Backing vocals</option>
-    <option>Bass</option>
-    <option>Tambourine</option>
-  </Select>
+  <Field for="select-preselected-1" label="Role">
+    <select id="select-preselected-1">
+      <SelectButton />
+      <option value="backing-vocals">Backing vocals</option>
+      <option selected value="bass">Bass</option>
+      <option value="tambourine">Tambourine</option>
+    </select>
+  </Field>
 
-  <Select label="Band" variant="filled">
-    <option value="">-</option>
-    <option>Brad and the Brads</option>
-    <option>Low End Theory</option>
-    <option>The Low Enders</option>
-  </Select>
+  <Field for="select-preselected-2" label="Band">
+    <select id="select-preselected-2">
+      <SelectButton />
+      <option value="brad-and-the-brads">Brad and the Brads</option>
+      <option selected value="low-end-theory">Low End Theory</option>
+      <option value="the-low-enders">The Low Enders</option>
+    </select>
+  </Field>
 </template>
 ```

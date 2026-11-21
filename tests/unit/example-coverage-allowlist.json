@@ -16,8 +16,6 @@
   "StepperItem.completeLabel": "Names a control the component renders, for translation; it changes no markup a reader compares.",
   "StepperItem.errorLabel": "Names a control the component renders, for translation; it changes no markup a reader compares.",
   "TabsItem.name": "Generated from the Tabs group; a TabsItem outside a Tabs is not a documented use.",
-  "TextField.characterCountLabel": "Names a control the component renders, for translation; it changes no markup a reader compares.",
-  "TextField.passwordToggleLabel": "Names a control the component renders, for translation; it changes no markup a reader compares.",
   "Toaster.closeLabel": "Names a control the component renders, for translation; it changes no markup a reader compares.",
   "ToggleButton.type": "Set by the ToggleGroup; a ToggleButton alone is a checkbox."
 }

@@ -10,13 +10,12 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  Field,
   Stat,
   Tabs,
   TabsItem,
   TabsLabel,
   TabsPanel,
-  TextField,
-  Textarea,
 } from "opui-css/vue"
 import { ME, photosBy, postsBy, user } from "reference-shared"
 
@@ -131,12 +130,12 @@ const reset = () => {
       </DialogHeader>
       <form method="dialog" @submit="save">
         <DialogContent>
-          <TextField for="profile-name" label="Name">
+          <Field for="profile-name" label="Name">
             <input id="profile-name" name="name" required v-model="draftName" />
-          </TextField>
-          <Textarea for="profile-bio" label="Bio">
+          </Field>
+          <Field for="profile-bio" label="Bio">
             <textarea id="profile-bio" name="bio" v-model="draftBio"></textarea>
-          </Textarea>
+          </Field>
         </DialogContent>
         <DialogFooter>
           <Button command="close" commandfor="edit-profile">Cancel</Button>

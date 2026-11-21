@@ -1,12 +1,11 @@
 ---
 import {
+  Field,
   FieldDescription,
   FieldGroup,
   FieldLegend,
   Fieldset,
   Switch,
-  Textarea,
-  TextField,
 } from "opui-css/astro"
 
 const rules = [
@@ -40,16 +39,16 @@ const rules = [
     <FieldLegend>Pet info</FieldLegend>
     <FieldDescription>We must know your pet's information.</FieldDescription>
     <FieldGroup>
-      <TextField for="fieldset-has-name" label="Name">
+      <Field for="fieldset-has-name" label="Name">
         <input id="fieldset-has-name" name="fieldset-has-name" />
-      </TextField>
-      <Textarea for="fieldset-has-life-story" label="Life story">
+      </Field>
+      <Field for="fieldset-has-life-story" label="Life story">
         <textarea
           id="fieldset-has-life-story"
           name="fieldset-has-story"
           required
         ></textarea>
-      </Textarea>
+      </Field>
     </FieldGroup>
   </Fieldset>
   <ul class="fieldset-has-rules">

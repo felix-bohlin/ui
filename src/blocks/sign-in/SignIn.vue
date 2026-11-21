@@ -5,9 +5,9 @@ import {
   CardContent,
   Checkbox,
   Divider,
+  Field,
   FieldGroup,
   Form,
-  TextField,
 } from "opui-css/vue"
 </script>
 
@@ -52,7 +52,7 @@ import {
         <Divider>or use your email, easy peasy</Divider>
         <Form action="#">
           <FieldGroup>
-            <TextField for="sign-in-email" label="Email">
+            <Field for="sign-in-email" label="Email">
               <input
                 autocomplete="email"
                 id="sign-in-email"
@@ -61,8 +61,8 @@ import {
                 required
                 type="email"
               />
-            </TextField>
-            <TextField for="sign-in-password" label="Password">
+            </Field>
+            <Field for="sign-in-password" label="Password">
               <input
                 autocomplete="current-password"
                 id="sign-in-password"
@@ -70,7 +70,7 @@ import {
                 required
                 type="password"
               />
-            </TextField>
+            </Field>
             <div class="ui-layout-row ui-small ui-spread">
               <Checkbox name="remember">Remember me &lt;3</Checkbox>
               <a class="ui-link" href="#forgot-password">Forgot password?</a>

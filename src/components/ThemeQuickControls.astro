@@ -1,24 +1,29 @@
 ---
 import {
   Button,
+  Field,
   FieldLegend,
   Fieldset,
-  Select,
+  SelectButton,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/astro"
 import { EXAMPLE_THEMES } from "../utils/example-themes"
 import { CORNERS } from "../utils/theme"
 import BrandPicker from "./BrandPicker.astro"
+const startFromId = Astro.locals.$id("theme-start-from")
 ---
 
 <form class="theme-quick ui-form">
-  <Select label="Start from" name="theme-preset" size="small">
-    <option selected value="">Default</option>
-    {EXAMPLE_THEMES.map((theme) => <option value={theme.name}>
-      {theme.label}
-    </option>)}
-  </Select>
+  <Field for={startFromId} label="Start from" size="small">
+    <select id={startFromId} name="theme-preset">
+      <SelectButton />
+      <option selected value="">Default</option>
+      {EXAMPLE_THEMES.map((theme) => <option value={theme.name}>
+        {theme.label}
+      </option>)}
+    </select>
+  </Field>
 
   <Fieldset>
     <FieldLegend>Brand color</FieldLegend>

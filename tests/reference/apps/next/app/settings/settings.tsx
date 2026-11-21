@@ -10,15 +10,15 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  Field,
   FieldGroup,
   FieldLegend,
   Fieldset,
   Form,
   OneTimeCode,
   Radio,
-  Select,
+  SelectButton,
   Switch,
-  TextField,
 } from "opui-css/react"
 import { verifyCode } from "reference-shared"
 import { useState, type FormEvent } from "react"
@@ -59,14 +59,14 @@ export default function Settings() {
           <Fieldset>
             <FieldLegend>Account</FieldLegend>
             <FieldGroup>
-              <TextField htmlFor="settings-display-name" label="Display name">
+              <Field htmlFor="settings-display-name" label="Display name">
                 <input
                   defaultValue="Sam Rivera"
                   id="settings-display-name"
                   name="name"
                 />
-              </TextField>
-              <TextField htmlFor="settings-email" label="Email">
+              </Field>
+              <Field htmlFor="settings-email" label="Email">
                 <input
                   defaultValue="sam@example.com"
                   id="settings-email"
@@ -74,17 +74,19 @@ export default function Settings() {
                   required
                   type="email"
                 />
-              </TextField>
-              <Select
-                defaultValue="en"
-                items={[
-                  { label: "Deutsch", value: "de" },
-                  { label: "English", value: "en" },
-                  { label: "Svenska", value: "sv" },
-                ]}
-                label="Language"
-                name="language"
-              />
+              </Field>
+              <Field htmlFor="settings-language" label="Language">
+                <select
+                  defaultValue="en"
+                  id="settings-language"
+                  name="language"
+                >
+                  <SelectButton />
+                  <option value="de">Deutsch</option>
+                  <option value="en">English</option>
+                  <option value="sv">Svenska</option>
+                </select>
+              </Field>
             </FieldGroup>
           </Fieldset>
           <Fieldset>

@@ -4,16 +4,16 @@ import {
   Card,
   CardContent,
   Chip,
+  Field,
   List,
   ListItem,
   Menu,
   Progress,
-  Select,
+  SelectButton,
   Tabs,
   TabsItem,
   TabsLabel,
   TabsPanel,
-  TextField,
 } from "opui-css/react"
 
 export default function TeamMembers() {
@@ -46,7 +46,7 @@ export default function TeamMembers() {
           </hgroup>
           <CardContent>
             <form className="team-invite" action="#">
-              <TextField htmlFor="team-members-emails" label="Email addresses">
+              <Field htmlFor="team-members-emails" label="Email addresses">
                 <input
                   id="team-members-emails"
                   multiple
@@ -55,18 +55,20 @@ export default function TeamMembers() {
                   required
                   type="email"
                 />
-              </TextField>
-              <Select
-                id="team-members-role"
-                items={[
-                  { label: "Admin", value: "admin" },
-                  { label: "Merch", value: "billing" },
-                  { label: "Member", selected: true, value: "member" },
-                  { label: "Fan", value: "viewer" },
-                ]}
-                label="Role"
-                name="role"
-              />
+              </Field>
+              <Field htmlFor="team-members-role" label="Role">
+                <select
+                  id="team-members-role"
+                  name="role"
+                  defaultValue="member"
+                >
+                  <SelectButton />
+                  <option value="admin">Admin</option>
+                  <option value="billing">Merch</option>
+                  <option value="member">Member</option>
+                  <option value="viewer">Fan</option>
+                </select>
+              </Field>
               <Button type="submit" variant="filled">
                 <svg
                   data-icon="send"

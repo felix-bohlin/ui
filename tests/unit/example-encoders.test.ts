@@ -422,10 +422,10 @@ describe("what a set:html string may contain", () => {
   })
 })
 
-describe("a Select's selected option", () => {
+describe("a select's selected option", () => {
   const select = (option: string) =>
     convertExample(
-      `---\nimport { Select } from "opui-css/astro"\n---\n\n<Select>${option}</Select>\n`,
+      `<select name="pick">${option}</select>\n`,
       "react",
       sampleFile,
     )

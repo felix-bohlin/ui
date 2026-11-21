@@ -2,6 +2,7 @@ import {
   Button,
   Card,
   CardContent,
+  Field,
   FieldGroup,
   Radio,
   Switch,
@@ -11,7 +12,6 @@ import {
   TableHead,
   TableHeaderCell,
   TableRow,
-  TextField,
 } from "opui-css/react"
 
 export default function NotificationSettings() {
@@ -432,25 +432,22 @@ export default function NotificationSettings() {
             </hgroup>
             <CardContent>
               <FieldGroup orientation="horizontal">
-                <TextField
-                  htmlFor="notification-settings-quiet-from"
-                  label="From"
-                >
+                <Field htmlFor="notification-settings-quiet-from" label="From">
                   <input
                     id="notification-settings-quiet-from"
                     name="quiet-from"
                     type="time"
                     defaultValue="22:00"
                   />
-                </TextField>
-                <TextField htmlFor="notification-settings-quiet-to" label="To">
+                </Field>
+                <Field htmlFor="notification-settings-quiet-to" label="To">
                   <input
                     id="notification-settings-quiet-to"
                     name="quiet-to"
                     type="time"
                     defaultValue="07:00"
                   />
-                </TextField>
+                </Field>
               </FieldGroup>
             </CardContent>
           </Card>

@@ -18,6 +18,7 @@ export { default as CardActions } from "../components/Card/CardActions.solid"
 export { default as CardContent } from "../components/Card/CardContent.solid"
 export { default as CardHeader } from "../components/Card/CardHeader.solid"
 export { default as Carousel } from "../components/Carousel/Carousel.solid"
+export { default as CharacterCount } from "../components/CharacterCount/CharacterCount.solid"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.solid"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.solid"
 export { default as Chip } from "../components/Chip/Chip.solid"
@@ -38,6 +39,7 @@ export { default as DrawerContent } from "../components/Drawer/DrawerContent.sol
 export { default as DrawerFooter } from "../components/Drawer/DrawerFooter.solid"
 export { default as DrawerHeader } from "../components/Drawer/DrawerHeader.solid"
 export { default as DrawerTitle } from "../components/Drawer/DrawerTitle.solid"
+export { default as Field } from "../components/Field/Field.solid"
 export { default as FieldDescription } from "../components/FieldDescription/FieldDescription.solid"
 export { default as FieldGroup } from "../components/FieldGroup/FieldGroup.solid"
 export { default as FieldLegend } from "../components/FieldLegend/FieldLegend.solid"
@@ -52,14 +54,15 @@ export { default as MessageList } from "../components/Message/MessageList.solid"
 export { default as Meter } from "../components/Meter/Meter.solid"
 export { default as NumberField } from "../components/NumberField/NumberField.solid"
 export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.solid"
+export { default as PasswordToggle } from "../components/PasswordToggle/PasswordToggle.solid"
 export { default as Progress } from "../components/Progress/Progress.solid"
 export { default as Radio } from "../components/Radio/Radio.solid"
 export { default as RadioInput } from "../components/Radio/RadioInput.solid"
 export { default as Range } from "../components/Range/Range.solid"
 export { default as Rating } from "../components/Rating/Rating.solid"
 export { default as Reactions } from "../components/Reactions/Reactions.solid"
-export { default as Select } from "../components/Select/Select.solid"
 export { default as SelectAll } from "../components/SelectAll/SelectAll.solid"
+export { default as SelectButton } from "../components/SelectButton/SelectButton.solid"
 export { default as SortableTable } from "../components/SortableTable/SortableTable.solid"
 export { default as Stat } from "../components/Stat/Stat.solid"
 export { default as Stepper } from "../components/Stepper/Stepper.solid"
@@ -80,8 +83,6 @@ export { default as Tabs } from "../components/Tabs/Tabs.solid"
 export { default as TabsItem } from "../components/Tabs/TabsItem.solid"
 export { default as TabsLabel } from "../components/Tabs/TabsLabel.solid"
 export { default as TabsPanel } from "../components/Tabs/TabsPanel.solid"
-export { default as Textarea } from "../components/Textarea/Textarea.solid"
-export { default as TextField } from "../components/TextField/TextField.solid"
 export { default as Timeline } from "../components/Timeline/Timeline.solid"
 export { default as TimelineItem } from "../components/Timeline/TimelineItem.solid"
 export { default as Toaster } from "../components/Toaster/Toaster.solid"
@@ -120,6 +121,7 @@ export type {
   Props as CardProps,
 } from "../components/Card/types.solid"
 export type { Props as CarouselProps } from "../components/Carousel/types.solid"
+export type { Props as CharacterCountProps } from "../components/CharacterCount/types.solid"
 export type {
   CheckboxInputProps,
   Props as CheckboxProps,
@@ -148,6 +150,7 @@ export type {
   Props as DrawerProps,
   DrawerTitleProps,
 } from "../components/Drawer/types.solid"
+export type { Props as FieldProps } from "../components/Field/types.solid"
 export type { Props as FieldDescriptionProps } from "../components/FieldDescription/types.solid"
 export type { Props as FieldGroupProps } from "../components/FieldGroup/types.solid"
 export type { Props as FieldLegendProps } from "../components/FieldLegend/types.solid"
@@ -172,6 +175,7 @@ export type {
 export type { Props as MeterProps } from "../components/Meter/types.solid"
 export type { Props as NumberFieldProps } from "../components/NumberField/types.solid"
 export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.solid"
+export type { Props as PasswordToggleProps } from "../components/PasswordToggle/types.solid"
 export type { Props as ProgressProps } from "../components/Progress/types.solid"
 export type {
   RadioInputProps,
@@ -185,9 +189,8 @@ export type {
   ReactionsItem,
 } from "../components/Reactions/types"
 export type { Props as ReactionsProps } from "../components/Reactions/types.solid"
-export type { SelectItem } from "../components/Select/types"
-export type { Props as SelectProps } from "../components/Select/types.solid"
 export type { Props as SelectAllProps } from "../components/SelectAll/types.solid"
+export type { Props as SelectButtonProps } from "../components/SelectButton/types.solid"
 export type { SortDetail } from "../components/SortableTable/types"
 export type { Props as SortableTableProps } from "../components/SortableTable/types.solid"
 export type { Props as StatProps } from "../components/Stat/types.solid"
@@ -217,8 +220,6 @@ export type {
   TabsPanelProps,
   Props as TabsProps,
 } from "../components/Tabs/types.solid"
-export type { Props as TextareaProps } from "../components/Textarea/types.solid"
-export type { Props as TextFieldProps } from "../components/TextField/types.solid"
 export type {
   TimelineItemProps,
   Props as TimelineProps,

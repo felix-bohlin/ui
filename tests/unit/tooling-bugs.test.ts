@@ -21,7 +21,7 @@ describe("tooling bugs the generator and the components work around", () => {
     expect(
       await container.renderToString(EmptyUnknown),
       fixed(
-        "packages/opui/components/Select/Select.astro, which renders <selectedcontent> through the variable tag SelectedContent",
+        "packages/opui/components/SelectButton/SelectButton.astro, which renders <selectedcontent> through the variable tag SelectedContent",
       ),
     ).not.toContain("</selectedcontent>")
   })

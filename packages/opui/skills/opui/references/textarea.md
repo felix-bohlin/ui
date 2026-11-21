@@ -1,41 +1,19 @@
 # Textarea
 
-A multi-line text input with a label, start and end text, and validation.
+A multi-line text input in a Field that grows with its text, with a character count.
 
 - CSS: `opui-css/css/components/text-field.css` and `opui-css/css/components/textarea.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/textarea.md), [Astro](https://opui.dev/astro/components/textarea.md), [React](https://opui.dev/react/components/textarea.md), [Solid](https://opui.dev/solid/components/textarea.md), [Svelte](https://opui.dev/svelte/components/textarea.md), [Vue](https://opui.dev/vue/components/textarea.md).
 
-## Textarea
+## CharacterCount
 
 ### Parts
 
-- `.ui-field` (root): Container element, a `<div>`. The label inside is a `<label for>` that names the textarea by itself.
-- `.ui-label` (prop `label`, slot `label`): The label for the field.
-- `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
-- `.ui-field-container`: The boxed textarea area.
-- `.ui-field-container > .ui-top` (slot `top`): Content above the textarea, inside the border, with a divider.
-- `.ui-field-container > .ui-start` (slot `start`): Content at the inline-start of the field, inside the border, centered on the first line. Taller content starts `--_affix-padding-block` below the field's top, or below `.ui-top`.
-- `<textarea>`: Your textarea, written directly inside `.ui-field-container` with its `id` set to `for` and its value as its content. Bind it, name it and mark it `required`, `disabled` or `aria-invalid="true"` like any textarea.
-- `.ui-field-container > .ui-end` (slot `end`): Content at the inline-end of the field, inside the border, centered on the first line. Taller content starts `--_affix-padding-block` below the field's top, or below `.ui-top`.
-- `.ui-field-container > .ui-bottom` (slot `bottom`): Content below the textarea, inside the border, with a divider.
-- `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
-- `<opui-character-count>` (prop `characterCount`, prop `characterCountLabel`): The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left.
+- `<opui-character-count>` (root): Shows the characters typed out of the control's `maxlength`, `aria-hidden` so it stays out of the field's description. Once 10% or 10 are left, whichever is more, a live region outside the label announces the characters left.
 
 ### Props and modifiers
 
-- `autoFit`: `boolean`, `.ui-auto-fit`. Lets the width follow the content and allows resizing in both directions.
-- `characterCount`: `boolean`. Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count.
-- `characterCountLabel`: `string`, default `"Characters left: {count}"`. The announcement near the limit, with `{count}` for the characters left. Pass it translated.
-- `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of your `<textarea>`. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`. Point the textarea's `aria-describedby` at the ones it shows, in that order.
-- `hideLabel`: `boolean`, `.ui-field > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
-- `htmlFor` (React): `string`. The `id` of your `<textarea>`, as `htmlFor` like on the element. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `htmlFor="x"`. Point the textarea's `aria-describedby` at the ones it shows, in that order.
-- `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
-- `spread`: `boolean`, `.ui-spread`. Pushes the label and start text to one side and the textarea to the other.
-- `variant`: `"filled"` (`.ui-filled`), `"outlined"` (default). The variant to use.
-
-### Slots
-
-- `default`: Your `<textarea>`, which goes in `.ui-field-container`.
+- `label`: `string`, `label`, default `"Characters left: {count}"`. The announcement near the limit, with `{count}` for the characters left. Pass it translated.
 
 ### Element
 
@@ -44,9 +22,9 @@ A multi-line text input with a label, start and end text, and validation.
 
 ### Notes
 
-- HTML: For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field's `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Put `.ui-top` and `.ui-start` before the `<textarea>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they're drawn.
-- Astro, Solid, Svelte and Vue: Write the `<textarea>` inside, with its `id` set to `for`, and bind it like any textarea. Other attributes go to the `.ui-field` root.
-- React: Write the `<textarea>` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-field` root.
+- HTML: Add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`.
+- Astro, Solid, Svelte and Vue: Put it in the field's `end-text` slot. It loads `opui-css/elements/character-count.js`, which keeps the count.
+- React: Put it in the field's `endText`. It loads `opui-css/elements/character-count.js`, which keeps the count.
 
 ## Component properties
 
@@ -85,148 +63,167 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--u
 
 ## HTML
 
-### Example: Variants
+### Example: Character count
 
 ```html
 <div class="ui-field">
-  <label class="ui-label" for="textarea-variants-1">Outlined</label>
+  <label class="ui-label" for="textarea-character-count-1">Bio</label>
   <span class="ui-field-container">
-    <textarea id="textarea-variants-1" placeholder="Write a message"></textarea>
+    <textarea
+      aria-describedby="textarea-character-count-1-end-text"
+      id="textarea-character-count-1"
+      maxlength="160"
+    ></textarea>
+  </span>
+  <span class="ui-end-text" id="textarea-character-count-1-end-text">
+    Up to 160 characters, shown on your profile.
+    <opui-character-count
+      aria-hidden="true"
+      label="{count} characters to go"
+      class="ui-value"
+    ></opui-character-count>
   </span>
 </div>
-<div class="ui-field ui-filled">
-  <label class="ui-label" for="textarea-variants-2">Filled</label>
-  <span class="ui-field-container">
-    <textarea id="textarea-variants-2" placeholder="Write a message"></textarea>
-  </span>
-</div>
+
+<script type="module">
+  import "opui-css/elements/character-count.js"
+</script>
 ```
 
 ## Astro
 
-`import { Textarea } from "opui-css/astro"`
+`import { CharacterCount } from "opui-css/astro"`
 
-- `Textarea` named slots: `bottom`, `end`, `end-text`, `label`, `start`, `start-text` and `top`. Fill one with `slot="bottom"` on a child.
-
-### Example: Variants
+### Example: Character count
 
 ```astro
 ---
-import { Textarea } from "opui-css/astro"
+import { CharacterCount, Field } from "opui-css/astro"
 ---
 
-<Textarea for="textarea-variants-1" label="Outlined">
-  <textarea id="textarea-variants-1" placeholder="Write a message"></textarea>
-</Textarea>
-<Textarea for="textarea-variants-2" label="Filled" variant="filled">
-  <textarea id="textarea-variants-2" placeholder="Write a message"></textarea>
-</Textarea>
+<Field for="textarea-character-count-1" label="Bio">
+  <textarea
+    aria-describedby="textarea-character-count-1-end-text"
+    id="textarea-character-count-1"
+    maxlength="160"
+  ></textarea>
+  <Fragment slot="end-text">
+    Up to 160 characters, shown on your profile.
+    <CharacterCount label="{count} characters to go" />
+  </Fragment>
+</Field>
 ```
 
 ## React
 
-`import { Textarea } from "opui-css/react"`
+`import { CharacterCount } from "opui-css/react"`
 
-- `Textarea` slot props (`ReactNode`): `bottom`, `children`, `end`, `endText`, `label`, `start`, `startText` and `top`.
-- Client components (`"use client"`): `Textarea`.
+- Client components (`"use client"`): `CharacterCount`.
 
-### Example: Variants
+### Example: Character count
 
 ```tsx
-import { Textarea } from "opui-css/react"
+import { CharacterCount, Field } from "opui-css/react"
 
-export default function Variants() {
+export default function CharacterCountExample() {
   return (
-    <>
-      <Textarea htmlFor="textarea-variants-1" label="Outlined">
-        <textarea
-          id="textarea-variants-1"
-          placeholder="Write a message"
-        ></textarea>
-      </Textarea>
-      <Textarea htmlFor="textarea-variants-2" label="Filled" variant="filled">
-        <textarea
-          id="textarea-variants-2"
-          placeholder="Write a message"
-        ></textarea>
-      </Textarea>
-    </>
+    <Field
+      endText={
+        <>
+          Up to 160 characters, shown on your profile.
+          <CharacterCount label="{count} characters to go" />
+        </>
+      }
+      htmlFor="textarea-character-count-1"
+      label="Bio"
+    >
+      <textarea
+        aria-describedby="textarea-character-count-1-end-text"
+        id="textarea-character-count-1"
+        maxLength={160}
+      ></textarea>
+    </Field>
   )
 }
 ```
 
 ## Solid
 
-`import { Textarea } from "opui-css/solid"`
+`import { CharacterCount } from "opui-css/solid"`
 
-- `Textarea` slot props (`JSX.Element`): `bottom`, `children`, `end`, `endText`, `label`, `start`, `startText` and `top`.
-
-### Example: Variants
+### Example: Character count
 
 ```tsx
 /** @jsxImportSource @solidjs/web */
-import { Textarea } from "opui-css/solid"
+import { CharacterCount, Field } from "opui-css/solid"
 
-export default function Variants() {
+export default function CharacterCountExample() {
   return (
-    <>
-      <Textarea for="textarea-variants-1" label="Outlined">
-        <textarea
-          id="textarea-variants-1"
-          placeholder="Write a message"
-        ></textarea>
-      </Textarea>
-      <Textarea for="textarea-variants-2" label="Filled" variant="filled">
-        <textarea
-          id="textarea-variants-2"
-          placeholder="Write a message"
-        ></textarea>
-      </Textarea>
-    </>
+    <Field
+      endText={
+        <>
+          Up to 160 characters, shown on your profile.
+          <CharacterCount label="{count} characters to go" />
+        </>
+      }
+      for="textarea-character-count-1"
+      label="Bio"
+    >
+      <textarea
+        aria-describedby="textarea-character-count-1-end-text"
+        id="textarea-character-count-1"
+        maxlength="160"
+      ></textarea>
+    </Field>
   )
 }
 ```
 
 ## Svelte
 
-`import { Textarea } from "opui-css/svelte"`
+`import { CharacterCount } from "opui-css/svelte"`
 
-- `Textarea` slot snippets: `bottom`, `children`, `end`, `endText`, `label`, `start`, `startText` and `top`.
-
-### Example: Variants
+### Example: Character count
 
 ```svelte
 <script lang="ts">
-  import { Textarea } from "opui-css/svelte"
+  import { CharacterCount, Field } from "opui-css/svelte"
 </script>
 
-<Textarea for="textarea-variants-1" label="Outlined">
-  <textarea id="textarea-variants-1" placeholder="Write a message"></textarea>
-</Textarea>
-<Textarea for="textarea-variants-2" label="Filled" variant="filled">
-  <textarea id="textarea-variants-2" placeholder="Write a message"></textarea>
-</Textarea>
+<Field for="textarea-character-count-1" label="Bio">
+  <textarea
+    aria-describedby="textarea-character-count-1-end-text"
+    id="textarea-character-count-1"
+    maxlength="160"></textarea>
+  {#snippet endText()}
+    Up to 160 characters, shown on your profile.
+    <CharacterCount label={"{count} characters to go"} />
+  {/snippet}
+</Field>
 ```
 
 ## Vue
 
-`import { Textarea } from "opui-css/vue"`
+`import { CharacterCount } from "opui-css/vue"`
 
-- `Textarea` named slots: `bottom`, `end`, `end-text`, `label`, `start`, `start-text` and `top`. Fill one with `<template #bottom>`.
-
-### Example: Variants
+### Example: Character count
 
 ```vue
 <script setup lang="ts">
-import { Textarea } from "opui-css/vue"
+import { CharacterCount, Field } from "opui-css/vue"
 </script>
 
 <template>
-  <Textarea for="textarea-variants-1" label="Outlined">
-    <textarea id="textarea-variants-1" placeholder="Write a message"></textarea>
-  </Textarea>
-  <Textarea for="textarea-variants-2" label="Filled" variant="filled">
-    <textarea id="textarea-variants-2" placeholder="Write a message"></textarea>
-  </Textarea>
+  <Field for="textarea-character-count-1" label="Bio">
+    <textarea
+      aria-describedby="textarea-character-count-1-end-text"
+      id="textarea-character-count-1"
+      maxlength="160"
+    ></textarea>
+    <template #end-text>
+      Up to 160 characters, shown on your profile.
+      <CharacterCount label="{count} characters to go" />
+    </template>
+  </Field>
 </template>
 ```

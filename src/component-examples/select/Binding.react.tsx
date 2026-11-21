@@ -1,24 +1,26 @@
 "use client"
 
 import { useState } from "react"
-import { Button, Select } from "opui-css/react"
+import { Button, Field, SelectButton } from "opui-css/react"
 
 export default function Binding() {
   const [fruit, setFruit] = useState("apples")
 
   return (
     <>
-      <Select
-        label="Fruit"
-        name="select-binding"
-        items={[
-          { label: "Apples", value: "apples" },
-          { label: "Bananas", value: "bananas" },
-          { label: "Cherries", value: "cherries" },
-        ]}
-        value={fruit}
-        onChange={(event) => setFruit(event.currentTarget.value)}
-      />
+      <Field htmlFor="select-binding-1" label="Fruit">
+        <select
+          id="select-binding-1"
+          name="select-binding"
+          onChange={(event) => setFruit(event.currentTarget.value)}
+          value={fruit}
+        >
+          <SelectButton />
+          <option value="apples">Apples</option>
+          <option value="bananas">Bananas</option>
+          <option value="cherries">Cherries</option>
+        </select>
+      </Field>
       <p className="select-binding-text">Selected: {fruit}</p>
       <Button
         className="select-binding-reset"

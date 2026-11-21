@@ -202,13 +202,11 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
     <label class="ui-label" for={id("role")}>Role</label>
     <span class="ui-field-container">
       <select id={id("role")}>
-        <button inert>
+        <button>
           <selectedcontent />
         </button>
-        <div class="ui-list">
-          <option value="designer">Designer</option>
-          <option selected value="developer">Developer</option>
-        </div>
+        <option value="designer">Designer</option>
+        <option selected value="developer">Developer</option>
       </select>
     </span>
   </div>}

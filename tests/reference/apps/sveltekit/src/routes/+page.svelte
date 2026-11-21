@@ -1,5 +1,11 @@
 <script lang="ts">
-  import { Button, Textarea, ToggleButton, ToggleGroup } from "opui-css/svelte"
+  import {
+    Button,
+    CharacterCount,
+    Field,
+    ToggleButton,
+    ToggleGroup,
+  } from "opui-css/svelte"
   import {
     FEED_FILTERS,
     POSTS,
@@ -82,7 +88,7 @@
 <div class="app-screen" data-screen="feed">
   <h1>Feed</h1>
   <form aria-label="New post" class="ui-layout-column" onsubmit={submit}>
-    <Textarea characterCount for="feed-post" label="What's on your mind?">
+    <Field for="feed-post" label="What's on your mind?">
       <textarea
         aria-describedby="feed-post-end-text"
         bind:value={text}
@@ -90,7 +96,10 @@
         maxlength={280}
         name="text"
         required></textarea>
-    </Textarea>
+      {#snippet endText()}
+        <CharacterCount />
+      {/snippet}
+    </Field>
     <div>
       <Button type="submit" variant="filled">Post</Button>
     </div>

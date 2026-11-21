@@ -3,6 +3,7 @@ import {
   Button,
   Card,
   CardContent,
+  Field,
   FieldGroup,
   Radio,
   Switch,
@@ -12,7 +13,6 @@ import {
   TableHead,
   TableHeaderCell,
   TableRow,
-  TextField,
 } from "opui-css/solid"
 
 export default function NotificationSettings() {
@@ -433,22 +433,22 @@ export default function NotificationSettings() {
             </hgroup>
             <CardContent>
               <FieldGroup orientation="horizontal">
-                <TextField for="notification-settings-quiet-from" label="From">
+                <Field for="notification-settings-quiet-from" label="From">
                   <input
                     id="notification-settings-quiet-from"
                     name="quiet-from"
                     type="time"
                     defaultValue="22:00"
                   />
-                </TextField>
-                <TextField for="notification-settings-quiet-to" label="To">
+                </Field>
+                <Field for="notification-settings-quiet-to" label="To">
                   <input
                     id="notification-settings-quiet-to"
                     name="quiet-to"
                     type="time"
                     defaultValue="07:00"
                   />
-                </TextField>
+                </Field>
               </FieldGroup>
             </CardContent>
           </Card>

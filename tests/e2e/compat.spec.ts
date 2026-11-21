@@ -4,6 +4,7 @@ import { openFixture } from "./fixtures"
 const APPLIES: Record<string, string[]> = {
   chromium: [],
   firefox: [
+    "not (appearance: base-select)",
     "not (corner-shape: squircle)",
     "not (inline-size: if(else: 0px))",
     "not (row-rule: none)",

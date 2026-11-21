@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { TextField } from "opui-css/vue"
+import { Field } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField for="text-field-autosuggest-1" label="Bassists">
+  <Field for="text-field-autosuggest-1" label="Bassists">
     <input
       id="text-field-autosuggest-1"
       list="text-field-autosuggest-1-list"
@@ -14,9 +14,9 @@ import { TextField } from "opui-css/vue"
       <option value="Lou Headstock"></option>
       <option value="Percy Groove"></option>
     </datalist>
-  </TextField>
+  </Field>
 
-  <TextField for="text-field-autosuggest-2" label="Emails" variant="filled">
+  <Field for="text-field-autosuggest-2" label="Emails" variant="filled">
     <input
       id="text-field-autosuggest-2"
       list="text-field-autosuggest-2-list"
@@ -28,5 +28,5 @@ import { TextField } from "opui-css/vue"
       <option value="lou@lowend.example"></option>
       <option value="percy@lowend.example"></option>
     </datalist>
-  </TextField>
+  </Field>
 </template>

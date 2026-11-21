@@ -1,5 +1,6 @@
 import {
-  Select,
+  Field,
+  SelectButton,
   Table,
   TableBody,
   TableCaption,
@@ -7,7 +8,6 @@ import {
   TableHead,
   TableHeaderCell,
   TableRow,
-  TextField,
 } from "opui-css/react"
 
 const roles = [
@@ -32,15 +32,23 @@ export default function Controls() {
         <TableRow>
           <TableCell>Lou Headstock</TableCell>
           <TableCell>
-            <Select
-              defaultValue="flatwound-collector"
+            <Field
               hideLabel
-              items={roles}
+              htmlFor="table-controls-3"
               label="Specialty for Lou Headstock"
-            />
+            >
+              <select id="table-controls-3">
+                <SelectButton />
+                {roles.map((role) => (
+                  <option key={role.value} value={role.value}>
+                    {role.label}
+                  </option>
+                ))}
+              </select>
+            </Field>
           </TableCell>
           <TableCell>
-            <TextField
+            <Field
               hideLabel
               htmlFor="table-controls-1"
               label="Notes for Lou Headstock"
@@ -49,21 +57,29 @@ export default function Controls() {
                 id="table-controls-1"
                 placeholder="Add a note about their tone"
               />
-            </TextField>
+            </Field>
           </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>Percy Groove</TableCell>
           <TableCell>
-            <Select
-              defaultValue="slap-enthusiast"
+            <Field
               hideLabel
-              items={roles}
+              htmlFor="table-controls-4"
               label="Specialty for Percy Groove"
-            />
+            >
+              <select id="table-controls-4">
+                <SelectButton />
+                {roles.map((role) => (
+                  <option key={role.value} value={role.value}>
+                    {role.label}
+                  </option>
+                ))}
+              </select>
+            </Field>
           </TableCell>
           <TableCell>
-            <TextField
+            <Field
               hideLabel
               htmlFor="table-controls-2"
               label="Notes for Percy Groove"
@@ -72,7 +88,7 @@ export default function Controls() {
                 id="table-controls-2"
                 placeholder="Add a note about their tone"
               />
-            </TextField>
+            </Field>
           </TableCell>
         </TableRow>
       </TableBody>

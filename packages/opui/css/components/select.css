@@ -34,18 +34,21 @@
 
     /* Select popover */
     &::picker(select) {
+      --_bg-color: var(--ui-surface-elevated);
       --_ease-move: var(--ui-ease-move, var(--_ease));
+      --_selected-shadow: none;
+      --ui-border-color: var(--ui-border-color-on-raised);
+      --ui-field-border-color: var(--ui-field-border-color-on-raised);
 
       /* Animation on-stage styles */
-      background: transparent;
-      border: 0;
+      border: var(--ui-border-width) solid
+        var(--ui-border-color-raised, var(--ui-border-color-on-raised));
       border-radius: var(
         --ui-menu-radius,
         var(--ui-field-radius, var(--ui-radius))
       );
       box-shadow: var(--ui-shadow-overlay);
       opacity: 1;
-      padding: 0;
       scale: 1;
 
       /* Animation starting styles */
@@ -59,6 +62,18 @@
         opacity var(--_duration) var(--_ease),
         overlay var(--_duration) allow-discrete,
         scale var(--_duration) var(--_ease-move);
+    }
+
+    :where(.ui-field.ui-dense)
+      > :where(.ui-field-container)
+      > &::picker(select) {
+      --_divider-gap: var(--ui-space-2);
+      --_item-gap: var(--ui-space-2);
+      --_start-size: var(--ui-icon-size-small);
+    }
+
+    &:dir(rtl)::picker(select) {
+      --_selected-indicator-offset: calc(-1 * var(--_selected-indicator-size));
     }
 
     /* Animation off-stage styles */
@@ -121,130 +136,62 @@
       }
     }
 
-    .ui-list {
-      --_bg-color: var(--ui-surface-elevated);
-      --_selected-shadow: none;
-      --ui-border-color: var(--ui-border-color-on-raised);
-      --ui-field-border-color: var(--ui-field-border-color-on-raised);
-      border: var(--ui-border-width) solid
-        var(--ui-border-color-raised, var(--ui-border-color-on-raised));
-      border-radius: var(
-        --ui-menu-radius,
-        var(--ui-field-radius, var(--ui-radius))
-      );
-
-      /* Groups */
-      :is([role="group"], optgroup) {
-        :is(label, legend) {
-          background-color: color-mix(
-            in oklch,
-            var(--_bg-color) 94%,
-            var(--ui-text-strong)
-          );
-          color: var(--ui-text);
-          font-weight: var(--ui-font-weight-medium);
-          overflow: hidden;
-          padding-inline: var(--ui-space-2);
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-
-        &:not(:first-child),
-        option:first-of-type {
-          margin-block-start: var(--ui-space-2);
-        }
-      }
-
-      /* Option */
-      option {
-        /* Checkmark */
-        &::checkmark {
-          background-color: currentColor;
-          block-size: var(--_start-size);
-          content: "";
-          flex-shrink: 0;
-          inline-size: var(--_start-size);
-          margin-inline-start: auto;
-          mask: var(--_check-image) center / contain no-repeat;
-          order: 1;
-
-          @media (forced-colors: active) {
-            background-color: SelectedItemText;
-          }
-
-          @media print {
-            print-color-adjust: exact;
-          }
-        }
-
-        &:has(> .ui-icon-checked)::checkmark {
-          display: none;
-        }
-
-        &:focus-visible {
-          outline-offset: var(--ui-focus-ring-inset);
-        }
-      }
-    }
-  }
-
-  :where(.ui-field:has(> .ui-field-container > select)) {
-    /*
-    * Non-experimental Select
-    *
-    * Hack to get the arrow working. Pseudo elements aren't allowed on the `<select>` element, so need to add it on the `.ui-field` class instead. Noting this down if an `:after` element would be needed on a `.ui-field`.
-    */
-    &:not(:has(:where(select) > button)) {
-      select {
-        appearance: none;
+    /* Groups */
+    :is([role="group"], optgroup) {
+      :is(label, legend) {
+        background-color: color-mix(
+          in oklch,
+          var(--_bg-color) 94%,
+          var(--ui-text-strong)
+        );
+        color: var(--ui-text);
+        font-weight: var(--ui-font-weight-medium);
+        overflow: hidden;
+        padding-inline: var(--ui-space-2);
         text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
-      :where(option, optgroup) {
-        background-color: var(--ui-surface-elevated);
-        color: var(--ui-text-strong);
+      :where(:not(button)) ~ &,
+      option:first-of-type {
+        margin-block-start: var(--ui-space-2);
       }
+    }
 
-      /* Arrow */
-      &::after {
-        align-self: center;
-        display: inline-block;
+    /* Option */
+    option {
+      /* Checkmark */
+      &::checkmark {
+        background-color: currentColor;
+        block-size: var(--_start-size);
+        content: "";
         flex-shrink: 0;
-        grid-column: 1/-1;
-        grid-row: 2;
-        inset-inline-end: var(--_arrow-inset);
-        justify-self: end;
-        position: relative;
-      }
+        inline-size: var(--_start-size);
+        margin-inline-start: auto;
+        mask: var(--_check-image) center / contain no-repeat;
+        order: 1;
 
-      &:not(.ui-spread):has(> .ui-start-text)::after {
-        grid-row: 3;
-      }
-
-      &.ui-spread::after {
-        align-self: start;
-        grid-row: 1 / span 3;
-        margin-block-start: calc((var(--_size) - var(--_chevron-size)) / 2);
-      }
-
-      @container (inline-size < 25rem) {
-        &.ui-spread::after {
-          align-self: center;
-          grid-row: 2;
-          margin-block-start: 0;
+        @media (forced-colors: active) {
+          background-color: SelectedItemText;
         }
 
-        &.ui-spread:has(> .ui-start-text)::after {
-          grid-row: 3;
+        @media print {
+          print-color-adjust: exact;
         }
+      }
+
+      &:has(> .ui-icon-checked)::checkmark {
+        display: none;
+      }
+
+      &:focus-visible {
+        outline-offset: var(--ui-focus-ring-inset);
       }
     }
   }
 
-  :where(.ui-field > .ui-field-container > select:has(> button)),
-  :where(
-    .ui-field > .ui-field-container > select:has(> button)
-  )::picker(select) {
+  :where(.ui-field > .ui-field-container > select),
+  :where(.ui-field > .ui-field-container > select)::picker(select) {
     appearance: base-select;
   }
 }

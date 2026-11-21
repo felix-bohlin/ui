@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { Button, ControlGroup, Textarea } from "opui-css/solid"
+import { Button, ControlGroup, Field } from "opui-css/solid"
 
 export default function VerticalCode() {
   return (
@@ -89,16 +89,12 @@ export default function VerticalCode() {
         orientation="vertical"
         variant="filled"
       >
-        <Textarea
-          for="control-group-vertical-1"
-          hideLabel
-          label="Delivery note"
-        >
+        <Field for="control-group-vertical-1" hideLabel label="Delivery note">
           <textarea
             id="control-group-vertical-1"
             placeholder="Leave it at the back door"
           ></textarea>
-        </Textarea>
+        </Field>
         <Button>Send note</Button>
       </ControlGroup>
     </>

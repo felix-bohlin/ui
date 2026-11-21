@@ -1,16 +1,13 @@
 <script setup lang="ts">
-import { Button, FieldGroup, Form, TextField } from "opui-css/vue"
+import { Button, Field, FieldGroup, Form } from "opui-css/vue"
 </script>
 
 <template>
   <Form>
     <FieldGroup orientation="horizontal">
-      <TextField
-        for="form-field-group-horizontal-fields-1"
-        label="Discount code"
-      >
+      <Field for="form-field-group-horizontal-fields-1" label="Discount code">
         <input id="form-field-group-horizontal-fields-1" name="discount" />
-      </TextField>
+      </Field>
       <Button variant="outlined">Apply</Button>
     </FieldGroup>
   </Form>

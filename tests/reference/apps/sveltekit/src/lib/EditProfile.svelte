@@ -6,8 +6,7 @@
     DialogFooter,
     DialogHeader,
     DialogTitle,
-    TextField,
-    Textarea,
+    Field,
   } from "opui-css/svelte"
   import { untrack } from "svelte"
 
@@ -25,12 +24,12 @@
   </DialogHeader>
   <form method="dialog" onsubmit={() => onsave({ ...draft })}>
     <DialogContent>
-      <TextField for="profile-name" label="Name">
+      <Field for="profile-name" label="Name">
         <input bind:value={draft.name} id="profile-name" name="name" required />
-      </TextField>
-      <Textarea for="profile-bio" label="Bio">
+      </Field>
+      <Field for="profile-bio" label="Bio">
         <textarea bind:value={draft.bio} id="profile-bio" name="bio"></textarea>
-      </Textarea>
+      </Field>
     </DialogContent>
     <DialogFooter>
       <Button command="close" commandfor="edit-profile">Cancel</Button>

@@ -1,25 +1,21 @@
 <script lang="ts">
   import {
     Checkbox,
+    Field,
     NumberField,
     Radio,
     Range,
     Rating,
-    Select,
+    SelectButton,
     Tabs,
     TabsItem,
     TabsLabel,
     TabsPanel,
-    TextField,
     ToggleButton,
     ToggleGroup,
   } from "opui-css/svelte"
 
-  const colors = [
-    { label: "blue", value: "blue" },
-    { label: "green", value: "green" },
-    { label: "red", value: "red" },
-  ]
+  const colors = ["blue", "green", "red"]
   const tabs = ["one", "two", "three"]
   const views = ["day", "week", "month"]
 
@@ -111,11 +107,25 @@
   <Rating label="Score" name="score" />
 </form>
 <form data-case="select-bound">
-  <Select bind:value={values.select} items={colors} label="Color" />
+  <Field for="select-bound" label="Color">
+    <select bind:value={values.select} id="select-bound">
+      <SelectButton />
+      {#each colors as color (color)}
+        <option value={color}>{color}</option>
+      {/each}
+    </select>
+  </Field>
   <output>{values.select}</output>
 </form>
 <form data-case="select-default">
-  <Select items={colors} label="Color" value="green" />
+  <Field for="select-default" label="Color">
+    <select id="select-default" value="green">
+      <SelectButton />
+      {#each colors as color (color)}
+        <option value={color}>{color}</option>
+      {/each}
+    </select>
+  </Field>
 </form>
 <form data-case="tabs-bound">
   <Tabs bind:value={values.tabs} name="tab">
@@ -139,25 +149,25 @@
   </Tabs>
 </form>
 <form data-case="text-bound">
-  <TextField for="text-bound" label="Name">
+  <Field for="text-bound" label="Name">
     <input bind:value={values.text} id="text-bound" />
-  </TextField>
+  </Field>
   <output>{values.text}</output>
 </form>
 <form data-case="text-default">
-  <TextField for="text-default" label="Name">
+  <Field for="text-default" label="Name">
     <input defaultValue="Ada" id="text-default" />
-  </TextField>
+  </Field>
 </form>
 <form data-case="text-empty">
-  <TextField for="text-empty" label="Name">
+  <Field for="text-empty" label="Name">
     <input id="text-empty" />
-  </TextField>
+  </Field>
 </form>
 <form data-case="text-rerender">
-  <TextField for="text-rerender" label="Name">
+  <Field for="text-rerender" label="Name">
     <input data-round={round} defaultValue="Ada" id="text-rerender" />
-  </TextField>
+  </Field>
 </form>
 <form data-case="toggle-bound">
   <ToggleButton bind:checked={values.toggle}>Bold</ToggleButton>

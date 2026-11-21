@@ -2,11 +2,11 @@
   import {
     Button,
     Divider,
+    Field,
     FieldGroup,
     FieldLegend,
     Fieldset,
     Form,
-    TextField,
   } from "opui-css/svelte"
 </script>
 
@@ -14,9 +14,9 @@
   <Fieldset>
     <FieldLegend>Post content</FieldLegend>
     <FieldGroup>
-      <TextField for="form-divider-1" label="Title">
+      <Field for="form-divider-1" label="Title">
         <input id="form-divider-1" placeholder="My new post" />
-      </TextField>
+      </Field>
     </FieldGroup>
   </Fieldset>
   <Divider />

@@ -91,13 +91,13 @@ describe("React", () => {
   test("renames attributes and turns static state into defaults", async () => {
     const code = await convert(
       astro(
-        '<Select autocomplete="off" class="field" value="Ada" />\n<label for="name" tabindex="0">Name</label>\n<Radio name="pick" value="b" checked />',
-        "Radio, Select",
+        '<Range autocomplete="off" class="field" value="40" />\n<label for="name" tabindex="0">Name</label>\n<Radio name="pick" value="b" checked />',
+        "Radio, Range",
       ),
       "react",
     )
     expect(code).toContain(
-      '<Select autoComplete="off" className="field" defaultValue="Ada" />',
+      '<Range autoComplete="off" className="field" defaultValue="40" />',
     )
     expect(code).toContain('<label htmlFor="name" tabIndex={0}>')
     expect(code).toContain('<Radio defaultChecked name="pick" value="b" />')
@@ -109,15 +109,14 @@ describe("React", () => {
     ).toContain('<input readOnly value="x" />')
   })
 
-  test("moves the selected option to the Select's defaultValue", async () => {
+  test("moves the selected option to the select's defaultValue", async () => {
     const code = await convert(
       astro(
-        '<Select label="Pick">\n  <option>a</option>\n  <option selected value="b">B</option>\n</Select>',
-        "Select",
+        '<select name="pick">\n  <option>a</option>\n  <option selected value="b">B</option>\n</select>',
       ),
       "react",
     )
-    expect(code).toContain('<Select defaultValue="b" label="Pick">')
+    expect(code).toContain('<select name="pick" defaultValue="b">')
     expect(code).not.toContain("selected")
   })
 
@@ -242,16 +241,16 @@ describe("Solid", () => {
   test("keeps the HTML attribute names and turns static state into defaults, like React", async () => {
     const code = await convert(
       astro(
-        '<Select autocomplete="off" class="field" value="Ada" />\n<label for="name" tabindex="0">Name</label>\n<Radio name="pick" value="b" checked />\n<input type="checkbox" checked />',
-        "Radio, Select",
+        '<Range autocomplete="off" class="field" value="40" />\n<label for="name" tabindex="0">Name</label>\n<Radio name="pick" value="b" checked />\n<input type="checkbox" checked />',
+        "Radio, Range",
       ),
       "solid",
     )
     expect(code).toMatch(
-      /^\/\*\* @jsxImportSource @solidjs\/web \*\/\nimport \{ Radio, Select \} from "opui-css\/solid"\n/,
+      /^\/\*\* @jsxImportSource @solidjs\/web \*\/\nimport \{ Radio, Range \} from "opui-css\/solid"\n/,
     )
     expect(code).toContain(
-      '<Select autocomplete="off" class="field" defaultValue="Ada" />',
+      '<Range autocomplete="off" class="field" defaultValue="40" />',
     )
     expect(code).toContain('<label for="name" tabindex="0">')
     expect(code).toContain('<Radio defaultChecked name="pick" value="b" />')
@@ -264,12 +263,11 @@ describe("Solid", () => {
     ).toContain('<input readonly value="x" />')
     const code = await convert(
       astro(
-        '<Select label="Pick">\n  <option>a</option>\n  <option selected value="b">B</option>\n</Select>',
-        "Select",
+        '<select name="pick">\n  <option>a</option>\n  <option selected value="b">B</option>\n</select>',
       ),
       "solid",
     )
-    expect(code).toContain('<Select label="Pick">')
+    expect(code).toContain('<select name="pick">')
     expect(code).toContain('<option selected value="b">')
   })
 
@@ -324,13 +322,13 @@ describe("Svelte", () => {
   test("writes values with braces or double quotes as expressions", async () => {
     const code = await convert(
       astro(
-        '<Select characterCountLabel="{count} left" description=\'A "b"\' />',
-        "Select",
+        '<Field for="x" label="{count} left" startText=\'A "b"\' />',
+        "Field",
       ),
       "svelte",
     )
-    expect(code).toContain('characterCountLabel={"{count} left"}')
-    expect(code).toContain("description={'A \"b\"'}")
+    expect(code).toContain('label={"{count} left"}')
+    expect(code).toContain("startText={'A \"b\"'}")
   })
 
   test("numbers a component's tabindex and leaves a native one", async () => {
@@ -373,13 +371,13 @@ describe("Vue", () => {
   test("binds expressions, interpolates text and uses template slots", async () => {
     const code = await convert(
       astro(
-        '<Select items={[{ label: "A", value: "a" }]} label="Pick" />\n<Badge label="New">\n  <Fragment slot="indicator">5</Fragment>\n</Badge>\n<ul>\n  {\n    places.map(({ id, title }) => (\n      <li>{title}</li>\n    ))\n  }\n</ul>',
-        "Badge, Select",
+        '<Range items={[{ label: "A", value: 0 }]} label="Pick" />\n<Badge label="New">\n  <Fragment slot="indicator">5</Fragment>\n</Badge>\n<ul>\n  {\n    places.map(({ id, title }) => (\n      <li>{title}</li>\n    ))\n  }\n</ul>',
+        "Badge, Range",
         'const places = [{ id: "a", title: "A" }]\n',
       ),
       "vue",
     )
-    expect(code).toContain(`:items="[{ label: 'A', value: 'a' }]"`)
+    expect(code).toContain(`:items="[{ label: 'A', value: 0 }]"`)
     expect(code).toContain("<template #indicator>5</template>")
     expect(code).toContain(
       '<li v-for="{ id, title } in places" :key="id">{{ title }}</li>',
@@ -894,7 +892,7 @@ describe("HTML", () => {
   })
 
   test("takes the element-to-file map from the customElements.define calls", () => {
-    expect(tags.get("opui-text-field")).toBe("elements/text-field.js")
+    expect(tags.get("opui-password-toggle")).toBe("elements/password-toggle.js")
     expect(tags.get("opui-character-count")).toBe("elements/character-count.js")
     expect(
       scriptImports(

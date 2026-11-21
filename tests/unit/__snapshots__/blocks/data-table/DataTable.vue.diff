@@ -1,7 +1,7 @@
 ===================================================================
 --- astro
 +++ vue
-@@ -78,5 +78,5 @@
+@@ -74,5 +74,5 @@
    </div>
    <opui-select-all class="ui-select-all">
 -    <opui-sortable-table class="ui-sortable-table">

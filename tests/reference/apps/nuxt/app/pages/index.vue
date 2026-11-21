@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import { Button, Textarea, ToggleButton, ToggleGroup } from "opui-css/vue"
+import {
+  Button,
+  CharacterCount,
+  Field,
+  ToggleButton,
+  ToggleGroup,
+} from "opui-css/vue"
 import {
   FEED_FILTERS,
   POSTS,
@@ -86,7 +92,7 @@ const toggleSave = (id: string) => {
       class="ui-layout-column"
       @submit.prevent="submit"
     >
-      <Textarea characterCount for="feed-post" label="What's on your mind?">
+      <Field for="feed-post" label="What's on your mind?">
         <textarea
           aria-describedby="feed-post-end-text"
           id="feed-post"
@@ -95,7 +101,10 @@ const toggleSave = (id: string) => {
           required
           v-model="text"
         ></textarea>
-      </Textarea>
+        <template #end-text>
+          <CharacterCount />
+        </template>
+      </Field>
       <div>
         <Button type="submit" variant="filled">Post</Button>
       </div>

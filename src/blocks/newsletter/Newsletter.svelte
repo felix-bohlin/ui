@@ -3,6 +3,7 @@
     Button,
     Card,
     Checkbox,
+    Field,
     FieldDescription,
     FieldGroup,
     FieldLegend,
@@ -10,7 +11,6 @@
     Form,
     List,
     ListItem,
-    TextField,
     ToggleButton,
     ToggleGroup,
   } from "opui-css/svelte"
@@ -51,7 +51,7 @@
     </div>
     <Form action="#" class="newsletter-form">
       <FieldGroup orientation="horizontal">
-        <TextField for="newsletter-email" label="Email">
+        <Field for="newsletter-email" label="Email">
           <input
             autocomplete="email"
             id="newsletter-email"
@@ -60,7 +60,7 @@
             required
             type="email"
           />
-        </TextField>
+        </Field>
         <Button type="submit" variant="filled">Sign me up!</Button>
       </FieldGroup>
       <Fieldset>

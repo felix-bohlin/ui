@@ -1,9 +1,9 @@
-import { TextField } from "opui-css/react"
+import { Field } from "opui-css/react"
 
 export default function Autosuggest() {
   return (
     <>
-      <TextField htmlFor="text-field-autosuggest-1" label="Bassists">
+      <Field htmlFor="text-field-autosuggest-1" label="Bassists">
         <input
           id="text-field-autosuggest-1"
           list="text-field-autosuggest-1-list"
@@ -14,13 +14,9 @@ export default function Autosuggest() {
           <option value="Lou Headstock"></option>
           <option value="Percy Groove"></option>
         </datalist>
-      </TextField>
+      </Field>
 
-      <TextField
-        htmlFor="text-field-autosuggest-2"
-        label="Emails"
-        variant="filled"
-      >
+      <Field htmlFor="text-field-autosuggest-2" label="Emails" variant="filled">
         <input
           id="text-field-autosuggest-2"
           list="text-field-autosuggest-2-list"
@@ -32,7 +28,7 @@ export default function Autosuggest() {
           <option value="lou@lowend.example"></option>
           <option value="percy@lowend.example"></option>
         </datalist>
-      </TextField>
+      </Field>
     </>
   )
 }

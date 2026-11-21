@@ -1,17 +1,15 @@
 ---
-import { Button, Select } from "opui-css/astro"
+import { Button, Field, SelectButton } from "opui-css/astro"
 ---
 
-<Select
-  items={[
-    { label: "Apples", value: "apples" },
-    { label: "Bananas", value: "bananas" },
-    { label: "Cherries", value: "cherries" },
-  ]}
-  label="Fruit"
-  name="select-binding"
-  value="apples"
-/>
+<Field for="select-binding-1" label="Fruit">
+  <select id="select-binding-1" name="select-binding">
+    <SelectButton />
+    <option selected value="apples">Apples</option>
+    <option value="bananas">Bananas</option>
+    <option value="cherries">Cherries</option>
+  </select>
+</Field>
 <p class="select-binding-text">Selected: apples</p>
 <Button class="select-binding-reset">Reset</Button>
 

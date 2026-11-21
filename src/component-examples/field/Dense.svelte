@@ -1,0 +1,13 @@
+<script lang="ts">
+  import { Field, SelectButton } from "opui-css/svelte"
+</script>
+
+<Field dense for="field-dense-1" label="Fruit">
+  <select id="field-dense-1">
+    <SelectButton />
+    <option value="">-</option>
+    <option>Apple</option>
+    <option>Banana</option>
+    <option>Cherry</option>
+  </select>
+</Field>

@@ -123,7 +123,7 @@ describe("example copy", () => {
   test("reads the end and start text props", async () => {
     expect(
       await problemsOf(
-        '<Radio endText="Supporting text" />\n<TextField startText="Option 1" />',
+        '<Radio endText="Supporting text" />\n<Field for="x" startText="Option 1" />',
       ),
     ).toEqual([
       "a placeholder label: Supporting text",

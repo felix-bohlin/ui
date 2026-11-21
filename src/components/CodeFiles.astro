@@ -1,7 +1,7 @@
 ---
 import Code from "./Code.astro"
 import type { Tab } from "./Installation.astro"
-import { Select } from "opui-css/astro"
+import { Field, SelectButton } from "opui-css/astro"
 
 type Props = {
   files: Tab[]
@@ -9,13 +9,19 @@ type Props = {
 }
 
 const { files, title } = Astro.props
+const fileId = Astro.locals.$id("code-file")
 ---
 
 <div class="code-files">
   {files.length > 1 && <div class="file-bar">
-    <Select aria-label={`${title} file`} class="file-picker" size="small">
-      {files.map((file, index) => <option value={index}>{file.title}</option>)}
-    </Select>
+    <Field class="file-picker" for={fileId} size="small">
+      <select aria-label={`${title} file`} id={fileId}>
+        <SelectButton />
+        {files.map((file, index) => <option value={index}>
+          {file.title}
+        </option>)}
+      </select>
+    </Field>
   </div>}
   {files.map((file, index) => <div class="file" hidden={index > 0}>
     <Code code={file.code} lang={file.lang} />

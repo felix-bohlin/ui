@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Button, Textarea } from "opui-css/vue"
+import { Button, Field } from "opui-css/vue"
 </script>
 
 <template>
-  <Textarea for="textarea-affix-button-1" label="Message">
+  <Field for="textarea-affix-button-1" label="Message">
     <textarea
       aria-describedby="textarea-affix-button-1-end"
       id="textarea-affix-button-1"
@@ -29,5 +29,5 @@ import { Button, Textarea } from "opui-css/vue"
         </svg>
       </Button>
     </template>
-  </Textarea>
+  </Field>
 </template>

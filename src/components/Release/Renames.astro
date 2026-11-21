@@ -4,9 +4,9 @@ import {
   AccordionContent,
   AccordionSummary,
   Chip,
+  Field,
   FieldLegend,
   Fieldset,
-  TextField,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/astro"
@@ -113,7 +113,7 @@ const sectionHref = (anchor: string) => link(`/guide/migrating#${anchor}`)
   </div>
 
   <div class="renames-explorer">
-    <TextField
+    <Field
       class="renames-search"
       for="renames-filter-renames"
       label="Filter renames"
@@ -139,7 +139,7 @@ const sectionHref = (anchor: string) => link(`/guide/migrating#${anchor}`)
           d="M9.5 3a6.5 6.5 0 0 1 5.2 10.4l5.45 5.45-1.4 1.4-5.45-5.44A6.5 6.5 0 1 1 9.5 3m0 2a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9"
         ></path>
       </svg>
-    </TextField>
+    </Field>
     <p class="renames-count" role="status">{renames.length} renames</p>
     <p class="renames-empty" hidden>No rename matches that name.</p>
     <ul class="renames-list">

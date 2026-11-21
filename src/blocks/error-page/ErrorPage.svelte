@@ -1,11 +1,5 @@
 <script lang="ts">
-  import {
-    Button,
-    FieldGroup,
-    List,
-    ListItem,
-    TextField,
-  } from "opui-css/svelte"
+  import { Button, Field, FieldGroup, List, ListItem } from "opui-css/svelte"
 </script>
 
 <div
@@ -25,7 +19,7 @@
   <search>
     <form action="#">
       <FieldGroup orientation="horizontal">
-        <TextField for="error-page-q" hideLabel label="Search Bassbook">
+        <Field for="error-page-q" hideLabel label="Search Bassbook">
           <input
             aria-describedby="error-page-q-start"
             id="error-page-q"
@@ -48,7 +42,7 @@
               ></path>
             </svg>
           {/snippet}
-        </TextField>
+        </Field>
         <Button type="submit" variant="filled">Search</Button>
       </FieldGroup>
     </form>

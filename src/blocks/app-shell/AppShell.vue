@@ -10,11 +10,11 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
+  Field,
   List,
   ListItem,
   Menu,
   Stat,
-  TextField,
 } from "opui-css/vue"
 </script>
 
@@ -61,7 +61,7 @@ import {
         </svg>
         Bassbook
       </a>
-      <TextField class="shell-search" for="app-shell-search" size="small">
+      <Field class="shell-search" for="app-shell-search" size="small">
         <input
           aria-describedby="app-shell-search-start"
           aria-label="Search"
@@ -85,7 +85,7 @@ import {
             ></path>
           </svg>
         </template>
-      </TextField>
+      </Field>
       <Button
         aria-label="Notifications, 3 unread"
         round

@@ -1,23 +1,18 @@
 ---
 import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
-import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
-import Anatomy from "../../components/Anatomy.astro"
-import { Textarea as UITextarea } from "opui-css/astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
-import ValidationNotes from "./partials/ValidationNotes.astro"
-import PropOrClass from "../../components/PropOrClass.astro"
 
 import FieldCSS from "@opui/css/components/text-field.css?raw"
 import TextareaCSS from "@opui/css/components/textarea.css?raw"
 
-import textareaApi from "../../component-api/textarea/api"
+import characterCountApi from "../../component-api/character-count/api"
 import TextareaBuild from "../../components/UnderTheHood/TextareaBuild.astro"
 
 export const description =
-  "A multi-line text input with a label, start and end text, and validation."
+  "A multi-line text input in a Field that grows with its text, with a character count."
 
 export const keywords = ["multiline", "text area"]
 ---
@@ -41,11 +36,10 @@ export const keywords = ["multiline", "text area"]
     "reading-flow":
       "Without `reading-flow`, Tab and screen readers follow the markup, which puts the top and start parts before the control, as they're drawn. Hand-written HTML needs that order too.",
   }}
-  heroAnatomy
-  apis={[{ title: "Textarea API", api: textareaApi }]}
+  apis={[{ title: "Character count API", api: characterCountApi }]}
   changelogPaths={[
     { path: "packages/opui/css/components/text-field.css", type: "css" },
-    { path: "src/component-api/text-field", type: "api" },
+    { path: "src/component-api/character-count", type: "api" },
   ]}
   installationTabs={[
     {
@@ -65,9 +59,7 @@ export const keywords = ["multiline", "text area"]
 
   <Usage slot="usage">
     <li slot="when">Text over several lines, like a comment.</li>
-    <li slot="when">
-      Messages that <a href="#auto-fit">grow as people type</a>.
-    </li>
+    <li slot="when">Messages that <a href="#rows">grow as people type</a>.</li>
     <li slot="when-not">
       A single line: use a
       <DocLink href="/components/text-field">Text field</DocLink>.
@@ -77,6 +69,12 @@ export const keywords = ["multiline", "text area"]
 
   <section id="textarea">
     <h2>Textarea</h2>
+    <p>
+      A textarea is a <DocLink href="/components/field">Field</DocLink> with a
+      <code>&lt;textarea&gt;</code> inside. The Field page shows the variants,
+      sizes, start and end text, affixes, validation and layout every field
+      shares.
+    </p>
     <Conditional as="p">
       <Fragment slot="components">
         Write the <code>&lt;textarea&gt;</code> inside the field, with its
@@ -94,48 +92,6 @@ export const keywords = ["multiline", "text area"]
         <code>&lt;label for&gt;</code> at its <code>id</code>.
       </Fragment>
     </Conditional>
-    <p>
-      Each part the field shows has an id that starts with the textarea's:
-      <code>x-start-text</code>, <code>x-top</code>, <code>x-start</code>,
-      <code>x-end</code>, <code>x-bottom</code> and <code>x-end-text</code> for
-      a textarea with <code>id="x"</code>. Point its
-      <code>aria-describedby</code> at the ones it shows, in that order.
-    </p>
-  </section>
-
-  <section id="variants">
-    <h2>Variants</h2>
-    <p>
-      Outlined by default. Use
-      <PropOrClass prop='variant="filled"' class=".ui-filled" /> for a filled
-      textarea.
-    </p>
-    <AutoExample name="Variants" row />
-  </section>
-
-  <section id="sizes">
-    <h2>Sizes</h2>
-    <AutoExample name="Sizes" row />
-  </section>
-
-  <section id="hidden-label">
-    <h2>Hidden label</h2>
-    <p>
-      <PropOrClass prop="hideLabel" class=".ui-sr-only" /> hides the label but
-      keeps the accessible name.
-    </p>
-    <AutoExample name="HiddenLabel" />
-  </section>
-
-  <section id="start-text">
-    <h2>Start text</h2>
-    <p>Use <PropOrClass prop="startText" class=".ui-start-text" />.</p>
-    <AutoExample name="StartText" row />
-  </section>
-
-  <section id="end-text">
-    <h2>End text</h2>
-    <AutoExample name="EndText" row />
   </section>
 
   <section id="character-count">
@@ -157,29 +113,13 @@ export const keywords = ["multiline", "text area"]
 
   <section id="affix">
     <h2>Affix</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Use <code>start</code>, <code>end</code>, <code>top</code> and
-        <code>bottom</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Use <code>.ui-start</code>, <code>.ui-end</code>, <code>.ui-top</code>
-        and <code>.ui-bottom</code>.
-      </Fragment>
-    </Conditional>
-
-    <AutoExample name="Affix" row />
-
-    <h3 id="buttons">Buttons</h3>
     <p>
       A button can go in an affix, like a send button. The label alone names the
-      field, and the button is read after it, with the other affixes.
+      field, and the button is read after it, with the other affixes. The
+      <DocLink href="/components/field#affix">Field</DocLink> page shows the
+      other affixes.
     </p>
     <AutoExample name="AffixButton" row />
-
-    <h3 id="top-and-bottom">Top and bottom</h3>
-
-    <AutoExample name="TopAndBottom" column />
   </section>
 
   <section id="binding">
@@ -205,23 +145,6 @@ export const keywords = ["multiline", "text area"]
     <AutoExample name="Binding" column />
   </section>
 
-  <section id="validation">
-    <h2>Validation</h2>
-    <ValidationNotes element="textarea" own subject="Fields" />
-
-    <AutoExample name="Validation" />
-  </section>
-
-  <section id="spread">
-    <h2>Spread</h2>
-    <p>
-      <PropOrClass prop="spread" class=".ui-spread" /> puts the label beside the
-      textarea.
-    </p>
-
-    <AutoExample name="Spread" column spacious />
-  </section>
-
   <section id="rows">
     <h2>Rows</h2>
     <p>
@@ -231,17 +154,6 @@ export const keywords = ["multiline", "text area"]
     </p>
 
     <AutoExample name="Rows" column />
-  </section>
-
-  <section id="auto-fit">
-    <h2>Auto-fit</h2>
-    <p>
-      Grows from 3 lines, or the lines in <code>rows</code>, to 20 lines by
-      default. <PropOrClass prop="autoFit" class=".ui-auto-fit" /> also fits the
-      width.
-    </p>
-
-    <AutoExample name="AutoFit" class="flex" />
   </section>
 
   <TextareaBuild slot="under-the-hood" />
@@ -257,30 +169,5 @@ export const keywords = ["multiline", "text area"]
         stay out of the name.
       </li>
     </ul>
-    <KeyboardSupport />
-  </Fragment>
-
-  <Fragment slot="anatomy">
-    <Anatomy>
-      <UITextarea
-        characterCount
-        endText="Supporting text"
-        for="textarea-label"
-        label="Label"
-        startText="Start text"
-        style="inline-size: 20rem"
-      >
-        <textarea
-          aria-describedby="textarea-label-start-text textarea-label-top textarea-label-start textarea-label-end textarea-label-bottom textarea-label-end-text"
-          id="textarea-label"
-          maxlength={160}
-          placeholder="Placeholder"
-        ></textarea>
-        <span slot="top">Top</span>
-        <span slot="start">€</span>
-        <span slot="end">EUR</span>
-        <span slot="bottom">Bottom</span>
-      </UITextarea>
-    </Anatomy>
   </Fragment>
 </Component>

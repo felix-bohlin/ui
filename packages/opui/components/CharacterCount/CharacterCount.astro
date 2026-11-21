@@ -1,0 +1,21 @@
+---
+import type { Props } from "./types.astro"
+// A dynamic <Tag> or a custom element lets an undefined spread value remove an attribute set before it: tests/unit/tooling-bugs.test.ts
+import { defined } from "../attrs"
+
+export const title = "Character Count"
+
+const { class: className, label, ...rest } = Astro.props
+---
+
+<opui-character-count
+  aria-hidden="true"
+  class:list={["ui-value", className]}
+  label={label}
+  {...defined(rest)}
+  set:html=""
+/>
+
+<script>
+  import "../../elements/character-count.js"
+</script>

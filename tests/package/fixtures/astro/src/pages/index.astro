@@ -1,6 +1,6 @@
 ---
 import "opui-css/css/imports.css"
-import { Button, Checkbox, TextField } from "opui-css/astro"
+import { Button, Checkbox, Field } from "opui-css/astro"
 ---
 
 <!doctype html>
@@ -12,9 +12,9 @@ import { Button, Checkbox, TextField } from "opui-css/astro"
   </head>
   <body>
     <form>
-      <TextField for="index-name" label="Name">
+      <Field for="index-name" label="Name">
         <input id="index-name" name="name" />
-      </TextField>
+      </Field>
       <Checkbox name="subscribe">Subscribe</Checkbox>
       <Button type="submit" variant="filled" color="primary">Save</Button>
     </form>

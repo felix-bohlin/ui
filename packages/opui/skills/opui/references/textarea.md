@@ -9,7 +9,7 @@ A multi-line text input with a label, start and end text, and validation.
 
 ### Parts
 
-- `.ui-textarea` (root): Container element, a `<div>`. The label inside is a `<label for>` that names the textarea by itself.
+- `.ui-field` (root): Container element, a `<div>`. The label inside is a `<label for>` that names the textarea by itself.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
 - `.ui-field-container`: The boxed textarea area.
@@ -27,7 +27,7 @@ A multi-line text input with a label, start and end text, and validation.
 - `characterCount`: `boolean`. Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count.
 - `characterCountLabel`: `string`, default `"Characters left: {count}"`. The announcement near the limit, with `{count}` for the characters left. Pass it translated.
 - `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of your `<textarea>`. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`. Point the textarea's `aria-describedby` at the ones it shows, in that order.
-- `hideLabel`: `boolean`, `.ui-textarea > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
+- `hideLabel`: `boolean`, `.ui-field > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
 - `htmlFor` (React): `string`. The `id` of your `<textarea>`, as `htmlFor` like on the element. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `htmlFor="x"`. Point the textarea's `aria-describedby` at the ones it shows, in that order.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
 - `spread`: `boolean`, `.ui-spread`. Pushes the label and start text to one side and the textarea to the other.
@@ -45,8 +45,8 @@ A multi-line text input with a label, start and end text, and validation.
 ### Notes
 
 - HTML: For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field's `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Put `.ui-top` and `.ui-start` before the `<textarea>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they're drawn.
-- Astro, Solid, Svelte and Vue: Write the `<textarea>` inside, with its `id` set to `for`, and bind it like any textarea. Other attributes go to the `.ui-textarea` root.
-- React: Write the `<textarea>` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-textarea` root.
+- Astro, Solid, Svelte and Vue: Write the `<textarea>` inside, with its `id` set to `for`, and bind it like any textarea. Other attributes go to the `.ui-field` root.
+- React: Write the `<textarea>` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-field` root.
 
 ## Component properties
 
@@ -88,13 +88,13 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--u
 ### Example: Variants
 
 ```html
-<div class="ui-textarea">
+<div class="ui-field">
   <label class="ui-label" for="textarea-variants-1">Outlined</label>
   <span class="ui-field-container">
     <textarea id="textarea-variants-1" placeholder="Write a message"></textarea>
   </span>
 </div>
-<div class="ui-textarea ui-filled">
+<div class="ui-field ui-filled">
   <label class="ui-label" for="textarea-variants-2">Filled</label>
   <span class="ui-field-container">
     <textarea id="textarea-variants-2" placeholder="Write a message"></textarea>

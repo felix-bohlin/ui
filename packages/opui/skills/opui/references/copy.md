@@ -58,7 +58,7 @@ The stylesheets read `--ui-border-width`, `--ui-button-accent`, `--ui-button-fon
 
 ```html
 <opui-copy id="copy-basics-1" class="ui-copy">
-  <div class="ui-text-field">
+  <div class="ui-field">
     <label class="ui-sr-only" for="copy-basics-2">Invite link</label>
     <span class="ui-field-container">
       <input

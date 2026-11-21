@@ -9,7 +9,7 @@ A single-line text input with a label, start and end text, and validation.
 
 ### Parts
 
-- `.ui-text-field` (root): Container element: a `<div>`, or the `<opui-text-field>` custom element with a password toggle. The label inside is a `<label for>` that names the input by itself.
+- `.ui-field` (root): Container element: a `<div>`, or the `<opui-text-field>` custom element with a password toggle. The label inside is a `<label for>` that names the input by itself.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
 - `.ui-field-container`: The boxed input area.
@@ -29,7 +29,7 @@ A single-line text input with a label, start and end text, and validation.
 - `characterCountLabel`: `string`, default `"Characters left: {count}"`. The announcement near the limit, with `{count}` for the characters left. Pass it translated.
 - `dropZone`: `boolean`, `.ui-drop-zone`. Makes a `type="file"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker.
 - `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of your `<input>`. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`. Point the input's `aria-describedby` at the ones it shows, in that order.
-- `hideLabel`: `boolean`, `.ui-text-field > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
+- `hideLabel`: `boolean`, `.ui-field > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
 - `htmlFor` (React): `string`. The `id` of your `<input>`, as `htmlFor` like on the element. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `htmlFor="x"`. Point the input's `aria-describedby` at the ones it shows, in that order.
 - `passwordToggle`: `boolean`. Adds a button to the end of a `type="password"` field that shows and hides the password. The root becomes `<opui-text-field>`, and the button stays out of the input's description, unless there's also an `end` slot, whose part it shares. The component loads `opui-css/elements/text-field.js`, which runs the button.
 - `passwordToggleLabel`: `string`, default `"Show password"`. The accessible name of the password toggle. The types take it only with `passwordToggle`.
@@ -52,9 +52,9 @@ A single-line text input with a label, start and end text, and validation.
 
 ### Notes
 
-- HTML: Use `.ui-select` for a `<select>` and `.ui-textarea` for a `<textarea>`. Put a `<datalist>` next to the input in `.ui-field-container`. For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. For a password toggle, use `<opui-text-field class="ui-text-field">` with a `<label class="ui-label" for>`, put a `.ui-button` with `aria-pressed="false"`, `commandfor` naming the input and `command="--toggle-password"` in `.ui-end`, and import `opui-css/elements/text-field.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field's `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Put `.ui-top` and `.ui-start` before the `<input>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they're drawn.
-- Astro, Solid, Svelte and Vue: Write the `<input>` inside, with its `id` set to `for`, and bind it like any input. Other attributes go to the `.ui-text-field` root.
-- React: Write the `<input>` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-text-field` root.
+- HTML: The same `.ui-field` root holds a `<select>` or a `<textarea>`. Put a `<datalist>` next to the input in `.ui-field-container`. For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. For a password toggle, use `<opui-text-field class="ui-field">` with a `<label class="ui-label" for>`, put a `.ui-button` with `aria-pressed="false"`, `commandfor` naming the input and `command="--toggle-password"` in `.ui-end`, and import `opui-css/elements/text-field.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field's `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Put `.ui-top` and `.ui-start` before the `<input>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they're drawn.
+- Astro, Solid, Svelte and Vue: Write the `<input>` inside, with its `id` set to `for`, and bind it like any input. Other attributes go to the `.ui-field` root.
+- React: Write the `<input>` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-field` root.
 
 ## Component properties
 
@@ -92,13 +92,13 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--u
 ### Example: Variants
 
 ```html
-<div class="ui-text-field">
+<div class="ui-field">
   <label class="ui-label" for="text-field-variants-1">Outlined</label>
   <span class="ui-field-container">
     <input id="text-field-variants-1" placeholder="Your name" />
   </span>
 </div>
-<div class="ui-text-field ui-filled">
+<div class="ui-field ui-filled">
   <label class="ui-label" for="text-field-variants-2">Filled</label>
   <span class="ui-field-container">
     <input id="text-field-variants-2" placeholder="Your name" />

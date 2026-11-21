@@ -9,7 +9,7 @@ A dropdown for picking one value from a list in a form.
 
 ### Parts
 
-- `div.ui-select` (root): Container element.
+- `div.ui-field` (root): Container element.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
 - `.ui-field-container`: The boxed select area.
@@ -27,7 +27,7 @@ A dropdown for picking one value from a list in a form.
 - `dense`: `boolean`, `.ui-list.ui-dense`. Packs the items tighter.
 - `disabled`: `boolean`, `select[disabled]`. Dims the select and blocks input.
 - `error`: `boolean`, `select[aria-invalid="true"]`. Marks the control invalid and shows error styles.
-- `hideLabel`: `boolean`, `.ui-select > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
+- `hideLabel`: `boolean`, `.ui-field > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
 - `id`: `string`. The id of the `<select>`. The `<label for>` points at it, so the component generates one when it's left out and there's a label. The ids the component generates start with it: `x-start-text`, `x-end-text`, `x-start`, `x-end`, `x-top` and `x-bottom` for `id="x"`.
 - `items`: `SelectItem[]`, default `[]`. The options, as `{ label, selected, value }` objects. `value` selects among them; child `<option>` elements set `selected` themselves.
 - `name`: `string`. The name of the `<select>`. Inside a `FieldGroup`, the group's `name` when omitted.
@@ -45,8 +45,8 @@ Model: `value` (`string | number | (string | number)[]`), the selected value, or
 ### Notes
 
 - HTML: The `<select>` holds an `inert` `<button>` and a `.ui-list`. The button holds `<selectedcontent>`, and `inert` leaves clicks, focus and the name to the select. The list holds the options. Browsers without customizable selects show a native select. Put `.ui-top` and `.ui-start` before the `<select>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they're drawn.
-- Astro, Solid, Svelte and Vue: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `class` and `style` go to the `.ui-select` root.
-- React: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `className` and `style` go to the `.ui-select` root.
+- Astro, Solid, Svelte and Vue: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `class` and `style` go to the `.ui-field` root.
+- React: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `className` and `style` go to the `.ui-field` root.
 
 ## Component properties
 
@@ -112,7 +112,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 ### Example: Variants
 
 ```html
-<div class="ui-select">
+<div class="ui-field">
   <label class="ui-label" for="select-variants-1">Role</label>
   <span class="ui-field-container">
     <select id="select-variants-1">
@@ -129,7 +129,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
   </span>
 </div>
 
-<div class="ui-select ui-filled">
+<div class="ui-field ui-filled">
   <label class="ui-label" for="select-variants-2">Band</label>
   <span class="ui-field-container">
     <select id="select-variants-2">

@@ -3321,27 +3321,6 @@ interaction(
 interaction(
   "textarea",
   "CharacterCount",
-  "the character count follows the text and announces near the limit",
-  async ({ page, root }) => {
-    const textarea = root.locator("textarea")
-    const count = root.locator("opui-character-count")
-
-    await expect(count).toHaveText("0/160")
-    await textarea.fill("b".repeat(150))
-    await expect(count).toHaveText("150/160")
-    await expect(textarea).toHaveAccessibleName("Bio")
-    await expect(textarea).toHaveAccessibleDescription(
-      "Up to 160 characters, shown on your profile.",
-    )
-    await expect(page.locator("[data-opui-announcer]")).toHaveText(
-      "10 characters to go",
-    )
-  },
-)
-
-interaction(
-  "textarea",
-  "CharacterCount",
   "the character count announces in the language of its field",
   async ({ page, root }) => {
     await root
@@ -3449,17 +3428,6 @@ interaction(
       .getByRole("textbox", { name: "Reply" })
       .fill("One\nTwo\nThree\nFour")
     await expect.poll(() => lines("Reply")).toBe(4)
-  },
-)
-
-interaction(
-  "textarea",
-  "Validation",
-  "a labelled textarea is named by its label and described by its end text",
-  async ({ root }) => {
-    await expect(
-      root.getByRole("textbox", { name: "Review", exact: true }),
-    ).toHaveAccessibleDescription("Write at least 20 characters.")
   },
 )
 

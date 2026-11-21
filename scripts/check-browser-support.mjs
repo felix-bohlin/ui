@@ -342,18 +342,22 @@ const scopeRoot = (node) => {
   return undefined
 }
 
-const ruleApplies = (rule, elements) => {
+const branchApplies = (rule, branch, elements) => {
   if (inKeyframes(rule)) return true
   const root = scopeRoot(rule)
   if (root !== undefined && !listMatches(root, true, elements)) return false
   const parentRule = ancestorRule(rule)
   const parent = parentRule ? ruleApplies(parentRule, elements) : true
-  return splitList(rule.selector).some(
-    (branch) =>
-      branchMatches(branch, parent, elements) &&
-      (parent || branch.includes("&")),
+  return (
+    branchMatches(branch, parent, elements) && (parent || branch.includes("&"))
   )
 }
+
+const ruleApplies = (rule, elements) =>
+  inKeyframes(rule) ||
+  splitList(rule.selector).some((branch) =>
+    branchApplies(rule, branch, elements),
+  )
 
 const parsed = new Map()
 
@@ -414,7 +418,16 @@ const usesFeature = ({ atRules, rules, source, tries }, pattern, elements) => {
         ({ source: { end, start } }) =>
           start.offset <= index && index < end.offset,
       )
-      return !rule || ruleApplies(rule, elements)
+      if (!rule) return true
+      const start = rule.source.start.offset
+      const prelude = source.slice(start, source.indexOf("{", start))
+      if (index >= start + prelude.length) return ruleApplies(rule, elements)
+      let offset = start
+      const branch = splitList(prelude).find((part) => {
+        offset += part.length + 1
+        return index < offset
+      })
+      return branchApplies(rule, branch.trim(), elements)
     },
   )
 }

@@ -233,6 +233,14 @@ describe("check-browser-support", () => {
     ).toEqual(["scope"])
   })
 
+  test("counts a feature in a selector only for the branch of the list that holds it", () => {
+    const css = ".ui-list, .ui-field select::picker(select) { padding: 0; }"
+    expect(usedFeatureIds(css, new Set([".ui-list"]))).toEqual([])
+    expect(usedFeatureIds(css, new Set([".ui-field", "select"]))).toEqual([
+      "customizable-select",
+    ])
+  })
+
   test("reads the HTML features from the attributes and elements of the examples", () => {
     expect(
       htmlFeatureIds([

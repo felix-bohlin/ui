@@ -197,7 +197,8 @@ const readFrontmatter = (code, file) => {
       }
       if (specifier.endsWith(".astro") && clause.name) {
         const match = /^(?:\.\.\/([^/]+)|\.)\/([^/]+)\.astro$/.exec(specifier)
-        if (!match) throw unsupported(file, `the import of ${specifier}`)
+        if (!match)
+          throw unsupported("BC101", file, `the import of ${specifier}`)
         result.components.push({
           folder: match[1],
           local: clause.name.text,
@@ -227,7 +228,7 @@ const readFrontmatter = (code, file) => {
         result.imports.push(statement.getText(sourceFile))
         continue
       }
-      throw unsupported(file, `the import of ${specifier}`)
+      throw unsupported("BC101", file, `the import of ${specifier}`)
     }
     if (
       ts.isVariableStatement(statement) &&
@@ -245,7 +246,7 @@ const readFrontmatter = (code, file) => {
         .getModifiers(statement)
         ?.some((modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword)
     ) {
-      throw unsupported(file, `the frontmatter statement \`${text}\``)
+      throw unsupported("BC102", file, `the frontmatter statement \`${text}\``)
     }
     const usesProps = (node) =>
       containsKind(
@@ -256,6 +257,7 @@ const readFrontmatter = (code, file) => {
       )
     if (!ts.isVariableStatement(statement) && usesProps(statement)) {
       throw unsupported(
+        "BC103",
         file,
         `Astro.props in \`${text}\``,
         "destructure what the statement needs and read the names",
@@ -306,6 +308,7 @@ const readFrontmatter = (code, file) => {
       const initializer = simple ? unwrap(declaration.initializer) : undefined
       if (simple && usesProps(initializer)) {
         throw unsupported(
+          "BC103",
           file,
           `Astro.props in \`${text}\``,
           "destructure what the statement needs and read the names",
@@ -318,7 +321,7 @@ const readFrontmatter = (code, file) => {
       }
       if (factory?.kind === "base") {
         if (result.idBases.length > 0) {
-          throw unsupported(file, `a second createIds in \`${text}\``)
+          throw unsupported("BC106", file, `a second createIds in \`${text}\``)
         }
         result.idBases.push([declaration.name.text, ID_BASE])
         const fallback = `\`${factory.prefix}-\${Astro.locals}\``
@@ -366,6 +369,7 @@ const readFrontmatter = (code, file) => {
         )
       ) {
         throw unsupported(
+          "BC107",
           file,
           `Fragment as a value in \`${text}\``,
           "write it as a condition between one tag and Fragment",
@@ -373,6 +377,7 @@ const readFrontmatter = (code, file) => {
       }
       if (simple && containsKind(initializer, handlerString)) {
         throw unsupported(
+          "BC108",
           file,
           `a handler string in \`${text}\``,
           "React can't attach a string to an event; give the element the attribute, or write the behavior in a helper",
@@ -401,7 +406,7 @@ const readFrontmatter = (code, file) => {
           )
         ) {
           if (result.provide) {
-            throw unsupported(file, "a second context provide")
+            throw unsupported("BC109", file, "a second context provide")
           }
           result.provide = {
             context: contextOf(call.expression),
@@ -422,6 +427,7 @@ const readFrontmatter = (code, file) => {
         containsKind(initializer, (node) => contextCall(node, "get"))
       ) {
         throw unsupported(
+          "BC109",
           file,
           `a context get() inside \`${text}\``,
           "assign the get() to its own const first",
@@ -440,7 +446,7 @@ const readFrontmatter = (code, file) => {
         })
         continue
       }
-      throw unsupported(file, `the frontmatter statement \`${text}\``)
+      throw unsupported("BC102", file, `the frontmatter statement \`${text}\``)
     }
     if (isWarning(statement)) {
       result.warnings.push(statement.expression.getText(sourceFile))
@@ -457,11 +463,11 @@ const readFrontmatter = (code, file) => {
       result.warnings.push(statement.getText(sourceFile))
       continue
     }
-    throw unsupported(file, `the frontmatter statement \`${text}\``)
+    throw unsupported("BC102", file, `the frontmatter statement \`${text}\``)
   }
-  if (!result.propsType) throw unsupported(file, "no Props import")
+  if (!result.propsType) throw unsupported("BC104", file, "no Props import")
   if (result.props.length === 0 && !result.rest) {
-    throw unsupported(file, "no Astro.props destructuring")
+    throw unsupported("BC105", file, "no Astro.props destructuring")
   }
   if (
     result.idBases.length > 0 &&
@@ -470,7 +476,7 @@ const readFrontmatter = (code, file) => {
       ...result.derived.map(({ name }) => name),
     ].filter((name) => name === ID_BASE).length > 1
   ) {
-    throw unsupported(file, `a \`${ID_BASE}\` next to createIds`)
+    throw unsupported("BC106", file, `a \`${ID_BASE}\` next to createIds`)
   }
   result.imports = result.imports
     .map((line) => withoutIdFactories(line))
@@ -544,18 +550,18 @@ const attributeNode = (item, context) => {
     const code = item.value.trim()
     if (item.name === "class") {
       const match = /^cx\(([\s\S]*)\)$/.exec(code)
-      if (!match) throw unsupported(context.file, `class={${code}}`)
+      if (!match) throw unsupported("BC201", context.file, `class={${code}}`)
       return { kind: "class", code: match[1].trim() }
     }
     if (item.name.includes(":")) {
-      throw unsupported(context.file, `the directive ${item.name}`)
+      throw unsupported("BC201", context.file, `the directive ${item.name}`)
     }
     return { code, kind: "expression", name: item.name }
   }
   if (item.kind === "template-literal") {
     return { code: `\`${item.value}\``, kind: "expression", name: item.name }
   }
-  throw unsupported(context.file, `the attribute ${item.name}`)
+  throw unsupported("BC201", context.file, `the attribute ${item.name}`)
 }
 
 const markupIdentifier = (index) => `${MARKUP}${index}`
@@ -586,7 +592,7 @@ const expressionNode = (node, context) => {
     sourceFile.statements.length !== 1 ||
     !ts.isExpressionStatement(statement)
   ) {
-    throw unsupported(context.file, `the expression {${code}}`)
+    throw unsupported("BC202", context.file, `the expression {${code}}`)
   }
   const placeholder = (expression) => {
     const inner = unwrap(expression)
@@ -607,7 +613,7 @@ const expressionNode = (node, context) => {
       placeholder(inner.right)
     ) {
       if (hasPlaceholder(inner.left)) {
-        throw unsupported(context.file, `the expression {${code}}`)
+        throw unsupported("BC202", context.file, `the expression {${code}}`)
       }
       return [
         {
@@ -619,7 +625,7 @@ const expressionNode = (node, context) => {
     }
     if (ts.isConditionalExpression(inner) && hasPlaceholder(inner)) {
       if (hasPlaceholder(inner.condition)) {
-        throw unsupported(context.file, `the expression {${code}}`)
+        throw unsupported("BC202", context.file, `the expression {${code}}`)
       }
       return [
         {
@@ -632,6 +638,7 @@ const expressionNode = (node, context) => {
     }
     if (hasPlaceholder(inner)) {
       throw unsupported(
+        "BC202",
         context.file,
         `the expression {${code}}, whose branches hold more than one element`,
       )
@@ -651,7 +658,11 @@ const expressionNode = (node, context) => {
       : undefined
   if (callback && ts.isArrowFunction(callback) && hasPlaceholder(callback)) {
     const describe = (what) =>
-      unsupported(context.file, `the expression {${code}}, whose ${what}`)
+      unsupported(
+        "BC203",
+        context.file,
+        `the expression {${code}}, whose ${what}`,
+      )
     if (
       callback.parameters.length > 2 ||
       (callback.parameters[1] && !ts.isIdentifier(callback.parameters[1].name))
@@ -801,6 +812,7 @@ const toTree = (nodes, context) =>
       const name = node.attributes.find((item) => item.name === "name")
       if (node.attributes.some((item) => item.name !== "name")) {
         throw unsupported(
+          "BC204",
           context.file,
           "a slot with attributes other than name",
         )
@@ -824,7 +836,7 @@ const toTree = (nodes, context) =>
           ? slotOfHtml(attribute.value, context)
           : undefined
       if (slot) return [slot]
-      throw unsupported(context.file, `<Fragment ${attribute.name}>`)
+      throw unsupported("BC205", context.file, `<Fragment ${attribute.name}>`)
     }
     if (
       node.type === "element" ||
@@ -832,7 +844,7 @@ const toTree = (nodes, context) =>
       node.type === "custom-element"
     ) {
       if (node.type === "element" && /^(script|style)$/.test(node.name)) {
-        throw unsupported(context.file, `a <${node.name}>`)
+        throw unsupported("BC206", context.file, `a <${node.name}>`)
       }
       const optionalTag = context.optionalTags?.get(node.name)
       if (optionalTag) {
@@ -877,7 +889,7 @@ const toTree = (nodes, context) =>
       const variable =
         node.type === "component" && !component && context.locals.has(node.name)
       if (node.type === "component" && !component && !variable) {
-        throw unsupported(context.file, `<${node.name}>`)
+        throw unsupported("BC206", context.file, `<${node.name}>`)
       }
       const inner =
         node.type === "element" && /^(math|svg)$/.test(node.name)
@@ -893,7 +905,7 @@ const toTree = (nodes, context) =>
           ? slotOfHtml(html.value, context)
           : undefined
       if (html && !htmlSlot && !external) {
-        throw unsupported(context.file, `set:html={${html.value}}`)
+        throw unsupported("BC207", context.file, `set:html={${html.value}}`)
       }
       const children = htmlSlot ? [htmlSlot] : toTree(node.children, inner)
       return [
@@ -912,7 +924,7 @@ const toTree = (nodes, context) =>
         },
       ]
     }
-    throw unsupported(context.file, `a ${node.type} node`)
+    throw unsupported("BC208", context.file, `a ${node.type} node`)
   })
 
 const callsGroupWarning = (code) =>
@@ -946,7 +958,11 @@ export const readComponent = async (source, file, api) => {
           ts.isImportDeclaration(statement) && !statement.importClause,
       )
     ) {
-      throw unsupported(file, "a <script> with more than side-effect imports")
+      throw unsupported(
+        "BC111",
+        file,
+        "a <script> with more than side-effect imports",
+      )
     }
     return statements.map((statement) => statement.moduleSpecifier.text)
   })
@@ -1021,6 +1037,7 @@ export const readComponent = async (source, file, api) => {
       new Set(chosenRest.map((item) => item.negated)).size !== 2)
   ) {
     throw unsupported(
+      "BC209",
       file,
       `a ${frontmatter.rest} spread behind a condition that doesn't pick one element`,
       `spread ${frontmatter.rest} as \`cond ? ${frontmatter.rest} : {}\` on one element and \`cond ? {} : ${frontmatter.rest}\` on the other, with the same condition`,
@@ -1032,7 +1049,7 @@ export const readComponent = async (source, file, api) => {
   const multiRoot =
     !rootElements && roots.length > 1 && restElements.length === 1
   if (!rootElements && !multiRoot) {
-    throw unsupported(file, "a template that isn't one element")
+    throw unsupported("BC210", file, "a template that isn't one element")
   }
   if (
     chosenRest.length === 0 &&
@@ -1040,6 +1057,7 @@ export const readComponent = async (source, file, api) => {
     restElements.length !== rootElements.length
   ) {
     throw unsupported(
+      "BC209",
       file,
       `a template that doesn't spread ${frontmatter.rest} on each root or on one inner element`,
     )
@@ -1080,6 +1098,7 @@ export const readComponent = async (source, file, api) => {
   )
   if (untranslated) {
     throw unsupported(
+      "BC110",
       file,
       `an Astro reference the ports have no form for in \`${untranslated.trim()}\``,
       "read a slot with Astro.slots.has(name), and props from the Astro.props destructuring",
@@ -1094,6 +1113,7 @@ export const readComponent = async (source, file, api) => {
     .find(Boolean)
   if (idProblem) {
     throw unsupported(
+      "BC106",
       file,
       `an id factory used as \`${idProblem}\``,
       'call createIds(Astro.locals, "prefix", id) once into a const and read it as ids() or ids("part"), or call it inline with one part',
@@ -1268,6 +1288,7 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
   if (!declared) return undefined
   const describe = (what) => ({
     refusal: unsupported(
+      "BC401",
       file,
       `the ${declared.prop} model of ${api.component}, ${what}`,
       "write the behavior by hand, or extend the model kinds in scripts/build-components.mjs",

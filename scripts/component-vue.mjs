@@ -80,12 +80,14 @@ const emptyBindings = (attributes) =>
       : [{ at, code: `styleAttrs(${styleCode})`, helper: "styleAttrs" }]
   })
 
-const omitEmptyAttributes = (attributes) => {
+const omitEmptyAttributes = (attributes, file) => {
   const omitted = emptyBindings(attributes)
   if (omitted.length === 0) return { attributes, helpers: [] }
   const bound = attributes.filter((entry) => OBJECT_BINDING.test(entry))
   if (bound.length > 1) {
-    throw new Error(
+    throw unsupported(
+      "BC501",
+      file,
       `a class list or style that can be empty next to ${bound.length} v-bind objects`,
     )
   }
@@ -164,6 +166,7 @@ export const toVue = (component) => {
     attributeProps.length > 0
   if (attrsOnInner && codes.some((code) => /\bmergeStyle\(/.test(code))) {
     throw unsupported(
+      "BC502",
       component.file,
       `mergeStyle with ${rest} on an inner element`,
     )
@@ -193,6 +196,7 @@ export const toVue = (component) => {
   )
   if (providedReader) {
     throw unsupported(
+      "BC403",
       component.file,
       `the provided \`${providedReader.key}\`, which reads a slot`,
       "Vue doesn't track slots, so a provided value can't follow one: provide a prop instead",
@@ -251,6 +255,7 @@ export const toVue = (component) => {
   const listened = eventRoots(component)
   if (events.length > 0 && used.has("emit")) {
     throw unsupported(
+      "BC301",
       component.file,
       "the name `emit`, which the Vue port also declares for its events",
       "rename the prop or const in the Astro file",
@@ -378,6 +383,7 @@ export const toVue = (component) => {
       identifiersIn(item.code).has(rest)
     ) {
       throw unsupported(
+        "BC503",
         component.file,
         `the attribute \`${item.name}\` on the root element, which reads \`${rest}\``,
         "Vue merges the attributes that fall through after it, so the caller's value wins: destructure the prop in the Astro file",
@@ -485,6 +491,7 @@ export const toVue = (component) => {
         return { code: rewriteExpression(item.code, scope), key: item.name }
       }
       throw unsupported(
+        "BC501",
         component.file,
         `a class list between two spreads on <${node.tag}>`,
       )
@@ -546,7 +553,7 @@ export const toVue = (component) => {
         ? [':class="$props.class"']
         : []),
     ].flatMap((entry) => entry.match(ATTRIBUTE) ?? [])
-    const omitted = omitEmptyAttributes(listed)
+    const omitted = omitEmptyAttributes(listed, component.file)
     for (const helper of omitted.helpers) attributeHelpers.add(helper)
     const attributes = omitted.attributes.join(" ")
     const tag = node.variable || node.custom ? "component" : node.tag

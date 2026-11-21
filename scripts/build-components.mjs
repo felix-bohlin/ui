@@ -3,6 +3,7 @@ import { readdir, readFile, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { parseArgs } from "node:util"
+import { DIAGNOSTICS, explain } from "./component-diagnostics.mjs"
 import { MODEL_KINDS } from "./component-models.mjs"
 import { toReact } from "./component-react.mjs"
 import { apiOf, loadApis, readComponent } from "./component-reader.mjs"
@@ -221,6 +222,7 @@ export const generate = async ({
     try {
       if (!allCompiled) {
         throw unsupported(
+          "BC606",
           `packages/opui/components/${folder}/types.astro.ts`,
           "a folder with a hand-written component",
         )
@@ -263,15 +265,28 @@ export const generate = async ({
   return { outputs, problems, skipped }
 }
 
+const explainHint = (problems) =>
+  problems.some((problem) => / \[BC\d{3}\]$/.test(problem))
+    ? [
+        "\nRun pnpm build-components --explain <code> for what a [BC...] code refuses and how to fix it.",
+      ]
+    : []
+
 const main = async () => {
   const { values } = parseArgs({
     options: {
       check: { type: "boolean" },
+      explain: { type: "string" },
       only: { type: "string" },
       report: { type: "boolean" },
     },
     strict: true,
   })
+  if (values.explain) {
+    console.log(explain(values.explain))
+    if (!(values.explain in DIAGNOSTICS)) process.exitCode = 1
+    return
+  }
   const { outputs, problems, skipped } = await generate({
     only: values.only?.split(",") ?? [],
   })
@@ -297,7 +312,7 @@ const main = async () => {
   if (values.check) {
     const errors = [...problems, ...stale]
     if (errors.length > 0) {
-      console.error(errors.join("\n"))
+      console.error([...errors, ...explainHint(problems)].join("\n"))
       process.exit(1)
     }
     console.log(`Checked ${outputs.size} component files.`)
@@ -309,7 +324,7 @@ const main = async () => {
     console.log(`Wrote ${file}`)
   }
   if (problems.length > 0) {
-    console.error(problems.join("\n"))
+    console.error([...problems, ...explainHint(problems)].join("\n"))
     process.exit(1)
   }
   console.log(`Generated ${outputs.size} component files.`)

@@ -1,14 +1,24 @@
 import { fileURLToPath } from "node:url"
 import ts from "typescript"
+import { DIAGNOSTICS } from "./component-diagnostics.mjs"
 
 export const root = fileURLToPath(new URL("..", import.meta.url))
 
 export const SOLID_PRAGMA = "/** @jsxImportSource @solidjs/web */"
 
-export const unsupported = (file, what, hint) =>
-  new Error(
-    `${file} uses ${what}, which scripts/build-components.mjs can't compile: ${hint ?? "support the construct in scripts/build-components.mjs, or list the file in scripts/hand-written-components.json with the reason"}`,
+export const unsupported = (code, file, what, hint) => {
+  if (!(code in DIAGNOSTICS)) {
+    throw new Error(
+      `unsupported() takes a code from scripts/component-diagnostics.mjs, not ${code}`,
+    )
+  }
+  return Object.assign(
+    new Error(
+      `${file} uses ${what}, which scripts/build-components.mjs can't compile: ${hint ?? "support the construct in scripts/build-components.mjs, or list the file in scripts/hand-written-components.json with the reason"} [${code}]`,
+    ),
+    { code },
   )
+}
 
 export const sourceFileOf = (code, name = "frontmatter.ts") =>
   ts.createSourceFile(name, code, ts.ScriptTarget.Latest, true)

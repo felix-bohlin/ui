@@ -98,6 +98,7 @@ export const toReact = (component) => {
   )
   if (clash) {
     throw unsupported(
+      "BC301",
       component.file,
       `the name \`${clash}\`, which the React port also declares for its events`,
       "rename the prop or const in the Astro file",

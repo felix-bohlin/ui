@@ -68,7 +68,14 @@ const fieldEdge = (field: Locator) =>
     }
   })
 
-for (const kind of ["number-field", "select", "text-field", "textarea"]) {
+const FIELDS = {
+  "number-field": ".ui-number-field",
+  select: ".ui-field:has(> .ui-field-container > select)",
+  "text-field": ".ui-field:has(> .ui-field-container > input)",
+  textarea: ".ui-field:has(> .ui-field-container > textarea)",
+}
+
+for (const [kind, root] of Object.entries(FIELDS)) {
   test(`--ui-focus-border-width thickens the field of a focused ${kind} inward`, async ({
     page,
   }) => {
@@ -80,9 +87,7 @@ for (const kind of ["number-field", "select", "text-field", "textarea"]) {
       ),
     )
     const field = page
-      .locator(
-        `.ui-${kind}:not(:has(:disabled, [readonly])) .ui-field-container`,
-      )
+      .locator(`${root}:not(:has(:disabled, [readonly])) .ui-field-container`)
       .first()
     const before = await fieldEdge(field)
     await focusByKeyboard(

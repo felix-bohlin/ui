@@ -11,7 +11,7 @@ A drop zone around a file input that lists the files your app is uploading, with
 
 - `opui-file-upload.ui-file-upload` (root): The `<opui-file-upload>` custom element, a size container. It fires `select` for picks and drops and `remove` for the remove buttons, and has the `drag-over` custom state while files are dragged over it. While it has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, it holds picked files back and remove buttons do nothing.
 - `<div class="ui-content">`: Lays out the drop zone and the files: stacked, or in one row when the root is narrower than `28rem`.
-- `<div class="ui-field">`: The drop zone, dashed, and solid while files are dragged over the root. In the compact row it is a square add tile.
+- `<div class="ui-field-container">`: The drop zone, dashed, and solid while files are dragged over the root. In the compact row it is a square add tile.
 - `<label class="ui-label">`: Names the file input and covers the drop zone, so a click anywhere in it opens the picker. Its plus `<svg>` shows in the compact row.
 - `<input class="ui-sr-only" type="file">` (prop `accept`, prop `disabled`, prop `multiple`): The file input, visually hidden. Its focus ring is drawn on the drop zone.
 - `<span class="ui-button ui-outlined">` (prop `label`): The visible trigger, a `<span>` since a label can't hold a button. Visually hidden in the compact row.
@@ -50,7 +50,7 @@ A drop zone around a file input that lists the files your app is uploading, with
 
 ### Notes
 
-- HTML: Import `opui-css/elements/file-upload.js`, and render the rows yourself from the `select` and `remove` events: one `<li>` per file in a `<ul class="ui-list">` after the `.ui-field`, with the preview in `.ui-start`, the name, a `.ui-progress` and the message in `.ui-text`, and the remove button in `.ui-end` with `command="--remove"`, `commandfor` set to the input's id and the file's id as its `value`. A failed file's message has `popover` and an `id`, and a `<button type="button" popovertarget>` in `.ui-start` opens it in the compact row.
+- HTML: Import `opui-css/elements/file-upload.js`, and render the rows yourself from the `select` and `remove` events: one `<li>` per file in a `<ul class="ui-list">` after the `.ui-field-container`, with the preview in `.ui-start`, the name, a `.ui-progress` and the message in `.ui-text`, and the remove button in `.ui-end` with `command="--remove"`, `commandfor` set to the input's id and the file's id as its `value`. A failed file's message has `popover` and an `id`, and a `<button type="button" popovertarget>` in `.ui-start` opens it in the compact row.
 - Astro: The component loads `opui-css/elements/file-upload.js`. The component uploads nothing and keeps no files: start the upload from the `select` event, and pass each file's state back in `items`. Attributes that aren't props go to the `<opui-file-upload>`, and `id` names the file input.
 - React: The component loads `opui-css/elements/file-upload.js` once it mounts, unless the page imports it first. The component uploads nothing and keeps no files: start the upload from the `select` event, and pass each file's state back in `items`. Attributes that aren't props go to the `<opui-file-upload>`, and `id` names the file input.
 - Solid, Svelte and Vue: The component imports `opui-css/elements/file-upload.js`, so the element runs as soon as the component's code loads. The component uploads nothing and keeps no files: start the upload from the `select` event, and pass each file's state back in `items`. Attributes that aren't props go to the `<opui-file-upload>`, and `id` names the file input.
@@ -139,7 +139,7 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
 ```html
 <opui-file-upload class="ui-file-upload">
   <div class="ui-content">
-    <div class="ui-field">
+    <div class="ui-field-container">
       <label class="ui-label">
         <input
           accept="image/*"

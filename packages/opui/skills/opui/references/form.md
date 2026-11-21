@@ -108,13 +108,13 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-field-helper-font-size`, `--
     <div class="ui-field-group">
       <div class="ui-text-field">
         <label class="ui-label" for="form-basics-2">Name</label>
-        <span class="ui-field">
+        <span class="ui-field-container">
           <input autocomplete="name" id="form-basics-2" />
         </span>
       </div>
       <div class="ui-text-field">
         <label class="ui-label" for="form-basics-3">Email</label>
-        <span class="ui-field">
+        <span class="ui-field-container">
           <input autocomplete="email" id="form-basics-3" type="email" />
         </span>
       </div>

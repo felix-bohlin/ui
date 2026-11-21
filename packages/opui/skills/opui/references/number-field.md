@@ -12,10 +12,10 @@ A number field with buttons that step the value down and up, for amounts like a 
 - `opui-number-field.ui-number-field` (root): The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max`, and keeps both disabled while the input is disabled and `aria-disabled` while the input is, also when a script changes the input.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
-- `.ui-field`: The boxed input area.
-- `.ui-field > .ui-start` (prop `decreaseLabel`, slot `decrease-icon`): The decrease button, with `command="--step-down"`. Renders a minus icon by default, or the `svg` in `decrease-icon`. Hidden until the element is defined.
-- `<input type="number">`: Your `<input type="number">`, written directly inside `.ui-field` between the buttons, with its `id` set to `for`. Give it `min`, `max` and `step`, and bind it, name it and mark it `required`, `disabled` or `aria-invalid="true"` like any input.
-- `.ui-field > .ui-end` (prop `increaseLabel`, slot `increase-icon`): The increase button, with `command="--step-up"`. Renders a plus icon by default, or the `svg` in `increase-icon`. Hidden until the element is defined.
+- `.ui-field-container`: The boxed input area.
+- `.ui-field-container > .ui-start` (prop `decreaseLabel`, slot `decrease-icon`): The decrease button, with `command="--step-down"`. Renders a minus icon by default, or the `svg` in `decrease-icon`. Hidden until the element is defined.
+- `<input type="number">`: Your `<input type="number">`, written directly inside `.ui-field-container` between the buttons, with its `id` set to `for`. Give it `min`, `max` and `step`, and bind it, name it and mark it `required`, `disabled` or `aria-invalid="true"` like any input.
+- `.ui-field-container > .ui-end` (prop `increaseLabel`, slot `increase-icon`): The increase button, with `command="--step-up"`. Renders a plus icon by default, or the `svg` in `increase-icon`. Hidden until the element is defined.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
 
 ### Props and modifiers
@@ -32,7 +32,7 @@ A number field with buttons that step the value down and up, for amounts like a 
 
 ### Slots
 
-- `default`: Your `<input type="number">`, which goes in `.ui-field` between the buttons.
+- `default`: Your `<input type="number">`, which goes in `.ui-field-container` between the buttons.
 
 ### Element
 
@@ -58,24 +58,24 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### text-field.css
 
-- `--_accent`: Border color of `.ui-field` when its control has focus without `:focus-visible`, such as a clicked file or color input or a Select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
+- `--_accent`: Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a Select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
 - `--_arrow-inset`: Distance of the select arrow from the inline end.
 - `--_chevron-image`: The select arrow, as an image used for a mask.
 - `--_chevron-size`: Width and height of the select arrow.
 - `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
-- `--_end-end-radius`: The radius of the end-end corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the next control.
-- `--_end-start-radius`: The radius of the end-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
+- `--_end-end-radius`: The radius of the end-end corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the next control.
+- `--_end-start-radius`: The radius of the end-start corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
 - `--_field-padding-block`: The preferred block padding of the control. Set by the size classes.
 - `--_field-padding-inline`: The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.
 - `--_file-button-padding`: The preferred gap around the `::file-selector-button` of a file field: `--ui-space-2`, or `--ui-space-1` in `.ui-small` and `.ui-x-small`.
 - `--_font-size`: The font size of the control and affixes. At least 16px on iPhone and iPad (`css/compat/text-field.css`), so iOS Safari doesn't zoom in on focus.
 - `--_min-inline-size`: The least width of the control next to `.ui-start` and `.ui-end`, which shrink and end in an ellipsis to keep it, or the whole field when it is narrower. Defaults to `8ch`; a `NumberField` sets its own.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
-- `--_radius`: The corner radius of `.ui-field` and a file input's button. Defaults to `--ui-field-radius`, or `--ui-radius` when the theme doesn't set it.
-- `--_shadow`: The shadow of `.ui-field`. Defaults to `--ui-field-shadow`, or `--ui-shadow-control` when the theme leaves it unset. `none` in a `ControlGroup`.
-- `--_size`: The height of `.ui-field`, a minimum so a textarea can grow, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.
-- `--_start-end-radius`: The radius of the start-end corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
-- `--_start-start-radius`: The radius of the start-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the control before it.
+- `--_radius`: The corner radius of `.ui-field-container` and a file input's button. Defaults to `--ui-field-radius`, or `--ui-radius` when the theme doesn't set it.
+- `--_shadow`: The shadow of `.ui-field-container`. Defaults to `--ui-field-shadow`, or `--ui-shadow-control` when the theme leaves it unset. `none` in a `ControlGroup`.
+- `--_size`: The height of `.ui-field-container`, a minimum so a textarea can grow, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.
+- `--_start-end-radius`: The radius of the start-end corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
+- `--_start-start-radius`: The radius of the start-start corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the control before it.
 
 Outputs: `--_affix-block-size`, `--_affix-button-size`, `--_affix-padding-block`, `--_affix-text-color`, `--_arrow-padding`, `--_bg-color`, `--_border-color`, `--_duration`, `--_field-padding-block-fit`, `--_file-button-inset` and `--_helper-text-color`.
 
@@ -113,7 +113,7 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--u
 ```html
 <opui-number-field class="ui-number-field">
   <label class="ui-label" for="number-field-basics-1">Quantity</label>
-  <span class="ui-field">
+  <span class="ui-field-container">
     <span class="ui-start">
       <button
         class="ui-button ui-round"

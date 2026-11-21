@@ -7,14 +7,9 @@ type Node = DefaultTreeAdapterMap["childNode"] | Element
 
 const PARTS = ["start-text", "top", "start", "end", "bottom", "end-text"]
 
-const ROOTS = [
-  "ui-number-field",
-  "ui-one-time-code",
-  "ui-text-field",
-  "ui-textarea",
-]
+const ROOTS = ["ui-field", "ui-number-field", "ui-one-time-code"]
 
-const CONTROLS = ["input", "textarea"]
+const CONTROLS = ["input", "select", "textarea"]
 
 const children = (node: Node) =>
   "childNodes" in node
@@ -50,7 +45,7 @@ export const wiringProblems = (html: string) =>
       const id = attribute(input, "id")
       if (!input || !id) {
         return [
-          "no <input> or <textarea> with an id directly in .ui-field-container",
+          "no <input>, <select> or <textarea> with an id directly in .ui-field-container",
         ]
       }
       const problems: string[] = []
@@ -107,7 +102,7 @@ describe("every field in the HTML examples and blocks points at the control you 
   test("a sample the check must flag: a part the input doesn't point at, a wrong part id and a label pointing elsewhere", () => {
     expect(
       wiringProblems(
-        '<div class="ui-text-field"><label class="ui-label" for="y">Name</label><span class="ui-field-container"><input id="x" aria-describedby="x-end-text"><span class="ui-end" id="z">kg</span></span><span class="ui-start-text" id="x-start-text">Hint</span><span class="ui-end-text" id="x-end-text">Error</span></div>',
+        '<div class="ui-field"><label class="ui-label" for="y">Name</label><span class="ui-field-container"><input id="x" aria-describedby="x-end-text"><span class="ui-end" id="z">kg</span></span><span class="ui-start-text" id="x-start-text">Hint</span><span class="ui-end-text" id="x-end-text">Error</span></div>',
       ),
     ).toEqual([
       "the label points at y, not x",
@@ -119,10 +114,10 @@ describe("every field in the HTML examples and blocks points at the control you 
   test("a sample the check must flag: no input in the field", () => {
     expect(
       wiringProblems(
-        '<div class="ui-text-field"><span class="ui-field-container"><span><input id="x"></span></span></div>',
+        '<div class="ui-field"><span class="ui-field-container"><span><input id="x"></span></span></div>',
       ),
     ).toEqual([
-      "no <input> or <textarea> with an id directly in .ui-field-container",
+      "no <input>, <select> or <textarea> with an id directly in .ui-field-container",
     ])
   })
 
@@ -137,7 +132,7 @@ describe("every field in the HTML examples and blocks points at the control you 
   test("a password toggle alone needs no end id", () => {
     expect(
       wiringProblems(
-        '<opui-text-field class="ui-text-field"><label class="ui-label" for="x">Password</label><span class="ui-field-container"><input id="x" type="password"><span class="ui-end"><button command="--toggle-password" commandfor="x"></button></span></span></opui-text-field>',
+        '<opui-text-field class="ui-field"><label class="ui-label" for="x">Password</label><span class="ui-field-container"><input id="x" type="password"><span class="ui-end"><button command="--toggle-password" commandfor="x"></button></span></span></opui-text-field>',
       ),
     ).toEqual([])
   })

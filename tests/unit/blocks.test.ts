@@ -16,7 +16,7 @@ test("a block uses a component when one element has every class of its root sele
 })
 
 test("a block uses a component when it matches any of its root selectors", () => {
-  expect(new Set(slugsOf([["ui-select"], ["ui-tabs"]]))).toEqual(
-    new Set([...slugsOf([["ui-select"]]), ...slugsOf([["ui-tabs"]])]),
+  expect(new Set(slugsOf([["ui-field"], ["ui-tabs"]]))).toEqual(
+    new Set([...slugsOf([["ui-field"]]), ...slugsOf([["ui-tabs"]])]),
   )
 })

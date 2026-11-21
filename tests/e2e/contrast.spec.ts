@@ -200,7 +200,7 @@ test.describe("forced-colors", () => {
 
   test("a focused field gets an outline", async ({ page }) => {
     await openFixture(page, "html", "text-field")
-    const field = page.locator(".ui-text-field .ui-field-container").first()
+    const field = page.locator(".ui-field .ui-field-container").first()
     await field.locator("input").first().focus()
     expect(await computed(field, "outline-style")).toBe("solid")
     expect(await computed(field, "outline-color")).toBe(
@@ -287,9 +287,7 @@ for (const component of COMPONENTS) {
       const { violations } = await new AxeBuilder({ page })
         .include("main")
         .exclude(".ui-not-rich-text a:not([class])")
-        .exclude(
-          ":is(.ui-select, .ui-text-field, .ui-textarea):has(:disabled) > :is(.ui-end-text, .ui-start-text)",
-        )
+        .exclude(".ui-field:has(:disabled) > :is(.ui-end-text, .ui-start-text)")
         .withRules(["color-contrast-enhanced"])
         .analyze()
       expect(

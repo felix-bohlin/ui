@@ -60,7 +60,7 @@ export default function Select({
   return (
     <div
       className={cx([
-        "ui-select",
+        "ui-field",
         {
           "ui-auto-fit": autoFit,
           "ui-filled": variant === "filled",

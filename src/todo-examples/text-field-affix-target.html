@@ -1,5 +1,5 @@
 <style>
-  .todo-affix-fixed .ui-text-field {
+  .todo-affix-fixed .ui-field {
     --_affix-button-size: max(
       24px,
       var(--_size) - var(--ui-field-border-width) * 2 - var(--ui-space-1) * 2
@@ -35,7 +35,7 @@
 <div class="todo-compare">
   <section class="todo-current">
     <p class="todo-label">Today</p>
-    <label class="ui-text-field ui-x-small">
+    <label class="ui-field ui-x-small">
       <span class="ui-label">Search, x-small</span>
       <span class="ui-field-container">
         <input type="search" value="Release notes" />
@@ -55,7 +55,7 @@
         </span>
       </span>
     </label>
-    <label class="ui-text-field ui-small">
+    <label class="ui-field ui-small">
       <span class="ui-label">Search, small</span>
       <span class="ui-field-container">
         <input type="search" value="Release notes" />
@@ -75,7 +75,7 @@
         </span>
       </span>
     </label>
-    <label class="ui-text-field">
+    <label class="ui-field">
       <span class="ui-label">Search, default</span>
       <span class="ui-field-container">
         <input type="search" value="Release notes" />
@@ -99,7 +99,7 @@
   </section>
   <section class="todo-fixed todo-affix-fixed">
     <p class="todo-label">With a 24px floor</p>
-    <label class="ui-text-field ui-x-small">
+    <label class="ui-field ui-x-small">
       <span class="ui-label">Search, x-small</span>
       <span class="ui-field-container">
         <input type="search" value="Release notes" />
@@ -119,7 +119,7 @@
         </span>
       </span>
     </label>
-    <label class="ui-text-field ui-small">
+    <label class="ui-field ui-small">
       <span class="ui-label">Search, small</span>
       <span class="ui-field-container">
         <input type="search" value="Release notes" />
@@ -139,7 +139,7 @@
         </span>
       </span>
     </label>
-    <label class="ui-text-field">
+    <label class="ui-field">
       <span class="ui-label">Search, default</span>
       <span class="ui-field-container">
         <input type="search" value="Release notes" />
@@ -171,7 +171,7 @@
       }
       for (const section of document.querySelectorAll(".todo-compare > *")) {
         const lines = []
-        for (const field of section.querySelectorAll(".ui-text-field")) {
+        for (const field of section.querySelectorAll(".ui-field")) {
           const button = field
             .querySelector(".ui-end .ui-button")
             .getBoundingClientRect()

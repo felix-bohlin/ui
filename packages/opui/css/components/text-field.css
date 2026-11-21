@@ -9,13 +9,7 @@
 - Common styling for input, textarea and select
 - Form related styles such as: label, supporting text, error handling
 */
-  :where(
-    .ui-number-field,
-    .ui-one-time-code,
-    .ui-select,
-    .ui-text-field,
-    .ui-textarea
-  ) {
+  :where(.ui-field, .ui-number-field, .ui-one-time-code) {
     --_motion: var(--ui-motion);
     --_accent: var(--ui-primary);
     --_affix-block-size: calc(var(--_size) - var(--ui-field-border-width) * 2);
@@ -247,12 +241,15 @@
     /* The control's first line is the box when it doesn't fill the field */
     .ui-field-container:has(> :is(.ui-top, .ui-bottom))
       > :is(.ui-start, .ui-end),
-    &.ui-textarea .ui-field-container > :is(.ui-start, .ui-end) {
+    &.ui-field:where(:has(> .ui-field-container > textarea))
+      .ui-field-container
+      > :is(.ui-start, .ui-end) {
       --_affix-block-size: calc(1lh + var(--_field-padding-block-fit) * 2);
     }
 
     /* Textarea - keep affix aligned with the first line, and taller content off the border */
-    &.ui-textarea .ui-field-container {
+    &.ui-field:where(:has(> .ui-field-container > textarea))
+      .ui-field-container {
       & > :is(.ui-start, .ui-end) {
         align-self: start;
         min-block-size: var(--_affix-block-size);
@@ -721,7 +718,7 @@
   }
 
   /* Autosuggest */
-  :where(.ui-text-field:has(input[list])) {
+  :where(.ui-field:has(> .ui-field-container > input[list])) {
     .ui-field-container {
       position: relative;
     }
@@ -746,8 +743,11 @@
     }
   }
 
-  :where(.ui-select:has(select):not(:has(button)))::after,
-  :where(.ui-text-field:has(input[list])) .ui-field-container::after {
+  :where(
+    .ui-field:has(> .ui-field-container > select):not(:has(select > button))
+  )::after,
+  :where(.ui-field:has(> .ui-field-container > input[list]))
+    .ui-field-container::after {
     background-color: var(--ui-text-strong);
     block-size: var(--_chevron-size);
     content: "";

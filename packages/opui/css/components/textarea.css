@@ -1,5 +1,5 @@
 @layer components.extended {
-  :where(.ui-textarea) {
+  :where(.ui-field:has(> .ui-field-container > textarea)) {
     --_max-block-size: 20lh;
 
     textarea {

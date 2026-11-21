@@ -16,13 +16,13 @@ test("the composer adds a post at the top and empties the field", async ({
   page,
 }) => {
   const field = page.getByRole("textbox", { name: "What's on your mind?" })
-  await expect(page.locator(".ui-textarea opui-character-count")).toHaveText(
+  await expect(page.locator(".ui-field opui-character-count")).toHaveText(
     "0/280",
   )
   await page.getByRole("button", { name: "Post", exact: true }).click()
   await expect(posts(page)).toHaveCount(PAGE_SIZE)
   await field.fill("Testing the composer")
-  await expect(page.locator(".ui-textarea opui-character-count")).toHaveText(
+  await expect(page.locator(".ui-field opui-character-count")).toHaveText(
     "20/280",
   )
   await page.getByRole("button", { name: "Post", exact: true }).click()
@@ -37,7 +37,7 @@ test("the composer adds a post at the top and empties the field", async ({
 test("the character count follows the field when the app empties it", async ({
   page,
 }) => {
-  const count = page.locator(".ui-textarea opui-character-count")
+  const count = page.locator(".ui-field opui-character-count")
   await page
     .getByRole("textbox", { name: "What's on your mind?" })
     .fill("Testing the composer")

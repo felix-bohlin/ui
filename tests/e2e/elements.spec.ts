@@ -191,7 +191,7 @@ const ELEMENTS: Scenario[] = [
       })
     },
     file: "character-count.js",
-    markup: `<label class="ui-text-field">
+    markup: `<label class="ui-field">
       <span class="ui-label">Username</span>
       <span class="ui-field-container"><input maxlength="12" value="ab" type="text" /></span>
       <span class="ui-end-text">
@@ -539,7 +539,7 @@ const ELEMENTS: Scenario[] = [
   {
     file: "text-field.js",
     markup: `<form><fieldset>
-      <opui-text-field class="ui-text-field">
+      <opui-text-field class="ui-field">
         <label class="ui-label" for="password">Password</label>
         <span class="ui-field-container">
           <input id="password" type="password" value="hunter2" />

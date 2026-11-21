@@ -1196,9 +1196,7 @@ interaction(
   "Validation",
   "a required text field only looks invalid once the user leaves it empty",
   async ({ page, root }) => {
-    const textField = root
-      .locator(".ui-text-field")
-      .filter({ hasText: "Full name" })
+    const textField = root.locator(".ui-field").filter({ hasText: "Full name" })
     const input = textField.getByRole("textbox")
     const field = textField.locator(".ui-field-container")
     const border = () => computed(field, "border-block-end-color")
@@ -1508,7 +1506,7 @@ interaction(
         CSS.supports("inline-size", "if(else: 0px)"),
     )
     const group = root.locator(".ui-control-group").first()
-    const field = group.locator(":scope > .ui-text-field")
+    const field = group.locator(":scope > .ui-field")
     const button = group.locator(":scope > .ui-button")
 
     await group.evaluate((element) => (element.style.maxInlineSize = "8rem"))
@@ -3347,7 +3345,7 @@ interaction(
   "the character count announces in the language of its field",
   async ({ page, root }) => {
     await root
-      .locator(".ui-text-field")
+      .locator(".ui-field")
       .evaluate((field) => field.setAttribute("lang", "sv"))
     await root
       .locator("opui-character-count")

@@ -1107,13 +1107,15 @@ Deep type imports from `opui-css/components/*` are renamed, see [Package and imp
 
 ## Select
 
+Same as Text field: the root is `.ui-field` instead of `.ui-select`, and the box around the select `.ui-field-container` instead of `.ui-field`.
+
 The picker is `--ui-surface-elevated` with a `--ui-border-color-on-raised` edge, like `Menu`, instead of `--ui-surface-filled` with the field border. Set `--_bg-color` on the picker's `.ui-list` to keep the old fill, or `--ui-border-color-raised` in your theme to outline every raised surface at once.
 
 Astro and Vue generate an `id` for the select only when the label points at it. Pass `id` when something outside the component references it.
 
 In Astro and Vue, `style` goes to the root instead of the `<select>`, like `class`. Set `--_` properties through `style`, and style the select itself with a class or CSS.
 
-Same as Text field: the root is a `<div>` with a `<label for>` inside, instead of a `<label>`, the label alone names the select, and the start and end text, the affixes and the `top` and `bottom` parts describe it. A click on those parts no longer opens the select. Target `.ui-select` instead of `label.ui-select`, and in HTML give the select an `id` for the label's `for` and mark its `<button>` `inert`, so the select alone takes clicks, focus and the name.
+Same as Text field: the root is a `<div>` with a `<label for>` inside, instead of a `<label>`, the label alone names the select, and the start and end text, the affixes and the `top` and `bottom` parts describe it. A click on those parts no longer opens the select. Target `.ui-field` instead of `label.ui-select`, and in HTML give the select an `id` for the label's `for` and mark its `<button>` `inert`, so the select alone takes clicks, focus and the name.
 
 With `spread`, label and field split the container into equal columns. Selects keep a `12ch` minimum width in table cells, and the arrow is a chevron instead of a triangle.
 
@@ -1286,7 +1288,18 @@ Tabs that don't fit stay on one row and scroll sideways instead of wrapping onto
 
 ## Text field
 
-The box around the input and the `top`, `start`, `end` and `bottom` parts is `.ui-field-container` instead of `.ui-field`. In HTML, rename the class on that wrapper; `Textarea` and `Select` follow the same rename.
+The root is `.ui-field` instead of `.ui-text-field`, and the box around the input and the `top`, `start`, `end` and `bottom` parts is `.ui-field-container` instead of `.ui-field`. `Textarea` and `Select` share both classes, and the control inside picks the rest of the styles. In HTML, rename the wrapper first, then the root, so the old `.ui-field` doesn't end up on both. In your CSS, target one kind of field with `.ui-field:has(> .ui-field-container > input)`, `textarea` or `select`.
+
+```diff
+- <div class="ui-text-field">
++ <div class="ui-field">
+    <label class="ui-label" for="name">Name</label>
+-   <span class="ui-field">
++   <span class="ui-field-container">
+      <input id="name" />
+    </span>
+  </div>
+```
 
 `TextField` takes your `<input>` instead of rendering one, and a required `for` (`htmlFor` in React) with the input's `id`, which the types enforce. Move the input's attributes, `type`, `name`, `value`, `placeholder`, `required`, `disabled` and the rest, onto the input, bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts the field shows, in this order: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`. `id` on the component is gone, and attributes that aren't its props go to the root, as in 5.x. Inside a `FieldGroup`, name the input yourself.
 
@@ -1304,12 +1317,12 @@ The box around the input and the `top`, `start`, `end` and `bottom` parts is `.u
 + <TextField size="small" label="Name" />
 ```
 
-The root is a `<div>` with a `<label for>` inside, instead of a `<label>` around the whole field, so the field can hold buttons. The label alone names the input. The start and end text, the `start` and `end` affixes and the `top` and `bottom` parts describe it through `aria-describedby`, read after the name, where the affixes used to join the name. A click on the start or end text, an affix or the `top` or `bottom` part no longer focuses the input, since only the label is a `<label>`. Target `.ui-text-field` instead of `label.ui-text-field` in your CSS, and give a field without `label` an `aria-label` or `aria-labelledby`. In HTML, the input needs an `id` for the label's `for`, and an affix or a hint an `id` for `aria-describedby`. Put `.ui-top` and `.ui-start` before the input, in the order they're drawn, so Tab reaches them there in every browser.
+The root is a `<div>` with a `<label for>` inside, instead of a `<label>` around the whole field, so the field can hold buttons. The label alone names the input. The start and end text, the `start` and `end` affixes and the `top` and `bottom` parts describe it through `aria-describedby`, read after the name, where the affixes used to join the name. A click on the start or end text, an affix or the `top` or `bottom` part no longer focuses the input, since only the label is a `<label>`. Target `.ui-field` instead of `label.ui-text-field` in your CSS, and give a field without `label` an `aria-label` or `aria-labelledby`. In HTML, the input needs an `id` for the label's `for`, and an affix or a hint an `id` for `aria-describedby`. Put `.ui-top` and `.ui-start` before the input, in the order they're drawn, so Tab reaches them there in every browser.
 
 ```diff
 - <label class="ui-text-field">
 -   <span class="ui-label">Price</span>
-+ <div class="ui-text-field">
++ <div class="ui-field">
 +   <label class="ui-label" for="price">Price</label>
     <span class="ui-field-container">
 -     <input />
@@ -1350,7 +1363,7 @@ The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is
 
 ```diff
 - <label class="ui-text-field" data-invalid> … <input>
-+ <div class="ui-text-field"> … <input aria-invalid="true">
++ <div class="ui-field"> … <input aria-invalid="true">
 ```
 
 `text-input.css` is gone, its styles are in `text-field.css`. Remove the import:
@@ -1385,6 +1398,8 @@ In Vue, use `<template #start>€</template>` and `<template #end>EUR</template>
 
 ## Textarea
 
+Same as Text field: the root is `.ui-field` instead of `.ui-textarea`, and the box around the textarea `.ui-field-container` instead of `.ui-field`.
+
 Same as Text field: `Textarea` takes your `<textarea>` instead of rendering one, and a required `for` (`htmlFor` in React) with its `id`. Move `name`, `required`, `disabled`, `maxlength` and the rest onto the textarea, write its value as its content or bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts the field shows: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`, in that order. `id` on the component is gone, and attributes that aren't its props go to the root, as in 5.x.
 
 ```diff
@@ -1403,7 +1418,7 @@ Same as Text field: `Textarea` takes your `<textarea>` instead of rendering one,
 
 `description` is `startText` (the `start-text` slot), like Text field. `supportingText` (the `supporting-text` slot) is gone. Use `endText`.
 
-Same as Text field: the root is a `<div>` with a `<label for>` inside, the label alone names the textarea, and the start and end text, the affixes and the `top` and `bottom` parts describe it. A click on those parts no longer focuses the textarea. Give a textarea without `label` an `aria-label` or `aria-labelledby`, target `.ui-textarea` instead of `label.ui-textarea`, and in HTML give the textarea an `id` for the label's `for`.
+Same as Text field: the root is a `<div>` with a `<label for>` inside, the label alone names the textarea, and the start and end text, the affixes and the `top` and `bottom` parts describe it. A click on those parts no longer focuses the textarea. Give a textarea without `label` an `aria-label` or `aria-labelledby`, target `.ui-field` instead of `label.ui-textarea`, and in HTML give the textarea an `id` for the label's `for`.
 
 The minimum height is three lines plus padding at every size (small was a fixed 64px), or the lines in `rows` where the browser reads typed `attr()`. With `spread`, the fixed `30ch` minimum is gone and label and field split the container into equal columns. Textareas keep a `12ch` minimum width in table cells.
 

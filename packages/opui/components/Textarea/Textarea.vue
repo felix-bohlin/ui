@@ -40,7 +40,7 @@ const endTextId = () => (hasEndText() ? `${htmlFor}-end-text` : undefined)
 <template>
   <div
     :class="[
-      'ui-textarea',
+      'ui-field',
       {
         'ui-auto-fit': autoFit,
         'ui-filled': variant === 'filled',

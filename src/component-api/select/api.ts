@@ -42,7 +42,7 @@ export default {
     type: "string | number | (string | number)[]",
   },
   notes: {
-    ...passThrough("select", ".ui-select", ["autocomplete", "multiple"]),
+    ...passThrough("select", ".ui-field", ["autocomplete", "multiple"]),
     html: "The `<select>` holds an `inert` `<button>` and a `.ui-list`. The button holds `<selectedcontent>`, and `inert` leaves clicks, focus and the name to the select. The list holds the options. Browsers without customizable selects show a native select. Put `.ui-top` and `.ui-start` before the `<select>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they're drawn.",
   },
   options: [
@@ -91,7 +91,7 @@ export default {
       description:
         "Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.",
       group: "Label",
-      part: ".ui-select > label",
+      part: ".ui-field > label",
       prop: "hideLabel",
     },
     {
@@ -207,7 +207,7 @@ export default {
   ],
   root: {
     description: "Container element.",
-    selector: "div.ui-select",
+    selector: "div.ui-field",
   },
   slots: [
     {

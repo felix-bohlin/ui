@@ -45,7 +45,7 @@ export default function Textarea(props: Props) {
   return (
     <div
       class={[
-        "ui-textarea",
+        "ui-field",
         {
           "ui-auto-fit": props.autoFit,
           "ui-filled": props.variant === "filled",

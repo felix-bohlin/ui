@@ -204,7 +204,7 @@ describe("example scripts", () => {
     ])
     expect(
       problemsOf({
-        html: '<label class="ui-range"><input list="a" type="range"><datalist id="a"><option label="Low" value="0"></option></datalist></label><label class="ui-text-field"><input list="b"><datalist id="b"><option label="Low" value="Low"></option></datalist></label>',
+        html: '<label class="ui-range"><input list="a" type="range"><datalist id="a"><option label="Low" value="0"></option></datalist></label><label class="ui-field"><input list="b"><datalist id="b"><option label="Low" value="Low"></option></datalist></label>',
         name: "a/Ticks",
       }),
     ).toEqual([

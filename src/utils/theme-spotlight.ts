@@ -1,15 +1,15 @@
 import { GROUPS } from "./theme-builder-controls"
 
 const BY_GROUP: Record<string, string> = {
-  borders: ".ui-card, .ui-table, .ui-text-field, .ui-select, .ui-textarea",
+  borders: ".ui-card, .ui-table, .ui-field",
   brand: ".ui-button.ui-primary, .ui-link, .ui-switch, .ui-checkbox",
-  controls: ".ui-button, .ui-checkbox, .ui-radio, .ui-switch, .ui-text-field",
-  corners: ".ui-button, .ui-chip, .ui-card, .ui-text-field, .ui-dialog",
-  density: ".ui-button, .ui-text-field, .ui-select, .ui-chip, .ui-card",
+  controls: ".ui-button, .ui-checkbox, .ui-radio, .ui-switch, .ui-field",
+  corners: ".ui-button, .ui-chip, .ui-card, .ui-field, .ui-dialog",
+  density: ".ui-button, .ui-field, .ui-chip, .ui-card",
   depth: ".ui-card, .ui-dialog, .ui-menu",
   neutrals: ".specimen-type, .ui-card, .ui-table",
   status: ".ui-callout, .ui-chip.ui-success, .ui-chip.ui-critical",
-  typography: ".specimen-type, .ui-button, .ui-text-field",
+  typography: ".specimen-type, .ui-button, .ui-field",
 }
 
 const BY_CONTROL: Record<string, string> = {
@@ -31,22 +31,21 @@ const BY_CONTROL: Record<string, string> = {
   "control-outline":
     ".ui-button.ui-outlined, .ui-chip.ui-outlined, .ui-toggle-group",
   "control-steps": ".ui-button.ui-small, .ui-button.ui-large",
-  "control-text": ".ui-button, .ui-text-field, .ui-select",
+  "control-text": ".ui-button, .ui-field",
   critical:
     ".ui-callout.ui-critical, .ui-chip.ui-critical, .ui-button.ui-critical",
   "dialog-radius": ".ui-dialog",
-  "disabled-opacity": ".ui-button, .ui-text-field",
+  "disabled-opacity": ".ui-button, .ui-field",
   easing: ".ui-switch, .ui-menu",
-  "field-bg": ".ui-text-field, .ui-select, .ui-textarea",
-  "field-border-color":
-    ".ui-text-field, .ui-select, .ui-textarea, .ui-checkbox",
-  "field-border-width": ".ui-text-field, .ui-select, .ui-textarea",
-  "field-padding": ".ui-text-field, .ui-select, .ui-textarea",
-  "field-radius": ".ui-text-field, .ui-select, .ui-textarea",
-  "focus-ring-color": ".ui-text-field, .ui-button",
-  "focus-ring-offset": ".ui-text-field, .ui-button",
-  "focus-ring-width": ".ui-text-field, .ui-button",
-  "font-body": ".specimen-type p, .ui-button, .ui-text-field",
+  "field-bg": ".ui-field",
+  "field-border-color": ".ui-field, .ui-checkbox",
+  "field-border-width": ".ui-field",
+  "field-padding": ".ui-field",
+  "field-radius": ".ui-field",
+  "focus-ring-color": ".ui-field, .ui-button",
+  "focus-ring-offset": ".ui-field, .ui-button",
+  "focus-ring-width": ".ui-field, .ui-button",
+  "font-body": ".specimen-type p, .ui-button, .ui-field",
   "font-code": ".specimen-type code",
   "font-heading": ".ui-h2, .ui-h4",
   "gray-tint": ".specimen-type, .ui-card, .ui-chip, .ui-table",
@@ -55,7 +54,7 @@ const BY_CONTROL: Record<string, string> = {
   "icon-size": ".ui-callout svg",
   info: ".ui-callout.ui-info",
   inverse: ".ui-badge",
-  "label-weight": ".ui-text-field label, .ui-select label, .ui-textarea label",
+  "label-weight": ".ui-field label",
   "line-height": ".specimen-type p, .ui-list",
   "list-padding": ".ui-list",
   "menu-radius": ".ui-menu",
@@ -86,7 +85,7 @@ const BY_CONTROL: Record<string, string> = {
   underline: ".ui-link",
   warning: ".ui-callout.ui-warning",
   "weight-bold": ".ui-h2, .ui-h4",
-  "weight-semibold": ".ui-text-field label, .ui-table th",
+  "weight-semibold": ".ui-field label, .ui-table th",
 }
 
 const groupOf = new Map(

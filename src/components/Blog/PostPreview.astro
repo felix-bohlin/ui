@@ -146,7 +146,7 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
   </div>}
   {slug === "form-fieldset-has" && <fieldset class="ui-fieldset">
     <legend>Contact</legend>
-    <div class="ui-text-field ui-small">
+    <div class="ui-field ui-small">
       <label class="ui-label" for={id("email")}>Email</label>
       <span class="ui-field-container">
         <input id={id("email")} required type="email" value="hi@opui.dev" />
@@ -198,7 +198,7 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
       <option label="High" value="2" />
     </datalist>
   </label>}
-  {slug === "select-base-select" && <div class="ui-select">
+  {slug === "select-base-select" && <div class="ui-field">
     <label class="ui-label" for={id("role")}>Role</label>
     <span class="ui-field-container">
       <select id={id("role")}>
@@ -263,7 +263,7 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
     <label class="ui-label" for={id("tab-2")}> Settings </label>
     <div class="ui-panel">General settings.</div>
   </div>}
-  {slug === "text-field-user-invalid" && <div class="ui-text-field">
+  {slug === "text-field-user-invalid" && <div class="ui-field">
     <label class="ui-label" for={id("email-invalid")}>Email</label>
     <span class="ui-field-container">
       <input
@@ -278,7 +278,7 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
       >Add a domain, like opui.dev.</span
     >
   </div>}
-  {slug === "textarea-field-sizing" && <div class="ui-textarea">
+  {slug === "textarea-field-sizing" && <div class="ui-field">
     <label class="ui-label" for={id("message")}>Message</label>
     <span class="ui-field-container">
       <textarea
@@ -340,11 +340,11 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
   [data-preview="accordion-height-auto"] .ui-accordion,
   [data-preview="form-fieldset-has"] .ui-fieldset,
   [data-preview="range-tick-marks"] .ui-range,
-  [data-preview="select-base-select"] .ui-select,
+  [data-preview="select-base-select"] .ui-field,
   [data-preview="table-scroll-state"] .ui-table,
   [data-preview="tabs-radio-buttons"] .ui-tabs,
-  [data-preview="text-field-user-invalid"] .ui-text-field,
-  [data-preview="textarea-field-sizing"] .ui-textarea {
+  [data-preview="text-field-user-invalid"] .ui-field,
+  [data-preview="textarea-field-sizing"] .ui-field {
     inline-size: min(100%, 18rem);
   }
 

@@ -41,7 +41,7 @@
 
 <div
   class={[
-    "ui-textarea",
+    "ui-field",
     {
       "ui-auto-fit": autoFit,
       "ui-filled": variant === "filled",

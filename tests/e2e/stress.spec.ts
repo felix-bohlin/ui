@@ -152,8 +152,8 @@ test("content taller than a field's button keeps the button's inset", async ({
     affixes.map(({ affix }) => affix.replace(/^TallAffixes > /, "")),
   ).toEqual(
     Array.from({ length: 4 }, () => [
-      "ui-text-field ui-start",
-      "ui-textarea ui-start",
+      "ui-field input ui-start",
+      "ui-field textarea ui-start",
     ]).flat(),
   )
   expect(affixes.filter(({ inset }) => inset >= 3)).not.toEqual([])
@@ -172,20 +172,20 @@ const ORDER_PARTS = {
 const MARKUP_ORDERS = [
   {
     markup: ["top", "start", "control", "end", "bottom"],
-    title: (root: string) =>
-      `Tab follows the order a ${root}'s parts are drawn in`,
+    title: (control: string) =>
+      `Tab follows the order the parts of a field with a ${control} are drawn in`,
   },
   {
     markup: ["control", "start", "end", "top", "bottom"],
     readingFlow: true,
-    title: (root: string) =>
-      `Tab follows the order a ${root}'s parts are drawn in when the markup puts the control first`,
+    title: (control: string) =>
+      `Tab follows the order the parts of a field with a ${control} are drawn in when the markup puts the control first`,
   },
 ]
 
-for (const root of ["ui-text-field", "ui-textarea"]) {
+for (const control of ["input", "textarea"]) {
   for (const { markup, readingFlow, title } of MARKUP_ORDERS) {
-    test(title(root), async ({ page }) => {
+    test(title(control), async ({ page }) => {
       await openFixture(page, "html", "stress/forms")
       if (readingFlow) {
         await needs(page, "reading-flow", () =>
@@ -195,7 +195,7 @@ for (const root of ["ui-text-field", "ui-textarea"]) {
       const parts = {
         ...ORDER_PARTS,
         control:
-          root === "ui-textarea"
+          control === "textarea"
             ? '<textarea id="order-control"></textarea>'
             : '<input id="order-control" />',
       }
@@ -204,7 +204,7 @@ for (const root of ["ui-text-field", "ui-textarea"]) {
           main.insertAdjacentHTML("afterbegin", html)
         },
         `<button id="order-before" type="button">Before</button>
-        <div class="${root}">
+        <div class="ui-field">
           <label class="ui-label" for="order-control">Order</label>
           <span class="ui-field-container">${markup.map((part) => parts[part as keyof typeof parts]).join("")}</span>
         </div>`,
@@ -231,7 +231,9 @@ test("a field in a linked card takes a click anywhere in it", async ({
 }) => {
   await openFixture(page, "html", "stress/layout")
 
-  const root = page.locator("#stress-layout-card-links .ui-text-field")
+  const root = page.locator(
+    "#stress-layout-card-links .ui-field:has(> .ui-field-container > input)",
+  )
   await root.scrollIntoViewIfNeeded()
   const hits = await root.evaluate((field) =>
     [".ui-end", ".ui-end-text"].map((part) => {

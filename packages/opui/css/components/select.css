@@ -1,6 +1,6 @@
 @layer components.extended {
-  /* Reads --_duration, --_ease and the other --_ properties text-field.css declares on .ui-select */
-  :where(.ui-select select) {
+  /* Reads --_duration, --_ease and the other --_ properties text-field.css declares on .ui-field */
+  :where(.ui-field > .ui-field-container > select) {
     position: relative;
 
     /* Default arrow */
@@ -188,13 +188,13 @@
     }
   }
 
-  :where(.ui-select:has(select)) {
+  :where(.ui-field:has(> .ui-field-container > select)) {
     /*
     * Non-experimental Select
     *
-    * Hack to get the arrow working. Pseudo elements aren't allowed on the `<select>` element, so need to add it on the `.ui-select` class instead. Noting this down if an `:after` element would be needed on a `.ui-select`.
+    * Hack to get the arrow working. Pseudo elements aren't allowed on the `<select>` element, so need to add it on the `.ui-field` class instead. Noting this down if an `:after` element would be needed on a `.ui-field`.
     */
-    &:not(:has(button)) {
+    &:not(:has(:where(select) > button)) {
       select {
         appearance: none;
         text-overflow: ellipsis;
@@ -241,8 +241,10 @@
     }
   }
 
-  :where(.ui-select select:has(button)),
-  :where(.ui-select select:has(button))::picker(select) {
+  :where(.ui-field > .ui-field-container > select:has(> button)),
+  :where(
+    .ui-field > .ui-field-container > select:has(> button)
+  )::picker(select) {
     appearance: base-select;
   }
 }

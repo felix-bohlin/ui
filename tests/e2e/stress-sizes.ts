@@ -3,9 +3,8 @@ import { expect, type Locator, type Page } from "@playwright/test"
 const CONTROLS = [
   ":scope > .ui-button",
   ":scope > .ui-control-group",
-  ":scope > .ui-select > .ui-field-container",
-  ":scope > .ui-text-field > .ui-field-container",
-  ":scope > :is(.ui-select, .ui-text-field):not(:has(> .ui-label))",
+  ":scope > .ui-field:not(:has(> .ui-field-container > textarea)) > .ui-field-container",
+  ":scope > .ui-field:not(:has(> .ui-label, > .ui-field-container > textarea))",
   ":scope > .ui-toggle-button",
   ":scope > .ui-toggle-group",
 ].join(", ")
@@ -57,7 +56,7 @@ const affix = (part: HTMLElement, name: string) => {
     return box
   })
   return {
-    affix: `${name} > ${field.parentElement!.classList[0]} ${part.className}`,
+    affix: `${name} > ${field.parentElement!.classList[0]} ${control.localName} ${part.className}`,
     contents: boxes.map((box, index) =>
       textarea &&
       nodes[index] instanceof Element &&
@@ -120,7 +119,7 @@ export const measure = (page: Page) =>
         affixes: rows.flatMap(({ example, row, size }) =>
           [
             ...row.querySelectorAll<HTMLElement>(
-              ":scope > :is(.ui-text-field, .ui-textarea) > .ui-field-container > :is(.ui-start, .ui-end)",
+              ":scope > .ui-field:not(:has(> .ui-field-container > select)) > .ui-field-container > :is(.ui-start, .ui-end)",
             ),
           ].map((part) => measureAffix(part, `${example} ${size}`)),
         ),

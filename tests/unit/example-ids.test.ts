@@ -98,13 +98,11 @@ const ID_REFERENCES = [
 const OWNERS = [
   "ui-dialog",
   "ui-drawer",
+  "ui-field",
   "ui-file-upload",
   "ui-number-field",
   "ui-one-time-code",
   "ui-range",
-  "ui-select",
-  "ui-text-field",
-  "ui-textarea",
 ]
 
 const GROUPS = ["ui-tabs", "ui-toggle-group"]
@@ -241,16 +239,16 @@ describe("the ids in the HTML examples", () => {
   test("a sample it must flag: another instance's end text", () => {
     expect(
       ownerProblems(
-        '<label class="ui-text-field"><input id="text-field-a-2"><span id="text-field-a-1-end-text"></span></label>',
+        '<label class="ui-field"><input id="text-field-a-2"><span id="text-field-a-1-end-text"></span></label>',
         "text-field/A",
       ),
-    ).toEqual(["one ui-text-field holds the ids of instances 2 and 1"])
+    ).toEqual(["one ui-field holds the ids of instances 2 and 1"])
   })
 
   test("a sample it must flag: a written id and a component sharing a number", () => {
     expect(
       ownerProblems(
-        '<form id="form-a-1"><label class="ui-select"><span id="form-a-1-label"></span></label></form>',
+        '<form id="form-a-1"><label class="ui-field"><span id="form-a-1-label"></span></label></form>',
         "form/A",
         '<Form id="form-a-1">',
       ),

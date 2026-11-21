@@ -60,7 +60,7 @@ export default function TextField(props: Props) {
   return (
     <Root
       class={[
-        "ui-text-field",
+        "ui-field",
         {
           "ui-auto-fit": props.autoFit,
           "ui-drop-zone": props.dropZone,

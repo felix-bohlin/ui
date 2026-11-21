@@ -30,9 +30,9 @@ export default {
   ],
   notes: {
     default:
-      "Write the `<textarea>` inside, with its `id` set to `for`, and bind it like any textarea. Other attributes go to the `.ui-textarea` root.",
+      "Write the `<textarea>` inside, with its `id` set to `for`, and bind it like any textarea. Other attributes go to the `.ui-field` root.",
     react:
-      "Write the `<textarea>` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-textarea` root.",
+      "Write the `<textarea>` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-field` root.",
     html: 'For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field\'s `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Put `.ui-top` and `.ui-start` before the `<textarea>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they\'re drawn.',
   },
   options: [
@@ -70,7 +70,7 @@ export default {
       description:
         "Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.",
       group: "Label",
-      part: ".ui-textarea > label",
+      part: ".ui-field > label",
       prop: "hideLabel",
     },
     {
@@ -172,7 +172,7 @@ export default {
   root: {
     description:
       "Container element, a `<div>`. The label inside is a `<label for>` that names the textarea by itself.",
-    selector: ".ui-textarea",
+    selector: ".ui-field",
   },
   slots: [
     {

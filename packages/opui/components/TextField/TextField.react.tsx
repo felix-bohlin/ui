@@ -47,7 +47,7 @@ export default function TextField({
   return (
     <Root
       className={cx([
-        "ui-text-field",
+        "ui-field",
         {
           "ui-auto-fit": autoFit,
           "ui-drop-zone": dropZone,

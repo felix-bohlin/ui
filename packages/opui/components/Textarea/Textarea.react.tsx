@@ -40,7 +40,7 @@ export default function Textarea({
   return (
     <div
       className={cx([
-        "ui-textarea",
+        "ui-field",
         {
           "ui-auto-fit": autoFit,
           "ui-filled": variant === "filled",

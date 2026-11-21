@@ -93,11 +93,7 @@ export class CharacterCountElement extends Base {
   #unwatch
 
   get control() {
-    return (
-      this.closest(".ui-text-field, .ui-textarea")?.querySelector(
-        "input, textarea",
-      ) ?? null
-    )
+    return this.closest(".ui-field")?.querySelector("input, textarea") ?? null
   }
 
   connectedCallback() {
@@ -124,7 +120,7 @@ export class CharacterCountElement extends Base {
       { signal },
     )
     this.#observer = new MutationObserver(() => this.#update())
-    const root = this.closest(".ui-text-field, .ui-textarea")
+    const root = this.closest(".ui-field")
     if (root) {
       this.#observer.observe(root, {
         attributeFilter: ["maxlength", "value"],

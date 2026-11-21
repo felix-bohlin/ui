@@ -55,10 +55,10 @@ export default {
   ],
   notes: {
     default:
-      "Write the `<input>` inside, with its `id` set to `for`, and bind it like any input. Other attributes go to the `.ui-text-field` root.",
+      "Write the `<input>` inside, with its `id` set to `for`, and bind it like any input. Other attributes go to the `.ui-field` root.",
     react:
-      "Write the `<input>` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-text-field` root.",
-    html: 'Use `.ui-select` for a `<select>` and `.ui-textarea` for a `<textarea>`. Put a `<datalist>` next to the input in `.ui-field-container`. For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. For a password toggle, use `<opui-text-field class="ui-text-field">` with a `<label class="ui-label" for>`, put a `.ui-button` with `aria-pressed="false"`, `commandfor` naming the input and `command="--toggle-password"` in `.ui-end`, and import `opui-css/elements/text-field.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field\'s `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Put `.ui-top` and `.ui-start` before the `<input>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they\'re drawn.',
+      "Write the `<input>` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-field` root.",
+    html: 'The same `.ui-field` root holds a `<select>` or a `<textarea>`. Put a `<datalist>` next to the input in `.ui-field-container`. For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. For a password toggle, use `<opui-text-field class="ui-field">` with a `<label class="ui-label" for>`, put a `.ui-button` with `aria-pressed="false"`, `commandfor` naming the input and `command="--toggle-password"` in `.ui-end`, and import `opui-css/elements/text-field.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field\'s `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Put `.ui-top` and `.ui-start` before the `<input>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they\'re drawn.',
   },
   options: [
     {
@@ -102,7 +102,7 @@ export default {
       description:
         "Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.",
       group: "Label",
-      part: ".ui-text-field > label",
+      part: ".ui-field > label",
       prop: "hideLabel",
     },
     {
@@ -224,7 +224,7 @@ export default {
   root: {
     description:
       "Container element: a `<div>`, or the `<opui-text-field>` custom element with a password toggle. The label inside is a `<label for>` that names the input by itself.",
-    selector: ".ui-text-field",
+    selector: ".ui-field",
   },
   slots: [
     {

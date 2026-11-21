@@ -534,7 +534,7 @@ export default function UserDirectory() {
       </div>
       <style>{`
         .user-directory {
-          .user-directory-filters .ui-text-field {
+          .user-directory-filters .ui-field {
             flex: 1 1 16rem;
             max-inline-size: 28rem;
           }

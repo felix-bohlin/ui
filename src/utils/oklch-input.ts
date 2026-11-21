@@ -163,7 +163,7 @@ const createPicker = () => {
           <input id="oklch-picker-${key}" max="${max}" min="0" step="${step}" type="range" />
         </div>`,
     ).join("")}
-    <div class="ui-text-field ui-small oklch-picker-value">
+    <div class="ui-field ui-small oklch-picker-value">
       <label class="ui-label" for="oklch-picker-value">Color value</label>
       <span class="ui-field-container">
         <input aria-describedby="oklch-picker-gamut" autocomplete="off" id="oklch-picker-value" spellcheck="false" type="text" />

@@ -49,7 +49,7 @@
 <svelte:element
   this={Root}
   class={[
-    "ui-text-field",
+    "ui-field",
     {
       "ui-auto-fit": autoFit,
       "ui-drop-zone": dropZone,

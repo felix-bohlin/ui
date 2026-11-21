@@ -267,7 +267,7 @@ One concept has one prop name and one set of values in every component. `tests/u
 - **Slots and parts:**
   - A slot has one name in all five frameworks, kebab-case in Astro and Vue (`value-text`) and camelCase in React and Svelte (`valueText`). When a name clashes with a prop in one framework, the slot is renamed everywhere. The allowed names are listed in [src/component-api/AGENTS.md](../../../src/component-api/AGENTS.md#names).
   - The block regions of a container are parts, never slots: `.ui-header`, `.ui-content`, `.ui-actions` for buttons and `.ui-footer` for anything else at the end. Dialog and Drawer end in `.ui-footer`, where `.ui-actions` groups the buttons.
-  - A part styled only under its root has a bare role class (`.ui-header`, `.ui-label`, `.ui-indicator`). A class that is also styled on its own, or shared by several roots, is a root class and carries the component name (`.ui-field-group`, `.ui-text-field`). `.ui-card-link` is the one exception, since `.ui-link` is the Link root.
+  - A part styled only under its root has a bare role class (`.ui-header`, `.ui-label`, `.ui-indicator`). A class that is also styled on its own, or shared by several roots, is a root class and carries the component name (`.ui-field`, `.ui-field-group`). `.ui-card-link` is the one exception, since `.ui-link` is the Link root.
   - A part's CSS reaches it with child combinators (`> .ui-label`), so a bare part class never styles the part of the same name in a nested component.
 - **Every option is one of three kinds:** a prop with an HTML equivalent (`class` or `attribute` in `api.ts`), an HTML-only class or attribute (`frameworks: ["html"]`), or a prop-only behavior with no output (`keepOpen`). Every class a stylesheet adds is named by an option or a part.
 - **The checked state uses the native name and each framework's native semantics:**
@@ -356,7 +356,7 @@ TextField, Textarea, Select, NumberField and OneTimeCode render a `<div>` root w
 ```astro
 <div
   class:list={[
-    "ui-text-field",
+    "ui-field",
     size && size !== "medium" && `ui-${size}`,
     className,
   ]}

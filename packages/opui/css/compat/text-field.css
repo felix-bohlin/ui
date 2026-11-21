@@ -1,12 +1,6 @@
 @layer components.compat {
   @supports (-webkit-touch-callout: none) {
-    :where(
-      .ui-number-field,
-      .ui-one-time-code,
-      .ui-select,
-      .ui-text-field,
-      .ui-textarea
-    ) {
+    :where(.ui-field, .ui-number-field, .ui-one-time-code) {
       --_font-size: max(16px, var(--ui-font-size-control));
     }
   }

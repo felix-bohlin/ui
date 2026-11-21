@@ -89,7 +89,7 @@ export default function Select(props: Props) {
   return (
     <div
       class={[
-        "ui-select",
+        "ui-field",
         {
           "ui-auto-fit": props.autoFit,
           "ui-filled": variant() === "filled",

@@ -48,7 +48,7 @@ const endTextId = () => (hasEndText() ? `${htmlFor}-end-text` : undefined)
   <component
     :is="Root"
     :class="[
-      'ui-text-field',
+      'ui-field',
       {
         'ui-auto-fit': autoFit,
         'ui-drop-zone': dropZone,

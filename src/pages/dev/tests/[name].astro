@@ -130,7 +130,7 @@ const themes = Object.fromEntries(
     flex-wrap: wrap;
     gap: var(--size-3);
 
-    > :is(.ui-text-field, .ui-select) {
+    > .ui-field:where(:not(:has(> .ui-field-container > textarea))) {
       inline-size: 10rem;
     }
 

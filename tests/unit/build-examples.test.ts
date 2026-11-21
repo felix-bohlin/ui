@@ -860,7 +860,7 @@ describe("HTML", () => {
     ).toEqual(['import "opui-css/css/js/range.js"'])
     expect(
       imports(
-        '<label class="ui-text-field"><input list="b"><datalist id="b"><option label="Low" value="Low"></option></datalist></label>',
+        '<label class="ui-field"><input list="b"><datalist id="b"><option label="Low" value="Low"></option></datalist></label>',
       ),
     ).toEqual([])
     expect(

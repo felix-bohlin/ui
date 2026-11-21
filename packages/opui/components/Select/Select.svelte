@@ -70,7 +70,7 @@
 
 <div
   class={[
-    "ui-select",
+    "ui-field",
     {
       "ui-auto-fit": autoFit,
       "ui-filled": variant === "filled",

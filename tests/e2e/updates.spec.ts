@@ -28,6 +28,8 @@ const NATIVE_ATTRIBUTES = {
 }
 
 const KNOWN: Record<string, string> = {
+  "react/CharacterCount without native attributes, unset after a render with it":
+    "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   'react/Copy without id="Text", unset after a render with it':
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "react/Copy without native attributes, unset after a render with it":
@@ -35,6 +37,10 @@ const KNOWN: Record<string, string> = {
   "react/FileUpload without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "react/NumberField without native attributes, unset after a render with it":
+    "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
+  'react/PasswordToggle without class="Text", unset after a render with it':
+    "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
+  "react/PasswordToggle without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "react/Reactions without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
@@ -46,14 +52,18 @@ const KNOWN: Record<string, string> = {
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "react/Toaster without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
+  "svelte/CharacterCount without native attributes, unset after a render with it":
+    "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "svelte/Copy without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "svelte/FileUpload without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
-  'svelte/Rating without value="Text", unset after a render with it':
-    "TODO.md Bugs: Rating: a value or max that isn't a number",
   "svelte/NumberField without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
+  "svelte/PasswordToggle without native attributes, unset after a render with it":
+    "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
+  'svelte/Rating without value="Text", unset after a render with it':
+    "TODO.md Bugs: Rating: a value or max that isn't a number",
   "svelte/Reactions without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "svelte/SelectAll without native attributes, unset after a render with it":

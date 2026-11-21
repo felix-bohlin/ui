@@ -21,7 +21,7 @@ So the component follows the working version: controlled `items`, two events, an
 ```html
 <opui-file-upload class="ui-file-upload">
   <div class="ui-content">
-    <div class="ui-field">
+    <div class="ui-field-container">
       <label class="ui-label">
         <input
           accept="image/*"
@@ -83,7 +83,7 @@ So the component follows the working version: controlled `items`, two events, an
 </opui-file-upload>
 ```
 
-- The drop zone is `.ui-field`. Its `<label>` holds the input and the visible trigger, a `<span class="ui-button">`, since a label may not hold another labelable element, and covers the zone with its `::after`, so a click anywhere opens the picker. The hint is outside the label and linked with `aria-describedby`, so the input's name is the trigger's text alone.
+- The drop zone is `.ui-field-container`. Its `<label>` holds the input and the visible trigger, a `<span class="ui-button">`, since a label may not hold another labelable element, and covers the zone with its `::after`, so a click anywhere opens the picker. The hint is outside the label and linked with `aria-describedby`, so the input's name is the trigger's text alone.
 - The files are List rows (`ul.ui-list > li` with `.ui-start`, `.ui-text` and `.ui-end`). A file that is queued or uploading has a `Progress` in `.ui-text`, a failed one has `.ui-error`, and the remove button is there in every state.
 - A failed file's message has `popover`, and a `<button popovertarget>` in `.ui-start` opens it. In a List row the button is hidden and the message reads inline. In the compact row the button covers the preview and the message opens below it, since the scrolling row would clip anything else. The message is in the page once.
 - One `role="status"` region for the whole component, always in the page, not an alert per row.

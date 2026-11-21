@@ -40,7 +40,7 @@
   {...rest}
 >
   <div class="ui-content">
-    <div class="ui-field">
+    <div class="ui-field-container">
       <label class="ui-label">
         <input
           {accept}

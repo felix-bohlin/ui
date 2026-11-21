@@ -55,13 +55,13 @@ export default {
     },
     {
       description: "Draws a box per character and a ring on the next one.",
-      selector: ".ui-field",
+      selector: ".ui-field-container",
     },
     {
       code: "<input>",
       description:
-        'Your input, written directly inside `.ui-field` with its `id` set to `for`. Its `maxlength`, from 4 to 8, sets the number of boxes. `autocomplete="one-time-code"` lets the browser fill in a code it received; use `off` for a code read off another screen. Mark it `required`, `disabled` or `aria-invalid="true"` like any input.',
-      selector: ".ui-field > input",
+        'Your input, written directly inside `.ui-field-container` with its `id` set to `for`. Its `maxlength`, from 4 to 8, sets the number of boxes. `autocomplete="one-time-code"` lets the browser fill in a code it received; use `off` for a code read off another screen. Mark it `required`, `disabled` or `aria-invalid="true"` like any input.',
+      selector: ".ui-field-container > input",
     },
     {
       description: "Supporting text displayed below the field.",
@@ -76,7 +76,7 @@ export default {
   },
   slots: [
     {
-      description: "Your `<input>`, which goes in `.ui-field`.",
+      description: "Your `<input>`, which goes in `.ui-field-container`.",
       name: "default",
     },
   ],

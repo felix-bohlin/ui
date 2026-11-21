@@ -59,7 +59,7 @@ const endTextId = () => (hasEndText() ? `${htmlFor}-end-text` : undefined)
     <span v-if="hasStartText()" class="ui-start-text" :id="startTextId()"
       >{{ startText }}<slot name="start-text"></slot
     ></span>
-    <span class="ui-field">
+    <span class="ui-field-container">
       <span v-if="$slots.top" class="ui-top" :id="topId()">
         <slot name="top"></slot>
       </span>

@@ -142,26 +142,26 @@ export default {
     },
     {
       description: "The boxed input area.",
-      selector: ".ui-field",
+      selector: ".ui-field-container",
     },
     {
       description:
         'The decrease button, with `command="--step-down"`. Renders a minus icon by default, or the `svg` in `decrease-icon`. Hidden until the element is defined.',
       props: ["decreaseLabel"],
-      selector: ".ui-field > .ui-start",
+      selector: ".ui-field-container > .ui-start",
       slots: ["decrease-icon"],
     },
     {
       code: '<input type="number">',
       description:
-        'Your `<input type="number">`, written directly inside `.ui-field` between the buttons, with its `id` set to `for`. Give it `min`, `max` and `step`, and bind it, name it and mark it `required`, `disabled` or `aria-invalid="true"` like any input.',
-      selector: ".ui-field > input",
+        'Your `<input type="number">`, written directly inside `.ui-field-container` between the buttons, with its `id` set to `for`. Give it `min`, `max` and `step`, and bind it, name it and mark it `required`, `disabled` or `aria-invalid="true"` like any input.',
+      selector: ".ui-field-container > input",
     },
     {
       description:
         'The increase button, with `command="--step-up"`. Renders a plus icon by default, or the `svg` in `increase-icon`. Hidden until the element is defined.',
       props: ["increaseLabel"],
-      selector: ".ui-field > .ui-end",
+      selector: ".ui-field-container > .ui-end",
       slots: ["increase-icon"],
     },
     {
@@ -179,7 +179,7 @@ export default {
   slots: [
     {
       description:
-        'Your `<input type="number">`, which goes in `.ui-field` between the buttons.',
+        'Your `<input type="number">`, which goes in `.ui-field-container` between the buttons.',
       name: "default",
     },
   ],

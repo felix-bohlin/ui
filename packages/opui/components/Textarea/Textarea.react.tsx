@@ -64,7 +64,7 @@ export default function Textarea({
           {startText}
         </span>
       )}
-      <span className="ui-field">
+      <span className="ui-field-container">
         {top && (
           <span className="ui-top" id={topId}>
             {top}

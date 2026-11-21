@@ -85,7 +85,7 @@ export default function TextField(props: Props) {
           {resolvedStartText()}
         </span>
       )}
-      <span class="ui-field">
+      <span class="ui-field-container">
         {resolvedTop() && (
           <span class="ui-top" id={topId()}>
             {resolvedTop()}

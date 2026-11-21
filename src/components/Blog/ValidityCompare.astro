@@ -71,7 +71,8 @@ const columns = [
       --_helper-text-color: var(--ui-invalid-text);
     }
 
-    &[data-mode="invalid"] :global(.ui-text-field:has(:invalid) .ui-field) {
+    &[data-mode="invalid"]
+      :global(.ui-text-field:has(:invalid) .ui-field-container) {
       border-color: var(--_border-color);
     }
   }

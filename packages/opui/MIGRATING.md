@@ -1286,6 +1286,8 @@ Tabs that don't fit stay on one row and scroll sideways instead of wrapping onto
 
 ## Text field
 
+The box around the input and the `top`, `start`, `end` and `bottom` parts is `.ui-field-container` instead of `.ui-field`. In HTML, rename the class on that wrapper; `Textarea` and `Select` follow the same rename.
+
 `TextField` takes your `<input>` instead of rendering one, and a required `for` (`htmlFor` in React) with the input's `id`, which the types enforce. Move the input's attributes, `type`, `name`, `value`, `placeholder`, `required`, `disabled` and the rest, onto the input, bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts the field shows, in this order: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`. `id` on the component is gone, and attributes that aren't its props go to the root, as in 5.x. Inside a `FieldGroup`, name the input yourself.
 
 ```diff
@@ -1309,7 +1311,7 @@ The root is a `<div>` with a `<label for>` inside, instead of a `<label>` around
 -   <span class="ui-label">Price</span>
 + <div class="ui-text-field">
 +   <label class="ui-label" for="price">Price</label>
-    <span class="ui-field">
+    <span class="ui-field-container">
 -     <input />
 -     <span class="ui-start">€</span>
 +     <span class="ui-start" id="price-start">€</span>

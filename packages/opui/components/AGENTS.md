@@ -351,7 +351,7 @@ Checkbox, Radio and Switch wrap their control in a `<label>` root, which makes t
 
 ### Field Labels
 
-TextField, Textarea, Select, NumberField and OneTimeCode render a `<div>` root with a `<label class="ui-label" for>` inside, and give the control a generated `id` when it has a label. The label alone names the control, so a button can go in `.ui-start` or `.ui-end` without sitting inside a `<label>` or joining the name. Inside `.ui-field` the parts come in the order they're drawn, `.ui-top`, `.ui-start`, the control, `.ui-end` and `.ui-bottom`, so Tab and screen readers reach them in that order without `reading-flow`.
+TextField, Textarea, Select, NumberField and OneTimeCode render a `<div>` root with a `<label class="ui-label" for>` inside, and give the control a generated `id` when it has a label. The label alone names the control, so a button can go in `.ui-start` or `.ui-end` without sitting inside a `<label>` or joining the name. Inside `.ui-field-container` the parts come in the order they're drawn, `.ui-top`, `.ui-start`, the control, `.ui-end` and `.ui-bottom`, so Tab and screen readers reach them in that order without `reading-flow`.
 
 ```astro
 <div
@@ -363,7 +363,7 @@ TextField, Textarea, Select, NumberField and OneTimeCode render a `<div>` root w
   style={style}
 >
   {hasLabel && <label class="ui-label" for={inputId}>{label}</label>}
-  <span class="ui-field">
+  <span class="ui-field-container">
     <input
       {...rest}
       aria-describedby={fieldDescribedBy(

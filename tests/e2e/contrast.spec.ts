@@ -200,7 +200,7 @@ test.describe("forced-colors", () => {
 
   test("a focused field gets an outline", async ({ page }) => {
     await openFixture(page, "html", "text-field")
-    const field = page.locator(".ui-text-field .ui-field").first()
+    const field = page.locator(".ui-text-field .ui-field-container").first()
     await field.locator("input").first().focus()
     expect(await computed(field, "outline-style")).toBe("solid")
     expect(await computed(field, "outline-color")).toBe(

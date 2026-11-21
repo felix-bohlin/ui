@@ -20,7 +20,7 @@
     }
 
     /* Drop zone */
-    & > .ui-content > .ui-field {
+    & > .ui-content > .ui-field-container {
       align-items: center;
       background-color: var(--_field-bg-color);
       border: var(--ui-border-width) dashed var(--_field-border-color);
@@ -91,7 +91,7 @@
       }
     }
 
-    &:state(drag-over) > .ui-content > .ui-field {
+    &:state(drag-over) > .ui-content > .ui-field-container {
       --_field-bg-color: var(
         --ui-selected,
         oklch(
@@ -223,7 +223,7 @@
       align-items: start;
       grid-template-columns: auto minmax(0, 1fr);
 
-      & > .ui-field {
+      & > .ui-field-container {
         block-size: var(--_item-size);
         inline-size: var(--_item-size);
         margin-block: var(--ui-space-1);

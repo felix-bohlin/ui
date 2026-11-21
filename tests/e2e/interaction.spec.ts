@@ -1200,7 +1200,7 @@ interaction(
       .locator(".ui-text-field")
       .filter({ hasText: "Full name" })
     const input = textField.getByRole("textbox")
-    const field = textField.locator(".ui-field")
+    const field = textField.locator(".ui-field-container")
     const border = () => computed(field, "border-block-end-color")
     const invalid = await resolveColor(field, "var(--ui-invalid)")
     const initial = await border()
@@ -2077,7 +2077,7 @@ interaction(
   "a required one-time code only looks invalid once the user leaves it incomplete",
   async ({ page, root }) => {
     const input = root.getByRole("textbox", { name: "Verification code" })
-    const field = root.locator(".ui-field")
+    const field = root.locator(".ui-field-container")
     const cells = () => computed(field, "background-color", "::before")
     const invalid = await resolveColor(field, "var(--ui-invalid)")
 
@@ -3606,7 +3606,7 @@ interaction(
   "file upload highlights a drag that carries files and takes the accepted files of a drop",
   async ({ root }) => {
     const element = root.locator("opui-file-upload")
-    const field = root.locator(".ui-field")
+    const field = root.locator(".ui-field-container")
     const rows = root.locator(".ui-list > li")
 
     await expect(element).toHaveJSProperty("localName", "opui-file-upload")
@@ -3657,7 +3657,7 @@ interaction(
   "file upload under 28rem is one row with the add tile first, and a failed file opens its message",
   async ({ page, root }) => {
     const element = root.locator("opui-file-upload")
-    const field = root.locator(".ui-field")
+    const field = root.locator(".ui-field-container")
     const list = root.locator(".ui-list")
     const first = list.locator("li").first()
     const failed = root.getByRole("button", {

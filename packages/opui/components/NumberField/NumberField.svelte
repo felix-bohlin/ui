@@ -51,7 +51,7 @@
       {@render content(startText)}
     </span>
   {/if}
-  <span class="ui-field">
+  <span class="ui-field-container">
     <span class="ui-start">
       <button
         class="ui-button ui-round"

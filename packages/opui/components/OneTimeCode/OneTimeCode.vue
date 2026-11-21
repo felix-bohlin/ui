@@ -24,7 +24,7 @@ const endTextId = () => (hasEndText() ? `${htmlFor}-end-text` : undefined)
     <label v-if="hasLabel()" class="ui-label" :for="htmlFor"
       >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
     /></label>
-    <span class="ui-field">
+    <span class="ui-field-container">
       <slot></slot>
     </span>
     <span v-if="hasEndText()" class="ui-end-text" :id="endTextId()"

@@ -108,7 +108,9 @@ describe.each(cases)("$name", ({ describedBy, name, props, slots }) => {
     "%s: the field's parts come in the order they're drawn",
     async (framework) => {
       const { all } = await renderField(name, framework, props, slots)
-      const field = all.find((el) => attribute(el, "class") === "ui-field")!
+      const field = all.find(
+        (el) => attribute(el, "class") === "ui-field-container",
+      )!
       const parts = field.childNodes
         .filter((node): node is Element => "tagName" in node)
         .map((el) =>
@@ -214,7 +216,9 @@ describe.each(OWN_CONTROL)(
             ...slots,
           },
         )
-        const field = all.find((el) => attribute(el, "class") === "ui-field")!
+        const field = all.find(
+          (el) => attribute(el, "class") === "ui-field-container",
+        )!
         const shown = field.childNodes
           .filter((node): node is Element => "tagName" in node)
           .map((el) =>

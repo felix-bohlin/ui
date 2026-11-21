@@ -34,7 +34,7 @@ const endTextId = hasEndText ? `${htmlFor}-end-text` : undefined
   {hasLabel && <label class="ui-label" for={htmlFor}
     >{label}<Fragment set:html={labelSlot}
   /></label>}
-  <span class="ui-field">
+  <span class="ui-field-container">
     <slot />
   </span>
   {hasEndText && <span class="ui-end-text" id={endTextId}>

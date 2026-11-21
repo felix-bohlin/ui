@@ -43,7 +43,7 @@ export default function FileUpload(props: Props) {
       {...rest}
     >
       <div class="ui-content">
-        <div class="ui-field">
+        <div class="ui-field-container">
           <label class="ui-label">
             <input
               accept={props.accept}

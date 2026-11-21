@@ -123,36 +123,36 @@ export default {
     },
     {
       description: "The boxed textarea area.",
-      selector: ".ui-field",
+      selector: ".ui-field-container",
     },
     {
       description:
         "Content above the textarea, inside the border, with a divider.",
-      selector: ".ui-field > .ui-top",
+      selector: ".ui-field-container > .ui-top",
       slots: ["top"],
     },
     {
       description:
         "Content at the inline-start of the field, inside the border, centered on the first line. Taller content starts `--_affix-padding-block` below the field's top, or below `.ui-top`.",
-      selector: ".ui-field > .ui-start",
+      selector: ".ui-field-container > .ui-start",
       slots: ["start"],
     },
     {
       code: "<textarea>",
       description:
-        'Your textarea, written directly inside `.ui-field` with its `id` set to `for` and its value as its content. Bind it, name it and mark it `required`, `disabled` or `aria-invalid="true"` like any textarea.',
-      selector: ".ui-field > textarea",
+        'Your textarea, written directly inside `.ui-field-container` with its `id` set to `for` and its value as its content. Bind it, name it and mark it `required`, `disabled` or `aria-invalid="true"` like any textarea.',
+      selector: ".ui-field-container > textarea",
     },
     {
       description:
         "Content at the inline-end of the field, inside the border, centered on the first line. Taller content starts `--_affix-padding-block` below the field's top, or below `.ui-top`.",
-      selector: ".ui-field > .ui-end",
+      selector: ".ui-field-container > .ui-end",
       slots: ["end"],
     },
     {
       description:
         "Content below the textarea, inside the border, with a divider.",
-      selector: ".ui-field > .ui-bottom",
+      selector: ".ui-field-container > .ui-bottom",
       slots: ["bottom"],
     },
     {
@@ -176,7 +176,7 @@ export default {
   },
   slots: [
     {
-      description: "Your `<textarea>`, which goes in `.ui-field`.",
+      description: "Your `<textarea>`, which goes in `.ui-field-container`.",
       name: "default",
     },
   ],

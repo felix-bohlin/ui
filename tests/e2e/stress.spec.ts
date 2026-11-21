@@ -144,7 +144,9 @@ test("content taller than a field's button keeps the button's inset", async ({
   await openFixture(page, "html", "stress/forms")
 
   const affixes = await measureAffixes(
-    page.locator("[data-tall-affixes] .ui-field > :is(.ui-start, .ui-end)"),
+    page.locator(
+      "[data-tall-affixes] .ui-field-container > :is(.ui-start, .ui-end)",
+    ),
   )
   expect(
     affixes.map(({ affix }) => affix.replace(/^TallAffixes > /, "")),
@@ -204,7 +206,7 @@ for (const root of ["ui-text-field", "ui-textarea"]) {
         `<button id="order-before" type="button">Before</button>
         <div class="${root}">
           <label class="ui-label" for="order-control">Order</label>
-          <span class="ui-field">${markup.map((part) => parts[part as keyof typeof parts]).join("")}</span>
+          <span class="ui-field-container">${markup.map((part) => parts[part as keyof typeof parts]).join("")}</span>
         </div>`,
       )
       await page.locator("#order-before").focus()

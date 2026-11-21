@@ -55,7 +55,7 @@
     }
 
     /* Field - the actual input with a border around it */
-    .ui-field {
+    .ui-field-container {
       background-color: var(--_bg-color);
       border: var(--ui-field-border-width) solid var(--_border-color);
       border-end-end-radius: var(--_end-end-radius);
@@ -82,11 +82,11 @@
         border-color var(--_duration) var(--_ease);
     }
 
-    :where(.ui-field) ::placeholder {
+    :where(.ui-field-container) ::placeholder {
       color: var(--ui-field-placeholder-text-color, var(--ui-text-subtle));
     }
 
-    :where(.ui-field) :where(input, textarea, select) {
+    :where(.ui-field-container) :where(input, textarea, select) {
       background: transparent;
       border: 0;
       color: var(--ui-text-strong);
@@ -116,13 +116,13 @@
       }
     }
 
-    :where(.ui-field) :where(input, select:not([multiple], [size])) {
+    :where(.ui-field-container) :where(input, select:not([multiple], [size])) {
       align-self: center;
       block-size: calc(1lh + var(--_field-padding-block-fit) * 2);
     }
 
     /* Affixes - center in --_affix-block-size; a Button keeps --_affix-padding-block */
-    .ui-field > :is(.ui-start, .ui-end) {
+    .ui-field-container > :is(.ui-start, .ui-end) {
       --_affix-button-size: max(
         var(--ui-target-min-size),
         var(--_affix-block-size) - var(--_affix-padding-block) * 2
@@ -149,7 +149,7 @@
       }
     }
 
-    .ui-field > :is(.ui-start, .ui-end):not(:has(> *)) {
+    .ui-field-container > :is(.ui-start, .ui-end):not(:has(> *)) {
       align-self: center;
       display: block;
       overflow: hidden;
@@ -157,7 +157,7 @@
       text-overflow: ellipsis;
     }
 
-    .ui-field > :is(.ui-start, .ui-end):has(> .ui-button) {
+    .ui-field-container > :is(.ui-start, .ui-end):has(> .ui-button) {
       padding-inline: var(--ui-space-1);
 
       & > .ui-button {
@@ -165,12 +165,12 @@
       }
     }
 
-    .ui-field .ui-button[aria-pressed="false"] > .ui-icon-checked,
-    .ui-field .ui-button[aria-pressed="true"] > .ui-icon-unchecked {
+    .ui-field-container .ui-button[aria-pressed="false"] > .ui-icon-checked,
+    .ui-field-container .ui-button[aria-pressed="true"] > .ui-icon-unchecked {
       display: none;
     }
 
-    .ui-field
+    .ui-field-container
       .ui-button[command="--toggle-password"]
       > svg.ui-icon-unchecked:empty {
       background-color: currentColor;
@@ -185,7 +185,7 @@
       }
     }
 
-    .ui-field
+    .ui-field-container
       .ui-button[command="--toggle-password"]
       > svg.ui-icon-checked:empty {
       background-color: currentColor;
@@ -200,19 +200,21 @@
       }
     }
 
-    &:not(:defined) .ui-field .ui-button[command="--toggle-password"] {
+    &:not(:defined)
+      .ui-field-container
+      .ui-button[command="--toggle-password"] {
       display: none;
     }
 
-    .ui-field > .ui-start {
+    .ui-field-container > .ui-start {
       grid-area: start;
     }
 
-    .ui-field > .ui-end {
+    .ui-field-container > .ui-end {
       grid-area: end;
     }
 
-    .ui-field > :is(.ui-top, .ui-bottom) {
+    .ui-field-container > :is(.ui-top, .ui-bottom) {
       align-items: center;
       color: var(--_affix-text-color);
       display: flex;
@@ -222,34 +224,35 @@
       padding-inline: var(--_field-padding-inline);
     }
 
-    .ui-field > .ui-top {
+    .ui-field-container > .ui-top {
       border-block-end: var(--ui-field-border-width) solid var(--_border-color);
       grid-area: top;
     }
 
-    .ui-field > .ui-bottom {
+    .ui-field-container > .ui-bottom {
       border-block-start: var(--ui-field-border-width) solid
         var(--_border-color);
       grid-area: bottom;
     }
 
     /* Remove padding on the input when affixes are next to it */
-    .ui-field:has(> .ui-start) :where(input, textarea, select) {
+    .ui-field-container:has(> .ui-start) :where(input, textarea, select) {
       padding-inline-start: 0;
     }
 
-    .ui-field:has(> .ui-end) :where(input, textarea, select) {
+    .ui-field-container:has(> .ui-end) :where(input, textarea, select) {
       padding-inline-end: 0;
     }
 
     /* The control's first line is the box when it doesn't fill the field */
-    .ui-field:has(> :is(.ui-top, .ui-bottom)) > :is(.ui-start, .ui-end),
-    &.ui-textarea .ui-field > :is(.ui-start, .ui-end) {
+    .ui-field-container:has(> :is(.ui-top, .ui-bottom))
+      > :is(.ui-start, .ui-end),
+    &.ui-textarea .ui-field-container > :is(.ui-start, .ui-end) {
       --_affix-block-size: calc(1lh + var(--_field-padding-block-fit) * 2);
     }
 
     /* Textarea - keep affix aligned with the first line, and taller content off the border */
-    &.ui-textarea .ui-field {
+    &.ui-textarea .ui-field-container {
       & > :is(.ui-start, .ui-end) {
         align-self: start;
         min-block-size: var(--_affix-block-size);
@@ -324,7 +327,7 @@
 
       /* Drop zone */
       &.ui-drop-zone {
-        .ui-field {
+        .ui-field-container {
           border-style: dashed;
         }
 
@@ -371,7 +374,7 @@
 
     /* Input - color */
     &:has(input[type="color"]) {
-      .ui-field {
+      .ui-field-container {
         block-size: var(--_size);
         inline-size: var(--_size);
         min-block-size: 0;
@@ -407,21 +410,21 @@
             :is(input, select, textarea):is(:disabled, [aria-disabled="true"])
           )
         ) {
-        .ui-field {
+        .ui-field-container {
           border-color: var(--ui-text-strong);
         }
       }
     }
 
-    &:has(.ui-field > :is(input, select, textarea):focus-within):not(
+    &:has(.ui-field-container > :is(input, select, textarea):focus-within):not(
         :has(:focus-visible)
       ) {
-      .ui-field {
+      .ui-field-container {
         border-color: var(--_accent);
       }
     }
 
-    .ui-field:has(> :is(input, select, textarea):focus-within):has(
+    .ui-field-container:has(> :is(input, select, textarea):focus-within):has(
         :focus-visible
       ) {
       animation: ui-focus-ring var(--_duration) var(--_ease);
@@ -463,11 +466,12 @@
     }
 
     @media (forced-colors: active) {
-      &:has(.ui-field > :is(input, select, textarea):focus-within) .ui-field {
+      &:has(.ui-field-container > :is(input, select, textarea):focus-within)
+        .ui-field-container {
         outline: var(--ui-focus-ring-width) solid Highlight;
       }
 
-      &:has([aria-invalid="true"], :user-invalid) .ui-field {
+      &:has([aria-invalid="true"], :user-invalid) .ui-field-container {
         border-style: dashed;
       }
     }
@@ -493,7 +497,7 @@
     }
 
     &:not(.ui-spread):has(> .ui-start-text) {
-      .ui-field {
+      .ui-field-container {
         grid-row: 3;
       }
 
@@ -536,7 +540,7 @@
         contain: inline-size;
       }
 
-      .ui-field {
+      .ui-field-container {
         inline-size: auto;
       }
 
@@ -585,7 +589,7 @@
       -webkit-user-select: none;
       user-select: none;
 
-      .ui-field {
+      .ui-field-container {
         cursor: not-allowed;
       }
 
@@ -668,7 +672,7 @@
         grid-row: 2;
       }
 
-      .ui-field {
+      .ui-field-container {
         align-self: start;
         grid-column: 2;
         grid-row: 1 / span 3;
@@ -687,28 +691,28 @@
       @container (inline-size < 25rem) {
         .ui-label,
         .ui-start-text,
-        .ui-field,
+        .ui-field-container,
         :where(.ui-end-text) {
           grid-column: 1 / -1;
         }
 
-        .ui-field {
+        .ui-field-container {
           grid-row: 2;
         }
 
         :where(.ui-end-text),
-        .ui-field + .ui-end-text {
+        .ui-field-container + .ui-end-text {
           grid-row: 3;
           text-align: start;
         }
 
         &:has(> .ui-start-text) {
-          .ui-field {
+          .ui-field-container {
             grid-row: 3;
           }
 
           :where(.ui-end-text),
-          .ui-field + .ui-end-text {
+          .ui-field-container + .ui-end-text {
             grid-row: 4;
           }
         }
@@ -718,7 +722,7 @@
 
   /* Autosuggest */
   :where(.ui-text-field:has(input[list])) {
-    .ui-field {
+    .ui-field-container {
       position: relative;
     }
 
@@ -734,7 +738,7 @@
       padding-inline-end: var(--_arrow-padding);
     }
 
-    .ui-field::after {
+    .ui-field-container::after {
       inset-block: 0;
       inset-inline: auto var(--_arrow-inset);
       margin-block: auto;
@@ -743,7 +747,7 @@
   }
 
   :where(.ui-select:has(select):not(:has(button)))::after,
-  :where(.ui-text-field:has(input[list])) .ui-field::after {
+  :where(.ui-text-field:has(input[list])) .ui-field-container::after {
     background-color: var(--ui-text-strong);
     block-size: var(--_chevron-size);
     content: "";

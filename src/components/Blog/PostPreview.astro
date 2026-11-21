@@ -148,7 +148,7 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
     <legend>Contact</legend>
     <div class="ui-text-field ui-small">
       <label class="ui-label" for={id("email")}>Email</label>
-      <span class="ui-field">
+      <span class="ui-field-container">
         <input id={id("email")} required type="email" value="hi@opui.dev" />
       </span>
     </div>
@@ -200,7 +200,7 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
   </label>}
   {slug === "select-base-select" && <div class="ui-select">
     <label class="ui-label" for={id("role")}>Role</label>
-    <span class="ui-field">
+    <span class="ui-field-container">
       <select id={id("role")}>
         <button inert>
           <selectedcontent />
@@ -265,7 +265,7 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
   </div>}
   {slug === "text-field-user-invalid" && <div class="ui-text-field">
     <label class="ui-label" for={id("email-invalid")}>Email</label>
-    <span class="ui-field">
+    <span class="ui-field-container">
       <input
         aria-describedby={id("email-invalid-hint")}
         aria-invalid="true"
@@ -280,7 +280,7 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
   </div>}
   {slug === "textarea-field-sizing" && <div class="ui-textarea">
     <label class="ui-label" for={id("message")}>Message</label>
-    <span class="ui-field">
+    <span class="ui-field-container">
       <textarea
         id={id("message")}
         rows="2"

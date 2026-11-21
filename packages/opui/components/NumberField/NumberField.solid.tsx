@@ -63,7 +63,7 @@ export default function NumberField(props: Props) {
           {resolvedStartText()}
         </span>
       )}
-      <span class="ui-field">
+      <span class="ui-field-container">
         <span class="ui-start">
           <button
             class="ui-button ui-round"

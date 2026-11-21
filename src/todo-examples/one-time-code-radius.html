@@ -36,7 +36,7 @@
       --_box-border-width: calc(var(--ui-field-border-width) * 2);
     }
 
-    .ui-field::before {
+    .ui-field-container::before {
       mask:
         linear-gradient(
             to right,
@@ -125,7 +125,7 @@
           0 0 / var(--_cell-size) 100% repeat-x;
     }
 
-    &:focus-within .ui-field::after {
+    &:focus-within .ui-field-container::after {
       background-color: oklch(from var(--_accent) l c h / 12%);
       border: calc(var(--ui-field-border-width) * 2) solid var(--_accent);
       border-radius: var(--_box-radius);
@@ -161,7 +161,7 @@
     <div class="todo-otc-row todo-otc-m3">
       <label class="ui-one-time-code">
         <span class="ui-label">m3 field radius</span>
-        <span class="ui-field">
+        <span class="ui-field-container">
           <input
             autocomplete="one-time-code"
             inputmode="numeric"
@@ -173,13 +173,15 @@
       </label>
       <label class="ui-text-field">
         <span class="ui-label">Field</span>
-        <span class="ui-field"><input type="text" value="Ada" /></span>
+        <span class="ui-field-container"
+          ><input type="text" value="Ada"
+        /></span>
       </label>
     </div>
     <div class="todo-otc-row todo-otc-brutalist">
       <label class="ui-one-time-code">
         <span class="ui-label">Brutalist</span>
-        <span class="ui-field">
+        <span class="ui-field-container">
           <input
             autocomplete="one-time-code"
             inputmode="numeric"
@@ -191,13 +193,15 @@
       </label>
       <label class="ui-text-field">
         <span class="ui-label">Field</span>
-        <span class="ui-field"><input type="text" value="Ada" /></span>
+        <span class="ui-field-container"
+          ><input type="text" value="Ada"
+        /></span>
       </label>
     </div>
     <div class="todo-otc-row todo-otc-round">
       <label class="ui-one-time-code">
         <span class="ui-label">16px field radius</span>
-        <span class="ui-field">
+        <span class="ui-field-container">
           <input
             autocomplete="one-time-code"
             inputmode="numeric"
@@ -209,7 +213,9 @@
       </label>
       <label class="ui-text-field">
         <span class="ui-label">Field</span>
-        <span class="ui-field"><input type="text" value="Ada" /></span>
+        <span class="ui-field-container"
+          ><input type="text" value="Ada"
+        /></span>
       </label>
     </div>
   </section>
@@ -218,7 +224,7 @@
     <div class="todo-otc-row todo-otc-m3">
       <label class="ui-one-time-code">
         <span class="ui-label">m3 field radius</span>
-        <span class="ui-field">
+        <span class="ui-field-container">
           <input
             autocomplete="one-time-code"
             inputmode="numeric"
@@ -230,13 +236,15 @@
       </label>
       <label class="ui-text-field">
         <span class="ui-label">Field</span>
-        <span class="ui-field"><input type="text" value="Ada" /></span>
+        <span class="ui-field-container"
+          ><input type="text" value="Ada"
+        /></span>
       </label>
     </div>
     <div class="todo-otc-row todo-otc-brutalist">
       <label class="ui-one-time-code">
         <span class="ui-label">Brutalist</span>
-        <span class="ui-field">
+        <span class="ui-field-container">
           <input
             autocomplete="one-time-code"
             inputmode="numeric"
@@ -248,13 +256,15 @@
       </label>
       <label class="ui-text-field">
         <span class="ui-label">Field</span>
-        <span class="ui-field"><input type="text" value="Ada" /></span>
+        <span class="ui-field-container"
+          ><input type="text" value="Ada"
+        /></span>
       </label>
     </div>
     <div class="todo-otc-row todo-otc-round">
       <label class="ui-one-time-code">
         <span class="ui-label">16px field radius</span>
-        <span class="ui-field">
+        <span class="ui-field-container">
           <input
             autocomplete="one-time-code"
             inputmode="numeric"
@@ -266,7 +276,9 @@
       </label>
       <label class="ui-text-field">
         <span class="ui-label">Field</span>
-        <span class="ui-field"><input type="text" value="Ada" /></span>
+        <span class="ui-field-container"
+          ><input type="text" value="Ada"
+        /></span>
       </label>
     </div>
   </section>

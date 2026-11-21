@@ -30,7 +30,7 @@ export default function OneTimeCode({
           {label}
         </label>
       )}
-      <span className="ui-field">{children}</span>
+      <span className="ui-field-container">{children}</span>
       {hasEndText && (
         <span className="ui-end-text" id={endTextId}>
           {endText}

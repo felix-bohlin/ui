@@ -114,7 +114,7 @@ const field = inject(FieldGroupKey, undefined)
       {{ startText }}<slot name="start-text"></slot>
     </span>
 
-    <span class="ui-field">
+    <span class="ui-field-container">
       <span class="ui-top" :id="topId" v-if="$slots.top"
         ><slot name="top"></slot
       ></span>

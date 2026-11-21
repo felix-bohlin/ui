@@ -43,7 +43,7 @@ export default function FileUpload({
       {...rest}
     >
       <div className="ui-content">
-        <div className="ui-field">
+        <div className="ui-field-container">
           <label className="ui-label">
             <input
               accept={accept}

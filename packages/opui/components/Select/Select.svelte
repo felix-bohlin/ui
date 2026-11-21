@@ -91,7 +91,7 @@
       {@render content(startText)}
     </span>
   {/if}
-  <span class="ui-field">
+  <span class="ui-field-container">
     {#if top}
       <span class="ui-top" id={topId}>{@render content(top)}</span>
     {/if}

@@ -193,7 +193,7 @@ const ELEMENTS: Scenario[] = [
     file: "character-count.js",
     markup: `<label class="ui-text-field">
       <span class="ui-label">Username</span>
-      <span class="ui-field"><input maxlength="12" value="ab" type="text" /></span>
+      <span class="ui-field-container"><input maxlength="12" value="ab" type="text" /></span>
       <span class="ui-end-text">
         <opui-character-count aria-hidden="true" class="ui-value" label="{count} left"></opui-character-count>
       </span>
@@ -272,7 +272,7 @@ const ELEMENTS: Scenario[] = [
     file: "file-upload.js",
     markup: `<opui-file-upload class="ui-file-upload">
       <div class="ui-content">
-        <div class="ui-field">
+        <div class="ui-field-container">
           <label class="ui-label">
             <input accept=".png" class="ui-sr-only" id="photos" multiple type="file" />
             <span class="ui-button">Choose photos</span>
@@ -338,7 +338,7 @@ const ELEMENTS: Scenario[] = [
     file: "number-field.js",
     markup: `<opui-number-field class="ui-number-field">
       <label class="ui-label" for="quantity">Quantity</label>
-      <span class="ui-field">
+      <span class="ui-field-container">
         <span class="ui-start"><button class="ui-button" type="button" aria-label="Decrease" command="--step-down" commandfor="quantity">-</button></span>
         <input max="3" min="1" value="1" id="quantity" type="number" />
         <span class="ui-end"><button class="ui-button" type="button" aria-label="Increase" command="--step-up" commandfor="quantity">+</button></span>
@@ -541,7 +541,7 @@ const ELEMENTS: Scenario[] = [
     markup: `<form><fieldset>
       <opui-text-field class="ui-text-field">
         <label class="ui-label" for="password">Password</label>
-        <span class="ui-field">
+        <span class="ui-field-container">
           <input id="password" type="password" value="hunter2" />
           <span class="ui-end"><button class="ui-button" type="button" aria-label="Show password" aria-pressed="false" command="--toggle-password" commandfor="password">o</button></span>
         </span>

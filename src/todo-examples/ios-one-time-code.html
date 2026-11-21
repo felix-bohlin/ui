@@ -1,6 +1,6 @@
 <style>
   .todo-ios-otc-off {
-    .ui-field input {
+    .ui-field-container input {
       field-sizing: content;
       inline-size: auto;
       margin-inline-end: calc(
@@ -9,11 +9,11 @@
       padding-inline-end: calc(var(--_length) * var(--_cell-size));
     }
 
-    .ui-field input:required:valid {
+    .ui-field-container input:required:valid {
       caret-color: var(--_accent);
     }
 
-    &:focus-within .ui-field::after {
+    &:focus-within .ui-field-container::after {
       content: "";
     }
   }
@@ -32,7 +32,7 @@
     <p class="todo-label">Today: with the iOS block</p>
     <label class="ui-one-time-code">
       <span class="ui-label">Verification code</span>
-      <span class="ui-field">
+      <span class="ui-field-container">
         <input
           autocomplete="one-time-code"
           inputmode="numeric"
@@ -49,7 +49,7 @@
     <p class="todo-label">Without the iOS block</p>
     <label class="ui-one-time-code todo-ios-otc-off">
       <span class="ui-label">Verification code</span>
-      <span class="ui-field">
+      <span class="ui-field-container">
         <input
           autocomplete="one-time-code"
           inputmode="numeric"

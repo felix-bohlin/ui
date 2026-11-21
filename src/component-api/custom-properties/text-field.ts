@@ -3,7 +3,7 @@ import type { CustomProperties } from "../types"
 export default {
   "--_accent": {
     description:
-      "Border color of `.ui-field` when its control has focus without `:focus-visible`, such as a clicked file or color input or a Select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.",
+      "Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a Select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.",
     kind: "input",
   },
   "--_affix-block-size": {
@@ -37,12 +37,12 @@ export default {
   },
   "--_bg-color": {
     description:
-      "The current background of `.ui-field`. `--ui-field-bg-color`, or `--ui-surface` when a theme leaves it unset. Set by `.ui-filled` and its hover state.",
+      "The current background of `.ui-field-container`. `--ui-field-bg-color`, or `--ui-surface` when a theme leaves it unset. Set by `.ui-filled` and its hover state.",
     kind: "output",
   },
   "--_border-color": {
     description:
-      "The current border color of `.ui-field` and the `.ui-top` and `.ui-bottom` dividers. Set by the invalid state.",
+      "The current border color of `.ui-field-container` and the `.ui-top` and `.ui-bottom` dividers. Set by the invalid state.",
     kind: "output",
   },
   "--_chevron-image": {
@@ -64,12 +64,12 @@ export default {
   },
   "--_end-end-radius": {
     description:
-      "The radius of the end-end corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the next control.",
+      "The radius of the end-end corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the next control.",
     kind: "input",
   },
   "--_end-start-radius": {
     description:
-      "The radius of the end-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.",
+      "The radius of the end-start corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.",
     kind: "input",
   },
   "--_field-padding-block": {
@@ -118,27 +118,27 @@ export default {
   },
   "--_radius": {
     description:
-      "The corner radius of `.ui-field` and a file input's button. Defaults to `--ui-field-radius`, or `--ui-radius` when the theme doesn't set it.",
+      "The corner radius of `.ui-field-container` and a file input's button. Defaults to `--ui-field-radius`, or `--ui-radius` when the theme doesn't set it.",
     kind: "input",
   },
   "--_shadow": {
     description:
-      "The shadow of `.ui-field`. Defaults to `--ui-field-shadow`, or `--ui-shadow-control` when the theme leaves it unset. `none` in a `ControlGroup`.",
+      "The shadow of `.ui-field-container`. Defaults to `--ui-field-shadow`, or `--ui-shadow-control` when the theme leaves it unset. `none` in a `ControlGroup`.",
     kind: "input",
   },
   "--_size": {
     description:
-      "The height of `.ui-field`, a minimum so a textarea can grow, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.",
+      "The height of `.ui-field-container`, a minimum so a textarea can grow, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.",
     kind: "input",
   },
   "--_start-end-radius": {
     description:
-      "The radius of the start-end corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.",
+      "The radius of the start-end corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.",
     kind: "input",
   },
   "--_start-start-radius": {
     description:
-      "The radius of the start-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the control before it.",
+      "The radius of the start-start corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the control before it.",
     kind: "input",
   },
 } satisfies CustomProperties

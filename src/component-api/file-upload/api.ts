@@ -58,7 +58,7 @@ export default {
   ],
   notes: {
     ...element,
-    html: 'Import `opui-css/elements/file-upload.js`, and render the rows yourself from the `select` and `remove` events: one `<li>` per file in a `<ul class="ui-list">` after the `.ui-field`, with the preview in `.ui-start`, the name, a `.ui-progress` and the message in `.ui-text`, and the remove button in `.ui-end` with `command="--remove"`, `commandfor` set to the input\'s id and the file\'s id as its `value`. A failed file\'s message has `popover` and an `id`, and a `<button type="button" popovertarget>` in `.ui-start` opens it in the compact row.',
+    html: 'Import `opui-css/elements/file-upload.js`, and render the rows yourself from the `select` and `remove` events: one `<li>` per file in a `<ul class="ui-list">` after the `.ui-field-container`, with the preview in `.ui-start`, the name, a `.ui-progress` and the message in `.ui-text`, and the remove button in `.ui-end` with `command="--remove"`, `commandfor` set to the input\'s id and the file\'s id as its `value`. A failed file\'s message has `popover` and an `id`, and a `<button type="button" popovertarget>` in `.ui-start` opens it in the compact row.',
   },
   options: [
     {
@@ -174,16 +174,16 @@ export default {
       selector: ".ui-content",
     },
     {
-      code: '<div class="ui-field">',
+      code: '<div class="ui-field-container">',
       description:
         "The drop zone, dashed, and solid while files are dragged over the root. In the compact row it is a square add tile.",
-      selector: ".ui-content > .ui-field",
+      selector: ".ui-content > .ui-field-container",
     },
     {
       code: '<label class="ui-label">',
       description:
         "Names the file input and covers the drop zone, so a click anywhere in it opens the picker. Its plus `<svg>` shows in the compact row.",
-      selector: ".ui-field > .ui-label",
+      selector: ".ui-field-container > .ui-label",
     },
     {
       code: '<input class="ui-sr-only" type="file">',
@@ -203,7 +203,7 @@ export default {
       code: '<span class="ui-description">',
       description: "The hint, linked to the input with `aria-describedby`.",
       props: ["description"],
-      selector: ".ui-field > .ui-description",
+      selector: ".ui-field-container > .ui-description",
     },
     {
       code: '<ul class="ui-list">',

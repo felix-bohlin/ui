@@ -41,13 +41,17 @@ export const wiringProblems = (html: string) =>
   descendants(parseFragment(html) as unknown as Node)
     .filter((element) => ROOTS.some((root) => hasClass(element, root)))
     .flatMap((root) => {
-      const field = children(root).find((child) => hasClass(child, "ui-field"))
+      const field = children(root).find((child) =>
+        hasClass(child, "ui-field-container"),
+      )
       const input =
         field &&
         children(field).find((child) => CONTROLS.includes(child.tagName))
       const id = attribute(input, "id")
       if (!input || !id) {
-        return ["no <input> or <textarea> with an id directly in .ui-field"]
+        return [
+          "no <input> or <textarea> with an id directly in .ui-field-container",
+        ]
       }
       const problems: string[] = []
       const label = children(root).find((child) => child.tagName === "label")
@@ -103,7 +107,7 @@ describe("every field in the HTML examples and blocks points at the control you 
   test("a sample the check must flag: a part the input doesn't point at, a wrong part id and a label pointing elsewhere", () => {
     expect(
       wiringProblems(
-        '<div class="ui-text-field"><label class="ui-label" for="y">Name</label><span class="ui-field"><input id="x" aria-describedby="x-end-text"><span class="ui-end" id="z">kg</span></span><span class="ui-start-text" id="x-start-text">Hint</span><span class="ui-end-text" id="x-end-text">Error</span></div>',
+        '<div class="ui-text-field"><label class="ui-label" for="y">Name</label><span class="ui-field-container"><input id="x" aria-describedby="x-end-text"><span class="ui-end" id="z">kg</span></span><span class="ui-start-text" id="x-start-text">Hint</span><span class="ui-end-text" id="x-end-text">Error</span></div>',
       ),
     ).toEqual([
       "the label points at y, not x",
@@ -115,15 +119,17 @@ describe("every field in the HTML examples and blocks points at the control you 
   test("a sample the check must flag: no input in the field", () => {
     expect(
       wiringProblems(
-        '<div class="ui-text-field"><span class="ui-field"><span><input id="x"></span></span></div>',
+        '<div class="ui-text-field"><span class="ui-field-container"><span><input id="x"></span></span></div>',
       ),
-    ).toEqual(["no <input> or <textarea> with an id directly in .ui-field"])
+    ).toEqual([
+      "no <input> or <textarea> with an id directly in .ui-field-container",
+    ])
   })
 
   test("step buttons need no start or end id", () => {
     expect(
       wiringProblems(
-        '<opui-number-field class="ui-number-field"><label class="ui-label" for="x">Quantity</label><span class="ui-field"><span class="ui-start"><button command="--step-down" commandfor="x"></button></span><input id="x" type="number"><span class="ui-end"><button command="--step-up" commandfor="x"></button></span></span></opui-number-field>',
+        '<opui-number-field class="ui-number-field"><label class="ui-label" for="x">Quantity</label><span class="ui-field-container"><span class="ui-start"><button command="--step-down" commandfor="x"></button></span><input id="x" type="number"><span class="ui-end"><button command="--step-up" commandfor="x"></button></span></span></opui-number-field>',
       ),
     ).toEqual([])
   })
@@ -131,7 +137,7 @@ describe("every field in the HTML examples and blocks points at the control you 
   test("a password toggle alone needs no end id", () => {
     expect(
       wiringProblems(
-        '<opui-text-field class="ui-text-field"><label class="ui-label" for="x">Password</label><span class="ui-field"><input id="x" type="password"><span class="ui-end"><button command="--toggle-password" commandfor="x"></button></span></span></opui-text-field>',
+        '<opui-text-field class="ui-text-field"><label class="ui-label" for="x">Password</label><span class="ui-field-container"><input id="x" type="password"><span class="ui-end"><button command="--toggle-password" commandfor="x"></button></span></span></opui-text-field>',
       ),
     ).toEqual([])
   })

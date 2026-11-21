@@ -5,4 +5,4 @@
 -<opui-file-upload class="ui-file-upload" lang="sv">
 +<opui-file-upload class="ui-file-upload" data-hydrating lang="sv">
    <div class="ui-content">
-     <div class="ui-field">
+     <div class="ui-field-container">

@@ -34,7 +34,7 @@ export default function OneTimeCode(props: Props) {
           {resolvedLabel()}
         </label>
       )}
-      <span class="ui-field">{props.children}</span>
+      <span class="ui-field-container">{props.children}</span>
       {hasEndText() && (
         <span class="ui-end-text" id={endTextId()}>
           {resolvedEndText()}

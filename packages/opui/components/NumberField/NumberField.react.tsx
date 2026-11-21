@@ -55,7 +55,7 @@ export default function NumberField({
           {startText}
         </span>
       )}
-      <span className="ui-field">
+      <span className="ui-field-container">
         <span className="ui-start">
           <button
             className="ui-button ui-round"

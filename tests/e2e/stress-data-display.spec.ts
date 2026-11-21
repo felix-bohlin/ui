@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test"
 import { THEMES, contrast, layerContrast, openFixture } from "./fixtures"
 
-const CONTROLS = ".ui-button, .ui-checkbox, .ui-field, .ui-switch"
+const CONTROLS = ".ui-button, .ui-checkbox, .ui-field-container, .ui-switch"
 
 test("inline editing controls fit their table row", async ({ page }) => {
   await openFixture(page, "html", "stress/data-display")

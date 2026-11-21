@@ -34,7 +34,7 @@
       {@render content(label)}
     </label>
   {/if}
-  <span class="ui-field">
+  <span class="ui-field-container">
     {@render children?.()}
   </span>
   {#if hasEndText}

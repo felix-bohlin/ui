@@ -60,7 +60,7 @@ const endTextId = hasEndText ? `${htmlFor}-end-text` : undefined
     {startText}
     <slot name="start-text" />
   </span>}
-  <span class="ui-field">
+  <span class="ui-field-container">
     {Astro.slots.has("top") && <span class="ui-top" id={topId}>
       <slot name="top" />
     </span>}

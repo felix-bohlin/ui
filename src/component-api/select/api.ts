@@ -167,18 +167,18 @@ export default {
     },
     {
       description: "The boxed select area.",
-      selector: ".ui-field",
+      selector: ".ui-field-container",
     },
     {
       description:
         "Content above the select, inside the border, with a divider.",
-      selector: ".ui-field > .ui-top",
+      selector: ".ui-field-container > .ui-top",
       slots: ["top"],
     },
     {
       description:
         "Content at the inline-start of the field, inside the border.",
-      selector: ".ui-field > .ui-start",
+      selector: ".ui-field-container > .ui-start",
       slots: ["start"],
     },
     {
@@ -189,13 +189,13 @@ export default {
     },
     {
       description: "Content at the inline-end of the field, inside the border.",
-      selector: ".ui-field > .ui-end",
+      selector: ".ui-field-container > .ui-end",
       slots: ["end"],
     },
     {
       description:
         "Content below the select, inside the border, with a divider.",
-      selector: ".ui-field > .ui-bottom",
+      selector: ".ui-field-container > .ui-bottom",
       slots: ["bottom"],
     },
     {

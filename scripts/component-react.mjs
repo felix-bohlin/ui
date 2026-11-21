@@ -186,6 +186,7 @@ export const toReact = (component) => {
   )
   if (clash) {
     throw unsupported(
+      "BC301",
       component.file,
       `the name \`${clash}\`, which the React port also declares for its events`,
       "rename the prop or const in the Astro file",
@@ -442,6 +443,7 @@ export const toReact = (component) => {
       imports.some((line) => /\bContext\b/.test(line))
     ) {
       throw unsupported(
+        "BC301",
         component.file,
         "the name `Context`, which the React port imports for the type of its provided value",
         "rename the prop, const or import in the Astro file",
@@ -450,6 +452,7 @@ export const toReact = (component) => {
     const dependencies = dependenciesOf(contextCode, locals)
     if (dependencies.includes(rest)) {
       throw unsupported(
+        "BC405",
         component.file,
         `\`${rest}\` itself in the provided context value, an object that is new on every render, so the memo of the React port would never hold`,
         `read a member of it (\`${rest}.id\`) or destructure the attribute in the Astro file`,
@@ -463,6 +466,7 @@ export const toReact = (component) => {
     )
     if (unstable) {
       throw unsupported(
+        "BC405",
         component.file,
         `the const \`${unstable.name}\` in the provided context value, a function, an object or an array that is new on every render, itself or through a condition or another const, so the memo of the React port would never hold`,
         "provide the primitive values it is built from in the Astro file",

@@ -69,6 +69,7 @@ export const toSvelte = (component) => {
   const reserved = derived.find(({ name }) => name.startsWith("$"))
   if (reserved) {
     throw unsupported(
+      "BC302",
       component.file,
       `the const \`${reserved.name}\`, whose \`$\` prefix Svelte reserves`,
       "rename the const in the Astro file",
@@ -95,6 +96,7 @@ export const toSvelte = (component) => {
   const clash = added.find(({ local }) => taken.has(local))
   if (clash) {
     throw unsupported(
+      "BC301",
       component.file,
       `the name \`${clash.local}\`, which the Svelte port also declares as a prop`,
       "rename the import or const in the Astro file",

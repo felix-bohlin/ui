@@ -397,6 +397,7 @@ export const eventRoots = (component) => {
     rootElements.some((node) => node.component)
   ) {
     throw unsupported(
+      "BC404",
       component.file,
       `the event ${events[0]} on a component whose root isn't one element`,
       "render one root element, the one that fires the event, or drop the Events type from types.ts",

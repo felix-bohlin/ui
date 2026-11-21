@@ -296,6 +296,7 @@ export const emitsTypeOf = (name) =>
 const eventNames = (alias, file) => {
   if (!ts.isTypeLiteralNode(alias.type)) {
     throw unsupported(
+      "BC603",
       file,
       `the type ${alias.name.text}, which isn't an object type`,
       "list each event the root element fires with the type of its event object: `{ dismiss: Event }`",
@@ -310,6 +311,7 @@ const eventNames = (alias, file) => {
       !/^[a-z]+$/.test(name)
     ) {
       throw unsupported(
+        "BC603",
         file,
         `the event ${name || member.getText()} in ${alias.name.text}`,
         "name each event the root element fires in lowercase letters, with the type of its event object: `dismiss: Event`",
@@ -352,7 +354,7 @@ export const toTypes = (
       statement.importClause.namedBindings.name.text === "Base",
   )
   if (!baseImport) {
-    throw unsupported(file, "a types.astro.ts without the Base import")
+    throw unsupported("BC601", file, "a types.astro.ts without the Base import")
   }
   const elementImport = source.statements.find(
     (statement) =>
@@ -381,6 +383,7 @@ export const toTypes = (
     )
     if (parameter && parameter.default?.kind !== ts.SyntaxKind.NeverKeyword) {
       throw unsupported(
+        "BC607",
         `packages/opui/components/${folder}/types.ts`,
         `the type parameter Link of ${alias.name.text} without the default never`,
         "write `Link = never`: Astro and Svelte take element names only, and React, Solid and Vue pass their link component type",
@@ -407,7 +410,7 @@ export const toTypes = (
   const aliases = typeAliases(source)
   for (const alias of aliases) {
     if (!hasElement(alias.node.type)) {
-      throw unsupported(file, `the type ${alias.name}`)
+      throw unsupported("BC602", file, `the type ${alias.name}`)
     }
   }
   const propsAliases = aliases.filter(({ name }) => name.endsWith("Props"))
@@ -420,6 +423,7 @@ export const toTypes = (
   for (const eventsName of eventTypes.keys()) {
     if (!propsAliases.some(({ name }) => eventsTypeOf(name) === eventsName)) {
       throw unsupported(
+        "BC603",
         baseFileName,
         `the type ${eventsName}, which names no props type in types.astro.ts`,
         "name it after the props it belongs to: Events for Props, <Root><Part>Events for <Root><Part>Props",
@@ -444,6 +448,7 @@ export const toTypes = (
     const slotKeys = slotKeysOf(slotsAlias).map((member) => member.name)
     if (slotKeys.length === 0) {
       throw unsupported(
+        "BC604",
         file,
         `the type ${slotsTypeOf(name)}, which names no slot`,
       )
@@ -458,6 +463,7 @@ export const toTypes = (
       )
     if (overlap.length > 0) {
       throw unsupported(
+        "BC604",
         file,
         `a prop and a slot both named ${overlap.join(", ")}`,
       )
@@ -469,6 +475,7 @@ export const toTypes = (
       .filter((key) => !astroSlots.some((slot) => slotProp(slot) === key))
     if (pureSlots.some((key) => /[A-Z]/.test(key))) {
       throw unsupported(
+        "BC604",
         file,
         `the slot ${pureSlots.find((key) => /[A-Z]/.test(key))}, whose Vue name is kebab-case`,
       )
@@ -611,6 +618,7 @@ export const toTypes = (
           if (takesLink(node)) {
             if (tied.length > 0) {
               throw unsupported(
+                "BC607",
                 file,
                 `the type ${name}, whose as takes a link component next to a model`,
               )
@@ -639,6 +647,7 @@ export const toTypes = (
       collect(type)
       if (events.length > 0 && baseParts.length === 0) {
         throw unsupported(
+          "BC603",
           file,
           `the type ${name}, which has ${eventsTypeOf(name)} but no Base.${name} to join them to`,
           `start it with Base.${name} &`,
@@ -719,6 +728,7 @@ export const toTypes = (
     )
     if (uncovered.length > 0) {
       throw unsupported(
+        "BC604",
         file,
         `the slot ${uncovered[0]} of ${component}, which types.ts has no Slots type for`,
       )
@@ -840,6 +850,7 @@ export const toTypes = (
         continue
       }
       throw unsupported(
+        "BC602",
         file,
         `the type ${alias.name}, whose part ${part.getText()} has no Vue form`,
       )
@@ -884,6 +895,7 @@ export const toTypes = (
       elements.length === 0
     ) {
       throw unsupported(
+        "BC605",
         file,
         `the prop ${extras[0]} of ${component}, which the Vue types can't take from no element`,
       )

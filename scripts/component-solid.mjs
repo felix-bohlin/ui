@@ -182,6 +182,7 @@ export const toSolid = (component) => {
   const kind = MODEL_KINDS[model?.kind]?.solid
   if (model?.kind && !kind) {
     throw unsupported(
+      "BC402",
       component.file,
       `the ${model.kind} model in Solid`,
       "add a solid entry to MODEL_KINDS in scripts/component-models.mjs",
@@ -258,6 +259,7 @@ export const toSolid = (component) => {
   const local = (kind?.locals?.(model) ?? []).find((name) => taken.has(name))
   if (local) {
     throw unsupported(
+      "BC301",
       component.file,
       `the name \`${local}\`, which the Solid port also declares for its ${model.prop} model`,
       "rename the prop or const in the Astro file",
@@ -273,6 +275,7 @@ export const toSolid = (component) => {
     )
     if (clash) {
       throw unsupported(
+        "BC301",
         component.file,
         `the name ${clash[1]}`,
         `rename it: the Solid port reads ${clash[0]}() once into ${clash[1]} where ${name} reads it twice`,
@@ -549,6 +552,7 @@ export const toSolid = (component) => {
       : freeName(scope, ["row", "content", "rendered"], declared)
     if (!narrows && !binding) {
       throw unsupported(
+        "BC203",
         component.file,
         `the loop item \`${node.item}\`, which Solid reads through an accessor`,
         "take the item as one name, or as an object pattern of plain names",
@@ -792,6 +796,7 @@ export const toSolid = (component) => {
     )
     if (read) {
       throw unsupported(
+        "BC403",
         component.file,
         `a context value that reads ${read}, which reads a slot the Solid port resolves under the provider`,
         "provide a value that reads no slot",

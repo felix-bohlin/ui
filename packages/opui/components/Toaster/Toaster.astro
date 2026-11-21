@@ -1,0 +1,43 @@
+---
+import type { Props } from "./types.astro"
+// A dynamic <Tag> or a custom element lets an undefined spread value remove an attribute set before it: tests/unit/tooling-bugs.test.ts
+import { defined } from "../attrs"
+import { warnMissingId } from "../dev"
+
+export const title = "Toaster"
+
+const {
+  align,
+  class: className,
+  closeLabel,
+  duration,
+  id,
+  limit,
+  side,
+  ...rest
+} = Astro.props
+
+warnMissingId("Toaster", id)
+---
+
+<opui-toaster
+  class:list={[
+    "ui-toaster",
+    side && side !== "block-end" && `ui-${side}`,
+    align && align !== "end" && `ui-align-${align}`,
+    className,
+  ]}
+  close-label={closeLabel}
+  duration={duration}
+  id={id}
+  limit={limit}
+  {...defined(rest)}
+>
+  <ol popover="manual" set:html="" />
+  <div class="ui-sr-only" role="status" set:html="" />
+  <div class="ui-sr-only" role="alert" set:html="" />
+</opui-toaster>
+
+<script>
+  import "../../elements/toaster.js"
+</script>

@@ -1,0 +1,276 @@
+---
+import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Code from "../../components/Code.astro"
+import Conditional from "../../components/Conditional.astro"
+import DocLink from "../../components/DocLink.astro"
+import Usage from "./partials/Usage.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import { OneTimeCode as UIOneTimeCode } from "opui-css/astro"
+
+import OneTimeCodeCSS from "@opui/css/components/one-time-code.css?raw"
+import FieldCSS from "@opui/css/components/text-field.css?raw"
+
+import oneTimeCodeApi from "../../component-api/one-time-code/api"
+
+export const description =
+  "A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill."
+
+const recipe = `const otp = ".ui-one-time-code input"
+
+document.addEventListener("paste", (event) => {
+  const input = event.target
+  if (!input.matches?.(otp)) return
+  event.preventDefault()
+  input.value = event.clipboardData
+    .getData("text")
+    .replace(/[\\s-]/g, "")
+    .slice(0, input.maxLength)
+  input.dispatchEvent(new Event("input", { bubbles: true }))
+})
+
+document.addEventListener("input", ({ target }) => {
+  if (!target.matches?.(otp)) return
+  if (target.value.length === target.maxLength && target.checkValidity()) {
+    target.form?.requestSubmit()
+  }
+})`
+
+export const keywords = ["2fa", "otp", "pin", "verification code"]
+---
+
+<Component
+  description={description}
+  slug="one-time-code"
+  heroAnatomy
+  apis={[{ title: "One-time code API", api: oneTimeCodeApi }]}
+  browserSupport={[
+    "alt-text-generated-content",
+    "container-queries",
+    "field-sizing",
+    "has",
+    "lh",
+    "overflow-clip",
+    "reading-flow",
+    "registered-custom-properties",
+    "relative-color",
+    "round-mod-rem",
+    "user-pseudos",
+  ]}
+  fallbacks={{
+    "reading-flow":
+      "Without `reading-flow` nothing changes: a one-time code has no parts before its input.",
+  }}
+  changelogPaths={[
+    { path: "packages/opui/css/components/text-field.css", type: "css" },
+  ]}
+  installationTabs={[
+    {
+      title: "text-field.css",
+      code: FieldCSS,
+      lang: "css",
+      isDependency: true,
+    },
+    { title: "one-time-code.css", code: OneTimeCodeCSS, lang: "css" },
+  ]}
+>
+  <Fragment slot="title">One-time code</Fragment>
+  <Fragment slot="preamble">
+    One-time passwords, verification codes and PINs. Built on
+    <DocLink href="/components/text-field" class="ui-link">Text field</DocLink>.
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UIOneTimeCode
+        endText="Supporting text"
+        for="one-time-code-label"
+        grouped
+        label="Label"
+      >
+        <input
+          aria-describedby="one-time-code-label-end-text"
+          autocomplete="one-time-code"
+          id="one-time-code-label"
+          inputmode="numeric"
+          maxlength="6"
+          pattern="[0-9]{6}"
+        />
+      </UIOneTimeCode>
+    </Anatomy>
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">A code from an SMS, an email or an authenticator app.</li>
+    <li slot="when">
+      A PIN or a code with letters: <a href="#length">length</a> and
+      <a href="#alphanumeric">alphanumeric</a>.
+    </li>
+    <li slot="when-not">
+      A number the user knows, like a phone: use a
+      <DocLink href="/components/text-field">Text field</DocLink>.
+    </li>
+    <li slot="when-not">
+      A password: use a
+      <DocLink href="/components/text-field#password-toggle">Text field</DocLink
+      >.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Write the <code>&lt;input&gt;</code> inside the field, with its
+        <code>id</code> set to <code>for</code> (<code>htmlFor</code> in React),
+        <code>autocomplete="one-time-code"</code>,
+        <code>inputmode="numeric"</code>, <code>maxlength="6"</code> and
+        <code>pattern="[0-9]{6}"</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Put the parts of a
+        <DocLink href="/components/text-field">Text field</DocLink> in a
+        <code>label.ui-one-time-code</code>.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Basics" />
+  </section>
+
+  <section id="grouped">
+    <h2>Grouped</h2>
+    <p>
+      Use <PropOrClass prop="grouped" class=".ui-grouped" /> with an even
+      <code>maxlength</code>.
+    </p>
+
+    <AutoExample name="Grouped" />
+  </section>
+
+  <section id="sizes">
+    <h2>Sizes</h2>
+
+    <AutoExample name="Sizes" />
+  </section>
+
+  <section id="length">
+    <h2>Length</h2>
+    <p>
+      The boxes follow the input's <code>maxlength</code>, from 4 to 8. Match
+      the <code>pattern</code>.
+    </p>
+
+    <AutoExample name="Length" />
+  </section>
+
+  <section id="alphanumeric">
+    <h2>Alphanumeric</h2>
+    <p>
+      For codes with letters, drop <code>inputmode</code>, widen the
+      <code>pattern</code> and add <code>autocapitalize="characters"</code> and
+      <code>spellcheck="false"</code>.
+    </p>
+
+    <AutoExample name="Alphanumeric" />
+  </section>
+
+  <section id="validation">
+    <h2>Validation</h2>
+    <p>
+      Use <code>aria-invalid="true"</code> on the input for server-side errors,
+      and point its <code>aria-describedby</code> at the end text.
+    </p>
+
+    <AutoExample name="Validation" />
+  </section>
+
+  <section id="disabled">
+    <h2>Disabled</h2>
+
+    <AutoExample name="Disabled" />
+  </section>
+
+  <section id="another-screen">
+    <h2>Another screen</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The input has <code>autocomplete="one-time-code"</code>, so the browser
+        offers a code this device received. Set <code>autocomplete="off"</code>
+        for a code read off another screen, such as a TV or the computer you're
+        signing in on.
+      </Fragment>
+      <Fragment slot="react">
+        The input has <code>autoComplete="one-time-code"</code>, so the browser
+        offers a code this device received. Set <code>autoComplete="off"</code>
+        for a code read off another screen, such as a TV or the computer you're
+        signing in on.
+      </Fragment>
+      <Fragment slot="html">
+        <code>autocomplete="one-time-code"</code> lets the browser offer a code
+        this device received. Write <code>autocomplete="off"</code> for a code
+        read off another screen, such as a TV or the computer you're signing in
+        on.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="AnotherScreen" />
+  </section>
+
+  <section id="right-to-left">
+    <h2>Right-to-left</h2>
+    <p>
+      The code always runs left to right. Widen <code>pattern</code> to accept
+      Arabic-Indic digits, and convert them to 0 to 9 on the server.
+    </p>
+
+    <AutoExample name="RightToLeft" />
+  </section>
+
+  <section id="paste-and-auto-submit">
+    <h2>Paste and auto-submit</h2>
+    <p>An optional script. Only auto-submit when the code is the last field.</p>
+    <Code lang="js" code={recipe} />
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>One input, so screen readers read the code once, not per box.</li>
+      <li>
+        The label names the input through <code>&lt;label for&gt;</code>, and
+        the end text describes it once the input's <code>aria-describedby</code>
+        points at it, so a hint or an error is read after the name, not as part
+        of it.
+      </li>
+    </ul>
+  </Fragment>
+
+  <Fragment slot="under-the-hood">
+    <p>
+      The root is an inline-size container. <code>--_length</code> follows
+      <code>maxlength</code> through <code>:has([maxlength="4"])</code> and its
+      siblings, and <code>--_cell-size</code> is the smaller of
+      <code>--_max-cell-size</code> and the width that fits every box in the
+      container.
+    </p>
+    <p>
+      The boxes are one <code>.ui-field-container::before</code> with a
+      <code>mask</code> of gradient layers that repeat every
+      <code>--_cell-size</code>: linear gradients for the edges and radial
+      gradient rings for the corners, sized by <code>--_box-radius</code> and
+      <code>--_box-border-width</code>, so they follow the theme's field radius
+      and border width. The input is monospace with
+      <code>letter-spacing: calc(var(--_cell-size) - 1ch)</code>, so each
+      character lands in its box, and <code>.ui-grouped</code> draws the dash as
+      a background at the midpoint.
+    </p>
+    <p>
+      <code>:focus-within</code> doubles <code>--_box-border-width</code> on
+      every box. With <code>field-sizing: content</code> the input is as wide as
+      its value, so <code>.ui-field-container::after</code>, in the grid column
+      right after it, is the ring on the next empty box, a real border with the
+      same radius. A complete code leaves no column for it, and the clipped
+      field hides it, so the thicker boxes are what shows focus.
+    </p>
+  </Fragment>
+</Component>

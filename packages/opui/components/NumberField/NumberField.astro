@@ -1,0 +1,114 @@
+---
+import { trimEdges } from "../whitespace"
+
+import type { Props } from "./types.astro"
+import { cx } from "../cx"
+
+export const title = "Number Field"
+
+const {
+  class: className,
+  decreaseLabel = "Decrease",
+  endText,
+  for: htmlFor,
+  hideLabel,
+  increaseLabel = "Increase",
+  label,
+  size,
+  spread,
+  startText,
+  stretch,
+  variant,
+  ...rest
+} = Astro.props
+
+const startTextId =
+  startText || Astro.slots.has("start-text")
+    ? `${htmlFor}-start-text`
+    : undefined
+const endTextId =
+  endText || Astro.slots.has("end-text") ? `${htmlFor}-end-text` : undefined
+const labelSlot = Astro.slots.has("label")
+  ? trimEdges(await Astro.slots.render("label"))
+  : ""
+const LabelTag = label || labelSlot ? "label" : Fragment
+---
+
+<opui-number-field
+  class:list={[
+    "ui-number-field",
+    {
+      "ui-filled": variant === "filled",
+      "ui-spread": spread,
+      "ui-stretch": stretch,
+    },
+    size && size !== "medium" && `ui-${size}`,
+    className,
+  ]}
+  {...rest}
+>
+  <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])} for={htmlFor}
+    >{label}<Fragment set:html={labelSlot}
+  /></LabelTag>
+  {(startText || Astro.slots.has("start-text")) && <span
+    class="ui-start-text"
+    id={startTextId}
+  >
+    {startText}
+    <slot name="start-text" />
+  </span>}
+  <span class="ui-field-container">
+    <span class="ui-start">
+      <button
+        class="ui-button ui-round"
+        type="button"
+        aria-controls={htmlFor}
+        aria-label={decreaseLabel}
+        command="--step-down"
+        commandfor={htmlFor}
+      >
+        <slot name="decrease-icon">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          ></svg>
+        </slot>
+      </button>
+    </span>
+    <slot />
+    <span class="ui-end">
+      <button
+        class="ui-button ui-round"
+        type="button"
+        aria-controls={htmlFor}
+        aria-label={increaseLabel}
+        command="--step-up"
+        commandfor={htmlFor}
+      >
+        <slot name="increase-icon">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          ></svg>
+        </slot>
+      </button>
+    </span>
+  </span>
+  {(endText || Astro.slots.has("end-text")) && <span
+    class="ui-end-text"
+    id={endTextId}
+  >
+    {endText}
+    <slot name="end-text" />
+  </span>}
+</opui-number-field>
+
+<script>
+  import "../../elements/number-field.js"
+</script>

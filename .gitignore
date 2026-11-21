@@ -31,3 +31,40 @@ pnpm-debug.log*
 dist-test/
 playwright-report/
 test-results/
+tests/unit/.samples/
+
+# app tests (tests/apps/prepare.ts)
+tests/apps/.tarball/
+tests/apps/**/examples/
+tests/apps/*/.next/
+tests/apps/*/.next-readme/
+tests/apps/*/.nuxt/
+tests/apps/*/.nuxt-readme/
+tests/apps/*/.output/
+tests/apps/*/.output-readme/
+tests/apps/*/.svelte-kit/
+tests/apps/*/.svelte-kit-readme/
+tests/apps/*/build/
+tests/apps/*/build-readme/
+tests/apps/*/dist-readme/
+tests/apps/*/next-env.d.ts
+tests/apps/*/public/photos/
+tests/apps/*/static/photos/
+tests/apps/*/tsconfig.tsbuildinfo
+
+# reference app tests (tests/reference/prepare.ts)
+tests/reference/.tarball/
+tests/reference/apps/*/.astro/
+tests/reference/apps/next/AGENTS.md
+tests/reference/apps/*/.next/
+tests/reference/apps/*/.nuxt/
+tests/reference/apps/*/.output/
+tests/reference/apps/*/.svelte-kit/
+tests/reference/apps/*/build/
+tests/reference/apps/*/next-env.d.ts
+tests/reference/apps/*/public/photos/
+tests/reference/apps/*/static/photos/
+tests/reference/apps/*/tsconfig.tsbuildinfo
+
+# Claude Code agent worktrees
+.claude/worktrees/

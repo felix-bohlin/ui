@@ -1,0 +1,112 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
+import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import Basics from "../../component-examples/tabs/Basics.astro"
+---
+
+<TechniquePost slug="tabs-radio-buttons">
+  <section id="the-problem">
+    <h2>The problem</h2>
+    <p>
+      Tabs usually mean JavaScript: click handlers, <code>aria-selected</code>,
+      hiding and showing panels. CSS-only tabs with radios are old news, but
+      they needed the labels grouped apart from the panels and one selector per
+      tab to connect them.
+    </p>
+  </section>
+
+  <section id="the-trick">
+    <h2>The trick</h2>
+    <ul>
+      <li>
+        One radio group holds the state, and arrow keys move between the radios
+        natively
+      </li>
+      <li>
+        The markup interleaves radio, label, panel for each tab, so
+        <code>:checked + label + panel</code> shows the right panel without a
+        selector per tab
+      </li>
+      <li>
+        A grid puts every label in the first row and the panels in the second,
+        and scrolls sideways when the labels don't fit. Tabs that wrap use a
+        flex row instead, where <code>order</code> pulls the labels ahead of the
+        panels
+      </li>
+      <li>
+        The radios are visually hidden, <code>:focus-visible + label</code>
+        draws the focus ring on the label's pill
+      </li>
+      <li>
+        <code>:nth-child(1 of .ui-label)</code> finds the first label among the
+        radios and panels, to round the outer corners of the track
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.ui-tabs {
+  container-type: inline-size;
+  display: grid;
+  grid-auto-columns: max-content;
+  overflow-inline: auto;
+}
+
+.ui-tabs > .ui-label {
+  grid-row: 1;
+}
+
+.ui-tabs > .ui-panel {
+  display: none;
+  grid-column: 1 / span calc(sibling-count() / 3);
+  grid-row: 2;
+  inline-size: 100cqi;
+}
+
+.ui-input:checked + .ui-label + .ui-panel {
+  display: block;
+}
+
+.ui-label:nth-child(1 of .ui-label) {
+  border-end-start-radius: var(--ui-radius);
+  border-start-start-radius: var(--ui-radius);
+}`}
+    />
+  </section>
+
+  <section id="try-it">
+    <h2>Try it</h2>
+    <p>Click a tab, or focus one and use the arrow keys.</p>
+    <Example showCode={false}>
+      <Basics />
+    </Example>
+    <BuildUpLink />
+  </section>
+
+  <section id="fallback">
+    <h2>Fallback</h2>
+    <ul>
+      <li>
+        Browsers without <code>:nth-child(of S)</code> drop those rules: the
+        first and last tabs lose their outer rounding, switching still works
+      </li>
+      <li>
+        Browsers without <code>sibling-count()</code> and
+        <code>sibling-index()</code> (Firefox before 154, Safari before 26.2)
+        drop the declarations that place the radios and span the panels. The
+        panel still fills the row, but when the tabs scroll, the arrow keys
+        don't scroll the tab they select into view
+      </li>
+      <li>
+        <code>order</code> only moves the tabs visually. Focus follows the DOM,
+        which already has the right order: the checked radio, then the content
+        of its open panel. No <code>reading-flow</code> needed
+      </li>
+      <li>
+        The rest is <code>:checked</code>, the next-sibling combinator and
+        <code>order</code>, supported everywhere
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

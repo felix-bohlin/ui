@@ -1,5 +1,6 @@
 import type * as Base from "./types"
-import type { JSX } from "solid-js"
+import type { ComponentProps } from "@solidjs/web"
 
-export type Props = Base.Props &
-  JSX.HTMLAttributes<any> & { as?: keyof JSX.IntrinsicElements }
+export type Props =
+  | (Base.Props & { as?: "form" } & ComponentProps<"form">)
+  | (Base.Props & { as: "div" } & ComponentProps<"div">)

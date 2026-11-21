@@ -1,0 +1,36 @@
+---
+import CodeGroup from "../../../../components/CodeGroup.astro"
+
+type Props = {
+  packages?: string
+}
+
+const { packages } = Astro.props
+const names = ["opui-css", packages].filter(Boolean).join(" ")
+---
+
+<CodeGroup
+  class="install-command"
+  tabs={[
+    {
+      title: "pnpm",
+      code: `pnpm add ${names}`,
+      lang: "sh",
+    },
+    {
+      title: "npm",
+      code: `npm install ${names}`,
+      lang: "sh",
+    },
+    {
+      title: "yarn",
+      code: `yarn add ${names}`,
+      lang: "sh",
+    },
+    {
+      title: "bun",
+      code: `bun add ${names}`,
+      lang: "sh",
+    },
+  ]}
+/>

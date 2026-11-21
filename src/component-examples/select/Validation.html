@@ -1,77 +1,83 @@
 <div class="example-row">
-  <label class="ui-select">
-    <span class="ui-label" id="select-validation-1-label">Label</span>
-    <span class="ui-field">
-      <select aria-labelledby="select-validation-1-label" required>
-        <button>
+  <div class="ui-select">
+    <label class="ui-label" for="select-validation-1">Country</label>
+    <span class="ui-field-container">
+      <select required id="select-validation-1">
+        <button inert>
           <selectedcontent></selectedcontent>
         </button>
         <div class="ui-list">
           <option value="">-</option>
-          <option>Pick me!</option>
-          <option>No me!!</option>
-          <option>Come on!</option>
+          <option>Denmark</option>
+          <option>Norway</option>
+          <option>Sweden</option>
         </div>
       </select>
     </span>
-  </label>
-
-  <label class="ui-select ui-filled">
-    <span class="ui-label" id="select-validation-2-label">Label</span>
-    <span class="ui-field">
-      <select aria-labelledby="select-validation-2-label" required>
-        <button>
+  </div>
+  <div class="ui-select ui-filled">
+    <label class="ui-label" for="select-validation-2">Country</label>
+    <span class="ui-field-container">
+      <select required id="select-validation-2">
+        <button inert>
           <selectedcontent></selectedcontent>
         </button>
         <div class="ui-list">
           <option value="">-</option>
-          <option>Pick me!</option>
-          <option>No me!!</option>
-          <option>Come on!</option>
+          <option>Denmark</option>
+          <option>Norway</option>
+          <option>Sweden</option>
         </div>
       </select>
     </span>
-  </label>
+  </div>
 </div>
 
 <div class="example-row">
-  <label class="ui-select" data-invalid>
-    <span class="ui-label" id="select-validation-3-label">Label</span>
-    <span class="ui-field">
-      <select aria-labelledby="select-validation-3-label">
-        <button>
+  <div class="ui-select">
+    <label class="ui-label" for="select-validation-3">Shipping country</label>
+    <span class="ui-field-container">
+      <select
+        aria-describedby="select-validation-3-end-text"
+        aria-invalid="true"
+        id="select-validation-3"
+      >
+        <button inert>
           <selectedcontent></selectedcontent>
         </button>
         <div class="ui-list">
           <option value="">-</option>
-          <option selected>Wrong option</option>
-          <option>Also wrong!</option>
-          <option>Nothing's right!</option>
+          <option>Denmark</option>
+          <option selected>Norway</option>
+          <option>Sweden</option>
         </div>
       </select>
     </span>
-    <span class="ui-end-text" id="select-validation-3-end-text"
-      >Supporting text</span
+    <span id="select-validation-3-end-text" class="ui-end-text"
+      >We don't ship to Norway yet. Pick another country.</span
     >
-  </label>
-
-  <label class="ui-select ui-filled" data-invalid>
-    <span class="ui-label" id="select-validation-4-label">Label</span>
-    <span class="ui-field">
-      <select aria-labelledby="select-validation-4-label">
-        <button>
+  </div>
+  <div class="ui-select ui-filled">
+    <label class="ui-label" for="select-validation-4">Shipping country</label>
+    <span class="ui-field-container">
+      <select
+        aria-describedby="select-validation-4-end-text"
+        aria-invalid="true"
+        id="select-validation-4"
+      >
+        <button inert>
           <selectedcontent></selectedcontent>
         </button>
         <div class="ui-list">
           <option value="">-</option>
-          <option selected>Wrong option</option>
-          <option>Also wrong!</option>
-          <option>Nothing's right!</option>
+          <option>Denmark</option>
+          <option selected>Norway</option>
+          <option>Sweden</option>
         </div>
       </select>
     </span>
-    <span class="ui-end-text" id="select-validation-4-end-text"
-      >Supporting text</span
+    <span id="select-validation-4-end-text" class="ui-end-text"
+      >We don't ship to Norway yet. Pick another country.</span
     >
-  </label>
+  </div>
 </div>

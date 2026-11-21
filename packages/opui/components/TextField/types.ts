@@ -1,35 +1,35 @@
 export type Props = {
   autoFit?: boolean
-  description?: string
+  characterCount?: boolean
+  characterCountLabel?: string
+  dropZone?: boolean
   endText?: string
-  error?: boolean
-  filled?: boolean
+  for: string
+  hideLabel?: boolean
   label?: string
-  small?: boolean
+  size?: "x-small" | "small" | "medium" | "large"
   spread?: boolean
   startText?: string
-}
+  variant?: "outlined" | "filled"
+} & (
+  | {
+      passwordToggle: boolean
+      passwordToggleLabel?: string
+    }
+  | {
+      passwordToggle?: never
+      passwordToggleLabel?: never
+    }
+)
 
 export type Slots<S> = {
-  description: string | S
-  endText: string | S
-  footer: string | S
-  header: string | S
-  label: string | S
-  prefix: string | S
-  startText: string | S
-  suffix: string | S
-  supportingText: string | S
+  bottom?: string | S
+  end?: string | S
+  endText?: string | S
+  iconChecked?: S
+  iconUnchecked?: S
+  label?: string | S
+  start?: string | S
+  startText?: string | S
+  top?: string | S
 }
-
-export type InputProps =
-  | "disabled"
-  | "list"
-  | "max"
-  | "min"
-  | "name"
-  | "placeholder"
-  | "required"
-  | "step"
-  | "type"
-  | "value"

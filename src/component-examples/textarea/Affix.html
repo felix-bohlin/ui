@@ -1,9 +1,10 @@
-<label class="ui-textarea">
-  <span class="ui-label">Notes</span>
-  <span class="ui-field">
-    <textarea placeholder="Add a note..."></textarea>
-    <span class="ui-prefix">
+<div class="ui-textarea">
+  <label class="ui-label" for="textarea-affix-1">Notes</label>
+  <span class="ui-field-container">
+    <span class="ui-start" id="textarea-affix-1-start">
       <svg
+        data-icon="edit"
+        aria-hidden="true"
         width="16"
         height="16"
         viewBox="0 0 24 24"
@@ -21,5 +22,22 @@
         ></path>
       </svg>
     </span>
+    <textarea
+      aria-describedby="textarea-affix-1-start"
+      id="textarea-affix-1"
+      placeholder="Add a note..."
+    ></textarea>
   </span>
-</label>
+</div>
+
+<div class="ui-textarea">
+  <label class="ui-label" for="textarea-affix-2">Comment</label>
+  <span class="ui-field-container">
+    <textarea
+      aria-describedby="textarea-affix-2-end"
+      id="textarea-affix-2"
+      placeholder="Write a comment..."
+    ></textarea>
+    <span class="ui-end" id="textarea-affix-2-end">Markdown</span>
+  </span>
+</div>

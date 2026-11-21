@@ -1,0 +1,7 @@
+---
+const { delay } = Astro.props
+await new Promise((resolve) => setTimeout(resolve, delay))
+const id = Astro.locals.$id("awaits")
+---
+
+<p id={id}>{delay}</p>

@@ -3,23 +3,23 @@ import { Checkbox } from "opui-css/vue"
 </script>
 
 <template>
-  <Checkbox name="checkbox-spread" spread>
-    Accept Terms & Conditions
-    <template #end-text>I have read and agree to the privacy policy.</template>
+  <Checkbox name="checkbox-spread" spread value="gift-wrap">
+    Gift wrap
+    <template #end-text>Wrapped in recycled paper for €3.</template>
   </Checkbox>
 
-  <Checkbox name="checkbox-spread" spread required>
-    Required
-    <template #end-text>You must accept this to continue.</template>
+  <Checkbox name="checkbox-spread" required spread value="terms">
+    I accept the terms of sale
+    <template #end-text>Required to place the order.</template>
   </Checkbox>
 
-  <Checkbox name="checkbox-spread" spread disabled>
-    Disabled
-    <template #end-text>This checkbox is disabled.</template>
+  <Checkbox disabled name="checkbox-spread" spread value="express">
+    Express delivery
+    <template #end-text>Not available for your address.</template>
   </Checkbox>
 
-  <Checkbox name="checkbox-spread" spread error>
-    Invalid Checkbox
-    <template #end-text>There is an error with this checkbox.</template>
+  <Checkbox error name="checkbox-spread" spread value="age">
+    I'm 18 or older
+    <template #end-text>Confirm your age to buy this item.</template>
   </Checkbox>
 </template>

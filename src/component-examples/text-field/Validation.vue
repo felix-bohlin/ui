@@ -4,25 +4,48 @@ import { TextField } from "opui-css/vue"
 
 <template>
   <div class="example-row">
-    <TextField label="I'm required" placeholder="Placeholder" required />
-    <TextField label="So am I!" placeholder="Placeholder" required filled />
+    <TextField for="text-field-validation-1" label="Full name">
+      <input
+        id="text-field-validation-1"
+        placeholder="Holly Humbucker"
+        required
+      />
+    </TextField>
+    <TextField for="text-field-validation-2" label="Email" variant="filled">
+      <input
+        id="text-field-validation-2"
+        placeholder="name@lowend.example"
+        required
+        type="email"
+      />
+    </TextField>
   </div>
 
   <div class="example-row">
     <TextField
-      label="Label"
-      placeholder="Placeholder"
-      value="This isn't right"
-      endText="Only double-negatives are allowed."
-      error
-    />
+      endText="Whoops, this username is taken. Try another one."
+      for="text-field-validation-3"
+      label="Username"
+    >
+      <input
+        aria-describedby="text-field-validation-3-end-text"
+        aria-invalid="true"
+        id="text-field-validation-3"
+        value="ada"
+      />
+    </TextField>
     <TextField
-      label="Label"
-      placeholder="Placeholder"
-      value="Uh-oh"
-      endText="Only letters from the first half of the alphabet are allowed."
-      error
-      filled
-    />
+      endText="Bummer, this code has expired."
+      for="text-field-validation-4"
+      label="Gear discount code"
+      variant="filled"
+    >
+      <input
+        aria-describedby="text-field-validation-4-end-text"
+        aria-invalid="true"
+        id="text-field-validation-4"
+        value="STRINGS23"
+      />
+    </TextField>
   </div>
 </template>

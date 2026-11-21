@@ -3,9 +3,16 @@ import { Textarea } from "opui-css/vue"
 </script>
 
 <template>
-  <Textarea label="Notes" placeholder="Add a note...">
-    <template #prefix
-      ><svg
+  <Textarea for="textarea-affix-1" label="Notes">
+    <textarea
+      aria-describedby="textarea-affix-1-start"
+      id="textarea-affix-1"
+      placeholder="Add a note..."
+    ></textarea>
+    <template #start>
+      <svg
+        data-icon="edit"
+        aria-hidden="true"
         width="16"
         height="16"
         viewBox="0 0 24 24"
@@ -20,7 +27,17 @@ import { Textarea } from "opui-css/vue"
         ></path>
         <path
           d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
-        ></path></svg
-    ></template>
+        ></path>
+      </svg>
+    </template>
+  </Textarea>
+
+  <Textarea for="textarea-affix-2" label="Comment">
+    <textarea
+      aria-describedby="textarea-affix-2-end"
+      id="textarea-affix-2"
+      placeholder="Write a comment..."
+    ></textarea>
+    <template #end>Markdown</template>
   </Textarea>
 </template>

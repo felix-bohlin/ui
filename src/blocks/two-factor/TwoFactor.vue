@@ -1,0 +1,191 @@
+<script setup lang="ts">
+import {
+  Avatar,
+  Button,
+  Card,
+  CardContent,
+  Checkbox,
+  Divider,
+  FieldGroup,
+  Form,
+  List,
+  ListItem,
+  OneTimeCode,
+} from "opui-css/vue"
+</script>
+
+<template>
+  <div class="two-factor ui-layout-container" style="--_max-inline-size: 28rem">
+    <Card density="spacious" variant="outlined">
+      <CardContent>
+        <div class="ui-layout-column ui-align-center">
+          <Avatar shape="squircle"
+            ><svg
+              data-icon="smartphone"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M17 1.01 7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99M17 19H7V5h10z"
+              ></path></svg
+          ></Avatar>
+          <hgroup>
+            <h1 class="ui-h4">Grab your phone!</h1>
+            <p>
+              Just making sure it's really you. We texted a 6-digit code to
+              <strong class="two-factor-phone">555 ••• ••18</strong>.
+            </p>
+          </hgroup>
+        </div>
+        <Form action="#">
+          <FieldGroup>
+            <OneTimeCode
+              endText="The code expires in 10 minutes. No soloing!"
+              for="two-factor-code"
+              label="Verification code"
+              size="large"
+            >
+              <input
+                aria-describedby="two-factor-code-end-text"
+                autocomplete="one-time-code"
+                id="two-factor-code"
+                inputmode="numeric"
+                maxlength="6"
+                name="code"
+                pattern="[0-9]{6}"
+                required
+              />
+            </OneTimeCode>
+            <Checkbox name="trust-device"
+              >Trust this computer for 30 days</Checkbox
+            >
+            <Button class="two-factor-submit" type="submit" variant="filled">
+              Verify
+            </Button>
+          </FieldGroup>
+        </Form>
+        <p class="ui-layout-row ui-x-small ui-align-center">
+          Didn't get a code?
+          <Button size="small" type="button">
+            <svg
+              data-icon="refresh"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M17.65 6.35A7.96 7.96 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z"
+              ></path></svg
+            ><span class="ui-text">Resend code</span>
+          </Button>
+        </p>
+        <Divider>or verify another way</Divider>
+        <List bordered variant="tonal">
+          <ListItem
+            description="Use a code from the authenticator app on your phone."
+            href="#two-factor-app"
+            label="Authenticator app"
+          >
+            <template #start>
+              <svg
+                data-icon="shield-check"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5zm-2 16-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9z"
+                ></path>
+              </svg>
+            </template>
+
+            <template #end>
+              <svg
+                data-icon="chevron-right"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+                ></path>
+              </svg>
+            </template>
+          </ListItem>
+          <ListItem
+            description="One of the codes you scribbled down at setup."
+            href="#two-factor-recovery"
+            label="Recovery code"
+          >
+            <template #start>
+              <svg
+                data-icon="key"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M12.65 10A5.99 5.99 0 0 0 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6a5.99 5.99 0 0 0 5.65-4H17v4h4v-4h2v-4zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2"
+                ></path>
+              </svg>
+            </template>
+
+            <template #end>
+              <svg
+                data-icon="chevron-right"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+                ></path>
+              </svg>
+            </template>
+          </ListItem>
+        </List>
+        <p class="two-factor-footer">
+          Phone fell in the gig bag?
+          <a class="ui-link" href="#two-factor-support"
+            >Ask the Bassbook crew</a
+          >
+        </p>
+      </CardContent>
+    </Card>
+  </div>
+</template>
+
+<style>
+.two-factor {
+  .two-factor-phone {
+    white-space: nowrap;
+  }
+
+  .two-factor-submit {
+    inline-size: 100%;
+  }
+
+  .two-factor-footer {
+    text-align: center;
+  }
+}
+</style>

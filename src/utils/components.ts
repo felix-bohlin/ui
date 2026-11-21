@@ -1,33 +1,73 @@
-import { hrefFor, type FrameworkId } from "./framework-routing"
+import { componentHasFramework, hrefFor, type FrameworkId } from "./framework"
+import { componentName as nameOf, pageTitle } from "./names"
 
-const pageModules = import.meta.glob("../pages/components/*.astro")
-const docModules = import.meta.glob("../docs/components/*.astro")
+const docSources = import.meta.glob<string>("../docs/components/*.astro", {
+  eager: true,
+  import: "default",
+  query: "?raw",
+})
 
 const slugs = new Set<string>()
+const titles = new Map<string, string>()
 
-for (const path of Object.keys(pageModules)) {
-  if (path.endsWith("index.astro")) continue
-  // Skip dynamic route shells like [component].astro.
-  if (path.includes("[")) continue
+for (const [path, source] of Object.entries(docSources)) {
   const slug = path.split("/").pop()?.replace(".astro", "") || ""
-  if (slug) slugs.add(slug)
+  if (!slug) continue
+  slugs.add(slug)
+  const title = pageTitle(source)
+  if (title) titles.set(slug, title)
 }
 
-for (const path of Object.keys(docModules)) {
-  const slug = path.split("/").pop()?.replace(".astro", "") || ""
-  if (slug) slugs.add(slug)
-}
+export const componentName = (slug: string) => nameOf(slug, titles)
 
 export const components = Array.from(slugs)
-  .map((slug) => {
-    const name = slug
-      .split("-")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ")
-
-    return { name, slug, href: `/components/${slug}` }
-  })
+  .map((slug) => ({
+    name: componentName(slug),
+    slug,
+    href: `/components/${slug}`,
+  }))
   .sort((a, b) => a.name.localeCompare(b.name))
+
+export const componentsWithSlot = (slot: string) =>
+  components.filter(({ slug }) =>
+    docSources[`../docs/components/${slug}.astro`]?.includes(`slot="${slot}"`),
+  )
+
+export const dependenciesOf = (slug: string) =>
+  [
+    ...(docSources[`../docs/components/${slug}.astro`]?.matchAll(
+      /\{[^{}]*\bisDependency: true[^{}]*\}/g,
+    ) ?? []),
+  ].flatMap(([tab]) => tab.match(/title: "([\w-]+)\.css"/)?.[1] ?? [])
+
+export const dependentsOf = (slug: string) =>
+  components.filter((component) =>
+    dependenciesOf(component.slug).includes(slug),
+  )
+
+export function componentsFor(framework: FrameworkId) {
+  return components.filter((component) =>
+    componentHasFramework(framework, component.slug),
+  )
+}
+
+const FOUNDATIONS = ["layout", "typography"]
+
+const isFoundation = (slug: string) => FOUNDATIONS.includes(slug)
+
+export function componentGroupsFor(framework: FrameworkId) {
+  const all = componentsFor(framework)
+  return [
+    {
+      label: "Components",
+      components: all.filter((component) => !isFoundation(component.slug)),
+    },
+    {
+      label: "Foundations",
+      components: all.filter((component) => isFoundation(component.slug)),
+    },
+  ].filter((group) => group.components.length > 0)
+}
 
 /**
  * Returns the URL for a component on a specific framework. Used by sidebar

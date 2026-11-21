@@ -1,0 +1,10 @@
+<script lang="ts">
+  import { TextField } from "opui-css/svelte"
+</script>
+
+<TextField for="text-field-file-1" label="Avatar">
+  <input accept="image/*" id="text-field-file-1" type="file" />
+</TextField>
+<TextField for="text-field-file-2" label="Attachments" variant="filled">
+  <input id="text-field-file-2" type="file" />
+</TextField>

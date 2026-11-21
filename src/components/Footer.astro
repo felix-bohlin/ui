@@ -1,14 +1,13 @@
 ---
+import { navItems } from "../utils/nav"
+
 const { link } = Astro.locals
 
 // Hrefs starting with `/` are framework-aware doc paths and get resolved per
 // request via `link()`. Absolute URLs (e.g. https://...) are external and
 // passed through untouched.
-const navItems = [
-  { label: "Guide", href: link("/guide/getting-started") },
-  { label: "Components", href: link("/components") },
-  { label: "API", href: link("/api") },
-  // { label: "Blog", href: link("/blog") },
+const footerItems = [
+  ...navItems.map(({ label, href }) => ({ label, href: link(href) })),
   {
     label: "Open Props",
     href: "https://open-props.style",
@@ -18,50 +17,55 @@ const navItems = [
 
 <footer>
   <div class="ui-content">
-    <nav>
+    <nav aria-label="Footer">
       <ul>
-        {
-          navItems.map((item) => (
-            <li>
-              <a class="ui-link" href={item.href} title={item.label}>
-                {item.label}
-              </a>
-            </li>
-          ))
-        }
+        {footerItems.map((item) => <li>
+          <a class="ui-button ui-small" href={item.href} title={item.label}>
+            {item.label}
+          </a>
+        </li>)}
       </ul>
     </nav>
 
     <hr class="ui-divider" />
 
     <p>
-      Made with Open Props UI, <a
+      Made with Open Props UI,
+      <a
         class="ui-link"
         href="https://astro.build"
         target="_blank"
         rel="noopener noreferrer"
-        title="Astro">Astro</a
-      > and <a
+        title="Astro"
+        >Astro</a
+      >
+      and
+      <a
         class="ui-link"
         href="https://icones.js.org/collection/fluent"
         target="_blank"
         rel="noopener noreferrer"
-        title="Fluent UI System Icons">Fluent UI System Icons</a
+        title="Fluent UI System Icons"
+        >Fluent UI System Icons</a
       >.
     </p>
     <p>
-      Hosted on <a
+      Hosted on
+      <a
         class="ui-link"
         href="https://www.netlify.com/"
         target="_blank"
         rel="noopener noreferrer"
-        title="Netlify">Netlify</a
-      >, source code on <a
+        title="Netlify"
+        >Netlify</a
+      >, source code on
+      <a
         class="ui-link"
         href="https://github.com/felix-bohlin/ui"
         target="_blank"
         rel="noopener noreferrer"
-        title="GitHub">GitHub</a
+        title="GitHub"
+        >GitHub</a
       >.
     </p>
   </div>
@@ -69,46 +73,75 @@ const navItems = [
 
 <style>
   footer {
-    background-color: var(--surface-2);
-    margin-block-start: var(--size-12);
-    padding-block: var(--size-9);
+    border-block-start: var(--ui-border-width) solid var(--ui-border-color);
+    isolation: isolate;
+    margin-block-start: var(--size-10);
+    overflow: clip;
+    padding-block: var(--size-8);
+    position: relative;
+
+    &::before,
+    &::after {
+      content: "";
+      inset: 0;
+      pointer-events: none;
+      position: absolute;
+      z-index: -1;
+    }
+
+    &::before {
+      background: radial-gradient(
+        100% 100% at 50% 100%,
+        var(--ui-primary),
+        transparent
+      );
+      opacity: 0.3;
+    }
+
+    &::after {
+      background-image: radial-gradient(
+        var(--ui-text) 1.45px,
+        transparent 1.45px
+      );
+      background-size: 20px 20px;
+      mask-image: linear-gradient(to bottom, transparent, oklch(0 0 0));
+      opacity: 0.1;
+    }
   }
 
   .ui-content {
     margin: 0 auto;
-    max-inline-size: var(--_content-md);
-    padding-inline: var(--_gap);
+    max-inline-size: var(--site-content-md);
+    padding-inline: var(--site-gap);
   }
 
   ul {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--size-6);
+    gap: var(--size-2);
     justify-content: center;
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
-  a {
-    color: var(--text-2);
-    text-decoration: none;
-
-    &:hover {
-      color: var(--text-1);
-      text-decoration: underline;
-    }
-  }
-
   hr {
-    border-block-start: 1px solid var(--surface-3);
-    border: none;
-    margin-block: var(--size-8);
+    margin-block: var(--size-6);
   }
 
   p {
-    color: var(--text-2);
-    font-size: var(--font-size-0);
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-caption);
+    margin: 0;
     text-align: center;
+    text-wrap: balance;
+
+    & + p {
+      margin-block-start: var(--size-1);
+    }
+
+    a {
+      color: var(--ui-text-strong);
+    }
   }
 </style>

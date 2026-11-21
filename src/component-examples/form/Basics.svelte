@@ -1,0 +1,31 @@
+<script lang="ts">
+  import {
+    Button,
+    FieldDescription,
+    FieldGroup,
+    FieldLegend,
+    Fieldset,
+    Form,
+    TextField,
+  } from "opui-css/svelte"
+</script>
+
+<Form>
+  <Fieldset aria-describedby="form-basics-1-description">
+    <FieldLegend>Contact</FieldLegend>
+    <FieldDescription id="form-basics-1-description"
+      >How can we reach you?</FieldDescription
+    >
+    <FieldGroup>
+      <TextField for="form-basics-2" label="Name">
+        <input autocomplete="name" id="form-basics-2" />
+      </TextField>
+      <TextField for="form-basics-3" label="Email">
+        <input autocomplete="email" id="form-basics-3" type="email" />
+      </TextField>
+    </FieldGroup>
+  </Fieldset>
+  <FieldGroup>
+    <Button type="submit" variant="filled">Send</Button>
+  </FieldGroup>
+</Form>

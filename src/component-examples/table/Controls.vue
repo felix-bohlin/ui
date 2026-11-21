@@ -1,0 +1,81 @@
+<script setup lang="ts">
+import {
+  Select,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+  TextField,
+} from "opui-css/vue"
+
+const roles = [
+  { label: "Flatwound collector", value: "flatwound-collector" },
+  { label: "Low B whisperer", value: "low-b-whisperer" },
+  { label: "Slap enthusiast", value: "slap-enthusiast" },
+  { label: "Tone advisor", value: "tone-advisor" },
+]
+</script>
+
+<template>
+  <Table density="dense">
+    <TableCaption>Low End Theory members</TableCaption>
+    <TableHead>
+      <TableRow>
+        <TableHeaderCell>Name</TableHeaderCell>
+        <TableHeaderCell>Specialty</TableHeaderCell>
+        <TableHeaderCell>Notes</TableHeaderCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      <TableRow>
+        <TableCell>Lou Headstock</TableCell>
+        <TableCell>
+          <Select
+            hideLabel
+            :items="roles"
+            label="Specialty for Lou Headstock"
+            value="flatwound-collector"
+          />
+        </TableCell>
+        <TableCell>
+          <TextField
+            for="table-controls-1"
+            hideLabel
+            label="Notes for Lou Headstock"
+          >
+            <input
+              id="table-controls-1"
+              placeholder="Add a note about their tone"
+            />
+          </TextField>
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Percy Groove</TableCell>
+        <TableCell>
+          <Select
+            hideLabel
+            :items="roles"
+            label="Specialty for Percy Groove"
+            value="slap-enthusiast"
+          />
+        </TableCell>
+        <TableCell>
+          <TextField
+            for="table-controls-2"
+            hideLabel
+            label="Notes for Percy Groove"
+          >
+            <input
+              id="table-controls-2"
+              placeholder="Add a note about their tone"
+            />
+          </TextField>
+        </TableCell>
+      </TableRow>
+    </TableBody>
+  </Table>
+</template>

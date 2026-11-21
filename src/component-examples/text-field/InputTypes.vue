@@ -1,81 +1,63 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { TextField } from "opui-css/vue"
+</script>
 
 <template>
   <div class="example-column">
-    <label class="ui-text-field input-type-field">
-      <span class="ui-label">Color</span>
-      <span class="ui-field">
-        <input type="color" placeholder="Color" />
-      </span>
-    </label>
-    <label class="ui-text-field input-type-field">
-      <span class="ui-label">Email</span>
-      <span class="ui-field">
-        <input type="email" placeholder="name@email.com" />
-      </span>
-    </label>
-    <label class="ui-text-field input-type-field">
-      <span class="ui-label">Password</span>
-      <span class="ui-field">
-        <input type="password" placeholder="Password" />
-      </span>
-    </label>
-    <label class="ui-text-field input-type-field">
-      <span class="ui-label">Search</span>
-      <span class="ui-field">
-        <input type="search" placeholder="Search" />
-      </span>
-    </label>
-    <label class="ui-text-field input-type-field">
-      <span class="ui-label">Phone</span>
-      <span class="ui-field">
-        <input type="tel" placeholder="(666) 666-1337" />
-      </span>
-    </label>
-    <label class="ui-text-field input-type-field">
-      <span class="ui-label">Text</span>
-      <span class="ui-field">
-        <input type="text" placeholder="Text" />
-      </span>
-    </label>
-    <label class="ui-text-field input-type-field">
-      <span class="ui-label">URL</span>
-      <span class="ui-field">
-        <input type="url" placeholder="https://yoursite.com" />
-      </span>
-    </label>
+    <TextField for="text-field-input-types-1" label="Color">
+      <input id="text-field-input-types-1" type="color" />
+    </TextField>
+    <TextField for="text-field-input-types-2" label="Email">
+      <input
+        id="text-field-input-types-2"
+        placeholder="name@example.com"
+        type="email"
+      />
+    </TextField>
+    <TextField for="text-field-input-types-3" label="Password">
+      <input
+        id="text-field-input-types-3"
+        placeholder="Password"
+        type="password"
+      />
+    </TextField>
+    <TextField for="text-field-input-types-4" label="Search">
+      <input id="text-field-input-types-4" placeholder="Search" type="search" />
+    </TextField>
+    <TextField for="text-field-input-types-5" label="Phone">
+      <input
+        id="text-field-input-types-5"
+        placeholder="(555) 010-0100"
+        type="tel"
+      />
+    </TextField>
+    <TextField for="text-field-input-types-6" label="Text">
+      <input id="text-field-input-types-6" placeholder="Text" type="text" />
+    </TextField>
+    <TextField for="text-field-input-types-7" label="URL">
+      <input
+        id="text-field-input-types-7"
+        placeholder="https://example.com"
+        type="url"
+      />
+    </TextField>
   </div>
 
   <div class="example-column">
-    <label class="ui-text-field input-type-field">
-      <span class="ui-label">Date</span>
-      <span class="ui-field">
-        <input type="date" placeholder="Date" />
-      </span>
-    </label>
-    <label class="ui-text-field input-type-field">
-      <span class="ui-label">Datetime local</span>
-      <span class="ui-field">
-        <input type="datetime-local" placeholder="Datetime local" />
-      </span>
-    </label>
-    <label class="ui-text-field input-type-field">
-      <span class="ui-label">Month</span>
-      <span class="ui-field">
-        <input type="month" placeholder="Month" />
-      </span>
-    </label>
-    <label class="ui-text-field input-type-field">
-      <span class="ui-label">Time</span>
-      <span class="ui-field">
-        <input type="time" placeholder="Time" />
-      </span>
-    </label>
-    <label class="ui-text-field input-type-field">
-      <span class="ui-label">Week</span>
-      <span class="ui-field">
-        <input type="week" placeholder="Week" />
-      </span>
-    </label>
+    <TextField for="text-field-input-types-8" label="Date">
+      <input id="text-field-input-types-8" type="date" />
+    </TextField>
+    <TextField for="text-field-input-types-9" label="Datetime local">
+      <input id="text-field-input-types-9" type="datetime-local" />
+    </TextField>
+    <TextField for="text-field-input-types-10" label="Month">
+      <input id="text-field-input-types-10" type="month" />
+    </TextField>
+    <TextField for="text-field-input-types-11" label="Time">
+      <input id="text-field-input-types-11" type="time" />
+    </TextField>
+    <TextField for="text-field-input-types-12" label="Week">
+      <input id="text-field-input-types-12" type="week" />
+    </TextField>
   </div>
 </template>

@@ -1,33 +1,55 @@
 <div class="example-row">
-  <label class="ui-textarea">
-    <span class="ui-label">Label</span>
-    <span class="ui-field">
-      <textarea placeholder="Default" required></textarea>
+  <div class="ui-textarea">
+    <label class="ui-label" for="textarea-validation-1">Message</label>
+    <span class="ui-field-container">
+      <textarea
+        id="textarea-validation-1"
+        placeholder="How can we help?"
+        required
+      ></textarea>
     </span>
-  </label>
-  <label class="ui-textarea ui-filled">
-    <span class="ui-label">Label</span>
-    <span class="ui-field">
-      <textarea placeholder="Filled" required></textarea>
+  </div>
+  <div class="ui-textarea ui-filled">
+    <label class="ui-label" for="textarea-validation-2"
+      >Delivery instructions</label
+    >
+    <span class="ui-field-container">
+      <textarea
+        id="textarea-validation-2"
+        placeholder="Gate code, floor, where to leave it"
+        required
+      ></textarea>
     </span>
-  </label>
+  </div>
 </div>
 
 <div class="example-row">
-  <label class="ui-textarea" data-invalid>
-    <span class="ui-label">Label</span>
-    <span class="ui-field">
-      <textarea placeholder="Default"></textarea>
+  <div class="ui-textarea">
+    <label class="ui-label" for="textarea-validation-3">Review</label>
+    <span class="ui-field-container">
+      <textarea
+        aria-describedby="textarea-validation-3-end-text"
+        aria-invalid="true"
+        id="textarea-validation-3"
+      >
+Great</textarea>
     </span>
-    <span class="ui-end-text">Only double-negatives are allowed.</span>
-  </label>
-  <label class="ui-textarea ui-filled" data-invalid>
-    <span class="ui-label">Label</span>
-    <span class="ui-field">
-      <textarea placeholder="Filled"></textarea>
-    </span>
-    <span class="ui-end-text"
-      >Only letters from the first half of the alphabet are allowed.</span
+    <span class="ui-end-text" id="textarea-validation-3-end-text"
+      >Write at least 20 characters.</span
     >
-  </label>
+  </div>
+  <div class="ui-textarea ui-filled">
+    <label class="ui-label" for="textarea-validation-4">Bio</label>
+    <span class="ui-field-container">
+      <textarea
+        aria-describedby="textarea-validation-4-end-text"
+        aria-invalid="true"
+        id="textarea-validation-4"
+      >
+Designer at https://example.com</textarea>
+    </span>
+    <span class="ui-end-text" id="textarea-validation-4-end-text"
+      >Remove the link. Bios are plain text.</span
+    >
+  </div>
 </div>

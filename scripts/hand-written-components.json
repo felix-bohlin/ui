@@ -1,0 +1,5 @@
+{
+  "Select/Select.react.tsx": "the defaultValue taken from the selected items, since React warns on selected on an option, and a <selectedcontent> that hydration leaves to the browser, neither of which the Astro file expresses",
+  "Select/Select.svelte": "the value and the defaultValue taken from the selected items, which the Astro file doesn't express: bind:value takes one option from the page while its value is undefined, also on a multiple select",
+  "Select/Select.vue": "a value without v-model set by a client-only directive and the options of a bound select marked on the server only, which the Astro file doesn't express: Vue's server render prints a value on the select and marks only the options that are its direct children"
+}

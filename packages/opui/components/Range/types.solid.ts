@@ -1,6 +1,11 @@
 import type * as Base from "./types"
-import type { JSX } from "solid-js"
+import type { ComponentProps, JSX } from "@solidjs/web"
 
-export type RangeProps = Base.RangeProps &
-  Partial<Base.RangeSlots<JSX.Element>> &
-  JSX.InputHTMLAttributes<HTMLInputElement>
+type Without<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never
+
+export type Props = Without<Base.Props, "endText" | "label" | "startText"> &
+  Base.Slots<JSX.Element> &
+  Omit<
+    ComponentProps<"input">,
+    "children" | "list" | "size" | "type" | "value" | keyof Base.Props
+  >

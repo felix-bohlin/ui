@@ -1,0 +1,9 @@
+---
+import type { TableFootProps as Props } from "./types.astro"
+
+const { ...rest } = Astro.props
+---
+
+<tfoot {...rest}>
+  <slot />
+</tfoot>

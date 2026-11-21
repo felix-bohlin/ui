@@ -1,0 +1,23 @@
+@layer components.compat {
+  @supports not (overflow-inline: auto) {
+    :where(.ui-toggle-group).ui-overflow-scroll {
+      overflow-x: auto;
+    }
+  }
+
+  @supports not (row-rule: none) {
+    :where(.ui-toggle-group) {
+      --_divider-border-width: var(--ui-border-width);
+      --_divider-gap: 0px;
+      --_divider-shadow:
+        calc(-1 * var(--ui-border-width)) 0 0 0 var(--_border-color),
+        0 calc(-1 * var(--ui-border-width)) 0 0 var(--_border-color);
+
+      &:dir(rtl) {
+        --_divider-shadow:
+          var(--ui-border-width) 0 0 0 var(--_border-color),
+          0 calc(-1 * var(--ui-border-width)) 0 0 var(--_border-color);
+      }
+    }
+  }
+}

@@ -1,24 +1,20 @@
-<fieldset class="ui-fieldset" disabled>
-  <legend>Pet dating</legend>
-  <p class="ui-field-description">You can't change these settings</p>
-  <div class="ui-field-group" role="group">
+<fieldset
+  class="ui-fieldset"
+  aria-describedby="form-fieldset-disabled-1-description"
+  disabled
+>
+  <legend>Security alerts</legend>
+  <p class="ui-description" id="form-fieldset-disabled-1-description">
+    Your administrator manages these settings.
+  </p>
+  <div class="ui-field-group">
     <label class="ui-checkbox">
-      <input
-        checked
-        name="notifications"
-        type="checkbox"
-        value="horse-tinder"
-      />
-      <span class="ui-label">Horse Tinder</span>
+      <input type="checkbox" name="alerts" checked value="email" />
+      <span class="ui-label">Email</span>
     </label>
     <label class="ui-checkbox">
-      <input
-        name="notifications"
-        type="checkbox"
-        value="onlyhorsefans"
-        checked
-      />
-      <span class="ui-label">OnlyHorseFans</span>
+      <input type="checkbox" name="alerts" checked value="sms" />
+      <span class="ui-label">SMS</span>
     </label>
   </div>
 </fieldset>

@@ -1,0 +1,42 @@
+---
+import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/astro"
+---
+
+<Form>
+  <Fieldset>
+    <FieldLegend>Notifications</FieldLegend>
+    <FieldGroup name="switch-cards-end" orientation="horizontal">
+      <Switch card checked spread value="email">
+        Email
+        <Fragment slot="end-text">A summary every morning.</Fragment>
+      </Switch>
+      <Switch card spread value="push" variant="elevated">
+        Push
+        <Fragment slot="end-text">On this device only.</Fragment>
+      </Switch>
+      <Switch card spread value="sms" variant="tonal">
+        SMS
+        <Fragment slot="end-text">For security alerts only.</Fragment>
+      </Switch>
+    </FieldGroup>
+  </Fieldset>
+  <Fieldset>
+    <FieldLegend>Privacy</FieldLegend>
+    <FieldGroup name="switch-cards-start" orientation="horizontal">
+      <Switch card checked value="status">
+        Online status
+        <Fragment slot="end-text">Others see when you're active.</Fragment>
+      </Switch>
+      <Switch card value="receipts" variant="elevated">
+        Read receipts
+        <Fragment slot="end-text"
+          >Others see when you've read a message.</Fragment
+        >
+      </Switch>
+      <Switch card value="search" variant="tonal">
+        Profile search
+        <Fragment slot="end-text">People can find you by email.</Fragment>
+      </Switch>
+    </FieldGroup>
+  </Fieldset>
+</Form>

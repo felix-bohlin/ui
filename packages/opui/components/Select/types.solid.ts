@@ -1,6 +1,12 @@
 import type * as Base from "./types"
-import type { JSX } from "solid-js"
+import type { ComponentProps, JSX } from "@solidjs/web"
 
-export type Props = Base.Props &
-  Omit<JSX.SelectHTMLAttributes<HTMLSelectElement>, "size"> &
-  Base.Slots<JSX.Element>
+type Without<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never
+
+export type Props = Without<
+  Base.Props,
+  "bottom" | "end" | "endText" | "label" | "start" | "startText" | "top"
+> &
+  Base.Slots<JSX.Element> & {
+    defaultValue?: string | number | (string | number)[]
+  } & Omit<ComponentProps<"select">, "defaultValue" | "size">

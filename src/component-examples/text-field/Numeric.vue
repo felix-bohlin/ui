@@ -3,5 +3,12 @@ import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField label="Numeric" placeholder="Numeric" type="numeric" />
+  <TextField for="text-field-numeric-1" label="Verification code">
+    <input
+      id="text-field-numeric-1"
+      inputmode="numeric"
+      pattern="[0-9]*"
+      placeholder="123456"
+    />
+  </TextField>
 </template>

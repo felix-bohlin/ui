@@ -1,84 +1,137 @@
 <script setup lang="ts">
-import { computed, inject, useAttrs } from "vue"
-import type { Props, Slots } from "./types.d.vue"
-import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
+import "../../elements/character-count.js"
+import "../../elements/text-field.js"
+import { computed } from "vue"
+import { TrimmedSlot } from "../whitespace.vue"
+import type { Props, Slots } from "./types.vue-props"
 
-defineOptions({
-  inheritAttrs: false,
-})
+const {
+  autoFit,
+  characterCount,
+  characterCountLabel,
+  dropZone,
+  endText,
+  for: htmlFor,
+  hideLabel,
+  label,
+  passwordToggle,
+  passwordToggleLabel = "Show password",
+  size,
+  spread,
+  startText,
+  variant,
+} = defineProps<Props>()
+const slots = defineSlots<Slots>()
 
-const props = withDefaults(defineProps<Props>(), {
-  type: "text",
-})
-defineSlots<Slots>()
-const attrs = useAttrs()
-const modelValue = defineModel<string | number>()
+const hasLabel = () => Boolean(label || slots.label)
 
-const model = computed({
-  get: () => modelValue.value ?? (attrs.value as string | number | undefined),
-  set: (value) => {
-    modelValue.value = value
-  },
-})
+const Root = computed(() => (passwordToggle ? "opui-text-field" : "div"))
 
-const currentFieldName = inject(CurrentFieldNameKey, undefined)
-const startTextValue = computed(() => props.description || props.startText)
+const hasStartText = () => Boolean(startText || slots["start-text"])
+
+const hasEndText = () => Boolean(endText || slots["end-text"] || characterCount)
+
+const startId = () => (slots.start ? `${htmlFor}-start` : undefined)
+
+const endId = () => (slots.end ? `${htmlFor}-end` : undefined)
+
+const topId = () => (slots.top ? `${htmlFor}-top` : undefined)
+
+const bottomId = () => (slots.bottom ? `${htmlFor}-bottom` : undefined)
+
+const startTextId = () => (hasStartText() ? `${htmlFor}-start-text` : undefined)
+
+const endTextId = () => (hasEndText() ? `${htmlFor}-end-text` : undefined)
 </script>
 
 <template>
-  <label
+  <component
+    :is="Root"
     :class="[
       'ui-text-field',
       {
-        'ui-auto-fit': props.autoFit,
-        'ui-filled': props.filled,
-        'ui-spread': props.spread,
-        'ui-small': props.small,
+        'ui-auto-fit': autoFit,
+        'ui-drop-zone': dropZone,
+        'ui-filled': variant === 'filled',
+        'ui-spread': spread,
       },
-      props.class,
+      size && size !== 'medium' && `ui-${size}`,
+      $props.class,
     ]"
-    :data-invalid="props.error ? '' : undefined"
   >
-    <span v-if="props.label || $slots.label" class="ui-label">
-      <slot name="label">{{ props.label }}</slot>
+    <label
+      v-if="hasLabel()"
+      :class="hideLabel ? 'ui-sr-only' : 'ui-label'"
+      :for="htmlFor"
+      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
+    /></label>
+    <span v-if="hasStartText()" class="ui-start-text" :id="startTextId()"
+      >{{ startText }}<slot name="start-text"></slot
+    ></span>
+    <span class="ui-field-container">
+      <span v-if="$slots.top" class="ui-top" :id="topId()">
+        <slot name="top"></slot>
+      </span>
+      <span v-if="$slots.start" class="ui-start" :id="startId()">
+        <slot name="start"></slot>
+      </span>
+      <slot></slot>
+      <span v-if="$slots.end || passwordToggle" class="ui-end" :id="endId()">
+        <slot name="end"></slot
+        ><button
+          v-if="passwordToggle"
+          class="ui-button ui-round"
+          type="button"
+          :aria-label="passwordToggleLabel"
+          aria-pressed="false"
+          command="--toggle-password"
+          :commandfor="htmlFor"
+        >
+          <span
+            v-if="$slots['icon-unchecked']"
+            aria-hidden="true"
+            class="ui-icon-unchecked"
+            ><slot name="icon-unchecked"></slot
+          ></span>
+          <svg
+            v-else
+            aria-hidden="true"
+            class="ui-icon-unchecked"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          ></svg
+          ><span
+            v-if="$slots['icon-checked']"
+            aria-hidden="true"
+            class="ui-icon-checked"
+            ><slot name="icon-checked"></slot
+          ></span>
+          <svg
+            v-else
+            aria-hidden="true"
+            class="ui-icon-checked"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          ></svg>
+        </button>
+      </span>
+      <span v-if="$slots.bottom" class="ui-bottom" :id="bottomId()">
+        <slot name="bottom"></slot>
+      </span>
     </span>
-
-    <span v-if="startTextValue || $slots.description" class="ui-start-text">
-      <slot name="description">{{ startTextValue }}</slot>
-    </span>
-
-    <span class="ui-field">
-      <input
-        :id="props.id"
-        :name="currentFieldName"
-        :inputmode="props.type === 'numeric' ? 'numeric' : undefined"
-        :pattern="props.type === 'numeric' ? '[0-9]*' : undefined"
-        :type="props.type === 'numeric' ? 'text' : props.type"
-        v-bind="$attrs"
-        v-model="model"
-      />
-      <span class="ui-prefix" v-if="$slots.prefix"
-        ><slot name="prefix"></slot
-      ></span>
-      <span class="ui-suffix" v-if="$slots.suffix"
-        ><slot name="suffix"></slot
-      ></span>
-      <span class="ui-header" v-if="$slots.header"
-        ><slot name="header"></slot
-      ></span>
-      <span class="ui-footer" v-if="$slots.footer"
-        ><slot name="footer"></slot
-      ></span>
-    </span>
-
-    <span
-      v-if="props.endText || $slots['end-text'] || $slots['supporting-text']"
-      class="ui-end-text"
-    >
-      <slot name="end-text">{{ props.endText }}</slot
-      ><slot name="supporting-text"></slot>
-    </span>
-
-    <slot></slot>
-  </label>
+    <span v-if="hasEndText()" class="ui-end-text" :id="endTextId()"
+      >{{ endText }}<slot name="end-text"></slot
+      ><component
+        is="opui-character-count"
+        v-if="characterCount"
+        aria-hidden="true"
+        class="ui-value"
+        :label="characterCountLabel"
+      ></component
+    ></span>
+  </component>
 </template>

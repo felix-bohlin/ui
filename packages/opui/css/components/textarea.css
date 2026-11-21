@@ -1,18 +1,19 @@
 @layer components.extended {
   :where(.ui-textarea) {
+    --_max-block-size: 20lh;
+
     textarea {
       block-size: auto;
       field-sizing: content;
-      min-block-size: calc(
-        var(--_field-padding-block) * 2 + (var(--border-width) * 2) + 3lh
-      );
-      resize: vertical;
-    }
+      max-block-size: var(--_max-block-size);
+      min-block-size: calc(var(--_field-padding-block-fit) * 2 + 3lh);
+      resize: block;
 
-    /* Size */
-    &.ui-small {
-      textarea {
-        min-block-size: var(--size-9);
+      @supports (min-block-size: calc(attr(rows type(<number>), 3) * 1lh)) {
+        min-block-size: calc(
+          var(--_field-padding-block-fit) * 2 + attr(rows type(<number>), 3) *
+            1lh
+        );
       }
     }
 

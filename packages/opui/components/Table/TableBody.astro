@@ -1,0 +1,9 @@
+---
+import type { TableBodyProps as Props } from "./types.astro"
+
+const { ...rest } = Astro.props
+---
+
+<tbody {...rest}>
+  <slot />
+</tbody>

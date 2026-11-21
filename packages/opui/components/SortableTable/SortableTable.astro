@@ -1,0 +1,28 @@
+---
+import type { Props } from "./types.astro"
+// A dynamic <Tag> or a custom element lets an undefined spread value remove an attribute set before it: tests/unit/tooling-bugs.test.ts
+import { defined } from "../attrs"
+
+export const title = "Sortable Table"
+
+const {
+  ascendingLabel,
+  class: className,
+  descendingLabel,
+  ...rest
+} = Astro.props
+---
+
+<opui-sortable-table
+  ascending-label={ascendingLabel}
+  class:list={["ui-sortable-table", className]}
+  descending-label={descendingLabel}
+  {...defined(rest)}
+>
+  <slot />
+  <span class="ui-sr-only" role="status" set:html="" />
+</opui-sortable-table>
+
+<script>
+  import "../../elements/sortable-table.js"
+</script>

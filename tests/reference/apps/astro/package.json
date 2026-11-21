@@ -1,0 +1,14 @@
+{
+  "name": "reference-astro",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@astrojs/node": "^11.1.14",
+    "astro": "^7.4.5",
+    "reference-shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "typescript": "^6.0.3"
+  }
+}

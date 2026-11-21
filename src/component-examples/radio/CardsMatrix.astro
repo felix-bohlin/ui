@@ -1,0 +1,40 @@
+---
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
+---
+
+<Form>
+  <Fieldset>
+    <FieldLegend>Plan</FieldLegend>
+    <FieldGroup name="radio-cards-end" orientation="horizontal">
+      <Radio card checked spread value="basic">
+        Basic
+        <Fragment slot="end-text">€0 per month, forever</Fragment>
+      </Radio>
+      <Radio card spread value="gold" variant="elevated">
+        Gold
+        <Fragment slot="end-text">€3 per month, shiny badge included</Fragment>
+      </Radio>
+      <Radio card spread value="platinum" variant="tonal">
+        Platinum
+        <Fragment slot="end-text">€5 per month, extra sparkly</Fragment>
+      </Radio>
+    </FieldGroup>
+  </Fieldset>
+  <Fieldset>
+    <FieldLegend>Billing</FieldLegend>
+    <FieldGroup name="radio-cards-start" orientation="horizontal">
+      <Radio card checked value="monthly">
+        Monthly
+        <Fragment slot="end-text">Cancel any time, no hard feelings.</Fragment>
+      </Radio>
+      <Radio card value="yearly" variant="elevated">
+        Yearly
+        <Fragment slot="end-text">Two months free, woohoo.</Fragment>
+      </Radio>
+      <Radio card value="gig-money" variant="tonal">
+        Gig money
+        <Fragment slot="end-text">Pay in coins after your next gig.</Fragment>
+      </Radio>
+    </FieldGroup>
+  </Fieldset>
+</Form>

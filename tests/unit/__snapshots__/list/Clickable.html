@@ -1,25 +1,39 @@
-<ul class="ui-list">
+<ul class="ui-list" role="list">
   <li>
-    <button>
+    <button disabled type="button">
       <div class="ui-text">
-        <p>Button list item</p>
+        <p>Empty trash</p>
+      </div>
+    </button>
+  </li>
+  <li>
+    <button type="button">
+      <div class="ui-text">
+        <p>New folder</p>
       </div>
     </button>
   </li>
   <li>
     <a href="#clickable-list-item">
       <div class="ui-text">
-        <p>Link list item</p>
+        <p>Recent files</p>
       </div>
     </a>
   </li>
   <li>
-    <label class="ui-checkbox" for="id-1">
+    <a aria-disabled="true" role="link">
       <div class="ui-text">
-        <p>Checkbox list item</p>
+        <p>Shared drives</p>
+      </div>
+    </a>
+  </li>
+  <li>
+    <label class="ui-checkbox">
+      <div class="ui-text">
+        <p>Show hidden files</p>
       </div>
       <div class="ui-end">
-        <input id="id-1" type="checkbox">
+        <input type="checkbox">
       </div>
     </label>
   </li>

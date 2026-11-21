@@ -1,18 +1,27 @@
-<fieldset class="ui-fieldset">
-  <legend>Pet info</legend>
-  <p class="ui-field-description">We must know your pet's information.</p>
-  <div class="ui-field-group" role="group">
-    <label class="ui-text-field">
-      <span class="ui-label">Name</span>
-      <span class="ui-field">
-        <input type="text" name="name" />
+<fieldset
+  class="ui-fieldset"
+  aria-describedby="form-fieldset-required-1-description"
+>
+  <legend>Delivery</legend>
+  <p class="ui-description" id="form-fieldset-required-1-description">
+    Where should we send your order?
+  </p>
+  <div class="ui-field-group">
+    <div class="ui-text-field">
+      <label class="ui-label" for="form-fieldset-required-2">Recipient</label>
+      <span class="ui-field-container">
+        <input id="form-fieldset-required-2" name="recipient" />
       </span>
-    </label>
-    <label class="ui-textarea">
-      <span class="ui-label">Life story</span>
-      <span class="ui-field">
-        <textarea name="bio" required></textarea>
+    </div>
+    <div class="ui-textarea">
+      <label class="ui-label" for="form-fieldset-required-3">Address</label>
+      <span class="ui-field-container">
+        <textarea
+          id="form-fieldset-required-3"
+          name="address"
+          required
+        ></textarea>
       </span>
-    </label>
+    </div>
   </div>
 </fieldset>

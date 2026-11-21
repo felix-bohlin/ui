@@ -1,0 +1,34 @@
+<button class="ui-button ui-outlined" type="button" id="dialog-non-modal-2">
+  Show uploads
+</button>
+
+<dialog
+  aria-labelledby="dialog-non-modal-1-title"
+  class="ui-dialog ui-elevated"
+  closedby="any"
+  id="dialog-non-modal-1"
+>
+  <div class="ui-header">
+    <h2 id="dialog-non-modal-1-title">Uploads</h2>
+  </div>
+  <div class="ui-content">
+    <p>2 of 3 files uploaded. Keep working while the last one finishes.</p>
+  </div>
+  <div class="ui-footer">
+    <button
+      class="ui-button"
+      type="button"
+      command="close"
+      commandfor="dialog-non-modal-1"
+    >
+      Hide
+    </button>
+  </div>
+</dialog>
+
+<script type="module">
+  const dialog = document.querySelector("#dialog-non-modal-1")
+  document
+    .querySelector("#dialog-non-modal-2")
+    ?.addEventListener("click", () => dialog?.show())
+</script>

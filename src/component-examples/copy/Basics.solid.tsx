@@ -1,0 +1,21 @@
+/** @jsxImportSource @solidjs/web */
+import { Button, Copy, TextField } from "opui-css/solid"
+
+export default function Basics() {
+  return (
+    <>
+      <Copy id="copy-basics-1">
+        <TextField for="copy-basics-2" hideLabel label="Invite link">
+          <input
+            id="copy-basics-2"
+            readonly
+            value="https://example.com/invite/8f3k2"
+          />
+        </TextField>
+      </Copy>
+      <Button command="--copy" commandfor="copy-basics-1" variant="outlined">
+        Copy
+      </Button>
+    </>
+  )
+}

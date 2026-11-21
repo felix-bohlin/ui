@@ -1,0 +1,66 @@
+<opui-file-upload lang="sv" class="ui-file-upload">
+  <div class="ui-content">
+    <div class="ui-field-container">
+      <label class="ui-label">
+        <input
+          accept="image/*"
+          aria-describedby="file-upload-labels-1-description"
+          class="ui-sr-only"
+          id="file-upload-labels-1"
+          multiple
+          type="file"
+        />
+        <span class="ui-button ui-outlined">Välj foton</span>
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        ></svg>
+      </label>
+      <span class="ui-description" id="file-upload-labels-1-description"
+        >Eller släpp dem här. PNG eller JPG.</span
+      >
+    </div>
+    <ul class="ui-list">
+      <li>
+        <div class="ui-start">
+          <img alt="" src="/photos/lou-headstock.png" />
+        </div>
+        <div class="ui-text">
+          <p dir="auto" id="file-upload-labels-1-label-0">lou-headstock.png</p>
+          <div class="ui-progress">
+            <progress
+              value="0.3"
+              aria-label="Laddar upp lou-headstock.png"
+            ></progress>
+          </div>
+        </div>
+        <div class="ui-end">
+          <button
+            class="ui-button ui-round ui-small"
+            type="button"
+            aria-label="Ta bort lou-headstock.png från listan"
+            command="--remove"
+            commandfor="file-upload-labels-1"
+            value="lou"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            ></svg>
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <span class="ui-sr-only" role="status"></span>
+</opui-file-upload>
+
+<script type="module">
+  import "opui-css/elements/file-upload.js"
+</script>

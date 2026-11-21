@@ -1,10 +1,6 @@
 export type Props = {
+  checked?: boolean
   label?: string
-  pressed?: boolean
-  size?: "small" | "x-small"
+  size?: "x-small" | "small" | "medium" | "large"
   type?: "checkbox" | "radio"
-}
-
-export type Slots<S> = {
-  children?: S
 }

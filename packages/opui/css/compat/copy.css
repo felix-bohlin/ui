@@ -1,0 +1,10 @@
+@layer components.compat {
+  @supports not selector(:interest-source) {
+    :where(.ui-copy):has(> .ui-floating:popover-open) {
+      & .ui-tooltip > .ui-floating[popover],
+      & + .ui-tooltip > .ui-floating[popover] {
+        display: none;
+      }
+    }
+  }
+}

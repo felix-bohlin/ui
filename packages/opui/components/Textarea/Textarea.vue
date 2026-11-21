@@ -1,78 +1,88 @@
 <script setup lang="ts">
-import { computed, inject, useAttrs } from "vue"
-import type { Props, Slots } from "./types.d.vue"
-import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
+import "../../elements/character-count.js"
+import { TrimmedSlot } from "../whitespace.vue"
+import type { Props, Slots } from "./types.vue-props"
 
-defineOptions({
-  inheritAttrs: false,
-})
+const {
+  autoFit,
+  characterCount,
+  characterCountLabel,
+  endText,
+  for: htmlFor,
+  hideLabel,
+  label,
+  size,
+  spread,
+  startText,
+  variant,
+} = defineProps<Props>()
+const slots = defineSlots<Slots>()
 
-const props = defineProps<Props>()
-defineSlots<Slots>()
-const attrs = useAttrs()
-const modelValue = defineModel<string>()
+const hasLabel = () => Boolean(label || slots.label)
 
-const model = computed({
-  get: () => modelValue.value ?? (attrs.value as string | undefined),
-  set: (value) => {
-    modelValue.value = value
-  },
-})
+const hasStartText = () => Boolean(startText || slots["start-text"])
 
-const currentFieldName = inject(CurrentFieldNameKey, undefined)
+const hasEndText = () => Boolean(endText || slots["end-text"] || characterCount)
+
+const startId = () => (slots.start ? `${htmlFor}-start` : undefined)
+
+const endId = () => (slots.end ? `${htmlFor}-end` : undefined)
+
+const topId = () => (slots.top ? `${htmlFor}-top` : undefined)
+
+const bottomId = () => (slots.bottom ? `${htmlFor}-bottom` : undefined)
+
+const startTextId = () => (hasStartText() ? `${htmlFor}-start-text` : undefined)
+
+const endTextId = () => (hasEndText() ? `${htmlFor}-end-text` : undefined)
 </script>
 
 <template>
-  <label
+  <div
     :class="[
       'ui-textarea',
       {
-        'ui-auto-fit': props.autoFit,
-        'ui-filled': props.filled,
-        'ui-spread': props.spread,
-        'ui-small': props.small,
+        'ui-auto-fit': autoFit,
+        'ui-filled': variant === 'filled',
+        'ui-spread': spread,
       },
-      props.class,
+      size && size !== 'medium' && `ui-${size}`,
+      $props.class,
     ]"
-    :data-invalid="props.error ? '' : undefined"
   >
-    <span v-if="props.label || $slots.label" class="ui-label">
-      <slot name="label">{{ props.label }}</slot>
+    <label
+      v-if="hasLabel()"
+      :class="hideLabel ? 'ui-sr-only' : 'ui-label'"
+      :for="htmlFor"
+      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
+    /></label>
+    <span v-if="hasStartText()" class="ui-start-text" :id="startTextId()"
+      >{{ startText }}<slot name="start-text"></slot
+    ></span>
+    <span class="ui-field-container">
+      <span v-if="$slots.top" class="ui-top" :id="topId()">
+        <slot name="top"></slot>
+      </span>
+      <span v-if="$slots.start" class="ui-start" :id="startId()">
+        <slot name="start"></slot>
+      </span>
+      <slot></slot>
+      <span v-if="$slots.end" class="ui-end" :id="endId()">
+        <slot name="end"></slot>
+      </span>
+      <span v-if="$slots.bottom" class="ui-bottom" :id="bottomId()">
+        <slot name="bottom"></slot>
+      </span>
     </span>
-
-    <span v-if="props.description || $slots.description" class="ui-start-text">
-      <slot name="description">{{ props.description }}</slot>
-    </span>
-
-    <span class="ui-field">
-      <textarea
-        :id="props.id"
-        :name="currentFieldName"
-        v-bind="$attrs"
-        v-model="model"
-      ></textarea>
-      <span class="ui-prefix" v-if="$slots.prefix"
-        ><slot name="prefix"></slot
-      ></span>
-      <span class="ui-suffix" v-if="$slots.suffix"
-        ><slot name="suffix"></slot
-      ></span>
-      <span class="ui-header" v-if="$slots.header"
-        ><slot name="header"></slot
-      ></span>
-      <span class="ui-footer" v-if="$slots.footer"
-        ><slot name="footer"></slot
-      ></span>
-    </span>
-
-    <span
-      v-if="props.endText || $slots['end-text'] || $slots['supporting-text']"
-      class="ui-end-text"
-    >
-      <slot name="end-text">{{ props.endText }}</slot
-      ><slot name="supporting-text"></slot>
-    </span>
-
-    <slot></slot>
-  </label>
+    <span v-if="hasEndText()" class="ui-end-text" :id="endTextId()"
+      >{{ endText }}<slot name="end-text"></slot
+      ><component
+        is="opui-character-count"
+        v-if="characterCount"
+        aria-hidden="true"
+        class="ui-value"
+        :label="characterCountLabel"
+      ></component
+    ></span>
+  </div>
 </template>

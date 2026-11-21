@@ -1,0 +1,15 @@
+---
+import Code from "../../../components/Code.astro"
+
+type Props = {
+  control: "checkbox" | "radio" | "switch"
+}
+
+const { control } = Astro.props
+---
+
+<p>
+  The {control} centers on the first line of its label. Nudge it with
+  <code>--ui-choice-label-offset</code>.
+</p>
+<Code lang="css" code={`:root {\n  --ui-choice-label-offset: 0.05em;\n}`} />

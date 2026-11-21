@@ -1,0 +1,44 @@
+---
+import type { Props } from "./types.astro"
+import { trimEdges } from "../whitespace"
+
+export const title = "One-Time Code"
+
+const {
+  class: className,
+  endText,
+  for: htmlFor,
+  grouped,
+  label,
+  size,
+  ...rest
+} = Astro.props
+
+const labelSlot = Astro.slots.has("label")
+  ? trimEdges(await Astro.slots.render("label"))
+  : ""
+const hasLabel = Boolean(label || labelSlot)
+const hasEndText = Boolean(endText || Astro.slots.has("end-text"))
+const endTextId = hasEndText ? `${htmlFor}-end-text` : undefined
+---
+
+<div
+  class:list={[
+    "ui-one-time-code",
+    { "ui-grouped": grouped },
+    size && size !== "medium" && `ui-${size}`,
+    className,
+  ]}
+  {...rest}
+>
+  {hasLabel && <label class="ui-label" for={htmlFor}
+    >{label}<Fragment set:html={labelSlot}
+  /></label>}
+  <span class="ui-field-container">
+    <slot />
+  </span>
+  {hasEndText && <span class="ui-end-text" id={endTextId}>
+    {endText}
+    <slot name="end-text" />
+  </span>}
+</div>

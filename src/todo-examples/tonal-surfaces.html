@@ -1,0 +1,511 @@
+<style>
+  .todo-scheme {
+    display: grid;
+    gap: var(--size-3);
+    inline-size: 100%;
+    padding: var(--size-3);
+  }
+
+  .todo-fixed .ui-card.ui-tonal > * {
+    --ui-surface-tonal: var(--ui-surface);
+  }
+
+  .todo-fixed .ui-card.ui-elevated {
+    --ui-surface-tonal: light-dark(var(--ui-gray-3), var(--ui-surface));
+  }
+</style>
+
+<p class="todo-note">
+  A tonal button, a chip and tabs (their default tonal track) in an outlined, a
+  tonal and an elevated card, in light and dark mode. Each card measures the
+  contrast of the button, the chip and the tab track against the card. Today,
+  inside a tonal card the three are the card's own color (1.00:1), and in dark
+  mode the elevated card is the same gray step as the tonal fill, so they vanish
+  there too. The second column simulates option A with two overrides in this
+  page: content of a tonal card reads the page surface as its tonal, and an
+  elevated card in dark mode does too. The fills come back, but in light mode
+  the selected tab, which is the page surface, now matches its track and only
+  its border sets it apart, which is why option A gives the pill a step of its
+  own.
+</p>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Today</p>
+    <div class="ui-light todo-scheme">
+      <p class="todo-label">Light</p>
+      <div class="ui-card ui-outlined" data-measure>
+        <div class="ui-header"><h3>Outlined card</h3></div>
+        <div class="ui-content">
+          <div class="todo-row">
+            <button type="button" class="ui-button ui-tonal">
+              Tonal button
+            </button>
+            <span class="ui-chip">Chip</span>
+          </div>
+          <div class="ui-tabs">
+            <input
+              type="radio"
+              name="todo-tonal-today-light-outlined"
+              id="todo-tonal-today-light-outlined-1"
+              class="ui-input"
+              checked
+            />
+            <label for="todo-tonal-today-light-outlined-1" class="ui-label"
+              >One</label
+            >
+            <div class="ui-panel">Tabs on a tonal track.</div>
+            <input
+              type="radio"
+              name="todo-tonal-today-light-outlined"
+              id="todo-tonal-today-light-outlined-2"
+              class="ui-input"
+            />
+            <label for="todo-tonal-today-light-outlined-2" class="ui-label"
+              >Two</label
+            >
+            <div class="ui-panel">Second panel.</div>
+          </div>
+          <p class="todo-measure"></p>
+        </div>
+      </div>
+      <div class="ui-card ui-tonal" data-measure>
+        <div class="ui-header"><h3>Tonal card</h3></div>
+        <div class="ui-content">
+          <div class="todo-row">
+            <button type="button" class="ui-button ui-tonal">
+              Tonal button
+            </button>
+            <span class="ui-chip">Chip</span>
+          </div>
+          <div class="ui-tabs">
+            <input
+              type="radio"
+              name="todo-tonal-today-light-tonal"
+              id="todo-tonal-today-light-tonal-1"
+              class="ui-input"
+              checked
+            />
+            <label for="todo-tonal-today-light-tonal-1" class="ui-label"
+              >One</label
+            >
+            <div class="ui-panel">Tabs on a tonal track.</div>
+            <input
+              type="radio"
+              name="todo-tonal-today-light-tonal"
+              id="todo-tonal-today-light-tonal-2"
+              class="ui-input"
+            />
+            <label for="todo-tonal-today-light-tonal-2" class="ui-label"
+              >Two</label
+            >
+            <div class="ui-panel">Second panel.</div>
+          </div>
+          <p class="todo-measure"></p>
+        </div>
+      </div>
+      <div class="ui-card ui-elevated" data-measure>
+        <div class="ui-header"><h3>Elevated card</h3></div>
+        <div class="ui-content">
+          <div class="todo-row">
+            <button type="button" class="ui-button ui-tonal">
+              Tonal button
+            </button>
+            <span class="ui-chip">Chip</span>
+          </div>
+          <div class="ui-tabs">
+            <input
+              type="radio"
+              name="todo-tonal-today-light-elevated"
+              id="todo-tonal-today-light-elevated-1"
+              class="ui-input"
+              checked
+            />
+            <label for="todo-tonal-today-light-elevated-1" class="ui-label"
+              >One</label
+            >
+            <div class="ui-panel">Tabs on a tonal track.</div>
+            <input
+              type="radio"
+              name="todo-tonal-today-light-elevated"
+              id="todo-tonal-today-light-elevated-2"
+              class="ui-input"
+            />
+            <label for="todo-tonal-today-light-elevated-2" class="ui-label"
+              >Two</label
+            >
+            <div class="ui-panel">Second panel.</div>
+          </div>
+          <p class="todo-measure"></p>
+        </div>
+      </div>
+    </div>
+    <div class="ui-dark todo-scheme">
+      <p class="todo-label">Dark</p>
+      <div class="ui-card ui-outlined" data-measure>
+        <div class="ui-header"><h3>Outlined card</h3></div>
+        <div class="ui-content">
+          <div class="todo-row">
+            <button type="button" class="ui-button ui-tonal">
+              Tonal button
+            </button>
+            <span class="ui-chip">Chip</span>
+          </div>
+          <div class="ui-tabs">
+            <input
+              type="radio"
+              name="todo-tonal-today-dark-outlined"
+              id="todo-tonal-today-dark-outlined-1"
+              class="ui-input"
+              checked
+            />
+            <label for="todo-tonal-today-dark-outlined-1" class="ui-label"
+              >One</label
+            >
+            <div class="ui-panel">Tabs on a tonal track.</div>
+            <input
+              type="radio"
+              name="todo-tonal-today-dark-outlined"
+              id="todo-tonal-today-dark-outlined-2"
+              class="ui-input"
+            />
+            <label for="todo-tonal-today-dark-outlined-2" class="ui-label"
+              >Two</label
+            >
+            <div class="ui-panel">Second panel.</div>
+          </div>
+          <p class="todo-measure"></p>
+        </div>
+      </div>
+      <div class="ui-card ui-tonal" data-measure>
+        <div class="ui-header"><h3>Tonal card</h3></div>
+        <div class="ui-content">
+          <div class="todo-row">
+            <button type="button" class="ui-button ui-tonal">
+              Tonal button
+            </button>
+            <span class="ui-chip">Chip</span>
+          </div>
+          <div class="ui-tabs">
+            <input
+              type="radio"
+              name="todo-tonal-today-dark-tonal"
+              id="todo-tonal-today-dark-tonal-1"
+              class="ui-input"
+              checked
+            />
+            <label for="todo-tonal-today-dark-tonal-1" class="ui-label"
+              >One</label
+            >
+            <div class="ui-panel">Tabs on a tonal track.</div>
+            <input
+              type="radio"
+              name="todo-tonal-today-dark-tonal"
+              id="todo-tonal-today-dark-tonal-2"
+              class="ui-input"
+            />
+            <label for="todo-tonal-today-dark-tonal-2" class="ui-label"
+              >Two</label
+            >
+            <div class="ui-panel">Second panel.</div>
+          </div>
+          <p class="todo-measure"></p>
+        </div>
+      </div>
+      <div class="ui-card ui-elevated" data-measure>
+        <div class="ui-header"><h3>Elevated card</h3></div>
+        <div class="ui-content">
+          <div class="todo-row">
+            <button type="button" class="ui-button ui-tonal">
+              Tonal button
+            </button>
+            <span class="ui-chip">Chip</span>
+          </div>
+          <div class="ui-tabs">
+            <input
+              type="radio"
+              name="todo-tonal-today-dark-elevated"
+              id="todo-tonal-today-dark-elevated-1"
+              class="ui-input"
+              checked
+            />
+            <label for="todo-tonal-today-dark-elevated-1" class="ui-label"
+              >One</label
+            >
+            <div class="ui-panel">Tabs on a tonal track.</div>
+            <input
+              type="radio"
+              name="todo-tonal-today-dark-elevated"
+              id="todo-tonal-today-dark-elevated-2"
+              class="ui-input"
+            />
+            <label for="todo-tonal-today-dark-elevated-2" class="ui-label"
+              >Two</label
+            >
+            <div class="ui-panel">Second panel.</div>
+          </div>
+          <p class="todo-measure"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">Option A, simulated</p>
+    <div class="ui-light todo-scheme">
+      <p class="todo-label">Light</p>
+      <div class="ui-card ui-outlined" data-measure>
+        <div class="ui-header"><h3>Outlined card</h3></div>
+        <div class="ui-content">
+          <div class="todo-row">
+            <button type="button" class="ui-button ui-tonal">
+              Tonal button
+            </button>
+            <span class="ui-chip">Chip</span>
+          </div>
+          <div class="ui-tabs">
+            <input
+              type="radio"
+              name="todo-tonal-fixed-light-outlined"
+              id="todo-tonal-fixed-light-outlined-1"
+              class="ui-input"
+              checked
+            />
+            <label for="todo-tonal-fixed-light-outlined-1" class="ui-label"
+              >One</label
+            >
+            <div class="ui-panel">Tabs on a tonal track.</div>
+            <input
+              type="radio"
+              name="todo-tonal-fixed-light-outlined"
+              id="todo-tonal-fixed-light-outlined-2"
+              class="ui-input"
+            />
+            <label for="todo-tonal-fixed-light-outlined-2" class="ui-label"
+              >Two</label
+            >
+            <div class="ui-panel">Second panel.</div>
+          </div>
+          <p class="todo-measure"></p>
+        </div>
+      </div>
+      <div class="ui-card ui-tonal" data-measure>
+        <div class="ui-header"><h3>Tonal card</h3></div>
+        <div class="ui-content">
+          <div class="todo-row">
+            <button type="button" class="ui-button ui-tonal">
+              Tonal button
+            </button>
+            <span class="ui-chip">Chip</span>
+          </div>
+          <div class="ui-tabs">
+            <input
+              type="radio"
+              name="todo-tonal-fixed-light-tonal"
+              id="todo-tonal-fixed-light-tonal-1"
+              class="ui-input"
+              checked
+            />
+            <label for="todo-tonal-fixed-light-tonal-1" class="ui-label"
+              >One</label
+            >
+            <div class="ui-panel">Tabs on a tonal track.</div>
+            <input
+              type="radio"
+              name="todo-tonal-fixed-light-tonal"
+              id="todo-tonal-fixed-light-tonal-2"
+              class="ui-input"
+            />
+            <label for="todo-tonal-fixed-light-tonal-2" class="ui-label"
+              >Two</label
+            >
+            <div class="ui-panel">Second panel.</div>
+          </div>
+          <p class="todo-measure"></p>
+        </div>
+      </div>
+      <div class="ui-card ui-elevated" data-measure>
+        <div class="ui-header"><h3>Elevated card</h3></div>
+        <div class="ui-content">
+          <div class="todo-row">
+            <button type="button" class="ui-button ui-tonal">
+              Tonal button
+            </button>
+            <span class="ui-chip">Chip</span>
+          </div>
+          <div class="ui-tabs">
+            <input
+              type="radio"
+              name="todo-tonal-fixed-light-elevated"
+              id="todo-tonal-fixed-light-elevated-1"
+              class="ui-input"
+              checked
+            />
+            <label for="todo-tonal-fixed-light-elevated-1" class="ui-label"
+              >One</label
+            >
+            <div class="ui-panel">Tabs on a tonal track.</div>
+            <input
+              type="radio"
+              name="todo-tonal-fixed-light-elevated"
+              id="todo-tonal-fixed-light-elevated-2"
+              class="ui-input"
+            />
+            <label for="todo-tonal-fixed-light-elevated-2" class="ui-label"
+              >Two</label
+            >
+            <div class="ui-panel">Second panel.</div>
+          </div>
+          <p class="todo-measure"></p>
+        </div>
+      </div>
+    </div>
+    <div class="ui-dark todo-scheme">
+      <p class="todo-label">Dark</p>
+      <div class="ui-card ui-outlined" data-measure>
+        <div class="ui-header"><h3>Outlined card</h3></div>
+        <div class="ui-content">
+          <div class="todo-row">
+            <button type="button" class="ui-button ui-tonal">
+              Tonal button
+            </button>
+            <span class="ui-chip">Chip</span>
+          </div>
+          <div class="ui-tabs">
+            <input
+              type="radio"
+              name="todo-tonal-fixed-dark-outlined"
+              id="todo-tonal-fixed-dark-outlined-1"
+              class="ui-input"
+              checked
+            />
+            <label for="todo-tonal-fixed-dark-outlined-1" class="ui-label"
+              >One</label
+            >
+            <div class="ui-panel">Tabs on a tonal track.</div>
+            <input
+              type="radio"
+              name="todo-tonal-fixed-dark-outlined"
+              id="todo-tonal-fixed-dark-outlined-2"
+              class="ui-input"
+            />
+            <label for="todo-tonal-fixed-dark-outlined-2" class="ui-label"
+              >Two</label
+            >
+            <div class="ui-panel">Second panel.</div>
+          </div>
+          <p class="todo-measure"></p>
+        </div>
+      </div>
+      <div class="ui-card ui-tonal" data-measure>
+        <div class="ui-header"><h3>Tonal card</h3></div>
+        <div class="ui-content">
+          <div class="todo-row">
+            <button type="button" class="ui-button ui-tonal">
+              Tonal button
+            </button>
+            <span class="ui-chip">Chip</span>
+          </div>
+          <div class="ui-tabs">
+            <input
+              type="radio"
+              name="todo-tonal-fixed-dark-tonal"
+              id="todo-tonal-fixed-dark-tonal-1"
+              class="ui-input"
+              checked
+            />
+            <label for="todo-tonal-fixed-dark-tonal-1" class="ui-label"
+              >One</label
+            >
+            <div class="ui-panel">Tabs on a tonal track.</div>
+            <input
+              type="radio"
+              name="todo-tonal-fixed-dark-tonal"
+              id="todo-tonal-fixed-dark-tonal-2"
+              class="ui-input"
+            />
+            <label for="todo-tonal-fixed-dark-tonal-2" class="ui-label"
+              >Two</label
+            >
+            <div class="ui-panel">Second panel.</div>
+          </div>
+          <p class="todo-measure"></p>
+        </div>
+      </div>
+      <div class="ui-card ui-elevated" data-measure>
+        <div class="ui-header"><h3>Elevated card</h3></div>
+        <div class="ui-content">
+          <div class="todo-row">
+            <button type="button" class="ui-button ui-tonal">
+              Tonal button
+            </button>
+            <span class="ui-chip">Chip</span>
+          </div>
+          <div class="ui-tabs">
+            <input
+              type="radio"
+              name="todo-tonal-fixed-dark-elevated"
+              id="todo-tonal-fixed-dark-elevated-1"
+              class="ui-input"
+              checked
+            />
+            <label for="todo-tonal-fixed-dark-elevated-1" class="ui-label"
+              >One</label
+            >
+            <div class="ui-panel">Tabs on a tonal track.</div>
+            <input
+              type="radio"
+              name="todo-tonal-fixed-dark-elevated"
+              id="todo-tonal-fixed-dark-elevated-2"
+              class="ui-input"
+            />
+            <label for="todo-tonal-fixed-dark-elevated-2" class="ui-label"
+              >Two</label
+            >
+            <div class="ui-panel">Second panel.</div>
+          </div>
+          <p class="todo-measure"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  {
+    const context = document
+      .createElement("canvas")
+      .getContext("2d", { willReadFrequently: true })
+    const luminance = (color) => {
+      context.clearRect(0, 0, 1, 1)
+      context.fillStyle = color
+      context.fillRect(0, 0, 1, 1)
+      const [r, g, b] = [...context.getImageData(0, 0, 1, 1).data]
+        .slice(0, 3)
+        .map((value) => {
+          const channel = value / 255
+          return channel <= 0.04045
+            ? channel / 12.92
+            : ((channel + 0.055) / 1.055) ** 2.4
+        })
+      return 0.2126 * r + 0.7152 * g + 0.0722 * b
+    }
+    const ratio = (a, b) => {
+      const [light, dark] = [luminance(a), luminance(b)].sort((x, y) => y - x)
+      return ((light + 0.05) / (dark + 0.05)).toFixed(2)
+    }
+    const background = (element) => getComputedStyle(element).backgroundColor
+    for (const card of document.querySelectorAll("[data-measure]")) {
+      const surface = background(card)
+      const parts = [
+        ["button", card.querySelector(".ui-button")],
+        ["chip", card.querySelector(".ui-chip")],
+        [
+          "tab track",
+          card.querySelector(".ui-input:not(:checked) + .ui-label"),
+        ],
+      ]
+      card.querySelector(".todo-measure").textContent = parts
+        .map(([name, part]) => `${name} ${ratio(background(part), surface)}:1`)
+        .join(", ")
+    }
+  }
+</script>

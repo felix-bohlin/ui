@@ -2,58 +2,110 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Textarea",
-  model: {
-    description: "The textarea value.",
-    prop: "value",
-    type: "string",
-  },
+  elements: [
+    {
+      members: [
+        {
+          description:
+            "The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.",
+          kind: "property",
+          name: "control",
+        },
+      ],
+      tag: "opui-character-count",
+    },
+  ],
+  css: ["text-field", "textarea"],
+  keyboard: [
+    {
+      description:
+        "Moves focus to the next element, like in any field. It doesn't type a tab character.",
+      keys: ["Tab"],
+    },
+    {
+      description:
+        "Starts a new line. Unlike in a text field, it doesn't submit the form.",
+      keys: ["Enter"],
+    },
+  ],
   notes: {
-    astro:
-      "Textarea attributes (`cols`, `disabled`, `maxlength`, `minlength`, `name`, `placeholder`, `required`, `rows`, `value`) go to the `<textarea>`. Other attributes go to the root `<label>`.",
-    vue: "Attributes that aren't props, such as `placeholder` or `rows`, go to the `<textarea>`.",
+    default:
+      "Write the `<textarea>` inside, with its `id` set to `for`, and bind it like any textarea. Other attributes go to the `.ui-textarea` root.",
+    react:
+      "Write the `<textarea>` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-textarea` root.",
+    html: 'For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`. With a label, put a `<label class="ui-label" for>` inside the root that points at the field\'s `id`, so the label alone names it, and point its `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Put `.ui-top` and `.ui-start` before the `<textarea>` and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they\'re drawn.',
   },
   options: [
     {
       class: ".ui-auto-fit",
       default: "false",
-      description: "Changes height depending on its content.",
-      group: "Auto-fit",
+      description:
+        "Lets the width follow the content and allows resizing in both directions.",
+      group: "Auto fit",
       prop: "autoFit",
     },
     {
-      attribute: "[data-invalid]",
       default: "false",
-      description: "Shows error styles.",
-      group: "Validation",
-      prop: "error",
+      description:
+        "Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count.",
+      group: "Character count",
+      prop: "characterCount",
     },
     {
-      class: ".ui-filled",
-      default: "false",
-      description: "The variant to use.",
-      group: "Variants",
-      prop: "filled",
+      default: '"Characters left: {count}"',
+      description:
+        "The announcement near the limit, with `{count}` for the characters left. Pass it translated.",
+      prop: "characterCountLabel",
     },
     {
-      description: "The id of the `<textarea>`.",
-      frameworks: ["astro", "vue"],
-      prop: "id",
+      description:
+        'The `id` of your `<textarea>`. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`. Point the textarea\'s `aria-describedby` at the ones it shows, in that order.',
+      frameworks: ["astro", "solid", "svelte", "vue"],
+      prop: "for",
       type: "string",
     },
     {
-      class: ".ui-small",
+      class: ".ui-sr-only",
       default: "false",
+      description:
+        "Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.",
+      group: "Label",
+      part: ".ui-textarea > label",
+      prop: "hideLabel",
+    },
+    {
+      description:
+        'The `id` of your `<textarea>`, as `htmlFor` like on the element. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `htmlFor="x"`. Point the textarea\'s `aria-describedby` at the ones it shows, in that order.',
+      frameworks: ["react"],
+      prop: "htmlFor",
+      type: "string",
+    },
+    {
+      default: '"medium"',
       description: "The size of the element.",
       group: "Sizes",
-      prop: "small",
+      prop: "size",
+      values: {
+        large: ".ui-large",
+        medium: null,
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       class: ".ui-spread",
       default: "false",
       description:
-        "Pushes the label and description to one side and the textarea to the other.",
-      group: "Layout",
+        "Pushes the label and start text to one side and the textarea to the other.",
+      group: "Spread",
       prop: "spread",
+    },
+    {
+      default: '"outlined"',
+      description: "The variant to use.",
+      group: "Variants",
+      prop: "variant",
+      values: { filled: ".ui-filled", outlined: null },
     },
   ],
   parts: [
@@ -64,59 +116,67 @@ export default {
       slots: ["label"],
     },
     {
-      description: "Description text displayed above the field.",
-      props: ["description"],
+      description: "Start text displayed above the field.",
+      props: ["startText"],
       selector: ".ui-start-text",
-      slots: ["description"],
+      slots: ["start-text"],
     },
     {
       description: "The boxed textarea area.",
-      selector: ".ui-field",
+      selector: ".ui-field-container",
     },
     {
       description:
         "Content above the textarea, inside the border, with a divider.",
-      selector: ".ui-header",
-      slots: ["header"],
+      selector: ".ui-field-container > .ui-top",
+      slots: ["top"],
     },
     {
       description:
-        "Content at the inline-start of the field, inside the border.",
-      selector: ".ui-prefix",
-      slots: ["prefix"],
+        "Content at the inline-start of the field, inside the border, centered on the first line. Taller content starts `--_affix-padding-block` below the field's top, or below `.ui-top`.",
+      selector: ".ui-field-container > .ui-start",
+      slots: ["start"],
     },
     {
       code: "<textarea>",
-      description: "The textarea element.",
-      model: true,
-      selector: "textarea",
+      description:
+        'Your textarea, written directly inside `.ui-field-container` with its `id` set to `for` and its value as its content. Bind it, name it and mark it `required`, `disabled` or `aria-invalid="true"` like any textarea.',
+      selector: ".ui-field-container > textarea",
     },
     {
-      description: "Content at the inline-end of the field, inside the border.",
-      selector: ".ui-suffix",
-      slots: ["suffix"],
+      description:
+        "Content at the inline-end of the field, inside the border, centered on the first line. Taller content starts `--_affix-padding-block` below the field's top, or below `.ui-top`.",
+      selector: ".ui-field-container > .ui-end",
+      slots: ["end"],
     },
     {
       description:
         "Content below the textarea, inside the border, with a divider.",
-      selector: ".ui-footer",
-      slots: ["footer"],
+      selector: ".ui-field-container > .ui-bottom",
+      slots: ["bottom"],
     },
     {
       description: "Supporting text displayed below the field.",
-      legacy: { slots: ["supporting-text"] },
       props: ["endText"],
       selector: ".ui-end-text",
       slots: ["end-text"],
     },
+    {
+      code: "<opui-character-count>",
+      description:
+        "The character count, `aria-hidden` so it stays out of the field's description. Near the limit, a live region outside the label announces the characters left.",
+      props: ["characterCount", "characterCountLabel"],
+      selector: ".ui-end-text > .ui-value",
+    },
   ],
   root: {
-    description: "Container element.",
-    selector: "label.ui-textarea",
+    description:
+      "Container element, a `<div>`. The label inside is a `<label for>` that names the textarea by itself.",
+    selector: ".ui-textarea",
   },
   slots: [
     {
-      description: "Extra content inside the root.",
+      description: "Your `<textarea>`, which goes in `.ui-field-container`.",
       name: "default",
     },
   ],

@@ -2,20 +2,30 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Tooltip",
+  css: ["anchor", "tooltip"],
+  keyboard: [
+    {
+      description:
+        "Moving focus to the trigger shows the tooltip after a short delay, and moving focus away hides it.",
+      keys: ["Tab"],
+    },
+    {
+      description:
+        'Runs the trigger\'s own action. On a toggletip, a trigger with `commandfor` and `command="toggle-popover"`, toggles the tooltip.',
+      keys: ["Enter", "Space"],
+    },
+    {
+      description:
+        "Hides the tooltip. Focus stays on the trigger. In browsers without interest invokers, the tooltip stays until the pointer and focus leave the trigger.",
+      keys: ["Esc"],
+    },
+  ],
   notes: {
-    html: 'Also add `.ui-anchor` to the root. Give `.ui-anchor-floating` `popover="hint"` and an id, and add `interestfor` with that id to the trigger.',
+    html: 'Give `.ui-floating` `popover="hint"` and an id, and add `interestfor` with that id to the trigger. A toggletip trigger also takes `commandfor` and `command="toggle-popover"`.',
   },
   options: [
     {
-      cssVar: "--anchor-position-area",
-      default: '"block-start"',
-      description:
-        "Any valid `position-area` value. Controls where the tooltip is placed.",
-      group: "Position",
-      prop: "alignment",
-    },
-    {
-      class: ".ui-with-arrow",
+      class: ".ui-arrow",
       default: "false",
       description: "Adds an arrow that points to the trigger.",
       group: "Arrow",
@@ -23,22 +33,29 @@ export default {
     },
     {
       description:
-        "The id of the tooltip. Add `interestfor` with the same id to the trigger.",
+        'The id of the tooltip. Add `interestfor` with the same id to the trigger, and on a toggletip `commandfor` and `command="toggle-popover"` too. Required.',
       prop: "id",
+    },
+    {
+      cssVar: "--ui-anchor-position-area",
+      default: '"self-block-start"',
+      description:
+        "Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page.",
+      group: "Position",
+      prop: "positionArea",
     },
   ],
   parts: [
     {
+      anchorName: "--ui-tooltip",
+      component: "TooltipContent",
+      description: 'The tooltip, a `popover="hint"`.',
+      selector: ".ui-floating",
+    },
+    {
       code: "& > :first-child",
       description: "The trigger that shows the tooltip on hover and focus.",
       selector: ".ui-tooltip > :first-child",
-      slots: ["default"],
-    },
-    {
-      description: 'The tooltip, a `popover="hint"`.',
-      props: ["label"],
-      selector: ".ui-anchor-floating",
-      slots: ["content"],
     },
   ],
   root: {
@@ -46,5 +63,11 @@ export default {
     description: "Container element.",
     selector: ".ui-tooltip",
   },
+  slots: [
+    {
+      description: "The trigger, followed by `TooltipContent`.",
+      name: "default",
+    },
+  ],
   source: "Tooltip",
 } satisfies ComponentApi

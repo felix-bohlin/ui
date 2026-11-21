@@ -1,37 +1,28 @@
-<label class="ui-select">
-  <span class="ui-label" id="select-affix-1-label">Currency</span>
-  <span class="ui-field">
-    <select aria-labelledby="select-affix-1-label">
-      <button>
+<div class="ui-select">
+  <label class="ui-label" for="select-affix-1">Currency</label>
+  <span class="ui-field-container">
+    <span class="ui-start" id="select-affix-1-start">¤</span>
+    <select aria-describedby="select-affix-1-start" id="select-affix-1">
+      <button inert>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
         <option value="">-</option>
-        <option>EUR</option>
         <option>EUR</option>
         <option>SEK</option>
+        <option>USD</option>
       </div>
     </select>
-    <span class="ui-prefix">¢</span>
   </span>
-</label>
+</div>
 
-<label class="ui-select">
-  <span class="ui-label" id="select-affix-2-label">Country</span>
-  <span class="ui-field">
-    <select aria-labelledby="select-affix-2-label">
-      <button>
-        <selectedcontent></selectedcontent>
-      </button>
-      <div class="ui-list">
-        <option value="">-</option>
-        <option>Sweden</option>
-        <option>Norway</option>
-        <option>Denmark</option>
-      </div>
-    </select>
-    <span class="ui-prefix">
+<div class="ui-select">
+  <label class="ui-label" for="select-affix-2">Country</label>
+  <span class="ui-field-container">
+    <span class="ui-start" id="select-affix-2-start">
       <svg
+        data-icon="globe"
+        aria-hidden="true"
         width="16"
         height="16"
         viewBox="0 0 24 24"
@@ -48,5 +39,33 @@
         ></path>
       </svg>
     </span>
+    <select aria-describedby="select-affix-2-start" id="select-affix-2">
+      <button inert>
+        <selectedcontent></selectedcontent>
+      </button>
+      <div class="ui-list">
+        <option value="">-</option>
+        <option>Denmark</option>
+        <option>Norway</option>
+        <option>Sweden</option>
+      </div>
+    </select>
   </span>
-</label>
+</div>
+
+<div class="ui-select">
+  <label class="ui-label" for="select-affix-3">Delivery time</label>
+  <span class="ui-field-container">
+    <select aria-describedby="select-affix-3-end" id="select-affix-3">
+      <button inert>
+        <selectedcontent></selectedcontent>
+      </button>
+      <div class="ui-list">
+        <option>1</option>
+        <option>3</option>
+        <option>5</option>
+      </div>
+    </select>
+    <span class="ui-end" id="select-affix-3-end">days</span>
+  </span>
+</div>

@@ -1,0 +1,46 @@
+---
+import Blocks from "../../layouts/Blocks.astro"
+import BlockCard from "../../components/BlockCard.astro"
+import { blockGroups } from "../../utils/blocks"
+---
+
+<Blocks
+  description="Bigger pieces of UI built from the components, ready to copy into a project."
+  overline=""
+  wide
+>
+  <Fragment slot="title">Blocks</Fragment>
+  <Fragment slot="preamble">
+    Static markup from Bassbook, a made-up social network for bassists nobody
+    listens to.
+  </Fragment>
+
+  {blockGroups.map((group) => <section class="ui-not-rich-text" id={group.id}>
+    <h2>{group.label}</h2>
+    <ul class="block-grid">
+      {group.blocks.map((block) => <li>
+        <BlockCard block={block} />
+      </li>)}
+    </ul>
+  </section>)}
+</Blocks>
+
+<style>
+  section + section {
+    margin-block-start: var(--size-8);
+  }
+
+  h2 {
+    font-size: var(--ui-font-size-600);
+    margin-block-end: var(--size-4);
+  }
+
+  .block-grid {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+</style>

@@ -1,0 +1,38 @@
+<div class="ui-text-field">
+  <label class="ui-label" for="text-field-top-and-bottom-1">Name</label>
+  <span class="ui-field-container">
+    <span class="ui-top" id="text-field-top-and-bottom-1-top"
+      >Shown on your profile</span
+    >
+    <input
+      aria-describedby="text-field-top-and-bottom-1-top"
+      id="text-field-top-and-bottom-1"
+      placeholder="Holly Humbucker"
+    />
+  </span>
+</div>
+
+<div class="ui-text-field">
+  <label class="ui-label" for="text-field-top-and-bottom-2">Bass motto</label>
+  <span class="ui-field-container">
+    <input
+      aria-describedby="text-field-top-and-bottom-2-bottom text-field-top-and-bottom-2-end-text"
+      id="text-field-top-and-bottom-2"
+      maxlength="80"
+      placeholder="Turn it up, not down"
+    />
+    <span class="ui-bottom" id="text-field-top-and-bottom-2-bottom"
+      >Plain text, no links</span
+    >
+  </span>
+  <span class="ui-end-text" id="text-field-top-and-bottom-2-end-text">
+    <opui-character-count
+      aria-hidden="true"
+      class="ui-value"
+    ></opui-character-count>
+  </span>
+</div>
+
+<script type="module">
+  import "opui-css/elements/character-count.js"
+</script>

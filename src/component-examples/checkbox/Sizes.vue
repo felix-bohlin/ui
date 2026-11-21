@@ -4,17 +4,21 @@ import { Checkbox } from "opui-css/vue"
 
 <template>
   <div class="example-row">
-    <Checkbox hideLabel size="small" checked name="checkbox-sizes"
-      >Label</Checkbox
+    <Checkbox checked hideLabel name="checkbox-sizes" size="x-small"
+      >X-small</Checkbox
     >
-    <Checkbox hideLabel checked name="checkbox-sizes">Label</Checkbox>
-    <Checkbox hideLabel size="large" checked name="checkbox-sizes"
-      >Label</Checkbox
+    <Checkbox checked hideLabel name="checkbox-sizes" size="small"
+      >Small</Checkbox
+    >
+    <Checkbox checked hideLabel name="checkbox-sizes">Medium</Checkbox>
+    <Checkbox checked hideLabel name="checkbox-sizes" size="large"
+      >Large</Checkbox
     >
   </div>
   <div class="example-row">
-    <Checkbox size="small" checked name="checkbox-sizes">Small</Checkbox>
-    <Checkbox checked name="checkbox-sizes">Default</Checkbox>
-    <Checkbox size="large" checked name="checkbox-sizes">Large</Checkbox>
+    <Checkbox checked name="checkbox-sizes" size="x-small">X-small</Checkbox>
+    <Checkbox checked name="checkbox-sizes" size="small">Small</Checkbox>
+    <Checkbox checked name="checkbox-sizes">Medium</Checkbox>
+    <Checkbox checked name="checkbox-sizes" size="large">Large</Checkbox>
   </div>
 </template>

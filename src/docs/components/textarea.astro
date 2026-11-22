@@ -82,6 +82,17 @@ export const keywords = ["multiline", "text area"]
     <AutoExample name="Basics" column />
   </section>
 
+  <section id="rows">
+    <h2>Rows</h2>
+    <p>
+      A textarea starts three lines tall and grows with its text.
+      <code>rows</code> sets the lines it starts at, so <code>rows="1"</code>
+      makes a one-line field that grows, like a reply box.
+    </p>
+
+    <AutoExample name="Rows" column />
+  </section>
+
   <section id="character-count">
     <h2>Character count</h2>
     <Conditional as="p">
@@ -111,7 +122,7 @@ export const keywords = ["multiline", "text area"]
     <p>
       A button can go in an affix, like a send button. Leave a part that only
       holds buttons out of the textarea's <code>aria-describedby</code>, as on
-      the <DocLink href="/components/field#affix">Field</DocLink> page.
+      the <DocLink href="/components/field#basics">Field</DocLink> page.
     </p>
     <AutoExample name="AffixButton" row />
   </section>
@@ -141,17 +152,6 @@ export const keywords = ["multiline", "text area"]
       </Fragment>
     </Conditional>
     <AutoExample name="Binding" column />
-  </section>
-
-  <section id="rows">
-    <h2>Rows</h2>
-    <p>
-      A textarea starts three lines tall and grows with its text.
-      <code>rows</code> sets the lines it starts at, so <code>rows="1"</code>
-      makes a one-line field that grows, like a reply box.
-    </p>
-
-    <AutoExample name="Rows" column />
   </section>
 
   <TextareaBuild slot="under-the-hood" />

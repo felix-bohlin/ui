@@ -5,7 +5,7 @@ import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 
-import FieldCSS from "@opui/css/components/text-field.css?raw"
+import FieldCSS from "@opui/css/components/field.css?raw"
 import SelectCSS from "@opui/css/components/select.css?raw"
 import ListCSS from "@opui/css/components/list.css?raw"
 import selectButtonApi from "../../component-api/select-button/api"
@@ -52,7 +52,7 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
   apis={[{ title: "Select button API", api: selectButtonApi }]}
   installationTabs={[
     {
-      title: "text-field.css",
+      title: "field.css",
       code: FieldCSS,
       lang: "css",
       isDependency: true,

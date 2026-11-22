@@ -1471,7 +1471,7 @@ export const whatsNew = {
       `Breaking: <code>type="numeric"</code> is gone. Pass <a href="#numeric-vs-input-type-number"><code>inputmode="numeric"</code> and <code>pattern="[0-9]*"</code></a>, or a <code>Field</code> with <code>StepButton</code> parts for an amount.`,
     ),
     `The <a href="#autosuggest">auto-suggest</a> arrow is the Select chevron at every size.`,
-    `Breaking: the <a href="#autosuggest">autosuggest</a> and other input styles are in <code>text-field.css</code>, and <code>text-input.css</code> is gone. Remove its import.`,
+    `Breaking: the <a href="#autosuggest">autosuggest</a> and other input styles are in <code>field.css</code>, which replaces <code>text-field.css</code> and <code>text-input.css</code>. Import it instead.`,
   ],
   textarea: [
     {

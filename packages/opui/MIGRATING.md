@@ -1072,7 +1072,7 @@ Deep type imports from `opui-css/components/*` are renamed, see [Package and imp
 
 ## Range
 
-`Range` is gone from every framework. A range is a `Field` with your own `<input type="range">` in it, its `id` set to the required `for` (`htmlFor` in React), which the types enforce. `label`, `startText`, `endText` and `spread` are Field's props of the same name, and `id`, `name`, `list`, `min`, `max`, `step` and the value go on the input: bind it with your framework's own `value`, `bind:value` or `v-model`. Point the input's `aria-describedby` at `x-start-text` and `x-end-text` for `for="x"` when the field shows them. Import `text-field.css` with `range.css`, or use `components.css`.
+`Range` is gone from every framework. A range is a `Field` with your own `<input type="range">` in it, its `id` set to the required `for` (`htmlFor` in React), which the types enforce. `label`, `startText`, `endText` and `spread` are Field's props of the same name, and `id`, `name`, `list`, `min`, `max`, `step` and the value go on the input: bind it with your framework's own `value`, `bind:value` or `v-model`. Point the input's `aria-describedby` at `x-start-text` and `x-end-text` for `for="x"` when the field shows them. Import `field.css` with `range.css`, or use `components.css`.
 
 ```diff
 - <Range endText="Quieter after 22:00." label="Volume" max="11" v-model="volume" />
@@ -1405,11 +1405,12 @@ The boolean `filled` is gone. Use `variant="filled"` on `Field`. The class is st
 + <div class="ui-field"> … <input aria-invalid="true">
 ```
 
-`text-input.css` is gone, its styles are in `text-field.css`. Remove the import:
+`text-field.css` is `field.css`, and `text-input.css` is gone, its styles are in `field.css` too. Replace both imports:
 
 ```diff
-  @import "opui-css/css/components/text-field.css";
+- @import "opui-css/css/components/text-field.css";
 - @import "opui-css/css/components/text-input.css";
++ @import "opui-css/css/components/field.css";
 ```
 
 The slots inside the field's border are `start` and `end` instead of `prefix` and `suffix`, and `top` and `bottom` instead of `header` and `footer`. In HTML, the classes are `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`.

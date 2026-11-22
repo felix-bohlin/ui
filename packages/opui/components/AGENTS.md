@@ -566,6 +566,7 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `Checkbox`, `Radio`, `Switch` and `Choice` (their shared root): the checked mark, the switch track and the checked `.ui-card` border are tints, so they get `SelectedItem`, `SelectedItemText` and `CanvasText`, and the invalid state is a color, so an invalid input, switch track or card gets a dashed border.
 - `Chip`: the severity dot and the selected state are fills, so they get `CanvasText` and `SelectedItem`, and the dot on a pressed chip `SelectedItemText`, like its label. `aria-disabled="true"` gets `GrayText`, like `Button`.
 - `ControlGroup`: the edges between controls are real borders, but a link button's would be `LinkText`, so every button gets a `ButtonBorder` border and the edges are one color.
+- `Field`, the `.ui-field` styles every field shares: the field border is real, but the focus outline gets `Highlight`, an invalid field, whose red border is forced away, a dashed border, and the mask chevron of an input with a `list` and the default icons of `PasswordToggle` `ButtonText`. `range.css`, `select.css`, `step-button.css` and `textarea.css` build on it.
 - `FileUpload`: the drag-over highlight is a tint, so the drop zone's border, which also turns from dashed to solid, gets `Highlight`, the default plus and remove icons are masks, so they get `CanvasText` and `ButtonText`, and the mark on a failed preview in the compact row is a mask on a tint, so it gets `ButtonText` on `Canvas`.
 - `List`: selected and current items are tints, so they get `SelectedItem`, and the check of a `Menu`, listbox or select option is a mask, so it gets their `SelectedItemText`.
 - `Message`: the bubble is a fill, so it gets a `CanvasText` border, and the typing dots keep `CanvasText`.
@@ -578,10 +579,9 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `Select`, the select of a `.ui-field`: the picker chevron is a mask, so it gets `ButtonText`, and the check of the selected option `SelectedItemText`.
 - `SortableTable`: the sort arrow is a mask, so it gets `ButtonText`.
 - `Spinner`: a `CanvasText` ring with `forced-color-adjust: none`, so its transparent segment is kept and the spin stays visible.
-- `StepButton`: the default icons are masks, so they get `ButtonText`. `text-field.css` and `button.css` cover the field and the buttons.
+- `StepButton`: the default icons are masks, so they get `ButtonText`. `field.css` and `button.css` cover the field and the buttons.
 - `Stepper`: complete and error markers and the line after a complete step are fills, so they get `CanvasText`, the current marker `Highlight` and the line to a later step `GrayText`.
 - `Tabs`: the selected tab is a tint, so it gets `SelectedItem` and a `CanvasText` border, and its focus ring, where it's drawn inside the fill, `SelectedItemText`.
-- `TextField`, the `.ui-field` styles every field shares: the field border is real, but the focus outline gets `Highlight`, an invalid field, whose red border is forced away, a dashed border, and the mask chevron of an input with a `list` and the default icons of `PasswordToggle` `ButtonText`. `range.css`, `select.css`, `step-button.css` and `textarea.css` build on it.
 - `Timeline`: colored and current markers are fills, so they get `CanvasText`, and the current marker and the tracked line `Highlight`.
 - `ToggleButton`: the checked state is a tint, so it gets `SelectedItem`.
 - `ToggleGroup`: the dividers are column and row rules, which the browser forces to `CanvasText`, but browsers without gap decorations draw them as shadows, which forced colors drops, so the block gives each button `CanvasText` borders, which `css/compat/toggle-group.css` sets to a border width there.
@@ -596,7 +596,7 @@ The components without a block, and why:
 - `Toaster`: every toast is a `Callout`, and `callout.css` has the block for its border and its severity and close icons.
 - `Link`: text and underlines, forced to `LinkText` and `CanvasText`.
 - `Stat`: text only, no boundary or state.
-- `Textarea`, the textarea of a `.ui-field`: `textarea.css` only sizes the control; `text-field.css` has the block.
+- `Textarea`, the textarea of a `.ui-field`: `textarea.css` only sizes the control; `field.css` has the block.
 
 When a component gains a shadow-only edge or a color-only state, it gets a block and this list is updated.
 
@@ -619,7 +619,7 @@ When a component gains a shadow-only edge or a color-only state, it gets a block
 `css/components.css` imports every component stylesheet in one of three groups, named by the layer the files declare, and `tests/unit/layers.test.ts` checks each file against its group:
 
 - **Root components** declare `components.root`: base rules shared by several roots (`card.css` for `.ui-accordion`, `.ui-card` and `.ui-dialog`, and the parts of `.ui-dialog` and `.ui-drawer`, `anchor.css` for `.ui-anchor` and `.ui-tooltip`, `choice.css` for the checkbox, radio and switch) and per-component rules, none of which has to beat another component's rules on the same element. `typography.css` also declares `components.prose`, the classless rich text below every component.
-- **Extended components** declare `components.extended` for the rules that must beat another component's rules on the same element (a `Dialog` on top of `card.css`, a `Tooltip` on top of `anchor.css`, a `Menu` or a field's select over `list.css` and `text-field.css`), and `components.root` for rules that must not (the dense `List` sizes for a `Checkbox`, which an explicit size class on the checkbox has to beat).
+- **Extended components** declare `components.extended` for the rules that must beat another component's rules on the same element (a `Dialog` on top of `card.css`, a `Tooltip` on top of `anchor.css`, a `Menu` or a field's select over `list.css` and `field.css`), and `components.root` for rules that must not (the dense `List` sizes for a `Checkbox`, which an explicit size class on the checkbox has to beat).
 - **Utilities** declare `utils`: `layout.css`, whose classes beat every component, like `core/utils.css`.
 
 A new stylesheet goes in the group of the layer it declares, and a file that needs a layer its group doesn't allow moves group instead of opening the layer. `tests/unit/layers.test.ts` also checks the import order within a group, including `BUILDS_ON`, the stylesheets that must follow the one they extend.

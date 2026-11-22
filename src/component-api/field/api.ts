@@ -2,7 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Field",
-  css: ["list", "select", "text-field", "textarea"],
+  css: ["field", "list", "select", "textarea"],
   keyboard: [
     {
       description:

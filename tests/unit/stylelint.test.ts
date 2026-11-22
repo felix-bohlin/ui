@@ -73,6 +73,6 @@ test("a compat file can fall back to overflow-x and overflow-y, and nothing else
 
 test("an exception that no longer matches fails", async () => {
   expect(
-    await lint(block("color: CanvasText;"), "components/text-field.css"),
+    await lint(block("color: CanvasText;"), "components/field.css"),
   ).toEqual(["opui/focus-visible"])
 })

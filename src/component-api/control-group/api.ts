@@ -2,7 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "ControlGroup",
-  css: ["button", "control-group", "text-field"],
+  css: ["button", "control-group", "field"],
   keyboard: [
     {
       description:

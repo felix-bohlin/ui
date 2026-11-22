@@ -2,7 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "StepButton",
-  css: ["button", "step-button", "text-field"],
+  css: ["button", "field", "step-button"],
   elements: [
     {
       members: [

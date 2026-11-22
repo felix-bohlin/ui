@@ -9,7 +9,7 @@ export default function Basics() {
       <Field htmlFor="field-basics-2" label="Instrument">
         <select id="field-basics-2" name="instrument">
           <SelectButton />
-          <option value="">-</option>
+          <option value="">Pick an instrument</option>
           <option>Bass</option>
           <option>Drums</option>
           <option>Guitar</option>

@@ -4,13 +4,13 @@
   "type": "module",
   "dependencies": {
     "@solidjs/router": "^2.0.0",
-    "@solidjs/web": "^2.0.0",
+    "@solidjs/web": "^2.0.3",
     "reference-shared": "workspace:*",
-    "solid-js": "^2.0.0"
+    "solid-js": "^2.0.3"
   },
   "devDependencies": {
     "@solidjs/vite-plugin": "^3.0.1",
-    "typescript": "^6.0.3",
+    "typescript": "^7.0.2",
     "vite": "^8.3.6"
   }
 }

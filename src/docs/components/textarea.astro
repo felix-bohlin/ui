@@ -7,6 +7,7 @@ import Conditional from "../../components/Conditional.astro"
 
 import FieldCSS from "@opui/css/components/text-field.css?raw"
 import TextareaCSS from "@opui/css/components/textarea.css?raw"
+import CharacterCountJS from "@opui/elements/character-count.js?raw"
 
 import characterCountApi from "../../component-api/character-count/api"
 import TextareaBuild from "../../components/UnderTheHood/TextareaBuild.astro"
@@ -50,6 +51,7 @@ export const keywords = ["multiline", "text area"]
       isDependency: true,
     },
     { title: "textarea.css", code: TextareaCSS, lang: "css" },
+    { title: "character-count.js", code: CharacterCountJS, lang: "js" },
   ]}
 >
   <Fragment slot="title">Textarea</Fragment>

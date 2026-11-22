@@ -50,7 +50,8 @@ export default {
     {
       class: ".ui-auto-fit",
       default: "false",
-      description: "Lets the width follow the content, from `25ch`.",
+      description:
+        "Lets the width follow the content, from `25ch`, or `4ch` with step buttons. A textarea can then be resized both ways.",
       group: "Auto fit",
       prop: "autoFit",
     },
@@ -111,6 +112,20 @@ export default {
         "Pushes the label and start text to one side and the control to the other.",
       group: "Spread",
       prop: "spread",
+    },
+    {
+      description:
+        'Set on the control: `aria-invalid="true"`, or `:user-invalid`, shows the error colors, `required` adds a required mark after the label, `disabled` or `aria-disabled="true"` dims the field, and `readonly` keeps the text cursor.',
+      frameworks: ["html"],
+      group: "State",
+      prop: "state",
+      values: {
+        disabled:
+          ':has(:is(input, select, textarea):is(:disabled, [aria-disabled="true"]))',
+        invalid: ':has([aria-invalid="true"], :user-invalid)',
+        readonly: ":has([readonly])",
+        required: ":has(:required)",
+      },
     },
     {
       default: '"outlined"',

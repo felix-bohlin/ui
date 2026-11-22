@@ -85,7 +85,7 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--u
 
 ## Astro
 
-`import { PasswordToggle } from "opui-css/astro"`
+`import { Field, PasswordToggle } from "opui-css/astro"`
 
 - `PasswordToggle` named slots: `icon-checked` and `icon-unchecked`. Fill one with `slot="icon-checked"` on a child.
 
@@ -108,7 +108,7 @@ import { Field } from "opui-css/astro"
 
 ## React
 
-`import { PasswordToggle } from "opui-css/react"`
+`import { Field, PasswordToggle } from "opui-css/react"`
 
 - `PasswordToggle` slot props (`ReactNode`): `iconChecked` and `iconUnchecked`.
 - Client components (`"use client"`): `PasswordToggle`.
@@ -134,7 +134,7 @@ export default function Basics() {
 
 ## Solid
 
-`import { PasswordToggle } from "opui-css/solid"`
+`import { Field, PasswordToggle } from "opui-css/solid"`
 
 - `PasswordToggle` slot props (`JSX.Element`): `iconChecked` and `iconUnchecked`.
 
@@ -160,7 +160,7 @@ export default function Basics() {
 
 ## Svelte
 
-`import { PasswordToggle } from "opui-css/svelte"`
+`import { Field, PasswordToggle } from "opui-css/svelte"`
 
 - `PasswordToggle` slot snippets: `iconChecked` and `iconUnchecked`.
 
@@ -183,7 +183,7 @@ export default function Basics() {
 
 ## Vue
 
-`import { PasswordToggle } from "opui-css/vue"`
+`import { Field, PasswordToggle } from "opui-css/vue"`
 
 - `PasswordToggle` named slots: `icon-checked` and `icon-unchecked`. Fill one with `<template #icon-checked>`.
 

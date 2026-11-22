@@ -838,13 +838,15 @@ test("step-button.js marks its limit when the page sets the value, sharing one v
         Object.getPrototypeOf(input) === HTMLInputElement.prototype
           ? "HTMLInputElement"
           : String(Object.getPrototypeOf(input)?.constructor?.name),
-      symbols: Object.getOwnPropertySymbols(input).map(String),
+      watched: Object.getOwnPropertySymbols(input).includes(
+        Symbol.for("opui-value-watch"),
+      ),
     }
   })
   expect(unwrapped, "the input gets its own value back").toEqual({
     ownValue: false,
     prototype: "HTMLInputElement",
-    symbols: [],
+    watched: false,
   })
 })
 

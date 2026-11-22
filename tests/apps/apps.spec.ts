@@ -14,8 +14,6 @@ import {
   NATIVE_CASES,
   SVELTE_GROUP,
   SVELTE_SPREAD,
-  VUE_PREBUILT_SELECT,
-  VUE_SLOT_VALUE,
 } from "./native/cases.ts"
 
 const PIXEL = Buffer.from(
@@ -570,12 +568,6 @@ const NATIVE_DIFFERENCES = [
     "rating-default",
     "tabs-bound",
     "toggle-bound",
-  ]),
-  ...differences("nuxt", VUE_PREBUILT_SELECT, ["select-bound"]),
-  ...differences("nuxt", VUE_SLOT_VALUE, [
-    "number-default",
-    "range-default",
-    "text-default",
   ]),
 ]
 

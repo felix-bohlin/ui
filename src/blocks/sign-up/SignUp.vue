@@ -77,7 +77,7 @@ import {
                   name="password"
                   required
                   type="password"
-                  value="four-strings-4ever"
+                  :value.attr="'four-strings-4ever'"
                 />
                 <template #end>
                   <PasswordToggle for="sign-up-password" />

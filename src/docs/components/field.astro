@@ -132,6 +132,16 @@ export const keywords = ["form", "input", "label", "select", "textarea"]
       </Fragment>
     </Conditional>
     <AutoExample name="Basics" column />
+    <Conditional as="p">
+      <Fragment slot="vue">
+        Give a control a starting value you don't bind as an attribute,
+        <code>:value.attr="'1'"</code>, as the examples do. Vue's hydration sets
+        a plain <code>value</code> on a control in a slot back to the server's,
+        which replaces what the user typed before the page hydrated, while an
+        attribute only sets the default. A control bound with
+        <code>v-model</code> needs neither.
+      </Fragment>
+    </Conditional>
     <p>
       Each part the field shows has an id that starts with the control's:
       <code>x-start-text</code>, <code>x-top</code>, <code>x-start</code>,

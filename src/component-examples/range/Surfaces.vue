@@ -4,9 +4,9 @@ import { Field } from "opui-css/vue"
 
 <template>
   <Field for="range-surfaces-1" label="Volume">
-    <input id="range-surfaces-1" type="range" value="30" />
+    <input id="range-surfaces-1" type="range" :value.attr="'30'" />
   </Field>
   <Field for="range-surfaces-2" label="Brightness" variant="filled">
-    <input id="range-surfaces-2" type="range" value="70" />
+    <input id="range-surfaces-2" type="range" :value.attr="'70'" />
   </Field>
 </template>

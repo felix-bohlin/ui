@@ -12,7 +12,7 @@ import { OneTimeCode } from "opui-css/vue"
       name="recovery-code"
       pattern="[A-Za-z0-9]{6}"
       spellcheck="false"
-      value="k7q"
+      :value.attr="'k7q'"
     />
   </OneTimeCode>
 </template>

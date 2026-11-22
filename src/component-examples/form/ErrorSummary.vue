@@ -57,7 +57,7 @@ import {
           autocomplete="new-password"
           id="form-error-summary-3"
           type="password"
-          value="hunter2"
+          :value.attr="'hunter2'"
         />
       </Field>
     </FieldGroup>

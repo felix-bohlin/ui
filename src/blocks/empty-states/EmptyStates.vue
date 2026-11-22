@@ -108,7 +108,7 @@ import {
               id="empty-states-q"
               name="q"
               type="search"
-              value="flatwond strings"
+              :value.attr="'flatwond strings'"
             />
             <template #start>
               <svg

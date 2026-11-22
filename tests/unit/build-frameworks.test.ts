@@ -8,10 +8,12 @@ import {
 import { tmpdir } from "node:os"
 import path from "node:path"
 import { afterAll, beforeAll, describe, expect, test } from "vitest"
+import { parse } from "vue/compiler-sfc"
 import {
   isAugmentation,
   reachable,
   rewriteSpecifiers,
+  serverVue,
   sourceOf,
   specifiersOf,
 } from "../../packages/opui/scripts/build-frameworks.mjs"
@@ -80,6 +82,29 @@ test("sourceOf finds the file the build writes a dist target from", () => {
   expect(source("./dist/react/missing.js")).toBeUndefined()
   expect(source("./dist/opui.css")).toBeUndefined()
   expect(source("./react/index.ts")).toBeUndefined()
+})
+
+test("the server build of a Vue component carries both render functions, so a server render passes the app's slots its push function and a client mount still renders", () => {
+  const file = path.join(packageDir, "components/Sample/Sample.vue")
+  const { descriptor } = parse(
+    '<script setup lang="ts">\nimport { computed } from "vue"\nconst { label } = defineProps<{ label?: string }>()\nconst text = computed(() => label ?? "Sample")\n</script>\n\n<template>\n  <div class="ui-sample" :title="text">\n    <slot></slot>\n  </div>\n</template>\n',
+    { filename: file },
+  )
+  const { render, server, ssr } = serverVue(descriptor, file, "Sample", {
+    fileExists: () => false,
+    readFile: () => undefined,
+  })
+  expect(server.code).toMatch(
+    /import \{ render \} from "\.\/Sample\.vue\.render\.js"\nimport \{ ssrRender \} from "\.\/Sample\.vue\.ssr\.js"\n_sfc_main\.render = render\n_sfc_main\.ssrRender = ssrRender\nexport default _sfc_main$/,
+  )
+  expect(render.code).toContain("export function render(")
+  expect(ssr.code).toContain("export function ssrRender(")
+  expect(ssr.code).toContain("_ssrRenderSlot(")
+  for (const part of [render, server, ssr]) {
+    expect(
+      part.map?.sources.map((source: string) => path.basename(source)),
+    ).toEqual(["Sample.vue"])
+  }
 })
 
 describe("rewriteSpecifiers", () => {

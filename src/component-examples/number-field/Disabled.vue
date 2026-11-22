@@ -4,7 +4,12 @@ import { Field, StepButton } from "opui-css/vue"
 
 <template>
   <Field autoFit for="number-field-disabled-1" label="Quantity">
-    <input disabled id="number-field-disabled-1" type="number" value="1" />
+    <input
+      disabled
+      id="number-field-disabled-1"
+      type="number"
+      :value.attr="'1'"
+    />
     <template #start>
       <StepButton command="--step-down" for="number-field-disabled-1" />
     </template>

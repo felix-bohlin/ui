@@ -24,7 +24,7 @@ import { Field, StepButton } from "opui-css/vue"
       id="number-field-validation-2"
       min="1"
       type="number"
-      value="6"
+      :value.attr="'6'"
     />
     <template #start>
       <StepButton command="--step-down" for="number-field-validation-2" />

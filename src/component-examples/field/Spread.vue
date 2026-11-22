@@ -41,7 +41,7 @@ import { Field } from "opui-css/vue"
       aria-describedby="field-spread-4-start-text"
       disabled
       id="field-spread-4"
-      value="BASS-20931"
+      :value.attr="'BASS-20931'"
     />
     <template #start-text>Assigned when you joined Bassbook</template>
   </Field>
@@ -51,7 +51,7 @@ import { Field } from "opui-css/vue"
       aria-describedby="field-spread-5-start-text field-spread-5-end-text"
       aria-invalid="true"
       id="field-spread-5"
-      value="A"
+      :value.attr="'A'"
     />
     <template #start-text>Shown next to your wall posts</template>
     <template #end-text>Enter at least two characters.</template>

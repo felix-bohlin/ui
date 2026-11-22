@@ -30,7 +30,7 @@ A number input in a Field with step buttons that step the value down and up, for
 
 ### Notes
 
-- HTML: Put `<opui-step-button>` in `.ui-start` and `.ui-end`, around a `.ui-button.ui-round` with `commandfor` and `aria-controls` naming the input and `command="--step-down"` or `command="--step-up"`, and import `opui-css/elements/step-button.js`. Without it, the buttons are hidden and the input keeps the browser's own spin buttons.
+- HTML: Put `<opui-step-button>` in `.ui-start` and `.ui-end`, around a `.ui-button.ui-round` with `commandfor` and `aria-controls` naming the input, `command="--step-down"` or `command="--step-up"` and an `aria-label`, and import `opui-css/elements/step-button.js`. Without it, the buttons are hidden and the input keeps the browser's own spin buttons.
 - Astro, React, Solid, Svelte and Vue: Put one with `command="--step-down"` in the field's `start` and one with `command="--step-up"` in its `end`, next to an `<input type="number">`, and leave those parts out of the input's `aria-describedby`. It loads `opui-css/elements/step-button.js`, which steps the value when the button is pressed or held.
 
 ## Component properties

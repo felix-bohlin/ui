@@ -17,7 +17,12 @@ export default function TopAndBottom() {
 
       <Field
         bottom="Plain text, no links"
-        endText={<CharacterCount />}
+        endText={
+          <>
+            Up to 80 characters.
+            <CharacterCount />
+          </>
+        }
         htmlFor="field-top-and-bottom-2"
         label="Bass motto"
       >

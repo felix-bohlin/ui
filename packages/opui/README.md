@@ -87,7 +87,7 @@ export default function App() {
 }
 ```
 
-Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are props: `children`, and camelCased names such as `endText`. Form controls take the native `value` or `checked`, which set the state and follow it when it changes, and report changes with `onInput` and `onChange`. `Select` takes `defaultValue` too, and `Rating`, `Tabs` and `ToggleGroup` take `value`, `defaultValue` and `onValueChange`.
+Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are props: `children`, and camelCased names such as `endText`. Form controls take the native `value` or `checked`, which set the state and follow it when it changes, and report changes with `onInput` and `onChange`. `Rating`, `Tabs` and `ToggleGroup` take `value`, `defaultValue` and `onValueChange`.
 
 ### Svelte components
 
@@ -153,7 +153,7 @@ In a script, import the CSS by a path that ends in `.css`, such as `opui-css/css
 
 #### Ids in Astro
 
-Form fields, Tabs, ToggleGroup and the Dialog title read `Astro.locals.$id` when it exists and otherwise generate a random id per render. Components a trigger points at (Anchor, Copy, Dialog, Drawer, Menu, Toaster and Tooltip) need an `id` prop. For stable, per-request ids (useful for snapshot tests), define it in a middleware:
+Callout, FileUpload, Tabs, ToggleGroup, the Dialog title and the Fieldset legend read `Astro.locals.$id` when it exists and otherwise generate a random id per render. Form fields don't generate ids: `Field` takes your control's `id` through `for`. Components a trigger points at (Anchor, Copy, Dialog, Drawer, Menu, Toaster and Tooltip) need an `id` prop. For stable, per-request ids (useful for snapshot tests), define it in a middleware:
 
 ```ts
 // src/middleware.ts

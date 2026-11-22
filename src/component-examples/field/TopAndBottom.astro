@@ -19,5 +19,8 @@ import { CharacterCount, Field } from "opui-css/astro"
     placeholder="Turn it up, not down"
   />
   <Fragment slot="bottom">Plain text, no links</Fragment>
-  <CharacterCount slot="end-text" />
+  <Fragment slot="end-text">
+    Up to 80 characters.
+    <CharacterCount />
+  </Fragment>
 </Field>

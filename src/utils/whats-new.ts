@@ -831,17 +831,17 @@ export const whatsNew = {
     },
     `<a href="#spread">Spread</a> fields line up at one width.`,
     {
-      astro: `Breaking: extra attributes such as <code>autocomplete</code> and <code>aria-*</code> go to the input. <code>class</code> and <code>style</code> stay on the label (<a href="#api">API</a>).`,
-      vue: `Breaking: <code>style</code> goes to the label instead of the input (<a href="#api">API</a>).`,
+      astro: `Breaking: attributes that aren't props go to the root <code>&lt;div&gt;</code>, <code>style</code> included. Put <code>autocomplete</code>, <code>aria-*</code> and the other control attributes on your control (<a href="#api">API</a>).`,
+      vue: `Breaking: attributes that aren't props go to the root <code>&lt;div&gt;</code>, <code>style</code> included. Put <code>autocomplete</code>, <code>aria-*</code> and the other control attributes on your control (<a href="#api">API</a>).`,
     },
     slots(
       `Breaking: <a href="#variants"><code>variant="filled"</code></a> replaces the boolean <code>filled</code>.`,
     ),
     {
       ...slots(
-        `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the input, no more <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
+        `Breaking: mark an invalid field with <code>aria-invalid="true"</code> on your control. The root gets no <code>data-invalid</code> (<a href="#validation">Validation</a>).`,
       ),
-      html: `Breaking: mark an invalid field with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
+      html: `Breaking: mark an invalid field with <code>aria-invalid="true"</code> on your control instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
     `Breaking: <code>--_accent-color</code> is <code>--_accent</code>, <code>--_height</code> is <code>--_size</code>, and <code>--_label-color</code> and <code>--_end-text-color</code> are gone: set <code>--ui-text</code> or <code>--ui-field-helper-text-color</code> (<a href="#api">API</a>).`,
     slots(
@@ -873,8 +873,8 @@ export const whatsNew = {
     },
     `A field in a table cell keeps a <code>12ch</code> minimum width, so it stays usable with a <a href="#hidden-label">hidden label</a> in a narrow column.`,
     {
-      default: `<a href="#auto-fit"><code>autoFit</code></a> lets the width follow the selected option of a select, from <code>25ch</code>.`,
-      html: `<a href="#auto-fit"><code>.ui-auto-fit</code></a> lets the width follow the selected option of a select, from <code>25ch</code>.`,
+      default: `<a href="#auto-fit"><code>autoFit</code></a> lets the width follow the content of any control, from <code>25ch</code>.`,
+      html: `<a href="#auto-fit"><code>.ui-auto-fit</code></a> lets the width follow the content of any control, from <code>25ch</code>.`,
     },
   ],
   "file-upload": [
@@ -1079,7 +1079,7 @@ export const whatsNew = {
     },
   ],
   "one-time-code": [
-    `New: a <a href="#basics">One-time code</a> field draws one input as a box per character, with <a href="#grouped">grouped</a> halves, a <a href="#length">length</a> from 4 to 8, <a href="#alphanumeric">alphanumeric</a> codes and autofill you can turn off for a code read off <a href="#another-screen">another screen</a>.`,
+    `New: a <a href="#basics">One-time code</a> field draws one input as a box per character, with <a href="#grouped">grouped</a> halves, a <a href="#length">length</a> from 4 to 8, <a href="#alphanumeric">alphanumeric</a> codes, a <a href="#hidden-label">hidden label</a> and autofill you can turn off for a code read off <a href="#another-screen">another screen</a>.`,
   ],
   progress: [
     `The <a href="#determinate">track</a> is always outlined with <code>--ui-field-border-color</code>, so the empty part is visible.`,
@@ -1183,10 +1183,10 @@ export const whatsNew = {
   range: [
     {
       ...components(
-        `Breaking: <code>Range</code> is gone. A range is a <code>Field</code> with your own <a href="#basics"><code>&lt;input type="range"&gt;</code></a> inside, its <code>id</code> set to the required <code>for</code> and <code>aria-invalid="true"</code> on it when invalid, and a <code>&lt;datalist&gt;</code> for <a href="#tick-marks">tick marks</a>. Show the <a href="#value">value</a> yourself.`,
+        `Breaking: <code>Range</code> is gone. A range is a <code>Field</code> with your own <a href="#basics"><code>&lt;input type="range"&gt;</code></a> inside, its <code>id</code> set to the required <code>for</code> and <code>aria-invalid="true"</code> on it when invalid, and a <code>&lt;datalist&gt;</code> for <a href="#labels">labels</a>. Show the <a href="#value">value</a> yourself.`,
       ),
-      react: `Breaking: <code>Range</code> is gone. A range is a <code>Field</code> with your own <a href="#basics"><code>&lt;input type="range"&gt;</code></a> inside, its <code>id</code> set to the required <code>htmlFor</code> and <code>aria-invalid="true"</code> on it when invalid, and a <code>&lt;datalist&gt;</code> for <a href="#tick-marks">tick marks</a>. Show the <a href="#value">value</a> yourself.`,
-      html: `Breaking: <code>.ui-range</code> is gone. The root is <a href="#basics"><code>&lt;div class="ui-field"&gt;</code></a>, shared with every field, with a <code>&lt;datalist&gt;</code> for <a href="#tick-marks">tick marks</a>. Show the <a href="#value">value</a> yourself: <code>range.js</code> is gone.`,
+      react: `Breaking: <code>Range</code> is gone. A range is a <code>Field</code> with your own <a href="#basics"><code>&lt;input type="range"&gt;</code></a> inside, its <code>id</code> set to the required <code>htmlFor</code> and <code>aria-invalid="true"</code> on it when invalid, and a <code>&lt;datalist&gt;</code> for <a href="#labels">labels</a>. Show the <a href="#value">value</a> yourself.`,
+      html: `Breaking: <code>.ui-range</code> is gone. The root is <a href="#basics"><code>&lt;div class="ui-field"&gt;</code></a>, shared with every field, with a <code>&lt;datalist&gt;</code> for <a href="#labels">labels</a>. Show the <a href="#value">value</a> yourself: <code>range.js</code> is gone.`,
     },
     `Breaking: <code>--_thumb-bg</code>, <code>--_thumb-highlight-color</code> and <code>--_track-fill-color</code> are <code>--_accent</code>, which the thumb, its halo and the fill are derived from, <code>--_track-color</code> is <code>--_track-base-bg-color</code>, <code>--_track-height</code> is <code>--_track-block-size</code> and <code>--_thumb-highlight-size</code> is <a href="#component-properties"><code>--_thumb-ripple-size</code></a>, like the <code>--_ripple-size</code> of a checkbox (<a href="#under-the-hood">Under the hood</a>).`,
     `The empty track reaches <a href="#accessibility">3:1</a> against the page by default, and with more contrast it takes the page color with an inset edge so the fill stands out.`,
@@ -1199,9 +1199,9 @@ export const whatsNew = {
     },
     {
       ...slots(
-        `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look. The default is named <code>outlined</code>.`,
+        `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look, and so is <code>variant="tonal"</code>. The default is named <code>outlined</code>.`,
       ),
-      html: `Breaking: <a href="#variants"><code>.ui-default</code></a> is gone, since it wasn't the default look.`,
+      html: `Breaking: <a href="#variants"><code>.ui-default</code></a> is gone, since it wasn't the default look, and so is <code>.ui-tonal</code>.`,
     },
     {
       ...components(
@@ -1212,7 +1212,6 @@ export const whatsNew = {
     {
       html: `Breaking: mark an invalid range with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
-    `The thumb, its halo and the track fill follow <code>--_accent</code> on the <code>.ui-field</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `<a href="#component-properties"><code>--_track-base-bg-color</code></a> sets the empty track at rest, so filled tracks darken on press and take the disabled color.`,
     `The <a href="#basics">thumb</a> and its ring only show hover styles on devices that can hover, so they no longer stick after a tap.`,

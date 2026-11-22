@@ -5,7 +5,6 @@ import { Button, Field } from "opui-css/vue"
 <template>
   <Field for="textarea-affix-button-1" label="Message">
     <textarea
-      aria-describedby="textarea-affix-button-1-end"
       id="textarea-affix-button-1"
       placeholder="Write a message..."
     ></textarea>

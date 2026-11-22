@@ -4,7 +4,7 @@ import BuildUp from "./BuildUp.astro"
 const steps = [
   {
     css: `
-.text-field {
+.field {
   --accent: var(--ui-primary);
   --affix-text-color: var(--ui-text);
   --border-color: var(--ui-field-border-color);
@@ -19,7 +19,7 @@ const steps = [
   margin-block-end: var(--ui-space-1);
 }
 
-.field {
+.container {
   background-color: var(--ui-surface);
   border: 1px solid var(--border-color);
   border-radius: var(--ui-radius);
@@ -27,7 +27,7 @@ const steps = [
   min-block-size: var(--ui-field-size);
 }
 
-.field input {
+.container input {
   background: transparent;
   border: 0;
   color: var(--ui-text-strong);
@@ -37,11 +37,11 @@ const steps = [
   padding: var(--ui-space-2);
 }
 
-.text-field:focus-within .field {
+.field:focus-within .container {
   border-color: var(--accent);
 }
 
-.field:has(:focus-visible) {
+.container:has(:focus-visible) {
   outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
     var(--ui-focus-ring-color);
   outline-offset: var(--ui-focus-ring-offset);
@@ -54,9 +54,9 @@ const steps = [
 }`,
     features: ["focus-visible", "focus-within", "label"],
     html: `
-<div class="text-field">
+<div class="field">
   <label class="label" for="price">Price</label>
-  <span class="field">
+  <span class="container">
     <input id="price" />
   </span>
 </div>`,
@@ -70,55 +70,55 @@ const steps = [
   },
   {
     css: `
-.field {
-  grid-template-areas: "prefix input suffix";
+.container {
+  grid-template-areas: "start input end";
   grid-template-columns: auto 1fr auto;
 }
 
-.field input {
+.container input {
   grid-area: input;
 }
 
-.prefix,
-.suffix {
+.start,
+.end {
   align-items: center;
   color: var(--affix-text-color);
   display: inline-flex;
   padding-inline: var(--ui-space-2);
 }
 
-.prefix {
-  grid-area: prefix;
+.start {
+  grid-area: start;
 }
 
-.suffix {
-  grid-area: suffix;
+.end {
+  grid-area: end;
 }
 
-.field:has(> .prefix) input {
+.container:has(> .start) input {
   padding-inline-start: 0;
 }
 
-.field:has(> .suffix) input {
+.container:has(> .end) input {
   padding-inline-end: 0;
 }`,
     features: ["grid", "has"],
     html: `
-<span class="field">
-  <span class="prefix" id="price-prefix">€</span>
-  <input aria-describedby="price-prefix price-suffix" id="price" />
-  <span class="suffix" id="price-suffix">per month</span>
+<span class="container">
+  <span class="start" id="price-start">€</span>
+  <input aria-describedby="price-start price-end" id="price" />
+  <span class="end" id="price-end">per month</span>
 </span>`,
     notes: [
       "The markup follows the order the parts are drawn in, so Tab reaches a button in an affix where it sits, and <code>grid-area</code> places each part",
-      "<code>:has(> .prefix)</code> drops the input padding next to an affix",
+      "<code>:has(> .start)</code> drops the input padding next to an affix",
       "<code>aria-describedby</code> reads the affixes after the name, so no word order is baked into it",
     ],
     title: "Affixes",
   },
   {
     css: `
-.text-field:has(:required) .label::after {
+.field:has(:required) .label::after {
   color: var(--ui-field-required-text-color);
   content: "*";
   margin-inline-start: 0.25ex;
@@ -131,7 +131,7 @@ const steps = [
   },
   {
     css: `
-.text-field:has([aria-invalid="true"], :user-invalid) {
+.field:has([aria-invalid="true"], :user-invalid) {
   --accent: var(--ui-invalid);
   --affix-text-color: var(--ui-invalid-text);
   --border-color: var(--ui-invalid);
@@ -148,36 +148,36 @@ const steps = [
 ]
 ---
 
-<BuildUp id="build-text-field" steps={steps}>
+<BuildUp id="build-field" steps={steps}>
   <div class="stack">
-    <div class="text-field">
-      <label class="label" for="build-text-field-price">Price</label>
-      <span class="field">
-        <span class="prefix" id="build-text-field-price-prefix">€</span>
+    <div class="field">
+      <label class="label" for="build-field-price">Price</label>
+      <span class="container">
+        <span class="start" id="build-field-price-start">€</span>
         <input
-          aria-describedby="build-text-field-price-prefix build-text-field-price-suffix"
-          id="build-text-field-price"
+          aria-describedby="build-field-price-start build-field-price-end"
+          id="build-field-price"
           inputmode="numeric"
-          name="build-text-field-price"
+          name="build-field-price"
           required
           value="12"
         />
-        <span class="suffix" id="build-text-field-price-suffix">per month</span>
+        <span class="end" id="build-field-price-end">per month</span>
       </span>
     </div>
-    <div class="text-field">
-      <label class="label" for="build-text-field-email">Email</label>
-      <span class="field">
+    <div class="field">
+      <label class="label" for="build-field-email">Email</label>
+      <span class="container">
         <input
-          aria-describedby="build-text-field-email-error"
+          aria-describedby="build-field-email-error"
           aria-invalid="true"
-          id="build-text-field-email"
-          name="build-text-field-email"
+          id="build-field-email"
+          name="build-field-email"
           type="email"
           value="felix@"
         />
       </span>
-      <span class="end-text" id="build-text-field-email-error"
+      <span class="end-text" id="build-field-email-error"
         >Enter a complete email address</span
       >
     </div>

@@ -2,7 +2,14 @@
 import { TrimmedSlot } from "../whitespace.vue"
 import type { Props, Slots } from "./types.vue-props"
 
-const { endText, for: htmlFor, grouped, label, size } = defineProps<Props>()
+const {
+  endText,
+  for: htmlFor,
+  grouped,
+  hideLabel,
+  label,
+  size,
+} = defineProps<Props>()
 const slots = defineSlots<Slots>()
 
 const hasLabel = () => Boolean(label || slots.label)
@@ -21,7 +28,10 @@ const endTextId = () => (hasEndText() ? `${htmlFor}-end-text` : undefined)
       $props.class,
     ]"
   >
-    <label v-if="hasLabel()" class="ui-label" :for="htmlFor"
+    <label
+      v-if="hasLabel()"
+      :class="hideLabel ? 'ui-sr-only' : 'ui-label'"
+      :for="htmlFor"
       >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
     /></label>
     <span class="ui-field-container">

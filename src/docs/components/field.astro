@@ -10,7 +10,6 @@ import {
   Field as UIField,
 } from "opui-css/astro"
 import Conditional from "../../components/Conditional.astro"
-import ValidationNotes from "./partials/ValidationNotes.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 
 import ListCSS from "@opui/css/components/list.css?raw"
@@ -19,6 +18,7 @@ import TextFieldCSS from "@opui/css/components/text-field.css?raw"
 import TextareaCSS from "@opui/css/components/textarea.css?raw"
 
 import fieldApi from "../../component-api/field/api"
+import FieldBuild from "../../components/UnderTheHood/FieldBuild.astro"
 
 export const description =
   "The label, hints and box around a form control you write: an input, a select or a textarea."
@@ -132,16 +132,6 @@ export const keywords = ["form", "input", "label", "select", "textarea"]
       </Fragment>
     </Conditional>
     <AutoExample name="Basics" column />
-    <Conditional as="p">
-      <Fragment slot="vue">
-        Give a control a starting value you don't bind as an attribute,
-        <code>:value.attr="'1'"</code>, as the examples do. Vue's hydration sets
-        a plain <code>value</code> on a control in a slot back to the server's,
-        which replaces what the user typed before the page hydrated, while an
-        attribute only sets the default. A control bound with
-        <code>v-model</code> needs neither.
-      </Fragment>
-    </Conditional>
     <p>
       Each part the field shows has an id that starts with the control's:
       <code>x-start-text</code>, <code>x-top</code>, <code>x-start</code>,
@@ -167,6 +157,15 @@ export const keywords = ["form", "input", "label", "select", "textarea"]
     <AutoExample name="Sizes" row />
   </section>
 
+  <section id="dense">
+    <h2>Dense</h2>
+    <p>
+      <PropOrClass prop="dense" class=".ui-dense" /> packs the options of a
+      select tighter.
+    </p>
+    <AutoExample name="Dense" row spacious />
+  </section>
+
   <section id="hidden-label">
     <h2>Hidden label</h2>
     <p>
@@ -180,7 +179,10 @@ export const keywords = ["form", "input", "label", "select", "textarea"]
 
   <section id="start-text">
     <h2>Start text</h2>
-    <p>Use <PropOrClass prop="startText" class=".ui-start-text" />.</p>
+    <p>
+      Use <PropOrClass prop="startText" class=".ui-start-text" />, and point the
+      control's <code>aria-describedby</code> at it.
+    </p>
     <AutoExample name="StartText" row />
   </section>
 
@@ -195,11 +197,27 @@ export const keywords = ["form", "input", "label", "select", "textarea"]
 
   <section id="character-count">
     <h2>Character count</h2>
-    <p>
-      A <code>CharacterCount</code> in the end text shows the characters typed
-      out of the control's <code>maxlength</code>. See
-      <DocLink href="/components/textarea#character-count">Textarea</DocLink>.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        With <code>maxlength</code> on the control, put a
+        <code>CharacterCount</code> in
+        <Conditional>
+          <Fragment slot="components">the <code>end-text</code> slot</Fragment>
+          <Fragment slot="react"><code>endText</code></Fragment>
+          <Fragment slot="solid"><code>endText</code></Fragment>
+          <Fragment slot="svelte">the <code>endText</code> snippet</Fragment>
+        </Conditional
+        >. Screen readers only hear the count near the limit, so name the limit
+        in the end text.
+      </Fragment>
+      <Fragment slot="html">
+        With <code>maxlength</code> on the control, add
+        <code>&lt;opui-character-count&gt;</code> to the end text and import
+        <code>opui-css/elements/character-count.js</code>. Screen readers only
+        hear the count near the limit, so name the limit in the end text.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="CharacterCount" centered />
   </section>
 
   <section id="affix">
@@ -227,11 +245,80 @@ export const keywords = ["form", "input", "label", "select", "textarea"]
     <AutoExample name="TopAndBottom" column />
   </section>
 
+  <section id="binding">
+    <h2>Binding</h2>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >Read the control's <code>value</code> in a script.</Fragment
+      >
+      <Fragment slot="html"
+        >Read the control's <code>value</code> in a script.</Fragment
+      >
+      <Fragment slot="react">
+        Give the control <code>value</code> with <code>onChange</code>, or
+        <code>defaultValue</code>.
+      </Fragment>
+      <Fragment slot="solid">
+        Give the control <code>value</code> with <code>onInput</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use <code>bind:value</code> on the control.
+      </Fragment>
+      <Fragment slot="vue">Use <code>v-model</code> on the control.</Fragment>
+    </Conditional>
+    <p>
+      The <DocLink href="/components/text-field#binding">Text field</DocLink>,
+      <DocLink href="/components/select#binding">Select</DocLink> and
+      <DocLink href="/components/textarea#binding">Textarea</DocLink> pages show
+      each control bound.
+    </p>
+    <Conditional as="p">
+      <Fragment slot="vue">
+        Vue resets a static <code>value</code> on the control when it hydrates,
+        which replaces what the user typed before the page hydrated. Write it as
+        an attribute, <code>:value.attr="'1'"</code>, as the examples do, or
+        bind it with <code>v-model</code>.
+      </Fragment>
+    </Conditional>
+
+    <h3 id="form-reset">Form reset</h3>
+    <Conditional as="p">
+      <Fragment slot="components">
+        A form reset returns an unbound control to its default value. A bound
+        value doesn't follow the reset, so reset your state in the form's
+        <code>reset</code> event.
+      </Fragment>
+      <Fragment slot="astro">
+        A form reset returns each control to its default value.
+      </Fragment>
+      <Fragment slot="html">
+        A form reset returns each control to its default value.
+      </Fragment>
+    </Conditional>
+  </section>
+
   <section id="validation">
     <h2>Validation</h2>
-    <ValidationNotes element="input" own subject="Fields" />
+    <ul>
+      <li>Use <code>required</code> on the control.</li>
+      <li>
+        Use <code>aria-invalid="true"</code> on the control for errors, and
+        point its <code>aria-describedby</code> at the end text.
+      </li>
+      <li>
+        Fields also get the invalid styles from <code>:user-invalid</code>,
+        which color the end text too.
+      </li>
+    </ul>
 
     <AutoExample name="Validation" column spacious />
+
+    <h3 id="bound-validation">Bound validation</h3>
+    <p>
+      Set <code>aria-invalid</code> from your own check, and show the error in
+      the end text in place of the hint.
+    </p>
+    <AutoExample name="ValidationBinding" centered />
   </section>
 
   <section id="spread">
@@ -247,20 +334,11 @@ export const keywords = ["form", "input", "label", "select", "textarea"]
   <section id="auto-fit">
     <h2>Auto-fit</h2>
     <p>
-      <PropOrClass prop="autoFit" class=".ui-auto-fit" /> sizes the field to its
-      content.
+      <PropOrClass prop="autoFit" class=".ui-auto-fit" /> sizes the field to the
+      content of its control.
     </p>
 
     <AutoExample name="AutoFit" class="flex" />
-  </section>
-
-  <section id="dense">
-    <h2>Dense</h2>
-    <p>
-      <PropOrClass prop="dense" class=".ui-dense" /> packs the options of a
-      select tighter.
-    </p>
-    <AutoExample name="Dense" row spacious />
   </section>
 
   <section id="drop-zone">
@@ -287,6 +365,8 @@ export const keywords = ["form", "input", "label", "select", "textarea"]
     </ul>
     <KeyboardSupport />
   </Fragment>
+
+  <FieldBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>

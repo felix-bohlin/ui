@@ -80,33 +80,20 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 
 ## HTML
 
-### Example: Preselected
+### Example: Basics
 
 ```html
 <div class="ui-field">
-  <label class="ui-label" for="select-preselected-1">Role</label>
+  <label class="ui-label" for="select-basics-1">Country</label>
   <span class="ui-field-container">
-    <select id="select-preselected-1">
+    <select id="select-basics-1" name="country">
       <button>
         <selectedcontent></selectedcontent>
       </button>
-      <option value="backing-vocals">Backing vocals</option>
-      <option selected value="bass">Bass</option>
-      <option value="tambourine">Tambourine</option>
-    </select>
-  </span>
-</div>
-
-<div class="ui-field">
-  <label class="ui-label" for="select-preselected-2">Band</label>
-  <span class="ui-field-container">
-    <select id="select-preselected-2">
-      <button>
-        <selectedcontent></selectedcontent>
-      </button>
-      <option value="brad-and-the-brads">Brad and the Brads</option>
-      <option selected value="low-end-theory">Low End Theory</option>
-      <option value="the-low-enders">The Low Enders</option>
+      <option value="dk">Denmark</option>
+      <option value="fi">Finland</option>
+      <option value="no">Norway</option>
+      <option value="se">Sweden</option>
     </select>
   </span>
 </div>
@@ -116,28 +103,20 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 
 `import { SelectButton } from "opui-css/astro"`
 
-### Example: Preselected
+### Example: Basics
 
 ```astro
 ---
 import { Field, SelectButton } from "opui-css/astro"
 ---
 
-<Field for="select-preselected-1" label="Role">
-  <select id="select-preselected-1">
+<Field for="select-basics-1" label="Country">
+  <select id="select-basics-1" name="country">
     <SelectButton />
-    <option value="backing-vocals">Backing vocals</option>
-    <option selected value="bass">Bass</option>
-    <option value="tambourine">Tambourine</option>
-  </select>
-</Field>
-
-<Field for="select-preselected-2" label="Band">
-  <select id="select-preselected-2">
-    <SelectButton />
-    <option value="brad-and-the-brads">Brad and the Brads</option>
-    <option selected value="low-end-theory">Low End Theory</option>
-    <option value="the-low-enders">The Low Enders</option>
+    <option value="dk">Denmark</option>
+    <option value="fi">Finland</option>
+    <option value="no">Norway</option>
+    <option value="se">Sweden</option>
   </select>
 </Field>
 ```
@@ -146,32 +125,22 @@ import { Field, SelectButton } from "opui-css/astro"
 
 `import { SelectButton } from "opui-css/react"`
 
-### Example: Preselected
+### Example: Basics
 
 ```tsx
 import { Field, SelectButton } from "opui-css/react"
 
-export default function Preselected() {
+export default function Basics() {
   return (
-    <>
-      <Field htmlFor="select-preselected-1" label="Role">
-        <select id="select-preselected-1" defaultValue="bass">
-          <SelectButton />
-          <option value="backing-vocals">Backing vocals</option>
-          <option value="bass">Bass</option>
-          <option value="tambourine">Tambourine</option>
-        </select>
-      </Field>
-
-      <Field htmlFor="select-preselected-2" label="Band">
-        <select id="select-preselected-2" defaultValue="low-end-theory">
-          <SelectButton />
-          <option value="brad-and-the-brads">Brad and the Brads</option>
-          <option value="low-end-theory">Low End Theory</option>
-          <option value="the-low-enders">The Low Enders</option>
-        </select>
-      </Field>
-    </>
+    <Field htmlFor="select-basics-1" label="Country">
+      <select id="select-basics-1" name="country">
+        <SelectButton />
+        <option value="dk">Denmark</option>
+        <option value="fi">Finland</option>
+        <option value="no">Norway</option>
+        <option value="se">Sweden</option>
+      </select>
+    </Field>
   )
 }
 ```
@@ -180,37 +149,23 @@ export default function Preselected() {
 
 `import { SelectButton } from "opui-css/solid"`
 
-### Example: Preselected
+### Example: Basics
 
 ```tsx
 /** @jsxImportSource @solidjs/web */
 import { Field, SelectButton } from "opui-css/solid"
 
-export default function Preselected() {
+export default function Basics() {
   return (
-    <>
-      <Field for="select-preselected-1" label="Role">
-        <select id="select-preselected-1">
-          <SelectButton />
-          <option value="backing-vocals">Backing vocals</option>
-          <option selected value="bass">
-            Bass
-          </option>
-          <option value="tambourine">Tambourine</option>
-        </select>
-      </Field>
-
-      <Field for="select-preselected-2" label="Band">
-        <select id="select-preselected-2">
-          <SelectButton />
-          <option value="brad-and-the-brads">Brad and the Brads</option>
-          <option selected value="low-end-theory">
-            Low End Theory
-          </option>
-          <option value="the-low-enders">The Low Enders</option>
-        </select>
-      </Field>
-    </>
+    <Field for="select-basics-1" label="Country">
+      <select id="select-basics-1" name="country">
+        <SelectButton />
+        <option value="dk">Denmark</option>
+        <option value="fi">Finland</option>
+        <option value="no">Norway</option>
+        <option value="se">Sweden</option>
+      </select>
+    </Field>
   )
 }
 ```
@@ -219,28 +174,20 @@ export default function Preselected() {
 
 `import { SelectButton } from "opui-css/svelte"`
 
-### Example: Preselected
+### Example: Basics
 
 ```svelte
 <script lang="ts">
   import { Field, SelectButton } from "opui-css/svelte"
 </script>
 
-<Field for="select-preselected-1" label="Role">
-  <select id="select-preselected-1">
+<Field for="select-basics-1" label="Country">
+  <select id="select-basics-1" name="country">
     <SelectButton />
-    <option value="backing-vocals">Backing vocals</option>
-    <option selected value="bass">Bass</option>
-    <option value="tambourine">Tambourine</option>
-  </select>
-</Field>
-
-<Field for="select-preselected-2" label="Band">
-  <select id="select-preselected-2">
-    <SelectButton />
-    <option value="brad-and-the-brads">Brad and the Brads</option>
-    <option selected value="low-end-theory">Low End Theory</option>
-    <option value="the-low-enders">The Low Enders</option>
+    <option value="dk">Denmark</option>
+    <option value="fi">Finland</option>
+    <option value="no">Norway</option>
+    <option value="se">Sweden</option>
   </select>
 </Field>
 ```
@@ -249,7 +196,7 @@ export default function Preselected() {
 
 `import { SelectButton } from "opui-css/vue"`
 
-### Example: Preselected
+### Example: Basics
 
 ```vue
 <script setup lang="ts">
@@ -257,21 +204,13 @@ import { Field, SelectButton } from "opui-css/vue"
 </script>
 
 <template>
-  <Field for="select-preselected-1" label="Role">
-    <select id="select-preselected-1">
+  <Field for="select-basics-1" label="Country">
+    <select id="select-basics-1" name="country">
       <SelectButton />
-      <option value="backing-vocals">Backing vocals</option>
-      <option selected value="bass">Bass</option>
-      <option value="tambourine">Tambourine</option>
-    </select>
-  </Field>
-
-  <Field for="select-preselected-2" label="Band">
-    <select id="select-preselected-2">
-      <SelectButton />
-      <option value="brad-and-the-brads">Brad and the Brads</option>
-      <option selected value="low-end-theory">Low End Theory</option>
-      <option value="the-low-enders">The Low Enders</option>
+      <option value="dk">Denmark</option>
+      <option value="fi">Finland</option>
+      <option value="no">Norway</option>
+      <option value="se">Sweden</option>
     </select>
   </Field>
 </template>

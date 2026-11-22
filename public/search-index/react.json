@@ -1186,20 +1186,6 @@
     "url": "/react/components/field/#top-and-bottom"
   },
   {
-    "id": "component-field-react-binding",
-    "title": "Binding",
-    "page": "Field",
-    "category": "Component",
-    "url": "/react/components/field/#binding"
-  },
-  {
-    "id": "component-field-react-form-reset",
-    "title": "Form reset",
-    "page": "Field",
-    "category": "Component",
-    "url": "/react/components/field/#form-reset"
-  },
-  {
     "id": "component-field-react-validation",
     "title": "Validation",
     "page": "Field",
@@ -1226,6 +1212,20 @@
     "page": "Field",
     "category": "Component",
     "url": "/react/components/field/#auto-fit"
+  },
+  {
+    "id": "component-field-react-binding",
+    "title": "Binding",
+    "page": "Field",
+    "category": "Component",
+    "url": "/react/components/field/#binding"
+  },
+  {
+    "id": "component-field-react-form-reset",
+    "title": "Form reset",
+    "page": "Field",
+    "category": "Component",
+    "url": "/react/components/field/#form-reset"
   },
   {
     "id": "component-field-react-drop-zone",
@@ -2369,20 +2369,6 @@
     "url": "/react/components/select/#select"
   },
   {
-    "id": "component-select-react-preselected",
-    "title": "Preselected",
-    "page": "Select",
-    "category": "Component",
-    "url": "/react/components/select/#preselected"
-  },
-  {
-    "id": "component-select-react-binding",
-    "title": "Binding",
-    "page": "Select",
-    "category": "Component",
-    "url": "/react/components/select/#binding"
-  },
-  {
     "id": "component-select-react-option-groups",
     "title": "Option groups",
     "page": "Select",
@@ -2404,6 +2390,13 @@
     "url": "/react/components/select/#rich-options"
   },
   {
+    "id": "component-select-react-preselected",
+    "title": "Preselected",
+    "page": "Select",
+    "category": "Component",
+    "url": "/react/components/select/#preselected"
+  },
+  {
     "id": "component-select-react-disabled",
     "title": "Disabled",
     "page": "Select",
@@ -2416,6 +2409,13 @@
     "page": "Select",
     "category": "Component",
     "url": "/react/components/select/#required"
+  },
+  {
+    "id": "component-select-react-binding",
+    "title": "Binding",
+    "page": "Select",
+    "category": "Component",
+    "url": "/react/components/select/#binding"
   },
   {
     "id": "component-spinner-react",
@@ -2873,20 +2873,6 @@
     "url": "/react/components/text-field/#input"
   },
   {
-    "id": "component-text-field-react-password-toggle",
-    "title": "Password toggle",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/react/components/text-field/#password-toggle"
-  },
-  {
-    "id": "component-text-field-react-binding",
-    "title": "Binding",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/react/components/text-field/#binding"
-  },
-  {
     "id": "component-text-field-react-input-types",
     "title": "Input types",
     "page": "Text field",
@@ -2908,11 +2894,25 @@
     "url": "/react/components/text-field/#file"
   },
   {
+    "id": "component-text-field-react-password-toggle",
+    "title": "Password toggle",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/react/components/text-field/#password-toggle"
+  },
+  {
     "id": "component-text-field-react-autosuggest",
     "title": "Autosuggest",
     "page": "Text field",
     "category": "Component",
     "url": "/react/components/text-field/#autosuggest"
+  },
+  {
+    "id": "component-text-field-react-binding",
+    "title": "Binding",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/react/components/text-field/#binding"
   },
   {
     "id": "component-textarea-react",
@@ -2928,6 +2928,13 @@
     "page": "Textarea",
     "category": "Component",
     "url": "/react/components/textarea/#textarea"
+  },
+  {
+    "id": "component-textarea-react-rows",
+    "title": "Rows",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/react/components/textarea/#rows"
   },
   {
     "id": "component-textarea-react-character-count",
@@ -2949,13 +2956,6 @@
     "page": "Textarea",
     "category": "Component",
     "url": "/react/components/textarea/#binding"
-  },
-  {
-    "id": "component-textarea-react-rows",
-    "title": "Rows",
-    "page": "Textarea",
-    "category": "Component",
-    "url": "/react/components/textarea/#rows"
   },
   {
     "id": "component-timeline-react",
@@ -4689,7 +4689,7 @@
     "id": "api-field-react",
     "title": "Field API",
     "description": "Reference for Field React component.",
-    "api": "Field Container element, a `<div>`. The label inside is a `<label for>` that names the control by itself. The label for the field. label label Start text displayed above the field. startText start-text The boxed control area. Content above the control, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start Your control, written directly inside `.ui-field-container` with its `id` set to `for`. Bind it, name it and mark it `required`, `disabled` or `aria-invalid=\"true\"` like any control. A `<textarea>` grows with its content, and a `<select>` is a customizable select. Content at the inline-end of the field, inside the border, such as a `PasswordToggle`. end Content below the control, inside the border, with a divider. bottom Supporting text displayed below the field, and a `CharacterCount`. endText end-text autoFit Lets the width follow the content, from `25ch`. dense Packs the options of a select tighter. dropZone Makes a `type=\"file\"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. htmlFor The `id` of your control, as `htmlFor` like on the element. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `htmlFor=\"x\"`. Point the control's `aria-describedby` at the ones it shows, in that order. size The size of the element. spread Pushes the label and start text to one side and the control to the other. variant The variant to use.",
+    "api": "Field Container element, a `<div>`. The label inside is a `<label for>` that names the control by itself. The label for the field. label label Start text displayed above the field. startText start-text The boxed control area. Content above the control, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start Your control, written directly inside `.ui-field-container` with its `id` set to `for`. Bind it, name it and mark it `required`, `disabled` or `aria-invalid=\"true\"` like any control. A `<textarea>` grows with its content, and a `<select>` is a customizable select. Content at the inline-end of the field, inside the border, such as a `PasswordToggle`. end Content below the control, inside the border, with a divider. bottom Supporting text displayed below the field, and a `CharacterCount`. endText end-text autoFit Lets the width follow the content, from `25ch`, or `4ch` with step buttons. A textarea can then be resized both ways. dense Packs the options of a select tighter. dropZone Makes a `type=\"file\"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. htmlFor The `id` of your control, as `htmlFor` like on the element. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `htmlFor=\"x\"`. Point the control's `aria-describedby` at the ones it shows, in that order. size The size of the element. spread Pushes the label and start text to one side and the control to the other. variant The variant to use.",
     "category": "API",
     "url": "/react/api/#field"
   },
@@ -4785,7 +4785,7 @@
     "id": "api-password-toggle-react",
     "title": "Password toggle API",
     "description": "Reference for Password toggle React component.",
-    "api": "PasswordToggle A `.ui-button` with `aria-pressed` and `command=\"--toggle-password\"` that shows and hides the password. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is, and `aria-disabled` while the input is. `<opui-password-toggle>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-password-toggle>` is defined. htmlFor The `id` of the password input the toggle shows and hides, as `htmlFor` like on a label, and its button's `commandfor`. label The accessible name of the toggle. Pass it translated. hidePassword() Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits. input The `<input>` its button's `commandfor` names, or `null`. Read-only. showPassword() Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
+    "api": "PasswordToggle A `.ui-button.ui-round` with `aria-pressed` and `command=\"--toggle-password\"` that shows and hides the password. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is disabled, and `aria-disabled` while the input is `aria-disabled`. `<opui-password-toggle>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-password-toggle>` is defined. htmlFor The `id` of the password input the toggle shows and hides, as `htmlFor` like on a label, and its button's `commandfor`. label The accessible name of the toggle. Pass it translated. hidePassword() Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits. input The `<input>` its button's `commandfor` names, or `null`. Read-only. showPassword() Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
     "category": "API",
     "url": "/react/api/#password-toggle"
   },
@@ -4817,7 +4817,7 @@
     "id": "api-range-react",
     "title": "Range API",
     "description": "Reference for Range React component.",
-    "api": "Range A `.ui-field` with an `<input type=\"range\">` in its container, which `range.css` draws without the field's box, as tall as any field's control. Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's `variant` and `size` set the track and thumb. Labels for the input it's linked to with `list`: the `label` of each option shows under its value. The labels are spread evenly, so space the values evenly. Give it `aria-hidden=\"true\"`, and set `aria-valuetext` on the input to the label at its value, since screen readers don't read the datalist.",
+    "api": "Range A `.ui-field` with an `<input type=\"range\">` in its container, which `range.css` draws without the field's box, as tall as any field's control. Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's variant (`variant`, `.ui-filled`) and size (`size`, `.ui-x-small`, `.ui-small`, `.ui-large`) set the track and thumb. Labels for the input it's linked to with `list`: the `label` of each option shows under its value. The labels are spread evenly, so space the values evenly. Give it `aria-hidden=\"true\"`, and set `aria-valuetext` on the input to the label at its value, since screen readers don't read the datalist.",
     "category": "API",
     "url": "/react/api/#range"
   },

@@ -10,7 +10,7 @@ A slider for picking a number by moving a thumb along a track.
 ### Parts
 
 - `.ui-field:has(> .ui-field-container > input[type="range"])` (root): A `.ui-field` with an `<input type="range">` in its container, which `range.css` draws without the field's box, as tall as any field's control.
-- `<input type="range">`: Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's `variant` and `size` set the track and thumb.
+- `<input type="range">`: Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's variant (`variant`, `.ui-filled`) and size (`size`, `.ui-x-small`, `.ui-small`, `.ui-large`) set the track and thumb.
 - `<datalist>`: Labels for the input it's linked to with `list`: the `label` of each option shows under its value. The labels are spread evenly, so space the values evenly. Give it `aria-hidden="true"`, and set `aria-valuetext` on the input to the label at its value, since screen readers don't read the datalist.
 
 ### Notes

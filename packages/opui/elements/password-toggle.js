@@ -16,13 +16,13 @@ export class PasswordToggleElement extends Base {
   connectedCallback() {
     this.#controller = new AbortController()
     const { signal } = this.#controller
-    this.ownerDocument.addEventListener(
-      "command",
-      (event) => this.#command(event),
-      { capture: true, signal },
-    )
+    const root = this.getRootNode()
+    root.addEventListener("command", (event) => this.#command(event), {
+      capture: true,
+      signal,
+    })
     for (const type of ["reset", "submit"]) {
-      this.ownerDocument.addEventListener(
+      root.addEventListener(
         type,
         (event) => {
           if (event.target === this.input?.form) this.hidePassword()

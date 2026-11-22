@@ -41,7 +41,7 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
   ]}
   fallbacks={{
     "customizable-select":
-      "Without customizable select, the browser's own picker opens, with the text of each option only.",
+      "Without customizable select, the field draws its own chevron and the browser's own picker opens, with the text of each option only.",
     "display-animation":
       "Without display animation, the picker disappears at once instead of fading out.",
     overlay:
@@ -105,19 +105,37 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
       <Fragment slot="components">
         Write the options straight in the select, after a
         <code>SelectButton</code>, which shows the selected option in the field.
-        Every select in a field is a customizable select, so an option can hold
-        an icon or a description.
       </Fragment>
       <Fragment slot="html">
         Write the options straight in the select, after
         <code
           >&lt;button&gt;&lt;selectedcontent&gt;&lt;/selectedcontent&gt;&lt;/button&gt;</code
-        >, which shows the selected option in the field. Every select in a
-        <code>.ui-field</code> is a customizable select, so an option can hold
-        an icon or a description.
+        >, which shows the selected option in the field.
       </Fragment>
     </Conditional>
     <AutoExample name="Basics" column />
+  </section>
+
+  <section id="option-groups">
+    <h2>Option groups</h2>
+    <p>
+      Name each <code>&lt;div role="group"&gt;</code> with
+      <code>aria-labelledby</code> pointing at its label.
+    </p>
+    <AutoExample name="Grouped" row spacious />
+
+    <h3 id="optgroup">Optgroup</h3>
+    <p>Repeat the <code>label</code> in a <code>&lt;legend&gt;</code>.</p>
+    <AutoExample name="GroupedOptgroup" row spacious />
+  </section>
+
+  <section id="rich-options">
+    <h2>Rich options</h2>
+    <p>
+      An option can hold an icon or a description. Put a space between the
+      parts, for browsers that show the text only.
+    </p>
+    <AutoExample name="RichOptions" row spacious />
   </section>
 
   <section id="preselected">
@@ -136,11 +154,25 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
       </Fragment>
     </Conditional>
     <p>
-      The picker marks the selected option with a check at the end.
-      <code>--ui-icon-check</code> changes it, and a
-      <code>.ui-icon-checked</code> in the option replaces it.
+      The picker marks the selected option with a check at the end, from
+      <code>--ui-icon-check</code> or a <code>.ui-icon-checked</code> in the
+      option.
     </p>
     <AutoExample name="Preselected" row spacious />
+  </section>
+
+  <section id="disabled">
+    <h2>Disabled</h2>
+    <AutoExample name="Disabled" row spacious />
+  </section>
+
+  <section id="required">
+    <h2>Required</h2>
+    <p>
+      Start a <code>required</code> select with an empty option,
+      <code>value=""</code>, so it's invalid until the user picks one.
+    </p>
+    <AutoExample name="Required" centered />
   </section>
 
   <section id="binding">
@@ -159,38 +191,18 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
     <AutoExample name="Binding" column />
   </section>
 
-  <section id="option-groups">
-    <h2>Option groups</h2>
-    <p>
-      Name each <code>&lt;div role="group"&gt;</code> with
-      <code>aria-labelledby</code> pointing at its label.
-    </p>
-    <AutoExample name="Grouped" row spacious />
-
-    <h3 id="optgroup">Optgroup</h3>
-    <p>Repeat the <code>label</code> in a <code>&lt;legend&gt;</code>.</p>
-    <AutoExample name="GroupedOptgroup" row spacious />
-  </section>
-
-  <section id="rich-options">
-    <h2>Rich options</h2>
-    <p>Put a space between the parts, for browsers that show the text only.</p>
-    <AutoExample name="RichOptions" row spacious />
-  </section>
-
-  <section id="disabled">
-    <h2>Disabled</h2>
-    <AutoExample name="Disabled" row spacious />
-  </section>
-
-  <section id="required">
-    <h2>Required</h2>
-    <p>
-      Start a <code>required</code> select with an empty option,
-      <code>value=""</code>, so it's invalid until the user picks one.
-    </p>
-    <AutoExample name="Required" centered />
-  </section>
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        The keys that open the picker, move through the options and close it are
+        under
+        <DocLink href="/components/field#keyboard-support"
+          >Keyboard support</DocLink
+        >
+        on the Field page.
+      </li>
+    </ul>
+  </Fragment>
 
   <SelectBuild slot="under-the-hood" />
 </Component>

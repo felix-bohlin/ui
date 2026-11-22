@@ -11,6 +11,10 @@
         text-overflow: ellipsis;
       }
 
+      select > button {
+        display: none;
+      }
+
       :where(option, optgroup) {
         background-color: var(--ui-surface-elevated);
         color: var(--ui-text-strong);

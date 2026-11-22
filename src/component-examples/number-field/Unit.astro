@@ -1,0 +1,17 @@
+---
+import { Field, StepButton } from "opui-css/astro"
+---
+
+<Field autoFit endText="kg" for="number-field-unit-1" label="Weight">
+  <input
+    aria-describedby="number-field-unit-1-end-text"
+    id="number-field-unit-1"
+    max="30"
+    min="0.5"
+    step="0.5"
+    type="number"
+    value="2.5"
+  />
+  <StepButton command="--step-down" for="number-field-unit-1" slot="start" />
+  <StepButton command="--step-up" for="number-field-unit-1" slot="end" />
+</Field>

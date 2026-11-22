@@ -1,6 +1,7 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
 import Code from "../../../components/Code.astro"
+import DocLink from "../../../components/DocLink.astro"
 import Bindings from "./partials/Bindings.astro"
 import Builds from "./partials/Builds.astro"
 import CssFiles from "./partials/CssFiles.astro"
@@ -103,8 +104,15 @@ export const keywords = ["install", "npm", "setup", "ssr"]
     <h2>How to use</h2>
     <p>
       Slots are snippets: <code>children</code>, and camelCased names like
-      <code>endText</code>. Form controls bind their value:
+      <code>endText</code>.
     </p>
+    <p>
+      A <DocLink href="/components/field">Field</DocLink> wraps your own
+      control. Give the control an <code>id</code>, set <code>for</code> on the
+      field to it, and bind it like any input. For a hint, set the control's
+      <code>aria-describedby</code> to <code>&lt;id&gt;-end-text</code>.
+    </p>
+    <p>These components bind their own value:</p>
     <Bindings />
   </section>
 

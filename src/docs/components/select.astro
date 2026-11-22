@@ -94,10 +94,11 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
     <h2>Select</h2>
     <p>
       A select is a <DocLink href="/components/field">Field</DocLink> with a
-      <code>&lt;select&gt;</code> inside. The Field page shows the variants,
-      sizes, start and end text, affixes, validation and layout every field
-      shares, and <DocLink href="/components/field#dense">dense</DocLink>
-      options.
+      <code>&lt;select&gt;</code> inside. Write it and wire its
+      <code>aria-describedby</code> as the
+      <DocLink href="/components/field#basics">Field</DocLink> page shows, with
+      the variants, sizes, affixes, validation and layout every field shares,
+      and <DocLink href="/components/field#dense">dense</DocLink> options.
     </p>
     <Conditional as="p">
       <Fragment slot="components">
@@ -115,6 +116,7 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
         an icon or a description.
       </Fragment>
     </Conditional>
+    <AutoExample name="Basics" column />
   </section>
 
   <section id="preselected">
@@ -142,21 +144,17 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
 
   <section id="binding">
     <h2>Binding</h2>
+    <p>
+      Bind the select like any control, as the
+      <DocLink href="/components/field#binding">Field</DocLink> page shows. Its
+      value is the <code>value</code> of the picked option.
+    </p>
     <Conditional as="p">
-      <Fragment slot="astro">
-        Read the <code>select</code> in a script.
+      <Fragment slot="vue">
+        <code>v-model</code> ignores <code>selected</code> on an option, so
+        start the bound value at the option you want. In Nuxt, a
+        <code>v-model</code> select renders no selected option on the server.
       </Fragment>
-      <Fragment slot="html">Read the <code>select</code> in a script.</Fragment>
-      <Fragment slot="react">
-        Give the select <code>value</code> and <code>onChange</code>.
-      </Fragment>
-      <Fragment slot="solid">
-        Give the select <code>value</code> and <code>onChange</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Use <code>bind:value</code> on the select.
-      </Fragment>
-      <Fragment slot="vue">Use <code>v-model</code> on the select.</Fragment>
     </Conditional>
     <AutoExample name="Binding" column />
   </section>
@@ -185,17 +183,14 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
     <AutoExample name="Disabled" row spacious />
   </section>
 
-  <Fragment slot="accessibility">
-    <ul>
-      <li>
-        The label alone is the field's name, through
-        <code>&lt;label for&gt;</code>. The affixes, the start text, end text
-        and the top and bottom regions are its description, through
-        <code>aria-describedby</code>, so a unit, a hint or an error is read
-        after the name in any language's word order.
-      </li>
-    </ul>
-  </Fragment>
+  <section id="required">
+    <h2>Required</h2>
+    <p>
+      Start a <code>required</code> select with an empty option,
+      <code>value=""</code>, so it's invalid until the user picks one.
+    </p>
+    <AutoExample name="Required" centered />
+  </section>
 
   <SelectBuild slot="under-the-hood" />
 </Component>

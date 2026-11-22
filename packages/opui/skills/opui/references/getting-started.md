@@ -308,13 +308,15 @@ import "../styles/global.css"
 
 Named slots take rich content, like `end-text`.
 
+A [Field](https://opui.dev/astro/components/field.md) wraps your own control. Give the control an `id`, set `for` on the field to it, and name it like any input. For a hint, set the control's `aria-describedby` to `<id>-end-text`.
+
 ### Server runtime
 
 Runs on Node, Deno and Bun. On Cloudflare, enable `nodejs_compat`.
 
 #### Ids
 
-Components a trigger points at need an `id`. For stable generated ids, define `Astro.locals.$id`:
+Components a trigger points at need an `id`. A field takes your control's `id` through `for` and generates none. For stable generated ids, define `Astro.locals.$id`:
 
 ```ts
 import { defineMiddleware } from "astro:middleware"
@@ -426,6 +428,8 @@ The types work with TypeScript 6 and 7, with `moduleResolution` set to `"bundler
 ### How to use
 
 Slots are props: `children`, and camelCased names like `endText`.
+
+A [Field](https://opui.dev/react/components/field.md) wraps your own control. Give the control an `id`, set `htmlFor` on the field to it, and bind it like any input. For a hint, set the control's `aria-describedby` to `<id>-end-text`.
 
 ### Server rendering
 
@@ -575,6 +579,8 @@ The components ship as `.jsx` files with their types, which `@solidjs/vite-plugi
 The types work with TypeScript 6 and 7, with `moduleResolution` set to `"bundler"` and `jsxImportSource` set to `"@solidjs/web"`.
 
 ### How to use
+
+A [Field](https://opui.dev/solid/components/field.md) wraps your own control. Give the control an `id`, set `for` on the field to it, and bind it like any input. For a hint, set the control's `aria-describedby` to `<id>-end-text`.
 
 ### Server rendering
 
@@ -765,7 +771,11 @@ The types need `skipLibCheck: true` in `tsconfig.json`, as the Svelte and Svelte
 
 ### How to use
 
-Slots are snippets: `children`, and camelCased names like `endText`. Form controls bind their value:
+Slots are snippets: `children`, and camelCased names like `endText`.
+
+A [Field](https://opui.dev/svelte/components/field.md) wraps your own control. Give the control an `id`, set `for` on the field to it, and bind it like any input. For a hint, set the control's `aria-describedby` to `<id>-end-text`.
+
+These components bind their own value:
 
 | Binding | Components |
 | --- | --- |
@@ -947,6 +957,8 @@ import "./styles/main.css"
 Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` files: vue-tsc 3.3 runs on TypeScript 6, not on 7. The types resolve with `moduleResolution` set to `"bundler"` or `"nodenext"`.
 
 ### How to use
+
+A [Field](https://opui.dev/vue/components/field.md) wraps your own control. Give the control an `id`, set `for` on the field to it, and bind it with `v-model` like any input. For a hint, set the control's `aria-describedby` to `<id>-end-text`.
 
 ### Server rendering
 

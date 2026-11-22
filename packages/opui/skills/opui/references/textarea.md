@@ -63,54 +63,30 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--u
 
 ## HTML
 
-### Example: Character count
+### Example: Basics
 
 ```html
 <div class="ui-field">
-  <label class="ui-label" for="textarea-character-count-1">Bio</label>
+  <label class="ui-label" for="textarea-basics-1">Message</label>
   <span class="ui-field-container">
-    <textarea
-      aria-describedby="textarea-character-count-1-end-text"
-      id="textarea-character-count-1"
-      maxlength="160"
-    ></textarea>
-  </span>
-  <span class="ui-end-text" id="textarea-character-count-1-end-text">
-    Up to 160 characters, shown on your profile.
-    <opui-character-count
-      aria-hidden="true"
-      label="{count} characters to go"
-      class="ui-value"
-    ></opui-character-count>
+    <textarea id="textarea-basics-1" name="message"></textarea>
   </span>
 </div>
-
-<script type="module">
-  import "opui-css/elements/character-count.js"
-</script>
 ```
 
 ## Astro
 
 `import { CharacterCount } from "opui-css/astro"`
 
-### Example: Character count
+### Example: Basics
 
 ```astro
 ---
-import { CharacterCount, Field } from "opui-css/astro"
+import { Field } from "opui-css/astro"
 ---
 
-<Field for="textarea-character-count-1" label="Bio">
-  <textarea
-    aria-describedby="textarea-character-count-1-end-text"
-    id="textarea-character-count-1"
-    maxlength="160"
-  ></textarea>
-  <Fragment slot="end-text">
-    Up to 160 characters, shown on your profile.
-    <CharacterCount label="{count} characters to go" />
-  </Fragment>
+<Field for="textarea-basics-1" label="Message">
+  <textarea id="textarea-basics-1" name="message"></textarea>
 </Field>
 ```
 
@@ -120,28 +96,15 @@ import { CharacterCount, Field } from "opui-css/astro"
 
 - Client components (`"use client"`): `CharacterCount`.
 
-### Example: Character count
+### Example: Basics
 
 ```tsx
-import { CharacterCount, Field } from "opui-css/react"
+import { Field } from "opui-css/react"
 
-export default function CharacterCountExample() {
+export default function Basics() {
   return (
-    <Field
-      endText={
-        <>
-          Up to 160 characters, shown on your profile.
-          <CharacterCount label="{count} characters to go" />
-        </>
-      }
-      htmlFor="textarea-character-count-1"
-      label="Bio"
-    >
-      <textarea
-        aria-describedby="textarea-character-count-1-end-text"
-        id="textarea-character-count-1"
-        maxLength={160}
-      ></textarea>
+    <Field htmlFor="textarea-basics-1" label="Message">
+      <textarea id="textarea-basics-1" name="message"></textarea>
     </Field>
   )
 }
@@ -151,29 +114,16 @@ export default function CharacterCountExample() {
 
 `import { CharacterCount } from "opui-css/solid"`
 
-### Example: Character count
+### Example: Basics
 
 ```tsx
 /** @jsxImportSource @solidjs/web */
-import { CharacterCount, Field } from "opui-css/solid"
+import { Field } from "opui-css/solid"
 
-export default function CharacterCountExample() {
+export default function Basics() {
   return (
-    <Field
-      endText={
-        <>
-          Up to 160 characters, shown on your profile.
-          <CharacterCount label="{count} characters to go" />
-        </>
-      }
-      for="textarea-character-count-1"
-      label="Bio"
-    >
-      <textarea
-        aria-describedby="textarea-character-count-1-end-text"
-        id="textarea-character-count-1"
-        maxlength="160"
-      ></textarea>
+    <Field for="textarea-basics-1" label="Message">
+      <textarea id="textarea-basics-1" name="message"></textarea>
     </Field>
   )
 }
@@ -183,22 +133,15 @@ export default function CharacterCountExample() {
 
 `import { CharacterCount } from "opui-css/svelte"`
 
-### Example: Character count
+### Example: Basics
 
 ```svelte
 <script lang="ts">
-  import { CharacterCount, Field } from "opui-css/svelte"
+  import { Field } from "opui-css/svelte"
 </script>
 
-<Field for="textarea-character-count-1" label="Bio">
-  <textarea
-    aria-describedby="textarea-character-count-1-end-text"
-    id="textarea-character-count-1"
-    maxlength="160"></textarea>
-  {#snippet endText()}
-    Up to 160 characters, shown on your profile.
-    <CharacterCount label={"{count} characters to go"} />
-  {/snippet}
+<Field for="textarea-basics-1" label="Message">
+  <textarea id="textarea-basics-1" name="message"></textarea>
 </Field>
 ```
 
@@ -206,24 +149,16 @@ export default function CharacterCountExample() {
 
 `import { CharacterCount } from "opui-css/vue"`
 
-### Example: Character count
+### Example: Basics
 
 ```vue
 <script setup lang="ts">
-import { CharacterCount, Field } from "opui-css/vue"
+import { Field } from "opui-css/vue"
 </script>
 
 <template>
-  <Field for="textarea-character-count-1" label="Bio">
-    <textarea
-      aria-describedby="textarea-character-count-1-end-text"
-      id="textarea-character-count-1"
-      maxlength="160"
-    ></textarea>
-    <template #end-text>
-      Up to 160 characters, shown on your profile.
-      <CharacterCount label="{count} characters to go" />
-    </template>
+  <Field for="textarea-basics-1" label="Message">
+    <textarea id="textarea-basics-1" name="message"></textarea>
   </Field>
 </template>
 ```

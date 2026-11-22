@@ -180,6 +180,20 @@ export const posts = [
     topics: ["motion", "popups"],
   },
   {
+    before: "JavaScript that adds a touched class on blur.",
+    category: "under-the-hood",
+    component: "field",
+    date: "2026-10-02",
+    description:
+      ":user-invalid shows errors after the user interacts, not on page load.",
+    features: ["user-pseudos"],
+    now: "`:user-invalid` only matches after the user has changed the field and left it, or tried to submit.",
+    slug: "text-field-user-invalid",
+    technique: ":user-invalid",
+    title: "Validation that waits with :user-invalid",
+    topics: ["accessibility", "forms", "selectors"],
+  },
+  {
     before:
       "Modifier classes or props kept in sync with what the fieldset contains.",
     category: "under-the-hood",
@@ -310,20 +324,6 @@ export const posts = [
     technique: ":nth-child(of S)",
     title: "Tabs from radio buttons",
     topics: ["layout", "selectors"],
-  },
-  {
-    before: "JavaScript that adds a touched class on blur.",
-    category: "under-the-hood",
-    component: "text-field",
-    date: "2026-10-02",
-    description:
-      ":user-invalid shows errors after the user interacts, not on page load.",
-    features: ["user-pseudos"],
-    now: "`:user-invalid` only matches after the user has changed the field and left it, or tried to submit.",
-    slug: "text-field-user-invalid",
-    technique: ":user-invalid",
-    title: "Validation that waits with :user-invalid",
-    topics: ["accessibility", "forms", "selectors"],
   },
   {
     before:

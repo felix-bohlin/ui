@@ -109,7 +109,10 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
       <Fragment slot="html">
         Put <code>&lt;opui-step-button&gt;</code> around a button in
         <code>.ui-start</code> and <code>.ui-end</code>, and import
-        <code>opui-css/elements/step-button.js</code>.
+        <code>opui-css/elements/step-button.js</code>. Give each button
+        <code>command="--step-down"</code> or <code>command="--step-up"</code>,
+        <code>commandfor</code> and <code>aria-controls</code> set to the
+        input's <code>id</code>, and an <code>aria-label</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="Basics" />
@@ -129,6 +132,15 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
     <h2>Step</h2>
     <p>Use <code>step</code> for decimals.</p>
     <AutoExample name="Step" />
+  </section>
+
+  <section id="unit">
+    <h2>Unit</h2>
+    <p>
+      Put the unit in the end text, and point the input's
+      <code>aria-describedby</code> at it.
+    </p>
+    <AutoExample name="Unit" />
   </section>
 
   <section id="buttons">

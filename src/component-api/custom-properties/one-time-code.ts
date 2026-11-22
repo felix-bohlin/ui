@@ -48,7 +48,7 @@ export default {
   },
   "--_font-size": {
     description:
-      "Font size of the code. Defaults to `--ui-font-size-large`, `--ui-font-size-body` with `.ui-small` and `--ui-font-size-h4` with `.ui-large`.",
+      "Font size of the code. Defaults to `--ui-font-size-large`, `--ui-font-size-body` with `.ui-small` and `.ui-x-small`, and `--ui-font-size-h4` with `.ui-large`.",
     kind: "input",
   },
   "--_length": {

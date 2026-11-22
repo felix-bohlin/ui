@@ -51,11 +51,14 @@ const snippet: Piece[][] = [
   ["</Card>"],
   [""],
   [
-    "<TextField ",
+    "<",
+    ["TextField", 'Field for="email"'],
+    " ",
     ["small", 'size="small"'],
     ' label="Email" ',
     ["description", "startText"],
-    '="Work address" />',
+    '="Work address"',
+    [" />", '><input id="email" /></Field>'],
   ],
   ["<Switch ", ["stack", 'orientation="vertical"'], ">Send me a copy</Switch>"],
   [

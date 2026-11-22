@@ -9,7 +9,7 @@ A one-time password (OTP) field: one input drawn as a box per character, with pa
 
 ### Parts
 
-- `div.ui-one-time-code` (root): Container element.
+- `div.ui-one-time-code` (root): Holds the label, the boxes and the end text, and fits the boxes to its width.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-field-container`: Draws a box per character and a ring on the next one.
 - `<input>`: Your input, written directly inside `.ui-field-container` with its `id` set to `for`. Its `maxlength`, from 4 to 8, sets the number of boxes. `autocomplete="one-time-code"` lets the browser fill in a code it received; use `off` for a code read off another screen. Mark it `required`, `disabled` or `aria-invalid="true"` like any input.
@@ -17,9 +17,10 @@ A one-time password (OTP) field: one input drawn as a box per character, with pa
 
 ### Props and modifiers
 
-- `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of your `<input>`. The label points at it, and the end text's id, `x-end-text`, starts with it, for the input's `aria-describedby`.
+- `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of your `<input>`. The label points at it, and the end text gets an id that starts with it: `x-end-text` for `for="x"`. Point the input's `aria-describedby` at it.
 - `grouped`: `boolean`, `.ui-grouped`. Draws a dash between the two halves of the code. Use it with an even `maxlength`.
-- `htmlFor` (React): `string`. The `id` of your `<input>`, as `htmlFor` like on the element. The label points at it, and the end text's id, `x-end-text`, starts with it, for the input's `aria-describedby`.
+- `hideLabel`: `boolean`, `.ui-one-time-code > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The input keeps it as its accessible name.
+- `htmlFor` (React): `string`. The `id` of your `<input>`, as `htmlFor` like on the element. The label points at it, and the end text gets an id that starts with it: `x-end-text` for `htmlFor="x"`. Point the input's `aria-describedby` at it.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
 
 ### Slots
@@ -66,7 +67,7 @@ Outputs: `--_affix-block-size`, `--_affix-button-size`, `--_affix-padding-block`
 - `--_box-radius`: Corner radius of the boxes and of the ring: `--ui-field-radius`, else `--ui-radius`, capped `--_box-feather` under a quarter of `--_cell-size`.
 - `--_dash-bg-color`: Color of the dash between the two halves with `.ui-grouped`. Defaults to `--ui-text-subtle`.
 - `--_dash-block-size`: Thickness of the dash. Defaults to `--ui-border-width-thick`.
-- `--_font-size`: Font size of the code. Defaults to `--ui-font-size-large`, `--ui-font-size-body` with `.ui-small` and `--ui-font-size-h4` with `.ui-large`.
+- `--_font-size`: Font size of the code. Defaults to `--ui-font-size-large`, `--ui-font-size-body` with `.ui-small` and `.ui-x-small`, and `--ui-font-size-h4` with `.ui-large`.
 - `--_max-cell-size`: Widest box: 1.2 times the control size or 1.6 times the font size, rounded to `--ui-space-2`.
 
 Outputs: `--_box-end`, `--_box-start`, `--_cell-size`, `--_dash-image` and `--_length`.

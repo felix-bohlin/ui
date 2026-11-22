@@ -44,10 +44,8 @@ const html = Astro.locals.framework === "html"
       <DocLink href="/components/text-field#password-toggle"
         >password toggle</DocLink
       >
-      sets <code>aria-pressed</code>, a
-      <DocLink href="/components/range#value">Range</DocLink> with a value
-      suffix or labeled ticks sets <code>aria-valuetext</code>, and the
-      character count, <DocLink href="/components/copy">Copy</DocLink> and
+      sets <code>aria-pressed</code>, and the character count,
+      <DocLink href="/components/copy">Copy</DocLink> and
       <DocLink href="/components/toast">Toast</DocLink> announce through live
       regions.
     </p>
@@ -96,6 +94,22 @@ const html = Astro.locals.framework === "html"
           >
           <Fragment slot="html"
             >put the text in a <code>.ui-sr-only</code> element.</Fragment
+          >
+        </Conditional>
+      </li>
+      <li>
+        <DocLink href="/components/field#hidden-label">Fields</DocLink>:
+        <Conditional>
+          <Fragment slot="components"
+            ><code>label</code>, with <code>hideLabel</code> to hide it, or
+            <code>aria-label</code> on the control when there is no label. Point
+            the control's <code>aria-describedby</code> at a hint.</Fragment
+          >
+          <Fragment slot="html"
+            >a <code>&lt;label&gt;</code>, with <code>.ui-sr-only</code> to hide
+            it, or <code>aria-label</code> on the control when there is no
+            label. Point the control's <code>aria-describedby</code> at a
+            hint.</Fragment
           >
         </Conditional>
       </li>

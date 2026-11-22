@@ -23,8 +23,9 @@ A multi-line text input in a Field that grows with its text, with a character co
 ### Notes
 
 - HTML: Add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`.
-- Astro, Solid, Svelte and Vue: Put it in the field's `end-text` slot. It loads `opui-css/elements/character-count.js`, which keeps the count.
-- React: Put it in the field's `endText`. It loads `opui-css/elements/character-count.js`, which keeps the count.
+- Astro and Vue: Put it in the field's `end-text` slot. It loads `opui-css/elements/character-count.js`, which keeps the count.
+- React and Solid: Put it in the field's `endText`. It loads `opui-css/elements/character-count.js`, which keeps the count.
+- Svelte: Put it in the field's `endText` snippet. It loads `opui-css/elements/character-count.js`, which keeps the count.
 
 ## Component properties
 

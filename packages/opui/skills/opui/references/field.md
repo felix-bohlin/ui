@@ -22,7 +22,7 @@ The label, hints and box around a form control you write: an input, a select or 
 
 ### Props and modifiers
 
-- `autoFit`: `boolean`, `.ui-auto-fit`. Lets the width follow the content, from `25ch`.
+- `autoFit`: `boolean`, `.ui-auto-fit`. Lets the width follow the content, from `25ch`, or `4ch` with step buttons. A textarea can then be resized both ways.
 - `dense`: `boolean`, `.ui-dense`. Packs the options of a select tighter.
 - `dropZone`: `boolean`, `.ui-drop-zone`. Makes a `type="file"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker.
 - `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of your control. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`. Point the control's `aria-describedby` at the ones it shows, in that order.
@@ -30,6 +30,7 @@ The label, hints and box around a form control you write: an input, a select or 
 - `htmlFor` (React): `string`. The `id` of your control, as `htmlFor` like on the element. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `htmlFor="x"`. Point the control's `aria-describedby` at the ones it shows, in that order.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
 - `spread`: `boolean`, `.ui-spread`. Pushes the label and start text to one side and the control to the other.
+- State (HTML): `disabled` (`:has(:is(input, select, textarea):is(:disabled, [aria-disabled="true"]))`), `invalid` (`:has([aria-invalid="true"], :user-invalid)`), `readonly` (`:has([readonly])`), `required` (`:has(:required)`). Set on the control: `aria-invalid="true"`, or `:user-invalid`, shows the error colors, `required` adds a required mark after the label, `disabled` or `aria-disabled="true"` dims the field, and `readonly` keeps the text cursor.
 - `variant`: `"filled"` (`.ui-filled`), `"outlined"` (default). The variant to use.
 
 ### Slots
@@ -38,7 +39,7 @@ The label, hints and box around a form control you write: an input, a select or 
 
 ### Notes
 
-- HTML: Put a `<label class="ui-label" for>` inside the root that points at the control's `id`, so the label alone names it, and point the control's `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Leave out a `.ui-start` or `.ui-end` that only holds buttons. Put `.ui-top` and `.ui-start` before the control and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they're drawn.
+- HTML: Put a `<label class="ui-label" for>` inside the root that points at the control's `id`, so the label alone names it, and point the control's `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Leave out a part with nothing to read: a `.ui-start` or `.ui-end` that only holds buttons or a hidden icon, and a `.ui-end-text` that only holds an `<output>`. Put `.ui-top` and `.ui-start` before the control and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they're drawn.
 - Astro, Solid, Svelte and Vue: Write the `<input>`, `<select>` or `<textarea>` inside, with its `id` set to `for`, and bind it like any control. Other attributes go to the `.ui-field` root.
 - React: Write the `<input>`, `<select>` or `<textarea>` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-field` root.
 

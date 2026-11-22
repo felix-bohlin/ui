@@ -21,7 +21,6 @@ import {
   ListItem,
   Progress,
   Radio,
-  Range,
   SelectButton,
   Switch,
   Table,
@@ -201,7 +200,14 @@ const callouts = [
       >Email me when I get poked</Checkbox
     >
     <Switch checked name={name("alerts")}>Alerts</Switch>
-    <Range label="Volume" name={name("volume")} value={60} />
+    <Field for={`${specimenId}-volume`} label="Volume">
+      <input
+        id={`${specimenId}-volume`}
+        name={name("volume")}
+        type="range"
+        value="60"
+      />
+    </Field>
     <ToggleGroup aria-label="Period" name={name("period")} size="small">
       <ToggleButton value="day">Day</ToggleButton>
       <ToggleButton checked value="week">Week</ToggleButton>
@@ -408,8 +414,7 @@ const callouts = [
   .specimen-form {
     gap: var(--ui-space-4);
 
-    & :global(.ui-field),
-    & :global(.ui-range) {
+    & :global(.ui-field) {
       inline-size: 100%;
     }
   }

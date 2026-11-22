@@ -297,7 +297,6 @@ export const toVue = (component) => {
     definedRoot
   )
   const generic = kind?.generic?.(model) === true
-  const modelRead = !!model?.local && used.has(model.local)
   const { item } = component
   const forwarded = (component.baseProps ?? [])
     .filter(
@@ -321,7 +320,6 @@ export const toVue = (component) => {
       ? [{ prop: "class", text: `class: ${classProp.local}` }]
       : []),
     ...forwarded.map((key) => ({ prop: key, text: key })),
-    ...(kind?.declared?.(model) ?? []).map((prop) => ({ prop, text: prop })),
     ...props
       .filter(
         ({ local, prop }) =>
@@ -551,7 +549,6 @@ export const toVue = (component) => {
             bound: kind.boundAttributes(model),
             condition: "bound",
             drop: () => false,
-            own: kind.unboundOwn?.(model),
             unbound: [],
           }
         : node.groupRadio !== undefined && kind?.boundAttributes
@@ -586,8 +583,7 @@ export const toVue = (component) => {
               }
             : undefined
     const withOwn = (listed, entry) => {
-      if (entry === undefined || entry.child) return listed
-      if (entry.attr) return [...listed, `:${entry.name}.attr="${entry.code}"`]
+      if (entry === undefined) return listed
       usesDefined = true
       const own = `defined({ ${entry.name === entry.code ? entry.name : `${entry.name}: ${entry.code}`} })`
       const at = listed.findIndex((entry) => OBJECT_BINDING.test(entry))
@@ -632,7 +628,7 @@ export const toVue = (component) => {
         ].flatMap((entry) => entry.match(ATTRIBUTE) ?? []),
         own,
       )
-    const render = (listed, child) => {
+    const render = (listed) => {
       const omitted = omitEmptyAttributes(listed, component.file)
       for (const helper of omitted.helpers) attributeHelpers.add(helper)
       const attributes = omitted.attributes.join(" ")
@@ -643,7 +639,6 @@ export const toVue = (component) => {
           ? ` is="${node.tag}"`
           : ""
       const open = `<${tag}${is}${attributes ? ` ${attributes}` : ""}`
-      if (child !== undefined) return `${open}>{{ ${child} }}</${tag}>`
       if (
         node.children.length === 0 &&
         (node.component ||
@@ -668,7 +663,6 @@ export const toVue = (component) => {
         (entry) => pair.own?.name === "checked" && entry.name === "checked",
         pair.own,
       ),
-      pair.own?.child ? pair.own.code : undefined,
     )}`
     return clause ? `<template ${clause}>${both}</template>` : both
   }
@@ -853,7 +847,7 @@ export const toVue = (component) => {
           `const restAttrs = computed(() => {\n  const { ${attributeProps.map(({ local, prop }) => `${JSON.stringify(prop)}: _${local}, `).join("")}...rest } = attrs\n  return rest\n})`,
         ]
       : []),
-    ...(kind?.setup?.(model, generic, modelRead) ?? []),
+    ...(kind?.setup?.(model, generic) ?? []),
     ...reads.map(
       ({ context, name }) =>
         `const ${name} = inject(${context.name}Key, undefined)`,

@@ -1,12 +1,19 @@
 <script setup lang="ts">
-import { Range } from "opui-css/vue"
+import { Field } from "opui-css/vue"
 </script>
 
 <template>
-  <Range
+  <Field
     endText="Set it to 20 or more to hear alarms."
-    error
+    for="range-validation-1"
     label="Alarm volume"
-    value="10"
-  />
+  >
+    <input
+      aria-describedby="range-validation-1-end-text"
+      aria-invalid="true"
+      id="range-validation-1"
+      type="range"
+      value="10"
+    />
+  </Field>
 </template>

@@ -1469,57 +1469,44 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
     }
   }
   const type = staticAttribute(element, "type")
-  const kind =
+  if (
     declared.prop === "value" &&
     CONTROLS.has(element.tag) &&
     type !== "checkbox" &&
     type !== "radio"
-      ? "value"
-      : declared.prop === "checked" &&
-          element.tag === "input" &&
-          type === "checkbox"
-        ? "checked"
-        : declared.prop === "value" &&
-            element.tag === "input" &&
-            type === "radio"
-          ? "radio"
-          : undefined
-  if (!kind)
-    return unbound("which isn't a value, checked or radio model of a control")
+  ) {
+    return {
+      refusal: unsupported(
+        "BC406",
+        file,
+        `the value model of ${api.component} on its own <${element.tag}>`,
+        "a component no longer binds the value of its own control: the user writes the <input>, <select> or <textarea> in a Field. Remove the model from api.ts and the control from the component",
+      ),
+      everywhere: true,
+    }
+  }
+  const kind =
+    declared.prop === "checked" &&
+    element.tag === "input" &&
+    type === "checkbox"
+      ? "checked"
+      : declared.prop === "value" && element.tag === "input" && type === "radio"
+        ? "radio"
+        : undefined
+  if (!kind) return unbound("which isn't a checked or radio model of a control")
   if (!spreads(element, frontmatter.rest)) {
     return unbound(`whose element doesn't spread ${frontmatter.rest}`)
   }
   const prop = frontmatter.props.find((entry) => entry.prop === declared.prop)
-  if (prop && kind !== "value") {
-    return describe(`whose prop ${prop.local} is read by the component`)
-  }
   if (prop) {
-    const attribute = element.attributes.find(
-      (item) =>
-        item.kind === "expression" &&
-        item.name === declared.prop &&
-        item.code.trim() === prop.local,
-    )
-    const child = element.children.find(
-      (node) => node.type === "expression" && node.code.trim() === prop.local,
-    )
-    if (attribute) {
-      element.attributes = element.attributes.filter(
-        (item) => item !== attribute,
-      )
-    }
-    if (child) {
-      element.children = element.children.filter((node) => node !== child)
-    }
+    return describe(`whose prop ${prop.local} is read by the component`)
   }
   element.model = true
   return {
     bindables,
     element,
     kind,
-    local: prop?.local,
     prop: declared.prop,
-    rest: frontmatter.rest,
     type: declared.type,
   }
 }

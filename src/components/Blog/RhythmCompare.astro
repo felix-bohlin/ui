@@ -1,8 +1,10 @@
 ---
-import { Range } from "opui-css/astro"
+import { Field } from "opui-css/astro"
 
 const fontSize = 29
 const step = 4
+const fontSizeId = Astro.locals.$id("rhythm-compare-font-size")
+const stepId = Astro.locals.$id("rhythm-compare-step")
 
 const columns = [
   { code: "line-height: 1.2", mode: "raw" },
@@ -41,24 +43,38 @@ const columns = [
 
   <fieldset class="rhythm-compare-knobs">
     <legend class="ui-sr-only">Font size and rhythm step</legend>
-    <Range
-      data-property="--font-size"
-      label="Font size"
-      max={64}
-      min={12}
-      value={fontSize}
-      valueSuffix="px"
-    />
-    <Range
-      data-property="--step"
-      label="Rhythm step"
-      max={12}
-      min={2}
-      value={step}
-      valueSuffix="px"
-    >
-      <code slot="start-text">--ui-rhythm-step</code>
-    </Range>
+    <Field for={fontSizeId} label="Font size">
+      <input
+        data-property="--font-size"
+        id={fontSizeId}
+        max="64"
+        min="12"
+        type="range"
+        value={fontSize}
+      />
+      <Fragment slot="end-text"
+        ><output aria-live="off" class="ui-value" for={fontSizeId}
+          >{fontSize}px</output
+        ></Fragment
+      >
+    </Field>
+    <Field for={stepId} label="Rhythm step">
+      <Fragment slot="start-text"><code>--ui-rhythm-step</code></Fragment>
+      <input
+        aria-describedby={`${stepId}-start-text`}
+        data-property="--step"
+        id={stepId}
+        max="12"
+        min="2"
+        type="range"
+        value={step}
+      />
+      <Fragment slot="end-text"
+        ><output aria-live="off" class="ui-value" for={stepId}
+          >{step}px</output
+        ></Fragment
+      >
+    </Field>
   </fieldset>
 </div>
 
@@ -221,12 +237,14 @@ const columns = [
         )
 
       const render = () => {
-        inputs.forEach((input) =>
+        inputs.forEach((input) => {
           compare.style.setProperty(
             input.dataset.property ?? "",
             `${input.value}px`,
-          ),
-        )
+          )
+          const output = compare.querySelector(`output[for="${input.id}"]`)
+          if (output) output.textContent = `${input.value}px`
+        })
         compare
           .querySelectorAll<HTMLElement>(".rhythm-compare-column")
           .forEach((column) => {

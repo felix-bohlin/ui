@@ -1,7 +1,10 @@
 ---
-import { Range } from "opui-css/astro"
+import { Field } from "opui-css/astro"
 ---
 
-<Range label="Volume" value="30" />
-<Range label="Brightness" value="70" variant="filled" />
-<Range label="Contrast" value="50" variant="tonal" />
+<Field for="range-surfaces-1" label="Volume">
+  <input id="range-surfaces-1" type="range" value="30" />
+</Field>
+<Field for="range-surfaces-2" label="Brightness" variant="filled">
+  <input id="range-surfaces-2" type="range" value="70" />
+</Field>

@@ -189,15 +189,23 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
       <progress aria-label="Loading" />
     </div>
   </div>}
-  {slug === "range-tick-marks" && <label class="ui-range">
-    <span class="ui-label">Quality</span>
-    <input list={id("ticks")} max="2" type="range" value="1" />
-    <datalist id={id("ticks")}>
-      <option label="Low" value="0" />
-      <option label="Medium" value="1" />
-      <option label="High" value="2" />
-    </datalist>
-  </label>}
+  {slug === "range-tick-marks" && <div class="ui-field">
+    <label class="ui-label" for={id("quality")}>Quality</label>
+    <span class="ui-field-container">
+      <input
+        id={id("quality")}
+        list={id("ticks")}
+        max="2"
+        type="range"
+        value="1"
+      />
+      <datalist aria-hidden="true" id={id("ticks")}>
+        <option label="Low" value="0" />
+        <option label="Medium" value="1" />
+        <option label="High" value="2" />
+      </datalist>
+    </span>
+  </div>}
   {slug === "select-base-select" && <div class="ui-field">
     <label class="ui-label" for={id("role")}>Role</label>
     <span class="ui-field-container">
@@ -337,7 +345,7 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
 
   [data-preview="accordion-height-auto"] .ui-accordion,
   [data-preview="form-fieldset-has"] .ui-fieldset,
-  [data-preview="range-tick-marks"] .ui-range,
+  [data-preview="range-tick-marks"] .ui-field,
   [data-preview="select-base-select"] .ui-field,
   [data-preview="table-scroll-state"] .ui-table,
   [data-preview="tabs-radio-buttons"] .ui-tabs,

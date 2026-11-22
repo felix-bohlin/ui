@@ -1,5 +1,7 @@
 <script lang="ts">
-  import { Range } from "opui-css/svelte"
+  import { Field } from "opui-css/svelte"
 </script>
 
-<Range disabled label="Microphone" />
+<Field for="range-disabled-1" label="Microphone">
+  <input disabled id="range-disabled-1" type="range" />
+</Field>

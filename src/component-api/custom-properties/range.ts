@@ -6,19 +6,9 @@ export default {
       "Color of the thumb, its ripple and the track fill. Defaults to `--ui-choice-accent`, then `--ui-control-accent`, then `--ui-primary`, and is set by the invalid state.",
     kind: "input",
   },
-  "--_duration": {
-    description:
-      "Duration of the thumb ripple transition, `--ui-duration-fast` times `--_motion`.",
-    kind: "output",
-  },
-  "--_ease": {
-    description:
-      "Easing of the thumb ripple transition and focus ring. Defaults to `--ui-ease`.",
-    kind: "input",
-  },
   "--_focus-ring-duration": {
     description:
-      "Duration of the focus ring animation, `--ui-duration` times `--_motion`, slower than the `--_duration` of the transitions.",
+      "Duration of the focus ring animation, `--ui-duration` times `--_motion`, slower than `--_thumb-duration`.",
     kind: "output",
   },
   "--_forced-fill-bg-color": {
@@ -29,11 +19,6 @@ export default {
   "--_forced-track-bg-color": {
     description: "Track color in forced colors mode. `GrayText` when disabled.",
     kind: "output",
-  },
-  "--_motion": {
-    description:
-      "Motion multiplier for the thumb ripple and focus ring. `0` turns them off.",
-    kind: "input",
   },
   "--_padding": {
     description:
@@ -49,6 +34,11 @@ export default {
     description:
       "Width of the page-colored ring between the thumb and the track. Set on the `<input>`.",
     kind: "input",
+  },
+  "--_thumb-duration": {
+    description:
+      "Duration of the thumb ripple transition, `--ui-duration-fast` times the field's `--_motion`.",
+    kind: "output",
   },
   "--_thumb-offset": {
     description: "Vertical offset that centers the thumb on the track.",

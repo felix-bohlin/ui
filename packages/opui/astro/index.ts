@@ -56,7 +56,6 @@ export { default as PasswordToggle } from "../components/PasswordToggle/Password
 export { default as Progress } from "../components/Progress/Progress.astro"
 export { default as Radio } from "../components/Radio/Radio.astro"
 export { default as RadioInput } from "../components/Radio/RadioInput.astro"
-export { default as Range } from "../components/Range/Range.astro"
 export { default as Rating } from "../components/Rating/Rating.astro"
 export { default as Reactions } from "../components/Reactions/Reactions.astro"
 export { default as SelectAll } from "../components/SelectAll/SelectAll.astro"
@@ -178,8 +177,6 @@ export type {
   RadioInputProps,
   Props as RadioProps,
 } from "../components/Radio/types.astro"
-export type { RangeItem } from "../components/Range/types"
-export type { Props as RangeProps } from "../components/Range/types.astro"
 export type { Props as RatingProps } from "../components/Rating/types.astro"
 export type {
   ReactionDetail,

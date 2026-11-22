@@ -23,15 +23,6 @@ const hasClass = (element: Element, name: string) =>
     ?.value.split(/\s+/)
     .includes(name) ?? false
 
-const inside = (element: Element, name: string): boolean => {
-  const parent = element.parentNode
-  return (
-    !!parent &&
-    "tagName" in parent &&
-    (hasClass(parent, name) || inside(parent, name))
-  )
-}
-
 const HOOKS = [
   {
     hook: "an <opui-*> element",
@@ -45,26 +36,6 @@ const HOOKS = [
     module: (element: Element) =>
       element.tagName === "input" && hasAttribute(element, "data-indeterminate")
         ? "opui-css/css/js/checkbox.js"
-        : undefined,
-  },
-  {
-    hook: "an output.ui-value[data-live] in a .ui-range",
-    module: (element: Element) =>
-      element.tagName === "output" &&
-      hasClass(element, "ui-value") &&
-      hasAttribute(element, "data-live") &&
-      inside(element, "ui-range")
-        ? "opui-css/css/js/range.js"
-        : undefined,
-  },
-  {
-    hook: "a datalist option[label] in a .ui-range",
-    module: (element: Element) =>
-      element.tagName === "option" &&
-      hasAttribute(element, "label") &&
-      element.parentNode?.nodeName === "datalist" &&
-      inside(element, "ui-range")
-        ? "opui-css/css/js/range.js"
         : undefined,
   },
   {
@@ -195,20 +166,11 @@ describe("example scripts", () => {
     ])
     expect(
       problemsOf({
-        html: '<label class="ui-range"><output class="ui-value" data-live></output></label><input data-indeterminate>',
+        html: "<input data-indeterminate>",
         name: "a/Hooks",
       }),
     ).toEqual([
-      'a/Hooks.html has an output.ui-value[data-live] in a .ui-range but doesn\'t import "opui-css/css/js/range.js"',
       'a/Hooks.html has an input[data-indeterminate] but doesn\'t import "opui-css/css/js/checkbox.js"',
-    ])
-    expect(
-      problemsOf({
-        html: '<label class="ui-range"><input list="a" type="range"><datalist id="a"><option label="Low" value="0"></option></datalist></label><label class="ui-field"><input list="b"><datalist id="b"><option label="Low" value="Low"></option></datalist></label>',
-        name: "a/Ticks",
-      }),
-    ).toEqual([
-      'a/Ticks.html has a datalist option[label] in a .ui-range but doesn\'t import "opui-css/css/js/range.js"',
     ])
     expect(
       problemsOf({

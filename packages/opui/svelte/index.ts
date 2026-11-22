@@ -58,7 +58,6 @@ export { default as PasswordToggle } from "../components/PasswordToggle/Password
 export { default as Progress } from "../components/Progress/Progress.svelte"
 export { default as Radio } from "../components/Radio/Radio.svelte"
 export { default as RadioInput } from "../components/Radio/RadioInput.svelte"
-export { default as Range } from "../components/Range/Range.svelte"
 export { default as Rating } from "../components/Rating/Rating.svelte"
 export { default as Reactions } from "../components/Reactions/Reactions.svelte"
 export { default as SelectAll } from "../components/SelectAll/SelectAll.svelte"
@@ -181,8 +180,6 @@ export type {
   RadioInputProps,
   Props as RadioProps,
 } from "../components/Radio/types.svelte"
-export type { RangeItem } from "../components/Range/types"
-export type { Props as RangeProps } from "../components/Range/types.svelte"
 export type { Props as RatingProps } from "../components/Rating/types.svelte"
 export type {
   ReactionDetail,

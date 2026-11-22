@@ -1,5 +1,9 @@
-import { Range } from "opui-css/react"
+import { Field } from "opui-css/react"
 
 export default function Basics() {
-  return <Range label="Volume" />
+  return (
+    <Field htmlFor="range-basics-1" label="Volume">
+      <input id="range-basics-1" type="range" />
+    </Field>
+  )
 }

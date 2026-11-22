@@ -69,9 +69,9 @@ export const REACT_FIXED_VALUE_TYPES = [
   "submit",
 ]
 
-export const REACT_DEFAULT_VALUE = ["Range", "Rating", "Tabs", "ToggleGroup"]
+export const REACT_DEFAULT_VALUE = ["Rating", "Tabs", "ToggleGroup"]
 
-export const SVELTE_DEFAULT_VALUE = ["Range"]
+export const SVELTE_DEFAULT_VALUE = []
 
 const NUMERIC_ATTRIBUTES = [
   "colspan",
@@ -1756,10 +1756,6 @@ const htmlElements = (markup) => {
   return found
 }
 
-const insideClass = (element, name) =>
-  !!element.parent &&
-  (element.parent.classes.has(name) || insideClass(element.parent, name))
-
 const HTML_SCRIPT_RULES = [
   {
     covers: (path, tags) => [...tags.values()].includes(path),
@@ -1779,20 +1775,6 @@ const HTML_SCRIPT_RULES = [
     lines: (elements) =>
       elements.some(({ attrs }) => attrs.has("data-indeterminate"))
         ? ['import "opui-css/css/js/checkbox.js"']
-        : [],
-  },
-  {
-    covers: (path) => path === "css/js/range.js",
-    lines: (elements) =>
-      elements.some(
-        (element) =>
-          (element.tag === "output" && element.attrs.has("data-live")) ||
-          (element.tag === "option" &&
-            element.attrs.has("label") &&
-            element.parent?.tag === "datalist" &&
-            insideClass(element, "ui-range")),
-      )
-        ? ['import "opui-css/css/js/range.js"']
         : [],
   },
   {

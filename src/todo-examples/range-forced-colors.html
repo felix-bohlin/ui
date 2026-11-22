@@ -1,5 +1,5 @@
 <style>
-  .todo-compare .ui-range {
+  .todo-compare .ui-field {
     inline-size: 100%;
   }
 
@@ -21,18 +21,32 @@
 <div class="todo-compare">
   <section class="todo-current">
     <p class="todo-label">Today</p>
-    <label class="ui-range">
-      <span class="ui-label">Volume</span>
-      <input type="range" name="todo-range-forced-today" value="60" />
-    </label>
+    <div class="ui-field">
+      <label class="ui-label" for="todo-range-forced-today">Volume</label>
+      <span class="ui-field-container">
+        <input
+          id="todo-range-forced-today"
+          name="todo-range-forced-today"
+          type="range"
+          value="60"
+        />
+      </span>
+    </div>
   </section>
   <section class="todo-fixed">
     <p class="todo-label">
       With <code>forced-color-adjust: none</code> on the track
     </p>
-    <label class="ui-range todo-range-fill-kept">
-      <span class="ui-label">Volume</span>
-      <input type="range" name="todo-range-forced-kept" value="60" />
-    </label>
+    <div class="ui-field todo-range-fill-kept">
+      <label class="ui-label" for="todo-range-forced-kept">Volume</label>
+      <span class="ui-field-container">
+        <input
+          id="todo-range-forced-kept"
+          name="todo-range-forced-kept"
+          type="range"
+          value="60"
+        />
+      </span>
+    </div>
   </section>
 </div>

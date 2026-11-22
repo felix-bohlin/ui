@@ -2,7 +2,7 @@
 import "@opui/css/imports.css"
 import "@opui/open-props.css"
 import { Font } from "astro:assets"
-import { Button, Chip, Range, Switch } from "opui-css/astro"
+import { Button, Chip, Field, Switch } from "opui-css/astro"
 import AstroLogo from "../../../components/AstroLogo.astro"
 import Html5Logo from "../../../components/Html5Logo.astro"
 import ReactLogo from "../../../components/ReactLogo.astro"
@@ -113,7 +113,14 @@ const labels = [
           <Button variant="filled" color="primary">Get started</Button>
         </div>
         <div class="subject subject-range">
-          <Range label="Volume" value="60" valueSuffix="%" variant="tonal" />
+          <Field for="share-image-volume" label="Volume">
+            <input id="share-image-volume" type="range" value="60" />
+            <Fragment slot="end-text"
+              ><output aria-live="off" class="ui-value" for="share-image-volume"
+                >60%</output
+              ></Fragment
+            >
+          </Field>
         </div>
 
         <span class="dimension dimension-chip" aria-hidden="true"></span>

@@ -3,7 +3,6 @@
     Checkbox,
     Field,
     Radio,
-    Range,
     Rating,
     SelectButton,
     StepButton,
@@ -96,11 +95,15 @@
   <Radio label="Coffee" name="drink" value="coffee" />
 </form>
 <form data-case="range-bound">
-  <Range bind:value={values.range} label="Level" />
+  <Field for="range-bound" label="Level">
+    <input bind:value={values.range} id="range-bound" type="range" />
+  </Field>
   <output>{values.range}</output>
 </form>
 <form data-case="range-default">
-  <Range label="Level" defaultValue="40" />
+  <Field for="range-default" label="Level">
+    <input defaultValue="40" id="range-default" type="range" />
+  </Field>
 </form>
 <form data-case="rating-bound">
   <Rating bind:value={values.rating} label="Score" name="score" />

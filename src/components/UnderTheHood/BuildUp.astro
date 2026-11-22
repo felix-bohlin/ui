@@ -2,9 +2,9 @@
 import {
   Button,
   ControlGroup,
+  Field,
   ListItem,
   RadioInput,
-  Range,
 } from "opui-css/astro"
 import Code from "../Code.astro"
 import FeatureSupport from "./FeatureSupport.astro"
@@ -68,18 +68,31 @@ const stepId = (index: number, part: string) =>
 
   {knobs.length > 0 && <fieldset class="build-up-knobs">
     <legend class="ui-sr-only">Custom properties</legend>
-    {knobs.map((knob) => <Range
-      data-property={knob.property}
-      data-unit={knob.unit ?? ""}
+    {knobs.map((knob, index) => <Field
+      for={`${id}-knob-${index + 1}`}
       label={knob.label}
-      max={knob.max}
-      min={knob.min}
-      step={knob.step ?? 1}
-      value={knob.value}
-      valueSuffix={knob.unit ?? ""}
     >
-      <code slot="start-text">{knob.property}</code>
-    </Range>)}
+      <Fragment slot="start-text"><code>{knob.property}</code></Fragment>
+      <input
+        aria-describedby={`${id}-knob-${index + 1}-start-text`}
+        data-property={knob.property}
+        data-unit={knob.unit ?? ""}
+        id={`${id}-knob-${index + 1}`}
+        max={knob.max}
+        min={knob.min}
+        step={knob.step ?? 1}
+        type="range"
+        value={knob.value}
+      />
+      <Fragment slot="end-text"
+        ><output
+          aria-live="off"
+          class="ui-value"
+          for={`${id}-knob-${index + 1}`}
+          >{knob.value}{knob.unit ?? ""}</output
+        ></Fragment
+      >
+    </Field>)}
   </fieldset>}
 
   <fieldset class="build-up-steps">
@@ -476,11 +489,16 @@ const stepId = (index: number, part: string) =>
       buildUp
         .querySelectorAll<HTMLInputElement>(".build-up-knobs input[type=range]")
         .forEach((input) => {
-          const update = () =>
+          const output = buildUp.querySelector(`output[for="${input.id}"]`)
+          const update = () => {
             stage?.style.setProperty(
               input.dataset.property ?? "",
               `${input.value}${input.dataset.unit ?? ""}`,
             )
+            if (output) {
+              output.textContent = `${input.value}${input.dataset.unit ?? ""}`
+            }
+          }
           input.addEventListener("input", update)
         })
     })

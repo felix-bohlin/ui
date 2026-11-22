@@ -24,7 +24,6 @@
 @import "./components/meter.css";
 @import "./components/progress.css";
 @import "./components/radio.css";
-@import "./components/range.css";
 @import "./components/rating.css";
 @import "./components/select-all.css";
 @import "./components/sortable-table.css";
@@ -53,6 +52,7 @@
 @import "./components/step-button.css";
 @import "./components/text-field.css";
 @import "./components/one-time-code.css";
+@import "./components/range.css";
 @import "./components/textarea.css";
 @import "./components/toaster.css";
 @import "./components/toggle-group.css";

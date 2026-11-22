@@ -1,7 +1,9 @@
 ---
-import { Range } from "opui-css/astro"
+import { Field } from "opui-css/astro"
 
 const position = { x: 50, y: 50 }
+const xId = Astro.locals.$id("anchor-playground-x")
+const yId = Astro.locals.$id("anchor-playground-y")
 ---
 
 <div class="anchor-playground">
@@ -12,22 +14,36 @@ const position = { x: 50, y: 50 }
   </div>
   <fieldset class="anchor-playground-knobs">
     <legend class="ui-sr-only">Trigger position</legend>
-    <Range
-      data-axis="x"
-      label="Inline position"
-      max={100}
-      min={0}
-      value={position.x}
-      valueSuffix="%"
-    />
-    <Range
-      data-axis="y"
-      label="Block position"
-      max={100}
-      min={0}
-      value={position.y}
-      valueSuffix="%"
-    />
+    <Field for={xId} label="Inline position">
+      <input
+        data-axis="x"
+        id={xId}
+        max="100"
+        min="0"
+        type="range"
+        value={position.x}
+      />
+      <Fragment slot="end-text"
+        ><output aria-live="off" class="ui-value" for={xId}
+          >{position.x}%</output
+        ></Fragment
+      >
+    </Field>
+    <Field for={yId} label="Block position">
+      <input
+        data-axis="y"
+        id={yId}
+        max="100"
+        min="0"
+        type="range"
+        value={position.y}
+      />
+      <Fragment slot="end-text"
+        ><output aria-live="off" class="ui-value" for={yId}
+          >{position.y}%</output
+        ></Fragment
+      >
+    </Field>
   </fieldset>
 </div>
 
@@ -107,6 +123,12 @@ const position = { x: 50, y: 50 }
       })
 
       const render = () => {
+        inputs.forEach((candidate) => {
+          const output = playground.querySelector(
+            `output[for="${candidate.id}"]`,
+          )
+          if (output) output.textContent = `${candidate.value}%`
+        })
         const { x, y } = room()
         stage.style.setProperty(
           "--_start",

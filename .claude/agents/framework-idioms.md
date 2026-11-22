@@ -33,7 +33,7 @@ Read the compiled file next to the closest hand-written sibling of its kind (`Te
 
 **React**
 
-- No state, as in State belongs to the app in `packages/opui/components/AGENTS.md`: a value the user changes lives in the native element, and what the component shows reads the props (Range's readout, which `packages/opui/css/js/range.js` updates as the user drags). No effect that copies props into state or derives a value a render could compute.
+- No state, as in State belongs to the app in `packages/opui/components/AGENTS.md`: a value the user changes lives in the native element, and what the component shows reads the props. No effect that copies props into state or derives a value a render could compute.
 - `"use client"` on the smallest component that needs it: a server component that renders one client part keeps the boundary at the part.
 - Form controls pass `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` through, never both of a pair.
 - React 19 forms: `ref` as a prop, no `forwardRef`, context as `<XContext value>`.
@@ -50,7 +50,7 @@ Read the compiled file next to the closest hand-written sibling of its kind (`Te
 - `children(() => props.label)` for a slot read more than once, created under the provider when the component provides a context, and once per item inside a `<For>`, where a slot read once is `{props.end}`: a node has one parent.
 - A tag that is always one string is the element (`<selectedcontent />`), a per-item tag `<Dynamic component={tag}>`, and `dynamic()` only for a tag that reads a prop.
 - A class list of one entry is the entry (`class={props.class}`); several are the `class={[...]}` array with objects for toggles, never a joined string.
-- A model prop (`value`, `checked`) stays out of the rest and the element's spread: `control` from `packages/opui/components/solid.ts` captures the first value once in the body, hands it to the server render as a plain `value` or `checked` (`{...valueControl.server}`), sets it as the default through the `ref` on a client render, and writes the prop through the `ref` only when it changes. Solid writes a stateful property again on every run of a spread, over what the user entered.
+- A model prop (`checked`) stays out of the rest and the element's spread: `control` from `packages/opui/components/solid.ts` captures the first value once in the body, hands it to the server render as a plain `checked` (`{...checkedControl.server}`), sets it as the default through the `ref` on a client render, and writes the prop through the `ref` only when it changes. Solid writes a stateful property again on every run of a spread, over what the user entered.
 
 **Svelte**
 

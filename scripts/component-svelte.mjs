@@ -56,10 +56,9 @@ export const toSvelte = (component) => {
   const { model } = component
   const kind = MODEL_KINDS[model?.kind]?.svelte
   const options = {
-    rename: new Map([
-      ...trimmedSlots.map(({ local, slot }) => [local, slotProp(slot)]),
-      ...(kind?.rename?.(model, component) ?? []),
-    ]),
+    rename: new Map(
+      trimmedSlots.map(({ local, slot }) => [local, slotProp(slot)]),
+    ),
     ids: component.ids,
     slotHas: (name) => slotProp(name),
   }

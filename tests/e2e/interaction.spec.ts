@@ -766,60 +766,31 @@ interaction(
 
 interaction(
   "range",
-  "Value",
-  "range moves with the keyboard and shows its value",
+  "Basics",
+  "range moves with the keyboard",
   async ({ page, root }) => {
-    const slider = root.locator('input[type="range"]')
+    const slider = root.getByRole("slider", { name: "Volume" })
     const before = Number(await slider.inputValue())
 
-    await expect(root.locator("output")).toHaveAttribute("aria-live", "off")
-    await expect(slider).toHaveAttribute("aria-valuetext", `${before}°`)
     await slider.focus()
     await page.keyboard.press("ArrowRight")
     await expect(slider).toHaveValue(String(before + 1))
-    await expect(root.locator("output")).toHaveText(`${before + 1}°`)
-    await expect(slider).toHaveAttribute("aria-valuetext", `${before + 1}°`)
-  },
-)
-
-interaction(
-  "range",
-  "Value",
-  "range shows its value again after a form reset",
-  async ({ page, root }) => {
-    const slider = root.locator('input[type="range"]')
-    const output = root.locator("output")
-    const before = await slider.inputValue()
-
-    await slider.focus()
     await page.keyboard.press("End")
-    await expect(output).toHaveText("360°")
-    await root.getByRole("button", { name: "Reset" }).click()
-    await expect(slider).toHaveValue(before)
-    await expect(output).toHaveText(`${before}°`)
-    await expect(slider).toHaveAttribute("aria-valuetext", `${before}°`)
-    await slider.focus()
-    await page.keyboard.press("ArrowRight")
-    await expect(output).toHaveText(`${Number(before) + 1}°`)
+    await expect(slider).toHaveValue("100")
   },
 )
 
 interaction(
   "range",
   "TickMarksLabels",
-  "range names its value with the label of the tick at it",
+  "range steps from tick to tick",
   async ({ page, root }) => {
-    const quality = root.getByRole("slider", { name: "Quality" })
     const opacity = root.getByRole("slider", { name: "Opacity" })
 
-    await expect(quality).toHaveAttribute("aria-valuetext", "Medium")
-    await quality.focus()
-    await page.keyboard.press("ArrowRight")
-    await expect(quality).toHaveAttribute("aria-valuetext", "High")
-    await expect(opacity).toHaveAttribute("aria-valuetext", "50%")
+    await expect(opacity).toHaveValue("50")
     await opacity.focus()
     await page.keyboard.press("ArrowRight")
-    await expect(opacity).not.toHaveAttribute("aria-valuetext")
+    await expect(opacity).toHaveValue("75")
   },
 )
 

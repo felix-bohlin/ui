@@ -56,7 +56,6 @@ export { default as PasswordToggle } from "../components/PasswordToggle/Password
 export { default as Progress } from "../components/Progress/Progress.vue"
 export { default as Radio } from "../components/Radio/Radio.vue"
 export { default as RadioInput } from "../components/Radio/RadioInput.vue"
-export { default as Range } from "../components/Range/Range.vue"
 export { default as Rating } from "../components/Rating/Rating.vue"
 export { default as Reactions } from "../components/Reactions/Reactions.vue"
 export { default as SelectAll } from "../components/SelectAll/SelectAll.vue"
@@ -179,8 +178,6 @@ export type {
   RadioInputProps,
   Props as RadioProps,
 } from "../components/Radio/types.vue-props"
-export type { RangeItem } from "../components/Range/types"
-export type { Props as RangeProps } from "../components/Range/types.vue-props"
 export type { Props as RatingProps } from "../components/Rating/types.vue-props"
 export type {
   ReactionDetail,

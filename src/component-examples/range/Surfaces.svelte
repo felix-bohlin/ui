@@ -1,7 +1,10 @@
 <script lang="ts">
-  import { Range } from "opui-css/svelte"
+  import { Field } from "opui-css/svelte"
 </script>
 
-<Range label="Volume" defaultValue="30" />
-<Range label="Brightness" defaultValue="70" variant="filled" />
-<Range label="Contrast" defaultValue="50" variant="tonal" />
+<Field for="range-surfaces-1" label="Volume">
+  <input id="range-surfaces-1" type="range" value="30" />
+</Field>
+<Field for="range-surfaces-2" label="Brightness" variant="filled">
+  <input id="range-surfaces-2" type="range" value="70" />
+</Field>

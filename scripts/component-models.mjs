@@ -1,5 +1,4 @@
 import { selectionImport } from "./component-emit.mjs"
-import { capitalize } from "./component-shared.mjs"
 
 const arrayRead = (model) => model.read.startsWith("selectionOf")
 
@@ -12,9 +11,6 @@ const report = (model, callback, multiple) =>
   arrayRead(model)
     ? `if (${multiple}) ${callback}?.(checkedValues(input))\n  else ${callback}?.(input.value)`
     : `${callback}?.(${model.read})`
-
-const resettable = (model) =>
-  model.prop === "value" && ["input", "textarea"].includes(model.element.tag)
 
 const solidChecked = {
   attributes: () => [
@@ -63,8 +59,6 @@ export const importLinesOf = (used, except) =>
       (module) =>
         `import { ${namesFrom(used, module).join(", ")} } from "${module}"`,
     )
-
-const ownsDefault = (model) => model.element?.tag === "select"
 
 export const MODEL_KINDS = {
   checked: {
@@ -234,75 +228,6 @@ export const MODEL_KINDS = {
       boundAttributes: () => [':value="attrs.value"', 'v-model="modelValue"'],
       explicitAttrs: true,
       setup: (model) => [optionalModel(model), BOUND],
-    },
-  },
-  value: {
-    react: {
-      inRest: true,
-      rename: (model) =>
-        model.local
-          ? [
-              [
-                model.local,
-                `${model.rest}.${model.prop} ?? ${model.rest}.default${capitalize(model.prop)}`,
-              ],
-            ]
-          : [],
-    },
-    solid: {
-      attributes: (model) => [
-        `{...${model.prop}Control.server}`,
-        `ref={[props.ref, ${model.prop}Control.ref]}`,
-      ],
-      body: (model, _, read) => [
-        `const ${model.prop}Control = control(${JSON.stringify(model.prop)}, () => props.${model.prop}${ownsDefault(model) ? `, untrack(() => props.default${capitalize(model.prop)})` : ""})`,
-        ...(read
-          ? [
-              `const ${model.local} = () => props.${model.prop} ?? props.default${capitalize(model.prop)}`,
-            ]
-          : []),
-      ],
-      omits: (model) => [model.prop, "ref"],
-      locals: (model) => [`${model.prop}Control`],
-      ownDefault: ownsDefault,
-      rename: (model) =>
-        model.local ? [[model.local, `${model.local}()`]] : [],
-    },
-    svelte: {
-      attributes: (model) =>
-        resettable(model)
-          ? ["bind:value={getValue, setValue}", "{defaultValue}"]
-          : [`bind:${model.prop}`],
-      bindables: (model) => [model.prop],
-      plainProps: (model) => (resettable(model) ? ["defaultValue"] : []),
-      rename: (model) =>
-        resettable(model) && model.local ? [[model.local, "getValue()"]] : [],
-      script: (model) =>
-        resettable(model)
-          ? [
-              "const getValue = () => (value === undefined ? defaultValue : value)",
-              "const setValue = (next: typeof value) => {\n  value = next\n}",
-            ]
-          : [],
-    },
-    vue: {
-      boundAttributes: () => ['v-model="modelValue"'],
-      rename: (model) => ({
-        script: model.local ? [[model.local, "model.value"]] : [],
-        template: model.local ? [[model.local, "model"]] : [],
-      }),
-      setup: (model, _, read) => [
-        `const modelValue = defineModel<${model.type}>()`,
-        BOUND,
-        ...(read
-          ? [`const model = computed(() => modelValue.value ?? ${model.local})`]
-          : []),
-      ],
-      declared: (model) => (model.local ? [] : [model.prop]),
-      unboundOwn: (model) =>
-        model.element.tag === "textarea"
-          ? { child: true, code: model.local ?? model.prop, name: model.prop }
-          : { attr: true, code: model.local ?? model.prop, name: model.prop },
     },
   },
 }

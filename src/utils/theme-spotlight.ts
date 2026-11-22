@@ -23,7 +23,8 @@ const BY_CONTROL: Record<string, string> = {
   "button-weight": ".ui-button",
   "card-padding": ".ui-card",
   "chip-radius": ".ui-chip",
-  "choice-accent": ".ui-checkbox, .ui-radio, .ui-switch, .ui-range",
+  "choice-accent":
+    ".ui-checkbox, .ui-radio, .ui-switch, .ui-field:has(input[type=range])",
   "choice-size": ".ui-checkbox, .ui-radio",
   "code-bg": ".specimen-type code",
   "control-accent":
@@ -81,7 +82,7 @@ const BY_CONTROL: Record<string, string> = {
   "text-strong": ".ui-h2, .ui-h4, .ui-button",
   "text-subtle": ".specimen-caption, .specimen-row-label",
   tonal: ".ui-button.ui-tonal, .ui-chip",
-  track: ".ui-range, .ui-progress",
+  track: ".ui-field:has(input[type=range]), .ui-progress",
   underline: ".ui-link",
   warning: ".ui-callout.ui-warning",
   "weight-bold": ".ui-h2, .ui-h4",

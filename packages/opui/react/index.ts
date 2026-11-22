@@ -57,7 +57,6 @@ export { default as PasswordToggle } from "../components/PasswordToggle/Password
 export { default as Progress } from "../components/Progress/Progress.react"
 export { default as Radio } from "../components/Radio/Radio.react"
 export { default as RadioInput } from "../components/Radio/RadioInput.react"
-export { default as Range } from "../components/Range/Range.react"
 export { default as Rating } from "../components/Rating/Rating.react"
 export { default as Reactions } from "../components/Reactions/Reactions.react"
 export { default as SelectAll } from "../components/SelectAll/SelectAll.react"
@@ -180,8 +179,6 @@ export type {
   RadioInputProps,
   Props as RadioProps,
 } from "../components/Radio/types.react"
-export type { RangeItem } from "../components/Range/types"
-export type { Props as RangeProps } from "../components/Range/types.react"
 export type { Props as RatingProps } from "../components/Rating/types.react"
 export type {
   ReactionDetail,

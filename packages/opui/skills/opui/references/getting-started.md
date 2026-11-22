@@ -106,8 +106,7 @@ opui
 │  │  ├─ accordion.css
 │  │  └─ ...
 │  ├─ js
-│  │  ├─ checkbox.js
-│  │  └─ range.js
+│  │  └─ checkbox.js
 │  ├─ compat.css
 │  ├─ components.css
 │  ├─ imports.css
@@ -200,7 +199,6 @@ A few features need a script in plain HTML:
 | [Indeterminate checkbox](https://opui.dev/html/components/checkbox.md#indeterminate) | Sets `indeterminate` from `data-indeterminate` | `opui-css/css/js/checkbox.js` |
 | [Step button](https://opui.dev/html/components/number-field.md) | Steps a number input's value with its button | `opui-css/elements/step-button.js` |
 | [Password toggle](https://opui.dev/html/components/text-field.md#password-toggle) | Shows and hides the password | `opui-css/elements/password-toggle.js` |
-| [Range value](https://opui.dev/html/components/range.md#value) | Writes the value to the `output`, with `data-live` | `opui-css/css/js/range.js` |
 | [Reactions](https://opui.dev/html/components/message.md#saving-reactions) | Asks your server before a reaction changes | `opui-css/elements/reactions.js` |
 | [Select all](https://opui.dev/html/components/checkbox.md#select-all) | Checks or clears a group of checkboxes from one | `opui-css/elements/select-all.js` |
 | [Sortable table](https://opui.dev/html/components/table.md#sorting) | Sorts the rows by a column | `opui-css/elements/sortable-table.js` |
@@ -435,8 +433,8 @@ Every component renders full HTML on the server. Components with state or effect
 
 A choice the user makes before the page hydrates stays on screen. The form controls pass `value`, `checked`, their defaults and `onChange` to the native input, and `Rating`, `Tabs` and `ToggleGroup` render their inputs like native radios, so they work like plain React inputs: React doesn't call `onChange` or `onValueChange` for that choice, and a controlled value misses it. A form that reads its values on submit gets it.
 
-- **70** of 73 need no hydration
-- **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`
+- **70** of 72 need no hydration
+- **2** hydrate for `indeterminate`
 - **44** are Server Components
 
 | Component | Client | Server | Server Component | Needs hydration |
@@ -487,7 +485,6 @@ A choice the user makes before the page hydrates stays on screen. The form contr
 | [`Progress`](https://opui.dev/react/components/progress.md) | Yes | Yes | Yes | - |
 | [`Radio`](https://opui.dev/react/components/radio.md) | Yes | Yes | Yes | - |
 | [`RadioInput`](https://opui.dev/react/components/radio.md) | Yes | Yes | No | - |
-| [`Range`](https://opui.dev/react/components/range.md) | Yes | No | No | `valueSuffix` **Needs hydration** The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Import `opui-css/css/js/range.js` in the page. , `valueText` **Needs hydration** The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration. Update the content on `input` yourself, or use `valueSuffix`. |
 | [`Rating`](https://opui.dev/react/components/rating.md) | Yes | Yes | No | - |
 | [`Reactions`](https://opui.dev/react/components/message.md) | Yes | Yes | No | - |
 | [`SelectAll`](https://opui.dev/react/components/checkbox.md) | Yes | Yes | No | - |
@@ -598,8 +595,8 @@ The props in the last column need hydration.
 
 A choice the user makes before the page hydrates stays on screen, as on a plain Solid input: Solid doesn't call `onChange` or `onValueChange` for it, and a controlled value misses it. A form that reads its values on submit gets it.
 
-- **70** of 73 need no hydration
-- **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`
+- **70** of 72 need no hydration
+- **2** hydrate for `indeterminate`
 
 | Component | Client | Server | Needs hydration |
 | --- | --- | --- | --- |
@@ -649,7 +646,6 @@ A choice the user makes before the page hydrates stays on screen, as on a plain 
 | [`Progress`](https://opui.dev/solid/components/progress.md) | Yes | Yes | - |
 | [`Radio`](https://opui.dev/solid/components/radio.md) | Yes | Yes | - |
 | [`RadioInput`](https://opui.dev/solid/components/radio.md) | Yes | Yes | - |
-| [`Range`](https://opui.dev/solid/components/range.md) | Yes | No | `valueSuffix` **Needs hydration** The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Import `opui-css/css/js/range.js` in the page. , `valueText` **Needs hydration** The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration. Update the content on `input` yourself, or use `valueSuffix`. |
 | [`Rating`](https://opui.dev/solid/components/rating.md) | Yes | Yes | - |
 | [`Reactions`](https://opui.dev/solid/components/message.md) | Yes | Yes | - |
 | [`SelectAll`](https://opui.dev/solid/components/checkbox.md) | Yes | Yes | - |
@@ -784,17 +780,16 @@ Slots are snippets: `children`, and camelCased names like `endText`. Form contro
 * [RadioInput](https://opui.dev/svelte/components/radio.md)
 * [Switch](https://opui.dev/svelte/components/switch.md)
 * [SwitchInput](https://opui.dev/svelte/components/switch.md) |
-| `bind:value` | - [Range](https://opui.dev/svelte/components/range.md)
-- [Rating](https://opui.dev/svelte/components/rating.md)
+| `bind:value` | - [Rating](https://opui.dev/svelte/components/rating.md)
 - [Tabs](https://opui.dev/svelte/components/tabs.md)
-- [ToggleGroup](https://opui.dev/svelte/components/toggle.md)                                                                                                                                       |
+- [ToggleGroup](https://opui.dev/svelte/components/toggle.md)                                                                                                                                                                                              |
 
 ### Server rendering
 
 Every component renders full HTML on the server. The props in the last column need hydration.
 
-- **62** of 73 need no hydration
-- **11** hydrate for `bind:checked`, `bind:group`, `bind:value`, `indeterminate`, `valueSuffix`, `valueText`
+- **62** of 72 need no hydration
+- **10** hydrate for `bind:checked`, `bind:group`, `bind:value`, `indeterminate`
 
 | Component | Client | Server | Needs hydration |
 | --- | --- | --- | --- |
@@ -844,7 +839,6 @@ Every component renders full HTML on the server. The props in the last column ne
 | [`Progress`](https://opui.dev/svelte/components/progress.md) | Yes | Yes | - |
 | [`Radio`](https://opui.dev/svelte/components/radio.md) | Yes | No | `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`RadioInput`](https://opui.dev/svelte/components/radio.md) | Yes | No | `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`Range`](https://opui.dev/svelte/components/range.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `valueSuffix` **Needs hydration** The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Import `opui-css/css/js/range.js` in the page. , `valueText` **Needs hydration** The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration. Update the content on `input` yourself, or use `valueSuffix`. |
 | [`Rating`](https://opui.dev/svelte/components/rating.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Reactions`](https://opui.dev/svelte/components/message.md) | Yes | Yes | - |
 | [`SelectAll`](https://opui.dev/svelte/components/checkbox.md) | Yes | Yes | - |
@@ -956,8 +950,8 @@ Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` 
 
 ### Server rendering
 
-- **62** of 73 need no hydration
-- **11** hydrate for `indeterminate`, `v-model`, `valueSuffix`
+- **62** of 72 need no hydration
+- **10** hydrate for `indeterminate`, `v-model`
 
 | Component | Client | Server | Needs hydration |
 | --- | --- | --- | --- |
@@ -1007,7 +1001,6 @@ Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` 
 | [`Progress`](https://opui.dev/vue/components/progress.md) | Yes | Yes | - |
 | [`Radio`](https://opui.dev/vue/components/radio.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`RadioInput`](https://opui.dev/vue/components/radio.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
-| [`Range`](https://opui.dev/vue/components/range.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `valueSuffix` **Needs hydration** The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Import `opui-css/css/js/range.js` in the page. |
 | [`Rating`](https://opui.dev/vue/components/rating.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Reactions`](https://opui.dev/vue/components/message.md) | Yes | Yes | - |
 | [`SelectAll`](https://opui.dev/vue/components/checkbox.md) | Yes | Yes | - |

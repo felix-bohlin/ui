@@ -1,8 +1,10 @@
 ---
-import { Avatar, Range } from "opui-css/astro"
+import { Avatar, Field } from "opui-css/astro"
 
 const exponent = 2
 const radius = 50
+const radiusId = Astro.locals.$id("corner-shape-radius")
+const exponentId = Astro.locals.$id("corner-shape-exponent")
 ---
 
 <div class="corner-shape" style={`--_k: ${exponent}; --_radius: ${radius}%`}>
@@ -17,28 +19,42 @@ const radius = 50
   </div>
   <fieldset class="corner-shape-knobs">
     <legend class="ui-sr-only">Radius and corner shape</legend>
-    <Range
-      data-property="radius"
-      label="Radius"
-      max={50}
-      min={0}
-      step={5}
-      value={radius}
-      valueSuffix="%"
-    >
-      <code slot="start-text">border-radius</code>
-    </Range>
-    <Range
-      data-property="exponent"
-      label="Exponent"
-      max={3}
-      min={-2}
-      step={0.25}
-      value={exponent}
-      valueSuffix=""
-    >
-      <code slot="start-text">superellipse()</code>
-    </Range>
+    <Field for={radiusId} label="Radius">
+      <Fragment slot="start-text"><code>border-radius</code></Fragment>
+      <input
+        aria-describedby={`${radiusId}-start-text`}
+        data-property="radius"
+        id={radiusId}
+        max="50"
+        min="0"
+        step="5"
+        type="range"
+        value={radius}
+      />
+      <Fragment slot="end-text"
+        ><output aria-live="off" class="ui-value" for={radiusId}
+          >{radius}%</output
+        ></Fragment
+      >
+    </Field>
+    <Field for={exponentId} label="Exponent">
+      <Fragment slot="start-text"><code>superellipse()</code></Fragment>
+      <input
+        aria-describedby={`${exponentId}-start-text`}
+        data-property="exponent"
+        id={exponentId}
+        max="3"
+        min="-2"
+        step="0.25"
+        type="range"
+        value={exponent}
+      />
+      <Fragment slot="end-text"
+        ><output aria-live="off" class="ui-value" for={exponentId}
+          >{exponent.toFixed(2)}</output
+        ></Fragment
+      >
+    </Field>
   </fieldset>
 </div>
 
@@ -118,10 +134,13 @@ const radius = 50
 
     const render = () => {
       inputs.forEach((input) => {
+        const output = shape.querySelector(`output[for="${input.id}"]`)
         if (input.dataset.property === "radius") {
           shape.style.setProperty("--_radius", `${input.value}%`)
+          if (output) output.textContent = `${input.value}%`
         } else {
           shape.style.setProperty("--_k", input.value)
+          if (output) output.textContent = Number(input.value).toFixed(2)
         }
       })
       const exponentInput = inputs.find(

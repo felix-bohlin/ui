@@ -1,5 +1,7 @@
 <script lang="ts">
-  import { Range } from "opui-css/svelte"
+  import { Field } from "opui-css/svelte"
 </script>
 
-<Range label="Volume" />
+<Field for="range-basics-1" label="Volume">
+  <input id="range-basics-1" type="range" />
+</Field>

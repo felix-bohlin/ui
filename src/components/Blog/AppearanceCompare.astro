@@ -1,5 +1,5 @@
 ---
-import { Checkbox, Range, Switch } from "opui-css/astro"
+import { Checkbox, Field, Switch } from "opui-css/astro"
 
 type Props = {
   kind: "checkbox" | "switch"
@@ -24,6 +24,7 @@ const states =
 
 const token =
   kind === "checkbox" ? "--ui-choice-size" : "--ui-switch-track-block-size"
+const sizeId = Astro.locals.$id("appearance-compare-size")
 ---
 
 <div class="appearance-compare" data-kind={kind} style={`--_size: ${size}px`}>
@@ -58,9 +59,23 @@ const token =
       </div>
     </fieldset>)}
   </div>
-  <Range label="Size" max={40} min={12} step={2} value={size} valueSuffix="px">
-    <code slot="start-text">{token}</code>
-  </Range>
+  <Field for={sizeId} label="Size">
+    <Fragment slot="start-text"><code>{token}</code></Fragment>
+    <input
+      aria-describedby={`${sizeId}-start-text`}
+      id={sizeId}
+      max="40"
+      min="12"
+      step="2"
+      type="range"
+      value={size}
+    />
+    <Fragment slot="end-text"
+      ><output aria-live="off" class="ui-value" for={sizeId}
+        >{size}px</output
+      ></Fragment
+    >
+  </Field>
 </div>
 
 <style>
@@ -128,7 +143,7 @@ const token =
     gap: var(--ui-space-3);
   }
 
-  .appearance-compare :global(.ui-range code) {
+  .appearance-compare :global(.ui-start-text code) {
     font-size: var(--ui-font-size-caption);
   }
 </style>
@@ -139,9 +154,11 @@ const token =
     .forEach((compare) => {
       const kind = compare.dataset.kind
       const range = compare.querySelector<HTMLInputElement>("input[type=range]")
-      range?.addEventListener("input", () =>
-        compare.style.setProperty("--_size", `${range.value}px`),
-      )
+      const output = compare.querySelector("output.ui-value")
+      range?.addEventListener("input", () => {
+        compare.style.setProperty("--_size", `${range.value}px`)
+        if (output) output.textContent = `${range.value}px`
+      })
       compare.addEventListener("change", (event) => {
         const input = event.target
         if (!(input instanceof HTMLInputElement) || input.type !== "checkbox") {

@@ -2403,24 +2403,24 @@ of text</textarea>
       >
     </div>
     <div class="stress-stack">
-      <label class="ui-range"
-        ><span class="ui-label" id="stress-range-label-1">Range</span
-        ><input
-          type="range"
-          aria-labelledby="stress-range-label-1"
-          min="0"
-          max="100"
-          value="40" /></label
-      ><label class="ui-range"
-        ><span class="ui-label" id="stress-range-label-2">Disabled range</span
-        ><input
-          type="range"
-          aria-labelledby="stress-range-label-2"
-          min="0"
-          max="100"
-          value="40"
-          disabled
-      /></label>
+      <div class="ui-field">
+        <label class="ui-label" for="stress-range-1">Range</label
+        ><span class="ui-field-container"
+          ><input type="range" id="stress-range-1" min="0" max="100" value="40"
+        /></span>
+      </div>
+      <div class="ui-field">
+        <label class="ui-label" for="stress-range-2">Disabled range</label
+        ><span class="ui-field-container"
+          ><input
+            type="range"
+            id="stress-range-2"
+            min="0"
+            max="100"
+            value="40"
+            disabled
+        /></span>
+      </div>
     </div>
   </div>
   <h3>Buttons</h3>
@@ -3190,20 +3190,23 @@ Leave the parcel with the neighbour on the second floor, the one with the green 
           >A very long label that keeps going well past the width of the field
           it describes</span
         ></label
-      ><label class="ui-range"
-        ><span class="ui-label" id="stress-range-label-3"
+      >
+      <div class="ui-field">
+        <label class="ui-label" for="stress-range-3"
           >A very long label that keeps going well past the width of the field
-          it describes</span
-        ><span class="ui-start-text" id="stress-start-1"
+          it describes</label
+        ><span class="ui-start-text" id="stress-range-3-start-text"
           >Range start text that wraps.</span
-        ><input
-          type="range"
-          aria-labelledby="stress-range-label-3"
-          aria-describedby="stress-start-1"
-          min="0"
-          max="100"
-          value="40"
-      /></label>
+        ><span class="ui-field-container"
+          ><input
+            type="range"
+            aria-describedby="stress-range-3-start-text"
+            id="stress-range-3"
+            min="0"
+            max="100"
+            value="40"
+        /></span>
+      </div>
     </div>
     <div class="stress-narrow">
       <div
@@ -3383,18 +3386,21 @@ Line five</textarea>
         ><input type="checkbox" /><span class="ui-label"
           >Newsletter</span
         ></label
-      ><label class="ui-range ui-spread"
-        ><span class="ui-label" id="stress-range-label-4">Volume</span
-        ><span class="ui-start-text" id="stress-start-2"
+      >
+      <div class="ui-field ui-spread">
+        <label class="ui-label" for="stress-range-4">Volume</label
+        ><span class="ui-start-text" id="stress-range-4-start-text"
           >Applies to every device.</span
-        ><input
-          type="range"
-          aria-labelledby="stress-range-label-4"
-          aria-describedby="stress-start-2"
-          min="0"
-          max="100"
-          value="40"
-      /></label>
+        ><span class="ui-field-container"
+          ><input
+            type="range"
+            aria-describedby="stress-range-4-start-text"
+            id="stress-range-4"
+            min="0"
+            max="100"
+            value="40"
+        /></span>
+      </div>
     </div>
     <div class="stress-stack stress-narrow">
       <div class="ui-field ui-spread">
@@ -3458,18 +3464,21 @@ Line five</textarea>
         ><input type="checkbox" /><span class="ui-label"
           >Newsletter</span
         ></label
-      ><label class="ui-range ui-spread"
-        ><span class="ui-label" id="stress-range-label-5">Volume</span
-        ><span class="ui-start-text" id="stress-start-3"
+      >
+      <div class="ui-field ui-spread">
+        <label class="ui-label" for="stress-range-5">Volume</label
+        ><span class="ui-start-text" id="stress-range-5-start-text"
           >Applies to every device.</span
-        ><input
-          type="range"
-          aria-labelledby="stress-range-label-5"
-          aria-describedby="stress-start-3"
-          min="0"
-          max="100"
-          value="40"
-      /></label>
+        ><span class="ui-field-container"
+          ><input
+            type="range"
+            aria-describedby="stress-range-5-start-text"
+            id="stress-range-5"
+            min="0"
+            max="100"
+            value="40"
+        /></span>
+      </div>
     </div>
   </div>
 </section>
@@ -4018,15 +4027,12 @@ Line five</textarea>
           id="stress-text-field-90"
       /></span>
     </div>
-    <label class="ui-range"
-      ><span class="ui-label" id="stress-range-label-6">الصوت</span
-      ><input
-        type="range"
-        aria-labelledby="stress-range-label-6"
-        min="0"
-        max="100"
-        value="70"
-    /></label>
+    <div class="ui-field">
+      <label class="ui-label" for="stress-range-6">الصوت</label
+      ><span class="ui-field-container"
+        ><input type="range" id="stress-range-6" min="0" max="100" value="70"
+      /></span>
+    </div>
   </div>
 </section>
 <section class="stress" data-example="KitchenSink">
@@ -4200,19 +4206,21 @@ Line five</textarea>
           ><input type="checkbox" role="switch" /><span class="ui-label"
             >Push notifications</span
           ></label
-        ><label class="ui-range ui-spread"
-          ><span class="ui-label" id="stress-range-label-7">Font scale</span
-          ><input
-            type="range"
-            aria-labelledby="stress-range-label-7"
-            aria-describedby="stress-end-20"
-            min="0"
-            max="100"
-            value="50"
-          /><span class="ui-end-text" id="stress-end-20"
-            >Applies after reload.</span
-          ></label
         >
+        <div class="ui-field ui-spread">
+          <label class="ui-label" for="stress-range-7">Font scale</label
+          ><span class="ui-field-container"
+            ><input
+              type="range"
+              aria-describedby="stress-range-7-end-text"
+              id="stress-range-7"
+              min="0"
+              max="100"
+              value="50" /></span
+          ><span class="ui-end-text" id="stress-range-7-end-text"
+            >Applies after reload.</span
+          >
+        </div>
       </div>
       <div class="ui-field-group">
         <div role="radiogroup" aria-label="Density" class="ui-toggle-group">

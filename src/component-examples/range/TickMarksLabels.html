@@ -1,34 +1,35 @@
-<label class="ui-range">
-  <span class="ui-label" id="range-tick-marks-labels-1-label">Opacity</span>
-  <input
-    aria-labelledby="range-tick-marks-labels-1-label"
-    aria-valuetext="50%"
-    list="range-tick-marks-labels-1-list"
-    type="range"
-  />
-  <datalist aria-hidden="true" id="range-tick-marks-labels-1-list">
-    <option value="0" label="0%"></option>
-    <option value="25" label="25%"></option>
-    <option value="50" label="50%"></option>
-    <option value="75" label="75%"></option>
-    <option value="100" label="100%"></option>
-  </datalist>
-</label>
-<label class="ui-range">
-  <span class="ui-label" id="range-tick-marks-labels-2-label">Quality</span>
-  <input
-    aria-labelledby="range-tick-marks-labels-2-label"
-    list="range-tick-marks-labels-2-list"
-    max="2"
-    type="range"
-  />
-  <datalist aria-hidden="true" id="range-tick-marks-labels-2-list">
-    <option value="0" label="Low"></option>
-    <option value="1" label="Medium"></option>
-    <option value="2" label="High"></option>
-  </datalist>
-</label>
-
-<script type="module">
-  import "opui-css/css/js/range.js"
-</script>
+<div class="ui-field">
+  <label class="ui-label" for="range-tick-marks-labels-1">Opacity</label>
+  <span class="ui-field-container">
+    <input
+      id="range-tick-marks-labels-1"
+      list="range-tick-marks-labels-1-list"
+      step="25"
+      type="range"
+    />
+    <datalist aria-hidden="true" id="range-tick-marks-labels-1-list">
+      <option label="0%" value="0"></option>
+      <option label="25%" value="25"></option>
+      <option label="50%" value="50"></option>
+      <option label="75%" value="75"></option>
+      <option label="100%" value="100"></option>
+    </datalist>
+  </span>
+</div>
+<div class="ui-field">
+  <label class="ui-label" for="range-tick-marks-labels-2">Quality</label>
+  <span class="ui-field-container">
+    <input
+      id="range-tick-marks-labels-2"
+      list="range-tick-marks-labels-2-list"
+      max="2"
+      type="range"
+      value="1"
+    />
+    <datalist aria-hidden="true" id="range-tick-marks-labels-2-list">
+      <option label="Low" value="0"></option>
+      <option label="Medium" value="1"></option>
+      <option label="High" value="2"></option>
+    </datalist>
+  </span>
+</div>

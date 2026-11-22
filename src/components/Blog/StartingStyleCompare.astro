@@ -1,7 +1,8 @@
 ---
-import { Range, Switch } from "opui-css/astro"
+import { Field, Switch } from "opui-css/astro"
 
 const seconds = 0.6
+const durationId = Astro.locals.$id("starting-style-compare-duration")
 
 const columns = [
   { code: "@starting-style", mode: "with" },
@@ -30,14 +31,21 @@ const columns = [
   </div>
   <div class="starting-style-compare-knobs">
     <Switch class="starting-style-compare-switch" label="Open" />
-    <Range
-      label="Duration"
-      max={2}
-      min={0.1}
-      step={0.1}
-      value={seconds}
-      valueSuffix="s"
-    />
+    <Field for={durationId} label="Duration">
+      <input
+        id={durationId}
+        max="2"
+        min="0.1"
+        step="0.1"
+        type="range"
+        value={seconds}
+      />
+      <Fragment slot="end-text"
+        ><output aria-live="off" class="ui-value" for={durationId}
+          >{seconds.toFixed(1)}s</output
+        ></Fragment
+      >
+    </Field>
   </div>
 </div>
 
@@ -146,7 +154,7 @@ const columns = [
     flex-wrap: wrap;
     gap: var(--ui-space-3) var(--ui-space-5);
 
-    & :global(.ui-range) {
+    & :global(.ui-field) {
       flex: 1 1 12rem;
       min-inline-size: 0;
     }
@@ -162,8 +170,10 @@ const columns = [
     .querySelectorAll<HTMLElement>(".starting-style-compare")
     .forEach((compare) => {
       const input = compare.querySelector<HTMLInputElement>("input[type=range]")
-      input?.addEventListener("input", () =>
-        compare.style.setProperty("--_seconds", `${input.value}s`),
-      )
+      const output = compare.querySelector("output.ui-value")
+      input?.addEventListener("input", () => {
+        compare.style.setProperty("--_seconds", `${input.value}s`)
+        if (output) output.textContent = `${Number(input.value).toFixed(1)}s`
+      })
     })
 </script>

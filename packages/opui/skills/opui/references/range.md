@@ -2,48 +2,22 @@
 
 A slider for picking a number by moving a thumb along a track.
 
-- CSS: `opui-css/css/components/range.css`.
+- CSS: `opui-css/css/components/range.css` and `opui-css/css/components/text-field.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/range.md), [Astro](https://opui.dev/astro/components/range.md), [React](https://opui.dev/react/components/range.md), [Solid](https://opui.dev/solid/components/range.md), [Svelte](https://opui.dev/svelte/components/range.md), [Vue](https://opui.dev/vue/components/range.md).
 
-## Range
+## Range (CSS only)
 
 ### Parts
 
-- `label.ui-range` (root): Container element.
-- `.ui-label` (prop `label`, slot `label`): The label for the range.
-- `<output class="ui-value" data-live>` (prop `valueSuffix`, slot `value-text`): Shows the current value, with an optional `valueSuffix`. `opui-css/css/js/range.js` keeps it in step with the thumb, and content in the `value-text` slot replaces it.
-- `.ui-start-text` (prop `startText`, slot `start-text`): Description text displayed above the input.
-- `<input>` (model): The range input.
-- `<datalist>` (prop `items`, prop `list`, slot `datalist`): Tick marks and their labels, under the input.
-- `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the input.
-
-### Props and modifiers
-
-- `disabled`: `boolean`, `input[disabled]`. Dims the slider and blocks input.
-- `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
-- `hideLabel`: `boolean`, `.ui-range > span.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
-- `id`: `string`. The id of the `<input>`. Generated when omitted and the value is shown. The ids the component generates start with it: `x-label`, `x-start-text`, `x-end-text` and `x-list` for `id="x"`.
-- `items`: `RangeItem[]`. Tick marks, rendered as `<option>` elements in a `<datalist>`. Each is a value, or a `{ label, value }` object for a labeled tick. Without `valueSuffix`, the label of the tick at the value is the input's `aria-valuetext`.
-- `lang`: `string`. The language of the `<label>`, which formats the shown value with `Intl.NumberFormat`. Without it, the value is formatted in English until `opui-css/css/js/range.js` formats it for the closest `lang` in the page.
-- `list`: `string`. The id of the `<datalist>`. Generated when `items` or the `datalist` slot is used.
-- `max`: `number | string`, default `100`. The largest value of the `<input>`.
-- `min`: `number | string`, default `0`. The smallest value of the `<input>`.
-- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
-- `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
-- `spread`: `boolean`, `.ui-spread`. Pushes the label and start text to one side and the input to the other.
-- `step`: `number | string`, default `1`. The step between values of the `<input>`. Without a `value`, the slider starts at the step nearest the middle.
-- `value`: `number | string`. The current value.
-- `valueSuffix`: `string`. Text after the shown value, such as `%`. Setting it shows the current value in an `<output>` and as the input's `aria-valuetext`, formatted for `lang` with the decimals of `min` and `step` and no grouping.
-- `variant`: `"filled"` (`.ui-filled`), `"outlined"` (default), `"tonal"` (`.ui-tonal`). The variant to use. The default `outlined` track uses `--ui-track-bg-color`, or the field border color when the theme doesn't set it.
-
-Model: `value` (`number | string`), the current value. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
+- `.ui-field:has(> .ui-field-container > input[type="range"])` (root): A `.ui-field` with an `<input type="range">` in its container, which `range.css` draws without the field's box, as tall as any field's control.
+- `<input type="range">`: Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's `variant` and `size` set the track and thumb.
+- `<datalist>`: Tick marks for the input it's linked to with `list`, and the `label` of each option under its mark. Give it `aria-hidden="true"`, since the labels repeat the value.
 
 ### Notes
 
-- HTML: Add a `<datalist aria-hidden="true">` after the input for tick marks. `data-suffix` on the `.ui-value` output adds text after the value, which `range.js` formats for the closest `lang`.
-- Astro, Svelte and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`.
-- React: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `className` and `style` go to the root `<label>`. Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.
-- Solid: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. `value` sets the value and follows it when it changes. Follow the thumb with `onInput`.
+- HTML: Put the `<input type="range">` directly in `.ui-field-container`, and a `<datalist>` after it for tick marks. `range.css` drops the field's box and draws the track, the fill and the thumb. Show the value yourself, and set `aria-valuetext` when the number alone doesn't say it.
+- Astro, Solid, Svelte and Vue: Write an `<input type="range">` in a `Field`, with its `id` set to `for`. A `<datalist>` after it, linked with `list`, draws tick marks, and its options' `label`s under them. Show the value yourself, such as in an `<output>` in the end text, and set `aria-valuetext` when the number alone doesn't say it.
+- React: Write an `<input type="range">` in a `Field`, with its `id` set to `htmlFor`. A `<datalist>` after it, linked with `list`, draws tick marks, and its options' `label`s under them. Show the value yourself, such as in an `<output>` in `endText`, and set `aria-valuetext` when the number alone doesn't say it.
 
 ## Component properties
 
@@ -52,120 +26,137 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 ### range.css
 
 - `--_accent`: Color of the thumb, its ripple and the track fill. Defaults to `--ui-choice-accent`, then `--ui-control-accent`, then `--ui-primary`, and is set by the invalid state.
-- `--_ease`: Easing of the thumb ripple transition and focus ring. Defaults to `--ui-ease`.
-- `--_motion`: Motion multiplier for the thumb ripple and focus ring. `0` turns them off.
 - `--_thumb-border-width`: Width of the page-colored ring between the thumb and the track. Set on the `<input>`.
 - `--_thumb-size`: Width and height of the thumb. Set by the sizes, and larger on touch screens at every size but `.ui-large`.
 - `--_track-base-bg-color`: Color of the empty track at rest. `--ui-track-bg-color` when the theme sets it, otherwise the field border, and `--ui-surface` under more contrast; set by `.ui-filled` and `.ui-tonal`.
 - `--_track-block-size`: Height of the track. Set by the sizes.
 - `--_track-radius`: Corner radius of the track.
 
-Outputs: `--_duration`, `--_focus-ring-duration`, `--_forced-fill-bg-color`, `--_forced-track-bg-color`, `--_padding`, `--_thumb-bg-color`, `--_thumb-offset`, `--_thumb-ripple-bg-color`, `--_thumb-ripple-size`, `--_track-bg-color`, `--_track-fill-bg-color` and `--_track-fill-fraction`.
+Outputs: `--_focus-ring-duration`, `--_forced-fill-bg-color`, `--_forced-track-bg-color`, `--_padding`, `--_thumb-bg-color`, `--_thumb-duration`, `--_thumb-offset`, `--_thumb-ripple-bg-color`, `--_thumb-ripple-size`, `--_track-bg-color`, `--_track-fill-bg-color` and `--_track-fill-fraction`.
+
+### text-field.css
+
+- `--_accent`: Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a Select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
+- `--_arrow-inset`: Distance of the select arrow from the inline end.
+- `--_chevron-image`: The select arrow, as an image used for a mask.
+- `--_chevron-size`: Width and height of the select arrow.
+- `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
+- `--_end-end-radius`: The radius of the end-end corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the next control.
+- `--_end-start-radius`: The radius of the end-start corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
+- `--_field-padding-block`: The preferred block padding of the control. Set by the size classes.
+- `--_field-padding-inline`: The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.
+- `--_file-button-padding`: The preferred gap around the `::file-selector-button` of a file field: `--ui-space-2`, or `--ui-space-1` in `.ui-small` and `.ui-x-small`.
+- `--_font-size`: The font size of the control and affixes. At least 16px on iPhone and iPad (`css/compat/text-field.css`), so iOS Safari doesn't zoom in on focus.
+- `--_min-inline-size`: The least width of the control next to `.ui-start` and `.ui-end`, which shrink and end in an ellipsis to keep it, or the whole field when it is narrower. Defaults to `8ch`; a field with a `StepButton` sets its own.
+- `--_motion`: Motion multiplier for the transitions. `0` turns them off.
+- `--_radius`: The corner radius of `.ui-field-container` and a file input's button. Defaults to `--ui-field-radius`, or `--ui-radius` when the theme doesn't set it.
+- `--_shadow`: The shadow of `.ui-field-container`. Defaults to `--ui-field-shadow`, or `--ui-shadow-control` when the theme leaves it unset. `none` in a `ControlGroup`.
+- `--_size`: The height of `.ui-field-container`, a minimum so a textarea can grow, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.
+- `--_start-end-radius`: The radius of the start-end corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
+- `--_start-start-radius`: The radius of the start-start corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the control before it.
+
+Outputs: `--_affix-block-size`, `--_affix-button-size`, `--_affix-padding-block`, `--_affix-text-color`, `--_arrow-padding`, `--_bg-color`, `--_border-color`, `--_duration`, `--_field-padding-block-fit`, `--_file-button-inset` and `--_helper-text-color`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width`, `--ui-choice-accent`, `--ui-contrast`, `--ui-control-accent`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-field-border-color`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-focus-ring-offset`, `--ui-font-weight-semibold`, `--ui-invalid`, `--ui-invalid-text`, `--ui-motion`, `--ui-primary`, `--ui-radius-round`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-surface`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-text-disabled` and `--ui-track-bg-color`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-choice-accent`, `--ui-contrast`, `--ui-control-accent`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-field-bg-color`, `--ui-field-border-color`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-padding-inline`, `--ui-field-padding-inline-large`, `--ui-field-placeholder-text-color`, `--ui-field-radius`, `--ui-field-required-text-color`, `--ui-field-shadow`, `--ui-field-size`, `--ui-field-size-large`, `--ui-field-size-small`, `--ui-field-size-x-small`, `--ui-focus-border-color`, `--ui-focus-border-width`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-body`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-icon-expand`, `--ui-icon-hide`, `--ui-icon-show`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-shadow-control`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-surface`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-target-min-size`, `--ui-text`, `--ui-text-disabled`, `--ui-text-strong`, `--ui-text-subtle` and `--ui-track-bg-color`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
 ### Example: Basics
 
 ```html
-<label class="ui-range">
-  <span class="ui-label" id="range-basics-1-label">Volume</span>
-  <input aria-labelledby="range-basics-1-label" type="range" />
-</label>
+<div class="ui-field">
+  <label class="ui-label" for="range-basics-1">Volume</label>
+  <span class="ui-field-container">
+    <input id="range-basics-1" type="range" />
+  </span>
+</div>
 ```
 
 ## Astro
 
-`import { Range } from "opui-css/astro"`
-
-- `Range` named slots: `datalist`, `end-text`, `label`, `start-text` and `value-text`. Fill one with `slot="datalist"` on a child.
+There is no Astro component. Use the classes in your markup.
 
 ### Example: Basics
 
 ```astro
 ---
-import { Range } from "opui-css/astro"
+import { Field } from "opui-css/astro"
 ---
 
-<Range label="Volume" />
+<Field for="range-basics-1" label="Volume">
+  <input id="range-basics-1" type="range" />
+</Field>
 ```
 
 ## React
 
-`import { Range } from "opui-css/react"`
-
-- `Range` slot props (`ReactNode`): `datalist`, `endText`, `label`, `startText` and `valueText`.
-- Client components (`"use client"`): `Range`.
-- Hydration: `valueSuffix` on `Range`. The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Without hydration: Import `opui-css/css/js/range.js` in the page.
-- Hydration: `valueText` on `Range`. The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration. Without hydration: Update the content on `input` yourself, or use `valueSuffix`.
+There is no React component. Use the classes in your markup.
 
 ### Example: Basics
 
 ```tsx
-import { Range } from "opui-css/react"
+import { Field } from "opui-css/react"
 
 export default function Basics() {
-  return <Range label="Volume" />
+  return (
+    <Field htmlFor="range-basics-1" label="Volume">
+      <input id="range-basics-1" type="range" />
+    </Field>
+  )
 }
 ```
 
 ## Solid
 
-`import { Range } from "opui-css/solid"`
-
-- `Range` slot props (`JSX.Element`): `datalist`, `endText`, `label`, `startText` and `valueText`.
-- Hydration: `valueSuffix` on `Range`. The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Without hydration: Import `opui-css/css/js/range.js` in the page.
-- Hydration: `valueText` on `Range`. The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration. Without hydration: Update the content on `input` yourself, or use `valueSuffix`.
+There is no Solid component. Use the classes in your markup.
 
 ### Example: Basics
 
 ```tsx
 /** @jsxImportSource @solidjs/web */
-import { Range } from "opui-css/solid"
+import { Field } from "opui-css/solid"
 
 export default function Basics() {
-  return <Range label="Volume" />
+  return (
+    <Field for="range-basics-1" label="Volume">
+      <input id="range-basics-1" type="range" />
+    </Field>
+  )
 }
 ```
 
 ## Svelte
 
-`import { Range } from "opui-css/svelte"`
-
-- `Range` slot snippets: `datalist`, `endText`, `label`, `startText` and `valueText`.
-- Hydration: `bind:value` on `Range`. The bound value only updates on the client. The native control still changes and submits with its form. Without hydration: Read the value from the form instead.
-- Hydration: `valueSuffix` on `Range`. The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Without hydration: Import `opui-css/css/js/range.js` in the page.
-- Hydration: `valueText` on `Range`. The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration. Without hydration: Update the content on `input` yourself, or use `valueSuffix`.
+There is no Svelte component. Use the classes in your markup.
 
 ### Example: Basics
 
 ```svelte
 <script lang="ts">
-  import { Range } from "opui-css/svelte"
+  import { Field } from "opui-css/svelte"
 </script>
 
-<Range label="Volume" />
+<Field for="range-basics-1" label="Volume">
+  <input id="range-basics-1" type="range" />
+</Field>
 ```
 
 ## Vue
 
-`import { Range } from "opui-css/vue"`
-
-- `Range` named slots: `datalist`, `end-text`, `label`, `start-text` and `value-text`. Fill one with `<template #datalist>`.
-- Hydration: `v-model` on `Range`. The bound value only updates on the client. The native control still changes and submits with its form. Without hydration: Read the value from the form instead.
-- Hydration: `valueSuffix` on `Range`. The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Without hydration: Import `opui-css/css/js/range.js` in the page.
+There is no Vue component. Use the classes in your markup.
 
 ### Example: Basics
 
 ```vue
 <script setup lang="ts">
-import { Range } from "opui-css/vue"
+import { Field } from "opui-css/vue"
 </script>
 
 <template>
-  <Range label="Volume" />
+  <Field for="range-basics-1" label="Volume">
+    <input id="range-basics-1" type="range" />
+  </Field>
 </template>
 ```

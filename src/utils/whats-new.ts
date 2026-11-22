@@ -1181,19 +1181,16 @@ export const whatsNew = {
     },
   ],
   range: [
-    components(
-      `The ids the range generates start with its <a href="#api"><code>id</code></a>: <code>x-label</code>, <code>x-start-text</code>, <code>x-end-text</code> and <code>x-list</code> for <code>id="x"</code>.`,
-    ),
-    components(
-      `<a href="#api"><code>hideLabel</code></a> hides the label visually and keeps it as the accessible name.`,
-    ),
+    {
+      ...components(
+        `Breaking: <code>Range</code> is gone. A range is a <code>Field</code> with your own <a href="#basics"><code>&lt;input type="range"&gt;</code></a> inside, its <code>id</code> set to the required <code>for</code> and <code>aria-invalid="true"</code> on it when invalid, and a <code>&lt;datalist&gt;</code> for <a href="#tick-marks">tick marks</a>. Show the <a href="#value">value</a> yourself.`,
+      ),
+      react: `Breaking: <code>Range</code> is gone. A range is a <code>Field</code> with your own <a href="#basics"><code>&lt;input type="range"&gt;</code></a> inside, its <code>id</code> set to the required <code>htmlFor</code> and <code>aria-invalid="true"</code> on it when invalid, and a <code>&lt;datalist&gt;</code> for <a href="#tick-marks">tick marks</a>. Show the <a href="#value">value</a> yourself.`,
+      html: `Breaking: <code>.ui-range</code> is gone. The root is <a href="#basics"><code>&lt;div class="ui-field"&gt;</code></a>, shared with every field, with a <code>&lt;datalist&gt;</code> for <a href="#tick-marks">tick marks</a>. Show the <a href="#value">value</a> yourself: <code>range.js</code> is gone.`,
+    },
     `Breaking: <code>--_thumb-bg</code>, <code>--_thumb-highlight-color</code> and <code>--_track-fill-color</code> are <code>--_accent</code>, which the thumb, its halo and the fill are derived from, <code>--_track-color</code> is <code>--_track-base-bg-color</code>, <code>--_track-height</code> is <code>--_track-block-size</code> and <code>--_thumb-highlight-size</code> is <a href="#component-properties"><code>--_thumb-ripple-size</code></a>, like the <code>--_ripple-size</code> of a checkbox (<a href="#under-the-hood">Under the hood</a>).`,
-    slots(
-      `Breaking: <a href="#tick-marks"><code>items</code></a> replaces <code>options</code>, the label goes in the <code>label</code> slot, and the readout slot is <a href="#value"><code>value-text</code></a>.`,
-    ),
     `The empty track reaches <a href="#accessibility">3:1</a> against the page by default, and with more contrast it takes the page color with an inset edge so the fill stands out.`,
     `The thumb and fill read <a href="#api"><code>--ui-choice-accent</code></a>, or <code>--ui-control-accent</code>, and the empty track <code>--ui-track-bg-color</code> when a theme sets them.`,
-    `<a href="#spread">Spread</a> ranges line up with spread fields and collapse to a column in narrow containers.`,
     {
       ...slots(
         `Breaking: the track fill is CSS only (<a href="#under-the-hood">Under the hood</a>), and <code>--_track-fill</code> is gone. Remove any code of yours that sets it.`,
@@ -1206,64 +1203,19 @@ export const whatsNew = {
       ),
       html: `Breaking: <a href="#variants"><code>.ui-default</code></a> is gone, since it wasn't the default look.`,
     },
-    components(
-      `<a href="#validation">Validation</a> with the <code>error</code> prop, which sets <code>aria-invalid="true"</code> on the input.`,
-    ),
     {
       ...components(
-        `<a href="#sizes">Sizes</a> with the <code>size</code> prop, like the other form controls. The focus ring hugs the thumb.`,
+        `<a href="#sizes">Sizes</a> with the Field's <code>size</code> prop, like the other form controls. The focus ring hugs the thumb.`,
       ),
       html: `<a href="#sizes">Sizes</a> with <code>.ui-x-small</code>, <code>.ui-small</code> and <code>.ui-large</code>, like the other form controls. The focus ring hugs the thumb.`,
     },
     {
       html: `Breaking: mark an invalid range with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
-    components(
-      `<a href="#tick-marks"><code>items</code></a> is typed as <code>RangeItem[]</code>, exported from every framework.`,
-    ),
-    components(
-      `<a href="#tick-marks"><code>items</code></a> renders a linked <code>&lt;datalist&gt;</code> without a <code>list</code> id.`,
-    ),
-    {
-      react: `The <a href="#value">value readout</a> follows the thumb through <code>range.js</code>, like in Astro, and <code>valueText</code> content renders from the value you keep.`,
-
-      solid: `The <a href="#value">value readout</a> follows the thumb through <code>range.js</code>, like in Astro, and <code>valueText</code> content renders from the value you keep.`,
-      svelte: `The <a href="#value">value readout</a> follows the thumb through <code>range.js</code>, like in Astro, and the <code>valueText</code> snippet renders from the value you bind.`,
-      vue: `The <a href="#value">value readout</a> follows the thumb through <code>range.js</code>, like in Astro, and the <code>value-text</code> slot renders from the value you bind.`,
-    },
-    slots(
-      `Breaking: <code>style</code> goes to the root, like <code>class</code>, instead of the <code>&lt;input&gt;</code> (<a href="#api">API</a>).`,
-    ),
-    {
-      astro: `Breaking: extra attributes are typed as <code>&lt;input&gt;</code> attributes, where they go (<a href="#api">API</a>).`,
-    },
-    {
-      ...components(
-        `The <a href="#value">value readout</a> is formatted for the range's <code>lang</code> with <code>Intl.NumberFormat</code>, so a German page shows 0,5 kg, and <code>lang</code> goes to the root.`,
-      ),
-      html: `<code>range.js</code> formats the <a href="#value">value readout</a> for the closest <code>lang</code> with <code>Intl.NumberFormat</code>, so a German page shows 0,5 kg.`,
-    },
-    `The thumb, its halo and the track fill follow <code>--_accent</code> on <code>.ui-range</code> (<a href="#under-the-hood">Under the hood</a>).`,
-    slots(
-      `Breaking: deep type imports from <code>components/Range/types</code> are named <code>Props</code> and <code>Slots</code> (was <code>RangeProps</code> and <code>RangeSlots</code>). Import <a href="#api"><code>RangeProps</code></a> from the framework entry instead.`,
-    ),
+    `The thumb, its halo and the track fill follow <code>--_accent</code> on the <code>.ui-field</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `<a href="#component-properties"><code>--_track-base-bg-color</code></a> sets the empty track at rest, so filled and tonal tracks darken on press and take the disabled color.`,
-    {
-      ...components(
-        `A <a href="#value">value readout</a> is announced once, with its unit: the input gets <code>aria-valuetext</code> and the output <code>aria-live="off"</code>.`,
-      ),
-      html: `Give the <a href="#value">value readout</a> <code>aria-live="off"</code> and the input <code>aria-valuetext</code>, so the value is announced once, with its unit. <code>range.js</code> keeps it in sync.`,
-    },
-    {
-      react: `<a href="#variants">Variants</a> name the default: <code>variant="outlined"</code>.`,
-
-      solid: `<a href="#variants">Variants</a> name the default: <code>variant="outlined"</code>.`,
-      svelte: `<a href="#variants">Variants</a> name the default: <code>variant="outlined"</code>.`,
-    },
+    `<a href="#component-properties"><code>--_track-base-bg-color</code></a> sets the empty track at rest, so filled tracks darken on press and take the disabled color.`,
     `The <a href="#basics">thumb</a> and its ring only show hover styles on devices that can hover, so they no longer stick after a tap.`,
-    `The container query reads <code>inline-size</code>, so <a href="#spread">spread</a> layouts follow the writing mode.`,
-    `With labeled <a href="#tick-marks">tick marks</a>, the input names its value with the label of the tick at it, through <code>aria-valuetext</code>, so a screen reader says Medium rather than 1.`,
     `The pressed <a href="#basics">thumb</a> ring reads <code>--ui-state-active-alpha-light</code> and <code>--ui-state-active-alpha-dark</code>, so it is 30% in dark mode instead of 20%.`,
     `An <a href="#validation">invalid</a> range reads <code>--ui-invalid</code>, like every invalid control.`,
   ],

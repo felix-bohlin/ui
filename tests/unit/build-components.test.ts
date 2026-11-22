@@ -54,8 +54,6 @@ const recordHookReads = (kinds: Kinds) => {
 const GENERIC_READS: Record<string, string> = {
   entries:
     "the type emitter asks the kind of every framework whether it takes defaultValue and onValueChange",
-  ownDefault:
-    "the type emitter asks the kind of every framework whether it declares its own defaultValue",
 }
 
 const hookProblems = (
@@ -546,7 +544,7 @@ describe("the ports of a sample", () => {
 
   test("whitespace between the children of a grid container goes", async () => {
     const ports = await layoutSample(
-      '<label class:list={["ui-range", className]} {...rest}>\n  <span class="ui-label">{label}</span>\n  <input type="range" />\n  <slot />\n</label>',
+      '<label class:list={["ui-field", className]} {...rest}>\n  <span class="ui-label">{label}</span>\n  <input type="range" />\n  <slot />\n</label>',
     )
     expect(ports["react.tsx"]).toContain(
       '<span className="ui-label">{label}</span>\n      <input type="range" />\n      {children}\n',
@@ -564,12 +562,12 @@ describe("the ports of a sample", () => {
     ],
     [
       "a neighbour can be display: contents",
-      '<label class:list={["ui-range", className]} {...rest}>\n  <span class="ui-copy"><slot /></span>\n  <slot name="end" />\n</label>',
+      '<label class:list={["ui-field", className]} {...rest}>\n  <span class="ui-copy"><slot /></span>\n  <slot name="end" />\n</label>',
       '<span className="ui-copy">{children}</span> {end}',
     ],
     [
       "text sits on both sides",
-      '<label class:list={["ui-range", className]} {...rest}>\n  {label} {value}\n  <input type="range" />\n</label>',
+      '<label class:list={["ui-field", className]} {...rest}>\n  {label} {value}\n  <input type="range" />\n</label>',
       "{label} {value}\n",
     ],
   ])("whitespace stays in a grid container when %s", async (_, body, kept) => {
@@ -1282,74 +1280,29 @@ describe("the ports of a sample", () => {
     expect(ports.vue).not.toContain(":style=")
   })
 
-  test("a value model from api.ts binds the control in Svelte and Vue, stays in rest in React, and in Solid is written through a ref only when it changes", async () => {
-    const { outputs } = await compileComponent(
-      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, value, ...rest } = Astro.props\n---\n\n<label class:list={["ui-sample", className]}>\n  <textarea {...rest}>{value}</textarea>\n</label>\n',
-      sampleFile(),
-      { api: modelApi("value", "textarea") },
-    )
-    const port = (extension: string) =>
-      outputs.get(sampleFile().replace(".astro", extension))
-    expect(port(".react.tsx")).toBe(
-      'import { cx } from "../cx"\nimport type { Props } from "./types.react"\n\nexport default function Sample({ className, ...rest }: Props) {\n  return (\n    <label className={cx(["ui-sample", className])}>\n      <textarea {...rest} />\n    </label>\n  )\n}\n',
-    )
-    expect(port(".svelte")).toBe(
-      '<script lang="ts">\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n    defaultValue,\n    value = $bindable(),\n    ...rest\n  }: Props = $props()\n\n  const getValue = () => (value === undefined ? defaultValue : value)\n  const setValue = (next: typeof value) => {\n    value = next\n  }\n</script>\n\n<label class={["ui-sample", className]}>\n  <textarea {...rest} bind:value={getValue, setValue} {defaultValue}></textarea>\n</label>\n',
-    )
-    expect(port(".vue")).toBe(
-      '<script setup lang="ts">\nimport { useBound, useInputAttrs } from "../vue"\nimport type { Props } from "./types.vue-props"\n\nconst { value } = defineProps<Props>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useInputAttrs()\n\nconst modelValue = defineModel<number | string>()\n\nconst bound = useBound()\n</script>\n\n<template>\n  <label :class="[\'ui-sample\', $props.class]">\n    <textarea v-if="bound" v-bind="attrs" v-model="modelValue"></textarea>\n    <textarea v-else v-bind="attrs">{{ value }}</textarea>\n  </label>\n</template>\n',
-    )
-    expect(port(".solid.tsx")).toBe(
-      '/** @jsxImportSource @solidjs/web */\nimport { omit } from "solid-js"\nimport { control } from "../solid"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "ref", "value")\n  const valueControl = control("value", () => props.value)\n\n  return (\n    <label class={["ui-sample", props.class]}>\n      <textarea\n        {...valueControl.server}\n        ref={[props.ref, valueControl.ref]}\n        {...rest}\n      />\n    </label>\n  )\n}\n',
-    )
-  })
-
-  test("a value model read outside its control reads the current value in each framework", async () => {
-    const { outputs } = await compileComponent(
-      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, value, ...rest } = Astro.props\nconst shown = `${value ?? 0}%`\n---\n\n<label class:list={["ui-sample", className]}>\n  <output>{shown}</output>\n  <input {...rest} type="range" value={value} />\n</label>\n',
-      sampleFile(),
-      { api: modelApi("value", "input") },
-    )
-    const port = (extension: string) =>
-      outputs.get(sampleFile().replace(".astro", extension))
-    expect(port(".react.tsx")).toContain(
-      "const shown = `${rest.value ?? rest.defaultValue ?? 0}%`",
-    )
-    expect(port(".svelte")).toContain(
-      "const shown = $derived(`${getValue() ?? 0}%`)",
-    )
-    expect(port(".vue")).toContain(
-      "const shown = computed(() => `${model.value ?? 0}%`)",
-    )
-    expect(port(".solid.tsx")).toContain(
-      "  const value = () => props.value ?? props.defaultValue\n  const shown = () => `${value() ?? 0}%`\n",
-    )
-    expect(port(".solid.tsx")).toContain(
-      '<input\n        {...valueControl.server}\n        ref={[props.ref, valueControl.ref]}\n        {...rest}\n        type="range"\n      />',
-    )
-  })
-
-  test("a value model that only passes through rest declares the prop in Svelte and Vue, and Vue binds it as the attribute when nothing is bound", async () => {
-    const { outputs } = await compileComponent(
-      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<span class:list={["ui-sample", className]}>\n  <input {...rest} type="number" />\n</span>\n',
-      sampleFile(),
-      { api: modelApi("value", "input") },
-    )
-    expect(outputs.get(sampleFile().replace(".astro", ".svelte"))).toContain(
-      "  let {\n    class: className,\n    defaultValue,\n    value = $bindable(),\n    ...rest\n  }: Props = $props()",
-    )
-    const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
-    expect(vue).toContain("const { value } = defineProps<Props>()")
-    expect(vue).toContain(
-      '<input v-if="bound" v-bind="attrs" type="number" v-model="modelValue" />\n    <input v-else v-bind="attrs" type="number" :value.attr="value" />',
-    )
-  })
+  test.each(["input", "select", "textarea"])(
+    "refuses a value model on its own <%s> in every framework",
+    async (tag) => {
+      await expect(
+        compileComponent(
+          `---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<label class:list={["ui-sample", className]}>\n  <${tag} {...rest}></${tag}>\n</label>\n`,
+          sampleFile(),
+          { api: modelApi("value", tag) },
+        ),
+      ).rejects.toMatchObject({
+        code: "BC406",
+        message: expect.stringContaining(
+          `the value model of Sample on its own <${tag}>, which scripts/build-components.mjs can't compile: a component no longer binds the value of its own control: the user writes the <input>, <select> or <textarea> in a Field`,
+        ),
+      })
+    },
+  )
 
   test.each([
     [
       '<input type="text" {...rest} />',
       modelApi("checked", "input"),
-      "the checked model of Sample, which isn't a value, checked or radio model of a control",
+      "the checked model of Sample, which isn't a checked or radio model of a control",
     ],
     [
       '<span {...rest}><input type="text" /><input type="text" /></span>',
@@ -1791,37 +1744,16 @@ describe("the ports of a sample", () => {
     expect(solid).not.toMatch(/\schecked=\{/)
   })
 
-  test("Solid gives a select its own defaultValue, which picks the options and the select's first value, reads the value twice through a local, and refuses a name its value model declares", async () => {
-    const source =
-      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items = [], value, ...rest } = Astro.props\nconst isSelected = (item: string) => (value === undefined ? undefined : value === item)\n---\n\n<label class:list={["ui-sample", className]}>\n  <select {...rest}>\n    {items.map((item) => <option selected={isSelected(item)}>{item}</option>)}\n  </select>\n</label>\n'
-    const { outputs } = await compileComponent(source, sampleFile(), {
-      api: modelApi("value", "select"),
-    })
-    const solid = outputs.get(sampleFile().replace(".astro", ".solid.tsx"))
-    expect(solid).toContain(
-      'const rest = omit(props, "class", "defaultValue", "items", "ref", "value")',
-    )
-    expect(solid).toContain(
-      '  const valueControl = control(\n    "value",\n    () => props.value,\n    untrack(() => props.defaultValue),\n  )\n  const value = () => props.value ?? props.defaultValue\n',
-    )
-    expect(solid).toContain(
-      "  const isSelected = (item: string) => {\n    const current = value()\n    return current === undefined ? undefined : current === item\n  }\n",
-    )
-    expect(solid).toContain(
-      "<select\n        {...valueControl.server}\n        ref={[props.ref, valueControl.ref]}\n        {...rest}\n      >",
-    )
+  test("Solid refuses a name its checked model declares", async () => {
     const clash = await compileComponent(
-      source.replace(
-        "const isSelected",
-        "const valueControl = items.length\nconst isSelected",
-      ),
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\nconst checkedControl = 1\n---\n\n<label class:list={["ui-sample", className]} data-middle={checkedControl}>\n  <input {...rest} type="checkbox" />\n</label>\n',
       sampleFile(),
-      { api: modelApi("value", "select") },
+      { api: modelApi("checked", "input") },
     )
     expect(
       clash.refused.get(sampleFile().replace(".astro", ".solid.tsx"))?.message,
     ).toContain(
-      "the name `valueControl`, which the Solid port also declares for its value model",
+      "the name `checkedControl`, which the Solid port also declares for its checked model",
     )
   })
 
@@ -1991,9 +1923,9 @@ describe("the ports of a sample", () => {
 
   test("refuses an import named like a prop the Svelte model adds", async () => {
     const result = await compileComponent(
-      '---\nimport type { Props } from "./types.astro"\nimport { defaultValue } from "./value"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<label class:list={["ui-sample", className]} data-middle={defaultValue}>\n  <textarea {...rest} />\n</label>\n',
+      '---\nimport type { Props } from "./types.astro"\nimport { defaultChecked } from "./checked"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<label class:list={["ui-sample", className]} data-middle={defaultChecked}>\n  <input {...rest} type="checkbox" />\n</label>\n',
       sampleFile(),
-      { api: modelApi("value", "textarea") },
+      { api: modelApi("checked", "input") },
     )
     expect([...result.refused.keys()]).toEqual([
       sampleFile().replace(".astro", ".svelte"),
@@ -2001,7 +1933,7 @@ describe("the ports of a sample", () => {
     expect(
       result.refused.get(sampleFile().replace(".astro", ".svelte"))?.message,
     ).toContain(
-      "the name `defaultValue`, which the Svelte port also declares as a prop",
+      "the name `defaultChecked`, which the Svelte port also declares as a prop",
     )
   })
 
@@ -2393,35 +2325,6 @@ describe("toTypes", () => {
       'export type Props = Base.Props & { value?: string } & SvelteHTMLElements["div"]\n',
     )
     expect(vue).toContain("export type Props = BaseProps & Class\n")
-  })
-
-  test("Solid types the defaultValue of a select with the model's type, since its JSX has none for the element", () => {
-    const { react, solid } = toTypes(
-      "Sample",
-      {
-        astro:
-          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"select">\n',
-        base,
-      },
-      { Sample: ["default"] },
-      {},
-      {},
-      {
-        Sample: {
-          bindables: [{ prop: "value", type: "string | string[]" }],
-          element: { tag: "select" },
-          kind: "value",
-          prop: "value",
-          type: "string | string[]",
-        },
-      },
-    )
-    expect(solid).toContain(
-      'export type Props = Base.Props & { defaultValue?: string | string[] } & Omit<ComponentProps<"select">, "defaultValue">',
-    )
-    expect(react).toContain(
-      'export type Props = Base.Props & ComponentProps<"select">',
-    )
   })
 
   test("the types of a group tie the value's React and Solid props to each declaration of it", () => {

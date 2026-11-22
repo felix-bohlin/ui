@@ -426,17 +426,18 @@
       }
     }
 
-    &:has(.ui-field-container > :is(input, select, textarea):focus-within):not(
-        :has(:focus-visible)
-      ) {
+    &:has(
+        .ui-field-container
+          > :is(input:not([type="range"]), select, textarea):focus-within
+      ):not(:has(:focus-visible)) {
       .ui-field-container {
         border-color: var(--_accent);
       }
     }
 
-    .ui-field-container:has(> :is(input, select, textarea):focus-within):has(
-        :focus-visible
-      ) {
+    .ui-field-container:has(
+        > :is(input:not([type="range"]), select, textarea):focus-within
+      ):has(:focus-visible) {
       animation: ui-focus-ring var(--_duration) var(--_ease);
       outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
         var(--ui-focus-ring-color);
@@ -476,7 +477,10 @@
     }
 
     @media (forced-colors: active) {
-      &:has(.ui-field-container > :is(input, select, textarea):focus-within)
+      &:has(
+          .ui-field-container
+            > :is(input:not([type="range"]), select, textarea):focus-within
+        )
         .ui-field-container {
         outline: var(--ui-focus-ring-width) solid Highlight;
       }
@@ -731,7 +735,9 @@
   }
 
   /* Autosuggest */
-  :where(.ui-field:has(> .ui-field-container > input[list])) {
+  :where(
+    .ui-field:has(> .ui-field-container > input[list]:not([type="range"]))
+  ) {
     .ui-field-container {
       position: relative;
     }

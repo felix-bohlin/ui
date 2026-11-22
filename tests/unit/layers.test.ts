@@ -59,24 +59,30 @@ test("each stylesheet declares only the layers its group allows", () => {
 
 const BUILDS_ON: Record<string, string> = {
   "one-time-code.css": "text-field.css",
+  "range.css": "text-field.css",
 }
 
 const orderProblems = (list: { files: string[]; group: string }[]) =>
   list.flatMap(({ files, group }) => {
     const rest = files.filter((file) => !(file in BUILDS_ON))
+    const bases = [...new Set(Object.values(BUILDS_ON))].filter((base) =>
+      files.includes(base),
+    )
     return [
       ...(rest.join() === rest.toSorted().join()
         ? []
         : [`${group}: import ${rest.toSorted().join(", ")} in that order`]),
-      ...Object.entries(BUILDS_ON)
-        .filter(([file]) => files.includes(file))
-        .filter(
-          ([file, base]) => files.indexOf(file) !== files.indexOf(base) + 1,
-        )
-        .map(
-          ([file, base]) =>
-            `${group}: import ${file} right after ${base}, so its rules on the same elements win the ties with ${base} without repeating a class`,
-        ),
+      ...bases.flatMap((base) => {
+        const after = Object.keys(BUILDS_ON)
+          .filter((file) => BUILDS_ON[file] === base && files.includes(file))
+          .toSorted()
+        const start = files.indexOf(base) + 1
+        return files.slice(start, start + after.length).join() === after.join()
+          ? []
+          : [
+              `${group}: import ${after.join(", ")} right after ${base}, in that order, so their rules on the same elements win the ties with ${base} without repeating a class`,
+            ]
+      }),
     ]
   })
 
@@ -95,7 +101,7 @@ test("the import order check flags a sample out of order", () => {
     ]),
   ).toEqual([
     "Extended components: import list.css, select.css, text-field.css in that order",
-    "Extended components: import one-time-code.css right after text-field.css, so its rules on the same elements win the ties with text-field.css without repeating a class",
+    "Extended components: import one-time-code.css right after text-field.css, in that order, so their rules on the same elements win the ties with text-field.css without repeating a class",
   ])
 })
 

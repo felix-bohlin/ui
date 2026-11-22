@@ -91,14 +91,13 @@ describe("React", () => {
   test("renames attributes and turns static state into defaults", async () => {
     const code = await convert(
       astro(
-        '<Range autocomplete="off" class="field" value="40" />\n<label for="name" tabindex="0">Name</label>\n<Radio name="pick" value="b" checked />',
-        "Radio, Range",
+        '<Rating label="Score" value="4" />\n<input autocomplete="off" class="field" />\n<label for="name" tabindex="0">Name</label>\n<Radio name="pick" value="b" checked />',
+        "Radio, Rating",
       ),
       "react",
     )
-    expect(code).toContain(
-      '<Range autoComplete="off" className="field" defaultValue="40" />',
-    )
+    expect(code).toContain('<Rating defaultValue="4" label="Score" />')
+    expect(code).toContain('<input autoComplete="off" className="field" />')
     expect(code).toContain('<label htmlFor="name" tabIndex={0}>')
     expect(code).toContain('<Radio defaultChecked name="pick" value="b" />')
   })
@@ -241,17 +240,16 @@ describe("Solid", () => {
   test("keeps the HTML attribute names and turns static state into defaults, like React", async () => {
     const code = await convert(
       astro(
-        '<Range autocomplete="off" class="field" value="40" />\n<label for="name" tabindex="0">Name</label>\n<Radio name="pick" value="b" checked />\n<input type="checkbox" checked />',
-        "Radio, Range",
+        '<Rating label="Score" value="4" />\n<input autocomplete="off" class="field" />\n<label for="name" tabindex="0">Name</label>\n<Radio name="pick" value="b" checked />\n<input type="checkbox" checked />',
+        "Radio, Rating",
       ),
       "solid",
     )
     expect(code).toMatch(
-      /^\/\*\* @jsxImportSource @solidjs\/web \*\/\nimport \{ Radio, Range \} from "opui-css\/solid"\n/,
+      /^\/\*\* @jsxImportSource @solidjs\/web \*\/\nimport \{ Radio, Rating \} from "opui-css\/solid"\n/,
     )
-    expect(code).toContain(
-      '<Range autocomplete="off" class="field" defaultValue="40" />',
-    )
+    expect(code).toContain('<Rating defaultValue="4" label="Score" />')
+    expect(code).toContain('<input autocomplete="off" class="field" />')
     expect(code).toContain('<label for="name" tabindex="0">')
     expect(code).toContain('<Radio defaultChecked name="pick" value="b" />')
     expect(code).toContain('<input type="checkbox" defaultChecked />')
@@ -371,8 +369,8 @@ describe("Vue", () => {
   test("binds expressions, interpolates text and uses template slots", async () => {
     const code = await convert(
       astro(
-        '<Range items={[{ label: "A", value: 0 }]} label="Pick" />\n<Badge label="New">\n  <Fragment slot="indicator">5</Fragment>\n</Badge>\n<ul>\n  {\n    places.map(({ id, title }) => (\n      <li>{title}</li>\n    ))\n  }\n</ul>',
-        "Badge, Range",
+        '<Stepper items={[{ label: "A", value: 0 }]} label="Pick" />\n<Badge label="New">\n  <Fragment slot="indicator">5</Fragment>\n</Badge>\n<ul>\n  {\n    places.map(({ id, title }) => (\n      <li>{title}</li>\n    ))\n  }\n</ul>',
+        "Badge, Stepper",
         'const places = [{ id: "a", title: "A" }]\n',
       ),
       "vue",
@@ -848,14 +846,6 @@ describe("HTML", () => {
     expect(imports("<input data-indeterminate>")).toEqual([
       'import "opui-css/css/js/checkbox.js"',
     ])
-    expect(imports('<output class="ui-value" data-live>')).toEqual([
-      'import "opui-css/css/js/range.js"',
-    ])
-    expect(
-      imports(
-        '<label class="ui-range"><input list="a" type="range"><datalist id="a"><option label="Low" value="0"></option></datalist></label>',
-      ),
-    ).toEqual(['import "opui-css/css/js/range.js"'])
     expect(
       imports(
         '<label class="ui-field"><input list="b"><datalist id="b"><option label="Low" value="Low"></option></datalist></label>',
@@ -1280,23 +1270,23 @@ describe("component runtimes", () => {
     ],
     [
       "a named import",
-      'import { a } from "../../css/js/range.js"',
-      ["../../css/js/range.js"],
+      'import { a } from "../../css/js/checkbox.js"',
+      ["../../css/js/checkbox.js"],
     ],
     [
       "a default import",
-      'import a from "../../css/js/range.js"',
-      ["../../css/js/range.js"],
+      'import a from "../../css/js/checkbox.js"',
+      ["../../css/js/checkbox.js"],
     ],
     [
       "a namespace import",
-      'import * as a from "../../css/js/range.js"',
-      ["../../css/js/range.js"],
+      'import * as a from "../../css/js/checkbox.js"',
+      ["../../css/js/checkbox.js"],
     ],
     [
       "a re-export",
-      'export { a } from "../../css/js/range.js"',
-      ["../../css/js/range.js"],
+      'export { a } from "../../css/js/checkbox.js"',
+      ["../../css/js/checkbox.js"],
     ],
     [
       "a dynamic import",

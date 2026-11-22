@@ -1,10 +1,18 @@
 <script setup lang="ts">
-import { Range } from "opui-css/vue"
+import { Field } from "opui-css/vue"
 </script>
 
 <template>
-  <Range label="X-small" size="x-small" />
-  <Range label="Small" size="small" />
-  <Range label="Medium" />
-  <Range label="Large" size="large" />
+  <Field for="range-sizes-1" label="X-small" size="x-small">
+    <input id="range-sizes-1" type="range" />
+  </Field>
+  <Field for="range-sizes-2" label="Small" size="small">
+    <input id="range-sizes-2" type="range" />
+  </Field>
+  <Field for="range-sizes-3" label="Medium">
+    <input id="range-sizes-3" type="range" />
+  </Field>
+  <Field for="range-sizes-4" label="Large" size="large">
+    <input id="range-sizes-4" type="range" />
+  </Field>
 </template>

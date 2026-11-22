@@ -39,7 +39,6 @@ import {
   OneTimeCode,
   Progress,
   Radio,
-  Range,
   Rating,
   Stat,
   StepButton,
@@ -487,14 +486,17 @@ const emailId = Astro.locals.$id("component-showcase-email")
     </Fragment>
 
     <Fragment slot="range">
-      <Range
-        variant="filled"
-        aria-hidden="true"
-        inert
-        value={50}
-        min={0}
-        max={100}
-      />
+      <Field for="component-showcase-range" variant="filled">
+        <input
+          aria-hidden="true"
+          id="component-showcase-range"
+          inert
+          max="100"
+          min="0"
+          type="range"
+          value="50"
+        />
+      </Field>
     </Fragment>
 
     <Fragment slot="rating">

@@ -546,12 +546,11 @@ export const toTypes = (
               .toSorted((a, b) => byName(a.prop, b.prop))
           : []
       const callbacks = !!kind?.[framework]?.entries
-      const ownDefault = !!kind?.[framework]?.ownDefault?.(model)
       const events = isProps ? eventsFor(name) : []
       const omit = [
         ...(slots && !slots.includes("default") ? ["children"] : []),
         ...extras.map(({ prop }) => prop),
-        ...(callbacks || ownDefault ? ["defaultValue"] : []),
+        ...(callbacks ? ["defaultValue"] : []),
         ...(tag ? events.map((event) => eventProp(framework, event)) : []),
       ]
       for (const ref of elementRefs(type)) {
@@ -663,9 +662,7 @@ export const toTypes = (
         const untied =
           callbacks && tied.length === 0
             ? ` & { defaultValue?: ${model.type}; onValueChange?: (value: ${model.type}) => void${declaresProperty(type, model.prop) || known.includes(model.prop) ? "" : `; ${model.prop}?: ${model.type}`} }`
-            : ownDefault
-              ? ` & { defaultValue?: ${model.type} }`
-              : ""
+            : ""
         const renamed = framework === "react" ? reactRenamed(name) : []
         const omitted = omitsBase(part, name)
           ? literalKeys(part.typeArguments[1])

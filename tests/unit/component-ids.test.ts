@@ -21,11 +21,6 @@ import OneTimeCodeReact from "../../packages/opui/components/OneTimeCode/OneTime
 import OneTimeCodeSolid from "../../packages/opui/components/OneTimeCode/OneTimeCode.solid"
 import OneTimeCodeSvelte from "../../packages/opui/components/OneTimeCode/OneTimeCode.svelte"
 import OneTimeCodeVue from "../../packages/opui/components/OneTimeCode/OneTimeCode.vue"
-import RangeAstro from "../../packages/opui/components/Range/Range.astro"
-import RangeReact from "../../packages/opui/components/Range/Range.react"
-import RangeSolid from "../../packages/opui/components/Range/Range.solid"
-import RangeSvelte from "../../packages/opui/components/Range/Range.svelte"
-import RangeVue from "../../packages/opui/components/Range/Range.vue"
 
 type Components = Record<ComponentFramework, unknown>
 
@@ -51,8 +46,6 @@ const idsIn = (html: string) =>
   [...html.matchAll(ID_ATTRIBUTES)].flatMap((match) =>
     match[1].split(/\s+/).filter(Boolean),
   )
-
-const inputId = (html: string) => /<input[^>]*\sid="([^"]+)"/.exec(html)?.[1]
 
 const CASES: {
   base: (html: string) => string | undefined
@@ -87,25 +80,6 @@ const CASES: {
     name: "Dialog",
     prefix: "dialog",
     props: {},
-  },
-  {
-    base: inputId,
-    components: {
-      astro: RangeAstro,
-      react: RangeReact,
-      solid: RangeSolid,
-      svelte: RangeSvelte,
-      vue: RangeVue,
-    },
-    name: "Range",
-    prefix: "range",
-    props: {
-      endText: "E",
-      items: [{ label: "A", value: 1 }],
-      label: "L",
-      startText: "S",
-      valueSuffix: "%",
-    },
   },
 ]
 

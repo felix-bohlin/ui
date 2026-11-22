@@ -1,5 +1,5 @@
 ---
-import { Field, Range } from "opui-css/astro"
+import { Field } from "opui-css/astro"
 
 const lines = { max: 8, min: 3 }
 
@@ -38,26 +38,46 @@ const columns = [
   </div>
   <fieldset class="field-sizing-compare-knobs">
     <legend class="ui-sr-only">Line limits</legend>
-    <Range
-      data-property="--_min-lines"
-      label="Min lines"
-      max={6}
-      min={1}
-      value={lines.min}
-      valueSuffix=""
-    >
-      <code slot="start-text">min-block-size</code>
-    </Range>
-    <Range
-      data-property="--_max-lines"
-      label="Max lines"
-      max={20}
-      min={4}
-      value={lines.max}
-      valueSuffix=""
-    >
-      <code slot="start-text">--_max-block-size</code>
-    </Range>
+    <Field for="field-sizing-compare-min-lines" label="Min lines">
+      <Fragment slot="start-text"><code>min-block-size</code></Fragment>
+      <input
+        aria-describedby="field-sizing-compare-min-lines-start-text"
+        data-property="--_min-lines"
+        id="field-sizing-compare-min-lines"
+        max="6"
+        min="1"
+        type="range"
+        value={lines.min}
+      />
+      <Fragment slot="end-text"
+        ><output
+          aria-live="off"
+          class="ui-value"
+          for="field-sizing-compare-min-lines"
+          >{lines.min}</output
+        ></Fragment
+      >
+    </Field>
+    <Field for="field-sizing-compare-max-lines" label="Max lines">
+      <Fragment slot="start-text"><code>--_max-block-size</code></Fragment>
+      <input
+        aria-describedby="field-sizing-compare-max-lines-start-text"
+        data-property="--_max-lines"
+        id="field-sizing-compare-max-lines"
+        max="20"
+        min="4"
+        type="range"
+        value={lines.max}
+      />
+      <Fragment slot="end-text"
+        ><output
+          aria-live="off"
+          class="ui-value"
+          for="field-sizing-compare-max-lines"
+          >{lines.max}</output
+        ></Fragment
+      >
+    </Field>
   </fieldset>
 </div>
 
@@ -173,6 +193,8 @@ const columns = [
       knobs.forEach((knob) =>
         knob.addEventListener("input", () => {
           compare.style.setProperty(knob.dataset.property ?? "", knob.value)
+          const output = compare.querySelector(`output[for="${knob.id}"]`)
+          if (output) output.textContent = knob.value
           measure()
         }),
       )

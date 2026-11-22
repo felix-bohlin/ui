@@ -9,7 +9,6 @@ import {
   Fieldset,
   Form,
   Radio,
-  Range,
   SelectButton,
   Switch,
 } from "opui-css/react"
@@ -84,14 +83,21 @@ export default function KitchenSink() {
           How many years have you held down the low end?
         </FieldDescription>
         <FieldGroup>
-          <Range
-            defaultValue="5"
+          <Field
+            htmlFor="form-kitchen-sink-11"
             label="Years of playing"
-            max="20"
-            min="0"
             startText="Drag the slider, and yes, the years on guitar count less."
-            step="1"
-          />
+          >
+            <input
+              aria-describedby="form-kitchen-sink-11-start-text"
+              id="form-kitchen-sink-11"
+              max="20"
+              min="0"
+              step="1"
+              type="range"
+              defaultValue="5"
+            />
+          </Field>
         </FieldGroup>
       </Fieldset>
       <Divider />

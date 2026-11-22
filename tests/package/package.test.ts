@@ -274,7 +274,6 @@ test("the tarball ships the package and nothing else", () => {
     "css/components/button.css",
     "css/imports.css",
     "css/js/checkbox.js",
-    "css/js/range.js",
     "dist/op.css",
     "dist/opui.baseline-2023.css",
     "dist/opui.components.css",
@@ -404,7 +403,7 @@ test("every entry point's types and the declarations they import resolve with bu
       .map((file) => `opui-css/${file}`),
   ]
   expect(entries).toContain("opui-css/elements/toaster.js")
-  expect(entries).toContain("opui-css/css/js/range.js")
+  expect(entries).toContain("opui-css/css/js/checkbox.js")
   expect(
     (["Bundler", "Node16", "NodeNext"] as const).flatMap((resolution) => {
       const options = {

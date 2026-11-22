@@ -545,7 +545,7 @@ test("the guides list the same names as the test", () => {
 
 test("item keys follow the naming model", () => {
   expect(itemTypes.map(({ name }) => name)).toEqual(
-    expect.arrayContaining(["MenuItem", "RangeItem"]),
+    expect.arrayContaining(["MenuItem"]),
   )
   expect(
     itemTypes.flatMap(({ keys, name }) =>

@@ -2,7 +2,6 @@
 import {
   Button,
   Field,
-  Range,
   SelectButton,
   ToggleButton,
   ToggleGroup,
@@ -46,6 +45,7 @@ const options =
 const isColor = control.kind === "color" || control.kind === "brand"
 const name = control.kind === "brand" ? "Brand color" : control.label
 const selectId = Astro.locals.$id("builder-select")
+const rangeId = Astro.locals.$id("builder-range")
 ---
 
 <div
@@ -210,18 +210,22 @@ const selectId = Astro.locals.$id("builder-select")
     </select>
   </Field>}
 
-  {control.kind === "range" && (
-    <Range
+  {control.kind === "range" && <Field
+    for={rangeId}
+    hideLabel
+    label={control.label}
+    size="small"
+  >
+    <input
       aria-describedby={describedBy}
-      hideLabel
-      label={control.label}
+      id={rangeId}
       max={control.max}
       min={control.min}
       name={base}
-      size="small"
       step={control.step}
+      type="range"
     />
-  )}
+  </Field>}
 
   <p class="builder-control-value" id={valueId} data-value></p>
 </div>
@@ -245,8 +249,7 @@ const selectId = Astro.locals.$id("builder-select")
       inline-size: 100%;
     }
 
-    > :global(.ui-field),
-    > :global(.ui-range) {
+    > :global(.ui-field) {
       inline-size: 100%;
     }
   }

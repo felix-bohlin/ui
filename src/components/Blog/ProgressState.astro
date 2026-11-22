@@ -1,7 +1,8 @@
 ---
-import { Progress, Range, Switch } from "opui-css/astro"
+import { Field, Progress, Switch } from "opui-css/astro"
 
 const value = 40
+const valueId = Astro.locals.$id("progress-state-value")
 ---
 
 <div class="progress-state">
@@ -12,7 +13,14 @@ const value = 40
   </p>
   <Progress aria-label="Upload" max={100} value={value} />
   <div class="progress-state-controls">
-    <Range label="Value" max={100} min={0} value={value} valueSuffix="%" />
+    <Field for={valueId} label="Value">
+      <input id={valueId} max="100" min="0" type="range" value={value} />
+      <Fragment slot="end-text"
+        ><output aria-live="off" class="ui-value" for={valueId}
+          >{value}%</output
+        ></Fragment
+      >
+    </Field>
     <Switch label="Indeterminate" name="indeterminate" />
   </div>
 </div>
@@ -68,10 +76,12 @@ const value = 40
     const progress = demo.querySelector("progress")
     const range = demo.querySelector<HTMLInputElement>("input[type=range]")
     const toggle = demo.querySelector<HTMLInputElement>("input[type=checkbox]")
+    const output = demo.querySelector("output.ui-value")
     if (!progress || !range || !toggle) return
 
     const render = () => {
       range.disabled = toggle.checked
+      if (output) output.textContent = `${range.value}%`
       if (toggle.checked) {
         progress.removeAttribute("value")
       } else {

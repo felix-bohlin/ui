@@ -156,9 +156,7 @@ export const toReact = (component) => {
   if (component.model?.everywhere) throw component.model.refusal
   const kind = MODEL_KINDS[component.model?.kind]?.react
   const props = component.props.filter(
-    ({ local }) =>
-      !stringSlots.includes(local) &&
-      !(kind?.inRest && local === component.model.local),
+    ({ local }) => !stringSlots.includes(local),
   )
   const tagProps = props.filter(({ local }) => variableTags.includes(local))
   const reactPropOf = (entry) =>

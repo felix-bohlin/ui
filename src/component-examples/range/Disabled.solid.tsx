@@ -1,6 +1,10 @@
 /** @jsxImportSource @solidjs/web */
-import { Range } from "opui-css/solid"
+import { Field } from "opui-css/solid"
 
 export default function Disabled() {
-  return <Range disabled label="Microphone" />
+  return (
+    <Field for="range-disabled-1" label="Microphone">
+      <input disabled id="range-disabled-1" type="range" />
+    </Field>
+  )
 }

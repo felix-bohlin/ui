@@ -57,9 +57,6 @@ import type * as OneTimeCodeReact from "../../packages/opui/components/OneTimeCo
 import type * as OneTimeCodeSolid from "../../packages/opui/components/OneTimeCode/types.solid"
 import type * as OneTimeCodeSvelte from "../../packages/opui/components/OneTimeCode/types.svelte"
 import type * as OneTimeCodeVue from "../../packages/opui/components/OneTimeCode/types.vue-props"
-import type * as RangeReact from "../../packages/opui/components/Range/types.react"
-import type * as RangeSvelte from "../../packages/opui/components/Range/types.svelte"
-import type * as RangeVue from "../../packages/opui/components/Range/types.vue-props"
 import type * as RatingReact from "../../packages/opui/components/Rating/types.react"
 import type * as RatingSolid from "../../packages/opui/components/Rating/types.solid"
 import type * as RatingSvelte from "../../packages/opui/components/Rating/types.svelte"
@@ -105,14 +102,14 @@ test("a slot without a string form is only the slot type", () => {
 })
 
 test("a value model is a prop in Svelte and declared in Vue", () => {
-  expectTypeOf<RangeSvelte.Props>().toHaveProperty("value")
-  expectTypeOf<RangeVue.Props["value"]>().toEqualTypeOf<
+  expectTypeOf<RatingSvelte.Props>().toHaveProperty("value")
+  expectTypeOf<RatingVue.Props["value"]>().toEqualTypeOf<
     number | string | undefined
   >()
 })
 
 test("a component without a default slot has no children, and a custom element root types the rest with its own attributes", () => {
-  expectTypeOf<RangeReact.Props>().not.toHaveProperty("children")
+  expectTypeOf<RatingReact.Props>().not.toHaveProperty("children")
   expectTypeOf<StepButtonReact.Props["title"]>().toEqualTypeOf<
     ComponentProps<"opui-step-button">["title"]
   >()
@@ -198,10 +195,10 @@ test("a group's array value is tied to multiple in React and Svelte", () => {
 })
 
 test("an Omit of keyof Base.Props leaves the component's own type for a prop the element also has", () => {
-  expectTypeOf<RangeReact.Props["value"]>().toEqualTypeOf<
+  expectTypeOf<RatingReact.Props["value"]>().toEqualTypeOf<
     number | string | undefined
   >()
-  expectTypeOf<RangeSvelte.Props["value"]>().toEqualTypeOf<
+  expectTypeOf<RatingSvelte.Props["value"]>().toEqualTypeOf<
     number | string | undefined
   >()
 })

@@ -33,6 +33,7 @@ const BASES = {
   "meter.css": ["progress.css"],
   "one-time-code.css": ["text-field.css"],
   "radio.css": ["choice.css"],
+  "range.css": ["text-field.css"],
   "select.css": ["list.css", "text-field.css"],
   "step-button.css": ["text-field.css"],
   "textarea.css": ["text-field.css"],

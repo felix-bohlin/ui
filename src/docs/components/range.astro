@@ -4,13 +4,13 @@ import DocLink from "../../components/DocLink.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import { Range as UIRange } from "opui-css/astro"
+import { Field as UIField } from "opui-css/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
 
 import RangeCSS from "@opui/css/components/range.css?raw"
+import TextFieldCSS from "@opui/css/components/text-field.css?raw"
 import Conditional from "../../components/Conditional.astro"
-import PropOrClass from "../../components/PropOrClass.astro"
 import ValidationNotes from "./partials/ValidationNotes.astro"
 import RangeBuild from "../../components/UnderTheHood/RangeBuild.astro"
 
@@ -27,18 +27,32 @@ export const keywords = ["slider"]
   heroAnatomy
   apis={[{ title: "Range API", api: rangeApi }]}
   browserSupport={[
-    "container-queries",
+    "alt-text-generated-content",
     "container-style-queries",
     "datalist",
     "dir-pseudo",
     "has",
+    "lh",
     "light-dark",
+    "reading-flow",
     "registered-custom-properties",
     "relative-color",
     "scroll-driven-animations",
     "user-pseudos",
   ]}
-  installationTabs={[{ title: "range.css", code: RangeCSS, lang: "css" }]}
+  fallbacks={{
+    "reading-flow":
+      "Without `reading-flow`, Tab and screen readers follow the markup, which puts any top and start parts before the range, as they're drawn. Hand-written HTML needs that order too.",
+  }}
+  installationTabs={[
+    { title: "range.css", code: RangeCSS, lang: "css" },
+    {
+      title: "text-field.css",
+      code: TextFieldCSS,
+      lang: "css",
+      isDependency: true,
+    },
+  ]}
 >
   <Fragment slot="title">Range</Fragment>
   <Fragment slot="preamble">
@@ -72,6 +86,29 @@ export const keywords = ["slider"]
 
   <section id="basics">
     <h2>Basics</h2>
+    <p>
+      A range is a <DocLink href="/components/field">Field</DocLink> with an
+      <code>&lt;input type="range"&gt;</code> inside. The Field page shows the
+      hidden label, start and end text and spread every field shares.
+    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Write the <code>&lt;input type="range"&gt;</code> inside the field, with
+        its <code>id</code> set to <code>for</code>, and give it <code>min</code
+        >, <code>max</code> and <code>step</code> like any range input.
+      </Fragment>
+      <Fragment slot="react">
+        Write the <code>&lt;input type="range"&gt;</code> inside the field, with
+        its <code>id</code> set to <code>htmlFor</code>, and give it
+        <code>min</code>, <code>max</code> and <code>step</code> like any range
+        input.
+      </Fragment>
+      <Fragment slot="html">
+        Put the <code>&lt;input type="range"&gt;</code> directly in
+        <code>.ui-field-container</code>, and point the
+        <code>&lt;label for&gt;</code> at its <code>id</code>.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Basics" column />
   </section>
 
@@ -79,11 +116,12 @@ export const keywords = ["slider"]
     <h2>Variants</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        The track is outlined by default. Use <code>variant</code> to change it.
+        The track is outlined by default. Use <code>variant="filled"</code> for
+        a filled track.
       </Fragment>
       <Fragment slot="html">
-        The track is outlined by default. Use <code>.ui-filled</code> or
-        <code>.ui-tonal</code> to change it.
+        The track is outlined by default. Use <code>.ui-filled</code> for a
+        filled track.
       </Fragment>
     </Conditional>
     <AutoExample name="Surfaces" column spacious />
@@ -94,91 +132,58 @@ export const keywords = ["slider"]
     <AutoExample name="Sizes" column />
   </section>
 
-  <section id="start-end-text">
-    <h2>Start and end text</h2>
-    <AutoExample name="StartEndText" column />
-  </section>
-
-  <section id="hidden-label">
-    <h2>Hidden label</h2>
-    <p>
-      <PropOrClass prop="hideLabel" class=".ui-sr-only" /> hides the label but
-      keeps the accessible name.
-    </p>
-    <AutoExample name="HiddenLabel" column />
-  </section>
-
   <section id="value">
     <h2>Value</h2>
     <Conditional as="p">
-      <Fragment slot="components">
-        Use <code>valueSuffix</code> for a live readout.
-      </Fragment>
-      <Fragment slot="html">
-        Add <code>.ui-value[data-live]</code> and import
-        <code>opui-css/css/js/range.js</code> for a live readout.
-      </Fragment>
-    </Conditional>
-    <Conditional as="p">
-      <Fragment slot="components">
-        The readout is formatted with <code>Intl.NumberFormat</code> for the
-        range's <code>lang</code>, with the decimals of <code>min</code> and
-        <code>step</code> and no grouping, so <code>0.5</code> reads
-        <code>0,5</code> in German. Pass <code>lang</code> to the range: without
-        it, the value is English until <code>range.js</code> formats it for the
-        closest <code>lang</code> in the page. A unit before the number needs
-        your own readout.
-      </Fragment>
-      <Fragment slot="html">
-        <code>range.js</code> formats the value with
-        <code>Intl.NumberFormat</code> for the closest <code>lang</code>, with
-        the decimals of <code>min</code> and <code>step</code> and no grouping,
-        so <code>0.5</code> reads <code>0,5</code> in German. A unit before the
-        number needs your own readout.
-      </Fragment>
-    </Conditional>
-    <Conditional as="p">
       <Fragment slot="astro">
-        For your own readout, use the <code>value-text</code> slot, update it on
-        <code>input</code>, and set <code>aria-valuetext</code> to match.
+        Show the value yourself: update an <code>&lt;output&gt;</code> in the
+        end text on <code>input</code>. When the number alone doesn't say it,
+        like a unit or a word, set <code>aria-valuetext</code> to match.
       </Fragment>
       <Fragment slot="html">
-        For your own readout, leave out <code>data-live</code>, update the
-        output on <code>input</code>, and set <code>aria-valuetext</code> to
-        match.
+        Show the value yourself: update an <code>&lt;output&gt;</code> in the
+        end text on <code>input</code>. When the number alone doesn't say it,
+        like a unit or a word, set <code>aria-valuetext</code> to match.
       </Fragment>
       <Fragment slot="react">
-        For your own readout, render <code>valueText</code> from your state and
-        set <code>aria-valuetext</code> to match.
+        Show the value yourself: render it from your state in an
+        <code>&lt;output&gt;</code> in <code>endText</code>. When the number
+        alone doesn't say it, like a unit or a word, set
+        <code>aria-valuetext</code> to match.
       </Fragment>
       <Fragment slot="solid">
-        For your own readout, render <code>valueText</code> from your state,
-        kept with <code>onInput</code>, and set <code>aria-valuetext</code> to
-        match.
+        Show the value yourself: render it from your state, kept with
+        <code>onInput</code>, in an <code>&lt;output&gt;</code> in
+        <code>endText</code>. When the number alone doesn't say it, like a unit
+        or a word, set <code>aria-valuetext</code> to match.
       </Fragment>
       <Fragment slot="svelte">
-        For your own readout, render the <code>valueText</code> snippet from the
-        bound value and set <code>aria-valuetext</code> to match.
+        Show the value yourself: render the bound value in an
+        <code>&lt;output&gt;</code> in the <code>endText</code> snippet. When
+        the number alone doesn't say it, like a unit or a word, set
+        <code>aria-valuetext</code> to match.
       </Fragment>
       <Fragment slot="vue">
-        For your own readout, render the <code>value-text</code> slot from the
-        <code>v-model</code> value and set <code>aria-valuetext</code> to match.
+        Show the value yourself: render the <code>v-model</code> value in an
+        <code>&lt;output&gt;</code> in the <code>end-text</code> slot. When the
+        number alone doesn't say it, like a unit or a word, set
+        <code>aria-valuetext</code> to match.
       </Fragment>
     </Conditional>
-    <AutoExample name="Value" column />
-    <AutoExample name="ValueText" column />
   </section>
 
   <section id="tick-marks">
     <h2>Tick marks</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Pass <code>items</code> for tick marks.
+        Write a <code>&lt;datalist&gt;</code> after the input and link it with
+        <code>list</code>. The <code>label</code> of each option shows under its
+        mark.
       </Fragment>
       <Fragment slot="html">
-        Link a <code>&lt;datalist&gt;</code> with <code>list</code>, and import
-        <code>opui-css/css/js/range.js</code> so labeled ticks are read as
-        <code>aria-valuetext</code>.
+        Put a <code>&lt;datalist&gt;</code> after the input and link it with
+        <code>list</code>. The <code>label</code> of each option shows under its
+        mark.
       </Fragment>
     </Conditional>
     <AutoExample name="TickMarksLabels" column />
@@ -199,31 +204,28 @@ export const keywords = ["slider"]
     <AutoExample name="Validation" column />
   </section>
 
-  <section id="spread">
-    <h2>Spread</h2>
-    <p>
-      <PropOrClass prop="spread" class=".ui-spread" /> puts the label beside the
-      slider.
-    </p>
-    <AutoExample name="Spread" column />
-  </section>
-
   <RangeBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>
-      <UIRange
+      <UIField
         endText="End text"
+        for="range-anatomy"
         label="Label"
-        items={[
-          { label: "0", value: 0 },
-          { label: "100", value: 100 },
-        ]}
         startText="Start text"
         style="inline-size: 18rem"
-        value="50"
-        valueSuffix=""
-      />
+      >
+        <input
+          aria-describedby="range-anatomy-start-text range-anatomy-end-text"
+          id="range-anatomy"
+          list="range-anatomy-list"
+          type="range"
+        />
+        <datalist aria-hidden="true" id="range-anatomy-list">
+          <option label="0" value="0"></option>
+          <option label="100" value="100"></option>
+        </datalist>
+      </UIField>
     </Anatomy>
   </Fragment>
 

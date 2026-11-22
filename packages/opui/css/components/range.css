@@ -10,16 +10,14 @@
   initial-value: 0%;
 }
 
-@layer components.root {
-  :where(.ui-range) {
-    --_motion: var(--ui-motion);
+@layer components.extended {
+  :where(.ui-field:has(> .ui-field-container > input[type="range"])) {
     --_accent: var(
       --ui-choice-accent,
       var(--ui-control-accent, var(--ui-primary))
     );
-    --_duration: calc(var(--ui-duration-fast) * var(--_motion));
-    --_ease: var(--ui-ease);
     --_focus-ring-duration: calc(var(--ui-duration) * var(--_motion));
+    --_thumb-duration: calc(var(--ui-duration-fast) * var(--_motion));
     --_thumb-size: 3ex;
 
     @media print {
@@ -37,57 +35,22 @@
     --_track-block-size: 0.75ex;
     --_track-radius: var(--ui-radius-round);
 
-    display: grid;
-    gap: var(--ui-space-1) 0;
-    grid-template-columns: 1fr auto;
-    position: relative;
-
-    .ui-label {
-      align-self: baseline;
-      color: var(--ui-field-label-text-color);
-      font-size: var(--ui-field-label-font-size);
-      font-weight: var(--ui-field-label-font-weight);
-      grid-column: 1;
-      grid-row: 1;
-    }
-
-    :where(.ui-value) {
-      align-self: baseline;
-      color: var(--ui-field-helper-text-color);
-      font-size: var(--ui-field-helper-font-size);
-      font-variant-numeric: tabular-nums;
-      font-weight: var(--ui-font-weight-semibold);
-      grid-column: 2;
-      grid-row: 1;
-      line-height: var(--ui-field-helper-line-height);
-      text-align: end;
-    }
-
-    .ui-start-text {
-      color: var(--ui-field-helper-text-color);
-      font-size: var(--ui-field-helper-font-size);
-      grid-column: 1/-1;
-      grid-row: 2;
-      line-height: var(--ui-field-helper-line-height);
-    }
-
-    :where(.ui-end-text) {
-      color: var(--ui-field-helper-text-color);
-      font-size: var(--ui-field-helper-font-size);
-      grid-column: 1/-1;
-      grid-row: 5;
-      line-height: var(--ui-field-helper-line-height);
+    .ui-field-container {
+      align-content: center;
+      background: none;
+      border: 0;
+      box-shadow: none;
+      grid-template-areas: none;
+      grid-template-columns: minmax(0, 1fr);
     }
 
     /* Datalist (tick mark labels) */
-    :where(datalist) {
-      color: var(--ui-field-helper-text-color);
+    :where(.ui-field-container > datalist) {
+      color: var(--_helper-text-color);
       display: flex;
       font-size: var(--ui-field-helper-font-size);
-      grid-column: 1/-1;
-      grid-row: 4;
       justify-content: space-between;
-      margin-block-start: calc(var(--ui-space-1) * -1);
+      margin-block-start: var(--ui-space-2);
       padding-inline: calc(var(--_thumb-size) / 2);
 
       & > option {
@@ -111,21 +74,6 @@
       }
     }
 
-    /* Disabled */
-    &:has(:disabled) {
-      cursor: not-allowed;
-      opacity: var(--ui-disabled-opacity);
-      -webkit-user-select: none;
-      user-select: none;
-
-      .ui-label,
-      .ui-value,
-      .ui-start-text,
-      .ui-end-text {
-        cursor: not-allowed;
-      }
-    }
-
     /* Color */
     @container style(--ui-contrast: more) {
       --_track-base-bg-color: var(--ui-surface);
@@ -133,10 +81,6 @@
 
     &.ui-filled {
       --_track-base-bg-color: var(--ui-surface-filled);
-    }
-
-    &.ui-tonal {
-      --_track-base-bg-color: var(--ui-track-bg-color, var(--ui-surface-tonal));
     }
 
     /* Sizes */
@@ -161,105 +105,9 @@
       --_track-block-size: 1ex;
     }
 
-    /* Orientation */
-    &.ui-spread {
-      align-items: center;
-      column-gap: var(--ui-space-4);
-      container-type: inline-size;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-
-      .ui-label {
-        align-self: center;
-      }
-
-      .ui-start-text {
-        grid-column: 1;
-      }
-
-      input[type="range"] {
-        align-self: center;
-        grid-column: 2;
-        grid-row: 1;
-      }
-
-      :where(.ui-value) {
-        align-self: center;
-        grid-column: 2;
-        grid-row: 2;
-      }
-
-      :where(.ui-end-text) {
-        grid-column: 2;
-        grid-row: 2;
-        text-align: end;
-      }
-
-      datalist {
-        grid-column: 2;
-        grid-row: 2;
-      }
-
-      &:where(:has(datalist), :has(.ui-value)) :where(.ui-end-text) {
-        grid-row: 3;
-      }
-
-      &:where(:has(.ui-value)) datalist {
-        grid-row: 3;
-      }
-
-      &:where(:has(.ui-value):has(datalist)) :where(.ui-end-text) {
-        grid-row: 4;
-      }
-
-      @container (inline-size < 25rem) {
-        .ui-label {
-          align-self: baseline;
-          grid-column: 1/-1;
-          grid-row: 1;
-        }
-
-        :where(.ui-value) {
-          align-self: baseline;
-          grid-column: 1/-1;
-          grid-row: 1;
-          justify-self: end;
-          text-align: end;
-        }
-
-        .ui-start-text {
-          grid-column: 1/-1;
-          grid-row: 2;
-        }
-
-        input[type="range"] {
-          grid-column: 1/-1;
-          grid-row: 3;
-        }
-
-        datalist {
-          grid-column: 1/-1;
-          grid-row: 4;
-        }
-
-        :where(.ui-end-text) {
-          grid-column: 1/-1;
-          grid-row: 5;
-          text-align: start;
-        }
-      }
-    }
-
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
-      --_accent: var(--ui-invalid);
-
-      .ui-start-text,
-      .ui-end-text,
-      .ui-value {
-        color: var(--ui-invalid-text);
-      }
-
-      & > input[type="range"] {
+      & > .ui-field-container > input[type="range"] {
         @media (forced-colors: active) {
           &::-webkit-slider-thumb {
             border-color: CanvasText;
@@ -275,7 +123,7 @@
     }
 
     /* Range input */
-    :where(& > input[type="range"]) {
+    :where(.ui-field-container > input[type="range"]) {
       --_padding: max(
         var(--ui-space-2),
         var(--_thumb-size) / 2 + var(--ui-space-2) - var(--ui-space-4) / 2
@@ -308,8 +156,7 @@
       block-size: var(--ui-space-4);
       box-sizing: content-box;
       display: block;
-      grid-column: 1/-1;
-      grid-row: 3;
+      grid-area: auto;
       inline-size: 100%;
       margin: calc(var(--_padding) * -1);
       outline-offset: calc(
@@ -338,6 +185,8 @@
         animation-range: contain, normal;
         animation-timeline: --ui-range-thumb, auto;
         animation-timing-function: linear, var(--_ease);
+        outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+          var(--ui-focus-ring-color);
       }
 
       &:dir(rtl) {
@@ -389,7 +238,7 @@
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
 
-        transition: box-shadow var(--_duration) var(--_ease);
+        transition: box-shadow var(--_thumb-duration) var(--_ease);
         view-timeline: --ui-range-thumb inline;
         view-timeline-inset: var(--_padding);
       }
@@ -406,7 +255,7 @@
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
 
-        transition: box-shadow var(--_duration) var(--_ease);
+        transition: box-shadow var(--_thumb-duration) var(--_ease);
       }
 
       /* Element state */

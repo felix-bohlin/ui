@@ -57,7 +57,6 @@ export { default as PasswordToggle } from "../components/PasswordToggle/Password
 export { default as Progress } from "../components/Progress/Progress.solid"
 export { default as Radio } from "../components/Radio/Radio.solid"
 export { default as RadioInput } from "../components/Radio/RadioInput.solid"
-export { default as Range } from "../components/Range/Range.solid"
 export { default as Rating } from "../components/Rating/Rating.solid"
 export { default as Reactions } from "../components/Reactions/Reactions.solid"
 export { default as SelectAll } from "../components/SelectAll/SelectAll.solid"
@@ -180,8 +179,6 @@ export type {
   RadioInputProps,
   Props as RadioProps,
 } from "../components/Radio/types.solid"
-export type { RangeItem } from "../components/Range/types"
-export type { Props as RangeProps } from "../components/Range/types.solid"
 export type { Props as RatingProps } from "../components/Rating/types.solid"
 export type {
   ReactionDetail,

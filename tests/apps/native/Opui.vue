@@ -4,7 +4,6 @@ import {
   Checkbox,
   Field,
   Radio,
-  Range,
   Rating,
   SelectButton,
   StepButton,
@@ -101,11 +100,15 @@ const state = ref({
     <Radio label="Coffee" name="drink" value="coffee" />
   </form>
   <form data-case="range-bound">
-    <Range v-model="state.range" label="Level" />
+    <Field for="range-bound" label="Level">
+      <input id="range-bound" v-model.number="state.range" type="range" />
+    </Field>
     <output>{{ state.range }}</output>
   </form>
   <form data-case="range-default">
-    <Range label="Level" value="40" />
+    <Field for="range-default" label="Level">
+      <input id="range-default" type="range" value="40" />
+    </Field>
   </form>
   <form data-case="rating-bound">
     <Rating v-model="state.rating" label="Score" name="score" />

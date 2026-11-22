@@ -6,7 +6,7 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  Range,
+  Field,
 } from "opui-css/astro"
 import DocLink from "../DocLink.astro"
 import { themeTokenPromises } from "../../utils/theme-token-promises"
@@ -65,16 +65,22 @@ const promised = Math.max(...pairs.map(({ needs }) => needs))
   data-pairs={JSON.stringify(pairs)}
   id={id}
 >
-  <Range
-    class="contrast-lab-hue"
-    label="Brand hue"
-    max={360}
-    min={0}
-    name="contrast-lab-hue"
-    step={1}
-    value={223}
-    valueSuffix="°"
-  />
+  <Field class="contrast-lab-hue" for={`${id}-hue`} label="Brand hue">
+    <input
+      id={`${id}-hue`}
+      max="360"
+      min="0"
+      name="contrast-lab-hue"
+      step="1"
+      type="range"
+      value="223"
+    />
+    <Fragment slot="end-text"
+      ><output aria-live="off" class="ui-value" for={`${id}-hue`}
+        >223°</output
+      ></Fragment
+    >
+  </Field>
 
   <div class="contrast-lab-lab">
     <div class="contrast-lab-stage">
@@ -597,8 +603,11 @@ const promised = Math.max(...pairs.map(({ needs }) => needs))
       )
     }
 
-    const applyHue = () =>
+    const hueOutput = lab.querySelector(`output[for="${hue.id}"]`)
+    const applyHue = () => {
       stage.style.setProperty("--ui-palette-hue", hue.value)
+      if (hueOutput) hueOutput.textContent = `${hue.value}°`
+    }
 
     hue.addEventListener("input", () => {
       applyHue()

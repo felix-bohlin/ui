@@ -985,24 +985,25 @@
         >Markdown supported.</span
       >
     </div>
-    <label class="ui-range"
-      ><span class="ui-label" id="contrast-range-label">Volume</span
-      ><span class="ui-start-text" id="contrast-range-help">Drag to adjust</span
-      ><input
-        type="range"
-        aria-labelledby="contrast-range-label"
-        aria-describedby="contrast-range-help"
-        value="60"
-    /></label>
-    <label class="ui-range"
-      ><span class="ui-label" id="contrast-range-disabled-label"
-        >Disabled range</span
-      ><input
-        type="range"
-        aria-labelledby="contrast-range-disabled-label"
-        value="30"
-        disabled
-    /></label>
+    <div class="ui-field">
+      <label class="ui-label" for="contrast-range">Volume</label
+      ><span class="ui-start-text" id="contrast-range-start-text"
+        >Drag to adjust</span
+      ><span class="ui-field-container"
+        ><input
+          type="range"
+          aria-describedby="contrast-range-start-text"
+          id="contrast-range"
+          value="60"
+      /></span>
+    </div>
+    <div class="ui-field">
+      <label class="ui-label" for="contrast-range-disabled"
+        >Disabled range</label
+      ><span class="ui-field-container"
+        ><input type="range" id="contrast-range-disabled" value="30" disabled
+      /></span>
+    </div>
   </div>
 </section>
 <section class="stress" data-example="Choices">

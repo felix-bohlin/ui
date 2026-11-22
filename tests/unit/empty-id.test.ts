@@ -11,7 +11,6 @@ const modules = import.meta.glob<{ default: unknown } | unknown>(
     "../../packages/opui/components/Field/Field.*",
     "../../packages/opui/components/Fieldset/Fieldset.*",
     "../../packages/opui/components/OneTimeCode/OneTimeCode.*",
-    "../../packages/opui/components/Range/Range.*",
   ],
   { eager: true },
 )
@@ -30,7 +29,6 @@ const CASES: [string, Record<string, unknown>][] = [
   ["Field", { endText: "Hint", label: "Name", startText: "From" }],
   ["Fieldset", { as: "div" }],
   ["OneTimeCode", { endText: "Hint", label: "Code" }],
-  ["Range", { endText: "Hint", label: "Volume", valueSuffix: "%" }],
 ]
 
 const ID_ATTRIBUTES =

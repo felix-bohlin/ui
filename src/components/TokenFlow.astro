@@ -1,9 +1,21 @@
 ---
-import { Range } from "opui-css/astro"
+import { Field } from "opui-css/astro"
 
 const knobs = [
-  { max: 360, name: "--ui-palette-hue", step: 1, value: 223 },
-  { max: 1, name: "--ui-palette-chroma", step: 0.05, value: 0.5 },
+  {
+    id: "token-flow-hue",
+    max: 360,
+    name: "--ui-palette-hue",
+    step: 1,
+    value: 223,
+  },
+  {
+    id: "token-flow-chroma",
+    max: 1,
+    name: "--ui-palette-chroma",
+    step: 0.05,
+    value: 0.5,
+  },
 ]
 
 const roles = [
@@ -19,17 +31,23 @@ const roles = [
     <li>
       <span class="step">Knobs</span>
       <div class="knobs">
-        {knobs.map((knob) => <Range
-          max={knob.max}
-          min={0}
-          name={knob.name}
-          size="small"
-          step={knob.step}
-          value={knob.value}
-          valueSuffix=""
-        >
-          <code slot="label">{knob.name}</code>
-        </Range>)}
+        {knobs.map((knob) => <Field for={knob.id} size="small">
+          <Fragment slot="label"><code>{knob.name}</code></Fragment>
+          <input
+            id={knob.id}
+            max={knob.max}
+            min="0"
+            name={knob.name}
+            step={knob.step}
+            type="range"
+            value={knob.value}
+          />
+          <Fragment slot="end-text"
+            ><output aria-live="off" class="ui-value" for={knob.id}
+              >{knob.value}</output
+            ></Fragment
+          >
+        </Field>)}
       </div>
     </li>
     <li>
@@ -88,6 +106,8 @@ const roles = [
         if (output) output.textContent = input.value
       }
       input.addEventListener("input", () => {
+        const output = figure.querySelector(`output[for="${input.id}"]`)
+        if (output) output.textContent = input.value
         figure.style.setProperty(input.name, input.value)
         figure.style.setProperty(
           "--ui-palette-source",
@@ -157,10 +177,6 @@ const roles = [
   .knobs {
     display: grid;
     gap: var(--ui-space-3);
-
-    :global(.ui-range) {
-      column-gap: var(--ui-space-2);
-    }
 
     code {
       font-size: var(--ui-font-size-caption);

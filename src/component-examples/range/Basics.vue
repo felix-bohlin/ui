@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { Range } from "opui-css/vue"
+import { Field } from "opui-css/vue"
 </script>
 
 <template>
-  <Range label="Volume" />
+  <Field for="range-basics-1" label="Volume">
+    <input id="range-basics-1" type="range" />
+  </Field>
 </template>

@@ -9,7 +9,6 @@ import {
   TYPES_FILES,
 } from "../src/utils/framework.js"
 import { DIAGNOSTICS, explain } from "./component-diagnostics.mjs"
-import { MODEL_KINDS } from "./component-models.mjs"
 import { toReact } from "./component-react.mjs"
 import { apiOf, loadApis, readComponent } from "./component-reader.mjs"
 import { root, unsupported } from "./component-shared.mjs"
@@ -184,17 +183,12 @@ export const generate = async ({
         modelsByComponent[component.name] = component.model?.refusal
           ? undefined
           : component.model
-        propsByComponent[component.name] = [
-          ...component.props
-            .filter(
-              ({ prop }) =>
-                prop !== "class" && prop !== "style" && !prop.includes("-"),
-            )
-            .map(({ prop }) => prop),
-          ...(MODEL_KINDS[component.model?.kind]?.vue?.declared?.(
-            component.model,
-          ) ?? []),
-        ]
+        propsByComponent[component.name] = component.props
+          .filter(
+            ({ prop }) =>
+              prop !== "class" && prop !== "style" && !prop.includes("-"),
+          )
+          .map(({ prop }) => prop)
         rootsByComponent[component.name] = component.restOnRoot
           ? [
               ...new Set(

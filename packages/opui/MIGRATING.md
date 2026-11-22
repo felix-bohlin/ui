@@ -49,7 +49,7 @@ Browser fallbacks that take more than the browser default moved out of the compo
 }
 ```
 
-Deep type imports from `opui-css/components/*` follow one naming scheme: the root is `Props`, its slots `Slots`, and each part is named after the part. `CheckboxProps` and `CheckboxSlots` in `components/Checkbox/types*` are `Props` and `Slots` (likewise `Radio`, `Switch` and `Range`), `TermProps`, `DescriptionProps` and `ItemProps` are `DescriptionListTermProps`, `DescriptionListDescriptionProps` and `DescriptionListItemProps`, and Table's `SectionProps` and `ColumnProps` are one type per part, such as `TableCellProps`, and `TableColumnProps`. Import the names from the framework entry instead:
+Deep type imports from `opui-css/components/*` follow one naming scheme: the root is `Props`, its slots `Slots`, and each part is named after the part. `CheckboxProps` and `CheckboxSlots` in `components/Checkbox/types*` are `Props` and `Slots` (likewise `Radio` and `Switch`), `TermProps`, `DescriptionProps` and `ItemProps` are `DescriptionListTermProps`, `DescriptionListDescriptionProps` and `DescriptionListItemProps`, and Table's `SectionProps` and `ColumnProps` are one type per part, such as `TableCellProps`, and `TableColumnProps`. Import the names from the framework entry instead:
 
 ```diff
 - import type { CheckboxProps } from "opui-css/components/Checkbox/types.astro"
@@ -1072,43 +1072,66 @@ Deep type imports from `opui-css/components/*` are renamed, see [Package and imp
 
 ## Range
 
+`Range` is gone from every framework. A range is a `Field` with your own `<input type="range">` in it, its `id` set to the required `for` (`htmlFor` in React), which the types enforce. `label`, `startText`, `endText` and `spread` are Field's props of the same name, and `id`, `name`, `list`, `min`, `max`, `step` and the value go on the input: bind it with your framework's own `value`, `bind:value` or `v-model`. Point the input's `aria-describedby` at `x-start-text` and `x-end-text` for `for="x"` when the field shows them. Import `text-field.css` with `range.css`, or use `components.css`.
+
+```diff
+- <Range endText="Quieter after 22:00." label="Volume" max="11" v-model="volume" />
++ <Field endText="Quieter after 22:00." for="volume" label="Volume">
++   <input aria-describedby="volume-end-text" id="volume" max="11" type="range" v-model="volume" />
++ </Field>
+```
+
+In HTML, `.ui-range` is gone. The root is `<div class="ui-field">` with a `<label class="ui-label" for>` inside, the input sits directly in `.ui-field-container`, and `.ui-start-text` and `.ui-end-text` are the field's own, before and after the container. `range.css` styles `.ui-field:has(> .ui-field-container > input[type="range"])`, so target that instead of `.ui-range` in your CSS.
+
+```diff
+- <label class="ui-range">
+-   <span class="ui-label">Volume</span>
+-   <input type="range" />
+- </label>
++ <div class="ui-field">
++   <label class="ui-label" for="volume">Volume</label>
++   <span class="ui-field-container">
++     <input id="volume" type="range" />
++   </span>
++ </div>
+```
+
+`options` is gone. For tick marks, write a `<datalist>` after the input, link it with `list` and hide it with `aria-hidden="true"`, so screen readers don't find an unnamed listbox next to the slider. The `label` of each option shows under its mark.
+
+```diff
+- <Range list="quality-ticks" options={ticks}>Quality</Range>
++ <Field for="quality" label="Quality">
++   <input id="quality" list="quality-ticks" max="2" type="range" />
++   <datalist aria-hidden="true" id="quality-ticks">
++     <option label="Low" value="0"></option>
++     <option label="Medium" value="1"></option>
++     <option label="High" value="2"></option>
++   </datalist>
++ </Field>
+```
+
+The value readout is gone, with `valueSuffix`, the `value` slot, `<output class="ui-value">` and `opui-css/css/js/range.js`. Show the value yourself: an `<output>` in the end text, updated on `input` in HTML and Astro or rendered from the value you bind. When the number alone doesn't say it, like with a unit or a word, set `aria-valuetext` on the input to match.
+
+```diff
+- <Range label="Opacity" valueSuffix="%" v-model="opacity" />
++ <Field for="opacity" label="Opacity">
++   <input :aria-valuetext="`${opacity}%`" id="opacity" type="range" v-model="opacity" />
++   <template #end-text><output for="opacity">{{ opacity }}%</output></template>
++ </Field>
+```
+
+`variant="default"` (`.ui-default`, the page surface) and `variant="tonal"` (`.ui-tonal`) are gone. The Field's `variant` takes `outlined` (the default) or `filled` (`.ui-filled`) for the track. No variant matches the page-surface track; set `--_track-base-bg-color: var(--ui-surface)` on the field for the old look.
+
+```diff
+- <Range label="Volume" variant="default" />
++ <Field for="volume" label="Volume"><input id="volume" type="range" /></Field>
+```
+
+`aria-invalid="true"` on the `<input type="range">` replaces `data-invalid` on `.ui-range`, and the invalid state uses `--ui-invalid`.
+
 `--_track-fill` is gone. The track fill is a scroll-driven animation in CSS, so remove any code of yours that sets it.
 
-With `spread`, the label and the range split the container into equal columns, and the fixed `25ch` minimum is gone. The invalid state uses `--ui-invalid`.
-
-`variant="default"` (`.ui-default`, the page surface) is gone. Use `outlined` (the default), `filled` or `tonal`.
-
-```diff
-- <Range variant="default" />
-+ <Range variant="tonal" />
-```
-
-```diff
-- <label class="ui-range ui-default">
-+ <label class="ui-range ui-tonal">
-```
-
-No variant matches the page-surface track. `tonal` is the closest; set `--_track-base-bg-color: var(--ui-surface)` on the range for the old look.
-
-`aria-invalid="true"` on the `<input type="range">` replaces `data-invalid` on `.ui-range`.
-
-In Astro and Vue, `style` goes to the root `<label>` instead of the `<input>`, like `class`. Set `--_` properties through `style`, and style the input itself with a class or CSS.
-
-In Astro, extra attributes are typed as `<input>` attributes only, since they go to the input.
-
-`options` is `items`, typed as `RangeItem[]`. In Astro and Vue, the label goes in the `label` prop or slot instead of the default slot, and the readout slot is `value-text` instead of `value` (the snippet is Astro; in Vue, `<template #value-text>`).
-
-```diff
-- <Range options={ticks} list="ticks" valueSuffix="%">Volume</Range>
-+ <Range items={ticks} label="Volume" valueSuffix="%" />
-```
-
-```diff
-- <b slot="value">21°</b>
-+ <b slot="value-text">21°</b>
-```
-
-Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
+With `spread`, the label and the range split the container into equal columns, and the fixed `25ch` minimum is gone.
 
 ## Select
 

@@ -38,13 +38,6 @@ const LATE: Partial<Record<Framework, Late[]>> = {
         "the element marks the step button at the limit, and the React component imports the element in an effect, after hydration",
     },
     {
-      attribute: "aria-valuetext",
-      examples: ["range/TickMarksLabels"],
-      on: ".ui-range input",
-      reason:
-        "range.js names the value after the datalist option, and the React component imports it in an effect, after hydration",
-    },
-    {
       attribute: "data-hydrating",
       examples: [
         "callout/Dismissible",

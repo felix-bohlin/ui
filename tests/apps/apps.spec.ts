@@ -445,25 +445,6 @@ for (const slug of changedSlugs) {
   })
 }
 
-test("a form reset after hydration restores the values and the readout", async ({
-  page,
-}, testInfo) => {
-  const app = appOf(testInfo.project.name)
-  const problems = await watch(page)
-  await open(page, "/range")
-  const example = page.locator('[data-example="range/Value"]')
-  const slider = example.getByRole("slider", { name: "Hue" })
-  const readout = example.locator("output")
-  await slider.focus()
-  await page.keyboard.press("End")
-  await expect(readout, `${app.name} follows the slider`).toHaveText("360°")
-  await example.getByRole("button", { name: "Reset" }).click()
-  await expect(slider).toHaveValue("250")
-  await expect(readout, `${app.name} resets the readout`).toHaveText("250°")
-  await expect(slider).toHaveAttribute("aria-valuetext", "250°")
-  expect(unexpected(problems, app.name, "range")).toEqual([])
-})
-
 test("a sortable table clicked before the app hydrates it waits for the sort handler", async ({
   page,
 }, testInfo) => {
@@ -581,7 +562,7 @@ const NATIVE_DIFFERENCES = [
     "tabs-bound",
     "toggle-bound",
   ]),
-  ...differences("sveltekit", SVELTE_SPREAD, ["checkbox-bound", "range-bound"]),
+  ...differences("sveltekit", SVELTE_SPREAD, ["checkbox-bound"]),
   ...differences("vite-svelte", SVELTE_GROUP, [
     "group-bound",
     "radio-bound",
@@ -591,7 +572,11 @@ const NATIVE_DIFFERENCES = [
     "toggle-bound",
   ]),
   ...differences("nuxt", VUE_PREBUILT_SELECT, ["select-bound"]),
-  ...differences("nuxt", VUE_SLOT_VALUE, ["number-default", "text-default"]),
+  ...differences("nuxt", VUE_SLOT_VALUE, [
+    "number-default",
+    "range-default",
+    "text-default",
+  ]),
 ]
 
 for (const nativeCase of NATIVE_CASES) {

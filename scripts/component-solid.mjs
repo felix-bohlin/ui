@@ -323,7 +323,6 @@ export const toSolid = (component) => {
       ...props.map(({ prop }) => prop),
       ...(kind?.entries?.() ?? []),
       ...(kind?.omits?.(model) ?? []),
-      ...(kind?.ownDefault?.(model) ? ["defaultValue"] : []),
       ...(item ? ["defaultChecked", "onChange", "ref"] : []),
       ...(hydrating.size ? ["ref"] : []),
     ]
@@ -341,14 +340,7 @@ export const toSolid = (component) => {
       ({ context, name }) => `const ${name} = use${context.name}Context()`,
     ),
     ...(uid ? ["const uid = createUniqueId()"] : []),
-    ...(kind?.body?.(
-      model,
-      rewrite,
-      !!model.local &&
-        allCodes(component).some((code) =>
-          identifiersIn(code).has(model.local),
-        ),
-    ) ?? []),
+    ...(kind?.body?.(model, rewrite) ?? []),
     ...defaulted.map(
       ({ default: fallback, local, prop }) =>
         `const ${local} = () =>\n  ${propAccess(prop)} === undefined ? (${fallback}) : ${propAccess(prop)}`,

@@ -4,13 +4,14 @@ import {
   AccordionContent,
   AccordionSummary,
   Button,
-  Range,
+  Field,
 } from "opui-css/astro"
 
 const columns = [
   { mode: "keywords", value: "allow-keywords" },
   { mode: "numeric", value: "numeric-only" },
 ]
+const durationId = Astro.locals.$id("interpolate-compare-duration")
 ---
 
 <div class="interpolate-compare" style="--ui-duration: 0.4s">
@@ -37,16 +38,23 @@ const columns = [
     <Button aria-expanded="false" type="button" variant="outlined">
       Open both
     </Button>
-    <Range
-      label="Duration"
-      max={2}
-      min={0.1}
-      step={0.1}
-      value={0.4}
-      valueSuffix="s"
-    >
-      <code slot="start-text">--ui-duration</code>
-    </Range>
+    <Field for={durationId} label="Duration">
+      <Fragment slot="start-text"><code>--ui-duration</code></Fragment>
+      <input
+        aria-describedby={`${durationId}-start-text`}
+        id={durationId}
+        max="2"
+        min="0.1"
+        step="0.1"
+        type="range"
+        value="0.4"
+      />
+      <Fragment slot="end-text"
+        ><output aria-live="off" class="ui-value" for={durationId}
+          >0.4s</output
+        ></Fragment
+      >
+    </Field>
   </div>
 </div>
 
@@ -130,8 +138,10 @@ const columns = [
           }
         }),
       )
-      input?.addEventListener("input", () =>
-        compare.style.setProperty("--ui-duration", `${input.value}s`),
-      )
+      const output = compare.querySelector("output.ui-value")
+      input?.addEventListener("input", () => {
+        compare.style.setProperty("--ui-duration", `${input.value}s`)
+        if (output) output.textContent = `${Number(input.value).toFixed(1)}s`
+      })
     })
 </script>

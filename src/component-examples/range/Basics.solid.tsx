@@ -1,6 +1,10 @@
 /** @jsxImportSource @solidjs/web */
-import { Range } from "opui-css/solid"
+import { Field } from "opui-css/solid"
 
 export default function Basics() {
-  return <Range label="Volume" />
+  return (
+    <Field for="range-basics-1" label="Volume">
+      <input id="range-basics-1" type="range" />
+    </Field>
+  )
 }

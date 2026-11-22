@@ -1,8 +1,9 @@
 ---
-import { Range, ToggleButton, ToggleGroup } from "opui-css/astro"
+import { Field, ToggleButton, ToggleGroup } from "opui-css/astro"
 
 const { $id } = Astro.locals
 const labelId = $id("range-ticks-step")
+const volumeId = $id("range-ticks-volume")
 const steps = [10, 20, 25, 50]
 const step = 25
 const value = 50
@@ -15,15 +16,27 @@ const ticks = (by: number) =>
 ---
 
 <div class="range-ticks">
-  <Range
-    label="Volume"
-    items={ticks(step)}
-    max="100"
-    min="0"
-    step={step}
-    value={value}
-    valueSuffix=""
-  />
+  <Field for={volumeId} label="Volume">
+    <input
+      id={volumeId}
+      list={`${volumeId}-list`}
+      max="100"
+      min="0"
+      step={step}
+      type="range"
+      value={value}
+    />
+    <datalist aria-hidden="true" id={`${volumeId}-list`}>
+      {ticks(step).map((tick) => (
+        <option label={tick.label} value={tick.value} />
+      ))}
+    </datalist>
+    <Fragment slot="end-text"
+      ><output aria-live="off" class="ui-value" for={volumeId}
+        >{value}</output
+      ></Fragment
+    >
+  </Field>
   <div class="range-ticks-step">
     <span class="range-ticks-step-label" id={labelId}>
       <code>step</code>
@@ -73,7 +86,11 @@ const ticks = (by: number) =>
     const range = demo.querySelector<HTMLInputElement>("input[type=range]")
     const list = demo.querySelector("datalist")
     const count = demo.querySelector("[data-count]")
+    const output = demo.querySelector("output.ui-value")
     if (!range || !list) return
+    range.addEventListener("input", () => {
+      if (output) output.textContent = range.value
+    })
     demo
       .querySelectorAll<HTMLInputElement>(".ui-toggle-group input")
       .forEach((input) =>

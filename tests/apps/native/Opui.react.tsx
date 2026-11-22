@@ -5,7 +5,6 @@ import {
   Checkbox,
   Field,
   Radio,
-  Range,
   Rating,
   SelectButton,
   StepButton,
@@ -130,15 +129,22 @@ export default function Opui() {
         <Radio label="Coffee" name="drink" value="coffee" />
       </form>
       <form data-case="range-bound">
-        <Range
-          label="Level"
-          onChange={(event) => set("range", Number(event.currentTarget.value))}
-          value={state.range}
-        />
+        <Field htmlFor="range-bound" label="Level">
+          <input
+            id="range-bound"
+            onChange={(event) =>
+              set("range", Number(event.currentTarget.value))
+            }
+            type="range"
+            value={state.range}
+          />
+        </Field>
         <output>{state.range}</output>
       </form>
       <form data-case="range-default">
-        <Range defaultValue="40" label="Level" />
+        <Field htmlFor="range-default" label="Level">
+          <input defaultValue="40" id="range-default" type="range" />
+        </Field>
       </form>
       <form data-case="rating-bound">
         <Rating

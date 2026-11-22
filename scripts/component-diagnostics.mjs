@@ -144,6 +144,11 @@ export const DIAGNOSTICS = {
     explain:
       "The React port memoizes the provided context value on what it reads. The rest props object itself, or a const that holds a function, an object or an array, is new on every render, so the memo would never hold. Read a member of the rest props (`rest.id`), destructure the attribute, or provide the primitive values the const is built from.",
   },
+  BC406: {
+    title: "A value model on the component's own control",
+    explain:
+      "A component no longer binds the value of its own `<input>`, `<select>` or `<textarea>`: the user writes the control in a `Field` and binds it with their framework's own idiom. Remove the `value` model from the component's `api.ts` and the control from the Astro file. A `checked` model of a checkbox and a `value` model of radios still bind.",
+  },
   BC501: {
     title: "A Vue attribute order the compiler can't keep",
     explain:

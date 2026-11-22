@@ -1000,6 +1000,14 @@ describe("the ports of a sample", () => {
     )
   })
 
+  test("Vue binds the attributes on a component root explicitly", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport Button from "../Button/Button.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<Button class:list={["ui-sample", className]} {...rest}><slot /></Button>\n',
+    )
+    expect(ports.vue).toContain("defineOptions({\n  inheritAttrs: false,\n})")
+    expect(ports.vue).toContain('v-bind="$attrs"')
+  })
+
   test("Solid resolves a slot it reads twice once through children()", async () => {
     const ports = await compile(
       astro(

@@ -62,8 +62,6 @@ const KNOWN: Record<string, string> = {
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "svelte/PasswordToggle without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
-  'svelte/Rating without value="Text", unset after a render with it':
-    "TODO.md Bugs: Rating: a value or max that isn't a number",
   "svelte/Reactions without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "svelte/SelectAll without native attributes, unset after a render with it":
@@ -74,10 +72,6 @@ const KNOWN: Record<string, string> = {
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "svelte/Toaster without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
-  'vue/Rating with max="Text", set after a render without it':
-    "TODO.md Bugs: Rating: a value or max that isn't a number",
-  'vue/Rating without value="Text", unset after a render with it':
-    "TODO.md Bugs: Rating: a value or max that isn't a number",
 }
 
 const NESTING_WARNING = /^In HTML, (%s|text nodes) cannot be a child of/

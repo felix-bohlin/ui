@@ -107,12 +107,12 @@ export default function Rating(props: Props) {
             props.class,
           ]}
           lang={props.lang}
-          max={max()}
+          max={Number.isFinite(count()) ? count() : undefined}
           style={mergeStyle(
             { "--_max": count() === 5 ? undefined : count() },
             props.style,
           )}
-          value={props.value ?? props.defaultValue ?? 0}
+          value={Number.isFinite(current()) ? current() : 0}
           {...rest}
         />
       )}

@@ -6,6 +6,7 @@ import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import { parseFragment } from "parse5"
 import { render } from "svelte/server"
 import { describe, expect, test } from "vitest"
+import { createRenderer, defineComponent, h, nextTick, ref } from "vue"
 import { compileTemplate } from "vue/compiler-sfc"
 import BooleanSpread from "./fixtures/BooleanSpread.astro"
 import BoundDefaultValue from "./fixtures/BoundDefaultValue.svelte"
@@ -62,6 +63,72 @@ describe("tooling bugs the generator and the components work around", () => {
         'VUE_UNKNOWN_TAGS in scripts/build-examples.mjs, which writes <search> as <component is="search"> in Vue',
       ),
     ).toContain("resolveComponent")
+  })
+
+  test("Vue keeps the attributes a component passed through to a component root once they are all removed", async () => {
+    type Node = {
+      children: Node[]
+      parent?: Node
+      props: Record<string, unknown>
+      tag: string
+      text?: string
+    }
+    const node = (tag: string, text?: string): Node => ({
+      children: [],
+      props: {},
+      tag,
+      text,
+    })
+    const { createApp } = createRenderer<Node, Node>({
+      createComment: (text) => node("#comment", text),
+      createElement: (tag) => node(tag),
+      createText: (text) => node("#text", text),
+      insert: (child, parent, anchor) => {
+        child.parent = parent
+        const index = anchor ? parent.children.indexOf(anchor) : -1
+        if (index < 0) parent.children.push(child)
+        else parent.children.splice(index, 0, child)
+      },
+      nextSibling: (child) =>
+        child.parent?.children[child.parent.children.indexOf(child) + 1] ??
+        null,
+      parentNode: (child) => child.parent ?? null,
+      patchProp: (element, key, _previous, next) => {
+        if (next == null) delete element.props[key]
+        else element.props[key] = next
+      },
+      remove: (child) => {
+        child.parent?.children.splice(child.parent.children.indexOf(child), 1)
+      },
+      setElementText: (element, text) => {
+        element.text = text
+      },
+      setText: (child, text) => {
+        child.text = text
+      },
+    })
+    const Inner = defineComponent({
+      props: ["class"],
+      template: '<span :class="$props.class"><slot /></span>',
+    })
+    const Outer = defineComponent({
+      components: { Inner },
+      props: ["tone"],
+      template: '<Inner :class="tone"><slot /></Inner>',
+    })
+    const attrs = ref<Record<string, string>>({ title: "Hint" })
+    const root = node("root")
+    createApp({ render: () => h(Outer, attrs.value) }).mount(root)
+    const span = () => root.children.find((child) => child.tag === "span")
+    expect(span()?.props.title).toBe("Hint")
+    attrs.value = {}
+    await nextTick()
+    expect(
+      span()?.props.title,
+      fixed(
+        'componentRoot in scripts/component-vue.mjs, which gives a component whose root is another component inheritAttrs: false and v-bind="$attrs" on that root (Badge, Tooltip)',
+      ),
+    ).toBe("Hint")
   })
 
   test("Astro's dev CSS collector compiles the files behind ?raw imports", () => {

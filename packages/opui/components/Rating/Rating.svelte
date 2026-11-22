@@ -86,9 +86,9 @@
     aria-label={ariaLabel ?? label}
     class={["ui-rating", size && size !== "medium" && `ui-${size}`, className]}
     {lang}
-    {max}
+    max={Number.isFinite(count) ? count : undefined}
     style={mergeStyle({ "--_max": count === 5 ? undefined : count }, style)}
-    value={value ?? 0}
+    value={Number.isFinite(current) ? current : 0}
     {...rest}
   ></meter>
 {/if}

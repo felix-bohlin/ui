@@ -290,11 +290,24 @@ export const toVue = (component) => {
           filtersRest(node, item, component, declaredProp),
       ),
     )
+  const componentRoot =
+    restOnRoot &&
+    !explicitAttrs &&
+    !filteredAttrs &&
+    !definedRoot &&
+    rootElements.some(
+      (node) =>
+        node.component &&
+        node.attributes.some(
+          (item) => item.kind === "spread" && item.code === rest,
+        ),
+    )
   const inheritsAttrs = !(
     attrsOnInner ||
     explicitAttrs ||
     filteredAttrs ||
-    definedRoot
+    definedRoot ||
+    componentRoot
   )
   const generic = kind?.generic?.(model) === true
   const { item } = component
@@ -378,7 +391,9 @@ export const toVue = (component) => {
               ? "restAttrs"
               : definedRoot
                 ? "attrs"
-                : undefined
+                : componentRoot && node.component
+                  ? "$attrs"
+                  : undefined
             : "attrs"
         return [
           ...(object ? [`v-bind="${filteredSpread(node, item, object)}"`] : []),

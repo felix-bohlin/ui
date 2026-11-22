@@ -3283,9 +3283,9 @@ interaction(
     await toggle.click()
     await expect(input).toHaveAttribute("type", "password")
     await expect(toggle).toHaveAttribute("aria-pressed", "false")
-    await expect(root.getByLabel("New password")).toHaveAccessibleDescription(
-      "At least 12 characters.",
-    )
+    await expect(
+      root.getByLabel("New password", { exact: true }),
+    ).toHaveAccessibleDescription("At least 12 characters.")
   },
 )
 

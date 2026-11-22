@@ -309,7 +309,7 @@ test.describe("search", () => {
   test("shows and counts every result from the other frameworks", async ({
     page,
   }) => {
-    await openSearch(page, "startText")
+    await openSearch(page, "closeLabel")
     const status = page.locator("#search-status")
     await expect(status).toHaveText(
       /^No results in HTML, \d+ in other frameworks$/,

@@ -6,6 +6,10 @@ import type { Props, Slots } from "./types.vue-props"
 const { arrow, id, positionArea } = defineProps<Props>()
 defineSlots<Slots>()
 
+defineOptions({
+  inheritAttrs: false,
+})
+
 warnMissingId("Tooltip", id, "interestfor")
 </script>
 
@@ -15,6 +19,7 @@ warnMissingId("Tooltip", id, "interestfor")
     :id="id"
     :positionArea="positionArea"
     trigger="hover"
+    v-bind="$attrs"
   >
     <slot></slot>
   </Anchor>

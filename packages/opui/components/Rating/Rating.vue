@@ -118,8 +118,8 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
       $props.class,
     ]"
     :lang="lang"
-    :max="max"
-    :value="model ?? 0"
+    :max="Number.isFinite(count) ? count : undefined"
+    :value="Number.isFinite(current) ? current : 0"
     v-bind="
       mergeProps(
         styleAttrs(

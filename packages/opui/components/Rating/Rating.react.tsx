@@ -83,12 +83,12 @@ export default function Rating({
         className,
       ])}
       lang={lang}
-      max={max}
+      max={Number.isFinite(count) ? count : undefined}
       style={mergeStyle(
         { "--_max": count === 5 ? undefined : count },
         style ?? {},
       )}
-      value={value ?? defaultValue ?? 0}
+      value={Number.isFinite(current) ? current : 0}
       {...rest}
     />
   )

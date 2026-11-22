@@ -8,6 +8,10 @@ import type { Props, Slots } from "./types.vue-props"
 const { color, corner, dot, hideLabel, invisible, label } = defineProps<Props>()
 defineSlots<Slots>()
 
+defineOptions({
+  inheritAttrs: false,
+})
+
 const hidden = computed(() => dot || hideLabel)
 </script>
 
@@ -20,6 +24,7 @@ const hidden = computed(() => dot || hideLabel)
       corner && corner !== 'start-end' && `ui-${corner}`,
       $props.class,
     ]"
+    v-bind="$attrs"
   >
     <slot></slot>{{ " "
     }}<AnchorContent>

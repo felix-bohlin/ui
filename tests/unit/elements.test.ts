@@ -107,6 +107,49 @@ test("the value hook reader flags a script without one", () => {
   ).toBe("function descriptorOf() {}\nfunction watchValue() {}")
 })
 
+const nullishHook = (script: string) => {
+  const start = script.indexOf("const NULLISH_REMOVES = [")
+  const end = script.indexOf("\nif (globalThis.customElements")
+  return start < 0 || end < start ? undefined : script.slice(start, end)
+}
+
+const nullishProblems = (file: string, script: string) =>
+  [...script.matchAll(/customElements\.define\("[\w-]+", (\w+)\)/g)].flatMap(
+    ([, name]) =>
+      script.includes(`removeOnNullish(${name})\n  customElements.define(`)
+        ? []
+        : [`${file} defines ${name} without calling removeOnNullish first`],
+  )
+
+test("every element removes a global attribute set to null or undefined, with the same hook, called before it is defined", () => {
+  const scripts = globSync("packages/opui/elements/*.js")
+    .toSorted()
+    .map((file) => ({ file, script: readFileSync(file, "utf8") }))
+    .filter(({ script }) => script.includes("customElements.define("))
+  expect(scripts.length).toBeGreaterThan(5)
+  expect(
+    scripts.flatMap(({ file, script }) => nullishProblems(file, script)),
+  ).toEqual([])
+  const first = nullishHook(scripts[0].script)
+  expect(first).toBeDefined()
+  for (const { file, script } of scripts) {
+    expect(
+      nullishHook(script),
+      `${file} has another nullish hook than ${scripts[0].file}`,
+    ).toBe(first)
+  }
+})
+
+test("the nullish hook check flags an element defined without the hook", () => {
+  expect(
+    nullishProblems(
+      "a.js",
+      'if (globalThis.customElements) {\n  customElements.define("opui-a", AElement)\n}',
+    ),
+  ).toEqual(["a.js defines AElement without calling removeOnNullish first"])
+  expect(nullishHook("export class AElement {}")).toBeUndefined()
+})
+
 const typingProblems = (file: string, script: string, types: string) =>
   [...script.matchAll(/customElements\.define\("([\w-]+)", (\w+)\)/g)].flatMap(
     ([, tag, name]) => [

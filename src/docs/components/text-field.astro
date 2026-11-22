@@ -12,7 +12,9 @@ import {
 } from "opui-css/astro"
 import Conditional from "../../components/Conditional.astro"
 
+import ButtonCSS from "@opui/css/components/button.css?raw"
 import TextFieldCSS from "@opui/css/components/text-field.css?raw"
+import PasswordToggleJS from "@opui/elements/password-toggle.js?raw"
 
 import passwordToggleApi from "../../component-api/password-toggle/api"
 
@@ -49,6 +51,8 @@ export const keywords = ["email", "input", "password", "search", "text box"]
       lang: "css",
       isDependency: true,
     },
+    { title: "button.css", code: ButtonCSS, lang: "css", isDependency: true },
+    { title: "password-toggle.js", code: PasswordToggleJS, lang: "js" },
   ]}
 >
   <Fragment slot="title">Text field</Fragment>

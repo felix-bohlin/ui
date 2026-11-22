@@ -23,6 +23,7 @@ export const keywords = ["slider"]
 
 <Component
   description={description}
+  base="field"
   slug="range"
   heroAnatomy
   apis={[{ title: "Range API", api: rangeApi }]}
@@ -204,7 +205,7 @@ export const keywords = ["slider"]
 
   <section id="validation">
     <h2>Validation</h2>
-    <ValidationNotes element="input" subject="Fields">
+    <ValidationNotes element="input" own subject="Fields">
       <li>
         A range always has a value, so <code>required</code> doesn't apply.
       </li>

@@ -57,6 +57,7 @@ type Props = {
   overline?: string
   browserSupport?: string[]
   slug?: string
+  base?: string
   apis?: Apis
   changelogPaths?: ChangelogPathEntry[]
   fallbacks?: Record<string, string>
@@ -69,6 +70,7 @@ type Props = {
 
 const {
   apis: apisProp,
+  base,
   browserSupport,
   changelogPaths,
   fallbacks,
@@ -175,7 +177,7 @@ const changelog = currentSlug
 const imports =
   currentSlug && currentFramework !== "html"
     ? {
-        names: componentImports(currentFramework, currentSlug),
+        names: componentImports(currentFramework, currentSlug, base),
         package: packageFor(currentFramework),
       }
     : undefined

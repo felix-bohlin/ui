@@ -11,8 +11,11 @@ import {
   Switch as UISwitch,
 } from "opui-css/astro"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
+import ButtonCSS from "@opui/css/components/button.css?raw"
 import TextFieldCSS from "@opui/css/components/text-field.css?raw"
+import PasswordToggleJS from "@opui/elements/password-toggle.js?raw"
 
 import passwordToggleApi from "../../component-api/password-toggle/api"
 
@@ -24,6 +27,7 @@ export const keywords = ["email", "input", "password", "search", "text box"]
 
 <Component
   description={description}
+  base="field"
   slug="text-field"
   browserSupport={[
     "alt-text-generated-content",
@@ -42,7 +46,14 @@ export const keywords = ["email", "input", "password", "search", "text box"]
   }}
   apis={[{ title: "Password toggle API", api: passwordToggleApi }]}
   installationTabs={[
-    { title: "text-field.css", code: TextFieldCSS, lang: "css" },
+    {
+      title: "text-field.css",
+      code: TextFieldCSS,
+      lang: "css",
+      isDependency: true,
+    },
+    { title: "button.css", code: ButtonCSS, lang: "css", isDependency: true },
+    { title: "password-toggle.js", code: PasswordToggleJS, lang: "js" },
   ]}
 >
   <Fragment slot="title">Text field</Fragment>
@@ -89,41 +100,6 @@ export const keywords = ["email", "input", "password", "search", "text box"]
     <AutoExample name="Basics" column />
   </section>
 
-  <section id="password-toggle">
-    <h2>Password toggle</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Put a <code>PasswordToggle</code> in the field's <code>end</code>, with
-        <code>for</code> set to the input's <code>id</code>, and leave the end
-        part out of the input's <code>aria-describedby</code>.
-      </Fragment>
-      <Fragment slot="react">
-        Put a <code>PasswordToggle</code> in the field's <code>end</code>, with
-        <code>htmlFor</code> set to the input's <code>id</code>, and leave the
-        end part out of the input's <code>aria-describedby</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Put <code>&lt;opui-password-toggle&gt;</code> around the button in
-        <code>.ui-end</code>, and import
-        <code>opui-css/elements/password-toggle.js</code>.
-      </Fragment>
-    </Conditional>
-    <DefaultIcon
-      slots={["icon-unchecked", "icon-checked"]}
-      tokens={["--ui-icon-show", "--ui-icon-hide"]}
-    />
-    <AutoExample name="PasswordToggle" row />
-  </section>
-
-  <section id="binding">
-    <h2>Binding</h2>
-    <p>
-      Bind the input like any control, as the
-      <DocLink href="/components/field#binding">Field</DocLink> page shows.
-    </p>
-    <AutoExample name="Binding" column />
-  </section>
-
   <section id="input-types">
     <h2>Input types</h2>
     <AutoExample name="InputTypes" row>
@@ -147,9 +123,6 @@ export const keywords = ["email", "input", "password", "search", "text box"]
       Numeric vs <code>&lt;input type="number"&gt;</code>
     </h3>
     <Conditional as="p">
-      <Fragment slot="components">
-        Use <code>inputmode="numeric"</code> and <code>pattern="[0-9]*"</code>.
-      </Fragment>
       <Fragment slot="react">
         Use <code>inputMode="numeric"</code> and <code>pattern="[0-9]*"</code>.
       </Fragment>
@@ -208,8 +181,42 @@ export const keywords = ["email", "input", "password", "search", "text box"]
     </div>
 
     <h3 id="file">File</h3>
+    <p>
+      For a tall drop target, use
+      <DocLink href="/components/field#drop-zone"
+        ><PropOrClass prop="dropZone" class=".ui-drop-zone"
+      /></DocLink
+      >.
+    </p>
 
     <AutoExample name="File" row />
+  </section>
+
+  <section id="password-toggle">
+    <h2>Password toggle</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Put a <code>PasswordToggle</code> in the field's <code>end</code>, with
+        <code>for</code> set to the input's <code>id</code>, and leave the end
+        part out of the input's <code>aria-describedby</code>.
+      </Fragment>
+      <Fragment slot="react">
+        Put a <code>PasswordToggle</code> in the field's <code>end</code>, with
+        <code>htmlFor</code> set to the input's <code>id</code>, and leave the
+        end part out of the input's <code>aria-describedby</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Put <code>&lt;opui-password-toggle&gt;</code> around the button in
+        <code>.ui-end</code>, leave <code>.ui-end</code> out of the input's
+        <code>aria-describedby</code>, and import
+        <code>opui-css/elements/password-toggle.js</code>.
+      </Fragment>
+    </Conditional>
+    <DefaultIcon
+      slots={["icon-unchecked", "icon-checked"]}
+      tokens={["--ui-icon-show", "--ui-icon-hide"]}
+    />
+    <AutoExample name="PasswordToggle" row />
   </section>
 
   <section id="autosuggest">
@@ -217,5 +224,14 @@ export const keywords = ["email", "input", "password", "search", "text box"]
     <p>Link a <code>&lt;datalist&gt;</code> with <code>list</code>.</p>
 
     <AutoExample name="Autosuggest" row />
+  </section>
+
+  <section id="binding">
+    <h2>Binding</h2>
+    <p>
+      Bind the input like any control, as the
+      <DocLink href="/components/field#binding">Field</DocLink> page shows.
+    </p>
+    <AutoExample name="Binding" column />
   </section>
 </Component>

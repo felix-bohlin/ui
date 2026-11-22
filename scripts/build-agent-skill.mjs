@@ -130,6 +130,7 @@ function readDocsPage(slug) {
       .matchAll(/title: "([\w-]+)\.css"/g) ?? [],
     ([, name]) => name,
   )
+  const base = source.match(/^\s+base="([\w-]+)"$/m)?.[1]
   const shown = Array.from(
     source.matchAll(/<AutoExample\s+name="(\w+)"/g),
     ([, name]) => name,
@@ -143,7 +144,12 @@ function readDocsPage(slug) {
       `${slug}: skillExamples names ${list(missing)}, which the page shows in no <AutoExample>`,
     )
   }
-  return { apiOrder, examples: listed ?? shown.slice(0, 1), stylesheets }
+  return {
+    apiOrder,
+    base,
+    examples: listed ?? shown.slice(0, 1),
+    stylesheets,
+  }
 }
 
 const PARAGRAPH_START = /^(\s*)<p>/
@@ -478,15 +484,16 @@ function exportsOf(framework) {
   )
 }
 
-function frameworkSection(framework, apis, slug, examples) {
+function frameworkSection(framework, apis, slug, examples, baseApis) {
   const exported = exportsOf(framework)
   const names = [
-    ...new Set(
-      apis.flatMap(({ api }) => [
+    ...new Set([
+      ...baseApis.map(({ api }) => api.component),
+      ...apis.flatMap(({ api }) => [
         api.component,
         ...api.parts.flatMap((part) => part.component ?? []),
       ]),
-    ),
+    ]),
   ]
     .filter((name) => exported.has(name))
     .toSorted()
@@ -660,7 +667,13 @@ async function componentReference(component, apis, docs) {
     ...pageFrameworks.map((f) =>
       f.id === "html"
         ? ["## HTML", ...exampleLines("html", slug, docs.examples)].join("\n")
-        : frameworkSection(f.id, ordered, slug, docs.examples),
+        : frameworkSection(
+            f.id,
+            ordered,
+            slug,
+            docs.examples,
+            apis.filter((entry) => docs.base && entry.page === docs.base),
+          ),
     ),
   ]
   return `${compact(sections.join("\n\n"))}\n`

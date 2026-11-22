@@ -20,6 +20,7 @@ import {
   featureIds,
   keepsFallback,
 } from "../../../packages/opui/scripts/features.mjs"
+import { pageOfStylesheet } from "../../component-api/catalog"
 import { getBaselineMappings } from "../../utils/baseline"
 import {
   computeEngineBrowserSupport,
@@ -119,7 +120,7 @@ const compatRows = Object.entries(compatCss)
               .filter((entry) => entry.level !== "full")
               .map((entry) => entry.engine)
         return {
-          component: componentName(slug),
+          component: componentName(pageOfStylesheet(slug)),
           condition,
           features: ids.map((featureId) => ({
             id: featureId,

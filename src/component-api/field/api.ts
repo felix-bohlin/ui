@@ -44,13 +44,14 @@ export default {
       "Write the `<input>`, `<select>` or `<textarea>` inside, with its `id` set to `for`, and bind it like any control. Other attributes go to the `.ui-field` root.",
     react:
       "Write the `<input>`, `<select>` or `<textarea>` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-field` root.",
-    html: "Put a `<label class=\"ui-label\" for>` inside the root that points at the control's `id`, so the label alone names it, and point the control's `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Leave out a `.ui-start` or `.ui-end` that only holds buttons. Put `.ui-top` and `.ui-start` before the control and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they're drawn.",
+    html: "Put a `<label class=\"ui-label\" for>` inside the root that points at the control's `id`, so the label alone names it, and point the control's `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Leave out a part with nothing to read: a `.ui-start` or `.ui-end` that only holds buttons or a hidden icon, and a `.ui-end-text` that only holds an `<output>`. Put `.ui-top` and `.ui-start` before the control and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they're drawn.",
   },
   options: [
     {
       class: ".ui-auto-fit",
       default: "false",
-      description: "Lets the width follow the content, from `25ch`.",
+      description:
+        "Lets the width follow the content, from `25ch`, or `4ch` with step buttons. A textarea can then be resized both ways.",
       group: "Auto fit",
       prop: "autoFit",
     },
@@ -111,6 +112,20 @@ export default {
         "Pushes the label and start text to one side and the control to the other.",
       group: "Spread",
       prop: "spread",
+    },
+    {
+      description:
+        'Set on the control: `aria-invalid="true"`, or `:user-invalid`, shows the error colors, `required` adds a required mark after the label, `disabled` or `aria-disabled="true"` dims the field, and `readonly` keeps the text cursor.',
+      frameworks: ["html"],
+      group: "State",
+      prop: "state",
+      values: {
+        disabled:
+          ':has(:is(input, select, textarea):is(:disabled, [aria-disabled="true"]))',
+        invalid: ':has([aria-invalid="true"], :user-invalid)',
+        readonly: ":has([readonly])",
+        required: ":has(:required)",
+      },
     },
     {
       default: '"outlined"',

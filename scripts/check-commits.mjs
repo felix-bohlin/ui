@@ -26,7 +26,8 @@ export const problems = (message, merge = false) => {
   ]
 }
 
-const git = (...args) => execFileSync("git", args, { encoding: "utf-8" })
+const git = (...args) =>
+  execFileSync("git", args, { encoding: "utf-8", maxBuffer: 1024 ** 3 })
 
 const main = () => {
   const file = process.argv.indexOf("--file")

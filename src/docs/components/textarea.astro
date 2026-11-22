@@ -7,6 +7,7 @@ import Conditional from "../../components/Conditional.astro"
 
 import FieldCSS from "@opui/css/components/text-field.css?raw"
 import TextareaCSS from "@opui/css/components/textarea.css?raw"
+import CharacterCountJS from "@opui/elements/character-count.js?raw"
 
 import characterCountApi from "../../component-api/character-count/api"
 import TextareaBuild from "../../components/UnderTheHood/TextareaBuild.astro"
@@ -19,6 +20,7 @@ export const keywords = ["multiline", "text area"]
 
 <Component
   description={description}
+  base="field"
   slug="textarea"
   browserSupport={[
     "alt-text-generated-content",
@@ -49,6 +51,7 @@ export const keywords = ["multiline", "text area"]
       isDependency: true,
     },
     { title: "textarea.css", code: TextareaCSS, lang: "css" },
+    { title: "character-count.js", code: CharacterCountJS, lang: "js" },
   ]}
 >
   <Fragment slot="title">Textarea</Fragment>
@@ -77,6 +80,17 @@ export const keywords = ["multiline", "text area"]
       the variants, sizes, affixes, validation and layout every field shares.
     </p>
     <AutoExample name="Basics" column />
+  </section>
+
+  <section id="rows">
+    <h2>Rows</h2>
+    <p>
+      A textarea starts three lines tall and grows with its text.
+      <code>rows</code> sets the lines it starts at, so <code>rows="1"</code>
+      makes a one-line field that grows, like a reply box.
+    </p>
+
+    <AutoExample name="Rows" column />
   </section>
 
   <section id="character-count">
@@ -108,7 +122,7 @@ export const keywords = ["multiline", "text area"]
     <p>
       A button can go in an affix, like a send button. Leave a part that only
       holds buttons out of the textarea's <code>aria-describedby</code>, as on
-      the <DocLink href="/components/field#affix">Field</DocLink> page.
+      the <DocLink href="/components/field#basics">Field</DocLink> page.
     </p>
     <AutoExample name="AffixButton" row />
   </section>
@@ -138,17 +152,6 @@ export const keywords = ["multiline", "text area"]
       </Fragment>
     </Conditional>
     <AutoExample name="Binding" column />
-  </section>
-
-  <section id="rows">
-    <h2>Rows</h2>
-    <p>
-      A textarea starts three lines tall and grows with its text.
-      <code>rows</code> sets the lines it starts at, so <code>rows="1"</code>
-      makes a one-line field that grows, like a reply box.
-    </p>
-
-    <AutoExample name="Rows" column />
   </section>
 
   <TextareaBuild slot="under-the-hood" />

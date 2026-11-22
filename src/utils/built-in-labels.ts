@@ -79,20 +79,6 @@ export const builtInLabels = [
     prop: "removeLabel",
   },
   {
-    component: "NumberField",
-    default: "Decrease",
-    html: "aria-label",
-    page: "number-field",
-    prop: "decreaseLabel",
-  },
-  {
-    component: "NumberField",
-    default: "Increase",
-    html: "aria-label",
-    page: "number-field",
-    prop: "increaseLabel",
-  },
-  {
     component: "PasswordToggle",
     default: "Show password",
     html: "aria-label",
@@ -127,6 +113,20 @@ export const builtInLabels = [
     html: "descending-label",
     page: "table",
     prop: "descendingLabel",
+  },
+  {
+    component: "StepButton",
+    default: "Decrease",
+    html: "aria-label",
+    page: "number-field",
+    prop: "label",
+  },
+  {
+    component: "StepButton",
+    default: "Increase",
+    html: "aria-label",
+    page: "number-field",
+    prop: "label",
   },
   {
     component: "StepperItem",

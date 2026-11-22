@@ -1,7 +1,13 @@
 <script lang="ts">
-  import { NumberField } from "opui-css/svelte"
+  import { Field, StepButton } from "opui-css/svelte"
 </script>
 
-<NumberField for="number-field-stretch-1" label="Quantity" stretch>
+<Field for="number-field-stretch-1" label="Quantity">
   <input id="number-field-stretch-1" max="10" min="1" type="number" value="1" />
-</NumberField>
+  {#snippet start()}
+    <StepButton command="--step-down" for="number-field-stretch-1" />
+  {/snippet}
+  {#snippet end()}
+    <StepButton command="--step-up" for="number-field-stretch-1" />
+  {/snippet}
+</Field>

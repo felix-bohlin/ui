@@ -1,8 +1,15 @@
-import { NumberField } from "opui-css/react"
+import { Field, StepButton } from "opui-css/react"
 
 export default function Stretch() {
   return (
-    <NumberField htmlFor="number-field-stretch-1" label="Quantity" stretch>
+    <Field
+      end={<StepButton command="--step-up" htmlFor="number-field-stretch-1" />}
+      htmlFor="number-field-stretch-1"
+      label="Quantity"
+      start={
+        <StepButton command="--step-down" htmlFor="number-field-stretch-1" />
+      }
+    >
       <input
         id="number-field-stretch-1"
         max="10"
@@ -10,6 +17,6 @@ export default function Stretch() {
         type="number"
         defaultValue="1"
       />
-    </NumberField>
+    </Field>
   )
 }

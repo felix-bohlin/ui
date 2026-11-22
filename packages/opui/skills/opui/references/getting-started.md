@@ -121,7 +121,7 @@ opui
 │  ├─ opui.css
 │  └─ opui.no-compat.css
 ├─ elements
-│  ├─ number-field.js
+│  ├─ step-button.js
 │  └─ ...
 ├─ themes
 │  ├─ bootstrap.css
@@ -198,7 +198,7 @@ A few features need a script in plain HTML:
 | [Dismissible callout](https://opui.dev/html/components/callout.md#dismissible) | Hides a callout with its close button | `opui-css/elements/callout.js` |
 | [File upload](https://opui.dev/html/components/file-upload.md) | Fires `select` for picked and dropped files and `remove` for a file's remove button | `opui-css/elements/file-upload.js` |
 | [Indeterminate checkbox](https://opui.dev/html/components/checkbox.md#indeterminate) | Sets `indeterminate` from `data-indeterminate` | `opui-css/css/js/checkbox.js` |
-| [Number field](https://opui.dev/html/components/number-field.md) | Steps the value with its buttons | `opui-css/elements/number-field.js` |
+| [Step button](https://opui.dev/html/components/number-field.md) | Steps a number input's value with its button | `opui-css/elements/step-button.js` |
 | [Password toggle](https://opui.dev/html/components/text-field.md#password-toggle) | Shows and hides the password | `opui-css/elements/password-toggle.js` |
 | [Range value](https://opui.dev/html/components/range.md#value) | Writes the value to the `output`, with `data-live` | `opui-css/css/js/range.js` |
 | [Reactions](https://opui.dev/html/components/message.md#saving-reactions) | Asks your server before a reaction changes | `opui-css/elements/reactions.js` |
@@ -482,7 +482,6 @@ A choice the user makes before the page hydrates stays on screen. The form contr
 | [`Message`](https://opui.dev/react/components/message.md) | Yes | Yes | Yes | - |
 | [`MessageList`](https://opui.dev/react/components/message.md) | Yes | Yes | Yes | - |
 | [`Meter`](https://opui.dev/react/components/meter.md) | Yes | Yes | Yes | - |
-| [`NumberField`](https://opui.dev/react/components/number-field.md) | Yes | Yes | No | - |
 | [`OneTimeCode`](https://opui.dev/react/components/one-time-code.md) | Yes | Yes | Yes | - |
 | [`PasswordToggle`](https://opui.dev/react/components/text-field.md) | Yes | Yes | No | - |
 | [`Progress`](https://opui.dev/react/components/progress.md) | Yes | Yes | Yes | - |
@@ -495,6 +494,7 @@ A choice the user makes before the page hydrates stays on screen. The form contr
 | [`SelectButton`](https://opui.dev/react/components/select.md) | Yes | Yes | Yes | - |
 | [`SortableTable`](https://opui.dev/react/components/table.md) | Yes | Yes | No | - |
 | [`Stat`](https://opui.dev/react/components/stat.md) | Yes | Yes | Yes | - |
+| [`StepButton`](https://opui.dev/react/components/number-field.md) | Yes | Yes | No | - |
 | [`Stepper`](https://opui.dev/react/components/stepper.md) | Yes | Yes | Yes | - |
 | [`StepperItem`](https://opui.dev/react/components/stepper.md) | Yes | Yes | Yes | - |
 | [`Switch`](https://opui.dev/react/components/switch.md) | Yes | Yes | Yes | - |
@@ -644,7 +644,6 @@ A choice the user makes before the page hydrates stays on screen, as on a plain 
 | [`Message`](https://opui.dev/solid/components/message.md) | Yes | Yes | - |
 | [`MessageList`](https://opui.dev/solid/components/message.md) | Yes | Yes | - |
 | [`Meter`](https://opui.dev/solid/components/meter.md) | Yes | Yes | - |
-| [`NumberField`](https://opui.dev/solid/components/number-field.md) | Yes | Yes | - |
 | [`OneTimeCode`](https://opui.dev/solid/components/one-time-code.md) | Yes | Yes | - |
 | [`PasswordToggle`](https://opui.dev/solid/components/text-field.md) | Yes | Yes | - |
 | [`Progress`](https://opui.dev/solid/components/progress.md) | Yes | Yes | - |
@@ -657,6 +656,7 @@ A choice the user makes before the page hydrates stays on screen, as on a plain 
 | [`SelectButton`](https://opui.dev/solid/components/select.md) | Yes | Yes | - |
 | [`SortableTable`](https://opui.dev/solid/components/table.md) | Yes | Yes | - |
 | [`Stat`](https://opui.dev/solid/components/stat.md) | Yes | Yes | - |
+| [`StepButton`](https://opui.dev/solid/components/number-field.md) | Yes | Yes | - |
 | [`Stepper`](https://opui.dev/solid/components/stepper.md) | Yes | Yes | - |
 | [`StepperItem`](https://opui.dev/solid/components/stepper.md) | Yes | Yes | - |
 | [`Switch`](https://opui.dev/solid/components/switch.md) | Yes | Yes | - |
@@ -839,7 +839,6 @@ Every component renders full HTML on the server. The props in the last column ne
 | [`Message`](https://opui.dev/svelte/components/message.md) | Yes | Yes | - |
 | [`MessageList`](https://opui.dev/svelte/components/message.md) | Yes | Yes | - |
 | [`Meter`](https://opui.dev/svelte/components/meter.md) | Yes | Yes | - |
-| [`NumberField`](https://opui.dev/svelte/components/number-field.md) | Yes | Yes | - |
 | [`OneTimeCode`](https://opui.dev/svelte/components/one-time-code.md) | Yes | Yes | - |
 | [`PasswordToggle`](https://opui.dev/svelte/components/text-field.md) | Yes | Yes | - |
 | [`Progress`](https://opui.dev/svelte/components/progress.md) | Yes | Yes | - |
@@ -852,6 +851,7 @@ Every component renders full HTML on the server. The props in the last column ne
 | [`SelectButton`](https://opui.dev/svelte/components/select.md) | Yes | Yes | - |
 | [`SortableTable`](https://opui.dev/svelte/components/table.md) | Yes | Yes | - |
 | [`Stat`](https://opui.dev/svelte/components/stat.md) | Yes | Yes | - |
+| [`StepButton`](https://opui.dev/svelte/components/number-field.md) | Yes | Yes | - |
 | [`Stepper`](https://opui.dev/svelte/components/stepper.md) | Yes | Yes | - |
 | [`StepperItem`](https://opui.dev/svelte/components/stepper.md) | Yes | Yes | - |
 | [`Switch`](https://opui.dev/svelte/components/switch.md) | Yes | No | `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
@@ -1002,7 +1002,6 @@ Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` 
 | [`Message`](https://opui.dev/vue/components/message.md) | Yes | Yes | - |
 | [`MessageList`](https://opui.dev/vue/components/message.md) | Yes | Yes | - |
 | [`Meter`](https://opui.dev/vue/components/meter.md) | Yes | Yes | - |
-| [`NumberField`](https://opui.dev/vue/components/number-field.md) | Yes | Yes | - |
 | [`OneTimeCode`](https://opui.dev/vue/components/one-time-code.md) | Yes | Yes | - |
 | [`PasswordToggle`](https://opui.dev/vue/components/text-field.md) | Yes | Yes | - |
 | [`Progress`](https://opui.dev/vue/components/progress.md) | Yes | Yes | - |
@@ -1015,6 +1014,7 @@ Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` 
 | [`SelectButton`](https://opui.dev/vue/components/select.md) | Yes | Yes | - |
 | [`SortableTable`](https://opui.dev/vue/components/table.md) | Yes | Yes | - |
 | [`Stat`](https://opui.dev/vue/components/stat.md) | Yes | Yes | - |
+| [`StepButton`](https://opui.dev/vue/components/number-field.md) | Yes | Yes | - |
 | [`Stepper`](https://opui.dev/vue/components/stepper.md) | Yes | Yes | - |
 | [`StepperItem`](https://opui.dev/vue/components/stepper.md) | Yes | Yes | - |
 | [`Switch`](https://opui.dev/vue/components/switch.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |

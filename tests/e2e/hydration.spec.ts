@@ -21,7 +21,7 @@ const LATE: Partial<Record<Framework, Late[]>> = {
     {
       attribute: "disabled",
       examples: ["number-field/Disabled"],
-      on: "opui-number-field button",
+      on: "opui-step-button button",
       reason:
         "the element disables the step buttons while the input you write is disabled, which the component can't see on the server, and the React component imports the element in an effect, after hydration",
     },
@@ -31,10 +31,9 @@ const LATE: Partial<Record<Framework, Late[]>> = {
         "control-group/Fields",
         "number-field/Basics",
         "number-field/Buttons",
-        "number-field/HiddenLabel",
         "number-field/Stretch",
       ],
-      on: "opui-number-field button",
+      on: "opui-step-button button",
       reason:
         "the element marks the step button at the limit, and the React component imports the element in an effect, after hydration",
     },

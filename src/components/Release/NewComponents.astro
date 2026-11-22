@@ -7,10 +7,10 @@ import {
   Field,
   Message,
   MessageList,
-  NumberField,
   OneTimeCode,
   Rating,
   Stat,
+  StepButton,
   Stepper,
   Timeline,
   TimelineItem,
@@ -152,11 +152,13 @@ if (count < 1) {
   </li>
   <li class="new-components-tile">
     <p class="new-components-name">
-      <DocLink href="/components/number-field">NumberField</DocLink>
+      <DocLink href="/components/number-field">StepButton</DocLink>
     </p>
-    <NumberField for={`${id}-coffees`} label="Coffees, roughly" size="small">
+    <Field autoFit for={`${id}-coffees`} label="Coffees, roughly" size="small">
       <input id={`${id}-coffees`} min={0} step={10} type="number" value={410} />
-    </NumberField>
+      <StepButton command="--step-down" for={`${id}-coffees`} slot="start" />
+      <StepButton command="--step-up" for={`${id}-coffees`} slot="end" />
+    </Field>
   </li>
   <li class="new-components-tile">
     <p class="new-components-name">

@@ -3,11 +3,11 @@ import { ref } from "vue"
 import {
   Checkbox,
   Field,
-  NumberField,
   Radio,
   Range,
   Rating,
   SelectButton,
+  StepButton,
   Tabs,
   TabsItem,
   TabsLabel,
@@ -77,9 +77,15 @@ const state = ref({
     </ToggleGroup>
   </form>
   <form data-case="number-default">
-    <NumberField for="number-default" label="Quantity">
+    <Field autoFit for="number-default" label="Quantity">
       <input id="number-default" type="number" value="1" />
-    </NumberField>
+      <template #start>
+        <StepButton command="--step-down" for="number-default" />
+      </template>
+      <template #end>
+        <StepButton command="--step-up" for="number-default" />
+      </template>
+    </Field>
   </form>
   <form data-case="radio-bound">
     <Radio v-model="state.radio" label="Tea" name="drink" value="tea" />

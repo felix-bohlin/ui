@@ -6,8 +6,8 @@ import {
   FieldGroup,
   FieldLegend,
   Fieldset,
-  NumberField,
   SelectButton,
+  StepButton,
 } from "opui-css/astro"
 ---
 
@@ -47,7 +47,7 @@ import {
 </Fieldset>
 
 <ControlGroup aria-label="Add to cart" color="primary" variant="filled">
-  <NumberField for="control-group-fields-1" hideLabel label="Quantity">
+  <Field autoFit for="control-group-fields-1" hideLabel label="Quantity">
     <input
       id="control-group-fields-1"
       max="10"
@@ -56,6 +56,12 @@ import {
       type="number"
       value="1"
     />
-  </NumberField>
+    <StepButton
+      command="--step-down"
+      for="control-group-fields-1"
+      slot="start"
+    />
+    <StepButton command="--step-up" for="control-group-fields-1" slot="end" />
+  </Field>
   <Button>Add to cart</Button>
 </ControlGroup>

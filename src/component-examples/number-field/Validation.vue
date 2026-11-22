@@ -1,12 +1,19 @@
 <script setup lang="ts">
-import { NumberField } from "opui-css/vue"
+import { Field, StepButton } from "opui-css/vue"
 </script>
 
 <template>
-  <NumberField for="number-field-validation-1" label="Bandmates">
+  <Field autoFit for="number-field-validation-1" label="Bandmates">
     <input id="number-field-validation-1" min="1" required type="number" />
-  </NumberField>
-  <NumberField
+    <template #start>
+      <StepButton command="--step-down" for="number-field-validation-1" />
+    </template>
+    <template #end>
+      <StepButton command="--step-up" for="number-field-validation-1" />
+    </template>
+  </Field>
+  <Field
+    autoFit
     endText="Only 4 sets of flatwounds left, whoops."
     for="number-field-validation-2"
     label="Quantity"
@@ -19,5 +26,11 @@ import { NumberField } from "opui-css/vue"
       type="number"
       value="6"
     />
-  </NumberField>
+    <template #start>
+      <StepButton command="--step-down" for="number-field-validation-2" />
+    </template>
+    <template #end>
+      <StepButton command="--step-up" for="number-field-validation-2" />
+    </template>
+  </Field>
 </template>

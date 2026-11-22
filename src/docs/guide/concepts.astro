@@ -387,7 +387,7 @@ export const keywords = [
           title: "CDN",
           code: `<script type="module">
   import "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/checkbox.js"
-  import "https://cdn.jsdelivr.net/npm/opui-css@6/elements/number-field.js"
+  import "https://cdn.jsdelivr.net/npm/opui-css@6/elements/step-button.js"
 </script>`,
           lang: "html",
         },
@@ -395,7 +395,7 @@ export const keywords = [
           title: "Bundler",
           code: `<script type="module">
   import "opui-css/css/js/checkbox.js"
-  import "opui-css/elements/number-field.js"
+  import "opui-css/elements/step-button.js"
 </script>`,
           lang: "html",
         },
@@ -403,9 +403,9 @@ export const keywords = [
     />
     <p>
       Each module in <code>elements/</code> exports its element's class, like
-      <code>NumberFieldElement</code>, and types its tag, so
-      <code>document.querySelector("opui-number-field")</code> returns a
-      <code>NumberFieldElement</code> in TypeScript.
+      <code>StepButtonElement</code>, and types its tag, so
+      <code>document.querySelector("opui-step-button")</code> returns a
+      <code>StepButtonElement</code> in TypeScript.
       <code>close-on-navigate.js</code> defines no element: importing it closes
       open menus and <code>[data-close-on-navigate]</code> drawers when the page
       navigates.

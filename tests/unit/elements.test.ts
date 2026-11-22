@@ -6,11 +6,11 @@ import type { ComponentApi } from "../../src/component-api/types"
 import type { CalloutElement } from "../../packages/opui/elements/callout.js"
 import type { CharacterCountElement } from "../../packages/opui/elements/character-count.js"
 import type { CopyElement } from "../../packages/opui/elements/copy.js"
-import type { NumberFieldElement } from "../../packages/opui/elements/number-field.js"
 import type { PasswordToggleElement } from "../../packages/opui/elements/password-toggle.js"
 import type { ReactionsElement } from "../../packages/opui/elements/reactions.js"
 import type { SelectAllElement } from "../../packages/opui/elements/select-all.js"
 import type { SortableTableElement } from "../../packages/opui/elements/sortable-table.js"
+import type { StepButtonElement } from "../../packages/opui/elements/step-button.js"
 import type { ToasterElement } from "../../packages/opui/elements/toaster.js"
 
 const importErrors = (urls: string[]) =>
@@ -356,22 +356,22 @@ test("querySelector returns the element class of an opui tag", () => {
     callout: root.querySelector("opui-callout"),
     characterCount: root.querySelector("opui-character-count"),
     copy: root.querySelector("opui-copy"),
-    numberField: root.querySelector("opui-number-field"),
     passwordToggle: root.querySelector("opui-password-toggle"),
     reactions: root.querySelector("opui-reactions"),
     selectAll: root.querySelector("opui-select-all"),
     sortableTable: root.querySelector("opui-sortable-table"),
+    stepButton: root.querySelector("opui-step-button"),
     toaster: root.querySelector("opui-toaster"),
   })
   expectTypeOf(query).returns.toEqualTypeOf<{
     callout: CalloutElement | null
     characterCount: CharacterCountElement | null
     copy: CopyElement | null
-    numberField: NumberFieldElement | null
     passwordToggle: PasswordToggleElement | null
     reactions: ReactionsElement | null
     selectAll: SelectAllElement | null
     sortableTable: SortableTableElement | null
+    stepButton: StepButtonElement | null
     toaster: ToasterElement | null
   }>()
 })

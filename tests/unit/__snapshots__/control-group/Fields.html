@@ -34,21 +34,25 @@
   </div>
 </fieldset>
 <div aria-label="Add to cart" class="ui-control-group ui-filled ui-primary" role="group">
-  <opui-number-field class="ui-number-field">
-    <label class="ui-sr-only" for="id-4">Quantity</label>
+  <div class="ui-auto-fit ui-field">
+    <label class="ui-sr-only" for="id-5">Quantity</label>
     <span class="ui-field-container">
-      <span class="ui-start">
-        <button aria-controls="id-4" aria-label="Decrease" class="ui-button ui-round" command="--step-down" commandfor="id-4" type="button">
-          <svg aria-hidden="true" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"></svg>
-        </button>
+      <span class="ui-start" id="id-4">
+        <opui-step-button>
+          <button aria-controls="id-5" aria-label="Decrease" class="ui-button ui-round" command="--step-down" commandfor="id-5" type="button">
+            <svg aria-hidden="true" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"></svg>
+          </button>
+        </opui-step-button>
       </span>
-      <input id="id-4" max="10" min="1" name="quantity" type="number" value="1">
-      <span class="ui-end">
-        <button aria-controls="id-4" aria-label="Increase" class="ui-button ui-round" command="--step-up" commandfor="id-4" type="button">
-          <svg aria-hidden="true" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"></svg>
-        </button>
+      <input id="id-5" max="10" min="1" name="quantity" type="number" value="1">
+      <span class="ui-end" id="id-6">
+        <opui-step-button>
+          <button aria-controls="id-5" aria-label="Increase" class="ui-button ui-round" command="--step-up" commandfor="id-5" type="button">
+            <svg aria-hidden="true" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"></svg>
+          </button>
+        </opui-step-button>
       </span>
     </span>
-  </opui-number-field>
+  </div>
   <button class="ui-button" type="button">Add to cart</button>
 </div>

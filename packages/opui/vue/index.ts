@@ -51,7 +51,6 @@ export { default as Menu } from "../components/Menu/Menu.vue"
 export { default as Message } from "../components/Message/Message.vue"
 export { default as MessageList } from "../components/Message/MessageList.vue"
 export { default as Meter } from "../components/Meter/Meter.vue"
-export { default as NumberField } from "../components/NumberField/NumberField.vue"
 export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.vue"
 export { default as PasswordToggle } from "../components/PasswordToggle/PasswordToggle.vue"
 export { default as Progress } from "../components/Progress/Progress.vue"
@@ -64,6 +63,7 @@ export { default as SelectAll } from "../components/SelectAll/SelectAll.vue"
 export { default as SelectButton } from "../components/SelectButton/SelectButton.vue"
 export { default as SortableTable } from "../components/SortableTable/SortableTable.vue"
 export { default as Stat } from "../components/Stat/Stat.vue"
+export { default as StepButton } from "../components/StepButton/StepButton.vue"
 export { default as Stepper } from "../components/Stepper/Stepper.vue"
 export { default as StepperItem } from "../components/Stepper/StepperItem.vue"
 export { default as Switch } from "../components/Switch/Switch.vue"
@@ -172,7 +172,6 @@ export type {
   Props as MessageProps,
 } from "../components/Message/types.vue-props"
 export type { Props as MeterProps } from "../components/Meter/types.vue-props"
-export type { Props as NumberFieldProps } from "../components/NumberField/types.vue-props"
 export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.vue-props"
 export type { Props as PasswordToggleProps } from "../components/PasswordToggle/types.vue-props"
 export type { Props as ProgressProps } from "../components/Progress/types.vue-props"
@@ -193,6 +192,7 @@ export type { Props as SelectButtonProps } from "../components/SelectButton/type
 export type { SortDetail } from "../components/SortableTable/types"
 export type { Props as SortableTableProps } from "../components/SortableTable/types.vue-props"
 export type { Props as StatProps } from "../components/Stat/types.vue-props"
+export type { Props as StepButtonProps } from "../components/StepButton/types.vue-props"
 export type {
   StepperItemProps,
   Props as StepperProps,

@@ -5,8 +5,8 @@ import {
   FieldGroup,
   FieldLegend,
   Fieldset,
-  NumberField,
   SelectButton,
+  StepButton,
 } from "opui-css/react"
 
 export default function Fields() {
@@ -56,10 +56,20 @@ export default function Fields() {
       </Fieldset>
 
       <ControlGroup aria-label="Add to cart" color="primary" variant="filled">
-        <NumberField
+        <Field
+          autoFit
+          end={
+            <StepButton command="--step-up" htmlFor="control-group-fields-1" />
+          }
           hideLabel
           htmlFor="control-group-fields-1"
           label="Quantity"
+          start={
+            <StepButton
+              command="--step-down"
+              htmlFor="control-group-fields-1"
+            />
+          }
         >
           <input
             id="control-group-fields-1"
@@ -69,7 +79,7 @@ export default function Fields() {
             type="number"
             defaultValue="1"
           />
-        </NumberField>
+        </Field>
         <Button>Add to cart</Button>
       </ControlGroup>
     </>

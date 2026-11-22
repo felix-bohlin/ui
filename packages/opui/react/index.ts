@@ -52,7 +52,6 @@ export { default as Menu } from "../components/Menu/Menu.react"
 export { default as Message } from "../components/Message/Message.react"
 export { default as MessageList } from "../components/Message/MessageList.react"
 export { default as Meter } from "../components/Meter/Meter.react"
-export { default as NumberField } from "../components/NumberField/NumberField.react"
 export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.react"
 export { default as PasswordToggle } from "../components/PasswordToggle/PasswordToggle.react"
 export { default as Progress } from "../components/Progress/Progress.react"
@@ -65,6 +64,7 @@ export { default as SelectAll } from "../components/SelectAll/SelectAll.react"
 export { default as SelectButton } from "../components/SelectButton/SelectButton.react"
 export { default as SortableTable } from "../components/SortableTable/SortableTable.react"
 export { default as Stat } from "../components/Stat/Stat.react"
+export { default as StepButton } from "../components/StepButton/StepButton.react"
 export { default as Stepper } from "../components/Stepper/Stepper.react"
 export { default as StepperItem } from "../components/Stepper/StepperItem.react"
 export { default as Switch } from "../components/Switch/Switch.react"
@@ -173,7 +173,6 @@ export type {
   Props as MessageProps,
 } from "../components/Message/types.react"
 export type { Props as MeterProps } from "../components/Meter/types.react"
-export type { Props as NumberFieldProps } from "../components/NumberField/types.react"
 export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.react"
 export type { Props as PasswordToggleProps } from "../components/PasswordToggle/types.react"
 export type { Props as ProgressProps } from "../components/Progress/types.react"
@@ -194,6 +193,7 @@ export type { Props as SelectButtonProps } from "../components/SelectButton/type
 export type { SortDetail } from "../components/SortableTable/types"
 export type { Props as SortableTableProps } from "../components/SortableTable/types.react"
 export type { Props as StatProps } from "../components/Stat/types.react"
+export type { Props as StepButtonProps } from "../components/StepButton/types.react"
 export type {
   StepperItemProps,
   Props as StepperProps,

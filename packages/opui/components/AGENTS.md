@@ -351,7 +351,7 @@ Checkbox, Radio and Switch wrap their control in a `<label>` root, which makes t
 
 ### Field Labels
 
-TextField, Textarea, Select, NumberField and OneTimeCode render a `<div>` root with a `<label class="ui-label" for>` inside, and give the control a generated `id` when it has a label. The label alone names the control, so a button can go in `.ui-start` or `.ui-end` without sitting inside a `<label>` or joining the name. Inside `.ui-field-container` the parts come in the order they're drawn, `.ui-top`, `.ui-start`, the control, `.ui-end` and `.ui-bottom`, so Tab and screen readers reach them in that order without `reading-flow`.
+Field and OneTimeCode render a `<div>` root with a `<label class="ui-label" for>` inside, and give the control a generated `id` when it has a label. The label alone names the control, so a button can go in `.ui-start` or `.ui-end` without sitting inside a `<label>` or joining the name. Inside `.ui-field-container` the parts come in the order they're drawn, `.ui-top`, `.ui-start`, the control, `.ui-end` and `.ui-bottom`, so Tab and screen readers reach them in that order without `reading-flow`.
 
 ```astro
 <div
@@ -380,7 +380,7 @@ TextField, Textarea, Select, NumberField and OneTimeCode render a `<div>` root w
 
 ### End Text & ARIA
 
-When providing `endText`, give it a part id (see [Unique IDs](#unique-ids)) and link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. Checkbox, Radio and Switch are the exception while their `<label>` root wraps the control: the label names it and already includes the end text, so they don't link it. A NumberField, OneTimeCode, Select, TextField or Textarea names the control with its `<label for>` alone and describes it with its start text, `top`, `start` and `end` affixes, `bottom` and end text, in that order, so a unit, a hint or an error is read after the name in any word order. `fieldDescribedBy` from `../id` takes those part ids by name and lists them in that order, then the user's own `aria-describedby`, so every field builds the description the same way. A passed `aria-labelledby` goes through unchanged.
+When providing `endText`, give it a part id (see [Unique IDs](#unique-ids)) and link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. Checkbox, Radio and Switch are the exception while their `<label>` root wraps the control: the label names it and already includes the end text, so they don't link it. A Field or OneTimeCode names the control with its `<label for>` alone and describes it with its start text, `top`, `start` and `end` affixes, `bottom` and end text, in that order, so a unit, a hint or an error is read after the name in any word order. `fieldDescribedBy` from `../id` takes those part ids by name and lists them in that order, then the user's own `aria-describedby`, so every field builds the description the same way. A passed `aria-labelledby` goes through unchanged.
 
 ```astro
 ---
@@ -578,7 +578,6 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `List`: selected and current items are tints, so they get `SelectedItem`, and the check of a `Menu`, listbox or `Select` option is a mask, so it gets their `SelectedItemText`.
 - `Message`: the bubble is a fill, so it gets a `CanvasText` border, and the typing dots keep `CanvasText`.
 - `Meter`: the fill is a background on the browser's value pseudo-elements, so they get `SelectedItem`, written on them so that a page's own `--_accent` can't take its place. `progress.css` outlines the track in `CanvasText`.
-- `NumberField`: the default icons of the step buttons are masks, so they get `ButtonText`. `text-field.css` and `button.css` cover the field and the buttons.
 - `OneTimeCode`: the boxes and the ring are masks, so they get `CanvasText`, `GrayText` when disabled and `Highlight` with focus, and the field has no border for the dashed invalid border of `TextField`, so an invalid code gets a dashed outline.
 - `Progress`: the filled track, so it gets `SelectedItem`, written on the fill so that a page's own `--_accent` can't take its place, and a `CanvasText` outline, and the ring of `.ui-round` is a gradient, so it keeps `SelectedItem` and `GrayText` with `forced-color-adjust: none`.
 - `Range`: the track and its fill are backgrounds, so they get `CanvasText` and `SelectedItem`, and the invalid state is a color, so an invalid thumb gets a dashed border.
@@ -587,6 +586,7 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `Select`: the picker chevron is a mask, so it gets `ButtonText`, and the check of the selected option `SelectedItemText`.
 - `SortableTable`: the sort arrow is a mask, so it gets `ButtonText`.
 - `Spinner`: a `CanvasText` ring with `forced-color-adjust: none`, so its transparent segment is kept and the spin stays visible.
+- `StepButton`: the default icons are masks, so they get `ButtonText`. `text-field.css` and `button.css` cover the field and the buttons.
 - `Stepper`: complete and error markers and the line after a complete step are fills, so they get `CanvasText`, the current marker `Highlight` and the line to a later step `GrayText`.
 - `Tabs`: the selected tab is a tint, so it gets `SelectedItem` and a `CanvasText` border, and its focus ring, where it's drawn inside the fill, `SelectedItemText`.
 - `TextField`: the field border is real, but the focus outline gets `Highlight`, an invalid field, whose red border is forced away, a dashed border, and the autosuggest mask chevron and the default icons of the password toggle `ButtonText`. `Select` and `Textarea` share the stylesheet.

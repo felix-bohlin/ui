@@ -52,7 +52,6 @@ export { default as Menu } from "../components/Menu/Menu.solid"
 export { default as Message } from "../components/Message/Message.solid"
 export { default as MessageList } from "../components/Message/MessageList.solid"
 export { default as Meter } from "../components/Meter/Meter.solid"
-export { default as NumberField } from "../components/NumberField/NumberField.solid"
 export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.solid"
 export { default as PasswordToggle } from "../components/PasswordToggle/PasswordToggle.solid"
 export { default as Progress } from "../components/Progress/Progress.solid"
@@ -65,6 +64,7 @@ export { default as SelectAll } from "../components/SelectAll/SelectAll.solid"
 export { default as SelectButton } from "../components/SelectButton/SelectButton.solid"
 export { default as SortableTable } from "../components/SortableTable/SortableTable.solid"
 export { default as Stat } from "../components/Stat/Stat.solid"
+export { default as StepButton } from "../components/StepButton/StepButton.solid"
 export { default as Stepper } from "../components/Stepper/Stepper.solid"
 export { default as StepperItem } from "../components/Stepper/StepperItem.solid"
 export { default as Switch } from "../components/Switch/Switch.solid"
@@ -173,7 +173,6 @@ export type {
   Props as MessageProps,
 } from "../components/Message/types.solid"
 export type { Props as MeterProps } from "../components/Meter/types.solid"
-export type { Props as NumberFieldProps } from "../components/NumberField/types.solid"
 export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.solid"
 export type { Props as PasswordToggleProps } from "../components/PasswordToggle/types.solid"
 export type { Props as ProgressProps } from "../components/Progress/types.solid"
@@ -194,6 +193,7 @@ export type { Props as SelectButtonProps } from "../components/SelectButton/type
 export type { SortDetail } from "../components/SortableTable/types"
 export type { Props as SortableTableProps } from "../components/SortableTable/types.solid"
 export type { Props as StatProps } from "../components/Stat/types.solid"
+export type { Props as StepButtonProps } from "../components/StepButton/types.solid"
 export type {
   StepperItemProps,
   Props as StepperProps,

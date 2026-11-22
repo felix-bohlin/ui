@@ -6,8 +6,8 @@
     FieldGroup,
     FieldLegend,
     Fieldset,
-    NumberField,
     SelectButton,
+    StepButton,
   } from "opui-css/svelte"
 </script>
 
@@ -47,7 +47,7 @@
 </Fieldset>
 
 <ControlGroup aria-label="Add to cart" color="primary" variant="filled">
-  <NumberField for="control-group-fields-1" hideLabel label="Quantity">
+  <Field autoFit for="control-group-fields-1" hideLabel label="Quantity">
     <input
       id="control-group-fields-1"
       max="10"
@@ -56,6 +56,12 @@
       type="number"
       value="1"
     />
-  </NumberField>
+    {#snippet start()}
+      <StepButton command="--step-down" for="control-group-fields-1" />
+    {/snippet}
+    {#snippet end()}
+      <StepButton command="--step-up" for="control-group-fields-1" />
+    {/snippet}
+  </Field>
   <Button>Add to cart</Button>
 </ControlGroup>

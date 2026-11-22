@@ -69,7 +69,7 @@ const fieldEdge = (field: Locator) =>
   })
 
 const FIELDS = {
-  "number-field": ".ui-number-field",
+  "number-field": ".ui-field:has(opui-step-button)",
   select: ".ui-field:has(> .ui-field-container > select)",
   "text-field": ".ui-field:has(> .ui-field-container > input)",
   textarea: ".ui-field:has(> .ui-field-container > textarea)",

@@ -1,11 +1,18 @@
 <script lang="ts">
-  import { NumberField } from "opui-css/svelte"
+  import { Field, StepButton } from "opui-css/svelte"
 </script>
 
-<NumberField for="number-field-validation-1" label="Bandmates">
+<Field autoFit for="number-field-validation-1" label="Bandmates">
   <input id="number-field-validation-1" min="1" required type="number" />
-</NumberField>
-<NumberField
+  {#snippet start()}
+    <StepButton command="--step-down" for="number-field-validation-1" />
+  {/snippet}
+  {#snippet end()}
+    <StepButton command="--step-up" for="number-field-validation-1" />
+  {/snippet}
+</Field>
+<Field
+  autoFit
   endText="Only 4 sets of flatwounds left, whoops."
   for="number-field-validation-2"
   label="Quantity"
@@ -18,4 +25,10 @@
     type="number"
     value="6"
   />
-</NumberField>
+  {#snippet start()}
+    <StepButton command="--step-down" for="number-field-validation-2" />
+  {/snippet}
+  {#snippet end()}
+    <StepButton command="--step-up" for="number-field-validation-2" />
+  {/snippet}
+</Field>

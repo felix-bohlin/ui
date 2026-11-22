@@ -188,9 +188,9 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-fluid-progress":
     "Position of the viewport inline size in the `--ui-fluid-min-inline-size` to `--ui-fluid-max-inline-size` window, 0 to 1, from `progress()`. `--ui-font-size-h1` to `--ui-font-size-h4` grow with it, and a theme can ramp other values on the same window.",
   "--ui-focus-border-color":
-    "Border color of a focused `Button`, `Checkbox`, `Chip`, `Radio`, `Switch` and `ToggleButton`, of the field of a focused `NumberField`, `Select`, `Textarea` and `TextField`, and of a checkbox or radio card and a `Card` with a focused card link. It gives the focus ring a second color to sit on, like a dark edge under a bright ring, so pair it with `--ui-focus-ring-offset: 0px`. When set, the focus ring promises its contrast against this border instead of the page. Links and buttons that highlight, with `--ui-link-focus` or `--ui-button-focus` set to `highlight`, show neither the ring nor this border: `--ui-on-focus-highlight` carries their contrast. When unset, each keeps its own border. Forced colors ignore it.",
+    "Border color of a focused `Button`, `Checkbox`, `Chip`, `Radio`, `Switch` and `ToggleButton`, of the field of a focused `Select`, `Textarea` and `TextField`, and of a checkbox or radio card and a `Card` with a focused card link. It gives the focus ring a second color to sit on, like a dark edge under a bright ring, so pair it with `--ui-focus-ring-offset: 0px`. When set, the focus ring promises its contrast against this border instead of the page. Links and buttons that highlight, with `--ui-link-focus` or `--ui-button-focus` set to `highlight`, show neither the ring nor this border: `--ui-on-focus-highlight` carries their contrast. When unset, each keeps its own border. Forced colors ignore it.",
   "--ui-focus-border-width":
-    "Border width of a focused `Checkbox` and `Radio` and of the field of a focused `NumberField`, `Select`, `Textarea` and `TextField`, so the focus edge thickens, like GOV.UK's 4px and Material 3's 2dp outlined fields. Never thinner than `--ui-choice-border-width` or `--ui-field-border-width`, and the extra width grows inward, so the check, the dot and the text keep their place. Forced colors keep the wider border. When wider than the ring, it is also the bar under a highlighted link, with `--ui-link-focus` set to `highlight`. When unset, the border keeps its width.",
+    "Border width of a focused `Checkbox` and `Radio` and of the field of a focused `Select`, `Textarea` and `TextField`, so the focus edge thickens, like GOV.UK's 4px and Material 3's 2dp outlined fields. Never thinner than `--ui-choice-border-width` or `--ui-field-border-width`, and the extra width grows inward, so the check, the dot and the text keep their place. Forced colors keep the wider border. When wider than the ring, it is also the bar under a highlighted link, with `--ui-link-focus` set to `highlight`. When unset, the border keeps its width.",
   "--ui-focus-highlight":
     "Fill of a focused link or button that highlights instead of showing the ring, when `--ui-link-focus` or `--ui-button-focus` is `highlight`: `--ui-focus-ring-color` made opaque. A translucent ring, like Bootstrap's, fills at full strength, since text contrast on a see-through fill depends on what is behind it.",
   "--ui-focus-ring-color":
@@ -266,13 +266,13 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-icon-critical":
     "The icon of a critical `Callout` and `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-decrease":
-    "The decrease button of a `NumberField`. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+    "The icon of a `StepButton` that steps down. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-expand":
     "The `Accordion` marker, and the arrow of a `Select` and of a `TextField` with a datalist. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-hide":
     "The password toggle of a `TextField` while the password shows. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-increase":
-    "The increase button of a `NumberField`. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+    "The icon of a `StepButton` that steps up. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-info":
     "The icon of an info `Callout` and `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-invalid":

@@ -1916,7 +1916,7 @@
   {
     "id": "component-number-field-html",
     "title": "Number field",
-    "description": "A number field with buttons that step the value down and up, for amounts like a quantity.",
+    "description": "A number input in a Field with step buttons that step the value down and up, for amounts like a quantity.",
     "keywords": "counter quantity spin button stepper",
     "category": "Component",
     "url": "/html/components/number-field/"
@@ -1927,20 +1927,6 @@
     "page": "Number field",
     "category": "Component",
     "url": "/html/components/number-field/#basics"
-  },
-  {
-    "id": "component-number-field-html-variants",
-    "title": "Variants",
-    "page": "Number field",
-    "category": "Component",
-    "url": "/html/components/number-field/#variants"
-  },
-  {
-    "id": "component-number-field-html-sizes",
-    "title": "Sizes",
-    "page": "Number field",
-    "category": "Component",
-    "url": "/html/components/number-field/#sizes"
   },
   {
     "id": "component-number-field-html-stretch",
@@ -1955,20 +1941,6 @@
     "page": "Number field",
     "category": "Component",
     "url": "/html/components/number-field/#step"
-  },
-  {
-    "id": "component-number-field-html-end-text",
-    "title": "End text",
-    "page": "Number field",
-    "category": "Component",
-    "url": "/html/components/number-field/#end-text"
-  },
-  {
-    "id": "component-number-field-html-hidden-label",
-    "title": "Hidden label",
-    "page": "Number field",
-    "category": "Component",
-    "url": "/html/components/number-field/#hidden-label"
   },
   {
     "id": "component-number-field-html-buttons",
@@ -1990,13 +1962,6 @@
     "page": "Number field",
     "category": "Component",
     "url": "/html/components/number-field/#validation"
-  },
-  {
-    "id": "component-number-field-html-spread",
-    "title": "Spread",
-    "page": "Number field",
-    "category": "Component",
-    "url": "/html/components/number-field/#spread"
   },
   {
     "id": "component-number-field-html-keyboard-support",
@@ -4795,14 +4760,6 @@
     "url": "/html/api/#meter"
   },
   {
-    "id": "api-number-field-html",
-    "title": "Number field API",
-    "description": "Reference for Number field HTML component.",
-    "api": "opui-number-field.ui-number-field The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max`, and keeps both disabled while the input is disabled and `aria-disabled` while the input is, also when a script changes the input. The label for the field. .ui-label Start text displayed above the field. .ui-start-text The boxed input area. .ui-field-container The decrease button, with `command=\"--step-down\"`. Renders a minus icon by default, or the `svg` in `decrease-icon`. Hidden until the element is defined. .ui-field-container > .ui-start Your `<input type=\"number\">`, written directly inside `.ui-field-container` between the buttons, with its `id` set to `for`. Give it `min`, `max` and `step`, and bind it, name it and mark it `required`, `disabled` or `aria-invalid=\"true\"` like any input. .ui-field-container > input The increase button, with `command=\"--step-up\"`. Renders a plus icon by default, or the `svg` in `increase-icon`. Hidden until the element is defined. .ui-field-container > .ui-end Supporting text displayed below the field. .ui-end-text .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Spread Pushes the label and start text to one side and the field to the other. .ui-stretch Stretch Fills the available width. Without it, the field fits its value, from `--_min-inline-size` (`4ch`). .ui-filled Variants The variant to use. input The `<input type=\"number\">` inside, or `null`. Read-only. stepDown() Steps the value down by `step`, unless the input is disabled, read-only or at `min`, and fires `input` and `change`. stepUp() Steps the value up by `step`, unless the input is disabled, read-only or at `max`, and fires `input` and `change`.",
-    "category": "API",
-    "url": "/html/api/#number-field"
-  },
-  {
     "id": "api-one-time-code-html",
     "title": "One-time code API",
     "description": "Reference for One-time code HTML component.",
@@ -4905,6 +4862,14 @@
     "api": "dl.ui-stat A `dl` with the label, the value and the description, so a screen reader reads them as one term with its details. The label. .ui-label The value, in tabular numbers. .ui-value The description. .ui-description .ui-large .ui-small Sizes The size of the value.",
     "category": "API",
     "url": "/html/api/#stat"
+  },
+  {
+    "id": "api-step-button-html",
+    "title": "Step button API",
+    "description": "Reference for Step button HTML component.",
+    "api": "opui-step-button > .ui-button A `.ui-button.ui-round` with `command=\"--step-down\"` or `command=\"--step-up\"`. Renders a minus or a plus icon by default, or the icon in its default slot. Disabled while the input is, and `aria-disabled` at `min` or `max`, while the input is read-only and while it is `aria-disabled`. `<opui-step-button>` keeps it in step, also when a script changes the input. Hidden until `<opui-step-button>` is defined. aria-label Label The accessible name of the button, by `command`. Pass it translated. input The `<input>` its button's `commandfor` names, or `null`. Read-only. step() Steps the value down or up by `step`, as its button's `command` says, unless the input is disabled, read-only or at `min` or `max`, and fires `input` and `change`.",
+    "category": "API",
+    "url": "/html/api/#step-button"
   },
   {
     "id": "api-stepper-item-html",

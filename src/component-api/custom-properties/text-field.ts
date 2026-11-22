@@ -109,7 +109,7 @@ export default {
   },
   "--_min-inline-size": {
     description:
-      "The least width of the control next to `.ui-start` and `.ui-end`, which shrink and end in an ellipsis to keep it, or the whole field when it is narrower. Defaults to `8ch`; a `NumberField` sets its own.",
+      "The least width of the control next to `.ui-start` and `.ui-end`, which shrink and end in an ellipsis to keep it, or the whole field when it is narrower. Defaults to `8ch`; a field with a `StepButton` sets its own.",
     kind: "input",
   },
   "--_motion": {

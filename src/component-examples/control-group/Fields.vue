@@ -6,8 +6,8 @@ import {
   FieldGroup,
   FieldLegend,
   Fieldset,
-  NumberField,
   SelectButton,
+  StepButton,
 } from "opui-css/vue"
 </script>
 
@@ -52,7 +52,7 @@ import {
   </Fieldset>
 
   <ControlGroup aria-label="Add to cart" color="primary" variant="filled">
-    <NumberField for="control-group-fields-1" hideLabel label="Quantity">
+    <Field autoFit for="control-group-fields-1" hideLabel label="Quantity">
       <input
         id="control-group-fields-1"
         max="10"
@@ -61,7 +61,13 @@ import {
         type="number"
         value="1"
       />
-    </NumberField>
+      <template #start>
+        <StepButton command="--step-down" for="control-group-fields-1" />
+      </template>
+      <template #end>
+        <StepButton command="--step-up" for="control-group-fields-1" />
+      </template>
+    </Field>
     <Button>Add to cart</Button>
   </ControlGroup>
 </template>

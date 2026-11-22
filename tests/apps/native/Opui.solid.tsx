@@ -3,11 +3,11 @@ import { createSignal, For } from "solid-js"
 import {
   Checkbox,
   Field,
-  NumberField,
   Radio,
   Range,
   Rating,
   SelectButton,
+  StepButton,
   Tabs,
   TabsItem,
   TabsLabel,
@@ -83,9 +83,15 @@ export default function Opui() {
         </ToggleGroup>
       </form>
       <form data-case="number-default">
-        <NumberField for="number-default" label="Quantity">
+        <Field
+          autoFit
+          end={<StepButton command="--step-up" for="number-default" />}
+          for="number-default"
+          label="Quantity"
+          start={<StepButton command="--step-down" for="number-default" />}
+        >
           <input defaultValue="1" id="number-default" type="number" />
-        </NumberField>
+        </Field>
       </form>
       <form data-case="radio-bound">
         <For each={["tea", "coffee"]}>

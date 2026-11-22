@@ -1073,13 +1073,9 @@ export const whatsNew = {
   "number-field": [
     {
       ...components(
-        `You write the <a href="#basics"><code>&lt;input type="number"&gt;</code></a> inside the field, with its <code>id</code> set to the required <code>for</code>, and point its <code>aria-describedby</code> at <code>x-start-text</code> and <code>x-end-text</code> for <code>for="x"</code>.`,
+        `New component. A <a href="#basics"><code>StepButton</code></a> in a <code>Field</code>'s <code>start</code> and <code>end</code> steps your <code>&lt;input type="number"&gt;</code> down and up, and repeats while held. The <a href="#buttons">buttons</a> take translated labels and your own icons.`,
       ),
-      react: `You write the <a href="#basics"><code>&lt;input type="number"&gt;</code></a> inside the field, with its <code>id</code> set to the required <code>htmlFor</code>, and point its <code>aria-describedby</code> at <code>x-start-text</code> and <code>x-end-text</code> for <code>htmlFor="x"</code>.`,
-    },
-    {
-      default: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held, run by the <code>&lt;opui-number-field&gt;</code> custom element, which the component loads. It fits its value unless <a href="#stretch"><code>stretch</code></a> fills the width. The <a href="#buttons">buttons</a> take translated labels and your own icons.`,
-      html: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held. Import <code>opui-css/elements/number-field.js</code> for the <code>&lt;opui-number-field&gt;</code> custom element that runs them. It fits its value unless <a href="#stretch"><code>.ui-stretch</code></a> fills the width. The <a href="#buttons">buttons</a> take translated labels and your own icons.`,
+      html: `New component. A <a href="#basics">step button</a>: <code>&lt;opui-step-button&gt;</code> around a <code>command="--step-down"</code> or <code>command="--step-up"</code> button steps the number input down and up, and repeats while held. Import <code>opui-css/elements/step-button.js</code>. The <a href="#buttons">buttons</a> take translated labels and your own icons.`,
     },
   ],
   "one-time-code": [
@@ -1521,7 +1517,7 @@ export const whatsNew = {
       html: `<a href="#password-toggle">Password toggle</a>: <code>&lt;opui-password-toggle&gt;</code> around a <code>command="--toggle-password"</code> button shows and hides the password. Import <code>opui-css/elements/password-toggle.js</code>.`,
     },
     slots(
-      `Breaking: <code>type="numeric"</code> is gone. Pass <a href="#numeric-vs-input-type-number"><code>inputmode="numeric"</code> and <code>pattern="[0-9]*"</code></a>, or use a <code>NumberField</code> for an amount.`,
+      `Breaking: <code>type="numeric"</code> is gone. Pass <a href="#numeric-vs-input-type-number"><code>inputmode="numeric"</code> and <code>pattern="[0-9]*"</code></a>, or a <code>Field</code> with <code>StepButton</code> parts for an amount.`,
     ),
     `The <a href="#autosuggest">auto-suggest</a> arrow is the Select chevron at every size.`,
     `Breaking: the <a href="#autosuggest">autosuggest</a> and other input styles are in <code>text-field.css</code>, and <code>text-input.css</code> is gone. Remove its import.`,

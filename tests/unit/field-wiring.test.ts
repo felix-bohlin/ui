@@ -7,7 +7,7 @@ type Node = DefaultTreeAdapterMap["childNode"] | Element
 
 const PARTS = ["start-text", "top", "start", "end", "bottom", "end-text"]
 
-const ROOTS = ["ui-field", "ui-number-field", "ui-one-time-code"]
+const ROOTS = ["ui-field", "ui-one-time-code"]
 
 const CONTROLS = ["input", "select", "textarea"]
 
@@ -30,7 +30,7 @@ const BUTTON_COMMANDS = ["--step-down", "--step-up", "--toggle-password"]
 const buttonsOnly = (element: Element): boolean =>
   children(element).length > 0 &&
   children(element).every((child) =>
-    child.tagName === "opui-password-toggle"
+    ["opui-password-toggle", "opui-step-button"].includes(child.tagName)
       ? buttonsOnly(child)
       : BUTTON_COMMANDS.includes(attribute(child, "command") ?? ""),
   )
@@ -120,10 +120,10 @@ describe("every field in the HTML examples and blocks points at the control you 
     ])
   })
 
-  test("step buttons need no start or end id", () => {
+  test("start and end parts that only hold step buttons stay out of the description", () => {
     expect(
       wiringProblems(
-        '<opui-number-field class="ui-number-field"><label class="ui-label" for="x">Quantity</label><span class="ui-field-container"><span class="ui-start"><button command="--step-down" commandfor="x"></button></span><input id="x" type="number"><span class="ui-end"><button command="--step-up" commandfor="x"></button></span></span></opui-number-field>',
+        '<div class="ui-field"><label class="ui-label" for="x">Quantity</label><span class="ui-field-container"><span class="ui-start" id="x-start"><opui-step-button><button command="--step-down" commandfor="x"></button></opui-step-button></span><input id="x" type="number"><span class="ui-end" id="x-end"><opui-step-button><button command="--step-up" commandfor="x"></button></opui-step-button></span></span></div>',
       ),
     ).toEqual([])
   })

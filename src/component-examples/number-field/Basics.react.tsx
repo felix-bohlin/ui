@@ -1,8 +1,16 @@
-import { NumberField } from "opui-css/react"
+import { Field, StepButton } from "opui-css/react"
 
 export default function Basics() {
   return (
-    <NumberField htmlFor="number-field-basics-1" label="Quantity">
+    <Field
+      autoFit
+      end={<StepButton command="--step-up" htmlFor="number-field-basics-1" />}
+      htmlFor="number-field-basics-1"
+      label="Quantity"
+      start={
+        <StepButton command="--step-down" htmlFor="number-field-basics-1" />
+      }
+    >
       <input
         id="number-field-basics-1"
         max="10"
@@ -10,6 +18,6 @@ export default function Basics() {
         type="number"
         defaultValue="1"
       />
-    </NumberField>
+    </Field>
   )
 }

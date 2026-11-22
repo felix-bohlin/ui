@@ -9,7 +9,7 @@
 - Common styling for input, textarea and select
 - Form related styles such as: label, supporting text, error handling
 */
-  :where(.ui-field, .ui-number-field, .ui-one-time-code) {
+  :where(.ui-field, .ui-one-time-code) {
     --_motion: var(--ui-motion);
     --_accent: var(--ui-primary);
     --_affix-block-size: calc(var(--_size) - var(--ui-field-border-width) * 2);
@@ -44,7 +44,11 @@
     display: grid;
     position: relative;
 
-    &:where(:not(.ui-number-field)) {
+    &:where(
+      :not(
+        :has(> .ui-field-container > :is(.ui-start, .ui-end) > opui-step-button)
+      )
+    ) {
       --_min-inline-size: 8ch;
     }
 
@@ -152,16 +156,19 @@
     }
 
     .ui-field-container
-      > :is(.ui-start, .ui-end):has(> .ui-button, > opui-password-toggle) {
+      > :is(.ui-start, .ui-end):has(
+        > .ui-button,
+        > :is(opui-password-toggle, opui-step-button)
+      ) {
       padding-inline: var(--ui-space-1);
 
       & > .ui-button,
-      & > opui-password-toggle > .ui-button {
+      & > :is(opui-password-toggle, opui-step-button) > .ui-button {
         --_size: var(--_affix-button-size);
       }
     }
 
-    .ui-field-container opui-password-toggle {
+    .ui-field-container :is(opui-password-toggle, opui-step-button) {
       display: contents;
     }
 

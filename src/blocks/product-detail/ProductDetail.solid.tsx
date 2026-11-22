@@ -7,14 +7,15 @@ import {
   Card,
   Carousel,
   Chip,
+  Field,
   FieldDescription,
   FieldLegend,
   Fieldset,
   Form,
   List,
   ListItem,
-  NumberField,
   Rating,
+  StepButton,
   ToggleButton,
   ToggleGroup,
   Tooltip,
@@ -155,7 +156,23 @@ export default function ProductDetail() {
                 </FieldDescription>
               </Fieldset>
               <div class="ui-layout-row ui-small pd-buy">
-                <NumberField for="product-detail-quantity" label="Quantity">
+                <Field
+                  autoFit
+                  end={
+                    <StepButton
+                      command="--step-up"
+                      for="product-detail-quantity"
+                    />
+                  }
+                  for="product-detail-quantity"
+                  label="Quantity"
+                  start={
+                    <StepButton
+                      command="--step-down"
+                      for="product-detail-quantity"
+                    />
+                  }
+                >
                   <input
                     id="product-detail-quantity"
                     max="10"
@@ -164,7 +181,7 @@ export default function ProductDetail() {
                     type="number"
                     defaultValue="1"
                   />
-                </NumberField>
+                </Field>
                 <Button class="pd-add" type="submit" variant="filled">
                   <svg
                     data-icon="shopping-bag"

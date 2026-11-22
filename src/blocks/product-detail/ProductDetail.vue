@@ -7,14 +7,15 @@ import {
   Card,
   Carousel,
   Chip,
+  Field,
   FieldDescription,
   FieldLegend,
   Fieldset,
   Form,
   List,
   ListItem,
-  NumberField,
   Rating,
+  StepButton,
   ToggleButton,
   ToggleGroup,
   Tooltip,
@@ -132,7 +133,7 @@ import {
             </FieldDescription>
           </Fieldset>
           <div class="ui-layout-row ui-small pd-buy">
-            <NumberField for="product-detail-quantity" label="Quantity">
+            <Field autoFit for="product-detail-quantity" label="Quantity">
               <input
                 id="product-detail-quantity"
                 max="10"
@@ -141,7 +142,16 @@ import {
                 type="number"
                 value="1"
               />
-            </NumberField>
+              <template #start>
+                <StepButton
+                  command="--step-down"
+                  for="product-detail-quantity"
+                />
+              </template>
+              <template #end>
+                <StepButton command="--step-up" for="product-detail-quantity" />
+              </template>
+            </Field>
             <Button class="pd-add" type="submit" variant="filled">
               <svg
                 data-icon="shopping-bag"

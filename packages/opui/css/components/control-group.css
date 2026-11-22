@@ -34,8 +34,7 @@
     &:has(
       > .ui-field:not(.ui-auto-fit)
         > :where(.ui-field-container)
-        > :where(input, textarea),
-      > .ui-number-field.ui-stretch
+        > :where(input, textarea)
     ) {
       display: flex;
       inline-size: auto;
@@ -44,26 +43,25 @@
         > :not(
           .ui-field:not(.ui-auto-fit):where(
               :not(:has(> .ui-field-container > select))
-            ),
-          .ui-number-field.ui-stretch
+            )
         ) {
         flex-grow: 0;
       }
     }
 
-    & > :is(.ui-button, .ui-field, .ui-number-field) {
+    & > :is(.ui-button, .ui-field) {
       --_shadow: none;
 
       min-inline-size: 0;
       scale: none;
     }
 
-    &:where(:not(.ui-outlined)) > :where(.ui-field, .ui-number-field) {
+    &:where(:not(.ui-outlined)) > :where(.ui-field) {
       z-index: 1;
     }
 
     @media (hover: hover) {
-      & > :where(.ui-field, .ui-number-field):hover,
+      & > :where(.ui-field):hover,
       &:where(.ui-outlined)
         > :where(.ui-button):where(
           :not(:disabled, [aria-disabled="true"])
@@ -73,7 +71,7 @@
     }
 
     &
-      > :where(.ui-button, .ui-field, .ui-number-field):has(
+      > :where(.ui-button, .ui-field):has(
         [aria-invalid="true"],
         :user-invalid
       ) {
@@ -81,15 +79,14 @@
     }
 
     & > :where(.ui-button):focus-visible,
-    & > :where(.ui-field, .ui-number-field):focus-within {
+    & > :where(.ui-field):focus-within {
       z-index: 4;
     }
 
     &
       > :where(.ui-field:not(:has(> .ui-field-container > select))):not(
         .ui-auto-fit
-      ),
-    & > :where(.ui-number-field).ui-stretch {
+      ) {
       flex: auto;
     }
 
@@ -125,7 +122,7 @@
     &:not(
       .ui-outlined,
       :has(
-        > :is(.ui-field, .ui-number-field)
+        > :is(.ui-field)
           > :is(.ui-end-text, .ui-label, .ui-start-text):not([hidden])
       )
     ) {
@@ -155,8 +152,7 @@
         > :nth-child(
           n + 2 of :is(
             .ui-button,
-            .ui-field:where(:not(:has(> .ui-field-container > textarea))),
-            .ui-number-field
+            .ui-field:where(:not(:has(> .ui-field-container > textarea)))
           ):not([hidden])
         ) {
         --_end-start-radius: 0;
@@ -171,8 +167,7 @@
         > :nth-last-child(
           n + 2 of :is(
             .ui-button,
-            .ui-field:where(:not(:has(> .ui-field-container > textarea))),
-            .ui-number-field
+            .ui-field:where(:not(:has(> .ui-field-container > textarea)))
           ):not([hidden])
         ) {
         --_end-end-radius: 0;
@@ -193,10 +188,7 @@
       row-gap: var(--_divider-gap);
       row-rule: var(--_divider-gap) solid var(--_divider-border-color);
 
-      &
-        > :nth-child(
-          n + 2 of :is(.ui-button, .ui-field, .ui-number-field):not([hidden])
-        ) {
+      & > :nth-child(n + 2 of :is(.ui-button, .ui-field):not([hidden])) {
         --_start-end-radius: 0;
         --_start-start-radius: 0;
 
@@ -205,10 +197,7 @@
         }
       }
 
-      &
-        > :nth-last-child(
-          n + 2 of :is(.ui-button, .ui-field, .ui-number-field):not([hidden])
-        ) {
+      & > :nth-last-child(n + 2 of :is(.ui-button, .ui-field):not([hidden])) {
         --_end-end-radius: 0;
         --_end-start-radius: 0;
 
@@ -270,10 +259,7 @@
     }
 
     &.ui-filled
-      > :is(.ui-button, .ui-field, .ui-number-field):is(
-        :focus-visible,
-        :has(:focus-visible)
-      ) {
+      > :is(.ui-button, .ui-field):is(:focus-visible, :has(:focus-visible)) {
       --_shadow: 0 0 0 var(--ui-focus-ring-offset) var(--ui-surface);
     }
 
@@ -281,8 +267,7 @@
       > .ui-button:not(:focus-visible):nth-child(
         n + 2 of :is(
           .ui-button,
-          .ui-field:where(:not(:has(> .ui-field-container > textarea))),
-          .ui-number-field
+          .ui-field:where(:not(:has(> .ui-field-container > textarea)))
         ):not([hidden])
       ) {
       border-inline-start-color: var(--_start-border-color);
@@ -290,7 +275,7 @@
 
     &.ui-vertical:not(.ui-outlined)
       > .ui-button:not(:focus-visible):nth-child(
-        n + 2 of :is(.ui-button, .ui-field, .ui-number-field):not([hidden])
+        n + 2 of :is(.ui-button, .ui-field):not([hidden])
       ) {
       border-block-start-color: var(--_start-border-color);
     }

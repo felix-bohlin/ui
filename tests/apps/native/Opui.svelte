@@ -2,11 +2,11 @@
   import {
     Checkbox,
     Field,
-    NumberField,
     Radio,
     Range,
     Rating,
     SelectButton,
+    StepButton,
     Tabs,
     TabsItem,
     TabsLabel,
@@ -72,9 +72,15 @@
   </ToggleGroup>
 </form>
 <form data-case="number-default">
-  <NumberField for="number-default" label="Quantity">
+  <Field autoFit for="number-default" label="Quantity">
     <input defaultValue="1" id="number-default" type="number" />
-  </NumberField>
+    {#snippet start()}
+      <StepButton command="--step-down" for="number-default" />
+    {/snippet}
+    {#snippet end()}
+      <StepButton command="--step-up" for="number-default" />
+    {/snippet}
+  </Field>
 </form>
 <form data-case="radio-bound">
   <Radio bind:group={values.radio} label="Tea" name="drink" value="tea" />

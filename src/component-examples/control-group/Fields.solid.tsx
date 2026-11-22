@@ -6,8 +6,8 @@ import {
   FieldGroup,
   FieldLegend,
   Fieldset,
-  NumberField,
   SelectButton,
+  StepButton,
 } from "opui-css/solid"
 
 export default function Fields() {
@@ -57,7 +57,16 @@ export default function Fields() {
       </Fieldset>
 
       <ControlGroup aria-label="Add to cart" color="primary" variant="filled">
-        <NumberField for="control-group-fields-1" hideLabel label="Quantity">
+        <Field
+          autoFit
+          end={<StepButton command="--step-up" for="control-group-fields-1" />}
+          for="control-group-fields-1"
+          hideLabel
+          label="Quantity"
+          start={
+            <StepButton command="--step-down" for="control-group-fields-1" />
+          }
+        >
           <input
             id="control-group-fields-1"
             max="10"
@@ -66,7 +75,7 @@ export default function Fields() {
             type="number"
             defaultValue="1"
           />
-        </NumberField>
+        </Field>
         <Button>Add to cart</Button>
       </ControlGroup>
     </>

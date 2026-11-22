@@ -30,7 +30,7 @@ Each component reference covers HTML, Astro, React, Solid, Svelte and Vue: the p
 | Menu | `menu.md` | A popover list of actions or links. |
 | Message | `message.md` | Chat bubbles that group by sender, with attachments, reactions and a typing indicator. |
 | Meter | `meter.md` | A bar on the native meter element, for a value in a known range, like disk usage or a poll option's share. |
-| Number field | `number-field.md` | A number field with buttons that step the value down and up, for amounts like a quantity. |
+| Number field | `number-field.md` | A number input in a Field with step buttons that step the value down and up, for amounts like a quantity. |
 | One-time code | `one-time-code.md` | A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill. |
 | Progress | `progress.md` | A progress bar on the native progress element, for a task that reports how far along it is, or one that doesn't. |
 | Radio | `radio.md` | Radio buttons for picking one option from a few, with sizes, cards and an invalid state. |
@@ -91,6 +91,7 @@ Components documented on another component's page:
 | SelectAll | `checkbox.md` |
 | SelectButton | `select.md` |
 | SortableTable | `table.md` |
+| StepButton | `number-field.md` |
 | StepperItem | `stepper.md` |
 | SwitchInput | `switch.md` |
 | TableBody | `table.md` |

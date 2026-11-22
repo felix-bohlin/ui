@@ -44,9 +44,9 @@ const cases = [
     wrapped: true,
   },
   {
-    file: "NumberField/NumberField",
-    props: { label: "Quantity" },
-    slots: ["decrease-icon", "increase-icon"],
+    file: "StepButton/StepButton",
+    props: { command: "--step-up", for: "quantity" },
+    slots: ["default"],
   },
 ]
 

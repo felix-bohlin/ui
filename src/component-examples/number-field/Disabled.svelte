@@ -1,7 +1,13 @@
 <script lang="ts">
-  import { NumberField } from "opui-css/svelte"
+  import { Field, StepButton } from "opui-css/svelte"
 </script>
 
-<NumberField for="number-field-disabled-1" label="Quantity">
+<Field autoFit for="number-field-disabled-1" label="Quantity">
   <input disabled id="number-field-disabled-1" type="number" value="1" />
-</NumberField>
+  {#snippet start()}
+    <StepButton command="--step-down" for="number-field-disabled-1" />
+  {/snippet}
+  {#snippet end()}
+    <StepButton command="--step-up" for="number-field-disabled-1" />
+  {/snippet}
+</Field>

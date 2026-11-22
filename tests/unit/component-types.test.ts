@@ -52,8 +52,6 @@ import type * as MenuReact from "../../packages/opui/components/Menu/types.react
 import type * as MenuSolid from "../../packages/opui/components/Menu/types.solid"
 import type * as MenuSvelte from "../../packages/opui/components/Menu/types.svelte"
 import type * as MenuVue from "../../packages/opui/components/Menu/types.vue-props"
-import type * as NumberFieldReact from "../../packages/opui/components/NumberField/types.react"
-import type * as NumberFieldVue from "../../packages/opui/components/NumberField/types.vue-props"
 import type * as OneTimeCodeAstro from "../../packages/opui/components/OneTimeCode/types.astro"
 import type * as OneTimeCodeReact from "../../packages/opui/components/OneTimeCode/types.react"
 import type * as OneTimeCodeSolid from "../../packages/opui/components/OneTimeCode/types.solid"
@@ -69,6 +67,8 @@ import type * as RatingVue from "../../packages/opui/components/Rating/types.vue
 import type { SortDetail } from "../../packages/opui/components/SortableTable/types"
 import type * as SortableTableSolid from "../../packages/opui/components/SortableTable/types.solid"
 import type * as SortableTableSvelte from "../../packages/opui/components/SortableTable/types.svelte"
+import type * as StepButtonReact from "../../packages/opui/components/StepButton/types.react"
+import type * as StepButtonVue from "../../packages/opui/components/StepButton/types.vue-props"
 import type * as SwitchReact from "../../packages/opui/components/Switch/types.react"
 import type * as SwitchSvelte from "../../packages/opui/components/Switch/types.svelte"
 import type * as SwitchVue from "../../packages/opui/components/Switch/types.vue-props"
@@ -113,10 +113,10 @@ test("a value model is a prop in Svelte and declared in Vue", () => {
 
 test("a component without a default slot has no children, and a custom element root types the rest with its own attributes", () => {
   expectTypeOf<RangeReact.Props>().not.toHaveProperty("children")
-  expectTypeOf<NumberFieldReact.Props["title"]>().toEqualTypeOf<
-    ComponentProps<"opui-number-field">["title"]
+  expectTypeOf<StepButtonReact.Props["title"]>().toEqualTypeOf<
+    ComponentProps<"opui-step-button">["title"]
   >()
-  expectTypeOf<NumberFieldVue.Props>().not.toHaveProperty("name")
+  expectTypeOf<StepButtonVue.Props>().not.toHaveProperty("name")
 })
 
 test("a checked model declares the Svelte bindables, also on the wrapper that forwards it", () => {

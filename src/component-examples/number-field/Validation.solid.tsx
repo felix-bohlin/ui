@@ -1,16 +1,29 @@
 /** @jsxImportSource @solidjs/web */
-import { NumberField } from "opui-css/solid"
+import { Field, StepButton } from "opui-css/solid"
 
 export default function Validation() {
   return (
     <>
-      <NumberField for="number-field-validation-1" label="Bandmates">
+      <Field
+        autoFit
+        end={<StepButton command="--step-up" for="number-field-validation-1" />}
+        for="number-field-validation-1"
+        label="Bandmates"
+        start={
+          <StepButton command="--step-down" for="number-field-validation-1" />
+        }
+      >
         <input id="number-field-validation-1" min="1" required type="number" />
-      </NumberField>
-      <NumberField
+      </Field>
+      <Field
+        autoFit
+        end={<StepButton command="--step-up" for="number-field-validation-2" />}
         endText="Only 4 sets of flatwounds left, whoops."
         for="number-field-validation-2"
         label="Quantity"
+        start={
+          <StepButton command="--step-down" for="number-field-validation-2" />
+        }
       >
         <input
           aria-describedby="number-field-validation-2-end-text"
@@ -20,7 +33,7 @@ export default function Validation() {
           type="number"
           defaultValue="6"
         />
-      </NumberField>
+      </Field>
     </>
   )
 }

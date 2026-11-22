@@ -36,13 +36,13 @@ import {
   Message,
   MessageList,
   Meter,
-  NumberField,
   OneTimeCode,
   Progress,
   Radio,
   Range,
   Rating,
   Stat,
+  StepButton,
   Stepper,
   Switch,
   Table,
@@ -434,7 +434,8 @@ const emailId = Astro.locals.$id("component-showcase-email")
 
     <Fragment slot="number-field">
       <div aria-hidden="true" inert>
-        <NumberField
+        <Field
+          autoFit
           for="index-number-field-showcase"
           hideLabel
           label="Quantity"
@@ -445,7 +446,17 @@ const emailId = Astro.locals.$id("component-showcase-email")
             type="number"
             value={2}
           />
-        </NumberField>
+          <StepButton
+            command="--step-down"
+            for="index-number-field-showcase"
+            slot="start"
+          />
+          <StepButton
+            command="--step-up"
+            for="index-number-field-showcase"
+            slot="end"
+          />
+        </Field>
       </div>
     </Fragment>
 

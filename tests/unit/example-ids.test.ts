@@ -100,7 +100,6 @@ const OWNERS = [
   "ui-drawer",
   "ui-field",
   "ui-file-upload",
-  "ui-number-field",
   "ui-one-time-code",
   "ui-range",
 ]

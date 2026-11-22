@@ -2500,12 +2500,12 @@ interaction(
 
 interaction(
   "number-field",
-  "EndText",
+  "Validation",
   "number field end text describes the input",
   async ({ root }) => {
     await expect(
-      root.getByRole("spinbutton", { name: "Guests" }),
-    ).toHaveAccessibleDescription("Up to 8 per table.")
+      root.getByRole("spinbutton", { name: "Quantity" }),
+    ).toHaveAccessibleDescription("Only 4 sets of flatwounds left, whoops.")
   },
 )
 

@@ -92,7 +92,7 @@ export default {
   ],
   parts: [
     {
-      code: "& > :is(.ui-field, .ui-number-field)",
+      code: "& > .ui-field",
       component: "TextField",
       description:
         "A number field, select, text field or textarea (a textarea only in a vertical group). Its `.ui-field-container` joins the controls next to it.",

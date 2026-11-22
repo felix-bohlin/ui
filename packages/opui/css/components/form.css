@@ -121,7 +121,7 @@
       flex-wrap: wrap;
       gap: var(--ui-space-3);
 
-      & > :where(.ui-field, .ui-number-field, .ui-one-time-code) {
+      & > :where(.ui-field, .ui-one-time-code) {
         flex: 1 1 var(--_field-min-inline-size);
         min-inline-size: 0;
       }

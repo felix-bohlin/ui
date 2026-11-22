@@ -60,6 +60,12 @@ export const SVELTE_GROUP =
 export const SVELTE_SPREAD =
   "Svelte drops the server's value and checked attributes from an input with only bind: when it hydrates, and keeps them on an input with a spread, as every component's input has"
 
+export const VUE_SLOT_VALUE =
+  "Vue's hydration sets an input that is the root of a cached block, such as the one element in a component's slot, back to its server value, which replaces what the user typed before the page hydrated, and skips the children of a cached element, such as the native input in its form: TODO.md Bugs: Field: in Vue, a value typed before the page hydrates is lost"
+
+export const VUE_PREBUILT_SELECT =
+  "the package's Vue components have a client render function only, so Vue renders their slots on the server through the client branch, where v-model on a <select> marks no option selected: TODO.md Bugs: Field: in Nuxt, a select bound with v-model renders no selected option on the server"
+
 export type NativeDifference = { name: string; reason: string; where: string }
 
 export const differences = (where: string, reason: string, names: string[]) =>

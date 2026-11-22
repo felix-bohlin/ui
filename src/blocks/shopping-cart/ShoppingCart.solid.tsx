@@ -10,8 +10,8 @@ import {
   DescriptionListItem,
   DescriptionListTerm,
   Field,
-  NumberField,
   Progress,
+  StepButton,
 } from "opui-css/solid"
 
 export default function ShoppingCart() {
@@ -58,11 +58,24 @@ export default function ShoppingCart() {
                   </div>
                 </div>
                 <div class="cart-buy">
-                  <NumberField
+                  <Field
+                    autoFit
+                    end={
+                      <StepButton
+                        command="--step-up"
+                        for="shopping-cart-qty-gig-bag"
+                      />
+                    }
                     for="shopping-cart-qty-gig-bag"
                     hideLabel
                     label="Quantity of Comfy Cloud Gig Bag"
                     size="small"
+                    start={
+                      <StepButton
+                        command="--step-down"
+                        for="shopping-cart-qty-gig-bag"
+                      />
+                    }
                   >
                     <input
                       id="shopping-cart-qty-gig-bag"
@@ -71,7 +84,7 @@ export default function ShoppingCart() {
                       type="number"
                       defaultValue="1"
                     />
-                  </NumberField>
+                  </Field>
                   <p class="ui-tabular-nums cart-line-price">
                     €119.00
                     <s class="ui-caption">
@@ -113,11 +126,24 @@ export default function ShoppingCart() {
                   </div>
                 </div>
                 <div class="cart-buy">
-                  <NumberField
+                  <Field
+                    autoFit
+                    end={
+                      <StepButton
+                        command="--step-up"
+                        for="shopping-cart-qty-strings"
+                      />
+                    }
                     for="shopping-cart-qty-strings"
                     hideLabel
                     label="Quantity of Flatwound string set"
                     size="small"
+                    start={
+                      <StepButton
+                        command="--step-down"
+                        for="shopping-cart-qty-strings"
+                      />
+                    }
                   >
                     <input
                       id="shopping-cart-qty-strings"
@@ -126,7 +152,7 @@ export default function ShoppingCart() {
                       type="number"
                       defaultValue="2"
                     />
-                  </NumberField>
+                  </Field>
                   <p class="ui-tabular-nums cart-line-price">€48.00</p>
                 </div>
               </li>
@@ -163,11 +189,24 @@ export default function ShoppingCart() {
                   </div>
                 </div>
                 <div class="cart-buy">
-                  <NumberField
+                  <Field
+                    autoFit
+                    end={
+                      <StepButton
+                        command="--step-up"
+                        for="shopping-cart-qty-tee"
+                      />
+                    }
                     for="shopping-cart-qty-tee"
                     hideLabel
                     label="Quantity of I'm with the bassist tee"
                     size="small"
+                    start={
+                      <StepButton
+                        command="--step-down"
+                        for="shopping-cart-qty-tee"
+                      />
+                    }
                   >
                     <input
                       id="shopping-cart-qty-tee"
@@ -176,7 +215,7 @@ export default function ShoppingCart() {
                       type="number"
                       defaultValue="1"
                     />
-                  </NumberField>
+                  </Field>
                   <p class="ui-tabular-nums cart-line-price">€29.00</p>
                 </div>
               </li>

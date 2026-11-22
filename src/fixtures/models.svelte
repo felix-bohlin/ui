@@ -4,10 +4,10 @@
     Checkbox,
     Field,
     Menu,
-    NumberField,
     PasswordToggle,
     Rating,
     SelectButton,
+    StepButton,
     Stepper,
     Tabs,
     TabsItem,
@@ -70,14 +70,20 @@
       <PasswordToggle for="models-password" />
     {/snippet}
   </Field>
-  <NumberField for="models-quantity" label="Quantity">
+  <Field autoFit for="models-quantity" label="Quantity">
     <input
       aria-invalid={error ? "true" : undefined}
       defaultValue="1"
       id="models-quantity"
       type="number"
     />
-  </NumberField>
+    {#snippet start()}
+      <StepButton command="--step-down" for="models-quantity" />
+    {/snippet}
+    {#snippet end()}
+      <StepButton command="--step-up" for="models-quantity" />
+    {/snippet}
+  </Field>
   <Checkbox checked={false} {error}>Newsletter</Checkbox>
   <Field for="models-size" label="Size">
     <select aria-invalid={error ? "true" : undefined} id="models-size">

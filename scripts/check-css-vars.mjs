@@ -31,10 +31,10 @@ const BASES = {
   "control-group.css": ["button.css"],
   "dialog.css": ["card.css"],
   "meter.css": ["progress.css"],
-  "number-field.css": ["text-field.css"],
   "one-time-code.css": ["text-field.css"],
   "radio.css": ["choice.css"],
   "select.css": ["list.css", "text-field.css"],
+  "step-button.css": ["text-field.css"],
   "textarea.css": ["text-field.css"],
   "toggle-group.css": ["toggle-button.css"],
 }

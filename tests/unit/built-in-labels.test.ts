@@ -17,6 +17,10 @@ const findLabels = (file: string, source: string) => {
       /\b(label|\w+Label) = (\{(?:[^{}"]|"[^"]*")*\})/g,
     ))
       add(name, value.replace(/\s+/g, " "))
+    for (const [, name, ...values] of source.matchAll(
+      /\b(label|\w+Label) \?\? \([^\n]*?\? "([^"]*)" : "([^"]*)"\)/g,
+    ))
+      for (const value of values) add(name, value)
   }
   if (file.endsWith(".js")) {
     for (const [, name, value] of source.matchAll(
@@ -63,6 +67,7 @@ test("finds a default label in a component, an element and a stylesheet", () => 
   const samples = [
     findLabels("Sample.astro", 'const { fooLabel = "Foo" } = Astro.props'),
     findLabels("Part.astro", 'const { label = "Show" } = Astro.props'),
+    findLabels("Step.astro", 'const name = label ?? (up ? "Up" : "Down")'),
     findLabels(
       "Plural.astro",
       'const { barLabel = { one: "{count} bar", other: "{count} bars" } } = Astro.props',
@@ -73,11 +78,13 @@ test("finds a default label in a component, an element and a stylesheet", () => 
   expect(samples.map(({ name, value }) => `${name}=${value}`)).toEqual([
     "fooLabel=Foo",
     "label=Show",
+    "label=Up",
+    "label=Down",
     'barLabel={ one: "{count} bar", other: "{count} bars" }',
     "foo-label=Foo",
     "--_foo-label=Foo",
   ])
-  expect(samples.filter((label) => !listed(label))).toHaveLength(5)
+  expect(samples.filter((label) => !listed(label))).toHaveLength(7)
 })
 
 test("every English default label is in the Built-in labels list of the Accessibility guide", () => {

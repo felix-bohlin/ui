@@ -14,6 +14,8 @@ import {
   NATIVE_CASES,
   SVELTE_GROUP,
   SVELTE_SPREAD,
+  VUE_PREBUILT_SELECT,
+  VUE_SLOT_VALUE,
 } from "./native/cases.ts"
 
 const PIXEL = Buffer.from(
@@ -285,11 +287,11 @@ test("navigating to another page renders its examples", async ({
 
 const CHANGES = [
   { example: "checkbox/Basics", label: "Unchecked", to: true },
-  { example: "number-field/Basics", label: "Quantity", to: "7" },
+  { example: "number-field/Validation", label: "Bandmates", to: "7" },
   { example: "radio/Basics", label: "PayPal", to: true },
   { example: "range/Basics", label: "Volume", to: "80" },
   { example: "rating/Input", label: "1 star", to: true },
-  { example: "select/Variants", label: "Role", to: "Bass" },
+  { example: "select/Preselected", label: "Role", to: "tambourine" },
   { example: "switch/Basics", label: "Bluetooth", to: true },
   { example: "tabs/Basics", label: "Settings", to: true },
   { example: "text-field/InputTypes", label: "Color", to: "#ff0000" },
@@ -300,7 +302,7 @@ const CHANGES = [
     label: "URL",
     to: "https://example.com/",
   },
-  { example: "textarea/Variants", label: "Outlined", to: "Typed early" },
+  { example: "textarea/Rows", label: "Reply", to: "Typed early" },
   { example: "toggle/Interactive", label: "Cycling", to: true },
 ]
 
@@ -588,6 +590,8 @@ const NATIVE_DIFFERENCES = [
     "tabs-bound",
     "toggle-bound",
   ]),
+  ...differences("nuxt", VUE_PREBUILT_SELECT, ["select-bound"]),
+  ...differences("nuxt", VUE_SLOT_VALUE, ["number-default", "text-default"]),
 ]
 
 for (const nativeCase of NATIVE_CASES) {

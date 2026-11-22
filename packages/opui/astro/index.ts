@@ -51,7 +51,6 @@ export { default as Menu } from "../components/Menu/Menu.astro"
 export { default as Message } from "../components/Message/Message.astro"
 export { default as MessageList } from "../components/Message/MessageList.astro"
 export { default as Meter } from "../components/Meter/Meter.astro"
-export { default as NumberField } from "../components/NumberField/NumberField.astro"
 export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.astro"
 export { default as PasswordToggle } from "../components/PasswordToggle/PasswordToggle.astro"
 export { default as Progress } from "../components/Progress/Progress.astro"
@@ -64,6 +63,7 @@ export { default as SelectAll } from "../components/SelectAll/SelectAll.astro"
 export { default as SelectButton } from "../components/SelectButton/SelectButton.astro"
 export { default as SortableTable } from "../components/SortableTable/SortableTable.astro"
 export { default as Stat } from "../components/Stat/Stat.astro"
+export { default as StepButton } from "../components/StepButton/StepButton.astro"
 export { default as Stepper } from "../components/Stepper/Stepper.astro"
 export { default as StepperItem } from "../components/Stepper/StepperItem.astro"
 export { default as Switch } from "../components/Switch/Switch.astro"
@@ -171,7 +171,6 @@ export type {
   Props as MessageProps,
 } from "../components/Message/types.astro"
 export type { Props as MeterProps } from "../components/Meter/types.astro"
-export type { Props as NumberFieldProps } from "../components/NumberField/types.astro"
 export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.astro"
 export type { Props as PasswordToggleProps } from "../components/PasswordToggle/types.astro"
 export type { Props as ProgressProps } from "../components/Progress/types.astro"
@@ -192,6 +191,7 @@ export type { Props as SelectButtonProps } from "../components/SelectButton/type
 export type { SortDetail } from "../components/SortableTable/types"
 export type { Props as SortableTableProps } from "../components/SortableTable/types.astro"
 export type { Props as StatProps } from "../components/Stat/types.astro"
+export type { Props as StepButtonProps } from "../components/StepButton/types.astro"
 export type {
   StepperItemProps,
   Props as StepperProps,

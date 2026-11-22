@@ -24,7 +24,6 @@ declare module "@solidjs/web/jsx-runtime" {
         onRemove?: EventHandlerUnion<HTMLElement, CustomEvent<RemoveDetail>>
         onSelect?: EventHandlerUnion<HTMLElement, CustomEvent<SelectDetail>>
       }
-      "opui-number-field": HTMLAttributes<HTMLElement>
       "opui-password-toggle": HTMLAttributes<HTMLElement>
       "opui-reactions": HTMLAttributes<HTMLElement> & {
         onReaction?: EventHandlerUnion<HTMLElement, CustomEvent<ReactionDetail>>
@@ -38,6 +37,7 @@ declare module "@solidjs/web/jsx-runtime" {
         "descending-label"?: string | RemoveAttribute
         onSort?: EventHandlerUnion<HTMLElement, CustomEvent<SortDetail>>
       }
+      "opui-step-button": HTMLAttributes<HTMLElement>
       "opui-toaster": HTMLAttributes<HTMLElement> & {
         "close-label"?: string | RemoveAttribute
         duration?: number | RemoveAttribute

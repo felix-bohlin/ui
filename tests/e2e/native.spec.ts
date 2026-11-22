@@ -6,12 +6,10 @@ import {
   NATIVE_CASES,
   SVELTE_GROUP,
   SVELTE_SPREAD,
+  VUE_SLOT_VALUE,
 } from "../apps/native/cases"
 import { FRAMEWORKS, isHydratedFramework } from "../../src/utils/framework"
 import { instantScrolling, pageErrors } from "./fixtures"
-
-const VUE_DEVELOPMENT_VALUE =
-  "on this development page Vue's hydration writes the server's value back into a native input, which replaces what the user typed before the page hydrated, and the component's input, whose value is an attribute (:value.attr), keeps it; Nuxt's production build shows no difference"
 
 const DIFFERENCES = [
   ...differences("svelte", SVELTE_GROUP, [
@@ -23,7 +21,7 @@ const DIFFERENCES = [
     "toggle-bound",
   ]),
   ...differences("svelte", SVELTE_SPREAD, ["checkbox-bound", "range-bound"]),
-  ...differences("vue", VUE_DEVELOPMENT_VALUE, ["range-default"]),
+  ...differences("vue", VUE_SLOT_VALUE, ["number-default", "text-default"]),
 ]
 
 for (const { id, label } of FRAMEWORKS) {

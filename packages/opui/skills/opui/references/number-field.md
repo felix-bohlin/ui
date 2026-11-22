@@ -1,60 +1,45 @@
 # Number field
 
-A number field with buttons that step the value down and up, for amounts like a quantity.
+A number input in a Field with step buttons that step the value down and up, for amounts like a quantity.
 
-- CSS: `opui-css/css/components/number-field.css`, `opui-css/css/components/text-field.css` and `opui-css/css/components/button.css`.
+- CSS: `opui-css/css/components/step-button.css`, `opui-css/css/components/text-field.css` and `opui-css/css/components/button.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/number-field.md), [Astro](https://opui.dev/astro/components/number-field.md), [React](https://opui.dev/react/components/number-field.md), [Solid](https://opui.dev/solid/components/number-field.md), [Svelte](https://opui.dev/svelte/components/number-field.md), [Vue](https://opui.dev/vue/components/number-field.md).
 
-## NumberField
+## StepButton
 
 ### Parts
 
-- `opui-number-field.ui-number-field` (root): The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max`, and keeps both disabled while the input is disabled and `aria-disabled` while the input is, also when a script changes the input.
-- `.ui-label` (prop `label`, slot `label`): The label for the field.
-- `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
-- `.ui-field-container`: The boxed input area.
-- `.ui-field-container > .ui-start` (prop `decreaseLabel`, slot `decrease-icon`): The decrease button, with `command="--step-down"`. Renders a minus icon by default, or the `svg` in `decrease-icon`. Hidden until the element is defined.
-- `<input type="number">`: Your `<input type="number">`, written directly inside `.ui-field-container` between the buttons, with its `id` set to `for`. Give it `min`, `max` and `step`, and bind it, name it and mark it `required`, `disabled` or `aria-invalid="true"` like any input.
-- `.ui-field-container > .ui-end` (prop `increaseLabel`, slot `increase-icon`): The increase button, with `command="--step-up"`. Renders a plus icon by default, or the `svg` in `increase-icon`. Hidden until the element is defined.
-- `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
+- `<opui-step-button>` (root): A `.ui-button.ui-round` with `command="--step-down"` or `command="--step-up"`. Renders a minus or a plus icon by default, or the icon in its default slot. Disabled while the input is, and `aria-disabled` at `min` or `max`, while the input is read-only and while it is `aria-disabled`. `<opui-step-button>` keeps it in step, also when a script changes the input. Hidden until `<opui-step-button>` is defined.
 
 ### Props and modifiers
 
-- `decreaseLabel`: `string`, default `"Decrease"`. The accessible name of the decrease button.
-- `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of your `<input>`. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text` and `x-end-text` for `for="x"`. Point the input's `aria-describedby` at the ones it shows, in that order.
-- `hideLabel`: `boolean`, `.ui-number-field > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
-- `htmlFor` (React): `string`. The `id` of your `<input>`, as `htmlFor` like on the element. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text` and `x-end-text` for `htmlFor="x"`. Point the input's `aria-describedby` at the ones it shows, in that order.
-- `increaseLabel`: `string`, default `"Increase"`. The accessible name of the increase button.
-- `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
-- `spread`: `boolean`, `.ui-spread`. Pushes the label and start text to one side and the field to the other.
-- `stretch`: `boolean`, `.ui-stretch`. Fills the available width. Without it, the field fits its value, from `--_min-inline-size` (`4ch`).
-- `variant`: `"filled"` (`.ui-filled`), `"outlined"` (default). The variant to use.
+- `command`: `"--step-down" | "--step-up"`. Which way the button steps the input: `--step-down` or `--step-up`, as on the element.
+- `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of the number input the button steps, as its button's `commandfor` and `aria-controls`.
+- `htmlFor` (React): `string`. The `id` of the number input the button steps, as `htmlFor` like on a label, and its button's `commandfor` and `aria-controls`.
+- `label`: `string`, `aria-label`, default `"Decrease" or "Increase"`. The accessible name of the button, by `command`. Pass it translated.
 
 ### Slots
 
-- `default`: Your `<input type="number">`, which goes in `.ui-field-container` between the buttons.
+- `default`: The icon, an `svg`.
 
 ### Element
 
-- `<opui-number-field>`, defined by `opui-css/elements/number-field.js`:
-  - `input`: The `<input type="number">` inside, or `null`. Read-only.
-  - `stepDown()`: Steps the value down by `step`, unless the input is disabled, read-only or at `min`, and fires `input` and `change`.
-  - `stepUp()`: Steps the value up by `step`, unless the input is disabled, read-only or at `max`, and fires `input` and `change`.
+- `<opui-step-button>`, defined by `opui-css/elements/step-button.js`:
+  - `input`: The `<input>` its button's `commandfor` names, or `null`. Read-only.
+  - `step()`: Steps the value down or up by `step`, as its button's `command` says, unless the input is disabled, read-only or at `min` or `max`, and fires `input` and `change`.
 
 ### Notes
 
-- HTML: Put the decrease and increase buttons in `.ui-start` and `.ui-end`, with `commandfor` and `aria-controls` naming the input and `command="--step-down"` or `command="--step-up"`, give the `<label>` a `for`, and import `opui-css/elements/number-field.js`. Without it, the buttons are hidden and the input keeps the browser's own spin buttons.
-- Astro: Write the `<input type="number">` inside, with its `id` set to `for`. Other attributes go to the root. The component loads `opui-css/elements/number-field.js`, which steps the value when a button is pressed or held.
-- React: Write the `<input type="number">` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the root. The step buttons work once the component mounts and loads `opui-css/elements/number-field.js`, or as soon as the page imports it.
-- Solid, Svelte and Vue: Write the `<input type="number">` inside, with its `id` set to `for`, and bind it like any input. Other attributes go to the root. The step buttons work as soon as the component's code loads, which imports `opui-css/elements/number-field.js`.
+- HTML: Put `<opui-step-button>` in `.ui-start` and `.ui-end`, around a `.ui-button.ui-round` with `commandfor` and `aria-controls` naming the input and `command="--step-down"` or `command="--step-up"`, and import `opui-css/elements/step-button.js`. Without it, the buttons are hidden and the input keeps the browser's own spin buttons.
+- Astro, React, Solid, Svelte and Vue: Put one with `command="--step-down"` in the field's `start` and one with `command="--step-up"` in its `end`, next to an `<input type="number">`, and leave those parts out of the input's `aria-describedby`. It loads `opui-css/elements/step-button.js`, which steps the value when the button is pressed or held.
 
 ## Component properties
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 
-### number-field.css
+### step-button.css
 
-- `--_min-inline-size`: The least width of the input, which otherwise fits its value, unless `stretch` is set. `4ch`, instead of the `8ch` of the other fields, which `text-field.css` keeps next to the affixes.
+- `--_min-inline-size`: The least width of the input of a field with step buttons and `autoFit`, which otherwise fits its value. `4ch`, instead of the `8ch` of the other fields, which `text-field.css` keeps next to the affixes.
 
 ### text-field.css
 
@@ -69,7 +54,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_field-padding-inline`: The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.
 - `--_file-button-padding`: The preferred gap around the `::file-selector-button` of a file field: `--ui-space-2`, or `--ui-space-1` in `.ui-small` and `.ui-x-small`.
 - `--_font-size`: The font size of the control and affixes. At least 16px on iPhone and iPad (`css/compat/text-field.css`), so iOS Safari doesn't zoom in on focus.
-- `--_min-inline-size`: The least width of the control next to `.ui-start` and `.ui-end`, which shrink and end in an ellipsis to keep it, or the whole field when it is narrower. Defaults to `8ch`; a `NumberField` sets its own.
+- `--_min-inline-size`: The least width of the control next to `.ui-start` and `.ui-end`, which shrink and end in an ellipsis to keep it, or the whole field when it is narrower. Defaults to `8ch`; a field with a `StepButton` sets its own.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_radius`: The corner radius of `.ui-field-container` and a file input's button. Defaults to `--ui-field-radius`, or `--ui-radius` when the theme doesn't set it.
 - `--_shadow`: The shadow of `.ui-field-container`. Defaults to `--ui-field-shadow`, or `--ui-shadow-control` when the theme leaves it unset. `none` in a `ControlGroup`.
@@ -111,26 +96,28 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--u
 ### Example: Basics
 
 ```html
-<opui-number-field class="ui-number-field">
+<div class="ui-field ui-auto-fit">
   <label class="ui-label" for="number-field-basics-1">Quantity</label>
   <span class="ui-field-container">
-    <span class="ui-start">
-      <button
-        class="ui-button ui-round"
-        type="button"
-        aria-controls="number-field-basics-1"
-        aria-label="Decrease"
-        command="--step-down"
-        commandfor="number-field-basics-1"
-      >
-        <svg
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        ></svg>
-      </button>
+    <span class="ui-start" id="number-field-basics-1-start">
+      <opui-step-button>
+        <button
+          class="ui-button ui-round"
+          type="button"
+          aria-controls="number-field-basics-1"
+          aria-label="Decrease"
+          command="--step-down"
+          commandfor="number-field-basics-1"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          ></svg>
+        </button>
+      </opui-step-button>
     </span>
     <input
       id="number-field-basics-1"
@@ -139,59 +126,68 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--u
       type="number"
       value="1"
     />
-    <span class="ui-end">
-      <button
-        class="ui-button ui-round"
-        type="button"
-        aria-controls="number-field-basics-1"
-        aria-label="Increase"
-        command="--step-up"
-        commandfor="number-field-basics-1"
-      >
-        <svg aria-hidden="true" viewBox="0 0 24 24"></svg>
-      </button>
+    <span class="ui-end" id="number-field-basics-1-end">
+      <opui-step-button>
+        <button
+          class="ui-button ui-round"
+          type="button"
+          aria-controls="number-field-basics-1"
+          aria-label="Increase"
+          command="--step-up"
+          commandfor="number-field-basics-1"
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24"></svg>
+        </button>
+      </opui-step-button>
     </span>
   </span>
-</opui-number-field>
+</div>
 
 <script type="module">
-  import "opui-css/elements/number-field.js"
+  import "opui-css/elements/step-button.js"
 </script>
 ```
 
 ## Astro
 
-`import { NumberField } from "opui-css/astro"`
-
-- `NumberField` named slots: `decrease-icon`, `end-text`, `increase-icon`, `label` and `start-text`. Fill one with `slot="decrease-icon"` on a child.
+`import { StepButton } from "opui-css/astro"`
 
 ### Example: Basics
 
 ```astro
 ---
-import { NumberField } from "opui-css/astro"
+import { Field, StepButton } from "opui-css/astro"
 ---
 
-<NumberField for="number-field-basics-1" label="Quantity">
+<Field autoFit for="number-field-basics-1" label="Quantity">
   <input id="number-field-basics-1" max="10" min="1" type="number" value="1" />
-</NumberField>
+  <StepButton command="--step-down" for="number-field-basics-1" slot="start" />
+  <StepButton command="--step-up" for="number-field-basics-1" slot="end" />
+</Field>
 ```
 
 ## React
 
-`import { NumberField } from "opui-css/react"`
+`import { StepButton } from "opui-css/react"`
 
-- `NumberField` slot props (`ReactNode`): `children`, `decreaseIcon`, `endText`, `increaseIcon`, `label` and `startText`.
-- Client components (`"use client"`): `NumberField`.
+- Client components (`"use client"`): `StepButton`.
 
 ### Example: Basics
 
 ```tsx
-import { NumberField } from "opui-css/react"
+import { Field, StepButton } from "opui-css/react"
 
 export default function Basics() {
   return (
-    <NumberField htmlFor="number-field-basics-1" label="Quantity">
+    <Field
+      autoFit
+      end={<StepButton command="--step-up" htmlFor="number-field-basics-1" />}
+      htmlFor="number-field-basics-1"
+      label="Quantity"
+      start={
+        <StepButton command="--step-down" htmlFor="number-field-basics-1" />
+      }
+    >
       <input
         id="number-field-basics-1"
         max="10"
@@ -199,26 +195,30 @@ export default function Basics() {
         type="number"
         defaultValue="1"
       />
-    </NumberField>
+    </Field>
   )
 }
 ```
 
 ## Solid
 
-`import { NumberField } from "opui-css/solid"`
-
-- `NumberField` slot props (`JSX.Element`): `children`, `decreaseIcon`, `endText`, `increaseIcon`, `label` and `startText`.
+`import { StepButton } from "opui-css/solid"`
 
 ### Example: Basics
 
 ```tsx
 /** @jsxImportSource @solidjs/web */
-import { NumberField } from "opui-css/solid"
+import { Field, StepButton } from "opui-css/solid"
 
 export default function Basics() {
   return (
-    <NumberField for="number-field-basics-1" label="Quantity">
+    <Field
+      autoFit
+      end={<StepButton command="--step-up" for="number-field-basics-1" />}
+      for="number-field-basics-1"
+      label="Quantity"
+      start={<StepButton command="--step-down" for="number-field-basics-1" />}
+    >
       <input
         id="number-field-basics-1"
         max="10"
@@ -226,44 +226,46 @@ export default function Basics() {
         type="number"
         defaultValue="1"
       />
-    </NumberField>
+    </Field>
   )
 }
 ```
 
 ## Svelte
 
-`import { NumberField } from "opui-css/svelte"`
-
-- `NumberField` slot snippets: `children`, `decreaseIcon`, `endText`, `increaseIcon`, `label` and `startText`.
+`import { StepButton } from "opui-css/svelte"`
 
 ### Example: Basics
 
 ```svelte
 <script lang="ts">
-  import { NumberField } from "opui-css/svelte"
+  import { Field, StepButton } from "opui-css/svelte"
 </script>
 
-<NumberField for="number-field-basics-1" label="Quantity">
+<Field autoFit for="number-field-basics-1" label="Quantity">
   <input id="number-field-basics-1" max="10" min="1" type="number" value="1" />
-</NumberField>
+  {#snippet start()}
+    <StepButton command="--step-down" for="number-field-basics-1" />
+  {/snippet}
+  {#snippet end()}
+    <StepButton command="--step-up" for="number-field-basics-1" />
+  {/snippet}
+</Field>
 ```
 
 ## Vue
 
-`import { NumberField } from "opui-css/vue"`
-
-- `NumberField` named slots: `decrease-icon`, `end-text`, `increase-icon`, `label` and `start-text`. Fill one with `<template #decrease-icon>`.
+`import { StepButton } from "opui-css/vue"`
 
 ### Example: Basics
 
 ```vue
 <script setup lang="ts">
-import { NumberField } from "opui-css/vue"
+import { Field, StepButton } from "opui-css/vue"
 </script>
 
 <template>
-  <NumberField for="number-field-basics-1" label="Quantity">
+  <Field autoFit for="number-field-basics-1" label="Quantity">
     <input
       id="number-field-basics-1"
       max="10"
@@ -271,6 +273,12 @@ import { NumberField } from "opui-css/vue"
       type="number"
       value="1"
     />
-  </NumberField>
+    <template #start>
+      <StepButton command="--step-down" for="number-field-basics-1" />
+    </template>
+    <template #end>
+      <StepButton command="--step-up" for="number-field-basics-1" />
+    </template>
+  </Field>
 </template>
 ```

@@ -16,11 +16,6 @@ import FieldReact from "../../packages/opui/components/Field/Field.react"
 import FieldSolid from "../../packages/opui/components/Field/Field.solid"
 import FieldSvelte from "../../packages/opui/components/Field/Field.svelte"
 import FieldVue from "../../packages/opui/components/Field/Field.vue"
-import NumberFieldAstro from "../../packages/opui/components/NumberField/NumberField.astro"
-import NumberFieldReact from "../../packages/opui/components/NumberField/NumberField.react"
-import NumberFieldSolid from "../../packages/opui/components/NumberField/NumberField.solid"
-import NumberFieldSvelte from "../../packages/opui/components/NumberField/NumberField.svelte"
-import NumberFieldVue from "../../packages/opui/components/NumberField/NumberField.vue"
 import OneTimeCodeAstro from "../../packages/opui/components/OneTimeCode/OneTimeCode.astro"
 import OneTimeCodeReact from "../../packages/opui/components/OneTimeCode/OneTimeCode.react"
 import OneTimeCodeSolid from "../../packages/opui/components/OneTimeCode/OneTimeCode.solid"
@@ -177,17 +172,6 @@ const OWN_CONTROL: {
       vue: FieldVue,
     },
     name: "Field",
-    props: { endText: "E", label: "L", startText: "S" },
-  },
-  {
-    components: {
-      astro: NumberFieldAstro,
-      react: NumberFieldReact,
-      solid: NumberFieldSolid,
-      svelte: NumberFieldSvelte,
-      vue: NumberFieldVue,
-    },
-    name: "NumberField",
     props: { endText: "E", label: "L", startText: "S" },
   },
   {

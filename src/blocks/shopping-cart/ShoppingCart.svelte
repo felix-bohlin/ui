@@ -10,8 +10,8 @@
     DescriptionListItem,
     DescriptionListTerm,
     Field,
-    NumberField,
     Progress,
+    StepButton,
   } from "opui-css/svelte"
 </script>
 
@@ -54,7 +54,8 @@
             </div>
           </div>
           <div class="cart-buy">
-            <NumberField
+            <Field
+              autoFit
               for="shopping-cart-qty-gig-bag"
               hideLabel
               label="Quantity of Comfy Cloud Gig Bag"
@@ -67,7 +68,19 @@
                 type="number"
                 value="1"
               />
-            </NumberField>
+              {#snippet start()}
+                <StepButton
+                  command="--step-down"
+                  for="shopping-cart-qty-gig-bag"
+                />
+              {/snippet}
+              {#snippet end()}
+                <StepButton
+                  command="--step-up"
+                  for="shopping-cart-qty-gig-bag"
+                />
+              {/snippet}
+            </Field>
             <p class="ui-tabular-nums cart-line-price">
               €119.00
               <s class="ui-caption"
@@ -107,7 +120,8 @@
             </div>
           </div>
           <div class="cart-buy">
-            <NumberField
+            <Field
+              autoFit
               for="shopping-cart-qty-strings"
               hideLabel
               label="Quantity of Flatwound string set"
@@ -120,7 +134,19 @@
                 type="number"
                 value="2"
               />
-            </NumberField>
+              {#snippet start()}
+                <StepButton
+                  command="--step-down"
+                  for="shopping-cart-qty-strings"
+                />
+              {/snippet}
+              {#snippet end()}
+                <StepButton
+                  command="--step-up"
+                  for="shopping-cart-qty-strings"
+                />
+              {/snippet}
+            </Field>
             <p class="ui-tabular-nums cart-line-price">€48.00</p>
           </div>
         </li>
@@ -155,7 +181,8 @@
             </div>
           </div>
           <div class="cart-buy">
-            <NumberField
+            <Field
+              autoFit
               for="shopping-cart-qty-tee"
               hideLabel
               label="Quantity of I'm with the bassist tee"
@@ -168,7 +195,13 @@
                 type="number"
                 value="1"
               />
-            </NumberField>
+              {#snippet start()}
+                <StepButton command="--step-down" for="shopping-cart-qty-tee" />
+              {/snippet}
+              {#snippet end()}
+                <StepButton command="--step-up" for="shopping-cart-qty-tee" />
+              {/snippet}
+            </Field>
             <p class="ui-tabular-nums cart-line-price">€29.00</p>
           </div>
         </li>

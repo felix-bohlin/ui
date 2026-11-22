@@ -1916,7 +1916,7 @@
   {
     "id": "component-number-field-react",
     "title": "Number field",
-    "description": "A number field with buttons that step the value down and up, for amounts like a quantity.",
+    "description": "A number input in a Field with step buttons that step the value down and up, for amounts like a quantity.",
     "keywords": "counter quantity spin button stepper",
     "category": "Component",
     "url": "/react/components/number-field/"
@@ -1927,20 +1927,6 @@
     "page": "Number field",
     "category": "Component",
     "url": "/react/components/number-field/#basics"
-  },
-  {
-    "id": "component-number-field-react-variants",
-    "title": "Variants",
-    "page": "Number field",
-    "category": "Component",
-    "url": "/react/components/number-field/#variants"
-  },
-  {
-    "id": "component-number-field-react-sizes",
-    "title": "Sizes",
-    "page": "Number field",
-    "category": "Component",
-    "url": "/react/components/number-field/#sizes"
   },
   {
     "id": "component-number-field-react-stretch",
@@ -1955,20 +1941,6 @@
     "page": "Number field",
     "category": "Component",
     "url": "/react/components/number-field/#step"
-  },
-  {
-    "id": "component-number-field-react-end-text",
-    "title": "End text",
-    "page": "Number field",
-    "category": "Component",
-    "url": "/react/components/number-field/#end-text"
-  },
-  {
-    "id": "component-number-field-react-hidden-label",
-    "title": "Hidden label",
-    "page": "Number field",
-    "category": "Component",
-    "url": "/react/components/number-field/#hidden-label"
   },
   {
     "id": "component-number-field-react-buttons",
@@ -1990,13 +1962,6 @@
     "page": "Number field",
     "category": "Component",
     "url": "/react/components/number-field/#validation"
-  },
-  {
-    "id": "component-number-field-react-spread",
-    "title": "Spread",
-    "page": "Number field",
-    "category": "Component",
-    "url": "/react/components/number-field/#spread"
   },
   {
     "id": "component-number-field-react-keyboard-support",
@@ -4788,14 +4753,6 @@
     "url": "/react/api/#meter"
   },
   {
-    "id": "api-number-field-react",
-    "title": "Number field API",
-    "description": "Reference for Number field React component.",
-    "api": "NumberField The `<opui-number-field>` custom element. It steps the value, marks a button `aria-disabled` at `min` or `max`, and keeps both disabled while the input is disabled and `aria-disabled` while the input is, also when a script changes the input. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. The decrease button, with `command=\"--step-down\"`. Renders a minus icon by default, or the `svg` in `decrease-icon`. Hidden until the element is defined. decreaseLabel decrease-icon Your `<input type=\"number\">`, written directly inside `.ui-field-container` between the buttons, with its `id` set to `for`. Give it `min`, `max` and `step`, and bind it, name it and mark it `required`, `disabled` or `aria-invalid=\"true\"` like any input. The increase button, with `command=\"--step-up\"`. Renders a plus icon by default, or the `svg` in `increase-icon`. Hidden until the element is defined. increaseLabel increase-icon Supporting text displayed below the field. endText end-text decreaseLabel The accessible name of the decrease button. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. htmlFor The `id` of your `<input>`, as `htmlFor` like on the element. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text` and `x-end-text` for `htmlFor=\"x\"`. Point the input's `aria-describedby` at the ones it shows, in that order. increaseLabel The accessible name of the increase button. size The size of the element. spread Pushes the label and start text to one side and the field to the other. stretch Fills the available width. Without it, the field fits its value, from `--_min-inline-size` (`4ch`). variant The variant to use. input The `<input type=\"number\">` inside, or `null`. Read-only. stepDown() Steps the value down by `step`, unless the input is disabled, read-only or at `min`, and fires `input` and `change`. stepUp() Steps the value up by `step`, unless the input is disabled, read-only or at `max`, and fires `input` and `change`.",
-    "category": "API",
-    "url": "/react/api/#number-field"
-  },
-  {
     "id": "api-one-time-code-react",
     "title": "One-time code API",
     "description": "Reference for One-time code React component.",
@@ -4898,6 +4855,14 @@
     "api": "Stat A `dl` with the label, the value and the description, so a screen reader reads them as one term with its details. The label. label label The value, in tabular numbers. default The description. description description description Text under the value, such as the change since last week. label What the value counts, such as Visitors. size The size of the value.",
     "category": "API",
     "url": "/react/api/#stat"
+  },
+  {
+    "id": "api-step-button-react",
+    "title": "Step button API",
+    "description": "Reference for Step button React component.",
+    "api": "StepButton A `.ui-button.ui-round` with `command=\"--step-down\"` or `command=\"--step-up\"`. Renders a minus or a plus icon by default, or the icon in its default slot. Disabled while the input is, and `aria-disabled` at `min` or `max`, while the input is read-only and while it is `aria-disabled`. `<opui-step-button>` keeps it in step, also when a script changes the input. Hidden until `<opui-step-button>` is defined. command Which way the button steps the input: `--step-down` or `--step-up`, as on the element. htmlFor The `id` of the number input the button steps, as `htmlFor` like on a label, and its button's `commandfor` and `aria-controls`. label The accessible name of the button, by `command`. Pass it translated. input The `<input>` its button's `commandfor` names, or `null`. Read-only. step() Steps the value down or up by `step`, as its button's `command` says, unless the input is disabled, read-only or at `min` or `max`, and fires `input` and `change`.",
+    "category": "API",
+    "url": "/react/api/#step-button"
   },
   {
     "id": "api-stepper-item-react",

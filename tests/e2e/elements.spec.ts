@@ -335,15 +335,15 @@ const ELEMENTS: Scenario[] = [
         window.removed.element.querySelector("input")!.value = "1"
       })
     },
-    file: "number-field.js",
-    markup: `<opui-number-field class="ui-number-field">
+    file: "step-button.js",
+    markup: `<div class="ui-field">
       <label class="ui-label" for="quantity">Quantity</label>
       <span class="ui-field-container">
-        <span class="ui-start"><button class="ui-button" type="button" aria-label="Decrease" command="--step-down" commandfor="quantity">-</button></span>
+        <span class="ui-start"><opui-step-button><button class="ui-button" type="button" aria-label="Decrease" command="--step-down" commandfor="quantity">-</button></opui-step-button></span>
         <input max="3" min="1" value="1" id="quantity" type="number" />
-        <span class="ui-end"><button class="ui-button" type="button" aria-label="Increase" command="--step-up" commandfor="quantity">+</button></span>
+        <span class="ui-end"><opui-step-button><button class="ui-button" type="button" aria-label="Increase" command="--step-up" commandfor="quantity">+</button></opui-step-button></span>
       </span>
-    </opui-number-field>`,
+    </div>`,
     ready: async (page) => {
       await expect(
         page.getByRole("button", { name: "Decrease" }),
@@ -352,7 +352,7 @@ const ELEMENTS: Scenario[] = [
         page.getByRole("button", { name: "Increase" }),
       ).not.toHaveAttribute("aria-disabled")
     },
-    selector: "opui-number-field",
+    selector: ".ui-field:has(opui-step-button)",
     title: "steps the value and marks a button at its limit",
     works: async (page) => {
       const input = page.getByRole("spinbutton", { name: "Quantity" })
@@ -362,7 +362,7 @@ const ELEMENTS: Scenario[] = [
         page.getByRole("button", { name: "Decrease" }),
       ).not.toHaveAttribute("aria-disabled")
       await page.evaluate(() =>
-        document.querySelector("opui-number-field")!.stepUp(),
+        document.querySelectorAll("opui-step-button")[1]!.step(),
       )
       await expect(input).toHaveValue("3")
       await expect(

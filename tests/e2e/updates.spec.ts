@@ -36,8 +36,6 @@ const KNOWN: Record<string, string> = {
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "react/FileUpload without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
-  "react/NumberField without native attributes, unset after a render with it":
-    "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   'react/PasswordToggle without class="Text", unset after a render with it':
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "react/PasswordToggle without native attributes, unset after a render with it":
@@ -47,6 +45,10 @@ const KNOWN: Record<string, string> = {
   "react/SelectAll without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "react/SortableTable without native attributes, unset after a render with it":
+    "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
+  'react/StepButton without class="Text", unset after a render with it':
+    "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
+  "react/StepButton without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   'react/Toaster without id="Text", unset after a render with it':
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
@@ -58,8 +60,6 @@ const KNOWN: Record<string, string> = {
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "svelte/FileUpload without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
-  "svelte/NumberField without native attributes, unset after a render with it":
-    "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "svelte/PasswordToggle without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   'svelte/Rating without value="Text", unset after a render with it':
@@ -69,6 +69,8 @@ const KNOWN: Record<string, string> = {
   "svelte/SelectAll without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "svelte/SortableTable without native attributes, unset after a render with it":
+    "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
+  "svelte/StepButton without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",
   "svelte/Toaster without native attributes, unset after a render with it":
     "TODO.md Bugs: Copy, Toaster: a removed attribute stays on a custom element root",

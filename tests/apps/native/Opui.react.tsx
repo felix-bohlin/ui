@@ -4,11 +4,11 @@ import { useState } from "react"
 import {
   Checkbox,
   Field,
-  NumberField,
   Radio,
   Range,
   Rating,
   SelectButton,
+  StepButton,
   Tabs,
   TabsItem,
   TabsLabel,
@@ -98,9 +98,15 @@ export default function Opui() {
         </ToggleGroup>
       </form>
       <form data-case="number-default">
-        <NumberField htmlFor="number-default" label="Quantity">
+        <Field
+          autoFit
+          end={<StepButton command="--step-up" htmlFor="number-default" />}
+          htmlFor="number-default"
+          label="Quantity"
+          start={<StepButton command="--step-down" htmlFor="number-default" />}
+        >
           <input defaultValue="1" id="number-default" type="number" />
-        </NumberField>
+        </Field>
       </form>
       <form data-case="radio-bound">
         {["tea", "coffee"].map((drink) => (

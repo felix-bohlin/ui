@@ -9,8 +9,8 @@ import {
   DescriptionListItem,
   DescriptionListTerm,
   Field,
-  NumberField,
   Progress,
+  StepButton,
 } from "opui-css/react"
 
 export default function ShoppingCart() {
@@ -60,11 +60,24 @@ export default function ShoppingCart() {
                   </div>
                 </div>
                 <div className="cart-buy">
-                  <NumberField
+                  <Field
+                    autoFit
+                    end={
+                      <StepButton
+                        command="--step-up"
+                        htmlFor="shopping-cart-qty-gig-bag"
+                      />
+                    }
                     hideLabel
                     htmlFor="shopping-cart-qty-gig-bag"
                     label="Quantity of Comfy Cloud Gig Bag"
                     size="small"
+                    start={
+                      <StepButton
+                        command="--step-down"
+                        htmlFor="shopping-cart-qty-gig-bag"
+                      />
+                    }
                   >
                     <input
                       id="shopping-cart-qty-gig-bag"
@@ -73,7 +86,7 @@ export default function ShoppingCart() {
                       type="number"
                       defaultValue="1"
                     />
-                  </NumberField>
+                  </Field>
                   <p className="ui-tabular-nums cart-line-price">
                     €119.00
                     <s className="ui-caption">
@@ -115,11 +128,24 @@ export default function ShoppingCart() {
                   </div>
                 </div>
                 <div className="cart-buy">
-                  <NumberField
+                  <Field
+                    autoFit
+                    end={
+                      <StepButton
+                        command="--step-up"
+                        htmlFor="shopping-cart-qty-strings"
+                      />
+                    }
                     hideLabel
                     htmlFor="shopping-cart-qty-strings"
                     label="Quantity of Flatwound string set"
                     size="small"
+                    start={
+                      <StepButton
+                        command="--step-down"
+                        htmlFor="shopping-cart-qty-strings"
+                      />
+                    }
                   >
                     <input
                       id="shopping-cart-qty-strings"
@@ -128,7 +154,7 @@ export default function ShoppingCart() {
                       type="number"
                       defaultValue="2"
                     />
-                  </NumberField>
+                  </Field>
                   <p className="ui-tabular-nums cart-line-price">€48.00</p>
                 </div>
               </li>
@@ -165,11 +191,24 @@ export default function ShoppingCart() {
                   </div>
                 </div>
                 <div className="cart-buy">
-                  <NumberField
+                  <Field
+                    autoFit
+                    end={
+                      <StepButton
+                        command="--step-up"
+                        htmlFor="shopping-cart-qty-tee"
+                      />
+                    }
                     hideLabel
                     htmlFor="shopping-cart-qty-tee"
                     label="Quantity of I'm with the bassist tee"
                     size="small"
+                    start={
+                      <StepButton
+                        command="--step-down"
+                        htmlFor="shopping-cart-qty-tee"
+                      />
+                    }
                   >
                     <input
                       id="shopping-cart-qty-tee"
@@ -178,7 +217,7 @@ export default function ShoppingCart() {
                       type="number"
                       defaultValue="1"
                     />
-                  </NumberField>
+                  </Field>
                   <p className="ui-tabular-nums cart-line-price">€29.00</p>
                 </div>
               </li>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { NumberField } from "opui-css/vue"
+import { Field, StepButton } from "opui-css/vue"
 </script>
 
 <template>
-  <NumberField for="number-field-basics-1" label="Quantity">
+  <Field autoFit for="number-field-basics-1" label="Quantity">
     <input
       id="number-field-basics-1"
       max="10"
@@ -11,5 +11,11 @@ import { NumberField } from "opui-css/vue"
       type="number"
       value="1"
     />
-  </NumberField>
+    <template #start>
+      <StepButton command="--step-down" for="number-field-basics-1" />
+    </template>
+    <template #end>
+      <StepButton command="--step-up" for="number-field-basics-1" />
+    </template>
+  </Field>
 </template>

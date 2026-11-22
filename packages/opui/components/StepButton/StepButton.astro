@@ -1,0 +1,36 @@
+---
+import type { Props } from "./types.astro"
+// A dynamic <Tag> or a custom element lets an undefined spread value remove an attribute set before it: tests/unit/tooling-bugs.test.ts
+import { defined } from "../attrs"
+
+export const title = "Step Button"
+
+const { command, for: htmlFor, label, ...rest } = Astro.props
+
+const name = label ?? (command === "--step-down" ? "Decrease" : "Increase")
+---
+
+<opui-step-button {...defined(rest)}>
+  <button
+    class="ui-button ui-round"
+    type="button"
+    aria-controls={htmlFor}
+    aria-label={name}
+    command={command}
+    commandfor={htmlFor}
+  >
+    <slot>
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      ></svg>
+    </slot>
+  </button>
+</opui-step-button>
+
+<script>
+  import "../../elements/step-button.js"
+</script>

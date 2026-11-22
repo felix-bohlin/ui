@@ -5,10 +5,10 @@ import {
   Checkbox,
   Field,
   Menu,
-  NumberField,
   PasswordToggle,
   Rating,
   SelectButton,
+  StepButton,
   Stepper,
   Tabs,
   TabsItem,
@@ -87,14 +87,20 @@ onBeforeUnmount(() =>
         <PasswordToggle for="models-password" />
       </template>
     </Field>
-    <NumberField for="models-quantity" label="Quantity">
+    <Field autoFit for="models-quantity" label="Quantity">
       <input
         :aria-invalid="error ? 'true' : undefined"
         id="models-quantity"
         type="number"
         value="1"
       />
-    </NumberField>
+      <template #start>
+        <StepButton command="--step-down" for="models-quantity" />
+      </template>
+      <template #end>
+        <StepButton command="--step-up" for="models-quantity" />
+      </template>
+    </Field>
     <Checkbox :checked="false" :error>Newsletter</Checkbox>
     <Field for="models-size" label="Size">
       <select :aria-invalid="error ? 'true' : undefined" id="models-size">

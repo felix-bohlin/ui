@@ -3,10 +3,10 @@ import {
   Checkbox,
   Field,
   Menu,
-  NumberField,
   PasswordToggle,
   Rating,
   SelectButton,
+  StepButton,
   Stepper,
   Tabs,
   TabsItem,
@@ -70,14 +70,20 @@ export default function Models() {
           type="password"
         />
       </Field>
-      <NumberField htmlFor="models-quantity" label="Quantity">
+      <Field
+        autoFit
+        end={<StepButton command="--step-up" htmlFor="models-quantity" />}
+        htmlFor="models-quantity"
+        label="Quantity"
+        start={<StepButton command="--step-down" htmlFor="models-quantity" />}
+      >
         <input
           aria-invalid={error ? "true" : undefined}
           defaultValue="1"
           id="models-quantity"
           type="number"
         />
-      </NumberField>
+      </Field>
       <Checkbox defaultChecked={false} error={error}>
         Newsletter
       </Checkbox>

@@ -52,15 +52,6 @@ const BOXED = ["start-text", "top", "start", "end", "bottom", "end-text"]
 
 const OWN_CONTROL = [
   {
-    control: '<input id="x" type="number">',
-    drawn: ["start", "control", "end"],
-    name: "NumberField",
-    parts: ["start-text", "end-text"],
-    props: { endText: "E", startText: "S" },
-    slots: {},
-    tag: "input",
-  },
-  {
     control: '<input id="x">',
     drawn: ["control"],
     name: "OneTimeCode",

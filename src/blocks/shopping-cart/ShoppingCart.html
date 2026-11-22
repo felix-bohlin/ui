@@ -35,28 +35,30 @@
             </div>
           </div>
           <div class="cart-buy">
-            <opui-number-field class="ui-number-field ui-small">
+            <div class="ui-field ui-auto-fit ui-small">
               <label class="ui-sr-only" for="shopping-cart-qty-gig-bag"
                 >Quantity of Comfy Cloud Gig Bag</label
               >
               <span class="ui-field-container">
-                <span class="ui-start">
-                  <button
-                    class="ui-button ui-round"
-                    type="button"
-                    aria-controls="shopping-cart-qty-gig-bag"
-                    aria-label="Decrease"
-                    command="--step-down"
-                    commandfor="shopping-cart-qty-gig-bag"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    ></svg>
-                  </button>
+                <span class="ui-start" id="shopping-cart-qty-gig-bag-start">
+                  <opui-step-button>
+                    <button
+                      class="ui-button ui-round"
+                      type="button"
+                      aria-controls="shopping-cart-qty-gig-bag"
+                      aria-label="Decrease"
+                      command="--step-down"
+                      commandfor="shopping-cart-qty-gig-bag"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      ></svg>
+                    </button>
+                  </opui-step-button>
                 </span>
                 <input
                   id="shopping-cart-qty-gig-bag"
@@ -65,26 +67,28 @@
                   type="number"
                   value="1"
                 />
-                <span class="ui-end">
-                  <button
-                    class="ui-button ui-round"
-                    type="button"
-                    aria-controls="shopping-cart-qty-gig-bag"
-                    aria-label="Increase"
-                    command="--step-up"
-                    commandfor="shopping-cart-qty-gig-bag"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    ></svg>
-                  </button>
+                <span class="ui-end" id="shopping-cart-qty-gig-bag-end">
+                  <opui-step-button>
+                    <button
+                      class="ui-button ui-round"
+                      type="button"
+                      aria-controls="shopping-cart-qty-gig-bag"
+                      aria-label="Increase"
+                      command="--step-up"
+                      commandfor="shopping-cart-qty-gig-bag"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      ></svg>
+                    </button>
+                  </opui-step-button>
                 </span>
               </span>
-            </opui-number-field>
+            </div>
             <p class="ui-tabular-nums cart-line-price">
               €119.00
               <s class="ui-caption">
@@ -122,28 +126,30 @@
             </div>
           </div>
           <div class="cart-buy">
-            <opui-number-field class="ui-number-field ui-small">
+            <div class="ui-field ui-auto-fit ui-small">
               <label class="ui-sr-only" for="shopping-cart-qty-strings"
                 >Quantity of Flatwound string set</label
               >
               <span class="ui-field-container">
-                <span class="ui-start">
-                  <button
-                    class="ui-button ui-round"
-                    type="button"
-                    aria-controls="shopping-cart-qty-strings"
-                    aria-label="Decrease"
-                    command="--step-down"
-                    commandfor="shopping-cart-qty-strings"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    ></svg>
-                  </button>
+                <span class="ui-start" id="shopping-cart-qty-strings-start">
+                  <opui-step-button>
+                    <button
+                      class="ui-button ui-round"
+                      type="button"
+                      aria-controls="shopping-cart-qty-strings"
+                      aria-label="Decrease"
+                      command="--step-down"
+                      commandfor="shopping-cart-qty-strings"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      ></svg>
+                    </button>
+                  </opui-step-button>
                 </span>
                 <input
                   id="shopping-cart-qty-strings"
@@ -152,26 +158,28 @@
                   type="number"
                   value="2"
                 />
-                <span class="ui-end">
-                  <button
-                    class="ui-button ui-round"
-                    type="button"
-                    aria-controls="shopping-cart-qty-strings"
-                    aria-label="Increase"
-                    command="--step-up"
-                    commandfor="shopping-cart-qty-strings"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    ></svg>
-                  </button>
+                <span class="ui-end" id="shopping-cart-qty-strings-end">
+                  <opui-step-button>
+                    <button
+                      class="ui-button ui-round"
+                      type="button"
+                      aria-controls="shopping-cart-qty-strings"
+                      aria-label="Increase"
+                      command="--step-up"
+                      commandfor="shopping-cart-qty-strings"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      ></svg>
+                    </button>
+                  </opui-step-button>
                 </span>
               </span>
-            </opui-number-field>
+            </div>
             <p class="ui-tabular-nums cart-line-price">€48.00</p>
           </div>
         </li>
@@ -204,28 +212,30 @@
             </div>
           </div>
           <div class="cart-buy">
-            <opui-number-field class="ui-number-field ui-small">
+            <div class="ui-field ui-auto-fit ui-small">
               <label class="ui-sr-only" for="shopping-cart-qty-tee"
                 >Quantity of I'm with the bassist tee</label
               >
               <span class="ui-field-container">
-                <span class="ui-start">
-                  <button
-                    class="ui-button ui-round"
-                    type="button"
-                    aria-controls="shopping-cart-qty-tee"
-                    aria-label="Decrease"
-                    command="--step-down"
-                    commandfor="shopping-cart-qty-tee"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    ></svg>
-                  </button>
+                <span class="ui-start" id="shopping-cart-qty-tee-start">
+                  <opui-step-button>
+                    <button
+                      class="ui-button ui-round"
+                      type="button"
+                      aria-controls="shopping-cart-qty-tee"
+                      aria-label="Decrease"
+                      command="--step-down"
+                      commandfor="shopping-cart-qty-tee"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      ></svg>
+                    </button>
+                  </opui-step-button>
                 </span>
                 <input
                   id="shopping-cart-qty-tee"
@@ -234,26 +244,28 @@
                   type="number"
                   value="1"
                 />
-                <span class="ui-end">
-                  <button
-                    class="ui-button ui-round"
-                    type="button"
-                    aria-controls="shopping-cart-qty-tee"
-                    aria-label="Increase"
-                    command="--step-up"
-                    commandfor="shopping-cart-qty-tee"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    ></svg>
-                  </button>
+                <span class="ui-end" id="shopping-cart-qty-tee-end">
+                  <opui-step-button>
+                    <button
+                      class="ui-button ui-round"
+                      type="button"
+                      aria-controls="shopping-cart-qty-tee"
+                      aria-label="Increase"
+                      command="--step-up"
+                      commandfor="shopping-cart-qty-tee"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      ></svg>
+                    </button>
+                  </opui-step-button>
                 </span>
               </span>
-            </opui-number-field>
+            </div>
             <p class="ui-tabular-nums cart-line-price">€29.00</p>
           </div>
         </li>
@@ -438,5 +450,5 @@
 </style>
 
 <script type="module">
-  import "opui-css/elements/number-field.js"
+  import "opui-css/elements/step-button.js"
 </script>

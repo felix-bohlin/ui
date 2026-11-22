@@ -53,7 +53,6 @@ export { default as Menu } from "../components/Menu/Menu.svelte"
 export { default as Message } from "../components/Message/Message.svelte"
 export { default as MessageList } from "../components/Message/MessageList.svelte"
 export { default as Meter } from "../components/Meter/Meter.svelte"
-export { default as NumberField } from "../components/NumberField/NumberField.svelte"
 export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.svelte"
 export { default as PasswordToggle } from "../components/PasswordToggle/PasswordToggle.svelte"
 export { default as Progress } from "../components/Progress/Progress.svelte"
@@ -66,6 +65,7 @@ export { default as SelectAll } from "../components/SelectAll/SelectAll.svelte"
 export { default as SelectButton } from "../components/SelectButton/SelectButton.svelte"
 export { default as SortableTable } from "../components/SortableTable/SortableTable.svelte"
 export { default as Stat } from "../components/Stat/Stat.svelte"
+export { default as StepButton } from "../components/StepButton/StepButton.svelte"
 export { default as Stepper } from "../components/Stepper/Stepper.svelte"
 export { default as StepperItem } from "../components/Stepper/StepperItem.svelte"
 export { default as Switch } from "../components/Switch/Switch.svelte"
@@ -174,7 +174,6 @@ export type {
   Props as MessageProps,
 } from "../components/Message/types.svelte"
 export type { Props as MeterProps } from "../components/Meter/types.svelte"
-export type { Props as NumberFieldProps } from "../components/NumberField/types.svelte"
 export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.svelte"
 export type { Props as PasswordToggleProps } from "../components/PasswordToggle/types.svelte"
 export type { Props as ProgressProps } from "../components/Progress/types.svelte"
@@ -195,6 +194,7 @@ export type { Props as SelectButtonProps } from "../components/SelectButton/type
 export type { SortDetail } from "../components/SortableTable/types"
 export type { Props as SortableTableProps } from "../components/SortableTable/types.svelte"
 export type { Props as StatProps } from "../components/Stat/types.svelte"
+export type { Props as StepButtonProps } from "../components/StepButton/types.svelte"
 export type {
   StepperItemProps,
   Props as StepperProps,

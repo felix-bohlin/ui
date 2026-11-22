@@ -42,7 +42,7 @@ export default {
     {
       code: "<datalist>",
       description:
-        'Tick marks for the input it\'s linked to with `list`, and the `label` of each option under its mark. Give it `aria-hidden="true"`, since the labels repeat the value.',
+        "Tick marks for the input it's linked to with `list`, and the `label` of each option under its mark. Give it `aria-hidden=\"true\"`, and set `aria-valuetext` on the input to the label at its value, since screen readers don't read the datalist.",
       selector: ".ui-field-container > datalist",
     },
   ],

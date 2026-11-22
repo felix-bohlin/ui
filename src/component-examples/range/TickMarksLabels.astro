@@ -4,10 +4,12 @@ import { Field } from "opui-css/astro"
 
 <Field for="range-tick-marks-labels-1" label="Opacity">
   <input
+    aria-valuetext="50%"
     id="range-tick-marks-labels-1"
     list="range-tick-marks-labels-1-list"
     step="25"
     type="range"
+    value="50"
   />
   <datalist aria-hidden="true" id="range-tick-marks-labels-1-list">
     <option label="0%" value="0"></option>
@@ -19,6 +21,7 @@ import { Field } from "opui-css/astro"
 </Field>
 <Field for="range-tick-marks-labels-2" label="Quality">
   <input
+    aria-valuetext="Medium"
     id="range-tick-marks-labels-2"
     list="range-tick-marks-labels-2-list"
     max="2"
@@ -31,3 +34,16 @@ import { Field } from "opui-css/astro"
     <option label="High" value="2"></option>
   </datalist>
 </Field>
+
+<script>
+  for (const input of document.querySelectorAll<HTMLInputElement>(
+    '[list^="range-tick-marks-labels-"]',
+  )) {
+    input.addEventListener("input", () => {
+      const option = [...(input.list?.options ?? [])].find(
+        ({ value }) => value === input.value,
+      )
+      if (option) input.setAttribute("aria-valuetext", option.label)
+    })
+  }
+</script>

@@ -178,12 +178,15 @@ export const keywords = ["slider"]
       <Fragment slot="components">
         Write a <code>&lt;datalist&gt;</code> after the input and link it with
         <code>list</code>. The <code>label</code> of each option shows under its
-        mark.
+        mark. Screen readers don't read the datalist, so set
+        <code>aria-valuetext</code> on the input to the label at its value.
       </Fragment>
       <Fragment slot="html">
         Put a <code>&lt;datalist&gt;</code> after the input and link it with
         <code>list</code>. The <code>label</code> of each option shows under its
-        mark.
+        mark. Screen readers don't read the datalist, so set
+        <code>aria-valuetext</code> on the input to the label at its value, on
+        <code>input</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="TickMarksLabels" column />

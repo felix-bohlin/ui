@@ -11,7 +11,7 @@ A slider for picking a number by moving a thumb along a track.
 
 - `.ui-field:has(> .ui-field-container > input[type="range"])` (root): A `.ui-field` with an `<input type="range">` in its container, which `range.css` draws without the field's box, as tall as any field's control.
 - `<input type="range">`: Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's `variant` and `size` set the track and thumb.
-- `<datalist>`: Labels for the input it's linked to with `list`: the `label` of each option shows under its value. The labels are spread evenly, so space the values evenly. Give it `aria-hidden="true"`, since the labels repeat the value.
+- `<datalist>`: Labels for the input it's linked to with `list`: the `label` of each option shows under its value. The labels are spread evenly, so space the values evenly. Give it `aria-hidden="true"`, and set `aria-valuetext` on the input to the label at its value, since screen readers don't read the datalist.
 
 ### Notes
 
@@ -36,7 +36,7 @@ Outputs: `--_focus-ring-duration`, `--_forced-fill-bg-color`, `--_forced-track-b
 
 ### text-field.css
 
-- `--_accent`: Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a Select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
+- `--_accent`: Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
 - `--_arrow-inset`: Distance of the select arrow from the inline end.
 - `--_chevron-image`: The select arrow, as an image used for a mask.
 - `--_chevron-size`: Width and height of the select arrow.

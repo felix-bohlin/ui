@@ -1123,6 +1123,13 @@
     "url": "/vue/components/field/#basics"
   },
   {
+    "id": "component-field-vue-ids",
+    "title": "Ids",
+    "page": "Field",
+    "category": "Component",
+    "url": "/vue/components/field/#ids"
+  },
+  {
     "id": "component-field-vue-variants",
     "title": "Variants",
     "page": "Field",

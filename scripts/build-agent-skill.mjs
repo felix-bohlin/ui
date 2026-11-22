@@ -130,8 +130,20 @@ function readDocsPage(slug) {
       .matchAll(/title: "([\w-]+)\.css"/g) ?? [],
     ([, name]) => name,
   )
-  const example = source.match(/<AutoExample\s+name="(\w+)"/)?.[1]
-  return { apiOrder, example, stylesheets }
+  const shown = Array.from(
+    source.matchAll(/<AutoExample\s+name="(\w+)"/g),
+    ([, name]) => name,
+  )
+  const listed = source
+    .match(/^export const skillExamples = \[([^\]]*)\]/m)?.[1]
+    .match(/\w+/g)
+  const missing = listed?.filter((name) => !shown.includes(name)) ?? []
+  if (missing.length > 0) {
+    throw new Error(
+      `${slug}: skillExamples names ${list(missing)}, which the page shows in no <AutoExample>`,
+    )
+  }
+  return { apiOrder, examples: listed ?? shown.slice(0, 1), stylesheets }
 }
 
 const PARAGRAPH_START = /^(\s*)<p>/
@@ -177,20 +189,24 @@ function exampleSource(slug, name, framework) {
   return undefined
 }
 
-function exampleLines(framework, slug, example) {
-  if (!example) throw new Error(`${slug}: the docs page has no <AutoExample>`)
-  const source = exampleSource(slug, example, framework)
-  if (!source) {
-    throw new Error(
-      `${slug}: no ${labelOf(framework)} source for the ${example} example in ${path.join(EXAMPLES, slug)}`,
-    )
+function exampleLines(framework, slug, examples) {
+  if (examples.length === 0) {
+    throw new Error(`${slug}: the docs page has no <AutoExample>`)
   }
-  return [
-    "",
-    `### Example: ${sentence(example)}`,
-    "",
-    `\`\`\`${LANGUAGES[framework]}\n${source}\n\`\`\``,
-  ]
+  return examples.flatMap((example) => {
+    const source = exampleSource(slug, example, framework)
+    if (!source) {
+      throw new Error(
+        `${slug}: no ${labelOf(framework)} source for the ${example} example in ${path.join(EXAMPLES, slug)}`,
+      )
+    }
+    return [
+      "",
+      `### Example: ${sentence(example)}`,
+      "",
+      `\`\`\`${LANGUAGES[framework]}\n${source}\n\`\`\``,
+    ]
+  })
 }
 
 const shippedIn = (api, framework) => !api.source || shipped(api, framework)
@@ -462,7 +478,7 @@ function exportsOf(framework) {
   )
 }
 
-function frameworkSection(framework, apis, slug, example) {
+function frameworkSection(framework, apis, slug, examples) {
   const exported = exportsOf(framework)
   const names = [
     ...new Set(
@@ -500,7 +516,7 @@ function frameworkSection(framework, apis, slug, example) {
     ]
     if (details.length > 0) lines.push("", ...details)
   }
-  lines.push(...exampleLines(framework, slug, example))
+  lines.push(...exampleLines(framework, slug, examples))
   return lines.join("\n")
 }
 
@@ -643,8 +659,8 @@ async function componentReference(component, apis, docs) {
       : []),
     ...pageFrameworks.map((f) =>
       f.id === "html"
-        ? ["## HTML", ...exampleLines("html", slug, docs.example)].join("\n")
-        : frameworkSection(f.id, ordered, slug, docs.example),
+        ? ["## HTML", ...exampleLines("html", slug, docs.examples)].join("\n")
+        : frameworkSection(f.id, ordered, slug, docs.examples),
     ),
   ]
   return `${compact(sections.join("\n\n"))}\n`

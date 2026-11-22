@@ -1123,6 +1123,13 @@
     "url": "/react/components/field/#basics"
   },
   {
+    "id": "component-field-react-ids",
+    "title": "Ids",
+    "page": "Field",
+    "category": "Component",
+    "url": "/react/components/field/#ids"
+  },
+  {
     "id": "component-field-react-variants",
     "title": "Variants",
     "page": "Field",

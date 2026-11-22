@@ -1123,6 +1123,13 @@
     "url": "/astro/components/field/#basics"
   },
   {
+    "id": "component-field-astro-ids",
+    "title": "Ids",
+    "page": "Field",
+    "category": "Component",
+    "url": "/astro/components/field/#ids"
+  },
+  {
     "id": "component-field-astro-variants",
     "title": "Variants",
     "page": "Field",

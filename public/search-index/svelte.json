@@ -1123,6 +1123,13 @@
     "url": "/svelte/components/field/#basics"
   },
   {
+    "id": "component-field-svelte-ids",
+    "title": "Ids",
+    "page": "Field",
+    "category": "Component",
+    "url": "/svelte/components/field/#ids"
+  },
+  {
     "id": "component-field-svelte-variants",
     "title": "Variants",
     "page": "Field",

@@ -1123,6 +1123,13 @@
     "url": "/solid/components/field/#basics"
   },
   {
+    "id": "component-field-solid-ids",
+    "title": "Ids",
+    "page": "Field",
+    "category": "Component",
+    "url": "/solid/components/field/#ids"
+  },
+  {
     "id": "component-field-solid-variants",
     "title": "Variants",
     "page": "Field",

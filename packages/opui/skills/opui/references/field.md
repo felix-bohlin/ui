@@ -141,6 +141,63 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 </div>
 ```
 
+### Example: Ids
+
+```html
+<div class="ui-field ui-auto-fit">
+  <label class="ui-label" for="field-ids-1">Quantity</label>
+  <span class="ui-field-container">
+    <span class="ui-start" id="field-ids-1-start">
+      <opui-step-button>
+        <button
+          class="ui-button ui-round"
+          type="button"
+          aria-controls="field-ids-1"
+          aria-label="Decrease"
+          command="--step-down"
+          commandfor="field-ids-1"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          ></svg>
+        </button>
+      </opui-step-button>
+    </span>
+    <input
+      aria-describedby="field-ids-1-end-text"
+      id="field-ids-1"
+      max="10"
+      min="1"
+      type="number"
+      value="1"
+    />
+    <span class="ui-end" id="field-ids-1-end">
+      <opui-step-button>
+        <button
+          class="ui-button ui-round"
+          type="button"
+          aria-controls="field-ids-1"
+          aria-label="Increase"
+          command="--step-up"
+          commandfor="field-ids-1"
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24"></svg>
+        </button>
+      </opui-step-button>
+    </span>
+  </span>
+  <span class="ui-end-text" id="field-ids-1-end-text">Up to 10 per order.</span>
+</div>
+
+<script type="module">
+  import "opui-css/elements/step-button.js"
+</script>
+```
+
 ## Astro
 
 `import { Field } from "opui-css/astro"`
@@ -168,6 +225,29 @@ import { Field, SelectButton } from "opui-css/astro"
 </Field>
 <Field for="field-basics-3" label="Influences">
   <textarea id="field-basics-3" name="influences"></textarea>
+</Field>
+```
+
+### Example: Ids
+
+```astro
+---
+import { Field, StepButton } from "opui-css/astro"
+
+const id = "field-ids-1"
+---
+
+<Field autoFit endText="Up to 10 per order." for={id} label="Quantity">
+  <input
+    aria-describedby={`${id}-end-text`}
+    id={id}
+    max="10"
+    min="1"
+    type="number"
+    value="1"
+  />
+  <StepButton command="--step-down" for={id} slot="start" />
+  <StepButton command="--step-up" for={id} slot="end" />
 </Field>
 ```
 
@@ -201,6 +281,36 @@ export default function Basics() {
         <textarea id="field-basics-3" name="influences"></textarea>
       </Field>
     </>
+  )
+}
+```
+
+### Example: Ids
+
+```tsx
+import { useId } from "react"
+import { Field, StepButton } from "opui-css/react"
+
+export default function Ids() {
+  const id = useId()
+  return (
+    <Field
+      autoFit
+      end={<StepButton command="--step-up" htmlFor={id} />}
+      endText="Up to 10 per order."
+      htmlFor={id}
+      label="Quantity"
+      start={<StepButton command="--step-down" htmlFor={id} />}
+    >
+      <input
+        aria-describedby={`${id}-end-text`}
+        defaultValue="1"
+        id={id}
+        max="10"
+        min="1"
+        type="number"
+      />
+    </Field>
   )
 }
 ```
@@ -240,6 +350,37 @@ export default function Basics() {
 }
 ```
 
+### Example: Ids
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { createUniqueId } from "solid-js"
+import { Field, StepButton } from "opui-css/solid"
+
+export default function Ids() {
+  const id = createUniqueId()
+  return (
+    <Field
+      autoFit
+      end={<StepButton command="--step-up" for={id} />}
+      endText="Up to 10 per order."
+      for={id}
+      label="Quantity"
+      start={<StepButton command="--step-down" for={id} />}
+    >
+      <input
+        aria-describedby={`${id}-end-text`}
+        defaultValue="1"
+        id={id}
+        max="10"
+        min="1"
+        type="number"
+      />
+    </Field>
+  )
+}
+```
+
 ## Svelte
 
 `import { Field } from "opui-css/svelte"`
@@ -267,6 +408,33 @@ export default function Basics() {
 </Field>
 <Field for="field-basics-3" label="Influences">
   <textarea id="field-basics-3" name="influences"></textarea>
+</Field>
+```
+
+### Example: Ids
+
+```svelte
+<script lang="ts">
+  import { Field, StepButton } from "opui-css/svelte"
+
+  const id = $props.id()
+</script>
+
+<Field autoFit endText="Up to 10 per order." for={id} label="Quantity">
+  <input
+    aria-describedby="{id}-end-text"
+    {id}
+    max="10"
+    min="1"
+    type="number"
+    value="1"
+  />
+  {#snippet start()}
+    <StepButton command="--step-down" for={id} />
+  {/snippet}
+  {#snippet end()}
+    <StepButton command="--step-up" for={id} />
+  {/snippet}
 </Field>
 ```
 
@@ -298,6 +466,36 @@ import { Field, SelectButton } from "opui-css/vue"
   </Field>
   <Field for="field-basics-3" label="Influences">
     <textarea id="field-basics-3" name="influences"></textarea>
+  </Field>
+</template>
+```
+
+### Example: Ids
+
+```vue
+<script setup lang="ts">
+import { useId } from "vue"
+import { Field, StepButton } from "opui-css/vue"
+
+const id = useId()
+</script>
+
+<template>
+  <Field autoFit endText="Up to 10 per order." :for="id" label="Quantity">
+    <input
+      :aria-describedby="`${id}-end-text`"
+      :id="id"
+      max="10"
+      min="1"
+      type="number"
+      :value.attr="'1'"
+    />
+    <template #start>
+      <StepButton command="--step-down" :for="id" />
+    </template>
+    <template #end>
+      <StepButton command="--step-up" :for="id" />
+    </template>
   </Field>
 </template>
 ```

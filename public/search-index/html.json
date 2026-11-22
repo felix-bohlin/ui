@@ -1123,6 +1123,13 @@
     "url": "/html/components/field/#basics"
   },
   {
+    "id": "component-field-html-ids",
+    "title": "Ids",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#ids"
+  },
+  {
     "id": "component-field-html-variants",
     "title": "Variants",
     "page": "Field",

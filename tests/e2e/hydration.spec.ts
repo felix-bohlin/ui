@@ -29,6 +29,7 @@ const LATE: Partial<Record<Framework, Late[]>> = {
       attribute: "aria-disabled",
       examples: [
         "control-group/Fields",
+        "field/Ids",
         "number-field/Basics",
         "number-field/Buttons",
         "number-field/Stretch",

@@ -25,6 +25,10 @@ for (const framework of FRAMEWORKS) {
       page,
     }) => {
       test.slow(browserName === "webkit", "WebKit lays out these pages slowly")
+      test.slow(
+        slug === "carousel",
+        "the carousel page's 18 carousels lay out their scroll markers and buttons in about 1.2 s per resize in Chromium, 3.5 s of the 4.2 s the three widths take",
+      )
       await page.emulateMedia({ reducedMotion: "reduce" })
       await page.route(
         (url) => url.hostname !== "localhost",

@@ -1,0 +1,12 @@
+---
+import type { Props } from "./types.astro"
+
+export const title = "Select Button"
+
+const SelectedContent = "selectedcontent"
+const { ...rest } = Astro.props
+---
+
+<button {...rest}>
+  <SelectedContent />
+</button>

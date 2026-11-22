@@ -1,0 +1,21 @@
+/** @jsxImportSource @solidjs/web */
+import { OneTimeCode } from "opui-css/solid"
+
+export default function HiddenLabel() {
+  return (
+    <OneTimeCode
+      for="one-time-code-hidden-label-1"
+      hideLabel
+      label="Verification code"
+    >
+      <input
+        autocomplete="one-time-code"
+        id="one-time-code-hidden-label-1"
+        inputmode="numeric"
+        maxlength="6"
+        name="code"
+        pattern="[0-9]{6}"
+      />
+    </OneTimeCode>
+  )
+}

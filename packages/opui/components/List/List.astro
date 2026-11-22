@@ -1,29 +1,36 @@
 ---
 import type { Props } from "./types.astro"
+// A dynamic <Tag> or a custom element lets an undefined spread value remove an attribute set before it: tests/unit/tooling-bugs.test.ts
+import { defined } from "../attrs"
+import { cx } from "../cx"
+
 export const title = "List"
 
 const {
+  as: Tag = "ul",
   bordered,
   class: className,
   dense,
-  gutterless,
+  flush,
+  role,
   variant,
   ...rest
 } = Astro.props
 ---
 
-<ul
-  class:list={[
+<Tag
+  class={cx([
     "ui-list",
     {
       "ui-bordered": bordered,
       "ui-dense": dense,
-      "ui-gutterless": gutterless,
+      "ui-flush": flush,
     },
-    variant && `ui-${variant}`,
+    variant && variant !== "filled" && `ui-${variant}`,
     className,
-  ]}
-  {...rest}
+  ])}
+  role={role ?? "list"}
+  {...defined(rest)}
 >
   <slot />
-</ul>
+</Tag>

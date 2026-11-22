@@ -1,0 +1,449 @@
+---
+import { TableCell, TableRow } from "opui-css/astro"
+import Code from "../../components/Code.astro"
+import DocLink from "../../components/DocLink.astro"
+import DocsTable from "../../components/DocsTable.astro"
+import Guide from "../../layouts/Guide.astro"
+import { FIGMA_THEMES } from "../../utils/figma-themes"
+import { FIGMA_MODES } from "../../utils/figma-tokens"
+import { formatInline } from "../../utils/format-inline"
+import { themeTokenDescriptions } from "../../utils/theme-token-descriptions"
+import { themeTokenPromises } from "../../utils/theme-token-promises"
+import { themeTokenSections, tokenTier } from "../../utils/theme-tokens"
+import { tokenType } from "../../utils/tokens-json"
+import { leadSentence } from "../../utils/lead-sentence"
+
+const html = (text: string) => formatInline(text, Astro.locals.link)
+
+const sections = themeTokenSections()
+  .filter((section) => section.tokens.length > 0)
+  .map((section) => ({
+    ...section,
+    tokens: section.tokens.map((token) => {
+      const [lead, rest] = leadSentence(
+        themeTokenDescriptions[token.name] ?? "",
+      )
+      return {
+        ...token,
+        lead,
+        promise: themeTokenPromises[token.name],
+        rest,
+        swatch: tokenType(token.name) === "color" && !token.optional,
+        tier: tokenTier(token.name),
+      }
+    }),
+  }))
+const slug = (title: string) =>
+  title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+
+const tiers = [
+  ["knob", "An input a theme turns, like a hue."],
+  ["primitive", "Derived from the knobs. No component reads it."],
+  ["role", "What components read. Most tokens."],
+  ["hook", "An optional role, unset until a theme sets it."],
+  ["component", "Read by one component."],
+  ["input", "Set on an element, never by a theme."],
+]
+
+const scopes = [
+  ["Roles", "<code>html</code> or any element"],
+  [
+    "Roles derived from other roles",
+    "<code>html</code>, <code>.ui-palette</code>, <code>.ui-contrast-more</code>",
+  ],
+  [
+    "<code>--ui-density</code>, <code>--ui-space-scale</code>",
+    "<code>html</code>, <code>.ui-palette</code>, <code>.ui-contrast-more</code>",
+  ],
+  [
+    "<code>--ui-palette-*</code>",
+    "<code>html</code>, <code>.ui-palette</code>",
+  ],
+]
+
+const parts = [
+  ["<code>--ui-on-*</code>", "Text on a fill", "<code>--ui-on-primary</code>"],
+  [
+    "<code>-text</code>",
+    "A color tuned for reading, 4.5:1 on every surface",
+    "<code>--ui-primary-text</code>",
+  ],
+  [
+    "<code>-on-*</code>",
+    "Drawn on that surface",
+    "<code>--ui-border-color-on-raised</code>",
+  ],
+  [
+    "<code>light</code>, <code>dark</code>",
+    "A color scheme",
+    "<code>--ui-border-strength-dark</code>",
+  ],
+  [
+    "<code>inverse</code>",
+    "The opposite scheme",
+    "<code>--ui-surface-inverse</code>",
+  ],
+  ["<code>contrast</code>", "The contrast mode", "<code>--ui-contrast</code>"],
+  [
+    "<code>--ui-&lt;component&gt;-*</code>",
+    "A component token, ending in the property it sets",
+    "<code>--ui-button-radius</code>",
+  ],
+]
+
+const sample = JSON.stringify(
+  {
+    "ui-radius": {
+      $description: "Corner radius for every component...",
+      $type: "dimension",
+      $value: { unit: "rem", value: 0.5 },
+      $extensions: {
+        opui: { css: "0.5rem", cssVar: "--ui-radius", tier: "role" },
+      },
+    },
+  },
+  null,
+  2,
+)
+
+export const keywords = [
+  "css variables",
+  "custom properties",
+  "design tokens",
+  "variables",
+]
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Theme tokens</Fragment>
+  <Fragment slot="preamble">
+    Every token, its default and what it does.
+  </Fragment>
+
+  <section>
+    <dl class="tier-legend ui-not-rich-text">
+      {tiers.map(([name, note]) => <div>
+        <dt>
+          <span class="ui-chip ui-outlined ui-x-small">
+            <span class="ui-text">{name}</span>
+          </span>
+        </dt>
+        <dd>{note}</dd>
+      </div>)}
+    </dl>
+    <p>
+      <span class="ui-chip ui-x-small"><span class="ui-text">4.5:1</span></span>
+      marks a contrast the tests check in light and dark mode, and with more
+      contrast. See
+      <DocLink href="/guide/concepts#token-tiers">Token tiers</DocLink>.
+    </p>
+  </section>
+
+  <section id="overriding">
+    <h2>Overriding tokens</h2>
+    <p>
+      Set them in
+      <DocLink href="/guide/customizing#your-theme"
+        ><code>@layer theme.custom</code></DocLink
+      >, or let the <DocLink href="/theme-builder">Theme builder</DocLink> write
+      them.
+    </p>
+    <DocsTable columns={[{ label: "Token" }, { label: "Takes effect on" }]}>
+      {scopes.map(([token, where]) => <TableRow>
+        <TableCell set:html={token} />
+        <TableCell set:html={where} />
+      </TableRow>)}
+    </DocsTable>
+  </section>
+
+  <section id="tokens-json">
+    <h2>tokens.json</h2>
+    <p>
+      The same list in the
+      <a href="https://www.designtokens.org/" class="ui-link"
+        >W3C design tokens</a
+      >
+      format, as <code>opui-css/tokens.json</code> and
+      <a href="/tokens.json" class="ui-link">/tokens.json</a>:
+    </p>
+    <Code code={sample} lang="json" />
+    <ul>
+      <li>
+        Numbers, <code>px</code> and <code>rem</code> lengths and aliases are
+        native values, with the CSS in <code>$extensions.opui.css</code>.
+      </li>
+      <li>Other values are the CSS expression. Resolve them first.</li>
+      <li>
+        Unset tokens have no <code>$value</code>, only an <code>example</code>.
+      </li>
+      <li>
+        Each group has a fixed key, such as <code>intent</code> or
+        <code>field</code>, which starts every alias path, like
+        <code>{"{typography.ui-font-size-100}"}</code>, and every Figma variable
+        name.
+      </li>
+    </ul>
+  </section>
+
+  <section id="figma">
+    <h2>Figma</h2>
+    <p>
+      Every theme comes resolved for Figma, as variables in a collection with a
+      mode per color scheme: Light, Dark, Light more contrast and Dark more
+      contrast. Each variable has its CSS name as code syntax, so Dev Mode shows
+      <code>var(--ui-surface)</code>, and is scoped to the properties it fits.
+      The palette steps are hidden from publishing, since components read the
+      roles.
+    </p>
+    <h3 id="figma-plugin">With the plugin</h3>
+    <ol>
+      <li>
+        Download the
+        <a href="/opui-figma-plugin.zip" class="ui-link">opui Figma plugin</a>
+        and unzip it.
+      </li>
+      <li>
+        In the Figma desktop app, open a design file, choose Plugins,
+        Development, Import plugin from manifest, and pick its
+        <code>manifest.json</code>.
+      </li>
+      <li>
+        Run it, pick a theme or the <code>theme.figma.json</code> from the
+        <DocLink href="/theme-builder">Theme builder</DocLink>'s Figma download,
+        and press Sync to this file.
+      </li>
+    </ol>
+    <p>
+      It also makes effect styles for the shadows, with each layer bound to
+      variables so they follow the mode, and text styles for the headings, body
+      text, caption, overline and code, with fonts picked from the font stack
+      among the ones the file has. It writes Display P3 colors in a P3 file.
+      Running it again updates every variable and style in place. On Figma's
+      Starter plan a collection has one mode, so each mode gets a collection.
+    </p>
+    <h3 id="figma-files">Without the plugin</h3>
+    <p>
+      In the Variables panel, right-click a mode, choose Import mode and pick
+      that mode's file. The mode files hold the variables, with colors in sRGB,
+      and the plugin file holds everything the plugin makes.
+    </p>
+    <DocsTable
+      columns={[
+        { label: "Theme" },
+        { label: "Plugin file" },
+        { label: "Mode files" },
+      ]}
+    >
+      {FIGMA_THEMES.map(({ id, label }) => <TableRow>
+        <TableCell>{label}</TableCell>
+        <TableCell
+          ><a href={`/figma/${id}.figma.json`} class="ui-link"
+            >{id}.figma.json</a
+          ></TableCell
+        >
+        <TableCell>
+          {FIGMA_MODES.map((mode, index) => <Fragment>
+            {index > 0 && ", "}
+            <a href={`/figma/${id}/${mode.id}.tokens.json`} class="ui-link"
+              >{mode.name}</a
+            >
+          </Fragment>)}
+        </TableCell>
+      </TableRow>)}
+    </DocsTable>
+    <ul>
+      <li>
+        Tokens that depend on where they're read, like the palette roles inside
+        <code>.ui-palette</code> and the severity scopes, have their root
+        values.
+      </li>
+      <li>
+        A color outside sRGB loses chroma until it fits, which keeps its
+        lightness and so its contrast.
+      </li>
+      <li>
+        The fluid heading sizes are taken at a 1440px wide viewport, where they
+        are largest, and lengths in <code>em</code>, like the letter spacing, at
+        16px.
+      </li>
+      <li>
+        The package has the default theme's files in
+        <code>opui-css/figma/themes/</code>, and
+        <code>opui-css/figma/sync.js</code> is the function the plugin runs, for
+        an agent that sets up a file with the Figma MCP server's
+        <code>use_figma</code> tool.
+      </li>
+    </ul>
+  </section>
+
+  <section id="naming">
+    <h2>How tokens are named</h2>
+    <figure class="token-name ui-not-rich-text">
+      <div class="parts" aria-hidden="true">
+        <span><code>--ui-</code><small>prefix</small></span>
+        <span><code>primary</code><small>role</small></span>
+        <span><code>-text</code><small>variant</small></span>
+      </div>
+      <figcaption><code>--ui-primary-text</code></figcaption>
+    </figure>
+    <DocsTable
+      columns={[{ label: "Part" }, { label: "Means" }, { label: "Example" }]}
+    >
+      {parts.map(([part, means, example]) => <TableRow>
+        <TableCell set:html={part} />
+        <TableCell>{means}</TableCell>
+        <TableCell set:html={example} />
+      </TableRow>)}
+    </DocsTable>
+  </section>
+
+  {sections.map((section) => <section id={slug(section.title)}>
+    <h2>{section.title}</h2>
+    {section.note && <p set:html={html(section.note)} />}
+    <DocsTable
+      columns={[
+        { label: "Token", width: "30%" },
+        { label: "Default", width: "30%" },
+        { label: "Description" },
+      ]}
+    >
+      {section.tokens.map((token) => <TableRow>
+        <TableCell>
+          <code>{token.name}</code>
+          {token.tier !== "role" && <span
+            class="ui-chip ui-outlined ui-x-small"
+          >
+            <span class="ui-text">{token.tier}</span>
+          </span>}
+        </TableCell>
+        <TableCell>
+          {token.swatch && (
+            <span
+              class="token-swatch"
+              style={`background-color: var(${token.name})`}
+            />
+          )}
+          {token.value.startsWith("url(") ? (
+            <span
+              class="token-icon"
+              role="img"
+              aria-label={token.name.replace("--ui-icon-", "")}
+              style={`mask-image: var(${token.name})`}
+            />
+          ) : token.optional ? (
+            <Fragment> Unset. For example <code>{token.value}</code> </Fragment>
+          ) : (
+            <code>{token.value}</code>
+          )}
+          {token.dark && <Fragment>
+            <br />
+            Dark: <code>{token.dark}</code>
+          </Fragment>}
+        </TableCell>
+        <TableCell>
+          {token.promise && <span
+            class="ui-chip ui-x-small promise"
+            title={`Against ${token.promise.against.join(", ")}`}
+          >
+            <span class="ui-text">{token.promise.ratio}:1</span>
+          </span>}
+          <Fragment set:html={html(token.lead)} />
+          {token.rest && <details class="more">
+            <summary>More</summary>
+            <Fragment set:html={html(token.rest)} />
+          </details>}
+        </TableCell>
+      </TableRow>)}
+    </DocsTable>
+  </section>)}
+</Guide>
+
+<style>
+  .tier-legend {
+    display: grid;
+    gap: var(--size-2) var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    margin: 0;
+
+    > div {
+      align-items: baseline;
+      display: flex;
+      gap: var(--size-2);
+    }
+
+    dd {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-small);
+      margin: 0;
+    }
+  }
+
+  .token-name {
+    display: grid;
+    gap: var(--size-2);
+    justify-items: center;
+    margin-block: var(--size-4);
+
+    .parts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-1);
+    }
+
+    .parts > span {
+      align-items: center;
+      border: var(--ui-border-width) solid var(--ui-border-color);
+      border-radius: var(--ui-radius);
+      display: grid;
+      gap: var(--size-1);
+      justify-items: center;
+      padding: var(--size-2) var(--size-3);
+    }
+
+    small {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-caption);
+    }
+
+    figcaption {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-small);
+    }
+  }
+
+  .promise {
+    margin-inline-end: var(--size-1);
+  }
+
+  .token-icon {
+    background-color: currentColor;
+    block-size: var(--ui-icon-size-large);
+    display: block;
+    inline-size: var(--ui-icon-size-large);
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+
+    @media (forced-colors: active) {
+      background-color: CanvasText;
+    }
+  }
+
+  .token-swatch {
+    block-size: var(--size-5);
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius-small);
+    display: block;
+    inline-size: var(--size-8);
+    margin-block-end: var(--size-1);
+  }
+
+  .more summary {
+    color: var(--ui-primary-text);
+    cursor: pointer;
+    font-size: var(--ui-font-size-small);
+  }
+</style>

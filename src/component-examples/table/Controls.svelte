@@ -1,0 +1,87 @@
+<script lang="ts">
+  import {
+    Field,
+    SelectButton,
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeaderCell,
+    TableRow,
+  } from "opui-css/svelte"
+
+  const roles = [
+    { label: "Flatwound collector", value: "flatwound-collector" },
+    { label: "Low B whisperer", value: "low-b-whisperer" },
+    { label: "Slap enthusiast", value: "slap-enthusiast" },
+    { label: "Tone advisor", value: "tone-advisor" },
+  ]
+</script>
+
+<Table density="dense">
+  <TableCaption>Low End Theory members</TableCaption>
+  <TableHead>
+    <TableRow>
+      <TableHeaderCell>Name</TableHeaderCell>
+      <TableHeaderCell>Specialty</TableHeaderCell>
+      <TableHeaderCell>Notes</TableHeaderCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <TableCell>Lou Headstock</TableCell>
+      <TableCell>
+        <Field
+          for="table-controls-3"
+          hideLabel
+          label="Specialty for Lou Headstock"
+        >
+          <select id="table-controls-3">
+            <SelectButton />
+            {#each roles as role (role.value)}
+              <option value={role.value}>
+                {role.label}
+              </option>
+            {/each}
+          </select>
+        </Field>
+      </TableCell>
+      <TableCell>
+        <Field for="table-controls-1" hideLabel label="Notes for Lou Headstock">
+          <input
+            id="table-controls-1"
+            placeholder="Add a note about their tone"
+          />
+        </Field>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Percy Groove</TableCell>
+      <TableCell>
+        <Field
+          for="table-controls-4"
+          hideLabel
+          label="Specialty for Percy Groove"
+        >
+          <select id="table-controls-4">
+            <SelectButton />
+            {#each roles as role (role.value)}
+              <option value={role.value}>
+                {role.label}
+              </option>
+            {/each}
+          </select>
+        </Field>
+      </TableCell>
+      <TableCell>
+        <Field for="table-controls-2" hideLabel label="Notes for Percy Groove">
+          <input
+            id="table-controls-2"
+            placeholder="Add a note about their tone"
+          />
+        </Field>
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>

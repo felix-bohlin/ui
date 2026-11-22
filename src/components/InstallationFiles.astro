@@ -1,0 +1,56 @@
+---
+import CodeFiles from "./CodeFiles.astro"
+import type { Tab } from "./Installation.astro"
+import { FRAMEWORKS } from "../utils/framework"
+import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
+
+type Props = {
+  sourceTabs: Tab[]
+  tabs: Tab[]
+}
+
+const { sourceTabs, tabs: allTabs } = Astro.props
+
+const framework = Astro.locals.framework
+const frameworkLabel = FRAMEWORKS.find((f) => f.id === framework)?.label
+
+const sourceNames = new Set(
+  sourceTabs.map((tab) => tab.title.slice(tab.title.lastIndexOf("/") + 1)),
+)
+const styleFiles = allTabs.filter(
+  (tab) => tab.title.endsWith(".css") || !sourceNames.has(tab.title),
+)
+
+const groups = [
+  { files: styleFiles, title: "CSS" },
+  ...(sourceTabs.length > 0
+    ? [{ files: sourceTabs, title: frameworkLabel ?? "Source" }]
+    : []),
+]
+---
+
+<slot />
+
+<div class="code-group ui-card ui-outlined ui-not-rich-text">
+  {groups.length > 1 ? (
+    <Tabs class="code-tabs" overflow="wrap" variant="line">
+      {groups.map((group, groupIndex) => <TabsItem checked={groupIndex === 0}>
+        <TabsLabel>{group.title}</TabsLabel>
+        <TabsPanel>
+          <CodeFiles files={group.files} title={group.title} />
+        </TabsPanel>
+      </TabsItem>)}
+    </Tabs>
+  ) : (
+    <CodeFiles files={groups[0].files} title={groups[0].title} />
+  )}
+</div>
+
+<style>
+  .code-group {
+    gap: 0;
+    margin-block: var(--size-4);
+    overflow: hidden;
+    padding: 0;
+  }
+</style>

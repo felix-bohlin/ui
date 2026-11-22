@@ -1,0 +1,194 @@
+<style>
+  html:has(#todo-fade-transition:checked) .ui-tooltip > .ui-floating[popover] {
+    transition: none;
+  }
+
+  html:has(#todo-fade-visibility:checked) .ui-tooltip > .ui-floating[popover] {
+    position-visibility: always;
+  }
+
+  html:has(#todo-fade-fallbacks:checked) .ui-tooltip > .ui-floating[popover] {
+    position-try-fallbacks: none;
+  }
+
+  html:has(#todo-fade-shifts:checked) .ui-tooltip > .ui-floating[popover] {
+    position-try-fallbacks: flip-inline, flip-block;
+  }
+
+  html:has(#todo-fade-scope:checked) .ui-tooltip {
+    anchor-scope: none;
+  }
+
+  .todo-fade-switches {
+    display: grid;
+    gap: var(--size-2);
+  }
+</style>
+<div class="todo-row">
+  <span class="ui-tooltip"
+    ><button
+      class="ui-button ui-outlined"
+      command="toggle-popover"
+      commandfor="todo-fade-top"
+      data-todo-fade="Top edge"
+      interestfor="todo-fade-top"
+      type="button"
+    >
+      Top edge</button
+    ><span class="ui-floating" id="todo-fade-top" popover="hint"
+      >Flips below, since there is no room above</span
+    ></span
+  >
+  <button
+    class="ui-button ui-outlined"
+    command="show-modal"
+    commandfor="todo-fade-drawer"
+    type="button"
+  >
+    Open the drawer
+  </button>
+</div>
+<p class="todo-note">
+  For Firefox, where five tooltips in the overlays stress page never finish
+  fading in. These tooltips are set up like the stress page's: the trigger has
+  <code>interestfor</code> and the command pair, so a click opens the tooltip as
+  a popover, while the compat rule also shows it on hover and focus, since
+  Firefox has no interest invokers. Open the Top edge tooltip and the three in
+  the drawer's header and watch the readout: the opacity should reach 1. Then
+  switch off one piece at a time, close the tooltip and open it again. The piece
+  whose switch lets the opacity settle at 1 is the one that restarts the fade.
+</p>
+<fieldset class="todo-fade-switches">
+  <legend class="todo-label">Switch off</legend>
+  <label class="ui-checkbox">
+    <input id="todo-fade-command" type="checkbox" />
+    <span class="ui-label"
+      >The command pair, so the tooltip shows only through the compat rule, like
+      the Tooltip examples</span
+    >
+  </label>
+  <label class="ui-checkbox">
+    <input id="todo-fade-visibility" type="checkbox" />
+    <span class="ui-label"
+      ><code>position-visibility: anchors-visible</code></span
+    >
+  </label>
+  <label class="ui-checkbox">
+    <input id="todo-fade-shifts" type="checkbox" />
+    <span class="ui-label">The two shift fallbacks, keeping the flips</span>
+  </label>
+  <label class="ui-checkbox">
+    <input id="todo-fade-fallbacks" type="checkbox" />
+    <span class="ui-label">Every fallback</span>
+  </label>
+  <label class="ui-checkbox">
+    <input id="todo-fade-scope" type="checkbox" />
+    <span class="ui-label"
+      ><code>anchor-scope</code> on <code>.ui-tooltip</code></span
+    >
+  </label>
+  <label class="ui-checkbox">
+    <input id="todo-fade-transition" type="checkbox" />
+    <span class="ui-label">The fade itself, as a control</span>
+  </label>
+</fieldset>
+<output class="todo-measure" id="todo-fade-readout">No tooltip shows.</output>
+<dialog
+  aria-labelledby="todo-fade-drawer-title"
+  class="ui-drawer ui-inline-end"
+  closedby="any"
+  id="todo-fade-drawer"
+>
+  <div class="ui-header">
+    <h2 id="todo-fade-drawer-title">Toolbar</h2>
+    <span class="ui-tooltip"
+      ><button
+        class="ui-button ui-small"
+        command="toggle-popover"
+        commandfor="todo-fade-edit"
+        data-todo-fade="Edit"
+        interestfor="todo-fade-edit"
+        type="button"
+      >
+        Edit</button
+      ><span class="ui-floating" id="todo-fade-edit" popover="hint"
+        >Edit the selected item</span
+      ></span
+    >
+    <span class="ui-tooltip"
+      ><button
+        class="ui-button ui-small"
+        command="toggle-popover"
+        commandfor="todo-fade-share"
+        data-todo-fade="Share"
+        interestfor="todo-fade-share"
+        type="button"
+      >
+        Share</button
+      ><span class="ui-floating" id="todo-fade-share" popover="hint"
+        >Share a link to the selected item</span
+      ></span
+    >
+    <span class="ui-tooltip"
+      ><button
+        class="ui-button ui-small"
+        command="toggle-popover"
+        commandfor="todo-fade-close"
+        data-todo-fade="Close"
+        interestfor="todo-fade-close"
+        type="button"
+      >
+        Close</button
+      ><span class="ui-floating" id="todo-fade-close" popover="hint"
+        >Close the toolbar and go back</span
+      ></span
+    >
+  </div>
+  <div class="ui-content">
+    <p>The header's tooltips sit at the edge of the window, so they shift.</p>
+    <output class="todo-measure" id="todo-fade-drawer-readout"></output>
+  </div>
+</dialog>
+<script>
+  const triggers = [...document.querySelectorAll("[data-todo-fade]")]
+  document
+    .getElementById("todo-fade-command")
+    .addEventListener("change", (event) => {
+      for (const trigger of triggers) {
+        if (event.target.checked) {
+          trigger.removeAttribute("command")
+          trigger.removeAttribute("commandfor")
+        } else {
+          trigger.setAttribute("command", "toggle-popover")
+          trigger.setAttribute(
+            "commandfor",
+            trigger.getAttribute("interestfor"),
+          )
+        }
+      }
+    })
+  const readouts = [
+    document.getElementById("todo-fade-readout"),
+    document.getElementById("todo-fade-drawer-readout"),
+  ]
+  setInterval(() => {
+    const lines = triggers.flatMap((trigger) => {
+      const tooltip = document.getElementById(
+        trigger.getAttribute("interestfor"),
+      )
+      const style = getComputedStyle(tooltip)
+      if (style.display === "none") return []
+      const how = [
+        tooltip.matches(":popover-open") ? "open as a popover" : "",
+        trigger.matches(":hover") ? "hovered" : "",
+        trigger.matches(":focus-visible") ? "focused" : "",
+      ].filter(Boolean)
+      return [
+        `${trigger.dataset.todoFade}: opacity ${Number(style.opacity).toFixed(3)}${how.length ? `, ${how.join(", ")}` : ""}`,
+      ]
+    })
+    for (const readout of readouts) {
+      readout.textContent = lines.join("\n") || "No tooltip shows."
+    }
+  }, 250)
+</script>

@@ -1,0 +1,70 @@
+<div lang="sv">
+  <div class="ui-field ui-auto-fit">
+    <label class="ui-label" for="number-field-buttons-1">Antal</label>
+    <span class="ui-field-container">
+      <span class="ui-start" id="number-field-buttons-1-start">
+        <opui-step-button>
+          <button
+            class="ui-button ui-round"
+            type="button"
+            aria-controls="number-field-buttons-1"
+            aria-label="Minska"
+            command="--step-down"
+            commandfor="number-field-buttons-1"
+          >
+            <svg
+              data-icon="chevron-down"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+              ></path>
+            </svg>
+          </button>
+        </opui-step-button>
+      </span>
+      <input
+        id="number-field-buttons-1"
+        max="10"
+        min="1"
+        type="number"
+        value="1"
+      />
+      <span class="ui-end" id="number-field-buttons-1-end">
+        <opui-step-button>
+          <button
+            class="ui-button ui-round"
+            type="button"
+            aria-controls="number-field-buttons-1"
+            aria-label="Öka"
+            command="--step-up"
+            commandfor="number-field-buttons-1"
+          >
+            <svg
+              data-icon="chevron-up"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M4.293 15.707a1 1 0 0 0 1.414 0L12 9.414l6.293 6.293a1 1 0 1 0 1.414-1.414l-7-7a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 0 1.414"
+              ></path>
+            </svg>
+          </button>
+        </opui-step-button>
+      </span>
+    </span>
+  </div>
+</div>
+
+<script type="module">
+  import "opui-css/elements/step-button.js"
+</script>

@@ -1,3 +1,5 @@
 export type Props = {
-  variant?: "tonal" | "filled" | "primary"
+  align?: "center" | "end" | "start"
+  color?: "primary"
+  variant?: "filled" | "outlined" | "tonal"
 }

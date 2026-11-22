@@ -1,0 +1,21 @@
+<script lang="ts">
+  import { Card, Carousel } from "opui-css/svelte"
+</script>
+
+<Carousel aria-label="Destinations" buttons="outside" itemsPerView={3} stretch>
+  <li>
+    <Card style="min-block-size: 6rem" variant="tonal" />
+  </li>
+  <li>
+    <Card style="min-block-size: 10rem" variant="tonal" />
+  </li>
+  <li>
+    <Card style="min-block-size: 4rem" variant="tonal" />
+  </li>
+  <li>
+    <Card style="min-block-size: 8rem" variant="tonal" />
+  </li>
+  <li>
+    <Card style="min-block-size: 5rem" variant="tonal" />
+  </li>
+</Carousel>

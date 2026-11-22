@@ -1,0 +1,49 @@
+---
+import Conditional from "../../../components/Conditional.astro"
+import PropOrClass from "../../../components/PropOrClass.astro"
+
+type Props = {
+  element: "input" | "select" | "textarea"
+  named?: boolean
+  own?: boolean
+  subject: "Checkboxes" | "Fields" | "Switches"
+}
+
+const { element, named, own, subject } = Astro.props
+---
+
+<ul>
+  <slot>
+    <li>
+      Use
+      {own ? (
+        <code>required</code>
+      ) : (
+        <PropOrClass prop="required" class="[required]" />
+      )}
+      on the <code>&lt;{element}&gt;</code>.
+    </li>
+  </slot>
+  <li>
+    {own ? (
+      <Fragment>
+        Use <code>aria-invalid="true"</code> on the
+        <code>&lt;{element}&gt;</code> for errors, and point its
+        <code>aria-describedby</code> at the end text.
+      </Fragment>
+    ) : (
+      <Fragment>
+        Use <PropOrClass prop="error" class='aria-invalid="true"' /> for errors.
+      </Fragment>
+    )}{named || own ? null : (
+      <Conditional>
+        <Fragment slot="html">
+          Point <code>aria-describedby</code> at the end text.
+        </Fragment>
+      </Conditional>
+    )}
+  </li>
+  <li>
+    {subject} also get the invalid styles from <code>:user-invalid</code>.
+  </li>
+</ul>

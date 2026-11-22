@@ -1,6 +1,10 @@
 import type * as Base from "./types"
-import type { JSX } from "solid-js"
+import type { ComponentProps } from "@solidjs/web"
 
-export type Props = Base.Props &
-  Partial<Base.Slots<JSX.Element>> &
-  JSX.HTMLAttributes<HTMLDivElement>
+export type Props = Base.Props & ComponentProps<"div">
+
+export type CardActionsProps = Base.CardActionsProps & ComponentProps<"div">
+
+export type CardContentProps = Base.CardContentProps & ComponentProps<"div">
+
+export type CardHeaderProps = Base.CardHeaderProps & ComponentProps<"hgroup">

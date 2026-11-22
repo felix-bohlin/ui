@@ -1,0 +1,207 @@
+---
+import "../styles/theme-fonts.css"
+import { EXAMPLE_THEMES } from "../utils/example-themes"
+import { FONT_TOKENS, LAYERS, THEME_KEY, VIEW_KEYS } from "../utils/theme"
+import { BUNDLED_FONTS, WEB_FONTS, fontCssUrls } from "../utils/theme-fonts"
+
+type Props = {
+  overrides?: boolean
+}
+
+const { overrides = false } = Astro.props
+
+const exampleThemes = Object.fromEntries(
+  EXAMPLE_THEMES.map((theme) => [theme.name, theme.css]),
+)
+const exampleFonts = Object.fromEntries(
+  EXAMPLE_THEMES.map((theme) => [
+    theme.name,
+    Object.fromEntries(
+      [...FONT_TOKENS, "--ui-font-code"]
+        .filter((name) => name in theme.tokens)
+        .map((name) => [name, theme.tokens[name]]),
+    ),
+  ]),
+)
+const webFonts = Object.fromEntries(
+  WEB_FONTS.filter((font) => !BUNDLED_FONTS.includes(font.id)).map((font) => [
+    font.family.toLowerCase(),
+    fontCssUrls(font.id),
+  ]),
+)
+---
+
+<script
+  is:inline
+  define:vars={{
+    exampleFonts,
+    exampleThemes,
+    FONT_TOKENS,
+    LAYERS,
+    overrides,
+    THEME_KEY,
+    VIEW_KEYS,
+    webFonts,
+  }}
+>
+  const params = overrides
+    ? new URLSearchParams(location.search)
+    : new URLSearchParams()
+  const forcedScheme = ["dark", "light"].includes(params.get("scheme"))
+    ? params.get("scheme")
+    : null
+  const forcedContrast = ["more", "normal"].includes(params.get("contrast"))
+    ? params.get("contrast")
+    : null
+
+  const style = (id) => {
+    let element = document.getElementById(id)
+    if (!element) {
+      element = document.createElement("style")
+      element.id = id
+    }
+    return element
+  }
+
+  window.themeUtils = {
+    getSystemPreference() {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light"
+    },
+    getStoredContrast() {
+      try {
+        return localStorage.getItem(VIEW_KEYS.contrast)
+      } catch {
+        return null
+      }
+    },
+    getStoredTheme() {
+      try {
+        return localStorage.getItem(VIEW_KEYS.mode)
+      } catch {
+        return null
+      }
+    },
+    readTheme() {
+      try {
+        const theme = JSON.parse(localStorage.getItem(THEME_KEY) ?? "null")
+        if (theme && typeof theme === "object") return theme
+        const preset = localStorage.getItem("opui-example-theme")
+        if (preset) return { css: "", preset, tokens: {} }
+      } catch {}
+      return null
+    },
+    applyContrast(contrast) {
+      document.documentElement.classList.remove(
+        "ui-contrast-more",
+        "ui-contrast-normal",
+      )
+      if (contrast) {
+        document.documentElement.classList.add(`ui-contrast-${contrast}`)
+      }
+    },
+    setContrast(contrast) {
+      window.themeUtils.applyContrast(forcedContrast ?? contrast)
+      try {
+        if (contrast) localStorage.setItem(VIEW_KEYS.contrast, contrast)
+        else localStorage.removeItem(VIEW_KEYS.contrast)
+      } catch {}
+    },
+    applyThemeCss(preset, css, tokens) {
+      const root = document.documentElement
+      const presetStyle = style("opui-example-theme")
+      const customStyle = style("opui-theme")
+      const presetCss =
+        typeof preset === "string" && Object.hasOwn(exampleThemes, preset)
+          ? exampleThemes[preset]
+          : ""
+      const presetText = presetCss || LAYERS
+      if (presetStyle.textContent !== presetText) {
+        presetStyle.textContent = presetText
+      }
+      if (customStyle.textContent !== css) customStyle.textContent = css
+      if (
+        document.head.lastElementChild !== customStyle ||
+        customStyle.previousElementSibling !== presetStyle
+      ) {
+        document.head.append(presetStyle, customStyle)
+      }
+      if (presetCss) root.dataset.exampleTheme = preset
+      else delete root.dataset.exampleTheme
+      root.toggleAttribute(
+        "data-theme-font",
+        FONT_TOKENS.some((name) => Object.hasOwn(tokens ?? {}, name)),
+      )
+      const stacks = { ...exampleFonts[preset], ...tokens }
+      for (const name of [...FONT_TOKENS, "--ui-font-code"]) {
+        const family = String(stacks[name] ?? "")
+          .split(",")[0]
+          .trim()
+          .replace(/^["']|["']$/g, "")
+          .toLowerCase()
+        for (const url of webFonts[family] ?? []) {
+          if (!document.querySelector(`link[href="${url}"]`)) {
+            const link = document.createElement("link")
+            link.rel = "stylesheet"
+            link.href = url
+            document.head.append(link)
+          }
+        }
+      }
+    },
+    applyStoredTheme() {
+      const theme = window.themeUtils.readTheme()
+      window.themeUtils.applyThemeCss(
+        theme?.preset ?? null,
+        typeof theme?.css === "string" ? theme.css : "",
+        theme?.tokens,
+      )
+    },
+    applyTheme(theme) {
+      document.documentElement.classList.remove(
+        "ui-dark",
+        "ui-light",
+        "dark",
+        "light",
+      )
+      document.documentElement.classList.add(`ui-${forcedScheme ?? theme}`)
+    },
+    setTheme(theme) {
+      try {
+        localStorage.setItem(VIEW_KEYS.mode, theme)
+      } catch {}
+      window.themeUtils.applyTheme(theme)
+    },
+  }
+
+  const applyMode = () =>
+    window.themeUtils.applyTheme(
+      window.themeUtils.getStoredTheme() ||
+        window.themeUtils.getSystemPreference(),
+    )
+
+  applyMode()
+  window.themeUtils.applyContrast(
+    forcedContrast ?? window.themeUtils.getStoredContrast(),
+  )
+  window.themeUtils.applyStoredTheme()
+
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", () => {
+      if (!window.themeUtils.getStoredTheme()) applyMode()
+    })
+
+  window.addEventListener("storage", (event) => {
+    if (event.key === null || event.key === THEME_KEY) {
+      window.themeUtils.applyStoredTheme()
+    }
+    if (event.key === null || event.key === VIEW_KEYS.mode) applyMode()
+    if (event.key === null || event.key === VIEW_KEYS.contrast) {
+      window.themeUtils.applyContrast(
+        forcedContrast ?? window.themeUtils.getStoredContrast(),
+      )
+    }
+  })
+</script>

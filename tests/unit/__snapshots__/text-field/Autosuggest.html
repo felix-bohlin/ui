@@ -1,22 +1,22 @@
-<label class="ui-text-field">
-  <span class="ui-label">Users</span>
-  <span class="ui-field">
-    <input list="id-1" placeholder="Placeholder" type="text">
+<div class="ui-field">
+  <label class="ui-label" for="id-1">Bassists</label>
+  <span class="ui-field-container">
+    <input id="id-1" list="id-2" placeholder="Search bassists">
+    <datalist id="id-2">
+      <option value="Ines Hertz"></option>
+      <option value="Lou Headstock"></option>
+      <option value="Percy Groove"></option>
+    </datalist>
   </span>
-  <datalist id="id-1">
-    <option value="Ray Manzarek"></option>
-    <option value="Jonny Greenwood"></option>
-    <option value="Marika Hackman"></option>
-  </datalist>
-</label>
-<label class="ui-filled ui-text-field">
-  <span class="ui-label">Emails</span>
-  <span class="ui-field">
-    <input list="id-2" placeholder="Placeholder" type="email">
+</div>
+<div class="ui-field ui-filled">
+  <label class="ui-label" for="id-3">Emails</label>
+  <span class="ui-field-container">
+    <input id="id-3" list="id-4" placeholder="name@lowend.example" type="email">
+    <datalist id="id-4">
+      <option value="ines@lowend.example"></option>
+      <option value="lou@lowend.example"></option>
+      <option value="percy@lowend.example"></option>
+    </datalist>
   </span>
-  <datalist id="id-2">
-    <option value="ray.manzarek@the.doors"></option>
-    <option value="jonny.greenwood@radio.head"></option>
-    <option value="marika@hack.man"></option>
-  </datalist>
-</label>
+</div>

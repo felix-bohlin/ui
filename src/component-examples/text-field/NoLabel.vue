@@ -1,7 +1,0 @@
-<template>
-  <div class="ui-text-field">
-    <span class="ui-field">
-      <input type="text" placeholder="Placeholder" />
-    </span>
-  </div>
-</template>

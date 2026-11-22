@@ -1,0 +1,29 @@
+<div class="ui-field">
+  <label class="ui-label" for="field-validation-binding-1">Username</label>
+  <span class="ui-field-container">
+    <input
+      aria-describedby="field-validation-binding-1-end-text"
+      id="field-validation-binding-1"
+      name="field-validation-binding"
+      value="holly"
+    />
+  </span>
+  <span class="ui-end-text" id="field-validation-binding-1-end-text"
+    >Letters and numbers, shown on your profile.</span
+  >
+</div>
+
+<script type="module">
+  const input = document.querySelector('[name="field-validation-binding"]')
+  const endText = document.querySelector("#field-validation-binding-1-end-text")
+
+  input?.addEventListener("input", () => {
+    if (!input || !endText) return
+    const invalid = /[^a-z0-9]/i.test(input.value)
+    if (invalid) input.setAttribute("aria-invalid", "true")
+    else input.removeAttribute("aria-invalid")
+    endText.textContent = invalid
+      ? "Use only letters and numbers."
+      : "Letters and numbers, shown on your profile."
+  })
+</script>

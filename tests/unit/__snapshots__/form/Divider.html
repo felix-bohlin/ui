@@ -1,17 +1,18 @@
 <form class="ui-form">
   <fieldset class="ui-fieldset">
-    <legend>Post Content</legend>
-    <div class="ui-field-group" role="group">
-      <label class="ui-text-field">
-        <span class="ui-label">Title</span>
-        <span class="ui-field">
-          <input placeholder="My new post" type="text">
+    <legend>Post content</legend>
+    <div class="ui-field-group">
+      <div class="ui-field">
+        <label class="ui-label" for="id-1">Title</label>
+        <span class="ui-field-container">
+          <input id="id-1" placeholder="My new post">
         </span>
-      </label>
+      </div>
     </div>
   </fieldset>
   <hr class="ui-divider">
-  <div class="ui-field-group" role="group">
-    <button class="ui-button ui-filled">Publish</button>
+  <div class="ui-field-group">
+    <button class="ui-button" type="button">Save draft</button>
+    <button class="ui-button ui-filled" type="button">Publish</button>
   </div>
 </form>

@@ -1,41 +1,39 @@
 ---
-import { Table } from "@opui/astro"
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/astro"
 ---
 
-<Table variant="dense">
-  <caption>Band Members</caption>
-  <Table.Head>
-    <Table.Row>
-      <Table.HeaderCell>Band</Table.HeaderCell>
-      <Table.HeaderCell>Name</Table.HeaderCell>
-      <Table.HeaderCell>Instrument</Table.HeaderCell>
-    </Table.Row>
-  </Table.Head>
-  <Table.Body>
-    <Table.Row>
-      <Table.Cell>Radiohead</Table.Cell>
-      <Table.Cell>Ed O'Brien</Table.Cell>
-      <Table.Cell>Guitar/Vocals</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell>Korn</Table.Cell>
-      <Table.Cell>Jonathan Davis</Table.Cell>
-      <Table.Cell>Vocals</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell>Broken Bells</Table.Cell>
-      <Table.Cell>James Mercer</Table.Cell>
-      <Table.Cell>Vocals/Guitar</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell>Pink Floyd</Table.Cell>
-      <Table.Cell>David Gilmour</Table.Cell>
-      <Table.Cell>Guitar/Vocals</Table.Cell>
-    </Table.Row>
-  </Table.Body>
-  <tfoot>
-    <Table.Row>
-      <Table.Cell colspan={3}>All great bands!</Table.Cell>
-    </Table.Row>
-  </tfoot>
+<Table density="dense">
+  <TableCaption>Low End Theory members</TableCaption>
+  <TableHead>
+    <TableRow>
+      <TableHeaderCell>Name</TableHeaderCell>
+      <TableHeaderCell>Specialty</TableHeaderCell>
+      <TableHeaderCell>Location</TableHeaderCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <TableCell>Lou Headstock</TableCell>
+      <TableCell>Flatwound collector</TableCell>
+      <TableCell>Göteborg</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Percy Groove</TableCell>
+      <TableCell>Slap enthusiast</TableCell>
+      <TableCell>Lisbon</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Ines Hertz</TableCell>
+      <TableCell>Low B whisperer</TableCell>
+      <TableCell>Berlin</TableCell>
+    </TableRow>
+  </TableBody>
 </Table>

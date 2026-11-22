@@ -1,0 +1,21 @@
+<script setup lang="ts">
+import { Field, SelectButton } from "opui-css/vue"
+</script>
+
+<template>
+  <Field for="select-disabled-1" label="Plan">
+    <select disabled id="select-disabled-1">
+      <SelectButton />
+      <option>Gold</option>
+      <option>Platinum</option>
+    </select>
+  </Field>
+
+  <Field for="select-disabled-2" label="Billing cycle" variant="filled">
+    <select disabled id="select-disabled-2">
+      <SelectButton />
+      <option>Yearly</option>
+      <option>Monthly</option>
+    </select>
+  </Field>
+</template>

@@ -1,38 +1,27 @@
-<div class="example-row ui-spacious">
+<div class="example-row">
   <label class="ui-checkbox">
-    <input name="checkbox-validation" type="checkbox" required />
-    <span class="ui-label">Default</span>
+    <input type="checkbox" name="checkbox-validation" required />
+    <span class="ui-label">I accept the terms</span>
   </label>
-
-  <label class="ui-checkbox ui-stack">
-    <input name="checkbox-validation" type="checkbox" required />
-    <span class="ui-label">Stack</span>
+  <label class="ui-checkbox ui-vertical">
+    <input type="checkbox" name="checkbox-validation" required />
+    <span class="ui-label">I am 18 or older</span>
   </label>
 </div>
-
-<div class="example-row ui-spacious">
-  <label class="ui-checkbox" data-invalid>
+<div class="example-row">
+  <label class="ui-checkbox">
     <input
-      name="checkbox-validation"
       type="checkbox"
+      name="checkbox-validation"
       checked
-      aria-describedby="checkbox-validation-end-text-1"
+      aria-invalid="true"
     />
-    <span class="ui-label">Default</span>
-    <span class="ui-end-text" id="checkbox-validation-end-text-1"
-      >Check yourself</span
-    >
+    <span class="ui-label">Daily tab backups</span>
+    <span class="ui-end-text">Only in Bassbook Gold, sorry.</span>
   </label>
-
-  <label class="ui-checkbox ui-stack" data-invalid>
-    <input
-      name="checkbox-validation"
-      type="checkbox"
-      aria-describedby="checkbox-validation-end-text-2"
-    />
-    <span class="ui-label">Stack</span>
-    <span class="ui-end-text" id="checkbox-validation-end-text-2"
-      >Before you wreck yourself</span
-    >
+  <label class="ui-checkbox ui-vertical">
+    <input type="checkbox" name="checkbox-validation" aria-invalid="true" />
+    <span class="ui-label">I accept the terms</span>
+    <span class="ui-end-text">Accept the terms to continue.</span>
   </label>
 </div>

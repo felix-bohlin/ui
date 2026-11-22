@@ -1,9 +1,11 @@
 import type * as Base from "./types"
-import type { JSX } from "solid-js"
+import type { ComponentProps, JSX } from "@solidjs/web"
 
-export type SwitchProps = Base.SwitchProps &
-  JSX.InputHTMLAttributes<HTMLInputElement> &
-  Base.SwitchSlots<JSX.Element>
+type Without<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never
+
+export type Props = Without<Base.Props, "endText"> &
+  Base.Slots<JSX.Element> &
+  Omit<ComponentProps<"input">, "role" | "size" | "type">
 
 export type SwitchInputProps = Base.SwitchInputProps &
-  JSX.InputHTMLAttributes<HTMLInputElement>
+  Omit<ComponentProps<"input">, "children" | "role" | "type">

@@ -3,8 +3,10 @@ import { Avatar } from "opui-css/vue"
 </script>
 
 <template>
-  <Avatar>
+  <Avatar label="Bassist">
     <svg
+      data-icon="code"
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -17,8 +19,10 @@ import { Avatar } from "opui-css/vue"
     </svg>
   </Avatar>
 
-  <Avatar>
+  <Avatar label="Contact">
     <svg
+      data-icon="contact"
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -31,8 +35,10 @@ import { Avatar } from "opui-css/vue"
     </svg>
   </Avatar>
 
-  <Avatar>
+  <Avatar label="Guest">
     <svg
+      data-icon="person-circle"
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"

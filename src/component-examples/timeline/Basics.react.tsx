@@ -1,0 +1,31 @@
+import { Timeline, TimelineItem } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <Timeline>
+      <TimelineItem
+        datetime="2026-08-04"
+        label="Whoops fixes"
+        time="Aug 4, 2026"
+      >
+        <p>Faster search and fewer double pokes from your drummer.</p>
+      </TimelineItem>
+      <TimelineItem
+        datetime="2026-09-12"
+        label="Saved setlists"
+        time="Sep 12, 2026"
+      >
+        <p>Save your setlists with cute names and share them with the band.</p>
+      </TimelineItem>
+      <TimelineItem
+        datetime="2026-10-01"
+        label="Gig planner and a faster wall"
+        time="Oct 1, 2026"
+      >
+        <p>
+          Reminders for every gig, and a wall that loads three times faster.
+        </p>
+      </TimelineItem>
+    </Timeline>
+  )
+}

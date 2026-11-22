@@ -1,12 +1,15 @@
 import type * as Base from "./types"
-import type { JSX } from "solid-js"
+import type { ComponentProps, JSX } from "@solidjs/web"
 
 export type Props = Base.Props &
-  Omit<JSX.DialogHtmlAttributes<HTMLDialogElement>, "id"> &
-  Partial<Base.Slots<JSX.Element>>
+  Omit<ComponentProps<"dialog">, "closedby" | "id">
 
-export type DrawerFooterProps = Base.DrawerFooterProps &
-  JSX.HTMLAttributes<HTMLDivElement>
+export type DrawerContentProps = Base.DrawerContentProps & ComponentProps<"div">
+
+export type DrawerFooterProps = Base.DrawerFooterProps & ComponentProps<"div">
 
 export type DrawerHeaderProps = Base.DrawerHeaderProps &
-  JSX.HTMLAttributes<HTMLDivElement>
+  Base.DrawerHeaderSlots<JSX.Element> &
+  ComponentProps<"div">
+
+export type DrawerTitleProps = Base.DrawerTitleProps & ComponentProps<"h2">

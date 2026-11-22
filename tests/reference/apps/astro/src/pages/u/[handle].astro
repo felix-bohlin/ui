@@ -1,0 +1,123 @@
+---
+import {
+  Button,
+  DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  Field,
+  Stat,
+  Tabs,
+  TabsItem,
+  TabsLabel,
+  TabsPanel,
+} from "opui-css/astro"
+import { ME, photosBy, postsBy, user } from "reference-shared"
+import UserAvatar from "../../components/UserAvatar.astro"
+import Layout from "../../layouts/Layout.astro"
+
+const profile = user(Astro.params.handle ?? "")
+if (!profile) return Astro.rewrite("/404")
+const posts = postsBy(profile.handle)
+const photos = photosBy(profile.handle)
+---
+
+<Layout title={profile.name}>
+  <div class="app-screen" data-screen="profile">
+    <div class="app-profile-header">
+      <UserAvatar size="large" user={profile} />
+      <h1 data-profile-name>{profile.name}</h1>
+      {profile.handle === ME ? (
+        <Button
+          command="show-modal"
+          commandfor="edit-profile"
+          variant="outlined"
+        >
+          Edit profile
+        </Button>
+      ) : (
+        <Button href={`/chat?with=${profile.handle}`} variant="outlined">
+          Send message
+        </Button>
+      )}
+    </div>
+    <p data-profile-bio>{profile.bio}</p>
+    <DescriptionList>
+      <DescriptionListItem>
+        <DescriptionListTerm>Location</DescriptionListTerm>
+        <DescriptionListDescription>
+          {profile.location}
+        </DescriptionListDescription>
+      </DescriptionListItem>
+      <DescriptionListItem>
+        <DescriptionListTerm>Joined</DescriptionListTerm>
+        <DescriptionListDescription>
+          {profile.joined}
+        </DescriptionListDescription>
+      </DescriptionListItem>
+    </DescriptionList>
+    <div class="app-stats">
+      <Stat label="Posts">{posts.length}</Stat>
+      <Stat label="Photos">{photos.length}</Stat>
+    </div>
+    <Tabs name="profile-tabs">
+      <TabsItem checked>
+        <TabsLabel>Posts</TabsLabel>
+        <TabsPanel>
+          {posts.length ? (
+            posts.map((post) => <article>
+              <p>{post.text}</p>
+              <p>
+                <time datetime={post.datetime}>{post.time}</time>
+              </p>
+            </article>)
+          ) : (
+            <p class="app-empty">No posts yet.</p>
+          )}
+        </TabsPanel>
+      </TabsItem>
+      <TabsItem>
+        <TabsLabel>Photos</TabsLabel>
+        <TabsPanel>
+          {photos.length ? (
+            <div class="app-profile-photos">
+              {photos.map(({ alt, src }) => (
+                <img alt={alt} src={src} />
+              ))}
+            </div>
+          ) : (
+            <p class="app-empty">No photos yet.</p>
+          )}
+        </TabsPanel>
+      </TabsItem>
+    </Tabs>
+  </div>
+  {profile.handle === ME && <Dialog id="edit-profile">
+    <DialogHeader closeButton>
+      <DialogTitle>Edit profile</DialogTitle>
+    </DialogHeader>
+    <form data-edit-profile method="dialog">
+      <DialogContent>
+        <Field for="profile-name" label="Name">
+          <input id="profile-name" name="name" required value={profile.name} />
+        </Field>
+        <Field for="profile-bio" label="Bio">
+          <textarea id="profile-bio" name="bio">{profile.bio}</textarea>
+        </Field>
+      </DialogContent>
+      <DialogFooter>
+        <Button command="close" commandfor="edit-profile"> Cancel </Button>
+        <Button type="submit" variant="filled"> Save </Button>
+      </DialogFooter>
+    </form>
+  </Dialog>}
+</Layout>
+
+<script>
+  import "../../scripts/profile.ts"
+</script>

@@ -1,11 +1,16 @@
 ---
 import type { DrawerFooterProps as Props } from "./types.astro"
 
-export const title = "Drawer Footer"
-
-const { class: className, ...rest } = Astro.props
+const { align, class: className, ...rest } = Astro.props
 ---
 
-<div class:list={["ui-footer", className]} {...rest}>
+<div
+  class:list={[
+    "ui-footer",
+    align && align !== "end" && `ui-align-${align}`,
+    className,
+  ]}
+  {...rest}
+>
   <slot />
 </div>

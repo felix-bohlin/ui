@@ -1,10 +1,38 @@
 export type Props = {
-  actionsAlign?: "start" | "end"
+  closedby?: "any" | "closerequest" | "none"
 }
 
-export type Slots<S> = {
-  actions?: S
-  children?: S
-  content?: S
-  header?: string | S
+export type DialogContentProps = {}
+
+export type DialogFooterProps = {
+  align?: "start" | "end"
+}
+
+export type DialogHeaderProps =
+  | {
+      closeButton: boolean
+      closeLabel?: string
+      commandfor?: string
+    }
+  | {
+      closeButton?: never
+      closeLabel?: never
+      commandfor?: never
+    }
+
+export type DialogHeaderSlots<S> =
+  | {
+      closeButton: boolean
+      closeIcon?: S
+    }
+  | {
+      closeButton?: never
+      closeIcon?: never
+    }
+
+export type DialogTitleProps = {}
+
+export type Context = {
+  id?: string
+  titleId?: string
 }

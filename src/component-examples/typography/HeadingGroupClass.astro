@@ -1,5 +1,5 @@
 <div class="ui-hgroup">
-  <p class="ui-overline">Zero or more p elements</p>
-  <h2 class="ui-h2">Followed by one h* element</h2>
-  <p class="ui-p">Followed by zero or more p elements</p>
+  <p class="ui-overline">Release notes</p>
+  <h2 class="ui-h2">Version 6.0</h2>
+  <p class="ui-p">Published November 10, 2026.</p>
 </div>

@@ -1,53 +1,48 @@
 <label class="ui-switch ui-spread">
   <input
-    name="switch-spread"
     type="checkbox"
     role="switch"
-    aria-describedby="switch-spread-end-text-1"
+    name="switch-spread"
+    value="notifications"
   />
   <span class="ui-label">Notifications</span>
-  <span class="ui-end-text" id="switch-spread-end-text-1"
-    >Receive alerts when someone mentions you.</span
-  >
+  <span class="ui-end-text">Receive alerts when someone mentions you.</span>
 </label>
 
 <label class="ui-switch ui-spread">
   <input
-    name="switch-spread"
     type="checkbox"
     role="switch"
+    name="switch-spread"
     required
-    aria-describedby="switch-spread-end-text-2"
+    value="two-step-login"
   />
-  <span class="ui-label">Required</span>
-  <span class="ui-end-text" id="switch-spread-end-text-2"
-    >You must accept this to proceed.</span
-  >
+  <span class="ui-label">Two-step login</span>
+  <span class="ui-end-text">Your organization requires it for admins.</span>
 </label>
 
 <label class="ui-switch ui-spread">
   <input
-    name="switch-spread"
     type="checkbox"
     role="switch"
+    name="switch-spread"
     disabled
-    aria-describedby="switch-spread-end-text-3"
+    value="location"
   />
-  <span class="ui-label">Disabled</span>
-  <span class="ui-end-text" id="switch-spread-end-text-3"
-    >This switch is disabled.</span
-  >
+  <span class="ui-label">Location access</span>
+  <span class="ui-end-text">Turned off by your administrator.</span>
 </label>
 
-<label class="ui-switch ui-spread" data-invalid>
+<label class="ui-switch ui-spread">
   <input
-    name="switch-spread"
     type="checkbox"
     role="switch"
-    aria-describedby="switch-spread-end-text-4"
+    name="switch-spread"
+    value="backup"
+    aria-invalid="true"
   />
-  <span class="ui-label">Invalid Switch</span>
-  <span class="ui-end-text" id="switch-spread-end-text-4"
-    >There is an error with this switch.</span
+  <span class="ui-label">Cloud backup</span>
+  <span class="ui-end-text"
+    >Sync needs cloud backup. Turn it on to continue.</span
   >
 </label>

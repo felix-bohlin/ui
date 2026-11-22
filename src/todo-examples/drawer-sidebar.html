@@ -1,0 +1,240 @@
+<style>
+  .todo-shells {
+    display: grid;
+    gap: var(--size-4);
+    inline-size: 100%;
+  }
+
+  .todo-shell {
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius);
+    container-type: inline-size;
+    inline-size: 100%;
+    min-inline-size: 20rem;
+    overflow: hidden;
+    resize: inline;
+
+    > header {
+      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+      padding: var(--ui-space-2) var(--ui-space-3);
+    }
+
+    .todo-shell-main {
+      padding: var(--ui-space-4);
+    }
+  }
+
+  .todo-shell-brand {
+    color: var(--ui-text-strong);
+    font-weight: var(--ui-font-weight-bold);
+  }
+
+  @container (inline-size >= 56rem) {
+    .todo-shell-menu {
+      display: none;
+    }
+  }
+
+  .todo-shell-sidebar {
+    border-inline-end: var(--ui-border-width) solid var(--ui-border-color);
+    display: none;
+    padding: var(--ui-space-2);
+
+    @container (inline-size >= 56rem) {
+      display: block;
+    }
+  }
+
+  @container (inline-size >= 56rem) {
+    .todo-shell-drawer:not([open]) {
+      background-color: transparent;
+      block-size: auto;
+      border-inline-end: var(--ui-border-width) solid var(--ui-border-color);
+      box-shadow: none;
+      display: flex;
+      inline-size: auto;
+      position: static;
+      transition: none;
+      translate: none;
+
+      > .ui-header {
+        display: none;
+      }
+
+      > .ui-content {
+        padding: var(--ui-space-2);
+      }
+    }
+
+    .todo-shell-drawer + .todo-shell-main {
+      grid-column: 2;
+    }
+  }
+</style>
+<p class="todo-note">
+  Two copies of the app-shell block. Drag the corner at the bottom end of each
+  frame to make it narrower or wider than 56rem. Wide, the navigation is a
+  sidebar; narrow, the menu button opens it in a drawer. Today the block keeps
+  one copy of the links in the sidebar and another in the drawer. The proposed
+  version has one <code>dialog.ui-drawer</code> that a container query shows in
+  the page while it is closed and the frame is 56rem or wider, so the links
+  exist once. Open the drawer narrow, then widen the frame: it stays a modal
+  drawer until you close it, and then sits in the page.
+</p>
+<div class="todo-shells">
+  <section class="todo-current">
+    <p class="todo-label">Today: a sidebar plus a copy in a drawer</p>
+    <div class="todo-shell">
+      <header class="ui-layout-row ui-small">
+        <button
+          aria-label="Open navigation"
+          class="ui-button ui-round ui-small todo-shell-menu"
+          command="show-modal"
+          commandfor="todo-sidebar-today-drawer"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"
+            ></path>
+          </svg>
+        </button>
+        <span class="todo-shell-brand">Fjord</span>
+      </header>
+      <div class="ui-layout-columns" style="--_columns: 15rem 1fr; --_gap: 0">
+        <nav aria-label="Main" class="todo-shell-sidebar">
+          <ul class="ui-list ui-dense ui-transparent">
+            <li>
+              <a aria-current="page" href="#todo-sidebar-today-page">Home</a>
+            </li>
+            <li><a href="#todo-sidebar-today-page">Inbox</a></li>
+            <li><a href="#todo-sidebar-today-page">Projects</a></li>
+          </ul>
+        </nav>
+        <div class="todo-shell-main" id="todo-sidebar-today-page">
+          <p>Page content.</p>
+        </div>
+      </div>
+      <dialog
+        aria-labelledby="todo-sidebar-today-heading"
+        class="ui-drawer ui-scroll-lock"
+        closedby="any"
+        id="todo-sidebar-today-drawer"
+      >
+        <div class="ui-header">
+          <h2 id="todo-sidebar-today-heading">Fjord</h2>
+          <button
+            aria-label="Close navigation"
+            class="ui-button ui-round ui-small"
+            command="close"
+            commandfor="todo-sidebar-today-drawer"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <nav aria-label="Main" class="ui-content">
+          <ul class="ui-list ui-transparent">
+            <li>
+              <a aria-current="page" href="#todo-sidebar-today-page">Home</a>
+            </li>
+            <li><a href="#todo-sidebar-today-page">Inbox</a></li>
+            <li><a href="#todo-sidebar-today-page">Projects</a></li>
+          </ul>
+        </nav>
+      </dialog>
+    </div>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">
+      Proposed: one drawer that sits in the page when wide
+    </p>
+    <div class="todo-shell">
+      <header class="ui-layout-row ui-small">
+        <button
+          aria-label="Open navigation"
+          class="ui-button ui-round ui-small todo-shell-menu"
+          command="show-modal"
+          commandfor="todo-sidebar-drawer"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"
+            ></path>
+          </svg>
+        </button>
+        <span class="todo-shell-brand">Fjord</span>
+      </header>
+      <div class="ui-layout-columns" style="--_columns: 15rem 1fr; --_gap: 0">
+        <dialog
+          aria-labelledby="todo-sidebar-heading"
+          class="ui-drawer ui-scroll-lock todo-shell-drawer"
+          closedby="any"
+          id="todo-sidebar-drawer"
+        >
+          <div class="ui-header">
+            <h2 id="todo-sidebar-heading">Fjord</h2>
+            <button
+              aria-label="Close navigation"
+              class="ui-button ui-round ui-small"
+              command="close"
+              commandfor="todo-sidebar-drawer"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <nav aria-label="Main" class="ui-content">
+            <ul class="ui-list ui-transparent">
+              <li>
+                <a aria-current="page" href="#todo-sidebar-page">Home</a>
+              </li>
+              <li><a href="#todo-sidebar-page">Inbox</a></li>
+              <li><a href="#todo-sidebar-page">Projects</a></li>
+            </ul>
+          </nav>
+        </dialog>
+        <div class="todo-shell-main" id="todo-sidebar-page">
+          <p>Page content.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

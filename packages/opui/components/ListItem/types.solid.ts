@@ -1,12 +1,19 @@
 import type * as Base from "./types"
-import type { JSX } from "solid-js"
+import type { ComponentProps, JSX } from "@solidjs/web"
+import type { Component } from "solid-js"
 
-// prettier-ignore
-export type Props = Base.Props &
+type Without<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never
+
+export type Props = Without<
+  Base.Props<Component<any>>,
+  "description" | "label"
+> &
   Base.Slots<JSX.Element> &
   (
-    | ({ as?: "li" } & JSX.HTMLAttributes<HTMLLIElement>)
-    | ({ as: "a" } & JSX.AnchorHTMLAttributes<HTMLAnchorElement>)
-    | ({ as: "button" } & JSX.ButtonHTMLAttributes<HTMLButtonElement>)
-    | ({ as: "div" } & JSX.HTMLAttributes<HTMLDivElement>)
+    | ({ as?: never; href?: never } & ComponentProps<"li">)
+    | ({ as?: "a" | Component<any>; href: string } & Omit<
+        ComponentProps<"a">,
+        "href" | "type"
+      >)
+    | ({ as: "button" } & Omit<ComponentProps<"button">, "disabled">)
   )

@@ -1,0 +1,21 @@
+---
+import { Button, Toaster } from "opui-css/astro"
+---
+
+<Button id="toast-action-1-button" variant="filled">Archive</Button>
+<Toaster id="toast-action-1" />
+
+<script>
+  import { toast } from "opui-css/elements/toaster.js"
+
+  document
+    .getElementById("toast-action-1-button")
+    ?.addEventListener("click", () =>
+      toast("Conversation archived", {
+        action: {
+          label: "Undo",
+          onClick: () => toast("Conversation restored"),
+        },
+      }),
+    )
+</script>

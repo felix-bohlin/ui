@@ -1,29 +1,32 @@
-export type Props = {
-  command?: string
-  commandfor?: string
-  interestfor?: string
-  isGroup?: boolean
-  variant?: "squared" | "rounded" | "squircle"
+export type Props<Link = never> = {
+  label?: string
+  shape?: "circle" | "rounded" | "squared" | "squircle"
+  size?: "x-small" | "small" | "medium" | "large"
+  src?: string
+  variant?: "filled" | "outlined" | "tonal"
 } & (
   | {
       as?: "div"
-      href: never
       disabled?: never
-    }
-  | {
-      as?: "a"
-      href: string
-      disabled?: never
-    }
-  | {
-      as?: "button"
       href?: never
+    }
+  | {
+      as?: "a" | Link
       disabled?: boolean
+      href: string
+    }
+  | {
+      as: "button"
+      disabled?: boolean
+      href?: never
     }
 )
 
-export type Slots<S> = {
-  children?: S
-}
+export type Named =
+  | { label: string }
+  | { "aria-label": string }
+  | { "aria-labelledby": string }
 
-export type ImageProps = "src" | "alt"
+export type AvatarGroupProps =
+  | { "aria-label": string }
+  | { "aria-labelledby": string }

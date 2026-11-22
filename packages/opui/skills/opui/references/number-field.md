@@ -30,7 +30,7 @@ A number input in a Field with step buttons that step the value down and up, for
 
 ### Notes
 
-- HTML: Put `<opui-step-button>` in `.ui-start` and `.ui-end`, around a `.ui-button.ui-round` with `commandfor` and `aria-controls` naming the input and `command="--step-down"` or `command="--step-up"`, and import `opui-css/elements/step-button.js`. Without it, the buttons are hidden and the input keeps the browser's own spin buttons.
+- HTML: Put `<opui-step-button>` in `.ui-start` and `.ui-end`, around a `.ui-button.ui-round` with `commandfor` and `aria-controls` naming the input, `command="--step-down"` or `command="--step-up"` and an `aria-label`, and import `opui-css/elements/step-button.js`. Without it, the buttons are hidden and the input keeps the browser's own spin buttons.
 - Astro, React, Solid, Svelte and Vue: Put one with `command="--step-down"` in the field's `start` and one with `command="--step-up"` in its `end`, next to an `<input type="number">`, and leave those parts out of the input's `aria-describedby`. It loads `opui-css/elements/step-button.js`, which steps the value when the button is pressed or held.
 
 ## Component properties
@@ -43,7 +43,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### text-field.css
 
-- `--_accent`: Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a Select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
+- `--_accent`: Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
 - `--_arrow-inset`: Distance of the select arrow from the inline end.
 - `--_chevron-image`: The select arrow, as an image used for a mask.
 - `--_chevron-size`: Width and height of the select arrow.
@@ -271,7 +271,7 @@ import { Field, StepButton } from "opui-css/vue"
       max="10"
       min="1"
       type="number"
-      value="1"
+      :value.attr="'1'"
     />
     <template #start>
       <StepButton command="--step-down" for="number-field-basics-1" />

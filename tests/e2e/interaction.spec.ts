@@ -783,14 +783,22 @@ interaction(
 interaction(
   "range",
   "TickMarksLabels",
-  "range steps from tick to tick",
+  "range steps from tick to tick and names its value with the label of the tick at it",
   async ({ page, root }) => {
+    const quality = root.getByRole("slider", { name: "Quality" })
     const opacity = root.getByRole("slider", { name: "Opacity" })
 
+    await expect(quality).toHaveAttribute("aria-valuetext", "Medium")
+    await quality.focus()
+    await page.keyboard.press("ArrowRight")
+    await expect(quality).toHaveValue("2")
+    await expect(quality).toHaveAttribute("aria-valuetext", "High")
     await expect(opacity).toHaveValue("50")
+    await expect(opacity).toHaveAttribute("aria-valuetext", "50%")
     await opacity.focus()
     await page.keyboard.press("ArrowRight")
     await expect(opacity).toHaveValue("75")
+    await expect(opacity).toHaveAttribute("aria-valuetext", "75%")
   },
 )
 
@@ -2476,7 +2484,7 @@ interaction(
   async ({ root }) => {
     await expect(
       root.getByRole("spinbutton", { name: "Quantity" }),
-    ).toHaveAccessibleDescription("Only 4 sets of flatwounds left, whoops.")
+    ).toHaveAccessibleDescription("Only 4 left in stock.")
   },
 )
 

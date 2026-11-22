@@ -14,7 +14,7 @@ import { Field, StepButton } from "opui-css/vue"
   </Field>
   <Field
     autoFit
-    endText="Only 4 sets of flatwounds left, whoops."
+    endText="Only 4 left in stock."
     for="number-field-validation-2"
     label="Quantity"
   >
@@ -22,9 +22,10 @@ import { Field, StepButton } from "opui-css/vue"
       aria-describedby="number-field-validation-2-end-text"
       aria-invalid="true"
       id="number-field-validation-2"
+      max="4"
       min="1"
       type="number"
-      value="6"
+      :value.attr="'6'"
     />
     <template #start>
       <StepButton command="--step-down" for="number-field-validation-2" />

@@ -10,7 +10,7 @@ import { Field, StepButton } from "opui-css/vue"
         max="10"
         min="1"
         type="number"
-        value="1"
+        :value.attr="'1'"
       />
       <template #start>
         <StepButton

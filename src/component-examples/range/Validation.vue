@@ -13,7 +13,7 @@ import { Field } from "opui-css/vue"
       aria-invalid="true"
       id="range-validation-1"
       type="range"
-      value="10"
+      :value.attr="'10'"
     />
   </Field>
 </template>

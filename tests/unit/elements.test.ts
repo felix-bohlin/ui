@@ -69,6 +69,44 @@ test("the elements and the css/js scripts import in Node, which has no DOM", () 
   ).toEqual({})
 })
 
+const valueHooks = (script: string) => {
+  const start = script.indexOf("function descriptorOf(")
+  const end = script.indexOf("\nexport class ")
+  return start < 0 || end < start ? undefined : script.slice(start, end)
+}
+
+test("every element that watches a control's value carries the same value hook, so they share one wrapper per control", () => {
+  const hooks = globSync("packages/opui/elements/*.js")
+    .toSorted()
+    .flatMap((file) => {
+      const script = readFileSync(file, "utf8")
+      if (!script.includes("watchValue(")) return []
+      expect(script, file).toContain(
+        'const WATCH = Symbol.for("opui-value-watch")',
+      )
+      return [{ file, hook: valueHooks(script) }]
+    })
+  expect(hooks.map(({ file }) => file)).toEqual([
+    "packages/opui/elements/character-count.js",
+    "packages/opui/elements/step-button.js",
+  ])
+  for (const { file, hook } of hooks) {
+    expect(hook, `${file} has no value hook`).toBeDefined()
+    expect(hook, `${file} has another value hook than ${hooks[0].file}`).toBe(
+      hooks[0].hook,
+    )
+  }
+})
+
+test("the value hook reader flags a script without one", () => {
+  expect(valueHooks("export class AElement {}")).toBeUndefined()
+  expect(
+    valueHooks(
+      "function descriptorOf() {}\nfunction watchValue() {}\nexport class AElement {}",
+    ),
+  ).toBe("function descriptorOf() {}\nfunction watchValue() {}")
+})
+
 const typingProblems = (file: string, script: string, types: string) =>
   [...script.matchAll(/customElements\.define\("([\w-]+)", (\w+)\)/g)].flatMap(
     ([, tag, name]) => [

@@ -48,7 +48,7 @@
       "name": "elevation/ui-shadow-elevated"
     },
     {
-      "description": "Shadow of layers that float above the page: `Dialog`, `Drawer`, `Menu`, `Select` pickers and the `Carousel` buttons. Five layers of `--ui-shadow-color`. CSS: var(--ui-shadow-overlay).",
+      "description": "Shadow of layers that float above the page: `Dialog`, `Drawer`, `Menu`, select pickers and the `Carousel` buttons. Five layers of `--ui-shadow-color`. CSS: var(--ui-shadow-overlay).",
       "layers": [
         {
           "blur": 3,
@@ -2843,7 +2843,7 @@
     },
     {
       "codeSyntax": "var(--ui-surface-elevated)",
-      "description": "Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.",
+      "description": "Background of elevated cards and accordions, dialogs, drawers, menus and native select options.",
       "hidden": false,
       "name": "surfaces/ui-surface-elevated",
       "scopes": ["FRAME_FILL", "SHAPE_FILL"],
@@ -2995,7 +2995,7 @@
     },
     {
       "codeSyntax": "var(--ui-surface-tonal-hover)",
-      "description": "Hover fill of a `--ui-surface-tonal` surface: clickable `Chip`s, filled `TextField`, `Select` and `Textarea` fields, and tonal `Button`s with `--ui-button-hover: shade-all`. Derived from `--ui-surface-tonal`, darker in light mode and lighter in dark mode.",
+      "description": "Hover fill of a `--ui-surface-tonal` surface: clickable `Chip`s, a filled `Field` and tonal `Button`s with `--ui-button-hover: shade-all`. Derived from `--ui-surface-tonal`, darker in light mode and lighter in dark mode.",
       "hidden": false,
       "name": "surfaces/ui-surface-tonal-hover",
       "scopes": ["FRAME_FILL", "SHAPE_FILL"],
@@ -3207,7 +3207,7 @@
     },
     {
       "codeSyntax": "var(--ui-border-color-on-raised)",
-      "description": "Borders drawn inside a raised surface (tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu`, the `Select` picker and tonal `Callout` without a severity): dividers, separators, outlined controls. The same mix as `--ui-border-color` by default. Each raised component sets `--ui-border-color` to it on its root, so a theme that wants another border inside raised surfaces sets this one. The edge of the surface itself is `--ui-border-color-raised`.",
+      "description": "Borders drawn inside a raised surface (tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu`, the select picker and tonal `Callout` without a severity): dividers, separators, outlined controls. The same mix as `--ui-border-color` by default. Each raised component sets `--ui-border-color` to it on its root, so a theme that wants another border inside raised surfaces sets this one. The edge of the surface itself is `--ui-border-color-raised`.",
       "hidden": false,
       "name": "borders/ui-border-color-on-raised",
       "scopes": ["SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL"],
@@ -3413,7 +3413,7 @@
     },
     {
       "codeSyntax": "var(--ui-field-border-color)",
-      "description": "Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch` unless `--ui-choice-border-color` is set, the `Range` track and the `Progress` outline. `--ui-text-strong` mixed into `--ui-surface` at `--ui-field-border-strength`, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make.",
+      "description": "Border color of every empty control: a `Field` around a text input, select or textarea, the unchecked `Checkbox`, `Radio` and `Switch` unless `--ui-choice-border-color` is set, the track of a range and the `Progress` outline. `--ui-text-strong` mixed into `--ui-surface` at `--ui-field-border-strength`, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make.",
       "hidden": false,
       "name": "field/ui-field-border-color",
       "scopes": ["STROKE_COLOR"],
@@ -3593,7 +3593,7 @@
     },
     {
       "codeSyntax": "var(--ui-focus-ring-inset)",
-      "description": "Negative offset for focus rings drawn inside a control, such as `List` items and `Select` options.",
+      "description": "Negative offset for focus rings drawn inside a control, such as `List` items and select options.",
       "hidden": false,
       "name": "focus-ring/ui-focus-ring-inset",
       "scopes": [],
@@ -4115,7 +4115,7 @@
     },
     {
       "codeSyntax": "var(--ui-font-size-control)",
-      "description": "Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. Small and x-small sizes read `--ui-font-size-small` and `--ui-font-size-caption`. Defaults to `--ui-font-size-300`.",
+      "description": "Font size of the default `Button`, `Field`, `Tabs` and `ToggleButton`. Small and x-small sizes read `--ui-font-size-small` and `--ui-font-size-caption`. Defaults to `--ui-font-size-300`.",
       "hidden": false,
       "name": "typography/ui-font-size-control",
       "scopes": ["FONT_SIZE"],
@@ -4961,7 +4961,7 @@
     },
     {
       "codeSyntax": "var(--ui-icon-size-small)",
-      "description": "Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron.",
+      "description": "Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the chevron of a select and of an input with a datalist.",
       "hidden": false,
       "name": "icons/ui-icon-size-small",
       "scopes": ["WIDTH_HEIGHT"],

@@ -520,10 +520,8 @@ Lists meant to be used stand-alone or as part of Select elements
 
 @layer components.root {
   :where(
-    :is(.ui-list, .ui-menu).ui-dense > :where(li, option),
-    :is(.ui-list, .ui-menu).ui-dense
-      > :where([role="group"], optgroup)
-      > :where(label, legend, option),
+    :is(.ui-list, .ui-menu).ui-dense > li,
+    :is(.ui-list, .ui-menu).ui-dense > [role="group"] > label,
     .ui-field.ui-dense > .ui-field-container > select > option,
     .ui-field.ui-dense
       > .ui-field-container
@@ -553,10 +551,8 @@ Lists meant to be used stand-alone or as part of Select elements
 
   /* Switches look comically big in lists, so it's better to use a smaller variant  */
   :where(
-      :is(.ui-list, .ui-menu) > :where(li, option),
-      :is(.ui-list, .ui-menu)
-        > :where([role="group"], optgroup)
-        > :where(label, legend, option),
+      :is(.ui-list, .ui-menu) > li,
+      :is(.ui-list, .ui-menu) > [role="group"] > label,
       .ui-field > .ui-field-container > select > option,
       .ui-field
         > .ui-field-container

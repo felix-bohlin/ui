@@ -17,9 +17,7 @@ const solidChecked = {
     "{...checkedControl.server}",
     "ref={[props.ref, checkedControl.ref]}",
   ],
-  body: () => [
-    'const checkedControl = control("checked", () => props.checked)',
-  ],
+  body: () => ["const checkedControl = control(() => props.checked)"],
   omits: () => ["checked", "ref"],
   locals: () => ["checkedControl"],
 }
@@ -32,7 +30,6 @@ export const modelHelpers = (framework, component) =>
     solid: {
       checkedValues: selectionImport(component),
       control: "../solid",
-      optionSelected: "../solid",
       untrack: "solid-js",
     },
     svelte: {

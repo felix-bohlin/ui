@@ -18,7 +18,7 @@ export default function Validation() {
       <Field
         autoFit
         end={<StepButton command="--step-up" for="number-field-validation-2" />}
-        endText="Only 4 sets of flatwounds left, whoops."
+        endText="Only 4 left in stock."
         for="number-field-validation-2"
         label="Quantity"
         start={
@@ -29,6 +29,7 @@ export default function Validation() {
           aria-describedby="number-field-validation-2-end-text"
           aria-invalid="true"
           id="number-field-validation-2"
+          max="4"
           min="1"
           type="number"
           defaultValue="6"

@@ -25,14 +25,12 @@ const attribute = (element: Element | undefined, name: string) =>
 const hasClass = (element: Element, name: string) =>
   (attribute(element, "class") ?? "").split(/\s+/).includes(name)
 
-const BUTTON_COMMANDS = ["--step-down", "--step-up", "--toggle-password"]
-
 const buttonsOnly = (element: Element): boolean =>
   children(element).length > 0 &&
   children(element).every((child) =>
     ["opui-password-toggle", "opui-step-button"].includes(child.tagName)
       ? buttonsOnly(child)
-      : BUTTON_COMMANDS.includes(attribute(child, "command") ?? ""),
+      : child.tagName === "button",
   )
 
 export const wiringProblems = (html: string) =>
@@ -65,6 +63,13 @@ export const wiringProblems = (html: string) =>
         if (!element) return []
         const partId = attribute(element, "id")
         if (["end", "start"].includes(part) && buttonsOnly(element)) {
+          return []
+        }
+        if (
+          part === "end-text" &&
+          children(element).length > 0 &&
+          children(element).every((child) => child.tagName === "output")
+        ) {
           return []
         }
         if (partId !== `${id}-${part}`) {
@@ -126,6 +131,27 @@ describe("every field in the HTML examples and blocks points at the control you 
         '<div class="ui-field"><label class="ui-label" for="x">Quantity</label><span class="ui-field-container"><span class="ui-start" id="x-start"><opui-step-button><button command="--step-down" commandfor="x"></button></opui-step-button></span><input id="x" type="number"><span class="ui-end" id="x-end"><opui-step-button><button command="--step-up" commandfor="x"></button></opui-step-button></span></span></div>',
       ),
     ).toEqual([])
+  })
+
+  test("an end text that only holds the value output stays out of the description", () => {
+    expect(
+      wiringProblems(
+        '<div class="ui-field"><label class="ui-label" for="x">Hue</label><span class="ui-field-container"><input id="x" type="range"></span><span class="ui-end-text" id="x-end-text"><output for="x">250</output></span></div>',
+      ),
+    ).toEqual([])
+  })
+
+  test("an end part that only holds a button stays out of the description", () => {
+    expect(
+      wiringProblems(
+        '<div class="ui-field"><label class="ui-label" for="x">Reply</label><span class="ui-field-container"><textarea id="x"></textarea><span class="ui-end" id="x-end"><button class="ui-button" type="submit">Send</button></span></span></div>',
+      ),
+    ).toEqual([])
+    expect(
+      wiringProblems(
+        '<div class="ui-field"><label class="ui-label" for="x">Price</label><span class="ui-field-container"><input id="x"><span class="ui-end" id="x-end">EUR</span></span></div>',
+      ),
+    ).toEqual(['x is described by "", not "x-end"'])
   })
 
   test("an end part that only holds a password toggle stays out of the description", () => {

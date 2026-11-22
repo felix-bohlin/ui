@@ -19,9 +19,9 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-border-color-on-filled":
     "Border color inside filled surfaces: lists without a variant and table headers. `List` and `Table` set `--ui-border-color` to it on those parts.",
   "--ui-border-color-on-raised":
-    "Borders drawn inside a raised surface (tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu`, the `Select` picker and tonal `Callout` without a severity): dividers, separators, outlined controls. The same mix as `--ui-border-color` by default. Each raised component sets `--ui-border-color` to it on its root, so a theme that wants another border inside raised surfaces sets this one. The edge of the surface itself is `--ui-border-color-raised`.",
+    "Borders drawn inside a raised surface (tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu`, the select picker and tonal `Callout` without a severity): dividers, separators, outlined controls. The same mix as `--ui-border-color` by default. Each raised component sets `--ui-border-color` to it on its root, so a theme that wants another border inside raised surfaces sets this one. The edge of the surface itself is `--ui-border-color-raised`.",
   "--ui-border-color-raised":
-    "The edge of every raised surface: tonal and elevated `Card`, `Accordion` and `Dialog`, tonal `Callout` without a severity, `Drawer`, `Menu` and the `Select` picker. Set it to outline them all at once, or to `transparent` to drop their edges. When unset, each keeps its own edge: cards, accordions and dialogs the page background, so they stay visible on tonal surfaces, callouts their tonal background, and drawers, menus and the picker `--ui-border-color-on-raised`. The borders inside a raised surface are `--ui-border-color-on-raised`.",
+    "The edge of every raised surface: tonal and elevated `Card`, `Accordion` and `Dialog`, tonal `Callout` without a severity, `Drawer`, `Menu` and the select picker. Set it to outline them all at once, or to `transparent` to drop their edges. When unset, each keeps its own edge: cards, accordions and dialogs the page background, so they stay visible on tonal surfaces, callouts their tonal background, and drawers, menus and the picker `--ui-border-color-on-raised`. The borders inside a raised surface are `--ui-border-color-on-raised`.",
   "--ui-border-strength-dark":
     "How much of `--ui-text-strong` is mixed into `--ui-surface` for `--ui-border-color` in dark mode. `11%`, and `55%` with more contrast.",
   "--ui-border-strength-light":
@@ -74,7 +74,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-chip-size-small": "`Chip` height with `.ui-small`.",
   "--ui-chip-size-x-small": "`Chip` height with `.ui-x-small`.",
   "--ui-choice-accent":
-    "Fill of a checked `Checkbox`, `Radio` and `Switch`, and the thumb and fill of `Range`. When unset, `--ui-control-accent`, else `--ui-primary`, with its lightness capped in dark mode for the choice controls. Set it, or `--ui-control-accent`, to `--ui-primary` for the plain primary, like Material and shadcn.",
+    "Fill of a checked `Checkbox`, `Radio` and `Switch`, and the thumb and fill of a range. When unset, `--ui-control-accent`, else `--ui-primary`, with its lightness capped in dark mode for the choice controls. Set it, or `--ui-control-accent`, to `--ui-primary` for the plain primary, like Material and shadcn.",
   "--ui-choice-border-color":
     "Border of the unchecked `Checkbox`, `Radio` and `Switch` track. When unset, `--ui-field-border-color`. Set it for themes whose field border is fainter than 3:1, like shadcn, which outlines its choices with `--ui-primary` like shadcn/ui does.",
   "--ui-choice-border-width":
@@ -111,7 +111,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-contrast":
     "`more` tightens the contrast knobs (`--ui-text-strength-*`, `--ui-text-disabled-strength`, `--ui-border-strength-*`, `--ui-field-border-strength`, `--ui-code-bg-alpha-*`, `--ui-accent-max-chroma`, the `*-max-lightness` and `*-min-lightness` limits, `--ui-state-active-alpha-dark`, `--ui-state-selected-alpha-accent` and `--ui-focus-ring-width`), and every role derived from them follows. Set to `more` under `prefers-contrast: more` or by `.ui-contrast-more`. Components read it in style queries for shape changes. See [Contrast](/guide/theming#contrast).",
   "--ui-control-accent":
-    "The accent every control shares: `Button` and `ControlGroup` without `.ui-primary` or `.ui-critical`, a checked `Checkbox`, `Radio` and `Switch`, and the `Range` thumb and fill. Unset by default, so buttons keep `--ui-palette-strong` and choice controls `--ui-primary`. Set it to `--ui-primary` to give every control the brand color in one line, like Material and shadcn, and `--ui-button-accent` or `--ui-choice-accent` to override one of them.",
+    "The accent every control shares: `Button` and `ControlGroup` without `.ui-primary` or `.ui-critical`, a checked `Checkbox`, `Radio` and `Switch`, and the thumb and fill of a range. Unset by default, so buttons keep `--ui-palette-strong` and choice controls `--ui-primary`. Set it to `--ui-primary` to give every control the brand color in one line, like Material and shadcn, and `--ui-button-accent` or `--ui-choice-accent` to override one of them.",
   "--ui-control-border-color":
     "Border color of controls without a fill: `Button` with `.ui-outlined`, also in an outlined `ControlGroup`, `ToggleButton`, `ToggleGroup`, `Chip` with `.ui-outlined`, the track of `Tabs` with `.ui-outlined`, and the selected `Tabs` pill. When unset, outlined buttons use their color, the selected `Tabs` pill `--ui-field-border-color` and the rest `--ui-border-color`. Themes that outline controls like fields set it to `--ui-field-border-color`.",
   "--ui-control-border-color-filled":
@@ -143,11 +143,11 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-ease-exit":
     "Easing for elements leaving the screen: closing `Dialog`, `Drawer` and `Menu`, and a dismissed toast.",
   "--ui-ease-move":
-    "Easing for movement a theme may make springy: the `Tabs` indicator, the press scale, and `Menu`, `Select`, `Tooltip` and toasts as they open. Never for anything closing. When unset, each reads its own easing; a `linear()` spring with a little overshoot gives the controls some bounce.",
+    "Easing for movement a theme may make springy: the `Tabs` indicator, the press scale, and `Menu`, the select picker, `Tooltip` and toasts as they open. Never for anything closing. When unset, each reads its own easing; a `linear()` spring with a little overshoot gives the controls some bounce.",
   "--ui-field-bg-color":
-    "Background of `TextField`, `Textarea` and `Select` fields. When unset, `--ui-surface`, the page color.",
+    "Background of a `Field` around a text input, select or textarea. When unset, `--ui-surface`, the page color.",
   "--ui-field-border-color":
-    "Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch` unless `--ui-choice-border-color` is set, the `Range` track and the `Progress` outline. `--ui-text-strong` mixed into `--ui-surface` at `--ui-field-border-strength`, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make.",
+    "Border color of every empty control: a `Field` around a text input, select or textarea, the unchecked `Checkbox`, `Radio` and `Switch` unless `--ui-choice-border-color` is set, the track of a range and the `Progress` outline. `--ui-text-strong` mixed into `--ui-surface` at `--ui-field-border-strength`, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make.",
   "--ui-field-border-color-on-filled":
     "Field border color inside filled surfaces: lists without a variant and table headers. `--ui-text-strong` mixed into `--ui-surface-filled` at `--ui-field-border-strength`.",
   "--ui-field-border-color-on-raised":
@@ -167,16 +167,16 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Font weight for emphasized field labels and legends.",
   "--ui-field-label-text-color": "Text color for field labels.",
   "--ui-field-padding-inline":
-    "Horizontal padding inside `TextField`, `Textarea` and `Select` fields. When unset, `--ui-space-2`. `.ui-large` reads `--ui-field-padding-inline-large`.",
+    "Horizontal padding inside a `Field` around a text input, select or textarea. When unset, `--ui-space-2`. `.ui-large` reads `--ui-field-padding-inline-large`.",
   "--ui-field-padding-inline-large":
-    "Horizontal padding inside `TextField`, `Textarea` and `Select` fields with `.ui-large`. When unset, `--ui-space-3`.",
+    "Horizontal padding inside a `Field` with `.ui-large`, around a text input, select or textarea. When unset, `--ui-space-3`.",
   "--ui-field-placeholder-text-color":
     "Color of placeholder text in fields. When unset, `--ui-text-subtle`.",
   "--ui-field-radius":
     "Corner radius for fields. When unset, they follow `--ui-radius`, also where it's set on a part of the page.",
   "--ui-field-required-text-color": "Color of the required asterisk.",
   "--ui-field-shadow":
-    "Shadow of `TextField`, `Textarea` and `Select` fields. When unset, they follow `--ui-shadow-control`. Set it to `none` to lift buttons but keep fields flat.",
+    "Shadow of a `Field` around a text input, select or textarea. When unset, it follows `--ui-shadow-control`. Set it to `none` to lift buttons but keep fields flat.",
   "--ui-field-size": "Default field height.",
   "--ui-field-size-large": "Field height with `.ui-large`.",
   "--ui-field-size-small": "Field height with `.ui-small`.",
@@ -188,15 +188,15 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-fluid-progress":
     "Position of the viewport inline size in the `--ui-fluid-min-inline-size` to `--ui-fluid-max-inline-size` window, 0 to 1, from `progress()`. `--ui-font-size-h1` to `--ui-font-size-h4` grow with it, and a theme can ramp other values on the same window.",
   "--ui-focus-border-color":
-    "Border color of a focused `Button`, `Checkbox`, `Chip`, `Radio`, `Switch` and `ToggleButton`, of the field of a focused `Select`, `Textarea` and `TextField`, and of a checkbox or radio card and a `Card` with a focused card link. It gives the focus ring a second color to sit on, like a dark edge under a bright ring, so pair it with `--ui-focus-ring-offset: 0px`. When set, the focus ring promises its contrast against this border instead of the page. Links and buttons that highlight, with `--ui-link-focus` or `--ui-button-focus` set to `highlight`, show neither the ring nor this border: `--ui-on-focus-highlight` carries their contrast. When unset, each keeps its own border. Forced colors ignore it.",
+    "Border color of a focused `Button`, `Checkbox`, `Chip`, `Radio`, `Switch` and `ToggleButton`, of a `Field` whose input, select or textarea has focus, and of a checkbox or radio card and a `Card` with a focused card link. It gives the focus ring a second color to sit on, like a dark edge under a bright ring, so pair it with `--ui-focus-ring-offset: 0px`. When set, the focus ring promises its contrast against this border instead of the page. Links and buttons that highlight, with `--ui-link-focus` or `--ui-button-focus` set to `highlight`, show neither the ring nor this border: `--ui-on-focus-highlight` carries their contrast. When unset, each keeps its own border. Forced colors ignore it.",
   "--ui-focus-border-width":
-    "Border width of a focused `Checkbox` and `Radio` and of the field of a focused `Select`, `Textarea` and `TextField`, so the focus edge thickens, like GOV.UK's 4px and Material 3's 2dp outlined fields. Never thinner than `--ui-choice-border-width` or `--ui-field-border-width`, and the extra width grows inward, so the check, the dot and the text keep their place. Forced colors keep the wider border. When wider than the ring, it is also the bar under a highlighted link, with `--ui-link-focus` set to `highlight`. When unset, the border keeps its width.",
+    "Border width of a focused `Checkbox` and `Radio` and of a `Field` whose input, select or textarea has focus, so the focus edge thickens, like GOV.UK's 4px and Material 3's 2dp outlined fields. Never thinner than `--ui-choice-border-width` or `--ui-field-border-width`, and the extra width grows inward, so the check, the dot and the text keep their place. Forced colors keep the wider border. When wider than the ring, it is also the bar under a highlighted link, with `--ui-link-focus` set to `highlight`. When unset, the border keeps its width.",
   "--ui-focus-highlight":
     "Fill of a focused link or button that highlights instead of showing the ring, when `--ui-link-focus` or `--ui-button-focus` is `highlight`: `--ui-focus-ring-color` made opaque. A translucent ring, like Bootstrap's, fills at full strength, since text contrast on a see-through fill depends on what is behind it.",
   "--ui-focus-ring-color":
     "Color of the keyboard focus ring. Black on surfaces lighter than OKLCH 0.6 and white on darker ones, so it reaches 3:1 on any `--ui-surface`.",
   "--ui-focus-ring-inset":
-    "Negative offset for focus rings drawn inside a control, such as `List` items and `Select` options.",
+    "Negative offset for focus rings drawn inside a control, such as `List` items and select options.",
   "--ui-focus-ring-offset": "Distance between a control and its focus ring.",
   "--ui-focus-ring-style": "Outline style of the focus ring.",
   "--ui-focus-ring-width": "Width of the focus ring. `3px` with more contrast.",
@@ -229,7 +229,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-font-size-caption":
     "Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`.",
   "--ui-font-size-control":
-    "Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. Small and x-small sizes read `--ui-font-size-small` and `--ui-font-size-caption`. Defaults to `--ui-font-size-300`.",
+    "Font size of the default `Button`, `Field`, `Tabs` and `ToggleButton`. Small and x-small sizes read `--ui-font-size-small` and `--ui-font-size-caption`. Defaults to `--ui-font-size-300`.",
   "--ui-font-size-h1":
     "Font size for `h1` and `.ui-h1`. Grows from `--ui-font-size-700` to `--ui-font-size-900` with `--ui-fluid-progress`.",
   "--ui-font-size-h2":
@@ -258,7 +258,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-green":
     "A literal green, hue 145 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
   "--ui-icon-check":
-    "The check that marks the current item of a `Menu`, the selected item of a listbox and `Select` picker, and a complete `Stepper` step. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+    "The check that marks the current item of a `Menu`, the selected item of a listbox and select picker, and a complete `Stepper` step. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-clear":
     "The clear option of a `Rating`. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-close":
@@ -268,9 +268,9 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-icon-decrease":
     "The icon of a `StepButton` that steps down. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-expand":
-    "The `Accordion` marker, and the arrow of a `Select` and of a `TextField` with a datalist. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+    "The `Accordion` marker, and the arrow of a select and of an input with a datalist in a `Field`. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-hide":
-    "The password toggle of a `TextField` while the password shows. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+    "The `PasswordToggle` while the password shows. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-increase":
     "The icon of a `StepButton` that steps up. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-info":
@@ -284,12 +284,12 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-icon-rating-empty":
     "An empty star of a `Rating`. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-show":
-    "The password toggle of a `TextField` while the password is hidden. An SVG image used as a mask, so only its shape counts and it takes the text color.",
+    "The `PasswordToggle` while the password is hidden. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-size": "Default icon size inside components.",
   "--ui-icon-size-large":
     "Icon size inside `Avatar`, and of an `svg` without a `width` in `normalize.css`.",
   "--ui-icon-size-small":
-    "Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron.",
+    "Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the chevron of a select and of an input with a datalist.",
   "--ui-icon-size-x-small":
     "Smallest icon size, for icons in x-small controls. Not read by a component yet.",
   "--ui-icon-sort":
@@ -329,9 +329,9 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-link-visited-text-color":
     "Text and underline color of a visited `.ui-link` and of visited links in `.ui-rich-text`. Hover and focus keep their own color. When unset, visited links look like the others.",
   "--ui-list-item-padding-inline":
-    "Horizontal padding of `List` and `Menu` items, headings and `Select` options. When unset, `--ui-space-3`.",
+    "Horizontal padding of `List` and `Menu` items, headings and select options. When unset, `--ui-space-3`.",
   "--ui-menu-radius":
-    "Corner radius for `Menu` and the `Select` picker. When unset, menus follow `--ui-radius` and the picker `--ui-field-radius`, like its field.",
+    "Corner radius for `Menu` and the select picker. When unset, menus follow `--ui-radius` and the picker `--ui-field-radius`, like its field.",
   "--ui-motion":
     "Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](/guide/theming#motion).",
   "--ui-neutral":
@@ -348,7 +348,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-on-primary-tonal":
     "Text color on `--ui-primary-tonal`. Set it with `--ui-primary-tonal`.",
   "--ui-on-selected":
-    "Text color on `--ui-selected`. When unset, `--ui-on-primary` on toggles, the item's own text color on list items and selected `Select` options, and `--ui-text-strong` on a checked `Message` reaction.",
+    "Text color on `--ui-selected`. When unset, `--ui-on-primary` on toggles, the item's own text color on list items and the selected options of a select, and `--ui-text-strong` on a checked `Message` reaction.",
   "--ui-on-selected-strong":
     "Text color on `--ui-selected-strong`: the selected tab of filled `Tabs` and the number or icon of the current `Stepper` and `Timeline` markers. Defaults to `--ui-on-primary`.",
   "--ui-on-warning":
@@ -436,7 +436,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-safe-area-inset-inline-start":
     "The part of the inline start side a notch or a rounded corner covers, as on a phone held sideways: `env(safe-area-inset-left)`, and `env(safe-area-inset-right)` on a right-to-left page. A `Drawer` on that side or at the block start or end pads its content clear of it, and a `Toaster` keeps its toasts clear of it. `0px` unless the viewport meta tag has `viewport-fit=cover`.",
   "--ui-selected":
-    "Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, a pressed `Chip`, a selected or current `List` item and `Select` option, and a checked `Message` reaction. When unset, `--ui-primary` on toggles, `--ui-primary` at `--ui-state-selected-alpha-accent` on list items and options, and the same mixed into `--ui-surface` on reactions. Pair it with `--ui-on-selected`.",
+    "Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, a pressed `Chip`, a selected or current `List` item and select option, and a checked `Message` reaction. When unset, `--ui-primary` on toggles, `--ui-primary` at `--ui-state-selected-alpha-accent` on list items and options, and the same mixed into `--ui-surface` on reactions. Pair it with `--ui-on-selected`.",
   "--ui-selected-strong":
     "Mark of a selected item that has to stand out from the page on its own: the current `Carousel` marker, the bar on the start edge of a selected `List` row, the selected tab of filled `Tabs`, the current `Stepper` and `Timeline` markers, the border of a checked `Message` reaction, and the done part of a `Progress` bar, a `Stepper` and a tracked `Timeline`. Defaults to `--ui-primary`. `--ui-selected` is the fill behind a selected item and may be faint.",
   "--ui-shadow-color":
@@ -446,7 +446,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-shadow-elevated":
     "Shadow of elevated `Card` and `Accordion`. Five layers of `--ui-shadow-color`, which follows the color scheme, also in `.ui-light` and `.ui-dark` parts of the page.",
   "--ui-shadow-overlay":
-    "Shadow of layers that float above the page: `Dialog`, `Drawer`, `Menu`, `Select` pickers and the `Carousel` buttons. Five layers of `--ui-shadow-color`.",
+    "Shadow of layers that float above the page: `Dialog`, `Drawer`, `Menu`, select pickers and the `Carousel` buttons. Five layers of `--ui-shadow-color`.",
   "--ui-shadow-scroll":
     "Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Six layers of `--ui-shadow-color`.",
   "--ui-shadow-selected":
@@ -476,20 +476,20 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-state-hover-alpha-light":
     "Alpha of the hover state layer on neutral buttons and `ToggleButton` in light mode.",
   "--ui-state-selected-alpha-accent":
-    'Alpha of the tint behind selected `List` and `Menu` rows, `Select` options and checked `Message` reactions when `--ui-selected` is unset, behind checked `Checkbox`, `Radio` and `Switch` cards, which tint their accent, behind the current page (`aria-current="page"`) in text, outlined and tonal buttons, and of the selected `Tabs` pill in dark mode. `15%` with more contrast, so light text keeps 7:1 in dark mode.',
+    'Alpha of the tint behind selected `List` and `Menu` rows, select options and checked `Message` reactions when `--ui-selected` is unset, behind checked `Checkbox`, `Radio` and `Switch` cards, which tint their accent, behind the current page (`aria-current="page"`) in text, outlined and tonal buttons, and of the selected `Tabs` pill in dark mode. `15%` with more contrast, so light text keeps 7:1 in dark mode.',
   "--ui-success": "Severity color for success messages.",
   "--ui-success-text":
     "Success as a text color, for success text outside an `.ui-success` scope, and `ins` and `.ui-ins` text. `--ui-success` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
   "--ui-surface": "Page and card background.",
   "--ui-surface-elevated":
-    "Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.",
+    "Background of elevated cards and accordions, dialogs, drawers, menus and native select options.",
   "--ui-surface-filled":
     "Background of filled areas: lists, `.ui-filled` progress and range tracks, table headers and footers, and hovered table rows.",
   "--ui-surface-inverse":
     "Background of `Tooltip`, the `Carousel` buttons and `kbd`, `var`, `.ui-kbd` and `.ui-var`, inverted against the page.",
   "--ui-surface-tonal": "Background of tonal variants.",
   "--ui-surface-tonal-hover":
-    "Hover fill of a `--ui-surface-tonal` surface: clickable `Chip`s, filled `TextField`, `Select` and `Textarea` fields, and tonal `Button`s with `--ui-button-hover: shade-all`. Derived from `--ui-surface-tonal`, darker in light mode and lighter in dark mode.",
+    "Hover fill of a `--ui-surface-tonal` surface: clickable `Chip`s, a filled `Field` and tonal `Button`s with `--ui-button-hover: shade-all`. Derived from `--ui-surface-tonal`, darker in light mode and lighter in dark mode.",
   "--ui-switch-thumb-bg-color":
     "Color of the unchecked `Switch` thumb. The checked thumb uses `--ui-choice-on-accent`.",
   "--ui-switch-thumb-size": "Diameter of the `Switch` thumb.",
@@ -541,7 +541,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-text-subtle":
     "Secondary text: placeholders, field helper text, overlines, descriptions in `List` and `Menu` items, unselected `Tabs` labels and `Table` captions. `--ui-text` unless a theme sets it.",
   "--ui-track-bg-color":
-    "The empty part of a track: the unchecked `Switch`, `Progress` and the `Range` track. When unset, `Progress` uses `--ui-surface-tonal`, the range its field border and the switch `--ui-surface-tonal` (at `0.58` lightness in dark mode). `--ui-switch-track-bg-color` comes first on the switch.",
+    "The empty part of a track: the unchecked `Switch`, `Progress` and the track of a range. When unset, `Progress` uses `--ui-surface-tonal`, the range its field border and the switch `--ui-surface-tonal` (at `0.58` lightness in dark mode). `--ui-switch-track-bg-color` comes first on the switch.",
   "--ui-underline-offset":
     "Gap between text and its underline for `Link`, rich text links and `Stepper` links.",
   "--ui-underline-offset-small":

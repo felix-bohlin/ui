@@ -12,7 +12,7 @@ import { OneTimeCode } from "opui-css/vue"
       maxlength="6"
       name="code"
       pattern="[0-9]{6}"
-      value="905"
+      :value.attr="'905'"
     />
   </OneTimeCode>
 </template>

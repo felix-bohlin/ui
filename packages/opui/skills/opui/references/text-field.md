@@ -40,7 +40,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### text-field.css
 
-- `--_accent`: Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a Select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
+- `--_accent`: Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
 - `--_arrow-inset`: Distance of the select arrow from the inline end.
 - `--_chevron-image`: The select arrow, as an image used for a mask.
 - `--_chevron-size`: Width and height of the select arrow.
@@ -67,77 +67,20 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--u
 
 ## HTML
 
-### Example: Password toggle
+### Example: Basics
 
 ```html
 <div class="ui-field">
-  <label class="ui-label" for="text-field-password-toggle-1">Password</label>
+  <label class="ui-label" for="text-field-basics-1">Email</label>
   <span class="ui-field-container">
     <input
-      autocomplete="current-password"
-      id="text-field-password-toggle-1"
-      type="password"
+      autocomplete="email"
+      id="text-field-basics-1"
+      name="email"
+      type="email"
     />
-    <span class="ui-end" id="text-field-password-toggle-1-end">
-      <opui-password-toggle>
-        <button
-          class="ui-button ui-round"
-          type="button"
-          aria-label="Show password"
-          aria-pressed="false"
-          command="--toggle-password"
-          commandfor="text-field-password-toggle-1"
-        >
-          <svg
-            aria-hidden="true"
-            class="ui-icon-unchecked"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          ></svg>
-          <svg aria-hidden="true" class="ui-icon-checked" viewBox="0 0 24 24"></svg>
-        </button>
-      </opui-password-toggle>
-    </span>
   </span>
 </div>
-<div class="ui-field">
-  <label class="ui-label" for="text-field-password-toggle-2"
-    >New password</label
-  >
-  <span class="ui-field-container">
-    <input
-      aria-describedby="text-field-password-toggle-2-end-text"
-      autocomplete="new-password"
-      id="text-field-password-toggle-2"
-      minlength="12"
-      type="password"
-    />
-    <span class="ui-end" id="text-field-password-toggle-2-end">
-      <opui-password-toggle>
-        <button
-          class="ui-button ui-round"
-          type="button"
-          aria-label="Show new password"
-          aria-pressed="false"
-          command="--toggle-password"
-          commandfor="text-field-password-toggle-2"
-        >
-          <svg aria-hidden="true" class="ui-icon-unchecked" viewBox="0 0 24 24"></svg>
-          <svg aria-hidden="true" class="ui-icon-checked" viewBox="0 0 24 24"></svg>
-        </button>
-      </opui-password-toggle>
-    </span>
-  </span>
-  <span class="ui-end-text" id="text-field-password-toggle-2-end-text"
-    >At least 12 characters.</span
-  >
-</div>
-
-<script type="module">
-  import "opui-css/elements/password-toggle.js"
-</script>
 ```
 
 ## Astro
@@ -146,37 +89,19 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--u
 
 - `PasswordToggle` named slots: `icon-checked` and `icon-unchecked`. Fill one with `slot="icon-checked"` on a child.
 
-### Example: Password toggle
+### Example: Basics
 
 ```astro
 ---
-import { Field, PasswordToggle } from "opui-css/astro"
+import { Field } from "opui-css/astro"
 ---
 
-<Field for="text-field-password-toggle-1" label="Password">
+<Field for="text-field-basics-1" label="Email">
   <input
-    autocomplete="current-password"
-    id="text-field-password-toggle-1"
-    type="password"
-  />
-  <PasswordToggle for="text-field-password-toggle-1" slot="end" />
-</Field>
-<Field
-  endText="At least 12 characters."
-  for="text-field-password-toggle-2"
-  label="New password"
->
-  <input
-    aria-describedby="text-field-password-toggle-2-end-text"
-    autocomplete="new-password"
-    id="text-field-password-toggle-2"
-    minlength="12"
-    type="password"
-  />
-  <PasswordToggle
-    for="text-field-password-toggle-2"
-    label="Show new password"
-    slot="end"
+    autocomplete="email"
+    id="text-field-basics-1"
+    name="email"
+    type="email"
   />
 </Field>
 ```
@@ -188,45 +113,21 @@ import { Field, PasswordToggle } from "opui-css/astro"
 - `PasswordToggle` slot props (`ReactNode`): `iconChecked` and `iconUnchecked`.
 - Client components (`"use client"`): `PasswordToggle`.
 
-### Example: Password toggle
+### Example: Basics
 
 ```tsx
-import { Field, PasswordToggle } from "opui-css/react"
+import { Field } from "opui-css/react"
 
-export default function PasswordToggleExample() {
+export default function Basics() {
   return (
-    <>
-      <Field
-        end={<PasswordToggle htmlFor="text-field-password-toggle-1" />}
-        htmlFor="text-field-password-toggle-1"
-        label="Password"
-      >
-        <input
-          autoComplete="current-password"
-          id="text-field-password-toggle-1"
-          type="password"
-        />
-      </Field>
-      <Field
-        end={
-          <PasswordToggle
-            htmlFor="text-field-password-toggle-2"
-            label="Show new password"
-          />
-        }
-        endText="At least 12 characters."
-        htmlFor="text-field-password-toggle-2"
-        label="New password"
-      >
-        <input
-          aria-describedby="text-field-password-toggle-2-end-text"
-          autoComplete="new-password"
-          id="text-field-password-toggle-2"
-          minLength={12}
-          type="password"
-        />
-      </Field>
-    </>
+    <Field htmlFor="text-field-basics-1" label="Email">
+      <input
+        autoComplete="email"
+        id="text-field-basics-1"
+        name="email"
+        type="email"
+      />
+    </Field>
   )
 }
 ```
@@ -237,46 +138,22 @@ export default function PasswordToggleExample() {
 
 - `PasswordToggle` slot props (`JSX.Element`): `iconChecked` and `iconUnchecked`.
 
-### Example: Password toggle
+### Example: Basics
 
 ```tsx
 /** @jsxImportSource @solidjs/web */
-import { Field, PasswordToggle } from "opui-css/solid"
+import { Field } from "opui-css/solid"
 
-export default function PasswordToggleExample() {
+export default function Basics() {
   return (
-    <>
-      <Field
-        end={<PasswordToggle for="text-field-password-toggle-1" />}
-        for="text-field-password-toggle-1"
-        label="Password"
-      >
-        <input
-          autocomplete="current-password"
-          id="text-field-password-toggle-1"
-          type="password"
-        />
-      </Field>
-      <Field
-        end={
-          <PasswordToggle
-            for="text-field-password-toggle-2"
-            label="Show new password"
-          />
-        }
-        endText="At least 12 characters."
-        for="text-field-password-toggle-2"
-        label="New password"
-      >
-        <input
-          aria-describedby="text-field-password-toggle-2-end-text"
-          autocomplete="new-password"
-          id="text-field-password-toggle-2"
-          minlength="12"
-          type="password"
-        />
-      </Field>
-    </>
+    <Field for="text-field-basics-1" label="Email">
+      <input
+        autocomplete="email"
+        id="text-field-basics-1"
+        name="email"
+        type="email"
+      />
+    </Field>
   )
 }
 ```
@@ -287,41 +164,20 @@ export default function PasswordToggleExample() {
 
 - `PasswordToggle` slot snippets: `iconChecked` and `iconUnchecked`.
 
-### Example: Password toggle
+### Example: Basics
 
 ```svelte
 <script lang="ts">
-  import { Field, PasswordToggle } from "opui-css/svelte"
+  import { Field } from "opui-css/svelte"
 </script>
 
-<Field for="text-field-password-toggle-1" label="Password">
+<Field for="text-field-basics-1" label="Email">
   <input
-    autocomplete="current-password"
-    id="text-field-password-toggle-1"
-    type="password"
+    autocomplete="email"
+    id="text-field-basics-1"
+    name="email"
+    type="email"
   />
-  {#snippet end()}
-    <PasswordToggle for="text-field-password-toggle-1" />
-  {/snippet}
-</Field>
-<Field
-  endText="At least 12 characters."
-  for="text-field-password-toggle-2"
-  label="New password"
->
-  <input
-    aria-describedby="text-field-password-toggle-2-end-text"
-    autocomplete="new-password"
-    id="text-field-password-toggle-2"
-    minlength="12"
-    type="password"
-  />
-  {#snippet end()}
-    <PasswordToggle
-      for="text-field-password-toggle-2"
-      label="Show new password"
-    />
-  {/snippet}
 </Field>
 ```
 
@@ -331,42 +187,21 @@ export default function PasswordToggleExample() {
 
 - `PasswordToggle` named slots: `icon-checked` and `icon-unchecked`. Fill one with `<template #icon-checked>`.
 
-### Example: Password toggle
+### Example: Basics
 
 ```vue
 <script setup lang="ts">
-import { Field, PasswordToggle } from "opui-css/vue"
+import { Field } from "opui-css/vue"
 </script>
 
 <template>
-  <Field for="text-field-password-toggle-1" label="Password">
+  <Field for="text-field-basics-1" label="Email">
     <input
-      autocomplete="current-password"
-      id="text-field-password-toggle-1"
-      type="password"
+      autocomplete="email"
+      id="text-field-basics-1"
+      name="email"
+      type="email"
     />
-    <template #end>
-      <PasswordToggle for="text-field-password-toggle-1" />
-    </template>
-  </Field>
-  <Field
-    endText="At least 12 characters."
-    for="text-field-password-toggle-2"
-    label="New password"
-  >
-    <input
-      aria-describedby="text-field-password-toggle-2-end-text"
-      autocomplete="new-password"
-      id="text-field-password-toggle-2"
-      minlength="12"
-      type="password"
-    />
-    <template #end>
-      <PasswordToggle
-        for="text-field-password-toggle-2"
-        label="Show new password"
-      />
-    </template>
   </Field>
 </template>
 ```

@@ -9,7 +9,7 @@ import { Button, ControlGroup, Field } from "opui-css/vue"
         aria-describedby="control-group-labels-1"
         id="control-group-labels-2"
         name="discount"
-        value="SPRING10"
+        :value.attr="'SPRING10'"
       />
     </Field>
     <Button>Apply</Button>

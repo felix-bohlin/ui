@@ -406,7 +406,7 @@ export const toReact = (component) => {
   const { render } = jsxEmitter({
     attributes: elementAttributes,
     each: (node) => {
-      node.rows.forEach((row) => keys.set(row, node.key?.code ?? node.index))
+      keys.set(node.row, node.index)
       return {
         consts: node.consts.map(
           ({ code, name }) =>

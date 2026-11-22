@@ -1137,6 +1137,13 @@
     "url": "/astro/components/field/#sizes"
   },
   {
+    "id": "component-field-astro-dense",
+    "title": "Dense",
+    "page": "Field",
+    "category": "Component",
+    "url": "/astro/components/field/#dense"
+  },
+  {
     "id": "component-field-astro-hidden-label",
     "title": "Hidden label",
     "page": "Field",
@@ -1179,11 +1186,32 @@
     "url": "/astro/components/field/#top-and-bottom"
   },
   {
+    "id": "component-field-astro-binding",
+    "title": "Binding",
+    "page": "Field",
+    "category": "Component",
+    "url": "/astro/components/field/#binding"
+  },
+  {
+    "id": "component-field-astro-form-reset",
+    "title": "Form reset",
+    "page": "Field",
+    "category": "Component",
+    "url": "/astro/components/field/#form-reset"
+  },
+  {
     "id": "component-field-astro-validation",
     "title": "Validation",
     "page": "Field",
     "category": "Component",
     "url": "/astro/components/field/#validation"
+  },
+  {
+    "id": "component-field-astro-bound-validation",
+    "title": "Bound validation",
+    "page": "Field",
+    "category": "Component",
+    "url": "/astro/components/field/#bound-validation"
   },
   {
     "id": "component-field-astro-spread",
@@ -1198,13 +1226,6 @@
     "page": "Field",
     "category": "Component",
     "url": "/astro/components/field/#auto-fit"
-  },
-  {
-    "id": "component-field-astro-dense",
-    "title": "Dense",
-    "page": "Field",
-    "category": "Component",
-    "url": "/astro/components/field/#dense"
   },
   {
     "id": "component-field-astro-drop-zone",
@@ -1943,6 +1964,13 @@
     "url": "/astro/components/number-field/#step"
   },
   {
+    "id": "component-number-field-astro-unit",
+    "title": "Unit",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/astro/components/number-field/#unit"
+  },
+  {
     "id": "component-number-field-astro-buttons",
     "title": "Buttons",
     "page": "Number field",
@@ -2012,6 +2040,13 @@
     "page": "One-time code",
     "category": "Component",
     "url": "/astro/components/one-time-code/#alphanumeric"
+  },
+  {
+    "id": "component-one-time-code-astro-hidden-label",
+    "title": "Hidden label",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/astro/components/one-time-code/#hidden-label"
   },
   {
     "id": "component-one-time-code-astro-validation",
@@ -2220,11 +2255,11 @@
     "url": "/astro/components/range/#value"
   },
   {
-    "id": "component-range-astro-tick-marks",
-    "title": "Tick marks",
+    "id": "component-range-astro-labels",
+    "title": "Labels",
     "page": "Range",
     "category": "Component",
-    "url": "/astro/components/range/#tick-marks"
+    "url": "/astro/components/range/#labels"
   },
   {
     "id": "component-range-astro-disabled",
@@ -2374,6 +2409,13 @@
     "page": "Select",
     "category": "Component",
     "url": "/astro/components/select/#disabled"
+  },
+  {
+    "id": "component-select-astro-required",
+    "title": "Required",
+    "page": "Select",
+    "category": "Component",
+    "url": "/astro/components/select/#required"
   },
   {
     "id": "component-spinner-astro",
@@ -4535,7 +4577,7 @@
     "id": "api-control-group-astro",
     "title": "Control group API",
     "description": "Reference for Control group Astro component.",
-    "api": "ControlGroup Container element. A number field, select, text field or textarea (a textarea only in a vertical group). Its `.ui-field-container` joins the controls next to it. A button or button link. color Optional colors for the buttons. orientation The orientation of the element. overflow What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size. role The `role` of the root, such as `toolbar`. A passed role replaces `group`. size The size of the buttons and fields. variant The variant of the buttons.",
+    "api": "ControlGroup Container element. A `Field` with an input, a select or a textarea (a textarea only in a vertical group). Its `.ui-field-container` joins the controls next to it. A button or button link. color Optional colors for the buttons. orientation The orientation of the element. overflow What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size. role The `role` of the root, such as `toolbar`. A passed role replaces `group`. size The size of the buttons and fields. variant The variant of the buttons.",
     "category": "API",
     "url": "/astro/api/#control-group"
   },
@@ -4735,7 +4777,7 @@
     "id": "api-one-time-code-astro",
     "title": "One-time code API",
     "description": "Reference for One-time code Astro component.",
-    "api": "OneTimeCode Container element. The label for the field. label label Draws a box per character and a ring on the next one. Your input, written directly inside `.ui-field-container` with its `id` set to `for`. Its `maxlength`, from 4 to 8, sets the number of boxes. `autocomplete=\"one-time-code\"` lets the browser fill in a code it received; use `off` for a code read off another screen. Mark it `required`, `disabled` or `aria-invalid=\"true\"` like any input. Supporting text displayed below the field. endText end-text for The `id` of your `<input>`. The label points at it, and the end text's id, `x-end-text`, starts with it, for the input's `aria-describedby`. grouped Draws a dash between the two halves of the code. Use it with an even `maxlength`. size The size of the element.",
+    "api": "OneTimeCode Holds the label, the boxes and the end text, and fits the boxes to its width. The label for the field. label label Draws a box per character and a ring on the next one. Your input, written directly inside `.ui-field-container` with its `id` set to `for`. Its `maxlength`, from 4 to 8, sets the number of boxes. `autocomplete=\"one-time-code\"` lets the browser fill in a code it received; use `off` for a code read off another screen. Mark it `required`, `disabled` or `aria-invalid=\"true\"` like any input. Supporting text displayed below the field. endText end-text for The `id` of your `<input>`. The label points at it, and the end text gets an id that starts with it: `x-end-text` for `for=\"x\"`. Point the input's `aria-describedby` at it. grouped Draws a dash between the two halves of the code. Use it with an even `maxlength`. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The input keeps it as its accessible name. size The size of the element.",
     "category": "API",
     "url": "/astro/api/#one-time-code"
   },
@@ -4775,7 +4817,7 @@
     "id": "api-range-astro",
     "title": "Range API",
     "description": "Reference for Range Astro component.",
-    "api": "Range A `.ui-field` with an `<input type=\"range\">` in its container, which `range.css` draws without the field's box, as tall as any field's control. Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's `variant` and `size` set the track and thumb. Tick marks for the input it's linked to with `list`, and the `label` of each option under its mark. Give it `aria-hidden=\"true\"`, since the labels repeat the value.",
+    "api": "Range A `.ui-field` with an `<input type=\"range\">` in its container, which `range.css` draws without the field's box, as tall as any field's control. Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's `variant` and `size` set the track and thumb. Labels for the input it's linked to with `list`: the `label` of each option shows under its value. The labels are spread evenly, so space the values evenly. Give it `aria-hidden=\"true\"`, and set `aria-valuetext` on the input to the label at its value, since screen readers don't read the datalist.",
     "category": "API",
     "url": "/astro/api/#range"
   },

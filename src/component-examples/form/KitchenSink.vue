@@ -92,7 +92,7 @@ import {
             min="0"
             step="1"
             type="range"
-            value="5"
+            :value.attr="'5'"
           />
         </Field>
       </FieldGroup>

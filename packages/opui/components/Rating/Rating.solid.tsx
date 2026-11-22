@@ -38,7 +38,6 @@ export default function Rating(props: Props) {
   const current = () => Number(props.value ?? props.defaultValue)
   const invalid = () => (props.error ? "true" : props["aria-invalid"])
   const checkedControl = control(
-    "checked",
     () => (props.value === undefined ? undefined : current() === 0),
     untrack(() => current() === 0),
   )
@@ -75,7 +74,6 @@ export default function Rating(props: Props) {
           <For each={stars()} keyed={false}>
             {(star) => {
               const itemCheckedControl = control(
-                "checked",
                 () =>
                   props.value === undefined ? undefined : current() === star(),
                 untrack(() => current() === star()),

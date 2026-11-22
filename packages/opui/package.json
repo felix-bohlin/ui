@@ -95,6 +95,7 @@
     "./tokens.json": "./tokens.json",
     "./vue": {
       "types": "./dist/vue/index.d.ts",
+      "node": "./dist/vue/index.server.js",
       "default": "./dist/vue/index.js"
     },
     "./components/*.react": {
@@ -126,6 +127,7 @@
     },
     "./components/*.vue": {
       "types": "./dist/components/*.vue.d.ts",
+      "node": "./dist/components/*.vue.server.js",
       "default": "./dist/components/*.vue.js"
     },
     "./components/*": "./components/*",

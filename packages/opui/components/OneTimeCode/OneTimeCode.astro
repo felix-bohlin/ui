@@ -1,6 +1,7 @@
 ---
 import type { Props } from "./types.astro"
 import { trimEdges } from "../whitespace"
+import { cx } from "../cx"
 
 export const title = "One-Time Code"
 
@@ -9,6 +10,7 @@ const {
   endText,
   for: htmlFor,
   grouped,
+  hideLabel,
   label,
   size,
   ...rest
@@ -31,7 +33,9 @@ const endTextId = hasEndText ? `${htmlFor}-end-text` : undefined
   ]}
   {...rest}
 >
-  {hasLabel && <label class="ui-label" for={htmlFor}
+  {hasLabel && <label
+    class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
+    for={htmlFor}
     >{label}<Fragment set:html={labelSlot}
   /></label>}
   <span class="ui-field-container">

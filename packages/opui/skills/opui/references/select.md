@@ -22,7 +22,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### text-field.css
 
-- `--_accent`: Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a Select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
+- `--_accent`: Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
 - `--_arrow-inset`: Distance of the select arrow from the inline end.
 - `--_chevron-image`: The select arrow, as an image used for a mask.
 - `--_chevron-size`: Width and height of the select arrow.
@@ -55,7 +55,7 @@ Outputs: `--_ease-move`, `--_selected-indicator-offset` and `--_selected-shadow`
 ### list.css
 
 - `--_bg-color`: Background of the list and its items. Defaults to `--ui-surface-filled`, `.ui-transparent` and `.ui-tonal` set it.
-- `--_check-image`: The check on the selected item of a `.ui-menu`, a `[role="listbox"]` list or a `Select` picker, as an image used as a mask in the text color. Defaults to `--ui-icon-check`.
+- `--_check-image`: The check on the selected item of a `.ui-menu`, a `[role="listbox"]` list or a select picker, as an image used as a mask in the text color. Defaults to `--ui-icon-check`.
 - `--_description-text-color`: Text color of the description paragraph in an item. `--ui-text-subtle`, and `--ui-on-selected` on a selected or current row when a theme sets it.
 - `--_divider-border-color`: Color of the lines between items in `.ui-bordered` and on `.ui-border-top`. Defaults to `--ui-border-color`, mixed with 20% `--ui-text-strong` in `.ui-tonal`.
 - `--_divider-gap`: Space around the lines between items in `.ui-bordered` and on `.ui-border-top`. Smaller in `.ui-dense`.
@@ -63,7 +63,7 @@ Outputs: `--_ease-move`, `--_selected-indicator-offset` and `--_selected-shadow`
 - `--_item-ease`: Easing of the row transitions. Defaults to `--ui-ease`.
 - `--_item-gap`: Gap between the content of an item. Smaller in `.ui-dense`.
 - `--_item-padding-inline`: Horizontal padding of items, headings and options. `--ui-list-item-padding-inline`, or `--ui-space-3` when a theme leaves it unset.
-- `--_motion`: Motion multiplier for the row transitions of a `.ui-list`. `0` turns them off. A `Menu` and a `Select` read their own.
+- `--_motion`: Motion multiplier for the row transitions of a `.ui-list`. `0` turns them off. A `Menu` and a select picker read their own.
 - `--_radius`: The corner radius of a `.ui-list`. Defaults to `--ui-radius`, and `0` when the list is a direct child of a `Card`, `Accordion` or `Dialog`, which round and clip it themselves.
 - `--_selected-bg-color`: Background of selected and current items and options. `--ui-selected` when the theme sets it, otherwise `--ui-primary` at `--ui-state-selected-alpha-accent`, stronger than `--_hover-bg-color`. With more contrast it is `--_hover-bg-color`, so the text keeps 7:1, and the bar marks the row.
 - `--_selected-indicator-bg-color`: Color of the bar on the start edge of selected and current items and options, which marks them without relying on the fill. Defaults to `--ui-selected-strong`.
@@ -80,33 +80,20 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 
 ## HTML
 
-### Example: Preselected
+### Example: Basics
 
 ```html
 <div class="ui-field">
-  <label class="ui-label" for="select-preselected-1">Role</label>
+  <label class="ui-label" for="select-basics-1">Country</label>
   <span class="ui-field-container">
-    <select id="select-preselected-1">
+    <select id="select-basics-1" name="country">
       <button>
         <selectedcontent></selectedcontent>
       </button>
-      <option value="backing-vocals">Backing vocals</option>
-      <option selected value="bass">Bass</option>
-      <option value="tambourine">Tambourine</option>
-    </select>
-  </span>
-</div>
-
-<div class="ui-field">
-  <label class="ui-label" for="select-preselected-2">Band</label>
-  <span class="ui-field-container">
-    <select id="select-preselected-2">
-      <button>
-        <selectedcontent></selectedcontent>
-      </button>
-      <option value="brad-and-the-brads">Brad and the Brads</option>
-      <option selected value="low-end-theory">Low End Theory</option>
-      <option value="the-low-enders">The Low Enders</option>
+      <option value="dk">Denmark</option>
+      <option value="fi">Finland</option>
+      <option value="no">Norway</option>
+      <option value="se">Sweden</option>
     </select>
   </span>
 </div>
@@ -116,28 +103,20 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 
 `import { SelectButton } from "opui-css/astro"`
 
-### Example: Preselected
+### Example: Basics
 
 ```astro
 ---
 import { Field, SelectButton } from "opui-css/astro"
 ---
 
-<Field for="select-preselected-1" label="Role">
-  <select id="select-preselected-1">
+<Field for="select-basics-1" label="Country">
+  <select id="select-basics-1" name="country">
     <SelectButton />
-    <option value="backing-vocals">Backing vocals</option>
-    <option selected value="bass">Bass</option>
-    <option value="tambourine">Tambourine</option>
-  </select>
-</Field>
-
-<Field for="select-preselected-2" label="Band">
-  <select id="select-preselected-2">
-    <SelectButton />
-    <option value="brad-and-the-brads">Brad and the Brads</option>
-    <option selected value="low-end-theory">Low End Theory</option>
-    <option value="the-low-enders">The Low Enders</option>
+    <option value="dk">Denmark</option>
+    <option value="fi">Finland</option>
+    <option value="no">Norway</option>
+    <option value="se">Sweden</option>
   </select>
 </Field>
 ```
@@ -146,32 +125,22 @@ import { Field, SelectButton } from "opui-css/astro"
 
 `import { SelectButton } from "opui-css/react"`
 
-### Example: Preselected
+### Example: Basics
 
 ```tsx
 import { Field, SelectButton } from "opui-css/react"
 
-export default function Preselected() {
+export default function Basics() {
   return (
-    <>
-      <Field htmlFor="select-preselected-1" label="Role">
-        <select id="select-preselected-1" defaultValue="bass">
-          <SelectButton />
-          <option value="backing-vocals">Backing vocals</option>
-          <option value="bass">Bass</option>
-          <option value="tambourine">Tambourine</option>
-        </select>
-      </Field>
-
-      <Field htmlFor="select-preselected-2" label="Band">
-        <select id="select-preselected-2" defaultValue="low-end-theory">
-          <SelectButton />
-          <option value="brad-and-the-brads">Brad and the Brads</option>
-          <option value="low-end-theory">Low End Theory</option>
-          <option value="the-low-enders">The Low Enders</option>
-        </select>
-      </Field>
-    </>
+    <Field htmlFor="select-basics-1" label="Country">
+      <select id="select-basics-1" name="country">
+        <SelectButton />
+        <option value="dk">Denmark</option>
+        <option value="fi">Finland</option>
+        <option value="no">Norway</option>
+        <option value="se">Sweden</option>
+      </select>
+    </Field>
   )
 }
 ```
@@ -180,37 +149,23 @@ export default function Preselected() {
 
 `import { SelectButton } from "opui-css/solid"`
 
-### Example: Preselected
+### Example: Basics
 
 ```tsx
 /** @jsxImportSource @solidjs/web */
 import { Field, SelectButton } from "opui-css/solid"
 
-export default function Preselected() {
+export default function Basics() {
   return (
-    <>
-      <Field for="select-preselected-1" label="Role">
-        <select id="select-preselected-1">
-          <SelectButton />
-          <option value="backing-vocals">Backing vocals</option>
-          <option selected value="bass">
-            Bass
-          </option>
-          <option value="tambourine">Tambourine</option>
-        </select>
-      </Field>
-
-      <Field for="select-preselected-2" label="Band">
-        <select id="select-preselected-2">
-          <SelectButton />
-          <option value="brad-and-the-brads">Brad and the Brads</option>
-          <option selected value="low-end-theory">
-            Low End Theory
-          </option>
-          <option value="the-low-enders">The Low Enders</option>
-        </select>
-      </Field>
-    </>
+    <Field for="select-basics-1" label="Country">
+      <select id="select-basics-1" name="country">
+        <SelectButton />
+        <option value="dk">Denmark</option>
+        <option value="fi">Finland</option>
+        <option value="no">Norway</option>
+        <option value="se">Sweden</option>
+      </select>
+    </Field>
   )
 }
 ```
@@ -219,28 +174,20 @@ export default function Preselected() {
 
 `import { SelectButton } from "opui-css/svelte"`
 
-### Example: Preselected
+### Example: Basics
 
 ```svelte
 <script lang="ts">
   import { Field, SelectButton } from "opui-css/svelte"
 </script>
 
-<Field for="select-preselected-1" label="Role">
-  <select id="select-preselected-1">
+<Field for="select-basics-1" label="Country">
+  <select id="select-basics-1" name="country">
     <SelectButton />
-    <option value="backing-vocals">Backing vocals</option>
-    <option selected value="bass">Bass</option>
-    <option value="tambourine">Tambourine</option>
-  </select>
-</Field>
-
-<Field for="select-preselected-2" label="Band">
-  <select id="select-preselected-2">
-    <SelectButton />
-    <option value="brad-and-the-brads">Brad and the Brads</option>
-    <option selected value="low-end-theory">Low End Theory</option>
-    <option value="the-low-enders">The Low Enders</option>
+    <option value="dk">Denmark</option>
+    <option value="fi">Finland</option>
+    <option value="no">Norway</option>
+    <option value="se">Sweden</option>
   </select>
 </Field>
 ```
@@ -249,7 +196,7 @@ export default function Preselected() {
 
 `import { SelectButton } from "opui-css/vue"`
 
-### Example: Preselected
+### Example: Basics
 
 ```vue
 <script setup lang="ts">
@@ -257,21 +204,13 @@ import { Field, SelectButton } from "opui-css/vue"
 </script>
 
 <template>
-  <Field for="select-preselected-1" label="Role">
-    <select id="select-preselected-1">
+  <Field for="select-basics-1" label="Country">
+    <select id="select-basics-1" name="country">
       <SelectButton />
-      <option value="backing-vocals">Backing vocals</option>
-      <option selected value="bass">Bass</option>
-      <option value="tambourine">Tambourine</option>
-    </select>
-  </Field>
-
-  <Field for="select-preselected-2" label="Band">
-    <select id="select-preselected-2">
-      <SelectButton />
-      <option value="brad-and-the-brads">Brad and the Brads</option>
-      <option selected value="low-end-theory">Low End Theory</option>
-      <option value="the-low-enders">The Low Enders</option>
+      <option value="dk">Denmark</option>
+      <option value="fi">Finland</option>
+      <option value="no">Norway</option>
+      <option value="se">Sweden</option>
     </select>
   </Field>
 </template>

@@ -667,6 +667,189 @@ for (const order of ["before", "after"] as const) {
   })
 }
 
+const openWith = async (page: Page, markup: string) => {
+  await page.route(`${ORIGIN}/**`, (route) => {
+    const url = route.request().url()
+    return route.fulfill(
+      url.endsWith(".js")
+        ? {
+            body: source(url.slice(url.lastIndexOf("/") + 1)),
+            contentType: "text/javascript",
+          }
+        : {
+            body: `<!doctype html><html lang="en"><head></head><body>${markup}</body></html>`,
+            contentType: "text/html",
+          },
+    )
+  })
+  await instantScrolling(page)
+  await page.goto(`${ORIGIN}/`)
+}
+
+const load = async (page: Page, files: string[]) => {
+  for (const file of files) {
+    await page.addScriptTag({ type: "module", url: `${ORIGIN}/${file}` })
+    const tag = /customElements\.define\("([\w-]+)"/.exec(source(file))?.[1]
+    await page.waitForFunction((name) => customElements.get(name!), tag)
+  }
+}
+
+test("password-toggle.js, step-button.js and character-count.js work on fields inside a shadow root", async ({
+  page,
+}) => {
+  await openWith(page, `<div id="host"></div>`)
+  await page.evaluate(() => {
+    document
+      .getElementById("host")!
+      .attachShadow({ mode: "open" }).innerHTML = `<form>
+        <div class="ui-field">
+          <label class="ui-label" for="password">Password</label>
+          <span class="ui-field-container">
+            <input id="password" type="password" value="hunter2" />
+            <span class="ui-end"><opui-password-toggle><button class="ui-button" type="button" aria-label="Show password" aria-pressed="false" command="--toggle-password" commandfor="password">o</button></opui-password-toggle></span>
+          </span>
+        </div>
+        <div class="ui-field">
+          <label class="ui-label" for="quantity">Quantity</label>
+          <span class="ui-field-container">
+            <input id="quantity" max="3" min="1" type="number" value="1" />
+            <span class="ui-end"><opui-step-button><button class="ui-button" type="button" aria-label="Increase" command="--step-up" commandfor="quantity">+</button></opui-step-button></span>
+          </span>
+        </div>
+        <div class="ui-field">
+          <label class="ui-label" for="bio">Bio</label>
+          <span class="ui-field-container"><textarea id="bio" maxlength="20"></textarea></span>
+          <span class="ui-end-text"><opui-character-count></opui-character-count></span>
+        </div>
+        <button type="reset">Reset</button>
+      </form>`
+  })
+  await load(page, [
+    "character-count.js",
+    "password-toggle.js",
+    "step-button.js",
+  ])
+
+  const toggle = page.getByRole("button", { name: "Show password" })
+  const password = page.locator("#password")
+  await toggle.click()
+  await expect(password).toHaveAttribute("type", "text")
+  await expect(toggle).toHaveAttribute("aria-pressed", "true")
+  await page.getByRole("button", { name: "Reset" }).click()
+  await expect(password).toHaveAttribute("type", "password")
+
+  const quantity = page.getByRole("spinbutton", { name: "Quantity" })
+  const increase = page.getByRole("button", { name: "Increase" })
+  await increase.click()
+  await increase.click()
+  await expect(quantity).toHaveValue("3")
+  await expect(increase).toHaveAttribute("aria-disabled", "true")
+  await page.getByRole("button", { name: "Reset" }).click()
+  await expect(increase).not.toHaveAttribute("aria-disabled")
+
+  await page.getByRole("textbox", { name: "Bio" }).fill("Bass")
+  await expect(page.locator("opui-character-count")).toHaveText("4/20")
+})
+
+test("character-count.js follows a control the page renders after it, sets or replaces", async ({
+  page,
+}) => {
+  await openWith(
+    page,
+    `<div class="ui-field">
+      <label class="ui-label" for="bio">Bio</label>
+      <span class="ui-field-container"></span>
+      <span class="ui-end-text"><opui-character-count></opui-character-count></span>
+    </div>`,
+  )
+  await load(page, ["character-count.js"])
+  const count = page.locator("opui-character-count")
+  await expect(count).toHaveText("")
+
+  await page.evaluate(() => {
+    const textarea = document.createElement("textarea")
+    textarea.id = "bio"
+    textarea.maxLength = 10
+    document.querySelector(".ui-field-container")!.append(textarea)
+  })
+  await expect(count).toHaveText("0/10")
+  await page.evaluate(() => {
+    document.querySelector("textarea")!.value = "abc"
+  })
+  await expect(count).toHaveText("3/10")
+
+  const restored = await page.evaluate(() => {
+    const old = document.querySelector("textarea")!
+    const next = document.createElement("textarea")
+    next.id = "bio"
+    next.maxLength = 10
+    old.replaceWith(next)
+    next.value = "abcd"
+    return new Promise((resolve) =>
+      queueMicrotask(() =>
+        resolve(
+          Object.getPrototypeOf(old) === HTMLTextAreaElement.prototype &&
+            !Object.getOwnPropertyDescriptor(old, "value"),
+        ),
+      ),
+    )
+  })
+  await expect(count).toHaveText("4/10")
+  expect(restored, "the replaced control gets its own value back").toBe(true)
+})
+
+test("step-button.js marks its limit when the page sets the value, sharing one value hook with character-count.js", async ({
+  page,
+}) => {
+  await openWith(
+    page,
+    `<div class="ui-field">
+      <label class="ui-label" for="quantity">Quantity</label>
+      <span class="ui-field-container">
+        <span class="ui-start"><opui-step-button><button class="ui-button" type="button" aria-label="Decrease" command="--step-down" commandfor="quantity">-</button></opui-step-button></span>
+        <input id="quantity" max="3" min="1" type="number" value="3" />
+        <span class="ui-end"><opui-step-button><button class="ui-button" type="button" aria-label="Increase" command="--step-up" commandfor="quantity">+</button></opui-step-button></span>
+      </span>
+      <span class="ui-end-text"><opui-character-count></opui-character-count></span>
+    </div>`,
+  )
+  await load(page, ["character-count.js", "step-button.js"])
+  const decrease = page.getByRole("button", { name: "Decrease" })
+  const increase = page.getByRole("button", { name: "Increase" })
+  await expect(increase).toHaveAttribute("aria-disabled", "true")
+  await expect(decrease).not.toHaveAttribute("aria-disabled")
+
+  await page.evaluate(() => {
+    document.querySelector("input")!.value = "1"
+  })
+  await expect(increase).not.toHaveAttribute("aria-disabled")
+  await expect(decrease).toHaveAttribute("aria-disabled", "true")
+
+  const unwrapped = await page.evaluate(() => {
+    const input = document.querySelector("input")!
+    for (const element of document.querySelectorAll(
+      "opui-step-button, opui-character-count",
+    )) {
+      element.remove()
+    }
+    return {
+      ownValue: Boolean(Object.getOwnPropertyDescriptor(input, "value")),
+      prototype:
+        Object.getPrototypeOf(input) === HTMLInputElement.prototype
+          ? "HTMLInputElement"
+          : String(Object.getPrototypeOf(input)?.constructor?.name),
+      watched: Object.getOwnPropertySymbols(input).includes(
+        Symbol.for("opui-value-watch"),
+      ),
+    }
+  })
+  expect(unwrapped, "the input gets its own value back").toEqual({
+    ownValue: false,
+    prototype: "HTMLInputElement",
+    watched: false,
+  })
+})
+
 test("close-on-navigate.js closes a drawer on a click on a link in it, unless the link has data-keep-open", async ({
   page,
 }) => {

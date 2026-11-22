@@ -11,13 +11,13 @@ A slider for picking a number by moving a thumb along a track.
 
 - `.ui-field:has(> .ui-field-container > input[type="range"])` (root): A `.ui-field` with an `<input type="range">` in its container, which `range.css` draws without the field's box, as tall as any field's control.
 - `<input type="range">`: Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's `variant` and `size` set the track and thumb.
-- `<datalist>`: Tick marks for the input it's linked to with `list`, and the `label` of each option under its mark. Give it `aria-hidden="true"`, since the labels repeat the value.
+- `<datalist>`: Labels for the input it's linked to with `list`: the `label` of each option shows under its value. The labels are spread evenly, so space the values evenly. Give it `aria-hidden="true"`, and set `aria-valuetext` on the input to the label at its value, since screen readers don't read the datalist.
 
 ### Notes
 
-- HTML: Put the `<input type="range">` directly in `.ui-field-container`, and a `<datalist>` after it for tick marks. `range.css` drops the field's box and draws the track, the fill and the thumb. Show the value yourself, and set `aria-valuetext` when the number alone doesn't say it.
-- Astro, Solid, Svelte and Vue: Write an `<input type="range">` in a `Field`, with its `id` set to `for`. A `<datalist>` after it, linked with `list`, draws tick marks, and its options' `label`s under them. Show the value yourself, such as in an `<output>` in the end text, and set `aria-valuetext` when the number alone doesn't say it.
-- React: Write an `<input type="range">` in a `Field`, with its `id` set to `htmlFor`. A `<datalist>` after it, linked with `list`, draws tick marks, and its options' `label`s under them. Show the value yourself, such as in an `<output>` in `endText`, and set `aria-valuetext` when the number alone doesn't say it.
+- HTML: Put the `<input type="range">` directly in `.ui-field-container`, and a `<datalist>` after it for labels. `range.css` drops the field's box and draws the track, the fill and the thumb. Show the value yourself, and set `aria-valuetext` when the number alone doesn't say it.
+- Astro, Solid, Svelte and Vue: Write an `<input type="range">` in a `Field`, with its `id` set to `for`. A `<datalist>` after it, linked with `list`, shows the `label` of each option under its value. Show the value yourself, such as in an `<output>` in the end text, and set `aria-valuetext` when the number alone doesn't say it.
+- React: Write an `<input type="range">` in a `Field`, with its `id` set to `htmlFor`. A `<datalist>` after it, linked with `list`, shows the `label` of each option under its value. Show the value yourself, such as in an `<output>` in `endText`, and set `aria-valuetext` when the number alone doesn't say it.
 
 ## Component properties
 
@@ -28,7 +28,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_accent`: Color of the thumb, its ripple and the track fill. Defaults to `--ui-choice-accent`, then `--ui-control-accent`, then `--ui-primary`, and is set by the invalid state.
 - `--_thumb-border-width`: Width of the page-colored ring between the thumb and the track. Set on the `<input>`.
 - `--_thumb-size`: Width and height of the thumb. Set by the sizes, and larger on touch screens at every size but `.ui-large`.
-- `--_track-base-bg-color`: Color of the empty track at rest. `--ui-track-bg-color` when the theme sets it, otherwise the field border, and `--ui-surface` under more contrast; set by `.ui-filled` and `.ui-tonal`.
+- `--_track-base-bg-color`: Color of the empty track at rest. `--ui-track-bg-color` when the theme sets it, otherwise the field border, and `--ui-surface` under more contrast; set by `.ui-filled`.
 - `--_track-block-size`: Height of the track. Set by the sizes.
 - `--_track-radius`: Corner radius of the track.
 
@@ -36,7 +36,7 @@ Outputs: `--_focus-ring-duration`, `--_forced-fill-bg-color`, `--_forced-track-b
 
 ### text-field.css
 
-- `--_accent`: Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a Select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
+- `--_accent`: Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
 - `--_arrow-inset`: Distance of the select arrow from the inline end.
 - `--_chevron-image`: The select arrow, as an image used for a mask.
 - `--_chevron-size`: Width and height of the select arrow.

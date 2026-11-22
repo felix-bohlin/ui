@@ -140,7 +140,7 @@ import {
                 min="1"
                 name="quantity"
                 type="number"
-                value="1"
+                :value.attr="'1'"
               />
               <template #start>
                 <StepButton

@@ -14,7 +14,13 @@ import { basename, dirname, join, relative, resolve, sep } from "node:path"
 import { fileURLToPath } from "node:url"
 import remapping from "@jridgewell/remapping"
 import ts from "typescript"
-import { compileScript, parse, registerTS } from "vue/compiler-sfc"
+import {
+  compileScript,
+  compileTemplate,
+  parse,
+  registerTS,
+  rewriteDefault,
+} from "vue/compiler-sfc"
 import { HYDRATED_FRAMEWORK_IDS } from "../../../src/utils/framework.js"
 
 const here = dirname(fileURLToPath(import.meta.url))
@@ -221,10 +227,6 @@ const typeConfig = (root, dist, entry, extra = {}) => ({
   files: [join(root, entry)],
 })
 
-const KNOWN_VUE_WARNINGS = [
-  / cannot be child of <select>, according to HTML specifications\./,
-]
-
 const withWarnings = (file, compile) => {
   const warnings = []
   const { warn } = console
@@ -235,14 +237,58 @@ const withWarnings = (file, compile) => {
   } finally {
     console.warn = warn
   }
-  const unknown = warnings.filter(
-    (message) => !KNOWN_VUE_WARNINGS.some((known) => known.test(message)),
-  )
-  if (unknown.length > 0) {
-    throw new Error(`${file}\n${unknown.join("\n")}`)
+  if (warnings.length > 0) {
+    throw new Error(`${file}\n${warnings.join("\n")}`)
   }
   return result
 }
+
+export const serverVue = (descriptor, file, id, fs) => {
+  const script = compileScript(descriptor, {
+    fs,
+    id,
+    inlineTemplate: false,
+    isProd: true,
+    sourceMap: true,
+  })
+  const template = (ssr) => {
+    const { code, errors, map } = compileTemplate({
+      compilerOptions: { bindingMetadata: script.bindings, isTS: true },
+      filename: file,
+      id,
+      inMap: descriptor.template.map,
+      isProd: true,
+      source: descriptor.template.content,
+      ssr,
+      ssrCssVars: [],
+    })
+    if (errors.length > 0) throw new Error(`${file}\n${errors.join("\n")}`)
+    return { code, map }
+  }
+  const name = basename(file)
+  return {
+    render: template(false),
+    server: {
+      code: [
+        rewriteDefault(script.content, "_sfc_main", ["typescript"]),
+        `import { render } from "./${name}.render.js"`,
+        `import { ssrRender } from "./${name}.ssr.js"`,
+        "_sfc_main.render = render",
+        "_sfc_main.ssrRender = ssrRender",
+        "export default _sfc_main",
+      ].join("\n"),
+      map: script.map,
+    },
+    ssr: template(true),
+  }
+}
+
+const serverSpecifiers = (code, file) =>
+  code.replace(SPECIFIER, (match, before, quote, specifier) =>
+    specifier.endsWith(".vue") && isFile(resolve(dirname(file), specifier))
+      ? `${before}${quote}${specifier}.server.js${quote}`
+      : match,
+  )
 
 const buildVue = (root, dist, files) => {
   registerTS(() => ts)
@@ -272,8 +318,44 @@ const buildVue = (root, dist, files) => {
           source === basename(`${file}.ts`) ? map : null,
         ),
       })
+      const parts = withWarnings(file, () =>
+        serverVue(descriptor, file, relative(root, file), fs),
+      )
+      for (const [suffix, part] of Object.entries(parts)) {
+        const name = `${file}.${suffix}.ts`
+        const built = transpile(part.code, name)
+        writeCompiled(
+          `${join(dist, relative(root, file))}.${suffix}.js`,
+          file,
+          {
+            code:
+              suffix === "server"
+                ? serverSpecifiers(built.code, file)
+                : built.code,
+            map: remapping(built.map, (source) =>
+              source === basename(name) ? part.map : null,
+            ),
+          },
+        )
+      }
     } else if (compiles(root, file)) {
       writeCompiled(outPath(root, dist, file), file, transpile(source, file))
+      if (file.endsWith(".vue.ts")) {
+        const compiled = `./${basename(outPath(root, dist, file))}`
+        writeCompiled(
+          outPath(root, dist, file).replace(/\.js$/, ".server.js"),
+          file,
+          {
+            code: [
+              `export * from "${compiled}"`,
+              ...(/^export default /m.test(source)
+                ? [`export { default } from "${compiled}"`]
+                : []),
+            ].join("\n"),
+            map: { mappings: "", names: [], sources: [], version: 3 },
+          },
+        )
+      }
     }
   }
   const config = join(tmpdir(), `opui-vue-${process.pid}.json`)
@@ -403,4 +485,22 @@ export const buildFrameworks = async (root = resolve(here, "..")) => {
       if (rewritten !== code) writeFileSync(file, rewritten)
     }
   }
+  const vueIndex = join(dist, "vue", "index.js")
+  writeCompiled(
+    join(dist, "vue", "index.server.js"),
+    join(root, "vue", "index.ts"),
+    {
+      code: readFileSync(vueIndex, "utf8").replace(
+        SPECIFIER,
+        (match, before, quote, specifier) =>
+          specifier.endsWith(".vue.js") &&
+          isFile(
+            resolve(dirname(vueIndex), `${specifier.slice(0, -3)}.server.js`),
+          )
+            ? `${before}${quote}${specifier.slice(0, -3)}.server.js${quote}`
+            : match,
+      ),
+      map: JSON.parse(readFileSync(`${vueIndex}.map`, "utf8")),
+    },
+  )
 }

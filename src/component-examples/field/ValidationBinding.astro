@@ -1,0 +1,33 @@
+---
+import { Field } from "opui-css/astro"
+---
+
+<Field
+  endText="Letters and numbers, shown on your profile."
+  for="field-validation-binding-1"
+  label="Username"
+>
+  <input
+    aria-describedby="field-validation-binding-1-end-text"
+    id="field-validation-binding-1"
+    name="field-validation-binding"
+    value="holly"
+  />
+</Field>
+
+<script>
+  const input = document.querySelector<HTMLInputElement>(
+    '[name="field-validation-binding"]',
+  )
+  const endText = document.querySelector("#field-validation-binding-1-end-text")
+
+  input?.addEventListener("input", () => {
+    if (!input || !endText) return
+    const invalid = /[^a-z0-9]/i.test(input.value)
+    if (invalid) input.setAttribute("aria-invalid", "true")
+    else input.removeAttribute("aria-invalid")
+    endText.textContent = invalid
+      ? "Use only letters and numbers."
+      : "Letters and numbers, shown on your profile."
+  })
+</script>

@@ -1137,6 +1137,13 @@
     "url": "/html/components/field/#sizes"
   },
   {
+    "id": "component-field-html-dense",
+    "title": "Dense",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#dense"
+  },
+  {
     "id": "component-field-html-hidden-label",
     "title": "Hidden label",
     "page": "Field",
@@ -1179,11 +1186,32 @@
     "url": "/html/components/field/#top-and-bottom"
   },
   {
+    "id": "component-field-html-binding",
+    "title": "Binding",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#binding"
+  },
+  {
+    "id": "component-field-html-form-reset",
+    "title": "Form reset",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#form-reset"
+  },
+  {
     "id": "component-field-html-validation",
     "title": "Validation",
     "page": "Field",
     "category": "Component",
     "url": "/html/components/field/#validation"
+  },
+  {
+    "id": "component-field-html-bound-validation",
+    "title": "Bound validation",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#bound-validation"
   },
   {
     "id": "component-field-html-spread",
@@ -1198,13 +1226,6 @@
     "page": "Field",
     "category": "Component",
     "url": "/html/components/field/#auto-fit"
-  },
-  {
-    "id": "component-field-html-dense",
-    "title": "Dense",
-    "page": "Field",
-    "category": "Component",
-    "url": "/html/components/field/#dense"
   },
   {
     "id": "component-field-html-drop-zone",
@@ -1943,6 +1964,13 @@
     "url": "/html/components/number-field/#step"
   },
   {
+    "id": "component-number-field-html-unit",
+    "title": "Unit",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/html/components/number-field/#unit"
+  },
+  {
     "id": "component-number-field-html-buttons",
     "title": "Buttons",
     "page": "Number field",
@@ -2012,6 +2040,13 @@
     "page": "One-time code",
     "category": "Component",
     "url": "/html/components/one-time-code/#alphanumeric"
+  },
+  {
+    "id": "component-one-time-code-html-hidden-label",
+    "title": "Hidden label",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/html/components/one-time-code/#hidden-label"
   },
   {
     "id": "component-one-time-code-html-validation",
@@ -2220,11 +2255,11 @@
     "url": "/html/components/range/#value"
   },
   {
-    "id": "component-range-html-tick-marks",
-    "title": "Tick marks",
+    "id": "component-range-html-labels",
+    "title": "Labels",
     "page": "Range",
     "category": "Component",
-    "url": "/html/components/range/#tick-marks"
+    "url": "/html/components/range/#labels"
   },
   {
     "id": "component-range-html-disabled",
@@ -2374,6 +2409,13 @@
     "page": "Select",
     "category": "Component",
     "url": "/html/components/select/#disabled"
+  },
+  {
+    "id": "component-select-html-required",
+    "title": "Required",
+    "page": "Select",
+    "category": "Component",
+    "url": "/html/components/select/#required"
   },
   {
     "id": "component-spinner-html",
@@ -4542,7 +4584,7 @@
     "id": "api-control-group-html",
     "title": "Control group API",
     "description": "Reference for Control group HTML component.",
-    "api": ".ui-control-group Container element. A number field, select, text field or textarea (a textarea only in a vertical group). Its `.ui-field-container` joins the controls next to it. .ui-control-group > .ui-field A button or button link. .ui-control-group > .ui-button .ui-critical .ui-primary Colors Optional colors for the buttons. .ui-vertical Orientation The orientation of the element. .ui-overflow-scroll .ui-overflow-shrink Overflow What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size. .ui-large .ui-small .ui-x-small Sizes The size of the buttons and fields. .ui-filled .ui-outlined .ui-tonal Variants The variant of the buttons.",
+    "api": ".ui-control-group Container element. A `Field` with an input, a select or a textarea (a textarea only in a vertical group). Its `.ui-field-container` joins the controls next to it. .ui-control-group > .ui-field A button or button link. .ui-control-group > .ui-button .ui-critical .ui-primary Colors Optional colors for the buttons. .ui-vertical Orientation The orientation of the element. .ui-overflow-scroll .ui-overflow-shrink Overflow What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size. .ui-large .ui-small .ui-x-small Sizes The size of the buttons and fields. .ui-filled .ui-outlined .ui-tonal Variants The variant of the buttons.",
     "category": "API",
     "url": "/html/api/#control-group"
   },
@@ -4742,7 +4784,7 @@
     "id": "api-one-time-code-html",
     "title": "One-time code API",
     "description": "Reference for One-time code HTML component.",
-    "api": "div.ui-one-time-code Container element. The label for the field. .ui-label Draws a box per character and a ring on the next one. .ui-field-container Your input, written directly inside `.ui-field-container` with its `id` set to `for`. Its `maxlength`, from 4 to 8, sets the number of boxes. `autocomplete=\"one-time-code\"` lets the browser fill in a code it received; use `off` for a code read off another screen. Mark it `required`, `disabled` or `aria-invalid=\"true\"` like any input. .ui-field-container > input Supporting text displayed below the field. .ui-end-text .ui-grouped Grouped Draws a dash between the two halves of the code. Use it with an even `maxlength`. .ui-large .ui-small .ui-x-small Sizes The size of the element.",
+    "api": "div.ui-one-time-code Holds the label, the boxes and the end text, and fits the boxes to its width. The label for the field. .ui-label Draws a box per character and a ring on the next one. .ui-field-container Your input, written directly inside `.ui-field-container` with its `id` set to `for`. Its `maxlength`, from 4 to 8, sets the number of boxes. `autocomplete=\"one-time-code\"` lets the browser fill in a code it received; use `off` for a code read off another screen. Mark it `required`, `disabled` or `aria-invalid=\"true\"` like any input. .ui-field-container > input Supporting text displayed below the field. .ui-end-text .ui-grouped Grouped Draws a dash between the two halves of the code. Use it with an even `maxlength`. .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The input keeps it as its accessible name. .ui-large .ui-small .ui-x-small Sizes The size of the element.",
     "category": "API",
     "url": "/html/api/#one-time-code"
   },
@@ -4782,7 +4824,7 @@
     "id": "api-range-html",
     "title": "Range API",
     "description": "Reference for Range HTML component.",
-    "api": ".ui-field:has(> .ui-field-container > input[type=\"range\"]) A `.ui-field` with an `<input type=\"range\">` in its container, which `range.css` draws without the field's box, as tall as any field's control. Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's `variant` and `size` set the track and thumb. .ui-field-container > input[type=\"range\"] Tick marks for the input it's linked to with `list`, and the `label` of each option under its mark. Give it `aria-hidden=\"true\"`, since the labels repeat the value. .ui-field-container > datalist",
+    "api": ".ui-field:has(> .ui-field-container > input[type=\"range\"]) A `.ui-field` with an `<input type=\"range\">` in its container, which `range.css` draws without the field's box, as tall as any field's control. Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's `variant` and `size` set the track and thumb. .ui-field-container > input[type=\"range\"] Labels for the input it's linked to with `list`: the `label` of each option shows under its value. The labels are spread evenly, so space the values evenly. Give it `aria-hidden=\"true\"`, and set `aria-valuetext` on the input to the label at its value, since screen readers don't read the datalist. .ui-field-container > datalist",
     "category": "API",
     "url": "/html/api/#range"
   },

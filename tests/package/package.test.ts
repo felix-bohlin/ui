@@ -341,7 +341,7 @@ test("every entry point is in the tarball", () => {
   expect(missing).toEqual([])
 })
 
-test("every compiled component file has a deep import, with its types", () => {
+test("every compiled component file has a deep import, with its types, and Node takes the server build of a Vue file", () => {
   const consumer = path.join(work, "deep-imports")
   mkdirSync(path.join(consumer, "node_modules"), { recursive: true })
   writeFileSync(path.join(consumer, "package.json"), '{ "type": "module" }')
@@ -372,7 +372,11 @@ test("every compiled component file has a deep import, with its types", () => {
         .replace(/\.(react|vue)\.js$/, ".$1")}`
       const declaration = file.replace(/(\.svelte)?(\.js)?$/, "$1.d.ts")
       return [
-        [specifier, inPackage(require.resolve(specifier)), file],
+        [
+          specifier,
+          inPackage(require.resolve(specifier)),
+          file.replace(/\.vue\.js$/, ".vue.server.js"),
+        ],
         ...(["Bundler", "NodeNext"] as const).map((resolution) => [
           `${specifier} (types, ${resolution})`,
           typesOf(specifier, resolution),

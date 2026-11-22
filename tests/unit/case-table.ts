@@ -14,9 +14,6 @@ export type Framework = PackageFrameworkId
 
 const SAMPLES: Record<string, unknown> = {
   "MenuItem[]": [{ label: "A", value: "a" }],
-  "RangeItem[]": [{ label: "A", value: 1 }],
-  "SelectItem[]": [{ label: "A", value: "a" }],
-  HTMLInputTypeAttribute: "text",
   boolean: true,
   number: 2,
   string: TEXT,

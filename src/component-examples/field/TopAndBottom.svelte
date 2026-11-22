@@ -20,6 +20,7 @@
   />
   {#snippet bottom()}Plain text, no links{/snippet}
   {#snippet endText()}
+    Up to 80 characters.
     <CharacterCount />
   {/snippet}
 </Field>

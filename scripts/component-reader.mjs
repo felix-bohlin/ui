@@ -723,53 +723,18 @@ const expressionNode = (node, context) => {
     const children = nodesOf(returned, scope)
     const roots = children.filter((child) => !isBlank(child))
     const [root] = roots
-    const branchRoots =
-      roots.length === 1 && root.type === "if" && root.alternate
-        ? [root.consequent, root.alternate].map((branch) =>
-            branch.filter((child) => !isBlank(child)),
-          )
-        : undefined
-    const rows =
-      roots.length === 1 && root.type === "element"
-        ? [root]
-        : branchRoots?.every(
-              (branch) => branch.length === 1 && branch[0].type === "element",
-            )
-          ? branchRoots.map(([element]) => element)
-          : undefined
-    if (!rows) {
-      throw describe(
-        "map callback doesn't return one element or a condition between two",
-      )
+    if (roots.length !== 1 || root.type !== "element") {
+      throw describe("map callback doesn't return one element")
     }
-    const item = ts.isIdentifier(parameter.name)
-      ? parameter.name.text
-      : undefined
-    const optionValue =
-      !branchRoots && root.tag === "option" && item
-        ? root.attributes.find((entry) => {
-            if (entry.kind !== "expression" || entry.name !== "value") {
-              return false
-            }
-            const names = [...identifiersIn(entry.code)]
-            return names.length > 0 && names.every((name) => name === item)
-          })?.code
-        : undefined
-    const key = branchRoots
-      ? undefined
-      : optionValue
-        ? { by: "item", code: optionValue.trim() }
-        : { by: "index", code: index }
     return [
       {
         children,
         consts,
-        index: indexParameter || key?.by !== "item" ? index : undefined,
+        index,
         item: parameter.getText(sourceFile),
-        key,
         list: expression.expression.expression.getText(sourceFile),
         optional: !!expression.expression.questionDotToken,
-        rows,
+        row: root,
         type: "each",
       },
     ]

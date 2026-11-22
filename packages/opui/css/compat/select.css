@@ -12,7 +12,7 @@
       }
 
       select > button {
-        display: none;
+        visibility: hidden;
       }
 
       :where(option, optgroup) {

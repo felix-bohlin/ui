@@ -131,10 +131,6 @@ const PROBES: Partial<Record<Framework, Record<string, string>>> = {
     select:
       "Svelte builds one select it never inserts, to test whether the browser keeps elements inside an option",
   },
-  vue: {
-    input:
-      "serverValue in packages/opui/components/vue.ts builds an input it never inserts, to read the value the server markup resets to",
-  },
 }
 
 const KNOWN: Partial<Record<Framework, Record<string, string>>> = {

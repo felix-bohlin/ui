@@ -8,7 +8,7 @@ import type { SwitchInputProps as Props } from "./types.solid"
 export default function SwitchInput(props: Props) {
   const rest = omit(props, "checked", "name", "ref")
   const field = useFieldGroupContext()
-  const checkedControl = control("checked", () => props.checked)
+  const checkedControl = control(() => props.checked)
 
   return (
     <input

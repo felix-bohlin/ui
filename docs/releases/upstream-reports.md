@@ -529,7 +529,7 @@ Seen in Playwright's WebKit 26.6 (Playwright 1.63.0). Confirm in a Safari releas
 
 ### Comment on vuejs/core#13608: the customizable select markup warnings
 
-From: the `vue-select-comment` example in `src/todo-examples/vue-select-comment.html` (the `/dev/todo` page), the Select item under Limitations in `TODO.md` ("Select: in `vite dev` and `nuxi dev`, the Vue compiler warns"), `packages/opui/components/Select/Select.vue:123-126` and `KNOWN_VUE_WARNINGS` in `packages/opui/scripts/build-frameworks.mjs`.
+From: the `vue-select-comment` example in `src/todo-examples/vue-select-comment.html` (the `/dev/todo` page), the Select item under Limitations in `TODO.md` ("Select: in `vite dev` and `nuxi dev`, the Vue compiler warns") and the select examples in `src/component-examples/select/*.vue`.
 
 Where: a comment on [vuejs/core#13608](https://github.com/vuejs/core/issues/13608), not a new issue, with a thumbs up on [vuejs/core#13720](https://github.com/vuejs/core/pull/13720), the open pull request that widens `onlyValidChildren.select`.
 
@@ -572,7 +572,7 @@ The HTML spec now allows this content model (https://html.spec.whatwg.org/multip
 #13720 updates `onlyValidChildren.select` to that content model; it would remove both warnings here. Is anything blocking it?
 ````
 
-Once a Vue release widens the rule: update `vue`, remove `KNOWN_VUE_WARNINGS` from `packages/opui/scripts/build-frameworks.mjs` and the Select item from `TODO.md`.
+Once a Vue release widens the rule: update `vue`, and remove the entry from `tests/unit/framework-diagnostics-allowlist.json` and the Select item from `TODO.md`. The package build no longer meets the warning: no package `.vue` file has a `<select>` since `SelectButton` replaced `Select`.
 
 ## Astro
 

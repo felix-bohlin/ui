@@ -417,20 +417,11 @@ export const toSolid = (component) => {
       code,
       (name) => `const ${name} = () => ${code}`,
     )
-  const controlOf = (state, read, initial, scope) => {
-    const code = `control(${JSON.stringify(state)}, ${read}, untrack(() => ${initial}))`
+  const controlOf = (read, initial, scope) => {
+    const code = `control(${read}, untrack(() => ${initial}))`
     return declare(
       scope,
-      [scope.loop ? `item${capitalize(state)}Control` : `${state}Control`],
-      code,
-      (name) => `const ${name} = ${code}`,
-    )
-  }
-  const optionSelectedOf = (selected, scope) => {
-    const code = `optionSelected(untrack(() => ${selected}))`
-    return declare(
-      scope,
-      [scope.loop ? "itemSelected" : "selected"],
+      [scope.loop ? "itemCheckedControl" : "checkedControl"],
       code,
       (name) => `const ${name} = ${code}`,
     )
@@ -472,10 +463,6 @@ export const toSolid = (component) => {
     if (entry.kind === "static") return jsxAttribute(entry.name, entry.value)
     if (entry.kind === "boolean") return entry.name
     const code = rewrite(entry.code, scope)
-    if (node.tag === "option" && entry.name === "selected") {
-      const selected = optionSelectedOf(code, scope)
-      return `{...${selected}.server} ref={${selected}.ref}`
-    }
     if (
       (node.component || node.variable) &&
       isCondition(code) &&
@@ -535,14 +522,7 @@ export const toSolid = (component) => {
       ...node.consts.map(({ name }) => name),
     ]
     const binding = itemBinding(node.item)
-    const keyed =
-      !node.key || node.key.by === "index"
-        ? "false"
-        : `(${node.item}) => ${node.key.code}`
-    const narrows = node.key
-      ? undefined
-      : freeName(scope, ["row", "content", "rendered"], declared)
-    if (!narrows && !binding) {
+    if (!binding) {
       throw unsupported(
         "BC203",
         component.file,
@@ -550,29 +530,24 @@ export const toSolid = (component) => {
         "take the item as one name, or as an object pattern of plain names",
       )
     }
-    const row = narrows
-      ? freeName(scope, ["item", "entry"], [...declared, narrows])
-      : (binding.name ?? freeName(scope, ["item", "entry", "row"], declared))
-    const shadowed = [...declared, row, ...(narrows ? [narrows] : [])]
+    const row =
+      binding.name ?? freeName(scope, ["item", "entry", "row"], declared)
+    const shadowed = [...declared, row]
     const inner = new Map(scope.rename)
     shadowed.forEach((name) => inner.delete(name))
-    if (!narrows) {
-      inner.set(binding.name ?? row, `${row}()`)
-      binding.fields.forEach(({ key, local }) =>
-        inner.set(local, `${row}().${key}`),
-      )
-      if (binding.rest) {
-        usesOmit = true
-        inner.set(binding.rest, `${binding.rest}()`)
-      }
+    inner.set(binding.name ?? row, `${row}()`)
+    binding.fields.forEach(({ key, local }) =>
+      inner.set(local, `${row}().${key}`),
+    )
+    if (binding.rest) {
+      usesOmit = true
+      inner.set(binding.rest, `${binding.rest}()`)
     }
-    const rowConsts = narrows
-      ? [`const ${node.item} = ${row}()`]
-      : binding.rest
-        ? [
-            `const ${binding.rest} = () => omit(${[`${row}()`, ...binding.fields.map(({ key }) => JSON.stringify(key))].join(", ")})`,
-          ]
-        : []
+    const rowConsts = binding.rest
+      ? [
+          `const ${binding.rest} = () => omit(${[`${row}()`, ...binding.fields.map(({ key }) => JSON.stringify(key))].join(", ")})`,
+        ]
+      : []
     const loopTags = new Set(
       elementsIn(node.children)
         .filter((element) => element.variable)
@@ -583,9 +558,6 @@ export const toSolid = (component) => {
       ...node.consts.map(({ code }) => code),
       ...codesOf(node.children),
     ].some((code) => identifiersIn(code).has(node.index))
-    if (usesIndex && keyed !== "false") {
-      inner.set(node.index, `${node.index}()`)
-    }
     const slotReads = [
       ...slotsIn(node.children),
       ...[...node.consts.map(({ code }) => code), ...codesOf(node.children)]
@@ -631,9 +603,8 @@ export const toSolid = (component) => {
           ...eachScope.hoisted.map(({ line }) => line),
         ]
       },
-      keyed,
+      keyed: "false",
       list: rewrite(node.list, scope),
-      narrows,
       parameters: `${row}${usesIndex ? `, ${node.index}` : ""}`,
       scope: eachScope,
     }
@@ -653,7 +624,6 @@ export const toSolid = (component) => {
       const itemControl =
         checked &&
         controlOf(
-          "checked",
           `() => ${rewrite(checked.code, scope)}`,
           `${rewrite(item.defaultGrouped, scope)} ?? props.defaultChecked`,
           scope,
@@ -673,7 +643,6 @@ export const toSolid = (component) => {
                 model,
                 rewrite(node.groupRadio, scope),
                 controlOf(
-                  "checked",
                   `() => ${kind.radioChecked(model, rewrite(entry.code, scope))}`,
                   rewrite(entry.code, scope),
                   scope,

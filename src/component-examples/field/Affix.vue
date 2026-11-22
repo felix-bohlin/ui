@@ -33,11 +33,7 @@ import { Field } from "opui-css/vue"
   </Field>
 
   <Field for="field-affix-4" label="Search">
-    <input
-      aria-describedby="field-affix-4-start"
-      id="field-affix-4"
-      placeholder="Search..."
-    />
+    <input id="field-affix-4" placeholder="Search..." />
     <template #start>
       <svg
         data-icon="search"

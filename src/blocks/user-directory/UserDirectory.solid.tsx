@@ -64,7 +64,6 @@ export default function UserDirectory() {
             }
           >
             <input
-              aria-describedby="user-directory-q-start"
               id="user-directory-q"
               name="q"
               placeholder="Search by name, gear or city"

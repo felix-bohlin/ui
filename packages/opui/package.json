@@ -156,6 +156,7 @@
     "@jridgewell/remapping": "^2.3.5",
     "@types/react": "catalog:",
     "open-props": "^1.7.23",
+    "parse5": "^8.1.0",
     "postcss": "^8.5.32",
     "postcss-import": "^16.2.0",
     "svelte2tsx": "^0.7.63",
@@ -167,6 +168,7 @@
     "@solidjs/web": "^2.0.0",
     "astro": "^7",
     "open-props": "^1.7.23",
+    "parse5": "^8.1.0",
     "react": "^19",
     "react-dom": "^19",
     "solid-js": "^2.0.0",
@@ -181,6 +183,9 @@
       "optional": true
     },
     "open-props": {
+      "optional": true
+    },
+    "parse5": {
       "optional": true
     },
     "react": {

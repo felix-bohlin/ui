@@ -251,7 +251,6 @@ export default function Checkout() {
                         }
                       >
                         <input
-                          aria-describedby="checkout-card-number-start"
                           autocomplete="cc-number"
                           id="checkout-card-number"
                           inputmode="numeric"

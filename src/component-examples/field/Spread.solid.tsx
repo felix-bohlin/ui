@@ -149,7 +149,7 @@ export default function Spread() {
         variant="filled"
       >
         <input
-          aria-describedby="field-spread-9-start-text field-spread-9-top field-spread-9-start field-spread-9-bottom field-spread-9-end-text"
+          aria-describedby="field-spread-9-start-text field-spread-9-top field-spread-9-bottom field-spread-9-end-text"
           id="field-spread-9"
           placeholder="Paste your riff"
           type="password"

@@ -46,7 +46,6 @@ export default function ErrorPage() {
                 }
               >
                 <input
-                  aria-describedby="error-page-q-start"
                   id="error-page-q"
                   name="q"
                   placeholder="Search bassists and bands"

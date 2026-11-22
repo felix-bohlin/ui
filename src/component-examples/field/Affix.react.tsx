@@ -49,11 +49,7 @@ export default function Affix() {
           </svg>
         }
       >
-        <input
-          aria-describedby="field-affix-4-start"
-          id="field-affix-4"
-          placeholder="Search..."
-        />
+        <input id="field-affix-4" placeholder="Search..." />
       </Field>
     </>
   )

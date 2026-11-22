@@ -305,6 +305,14 @@ npx opui-css skill
 
 It writes `.claude/skills/opui` and prints the version it copied. Pass `--dir <path>` to copy it into another agent's skills folder (`<path>/opui`), and `--force` to replace an older copy after an upgrade. Without the command: `mkdir -p .claude/skills && cp -r node_modules/opui-css/skills/opui .claude/skills/opui`.
 
+After a build, check the fields in the HTML it wrote:
+
+```bash
+npx opui-css check dist
+```
+
+It reads the `.html` files you name, and those in the folders you name, and lists each field whose label, part ids, `aria-describedby` or step and password buttons don't follow its control's `id`, with the file and line, and fails when it finds one. It reads HTML with `parse5`, an optional peer dependency: `npm install --save-dev parse5`. A page that renders in the browser has no fields in its HTML file, so save the rendered page, `document.documentElement.outerHTML`, to a file and check that.
+
 The docs are also available as [llms.txt](https://opui.dev/llms.txt), and every docs page has a Markdown version, e.g. [/html/components/button.md](https://opui.dev/html/components/button.md).
 
 ## License

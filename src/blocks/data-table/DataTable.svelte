@@ -64,7 +64,6 @@
     <FieldGroup orientation="horizontal">
       <Field for="data-table-q" hideLabel label="Search members">
         <input
-          aria-describedby="data-table-q-start"
           id="data-table-q"
           name="q"
           placeholder="Search by name or email"

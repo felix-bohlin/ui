@@ -224,7 +224,6 @@
               <FieldGroup>
                 <Field for="checkout-card-number" label="Card number">
                   <input
-                    aria-describedby="checkout-card-number-start"
                     autocomplete="cc-number"
                     id="checkout-card-number"
                     inputmode="numeric"

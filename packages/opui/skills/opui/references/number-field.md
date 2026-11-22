@@ -150,7 +150,7 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--u
 
 ## Astro
 
-`import { StepButton } from "opui-css/astro"`
+`import { Field, StepButton } from "opui-css/astro"`
 
 ### Example: Basics
 
@@ -168,7 +168,7 @@ import { Field, StepButton } from "opui-css/astro"
 
 ## React
 
-`import { StepButton } from "opui-css/react"`
+`import { Field, StepButton } from "opui-css/react"`
 
 - Client components (`"use client"`): `StepButton`.
 
@@ -202,7 +202,7 @@ export default function Basics() {
 
 ## Solid
 
-`import { StepButton } from "opui-css/solid"`
+`import { Field, StepButton } from "opui-css/solid"`
 
 ### Example: Basics
 
@@ -233,7 +233,7 @@ export default function Basics() {
 
 ## Svelte
 
-`import { StepButton } from "opui-css/svelte"`
+`import { Field, StepButton } from "opui-css/svelte"`
 
 ### Example: Basics
 
@@ -255,7 +255,7 @@ export default function Basics() {
 
 ## Vue
 
-`import { StepButton } from "opui-css/vue"`
+`import { Field, StepButton } from "opui-css/vue"`
 
 ### Example: Basics
 

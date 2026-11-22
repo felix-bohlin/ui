@@ -76,7 +76,7 @@ The stylesheets read `--ui-border-width`, `--ui-choice-accent`, `--ui-contrast`,
 
 ## Astro
 
-There is no Astro component. Use the classes in your markup.
+`import { Field } from "opui-css/astro"`
 
 ### Example: Basics
 
@@ -92,7 +92,7 @@ import { Field } from "opui-css/astro"
 
 ## React
 
-There is no React component. Use the classes in your markup.
+`import { Field } from "opui-css/react"`
 
 ### Example: Basics
 
@@ -110,7 +110,7 @@ export default function Basics() {
 
 ## Solid
 
-There is no Solid component. Use the classes in your markup.
+`import { Field } from "opui-css/solid"`
 
 ### Example: Basics
 
@@ -129,7 +129,7 @@ export default function Basics() {
 
 ## Svelte
 
-There is no Svelte component. Use the classes in your markup.
+`import { Field } from "opui-css/svelte"`
 
 ### Example: Basics
 
@@ -145,7 +145,7 @@ There is no Svelte component. Use the classes in your markup.
 
 ## Vue
 
-There is no Vue component. Use the classes in your markup.
+`import { Field } from "opui-css/vue"`
 
 ### Example: Basics
 

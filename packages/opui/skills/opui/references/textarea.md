@@ -76,7 +76,7 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--u
 
 ## Astro
 
-`import { CharacterCount } from "opui-css/astro"`
+`import { CharacterCount, Field } from "opui-css/astro"`
 
 ### Example: Basics
 
@@ -92,7 +92,7 @@ import { Field } from "opui-css/astro"
 
 ## React
 
-`import { CharacterCount } from "opui-css/react"`
+`import { CharacterCount, Field } from "opui-css/react"`
 
 - Client components (`"use client"`): `CharacterCount`.
 
@@ -112,7 +112,7 @@ export default function Basics() {
 
 ## Solid
 
-`import { CharacterCount } from "opui-css/solid"`
+`import { CharacterCount, Field } from "opui-css/solid"`
 
 ### Example: Basics
 
@@ -131,7 +131,7 @@ export default function Basics() {
 
 ## Svelte
 
-`import { CharacterCount } from "opui-css/svelte"`
+`import { CharacterCount, Field } from "opui-css/svelte"`
 
 ### Example: Basics
 
@@ -147,7 +147,7 @@ export default function Basics() {
 
 ## Vue
 
-`import { CharacterCount } from "opui-css/vue"`
+`import { CharacterCount, Field } from "opui-css/vue"`
 
 ### Example: Basics
 

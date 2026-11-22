@@ -32,6 +32,7 @@ const LATE: Partial<Record<Framework, Late[]>> = {
         "number-field/Basics",
         "number-field/Buttons",
         "number-field/Stretch",
+        "number-field/Validation",
       ],
       on: "opui-step-button button",
       reason:
@@ -139,6 +140,10 @@ const PROBES: Partial<Record<Framework, Record<string, string>>> = {
 
 const KNOWN: Partial<Record<Framework, Record<string, string>>> = {
   svelte: {
+    "field/ValidationBinding":
+      "Svelte drops the server's value attribute from an input whose only dynamic attribute is bind: when it hydrates (TODO.md Limitations: Text field, in Svelte, the Binding example's own <input bind:value>)",
+    "range/Value":
+      "Svelte drops the server's value attribute from an input whose only dynamic attribute is bind: when it hydrates (TODO.md Limitations: Text field, in Svelte, the Binding example's own <input bind:value>)",
     "text-field/Binding":
       "Svelte drops the server's value attribute from an input whose only dynamic attribute is bind: when it hydrates (TODO.md Limitations: Text field, in Svelte, the Binding example's own <input bind:value>)",
   },

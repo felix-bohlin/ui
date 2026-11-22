@@ -2476,7 +2476,7 @@ interaction(
   async ({ root }) => {
     await expect(
       root.getByRole("spinbutton", { name: "Quantity" }),
-    ).toHaveAccessibleDescription("Only 4 sets of flatwounds left, whoops.")
+    ).toHaveAccessibleDescription("Only 4 left in stock.")
   },
 )
 

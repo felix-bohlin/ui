@@ -46,9 +46,13 @@ export const packageFor = (framework: PackageFrameworkId) =>
 export const componentImports = (
   framework: PackageFrameworkId,
   slug: string,
+  base?: string,
 ) => {
   const folders = exportedFolders(framework)
-  const ownFolders = pageFolders(slug)
+  const ownFolders = new Set([
+    ...pageFolders(slug),
+    ...(base ? pageFolders(base) : []),
+  ])
   const names = new Set<string>()
 
   for (const [file, source] of Object.entries(exampleSources)) {

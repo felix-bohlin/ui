@@ -3,6 +3,7 @@ import { parse } from "@astrojs/compiler"
 import type { Node } from "@astrojs/compiler/types"
 import ts from "typescript"
 import { expect, test } from "vitest"
+import { pageOfStylesheet } from "../../src/component-api/catalog"
 import { FRAMEWORK_IDS } from "../../src/utils/framework"
 
 const BLOCK = new Set([
@@ -346,7 +347,7 @@ rules.installationTabs = (node, _, file) => {
   const slug = quoted(node, "slug") ?? page
   const problems = installationTabs(tabs.value).flatMap(
     ({ dependency, title }) => {
-      const target = title?.replace(/\.css$/, "")
+      const target = title && pageOfStylesheet(title.replace(/\.css$/, ""))
       const own = !!target && target !== slug && PAGES.includes(target)
       if (own && !dependency) return [`${title} without isDependency`]
       if (!own && dependency) return [`${title} with isDependency`]
@@ -359,7 +360,7 @@ rules.installationTabs = (node, _, file) => {
 test("installationTabs mark the CSS that has its own page with isDependency", () => {
   expect(
     find(rules.installationTabs),
-    "set isDependency on a CSS file that has its own page, so Installation links it under Dependencies and that page lists this one under Used by, and only there",
+    "set isDependency on a CSS file of another page, the page it's named after or the one STYLESHEET_PAGES in src/component-api/catalog.ts names, so Installation links it under Dependencies and that page lists this one under Used by, and only there",
   ).toEqual([])
 })
 

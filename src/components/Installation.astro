@@ -1,5 +1,6 @@
 ---
 import Code from "./Code.astro"
+import { pageOfStylesheet } from "../component-api/catalog"
 import { compatCss } from "../utils/compat"
 import { components, dependentsOf } from "../utils/components"
 import { componentHasFramework } from "../utils/framework"
@@ -34,12 +35,15 @@ const importCode =
 const { link } = Astro.locals
 
 const pageFor = (tab: Tab) =>
-  components.find((c) => c.slug === tab.title.replace(/\.css$/, ""))
+  components.find(
+    (c) => c.slug === pageOfStylesheet(tab.title.replace(/\.css$/, "")),
+  )
 
 const dependencies = tabs
   .filter((tab) => tab.isDependency)
   .map(pageFor)
   .filter((c) => c !== undefined)
+  .toSorted((a, b) => a.name.localeCompare(b.name))
 
 const allTabs = [
   ...tabs,

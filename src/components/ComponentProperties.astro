@@ -1,5 +1,6 @@
 ---
 import { TableCell, TableRow } from "@opui/astro"
+import { pageOfStylesheet } from "../component-api/catalog"
 import {
   customPropertyRows,
   pageStylesheets,
@@ -18,13 +19,16 @@ const { link } = Astro.locals
 
 const dependencies = dependenciesOf(slug)
 const stylesheets = pageStylesheets(slug)
-  .map((stylesheet) => ({
-    dependency: dependencies.includes(stylesheet)
-      ? components.find((component) => component.slug === stylesheet)
-      : undefined,
-    rows: customPropertyRows(stylesheet),
-    stylesheet,
-  }))
+  .map((stylesheet) => {
+    const page = pageOfStylesheet(stylesheet)
+    return {
+      dependency: dependencies.includes(page)
+        ? components.find((component) => component.slug === page)
+        : undefined,
+      rows: customPropertyRows(stylesheet),
+      stylesheet,
+    }
+  })
   .filter(({ rows }) => rows.length > 0)
 ---
 

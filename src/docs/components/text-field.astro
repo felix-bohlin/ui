@@ -25,6 +25,7 @@ export const keywords = ["email", "input", "password", "search", "text box"]
 
 <Component
   description={description}
+  base="field"
   slug="text-field"
   browserSupport={[
     "alt-text-generated-content",
@@ -43,7 +44,12 @@ export const keywords = ["email", "input", "password", "search", "text box"]
   }}
   apis={[{ title: "Password toggle API", api: passwordToggleApi }]}
   installationTabs={[
-    { title: "text-field.css", code: TextFieldCSS, lang: "css" },
+    {
+      title: "text-field.css",
+      code: TextFieldCSS,
+      lang: "css",
+      isDependency: true,
+    },
   ]}
 >
   <Fragment slot="title">Text field</Fragment>

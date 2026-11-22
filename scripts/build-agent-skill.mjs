@@ -130,8 +130,9 @@ function readDocsPage(slug) {
       .matchAll(/title: "([\w-]+)\.css"/g) ?? [],
     ([, name]) => name,
   )
+  const base = source.match(/^\s+base="([\w-]+)"$/m)?.[1]
   const example = source.match(/<AutoExample\s+name="(\w+)"/)?.[1]
-  return { apiOrder, example, stylesheets }
+  return { apiOrder, base, example, stylesheets }
 }
 
 const PARAGRAPH_START = /^(\s*)<p>/
@@ -462,15 +463,16 @@ function exportsOf(framework) {
   )
 }
 
-function frameworkSection(framework, apis, slug, example) {
+function frameworkSection(framework, apis, slug, example, baseApis) {
   const exported = exportsOf(framework)
   const names = [
-    ...new Set(
-      apis.flatMap(({ api }) => [
+    ...new Set([
+      ...baseApis.map(({ api }) => api.component),
+      ...apis.flatMap(({ api }) => [
         api.component,
         ...api.parts.flatMap((part) => part.component ?? []),
       ]),
-    ),
+    ]),
   ]
     .filter((name) => exported.has(name))
     .toSorted()
@@ -644,7 +646,13 @@ async function componentReference(component, apis, docs) {
     ...pageFrameworks.map((f) =>
       f.id === "html"
         ? ["## HTML", ...exampleLines("html", slug, docs.example)].join("\n")
-        : frameworkSection(f.id, ordered, slug, docs.example),
+        : frameworkSection(
+            f.id,
+            ordered,
+            slug,
+            docs.example,
+            apis.filter((entry) => docs.base && entry.page === docs.base),
+          ),
     ),
   ]
   return `${compact(sections.join("\n\n"))}\n`

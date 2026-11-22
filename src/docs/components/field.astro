@@ -13,10 +13,7 @@ import Conditional from "../../components/Conditional.astro"
 import ValidationNotes from "./partials/ValidationNotes.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 
-import ListCSS from "@opui/css/components/list.css?raw"
-import SelectCSS from "@opui/css/components/select.css?raw"
 import TextFieldCSS from "@opui/css/components/text-field.css?raw"
-import TextareaCSS from "@opui/css/components/textarea.css?raw"
 
 import fieldApi from "../../component-api/field/api"
 
@@ -63,20 +60,7 @@ export const keywords = ["form", "input", "label", "select", "textarea"]
   }}
   apis={[{ title: "Field API", api: fieldApi }]}
   installationTabs={[
-    {
-      title: "text-field.css",
-      code: TextFieldCSS,
-      lang: "css",
-      isDependency: true,
-    },
-    { title: "select.css", code: SelectCSS, lang: "css", isDependency: true },
-    {
-      title: "textarea.css",
-      code: TextareaCSS,
-      lang: "css",
-      isDependency: true,
-    },
-    { title: "list.css", code: ListCSS, lang: "css", isDependency: true },
+    { title: "text-field.css", code: TextFieldCSS, lang: "css" },
   ]}
 >
   <Fragment slot="title">Field</Fragment>

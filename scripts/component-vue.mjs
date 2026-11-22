@@ -481,9 +481,7 @@ export const toVue = (component) => {
       const item = rows?.item ?? node.item
       const list = rows?.name ?? rewriteExpression(node.list, scope)
       const loop = `v-for="${node.index ? `(${item}, ${node.index})` : item} in ${list}" :key="${node.index}"`
-      return root.type === "element"
-        ? emitOne(root, loop, inner)
-        : `<template ${loop}>${emitOne(root, undefined, inner)}</template>`
+      return emitOne(root, loop, inner)
     }
     const itemChecked = node.item
       ? node.attributes.find(

@@ -161,16 +161,7 @@ export const toSvelte = (component) => {
     if (node.item && item.name === "checked") {
       return `{@attach seedChecked(isChecked, change)} defaultChecked={${component.item.grouped} === undefined ? (defaultChecked ?? initialChecked) : initialChecked}`
     }
-    const keepsDefault =
-      item.name === "checked" &&
-      node.tag === "input" &&
-      node.attributes.some(
-        (entry) => entry.kind === "spread" && entry.code === rest,
-      )
-    const code = keepsDefault
-      ? `(${item.code}) ?? ${rest}.defaultChecked`
-      : item.code
-    return `${item.name}={${rewriteExpression(code, options)}}`
+    return `${item.name}={${rewriteExpression(item.code, options)}}`
   }
   const body = (nodes, scope, head = "") => {
     const inner = scope.preserved ? undefined : edgeTrimmed(nodes)

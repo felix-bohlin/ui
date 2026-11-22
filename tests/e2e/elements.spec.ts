@@ -832,13 +832,20 @@ test("step-button.js marks its limit when the page sets the value, sharing one v
     )) {
       element.remove()
     }
-    return (
-      Object.getPrototypeOf(input) === HTMLInputElement.prototype &&
-      !Object.getOwnPropertyDescriptor(input, "value") &&
-      !Object.getOwnPropertySymbols(input).length
-    )
+    return {
+      ownValue: Boolean(Object.getOwnPropertyDescriptor(input, "value")),
+      prototype:
+        Object.getPrototypeOf(input) === HTMLInputElement.prototype
+          ? "HTMLInputElement"
+          : String(Object.getPrototypeOf(input)?.constructor?.name),
+      symbols: Object.getOwnPropertySymbols(input).map(String),
+    }
   })
-  expect(unwrapped, "the input gets its own value back").toBe(true)
+  expect(unwrapped, "the input gets its own value back").toEqual({
+    ownValue: false,
+    prototype: "HTMLInputElement",
+    symbols: [],
+  })
 })
 
 test("close-on-navigate.js closes a drawer on a click on a link in it, unless the link has data-keep-open", async ({

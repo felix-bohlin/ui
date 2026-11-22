@@ -44,12 +44,13 @@ const html = Astro.locals.framework === "html"
       <DocLink href="/components/text-field#password-toggle"
         >password toggle</DocLink
       >
-      sets <code>aria-pressed</code>, a
-      <DocLink href="/components/range#value">Range</DocLink> with a value
-      suffix or labeled ticks sets <code>aria-valuetext</code>, and the
-      character count, <DocLink href="/components/copy">Copy</DocLink> and
+      sets <code>aria-pressed</code>, and the character count,
+      <DocLink href="/components/copy">Copy</DocLink> and
       <DocLink href="/components/toast">Toast</DocLink> announce through live
-      regions.
+      regions. When a <DocLink href="/components/range#value">range</DocLink>
+      value needs a unit or a word, or its
+      <DocLink href="/components/range#tick-marks">ticks</DocLink> have labels,
+      your app sets <code>aria-valuetext</code> on the input.
     </p>
     <ul>
       <li>

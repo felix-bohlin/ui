@@ -13,7 +13,7 @@ Astro is the source of truth for a component's markup. `pnpm build-components` c
 - `packages/opui/components/AGENTS.md`: the checklist in section 0, the frontmatter layouts in section 1 and the slot, id and class rules the ports follow.
 - `packages/opui/components/<Component>/<Component>.astro` and the five type files next to it.
 - `src/component-api/<slug>/api.ts`: the props, slots and parts the ports must expose.
-- The four files of the closest sibling as the reference for idioms: a form control for a form control (`TextField`), a container part for a part (`Card`, `CardActions`), a wrapper for a wrapper (`Divider`).
+- The four files of the closest sibling as the reference for idioms: a form control for a form control (`Checkbox`), a container part for a part (`Card`, `CardActions`), a wrapper for a wrapper (`Divider`).
 
 ## Steps
 

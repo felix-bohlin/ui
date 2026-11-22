@@ -1422,7 +1422,7 @@
       }
     },
     "ui-surface-elevated": {
-      "$description": "Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.",
+      "$description": "Background of elevated cards and accordions, dialogs, drawers, menus and native select options.",
       "$extensions": {
         "com.figma": {
           "codeSyntax": {
@@ -1506,7 +1506,7 @@
       }
     },
     "ui-surface-tonal-hover": {
-      "$description": "Hover fill of a `--ui-surface-tonal` surface: clickable `Chip`s, filled `TextField`, `Select` and `Textarea` fields, and tonal `Button`s with `--ui-button-hover: shade-all`. Derived from `--ui-surface-tonal`, darker in light mode and lighter in dark mode.",
+      "$description": "Hover fill of a `--ui-surface-tonal` surface: clickable `Chip`s, a filled `Field` and tonal `Button`s with `--ui-button-hover: shade-all`. Derived from `--ui-surface-tonal`, darker in light mode and lighter in dark mode.",
       "$extensions": {
         "com.figma": {
           "codeSyntax": {
@@ -1662,7 +1662,7 @@
       }
     },
     "ui-border-color-on-raised": {
-      "$description": "Borders drawn inside a raised surface (tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu`, the `Select` picker and tonal `Callout` without a severity): dividers, separators, outlined controls. The same mix as `--ui-border-color` by default. Each raised component sets `--ui-border-color` to it on its root, so a theme that wants another border inside raised surfaces sets this one. The edge of the surface itself is `--ui-border-color-raised`.",
+      "$description": "Borders drawn inside a raised surface (tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu`, the select picker and tonal `Callout` without a severity): dividers, separators, outlined controls. The same mix as `--ui-border-color` by default. Each raised component sets `--ui-border-color` to it on its root, so a theme that wants another border inside raised surfaces sets this one. The edge of the surface itself is `--ui-border-color-raised`.",
       "$extensions": {
         "com.figma": {
           "codeSyntax": {
@@ -1789,7 +1789,7 @@
       "$value": "{intent.ui-invalid-text}"
     },
     "ui-field-border-color": {
-      "$description": "Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch` unless `--ui-choice-border-color` is set, the `Range` track and the `Progress` outline. `--ui-text-strong` mixed into `--ui-surface` at `--ui-field-border-strength`, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make.",
+      "$description": "Border color of every empty control: a `Field` around a text input, select or textarea, the unchecked `Checkbox`, `Radio` and `Switch` unless `--ui-choice-border-color` is set, the track of a range and the `Progress` outline. `--ui-text-strong` mixed into `--ui-surface` at `--ui-field-border-strength`, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make.",
       "$extensions": {
         "com.figma": {
           "codeSyntax": {
@@ -1901,7 +1901,7 @@
       }
     },
     "ui-focus-ring-inset": {
-      "$description": "Negative offset for focus rings drawn inside a control, such as `List` items and `Select` options.",
+      "$description": "Negative offset for focus rings drawn inside a control, such as `List` items and select options.",
       "$extensions": {
         "com.figma": {
           "codeSyntax": {
@@ -2344,7 +2344,7 @@
       "$value": "{typography.ui-font-size-300}"
     },
     "ui-font-size-control": {
-      "$description": "Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. Small and x-small sizes read `--ui-font-size-small` and `--ui-font-size-caption`. Defaults to `--ui-font-size-300`.",
+      "$description": "Font size of the default `Button`, `Field`, `Tabs` and `ToggleButton`. Small and x-small sizes read `--ui-font-size-small` and `--ui-font-size-caption`. Defaults to `--ui-font-size-300`.",
       "$extensions": {
         "com.figma": {
           "codeSyntax": {
@@ -2888,7 +2888,7 @@
       "$value": 12
     },
     "ui-icon-size-small": {
-      "$description": "Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron.",
+      "$description": "Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the chevron of a select and of an input with a datalist.",
       "$extensions": {
         "com.figma": {
           "codeSyntax": {

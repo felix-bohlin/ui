@@ -4535,7 +4535,7 @@
     "id": "api-control-group-svelte",
     "title": "Control group API",
     "description": "Reference for Control group Svelte component.",
-    "api": "ControlGroup Container element. A number field, select, text field or textarea (a textarea only in a vertical group). Its `.ui-field-container` joins the controls next to it. A button or button link. color Optional colors for the buttons. orientation The orientation of the element. overflow What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size. role The `role` of the root, such as `toolbar`. A passed role replaces `group`. size The size of the buttons and fields. variant The variant of the buttons.",
+    "api": "ControlGroup Container element. A `Field` with an input, a select or a textarea (a textarea only in a vertical group). Its `.ui-field-container` joins the controls next to it. A button or button link. color Optional colors for the buttons. orientation The orientation of the element. overflow What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size. role The `role` of the root, such as `toolbar`. A passed role replaces `group`. size The size of the buttons and fields. variant The variant of the buttons.",
     "category": "API",
     "url": "/svelte/api/#control-group"
   },
@@ -4775,7 +4775,7 @@
     "id": "api-range-svelte",
     "title": "Range API",
     "description": "Reference for Range Svelte component.",
-    "api": "Range A `.ui-field` with an `<input type=\"range\">` in its container, which `range.css` draws without the field's box, as tall as any field's control. Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's `variant` and `size` set the track and thumb. Tick marks for the input it's linked to with `list`, and the `label` of each option under its mark. Give it `aria-hidden=\"true\"`, since the labels repeat the value.",
+    "api": "Range A `.ui-field` with an `<input type=\"range\">` in its container, which `range.css` draws without the field's box, as tall as any field's control. Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's `variant` and `size` set the track and thumb. Tick marks for the input it's linked to with `list`, and the `label` of each option under its mark. Give it `aria-hidden=\"true\"`, and set `aria-valuetext` on the input to the label at its value, since screen readers don't read the datalist.",
     "category": "API",
     "url": "/svelte/api/#range"
   },

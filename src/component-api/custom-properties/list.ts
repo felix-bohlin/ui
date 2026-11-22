@@ -8,7 +8,7 @@ export default {
   },
   "--_check-image": {
     description:
-      'The check on the selected item of a `.ui-menu`, a `[role="listbox"]` list or a `Select` picker, as an image used as a mask in the text color. Defaults to `--ui-icon-check`.',
+      'The check on the selected item of a `.ui-menu`, a `[role="listbox"]` list or a select picker, as an image used as a mask in the text color. Defaults to `--ui-icon-check`.',
     kind: "input",
   },
   "--_description-text-color": {
@@ -60,7 +60,7 @@ export default {
   },
   "--_motion": {
     description:
-      "Motion multiplier for the row transitions of a `.ui-list`. `0` turns them off. A `Menu` and a `Select` read their own.",
+      "Motion multiplier for the row transitions of a `.ui-list`. `0` turns them off. A `Menu` and a select picker read their own.",
     kind: "input",
   },
   "--_radius": {
@@ -90,7 +90,7 @@ export default {
   },
   "--_selected-shadow": {
     description:
-      'Inset shadow that draws the bar from `--_selected-indicator-bg-color` and `--_selected-indicator-offset`, on the start edge in both writing directions. `none` in a `.ui-menu`, a `[role="listbox"]` list and a `Select` picker, which mark the selected item with a check.',
+      'Inset shadow that draws the bar from `--_selected-indicator-bg-color` and `--_selected-indicator-offset`, on the start edge in both writing directions. `none` in a `.ui-menu`, a `[role="listbox"]` list and a select picker, which mark the selected item with a check.',
     kind: "output",
   },
   "--_size": {

@@ -21,7 +21,7 @@ A page documents what these files hold:
 - **Component source**, `packages/opui/components/[Name]/[Name].astro`: the props and their defaults, the default HTML structure and class names, and the parts (`CardHeader`, `AccordionSummary`) of a container or the slots (`label`, `end-text`) of a form control.
 - **CSS**, `packages/opui/css/components/[name].css`: the modifier classes (`.ui-filled`, `.ui-outlined`, `.ui-small`), the modern CSS features that go in `browserSupport`, and the part classes (the `parts` in `api.ts`, which drive the `anatomy` diagram).
 - **API metadata**, `src/component-api/[name]/api.ts`. When it doesn't exist, create it from those props, parts and slots, following [src/component-api/AGENTS.md](../../component-api/AGENTS.md). Props and slots are read from the component source, so `pnpm test` and the build fail when `api.ts` and the source disagree.
-- **Dependencies**: field-based components (`TextField`, `Select`, `Textarea`) usually depend on `text-field.css`, field groups (`Checkbox`, `Radio`, `Switch` inside `Fieldset`/`FieldGroup`) on `form.css`, and popover-based components (`Select`) usually on `list.css`.
+- **Dependencies**: `Field` and the pages of the controls it holds (number field, range, select, text field, textarea) depend on `text-field.css` and the control's own stylesheet (`range.css`, `select.css`, `step-button.css`, `textarea.css`), field groups (`Checkbox`, `Radio`, `Switch` inside `Fieldset`/`FieldGroup`) on `form.css`, and a field's select also on `list.css`.
 - **A similar page**, such as `src/docs/components/accordion.astro`, for UI and content parity.
 
 ## 2. File Structure & Location

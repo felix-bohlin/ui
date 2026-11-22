@@ -11,7 +11,7 @@ Buttons and fields joined into one control, like a split button or a search fiel
 ### Parts
 
 - `.ui-control-group` (root): Container element.
-- `& > .ui-field` (`TextField`): A number field, select, text field or textarea (a textarea only in a vertical group). Its `.ui-field-container` joins the controls next to it.
+- `& > .ui-field` (`Field`): A `Field` with an input, a select or a textarea (a textarea only in a vertical group). Its `.ui-field-container` joins the controls next to it.
 - `& > .ui-button` (`Button`): A button or button link.
 
 ### Props and modifiers
@@ -67,7 +67,7 @@ Outputs: `--_accent-text`, `--_actions-shift`, `--_bg-color`, `--_border-color`,
 
 ### text-field.css
 
-- `--_accent`: Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a Select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
+- `--_accent`: Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
 - `--_arrow-inset`: Distance of the select arrow from the inline end.
 - `--_chevron-image`: The select arrow, as an image used for a mask.
 - `--_chevron-size`: Width and height of the select arrow.
@@ -128,7 +128,7 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--u
 
 ## Astro
 
-`import { Button, ControlGroup } from "opui-css/astro"`
+`import { Button, ControlGroup, Field } from "opui-css/astro"`
 
 ### Example: Variants
 
@@ -164,7 +164,7 @@ import { Button, ControlGroup } from "opui-css/astro"
 
 ## React
 
-`import { Button, ControlGroup } from "opui-css/react"`
+`import { Button, ControlGroup, Field } from "opui-css/react"`
 
 ### Example: Variants
 
@@ -204,7 +204,7 @@ export default function Variants() {
 
 ## Solid
 
-`import { Button, ControlGroup } from "opui-css/solid"`
+`import { Button, ControlGroup, Field } from "opui-css/solid"`
 
 ### Example: Variants
 
@@ -245,7 +245,7 @@ export default function Variants() {
 
 ## Svelte
 
-`import { Button, ControlGroup } from "opui-css/svelte"`
+`import { Button, ControlGroup, Field } from "opui-css/svelte"`
 
 ### Example: Variants
 
@@ -281,7 +281,7 @@ export default function Variants() {
 
 ## Vue
 
-`import { Button, ControlGroup } from "opui-css/vue"`
+`import { Button, ControlGroup, Field } from "opui-css/vue"`
 
 ### Example: Variants
 

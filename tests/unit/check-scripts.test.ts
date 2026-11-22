@@ -910,7 +910,7 @@ describe("check-components", () => {
     )
   })
 
-  test('"use client" marks exactly the React components with state or handlers', () => {
+  test('"use client" marks exactly the React components with state, handlers or an element script', () => {
     const stateful =
       "export default function A() {\n  const [open] = useState(false)\n  return open\n}\n"
     const plain = "export default function A() {\n  return null\n}\n"
@@ -925,6 +925,11 @@ describe("check-components", () => {
     const listening =
       'export default function A({ onDismiss, ref }) {\n  const rootRef = useListener(ref, "dismiss", onDismiss)\n  return <div ref={rootRef} />\n}\n'
     expect(checkClient(listening)).toEqual([
+      expect.stringContaining('start it with "use client"'),
+    ])
+    const element = `import "../../elements/sample.js"\n\n${plain}`
+    expect(checkClient(`"use client"\n\n${element}`)).toEqual([])
+    expect(checkClient(element)).toEqual([
       expect.stringContaining('start it with "use client"'),
     ])
   })

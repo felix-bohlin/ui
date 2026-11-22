@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import "../../elements/copy.js"
 import { defined } from "../attrs"
 import { cx } from "../cx"
 import { warnMissingId } from "../dev"
@@ -15,9 +15,6 @@ export default function Copy({
   ...rest
 }: Props) {
   warnMissingId("Copy", id)
-  useEffect(() => {
-    void import("../../elements/copy.js")
-  }, [])
 
   return (
     <opui-copy

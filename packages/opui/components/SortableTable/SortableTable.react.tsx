@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import "../../elements/sortable-table.js"
 import { defined } from "../attrs"
 import { cx } from "../cx"
 import { useHydrated, useListener } from "../react"
@@ -16,9 +16,6 @@ export default function SortableTable({
   ...rest
 }: Props) {
   const rootRef = useHydrated(useListener(ref, "sort", onSort))
-  useEffect(() => {
-    void import("../../elements/sortable-table.js")
-  }, [])
 
   return (
     <opui-sortable-table

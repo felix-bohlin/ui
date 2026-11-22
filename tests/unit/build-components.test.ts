@@ -629,7 +629,7 @@ describe("the ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, label, ...rest } = Astro.props\n---\n\n<opui-sample class:list={["ui-sample", className]} data-label={label} {...rest}>\n  <slot />\n  <span class="ui-sr-only" role="status"></span>\n</opui-sample>\n\n<script>\n  import "../../elements/sample.js"\n</script>\n',
     )
     expect(ports["react.tsx"]).toBe(
-      '"use client"\n\nimport { useEffect } from "react"\nimport { defined } from "../attrs"\nimport { cx } from "../cx"\nimport type { Props } from "./types.react"\n\nexport default function Sample({ className, label, children, ...rest }: Props) {\n  useEffect(() => {\n    void import("../../elements/sample.js")\n  }, [])\n\n  return (\n    <opui-sample\n      className={cx(["ui-sample", className])}\n      data-label={label}\n      {...defined(rest)}\n    >\n      {children} <span className="ui-sr-only" role="status" />\n    </opui-sample>\n  )\n}\n',
+      '"use client"\n\nimport "../../elements/sample.js"\nimport { defined } from "../attrs"\nimport { cx } from "../cx"\nimport type { Props } from "./types.react"\n\nexport default function Sample({ className, label, children, ...rest }: Props) {\n  return (\n    <opui-sample\n      className={cx(["ui-sample", className])}\n      data-label={label}\n      {...defined(rest)}\n    >\n      {children} <span className="ui-sr-only" role="status" />\n    </opui-sample>\n  )\n}\n',
     )
     expect(ports.svelte).toBe(
       '<script lang="ts">\n  import "../../elements/sample.js"\n  import { defined } from "../attrs"\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n    label,\n\n    // Snippets\n    children,\n    ...rest\n  }: Props = $props()\n</script>\n\n<opui-sample\n  class={["ui-sample", className]}\n  data-label={label}\n  {...defined(rest)}\n>\n  {@render children?.()}\n  <span class="ui-sr-only" role="status"></span>\n</opui-sample>\n',
@@ -655,14 +655,14 @@ describe("the ports of a sample", () => {
     )
   })
 
-  test("two element scripts load in one effect in React", async () => {
+  test("two element scripts are two imports in React", async () => {
     const ports = await compile(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<opui-sample class:list={["ui-sample", className]} {...rest}>\n  <slot />\n</opui-sample>\n\n<script>\n  import "../../elements/sample.js"\n  import "../../elements/other.js"\n</script>\n',
     )
     expect(ports["react.tsx"]).toContain(
-      '  useEffect(() => {\n    void import("../../elements/sample.js")\n    void import("../../elements/other.js")\n  }, [])\n',
+      '"use client"\n\nimport "../../elements/sample.js"\nimport "../../elements/other.js"\n',
     )
-    expect(ports["react.tsx"].match(/useEffect\(/g)).toHaveLength(1)
+    expect(ports["react.tsx"]).not.toContain("useEffect")
   })
 
   test("an event in types.ts listens on the root: a ref callback in React, a handler prop in Svelte, an emit in Vue and the on<Event> prop the rest spread carries in Solid, and each lifts data-hydrating from a custom element", async () => {
@@ -676,7 +676,7 @@ describe("the ports of a sample", () => {
     const port = (extension: string) =>
       outputs.get(sampleFile().replace(".astro", extension)) ?? ""
     expect(port(".react.tsx")).toBe(
-      '"use client"\n\nimport { useEffect } from "react"\nimport { cx } from "../cx"\nimport { useHydrated, useListener } from "../react"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  onClose,\n  ref,\n  children,\n  ...rest\n}: Props) {\n  const rootRef = useHydrated(useListener(ref, "close", onClose))\n  useEffect(() => {\n    void import("../../elements/sample.js")\n  }, [])\n\n  return (\n    <opui-sample\n      className={cx(["ui-sample", className])}\n      data-hydrating=""\n      ref={rootRef}\n      {...rest}\n    >\n      {children}\n    </opui-sample>\n  )\n}\n',
+      '"use client"\n\nimport "../../elements/sample.js"\nimport { cx } from "../cx"\nimport { useHydrated, useListener } from "../react"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  onClose,\n  ref,\n  children,\n  ...rest\n}: Props) {\n  const rootRef = useHydrated(useListener(ref, "close", onClose))\n\n  return (\n    <opui-sample\n      className={cx(["ui-sample", className])}\n      data-hydrating=""\n      ref={rootRef}\n      {...rest}\n    >\n      {children}\n    </opui-sample>\n  )\n}\n',
     )
     expect(port(".svelte")).toContain(
       "  let {\n    class: className,\n    onclose,\n\n    // Snippets\n    children,\n    ...rest\n  }: Props = $props()\n",

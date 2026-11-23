@@ -1901,6 +1901,23 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): scope the rule in `compat/field.css` to `.ui-field`, and give `compat/one-time-code.css` its own iOS rule that floors each size at 16px: `max(16px, var(--ui-font-size-large))`, and the body and h4 sizes for the small and large classes.
     - B: drop `.ui-one-time-code` from the rule and leave its sizes alone: the smallest is `--ui-font-size-body`, which the default theme and the example themes keep at 16px.
+- [ ] (2) Package: in Vue, a text prop and the slot of the same name render with no space between them, where Astro renders the line break between the two as a space: `start-text="Max 10 kg"` with a `#start-text` slot reads "Max 10 kgWhy?". The reader drops every blank text node with a line break inside a JSX expression before the whitespace rules see it, though Astro keeps it there; Field, Checkbox, ListItem, OneTimeCode, Radio, Stat, StepperItem and Switch have the pattern (`scripts/component-reader.mjs:785-798`, `packages/opui/components/Field/Field.vue:60-62`, `packages/opui/components/Field/Field.astro:58-61`, `scripts/component-layout.mjs:339-376`, `tests/unit/build-components.test.ts:1044-1066`)
+  - Summary: In Vue, a field's start text set as a prop runs straight into the slot content that follows it.
+  - Recommended: Fix with option A. It renders what Astro renders without leaving stray spaces where a slot merges into its prop.
+  - Fix: found by the census (TextField blind port) and re-checked in Chromium on the compiled Field: the Astro `.ui-start-text` reads "Max 10 kg Why?" and the Vue one "Max 10 kgWhy?". React, Solid and Svelte merge the prop and the slot into one, so only Vue can set both. A throwaway Astro page shows Astro keeps this whitespace in every expression: `{show && <span>` with `{text}` and `<b>slot</b>` on their own lines renders `<span> T <b>slot</b> </span>`, and a `.map()` row with two expressions `<li> x <span>icon</span> T </li>`, which the Solid `For` sample in `tests/unit/build-components.test.ts` expects glued. Deleting the drop regenerates 48 files in the four frameworks, with the parity and contract tests still green, but React and Solid then write `{label} </p>` and `{startText}{" "}` where the slot merged into its prop, a space next to nothing. Neither test sets a prop and its slot together: add that case.
+    ```js
+    // scripts/component-reader.mjs, before
+    if (isBlank(node) && context.jsx && node.value.includes("\n")) return []
+    ```
+    ```vue
+    <!-- Field.vue, after -->
+    <span v-if="hasStartText()" class="ui-start-text" :id="startTextId()">
+      {{ startText }}{{ " " }}<slot name="start-text"></slot>
+    </span>
+    ```
+  - Options:
+    - A (recommended): delete the drop in the reader so `shapeWhitespace` decides, and in the React, Solid and Svelte emitters drop the whitespace next to a slot that merges into the prop of the same name. Update the `For` sample and add a sample with a text prop and its slot.
+    - B: delete the drop alone and accept the trailing spaces in React and Solid: at a block's edge they render nothing, and the parity tests agree.
 - [ ] (3) Package: in Solid, a control whose `value` or `checked` prop is read again without changing gets that prop written over what the user entered, once: `control` defers its effect, and the first deferred run gets `undefined` as the previous value, so it writes. Later runs with an unchanged value write nothing (`packages/opui/components/solid.ts:4-33`, `packages/opui/components/Checkbox/CheckboxInput.solid.tsx:12`)
   - Summary: In Solid, typed text or a ticked box can snap back once when an unrelated prop of the same object changes.
   - Recommended: Fix. The helper only has to tell its first run from a changed value.
@@ -2047,6 +2064,57 @@ Findings with a page and section in brackets come from the stress pages in `src/
           : group.filter((item) => item !== value)
     ```
   - Fixed: `toggleInGroup` returns the group as it is when it already holds the value it would add or lacks the one it would remove, so the bound array follows the boxes through any number of resets. `tests/unit/helpers.test.ts` checks the helper, and `tests/e2e/models.spec.ts` (a form reset leaves each value of a bound checkbox group once) resets a bound group twice in every framework, with the boxes' `defaultChecked` set as the server markup sets it; it failed in Svelte only before the change.
+- [ ] (3) Radio, Rating, Tabs, ToggleGroup: in Svelte, a bound value is never told about a form reset: the inputs go back to their first choice while the bound value keeps the last pick, where a native `bind:group` follows the reset. The `seedChecked` attachment writes `checked` from the value and never listens for a reset, and Radio's inner `bind:group` doesn't carry the reset to the caller's binding either (`packages/opui/components/svelte.ts:1-17`, `packages/opui/components/Tabs/TabsItem.svelte:48`, `packages/opui/components/ToggleButton/ToggleButton.svelte:59`, `packages/opui/components/Rating/Rating.svelte:51-75`, `packages/opui/components/Radio/Radio.svelte:45`, `tests/apps/native/cases.ts:57-62`)
+  - Summary: In Svelte, resetting a form shows the first tab, star, toggle or radio again while the bound value keeps the last pick.
+  - Recommended: Fix with option A. Only Svelte still has the gap, and the attachment every one of these inputs uses is where the listener fits.
+  - Fix: found by the census (Tabs, Rating and ToggleGroup blind ports) and re-checked in Chromium on the current files, client-rendered and hydrated: in one form, `<Tabs name bind:value>` at `a`, `<Rating name bind:value>` at 3, `<ToggleGroup name bind:value>` at `grid` and two `<Radio bind:group>` at `card`; pick tab b, 5 stars, Rows and Cash, then Reset: the inputs show a, 3, grid and card, and the bound values stay `b`, 5, `rows` and `cash`. A native radio pair with `bind:group` in the same form follows the reset. Solid had the same gap at the census; it now matches the native Solid input, which doesn't follow a reset either, and `tests/e2e/native.spec.ts` passes for its bound cases. The Svelte cases there can't see this gap: they already differ from the native control on `defaultChecked` once rendered (`SVELTE_GROUP`, `SVELTE_SPREAD`), so the comparison never reaches the reset. Add the scenario to `tests/e2e/models.spec.ts`. A second case the census found holds in every framework and is the native behavior: after the item that was selected at first is removed, a reset leaves nothing selected.
+  - Options:
+    - A (recommended): listen for the form's reset in `seedChecked` and hand the input that the reset checked to the model, with the cleanup Svelte runs when the attachment runs again or the input goes. Radio gets the attachment too, in place of its inner `bind:group`.
+      ```ts
+      // svelte.ts, at the end of the attachment
+      const form = input.form
+      if (!form) return
+      const follow = (event: Event) =>
+        setTimeout(() => {
+          if (!event.defaultPrevented && input.checked && !isChecked())
+            check(input)
+        })
+      form.addEventListener("reset", follow)
+      return () => form.removeEventListener("reset", follow)
+      ```
+    - B: one module with a single document listener that each input registers with, as the census drafted for React, Solid and Svelte together (`afterReset(input, follow)`, a `WeakMap` from element to callback, walking `form.elements` in the task after the reset). It needs no cleanup per input, and a form inside a shadow root is not seen.
+    - C: in the Svelte Rating only, bind the radios with `bind:group` through an accessor object, which Svelte resets itself; Tabs, ToggleButton and Radio cross a component and still need A or B.
+- [ ] (3) SelectButton: after a form reset, the button of a customizable select still shows the option the user had picked, while the select's value is back at the starting one: Chromium doesn't refresh `<selectedcontent>` on a reset, in plain HTML and so in every framework. `tests/e2e/engine-bugs.ts` has no entry for it, and `example-state.spec.ts` checks the value after a reset, never the button's text (`packages/opui/components/SelectButton/SelectButton.astro:10-12`, `tests/e2e/engine-bugs.ts:3-15`, `tests/e2e/example-state.spec.ts:56-98`)
+  - Summary: After a form reset a select's button still shows the option picked before, though its value has gone back.
+  - Recommended: Fix with option A. It is an engine bug, and the repo's rule is to record those with a plain repro.
+  - Fix: found by the census (Select blind port) and re-checked in Chromium 157.0.8103.78 with plain HTML: `<form><select style="appearance: base-select"><button><selectedcontent></selectedcontent></button><option value="a">Apple</option><option value="b" selected>Banana</option><option value="c">Cherry</option></select></form>`, pick Apple, call `form.reset()`: `select.value` is `b` and `<selectedcontent>` still reads Apple. No Chromium issue for the reset case turned up; a related web-platform test, that `<selectedcontent>` is up to date after form restoration, fails in Chrome, and Firefox's implementation lists Reset among the steps that refresh it (Bugzilla 1974276). Report it to Chromium with this repro.
+  - Options:
+    - A (recommended): record it in `tests/e2e/engine-bugs.ts` with this repro in `tests/e2e/engines.spec.ts`, and assert the button's text after a reset in `example-state.spec.ts` as an expected failure with `failsIn()`.
+    - B: refresh the content after a reset behind an engine gate: `select.selectedIndex = select.selectedIndex` in a `reset` listener makes it read Banana again (run by the census blind port). It needs a script, which the compat layer doesn't have today.
+- [ ] (4) Checkbox, Radio, Rating, Switch: in Svelte, a box the user ticked, a radio they picked or a star they chose is cleared when the parent replaces the object it spreads onto the control: an unbound `$bindable()` prop the component wrote is derived again from the parent's getter, so `<Checkbox {...props}>` with `props` replaced by a new object puts `checked` back to `undefined`. A native `<input type="checkbox" {...props}>` keeps the tick, and so do ToggleGroup and Tabs (`packages/opui/components/Checkbox/CheckboxInput.svelte:9-24`, `packages/opui/components/Switch/SwitchInput.svelte:8-22`, `packages/opui/components/Radio/Radio.svelte:13`, `packages/opui/components/Rating/Rating.svelte:23`, `scripts/component-models.mjs:65-73`)
+  - Summary: In Svelte, a ticked box, a picked radio or a chosen star is cleared when the parent replaces the object it spreads onto it.
+  - Recommended: Fix with option A. It keeps the entry the way the native input does and leaves a bound value as it is.
+  - Fix: found by the census (Select blind port) on TextField and Checkbox, and re-checked in Chromium on the current files, client-rendered and hydrated: a parent holds `props = $state({ checked: undefined, error: false })`, renders `<Checkbox {...props}>`, `<Switch {...props}>`, `<Radio name value {...props}>` and `<Rating name {...props}>` with `value: undefined`, the user ticks, picks or rates, and the parent sets `props = { ...props, error: !props.error }`: all four are cleared, while a native checkbox with the same spread, a `ToggleGroup` and a `Tabs` keep the choice. TextField, Select and NumberField, which the census also named, are gone. Solid and Vue kept the entry at the census and weren't run again. Add the scenario to `tests/e2e/models.spec.ts`, whose Svelte fixture passes explicit props today.
+  - Options:
+    - A (recommended): keep the entry in the component's own state and let the prop win when it has a value, in the `checked`, `group` and `value` model kinds of `scripts/component-models.mjs`. A parent that binds and later sets the value to `undefined` then gets the last entry back, so clearing is `false` or `""`. It touches the rule in `packages/opui/components/AGENTS.md` that a component holds no value, so say there that this is the native input's own memory.
+      ```ts
+      // before
+      const getChecked = () =>
+        group ? group.includes(value) : !!(checked ?? defaultChecked)
+      const setChecked = (isChecked: boolean) => {
+        if (group) group = toggleInGroup(group, value, isChecked)
+        else checked = isChecked
+      }
+      // after
+      let entered = $state<boolean>()
+      const getChecked = () =>
+        group ? group.includes(value) : !!(checked ?? entered ?? defaultChecked)
+      const setChecked = (isChecked: boolean) => {
+        if (group) group = toggleInGroup(group, value, isChecked)
+        else entered = checked = isChecked
+      }
+      ```
+    - B: leave it and say on the Svelte pages of Checkbox, Radio, Rating and Switch that an unbound control must not get its props from a spread of an object that is replaced.
 
 ## Compiler
 

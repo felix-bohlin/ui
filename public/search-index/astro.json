@@ -1221,20 +1221,6 @@
     "url": "/astro/components/field/#auto-fit"
   },
   {
-    "id": "component-field-astro-binding",
-    "title": "Binding",
-    "page": "Field",
-    "category": "Component",
-    "url": "/astro/components/field/#binding"
-  },
-  {
-    "id": "component-field-astro-form-reset",
-    "title": "Form reset",
-    "page": "Field",
-    "category": "Component",
-    "url": "/astro/components/field/#form-reset"
-  },
-  {
     "id": "component-field-astro-drop-zone",
     "title": "Drop zone",
     "page": "Field",
@@ -2418,13 +2404,6 @@
     "url": "/astro/components/select/#required"
   },
   {
-    "id": "component-select-astro-binding",
-    "title": "Binding",
-    "page": "Select",
-    "category": "Component",
-    "url": "/astro/components/select/#binding"
-  },
-  {
     "id": "component-spinner-astro",
     "title": "Spinner",
     "description": "A spinner on any element with aria-busy=\"true\", for content that is loading.",
@@ -2915,13 +2894,6 @@
     "url": "/astro/components/text-field/#autosuggest"
   },
   {
-    "id": "component-text-field-astro-binding",
-    "title": "Binding",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/astro/components/text-field/#binding"
-  },
-  {
     "id": "component-textarea-astro",
     "title": "Textarea",
     "description": "A multi-line text input in a Field that grows with its text, with a character count.",
@@ -2956,13 +2928,6 @@
     "page": "Textarea",
     "category": "Component",
     "url": "/astro/components/textarea/#affix"
-  },
-  {
-    "id": "component-textarea-astro-binding",
-    "title": "Binding",
-    "page": "Textarea",
-    "category": "Component",
-    "url": "/astro/components/textarea/#binding"
   },
   {
     "id": "component-timeline-astro",

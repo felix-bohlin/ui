@@ -1221,20 +1221,6 @@
     "url": "/solid/components/field/#auto-fit"
   },
   {
-    "id": "component-field-solid-binding",
-    "title": "Binding",
-    "page": "Field",
-    "category": "Component",
-    "url": "/solid/components/field/#binding"
-  },
-  {
-    "id": "component-field-solid-form-reset",
-    "title": "Form reset",
-    "page": "Field",
-    "category": "Component",
-    "url": "/solid/components/field/#form-reset"
-  },
-  {
     "id": "component-field-solid-drop-zone",
     "title": "Drop zone",
     "page": "Field",
@@ -2418,13 +2404,6 @@
     "url": "/solid/components/select/#required"
   },
   {
-    "id": "component-select-solid-binding",
-    "title": "Binding",
-    "page": "Select",
-    "category": "Component",
-    "url": "/solid/components/select/#binding"
-  },
-  {
     "id": "component-spinner-solid",
     "title": "Spinner",
     "description": "A spinner on any element with aria-busy=\"true\", for content that is loading.",
@@ -2915,13 +2894,6 @@
     "url": "/solid/components/text-field/#autosuggest"
   },
   {
-    "id": "component-text-field-solid-binding",
-    "title": "Binding",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/solid/components/text-field/#binding"
-  },
-  {
     "id": "component-textarea-solid",
     "title": "Textarea",
     "description": "A multi-line text input in a Field that grows with its text, with a character count.",
@@ -2956,13 +2928,6 @@
     "page": "Textarea",
     "category": "Component",
     "url": "/solid/components/textarea/#affix"
-  },
-  {
-    "id": "component-textarea-solid-binding",
-    "title": "Binding",
-    "page": "Textarea",
-    "category": "Component",
-    "url": "/solid/components/textarea/#binding"
   },
   {
     "id": "component-timeline-solid",

@@ -1221,20 +1221,6 @@
     "url": "/react/components/field/#auto-fit"
   },
   {
-    "id": "component-field-react-binding",
-    "title": "Binding",
-    "page": "Field",
-    "category": "Component",
-    "url": "/react/components/field/#binding"
-  },
-  {
-    "id": "component-field-react-form-reset",
-    "title": "Form reset",
-    "page": "Field",
-    "category": "Component",
-    "url": "/react/components/field/#form-reset"
-  },
-  {
     "id": "component-field-react-drop-zone",
     "title": "Drop zone",
     "page": "Field",
@@ -2418,13 +2404,6 @@
     "url": "/react/components/select/#required"
   },
   {
-    "id": "component-select-react-binding",
-    "title": "Binding",
-    "page": "Select",
-    "category": "Component",
-    "url": "/react/components/select/#binding"
-  },
-  {
     "id": "component-spinner-react",
     "title": "Spinner",
     "description": "A spinner on any element with aria-busy=\"true\", for content that is loading.",
@@ -2915,13 +2894,6 @@
     "url": "/react/components/text-field/#autosuggest"
   },
   {
-    "id": "component-text-field-react-binding",
-    "title": "Binding",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/react/components/text-field/#binding"
-  },
-  {
     "id": "component-textarea-react",
     "title": "Textarea",
     "description": "A multi-line text input in a Field that grows with its text, with a character count.",
@@ -2956,13 +2928,6 @@
     "page": "Textarea",
     "category": "Component",
     "url": "/react/components/textarea/#affix"
-  },
-  {
-    "id": "component-textarea-react-binding",
-    "title": "Binding",
-    "page": "Textarea",
-    "category": "Component",
-    "url": "/react/components/textarea/#binding"
   },
   {
     "id": "component-timeline-react",

@@ -24,12 +24,18 @@ const currentFramework = Astro.locals.framework
 // every variant (e.g. /astro/components/button -> /components/button).
 const canonicalPath = stripFrameworkPrefix(pathname)
 
-const resolvedNavItems = navItems.map(({ section, ...item }) => ({
-  ...item,
-  href: hrefFor(currentFramework, item.href),
-  isActive:
-    canonicalPath === section || canonicalPath.startsWith(section + "/"),
-}))
+const devNavItems = import.meta.env.DEV
+  ? [{ href: "/dev", label: "Dev", section: "/dev" }]
+  : []
+
+const resolvedNavItems = [...navItems, ...devNavItems].map(
+  ({ section, ...item }) => ({
+    ...item,
+    href: hrefFor(currentFramework, item.href),
+    isActive:
+      canonicalPath === section || canonicalPath.startsWith(section + "/"),
+  }),
+)
 
 const { link } = Astro.locals
 ---

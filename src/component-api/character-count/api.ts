@@ -37,7 +37,7 @@ export default {
       prop: "label",
     },
   ],
-  page: "textarea",
+  page: "field",
   parts: [],
   root: {
     code: "<opui-character-count>",

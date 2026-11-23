@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { Button, Tooltip, TooltipContent } from "opui-css/vue"
+import { Button, Tooltip } from "opui-css/vue"
 </script>
 
 <template>
-  <Tooltip id="tooltip-rich-content-1">
+  <Tooltip id="tooltip-rich">
     <Button
-      aria-describedby="tooltip-rich-content-1"
-      interestfor="tooltip-rich-content-1"
+      interestfor="tooltip-rich"
+      commandfor="tooltip-rich"
+      command="toggle-popover"
       >Keyboard shortcuts</Button
     >
-    <TooltipContent>
+    <template #content>
       Press <kbd>⌘</kbd> + <kbd>K</kbd> to open the command palette.
-    </TooltipContent>
+    </template>
   </Tooltip>
 </template>

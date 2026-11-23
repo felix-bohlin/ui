@@ -1,19 +1,17 @@
 <script setup lang="ts">
-import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/vue"
+import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
 </script>
 
 <template>
   <Form>
-    <Fieldset aria-describedby="switch-field-group-validation-1-error">
-      <FieldLegend>Security alerts</FieldLegend>
-      <FieldGroup name="switch-field-group-validation" orientation="horizontal">
-        <Switch error value="email">Email</Switch>
-        <Switch error value="push">Push</Switch>
-        <Switch error value="sms">SMS</Switch>
+    <FieldSet data-invalid>
+      <FieldLegend>Legend</FieldLegend>
+      <FieldGroup direction="row" name="switch-field-group-validation">
+        <Switch>Switch 1</Switch>
+        <Switch>Switch 2</Switch>
+        <Switch>Switch 3</Switch>
       </FieldGroup>
-      <span class="ui-end-text" id="switch-field-group-validation-1-error"
-        >Turn on at least one to continue.</span
-      >
-    </Fieldset>
+      <span class="ui-end-text">Something went wrong!</span>
+    </FieldSet>
   </Form>
 </template>

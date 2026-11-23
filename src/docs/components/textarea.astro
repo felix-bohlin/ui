@@ -1,47 +1,48 @@
 ---
 import Component from "../../layouts/Component.astro"
-import DocLink from "../../components/DocLink.astro"
-import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import { Textarea as UITextarea } from "@opui/astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 
 import FieldCSS from "@opui/css/components/text-field.css?raw"
 import TextareaCSS from "@opui/css/components/textarea.css?raw"
-import CharacterCountJS from "@opui/elements/character-count.js?raw"
 
-import characterCountApi from "../../component-api/character-count/api"
-import TextareaBuild from "../../components/UnderTheHood/TextareaBuild.astro"
+import textareaApi from "../../component-api/textarea/api"
 
 export const description =
-  "A multi-line text input in a Field that grows with its text, with a character count."
-
-export const keywords = ["multiline", "text area"]
+  "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states."
 ---
 
 <Component
   description={description}
-  base="field"
   slug="textarea"
   browserSupport={[
-    "alt-text-generated-content",
-    "attr",
-    "container-queries",
+    "datalist",
     "field-sizing",
     "has",
-    "lh",
-    "reading-flow",
-    "registered-custom-properties",
-    "user-pseudos",
+    "light-dark",
+    "relative-color",
   ]}
-  fallbacks={{
-    attr: "Without typed `attr()`, a textarea is at least three lines tall, whatever `rows` says.",
-    "reading-flow":
-      "Without `reading-flow`, Tab and screen readers follow the markup, which puts the top and start parts before the control, as they're drawn. Hand-written HTML needs that order too.",
-  }}
-  apis={[{ title: "Character count API", api: characterCountApi }]}
+  heroAnatomy
+  apis={[{ title: "Textarea API", api: textareaApi }]}
   changelogPaths={[
-    { path: "packages/opui/css/components/text-field.css", type: "css" },
-    { path: "src/component-api/character-count", type: "api" },
+    {
+      path: "packages/opui/components/Textarea/Textarea.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/textarea.astro", type: "docs" },
+    { path: "src/component-examples/textarea", type: "docs" },
+    {
+      path: "packages/opui/css/components/textarea.css",
+      type: "css",
+    },
+    {
+      path: "packages/opui/css/components/text-field.css",
+      type: "css",
+    },
+    { path: "src/component-api/textarea", type: "api" },
+    { path: "src/component-api/text-field", type: "api" },
   ]}
   installationTabs={[
     {
@@ -51,108 +52,136 @@ export const keywords = ["multiline", "text area"]
       isDependency: true,
     },
     { title: "textarea.css", code: TextareaCSS, lang: "css" },
-    { title: "character-count.js", code: CharacterCountJS, lang: "js" },
   ]}
 >
   <Fragment slot="title">Textarea</Fragment>
-  <Fragment slot="preamble">
-    Text over several lines, like a comment. For a single line, use a
-    <DocLink href="/components/text-field">Text field</DocLink>.
-  </Fragment>
 
-  <Usage slot="usage">
-    <li slot="when">Text over several lines, like a comment.</li>
-    <li slot="when">Messages that <a href="#rows">grow as people type</a>.</li>
-    <li slot="when-not">
-      A single line: use a
-      <DocLink href="/components/text-field">Text field</DocLink>.
-    </li>
-    <li slot="when-not">Formatted text: use a rich text editor.</li>
-  </Usage>
-
-  <section id="textarea">
-    <h2>Textarea</h2>
-    <p>
-      A textarea is a <DocLink href="/components/field">Field</DocLink> with a
-      <code>&lt;textarea&gt;</code> inside. Write it and wire its
-      <code>aria-describedby</code> as the
-      <DocLink href="/components/field#basics">Field</DocLink> page shows, with
-      the variants, sizes, affixes, validation and layout every field shares.
-    </p>
-    <AutoExample name="Basics" column />
+  <section>
+    <h2 id="variants">Variants</h2>
+    <AutoExample name="Variants" row />
   </section>
 
-  <section id="rows">
-    <h2>Rows</h2>
-    <p>
-      A textarea starts three lines tall and grows with its text.
-      <code>rows</code> sets the lines it starts at, so <code>rows="1"</code>
-      makes a one-line field that grows, like a reply box.
-    </p>
-
-    <AutoExample name="Rows" column />
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <AutoExample name="Sizes" row />
   </section>
 
-  <section id="character-count">
-    <h2>Character count</h2>
+  <section>
+    <h2 id="end-text">End text</h2>
+    <AutoExample name="SupportingText" row />
+  </section>
+
+  <section>
+    <h2 id="affix">Affix</h2>
     <Conditional as="p">
-      <Fragment slot="components">
-        With <code>maxlength</code>, put a <code>CharacterCount</code> in
-        <Conditional>
-          <Fragment slot="components">the <code>end-text</code> slot</Fragment>
-          <Fragment slot="react"><code>endText</code></Fragment>
-          <Fragment slot="solid"><code>endText</code></Fragment>
-          <Fragment slot="svelte">the <code>endText</code> snippet</Fragment>
-        </Conditional
-        >, and name the limit in the end text
-        (<DocLink href="/components/field#character-count">Field</DocLink>).
-      </Fragment>
-      <Fragment slot="html">
-        With <code>maxlength</code>, add
-        <code>&lt;opui-character-count&gt;</code> to the end text, and name the
-        limit there too
-        (<DocLink href="/components/field#character-count">Field</DocLink>).
-      </Fragment>
-    </Conditional>
-    <AutoExample name="CharacterCount" centered />
-  </section>
-
-  <section id="affix">
-    <h2>Affix</h2>
-    <p>
-      A button can go in an affix, like a send button. Leave a part that only
-      holds buttons out of the textarea's <code>aria-describedby</code>, as on
-      the <DocLink href="/components/field#basics">Field</DocLink> page.
-    </p>
-    <AutoExample name="AffixButton" row />
-  </section>
-
-  <section id="binding">
-    <h2>Binding</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Bind the textarea's <code>value</code>, as on the
-        <DocLink href="/components/field#binding">Field</DocLink> page, instead
-        of writing text inside it.
-      </Fragment>
-      <Fragment slot="react">
-        Give the textarea <code>value</code> or <code>defaultValue</code>, as on
-        the <DocLink href="/components/field#binding">Field</DocLink> page,
-        instead of children.
-      </Fragment>
       <Fragment slot="astro">
-        The text inside the textarea is its default value. Read its
-        <code>value</code> in a script
-        (<DocLink href="/components/field#binding">Field</DocLink>).
+        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
+        and <code>footer</code> slots to affix content inside the textarea's border.
+        Header and footer are particularly useful for filenames and character counters.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
+        and <code>footer</code> slots to affix content inside the textarea's border.
+        Header and footer are particularly useful for filenames and character counters.
       </Fragment>
       <Fragment slot="html">
-        The text inside the textarea is its default value. Read its
-        <code>value</code> in a script
-        (<DocLink href="/components/field#binding">Field</DocLink>).
+        Add <code>.ui-prefix</code>, <code>.ui-suffix</code>, <code
+          >.ui-header</code
+        >, or
+        <code>.ui-footer</code> elements inside <code>.ui-field</code> to affix content
+        inside the textarea's border.
       </Fragment>
     </Conditional>
-    <AutoExample name="Binding" column />
+
+    <AutoExample name="Affix" />
+
+    <h3 id="headers-and-footers">Headers and footers</h3>
+
+    <AutoExample name="Headers" column />
   </section>
 
-  <TextareaBuild slot="under-the-hood" />
+  <section>
+    <h2 id="validation">Validation</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set <code>required</code> on the component to toggle required styles on the
+        textarea.
+      </Fragment>
+      <Fragment slot="vue">
+        Add the <code>required</code> attribute on the component. It is forwarded
+        to the underlying <code>&lt;textarea&gt;</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>[required]</code> to the <code>&lt;textarea&gt;</code> element to
+        toggle required styles.
+      </Fragment>
+    </Conditional>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>error</code> prop to toggle invalid styles. It renders the
+        <code>data-invalid</code> attribute on the root element. Make use of the end
+        text to give extra feedback on the error.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>error</code> prop to toggle invalid styles. It renders
+        <code>data-invalid</code> on the root element. Make use of the end text to
+        give extra feedback on the error.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>data-invalid</code> on the root element to toggle invalid styles.
+        Make use of the end text to give extra feedback on the error.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Validation" />
+  </section>
+
+  <section>
+    <h2 id="spread">Spread</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>spread</code> boolean prop to display the label and description
+        on the left with the textarea on the right. The layout collapses to a column
+        on narrow containers.
+      </Fragment>
+      <Fragment slot="html">
+        Add the <code>.ui-spread</code> class to display the label and description
+        on the left with the textarea on the right. The layout collapses to a column
+        on narrow containers.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>spread</code> boolean prop to display the label and description
+        on the left with the textarea on the right. The layout collapses to a column
+        on narrow containers.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Orientation" column spacious />
+  </section>
+
+  <section>
+    <h2 id="auto-fit">Auto-fit</h2>
+    <p>When enabled the Field changes size depending on its content.</p>
+
+    <AutoExample name="AutoFit" exampleClass="flex" />
+
+    <div class="ui-not-rich-text"></div>
+  </section>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UITextarea
+        description="Description"
+        endText="Supporting text"
+        label="Label"
+        placeholder="Placeholder"
+        style="inline-size: 20rem"
+      >
+        <span slot="header">Header</span>
+        <span slot="prefix">¢</span>
+        <span slot="suffix">EUR</span>
+        <span slot="footer">Footer</span>
+      </UITextarea>
+    </Anatomy>
+  </Fragment>
 </Component>

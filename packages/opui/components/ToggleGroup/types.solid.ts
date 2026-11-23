@@ -1,17 +1,4 @@
 import type * as Base from "./types"
-import type { ComponentProps } from "@solidjs/web"
+import type { JSX } from "solid-js"
 
-export type Props = Base.Props &
-  Base.Selection<
-    {
-      defaultValue?: string
-      onValueChange?: (value: string) => void
-      value?: string
-    },
-    {
-      defaultValue?: string[]
-      onValueChange?: (value: string[]) => void
-      value?: string[]
-    }
-  > &
-  Omit<ComponentProps<"div">, "defaultValue" | "size">
+export type Props = Base.Props & JSX.HTMLAttributes<HTMLDivElement>

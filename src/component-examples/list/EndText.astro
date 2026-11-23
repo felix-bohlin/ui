@@ -1,18 +1,19 @@
 ---
-import { List, ListItem } from "opui-css/astro"
+import { List } from "@opui/astro"
+import { ListItem } from "@opui/astro"
 ---
 
 <List>
-  <ListItem label="Slap lesson 3.pdf">
-    <Fragment slot="end">2.4 MB</Fragment>
+  <ListItem headline="Headline">
+    <Fragment slot="end">30kB</Fragment>
   </ListItem>
-  <ListItem description="Uploaded by Lou Headstock" label="Band photo.jpg">
-    <Fragment slot="end">860 kB</Fragment>
+  <ListItem headline="Headline" description="Supporting text">
+    <Fragment slot="end">99%</Fragment>
   </ListItem>
   <ListItem
-    description="Every root note of the setlist, with a tiny drawing of where the drummer should look when it changes."
-    label="Bass charts.pdf"
+    headline="Headline"
+    description="Supporting text that truly is quite long enough to fill up multiple lines."
   >
-    <Fragment slot="end">12 MB</Fragment>
+    <Fragment slot="end">100+</Fragment>
   </ListItem>
 </List>

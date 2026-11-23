@@ -1,41 +1,19 @@
-import type { FrameworkId, PackageFrameworkId } from "../utils/framework"
+export type ComponentFramework = "astro" | "solid" | "svelte" | "vue"
 
-export type ComponentFramework = PackageFrameworkId
-
-export type Framework = FrameworkId
+export type Framework = ComponentFramework | "html"
 
 type Syntax = {
   component: (source: string) => string
   model?: (prop: string) => string
-  modelIsProp?: boolean
   slot: (name: string) => string
+  slotsAreProps: boolean
   types: string
-} & ({ slotsAreProps: false } | { slotType: string; slotsAreProps: true })
+}
 
 export const slotProp = (name: string) =>
   name === "default"
     ? "children"
     : name.replace(/-(\w)/g, (_, letter: string) => letter.toUpperCase())
-
-export const components = (note: string) => ({
-  astro: note,
-  react: note,
-  solid: note,
-  svelte: note,
-  vue: note,
-})
-
-export const elementNotes = (file: string, note: string) => {
-  const module = `\`opui-css/elements/${file}\``
-  const imported = `The component imports ${module}, so the element runs as soon as the component's code loads. ${note}`
-  return {
-    astro: `The component loads ${module}. ${note}`,
-    react: `The component loads ${module} once it mounts, unless the page imports it first. ${note}`,
-    solid: imported,
-    svelte: imported,
-    vue: imported,
-  }
-}
 
 export const frameworks: Record<ComponentFramework, Syntax> = {
   astro: {
@@ -44,26 +22,16 @@ export const frameworks: Record<ComponentFramework, Syntax> = {
     slotsAreProps: false,
     types: "types.astro.ts",
   },
-  react: {
-    component: (source) => `${source}.react.tsx`,
-    slot: slotProp,
-    slotType: "ReactNode",
-    slotsAreProps: true,
-    types: "types.react.ts",
-  },
   solid: {
-    component: (source) => `${source}.solid.tsx`,
+    component: (source) => `${source}.tsx`,
     slot: slotProp,
-    slotType: "JSX.Element",
     slotsAreProps: true,
     types: "types.solid.ts",
   },
   svelte: {
     component: (source) => `${source}.svelte`,
     model: (prop) => `bind:${prop}`,
-    modelIsProp: true,
     slot: slotProp,
-    slotType: "Snippet",
     slotsAreProps: true,
     types: "types.svelte.ts",
   },
@@ -72,31 +40,6 @@ export const frameworks: Record<ComponentFramework, Syntax> = {
     model: () => "v-model",
     slot: (name) => `v-slot:${name}`,
     slotsAreProps: false,
-    types: "types.vue-props.ts",
+    types: "types.d.vue.ts",
   },
 }
-
-const listOf = (items: string[]) => {
-  const code = items.map((item) => `\`${item}\``)
-  return code.length > 1
-    ? `${code.slice(0, -1).join(", ")} and ${code.at(-1)}`
-    : code.join("")
-}
-
-export const passThrough = (
-  element: string,
-  root: string,
-  examples: string[],
-  more: Partial<Record<ComponentFramework | "default", string>> = {},
-) =>
-  Object.fromEntries(
-    (Object.keys(frameworks) as ComponentFramework[]).map((framework) => [
-      framework,
-      [
-        `Attributes that aren't props go to the \`<${element}>\`, like ${listOf(examples)}, and \`${framework === "react" ? "className" : "class"}\` and \`style\` go to ${root.startsWith(".") ? `the \`${root}\` root` : `the root \`<${root}>\``}.`,
-        more[framework] ?? more.default,
-      ]
-        .filter(Boolean)
-        .join(" "),
-    ]),
-  ) as Record<ComponentFramework, string>

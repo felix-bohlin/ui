@@ -1,16 +1,4 @@
-import { existsSync, readFileSync } from "node:fs"
-import {
-  appliesTo,
-  describe,
-  frameworkProps,
-  hasDefaultSlot,
-  hydrationFor,
-  modelsFor,
-  slotNames,
-  stylesheets,
-} from "../utils/component-source"
-import { themeTokenDescriptions } from "../utils/theme-token-descriptions"
-import { themeTokens } from "../utils/theme-tokens"
+import { describe, frameworkProps, slotNames } from "../utils/component-source"
 import {
   frameworks,
   type ComponentFramework,
@@ -19,7 +7,7 @@ import {
 import type { ApiOption, ApiPart, ComponentApi } from "./types"
 
 const byName = (a: { name: string }, b: { name: string }) =>
-  a.name.localeCompare(b.name, "en")
+  a.name.localeCompare(b.name)
 
 const on = (option: ApiOption, modifier: string | null) =>
   modifier && option.part ? `${option.part}${modifier}` : modifier
@@ -34,12 +22,12 @@ export const modifiers = (option: ApiOption) => {
     ),
   ]
   return [
-    ...values.sort((a, b) => (a ?? "").localeCompare(b ?? "", "en")),
+    ...values.sort((a, b) => (a ?? "").localeCompare(b ?? "")),
     ...(option.cssVar ? [option.cssVar] : []),
   ]
 }
 
-const htmlDefault = (option: ApiOption) => {
+export const htmlDefault = (option: ApiOption) => {
   const value = option.default?.replace(/^"(.*)"$/, "$1")
   if (value === undefined) return undefined
   if (option.values) {
@@ -52,14 +40,16 @@ const htmlDefault = (option: ApiOption) => {
 
 export const htmlRows = (api: ComponentApi) =>
   api.options
-    .filter((option) => appliesTo(option, "html"))
+    .filter(
+      (option) => !option.frameworks || option.frameworks.includes("html"),
+    )
     .flatMap((option) => {
       const list = modifiers(option)
       return list.length > 0
         ? [
             {
               default: htmlDefault(option),
-              description: option.htmlDescription ?? option.description,
+              description: option.description,
               modifiers: list,
               name: option.group ?? option.prop,
             },
@@ -70,57 +60,31 @@ export const htmlRows = (api: ComponentApi) =>
 
 export const propRows = (api: ComponentApi, framework: ComponentFramework) => {
   const props = frameworkProps(api, framework)
-  const options = api.options.filter((option) => appliesTo(option, framework))
   const option = (name: string) =>
-    options.find((option) => option.prop === name)
-  const inherited = options
-    .filter((option) => option.inherited && !props.has(option.prop))
-    .map((option) => [option.prop, option.type] as const)
-  const syntax = frameworks[framework]
-  const { model, modelIsProp } = syntax
-  const children =
-    syntax.slotsAreProps && hasDefaultSlot(api) && !props.has("children")
-      ? [["children", syntax.slotType] as const]
-      : []
-  const bound = new Set(
-    modelIsProp ? modelsFor(api, framework).map((entry) => entry.prop) : [],
-  )
-  return [
-    ...[...props, ...inherited, ...children]
-      .filter(([name]) => !bound.has(name))
-      .map(([name, type]) => ({
-        default: option(name)?.default,
-        description: describe(api, name, framework, "prop") ?? "-",
-        name,
-        type: option(name)?.type ?? type,
-      })),
-    ...(model
-      ? modelsFor(api, framework).map((entry) => ({
-          default: undefined,
-          description: entry.description,
-          name: model(entry.prop),
-          type: entry.type,
-        }))
-      : []),
-  ].sort(byName)
-}
-
-export const hydrationRows = (
-  api: ComponentApi,
-  framework: ComponentFramework,
-) => {
+    api.options.find((option) => option.prop === name)
+  const scoped = api.options
+    .filter((option) => option.frameworks?.includes(framework))
+    .filter((option) => !props.has(option.prop))
+    .map((option) => [option.prop, option.type ?? ""] as const)
   const model = frameworks[framework].model
   return [
-    ...hydrationFor(api, framework),
-    ...(model
-      ? modelsFor(api, framework).map((entry) => ({
-          description:
-            "The bound value only updates on the client. The native control still changes and submits with its form.",
-          fallback: "Read the value from the form instead.",
-          prop: model(entry.prop),
-        }))
+    ...[...props, ...scoped].map(([name, type]) => ({
+      default: option(name)?.default,
+      description: describe(api, name, framework, "prop") ?? "-",
+      name,
+      type: option(name)?.type ?? type,
+    })),
+    ...(model && api.model
+      ? [
+          {
+            default: undefined,
+            description: api.model.description,
+            name: model(api.model.prop),
+            type: api.model.type,
+          },
+        ]
       : []),
-  ].sort((a, b) => a.prop.localeCompare(b.prop, "en"))
+  ].sort(byName)
 }
 
 export const slotRows = (api: ComponentApi, framework: ComponentFramework) =>
@@ -131,34 +95,6 @@ export const slotRows = (api: ComponentApi, framework: ComponentFramework) =>
     }))
     .sort(byName)
 
-const THEME_TOKENS = themeTokens()
-
-export { stylesheets }
-
-export const cssVarRows = (...apis: ComponentApi[]) => {
-  const reads = new Set(
-    apis
-      .flatMap(stylesheets)
-      .flatMap((file) =>
-        existsSync(file)
-          ? [
-              ...readFileSync(file, "utf8").matchAll(
-                /(?:var|style)\(\s*(--[a-z][\w-]*)/g,
-              ),
-            ].map((match) => match[1])
-          : [],
-      ),
-  )
-  return THEME_TOKENS.filter((token) => reads.has(token.name))
-    .map((token) => ({
-      dark: token.dark,
-      default: token.optional ? undefined : token.value,
-      description: themeTokenDescriptions[token.name] ?? "",
-      name: token.name,
-    }))
-    .sort(byName)
-}
-
 export const partLabel = (
   api: ComponentApi,
   part: ApiPart,
@@ -166,17 +102,16 @@ export const partLabel = (
   root = false,
 ) => {
   const fallback = part.code ?? part.selector
-  if (framework === "html" || !api.source) return fallback
-  if (root) return `<${api.component}>`
-  if (part.component) return `<${part.component}>`
+  if (framework === "html") return fallback
+  if (root) return `<${part.component?.[framework] ?? api.component}>`
+  if (part.component?.[framework]) return `<${part.component[framework]}>`
 
   const syntax = frameworks[framework]
-  const handles = new Set([
-    ...(part.props ?? []),
-    ...(part.slots ?? []).map(syntax.slot),
-    ...(part.model && syntax.model
-      ? modelsFor(api, framework).map((entry) => syntax.model!(entry.prop))
+  const handles = [
+    ...(part.slots?.length ? part.slots.map(syntax.slot) : (part.props ?? [])),
+    ...(part.model && api.model && syntax.model
+      ? [syntax.model(api.model.prop)]
       : []),
-  ])
-  return handles.size > 0 ? [...handles].join(" / ") : fallback
+  ]
+  return handles.length > 0 ? handles.join(" · ") : fallback
 }

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { Card, CardHeader } from "opui-css/vue"
+import { Card } from "opui-css/vue"
 </script>
 
 <template>
   <Card variant="outlined">
-    <CardHeader>
-      <p>Bassbook blog</p>
-      <h3>Why nobody watches the bassist (yet)</h3>
-      <p>Published on 12 March</p>
-    </CardHeader>
+    <template #header>
+      <p>Blog</p>
+      <h3>My ultra-great blog post</h3>
+      <p>Please read it.</p>
+    </template>
   </Card>
 </template>

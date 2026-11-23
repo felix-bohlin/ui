@@ -4,5 +4,4 @@ import { Button } from "opui-css/vue"
 
 <template>
   <Button disabled>Text</Button>
-  <Button disabled href="#">Text link</Button>
 </template>

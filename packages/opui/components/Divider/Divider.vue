@@ -1,30 +1,12 @@
 <script setup lang="ts">
-import type { Props, Slots } from "./types.vue-props"
+import type { Props } from "./types.d.vue"
 
-const { align, color, variant } = defineProps<Props>()
-defineSlots<Slots>()
+const { variant } = defineProps<Props>()
+const variantClass = variant ? `border-${variant}` : ""
 </script>
 
 <template>
-  <div
-    v-if="$slots.default"
-    :class="[
-      'ui-divider',
-      align && align !== 'center' && `ui-align-${align}`,
-      color && `ui-${color}`,
-      variant && variant !== 'outlined' && `ui-${variant}`,
-      $props.class,
-    ]"
-  >
-    <slot></slot>
-  </div>
   <hr
-    v-else
-    :class="[
-      'ui-divider',
-      color && `ui-${color}`,
-      variant && variant !== 'outlined' && `ui-${variant}`,
-      $props.class,
-    ]"
+    :class="['ui-divider', $props.class, variantClass && `ui-${variantClass}`]"
   />
 </template>

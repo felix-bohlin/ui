@@ -1,18 +1,25 @@
 ---
-import { List, ListItem } from "opui-css/astro"
+import { List, ListItem } from "@opui/astro"
 ---
 
-<List>
-  <ListItem label="Account" />
-  <ListItem label="Bassbook Gold" />
-</List>
+<div class="column" style="gap: var(--size-4);">
+  <List>
+    <ListItem headline="Filled (default)" />
+    <ListItem headline="Second item" />
+  </List>
 
-<List variant="tonal">
-  <ListItem label="Language" />
-  <ListItem label="Notifications" />
-</List>
+  <List variant="default">
+    <ListItem headline="Default" />
+    <ListItem headline="Second item" />
+  </List>
 
-<List variant="transparent">
-  <ListItem label="Accessibility" />
-  <ListItem label="Privacy" />
-</List>
+  <List variant="tonal">
+    <ListItem headline="Tonal" />
+    <ListItem headline="Second item" />
+  </List>
+
+  <List variant="transparent">
+    <ListItem headline="Transparent" />
+    <ListItem headline="Second item" />
+  </List>
+</div>

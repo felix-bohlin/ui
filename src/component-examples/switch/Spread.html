@@ -1,48 +1,53 @@
 <label class="ui-switch ui-spread">
   <input
+    name="switch-spread"
     type="checkbox"
     role="switch"
-    name="switch-spread"
-    value="notifications"
+    aria-describedby="switch-spread-end-text-1"
   />
   <span class="ui-label">Notifications</span>
-  <span class="ui-end-text">Receive alerts when someone mentions you.</span>
+  <span class="ui-end-text" id="switch-spread-end-text-1"
+    >Receive alerts when someone mentions you.</span
+  >
 </label>
 
 <label class="ui-switch ui-spread">
   <input
+    name="switch-spread"
     type="checkbox"
     role="switch"
-    name="switch-spread"
     required
-    value="two-step-login"
+    aria-describedby="switch-spread-end-text-2"
   />
-  <span class="ui-label">Two-step login</span>
-  <span class="ui-end-text">Your organization requires it for admins.</span>
+  <span class="ui-label">Required</span>
+  <span class="ui-end-text" id="switch-spread-end-text-2"
+    >You must accept this to proceed.</span
+  >
 </label>
 
 <label class="ui-switch ui-spread">
   <input
+    name="switch-spread"
     type="checkbox"
     role="switch"
-    name="switch-spread"
     disabled
-    value="location"
+    aria-describedby="switch-spread-end-text-3"
   />
-  <span class="ui-label">Location access</span>
-  <span class="ui-end-text">Turned off by your administrator.</span>
+  <span class="ui-label">Disabled</span>
+  <span class="ui-end-text" id="switch-spread-end-text-3"
+    >This switch is disabled.</span
+  >
 </label>
 
-<label class="ui-switch ui-spread">
+<label class="ui-switch ui-spread" data-invalid>
   <input
+    name="switch-spread"
     type="checkbox"
     role="switch"
-    name="switch-spread"
-    value="backup"
-    aria-invalid="true"
+    aria-describedby="switch-spread-end-text-4"
   />
-  <span class="ui-label">Cloud backup</span>
-  <span class="ui-end-text"
-    >Sync needs cloud backup. Turn it on to continue.</span
+  <span class="ui-label">Invalid Switch</span>
+  <span class="ui-end-text" id="switch-spread-end-text-4"
+    >There is an error with this switch.</span
   >
 </label>

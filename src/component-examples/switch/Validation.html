@@ -1,38 +1,39 @@
-<div class="example-row">
+<div class="example-row ui-spacious">
   <label class="ui-switch">
-    <input type="checkbox" role="switch" name="switch-validation" required />
-    <span class="ui-label">Two-step login</span>
+    <input name="switch-validation" type="checkbox" role="switch" required />
+    <span class="ui-label">Default</span>
   </label>
-  <label class="ui-switch ui-vertical">
-    <input type="checkbox" role="switch" name="switch-validation" required />
-    <span class="ui-label">Usage reports</span>
+
+  <label class="ui-switch ui-stack">
+    <input name="switch-validation" type="checkbox" role="switch" required />
+    <span class="ui-label">Stack</span>
   </label>
 </div>
 
-<div class="example-row">
-  <label class="ui-switch">
+<div class="example-row ui-spacious">
+  <label class="ui-switch" data-invalid>
     <input
+      name="switch-validation"
       type="checkbox"
       role="switch"
-      name="switch-validation"
-      checked
-      aria-invalid="true"
+      aria-describedby="switch-validation-end-text-1"
     />
-    <span class="ui-label">Public profile</span>
-    <span class="ui-end-text"
-      >Your organization keeps profiles private. Turn it off.</span
+    <span class="ui-label">Default</span>
+    <span class="ui-end-text" id="switch-validation-end-text-1"
+      >Supporting text</span
     >
   </label>
-  <label class="ui-switch ui-vertical">
+
+  <label class="ui-switch ui-stack" data-invalid>
     <input
+      name="switch-validation"
       type="checkbox"
       role="switch"
-      name="switch-validation"
-      aria-invalid="true"
+      aria-describedby="switch-validation-end-text-2"
     />
-    <span class="ui-label">Cloud backup</span>
-    <span class="ui-end-text"
-      >Sync needs cloud backup. Turn it on to continue.</span
+    <span class="ui-label">Stack</span>
+    <span class="ui-end-text" id="switch-validation-end-text-2"
+      >Supporting text</span
     >
   </label>
 </div>

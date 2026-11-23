@@ -1,7 +1,0 @@
-@layer theme.custom {
-  :where(html[data-theme="sunset"]) {
-    --ui-palette-chroma: 0.16;
-    --ui-palette-hue: 35;
-    --ui-radius: 1rem;
-  }
-}

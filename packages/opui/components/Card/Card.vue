@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import type { Props, Slots } from "./types.vue-props"
+import { useSlots } from "vue"
+import type { Props, Slots } from "./types.d.vue"
 
-const {
-  as: Tag = "div",
-  color,
-  density,
-  orientation,
-  variant,
-} = defineProps<Props>()
-defineSlots<Slots>()
+const { actionsAlign, variant } = defineProps<Props>()
+const slots = defineSlots<Slots>()
 </script>
 
 <template>
-  <component
-    :is="Tag"
-    :class="[
-      'ui-card',
-      color && `ui-${color}`,
-      density && density !== 'normal' && `ui-${density}`,
-      orientation && orientation !== 'auto' && `ui-${orientation}`,
-      variant && variant !== 'plain' && `ui-${variant}`,
-      $props.class,
-    ]"
-  >
+  <div :class="['ui-card', variant && `ui-${variant}`, $props.class]">
+    <hgroup v-if="slots.header">
+      <slot name="header"></slot>
+    </hgroup>
+
+    <div v-if="slots.content" class="ui-content">
+      <slot name="content"></slot>
+    </div>
+
     <slot></slot>
-  </component>
+
+    <div
+      v-if="slots.actions"
+      :class="['ui-actions', actionsAlign && `ui-align-${actionsAlign}`]"
+    >
+      <slot name="actions"></slot>
+    </div>
+  </div>
 </template>

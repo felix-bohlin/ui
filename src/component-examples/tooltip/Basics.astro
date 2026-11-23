@@ -1,10 +1,11 @@
 ---
-import { Button, Tooltip, TooltipContent } from "opui-css/astro"
+import { Button, Tooltip } from "@opui/astro"
 ---
 
-<Tooltip id="tooltip-basics-1">
-  <Button aria-describedby="tooltip-basics-1" interestfor="tooltip-basics-1"
-    >Save</Button
+<Tooltip label="Save your changes" id="tooltip-basic">
+  <Button
+    interestfor="tooltip-basic"
+    commandfor="tooltip-basic"
+    command="toggle-popover">Save</Button
   >
-  <TooltipContent>Save your changes</TooltipContent>
 </Tooltip>

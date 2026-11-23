@@ -1,5 +1,4 @@
 import type * as Base from "./types"
-import type { ComponentProps } from "@solidjs/web"
+import type { JSX } from "solid-js"
 
-export type Props = Base.Props &
-  Omit<ComponentProps<"progress">, "max" | "value">
+export type Props = Base.Props & JSX.HTMLAttributes<HTMLProgressElement>

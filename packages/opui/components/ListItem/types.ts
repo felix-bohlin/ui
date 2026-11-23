@@ -1,36 +1,32 @@
-export type Props<Link = never> = {
+export type Props = {
   borderTop?: boolean
-  color?: "critical"
+  class?: string
   description?: string
   for?: string
+  headline?: string
   inset?: boolean
-  label?: string
+  type?: "checkbox" | "radio" | "switch" | "button"
 } & (
   | {
-      as?: "a" | Link
-      choice?: never
-      disabled?: boolean
+      as?: "a"
       href: string
-    }
-  | {
-      as: "button"
-      choice?: never
-      disabled?: boolean
-      href?: never
-    }
-  | {
-      as?: never
-      choice?: "checkbox" | "radio" | "switch"
       disabled?: never
+    }
+  | {
+      as?: "button"
+      href?: never
+      disabled?: boolean
+    }
+  | {
+      as?: string
       href?: never
     }
 )
 
 export type Slots<S> = {
   description?: string | S
-  end?: S
-  iconChecked?: S
-  label?: string | S
-  start?: S
-  submenu?: S
+  end?: string | S
+  headline?: string | S
+  start?: string | S
+  text?: string | S
 }

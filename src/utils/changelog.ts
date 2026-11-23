@@ -10,7 +10,7 @@ export type ChangelogPathEntry = {
   type: "component" | "css" | "docs" | "api"
 }
 
-type ChangelogEntry = {
+export type ChangelogEntry = {
   hash: string
   date: string
   relativeDate: string

@@ -1,41 +1,24 @@
 ---
 import type { Props } from "./types.astro"
-import { warnUnnamedGroup } from "../dev"
-import { createId } from "../id"
-import { tabsContext } from "./context.astro"
 
 export const title = "Tabs"
 
-const idOf = createId(Astro.locals)
-const {
-  class: className,
-  name,
-  orientation,
-  overflow,
-  role,
-  value,
-  variant,
-  ...rest
-} = Astro.props
+const { $id } = Astro.locals
+const { class: className, name, ...rest } = Astro.props
 
-if (role === "radiogroup") warnUnnamedGroup("Tabs", rest)
+const groupName = name || $id("tabs")
+const escapedName = groupName.replaceAll("&", "&amp;").replaceAll('"', "&quot;")
 
-const groupName = name || idOf("tabs")
-const html = await tabsContext.provide({ groupName, value }, () =>
-  Astro.slots.render("default"),
+const slotHtml = (await Astro.slots.render("default")) ?? ""
+const html = slotHtml.replace(
+  /<input\b(?=[^>]*\sclass="[^"]*\bui-tab-input\b)(?![^>]*\sname=)/g,
+  () => `<input name="${escapedName}"`,
 )
 ---
 
 <div
-  class:list={[
-    "ui-tabs",
-    orientation === "vertical" && "ui-vertical",
-    overflow && overflow !== "scroll" && `ui-overflow-${overflow}`,
-    variant && variant !== "tonal" && `ui-${variant}`,
-    className,
-  ]}
-  role={role}
+  class:list={["ui-tabs", className]}
+  role="tablist"
   {...rest}
->
-  <Fragment set:html={html} />
-</div>
+  set:html={html}
+/>

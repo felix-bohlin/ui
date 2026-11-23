@@ -1,9 +1,8 @@
 {
   "recommendations": [
     "astro-build.astro-vscode",
-    "oxc.oxc-vscode",
-    "piyushsarkar.sort-css-properties",
-    "Vue.volar"
+    "esbenp.prettier-vscode",
+    "piyushsarkar.sort-css-properties"
   ],
   "unwantedRecommendations": []
 }

@@ -1,30 +1,13 @@
-export type Props<Link = never> = {
-  dot?: boolean
+export type Props = {
+  [key: string]: any
+  as?: "a" | "button" | "div" | string
   label?: string
   multiline?: boolean
-  severity?: "critical" | "info" | "neutral" | "success" | "warning"
-  size?: "x-small" | "small" | "medium" | "large"
-  variant?: "outlined" | "tonal"
-} & (
-  | {
-      as?: "div" | "span"
-      disabled?: never
-      href?: never
-    }
-  | {
-      as?: "a" | Link
-      disabled?: boolean
-      href: string
-    }
-  | {
-      as: "button"
-      disabled?: boolean
-      href?: never
-    }
-)
+  size?: "small"
+  variant?: "tonal" | "outlined"
+}
 
 export type Slots<S> = {
   end?: S
-  label?: string | S
   start?: S
 }

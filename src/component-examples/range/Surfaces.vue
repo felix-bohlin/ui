@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { Field } from "opui-css/vue"
+import { Range } from "opui-css/vue"
 </script>
 
 <template>
-  <Field for="range-surfaces-1" label="Volume">
-    <input id="range-surfaces-1" type="range" :value.attr="'30'" />
-  </Field>
-  <Field for="range-surfaces-2" label="Brightness" variant="filled">
-    <input id="range-surfaces-2" type="range" :value.attr="'70'" />
-  </Field>
+  <Range label="Default" />
+  <Range variant="default">
+    <code>default</code> = <code>var(--surface-default)</code>
+  </Range>
+  <Range variant="filled">
+    <code>filled</code> = <code>var(--surface-filled)</code>
+  </Range>
+  <Range variant="tonal">
+    <code>tonal</code> = <code>var(--surface-tonal)</code>
+  </Range>
 </template>

@@ -1,101 +1,79 @@
 @layer components.root {
   :where(.ui-description-list) {
     --_border-style: solid;
-    --_border-width: var(--ui-border-width);
+    --_border-width: 1px;
 
-    container-type: inline-size;
     display: grid;
-    inline-size: 100%;
+    gap: var(--size-3);
     margin: 0;
     padding: 0;
 
-    &.ui-border-dotted {
+    &.ui-dotted {
       --_border-style: dotted;
-      --_border-width: var(--ui-border-width-thick);
+      --_border-width: 2px;
     }
 
-    & & {
-      container-type: normal;
-    }
-
-    & > div {
-      align-items: baseline;
+    .ui-item {
       display: grid;
-      gap: var(--ui-space-1);
-      grid-template-columns: auto auto;
-      justify-content: space-between;
       margin: 0;
-      overflow-wrap: anywhere;
       padding: 0;
 
-      & + div {
-        margin-block-start: var(--ui-space-1);
-      }
-
-      dt {
+      dt,
+      .ui-term {
         display: block;
-        font-weight: var(--ui-font-weight-bold);
+        font-weight: 700;
+        overflow: hidden;
+        position: relative;
       }
 
       dd {
-        color: var(--ui-text);
         margin: 0;
-        padding: 0;
-        text-align: end;
-      }
-
-      &.ui-total {
-        border-block-start: var(--ui-border-width) solid var(--ui-border-color);
-        color: var(--ui-text-strong);
-        font-size: var(--ui-font-size-large);
-        font-weight: var(--ui-font-weight-bold);
-        padding-block-start: var(--ui-space-3);
-
-        dd {
-          color: inherit;
-        }
       }
     }
 
-    &:is(.ui-border-dotted, .ui-border-solid) > div {
-      grid-template-columns: auto 1fr auto;
+    @container (width > 45ch) {
+      gap: var(--size-1);
 
-      dt {
-        order: 0;
-      }
+      .ui-item {
+        align-items: baseline;
+        display: grid;
+        gap: var(--size-1);
+        grid-template-columns: 1fr auto;
 
-      dd {
-        order: 2;
-      }
+        dt,
+        .ui-term {
+          inline-size: max-content;
 
-      &::after {
-        background-color: transparent;
-        block-size: var(--ui-border-width-thick);
-        border-block-end: var(--_border-width) var(--_border-style)
-          var(--ui-border-color);
-        content: "";
-        order: 1;
-      }
-    }
-
-    @container (inline-size <= 45ch) {
-      &:not(.ui-horizontal) > div {
-        align-items: normal;
-        gap: 0;
-        grid-template-columns: none;
-        justify-content: normal;
-
-        & + div {
-          margin-block-start: var(--ui-space-3);
+          &::after {
+            display: inline-block;
+          }
         }
 
         dd {
-          color: inherit;
-          text-align: start;
+          color: var(--text-muted);
+          text-align: end;
+        }
+      }
+
+      &.ui-bordered .ui-item {
+        grid-template-columns: auto 1fr auto;
+
+        dt,
+        .ui-term {
+          order: 0;
+        }
+
+        dd {
+          order: 2;
         }
 
         &::after {
-          content: none;
+          background-color: transparent;
+          block-size: 2px;
+          border-block-end: var(--_border-width) var(--_border-style)
+            var(--border-color);
+          content: "";
+          order: 1;
         }
       }
     }

@@ -1,43 +1,20 @@
 export type Props = {
-  backdrop?: "blurred" | "transparent"
+  backdrop?: "transparent" | "blurred"
   closedby?: "any" | "closerequest" | "none"
-  closeOnNavigate?: boolean
-  id: string
+  id?: string
   scrollLock?: boolean
-  side?: "block-end" | "block-start" | "inline-end" | "inline-start"
+  side?: "inline-start" | "inline-end" | "block-start" | "block-end"
 }
 
-export type DrawerContentProps = {}
-
-export type DrawerFooterProps = {
-  align?: "start" | "end"
+export type DrawerHeaderProps = {
+  heading?: string
 }
 
-export type DrawerHeaderProps =
-  | {
-      closeButton: boolean
-      closeLabel?: string
-      commandfor?: string
-    }
-  | {
-      closeButton?: never
-      closeLabel?: never
-      commandfor?: never
-    }
+export type DrawerFooterProps = {}
 
-export type DrawerHeaderSlots<S> =
-  | {
-      closeButton: boolean
-      closeIcon?: S
-    }
-  | {
-      closeButton?: never
-      closeIcon?: never
-    }
-
-export type DrawerTitleProps = {}
-
-export type Context = {
-  id: string
-  titleId?: string
+export type Slots<S> = {
+  children?: S
+  content?: S
+  footer?: S
+  header?: S
 }

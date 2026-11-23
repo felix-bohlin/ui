@@ -1,30 +1,34 @@
 ---
 import type { Props } from "./types.astro"
-import { cx } from "../cx"
 
 export const title = "Card"
 
-const {
-  as: Tag = "div",
-  class: className,
-  color,
-  density,
-  orientation,
-  variant,
-  ...rest
-} = Astro.props
+const { variant, actionsAlign, class: className, ...rest } = Astro.props
 ---
 
-<Tag
-  class={cx([
-    "ui-card",
-    color && `ui-${color}`,
-    density && density !== "normal" && `ui-${density}`,
-    orientation && orientation !== "auto" && `ui-${orientation}`,
-    variant && variant !== "plain" && `ui-${variant}`,
-    className,
-  ])}
-  {...rest}
->
+<div class:list={["ui-card", variant && `ui-${variant}`, className]} {...rest}>
+  {
+    Astro.slots.has("header") && (
+      <hgroup>
+        <slot name="header" />
+      </hgroup>
+    )
+  }
+  {
+    Astro.slots.has("content") && (
+      <div class="ui-content">
+        <slot name="content" />
+      </div>
+    )
+  }
   <slot />
-</Tag>
+  {
+    Astro.slots.has("actions") && (
+      <div
+        class:list={["ui-actions", actionsAlign && `ui-align-${actionsAlign}`]}
+      >
+        <slot name="actions" />
+      </div>
+    )
+  }
+</div>

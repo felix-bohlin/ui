@@ -2,53 +2,105 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Range",
-  css: ["range", "text-field"],
-  keyboard: [
+  model: {
+    description: "The current value.",
+    prop: "value",
+    type: "number | string",
+  },
+  notes: {
+    astro:
+      "Input attributes, such as `disabled`, `max`, `min`, `name` and `step`, go to the `<input>`.",
+    html: "Add a `<datalist>` after the input for tick marks.",
+    vue: "Attributes that aren't props, such as `max`, `min` or `step`, go to the `<input>`.",
+  },
+  options: [
     {
-      description:
-        "Increases the value by one step. In right-to-left text, Right Arrow decreases it.",
-      keys: ["Up Arrow", "Right Arrow"],
+      attribute: "[data-invalid]",
+      default: "false",
+      description: "Shows error styles.",
+      group: "Validation",
+      prop: "error",
     },
     {
       description:
-        "Decreases the value by one step. In right-to-left text, Left Arrow increases it.",
-      keys: ["Down Arrow", "Left Arrow"],
+        "The id of the `<input>`. Generated when omitted and the value is shown.",
+      prop: "id",
     },
     {
-      description: "Sets the value to the minimum or the maximum.",
-      keys: ["Home", "End"],
+      description: "The id of the `<datalist>`. Needed with `options`.",
+      prop: "list",
     },
     {
       description:
-        "Increases or decreases the value by a larger step: 10% of the range in Chromium, and at least one step.",
-      keys: ["Page Up", "Page Down"],
+        "Tick marks, rendered as `<option>` elements in a `<datalist>`.",
+      prop: "options",
+    },
+    {
+      class: ".ui-spread",
+      default: "false",
+      description:
+        "Pushes the label and description to one side and the input to the other.",
+      group: "Layout",
+      prop: "spread",
+    },
+    {
+      description: "The current value.",
+      prop: "value",
+      type: "number | string",
+    },
+    {
+      description: "The variant to use.",
+      group: "Variants",
+      prop: "variant",
+      values: {
+        default: ".ui-default",
+        filled: ".ui-filled",
+        tonal: ".ui-tonal",
+      },
     },
   ],
-  notes: {
-    default:
-      'Write an `<input type="range">` in a `Field`, with its `id` set to `for`. A `<datalist>` after it, linked with `list`, shows the `label` of each option under its value. Show the value yourself, such as in an `<output>` in the end text, and set `aria-valuetext` when the number alone doesn\'t say it.',
-    react:
-      'Write an `<input type="range">` in a `Field`, with its `id` set to `htmlFor`. A `<datalist>` after it, linked with `list`, shows the `label` of each option under its value. Show the value yourself, such as in an `<output>` in `endText`, and set `aria-valuetext` when the number alone doesn\'t say it.',
-    html: "Put the `<input type=\"range\">` directly in `.ui-field-container`, and a `<datalist>` after it for labels. `range.css` drops the field's box and draws the track, the fill and the thumb. Show the value yourself, and set `aria-valuetext` when the number alone doesn't say it.",
-  },
-  options: [],
   parts: [
     {
-      code: '<input type="range">',
-      description:
-        "Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's variant (`variant`, `.ui-filled`) and size (`size`, `.ui-x-small`, `.ui-small`, `.ui-large`) set the track and thumb.",
-      selector: '.ui-field-container > input[type="range"]',
+      description: "The label for the range.",
+      props: ["label"],
+      selector: ".ui-label",
+      slots: ["default"],
     },
     {
-      code: "<datalist>",
-      description:
-        "Labels for the input it's linked to with `list`: the `label` of each option shows under its value. The labels are spread evenly, so space the values evenly. Give it `aria-hidden=\"true\"`, and set `aria-valuetext` on the input to the label at its value, since screen readers don't read the datalist.",
-      selector: ".ui-field-container > datalist",
+      code: "<output>",
+      description: "Shows the current value, with an optional `valueSuffix`.",
+      props: ["valueSuffix"],
+      selector: "output.ui-value",
+      slots: ["value"],
+    },
+    {
+      description: "Description text displayed above the input.",
+      props: ["startText"],
+      selector: ".ui-start-text",
+      slots: ["start-text"],
+    },
+    {
+      code: "<input>",
+      description: "The range input.",
+      model: true,
+      selector: 'input[type="range"]',
+    },
+    {
+      description: "Supporting text displayed below the input.",
+      props: ["endText"],
+      selector: ".ui-end-text",
+      slots: ["end-text"],
     },
   ],
   root: {
-    description:
-      "A `.ui-field` with an `<input type=\"range\">` in its container, which `range.css` draws without the field's box, as tall as any field's control.",
-    selector: '.ui-field:has(> .ui-field-container > input[type="range"])',
+    description: "Container element.",
+    selector: "label.ui-range",
   },
+  slots: [
+    {
+      description: "Extra `<option>` elements for the `<datalist>`.",
+      name: "datalist",
+    },
+  ],
+  source: "Range",
 } satisfies ComponentApi

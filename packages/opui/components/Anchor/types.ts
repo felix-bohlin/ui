@@ -1,20 +1,9 @@
 export type Props = {
-  positionArea?: string
-} & (
-  | {
-      trigger?: never
-    }
-  | {
-      id: string
-      trigger: "hover"
-    }
-)
-
-export type AnchorContentProps = {
-  popover?: "auto" | "hint" | "manual"
+  [key: string]: any
+  alignment?: string
+  trigger?: "always" | "hover"
 }
 
-export type Context = {
-  floatingId?: string
-  popover?: "hint"
+export type Slots<S> = {
+  anchored?: S
 }

@@ -5,16 +5,14 @@ import { Button } from "opui-css/vue"
 <template>
   <div class="example-row">
     <Button disabled>Text</Button>
-    <Button disabled variant="outlined">Outlined</Button>
-    <Button disabled variant="tonal">Tonal</Button>
-    <Button disabled variant="filled">Filled</Button>
+    <Button variant="outlined" disabled>Outlined</Button>
+    <Button variant="tonal" disabled>Tonal</Button>
+    <Button variant="filled" disabled>Filled</Button>
   </div>
   <div class="example-row">
     <Button disabled>
-      <span class="ui-text">Text</span>
+      Text
       <svg
-        data-icon="add"
-        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -26,11 +24,9 @@ import { Button } from "opui-css/vue"
         ></path>
       </svg>
     </Button>
-    <Button disabled variant="outlined">
-      <span class="ui-text">Outlined</span>
+    <Button variant="outlined" disabled>
+      Outlined
       <svg
-        data-icon="add"
-        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -42,11 +38,9 @@ import { Button } from "opui-css/vue"
         ></path>
       </svg>
     </Button>
-    <Button disabled variant="tonal">
-      <span class="ui-text">Tonal</span>
+    <Button variant="tonal" disabled>
+      Tonal
       <svg
-        data-icon="add"
-        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -58,11 +52,9 @@ import { Button } from "opui-css/vue"
         ></path>
       </svg>
     </Button>
-    <Button disabled variant="filled">
-      <span class="ui-text">Filled</span>
+    <Button variant="filled" disabled>
+      Filled
       <svg
-        data-icon="add"
-        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -74,11 +66,5 @@ import { Button } from "opui-css/vue"
         ></path>
       </svg>
     </Button>
-  </div>
-  <div class="example-row">
-    <Button disabled href="#">Text link</Button>
-    <Button disabled href="#" variant="outlined">Outlined link</Button>
-    <Button disabled href="#" variant="tonal">Tonal link</Button>
-    <Button disabled href="#" variant="filled">Filled link</Button>
   </div>
 </template>

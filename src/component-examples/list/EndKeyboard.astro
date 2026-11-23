@@ -1,12 +1,13 @@
 ---
-import { List, ListItem } from "opui-css/astro"
+import { List } from "@opui/astro"
+import { ListItem } from "@opui/astro"
 ---
 
 <List>
-  <ListItem label="Save">
-    <kbd slot="end">Ctrl+S</kbd>
+  <ListItem headline="Save all">
+    <kbd slot="end">CTRL+ALT+DEL</kbd>
   </ListItem>
-  <ListItem label="Save all">
-    <kbd slot="end">Ctrl+Shift+S</kbd>
+  <ListItem headline="Save">
+    <kbd slot="end">CTRL+S</kbd>
   </ListItem>
 </List>

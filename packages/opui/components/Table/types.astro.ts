@@ -3,21 +3,14 @@ import type { HTMLAttributes } from "astro/types"
 
 export type Props = Base.Props & HTMLAttributes<"table">
 
-export type TableBodyProps = HTMLAttributes<"tbody">
+export type SectionProps = Base.SectionProps &
+  (
+    | HTMLAttributes<"tr">
+    | HTMLAttributes<"tbody">
+    | HTMLAttributes<"thead">
+    | HTMLAttributes<"th">
+    | HTMLAttributes<"td">
+    | HTMLAttributes<"colgroup">
+  )
 
-export type TableCaptionProps = HTMLAttributes<"caption">
-
-export type TableCellProps = Base.TableCellProps & HTMLAttributes<"td">
-
-export type TableColumnGroupProps = HTMLAttributes<"colgroup">
-
-export type TableColumnProps = Base.TableColumnProps & HTMLAttributes<"col">
-
-export type TableFootProps = HTMLAttributes<"tfoot">
-
-export type TableHeaderCellProps = Base.TableHeaderCellProps &
-  HTMLAttributes<"th">
-
-export type TableHeadProps = HTMLAttributes<"thead">
-
-export type TableRowProps = HTMLAttributes<"tr">
+export type ColumnProps = Base.ColumnProps & HTMLAttributes<"col">

@@ -1,24 +1,19 @@
 export type Props = {
   name?: string
-  orientation?: "horizontal" | "vertical"
-  overflow?: "scroll" | "wrap"
-  variant?: "filled" | "line" | "outlined" | "tonal"
 }
 
 export type TabsItemProps = {
-  checked?: boolean
   name?: string
+  open?: boolean
+  panelId?: string
+  tabId?: string
 }
 
-export type TabsPanelProps = {}
-
-export type TabsLabelProps = {}
-
-export type Context = {
-  bound?: boolean
-  change?: (input: HTMLInputElement) => void
-  defaultValue?: string
-  groupName?: string
+export type TabsTabProps = {
   tabId?: string
-  value?: string
+}
+
+export type TabsPanelProps = {
+  panelId?: string
+  tabId?: string
 }

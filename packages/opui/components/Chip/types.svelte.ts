@@ -2,13 +2,13 @@ import type * as Base from "./types"
 import type { SvelteHTMLElements } from "svelte/elements"
 import type { Snippet } from "svelte"
 
-type Without<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never
+type Snippets = Base.Slots<Snippet>
 
-export type Props = Without<Base.Props, "label"> &
-  Base.Slots<Snippet> &
+// prettier-ignore
+export type Props = Base.Props &
+  Snippets &
   (
-    | ({ as?: "a" } & Omit<SvelteHTMLElements["a"], "children">)
-    | ({ as: "button" } & Omit<SvelteHTMLElements["button"], "children">)
-    | ({ as?: "div" } & Omit<SvelteHTMLElements["div"], "children">)
-    | ({ as: "span" } & Omit<SvelteHTMLElements["span"], "children">)
+    | ({ as?: "a" } & SvelteHTMLElements["a"])
+    | ({ as?: "button" } & SvelteHTMLElements["button"])
+    | ({ as?: "div" } & SvelteHTMLElements["div"])
   )

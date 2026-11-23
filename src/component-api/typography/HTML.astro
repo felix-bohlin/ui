@@ -1,0 +1,98 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Modifiers</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Headings</Table.Cell>
+      <Table.Cell
+        ><code>.ui-h1</code>, <code>.ui-h2</code>, <code>.ui-h3</code>, <code
+          >.ui-h4</code
+        >, <code>.ui-h5</code>, <code>.ui-h6</code></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Heading styles for any element.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Paragraph</Table.Cell>
+      <Table.Cell><code>.ui-p</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Body paragraph styling.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Sizes</Table.Cell>
+      <Table.Cell><code>.ui-small</code>, <code>.ui-large</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Size modifiers on <code>.ui-p</code>.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Overline</Table.Cell>
+      <Table.Cell><code>.ui-overline</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Small uppercase label text.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Caption</Table.Cell>
+      <Table.Cell><code>.ui-caption</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Muted supporting text.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Heading group</Table.Cell>
+      <Table.Cell><code>.ui-hgroup</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Groups an overline, heading, and optional body copy.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Blockquote</Table.Cell>
+      <Table.Cell><code>.ui-blockquote</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Quoted block with a start border.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Code block</Table.Cell>
+      <Table.Cell><code>pre.ui-code-block</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Monospace preformatted block.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Inline</Table.Cell>
+      <Table.Cell
+        ><code>.ui-abbr</code>, <code>.ui-cite</code>, <code>.ui-del</code>, <code
+          >.ui-dfn</code
+        >, <code>.ui-ins</code>, <code>.ui-kbd</code>, <code>.ui-mark</code>, <code
+          >.ui-s</code
+        >, <code>.ui-samp</code>, <code>.ui-small</code>, <code>.ui-sub</code>, <code
+          >.ui-sup</code
+        >, <code>.ui-u</code>, <code>.ui-var</code></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Inline text element utilities.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Rich text</Table.Cell>
+      <Table.Cell><code>.ui-rich-text</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Classless typography for uncontrolled child markup.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>

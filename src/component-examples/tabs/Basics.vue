@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/vue"
+import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
 </script>
 
 <template>
   <Tabs name="basic-tabs">
-    <TabsItem checked>
-      <TabsLabel>Profile</TabsLabel>
+    <TabsItem open>
+      <TabsTab>Profile</TabsTab>
       <TabsPanel>Profile settings and information.</TabsPanel>
     </TabsItem>
     <TabsItem>
-      <TabsLabel>Settings</TabsLabel>
+      <TabsTab>Settings</TabsTab>
       <TabsPanel>General account settings.</TabsPanel>
     </TabsItem>
     <TabsItem>
-      <TabsLabel>Notifications</TabsLabel>
+      <TabsTab>Notifications</TabsTab>
       <TabsPanel>Manage your notifications.</TabsPanel>
     </TabsItem>
   </Tabs>

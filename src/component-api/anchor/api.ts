@@ -2,42 +2,33 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Anchor",
-  keyboard: [
-    {
-      description:
-        "Moving focus to a trigger with `interestfor` shows the floating content after a short delay. The next Tab moves into it when it holds links or buttons, and it hides once focus leaves both.",
-      keys: ["Tab"],
-    },
-    {
-      description:
-        "Hides the floating content and returns focus to the trigger. In browsers without interest invokers, it stays until the pointer and focus leave the anchor and its content.",
-      keys: ["Esc"],
-    },
-  ],
   notes: {
-    html: 'To show on hover, give `.ui-floating` `popover="hint"` and an id. Add `interestfor` with that id to the trigger.',
+    html: 'For a hover trigger, add `popover="hint"` and an id to `.ui-anchor-floating`, and `interestfor` with that id to the anchor content.',
   },
   options: [
     {
+      cssVar: "--anchor-position-area",
+      default: '"start end"',
       description:
-        'The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. Required with `trigger="hover"`.',
-      prop: "id",
-    },
-    {
-      cssVar: "--ui-anchor-position-area",
-      default: '"self-start self-end"',
-      description:
-        "Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page.",
+        "Any valid `position-area` value. Controls where the floating content is placed.",
       group: "Position",
-      prop: "positionArea",
+      prop: "alignment",
     },
     {
       description:
-        'Shows the floating content on hover and focus with `popover="hint"`. Without it, the content always shows.',
+        'The id of the floating content when `trigger` is `"hover"`. Add `interestfor` with the same id to the trigger.',
+      frameworks: ["astro", "vue"],
+      prop: "id",
+      type: "string",
+    },
+    {
+      default: '"always"',
+      description:
+        'Shows the floating content always, or on hover and focus with `popover="hint"`.',
       group: "Trigger",
-      part: ".ui-floating",
+      part: ".ui-anchor-floating",
       prop: "trigger",
-      values: { hover: '[popover="hint"]' },
+      values: { always: null, hover: '[popover="hint"]' },
     },
   ],
   parts: [
@@ -45,12 +36,12 @@ export default {
       code: "& > :first-child",
       description: "The content the floating content is anchored to.",
       selector: ".ui-anchor > :first-child",
+      slots: ["default"],
     },
     {
-      component: "AnchorContent",
-      description:
-        'The floating content. With `trigger="hover"`, it takes the anchor\'s `id` and `popover="hint"` over its own, so the trigger\'s `interestfor` always reaches it. In an anchor that always shows it, its own `id` and `popover` stay.',
-      selector: ".ui-floating",
+      description: "The floating content.",
+      selector: ".ui-anchor-floating",
+      slots: ["anchored"],
     },
   ],
   root: {
@@ -58,11 +49,5 @@ export default {
     description: "Container element. Scopes the anchor to its content.",
     selector: ".ui-anchor",
   },
-  slots: [
-    {
-      description: "The content to anchor to, followed by `AnchorContent`.",
-      name: "default",
-    },
-  ],
   source: "Anchor",
 } satisfies ComponentApi

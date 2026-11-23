@@ -2,19 +2,12 @@ import { defineConfig, devices } from "@playwright/test"
 
 const executablePath = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE
 
-const chromium = {
-  ...devices["Desktop Chrome"],
-  launchOptions: executablePath ? { executablePath } : {},
-}
-
 export default defineConfig({
   expect: {
     toHaveScreenshot: {
       animations: "disabled",
       caret: "hide",
-      maxDiffPixels: 100,
       scale: "css",
-      threshold: 0.05,
     },
   },
   forbidOnly: !!process.env.CI,
@@ -22,55 +15,27 @@ export default defineConfig({
   projects: [
     {
       name: "light",
-      use: { ...chromium, colorScheme: "light" },
+      use: { ...devices["Desktop Chrome"], colorScheme: "light" },
     },
     {
       name: "dark",
-      testMatch: /(a11y|themes|visual)\.spec\.ts/,
-      use: { ...chromium, colorScheme: "dark" },
-    },
-    {
-      name: "firefox",
-      retries: 1,
-      testIgnore: /\/(a11y|icons|themes|visual)\.spec\.ts$/,
-      use: {
-        ...devices["Desktop Firefox"],
-        actionTimeout: 10_000,
-        colorScheme: "light",
-      },
-    },
-    {
-      name: "webkit",
-      retries: 1,
-      testIgnore: /\/(a11y|icons|themes|visual)\.spec\.ts$/,
-      use: {
-        ...devices["Desktop Safari"],
-        actionTimeout: 10_000,
-        colorScheme: "light",
-      },
+      testMatch: /(a11y|visual)\.spec\.ts/,
+      use: { ...devices["Desktop Chrome"], colorScheme: "dark" },
     },
   ],
-  reporter: process.env.CI
-    ? [
-        ["github"],
-        ["html", { open: "never" }],
-        ["json", { outputFile: "test-results/report.json" }],
-      ]
-    : "list",
+  reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : "list",
   retries: 0,
   snapshotPathTemplate: "{testDir}/__screenshots__/{projectName}/{arg}{ext}",
   testDir: "tests/e2e",
   use: {
     baseURL: "http://localhost:4322",
+    launchOptions: executablePath ? { executablePath } : {},
     trace: "retain-on-failure",
   },
   webServer: {
-    command: process.env.E2E_PREBUILT
-      ? "pnpm test:e2e:preview"
-      : "pnpm test:e2e:serve",
+    command: "pnpm test:e2e:serve",
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,
     url: "http://localhost:4322/html/test/button/",
   },
-  workers: process.env.CI ? "100%" : undefined,
 })

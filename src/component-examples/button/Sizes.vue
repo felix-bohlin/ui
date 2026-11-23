@@ -4,40 +4,20 @@ import { Button } from "opui-css/vue"
 
 <template>
   <div class="example-row">
-    <Button size="x-small">X-small</Button>
     <Button size="small">Small</Button>
-    <Button>Medium</Button>
+    <Button>Default</Button>
     <Button size="large">Large</Button>
   </div>
   <div class="example-row">
-    <Button size="x-small" variant="filled">X-small</Button>
-    <Button size="small" variant="filled">Small</Button>
-    <Button variant="filled">Medium</Button>
-    <Button size="large" variant="filled">Large</Button>
+    <Button variant="filled" size="small">Small</Button>
+    <Button variant="filled">Default</Button>
+    <Button variant="filled" size="large">Large</Button>
   </div>
 
   <div class="example-row">
-    <Button size="x-small" variant="outlined">
-      <span class="ui-text">X-small</span>
-      <svg
-        data-icon="add"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-      >
-        <path
-          fill="currentColor"
-          d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
-        ></path>
-      </svg>
-    </Button>
     <Button size="small" variant="outlined">
-      <span class="ui-text">Small</span>
+      Small
       <svg
-        data-icon="add"
-        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -50,10 +30,8 @@ import { Button } from "opui-css/vue"
       </svg>
     </Button>
     <Button variant="outlined">
-      <span class="ui-text">Medium</span>
+      Default
       <svg
-        data-icon="add"
-        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -65,11 +43,9 @@ import { Button } from "opui-css/vue"
         ></path>
       </svg>
     </Button>
-    <Button size="large" variant="outlined">
-      <span class="ui-text">Large</span>
+    <Button variant="outlined" size="large">
+      Large
       <svg
-        data-icon="add"
-        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"

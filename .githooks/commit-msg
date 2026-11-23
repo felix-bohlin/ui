@@ -1,4 +1,0 @@
-#!/bin/sh
-git rev-parse -q --verify MERGE_HEAD >/dev/null && exit 0
-command -v node >/dev/null || exit 0
-exec node scripts/check-commits.mjs --file "$1"

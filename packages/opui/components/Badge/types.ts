@@ -1,24 +1,11 @@
 export type Props = {
+  [key: string]: any
+  alignment?: "start-start" | "end-start" | "end-end"
   color?: "critical" | "info" | "neutral" | "success" | "warning"
-  corner?: "start-start" | "start-end" | "end-start" | "end-end"
+  dot?: boolean
   invisible?: boolean
-} & (
-  | {
-      dot?: false
-      hideLabel?: false
-      label?: string
-    }
-  | {
-      dot: true
-      hideLabel?: boolean
-      label: string
-    }
-  | {
-      dot?: false
-      hideLabel: true
-      label: string
-    }
-)
+  label?: string | number
+}
 
 export type Slots<S> = {
   indicator?: S

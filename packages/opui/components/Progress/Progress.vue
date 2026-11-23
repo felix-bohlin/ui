@@ -1,29 +1,26 @@
 <script setup lang="ts">
-import { useInputAttrs } from "../vue"
-import { styleAttrs } from "../style"
-import type { Props, Slots } from "./types.vue-props"
-
-const { max, round, value, variant } = defineProps<Props>()
-defineSlots<Slots>()
+import type { Props, Slots } from "./types.d.vue"
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useInputAttrs()
+defineSlots<Slots>()
+const { ariaBusy, ariaDescribedby, ariaLabel, id, max, value, variant } =
+  defineProps<Props>()
 </script>
 
 <template>
-  <div
-    :class="[
-      'ui-progress',
-      { 'ui-round': round },
-      variant && variant !== 'tonal' && `ui-${variant}`,
-      $props.class,
-    ]"
-    v-bind="styleAttrs($attrs.style)"
-  >
-    <progress :max="max" :value="value" v-bind="attrs">
+  <div :class="['ui-progress', variant && `ui-${variant}`, $props.class]">
+    <progress
+      v-bind="$attrs"
+      :aria-busy="ariaBusy || undefined"
+      :aria-describedby="ariaDescribedby"
+      :aria-label="ariaLabel"
+      :id="id"
+      :max="max"
+      :value="value"
+    >
       <slot></slot>
     </progress>
   </div>

@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import type { Props, Slots } from "./types.vue-props"
+import type { Props, Slots } from "./types.d.vue"
 
-const { as: Tag = "form" } = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  as: "form",
+})
 defineSlots<Slots>()
 </script>
 
 <template>
-  <component :is="Tag" :class="['ui-form', $props.class]">
+  <component :is="props.as" :class="['ui-form', props.class]" v-bind="$attrs">
     <slot></slot>
   </component>
 </template>

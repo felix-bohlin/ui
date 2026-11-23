@@ -3,9 +3,6 @@ import { getViteConfig } from "astro/config"
 
 export default getViteConfig({
   test: {
-    css: true,
-    environment: "node",
-    fsModuleCache: false,
     include: ["tests/unit/**/*.test.ts"],
   },
 })

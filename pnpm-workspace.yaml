@@ -1,37 +1,13 @@
 packages:
   - packages/*
-  - tests/package/fixtures/*
   - .
 
 allowBuilds:
   esbuild: true
 
-engineStrict: true
-
-shellEmulator: true
-
 catalog:
-  "@solidjs/web": ^2.0.0
-  "@types/react": ^19.3.0
-  "@types/react-dom": ^19.3.0
-  astro: ^7.4.5
+  astro: ^7.0.6
   open-props: ^1.7.23
-  react: ^19.3.1
-  react-dom: ^19.3.1
-  solid-js: ^2.0.0
-  svelte: ^5.57.3
-  vue: ^3.5.45
-  web-features: ^3.45.0
-
-minimumReleaseAgeExclude:
-  - "@solidjs/compiler-darwin-arm64@2.0.0"
-  - "@solidjs/compiler-darwin-x64@2.0.0"
-  - "@solidjs/compiler-linux-arm64-gnu@2.0.0"
-  - "@solidjs/compiler-linux-x64-gnu@2.0.0"
-  - "@solidjs/compiler-wasm32-wasi@2.0.0"
-  - "@solidjs/compiler-win32-x64-msvc@2.0.0"
-  - "@solidjs/compiler@2.0.0"
-  - "@solidjs/signals@2.0.0"
-  - "@solidjs/vite-plugin@3.0.1"
-  - "@solidjs/web@2.0.0"
-  - solid-js@2.0.0
+  solid-js: ^1.9.13
+  svelte: ^5.56.4
+  vue: ^3.5.39

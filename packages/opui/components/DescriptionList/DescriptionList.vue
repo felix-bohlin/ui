@@ -1,18 +1,22 @@
 <script setup lang="ts">
-import type { Props, Slots } from "./types.vue-props"
+import type { Props, Slots } from "./types.d.vue"
 
-const { border, orientation } = defineProps<Props>()
+const { bordered } = defineProps<Props>()
 defineSlots<Slots>()
+
+defineOptions({
+  inheritAttrs: false,
+})
 </script>
 
 <template>
   <dl
     :class="[
       'ui-description-list',
-      border && `ui-border-${border}`,
-      orientation && orientation !== 'auto' && `ui-${orientation}`,
+      { 'ui-bordered': bordered, 'ui-dotted': bordered === 'dotted' },
       $props.class,
     ]"
+    v-bind="$attrs"
   >
     <slot></slot>
   </dl>

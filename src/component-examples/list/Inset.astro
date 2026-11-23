@@ -1,13 +1,12 @@
 ---
-import { List, ListItem } from "opui-css/astro"
+import { List } from "@opui/astro"
+import { ListItem } from "@opui/astro"
 ---
 
 <List>
-  <ListItem label="Lou Headstock">
+  <ListItem headline="No inset">
     <svg
-      data-icon="person"
       slot="start"
-      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -19,6 +18,11 @@ import { List, ListItem } from "opui-css/astro"
       ></path>
     </svg>
   </ListItem>
-  <ListItem description="Mobile" inset label="555-0142" />
-  <ListItem description="Email" inset label="lou@lowend.example" />
+  <ListItem inset headline="Inset class">
+    <p>Makes the text line up nicely</p>
+  </ListItem>
+  <ListItem inset headline="Inset class">
+    <Fragment slot="start">Hidden</Fragment>
+    <p>Any <code>div.ui-start</code> will be hidden when inset</p>
+  </ListItem>
 </List>

@@ -1,42 +1,35 @@
 <script setup lang="ts">
-import { inject, type IntrinsicElementAttributes, useAttrs } from "vue"
-import { useBound } from "../vue"
-import { FieldGroupKey } from "../FieldGroup/context.vue"
-import { defined } from "../attrs"
-import { classAttrs } from "../cx"
-import type { SwitchInputProps as Props } from "./types.vue-props"
-
-const { name } = defineProps<Props>()
+import { computed, inject, useAttrs } from "vue"
+import type { SwitchInputProps } from "./types"
+import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs() as IntrinsicElementAttributes["input"]
-
+defineProps<SwitchInputProps>()
+const attrs = useAttrs()
 const modelValue = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
+const currentFieldName = inject(CurrentFieldNameKey, undefined)
 
-const bound = useBound()
-
-const field = inject(FieldGroupKey, undefined)
+const model = computed({
+  get: () =>
+    modelValue.value ??
+    (attrs.checked !== undefined && attrs.checked !== false),
+  set: (value) => {
+    modelValue.value = value
+  },
+})
 </script>
 
 <template>
   <input
-    v-if="bound"
     type="checkbox"
     role="switch"
-    :name="name ?? field?.name"
-    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"
-    v-model="modelValue"
-  />
-  <input
-    v-else
-    type="checkbox"
-    role="switch"
-    :name="name ?? field?.name"
-    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"
+    :name="currentFieldName"
+    v-bind="$attrs"
+    v-model="model"
   />
 </template>

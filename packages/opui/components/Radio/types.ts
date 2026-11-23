@@ -1,17 +1,12 @@
-export type Props = {
-  card?: boolean
-  endText?: string
+export type RadioProps = {
   error?: boolean
   hideLabel?: boolean
-  label?: string
-  orientation?: "horizontal" | "vertical"
-  size?: "x-small" | "small" | "medium" | "large"
-  spread?: boolean
-  variant?: "elevated" | "outlined" | "tonal"
+  size?: "small" | "large"
+  stack?: boolean
 }
 
 export type RadioInputProps = {}
 
-export type Slots<S> = {
+export type RadioSlots<S> = {
   endText?: string | S
 }

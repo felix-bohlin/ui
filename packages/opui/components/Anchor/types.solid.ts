@@ -1,7 +1,6 @@
 import type * as Base from "./types"
-import type { ComponentProps } from "@solidjs/web"
+import type { JSX } from "solid-js"
 
-export type Props = Base.Props & ComponentProps<"span">
-
-export type AnchorContentProps = Base.AnchorContentProps &
-  Omit<ComponentProps<"span">, "popover">
+export type Props = Base.Props &
+  Partial<Base.Slots<JSX.Element>> &
+  JSX.HTMLAttributes<HTMLSpanElement>

@@ -1,24 +1,11 @@
-<div class="ui-field">
-  <label class="ui-label" for="id-1">Opacity</label>
-  <span class="ui-field-container">
-    <input aria-valuetext="50%" id="id-1" list="id-2" step="25" type="range" value="50">
-    <datalist aria-hidden="true" id="id-2">
-      <option label="0%" value="0"></option>
-      <option label="25%" value="25"></option>
-      <option label="50%" value="50"></option>
-      <option label="75%" value="75"></option>
-      <option label="100%" value="100"></option>
-    </datalist>
-  </span>
-</div>
-<div class="ui-field">
-  <label class="ui-label" for="id-3">Quality</label>
-  <span class="ui-field-container">
-    <input aria-valuetext="Medium" id="id-3" list="id-4" max="2" type="range" value="1">
-    <datalist aria-hidden="true" id="id-4">
-      <option label="Low" value="0"></option>
-      <option label="Medium" value="1"></option>
-      <option label="High" value="2"></option>
-    </datalist>
-  </span>
-</div>
+<label class="ui-range">
+  <span class="ui-label" id="id-1">Tick marks with labels</span>
+  <input aria-labelledby="id-1" list="id-2" type="range">
+  <datalist id="id-2">
+    <option label="0%" value="0"></option>
+    <option label="25%" value="25"></option>
+    <option label="50%" value="50"></option>
+    <option label="75%" value="75"></option>
+    <option label="100%" value="100"></option>
+  </datalist>
+</label>

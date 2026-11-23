@@ -1,22 +1,4 @@
-import type { features } from "web-features"
-import { featureOf as webFeature } from "../../packages/opui/scripts/features.mjs"
-
-const featureOf = (featureId: string) => {
-  const feature: (typeof features)[string] | undefined = webFeature(featureId)
-  return feature && "status" in feature ? feature : undefined
-}
-
-export const SHARED_FEATURES = [
-  "cascade-layers",
-  "color-mix",
-  "light-dark",
-  "nesting",
-  "oklab",
-  "relative-color",
-]
-
-export const withSharedFeatures = (ids: string[]) =>
-  [...new Set([...ids, ...SHARED_FEATURES])].toSorted()
+import { features } from "web-features"
 
 export type BrowserId = "chrome" | "edge" | "firefox" | "safari"
 
@@ -24,7 +6,7 @@ export type EngineId = "chromium" | "gecko" | "webkit"
 
 export type SupportLevel = "full" | "partial" | "none"
 
-type BrowserSupportEntry = {
+export type BrowserSupportEntry = {
   browser: BrowserId
   label: string
   level: SupportLevel
@@ -33,7 +15,7 @@ type BrowserSupportEntry = {
   unsupportedFeatures: string[]
 }
 
-type EngineSupportEntry = {
+export type EngineSupportEntry = {
   engine: EngineId
   label: string
   browsers: BrowserSupportEntry[]
@@ -61,13 +43,12 @@ function getSupportForFeature(
   featureId: string,
   browser: BrowserId,
 ): SupportValue {
-  const feature = featureOf(featureId)
+  const feature = (features as Record<string, any>)[featureId]
   if (!feature) {
-    const message =
+    console.warn(
       `[browserSupport] Unknown web-features id: "${featureId}". ` +
-      `Check https://github.com/web-platform-dx/web-features for valid ids.`
-    if (import.meta.env?.PROD) throw new Error(message)
-    console.warn(message)
+        `Check https://github.com/web-platform-dx/web-features for valid ids.`,
+    )
     return undefined
   }
 
@@ -75,40 +56,34 @@ function getSupportForFeature(
   if (directSupport !== undefined) return directSupport
 
   const byCompat = feature.status?.by_compat_key as
-    | Record<string, { support?: Record<string, SupportValue> }>
-    | undefined
+    Record<string, { support?: Record<string, SupportValue> }> | undefined
 
   if (!byCompat) return undefined
 
   let worst: SupportValue = undefined
-  for (const [key, entry] of Object.entries(byCompat)) {
+  let sawAny = false
+  for (const entry of Object.values(byCompat)) {
     const value = entry.support?.[browser]
-    if (value === undefined || value === false) {
-      if (UNUSED_COMPAT_KEYS.has(key)) continue
-      return false
-    }
+    if (value === undefined) continue
+    sawAny = true
+    if (value === false) return false
     if (worst === undefined || compareVersions(value, worst as string) > 0) {
       worst = value
     }
   }
-  return worst
+  return sawAny ? worst : undefined
 }
 
-const UNUSED_COMPAT_KEYS = new Set([
-  "css.properties.position-visibility.anchor-valid",
-  "css.properties.position-visibility.anchor-visible",
-])
-
-function parseVersion(version: string): [number, number] | undefined {
-  const match = /^\u2264?(\d+)(?:\.(\d+))?/.exec(version)
-  return match ? [Number(match[1]), Number(match[2] ?? 0)] : undefined
+function parseMajor(version: string): number {
+  const match = /^(\d+)/.exec(version)
+  return match ? Number(match[1]) : NaN
 }
 
 function compareVersions(a: string, b: string): number {
-  const aVersion = parseVersion(a)
-  const bVersion = parseVersion(b)
-  if (!aVersion || !bVersion) return 0
-  return aVersion[0] - bVersion[0] || aVersion[1] - bVersion[1]
+  const aMajor = parseMajor(a)
+  const bMajor = parseMajor(b)
+  if (Number.isNaN(aMajor) || Number.isNaN(bMajor)) return 0
+  return aMajor - bMajor
 }
 
 export function computeBrowserSupport(ids: string[]): BrowserSupportEntry[] {
@@ -119,8 +94,7 @@ export function computeBrowserSupport(ids: string[]): BrowserSupportEntry[] {
 
     for (const featureId of ids) {
       const value = getSupportForFeature(featureId, id)
-      const isSupported =
-        typeof value === "string" && !!parseVersion(value)?.[0]
+      const isSupported = typeof value === "string" && !!parseMajor(value)
 
       if (isSupported) {
         supportedFeatures.push(featureId)
@@ -189,24 +163,4 @@ export function computeEngineBrowserSupport(
       unsupportedFeatures: [...unsupportedSet],
     }
   })
-}
-
-export function computeFeatureSupport(featureId: string) {
-  const feature = featureOf(featureId)
-  const status = feature?.status?.baseline
-  const baseline: "high" | "low" | false =
-    typeof status === "string" ? status : false
-
-  return {
-    baseline,
-    browsers: computeBrowserSupport([featureId]).map(
-      ({ browser, label, sinceVersion }) => ({
-        browser,
-        label,
-        version: sinceVersion,
-      }),
-    ),
-    id: featureId,
-    name: (feature?.name as string | undefined) ?? featureId,
-  }
 }

@@ -1,26 +1,32 @@
-import { passThrough } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
   component: "Progress",
-  notes: passThrough("progress", "div", [
-    "aria-describedby",
-    "aria-label",
-    "id",
-  ]),
+  notes: {
+    astro: "Other attributes also go to the `<progress>`.",
+    vue: "Attributes that aren't props also go to the `<progress>`.",
+  },
   options: [
     {
-      default: "1",
-      description: "The maximum value. `value` runs from 0 to it.",
-      prop: "max",
+      description: "Whether the progress is busy. Passed to the `<progress>`.",
+      prop: "aria-busy",
     },
     {
-      class: ".ui-round",
-      default: "false",
       description:
-        "Draws the progress as a ring, `--ui-icon-size-large` wide, for a small space such as a button or a list item. Needs typed `attr()`; other browsers show the bar.",
-      group: "Shape",
-      prop: "round",
+        "The id of an element that describes the progress. Passed to the `<progress>`.",
+      prop: "aria-describedby",
+    },
+    {
+      description: "The accessible label. Passed to the `<progress>`.",
+      prop: "aria-label",
+    },
+    {
+      description: "The id of the `<progress>`.",
+      prop: "id",
+    },
+    {
+      description: "The maximum value.",
+      prop: "max",
     },
     {
       attribute: "[value]",
@@ -28,16 +34,15 @@ export default {
       group: "Value",
       part: "progress",
       prop: "value",
-      type: "number | string",
     },
     {
-      default: '"tonal"',
       description: "The variant to use.",
       group: "Variants",
       prop: "variant",
       values: {
+        default: ".ui-default",
         filled: ".ui-filled",
-        tonal: null,
+        tonal: ".ui-tonal",
       },
     },
   ],
@@ -45,7 +50,7 @@ export default {
     {
       code: "<progress>",
       description: "The progress bar.",
-      props: ["max", "value"],
+      props: ["value", "max"],
       selector: ".ui-progress > progress",
     },
   ],

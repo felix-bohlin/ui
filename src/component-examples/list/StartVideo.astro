@@ -1,24 +1,25 @@
 ---
-import { List, ListItem } from "opui-css/astro"
+import { List } from "@opui/astro"
+import { ListItem } from "@opui/astro"
 ---
 
 <List>
-  <ListItem description="Uploaded by Lou Headstock" label="Slap tutorial">
+  <ListItem headline="Headline" description="Supporting text">
     <video slot="start" controls muted>
       <source
         src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
         type="video/mp4"
       />
     </video>
-    <Fragment slot="end">1:30</Fragment>
+    <Fragment slot="end">13:37</Fragment>
   </ListItem>
-  <ListItem description="Uploaded by Percy Groove" label="Drop D in 45 seconds">
+  <ListItem headline="Headline" description="Supporting text">
     <video slot="start" controls muted>
       <source
         src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
         type="video/mp4"
       />
     </video>
-    <Fragment slot="end">0:45</Fragment>
+    <Fragment slot="end">90s</Fragment>
   </ListItem>
 </List>

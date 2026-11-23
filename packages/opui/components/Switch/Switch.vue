@@ -1,81 +1,65 @@
 <script setup lang="ts">
-import { useBound, useInputAttrs } from "../vue"
-import { TrimmedSlot } from "../whitespace.vue"
 import SwitchInput from "./SwitchInput.vue"
-import { hasName, warnUnnamed } from "../dev"
-import { styleAttrs } from "../style"
-import type { Props, Slots } from "./types.vue-props"
-
-const {
-  card,
-  endText,
-  error,
-  hideLabel,
-  label,
-  orientation,
-  size,
-  spread,
-  variant,
-} = defineProps<Props>()
-const slots = defineSlots<Slots>()
+import type { Slots, SwitchProps } from "./types.d.vue"
+import { useId } from "vue"
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useInputAttrs()
-
-const model = defineModel<boolean | (string | number)[] | undefined>({
+const props = defineProps<SwitchProps>()
+defineSlots<Slots>()
+const modelValue = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
 
-const bound = useBound()
-
-warnUnnamed("Switch", hasName({ ...attrs.value, label }, slots.default))
+const endTextId = useId()
 </script>
 
 <template>
   <label
     :class="[
       'ui-switch',
-      { 'ui-card': card, 'ui-spread': spread },
-      card && variant && variant !== 'outlined' && `ui-${variant}`,
-      orientation && orientation !== 'horizontal' && `ui-${orientation}`,
-      size && size !== 'medium' && `ui-${size}`,
-      $props.class,
+      {
+        'ui-small': props.small,
+        'ui-stack': props.stack,
+        'ui-spread': props.spread,
+      },
+      props.class,
     ]"
-    v-bind="styleAttrs($attrs.style)"
+    :data-invalid="props.error ? '' : undefined"
   >
     <span
       v-if="$slots['icon-unchecked']"
       class="ui-icon-unchecked"
       aria-hidden="true"
-      ><slot name="icon-unchecked"></slot></span
-    >{{ " "
-    }}<span
+    >
+      <slot name="icon-unchecked"></slot>
+    </span>
+
+    <span
       v-if="$slots['icon-checked']"
       class="ui-icon-checked"
       aria-hidden="true"
-      ><slot name="icon-checked"></slot></span
-    >{{ " "
-    }}<SwitchInput
-      v-if="bound"
-      v-bind="attrs"
-      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
-      v-model="model"
-    />
+    >
+      <slot name="icon-checked"></slot>
+    </span>
+
     <SwitchInput
-      v-else
-      v-bind="attrs"
-      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+      v-bind="$attrs"
+      v-model="modelValue"
+      :aria-describedby="$slots['end-text'] ? endTextId : undefined"
     />
+
     <span
-      v-if="label || $slots.default"
-      :class="hideLabel ? 'ui-sr-only' : 'ui-label'"
-      >{{ label }}<TrimmedSlot :nodes="$slots.default?.()"
-    /></span>
-    <span v-if="endText || $slots['end-text']" class="ui-end-text"
-      >{{ endText }}<slot name="end-text"></slot
-    ></span>
+      v-if="$slots.default"
+      :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"
+    >
+      <slot></slot>
+    </span>
+
+    <span v-if="$slots['end-text']" :id="endTextId" class="ui-end-text">
+      <slot name="end-text"></slot>
+    </span>
   </label>
 </template>

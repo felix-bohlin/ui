@@ -3,7 +3,7 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  Fieldset,
+  FieldSet,
   Form,
   Radio,
 } from "opui-css/vue"
@@ -11,37 +11,24 @@ import {
 
 <template>
   <Form>
-    <Fieldset
-      aria-describedby="radio-field-group-field-description-1-description"
-    >
-      <FieldLegend>Contact method</FieldLegend>
-      <FieldDescription id="radio-field-group-field-description-1-description"
-        >We only contact you about your order.</FieldDescription
-      >
-      <FieldGroup
-        name="radio-group-field-description-1"
-        orientation="horizontal"
-      >
-        <Radio checked value="email">Email</Radio>
-        <Radio value="phone">Phone</Radio>
-        <Radio value="sms">SMS</Radio>
+    <FieldSet>
+      <FieldLegend>Legend</FieldLegend>
+      <FieldDescription>Field description above fields</FieldDescription>
+      <FieldGroup direction="row" name="radio-group-field-description-1">
+        <Radio value="1" checked>Radio 1</Radio>
+        <Radio value="2">Radio 2</Radio>
+        <Radio value="3">Radio 3</Radio>
       </FieldGroup>
-    </Fieldset>
-    <Fieldset
-      aria-describedby="radio-field-group-field-description-2-description"
-    >
-      <FieldLegend>Theme</FieldLegend>
-      <FieldGroup
-        name="radio-group-field-description-2"
-        orientation="horizontal"
-      >
-        <Radio checked value="system">System</Radio>
-        <Radio value="light">Light</Radio>
-        <Radio value="dark">Dark</Radio>
+    </FieldSet>
+
+    <FieldSet>
+      <FieldLegend>Legend</FieldLegend>
+      <FieldGroup direction="row" name="radio-group-field-description-2">
+        <Radio value="1" checked>Radio 1</Radio>
+        <Radio value="2">Radio 2</Radio>
+        <Radio value="3">Radio 3</Radio>
       </FieldGroup>
-      <FieldDescription id="radio-field-group-field-description-2-description"
-        >System follows your device setting.</FieldDescription
-      >
-    </Fieldset>
+      <FieldDescription>Field description below fields</FieldDescription>
+    </FieldSet>
   </Form>
 </template>

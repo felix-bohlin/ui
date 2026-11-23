@@ -1,9 +1,0 @@
----
-import type { DescriptionListDescriptionProps as Props } from "./types.astro"
-
-const { class: className, ...rest } = Astro.props
----
-
-<dd class:list={[className]} {...rest}>
-  <slot />
-</dd>

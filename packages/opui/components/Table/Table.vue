@@ -1,19 +1,18 @@
 <script setup lang="ts">
-import type { Props, Slots } from "./types.vue-props"
+import type { Props, Slots } from "./types.d.vue"
 
-const { density, flush, overflow, stickyHeader } = defineProps<Props>()
+const { variant } = defineProps<Props>()
 defineSlots<Slots>()
+
+defineOptions({
+  inheritAttrs: false,
+})
 </script>
 
 <template>
   <table
-    :class="[
-      'ui-table',
-      { 'ui-flush': flush, 'ui-sticky-header': stickyHeader },
-      density && density !== 'normal' && `ui-${density}`,
-      overflow && overflow !== 'wrap' && `ui-overflow-${overflow}`,
-      $props.class,
-    ]"
+    :class="['ui-table', variant && `ui-${variant}`, $props.class]"
+    v-bind="$attrs"
   >
     <slot></slot>
   </table>

@@ -1,110 +1,107 @@
 <script setup lang="ts">
 import { computed, useAttrs } from "vue"
-import { TrimmedSlot } from "../whitespace.vue"
-import { disabledLink, tagAttrs } from "../tag"
-import { defined } from "../attrs"
-import { classAttrs } from "../cx"
-import type { Props, Slots } from "./types.vue-props"
+import type { Props, Slots } from "./types.d.vue"
 
-const {
-  as,
-  borderTop,
-  choice,
-  color,
-  description,
-  disabled,
-  for: htmlFor,
-  href,
-  inset,
-  label,
-} = defineProps<Props>()
+const props = defineProps<Props>()
 const slots = defineSlots<Slots>()
+const attrs = useAttrs()
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs()
-
-const hasControl = computed(
-  () => choice === "checkbox" || choice === "radio" || choice === "switch",
+const hasLabel = computed(
+  () =>
+    props.type &&
+    (props.type === "checkbox" ||
+      props.type === "radio" ||
+      props.type === "switch"),
 )
+const labelClass = computed(() => props.type || "")
+const Tag = computed(() => props.as)
 
-const Tag = computed(() =>
-  hasControl.value
-    ? "label"
-    : disabledLink(as, disabled)
-      ? "a"
-      : (as ?? (href ? "a" : undefined)),
+const liAttrs = computed(() => (Tag.value ? {} : attrs))
+const innerAttrs = computed(() => (Tag.value ? attrs : {}))
+const disabled = computed(() =>
+  "disabled" in props ? props.disabled : undefined,
 )
-
-const restOnItem = computed(() => hasControl.value || !Tag.value)
-
-const hasLabel = () => !!label || slots.label
-
-const hasDescription = () => !!description || slots.description
 </script>
 
 <template>
   <li
-    v-bind="{
-      ...(restOnItem ? attrs : {}),
-      ...classAttrs([
-        { 'ui-border-top': borderTop, 'ui-inset': inset },
-        color && `ui-${color}`,
-        $props.class,
-      ]),
-    }"
+    :class="[
+      {
+        'ui-border-top': props.borderTop,
+        'ui-inset': props.inset,
+      },
+      props.class,
+    ]"
+    v-bind="liAttrs"
   >
+    <label
+      v-if="hasLabel"
+      :class="labelClass && `ui-${labelClass}`"
+      :for="props.for"
+    >
+      <div v-if="slots.start" class="ui-start">
+        <slot name="start"></slot>
+      </div>
+      <div
+        v-if="slots.text || props.headline || props.description"
+        class="ui-text"
+      >
+        <p v-if="props.headline">{{ props.headline }}</p>
+        <p v-if="props.description">{{ props.description }}</p>
+        <slot name="text"></slot>
+      </div>
+      <div v-if="slots.end" class="ui-end">
+        <slot name="end"></slot>
+      </div>
+      <slot></slot>
+    </label>
+
     <component
       :is="Tag"
-      v-if="Tag"
-      :for="hasControl ? htmlFor : undefined"
-      v-bind="{
-        ...(hasControl ? {} : tagAttrs(Tag, disabled, href)),
-        ...defined(restOnItem ? {} : attrs),
-        ...classAttrs([hasControl && `ui-${choice}`]),
-      }"
-      ><div v-if="$slots.start" class="ui-start">
+      v-else-if="Tag"
+      :disabled="disabled"
+      :href="props.href"
+      v-bind="innerAttrs"
+    >
+      <div v-if="slots.start" class="ui-start">
         <slot name="start"></slot>
       </div>
-      <div v-if="hasLabel() || hasDescription()" class="ui-text">
-        <p v-if="hasLabel()">{{ label }}<slot name="label"></slot></p>
-        <p v-if="hasDescription()">
-          {{ description }}<slot name="description"></slot>
-        </p>
+      <div
+        v-if="props.headline || props.description || slots.text"
+        class="ui-text"
+      >
+        <p v-if="props.headline">{{ props.headline }}</p>
+        <p v-if="props.description">{{ props.description }}</p>
+        <slot name="text"></slot>
         <slot></slot>
       </div>
       <slot v-else></slot>
-      <div v-if="$slots.end" class="ui-end">
+      <div v-if="slots.end" class="ui-end">
         <slot name="end"></slot>
       </div>
-      <span
-        v-if="$slots['icon-checked']"
-        aria-hidden="true"
-        class="ui-icon-checked"
-        ><slot name="icon-checked"></slot></span
-    ></component>
-    <template v-else
-      ><div v-if="$slots.start" class="ui-start">
+    </component>
+
+    <template v-else>
+      <div v-if="slots.start" class="ui-start">
         <slot name="start"></slot>
       </div>
-      <div v-if="hasLabel() || hasDescription()" class="ui-text">
-        <p v-if="hasLabel()">{{ label }}<slot name="label"></slot></p>
-        <p v-if="hasDescription()">
-          {{ description }}<slot name="description"></slot>
-        </p>
+      <div
+        v-if="props.headline || props.description || slots.text"
+        class="ui-text"
+      >
+        <p v-if="props.headline">{{ props.headline }}</p>
+        <p v-if="props.description">{{ props.description }}</p>
+        <slot name="text"></slot>
         <slot></slot>
       </div>
       <slot v-else></slot>
-      <div v-if="$slots.end" class="ui-end">
+      <div v-if="slots.end" class="ui-end">
         <slot name="end"></slot>
       </div>
-      <span
-        v-if="$slots['icon-checked']"
-        aria-hidden="true"
-        class="ui-icon-checked"
-        ><slot name="icon-checked"></slot></span></template
-    ><TrimmedSlot :nodes="$slots.submenu?.()" />
+    </template>
   </li>
 </template>

@@ -1,18 +1,9 @@
 export type Props = {
-  density?: "dense" | "normal" | "spacious"
-  flush?: boolean
-  overflow?: "scroll" | "wrap"
-  stickyHeader?: boolean
+  variant?: "dense" | "spacious"
 }
 
-export type TableCellProps = {
-  numeric?: boolean
-}
+export type SectionProps = {}
 
-export type TableColumnProps = {
+export type ColumnProps = {
   width?: string
-}
-
-export type TableHeaderCellProps = TableCellProps & {
-  sortable?: boolean
 }

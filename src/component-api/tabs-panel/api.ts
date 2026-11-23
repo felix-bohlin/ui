@@ -1,13 +1,24 @@
 import type { ComponentApi } from "../types"
 
 export default {
-  component: "TabsPanel",
-  options: [],
+  component: "Tabs.Panel",
+  file: "TabsPanel",
+  options: [
+    {
+      description: "The id of the panel. Set by the item.",
+      prop: "panelId",
+    },
+    {
+      description: "The id of the tab input that labels it. Set by the item.",
+      prop: "tabId",
+    },
+  ],
   page: "tabs",
   parts: [],
   root: {
+    component: { astro: "Tabs.Panel", vue: "TabsPanel" },
     description: "The panel.",
-    selector: ".ui-panel",
+    selector: ".ui-tab-panel",
   },
   slots: [
     {

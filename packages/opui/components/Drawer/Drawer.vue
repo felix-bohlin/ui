@@ -1,53 +1,46 @@
 <script setup lang="ts">
-import "../../elements/close-on-navigate.js"
-import "../../elements/drawer-swipe.js"
-import { computed, type HTMLAttributes, provide, reactive, useAttrs } from "vue"
-import { DrawerKey } from "./context.vue"
-import { autoLabelledBy } from "../id"
-import { warnMissingId } from "../dev"
-import { defined } from "../attrs"
-import type { Props, Slots } from "./types.vue-props"
+import { useId } from "vue"
+import type { DrawerSlots, Props } from "./types.d.vue"
 
 const {
   backdrop = "blurred",
   closedby = "any",
-  closeOnNavigate,
   id,
-  scrollLock,
+  scrollLock = true,
   side = "inline-start",
 } = defineProps<Props>()
-defineSlots<Slots>()
+const slots = defineSlots<DrawerSlots>()
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs() as HTMLAttributes
-
-const labelledBy = computed(() => autoLabelledBy(attrs, `${id}-title`))
-
-warnMissingId("Drawer", id)
-
-provide(DrawerKey, reactive({ id: computed(() => id), titleId: labelledBy }))
+const drawerId = id || useId()
 </script>
 
 <template>
   <dialog
-    :closedby="closedby"
+    :id="drawerId"
     :class="[
       'ui-drawer',
+      side && `ui-${side}`,
       {
         'ui-backdrop-transparent': backdrop === 'transparent',
         'ui-scroll-lock': scrollLock,
       },
-      side && side !== 'inline-start' && `ui-${side}`,
       $props.class,
     ]"
-    :aria-labelledby="labelledBy"
-    :data-close-on-navigate="closeOnNavigate ? '' : undefined"
-    :id="id"
-    v-bind="defined(attrs)"
+    :closedby="closedby"
+    v-bind="$attrs"
   >
+    <slot v-if="slots.header" name="header"></slot>
+
+    <div v-if="slots.content" class="ui-content">
+      <slot name="content"></slot>
+    </div>
+
     <slot></slot>
+
+    <slot v-if="slots.footer" name="footer"></slot>
   </dialog>
 </template>

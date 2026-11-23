@@ -1,24 +1,19 @@
 <script setup lang="ts">
-import { Field, SelectButton } from "opui-css/vue"
+import { Select } from "opui-css/vue"
 </script>
 
 <template>
-  <Field for="select-grouped-1" label="Car">
-    <select id="select-grouped-1">
-      <SelectButton />
-      <option value="">Select car</option>
-      <div aria-labelledby="select-grouped-1-french" role="group">
-        <label class="ui-text" id="select-grouped-1-french">French cars</label>
-        <option>Citroën</option>
-        <option>Renault</option>
-      </div>
-      <div aria-labelledby="select-grouped-1-swedish" role="group">
-        <label class="ui-text" id="select-grouped-1-swedish"
-          >Swedish cars</label
-        >
-        <option>Saab</option>
-        <option>Volvo</option>
-      </div>
-    </select>
-  </Field>
+  <Select label="Grouped">
+    <option value="">Select car</option>
+    <div role="group">
+      <label class="ui-text">Swedish cars</label>
+      <option>Volvo</option>
+      <option>SAAB</option>
+    </div>
+    <div role="group">
+      <label class="ui-text">French cars</label>
+      <option>Renault</option>
+      <option>Citroën</option>
+    </div>
+  </Select>
 </template>

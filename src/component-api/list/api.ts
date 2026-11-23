@@ -2,73 +2,34 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "List",
-  keyboard: [
-    {
-      description:
-        "Moves focus to the next link, button or control in the list. Disabled items are skipped, and radio items that share a `name` are one tab stop, at the checked one.",
-      keys: ["Tab"],
-    },
-    {
-      description: "Follows a link item or activates a button item.",
-      keys: ["Enter"],
-    },
-    {
-      description:
-        "Activates a button item, checks or unchecks a checkbox or switch item, and checks a radio item. A link item ignores it.",
-      keys: ["Space"],
-    },
-    {
-      description:
-        "On a radio item, moves focus to the previous or next radio item with the same `name` and checks it, wrapping around at the ends (Safari stops at the first and the last). Left and Right follow the reading direction in Chromium and Firefox; Safari always takes Left as the previous item.",
-      keys: ["Up Arrow", "Down Arrow", "Left Arrow", "Right Arrow"],
-    },
-  ],
   options: [
-    {
-      default: '"ul"',
-      description:
-        "The element to render. Use `ol` when the order is the content, like a ranking or steps.",
-      htmlDescription:
-        "The list classes work on an `ol` too: use one when the order is the content, like a ranking or steps.",
-      prop: "as",
-    },
     {
       class: ".ui-bordered",
       default: "false",
       description: "Adds a border between list items.",
-      group: "Borders",
+      group: "Bordered",
       prop: "bordered",
     },
     {
       class: ".ui-dense",
       default: "false",
-      description: "Packs the items tighter.",
+      description: "Packs the list tighter.",
       group: "Dense",
       prop: "dense",
     },
     {
-      class: ".ui-flush",
+      class: ".ui-gutterless",
       default: "false",
-      description:
-        "Removes the inline padding of the items and the block padding of the list.",
-      group: "Flush",
-      prop: "flush",
+      description: "Removes the inline padding.",
+      group: "Gutterless",
+      prop: "gutterless",
     },
     {
-      default: '"list"',
-      description:
-        "The `role` of the `<ul>`, such as `listbox`. `list` keeps Safari announcing a list.",
-      inherited: true,
-      prop: "role",
-      type: "string",
-    },
-    {
-      default: '"filled"',
-      description: "The variant to use.",
+      description: "The background color variant.",
       group: "Variants",
       prop: "variant",
       values: {
-        filled: null,
+        default: ".ui-default",
         tonal: ".ui-tonal",
         transparent: ".ui-transparent",
       },
@@ -77,7 +38,7 @@ export default {
   parts: [
     {
       code: "<li>",
-      component: "ListItem",
+      component: { astro: "ListItem", vue: "ListItem" },
       description: "A list item.",
       selector: ".ui-list > li",
     },

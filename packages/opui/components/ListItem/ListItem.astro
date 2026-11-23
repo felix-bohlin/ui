@@ -1,42 +1,25 @@
 ---
 import type { Props } from "./types.astro"
-import type { HTMLAttributes } from "astro/types"
-// A dynamic <Tag> or a custom element lets an undefined spread value remove an attribute set before it: tests/unit/tooling-bugs.test.ts
-import { defined } from "../attrs"
-import { cx } from "../cx"
-import { disabledLink, tagAttrs } from "../tag"
-import { trimEdges } from "../whitespace"
 
 export const title = "List Item"
 
 const {
-  as,
+  as: Tag,
   borderTop,
-  choice,
   class: className,
-  color,
   description,
-  disabled,
   for: htmlFor,
-  href,
+  headline,
   inset,
-  label,
+  type,
   ...rest
 } = Astro.props
 
-const hasControl =
-  choice === "checkbox" || choice === "radio" || choice === "switch"
-const Tag = hasControl
-  ? "label"
-  : disabledLink(as, disabled)
-    ? "a"
-    : (as ?? (href ? "a" : undefined))
-const restOnItem = hasControl || !Tag
-const hasLabel = !!label || Astro.slots.has("label")
-const submenu = Astro.slots.has("submenu")
-  ? trimEdges(await Astro.slots.render("submenu"))
-  : ""
-const hasDescription = !!description || Astro.slots.has("description")
+const hasLabel =
+  type && (type === "checkbox" || type === "radio" || type === "switch")
+const labelClass = type || ""
+const liProps = Tag ? {} : rest
+const innerProps = Tag ? rest : {}
 ---
 
 <li
@@ -45,77 +28,81 @@ const hasDescription = !!description || Astro.slots.has("description")
       "ui-border-top": borderTop,
       "ui-inset": inset,
     },
-    color && `ui-${color}`,
     className,
   ]}
-  {...((restOnItem ? rest : {}) as HTMLAttributes<"li">)}
+  {...liProps as any}
 >
   {
     // Label + checkbox/radio/switch
-    // With custom tag
-    Tag ? (
-      <Tag
-        class={cx([hasControl && `ui-${choice}`])}
-        for={hasControl ? htmlFor : undefined}
-        {...(hasControl ? {} : tagAttrs(Tag, disabled, href))}
-        {...defined(restOnItem ? {} : rest)}
-      >
-        {Astro.slots.has("start") && <div class="ui-start">
-          <slot name="start" />
-        </div>}
-        {hasLabel || hasDescription ? (
+    hasLabel ? (
+      <label class={labelClass && `ui-${labelClass}`} for={htmlFor}>
+        {Astro.slots.start && (
+          <div class="ui-start">
+            <slot name="start" />
+          </div>
+        )}
+        {Astro.slots.text || headline || description ? (
           <div class="ui-text">
-            {hasLabel && <p>
-              {label}
-              <slot name="label" />
-            </p>}
-            {hasDescription && <p>
-              {description}
-              <slot name="description" />
-            </p>}
+            {headline && <p>{headline}</p>}
+            {description && <p>{description}</p>}
+            <slot name="text" />
+          </div>
+        ) : null}
+        {Astro.slots.end && (
+          <div class="ui-end">
+            <slot name="end" />
+          </div>
+        )}
+        <slot />
+      </label>
+    ) : // With custom tag
+    Tag ? (
+      <Tag {...(innerProps as any)}>
+        {Astro.slots.start && (
+          <div class="ui-start">
+            <slot name="start" />
+          </div>
+        )}
+        {headline || description || Astro.slots.text ? (
+          <div class="ui-text">
+            {headline && <p>{headline}</p>}
+            {description && <p>{description}</p>}
+            <slot name="text" />
             <slot />
           </div>
         ) : (
           <slot />
         )}
-        {Astro.slots.has("end") && <div class="ui-end">
-          <slot name="end" />
-        </div>}
-        {Astro.slots.has("icon-checked") && <span
-          aria-hidden="true"
-          class="ui-icon-checked"
-          ><slot name="icon-checked"
-        /></span>}
+        {Astro.slots.end && (
+          <div class="ui-end">
+            <slot name="end" />
+          </div>
+        )}
       </Tag>
     ) : (
       // Without custom tag
       <>
-        {Astro.slots.has("start") && <div class="ui-start">
-          <slot name="start" />
-        </div>}
-        {hasLabel || hasDescription ? (
+        {Astro.slots.start && (
+          <div class="ui-start">
+            <slot name="start" />
+          </div>
+        )}
+        {headline || description || Astro.slots.text ? (
           <div class="ui-text">
-            {hasLabel && <p>
-              {label}
-              <slot name="label" />
-            </p>}
-            {hasDescription && <p>
-              {description}
-              <slot name="description" />
-            </p>}
+            {headline && <p>{headline}</p>}
+            {description && <p>{description}</p>}
+            <slot name="text" />
             <slot />
           </div>
         ) : (
           <slot />
         )}
-        {Astro.slots.has("end") && <div class="ui-end">
-          <slot name="end" />
-        </div>}
-        {Astro.slots.has("icon-checked") && <span
-          aria-hidden="true"
-          class="ui-icon-checked"
-          ><slot name="icon-checked"
-        /></span>}</>
+        {Astro.slots.end && (
+          <div class="ui-end">
+            <slot name="end" />
+          </div>
+        )}
+      </>
     )
-  }<Fragment set:html={submenu} />
+  }
 </li>

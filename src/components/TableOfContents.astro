@@ -1,50 +1,79 @@
 ---
-type Heading = { id: string; level: number; text: string }
-type Item = Heading & { children: Item[] }
-
 type Props = {
-  headings: Heading[]
+  selector?: string
   variant?: "default" | "drawer"
 }
 
-const { headings, variant = "default" } = Astro.props
-
-const items: Item[] = []
-const stack = [{ children: items, level: 1 }]
-for (const heading of headings) {
-  while (stack.length > 1 && stack[stack.length - 1].level >= heading.level) {
-    stack.pop()
-  }
-  const item = { ...heading, children: [] }
-  stack[stack.length - 1].children.push(item)
-  stack.push(item)
-}
+const { selector = "#main-content", variant = "default" } = Astro.props
 ---
 
 <nav
-  aria-label="On this page"
-  class:list={["table-of-contents", { "toc-drawer": variant === "drawer" }]}
+  data-toc-selector={selector}
+  class:list={{ "toc-drawer": variant === "drawer" }}
 >
   <h3>On this page</h3>
-  <menu>
-    <li><a href="#main-content" title="Overview">Overview</a></li>
-    {items.map((item) => <li>
-      <a href={`#${item.id}`} title={item.text}>{item.text}</a>
-      {item.children.length > 0 && <ul>
-        {item.children.map((child) => <li>
-          <a href={`#${child.id}`} title={child.text}>{child.text}</a>
-          {child.children.length > 0 && <ul>
-            {child.children.map((grandchild) => <li>
-              <a href={`#${grandchild.id}`} title={grandchild.text}>
-                {grandchild.text}
-              </a>
-            </li>)}
-          </ul>}
-        </li>)}
-      </ul>}
-    </li>)}
-  </menu>
+  <menu></menu>
 </nav>
+
+<script>
+  import { getHeadings } from "../utils/headings"
+
+  function initTableOfContents() {
+    const tocNavs = document.querySelectorAll<HTMLElement>(
+      "nav[data-toc-selector]",
+    )
+
+    tocNavs.forEach((tocNav) => {
+      const selector = tocNav.dataset.tocSelector
+      if (!selector) return
+
+      const container = document.querySelector(selector)
+      const rootMenu = tocNav.querySelector("menu")
+      if (!container || !rootMenu) return
+
+      const headings = getHeadings(container, "h2[id], h3[id], h4[id]")
+
+      // Clear and add Overview
+      rootMenu.innerHTML = ""
+      const overviewLi = document.createElement("li")
+      const overviewA = document.createElement("a")
+      overviewA.href = selector.startsWith("#") ? selector : "#main-content"
+      overviewA.textContent = "Overview"
+      overviewA.title = "Overview"
+      overviewLi.appendChild(overviewA)
+      rootMenu.appendChild(overviewLi)
+
+      const stack = [{ ul: rootMenu, level: 1 }]
+
+      headings.forEach((heading) => {
+        const level = parseInt(heading.tagName[1])
+
+        while (stack.length > 1 && stack[stack.length - 1].level >= level) {
+          stack.pop()
+        }
+
+        const currentUl = stack[stack.length - 1].ul
+        const li = document.createElement("li")
+        const a = document.createElement("a")
+        const nestedUl = document.createElement("ul")
+
+        a.href = `#${heading.id}`
+        a.textContent = heading.textContent
+        a.title = heading.textContent?.trim() || ""
+
+        li.append(a, nestedUl)
+        currentUl.appendChild(li)
+        stack.push({ ul: nestedUl, level })
+      })
+
+      // Remove empty nested uls
+      tocNav.querySelectorAll("ul:empty").forEach((ul) => ul.remove())
+    })
+  }
+
+  initTableOfContents()
+  document.addEventListener("astro:after-swap", initTableOfContents)
+</script>
 
 <style>
   nav {
@@ -52,13 +81,13 @@ for (const heading of headings) {
     text-align: start;
 
     h3 {
-      font-size: var(--ui-font-size-small);
+      font-size: var(--font-size-05);
       margin-block-end: 0.5em;
       text-align: start;
     }
 
     menu {
-      font-size: var(--ui-font-size-small);
+      font-size: var(--font-size-05);
       list-style-type: none;
       margin: 0;
       padding: 0;
@@ -67,9 +96,9 @@ for (const heading of headings) {
 </style>
 
 <style is:global>
-  .table-of-contents {
+  [data-toc-selector] {
     ul {
-      font-size: var(--ui-font-size-caption);
+      font-size: var(--font-size-0);
       list-style-type: none;
       margin: 0;
       margin-inline-start: var(--size-3);
@@ -102,11 +131,11 @@ for (const heading of headings) {
       }
 
       &:hover {
-        color: var(--ui-primary-text);
+        color: var(--primary);
       }
 
       &:target-current {
-        color: var(--ui-primary-text);
+        color: var(--primary);
         font-weight: 700;
 
         &:before {

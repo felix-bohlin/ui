@@ -2,17 +2,11 @@ import type * as Base from "./types"
 import type { SvelteHTMLElements } from "svelte/elements"
 import type { Snippet } from "svelte"
 
-type Without<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never
+type Snippets = Base.CheckboxSlots<Snippet>
 
-export type Props = Without<Base.Props, "endText"> &
-  Base.Slots<Snippet> &
-  Omit<SvelteHTMLElements["input"], "checked" | "group" | "size" | "type"> & {
-    checked?: boolean
-    group?: (string | number)[]
-  }
+export type CheckboxProps = Omit<Base.CheckboxProps, keyof Snippets> &
+  Snippets &
+  Omit<SvelteHTMLElements["input"], "size">
 
 export type CheckboxInputProps = Base.CheckboxInputProps &
-  Omit<
-    SvelteHTMLElements["input"],
-    "checked" | "children" | "group" | "type"
-  > & { checked?: boolean; group?: (string | number)[] }
+  SvelteHTMLElements["input"]

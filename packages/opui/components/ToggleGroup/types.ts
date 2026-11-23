@@ -1,20 +1,15 @@
 export type Props = {
-  multiple?: boolean
   name?: string
-  orientation?: "horizontal" | "vertical"
-  overflow?: "scroll" | "shrink" | "wrap"
-  size?: "x-small" | "small" | "medium" | "large"
+  orientation?: "vertical"
+  selection?: "single" | "multiple"
+  size?: "default" | "small" | "x-small"
 }
 
-export type Context = {
-  bound?: boolean
-  change?: (input: HTMLInputElement) => void
-  defaultValue?: string | string[]
+export type Slots<S> = {
+  children: S
+}
+
+export type ToggleContext = {
   groupName: string
-  inputType: "checkbox" | "radio"
-  value?: string | string[]
+  inputType: "radio" | "checkbox"
 }
-
-export type Selection<Single, Multiple> =
-  | ({ multiple?: false } & Single)
-  | ({ multiple: true } & Multiple)

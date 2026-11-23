@@ -1,6 +1,6 @@
 ---
-import Code from "./Code.astro"
-import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
+import { Code } from "astro-expressive-code/components"
+import { Tabs } from "@opui/astro"
 
 type Tab = {
   title: string
@@ -9,23 +9,24 @@ type Tab = {
 }
 
 type Props = {
-  class?: string
   tabs: Tab[]
 }
 
-const { class: className, tabs } = Astro.props
+const { tabs } = Astro.props
 ---
 
-<div
-  class:list={["code-group ui-card ui-outlined ui-not-rich-text", className]}
->
-  <Tabs class="code-tabs" overflow="wrap" variant="line">
-    {tabs.map((tab, index) => <TabsItem checked={index === 0}>
-      <TabsLabel>{tab.title}</TabsLabel>
-      <TabsPanel>
-        {tab.code && <Code code={tab.code} lang={tab.lang} />}
-      </TabsPanel>
-    </TabsItem>)}
+<div class="code-group ui-card ui-outlined ui-not-rich-text">
+  <Tabs class="underlined" aria-label="Code tabs">
+    {
+      tabs.map((tab, index) => (
+        <Tabs.Item open={index === 0}>
+          <Tabs.Tab>{tab.title}</Tabs.Tab>
+          <Tabs.Panel>
+            {tab.code && <Code code={tab.code} lang={tab.lang} />}
+          </Tabs.Panel>
+        </Tabs.Item>
+      ))
+    }
   </Tabs>
 </div>
 
@@ -33,18 +34,18 @@ const { class: className, tabs } = Astro.props
   .code-group {
     gap: 0;
     margin-block: var(--size-4);
-    overflow: hidden;
     padding: 0;
+    overflow: hidden;
   }
 </style>
 
 <style is:global>
-  .ui-panel {
+  .ui-tab-panel {
     * {
       isolation: isolate;
     }
 
-    .code-block .code-header {
+    .expressive-code .frame .header {
       border-radius: 0;
     }
   }

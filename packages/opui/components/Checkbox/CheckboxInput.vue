@@ -1,43 +1,48 @@
 <script setup lang="ts">
-import "../../css/js/checkbox.js"
-import { inject, type IntrinsicElementAttributes, useAttrs } from "vue"
-import { useBound } from "../vue"
-import { FieldGroupKey } from "../FieldGroup/context.vue"
-import { defined } from "../attrs"
-import { classAttrs } from "../cx"
-import type { CheckboxInputProps as Props } from "./types.vue-props"
-
-const { indeterminate, name } = defineProps<Props>()
+import type { CheckboxInputProps } from "./types"
+import {
+  computed,
+  inject,
+  useAttrs,
+  useTemplateRef,
+  watchPostEffect,
+} from "vue"
+import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs() as IntrinsicElementAttributes["input"]
-
+const attrs = useAttrs()
+const currentFieldName = inject(CurrentFieldNameKey, undefined)
+const props = defineProps<CheckboxInputProps>()
 const modelValue = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
 
-const bound = useBound()
+const input = useTemplateRef<HTMLInputElement>("input")
 
-const field = inject(FieldGroupKey, undefined)
+const model = computed({
+  get: () =>
+    modelValue.value ??
+    (attrs.checked !== undefined && attrs.checked !== false),
+  set: (value) => {
+    modelValue.value = value
+  },
+})
+
+watchPostEffect(() => {
+  if (input.value) input.value.indeterminate = Boolean(props.indeterminate)
+})
 </script>
 
 <template>
   <input
-    v-if="bound"
+    ref="input"
     type="checkbox"
-    :data-indeterminate="indeterminate ? '' : undefined"
-    :name="name ?? field?.name"
-    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"
-    v-model="modelValue"
-  />
-  <input
-    v-else
-    type="checkbox"
-    :data-indeterminate="indeterminate ? '' : undefined"
-    :name="name ?? field?.name"
-    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"
+    :data-indeterminate="props.indeterminate ? '' : undefined"
+    :name="currentFieldName"
+    v-bind="$attrs"
+    v-model="model"
   />
 </template>

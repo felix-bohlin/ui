@@ -3,5 +3,5 @@ import { Progress } from "opui-css/vue"
 </script>
 
 <template>
-  <Progress aria-label="Loading" />
+  <Progress aria-busy="true" />
 </template>

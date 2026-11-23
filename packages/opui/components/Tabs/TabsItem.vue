@@ -1,70 +1,39 @@
 <script setup lang="ts">
+import { inject, provide, useId } from "vue"
 import {
-  computed,
-  inject,
-  provide,
-  reactive,
-  useAttrs,
-  useId,
-  watchEffect,
-} from "vue"
-import { TabsKey } from "./context.vue"
-import { isSelected } from "../ToggleGroup/selection"
-import { warnGroupedChecked } from "../dev"
-import { defined } from "../attrs"
-import type { TabsItemProps as Props, Slots } from "./types.vue-props"
+  CurrentPanelIdKey,
+  CurrentTabIdKey,
+  TabsGroupNameKey,
+  type Slots,
+  type TabsItemProps,
+} from "./types.d.vue"
 
-const { checked = undefined, id, name, value } = defineProps<Props>()
+const { name, open, panelId, tabId } = defineProps<TabsItemProps>()
 defineSlots<Slots>()
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs()
+const tabsGroupName = name || inject(TabsGroupNameKey, undefined) || useId()
+provide(TabsGroupNameKey, tabsGroupName)
 
-const parent = inject(TabsKey, undefined)
+const computedTabId = tabId || useId()
+const computedPanelId = panelId || useId()
 
-const uid = useId()
-
-const groupName = computed(() => name || parent?.groupName || `tabs-${uid}`)
-
-const tabId = computed(() => id || `tab-${uid}`)
-
-const grouped = computed(() => isSelected(parent?.value, value))
-
-watchEffect(() =>
-  warnGroupedChecked("TabsItem", grouped.value, checked, "Tabs"),
-)
-
-const target = computed({
-  get: () => parent?.value,
-  set: (next) => {
-    if (parent) parent.value = next
-  },
-})
-
-provide(TabsKey, reactive({ groupName, tabId }))
+provide(CurrentTabIdKey, computedTabId)
+provide(CurrentPanelIdKey, computedPanelId)
 </script>
 
 <template>
   <input
-    v-if="parent?.bound"
-    :class="['ui-input', $props.class]"
-    :id="tabId"
-    :name="groupName"
+    :aria-controls="computedPanelId"
+    :checked="open"
+    :class="['ui-tab-input', $props.class]"
+    :id="computedTabId"
+    :name="tabsGroupName"
     type="radio"
-    :value="value"
-    v-bind="defined(attrs)"
-    v-model="target"
+    v-bind="$attrs"
   />
-  <input
-    v-else
-    :class="['ui-input', $props.class]"
-    :id="tabId"
-    :name="groupName"
-    type="radio"
-    :value="value"
-    v-bind="{ ...defined({ checked: grouped ?? checked }), ...defined(attrs) }"
-  /><slot></slot>
+  <slot></slot>
 </template>

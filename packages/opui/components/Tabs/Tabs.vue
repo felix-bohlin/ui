@@ -1,46 +1,20 @@
 <script setup lang="ts">
-import {
-  computed,
-  type HTMLAttributes,
-  provide,
-  reactive,
-  useAttrs,
-  useId,
-} from "vue"
-import { useBound } from "../vue"
-import { TabsKey } from "./context.vue"
-import { warnUnnamedGroup } from "../dev"
-import type { Props, Slots } from "./types.vue-props"
+import { provide, useId } from "vue"
+import { TabsGroupNameKey, type Props, type Slots } from "./types.d.vue"
 
-const { name, orientation, overflow, role, variant } = defineProps<Props>()
+const { name } = defineProps<Props>()
 defineSlots<Slots>()
 
-const attrs = useAttrs() as HTMLAttributes
+defineOptions({
+  inheritAttrs: false,
+})
 
-const model = defineModel<string>()
-
-const bound = useBound()
-
-const uid = useId()
-
-const groupName = computed(() => name || `tabs-${uid}`)
-
-if (role === "radiogroup") warnUnnamedGroup("Tabs", attrs)
-
-provide(TabsKey, reactive({ bound, groupName, value: model }))
+const groupName = name || useId()
+provide(TabsGroupNameKey, groupName)
 </script>
 
 <template>
-  <div
-    :class="[
-      'ui-tabs',
-      orientation === 'vertical' && 'ui-vertical',
-      overflow && overflow !== 'scroll' && `ui-overflow-${overflow}`,
-      variant && variant !== 'tonal' && `ui-${variant}`,
-      $props.class,
-    ]"
-    :role="role"
-  >
+  <div :class="['ui-tabs', $props.class]" role="tablist" v-bind="$attrs">
     <slot></slot>
   </div>
 </template>

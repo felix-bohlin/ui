@@ -1,44 +1,41 @@
 <script setup lang="ts">
-import { Accordion, AccordionContent, AccordionSummary } from "opui-css/vue"
+import { Accordion } from "opui-css/vue"
 </script>
 
 <template>
   <Accordion>
-    <AccordionSummary>Plain</AccordionSummary>
-    <AccordionContent>
-      <p>
-        Return any bass within 30 days for a full refund, no awkward questions.
-      </p>
-    </AccordionContent>
+    <template #summary>Text</template>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
+      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
+      neque ante id justo.
+    </p>
   </Accordion>
 
   <Accordion variant="elevated">
-    <AccordionSummary>Elevated</AccordionSummary>
-    <AccordionContent>
-      <p>String orders over €50 ship free within the EU.</p>
-    </AccordionContent>
+    <template #summary>Elevated</template>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
+      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
+      neque ante id justo.
+    </p>
   </Accordion>
 
   <Accordion variant="outlined">
-    <AccordionSummary>Outlined</AccordionSummary>
-    <AccordionContent>
-      <p>Pay by card, bank transfer or a jar of gig money.</p>
-    </AccordionContent>
+    <template #summary>Outlined</template>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
+      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
+      neque ante id justo.
+    </p>
   </Accordion>
 
   <Accordion variant="tonal">
-    <AccordionSummary>Tonal</AccordionSummary>
-    <AccordionContent>
-      <p>Track your new flatwounds from the link in the confirmation email.</p>
-    </AccordionContent>
-  </Accordion>
-
-  <Accordion variant="transparent">
-    <AccordionSummary>Transparent</AccordionSummary>
-    <AccordionContent>
-      <p>
-        Reach our bass whisperers by chat or email on weekdays from 9 to 17.
-      </p>
-    </AccordionContent>
+    <template #summary>Tonal</template>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
+      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
+      neque ante id justo.
+    </p>
   </Accordion>
 </template>

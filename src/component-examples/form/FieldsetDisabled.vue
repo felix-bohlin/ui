@@ -4,19 +4,17 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  Fieldset,
+  FieldSet,
 } from "opui-css/vue"
 </script>
 
 <template>
-  <Fieldset aria-describedby="form-fieldset-disabled-1-description" disabled>
-    <FieldLegend>Security alerts</FieldLegend>
-    <FieldDescription id="form-fieldset-disabled-1-description"
-      >Your administrator manages these settings.</FieldDescription
-    >
-    <FieldGroup name="alerts">
-      <Checkbox checked value="email">Email</Checkbox>
-      <Checkbox checked value="sms">SMS</Checkbox>
+  <FieldSet disabled>
+    <FieldLegend>Pet dating</FieldLegend>
+    <FieldDescription>You can't change these settings</FieldDescription>
+    <FieldGroup name="notifications">
+      <Checkbox value="horse-tinder" checked>Horse Tinder</Checkbox>
+      <Checkbox value="onlyhorsefans" checked>OnlyHorseFans</Checkbox>
     </FieldGroup>
-  </Fieldset>
+  </FieldSet>
 </template>

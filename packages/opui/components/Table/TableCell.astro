@@ -1,9 +1,0 @@
----
-import type { TableCellProps as Props } from "./types.astro"
-
-const { class: className, numeric, ...rest } = Astro.props
----
-
-<td class:list={[{ "ui-numeric": numeric }, className]} {...rest}>
-  <slot />
-</td>

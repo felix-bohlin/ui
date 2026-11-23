@@ -1,19 +1,16 @@
 ---
 import type { CheckboxInputProps as Props } from "./types.astro"
-import { fieldGroupContext } from "../FieldGroup/context.astro"
 
-const { indeterminate, name, ...rest } = Astro.props as Props
-
-const field = fieldGroupContext.get()
+const { indeterminate, ...rest } = Astro.props as Props
 ---
 
 <input
   type="checkbox"
   data-indeterminate={indeterminate ? "" : undefined}
-  name={name ?? field?.name}
   {...rest}
 />
 
 <script>
-  import "../../css/js/checkbox.js"
+  import { initCheckbox } from "../../css/js/checkbox.js"
+  initCheckbox()
 </script>

@@ -1,16 +1,10 @@
 export type Props = {
-  markerAnimation?: "flip" | "rotate" | "turn"
-  variant?: "elevated" | "outlined" | "plain" | "tonal" | "transparent"
+  variant?: "default" | "outlined" | "elevated" | "tonal"
 }
 
-export type AccordionActionsProps = {
-  align?: "start" | "end"
-}
-
-export type AccordionContentProps = {}
-
-export type AccordionSummaryProps = {}
-
-export type AccordionSummarySlots<S> = {
+export type Slots<S> = {
+  actions?: S
+  children: S
   marker?: S
+  summary: string | S
 }

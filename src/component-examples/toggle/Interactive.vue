@@ -3,11 +3,9 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
 </script>
 
 <template>
-  <ToggleGroup aria-label="Travel mode" name="transport">
-    <ToggleButton checked value="walking">
+  <ToggleGroup selection="single" name="transport">
+    <ToggleButton value="walking" checked>
       <svg
-        data-icon="walk"
-        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -22,8 +20,6 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
     </ToggleButton>
     <ToggleButton value="cycling">
       <svg
-        data-icon="bike"
-        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -38,8 +34,6 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
     </ToggleButton>
     <ToggleButton value="commuting">
       <svg
-        data-icon="train"
-        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"

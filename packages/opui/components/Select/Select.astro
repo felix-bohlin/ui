@@ -1,0 +1,106 @@
+---
+import type { Props } from "./types.astro"
+
+export const title = "Select"
+
+const {
+  class: className,
+  description,
+  error,
+  dense,
+  id,
+  items = [],
+  label,
+  name,
+  spread,
+  size,
+  endText,
+  variant = "outlined",
+  ...rest
+} = Astro.props
+
+const { $id } = Astro.locals
+const labelId = $id("select-label")
+---
+
+<label
+  class:list={[
+    "ui-select",
+    size && `ui-${size}`,
+    {
+      "ui-filled": variant === "filled",
+      "ui-spread": spread,
+    },
+    className,
+  ]}
+  data-invalid={error ? "" : undefined}
+>
+  {
+    (label || Astro.slots.has("label")) && (
+      <span class="ui-label" id={labelId}>
+        {label}
+        <slot name="label" />
+      </span>
+    )
+  }
+  {
+    (description || Astro.slots.has("description")) && (
+      <span class="ui-start-text">
+        {description}
+        <slot name="description" />
+      </span>
+    )
+  }
+  <span class="ui-field">
+    <select
+      aria-labelledby={label || Astro.slots.has("label") ? labelId : undefined}
+      id={id}
+      name={name}
+      {...rest}
+    >
+      <button>
+        <selectedcontent></selectedcontent>
+      </button>
+      <div class:list={["ui-list", { "ui-dense": dense }]}>
+        {items.map((item) => <option value={item.value}>{item.text}</option>)}
+        <slot />
+      </div>
+    </select>
+    {
+      Astro.slots.has("prefix") && (
+        <span class="ui-prefix">
+          <slot name="prefix" />
+        </span>
+      )
+    }
+    {
+      Astro.slots.has("suffix") && (
+        <span class="ui-suffix">
+          <slot name="suffix" />
+        </span>
+      )
+    }
+    {
+      Astro.slots.has("header") && (
+        <span class="ui-header">
+          <slot name="header" />
+        </span>
+      )
+    }
+    {
+      Astro.slots.has("footer") && (
+        <span class="ui-footer">
+          <slot name="footer" />
+        </span>
+      )
+    }
+  </span>
+  {
+    (endText || Astro.slots.has("end-text")) && (
+      <span id={$id("end-text")} class="ui-end-text">
+        {endText}
+        <slot name="end-text" />
+      </span>
+    )
+  }
+</label>

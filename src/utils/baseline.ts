@@ -1,6 +1,3 @@
-import { featureOf } from "../../packages/opui/scripts/features.mjs"
-import { componentName } from "./components"
-
 export async function getBaselineMappings() {
   const modules = import.meta.glob("../docs/components/*.astro", {
     query: "raw",
@@ -8,13 +5,17 @@ export async function getBaselineMappings() {
     eager: true,
   })
 
-  const featureToComponents: Record<string, { name: string; slug: string }[]> =
+  const featureToComponents: Record<string, { name: string; href: string }[]> =
     {}
   const componentToFeatures: Record<string, string[]> = {}
 
   for (const path in modules) {
     const slug = path.split("/").pop()?.replace(".astro", "") || ""
-    const name = componentName(slug)
+    const name = slug
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ")
+    const href = `/components/${slug}`
 
     const content = modules[path] as string
     const baselineRegex =
@@ -37,8 +38,8 @@ export async function getBaselineMappings() {
           if (!featureToComponents[id]) {
             featureToComponents[id] = []
           }
-          if (!featureToComponents[id].some((c) => c.slug === slug)) {
-            featureToComponents[id].push({ name, slug })
+          if (!featureToComponents[id].some((c) => c.href === href)) {
+            featureToComponents[id].push({ name, href })
           }
         })
       }
@@ -49,16 +50,26 @@ export async function getBaselineMappings() {
     }
   }
 
-  Object.values(featureToComponents).forEach((list) =>
-    list.sort((a, b) => a.name.localeCompare(b.name)),
-  )
-
   return { featureToComponents, componentToFeatures }
+}
+
+export async function getBaselineData() {
+  try {
+    const response = await fetch(
+      "https://cdn.jsdelivr.net/npm/web-features/data.json",
+    )
+    if (!response.ok) throw new Error("Failed to fetch web-features data")
+    return await response.json()
+  } catch (error) {
+    console.error("Error fetching baseline data:", error)
+    return { features: {} }
+  }
 }
 
 export async function getCategorizedBaselineIds() {
   const { featureToComponents } = await getBaselineMappings()
   const ids = Object.keys(featureToComponents)
+  const data = await getBaselineData()
 
   const categories: Record<string, string[]> = {
     limited: [],
@@ -66,16 +77,13 @@ export async function getCategorizedBaselineIds() {
   }
 
   ids.forEach((id) => {
-    const feature = featureOf(id)
-    const status = feature && "status" in feature ? feature.status : undefined
+    const feature = data.features[id]
     categories.all.push(id)
-    const year = status?.baseline
-      ? status.baseline_low_date?.match(/\d{4}/)?.[0]
-      : undefined
 
-    if (!year) {
+    if (!feature || !feature.status || !feature.status.baseline) {
       categories.limited.push(id)
     } else {
+      const year = feature.status.baseline_low_date.split("-")[0]
       if (!categories[year]) {
         categories[year] = []
       }

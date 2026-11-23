@@ -1,15 +1,16 @@
 ---
-import { List, ListItem } from "opui-css/astro"
+import { List } from "@opui/astro"
+import { ListItem } from "@opui/astro"
 ---
 
 <List>
-  <ListItem label="Lou Headstock" />
+  <ListItem headline="Headline" />
   <ListItem
-    description="5-string slapper. Plays every root note with love, owns three pedalboards and still gets called the tall guitarist."
-    label="Percy Groove"
+    headline="Headline"
+    description="Supporting text that truly is quite long enough to fill up multiple lines."
   />
-  <ListItem label="Ines Hertz">
-    <p>Flatwound fan</p>
-    <p>Replies between sound checks</p>
+  <ListItem headline="Headline">
+    <p>Supporting text</p>
+    <p>Even more supporting text</p>
   </ListItem>
 </List>

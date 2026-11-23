@@ -1,24 +1,22 @@
 ---
 import type { Props } from "./types.astro"
-import { fieldGroupContext } from "./context.astro"
 export const title = "Field Group"
 
-const { class: className, name, orientation, ...rest } = Astro.props
+const { class: className, direction, name, ...rest } = Astro.props
 
-const parent = fieldGroupContext.get()
-const html = await fieldGroupContext.provide(
-  { name: name || parent?.name },
-  () => Astro.slots.render("default"),
-)
+const slotHtml = (await Astro.slots.render("default")) ?? ""
+const escapedName = name?.replaceAll("&", "&amp;").replaceAll('"', "&quot;")
+const html = name
+  ? slotHtml.replace(
+      /<(input|select|textarea)\b(?![^>]*\sname=)/g,
+      (_, tag) => `<${tag} name="${escapedName}"`,
+    )
+  : slotHtml
 ---
 
 <div
-  class:list={[
-    "ui-field-group",
-    orientation && orientation !== "auto" && `ui-${orientation}`,
-    className,
-  ]}
+  class:list={["ui-field-group", direction && `ui-${direction}`, className]}
   {...rest}
->
-  <Fragment set:html={html} />
-</div>
+  role="group"
+  set:html={html}
+/>

@@ -1,20 +1,18 @@
 ---
-import {
-  Checkbox,
-  FieldGroup,
-  FieldLegend,
-  Fieldset,
-  Form,
-} from "opui-css/astro"
+import { Checkbox } from "@opui/astro"
+import { FieldSet } from "@opui/astro"
+import { FieldLegend } from "@opui/astro"
+import { FieldGroup } from "@opui/astro"
+import { Form } from "@opui/astro"
 ---
 
 <Form>
-  <Fieldset>
-    <FieldLegend>Notifications</FieldLegend>
+  <FieldSet>
+    <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="checkbox-group">
-      <Checkbox checked>Email</Checkbox>
-      <Checkbox>Push</Checkbox>
-      <Checkbox>SMS</Checkbox>
+      <Checkbox checked>Checkbox 1</Checkbox>
+      <Checkbox>Checkbox 2</Checkbox>
+      <Checkbox>Checkbox 3</Checkbox>
     </FieldGroup>
-  </Fieldset>
+  </FieldSet>
 </Form>

@@ -1,17 +1,11 @@
 export type Props = {
-  as?: "article" | "div" | "section"
-  color?: "primary"
-  density?: "dense" | "normal" | "spacious"
-  orientation?: "auto" | "horizontal" | "vertical"
-  variant?: "elevated" | "outlined" | "plain" | "tonal" | "transparent"
+  actionsAlign?: "start" | "end"
+  variant?: "text" | "outlined" | "elevated" | "tonal"
 }
 
-export type CardActionsProps = {
-  align?: "start" | "end"
-}
-
-export type CardContentProps = {}
-
-export type CardHeaderProps = {
-  as?: "div" | "header" | "hgroup"
+export type Slots<S> = {
+  actions?: S
+  children?: S
+  content?: S
+  header?: S
 }

@@ -1,3 +1,2 @@
 * text=auto eol=lf
 pnpm-lock.yaml text eol=lf
-tests/e2e/__screenshots__/**/*.png filter=lfs diff=lfs merge=lfs -text

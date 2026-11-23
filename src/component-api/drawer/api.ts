@@ -1,20 +1,15 @@
-import { modalKeyboard } from "../keyboard.ts"
 import type { ComponentApi } from "../types"
 
 export default {
   component: "Drawer",
-  css: ["card", "drawer"],
-  keyboard: modalKeyboard("drawer"),
   notes: {
-    default:
-      'Attributes that aren\'t props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer, with the id `x-title` for `id="x"`. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`. `data-drawer-swipe` on an element in a drawer at the block start or end lets a swipe on it close the drawer.',
-    html: "Add `autofocus` to the element that gets focus on open. It can be the root or an element inside. For `[data-close-on-navigate]`, import `opui-css/elements/close-on-navigate.js`. For swiping a `.ui-block-start` or `.ui-block-end` drawer closed, import `opui-css/elements/drawer-swipe.js`.",
+    html: "Add `autofocus` to the root, or to an element inside, to choose what gets focus when it opens.",
+    vue: "Attributes that aren't props go to the `<dialog>`.",
   },
   options: [
     {
       default: '"blurred"',
-      description:
-        "The backdrop style. `transparent` keeps the page behind it fully visible.",
+      description: "The backdrop style.",
       group: "Backdrop",
       prop: "backdrop",
       values: { blurred: null, transparent: ".ui-backdrop-transparent" },
@@ -23,67 +18,49 @@ export default {
       attribute: "[closedby]",
       default: '"any"',
       description:
-        "How the drawer can be closed. `any` also closes it on a click outside. Swiping a drawer at the block start or end toward its edge is a close request too, so `none` turns it off.",
-      group: "Behavior",
+        'How the drawer can be closed. `"any"` also closes it on a click outside.',
+      group: "Close behavior",
       prop: "closedby",
     },
     {
-      attribute: "[data-close-on-navigate]",
-      default: "false",
-      description:
-        "Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. A link inside it closes it on click, unless it has `data-keep-open`, and a change of the query alone from outside it leaves it open. Reads the Navigation API.",
-      group: "Close on navigate",
-      prop: "closeOnNavigate",
-    },
-    {
-      description:
-        "The id of the `<dialog>`, which the trigger's `commandfor` points at. Required.",
+      description: "The id of the `<dialog>`. Generated when omitted.",
       prop: "id",
     },
     {
       class: ".ui-scroll-lock",
-      default: "false",
-      description:
-        "Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`.",
+      default: "true",
+      description: "Locks page scroll while the drawer is open.",
       group: "Scroll lock",
       prop: "scrollLock",
     },
     {
       default: '"inline-start"',
       description: "The side it opens from.",
-      group: "Position",
+      group: "Sides",
       prop: "side",
       values: {
         "block-end": ".ui-block-end",
         "block-start": ".ui-block-start",
         "inline-end": ".ui-inline-end",
-        "inline-start": null,
+        "inline-start": ".ui-inline-start",
       },
     },
   ],
   parts: [
     {
-      component: "DrawerHeader",
-      description:
-        "The header, a row for the title and anything next to it, with an optional close button.",
+      description: "The header. `DrawerHeader` renders it with a close button.",
       selector: ".ui-header",
+      slots: ["header"],
     },
     {
-      code: "<h2>",
-      component: "DrawerTitle",
-      description: "The title. Names the drawer through `aria-labelledby`.",
-      selector: ".ui-header > h2",
-    },
-    {
-      anchorName: "--ui-drawer-content",
-      component: "DrawerContent",
       description: "The scrollable content.",
       selector: ".ui-content",
+      slots: ["content"],
     },
     {
-      component: "DrawerFooter",
-      description: "The footer, a row at the end.",
+      description: "The footer. `DrawerFooter` renders it.",
       selector: ".ui-footer",
+      slots: ["footer"],
     },
   ],
   root: {
@@ -92,7 +69,7 @@ export default {
   },
   slots: [
     {
-      description: "The drawer parts, and any other content.",
+      description: "Raw content placed directly in the drawer.",
       name: "default",
     },
   ],

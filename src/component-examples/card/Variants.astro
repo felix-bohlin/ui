@@ -1,23 +1,19 @@
 ---
-import { Card, CardContent } from "opui-css/astro"
+import { Card } from "@opui/astro"
 ---
 
-<Card>
-  <CardContent>Plain</CardContent>
-</Card>
-
-<Card variant="elevated">
-  <CardContent>Elevated</CardContent>
+<Card variant="text">
+  <Fragment slot="content">Text</Fragment>
 </Card>
 
 <Card variant="outlined">
-  <CardContent>Outlined</CardContent>
+  <Fragment slot="content">Outlined</Fragment>
 </Card>
 
 <Card variant="tonal">
-  <CardContent>Tonal</CardContent>
+  <Fragment slot="content">Tonal</Fragment>
 </Card>
 
-<Card variant="transparent">
-  <CardContent>Transparent</CardContent>
+<Card variant="elevated">
+  <Fragment slot="content">Elevated</Fragment>
 </Card>

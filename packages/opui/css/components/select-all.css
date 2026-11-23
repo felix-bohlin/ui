@@ -1,5 +1,0 @@
-@layer components.root {
-  :where(.ui-select-all) {
-    display: contents;
-  }
-}

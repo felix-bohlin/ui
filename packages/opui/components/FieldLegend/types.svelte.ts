@@ -1,6 +1,6 @@
 import type * as Base from "./types"
 import type { SvelteHTMLElements } from "svelte/elements"
 
-export type Props =
-  | (Base.Props & { as?: "legend" } & SvelteHTMLElements["legend"])
-  | (Base.Props & { as: "p" } & SvelteHTMLElements["p"])
+// prettier-ignore
+export type Props<T extends keyof SvelteHTMLElements= "legend"> =
+  | (Base.Props & { as?: T } & SvelteHTMLElements[T])

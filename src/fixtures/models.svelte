@@ -86,13 +86,6 @@
     {/snippet}
   </Field>
   <Checkbox checked={false} {error}>Newsletter</Checkbox>
-  <fieldset id="models-toppings">
-    <legend>Toppings</legend>
-    {#each ["basil", "cheese", "olives"] as topping (topping)}
-      <Checkbox bind:group={toppings} value={topping}>{topping}</Checkbox>
-    {/each}
-    <output>{JSON.stringify(toppings)}</output>
-  </fieldset>
   <Field for="models-size" label="Size">
     <select aria-invalid={error ? "true" : undefined} id="models-size">
       <SelectButton />
@@ -205,4 +198,11 @@
     Set values
   </button>
   <button type="reset">Reset</button>
+  <fieldset id="models-toppings">
+    <legend>Toppings</legend>
+    {#each ["basil", "cheese", "olives"] as topping (topping)}
+      <Checkbox bind:group={toppings} value={topping}>{topping}</Checkbox>
+    {/each}
+    <output>{JSON.stringify(toppings)}</output>
+  </fieldset>
 </form>

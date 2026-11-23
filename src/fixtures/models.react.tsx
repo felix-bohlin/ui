@@ -88,26 +88,6 @@ export default function Models() {
       <Checkbox defaultChecked={false} error={error}>
         Newsletter
       </Checkbox>
-      <fieldset id="models-toppings">
-        <legend>Toppings</legend>
-        {["basil", "cheese", "olives"].map((topping) => (
-          <Checkbox
-            checked={toppings.includes(topping)}
-            key={topping}
-            onChange={(event) =>
-              setToppings(
-                event.currentTarget.checked
-                  ? [...toppings, topping]
-                  : toppings.filter((item) => item !== topping),
-              )
-            }
-            value={topping}
-          >
-            {topping}
-          </Checkbox>
-        ))}
-        <output>{JSON.stringify(toppings)}</output>
-      </fieldset>
       <Field htmlFor="models-size" label="Size">
         <select
           aria-invalid={error ? "true" : undefined}
@@ -227,6 +207,26 @@ export default function Models() {
         Set values
       </button>
       <button type="reset">Reset</button>
+      <fieldset id="models-toppings">
+        <legend>Toppings</legend>
+        {["basil", "cheese", "olives"].map((topping) => (
+          <Checkbox
+            checked={toppings.includes(topping)}
+            key={topping}
+            onChange={(event) =>
+              setToppings(
+                event.currentTarget.checked
+                  ? [...toppings, topping]
+                  : toppings.filter((item) => item !== topping),
+              )
+            }
+            value={topping}
+          >
+            {topping}
+          </Checkbox>
+        ))}
+        <output>{JSON.stringify(toppings)}</output>
+      </fieldset>
     </form>
   )
 }

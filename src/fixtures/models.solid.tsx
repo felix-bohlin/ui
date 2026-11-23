@@ -84,27 +84,6 @@ const Models = () => {
       <Checkbox checked={false} error={error()}>
         Newsletter
       </Checkbox>
-      <fieldset id="models-toppings">
-        <legend>Toppings</legend>
-        <For each={["basil", "cheese", "olives"]}>
-          {(topping) => (
-            <Checkbox
-              checked={toppings().includes(topping)}
-              onChange={(event) =>
-                setToppings(
-                  event.currentTarget.checked
-                    ? [...toppings(), topping]
-                    : toppings().filter((item) => item !== topping),
-                )
-              }
-              value={topping}
-            >
-              {topping}
-            </Checkbox>
-          )}
-        </For>
-        <output>{JSON.stringify(toppings())}</output>
-      </fieldset>
       <Field for="models-size" label="Size">
         <select aria-invalid={error() ? "true" : undefined} id="models-size">
           <SelectButton />
@@ -217,6 +196,27 @@ const Models = () => {
         Set values
       </button>
       <button type="reset">Reset</button>
+      <fieldset id="models-toppings">
+        <legend>Toppings</legend>
+        <For each={["basil", "cheese", "olives"]}>
+          {(topping) => (
+            <Checkbox
+              checked={toppings().includes(topping)}
+              onChange={(event) =>
+                setToppings(
+                  event.currentTarget.checked
+                    ? [...toppings(), topping]
+                    : toppings().filter((item) => item !== topping),
+                )
+              }
+              value={topping}
+            >
+              {topping}
+            </Checkbox>
+          )}
+        </For>
+        <output>{JSON.stringify(toppings())}</output>
+      </fieldset>
     </form>
   )
 }

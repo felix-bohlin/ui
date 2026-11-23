@@ -103,17 +103,6 @@ onBeforeUnmount(() =>
       </template>
     </Field>
     <Checkbox :checked="false" :error>Newsletter</Checkbox>
-    <fieldset id="models-toppings">
-      <legend>Toppings</legend>
-      <Checkbox
-        v-for="topping in ['basil', 'cheese', 'olives']"
-        :key="topping"
-        v-model="toppings"
-        :value="topping"
-        >{{ topping }}</Checkbox
-      >
-      <output>{{ JSON.stringify(toppings) }}</output>
-    </fieldset>
     <Field for="models-size" label="Size">
       <select :aria-invalid="error ? 'true' : undefined" id="models-size">
         <SelectButton />
@@ -201,5 +190,16 @@ onBeforeUnmount(() =>
     <button type="button" @click="error = !error">Toggle error</button>
     <button type="button" @click="setValues">Set values</button>
     <button type="reset">Reset</button>
+    <fieldset id="models-toppings">
+      <legend>Toppings</legend>
+      <Checkbox
+        v-for="topping in ['basil', 'cheese', 'olives']"
+        :key="topping"
+        v-model="toppings"
+        :value="topping"
+        >{{ topping }}</Checkbox
+      >
+      <output>{{ JSON.stringify(toppings) }}</output>
+    </fieldset>
   </form>
 </template>

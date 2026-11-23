@@ -128,32 +128,5 @@ export const keywords = ["multiline", "text area"]
     <AutoExample name="AffixButton" row />
   </section>
 
-  <section id="binding">
-    <h2>Binding</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Bind the textarea's <code>value</code>, as on the
-        <DocLink href="/components/field#binding">Field</DocLink> page, instead
-        of writing text inside it.
-      </Fragment>
-      <Fragment slot="react">
-        Give the textarea <code>value</code> or <code>defaultValue</code>, as on
-        the <DocLink href="/components/field#binding">Field</DocLink> page,
-        instead of children.
-      </Fragment>
-      <Fragment slot="astro">
-        The text inside the textarea is its default value. Read its
-        <code>value</code> in a script
-        (<DocLink href="/components/field#binding">Field</DocLink>).
-      </Fragment>
-      <Fragment slot="html">
-        The text inside the textarea is its default value. Read its
-        <code>value</code> in a script
-        (<DocLink href="/components/field#binding">Field</DocLink>).
-      </Fragment>
-    </Conditional>
-    <AutoExample name="Binding" column />
-  </section>
-
   <TextareaBuild slot="under-the-hood" />
 </Component>

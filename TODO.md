@@ -4518,13 +4518,14 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - A (recommended): Note on the Text field page's Binding section, for Svelte, that a form reset returns a `bind:value` input to an empty value, and to pass `defaultValue` when the reset should restore it.
     - B: Report it to Svelte with the plain-HTML repro from `tests/apps/native/`, and keep the note until it ships.
   - Removed: `TextField` is gone. The item continues under Limitations as the Text field item on the Svelte Binding example.
-- [ ] (2) Text field: in Svelte, the Binding example's own `<input bind:value>` loses the `value` attribute the server rendered when it hydrates, so a form reset empties the field instead of returning to the starting value. Svelte does this to any input whose only dynamic attribute is `bind:` (`SVELTE_SPREAD` in `tests/apps/native/cases.ts`), and since a Field takes your own input, it applies to every Svelte field (`src/component-examples/text-field/Binding.svelte:7-11`, `tests/apps/native/cases.ts:60-61`)
+- [ ] (2) Text field: in Svelte, the Binding example's own `<input bind:value>` loses the `value` attribute the server rendered when it hydrates, so a form reset empties the field instead of returning to the starting value. Svelte does this to any input whose only dynamic attribute is `bind:` (`SVELTE_SPREAD` in `tests/apps/native/cases.ts`), and since a Field takes your own input, it applies to every Svelte field (`src/component-examples/field/ValidationBinding.svelte:15-21`, `tests/apps/native/cases.ts:60-61`)
   - Summary: A Svelte text field bound with bind:value forgets its starting value on a form reset.
   - Recommended: Fix with option A. It documents the native Svelte behavior where Svelte users look.
-  - Fix: `tests/e2e/hydration.spec.ts` lists `text-field/Binding` in `KNOWN` for Svelte, which fails once Svelte keeps the attribute.
+  - Fix: `tests/e2e/hydration.spec.ts` lists `field/ValidationBinding` and `range/Value` in `KNOWN` for Svelte, which fails once Svelte keeps the attribute.
   - Options:
     - A (recommended): Note on the Text field page's Binding section, for Svelte, that a form reset returns a `bind:value` input to an empty value, and to pass `defaultValue` when the reset should restore it.
     - B: Report it to Svelte with the plain-HTML repro from `tests/apps/native/`, and keep the note until it ships.
+  - Still open: the Binding sections and their examples are gone from the Text field, Select and Textarea pages, so option A's note would go under Bound validation on the Field page, whose example shows the same drop.
 
 ## Questions
 

@@ -175,22 +175,6 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
     <AutoExample name="Required" centered />
   </section>
 
-  <section id="binding">
-    <h2>Binding</h2>
-    <p>
-      Bind the select like any control, as the
-      <DocLink href="/components/field#binding">Field</DocLink> page shows. Its
-      value is the <code>value</code> of the picked option.
-    </p>
-    <Conditional as="p">
-      <Fragment slot="vue">
-        <code>v-model</code> ignores <code>selected</code> on an option, so
-        start the bound value at the option you want.
-      </Fragment>
-    </Conditional>
-    <AutoExample name="Binding" column />
-  </section>
-
   <Fragment slot="accessibility">
     <ul>
       <li>

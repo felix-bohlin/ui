@@ -85,8 +85,8 @@ export const skillExamples = ["Basics", "Ids"]
       <a href="#affix">affixes</a> and <a href="#end-text">end text</a>.
     </li>
     <li slot="when">
-      A form you bind and check yourself, like a sign-up form:
-      <a href="#binding">binding</a> and <a href="#validation">validation</a>.
+      A form you check yourself, like a sign-up form:
+      <a href="#bound-validation">bound validation</a>.
     </li>
     <li slot="when-not">
       A choice you check: use a
@@ -120,6 +120,14 @@ export const skillExamples = ["Basics", "Ids"]
       </Fragment>
     </Conditional>
     <AutoExample name="Basics" column />
+    <Conditional as="p">
+      <Fragment slot="vue">
+        Vue sets a static <code>value</code> on the control again when it
+        hydrates, which replaces what the user typed before the page hydrated.
+        Write it as an attribute, <code>:value.attr="'1'"</code>, as the
+        examples do, or bind it with <code>v-model</code>.
+      </Fragment>
+    </Conditional>
   </section>
 
   <section id="ids">
@@ -339,56 +347,6 @@ export const skillExamples = ["Basics", "Ids"]
     </p>
 
     <AutoExample name="AutoFit" class="flex" />
-  </section>
-
-  <section id="binding">
-    <h2>Binding</h2>
-    <Conditional as="p">
-      <Fragment slot="html"
-        >Read the control's <code>value</code> in a script.</Fragment
-      >
-      <Fragment slot="react">
-        Give the control <code>value</code> with <code>onChange</code>, or
-        <code>defaultValue</code>.
-      </Fragment>
-      <Fragment slot="solid">
-        Give the control <code>value</code> with <code>onInput</code>, or
-        <code>onChange</code> on a select.
-      </Fragment>
-      <Fragment slot="svelte">
-        Use <code>bind:value</code> on the control.
-      </Fragment>
-      <Fragment slot="vue">Use <code>v-model</code> on the control.</Fragment>
-    </Conditional>
-    <p>
-      The <DocLink href="/components/text-field#binding">Text field</DocLink>,
-      <DocLink href="/components/select#binding">Select</DocLink> and
-      <DocLink href="/components/textarea#binding">Textarea</DocLink> pages show
-      each control bound.
-    </p>
-    <Conditional as="p">
-      <Fragment slot="vue">
-        Vue resets a static <code>value</code> on the control when it hydrates,
-        which replaces what the user typed before the page hydrated. Write it as
-        an attribute, <code>:value.attr="'1'"</code>, as the examples do, or
-        bind it with <code>v-model</code>.
-      </Fragment>
-    </Conditional>
-
-    <h3 id="form-reset">Form reset</h3>
-    <Conditional as="p">
-      <Fragment slot="components">
-        A form reset returns an unbound control to its default value. A bound
-        value doesn't follow the reset, so reset your state in the form's
-        <code>reset</code> event.
-      </Fragment>
-      <Fragment slot="astro">
-        A form reset returns each control to its default value.
-      </Fragment>
-      <Fragment slot="html">
-        A form reset returns each control to its default value.
-      </Fragment>
-    </Conditional>
   </section>
 
   <section id="drop-zone">

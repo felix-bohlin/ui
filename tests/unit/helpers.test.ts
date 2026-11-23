@@ -256,4 +256,10 @@ describe("toggleInGroup", () => {
     toggleInGroup(group, "b", true)
     expect(group).toEqual(["a"])
   })
+
+  test("returns the group as it is when it already holds the value or lacks it, so a form reset that sets every box again adds nothing twice", () => {
+    const group = ["a", "b"]
+    expect(toggleInGroup(group, "a", true)).toBe(group)
+    expect(toggleInGroup(group, "c", false)).toBe(group)
+  })
 })

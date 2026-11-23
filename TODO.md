@@ -2030,6 +2030,23 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - B: document for Vue that a bound select also writes `:selected` on its options, which the client branch renders.
     - C: accept it as Vue's limit for prebuilt components and say so on the Select page.
   - Fixed: a variant of option A that keeps client mounts working. `packages/opui/scripts/build-frameworks.mjs` (`serverVue`) also builds each Vue component as `*.vue.server.js` with both `render` and `ssrRender`, and `dist/vue/index.server.js` imports those; `package.json` serves them under the `node` condition. A server render takes `ssrRender`, which hands the app's slots its push function, so the app's own server branch marks the bound option, while a mount in Node (Vitest with jsdom) still finds `render`, which an `ssrRender`-only build would lack. `VUE_PREBUILT_SELECT` is gone, and `select-bound` passes in Nuxt.
+- [x] (4) Checkbox, Switch: in Svelte, every form reset appends the values of a bound `group` again: Svelte's `bind:checked` calls the setter of each input with its `defaultChecked` on a reset, which is true for every box the server rendered checked, and `toggleInGroup` adds a value without checking that the group already holds it (`packages/opui/components/group.ts:1-6`, `packages/opui/components/Checkbox/CheckboxInput.svelte:20-23`, `packages/opui/components/Switch/SwitchInput.svelte:18-21`, `scripts/component-models.mjs:73`)
+  - Summary: In Svelte, resetting a server-rendered form doubles the values in a checkbox group's bound array each time.
+  - Recommended: Fix. The guard is one line in the shared helper both inputs call.
+  - Fix: found by the census (Checkbox blind port) and confirmed in Chromium on server-rendered, hydrated boxes: three `CheckboxInput` with `bind:group` and `group = $state(["x", "y"])` give `["x", "y", "x", "y"]` on a Reset of the untouched form, six entries on a second Reset, and `["y", "y", "y"]` after unchecking X. The boxes stay right, so `example-state.spec.ts` can't see it, and a client render doesn't show it, since `defaultChecked` is false there. Make the helper return the group as it is when it already holds the value it would add or lacks the one it would remove.
+    ```ts
+    // before
+    export const toggleInGroup = <T>(group: T[], value: T, on: boolean) =>
+      on ? [...group, value] : group.filter((item) => item !== value)
+    // after
+    export const toggleInGroup = <T>(group: T[], value: T, on: boolean) =>
+      group.includes(value) === on
+        ? group
+        : on
+          ? [...group, value]
+          : group.filter((item) => item !== value)
+    ```
+  - Fixed: `toggleInGroup` returns the group as it is when it already holds the value it would add or lacks the one it would remove, so the bound array follows the boxes through any number of resets. `tests/unit/helpers.test.ts` checks the helper, and `tests/e2e/models.spec.ts` (a form reset leaves each value of a bound checkbox group once) resets a bound group twice in every framework, with the boxes' `defaultChecked` set as the server markup sets it; it failed in Svelte only before the change.
 
 ## Compiler
 

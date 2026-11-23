@@ -98,6 +98,34 @@ for (const { id, label } of FRAMEWORKS) {
       await expect(page.getByLabel("City")).toHaveValue("Lund")
     })
 
+    test("a form reset leaves each value of a bound checkbox group once", async ({
+      page,
+    }) => {
+      const errors = pageErrors(page)
+      const toppings = page.locator("#models-toppings")
+      await expect(toppings.locator("output")).toHaveText('["basil","cheese"]')
+      await toppings.locator("input").evaluateAll((inputs) =>
+        inputs.forEach((input) => {
+          const box = input as HTMLInputElement
+          box.defaultChecked = box.checked
+        }),
+      )
+
+      const expectStart = async () => {
+        await expect(toppings.getByLabel("basil")).toBeChecked()
+        await expect(toppings.getByLabel("cheese")).toBeChecked()
+        await expect(toppings.getByLabel("olives")).not.toBeChecked()
+        await expect(toppings.locator("output")).toHaveText(
+          '["basil","cheese"]',
+        )
+      }
+      await page.getByRole("button", { name: "Reset" }).click()
+      await expectStart()
+      await page.getByRole("button", { name: "Reset" }).click()
+      await expectStart()
+      expect(errors).toEqual([])
+    })
+
     test("a number field with a starting value can be emptied, stays empty when another prop changes, and a reset brings the value back", async ({
       page,
     }) => {

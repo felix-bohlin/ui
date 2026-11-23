@@ -43,6 +43,7 @@ export default function Models() {
   const [steps, setSteps] = useState(stepsOf(0))
   const [name, setName] = useState("Ada")
   const [plan, setPlan] = useState("free")
+  const [toppings, setToppings] = useState(["basil", "cheese"])
 
   useEffect(() => {
     const refresh = () => setSteps(stepsOf(1))
@@ -87,6 +88,26 @@ export default function Models() {
       <Checkbox defaultChecked={false} error={error}>
         Newsletter
       </Checkbox>
+      <fieldset id="models-toppings">
+        <legend>Toppings</legend>
+        {["basil", "cheese", "olives"].map((topping) => (
+          <Checkbox
+            checked={toppings.includes(topping)}
+            key={topping}
+            onChange={(event) =>
+              setToppings(
+                event.currentTarget.checked
+                  ? [...toppings, topping]
+                  : toppings.filter((item) => item !== topping),
+              )
+            }
+            value={topping}
+          >
+            {topping}
+          </Checkbox>
+        ))}
+        <output>{JSON.stringify(toppings)}</output>
+      </fieldset>
       <Field htmlFor="models-size" label="Size">
         <select
           aria-invalid={error ? "true" : undefined}

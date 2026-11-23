@@ -4845,6 +4845,28 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - B: keep it, and move the sentence from the API note to the top of the Vue binding sections of both pages.
   - Must stay green: `tests/e2e/example-state.spec.ts`, `tests/unit/dev-warnings.test.ts` (no false grouped `checked` warning) and the Nuxt and Vite Vue apps in `pnpm test:apps`.
   - Fixed: A bound Vue group shares its model, and each item binds its input with `v-model` to it, so the first choice writes a ref that starts `undefined`, as `v-model` on native radios does (`packages/opui/components/Tabs/TabsItem.vue`, `src/component-api/tabs/api.ts`).
+- [ ] (2) SelectButton: the React, Svelte and Vue SelectButton files are written by hand for one construct, a tag that is always one string. The compiler folds it into the element only in Solid (`staticTag`); compiled today, React gets a bare `<SelectedContent />` from a const, Svelte a `<svelte:element>` on `$derived("selectedcontent")` and Vue a `<component :is>` on a constant `computed`, none of which leaves the content the browser writes alone when it hydrates (`scripts/hand-written-components.json:1-5`, `packages/opui/components/SelectButton/SelectButton.astro:6-12`, `scripts/component-solid.mjs:146-203`, `scripts/component-svelte.mjs:269`, `scripts/component-vue.mjs:648-649`, `scripts/component-reader.mjs:1056-1062`)
+  - Summary: Three of the five SelectButton files are kept by hand because the compiler handles a constant tag only in Solid.
+  - Recommended: Fix with option A. The construct is generic, and the ledger then loses all three files.
+  - Fix: changed since the census, which asked this about the whole Select: Select and its value model are gone (`bbed15aa`), and what is left is the `<selectedcontent>` in a button. Compiled in memory from `SelectButton.astro` today: React writes `const SelectedContent = "selectedcontent"` and `<SelectedContent />`, Svelte `<svelte:element this={SelectedContent} />` with `const SelectedContent = $derived("selectedcontent")`, and Vue `<component :is="SelectedContent" />` with a `computed`. The hand-written files add a literal tag in Svelte, `v-pre` in Vue, and in React `createElement` with `dangerouslySetInnerHTML` and `suppressHydrationWarning`, which the open item on React's unrecognized-tag warning is about. That the compiled React and Vue files fail hydration is the ledger's reason, not run again.
+    ```tsx
+    // React, compiled today
+    const SelectedContent = "selectedcontent"
+    <SelectedContent />
+    // after
+    <selectedcontent dangerouslySetInnerHTML={{ __html: "" }} suppressHydrationWarning />
+    ```
+    ```svelte
+    <!-- Svelte, compiled today -->
+    const SelectedContent = $derived("selectedcontent")
+    <svelte:element this={SelectedContent} />
+    <!-- after -->
+    <selectedcontent></selectedcontent>
+    ```
+  - Options:
+    - A (recommended): move `staticTag` from the Solid emitter to the reader, so every emitter sees a variable tag that is always one string as the element itself, and mark `<SelectedContent set:html="" />` in the Astro file, which already gives React `dangerouslySetInnerHTML` and `suppressHydrationWarning`; give the same mark `v-pre` in Vue. React also needs `selectedcontent` in its JSX element types. The three files then leave `scripts/hand-written-components.json`.
+    - B: only fold the constant tag into the element (the generic half of A), and keep the React and Vue files by hand for the hydration guard.
+    - C: keep the three files by hand, as the ledger says today.
 
 ## Suggestions
 
@@ -6115,6 +6137,50 @@ Custom elements (web components) the library could add, for behavior that HTML a
     >
     ```
   - Still open: Select, TextField and Textarea are gone, and Field carries the same no-op keys: its `Without` omits `bottom`, `end`, `start` and `top`, which `Base.Props` doesn't have. The repeated inner `Omit`s are left in the Solid Menu and Rating only, and the Solid-only omits are in 15 folders.
+- [ ] (1) Package: the compiled Solid files create more memos and effects per instance than a hand-written component in four places: a slot with a fallback goes through `children()` only to be compared with `undefined`, Rating builds its stars with `Array.from` and loops them with `<For>`, `dynamic()` never gets the `static` option, and Menu uses `<Dynamic>`, which `@solidjs/web` 2 marks deprecated (`scripts/component-solid.mjs:483`, `scripts/component-solid.mjs:668-677`, `packages/opui/components/Accordion/AccordionSummary.solid.tsx:7-22`, `packages/opui/components/Rating/Rating.solid.tsx:37-96`, `packages/opui/components/Menu/Menu.solid.tsx:96-117`, `packages/opui/components/ListItem/ListItem.solid.tsx:45`)
+  - Summary: The Solid files create more memos and effects per instance than a hand-written component would.
+  - Recommended: Explain further. Each is a separate emitter change with its own trade-off, so say which to take.
+  - Fix: found by the census blind ports and re-read on the current files; none changes the markup. In turn: (1) `{resolvedMarker() === undefined ? <svg /> : resolvedMarker()}` costs two lazy memos and a condition memo where `{props.marker ?? <svg />}` is one read, in AccordionSummary, Callout, DialogHeader and DrawerHeader; with `??` a `null` slot shows the fallback, where today it renders nothing. (2) Rating builds `stars()` with `Array.from` and loops with `<For keyed={false}>`, where `<Repeat count from>` passes a plain number. (3) `dynamic(tag, { static: isStatic(props, "as") })` saves about four computations per instance in the 12 files that call `dynamic()`, for about 25 bytes each. (4) `<Dynamic component={tag()}>` is `dynamic()` plus an `omit`, and the guide documents it for a per-item tag; `@solidjs/web` 2.0 keeps it without a runtime warning. The census's Select option spread went with Select, and `group?.change?.(input)` needs its `?.` now that `change` is optional in the context type.
+    ```tsx
+    // before
+    const resolvedMarker = children(() => props.marker)
+    {resolvedMarker() === undefined ? <svg aria-hidden="true" /> : resolvedMarker()}
+    <For each={stars()} keyed={false}>{(star) => ...star()...}</For>
+    // after
+    {props.marker ?? <svg aria-hidden="true" />}
+    <Repeat count={count()} from={1}>{(star) => ...star...}</Repeat>
+    ```
+- [ ] (1) Package: four input parts set `type` before `{...rest}` in their Astro file, so their compiled React, Solid, Svelte and Vue files filter the rest with `defined()` on every render to keep a caller's `type={undefined}` from removing it, and the Vue CheckboxInput, RadioInput and SwitchInput turn attribute inheritance off to bind that filtered copy. `Tabs.astro` also destructures `role` only to read it and pass it back (`packages/opui/components/Checkbox/CheckboxInput.astro:10-15`, `packages/opui/components/Radio/RadioInput.astro:9`, `packages/opui/components/Switch/SwitchInput.astro:1-10`, `packages/opui/components/Tabs/TabsItem.astro:1-30`, `packages/opui/components/Tabs/Tabs.astro:15-37`, `packages/opui/components/Checkbox/CheckboxInput.vue:12-42`)
+  - Summary: Four inputs filter their attributes on every render to protect one fixed attribute.
+  - Recommended: Explain further and provide an example. The fix reorders the attributes of every checkbox, radio and switch in the HTML examples readers copy.
+  - Fix: found by the census (Checkbox and Tabs blind ports), which compiled a reordered `CheckboxInput.astro` in memory and got all four ports without `defined` or its import; re-read on the current files. The cost is an `Object.entries`, a filter and a `fromEntries` per render and per item, and the bytes are noise (3 to 6% per file). The census also measured the Vue CheckboxInput at 591 bytes gzipped against 458 for a plain one; part of that is the bound and unbound branches `packages/opui/components/AGENTS.md` now asks for, and the rest is this filter. With `type` after the rest, the attribute order changes in the markup and the HTML examples, so run `pnpm build-examples` and re-record the parity snapshots as intended. For `role`, leave it in the rest and read `rest.role` for the warning.
+    ```astro
+    <!-- before -->
+    <input
+      type="checkbox"
+      data-indeterminate={indeterminate ? "" : undefined}
+      name={name ?? field?.name}
+      {...rest}
+    />
+    <!-- after -->
+    <input
+      {...rest}
+      type="checkbox"
+      data-indeterminate={indeterminate ? "" : undefined}
+      name={name ?? field?.name}
+    />
+    ```
+- [ ] (1) Package: the Svelte emitter wraps every const of the Astro frontmatter in `$derived`, also one that is only read inside the `{#if}` of the slot it tests: Field declares nine, and `startId`, `endId`, `topId` and `bottomId` are each read only under `{#if start}`, `{#if end}`, `{#if top}` and `{#if bottom}` (`scripts/component-svelte.mjs:320`, `packages/opui/components/Field/Field.svelte:28-38`)
+  - Summary: The Svelte Field keeps nine derived signals per instance where a hand-written one would keep two.
+  - Recommended: Explain further. None is visible to a user, so say whether it is worth an emitter change.
+  - Fix: found by the census (TextField blind port, 2 derived signals per instance against 12 and 2.9% fewer bytes, which is noise) and re-read on the current Field, which replaced TextField. The census's other two small items are gone: the React Rating no longer passes a new `ref` to every radio, and the hand-written Vue Select went with Select. Inline a const in the template when every read sits inside a block that tests the slot or prop it reads.
+    ```svelte
+    <!-- before -->
+    const startId = $derived(start ? `${htmlFor}-start` : undefined)
+    {#if start}<span class="ui-start" id={startId}>
+    <!-- after -->
+    {#if start}<span class="ui-start" id={`${htmlFor}-start`}>
+    ```
 - [ ] (2) Dialog: no guide shows how to reach a component's element, and Vue types it as `any`: the Vue Dialog's `$el` is the `<dialog>`, but the emitted `Dialog.vue.d.ts` leaves `$el` as `any`. React already types `ref` as `Ref<HTMLDialogElement>` through `ComponentProps<"dialog">` (`packages/opui/scripts/build-frameworks.mjs:209-228`, `packages/opui/components/Dialog/types.react.ts:4`)
   - Summary: Vue apps reach a Dialog's element through an untyped `$el`, and no page says how to reach it in any framework.
   - Recommended: Fix. One compiler option types `$el` with no new API, and the guide section is already planned.
@@ -6245,6 +6311,56 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Options:
     - A: a `linkAs` prop on StepperItem and an `as` key on Stepper items, typed like the `as` of a link Button in React, Solid and Vue, passed to the inner link.
     - B: leave it, and document intercepting clicks on `.ui-stepper a` with the router for apps that need it.
+- [ ] (2) Tabs, ToggleGroup: in React, a group's context value changes on every render of its parent when `onValueChange` is an inline function, which is how callers normally write it, so every item renders again: the compiled `change` callback lists the handler as a dependency, and `tests/unit/react-context.test.ts` passes the same handler on every render (`packages/opui/components/ToggleGroup/ToggleGroup.react.tsx:26-39`, `packages/opui/components/Tabs/Tabs.react.tsx:24-36`, `scripts/component-models.mjs:116`, `tests/unit/react-context.test.ts:389-412`)
+  - Summary: In React, every tab and toggle button renders again whenever the parent of a group with an inline handler renders.
+  - Recommended: Fix. `useListener` in `react.ts` already keeps the latest handler in a ref, so the group can share that helper.
+  - Fix: found by the census (Tabs blind port), which measured in Chromium that one state change in the parent read the items' `value` 15 times against 6, and 6 with a handler defined outside the component, for 68 more bytes gzipped on Tabs. Re-read on the current files, not run again: the groups no longer keep state, but `change` still depends on `onValueChange` (and `multiple` in ToggleGroup). Take the latest handler from a ref in a helper in `react.ts`, emit it from the model in `scripts/component-models.mjs`, update the sentence on `change` in `packages/opui/components/AGENTS.md`, and make the context test pass a new function on the second render.
+    ```tsx
+    // before
+    const change = useCallback(
+      (input: HTMLInputElement) => {
+        if (multiple) onValueChange?.(checkedValues(input))
+        else onValueChange?.(input.value)
+      },
+      [multiple, onValueChange],
+    )
+    // after
+    const latest = useLatest(onValueChange)
+    const change = useCallback(
+      (input: HTMLInputElement) => {
+        if (multiple) latest.current?.(checkedValues(input))
+        else latest.current?.(input.value)
+      },
+      [multiple],
+    )
+    ```
+- [ ] (2) Rating: in React, a read-only Rating ships and hydrates as a client component: the meter branch has no handler, ref, state or effect, but the file starts with `"use client"` because the radio branch passes `onChange`. 22 of the 28 Rating uses in the examples and blocks are meters (`packages/opui/components/Rating/Rating.react.tsx:1`, `packages/opui/components/Rating/Rating.astro:33-72`, `scripts/component-react.mjs:522-528`)
+  - Summary: In React, a page that only shows ratings still sends the rating input's code to the browser.
+  - Recommended: Explain further and provide an example. The saving was measured per module, not in a Next.js build.
+  - Fix: found by the census (Rating blind port): 661 bytes gzipped of client code for any Rating, against none on a page of meters and 564 for the input when the two are split. Re-read on the current file, not measured again. That an unrendered client reference is never fetched is reasoned, so build it in Next.js first. The compiler gets there most easily if the fieldset branch is its own `.astro` part, such as `RatingInput.astro`, which the root renders when `name` is set.
+    ```tsx
+    // Rating.react.tsx, a server component
+    export default function Rating(props: Props) {
+      if (props.name) return <RatingInput {...props} />
+      return <meter aria-label={props["aria-label"] ?? props.label} ... />
+    }
+    ```
+- [ ] (2) ListItem: ListItem writes its row body twice in React, Solid and Vue too, once inside its optional wrapper and once without, because `ListItem.astro` has no way to share it and every emitter copies both branches; the Svelte half is in the Svelte leftovers item. In Solid a `choice` row also renders its `<label>` through `dynamic()` and a spread, for a tag that is always `label` (`packages/opui/components/ListItem/ListItem.astro:56-121`, `packages/opui/components/ListItem/ListItem.solid.tsx:45-110`, `packages/opui/components/ListItem/ListItem.react.tsx:40-90`, `packages/opui/components/ListItem/ListItem.vue:50-108`, `scripts/component-solid.mjs:350-360`)
+  - Summary: The ListItem files each carry the same 16 to 29 lines twice.
+  - Recommended: Explain further and provide an example. It is real compiler work for a saving that mostly compresses away.
+  - Fix: found by the census (ListItem blind port), with no behavior difference in 21 scenarios, and re-read on the current files. Hoisting the body in Solid took the client module from 2877 to 2266 bytes minified (noise once gzipped); the `choice` row mounted 2000 times in 61 ms against 34 ms for a static `<label>`. The emitters would write the nodes once, as a local function in React and Solid, a snippet in Svelte and a template in Vue, when the alternate of a condition equals the children of the one element in its consequent.
+    ```tsx
+    // after, in Solid
+    const content = () => (
+      <>
+        {resolvedStart() && <div class="ui-start">{resolvedStart()}</div>}
+        ...
+      </>
+    )
+    <Show when={tag()} fallback={content()}>
+      {(shownTag) => <Tag ...>{content()}</Tag>}
+    </Show>
+    ```
 - [ ] (3) Docs site: the icon libraries list no Solid package: `lucide-solid` 1.74 and `@tabler/icons-solidjs` 3.52 require solid-js 1, and Fluent, Material Symbols and Phosphor ship none (`src/utils/icon-libraries.ts`)
   - Summary: The icon pages name React, Svelte and Vue icon packages but none for Solid, since none supports Solid 2 yet.
   - Recommended: Fix with option A. Add the `solid:` entries once each upstream package takes solid-js 2 as a peer.

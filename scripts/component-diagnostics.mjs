@@ -72,7 +72,7 @@ export const DIAGNOSTICS = {
   BC203: {
     title: "A .map() callback the compiler can't translate",
     explain:
-      "A list compiles from `items.map((item, index) => <el>)`: the item as one name or an object pattern of plain names, an optional index, consts before the return, and one element or a condition between two as the result, which gets the key. Move other statements into a const before the list, and wrap several elements in one.",
+      "A list compiles from `items.map((item, index) => <el>)`: the item as one name or an object pattern of plain names, an optional index, consts before the return, and one element as the result, which gets the index as its key. Move other statements into a const before the list, and wrap several elements, or a condition between two, in one.",
   },
   BC204: {
     title: "A <slot> with attributes other than name",

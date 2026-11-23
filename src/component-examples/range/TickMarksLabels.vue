@@ -1,14 +1,22 @@
 <script setup lang="ts">
+import { ref } from "vue"
 import { Field } from "opui-css/vue"
+
+const qualities = ["Low", "Medium", "High"]
+
+const opacity = ref(50)
+const quality = ref(1)
 </script>
 
 <template>
   <Field for="range-tick-marks-labels-1" label="Opacity">
     <input
+      :aria-valuetext="`${opacity}%`"
       id="range-tick-marks-labels-1"
       list="range-tick-marks-labels-1-list"
       step="25"
       type="range"
+      v-model.number="opacity"
     />
     <datalist aria-hidden="true" id="range-tick-marks-labels-1-list">
       <option label="0%" value="0"></option>
@@ -20,11 +28,12 @@ import { Field } from "opui-css/vue"
   </Field>
   <Field for="range-tick-marks-labels-2" label="Quality">
     <input
+      :aria-valuetext="qualities[quality]"
       id="range-tick-marks-labels-2"
       list="range-tick-marks-labels-2-list"
       max="2"
       type="range"
-      value="1"
+      v-model.number="quality"
     />
     <datalist aria-hidden="true" id="range-tick-marks-labels-2-list">
       <option label="Low" value="0"></option>

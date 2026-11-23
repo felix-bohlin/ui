@@ -69,6 +69,87 @@ test("the elements and the css/js scripts import in Node, which has no DOM", () 
   ).toEqual({})
 })
 
+const valueHooks = (script: string) => {
+  const start = script.indexOf("function descriptorOf(")
+  const end = script.indexOf("\nexport class ")
+  return start < 0 || end < start ? undefined : script.slice(start, end)
+}
+
+test("every element that watches a control's value carries the same value hook, so they share one wrapper per control", () => {
+  const hooks = globSync("packages/opui/elements/*.js")
+    .toSorted()
+    .flatMap((file) => {
+      const script = readFileSync(file, "utf8")
+      if (!script.includes("watchValue(")) return []
+      expect(script, file).toContain(
+        'const WATCH = Symbol.for("opui-value-watch")',
+      )
+      return [{ file, hook: valueHooks(script) }]
+    })
+  expect(hooks.map(({ file }) => file)).toEqual([
+    "packages/opui/elements/character-count.js",
+    "packages/opui/elements/step-button.js",
+  ])
+  for (const { file, hook } of hooks) {
+    expect(hook, `${file} has no value hook`).toBeDefined()
+    expect(hook, `${file} has another value hook than ${hooks[0].file}`).toBe(
+      hooks[0].hook,
+    )
+  }
+})
+
+test("the value hook reader flags a script without one", () => {
+  expect(valueHooks("export class AElement {}")).toBeUndefined()
+  expect(
+    valueHooks(
+      "function descriptorOf() {}\nfunction watchValue() {}\nexport class AElement {}",
+    ),
+  ).toBe("function descriptorOf() {}\nfunction watchValue() {}")
+})
+
+const nullishHook = (script: string) => {
+  const start = script.indexOf("const NULLISH_REMOVES = [")
+  const end = script.indexOf("\nif (globalThis.customElements")
+  return start < 0 || end < start ? undefined : script.slice(start, end)
+}
+
+const nullishProblems = (file: string, script: string) =>
+  [...script.matchAll(/customElements\.define\("[\w-]+", (\w+)\)/g)].flatMap(
+    ([, name]) =>
+      script.includes(`removeOnNullish(${name})\n  customElements.define(`)
+        ? []
+        : [`${file} defines ${name} without calling removeOnNullish first`],
+  )
+
+test("every element removes a global attribute set to null or undefined, with the same hook, called before it is defined", () => {
+  const scripts = globSync("packages/opui/elements/*.js")
+    .toSorted()
+    .map((file) => ({ file, script: readFileSync(file, "utf8") }))
+    .filter(({ script }) => script.includes("customElements.define("))
+  expect(scripts.length).toBeGreaterThan(5)
+  expect(
+    scripts.flatMap(({ file, script }) => nullishProblems(file, script)),
+  ).toEqual([])
+  const first = nullishHook(scripts[0].script)
+  expect(first).toBeDefined()
+  for (const { file, script } of scripts) {
+    expect(
+      nullishHook(script),
+      `${file} has another nullish hook than ${scripts[0].file}`,
+    ).toBe(first)
+  }
+})
+
+test("the nullish hook check flags an element defined without the hook", () => {
+  expect(
+    nullishProblems(
+      "a.js",
+      'if (globalThis.customElements) {\n  customElements.define("opui-a", AElement)\n}',
+    ),
+  ).toEqual(["a.js defines AElement without calling removeOnNullish first"])
+  expect(nullishHook("export class AElement {}")).toBeUndefined()
+})
+
 const typingProblems = (file: string, script: string, types: string) =>
   [...script.matchAll(/customElements\.define\("([\w-]+)", (\w+)\)/g)].flatMap(
     ([, tag, name]) => [

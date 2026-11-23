@@ -33,7 +33,6 @@ import {
     <FieldGroup orientation="horizontal">
       <Field for="order-history-search">
         <input
-          aria-describedby="order-history-search-start"
           aria-label="Search orders"
           id="order-history-search"
           name="search"

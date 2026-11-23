@@ -1,0 +1,20 @@
+<div class="ui-field">
+  <label class="ui-label" for="range-value-1">Brightness</label>
+  <span class="ui-field-container">
+    <input aria-valuetext="80%" id="range-value-1" type="range" value="80" />
+  </span>
+  <span class="ui-end-text" id="range-value-1-end-text">
+    <output for="range-value-1">80%</output>
+  </span>
+</div>
+
+<script type="module">
+  const input = document.querySelector("#range-value-1")
+  const output = document.querySelector('output[for="range-value-1"]')
+
+  input?.addEventListener("input", () => {
+    const text = `${input.value}%`
+    input.setAttribute("aria-valuetext", text)
+    if (output) output.textContent = text
+  })
+</script>

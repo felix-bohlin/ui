@@ -16,6 +16,7 @@ import {
   propsImport,
   rewriteExpression,
   rewriteStatement,
+  scriptImports,
   slotOrder,
   styleOption,
   withImport,
@@ -284,11 +285,6 @@ export const toReact = (component) => {
           )}${hydrating.size ? ")" : ""}`,
         ]
       : []),
-    ...(scripts.length
-      ? [
-          `useEffect(() => {\n${scripts.map((specifier) => `  void import(${JSON.stringify(specifier)})\n`).join("")}}, [])`,
-        ]
-      : []),
   ]
   let usesCx = false
   let usesDefined = false
@@ -406,7 +402,7 @@ export const toReact = (component) => {
   const { render } = jsxEmitter({
     attributes: elementAttributes,
     each: (node) => {
-      node.rows.forEach((row) => keys.set(row, node.key?.code ?? node.index))
+      keys.set(node.row, node.index)
       return {
         consts: node.consts.map(
           ({ code, name }) =>
@@ -485,7 +481,6 @@ export const toReact = (component) => {
     modelHelpers("react", component),
   )
   const reactValues = [
-    ...(scripts.length ? ["useEffect"] : []),
     ...(uid ? ["useId"] : []),
     ...(provide ? ["useMemo"] : []),
     ...namesFrom(used, "react"),
@@ -502,6 +497,7 @@ export const toReact = (component) => {
     : undefined
   const importLines = [
     ...(reactImport ? [reactImport] : []),
+    ...scriptImports(component),
     ...(usesDefined ? [`import { defined } from "../attrs"`] : []),
     ...(usesCx ? [`import { cx } from "../cx"`] : []),
     ...(reactHelpers.length

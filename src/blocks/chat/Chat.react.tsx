@@ -74,7 +74,6 @@ export default function Chat() {
                 }
               >
                 <input
-                  aria-describedby="chat-search-start"
                   aria-label="Search messages"
                   id="chat-search"
                   name="chat-search"

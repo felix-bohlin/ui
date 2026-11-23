@@ -27,7 +27,7 @@ import { Field } from "opui-css/vue"
         aria-describedby="field-validation-3-end-text"
         aria-invalid="true"
         id="field-validation-3"
-        value="ada"
+        :value.attr="'ada'"
       />
     </Field>
     <Field
@@ -40,7 +40,7 @@ import { Field } from "opui-css/vue"
         aria-describedby="field-validation-4-end-text"
         aria-invalid="true"
         id="field-validation-4"
-        value="STRINGS23"
+        :value.attr="'STRINGS23'"
       />
     </Field>
   </div>

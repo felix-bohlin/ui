@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import "../../elements/password-toggle.js"
 import type { Props } from "./types.react"
 
 export default function PasswordToggle({
@@ -10,10 +10,6 @@ export default function PasswordToggle({
   iconUnchecked,
   ...rest
 }: Props) {
-  useEffect(() => {
-    void import("../../elements/password-toggle.js")
-  }, [])
-
   return (
     <opui-password-toggle {...rest}>
       <button

@@ -1123,6 +1123,13 @@
     "url": "/svelte/components/field/#basics"
   },
   {
+    "id": "component-field-svelte-ids",
+    "title": "Ids",
+    "page": "Field",
+    "category": "Component",
+    "url": "/svelte/components/field/#ids"
+  },
+  {
     "id": "component-field-svelte-variants",
     "title": "Variants",
     "page": "Field",
@@ -1135,6 +1142,13 @@
     "page": "Field",
     "category": "Component",
     "url": "/svelte/components/field/#sizes"
+  },
+  {
+    "id": "component-field-svelte-dense",
+    "title": "Dense",
+    "page": "Field",
+    "category": "Component",
+    "url": "/svelte/components/field/#dense"
   },
   {
     "id": "component-field-svelte-hidden-label",
@@ -1186,6 +1200,13 @@
     "url": "/svelte/components/field/#validation"
   },
   {
+    "id": "component-field-svelte-bound-validation",
+    "title": "Bound validation",
+    "page": "Field",
+    "category": "Component",
+    "url": "/svelte/components/field/#bound-validation"
+  },
+  {
     "id": "component-field-svelte-spread",
     "title": "Spread",
     "page": "Field",
@@ -1198,13 +1219,6 @@
     "page": "Field",
     "category": "Component",
     "url": "/svelte/components/field/#auto-fit"
-  },
-  {
-    "id": "component-field-svelte-dense",
-    "title": "Dense",
-    "page": "Field",
-    "category": "Component",
-    "url": "/svelte/components/field/#dense"
   },
   {
     "id": "component-field-svelte-drop-zone",
@@ -1943,6 +1957,13 @@
     "url": "/svelte/components/number-field/#step"
   },
   {
+    "id": "component-number-field-svelte-unit",
+    "title": "Unit",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/svelte/components/number-field/#unit"
+  },
+  {
     "id": "component-number-field-svelte-buttons",
     "title": "Buttons",
     "page": "Number field",
@@ -2012,6 +2033,13 @@
     "page": "One-time code",
     "category": "Component",
     "url": "/svelte/components/one-time-code/#alphanumeric"
+  },
+  {
+    "id": "component-one-time-code-svelte-hidden-label",
+    "title": "Hidden label",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/svelte/components/one-time-code/#hidden-label"
   },
   {
     "id": "component-one-time-code-svelte-validation",
@@ -2220,11 +2248,11 @@
     "url": "/svelte/components/range/#value"
   },
   {
-    "id": "component-range-svelte-tick-marks",
-    "title": "Tick marks",
+    "id": "component-range-svelte-labels",
+    "title": "Labels",
     "page": "Range",
     "category": "Component",
-    "url": "/svelte/components/range/#tick-marks"
+    "url": "/svelte/components/range/#labels"
   },
   {
     "id": "component-range-svelte-disabled",
@@ -2334,20 +2362,6 @@
     "url": "/svelte/components/select/#select"
   },
   {
-    "id": "component-select-svelte-preselected",
-    "title": "Preselected",
-    "page": "Select",
-    "category": "Component",
-    "url": "/svelte/components/select/#preselected"
-  },
-  {
-    "id": "component-select-svelte-binding",
-    "title": "Binding",
-    "page": "Select",
-    "category": "Component",
-    "url": "/svelte/components/select/#binding"
-  },
-  {
     "id": "component-select-svelte-option-groups",
     "title": "Option groups",
     "page": "Select",
@@ -2369,11 +2383,25 @@
     "url": "/svelte/components/select/#rich-options"
   },
   {
+    "id": "component-select-svelte-preselected",
+    "title": "Preselected",
+    "page": "Select",
+    "category": "Component",
+    "url": "/svelte/components/select/#preselected"
+  },
+  {
     "id": "component-select-svelte-disabled",
     "title": "Disabled",
     "page": "Select",
     "category": "Component",
     "url": "/svelte/components/select/#disabled"
+  },
+  {
+    "id": "component-select-svelte-required",
+    "title": "Required",
+    "page": "Select",
+    "category": "Component",
+    "url": "/svelte/components/select/#required"
   },
   {
     "id": "component-spinner-svelte",
@@ -2831,20 +2859,6 @@
     "url": "/svelte/components/text-field/#input"
   },
   {
-    "id": "component-text-field-svelte-password-toggle",
-    "title": "Password toggle",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/svelte/components/text-field/#password-toggle"
-  },
-  {
-    "id": "component-text-field-svelte-binding",
-    "title": "Binding",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/svelte/components/text-field/#binding"
-  },
-  {
     "id": "component-text-field-svelte-input-types",
     "title": "Input types",
     "page": "Text field",
@@ -2864,6 +2878,13 @@
     "page": "Text field",
     "category": "Component",
     "url": "/svelte/components/text-field/#file"
+  },
+  {
+    "id": "component-text-field-svelte-password-toggle",
+    "title": "Password toggle",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/svelte/components/text-field/#password-toggle"
   },
   {
     "id": "component-text-field-svelte-autosuggest",
@@ -2888,6 +2909,13 @@
     "url": "/svelte/components/textarea/#textarea"
   },
   {
+    "id": "component-textarea-svelte-rows",
+    "title": "Rows",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/svelte/components/textarea/#rows"
+  },
+  {
     "id": "component-textarea-svelte-character-count",
     "title": "Character count",
     "page": "Textarea",
@@ -2900,20 +2928,6 @@
     "page": "Textarea",
     "category": "Component",
     "url": "/svelte/components/textarea/#affix"
-  },
-  {
-    "id": "component-textarea-svelte-binding",
-    "title": "Binding",
-    "page": "Textarea",
-    "category": "Component",
-    "url": "/svelte/components/textarea/#binding"
-  },
-  {
-    "id": "component-textarea-svelte-rows",
-    "title": "Rows",
-    "page": "Textarea",
-    "category": "Component",
-    "url": "/svelte/components/textarea/#rows"
   },
   {
     "id": "component-timeline-svelte",
@@ -4535,7 +4549,7 @@
     "id": "api-control-group-svelte",
     "title": "Control group API",
     "description": "Reference for Control group Svelte component.",
-    "api": "ControlGroup Container element. A number field, select, text field or textarea (a textarea only in a vertical group). Its `.ui-field-container` joins the controls next to it. A button or button link. color Optional colors for the buttons. orientation The orientation of the element. overflow What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size. role The `role` of the root, such as `toolbar`. A passed role replaces `group`. size The size of the buttons and fields. variant The variant of the buttons.",
+    "api": "ControlGroup Container element. A `Field` with an input, a select or a textarea (a textarea only in a vertical group). Its `.ui-field-container` joins the controls next to it. A button or button link. color Optional colors for the buttons. orientation The orientation of the element. overflow What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size. role The `role` of the root, such as `toolbar`. A passed role replaces `group`. size The size of the buttons and fields. variant The variant of the buttons.",
     "category": "API",
     "url": "/svelte/api/#control-group"
   },
@@ -4647,7 +4661,7 @@
     "id": "api-field-svelte",
     "title": "Field API",
     "description": "Reference for Field Svelte component.",
-    "api": "Field Container element, a `<div>`. The label inside is a `<label for>` that names the control by itself. The label for the field. label label Start text displayed above the field. startText start-text The boxed control area. Content above the control, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start Your control, written directly inside `.ui-field-container` with its `id` set to `for`. Bind it, name it and mark it `required`, `disabled` or `aria-invalid=\"true\"` like any control. A `<textarea>` grows with its content, and a `<select>` is a customizable select. Content at the inline-end of the field, inside the border, such as a `PasswordToggle`. end Content below the control, inside the border, with a divider. bottom Supporting text displayed below the field, and a `CharacterCount`. endText end-text autoFit Lets the width follow the content, from `25ch`. dense Packs the options of a select tighter. dropZone Makes a `type=\"file\"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker. for The `id` of your control. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for=\"x\"`. Point the control's `aria-describedby` at the ones it shows, in that order. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. size The size of the element. spread Pushes the label and start text to one side and the control to the other. variant The variant to use.",
+    "api": "Field Container element, a `<div>`. The label inside is a `<label for>` that names the control by itself. The label for the field. label label Start text displayed above the field. startText start-text The boxed control area. Content above the control, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start Your control, written directly inside `.ui-field-container` with its `id` set to `for`. Bind it, name it and mark it `required`, `disabled` or `aria-invalid=\"true\"` like any control. A `<textarea>` grows with its content, and a `<select>` is a customizable select. Content at the inline-end of the field, inside the border, such as a `PasswordToggle`. end Content below the control, inside the border, with a divider. bottom Supporting text displayed below the field, and a `CharacterCount`. endText end-text autoFit Lets the width follow the content, from `25ch`, or `4ch` with step buttons. A textarea can then be resized both ways. dense Packs the options of a select tighter. dropZone Makes a `type=\"file\"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker. for The `id` of your control. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for=\"x\"`. Point the control's `aria-describedby` at the ones it shows, in that order. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. size The size of the element. spread Pushes the label and start text to one side and the control to the other. variant The variant to use.",
     "category": "API",
     "url": "/svelte/api/#field"
   },
@@ -4735,7 +4749,7 @@
     "id": "api-one-time-code-svelte",
     "title": "One-time code API",
     "description": "Reference for One-time code Svelte component.",
-    "api": "OneTimeCode Container element. The label for the field. label label Draws a box per character and a ring on the next one. Your input, written directly inside `.ui-field-container` with its `id` set to `for`. Its `maxlength`, from 4 to 8, sets the number of boxes. `autocomplete=\"one-time-code\"` lets the browser fill in a code it received; use `off` for a code read off another screen. Mark it `required`, `disabled` or `aria-invalid=\"true\"` like any input. Supporting text displayed below the field. endText end-text for The `id` of your `<input>`. The label points at it, and the end text's id, `x-end-text`, starts with it, for the input's `aria-describedby`. grouped Draws a dash between the two halves of the code. Use it with an even `maxlength`. size The size of the element.",
+    "api": "OneTimeCode Holds the label, the boxes and the end text, and fits the boxes to its width. The label for the field. label label Draws a box per character and a ring on the next one. Your input, written directly inside `.ui-field-container` with its `id` set to `for`. Its `maxlength`, from 4 to 8, sets the number of boxes. `autocomplete=\"one-time-code\"` lets the browser fill in a code it received; use `off` for a code read off another screen. Mark it `required`, `disabled` or `aria-invalid=\"true\"` like any input. Supporting text displayed below the field. endText end-text for The `id` of your `<input>`. The label points at it, and the end text gets an id that starts with it: `x-end-text` for `for=\"x\"`. Point the input's `aria-describedby` at it. grouped Draws a dash between the two halves of the code. Use it with an even `maxlength`. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The input keeps it as its accessible name. size The size of the element.",
     "category": "API",
     "url": "/svelte/api/#one-time-code"
   },
@@ -4743,7 +4757,7 @@
     "id": "api-password-toggle-svelte",
     "title": "Password toggle API",
     "description": "Reference for Password toggle Svelte component.",
-    "api": "PasswordToggle A `.ui-button` with `aria-pressed` and `command=\"--toggle-password\"` that shows and hides the password. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is, and `aria-disabled` while the input is. `<opui-password-toggle>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-password-toggle>` is defined. for The `id` of the password input the toggle shows and hides, as its button's `commandfor`. label The accessible name of the toggle. Pass it translated. hidePassword() Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits. input The `<input>` its button's `commandfor` names, or `null`. Read-only. showPassword() Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
+    "api": "PasswordToggle A `.ui-button.ui-round` with `aria-pressed` and `command=\"--toggle-password\"` that shows and hides the password. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is disabled, and `aria-disabled` while the input is `aria-disabled`. `<opui-password-toggle>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-password-toggle>` is defined. for The `id` of the password input the toggle shows and hides, as its button's `commandfor`. label The accessible name of the toggle. Pass it translated. hidePassword() Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits. input The `<input>` its button's `commandfor` names, or `null`. Read-only. showPassword() Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
     "category": "API",
     "url": "/svelte/api/#password-toggle"
   },
@@ -4775,7 +4789,7 @@
     "id": "api-range-svelte",
     "title": "Range API",
     "description": "Reference for Range Svelte component.",
-    "api": "Range A `.ui-field` with an `<input type=\"range\">` in its container, which `range.css` draws without the field's box, as tall as any field's control. Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's `variant` and `size` set the track and thumb. Tick marks for the input it's linked to with `list`, and the `label` of each option under its mark. Give it `aria-hidden=\"true\"`, since the labels repeat the value.",
+    "api": "Range A `.ui-field` with an `<input type=\"range\">` in its container, which `range.css` draws without the field's box, as tall as any field's control. Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's variant (`variant`, `.ui-filled`) and size (`size`, `.ui-x-small`, `.ui-small`, `.ui-large`) set the track and thumb. Labels for the input it's linked to with `list`: the `label` of each option shows under its value. The labels are spread evenly, so space the values evenly. Give it `aria-hidden=\"true\"`, and set `aria-valuetext` on the input to the label at its value, since screen readers don't read the datalist.",
     "category": "API",
     "url": "/svelte/api/#range"
   },

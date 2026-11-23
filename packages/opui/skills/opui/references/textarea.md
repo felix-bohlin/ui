@@ -2,7 +2,7 @@
 
 A multi-line text input in a Field that grows with its text, with a character count.
 
-- CSS: `opui-css/css/components/text-field.css` and `opui-css/css/components/textarea.css`.
+- CSS: `opui-css/css/components/field.css` and `opui-css/css/components/textarea.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/textarea.md), [Astro](https://opui.dev/astro/components/textarea.md), [React](https://opui.dev/react/components/textarea.md), [Solid](https://opui.dev/solid/components/textarea.md), [Svelte](https://opui.dev/svelte/components/textarea.md), [Vue](https://opui.dev/vue/components/textarea.md).
 
 ## CharacterCount
@@ -23,16 +23,17 @@ A multi-line text input in a Field that grows with its text, with a character co
 ### Notes
 
 - HTML: Add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`.
-- Astro, Solid, Svelte and Vue: Put it in the field's `end-text` slot. It loads `opui-css/elements/character-count.js`, which keeps the count.
-- React: Put it in the field's `endText`. It loads `opui-css/elements/character-count.js`, which keeps the count.
+- Astro and Vue: Put it in the field's `end-text` slot. It loads `opui-css/elements/character-count.js`, which keeps the count.
+- React and Solid: Put it in the field's `endText`. It loads `opui-css/elements/character-count.js`, which keeps the count.
+- Svelte: Put it in the field's `endText` snippet. It loads `opui-css/elements/character-count.js`, which keeps the count.
 
 ## Component properties
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 
-### text-field.css
+### field.css
 
-- `--_accent`: Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a Select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
+- `--_accent`: Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
 - `--_arrow-inset`: Distance of the select arrow from the inline end.
 - `--_chevron-image`: The select arrow, as an image used for a mask.
 - `--_chevron-size`: Width and height of the select arrow.
@@ -42,7 +43,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_field-padding-block`: The preferred block padding of the control. Set by the size classes.
 - `--_field-padding-inline`: The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.
 - `--_file-button-padding`: The preferred gap around the `::file-selector-button` of a file field: `--ui-space-2`, or `--ui-space-1` in `.ui-small` and `.ui-x-small`.
-- `--_font-size`: The font size of the control and affixes. At least 16px on iPhone and iPad (`css/compat/text-field.css`), so iOS Safari doesn't zoom in on focus.
+- `--_font-size`: The font size of the control and affixes. At least 16px on iPhone and iPad (`css/compat/field.css`), so iOS Safari doesn't zoom in on focus.
 - `--_min-inline-size`: The least width of the control next to `.ui-start` and `.ui-end`, which shrink and end in an ellipsis to keep it, or the whole field when it is narrower. Defaults to `8ch`; a field with a `StepButton` sets its own.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_radius`: The corner radius of `.ui-field-container` and a file input's button. Defaults to `--ui-field-radius`, or `--ui-radius` when the theme doesn't set it.
@@ -63,85 +64,48 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--u
 
 ## HTML
 
-### Example: Character count
+### Example: Basics
 
 ```html
 <div class="ui-field">
-  <label class="ui-label" for="textarea-character-count-1">Bio</label>
+  <label class="ui-label" for="textarea-basics-1">Message</label>
   <span class="ui-field-container">
-    <textarea
-      aria-describedby="textarea-character-count-1-end-text"
-      id="textarea-character-count-1"
-      maxlength="160"
-    ></textarea>
-  </span>
-  <span class="ui-end-text" id="textarea-character-count-1-end-text">
-    Up to 160 characters, shown on your profile.
-    <opui-character-count
-      aria-hidden="true"
-      label="{count} characters to go"
-      class="ui-value"
-    ></opui-character-count>
+    <textarea id="textarea-basics-1" name="message"></textarea>
   </span>
 </div>
-
-<script type="module">
-  import "opui-css/elements/character-count.js"
-</script>
 ```
 
 ## Astro
 
-`import { CharacterCount } from "opui-css/astro"`
+`import { CharacterCount, Field } from "opui-css/astro"`
 
-### Example: Character count
+### Example: Basics
 
 ```astro
 ---
-import { CharacterCount, Field } from "opui-css/astro"
+import { Field } from "opui-css/astro"
 ---
 
-<Field for="textarea-character-count-1" label="Bio">
-  <textarea
-    aria-describedby="textarea-character-count-1-end-text"
-    id="textarea-character-count-1"
-    maxlength="160"
-  ></textarea>
-  <Fragment slot="end-text">
-    Up to 160 characters, shown on your profile.
-    <CharacterCount label="{count} characters to go" />
-  </Fragment>
+<Field for="textarea-basics-1" label="Message">
+  <textarea id="textarea-basics-1" name="message"></textarea>
 </Field>
 ```
 
 ## React
 
-`import { CharacterCount } from "opui-css/react"`
+`import { CharacterCount, Field } from "opui-css/react"`
 
 - Client components (`"use client"`): `CharacterCount`.
 
-### Example: Character count
+### Example: Basics
 
 ```tsx
-import { CharacterCount, Field } from "opui-css/react"
+import { Field } from "opui-css/react"
 
-export default function CharacterCountExample() {
+export default function Basics() {
   return (
-    <Field
-      endText={
-        <>
-          Up to 160 characters, shown on your profile.
-          <CharacterCount label="{count} characters to go" />
-        </>
-      }
-      htmlFor="textarea-character-count-1"
-      label="Bio"
-    >
-      <textarea
-        aria-describedby="textarea-character-count-1-end-text"
-        id="textarea-character-count-1"
-        maxLength={160}
-      ></textarea>
+    <Field htmlFor="textarea-basics-1" label="Message">
+      <textarea id="textarea-basics-1" name="message"></textarea>
     </Field>
   )
 }
@@ -149,31 +113,18 @@ export default function CharacterCountExample() {
 
 ## Solid
 
-`import { CharacterCount } from "opui-css/solid"`
+`import { CharacterCount, Field } from "opui-css/solid"`
 
-### Example: Character count
+### Example: Basics
 
 ```tsx
 /** @jsxImportSource @solidjs/web */
-import { CharacterCount, Field } from "opui-css/solid"
+import { Field } from "opui-css/solid"
 
-export default function CharacterCountExample() {
+export default function Basics() {
   return (
-    <Field
-      endText={
-        <>
-          Up to 160 characters, shown on your profile.
-          <CharacterCount label="{count} characters to go" />
-        </>
-      }
-      for="textarea-character-count-1"
-      label="Bio"
-    >
-      <textarea
-        aria-describedby="textarea-character-count-1-end-text"
-        id="textarea-character-count-1"
-        maxlength="160"
-      ></textarea>
+    <Field for="textarea-basics-1" label="Message">
+      <textarea id="textarea-basics-1" name="message"></textarea>
     </Field>
   )
 }
@@ -181,49 +132,34 @@ export default function CharacterCountExample() {
 
 ## Svelte
 
-`import { CharacterCount } from "opui-css/svelte"`
+`import { CharacterCount, Field } from "opui-css/svelte"`
 
-### Example: Character count
+### Example: Basics
 
 ```svelte
 <script lang="ts">
-  import { CharacterCount, Field } from "opui-css/svelte"
+  import { Field } from "opui-css/svelte"
 </script>
 
-<Field for="textarea-character-count-1" label="Bio">
-  <textarea
-    aria-describedby="textarea-character-count-1-end-text"
-    id="textarea-character-count-1"
-    maxlength="160"></textarea>
-  {#snippet endText()}
-    Up to 160 characters, shown on your profile.
-    <CharacterCount label={"{count} characters to go"} />
-  {/snippet}
+<Field for="textarea-basics-1" label="Message">
+  <textarea id="textarea-basics-1" name="message"></textarea>
 </Field>
 ```
 
 ## Vue
 
-`import { CharacterCount } from "opui-css/vue"`
+`import { CharacterCount, Field } from "opui-css/vue"`
 
-### Example: Character count
+### Example: Basics
 
 ```vue
 <script setup lang="ts">
-import { CharacterCount, Field } from "opui-css/vue"
+import { Field } from "opui-css/vue"
 </script>
 
 <template>
-  <Field for="textarea-character-count-1" label="Bio">
-    <textarea
-      aria-describedby="textarea-character-count-1-end-text"
-      id="textarea-character-count-1"
-      maxlength="160"
-    ></textarea>
-    <template #end-text>
-      Up to 160 characters, shown on your profile.
-      <CharacterCount label="{count} characters to go" />
-    </template>
+  <Field for="textarea-basics-1" label="Message">
+    <textarea id="textarea-basics-1" name="message"></textarea>
   </Field>
 </template>
 ```

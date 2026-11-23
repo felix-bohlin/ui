@@ -11,11 +11,13 @@ import {
   Switch as UISwitch,
 } from "opui-css/astro"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
-import TextFieldCSS from "@opui/css/components/text-field.css?raw"
+import ButtonCSS from "@opui/css/components/button.css?raw"
+import FieldCSS from "@opui/css/components/field.css?raw"
+import PasswordToggleJS from "@opui/elements/password-toggle.js?raw"
 
 import passwordToggleApi from "../../component-api/password-toggle/api"
-import TextFieldBuild from "../../components/UnderTheHood/TextFieldBuild.astro"
 
 export const description =
   "A single-line text input in a Field: input types, numbers as text, a password toggle and suggestions."
@@ -25,16 +27,22 @@ export const keywords = ["email", "input", "password", "search", "text box"]
 
 <Component
   description={description}
+  base="field"
   slug="text-field"
   browserSupport={[
     "alt-text-generated-content",
+    "color-mix",
     "container-queries",
+    "container-style-queries",
     "datalist",
     "has",
     "invoker-commands",
     "lh",
+    "light-dark",
+    "popover",
     "reading-flow",
     "registered-custom-properties",
+    "relative-color",
     "user-pseudos",
   ]}
   fallbacks={{
@@ -42,8 +50,19 @@ export const keywords = ["email", "input", "password", "search", "text box"]
       "Without `reading-flow`, Tab and screen readers follow the markup, which puts the top and start parts before the control, as they're drawn. Hand-written HTML needs that order too.",
   }}
   apis={[{ title: "Password toggle API", api: passwordToggleApi }]}
+  changelogPaths={[
+    { path: "packages/opui/css/components/field.css", type: "css" },
+    { path: "packages/opui/css/components/text-field.css", type: "css" },
+  ]}
   installationTabs={[
-    { title: "text-field.css", code: TextFieldCSS, lang: "css" },
+    {
+      title: "field.css",
+      code: FieldCSS,
+      lang: "css",
+      isDependency: true,
+    },
+    { title: "button.css", code: ButtonCSS, lang: "css", isDependency: true },
+    { title: "password-toggle.js", code: PasswordToggleJS, lang: "js" },
   ]}
 >
   <Fragment slot="title">Text field</Fragment>
@@ -82,84 +101,12 @@ export const keywords = ["email", "input", "password", "search", "text box"]
     <h2>Input</h2>
     <p>
       A text field is a <DocLink href="/components/field">Field</DocLink> with
-      an <code>&lt;input&gt;</code> inside. The Field page shows the variants,
-      sizes, start and end text, affixes, validation and layout every field
-      shares.
+      an <code>&lt;input&gt;</code> inside. Write it and wire its
+      <code>aria-describedby</code> as the
+      <DocLink href="/components/field#basics">Field</DocLink> page shows, with
+      the variants, sizes, affixes, validation and layout every field shares.
     </p>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Write the <code>&lt;input&gt;</code> inside the field, with its
-        <code>id</code> set to <code>for</code>, and bind, name and validate it
-        like any input. The types require <code>for</code>.
-      </Fragment>
-      <Fragment slot="react">
-        Write the <code>&lt;input&gt;</code> inside the field, with its
-        <code>id</code> set to <code>htmlFor</code>, and bind, name and validate
-        it like any input. The types require <code>htmlFor</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Put the <code>&lt;input&gt;</code> directly in
-        <code>.ui-field-container</code>, and point the
-        <code>&lt;label for&gt;</code> at its <code>id</code>.
-      </Fragment>
-    </Conditional>
-    <p>
-      Each part the field shows has an id that starts with the input's:
-      <code>x-start-text</code>, <code>x-top</code>, <code>x-start</code>,
-      <code>x-end</code>, <code>x-bottom</code> and <code>x-end-text</code> for
-      an input with <code>id="x"</code>. Point the input's
-      <code>aria-describedby</code> at the ones it shows, in that order, so a
-      unit, a hint or an error is read after the name.
-    </p>
-  </section>
-
-  <section id="password-toggle">
-    <h2>Password toggle</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Put a <code>PasswordToggle</code> in the field's <code>end</code>, with
-        <code>for</code> set to the input's <code>id</code>, and leave the end
-        part out of the input's <code>aria-describedby</code>.
-      </Fragment>
-      <Fragment slot="react">
-        Put a <code>PasswordToggle</code> in the field's <code>end</code>, with
-        <code>htmlFor</code> set to the input's <code>id</code>, and leave the
-        end part out of the input's <code>aria-describedby</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Put <code>&lt;opui-password-toggle&gt;</code> around the button in
-        <code>.ui-end</code>, and import
-        <code>opui-css/elements/password-toggle.js</code>.
-      </Fragment>
-    </Conditional>
-    <DefaultIcon
-      slots={["icon-unchecked", "icon-checked"]}
-      tokens={["--ui-icon-show", "--ui-icon-hide"]}
-    />
-    <AutoExample name="PasswordToggle" row />
-  </section>
-
-  <section id="binding">
-    <h2>Binding</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Read the <code>input</code> in a script.
-      </Fragment>
-      <Fragment slot="html">
-        Read the <code>input</code> in a script.
-      </Fragment>
-      <Fragment slot="react">
-        Give the input <code>value</code> and <code>onChange</code>.
-      </Fragment>
-      <Fragment slot="solid">
-        Give the input <code>value</code> and <code>onInput</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Use <code>bind:value</code> on the input.
-      </Fragment>
-      <Fragment slot="vue">Use <code>v-model</code> on the input.</Fragment>
-    </Conditional>
-    <AutoExample name="Binding" column />
+    <AutoExample name="Basics" column />
   </section>
 
   <section id="input-types">
@@ -185,9 +132,6 @@ export const keywords = ["email", "input", "password", "search", "text box"]
       Numeric vs <code>&lt;input type="number"&gt;</code>
     </h3>
     <Conditional as="p">
-      <Fragment slot="components">
-        Use <code>inputmode="numeric"</code> and <code>pattern="[0-9]*"</code>.
-      </Fragment>
       <Fragment slot="react">
         Use <code>inputMode="numeric"</code> and <code>pattern="[0-9]*"</code>.
       </Fragment>
@@ -246,8 +190,42 @@ export const keywords = ["email", "input", "password", "search", "text box"]
     </div>
 
     <h3 id="file">File</h3>
+    <p>
+      For a tall drop target, use
+      <DocLink href="/components/field#drop-zone"
+        ><PropOrClass prop="dropZone" class=".ui-drop-zone"
+      /></DocLink
+      >.
+    </p>
 
     <AutoExample name="File" row />
+  </section>
+
+  <section id="password-toggle">
+    <h2>Password toggle</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Put a <code>PasswordToggle</code> in the field's <code>end</code>, with
+        <code>for</code> set to the input's <code>id</code>, and leave the end
+        part out of the input's <code>aria-describedby</code>.
+      </Fragment>
+      <Fragment slot="react">
+        Put a <code>PasswordToggle</code> in the field's <code>end</code>, with
+        <code>htmlFor</code> set to the input's <code>id</code>, and leave the
+        end part out of the input's <code>aria-describedby</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Put <code>&lt;opui-password-toggle&gt;</code> around the button in
+        <code>.ui-end</code>, leave <code>.ui-end</code> out of the input's
+        <code>aria-describedby</code>, and import
+        <code>opui-css/elements/password-toggle.js</code>.
+      </Fragment>
+    </Conditional>
+    <DefaultIcon
+      slots={["icon-unchecked", "icon-checked"]}
+      tokens={["--ui-icon-show", "--ui-icon-hide"]}
+    />
+    <AutoExample name="PasswordToggle" row />
   </section>
 
   <section id="autosuggest">
@@ -256,19 +234,4 @@ export const keywords = ["email", "input", "password", "search", "text box"]
 
     <AutoExample name="Autosuggest" row />
   </section>
-
-  <TextFieldBuild slot="under-the-hood" />
-
-  <Fragment slot="accessibility">
-    <ul>
-      <li>
-        The label alone is the field's name, through
-        <code>&lt;label for&gt;</code>. The affixes, the start text, end text
-        and the top and bottom regions are its description once the input's
-        <code>aria-describedby</code> points at them, so a unit, a hint or an
-        error is read after the name in any language's word order, and buttons
-        in the affixes stay out of the name.
-      </li>
-    </ul>
-  </Fragment>
 </Component>

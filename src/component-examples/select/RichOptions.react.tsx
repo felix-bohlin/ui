@@ -6,6 +6,16 @@ export default function RichOptions() {
       <Field htmlFor="select-rich-options-1" label="Jam buddy">
         <select id="select-rich-options-1">
           <SelectButton />
+          <option value="ines">
+            <span className="ui-start">
+              <span aria-hidden="true" className="ui-avatar ui-x-small">
+                IH
+              </span>
+            </span>{" "}
+            <span className="ui-text">
+              <span>Ines Hertz</span> <span>Fretless dreamer</span>
+            </span>
+          </option>
           <option value="lou">
             <span className="ui-start">
               <span aria-hidden="true" className="ui-avatar ui-x-small">
@@ -24,16 +34,6 @@ export default function RichOptions() {
             </span>{" "}
             <span className="ui-text">
               <span>Percy Groove</span> <span>5-string wizard</span>
-            </span>
-          </option>
-          <option value="ines">
-            <span className="ui-start">
-              <span aria-hidden="true" className="ui-avatar ui-x-small">
-                IH
-              </span>
-            </span>{" "}
-            <span className="ui-text">
-              <span>Ines Hertz</span> <span>Fretless dreamer</span>
             </span>
           </option>
         </select>

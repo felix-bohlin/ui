@@ -425,6 +425,9 @@ importers:
       open-props:
         specifier: ^1.7.23
         version: 1.7.23
+      parse5:
+        specifier: ^8.1.0
+        version: 8.1.0
       postcss:
         specifier: ^8.5.32
         version: 8.5.32

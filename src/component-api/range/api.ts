@@ -2,7 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Range",
-  css: ["range", "text-field"],
+  css: ["field", "range"],
   keyboard: [
     {
       description:
@@ -26,23 +26,23 @@ export default {
   ],
   notes: {
     default:
-      "Write an `<input type=\"range\">` in a `Field`, with its `id` set to `for`. A `<datalist>` after it, linked with `list`, draws tick marks, and its options' `label`s under them. Show the value yourself, such as in an `<output>` in the end text, and set `aria-valuetext` when the number alone doesn't say it.",
+      'Write an `<input type="range">` in a `Field`, with its `id` set to `for`. A `<datalist>` after it, linked with `list`, shows the `label` of each option under its value. Show the value yourself, such as in an `<output>` in the end text, and set `aria-valuetext` when the number alone doesn\'t say it.',
     react:
-      "Write an `<input type=\"range\">` in a `Field`, with its `id` set to `htmlFor`. A `<datalist>` after it, linked with `list`, draws tick marks, and its options' `label`s under them. Show the value yourself, such as in an `<output>` in `endText`, and set `aria-valuetext` when the number alone doesn't say it.",
-    html: "Put the `<input type=\"range\">` directly in `.ui-field-container`, and a `<datalist>` after it for tick marks. `range.css` drops the field's box and draws the track, the fill and the thumb. Show the value yourself, and set `aria-valuetext` when the number alone doesn't say it.",
+      'Write an `<input type="range">` in a `Field`, with its `id` set to `htmlFor`. A `<datalist>` after it, linked with `list`, shows the `label` of each option under its value. Show the value yourself, such as in an `<output>` in `endText`, and set `aria-valuetext` when the number alone doesn\'t say it.',
+    html: "Put the `<input type=\"range\">` directly in `.ui-field-container`, and a `<datalist>` after it for labels. `range.css` drops the field's box and draws the track, the fill and the thumb. Show the value yourself, and set `aria-valuetext` when the number alone doesn't say it.",
   },
   options: [],
   parts: [
     {
       code: '<input type="range">',
       description:
-        "Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's `variant` and `size` set the track and thumb.",
+        "Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's variant (`variant`, `.ui-filled`) and size (`size`, `.ui-x-small`, `.ui-small`, `.ui-large`) set the track and thumb.",
       selector: '.ui-field-container > input[type="range"]',
     },
     {
       code: "<datalist>",
       description:
-        'Tick marks for the input it\'s linked to with `list`, and the `label` of each option under its mark. Give it `aria-hidden="true"`, since the labels repeat the value.',
+        "Labels for the input it's linked to with `list`: the `label` of each option shows under its value. The labels are spread evenly, so space the values evenly. Give it `aria-hidden=\"true\"`, and set `aria-valuetext` on the input to the label at its value, since screen readers don't read the datalist.",
       selector: ".ui-field-container > datalist",
     },
   ],

@@ -72,7 +72,7 @@ import {
                       name="first-name"
                       required
                       type="text"
-                      value="Percy"
+                      :value.attr="'Percy'"
                     />
                   </Field>
                   <Field for="account-settings-last-name" label="Last name">
@@ -82,7 +82,7 @@ import {
                       name="last-name"
                       required
                       type="text"
-                      value="Groove"
+                      :value.attr="'Groove'"
                     />
                   </Field>
                 </div>
@@ -94,7 +94,7 @@ import {
                     name="email"
                     required
                     type="email"
-                    value="percy@lowend.example"
+                    :value.attr="'percy@lowend.example'"
                   />
                   <template #end-text>
                     <span class="ui-p ui-success">Verified</span>, used for
@@ -108,7 +108,7 @@ import {
                     id="account-settings-username"
                     name="username"
                     type="text"
-                    value="percygroove"
+                    :value.attr="'percygroove'"
                   />
                   <template #start>bassbook.example/</template>
                 </Field>

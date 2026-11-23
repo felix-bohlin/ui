@@ -10,7 +10,7 @@ import { Field, StepButton } from "opui-css/vue"
       min="0"
       step="0.1"
       type="number"
-      value="0.5"
+      :value.attr="'0.5'"
     />
     <template #start>
       <StepButton command="--step-down" for="number-field-step-1" />

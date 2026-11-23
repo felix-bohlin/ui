@@ -2,7 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "CharacterCount",
-  css: ["text-field", "textarea"],
+  css: ["field", "textarea"],
   elements: [
     {
       members: [
@@ -21,6 +21,10 @@ export default {
       "Put it in the field's `end-text` slot. It loads `opui-css/elements/character-count.js`, which keeps the count.",
     react:
       "Put it in the field's `endText`. It loads `opui-css/elements/character-count.js`, which keeps the count.",
+    solid:
+      "Put it in the field's `endText`. It loads `opui-css/elements/character-count.js`, which keeps the count.",
+    svelte:
+      "Put it in the field's `endText` snippet. It loads `opui-css/elements/character-count.js`, which keeps the count.",
     html: 'Add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`.',
   },
   options: [

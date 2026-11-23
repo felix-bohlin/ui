@@ -1,0 +1,19 @@
+---
+import { Field } from "opui-css/astro"
+---
+
+<Field for="range-value-1" label="Brightness">
+  <input aria-valuetext="80%" id="range-value-1" type="range" value="80" />
+  <output for="range-value-1" slot="end-text">80%</output>
+</Field>
+
+<script>
+  const input = document.querySelector<HTMLInputElement>("#range-value-1")
+  const output = document.querySelector('output[for="range-value-1"]')
+
+  input?.addEventListener("input", () => {
+    const text = `${input.value}%`
+    input.setAttribute("aria-valuetext", text)
+    if (output) output.textContent = text
+  })
+</script>

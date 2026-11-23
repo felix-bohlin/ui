@@ -21,6 +21,7 @@ import { CharacterCount, Field } from "opui-css/vue"
     />
     <template #bottom>Plain text, no links</template>
     <template #end-text>
+      Up to 80 characters.
       <CharacterCount />
     </template>
   </Field>

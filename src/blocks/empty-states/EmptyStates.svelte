@@ -99,7 +99,6 @@
           label="Search Bassbook"
         >
           <input
-            aria-describedby="empty-states-q-start"
             id="empty-states-q"
             name="q"
             type="search"

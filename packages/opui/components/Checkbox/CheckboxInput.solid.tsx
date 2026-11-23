@@ -9,7 +9,7 @@ import type { CheckboxInputProps as Props } from "./types.solid"
 export default function CheckboxInput(props: Props) {
   const rest = omit(props, "checked", "indeterminate", "name", "ref")
   const field = useFieldGroupContext()
-  const checkedControl = control("checked", () => props.checked)
+  const checkedControl = control(() => props.checked)
 
   return (
     <input

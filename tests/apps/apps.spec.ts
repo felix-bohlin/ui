@@ -14,8 +14,6 @@ import {
   NATIVE_CASES,
   SVELTE_GROUP,
   SVELTE_SPREAD,
-  VUE_PREBUILT_SELECT,
-  VUE_SLOT_VALUE,
 } from "./native/cases.ts"
 
 const PIXEL = Buffer.from(
@@ -240,18 +238,19 @@ test("the components answer input once hydrated", async ({
 }, testInfo) => {
   const app = appOf(testInfo.project.name)
   const problems = await watch(page)
-  await open(page, "/text-field")
-  const example = page.locator('[data-example="text-field/Binding"]')
-  const text = example.locator(".text-field-binding-text")
-  await example.getByRole("textbox", { name: "Name" }).fill("Percy")
-  await expect(text, `${app.name} updates the bound value`).toHaveText(
-    "Heyyy, Percy.",
+  await open(page, "/field")
+  const example = page.locator('[data-example="field/ValidationBinding"]')
+  const input = example.getByRole("textbox", { name: "Username" })
+  await input.fill("holly!")
+  await expect(input, `${app.name} runs the input handler`).toHaveAttribute(
+    "aria-invalid",
+    "true",
   )
-  await example.getByRole("button", { name: "Reset" }).click()
-  await expect(text, `${app.name} runs the click handler`).toHaveText(
-    "Heyyy, Holly.",
+  await input.fill("holly")
+  await expect(input, `${app.name} updates the state`).not.toHaveAttribute(
+    "aria-invalid",
   )
-  expect(unexpected(problems, app.name, "text-field")).toEqual([])
+  expect(unexpected(problems, app.name, "field")).toEqual([])
 })
 
 test("navigating to another page renders its examples", async ({
@@ -570,12 +569,6 @@ const NATIVE_DIFFERENCES = [
     "rating-default",
     "tabs-bound",
     "toggle-bound",
-  ]),
-  ...differences("nuxt", VUE_PREBUILT_SELECT, ["select-bound"]),
-  ...differences("nuxt", VUE_SLOT_VALUE, [
-    "number-default",
-    "range-default",
-    "text-default",
   ]),
 ]
 

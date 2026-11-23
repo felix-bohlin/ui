@@ -6,6 +6,14 @@ import { Field, SelectButton } from "opui-css/vue"
   <Field for="select-rich-options-1" label="Jam buddy">
     <select id="select-rich-options-1">
       <SelectButton />
+      <option value="ines">
+        <span class="ui-start"
+          ><span aria-hidden="true" class="ui-avatar ui-x-small">IH</span></span
+        >{{ " "
+        }}<span class="ui-text"
+          ><span>Ines Hertz</span>{{ " " }}<span>Fretless dreamer</span></span
+        >
+      </option>
       <option value="lou">
         <span class="ui-start"
           ><span aria-hidden="true" class="ui-avatar ui-x-small">LH</span></span
@@ -20,14 +28,6 @@ import { Field, SelectButton } from "opui-css/vue"
         >{{ " "
         }}<span class="ui-text"
           ><span>Percy Groove</span>{{ " " }}<span>5-string wizard</span></span
-        >
-      </option>
-      <option value="ines">
-        <span class="ui-start"
-          ><span aria-hidden="true" class="ui-avatar ui-x-small">IH</span></span
-        >{{ " "
-        }}<span class="ui-text"
-          ><span>Ines Hertz</span>{{ " " }}<span>Fretless dreamer</span></span
         >
       </option>
     </select>

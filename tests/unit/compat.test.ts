@@ -181,7 +181,7 @@ test("each year keeps a subset of the year before it", () => {
 })
 
 test("the plugins leave the component @supports alone", () => {
-  const css = `${read("components/text-field.css")}\n${compatCss}`
+  const css = `${read("components/field.css")}\n${compatCss}`
   const own = supports(postcss.parse(css), false)
   expect(own.length).toBeGreaterThan(0)
   const stripped = run(css, withoutCompat())

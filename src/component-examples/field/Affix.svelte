@@ -32,11 +32,7 @@
 </Field>
 
 <Field for="field-affix-4" label="Search">
-  <input
-    aria-describedby="field-affix-4-start"
-    id="field-affix-4"
-    placeholder="Search..."
-  />
+  <input id="field-affix-4" placeholder="Search..." />
   {#snippet start()}
     <svg
       data-icon="search"

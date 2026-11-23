@@ -24,7 +24,6 @@ import { Button, Field, FieldGroup, List, ListItem } from "opui-css/vue"
         <FieldGroup orientation="horizontal">
           <Field for="error-page-q" hideLabel label="Search Bassbook">
             <input
-              aria-describedby="error-page-q-start"
               id="error-page-q"
               name="q"
               placeholder="Search bassists and bands"

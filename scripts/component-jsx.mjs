@@ -92,9 +92,7 @@ export const jsxEmitter = ({
             list: row.list,
             optional: node.optional,
             parameters: row.parameters,
-            returned: row.narrows
-              ? `{\nconst ${row.narrows} = () => ${returned}\nreturn <>{${row.narrows}()}</>\n}`
-              : returned,
+            returned,
           })
         }
         const code = attributes(node, scope).join(" ")

@@ -2,10 +2,12 @@
   <label class="ui-label" for="range-tick-marks-labels-1">Opacity</label>
   <span class="ui-field-container">
     <input
+      aria-valuetext="50%"
       id="range-tick-marks-labels-1"
       list="range-tick-marks-labels-1-list"
       step="25"
       type="range"
+      value="50"
     />
     <datalist aria-hidden="true" id="range-tick-marks-labels-1-list">
       <option label="0%" value="0"></option>
@@ -20,6 +22,7 @@
   <label class="ui-label" for="range-tick-marks-labels-2">Quality</label>
   <span class="ui-field-container">
     <input
+      aria-valuetext="Medium"
       id="range-tick-marks-labels-2"
       list="range-tick-marks-labels-2-list"
       max="2"
@@ -33,3 +36,16 @@
     </datalist>
   </span>
 </div>
+
+<script type="module">
+  for (const input of document.querySelectorAll(
+    '[list^="range-tick-marks-labels-"]',
+  )) {
+    input.addEventListener("input", () => {
+      const option = [...(input.list?.options ?? [])].find(
+        ({ value }) => value === input.value,
+      )
+      if (option) input.setAttribute("aria-valuetext", option.label)
+    })
+  }
+</script>

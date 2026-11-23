@@ -1,37 +1,17 @@
 import { isServer, setProperty } from "@solidjs/web"
 import { createRenderEffect, untrack } from "solid-js"
 
-const INITIAL = {
-  checked: "defaultChecked",
-  value: "defaultValue",
-}
-
-const sameValue = (a: unknown, b: unknown) => String(a) === String(b)
-
-const keepSelected = (select: HTMLSelectElement, value: unknown) => {
-  const values = [value].flat()
-  for (const option of select.options) {
-    if (
-      !option.defaultSelected &&
-      values.some((selected) => sameValue(selected, option.value))
-    ) {
-      option.defaultSelected = true
-    }
-  }
-}
-
-export const control = <V>(
-  prop: keyof typeof INITIAL,
-  read: () => V,
-  fallback?: V,
+export const control = (
+  read: () => boolean | undefined,
+  fallback?: boolean,
 ) => {
   let element: Element | undefined
   const initial = untrack(read)
   createRenderEffect(
     read,
-    (value, previous) => {
-      if (element && value !== undefined && value !== previous) {
-        setProperty(element, prop, value)
+    (checked, previous) => {
+      if (element && checked !== undefined && checked !== previous) {
+        setProperty(element, "checked", checked)
       }
     },
     { defer: true },
@@ -39,28 +19,18 @@ export const control = <V>(
   return {
     ref: (node: Element) => {
       if (!element) {
-        if (initial !== undefined) setProperty(node, prop, initial)
+        if (initial !== undefined) setProperty(node, "checked", initial)
         else if (fallback !== undefined) {
-          if (node instanceof HTMLSelectElement) {
-            setProperty(node, prop, fallback)
-            queueMicrotask(() => keepSelected(node, fallback))
-          } else setProperty(node, INITIAL[prop], fallback)
+          setProperty(node, "defaultChecked", fallback)
         }
       }
       element = node
     },
     server: (isServer && (initial ?? fallback) !== undefined
-      ? { [prop]: initial ?? fallback }
+      ? { checked: initial ?? fallback }
       : {}) as object,
   }
 }
-
-export const optionSelected = (selected: boolean | undefined) => ({
-  ref: (option: HTMLOptionElement) => {
-    if (selected !== undefined) setProperty(option, "selected", selected)
-  },
-  server: (isServer && selected !== undefined ? { selected } : {}) as object,
-})
 
 export const hydrating = (custom = true) =>
   (isServer && custom ? { "data-hydrating": "" } : {}) as object

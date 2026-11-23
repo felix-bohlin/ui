@@ -1,5 +1,5 @@
 {
-  "^\\[@vue/compiler-sfc\\] <(button|div)> cannot be child of <select>": "Vue's compiler knows the content model of select from before customizable select, which allows a button and option groups in it; packages/opui/scripts/build-frameworks.mjs accepts the same warning",
+  "^\\[@vue/compiler-sfc\\] <(button|div)> cannot be child of <select>": "Vue's compiler knows the content model of select from before customizable select, which allows a button and option groups in it",
   "^\\[@vue/compiler-sfc\\] <legend> cannot be child of <optgroup>": "Vue's compiler knows the content model of optgroup from before customizable select, which allows a legend in it",
   "^\\[@vue/compiler-sfc\\] <span> cannot be child of <option>": "Vue's compiler knows the content model of option from before customizable select, which allows phrasing content in it",
   "^a11y_label_has_associated_control: ": "the Grouped example of Select names each option group with a label through aria-labelledby, as customizable select allows",

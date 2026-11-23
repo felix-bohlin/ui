@@ -6,8 +6,8 @@ const chevron = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000
 const steps = [
   {
     css: `
-.select:has(button),
-.select:has(button)::picker(select) {
+.select,
+.select::picker(select) {
   appearance: base-select;
 }
 
@@ -38,10 +38,8 @@ selectedcontent {
     <button>
       <selectedcontent></selectedcontent>
     </button>
-    <div class="list">
-      <option value="apple">Apple</option>
-      …
-    </div>
+    <option value="apple">Apple</option>
+    …
   </select>
 </div>`,
     notes: [
@@ -84,14 +82,6 @@ selectedcontent {
   {
     css: `
 .select::picker(select) {
-  background: transparent;
-  border: 0;
-  border-radius: var(--ui-radius);
-  box-shadow: var(--ui-shadow-overlay);
-  padding: 0;
-}
-
-.list {
   --ui-border-color: var(--ui-border-color-on-raised);
   --ui-field-border-color: var(--ui-field-border-color-on-raised);
 
@@ -99,36 +89,37 @@ selectedcontent {
   border: var(--ui-border-width) solid
     var(--ui-border-color-raised, var(--ui-border-color-on-raised));
   border-radius: var(--ui-radius);
+  box-shadow: var(--ui-shadow-overlay);
   padding: 0.5rem 0;
 }
 
-.list > option {
+.select > option {
   padding: 0.5rem 0.75rem;
 }
 
-.list > option:hover {
+.select > option:hover {
   background-color: oklch(from var(--ui-primary) l c h / 15%);
 }
 
-.list > option::checkmark {
-  display: none;
+.select > option::checkmark {
+  margin-inline-start: auto;
+  order: 1;
 }
 
-.list > option:checked {
+.select > option:checked {
   background-color: var(
     --ui-selected,
     oklch(
       from var(--ui-primary) l c h / var(--ui-state-selected-alpha-accent)
     )
   );
-  box-shadow: inset var(--ui-border-width-thick) 0 0 var(--ui-selected-strong);
 }`,
     features: ["relative-color"],
     notes: [
       "<code>::picker(select)</code> is the dropdown, a popover anchored to the select",
-      "The picker is see-through and rounded like the list, so no square corners show behind it",
+      "The options go straight in the select, and the picker takes the raised surface, border and corners",
       "Options are ordinary boxes now: padding, <code>:hover</code>, <code>:checked</code>",
-      "<code>::checkmark</code> hides the browser's checkmark, a bar on the start edge marks the choice and the tint backs it up",
+      "<code>::checkmark</code> is the browser's check, moved to the end, and the tint backs it up",
       "Open the select",
     ],
     title: "Picker",
@@ -178,11 +169,9 @@ const fruits = ["Apple", "Banana", "Cherry", "Mango", "Pear"]
       <button>
         <selectedcontent></selectedcontent>
       </button>
-      <div class="list">
-        {fruits.map((fruit) => <option value={fruit.toLowerCase()}>
-          {fruit}
-        </option>)}
-      </div>
+      {fruits.map((fruit) => <option value={fruit.toLowerCase()}>
+        {fruit}
+      </option>)}
     </select>
   </div>
 </BuildUp>

@@ -83,7 +83,6 @@ export default function AppShell() {
             }
           >
             <input
-              aria-describedby="app-shell-search-start"
               aria-label="Search"
               id="app-shell-search"
               name="app-shell-search"

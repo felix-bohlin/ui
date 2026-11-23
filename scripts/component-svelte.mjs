@@ -161,16 +161,7 @@ export const toSvelte = (component) => {
     if (node.item && item.name === "checked") {
       return `{@attach seedChecked(isChecked, change)} defaultChecked={${component.item.grouped} === undefined ? (defaultChecked ?? initialChecked) : initialChecked}`
     }
-    const keepsDefault =
-      item.name === "checked" &&
-      node.tag === "input" &&
-      node.attributes.some(
-        (entry) => entry.kind === "spread" && entry.code === rest,
-      )
-    const code = keepsDefault
-      ? `(${item.code}) ?? ${rest}.defaultChecked`
-      : item.code
-    return `${item.name}={${rewriteExpression(code, options)}}`
+    return `${item.name}={${rewriteExpression(item.code, options)}}`
   }
   const body = (nodes, scope, head = "") => {
     const inner = scope.preserved ? undefined : edgeTrimmed(nodes)
@@ -229,7 +220,7 @@ export const toSvelte = (component) => {
                 `{@const ${name} = ${rewriteExpression(code, options)}}`,
             )
             .join("\n")
-          return `{#each ${node.list} as ${node.item}${node.index ? `, ${node.index}` : ""} (${node.key?.code ?? node.index})}${body(node.children, scope, consts)}{/each}`
+          return `{#each ${node.list} as ${node.item}${node.index ? `, ${node.index}` : ""} (${node.index})}${body(node.children, scope, consts)}{/each}`
         }
         const groupChecked =
           node.groupRadio !== undefined && kind?.modelsGroupRadio

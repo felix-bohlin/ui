@@ -10,8 +10,8 @@ import PropOrClass from "../../components/PropOrClass.astro"
 import ValidationNotes from "./partials/ValidationNotes.astro"
 
 import ButtonCSS from "@opui/css/components/button.css?raw"
+import FieldCSS from "@opui/css/components/field.css?raw"
 import StepButtonCSS from "@opui/css/components/step-button.css?raw"
-import TextFieldCSS from "@opui/css/components/text-field.css?raw"
 import StepButtonJS from "@opui/elements/step-button.js?raw"
 
 import stepButtonApi from "../../component-api/step-button/api"
@@ -50,8 +50,8 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
     { title: "step-button.css", code: StepButtonCSS, lang: "css" },
     { title: "step-button.js", code: StepButtonJS, lang: "js" },
     {
-      title: "text-field.css",
-      code: TextFieldCSS,
+      title: "field.css",
+      code: FieldCSS,
       lang: "css",
       isDependency: true,
     },

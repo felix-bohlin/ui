@@ -2,7 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "OneTimeCode",
-  css: ["one-time-code", "text-field"],
+  css: ["field", "one-time-code"],
   notes: {
     default:
       'Write the `<input>` inside, with its `id` set to `for`, `autocomplete="one-time-code"`, a `maxlength` from 4 to 8, which sets the number of boxes, and a matching `pattern`: `inputmode="numeric"` and `[0-9]{6}` for digits, or `autocapitalize="characters"`, `spellcheck="false"` and `[A-Za-z0-9]{6}` for letters and digits. Bind it like any input. Other attributes go to the `.ui-one-time-code` root.',

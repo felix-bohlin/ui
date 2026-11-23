@@ -887,25 +887,21 @@ export const toTypes = (
       )
       .toSorted(byName)
     const elements = elementsOf(node.type)
-    if (
-      extras.some((prop) => prop !== modelled?.prop) &&
-      elements.length === 0
-    ) {
+    if (extras.length > 0 && elements.length === 0) {
       throw unsupported(
         "BC605",
         file,
         `the prop ${extras[0]} of ${component}, which the Vue types can't take from no element`,
       )
     }
-    return extras.map((prop) =>
-      modelled?.prop === prop
-        ? `${propKey(prop)}?: ${modelled.type}`
-        : `${propKey(prop)}?: ${elements
-            .map(
-              (element) =>
-                `IntrinsicElementAttributes[${JSON.stringify(element)}][${JSON.stringify(prop)}]`,
-            )
-            .join(" | ")}`,
+    return extras.map(
+      (prop) =>
+        `${propKey(prop)}?: ${elements
+          .map(
+            (element) =>
+              `IntrinsicElementAttributes[${JSON.stringify(element)}][${JSON.stringify(prop)}]`,
+          )
+          .join(" | ")}`,
     )
   }
   const extrasByAlias = new Map(

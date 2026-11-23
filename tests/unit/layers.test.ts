@@ -58,8 +58,8 @@ test("each stylesheet declares only the layers its group allows", () => {
 })
 
 const BUILDS_ON: Record<string, string> = {
-  "one-time-code.css": "text-field.css",
-  "range.css": "text-field.css",
+  "one-time-code.css": "field.css",
+  "range.css": "field.css",
 }
 
 const orderProblems = (list: { files: string[]; group: string }[]) =>
@@ -90,18 +90,13 @@ test("the import order check flags a sample out of order", () => {
   expect(
     orderProblems([
       {
-        files: [
-          "one-time-code.css",
-          "select.css",
-          "list.css",
-          "text-field.css",
-        ],
+        files: ["one-time-code.css", "select.css", "list.css", "field.css"],
         group: "Extended components",
       },
     ]),
   ).toEqual([
-    "Extended components: import list.css, select.css, text-field.css in that order",
-    "Extended components: import one-time-code.css right after text-field.css, in that order, so their rules on the same elements win the ties with text-field.css without repeating a class",
+    "Extended components: import field.css, list.css, select.css in that order",
+    "Extended components: import one-time-code.css right after field.css, in that order, so their rules on the same elements win the ties with field.css without repeating a class",
   ])
 })
 

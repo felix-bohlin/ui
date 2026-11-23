@@ -2,7 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "PasswordToggle",
-  css: ["button", "text-field"],
+  css: ["button", "field"],
   elements: [
     {
       members: [

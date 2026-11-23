@@ -13,16 +13,20 @@ const fileId = Astro.locals.$id("code-file")
 ---
 
 <div class="code-files">
-  {files.length > 1 && <div class="file-bar">
-    <Field class="file-picker" for={fileId} size="small">
-      <select aria-label={`${title} file`} id={fileId}>
-        <SelectButton />
-        {files.map((file, index) => <option value={index}>
-          {file.title}
-        </option>)}
-      </select>
-    </Field>
-  </div>}
+  <div class="file-bar">
+    {files.length > 1 ? (
+      <Field class="file-picker" for={fileId} size="small">
+        <select aria-label={`${title} file`} id={fileId}>
+          <SelectButton />
+          {files.map((file, index) => <option value={index}>
+            {file.title}
+          </option>)}
+        </select>
+      </Field>
+    ) : (
+      <code class="file-name">{files[0].title}</code>
+    )}
+  </div>
   {files.map((file, index) => <div class="file" hidden={index > 0}>
     <Code code={file.code} lang={file.lang} />
   </div>)}
@@ -39,6 +43,13 @@ const fileId = Astro.locals.$id("code-file")
 
   .file :global(.code-block pre) {
     border-radius: 0;
+  }
+
+  .file-name {
+    align-content: center;
+    font-family: var(--ui-font-code);
+    font-size: var(--ui-font-size-small);
+    min-block-size: var(--ui-control-size-small);
   }
 
   .file-picker {

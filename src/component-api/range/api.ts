@@ -2,7 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Range",
-  css: ["range", "text-field"],
+  css: ["field", "range"],
   keyboard: [
     {
       description:

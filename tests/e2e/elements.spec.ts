@@ -850,6 +850,29 @@ test("step-button.js marks its limit when the page sets the value, sharing one v
   })
 })
 
+test("an element removes a global attribute set to null or undefined, as React and Svelte do when a prop goes away", async ({
+  page,
+}) => {
+  await openWith(
+    page,
+    `<opui-step-button class="ui-sample" id="sample" lang="sv" tabindex="0" title="Sample"><button type="button">+</button></opui-step-button>`,
+  )
+  await load(page, ["step-button.js"])
+  const attributes = await page.evaluate(() => {
+    const element = document.querySelector("opui-step-button")!
+    element.className = undefined as unknown as string
+    element.id = null as unknown as string
+    element.lang = undefined as unknown as string
+    element.tabIndex = undefined as unknown as number
+    element.title = null as unknown as string
+    const removed = element.getAttributeNames()
+    element.title = "Again"
+    element.className = "ui-sample"
+    return { removed, set: element.getAttributeNames().toSorted() }
+  })
+  expect(attributes).toEqual({ removed: [], set: ["class", "title"] })
+})
+
 test("close-on-navigate.js closes a drawer on a click on a link in it, unless the link has data-keep-open", async ({
   page,
 }) => {

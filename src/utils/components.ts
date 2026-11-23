@@ -1,4 +1,3 @@
-import { pageOfStylesheet } from "../component-api/catalog"
 import { componentHasFramework, hrefFor, type FrameworkId } from "./framework"
 import { componentName as nameOf, pageTitle } from "./names"
 
@@ -39,10 +38,7 @@ export const dependenciesOf = (slug: string) =>
     ...(docSources[`../docs/components/${slug}.astro`]?.matchAll(
       /\{[^{}]*\bisDependency: true[^{}]*\}/g,
     ) ?? []),
-  ].flatMap(([tab]) => {
-    const stylesheet = tab.match(/title: "([\w-]+)\.css"/)?.[1]
-    return stylesheet ? [pageOfStylesheet(stylesheet)] : []
-  })
+  ].flatMap(([tab]) => tab.match(/title: "([\w-]+)\.css"/)?.[1] ?? [])
 
 export const dependentsOf = (slug: string) =>
   components.filter((component) =>

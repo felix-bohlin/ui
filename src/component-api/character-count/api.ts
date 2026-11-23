@@ -2,7 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "CharacterCount",
-  css: ["text-field", "textarea"],
+  css: ["field", "textarea"],
   elements: [
     {
       members: [

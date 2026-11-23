@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import "../../elements/toaster.js"
 import { defined } from "../attrs"
 import { cx } from "../cx"
 import { warnMissingId } from "../dev"
@@ -17,9 +17,6 @@ export default function Toaster({
   ...rest
 }: Props) {
   warnMissingId("Toaster", id)
-  useEffect(() => {
-    void import("../../elements/toaster.js")
-  }, [])
 
   return (
     <opui-toaster

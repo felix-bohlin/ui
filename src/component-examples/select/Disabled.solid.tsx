@@ -15,8 +15,8 @@ export default function Disabled() {
       <Field for="select-disabled-2" label="Billing cycle" variant="filled">
         <select disabled id="select-disabled-2">
           <SelectButton />
-          <option>Yearly</option>
           <option>Monthly</option>
+          <option>Yearly</option>
         </select>
       </Field>
     </>

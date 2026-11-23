@@ -4,7 +4,6 @@ import { loadCatalog } from "../../scripts/catalog.mjs"
 import {
   catalogOf,
   kebab,
-  pageOfStylesheet,
   stylesheetsOf,
 } from "../../src/component-api/catalog"
 import { catalog } from "../../src/component-api/catalog.glob"
@@ -85,30 +84,6 @@ test("a page owns its docs, examples, api folders, components, elements and own 
     { path: "packages/opui/css/components/tabs.css", type: "css" },
     { path: "src/component-examples/tabs", type: "docs" },
     { path: "src/docs/components/tabs.astro", type: "docs" },
-  ])
-})
-
-test("a stylesheet belongs to the page named after it, unless another page holds its component", () => {
-  expect(pageOfStylesheet("button")).toBe("button")
-  expect(pageOfStylesheet("text-field")).toBe("field")
-})
-
-test("a page owns the stylesheet of its component when it's named after another page", () => {
-  const files = catalogOf(
-    [
-      [
-        "field",
-        api({
-          component: "Field",
-          css: ["select", "text-field"],
-          source: "Field",
-        }),
-      ],
-    ],
-    ["field", "select", "text-field"],
-  ).filesOf("field")
-  expect(files.filter(({ type }) => type === "css")).toEqual([
-    { path: "packages/opui/css/components/text-field.css", type: "css" },
   ])
 })
 

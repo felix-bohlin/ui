@@ -6,7 +6,7 @@ import { Field, SelectButton } from "opui-css/vue"
   <Field dense for="field-dense-1" label="Fruit">
     <select id="field-dense-1">
       <SelectButton />
-      <option value="">-</option>
+      <option value="">Pick a fruit</option>
       <option>Apple</option>
       <option>Banana</option>
       <option>Cherry</option>

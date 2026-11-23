@@ -89,7 +89,7 @@ export default {
       },
     },
     {
-      files: ["packages/opui/css/components/text-field.css"],
+      files: ["packages/opui/css/components/field.css"],
       rules: { "opui/focus-visible": [true, { except: ["&:focus"] }] },
     },
     {

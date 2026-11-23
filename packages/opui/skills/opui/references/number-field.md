@@ -2,7 +2,7 @@
 
 A number input in a Field with step buttons that step the value down and up, for amounts like a quantity.
 
-- CSS: `opui-css/css/components/step-button.css`, `opui-css/css/components/text-field.css` and `opui-css/css/components/button.css`.
+- CSS: `opui-css/css/components/step-button.css`, `opui-css/css/components/field.css` and `opui-css/css/components/button.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/number-field.md), [Astro](https://opui.dev/astro/components/number-field.md), [React](https://opui.dev/react/components/number-field.md), [Solid](https://opui.dev/solid/components/number-field.md), [Svelte](https://opui.dev/svelte/components/number-field.md), [Vue](https://opui.dev/vue/components/number-field.md).
 
 ## StepButton
@@ -40,9 +40,9 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### step-button.css
 
-- `--_min-inline-size`: The least width of the input of a field with step buttons and `autoFit`, which otherwise fits its value. `4ch`, instead of the `8ch` of the other fields, which `text-field.css` keeps next to the affixes.
+- `--_min-inline-size`: The least width of the input of a field with step buttons and `autoFit`, which otherwise fits its value. `4ch`, instead of the `8ch` of the other fields, which `field.css` keeps next to the affixes.
 
-### text-field.css
+### field.css
 
 - `--_accent`: Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
 - `--_arrow-inset`: Distance of the select arrow from the inline end.
@@ -54,7 +54,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_field-padding-block`: The preferred block padding of the control. Set by the size classes.
 - `--_field-padding-inline`: The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.
 - `--_file-button-padding`: The preferred gap around the `::file-selector-button` of a file field: `--ui-space-2`, or `--ui-space-1` in `.ui-small` and `.ui-x-small`.
-- `--_font-size`: The font size of the control and affixes. At least 16px on iPhone and iPad (`css/compat/text-field.css`), so iOS Safari doesn't zoom in on focus.
+- `--_font-size`: The font size of the control and affixes. At least 16px on iPhone and iPad (`css/compat/field.css`), so iOS Safari doesn't zoom in on focus.
 - `--_min-inline-size`: The least width of the control next to `.ui-start` and `.ui-end`, which shrink and end in an ellipsis to keep it, or the whole field when it is narrower. Defaults to `8ch`; a field with a `StepButton` sets its own.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_radius`: The corner radius of `.ui-field-container` and a file input's button. Defaults to `--ui-field-radius`, or `--ui-radius` when the theme doesn't set it.

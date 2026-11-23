@@ -6,13 +6,6 @@ const COMPONENT_PAGES: Record<string, string> = {
   Link: "typography",
 }
 
-const STYLESHEET_PAGES: Record<string, string> = {
-  "text-field": "field",
-}
-
-export const pageOfStylesheet = (stylesheet: string) =>
-  STYLESHEET_PAGES[stylesheet] ?? stylesheet
-
 export const kebab = (name: string) =>
   name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
 
@@ -73,11 +66,7 @@ export const catalogOf = (
       ...files(
         "css",
         pageStylesheets(page)
-          .filter(
-            (stylesheet) =>
-              owners.includes(stylesheet) ||
-              owners.includes(pageOfStylesheet(stylesheet)),
-          )
+          .filter((stylesheet) => owners.includes(stylesheet))
           .map(
             (stylesheet) => `packages/opui/css/components/${stylesheet}.css`,
           ),

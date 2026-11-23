@@ -102,6 +102,9 @@ const CLASS_LIST_ENDS = { '"': '"', "(": ")", "[": "]", "{": "}" }
 const CLIENT =
   /\buse(?:ActionState|Context|Effect|ImperativeHandle|InsertionEffect|LayoutEffect|Listener|Optimistic|Reducer|Ref|State|SyncExternalStore|Transition)\(|\buse\w+Context\(|\bcreateContext\(|<\w+Context\b|\bon[A-Z]\w*(?:=\{|: )/
 
+const ELEMENT_SCRIPT =
+  /^import "\.\.\/\.\.\/(?:css\/js|elements)\/[\w-]+\.js"$/m
+
 const CONTEXT_EXPORTS = {
   "context.astro.ts": (name) => [
     `${name[0].toLowerCase()}${name.slice(1)}Context`,
@@ -330,8 +333,8 @@ const clientProblems = (source, used, uses) => {
 export const checkClient = (source) =>
   clientProblems(
     source,
-    CLIENT.test(source),
-    "context, state, effects or event handlers",
+    CLIENT.test(source) || ELEMENT_SCRIPT.test(source),
+    "context, state, effects, event handlers or an element script",
   )
 
 export const checkIndexSignature = (source) =>

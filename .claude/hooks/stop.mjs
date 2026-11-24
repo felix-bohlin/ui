@@ -2,7 +2,7 @@ import { execFileSync } from "node:child_process"
 import { existsSync } from "node:fs"
 import { resolve } from "node:path"
 import { checkFiles, report } from "../../scripts/check-staged.mjs"
-import { code, input, project } from "./checks.mjs"
+import { code, input, project, unused } from "./checks.mjs"
 
 const git = (...args) => {
   try {
@@ -49,6 +49,7 @@ try {
   const groups = [
     ...(await checkFiles(files, project)),
     ["Ratchets", ratchets(base)],
+    ["Knip", unused(files)],
   ].filter(([, problems]) => problems.length)
   if (groups.length) {
     console.error(

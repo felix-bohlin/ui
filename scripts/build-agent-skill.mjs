@@ -3,11 +3,7 @@ import { registerHooks } from "node:module"
 import path from "node:path"
 import { fileURLToPath, pathToFileURL } from "node:url"
 
-import {
-  componentHasFramework,
-  exampleExtension,
-  FRAMEWORKS,
-} from "../src/utils/framework.js"
+import { exampleExtension, FRAMEWORKS } from "../src/utils/framework.js"
 import { barrelExports } from "../src/utils/package-source.js"
 import { loadCatalog } from "./catalog.mjs"
 
@@ -632,9 +628,7 @@ const exampleImports = (slug) => {
 
 async function componentReference(component, apis, docs) {
   const { slug } = component
-  const pageFrameworks = FRAMEWORKS.filter((f) =>
-    componentHasFramework(f.id, slug),
-  )
+  const pageFrameworks = FRAMEWORKS
   const frameworkIds = pageFrameworks.map((f) => f.id)
   const own = apis.filter((entry) => entry.page === slug)
   const order = (entry) => {

@@ -6,7 +6,6 @@ import { parse as parseAstro } from "@astrojs/compiler"
 import ts from "typescript"
 import { parse as parseVue } from "vue/compiler-sfc"
 import {
-  componentHasFramework,
   exampleExtension,
   extensionPattern,
   FRAMEWORK_AGNOSTIC_EXAMPLES,
@@ -1546,11 +1545,7 @@ const main = async () => {
       }
       for (const framework of FRAMEWORK_IDS) {
         const file = `${name}.${exampleExtension(framework)}`
-        if (
-          componentHasFramework(framework, slug) &&
-          !(code && framework === "html") &&
-          !files.includes(file)
-        ) {
+        if (!(code && framework === "html") && !files.includes(file)) {
           report(join(dir, file), "is missing")
         }
       }

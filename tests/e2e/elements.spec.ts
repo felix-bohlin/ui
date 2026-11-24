@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs"
 import { expect, test } from "@playwright/test"
 import type { Page } from "@playwright/test"
+import { FIREFOX_DOWNLOAD_NAVIGATE, failsIn } from "./engine-bugs"
 import { instantScrolling } from "./fixtures"
 
 const ORIGIN = "https://opui.test"
@@ -667,9 +668,7 @@ for (const order of ["before", "after"] as const) {
   })
 }
 
-test("close-on-navigate.js closes a drawer on a click on a link in it, unless the link has data-keep-open", async ({
-  page,
-}) => {
+const navigationDrawer = async (page: Page) => {
   await page.route(`${ORIGIN}/**`, (route) =>
     route.fulfill(
       route.request().url().endsWith(".js")
@@ -683,7 +682,16 @@ test("close-on-navigate.js closes a drawer on a click on a link in it, unless th
               <script>
                 document.addEventListener("click", (event) => {
                   const link = event.target.closest("a")
-                  if (!link) return
+                  if (
+                    !link ||
+                    link.target ||
+                    link.hasAttribute("download") ||
+                    event.ctrlKey ||
+                    event.metaKey ||
+                    event.shiftKey
+                  ) {
+                    return
+                  }
                   event.preventDefault()
                   history.pushState(null, "", link.href)
                 })
@@ -692,6 +700,8 @@ test("close-on-navigate.js closes a drawer on a click on a link in it, unless th
               <dialog aria-label="Navigate" class="ui-drawer" data-close-on-navigate>
                 <a href="/chat">Chat</a>
                 <a data-keep-open href="/chat?pages=2">Load more</a>
+                <a href="/help" target="_blank">Help</a>
+                <a download href="/export.csv">Export</a>
               </dialog>
             </body></html>`,
             contentType: "text/html",
@@ -709,8 +719,24 @@ test("close-on-navigate.js closes a drawer on a click on a link in it, unless th
         Symbol.for("opui-close-on-navigate")
       ],
   )
+  return { drawer, show }
+}
+
+test("close-on-navigate.js closes a drawer on a click on a link in it, unless the link has data-keep-open or opens elsewhere", async ({
+  page,
+}) => {
+  const { drawer, show } = await navigationDrawer(page)
 
   await show()
+  const opened = page.context().waitForEvent("page")
+  await drawer.getByRole("link", { name: "Help" }).click()
+  await (await opened).close()
+  await expect(drawer).toBeVisible()
+  await drawer
+    .getByRole("link", { name: "Chat" })
+    .click({ modifiers: ["Shift"] })
+  await expect(drawer).toBeVisible()
+  await expect(page).toHaveURL(`${ORIGIN}/chat?with=lou`)
   await drawer.getByRole("link", { name: "Load more" }).click()
   await expect(page).toHaveURL(`${ORIGIN}/chat?pages=2`)
   await expect(drawer).toBeVisible()
@@ -723,4 +749,17 @@ test("close-on-navigate.js closes a drawer on a click on a link in it, unless th
   await show()
   await page.evaluate(() => history.pushState(null, "", "/photos"))
   await expect(drawer).toBeHidden()
+})
+
+test("close-on-navigate.js keeps a drawer open on a click on a download link in it", async ({
+  browserName,
+  page,
+}) => {
+  failsIn(browserName, { firefox: FIREFOX_DOWNLOAD_NAVIGATE })
+  const { drawer, show } = await navigationDrawer(page)
+  await show()
+  const downloaded = page.waitForEvent("download")
+  await drawer.getByRole("link", { name: "Export" }).click()
+  await (await downloaded).cancel()
+  await expect(drawer).toBeVisible()
 })

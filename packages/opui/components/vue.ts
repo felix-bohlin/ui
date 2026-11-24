@@ -8,7 +8,7 @@ import {
 } from "vue"
 
 export type Class = {
-  class?: HTMLAttributes["class"]
+  class?: unknown
 }
 
 export type DefaultSlots = {

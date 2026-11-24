@@ -455,9 +455,9 @@ const repeatedAttribute = (markup: string) => {
   for (const [, attributes] of markup.matchAll(
     /<[a-z][\w-]*((?:\s+[^\s"'=<>/]+(?:="[^"]*")?)*)\s*\/?>/g,
   )) {
-    const names = [...attributes.matchAll(/\s([^\s"'=<>/]+)/g)].map(
-      ([, name]) => name,
-    )
+    const names = [
+      ...attributes.matchAll(/\s([^\s"'=<>/]+)(?:="[^"]*")?/g),
+    ].map(([, name]) => name)
     const repeated = names.find((name, index) => names.indexOf(name) !== index)
     if (repeated) return repeated
   }
@@ -599,6 +599,9 @@ describe("every component renders the same in Astro, React, Solid, Svelte and Vu
     ).toBe("role")
     expect(
       repeatedAttribute('<ol class="ui-list" role="log" data-role="list">'),
+    ).toBeUndefined()
+    expect(
+      repeatedAttribute('<button class="ui-button class" type="button">'),
     ).toBeUndefined()
   })
 

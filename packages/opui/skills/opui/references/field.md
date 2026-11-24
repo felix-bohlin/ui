@@ -43,6 +43,28 @@ The label, hints and box around a form control you write: an input, a select or 
 - Astro, Solid, Svelte and Vue: Write the `<input>`, `<select>` or `<textarea>` inside, with its `id` set to `for`, and bind it like any control. Other attributes go to the `.ui-field` root.
 - React: Write the `<input>`, `<select>` or `<textarea>` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-field` root.
 
+## CharacterCount
+
+### Parts
+
+- `<opui-character-count>` (root): Shows the characters typed out of the control's `maxlength`, `aria-hidden` so it stays out of the field's description. Once 10% or 10 are left, whichever is more, a live region outside the label announces the characters left.
+
+### Props and modifiers
+
+- `label`: `string`, `label`, default `"Characters left: {count}"`. The announcement near the limit, with `{count}` for the characters left. Pass it translated.
+
+### Element
+
+- `<opui-character-count>`, defined by `opui-css/elements/character-count.js`:
+  - `control`: The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.
+
+### Notes
+
+- HTML: Add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`.
+- Astro and Vue: Put it in the field's `end-text` slot. It loads `opui-css/elements/character-count.js`, which keeps the count.
+- React and Solid: Put it in the field's `endText`. It loads `opui-css/elements/character-count.js`, which keeps the count.
+- Svelte: Put it in the field's `endText` snippet. It loads `opui-css/elements/character-count.js`, which keeps the count.
+
 ## Component properties
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
@@ -166,7 +188,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 
 ## Astro
 
-`import { Field } from "opui-css/astro"`
+`import { CharacterCount, Field } from "opui-css/astro"`
 
 - `Field` named slots: `bottom`, `end`, `end-text`, `label`, `start`, `start-text` and `top`. Fill one with `slot="bottom"` on a child.
 
@@ -219,9 +241,10 @@ const id = "field-ids-1"
 
 ## React
 
-`import { Field } from "opui-css/react"`
+`import { CharacterCount, Field } from "opui-css/react"`
 
 - `Field` slot props (`ReactNode`): `bottom`, `children`, `end`, `endText`, `label`, `start`, `startText` and `top`.
+- Client components (`"use client"`): `CharacterCount`.
 
 ### Example: Basics
 
@@ -283,7 +306,7 @@ export default function Ids() {
 
 ## Solid
 
-`import { Field } from "opui-css/solid"`
+`import { CharacterCount, Field } from "opui-css/solid"`
 
 - `Field` slot props (`JSX.Element`): `bottom`, `children`, `end`, `endText`, `label`, `start`, `startText` and `top`.
 
@@ -349,7 +372,7 @@ export default function Ids() {
 
 ## Svelte
 
-`import { Field } from "opui-css/svelte"`
+`import { CharacterCount, Field } from "opui-css/svelte"`
 
 - `Field` slot snippets: `bottom`, `children`, `end`, `endText`, `label`, `start`, `startText` and `top`.
 
@@ -406,7 +429,7 @@ export default function Ids() {
 
 ## Vue
 
-`import { Field } from "opui-css/vue"`
+`import { CharacterCount, Field } from "opui-css/vue"`
 
 - `Field` named slots: `bottom`, `end`, `end-text`, `label`, `start`, `start-text` and `top`. Fill one with `<template #bottom>`.
 

@@ -5,27 +5,18 @@ A multi-line text input in a Field that grows with its text, with a character co
 - CSS: `opui-css/css/components/field.css` and `opui-css/css/components/textarea.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/textarea.md), [Astro](https://opui.dev/astro/components/textarea.md), [React](https://opui.dev/react/components/textarea.md), [Solid](https://opui.dev/solid/components/textarea.md), [Svelte](https://opui.dev/svelte/components/textarea.md), [Vue](https://opui.dev/vue/components/textarea.md).
 
-## CharacterCount
+## Textarea (CSS only)
 
 ### Parts
 
-- `<opui-character-count>` (root): Shows the characters typed out of the control's `maxlength`, `aria-hidden` so it stays out of the field's description. Once 10% or 10 are left, whichever is more, a live region outside the label announces the characters left.
-
-### Props and modifiers
-
-- `label`: `string`, `label`, default `"Characters left: {count}"`. The announcement near the limit, with `{count}` for the characters left. Pass it translated.
-
-### Element
-
-- `<opui-character-count>`, defined by `opui-css/elements/character-count.js`:
-  - `control`: The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.
+- `.ui-field:has(> .ui-field-container > textarea)` (root): A `.ui-field` with a `<textarea>` in its container. `field.css` draws the box, and `textarea.css` sizes the textarea.
+- `<textarea>`: Your textarea, directly in `.ui-field-container`. It is `rows` lines tall, 3 by default, grows with its content up to `--_max-block-size` (20 lines) and can be resized taller. With the field's `autoFit` (`.ui-auto-fit`), it can be resized wider too.
 
 ### Notes
 
-- HTML: Add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`.
-- Astro and Vue: Put it in the field's `end-text` slot. It loads `opui-css/elements/character-count.js`, which keeps the count.
-- React and Solid: Put it in the field's `endText`. It loads `opui-css/elements/character-count.js`, which keeps the count.
-- Svelte: Put it in the field's `endText` snippet. It loads `opui-css/elements/character-count.js`, which keeps the count.
+- HTML: Put the `<textarea>` directly in `.ui-field-container`. The text inside it is its default value.
+- Astro, Solid, Svelte and Vue: Write a `<textarea>` in a `Field`, with its `id` set to `for`, and bind its `value` instead of writing text inside it.
+- React: Write a `<textarea>` in a `Field`, with its `id` set to `htmlFor`, and give it `value` or `defaultValue` instead of children.
 
 ## Component properties
 
@@ -94,8 +85,6 @@ import { Field } from "opui-css/astro"
 ## React
 
 `import { CharacterCount, Field } from "opui-css/react"`
-
-- Client components (`"use client"`): `CharacterCount`.
 
 ### Example: Basics
 

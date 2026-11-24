@@ -456,7 +456,7 @@ A choice the user makes before the page hydrates stays on screen. The form contr
 | [`CardActions`](https://opui.dev/react/components/card.md) | Yes | Yes | Yes | - |
 | [`CardHeader`](https://opui.dev/react/components/card.md) | Yes | Yes | Yes | - |
 | [`Carousel`](https://opui.dev/react/components/carousel.md) | Yes | Yes | Yes | - |
-| [`CharacterCount`](https://opui.dev/react/components/textarea.md) | Yes | Yes | No | - |
+| [`CharacterCount`](https://opui.dev/react/components/field.md) | Yes | Yes | No | - |
 | [`Checkbox`](https://opui.dev/react/components/checkbox.md) | Yes | No | Yes | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component loads the module once it hydrates, so the box looks unchecked until then. Import `opui-css/css/js/checkbox.js` in the page. |
 | [`CheckboxInput`](https://opui.dev/react/components/checkbox.md) | Yes | No | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component loads the module once it hydrates, so the box looks unchecked until then. Import `opui-css/css/js/checkbox.js` in the page. |
 | [`Chip`](https://opui.dev/react/components/chip.md) | Yes | Yes | Yes | - |
@@ -619,7 +619,7 @@ A choice the user makes before the page hydrates stays on screen, as on a plain 
 | [`CardActions`](https://opui.dev/solid/components/card.md) | Yes | Yes | - |
 | [`CardHeader`](https://opui.dev/solid/components/card.md) | Yes | Yes | - |
 | [`Carousel`](https://opui.dev/solid/components/carousel.md) | Yes | Yes | - |
-| [`CharacterCount`](https://opui.dev/solid/components/textarea.md) | Yes | Yes | - |
+| [`CharacterCount`](https://opui.dev/solid/components/field.md) | Yes | Yes | - |
 | [`Checkbox`](https://opui.dev/solid/components/checkbox.md) | Yes | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. |
 | [`CheckboxInput`](https://opui.dev/solid/components/checkbox.md) | Yes | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. |
 | [`Chip`](https://opui.dev/solid/components/chip.md) | Yes | Yes | - |
@@ -816,7 +816,7 @@ Every component renders full HTML on the server. The props in the last column ne
 | [`CardActions`](https://opui.dev/svelte/components/card.md) | Yes | Yes | - |
 | [`CardHeader`](https://opui.dev/svelte/components/card.md) | Yes | Yes | - |
 | [`Carousel`](https://opui.dev/svelte/components/carousel.md) | Yes | Yes | - |
-| [`CharacterCount`](https://opui.dev/svelte/components/textarea.md) | Yes | Yes | - |
+| [`CharacterCount`](https://opui.dev/svelte/components/field.md) | Yes | Yes | - |
 | [`Checkbox`](https://opui.dev/svelte/components/checkbox.md) | Yes | No | `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. |
 | [`CheckboxInput`](https://opui.dev/svelte/components/checkbox.md) | Yes | No | `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. |
 | [`Chip`](https://opui.dev/svelte/components/chip.md) | Yes | Yes | - |
@@ -980,7 +980,7 @@ A [Field](https://opui.dev/vue/components/field.md) wraps your own control. Give
 | [`CardActions`](https://opui.dev/vue/components/card.md) | Yes | Yes | - |
 | [`CardHeader`](https://opui.dev/vue/components/card.md) | Yes | Yes | - |
 | [`Carousel`](https://opui.dev/vue/components/carousel.md) | Yes | Yes | - |
-| [`CharacterCount`](https://opui.dev/vue/components/textarea.md) | Yes | Yes | - |
+| [`CharacterCount`](https://opui.dev/vue/components/field.md) | Yes | Yes | - |
 | [`Checkbox`](https://opui.dev/vue/components/checkbox.md) | Yes | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. , `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`CheckboxInput`](https://opui.dev/vue/components/checkbox.md) | Yes | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. , `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Chip`](https://opui.dev/vue/components/chip.md) | Yes | Yes | - |

@@ -658,6 +658,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `TextField`, `Textarea` and `Select` keep their field height when a grid or flex parent stretches them, e.g. next to a field with end text. The extra space went into the field.
 - `TextField` start and end icons are capped at `--ui-icon-size`, so a large icon no longer makes the field taller.
 - `TextField` autosuggest arrow sits at the inline end in RTL. It overlapped the text.
+- `TextField` color inputs in Firefox no longer draw a grey border inside the swatch (`::-moz-color-swatch`), like in Chromium and Safari.
 - `TextField` and `Select` without a label are as high as their field. The empty label row added 4px above it.
 - `TextField` start and end affixes use the field line height, so they no longer make the field taller on pages with a large line height.
 - `TextField`, `Select` and `Textarea` text affixes shrink and end in an ellipsis when the field is too narrow, so the control keeps at least `--_min-inline-size` (`8ch`). A long affix squeezed the input to nothing and pushed the field out of its container.

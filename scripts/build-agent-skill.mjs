@@ -614,6 +614,22 @@ const stripSections = (markdown) =>
     .join("")
     .trimEnd()
 
+const exampleImports = (slug) => {
+  const dir = path.join(EXAMPLES, slug)
+  const files = fs.existsSync(dir)
+    ? fs.readdirSync(dir).filter((file) => file.endsWith(".astro"))
+    : []
+  return new Set(
+    files.flatMap((file) =>
+      [
+        ...fs
+          .readFileSync(path.join(dir, file), "utf-8")
+          .matchAll(/import\s*\{([^}]*)\}\s*from\s*"opui-css\/astro"/g),
+      ].flatMap(([, names]) => names.split(",").map((name) => name.trim())),
+    ),
+  )
+}
+
 async function componentReference(component, apis, docs) {
   const { slug } = component
   const pageFrameworks = FRAMEWORKS.filter((f) =>
@@ -672,7 +688,12 @@ async function componentReference(component, apis, docs) {
             ordered,
             slug,
             docs.examples,
-            apis.filter((entry) => docs.base && entry.page === docs.base),
+            apis.filter(
+              (entry) =>
+                docs.base &&
+                entry.page === docs.base &&
+                exampleImports(slug).has(entry.api.component),
+            ),
           ),
     ),
   ]

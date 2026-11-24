@@ -1207,6 +1207,13 @@
     "url": "/html/components/field/#bound-validation"
   },
   {
+    "id": "component-field-html-disabled",
+    "title": "Disabled and read-only",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#disabled"
+  },
+  {
     "id": "component-field-html-spread",
     "title": "Spread",
     "page": "Field",
@@ -2388,13 +2395,6 @@
     "page": "Select",
     "category": "Component",
     "url": "/html/components/select/#preselected"
-  },
-  {
-    "id": "component-select-html-disabled",
-    "title": "Disabled",
-    "page": "Select",
-    "category": "Component",
-    "url": "/html/components/select/#disabled"
   },
   {
     "id": "component-select-html-required",
@@ -4967,6 +4967,14 @@
     "api": ".ui-tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. .ui-input:not(:checked) + .ui-label A tab. .ui-input:checked + .ui-label The panel of the selected tab. .ui-input:checked + .ui-label + .ui-panel [name] Group The name shared by the tab inputs. Generated when omitted. .ui-vertical Orientation The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them. .ui-overflow-wrap Overflow What the tabs do when they don't fit. `scroll` keeps them on one row and scrolls it sideways, and `wrap` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column. [role=\"radiogroup\"] Role Makes tabs without panels a radio group, which `aria-label` names. Tabs with panels take no role: the root holds the panels, and a radio group holds only radios. .ui-filled .ui-line .ui-outlined Variants The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.",
     "category": "API",
     "url": "/html/api/#tabs"
+  },
+  {
+    "id": "api-textarea-html",
+    "title": "Textarea API",
+    "description": "Reference for Textarea HTML component.",
+    "api": ".ui-field:has(> .ui-field-container > textarea) A `.ui-field` with a `<textarea>` in its container. `field.css` draws the box, and `textarea.css` sizes the textarea. Your textarea, directly in `.ui-field-container`. It is `rows` lines tall, 3 by default, grows with its content up to `--_max-block-size` (20 lines) and can be resized taller. With the field's `autoFit` (`.ui-auto-fit`), it can be resized wider too. .ui-field-container > textarea",
+    "category": "API",
+    "url": "/html/api/#textarea"
   },
   {
     "id": "api-timeline-item-html",

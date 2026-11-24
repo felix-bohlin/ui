@@ -66,7 +66,7 @@ Components documented on another component's page:
 | CardActions | `card.md` |
 | CardContent | `card.md` |
 | CardHeader | `card.md` |
-| CharacterCount | `textarea.md` |
+| CharacterCount | `field.md` |
 | CheckboxInput | `checkbox.md` |
 | DescriptionListDescription | `description-list.md` |
 | DescriptionListItem | `description-list.md` |

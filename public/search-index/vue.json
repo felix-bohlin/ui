@@ -1207,6 +1207,13 @@
     "url": "/vue/components/field/#bound-validation"
   },
   {
+    "id": "component-field-vue-disabled",
+    "title": "Disabled and read-only",
+    "page": "Field",
+    "category": "Component",
+    "url": "/vue/components/field/#disabled"
+  },
+  {
     "id": "component-field-vue-spread",
     "title": "Spread",
     "page": "Field",
@@ -2388,13 +2395,6 @@
     "page": "Select",
     "category": "Component",
     "url": "/vue/components/select/#preselected"
-  },
-  {
-    "id": "component-select-vue-disabled",
-    "title": "Disabled",
-    "page": "Select",
-    "category": "Component",
-    "url": "/vue/components/select/#disabled"
   },
   {
     "id": "component-select-vue-required",
@@ -4960,6 +4960,14 @@
     "api": "Tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. A tab. The panel of the selected tab. name The name shared by the tab inputs. Generated when omitted. orientation The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them. overflow What the tabs do when they don't fit. `scroll` keeps them on one row and scrolls it sideways, and `wrap` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column. role Makes tabs without panels a radio group, which `aria-label` names. Tabs with panels take no role: the root holds the panels, and a radio group holds only radios. variant The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.",
     "category": "API",
     "url": "/vue/api/#tabs"
+  },
+  {
+    "id": "api-textarea-vue",
+    "title": "Textarea API",
+    "description": "Reference for Textarea Vue component.",
+    "api": "Textarea A `.ui-field` with a `<textarea>` in its container. `field.css` draws the box, and `textarea.css` sizes the textarea. Your textarea, directly in `.ui-field-container`. It is `rows` lines tall, 3 by default, grows with its content up to `--_max-block-size` (20 lines) and can be resized taller. With the field's `autoFit` (`.ui-auto-fit`), it can be resized wider too.",
+    "category": "API",
+    "url": "/vue/api/#textarea"
   },
   {
     "id": "api-timeline-item-vue",

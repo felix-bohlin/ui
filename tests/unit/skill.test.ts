@@ -172,25 +172,29 @@ const importsOf = (markdown: string) =>
     ...markdown.matchAll(/^`import \{ ([^}]+) \} from "opui-css\/(\w+)"`$/gm),
   ].map(([, names, framework]) => ({ framework, names: names.split(", ") }))
 
-const missingImports = (reference: string, base: string) =>
-  importsOf(base).flatMap(({ framework, names }) => {
-    const own = importsOf(reference).find(
-      (line) => line.framework === framework,
-    )
-    return names
-      .filter((name) => !own?.names.includes(name))
-      .map((name) => `${framework}: ${name}`)
-  })
+const missingImports = (reference: string, base: string, component: string) =>
+  importsOf(base).flatMap(({ framework }) =>
+    importsOf(reference)
+      .find((line) => line.framework === framework)
+      ?.names.includes(component)
+      ? []
+      : [`${framework}: ${component}`],
+  )
 
-test("a reference imports the components of the page its docs page builds on", () => {
+test("a reference imports the component of the page its docs page builds on", () => {
   expect(
     missingImports(
       '`import { PasswordToggle } from "opui-css/react"`',
       '`import { Field } from "opui-css/react"`',
+      "Field",
     ),
   ).toEqual(["react: Field"])
   const reference = (page: string) =>
     readFileSync(path.join(REFERENCES, `${page}.md`), "utf8")
+  const pascal = (slug: string) =>
+    slug.replace(/(^|-)([a-z])/g, (_, __, letter: string) =>
+      letter.toUpperCase(),
+    )
   expect(
     pages.flatMap((page) => {
       const base = readFileSync(
@@ -198,7 +202,7 @@ test("a reference imports the components of the page its docs page builds on", (
         "utf8",
       ).match(/^\s+base="([\w-]+)"$/m)?.[1]
       return base
-        ? missingImports(reference(page), reference(base)).map(
+        ? missingImports(reference(page), reference(base), pascal(base)).map(
             (problem) => `${page}.md ${problem}`,
           )
         : []

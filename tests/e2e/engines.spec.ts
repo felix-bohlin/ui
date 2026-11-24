@@ -110,21 +110,17 @@ repro(FIREFOX_DOWNLOAD_NAVIGATE, () => {
   }) => {
     failsIn(browserName, { firefox: FIREFOX_DOWNLOAD_NAVIGATE })
     await tab.route("https://engines.test/**", (route) =>
-      route.fulfill(
-        route.request().url().endsWith(".csv")
-          ? { body: "a,b", contentType: "text/csv" }
-          : {
-              body: `<!doctype html>
-                <a download href="/export.csv">Export</a>
-                <script>
-                  window.navigations = []
-                  navigation.addEventListener("navigate", (event) => {
-                    navigations.push(event.downloadRequest)
-                  })
-                </script>`,
-              contentType: "text/html",
-            },
-      ),
+      route.fulfill({
+        body: `<!doctype html>
+          <a download="export.csv" href="data:text/csv,a%2Cb">Export</a>
+          <script>
+            window.navigations = []
+            navigation.addEventListener("navigate", (event) => {
+              navigations.push(event.downloadRequest)
+            })
+          </script>`,
+        contentType: "text/html",
+      }),
     )
     await instantScrolling(tab)
     await tab.goto("https://engines.test/")
@@ -137,7 +133,7 @@ repro(FIREFOX_DOWNLOAD_NAVIGATE, () => {
           () => (window as unknown as { navigations: unknown[] }).navigations,
         ),
       )
-      .toEqual([""])
+      .toEqual(["export.csv"])
   })
 })
 

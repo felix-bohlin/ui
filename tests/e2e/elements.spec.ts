@@ -907,7 +907,7 @@ const navigationDrawer = async (page: Page) => {
                 <a href="/chat">Chat</a>
                 <a data-keep-open href="/chat?pages=2">Load more</a>
                 <a href="/help" target="_blank">Help</a>
-                <a download href="/export.csv">Export</a>
+                <a download="export.csv" href="data:text/csv,a%2Cb">Export</a>
               </dialog>
             </body></html>`,
             contentType: "text/html",

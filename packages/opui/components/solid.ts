@@ -27,15 +27,13 @@ export const control = <V>(
 ) => {
   let element: Element | undefined
   const initial = untrack(read)
-  createRenderEffect(
-    read,
-    (value, previous) => {
-      if (element && value !== undefined && value !== previous) {
-        setProperty(element, prop, value)
-      }
-    },
-    { defer: true },
-  )
+  let last = initial
+  createRenderEffect(read, (value) => {
+    if (element && value !== undefined && value !== last) {
+      setProperty(element, prop, value)
+    }
+    last = value
+  })
   return {
     ref: (node: Element) => {
       if (!element) {

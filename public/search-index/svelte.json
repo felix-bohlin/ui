@@ -1123,13 +1123,6 @@
     "url": "/svelte/components/field/#basics"
   },
   {
-    "id": "component-field-svelte-ids",
-    "title": "Ids",
-    "page": "Field",
-    "category": "Component",
-    "url": "/svelte/components/field/#ids"
-  },
-  {
     "id": "component-field-svelte-variants",
     "title": "Variants",
     "page": "Field",
@@ -1165,6 +1158,20 @@
     "url": "/svelte/components/field/#start-text"
   },
   {
+    "id": "component-field-svelte-affix",
+    "title": "Affix",
+    "page": "Field",
+    "category": "Component",
+    "url": "/svelte/components/field/#affix"
+  },
+  {
+    "id": "component-field-svelte-top-and-bottom",
+    "title": "Top and bottom",
+    "page": "Field",
+    "category": "Component",
+    "url": "/svelte/components/field/#top-and-bottom"
+  },
+  {
     "id": "component-field-svelte-end-text",
     "title": "End text",
     "page": "Field",
@@ -1179,18 +1186,11 @@
     "url": "/svelte/components/field/#character-count"
   },
   {
-    "id": "component-field-svelte-affix",
-    "title": "Affix",
+    "id": "component-field-svelte-ids",
+    "title": "Ids",
     "page": "Field",
     "category": "Component",
-    "url": "/svelte/components/field/#affix"
-  },
-  {
-    "id": "component-field-svelte-top-and-bottom",
-    "title": "Top and bottom",
-    "page": "Field",
-    "category": "Component",
-    "url": "/svelte/components/field/#top-and-bottom"
+    "url": "/svelte/components/field/#ids"
   },
   {
     "id": "component-field-svelte-validation",

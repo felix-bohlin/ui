@@ -1123,13 +1123,6 @@
     "url": "/html/components/field/#basics"
   },
   {
-    "id": "component-field-html-ids",
-    "title": "Ids",
-    "page": "Field",
-    "category": "Component",
-    "url": "/html/components/field/#ids"
-  },
-  {
     "id": "component-field-html-variants",
     "title": "Variants",
     "page": "Field",
@@ -1165,6 +1158,20 @@
     "url": "/html/components/field/#start-text"
   },
   {
+    "id": "component-field-html-affix",
+    "title": "Affix",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#affix"
+  },
+  {
+    "id": "component-field-html-top-and-bottom",
+    "title": "Top and bottom",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#top-and-bottom"
+  },
+  {
     "id": "component-field-html-end-text",
     "title": "End text",
     "page": "Field",
@@ -1179,18 +1186,11 @@
     "url": "/html/components/field/#character-count"
   },
   {
-    "id": "component-field-html-affix",
-    "title": "Affix",
+    "id": "component-field-html-ids",
+    "title": "Ids",
     "page": "Field",
     "category": "Component",
-    "url": "/html/components/field/#affix"
-  },
-  {
-    "id": "component-field-html-top-and-bottom",
-    "title": "Top and bottom",
-    "page": "Field",
-    "category": "Component",
-    "url": "/html/components/field/#top-and-bottom"
+    "url": "/html/components/field/#ids"
   },
   {
     "id": "component-field-html-validation",

@@ -1123,13 +1123,6 @@
     "url": "/vue/components/field/#basics"
   },
   {
-    "id": "component-field-vue-ids",
-    "title": "Ids",
-    "page": "Field",
-    "category": "Component",
-    "url": "/vue/components/field/#ids"
-  },
-  {
     "id": "component-field-vue-variants",
     "title": "Variants",
     "page": "Field",
@@ -1165,6 +1158,20 @@
     "url": "/vue/components/field/#start-text"
   },
   {
+    "id": "component-field-vue-affix",
+    "title": "Affix",
+    "page": "Field",
+    "category": "Component",
+    "url": "/vue/components/field/#affix"
+  },
+  {
+    "id": "component-field-vue-top-and-bottom",
+    "title": "Top and bottom",
+    "page": "Field",
+    "category": "Component",
+    "url": "/vue/components/field/#top-and-bottom"
+  },
+  {
     "id": "component-field-vue-end-text",
     "title": "End text",
     "page": "Field",
@@ -1179,18 +1186,11 @@
     "url": "/vue/components/field/#character-count"
   },
   {
-    "id": "component-field-vue-affix",
-    "title": "Affix",
+    "id": "component-field-vue-ids",
+    "title": "Ids",
     "page": "Field",
     "category": "Component",
-    "url": "/vue/components/field/#affix"
-  },
-  {
-    "id": "component-field-vue-top-and-bottom",
-    "title": "Top and bottom",
-    "page": "Field",
-    "category": "Component",
-    "url": "/vue/components/field/#top-and-bottom"
+    "url": "/vue/components/field/#ids"
   },
   {
     "id": "component-field-vue-validation",

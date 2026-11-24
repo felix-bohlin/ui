@@ -32,14 +32,14 @@ export type FakeEffect = Record<string, unknown> & {
   boundVariables?: Record<string, FakeAlias>
 }
 
-export type FakeEffectStyle = {
+type FakeEffectStyle = {
   description: string
   effects: FakeEffect[]
   id: string
   name: string
 }
 
-export type FakeTextStyle = {
+type FakeTextStyle = {
   boundVariables: Record<string, FakeAlias>
   description: string
   fontName: { family: string; style: string }
@@ -52,7 +52,7 @@ export type FakeTextStyle = {
   textCase: string
 }
 
-export const FONTS: [string, string[]][] = [
+const FONTS: [string, string[]][] = [
   ["Inconsolata", ["Regular", "Bold"]],
   ["Inter", ["Regular", "Medium", "Semi Bold", "Bold"]],
   ["Roboto Mono", ["Regular", "Bold"]],

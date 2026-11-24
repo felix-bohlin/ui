@@ -11,7 +11,7 @@ const sources = import.meta.glob<string>(
   },
 )
 
-export const blockFile = (slug: string, framework: FrameworkId) =>
+const blockFile = (slug: string, framework: FrameworkId) =>
   `${slug}/${slug.replace(/(^|-)([a-z0-9])/g, (_, _dash, letter: string) => letter.toUpperCase())}.${exampleExtension(framework)}`
 
 const sourceOf = (slug: string, framework: FrameworkId) =>

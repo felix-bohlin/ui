@@ -119,7 +119,7 @@ export function frameworkPaths() {
 }
 
 /** @type {Record<string, FrameworkId[]>} */
-export const COMPONENT_FRAMEWORKS = {}
+const COMPONENT_FRAMEWORKS = {}
 
 export const FRAMEWORK_AGNOSTIC_EXAMPLES = ["typography/Default"]
 

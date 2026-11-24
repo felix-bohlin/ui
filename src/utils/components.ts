@@ -55,7 +55,7 @@ const FOUNDATIONS = ["layout", "typography"]
 
 const isFoundation = (slug: string) => FOUNDATIONS.includes(slug)
 
-export const baseOf = (slug: string) =>
+const baseOf = (slug: string) =>
   docSources[`../docs/components/${slug}.astro`]?.match(
     /^\s+base="([\w-]+)"$/m,
   )?.[1]

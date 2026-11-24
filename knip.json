@@ -1,0 +1,38 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "ignore": ["tests/apps/**", "tests/reference/**"],
+  "rules": {
+    "optionalPeerDependencies": "off"
+  },
+  "workspaces": {
+    ".": {
+      "entry": [
+        ".claude/hooks/*.mjs",
+        "scripts/*.mjs",
+        "tests/unit/fixtures/**"
+      ],
+      "ignoreDependencies": [
+        "@fluentui/svg-icons",
+        "@fontsource/dm-sans",
+        "@fontsource/geist",
+        "@fontsource/roboto",
+        "@material-symbols/svg-400",
+        "@phosphor-icons/core",
+        "@tabler/icons",
+        "lucide-static"
+      ]
+    },
+    "packages/opui": {
+      "entry": [
+        "{astro,react,solid,svelte,vue}/index.ts",
+        "bin/*.mjs",
+        "scripts/*.mjs"
+      ],
+      "ignoreDependencies": ["open-props"]
+    },
+    "tests/package/fixtures/*": {
+      "entry": ["src/**"],
+      "ignoreDependencies": ["@astrojs/check", "svelte-check", "vue-tsc"]
+    }
+  }
+}

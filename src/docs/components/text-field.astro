@@ -155,7 +155,10 @@ export const keywords = ["email", "input", "password", "search", "text box"]
         Give the input <code>value</code> and <code>onInput</code>.
       </Fragment>
       <Fragment slot="svelte">
-        Use <code>bind:value</code> on the input.
+        Use <code>bind:value</code> on the input. Svelte drops the starting
+        <code>value</code> from the input when the page hydrates, so give it
+        <code>defaultValue</code> too if a form reset should bring the value
+        back.
       </Fragment>
       <Fragment slot="vue">Use <code>v-model</code> on the input.</Fragment>
     </Conditional>

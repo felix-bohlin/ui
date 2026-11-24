@@ -137,12 +137,7 @@ const PROBES: Partial<Record<Framework, Record<string, string>>> = {
   },
 }
 
-const KNOWN: Partial<Record<Framework, Record<string, string>>> = {
-  svelte: {
-    "text-field/Binding":
-      "Svelte drops the server's value attribute from an input whose only dynamic attribute is bind: when it hydrates (TODO.md Limitations: Text field, in Svelte, the Binding example's own <input bind:value>)",
-  },
-}
+const KNOWN: Partial<Record<Framework, Record<string, string>>> = {}
 
 type Captured = {
   attributesOf: (element: Element) => string[]

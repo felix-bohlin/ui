@@ -427,6 +427,28 @@ The types work with TypeScript 6 and 7, with `moduleResolution` set to `"bundler
 
 Slots are props: `children`, and camelCased names like `endText`.
 
+### Reaching the element
+
+Every component hands `ref` to its root element, typed for it: a `Dialog` ref is an `HTMLDialogElement`. Most of the time you need none: a `Button` with `command="show-modal"` and `commandfor` opens a dialog by its `id`, and its click handler can set your state at the same time. When a script opens it, such as after a check, reach the element:
+
+```tsx
+import { useRef } from "react"
+import { Button, Dialog, DialogContent } from "opui-css/react"
+
+export function Confirm() {
+  const dialog = useRef<HTMLDialogElement>(null)
+
+  return (
+    <>
+      <Button onClick={() => dialog.current?.showModal()}>Delete</Button>
+      <Dialog aria-label="Delete the file?" id="confirm" ref={dialog}>
+        <DialogContent>The file goes to the bin for 30 days.</DialogContent>
+      </Dialog>
+    </>
+  )
+}
+```
+
 ### Server rendering
 
 Every component renders full HTML on the server. Components with state or effects are marked `"use client"`, the rest are Server Components. The props in the last column need hydration.
@@ -575,6 +597,29 @@ The components ship as `.jsx` files with their types, which `@solidjs/vite-plugi
 The types work with TypeScript 6 and 7, with `moduleResolution` set to `"bundler"` and `jsxImportSource` set to `"@solidjs/web"`.
 
 ### How to use
+
+### Reaching the element
+
+```tsx
+import { Button, Dialog, DialogContent } from "opui-css/solid"
+
+export function Confirm() {
+  let dialog: HTMLDialogElement | undefined
+
+  return (
+    <>
+      <Button onClick={() => dialog?.showModal()}>Delete</Button>
+      <Dialog
+        aria-label="Delete the file?"
+        id="confirm"
+        ref={(element) => (dialog = element)}
+      >
+        <DialogContent>The file goes to the bin for 30 days.</DialogContent>
+      </Dialog>
+    </>
+  )
+}
+```
 
 ### Server rendering
 
@@ -784,6 +829,29 @@ Slots are snippets: `children`, and camelCased names like `endText`. Form contro
 - [Tabs](https://opui.dev/svelte/components/tabs.md)
 - [ToggleGroup](https://opui.dev/svelte/components/toggle.md)                                                                                                                                                                                              |
 
+### Reaching the element
+
+Every component spreads its other props on its root element, attachments too, so `{@attach}` on a component reaches the element, typed for it: a `Dialog` attachment gets the `HTMLDialogElement`. Most of the time you need none: a `Button` with `command="show-modal"` and `commandfor` opens a dialog by its `id`, and its click handler can set your state at the same time. When a script opens it, such as after a check, reach the element:
+
+```svelte
+<script lang="ts">
+  import { Button, Dialog, DialogContent } from "opui-css/svelte"
+
+  let dialog: HTMLDialogElement | undefined
+</script>
+
+<Button onclick={() => dialog?.showModal()}>Delete</Button>
+<Dialog
+  aria-label="Delete the file?"
+  id="confirm"
+  {@attach (element) => {
+    dialog = element
+  }}
+>
+  <DialogContent>The file goes to the bin for 30 days.</DialogContent>
+</Dialog>
+```
+
 ### Server rendering
 
 Every component renders full HTML on the server. The props in the last column need hydration.
@@ -947,6 +1015,26 @@ import "./styles/main.css"
 Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` files: vue-tsc 3.3 runs on TypeScript 6, not on 7. The types resolve with `moduleResolution` set to `"bundler"` or `"nodenext"`.
 
 ### How to use
+
+### Reaching the element
+
+A template ref on a component is the component, and its `$el` is the root element, typed for it: a `Dialog`'s `$el` is an `HTMLDialogElement`. Most of the time you need none: a `Button` with `command="show-modal"` and `commandfor` opens a dialog by its `id`, and its click handler can set your state at the same time. When a script opens it, such as after a check, reach the element:
+
+```vue
+<script setup lang="ts">
+import { useTemplateRef } from "vue"
+import { Button, Dialog, DialogContent } from "opui-css/vue"
+
+const dialog = useTemplateRef("dialog")
+</script>
+
+<template>
+  <Button @click="dialog?.$el.showModal()">Delete</Button>
+  <Dialog ref="dialog" aria-label="Delete the file?" id="confirm">
+    <DialogContent>The file goes to the bin for 30 days.</DialogContent>
+  </Dialog>
+</template>
+```
 
 ### Server rendering
 

@@ -138,6 +138,39 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
       keyboard in Safari.
     </p>
     <AutoExample name="Basics" column />
+    <Conditional as="p">
+      <Fragment slot="components">
+        A <code>Button</code> with <code>command="show-modal"</code> and
+        <code>commandfor</code> opens the drawer without a ref, and its click
+        handler can update your state at the same time.
+      </Fragment>
+    </Conditional>
+    <Conditional as="p">
+      <Fragment slot="react">
+        To open it from a script,
+        <DocLink href="/guide/getting-started#element"
+          >reach the element</DocLink
+        >.
+      </Fragment>
+      <Fragment slot="solid">
+        To open it from a script,
+        <DocLink href="/guide/getting-started#element"
+          >reach the element</DocLink
+        >.
+      </Fragment>
+      <Fragment slot="svelte">
+        To open it from a script,
+        <DocLink href="/guide/getting-started#element"
+          >reach the element</DocLink
+        >.
+      </Fragment>
+      <Fragment slot="vue">
+        To open it from a script,
+        <DocLink href="/guide/getting-started#element"
+          >reach the element</DocLink
+        >.
+      </Fragment>
+    </Conditional>
 
     <BlockLink slug="app-shell">
       On narrow screens the sidebar navigation moves into a drawer that the menu

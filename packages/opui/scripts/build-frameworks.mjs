@@ -277,7 +277,13 @@ const buildVue = (root, dist, files) => {
     }
   }
   const config = join(tmpdir(), `opui-vue-${process.pid}.json`)
-  writeFileSync(config, JSON.stringify(typeConfig(root, dist, "vue/index.ts")))
+  writeFileSync(
+    config,
+    JSON.stringify({
+      ...typeConfig(root, dist, "vue/index.ts"),
+      vueCompilerOptions: { inferComponentDollarEl: true },
+    }),
+  )
   try {
     execFileSync(
       process.execPath,

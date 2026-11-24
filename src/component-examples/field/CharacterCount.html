@@ -1,0 +1,23 @@
+<div class="ui-field">
+  <label class="ui-label" for="field-character-count-1">Headline</label>
+  <span class="ui-field-container">
+    <input
+      aria-describedby="field-character-count-1-end-text"
+      id="field-character-count-1"
+      maxlength="60"
+      name="headline"
+    />
+  </span>
+  <span class="ui-end-text" id="field-character-count-1-end-text">
+    Up to 60 characters.
+    <opui-character-count
+      aria-hidden="true"
+      label="{count} characters left"
+      class="ui-value"
+    ></opui-character-count>
+  </span>
+</div>
+
+<script type="module">
+  import "opui-css/elements/character-count.js"
+</script>

@@ -434,7 +434,7 @@ import {
                 id="notification-settings-quiet-from"
                 name="quiet-from"
                 type="time"
-                value="22:00"
+                :value.attr="'22:00'"
               />
             </Field>
             <Field for="notification-settings-quiet-to" label="To">
@@ -442,7 +442,7 @@ import {
                 id="notification-settings-quiet-to"
                 name="quiet-to"
                 type="time"
-                value="07:00"
+                :value.attr="'07:00'"
               />
             </Field> </FieldGroup
         ></CardContent>

@@ -6,7 +6,6 @@ import {
   NATIVE_CASES,
   SVELTE_GROUP,
   SVELTE_SPREAD,
-  VUE_SLOT_VALUE,
 } from "../apps/native/cases"
 import { FRAMEWORKS, isHydratedFramework } from "../../src/utils/framework"
 import { instantScrolling, pageErrors } from "./fixtures"
@@ -21,11 +20,6 @@ const DIFFERENCES = [
     "toggle-bound",
   ]),
   ...differences("svelte", SVELTE_SPREAD, ["checkbox-bound"]),
-  ...differences("vue", VUE_SLOT_VALUE, [
-    "number-default",
-    "range-default",
-    "text-default",
-  ]),
 ]
 
 for (const { id, label } of FRAMEWORKS) {

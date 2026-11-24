@@ -1,6 +1,7 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
 import Code from "../../../components/Code.astro"
+import DocLink from "../../../components/DocLink.astro"
 import Builds from "./partials/Builds.astro"
 import CssFiles from "./partials/CssFiles.astro"
 import InstallCommand from "./partials/InstallCommand.astro"
@@ -85,6 +86,12 @@ import "./styles/main.css"`}
     <p>
       Slots are props: <code>children</code>, and camelCased names like
       <code>endText</code>.
+    </p>
+    <p>
+      A <DocLink href="/components/field">Field</DocLink> wraps your own
+      control. Give the control an <code>id</code>, set <code>for</code> on the
+      field to it, and bind it like any input. For a hint, set the control's
+      <code>aria-describedby</code> to <code>&lt;id&gt;-end-text</code>.
     </p>
   </section>
 

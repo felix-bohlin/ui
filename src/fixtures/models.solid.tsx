@@ -46,6 +46,7 @@ const Models = () => {
   document.addEventListener("refresh-steps", () => setSteps(stepsOf(1)))
   const [name, setName] = createSignal("Ada")
   const [plan, setPlan] = createSignal("free")
+  const [toppings, setToppings] = createSignal(["basil", "cheese"])
 
   return (
     <form>
@@ -199,6 +200,27 @@ const Models = () => {
         Set values
       </button>
       <button type="reset">Reset</button>
+      <fieldset id="models-toppings">
+        <legend>Toppings</legend>
+        <For each={["basil", "cheese", "olives"]}>
+          {(topping) => (
+            <Checkbox
+              checked={toppings().includes(topping)}
+              onChange={(event) =>
+                setToppings(
+                  event.currentTarget.checked
+                    ? [...toppings(), topping]
+                    : toppings().filter((item) => item !== topping),
+                )
+              }
+              value={topping}
+            >
+              {topping}
+            </Checkbox>
+          )}
+        </For>
+        <output>{JSON.stringify(toppings())}</output>
+      </fieldset>
     </form>
   )
 }

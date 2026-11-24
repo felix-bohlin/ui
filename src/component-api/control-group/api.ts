@@ -2,7 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "ControlGroup",
-  css: ["button", "control-group", "text-field"],
+  css: ["button", "control-group", "field"],
   keyboard: [
     {
       description:
@@ -93,9 +93,9 @@ export default {
   parts: [
     {
       code: "& > .ui-field",
-      component: "TextField",
+      component: "Field",
       description:
-        "A number field, select, text field or textarea (a textarea only in a vertical group). Its `.ui-field-container` joins the controls next to it.",
+        "A `Field` with an input, a select or a textarea (a textarea only in a vertical group). Its `.ui-field-container` joins the controls next to it.",
       selector: ".ui-control-group > .ui-field",
     },
     {

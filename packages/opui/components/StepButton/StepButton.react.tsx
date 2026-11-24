@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import "../../elements/step-button.js"
 import type { Props } from "./types.react"
 
 export default function StepButton({
@@ -11,9 +11,6 @@ export default function StepButton({
   ...rest
 }: Props) {
   const name = label ?? (command === "--step-down" ? "Decrease" : "Increase")
-  useEffect(() => {
-    void import("../../elements/step-button.js")
-  }, [])
 
   return (
     <opui-step-button {...rest}>

@@ -161,8 +161,6 @@ const slots = new Set([
   "actions",
   "bottom",
   "close-icon",
-  "datalist",
-  "decrease-icon",
   "default",
   "description",
   "end",
@@ -170,7 +168,6 @@ const slots = new Set([
   "icon-checked",
   "icon-complete",
   "icon-unchecked",
-  "increase-icon",
   "indicator",
   "label",
   "marker",
@@ -178,7 +175,6 @@ const slots = new Set([
   "start-text",
   "submenu",
   "top",
-  "value-text",
 ])
 const roots = new Set(
   apis.flatMap((api) => api.root.selector.match(/\.ui-[a-z0-9-]+/g) ?? []),

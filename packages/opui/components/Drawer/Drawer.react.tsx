@@ -1,6 +1,8 @@
 "use client"
 
-import { useEffect, useMemo } from "react"
+import { useMemo } from "react"
+import "../../elements/close-on-navigate.js"
+import "../../elements/drawer-swipe.js"
 import { defined } from "../attrs"
 import { cx } from "../cx"
 import { DrawerContext } from "./context.react"
@@ -22,10 +24,6 @@ export default function Drawer({
 }: Props) {
   const labelledBy = autoLabelledBy(rest, `${id}-title`)
   warnMissingId("Drawer", id)
-  useEffect(() => {
-    void import("../../elements/close-on-navigate.js")
-    void import("../../elements/drawer-swipe.js")
-  }, [])
   const attrs = defined(rest)
   const context = useMemo<Context>(
     () => ({ id, titleId: labelledBy }),

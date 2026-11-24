@@ -1,4 +1,4 @@
-import { existsSync } from "node:fs"
+import { existsSync, globSync } from "node:fs"
 import type { AstroInstance } from "astro"
 import { createTwoFilesPatch } from "diff"
 import { createElement, type ComponentType } from "react"
@@ -155,6 +155,31 @@ const renderers: {
   svelte: (loaded) => render.svelte(loaded.default),
   vue: (loaded) => render.vue(loaded.default),
 }
+
+const SNAPSHOT_FILE = /\.(?:html|(?:react|solid|svelte|vue)\.diff)$/
+
+const orphanSnapshots = (files: string[], keys: Set<string>) =>
+  files.filter((file) => !keys.has(file.replace(SNAPSHOT_FILE, "")))
+
+test("every markup snapshot and drift file belongs to an example or a block", () => {
+  const files = globSync("**/*.{diff,html}", {
+    cwd: new URL("__snapshots__/", import.meta.url),
+  }).toSorted()
+  expect(files.length).toBeGreaterThan(0)
+  expect(
+    orphanSnapshots(files, new Set(examples.keys())),
+    "these snapshots belong to no example or block any more: delete them",
+  ).toEqual([])
+})
+
+test("the snapshot check flags a snapshot and a drift file whose example is gone", () => {
+  expect(
+    orphanSnapshots(
+      ["a/Kept.html", "a/Kept.vue.diff", "a/Gone.html", "a/Gone.react.diff"],
+      new Set(["a/Kept"]),
+    ),
+  ).toEqual(["a/Gone.html", "a/Gone.react.diff"])
+})
 
 test("the React renderer fails on a console.error", async () => {
   const Controlled = () => createElement("input", { value: "x" })

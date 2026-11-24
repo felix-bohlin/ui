@@ -3,12 +3,12 @@ import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
 import Usage from "./partials/Usage.astro"
 import AutoExample from "../../components/AutoExample.astro"
-import Conditional from "../../components/Conditional.astro"
 
-import FieldCSS from "@opui/css/components/text-field.css?raw"
+import FieldCSS from "@opui/css/components/field.css?raw"
 import TextareaCSS from "@opui/css/components/textarea.css?raw"
+import CharacterCountJS from "@opui/elements/character-count.js?raw"
 
-import characterCountApi from "../../component-api/character-count/api"
+import textareaApi from "../../component-api/textarea/api"
 import TextareaBuild from "../../components/UnderTheHood/TextareaBuild.astro"
 
 export const description =
@@ -19,6 +19,7 @@ export const keywords = ["multiline", "text area"]
 
 <Component
   description={description}
+  base="field"
   slug="textarea"
   browserSupport={[
     "alt-text-generated-content",
@@ -36,19 +37,21 @@ export const keywords = ["multiline", "text area"]
     "reading-flow":
       "Without `reading-flow`, Tab and screen readers follow the markup, which puts the top and start parts before the control, as they're drawn. Hand-written HTML needs that order too.",
   }}
-  apis={[{ title: "Character count API", api: characterCountApi }]}
+  apis={[{ title: "Textarea API", api: textareaApi }]}
   changelogPaths={[
+    { path: "packages/opui/css/components/field.css", type: "css" },
     { path: "packages/opui/css/components/text-field.css", type: "css" },
     { path: "src/component-api/character-count", type: "api" },
   ]}
   installationTabs={[
     {
-      title: "text-field.css",
+      title: "field.css",
       code: FieldCSS,
       lang: "css",
       isDependency: true,
     },
     { title: "textarea.css", code: TextareaCSS, lang: "css" },
+    { title: "character-count.js", code: CharacterCountJS, lang: "js" },
   ]}
 >
   <Fragment slot="title">Textarea</Fragment>
@@ -71,78 +74,12 @@ export const keywords = ["multiline", "text area"]
     <h2>Textarea</h2>
     <p>
       A textarea is a <DocLink href="/components/field">Field</DocLink> with a
-      <code>&lt;textarea&gt;</code> inside. The Field page shows the variants,
-      sizes, start and end text, affixes, validation and layout every field
-      shares.
+      <code>&lt;textarea&gt;</code> inside. Write it and wire its
+      <code>aria-describedby</code> as the
+      <DocLink href="/components/field#basics">Field</DocLink> page shows, with
+      the variants, sizes, affixes, validation and layout every field shares.
     </p>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Write the <code>&lt;textarea&gt;</code> inside the field, with its
-        <code>id</code> set to <code>for</code>, and bind, name and validate it
-        like any textarea. The types require <code>for</code>.
-      </Fragment>
-      <Fragment slot="react">
-        Write the <code>&lt;textarea&gt;</code> inside the field, with its
-        <code>id</code> set to <code>htmlFor</code>, and bind, name and validate
-        it like any textarea. The types require <code>htmlFor</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Put the <code>&lt;textarea&gt;</code> directly in
-        <code>.ui-field-container</code>, and point the
-        <code>&lt;label for&gt;</code> at its <code>id</code>.
-      </Fragment>
-    </Conditional>
-  </section>
-
-  <section id="character-count">
-    <h2>Character count</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        With <code>maxlength</code>, set <code>characterCount</code>. Screen
-        readers only hear the count near the limit, so name the limit in the end
-        text.
-      </Fragment>
-      <Fragment slot="html">
-        With <code>maxlength</code>, import
-        <code>opui-css/elements/character-count.js</code>. Screen readers only
-        hear the count near the limit, so name the limit in the end text.
-      </Fragment>
-    </Conditional>
-    <AutoExample name="CharacterCount" centered />
-  </section>
-
-  <section id="affix">
-    <h2>Affix</h2>
-    <p>
-      A button can go in an affix, like a send button. The label alone names the
-      field, and the button is read after it, with the other affixes. The
-      <DocLink href="/components/field#affix">Field</DocLink> page shows the
-      other affixes.
-    </p>
-    <AutoExample name="AffixButton" row />
-  </section>
-
-  <section id="binding">
-    <h2>Binding</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Read the <code>textarea</code> in a script.
-      </Fragment>
-      <Fragment slot="html"
-        >Read the <code>textarea</code> in a script.</Fragment
-      >
-      <Fragment slot="react">
-        Give the textarea <code>value</code> and <code>onChange</code>.
-      </Fragment>
-      <Fragment slot="solid">
-        Give the textarea <code>value</code> and <code>onInput</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Use <code>bind:value</code> on the textarea.
-      </Fragment>
-      <Fragment slot="vue">Use <code>v-model</code> on the textarea.</Fragment>
-    </Conditional>
-    <AutoExample name="Binding" column />
+    <AutoExample name="Basics" column />
   </section>
 
   <section id="rows">
@@ -156,18 +93,27 @@ export const keywords = ["multiline", "text area"]
     <AutoExample name="Rows" column />
   </section>
 
-  <TextareaBuild slot="under-the-hood" />
+  <section id="character-count">
+    <h2>Character count</h2>
+    <p>
+      A
+      <DocLink href="/components/field#character-count"
+        >character count</DocLink
+      >
+      works the same on a textarea.
+    </p>
+    <AutoExample name="CharacterCount" centered />
+  </section>
 
-  <Fragment slot="accessibility">
-    <ul>
-      <li>
-        The label alone is the field's name, through
-        <code>&lt;label for&gt;</code>. The affixes, the start text, end text
-        and the top and bottom regions are its description, through
-        <code>aria-describedby</code>, so a unit, a hint or an error is read
-        after the name in any language's word order, and buttons in the affixes
-        stay out of the name.
-      </li>
-    </ul>
-  </Fragment>
+  <section id="affix">
+    <h2>Affix</h2>
+    <p>
+      A button can go in an affix, like a send button. Leave a part that only
+      holds buttons out of the textarea's <code>aria-describedby</code>, as on
+      the <DocLink href="/components/field#basics">Field</DocLink> page.
+    </p>
+    <AutoExample name="AffixButton" row />
+  </section>
+
+  <TextareaBuild slot="under-the-hood" />
 </Component>

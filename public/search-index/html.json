@@ -1123,6 +1123,13 @@
     "url": "/html/components/field/#basics"
   },
   {
+    "id": "component-field-html-ids",
+    "title": "Ids",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#ids"
+  },
+  {
     "id": "component-field-html-variants",
     "title": "Variants",
     "page": "Field",
@@ -1135,6 +1142,13 @@
     "page": "Field",
     "category": "Component",
     "url": "/html/components/field/#sizes"
+  },
+  {
+    "id": "component-field-html-dense",
+    "title": "Dense",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#dense"
   },
   {
     "id": "component-field-html-hidden-label",
@@ -1186,6 +1200,20 @@
     "url": "/html/components/field/#validation"
   },
   {
+    "id": "component-field-html-bound-validation",
+    "title": "Bound validation",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#bound-validation"
+  },
+  {
+    "id": "component-field-html-disabled",
+    "title": "Disabled and read-only",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#disabled"
+  },
+  {
     "id": "component-field-html-spread",
     "title": "Spread",
     "page": "Field",
@@ -1198,13 +1226,6 @@
     "page": "Field",
     "category": "Component",
     "url": "/html/components/field/#auto-fit"
-  },
-  {
-    "id": "component-field-html-dense",
-    "title": "Dense",
-    "page": "Field",
-    "category": "Component",
-    "url": "/html/components/field/#dense"
   },
   {
     "id": "component-field-html-drop-zone",
@@ -1943,6 +1964,13 @@
     "url": "/html/components/number-field/#step"
   },
   {
+    "id": "component-number-field-html-unit",
+    "title": "Unit",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/html/components/number-field/#unit"
+  },
+  {
     "id": "component-number-field-html-buttons",
     "title": "Buttons",
     "page": "Number field",
@@ -2012,6 +2040,13 @@
     "page": "One-time code",
     "category": "Component",
     "url": "/html/components/one-time-code/#alphanumeric"
+  },
+  {
+    "id": "component-one-time-code-html-hidden-label",
+    "title": "Hidden label",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/html/components/one-time-code/#hidden-label"
   },
   {
     "id": "component-one-time-code-html-validation",
@@ -2220,11 +2255,11 @@
     "url": "/html/components/range/#value"
   },
   {
-    "id": "component-range-html-tick-marks",
-    "title": "Tick marks",
+    "id": "component-range-html-labels",
+    "title": "Labels",
     "page": "Range",
     "category": "Component",
-    "url": "/html/components/range/#tick-marks"
+    "url": "/html/components/range/#labels"
   },
   {
     "id": "component-range-html-disabled",
@@ -2334,20 +2369,6 @@
     "url": "/html/components/select/#select"
   },
   {
-    "id": "component-select-html-preselected",
-    "title": "Preselected",
-    "page": "Select",
-    "category": "Component",
-    "url": "/html/components/select/#preselected"
-  },
-  {
-    "id": "component-select-html-binding",
-    "title": "Binding",
-    "page": "Select",
-    "category": "Component",
-    "url": "/html/components/select/#binding"
-  },
-  {
     "id": "component-select-html-option-groups",
     "title": "Option groups",
     "page": "Select",
@@ -2369,11 +2390,18 @@
     "url": "/html/components/select/#rich-options"
   },
   {
-    "id": "component-select-html-disabled",
-    "title": "Disabled",
+    "id": "component-select-html-preselected",
+    "title": "Preselected",
     "page": "Select",
     "category": "Component",
-    "url": "/html/components/select/#disabled"
+    "url": "/html/components/select/#preselected"
+  },
+  {
+    "id": "component-select-html-required",
+    "title": "Required",
+    "page": "Select",
+    "category": "Component",
+    "url": "/html/components/select/#required"
   },
   {
     "id": "component-spinner-html",
@@ -2831,20 +2859,6 @@
     "url": "/html/components/text-field/#input"
   },
   {
-    "id": "component-text-field-html-password-toggle",
-    "title": "Password toggle",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/html/components/text-field/#password-toggle"
-  },
-  {
-    "id": "component-text-field-html-binding",
-    "title": "Binding",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/html/components/text-field/#binding"
-  },
-  {
     "id": "component-text-field-html-input-types",
     "title": "Input types",
     "page": "Text field",
@@ -2864,6 +2878,13 @@
     "page": "Text field",
     "category": "Component",
     "url": "/html/components/text-field/#file"
+  },
+  {
+    "id": "component-text-field-html-password-toggle",
+    "title": "Password toggle",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/html/components/text-field/#password-toggle"
   },
   {
     "id": "component-text-field-html-autosuggest",
@@ -2888,6 +2909,13 @@
     "url": "/html/components/textarea/#textarea"
   },
   {
+    "id": "component-textarea-html-rows",
+    "title": "Rows",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/html/components/textarea/#rows"
+  },
+  {
     "id": "component-textarea-html-character-count",
     "title": "Character count",
     "page": "Textarea",
@@ -2900,20 +2928,6 @@
     "page": "Textarea",
     "category": "Component",
     "url": "/html/components/textarea/#affix"
-  },
-  {
-    "id": "component-textarea-html-binding",
-    "title": "Binding",
-    "page": "Textarea",
-    "category": "Component",
-    "url": "/html/components/textarea/#binding"
-  },
-  {
-    "id": "component-textarea-html-rows",
-    "title": "Rows",
-    "page": "Textarea",
-    "category": "Component",
-    "url": "/html/components/textarea/#rows"
   },
   {
     "id": "component-timeline-html",
@@ -4542,7 +4556,7 @@
     "id": "api-control-group-html",
     "title": "Control group API",
     "description": "Reference for Control group HTML component.",
-    "api": ".ui-control-group Container element. A number field, select, text field or textarea (a textarea only in a vertical group). Its `.ui-field-container` joins the controls next to it. .ui-control-group > .ui-field A button or button link. .ui-control-group > .ui-button .ui-critical .ui-primary Colors Optional colors for the buttons. .ui-vertical Orientation The orientation of the element. .ui-overflow-scroll .ui-overflow-shrink Overflow What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size. .ui-large .ui-small .ui-x-small Sizes The size of the buttons and fields. .ui-filled .ui-outlined .ui-tonal Variants The variant of the buttons.",
+    "api": ".ui-control-group Container element. A `Field` with an input, a select or a textarea (a textarea only in a vertical group). Its `.ui-field-container` joins the controls next to it. .ui-control-group > .ui-field A button or button link. .ui-control-group > .ui-button .ui-critical .ui-primary Colors Optional colors for the buttons. .ui-vertical Orientation The orientation of the element. .ui-overflow-scroll .ui-overflow-shrink Overflow What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size. .ui-large .ui-small .ui-x-small Sizes The size of the buttons and fields. .ui-filled .ui-outlined .ui-tonal Variants The variant of the buttons.",
     "category": "API",
     "url": "/html/api/#control-group"
   },
@@ -4654,7 +4668,7 @@
     "id": "api-field-html",
     "title": "Field API",
     "description": "Reference for Field HTML component.",
-    "api": ".ui-field Container element, a `<div>`. The label inside is a `<label for>` that names the control by itself. The label for the field. .ui-label Start text displayed above the field. .ui-start-text The boxed control area. .ui-field-container Content above the control, inside the border, with a divider. .ui-field-container > .ui-top Content at the inline-start of the field, inside the border. .ui-field-container > .ui-start Your control, written directly inside `.ui-field-container` with its `id` set to `for`. Bind it, name it and mark it `required`, `disabled` or `aria-invalid=\"true\"` like any control. A `<textarea>` grows with its content, and a `<select>` is a customizable select. .ui-field-container > :is(input, select, textarea) Content at the inline-end of the field, inside the border, such as a `PasswordToggle`. .ui-field-container > .ui-end Content below the control, inside the border, with a divider. .ui-field-container > .ui-bottom Supporting text displayed below the field, and a `CharacterCount`. .ui-end-text .ui-auto-fit Auto fit Lets the width follow the content, from `25ch`. .ui-dense Dense Packs the options of a select tighter. .ui-drop-zone Drop zone Makes a `type=\"file\"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker. .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Spread Pushes the label and start text to one side and the control to the other. .ui-filled Variants The variant to use.",
+    "api": ".ui-field Container element, a `<div>`. The label inside is a `<label for>` that names the control by itself. The label for the field. .ui-label Start text displayed above the field. .ui-start-text The boxed control area. .ui-field-container Content above the control, inside the border, with a divider. .ui-field-container > .ui-top Content at the inline-start of the field, inside the border. .ui-field-container > .ui-start Your control, written directly inside `.ui-field-container` with its `id` set to `for`. Bind it, name it and mark it `required`, `disabled` or `aria-invalid=\"true\"` like any control. A `<textarea>` grows with its content, and a `<select>` is a customizable select. .ui-field-container > :is(input, select, textarea) Content at the inline-end of the field, inside the border, such as a `PasswordToggle`. .ui-field-container > .ui-end Content below the control, inside the border, with a divider. .ui-field-container > .ui-bottom Supporting text displayed below the field, and a `CharacterCount`. .ui-end-text .ui-auto-fit Auto fit Lets the width follow the content, from `25ch`, or `4ch` with step buttons. A textarea can then be resized both ways. .ui-dense Dense Packs the options of a select tighter. .ui-drop-zone Drop zone Makes a `type=\"file\"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker. .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Spread Pushes the label and start text to one side and the control to the other. :has(:is(input, select, textarea):is(:disabled, [aria-disabled=\"true\"])) :has([aria-invalid=\"true\"], :user-invalid) :has([readonly]) :has(:required) State Set on the control: `aria-invalid=\"true\"`, or `:user-invalid`, shows the error colors, `required` adds a required mark after the label, `disabled` or `aria-disabled=\"true\"` dims the field, and `readonly` keeps the text cursor. .ui-filled Variants The variant to use.",
     "category": "API",
     "url": "/html/api/#field"
   },
@@ -4694,7 +4708,7 @@
     "id": "api-list-item-html",
     "title": "List item API",
     "description": "Reference for List item HTML component.",
-    "api": ".ui-list > li The list item. The clickable row, rendered by `as`, `href` or `choice`. .ui-list > li > :is(a, button, label) Optional content at the start, such as an icon or avatar. .ui-start The text content. .ui-text The label, the first paragraph. .ui-text > p:first-child Supporting text, the second paragraph. .ui-text > p + p Optional content at the end, such as a value or an action. .ui-end Your own check, shown at the end while the row is selected or current. In a `Menu` or a listbox it replaces the default check. .ui-icon-checked .ui-border-top Borders Adds a border above the item. label.ui-checkbox label.ui-radio label.ui-switch Choice Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`. .ui-critical Colors Optional colors. `critical` marks a destructive item in a [Menu](/components/menu). .ui-inset Inset Aligns the text with items that have start content. [aria-current] [disabled] [aria-disabled=\"true\"] State Highlights the current item, or dims a disabled one. `[disabled]` and `[aria-disabled=\"true\"]` go on the `<a>` or `<button>` (a `<label>` row dims when its input is disabled); `[aria-current]` (any value but `false`, like `page` on a link or `true` on a button) on the `<a>`, `<button>` or `<label>`.",
+    "api": ".ui-list > li The list item. The clickable row, rendered by `as`, `href` or `choice`. .ui-list > li > :is(a, button, label) Optional content at the start, such as an icon or avatar. .ui-start The text content. .ui-text The label, the first paragraph. .ui-text > p:first-child Supporting text, the second paragraph. .ui-text > p + p Optional content at the end, such as a value or an action. .ui-end Your own check, shown at the end while the row is selected or current. In a `Menu` or a listbox it replaces the default check. .ui-icon-checked .ui-border-top Borders Adds a border above the item. label.ui-checkbox label.ui-radio label.ui-switch Choice Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`. .ui-critical Colors Optional colors. `critical` marks a destructive item in a [Menu](/components/menu). .ui-inset Inset Aligns the text with items that have start content. [aria-current] [disabled] [aria-disabled=\"true\"] [role=\"option\"][aria-selected=\"true\"] State Highlights the current item, or dims a disabled one. `[disabled]` and `[aria-disabled=\"true\"]` go on the `<a>` or `<button>` (a `<label>` row dims when its input is disabled); `[aria-current]` (any value but `false`, like `page` on a link or `true` on a button) on the `<a>`, `<button>` or `<label>`; `[aria-selected=\"true\"]` on an `<li role=\"option\">`, which gets a check at the end in a `role=\"listbox\"` list.",
     "category": "API",
     "url": "/html/api/#list-item"
   },
@@ -4742,7 +4756,7 @@
     "id": "api-one-time-code-html",
     "title": "One-time code API",
     "description": "Reference for One-time code HTML component.",
-    "api": "div.ui-one-time-code Container element. The label for the field. .ui-label Draws a box per character and a ring on the next one. .ui-field-container Your input, written directly inside `.ui-field-container` with its `id` set to `for`. Its `maxlength`, from 4 to 8, sets the number of boxes. `autocomplete=\"one-time-code\"` lets the browser fill in a code it received; use `off` for a code read off another screen. Mark it `required`, `disabled` or `aria-invalid=\"true\"` like any input. .ui-field-container > input Supporting text displayed below the field. .ui-end-text .ui-grouped Grouped Draws a dash between the two halves of the code. Use it with an even `maxlength`. .ui-large .ui-small .ui-x-small Sizes The size of the element.",
+    "api": "div.ui-one-time-code Holds the label, the boxes and the end text, and fits the boxes to its width. The label for the field. .ui-label Draws a box per character and a ring on the next one. .ui-field-container Your input, written directly inside `.ui-field-container` with its `id` set to `for`. Its `maxlength`, from 4 to 8, sets the number of boxes. `autocomplete=\"one-time-code\"` lets the browser fill in a code it received; use `off` for a code read off another screen. Mark it `required`, `disabled` or `aria-invalid=\"true\"` like any input. .ui-field-container > input Supporting text displayed below the field. .ui-end-text .ui-grouped Grouped Draws a dash between the two halves of the code. Use it with an even `maxlength`. .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The input keeps it as its accessible name. .ui-large .ui-small .ui-x-small Sizes The size of the element.",
     "category": "API",
     "url": "/html/api/#one-time-code"
   },
@@ -4750,7 +4764,7 @@
     "id": "api-password-toggle-html",
     "title": "Password toggle API",
     "description": "Reference for Password toggle HTML component.",
-    "api": "opui-password-toggle > .ui-button A `.ui-button` with `aria-pressed` and `command=\"--toggle-password\"` that shows and hides the password. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is, and `aria-disabled` while the input is. `<opui-password-toggle>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-password-toggle>` is defined. aria-label Label The accessible name of the toggle. Pass it translated. hidePassword() Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits. input The `<input>` its button's `commandfor` names, or `null`. Read-only. showPassword() Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
+    "api": "opui-password-toggle > .ui-button A `.ui-button.ui-round` with `aria-pressed` and `command=\"--toggle-password\"` that shows and hides the password. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is disabled, and `aria-disabled` while the input is `aria-disabled`. `<opui-password-toggle>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-password-toggle>` is defined. aria-label Label The accessible name of the toggle. Pass it translated. hidePassword() Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits. input The `<input>` its button's `commandfor` names, or `null`. Read-only. showPassword() Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
     "category": "API",
     "url": "/html/api/#password-toggle"
   },
@@ -4782,7 +4796,7 @@
     "id": "api-range-html",
     "title": "Range API",
     "description": "Reference for Range HTML component.",
-    "api": ".ui-field:has(> .ui-field-container > input[type=\"range\"]) A `.ui-field` with an `<input type=\"range\">` in its container, which `range.css` draws without the field's box, as tall as any field's control. Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's `variant` and `size` set the track and thumb. .ui-field-container > input[type=\"range\"] Tick marks for the input it's linked to with `list`, and the `label` of each option under its mark. Give it `aria-hidden=\"true\"`, since the labels repeat the value. .ui-field-container > datalist",
+    "api": ".ui-field:has(> .ui-field-container > input[type=\"range\"]) A `.ui-field` with an `<input type=\"range\">` in its container, which `range.css` draws without the field's box, as tall as any field's control. Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's variant (`variant`, `.ui-filled`) and size (`size`, `.ui-x-small`, `.ui-small`, `.ui-large`) set the track and thumb. .ui-field-container > input[type=\"range\"] Labels for the input it's linked to with `list`: the `label` of each option shows under its value. The labels are spread evenly, so space the values evenly. Give it `aria-hidden=\"true\"`, and set `aria-valuetext` on the input to the label at its value, since screen readers don't read the datalist. .ui-field-container > datalist",
     "category": "API",
     "url": "/html/api/#range"
   },
@@ -4953,6 +4967,14 @@
     "api": ".ui-tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. .ui-input:not(:checked) + .ui-label A tab. .ui-input:checked + .ui-label The panel of the selected tab. .ui-input:checked + .ui-label + .ui-panel [name] Group The name shared by the tab inputs. Generated when omitted. .ui-vertical Orientation The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them. .ui-overflow-wrap Overflow What the tabs do when they don't fit. `scroll` keeps them on one row and scrolls it sideways, and `wrap` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column. [role=\"radiogroup\"] Role Makes tabs without panels a radio group, which `aria-label` names. Tabs with panels take no role: the root holds the panels, and a radio group holds only radios. .ui-filled .ui-line .ui-outlined Variants The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.",
     "category": "API",
     "url": "/html/api/#tabs"
+  },
+  {
+    "id": "api-textarea-html",
+    "title": "Textarea API",
+    "description": "Reference for Textarea HTML component.",
+    "api": ".ui-field:has(> .ui-field-container > textarea) A `.ui-field` with a `<textarea>` in its container. `field.css` draws the box, and `textarea.css` sizes the textarea. Your textarea, directly in `.ui-field-container`. It is `rows` lines tall, 3 by default, grows with its content up to `--_max-block-size` (20 lines) and can be resized taller. With the field's `autoFit` (`.ui-auto-fit`), it can be resized wider too. .ui-field-container > textarea",
+    "category": "API",
+    "url": "/html/api/#textarea"
   },
   {
     "id": "api-timeline-item-html",

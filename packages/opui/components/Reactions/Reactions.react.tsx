@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import "../../elements/reactions.js"
 import { defined } from "../attrs"
 import { cx } from "../cx"
 import { useHydrated, useListener } from "../react"
@@ -25,9 +25,6 @@ export default function Reactions({
     ? [used ?? quick, ...items.filter((item) => item.value !== quick?.value)]
     : items
   const rootRef = useHydrated(useListener(ref, "reaction", onReaction))
-  useEffect(() => {
-    void import("../../elements/reactions.js")
-  }, [])
 
   return (
     <opui-reactions

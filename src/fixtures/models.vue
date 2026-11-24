@@ -43,6 +43,7 @@ const fruits = ref(fruitsOf(0))
 const steps = ref(stepsOf(0))
 const name = ref("Ada")
 const plan = ref("free")
+const toppings = ref(["basil", "cheese"])
 
 function refreshActions(event: MouseEvent) {
   if (
@@ -189,5 +190,16 @@ onBeforeUnmount(() =>
     <button type="button" @click="error = !error">Toggle error</button>
     <button type="button" @click="setValues">Set values</button>
     <button type="reset">Reset</button>
+    <fieldset id="models-toppings">
+      <legend>Toppings</legend>
+      <Checkbox
+        v-for="topping in ['basil', 'cheese', 'olives']"
+        :key="topping"
+        v-model="toppings"
+        :value="topping"
+        >{{ topping }}</Checkbox
+      >
+      <output>{{ JSON.stringify(toppings) }}</output>
+    </fieldset>
   </form>
 </template>

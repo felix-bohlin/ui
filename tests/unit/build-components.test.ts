@@ -631,7 +631,7 @@ describe("the ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, label, ...rest } = Astro.props\n---\n\n<opui-sample class:list={["ui-sample", className]} data-label={label} {...rest}>\n  <slot />\n  <span class="ui-sr-only" role="status"></span>\n</opui-sample>\n\n<script>\n  import "../../elements/sample.js"\n</script>\n',
     )
     expect(ports["react.tsx"]).toBe(
-      '"use client"\n\nimport { useEffect } from "react"\nimport { defined } from "../attrs"\nimport { cx } from "../cx"\nimport type { Props } from "./types.react"\n\nexport default function Sample({ className, label, children, ...rest }: Props) {\n  useEffect(() => {\n    void import("../../elements/sample.js")\n  }, [])\n\n  return (\n    <opui-sample\n      className={cx(["ui-sample", className])}\n      data-label={label}\n      {...defined(rest)}\n    >\n      {children} <span className="ui-sr-only" role="status" />\n    </opui-sample>\n  )\n}\n',
+      '"use client"\n\nimport "../../elements/sample.js"\nimport { defined } from "../attrs"\nimport { cx } from "../cx"\nimport type { Props } from "./types.react"\n\nexport default function Sample({ className, label, children, ...rest }: Props) {\n  return (\n    <opui-sample\n      className={cx(["ui-sample", className])}\n      data-label={label}\n      {...defined(rest)}\n    >\n      {children} <span className="ui-sr-only" role="status" />\n    </opui-sample>\n  )\n}\n',
     )
     expect(ports.svelte).toBe(
       '<script lang="ts">\n  import "../../elements/sample.js"\n  import { defined } from "../attrs"\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n    label,\n\n    // Snippets\n    children,\n    ...rest\n  }: Props = $props()\n</script>\n\n<opui-sample\n  class={["ui-sample", className]}\n  data-label={label}\n  {...defined(rest)}\n>\n  {@render children?.()}\n  <span class="ui-sr-only" role="status"></span>\n</opui-sample>\n',
@@ -657,14 +657,14 @@ describe("the ports of a sample", () => {
     )
   })
 
-  test("two element scripts load in one effect in React", async () => {
+  test("two element scripts are two imports in React", async () => {
     const ports = await compile(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<opui-sample class:list={["ui-sample", className]} {...rest}>\n  <slot />\n</opui-sample>\n\n<script>\n  import "../../elements/sample.js"\n  import "../../elements/other.js"\n</script>\n',
     )
     expect(ports["react.tsx"]).toContain(
-      '  useEffect(() => {\n    void import("../../elements/sample.js")\n    void import("../../elements/other.js")\n  }, [])\n',
+      '"use client"\n\nimport "../../elements/sample.js"\nimport "../../elements/other.js"\n',
     )
-    expect(ports["react.tsx"].match(/useEffect\(/g)).toHaveLength(1)
+    expect(ports["react.tsx"]).not.toContain("useEffect")
   })
 
   test("an event in types.ts listens on the root: a ref callback in React, a handler prop in Svelte, an emit in Vue and the on<Event> prop the rest spread carries in Solid, and each lifts data-hydrating from a custom element", async () => {
@@ -678,7 +678,7 @@ describe("the ports of a sample", () => {
     const port = (extension: string) =>
       outputs.get(sampleFile().replace(".astro", extension)) ?? ""
     expect(port(".react.tsx")).toBe(
-      '"use client"\n\nimport { useEffect } from "react"\nimport { cx } from "../cx"\nimport { useHydrated, useListener } from "../react"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  onClose,\n  ref,\n  children,\n  ...rest\n}: Props) {\n  const rootRef = useHydrated(useListener(ref, "close", onClose))\n  useEffect(() => {\n    void import("../../elements/sample.js")\n  }, [])\n\n  return (\n    <opui-sample\n      className={cx(["ui-sample", className])}\n      data-hydrating=""\n      ref={rootRef}\n      {...rest}\n    >\n      {children}\n    </opui-sample>\n  )\n}\n',
+      '"use client"\n\nimport "../../elements/sample.js"\nimport { cx } from "../cx"\nimport { useHydrated, useListener } from "../react"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  onClose,\n  ref,\n  children,\n  ...rest\n}: Props) {\n  const rootRef = useHydrated(useListener(ref, "close", onClose))\n\n  return (\n    <opui-sample\n      className={cx(["ui-sample", className])}\n      data-hydrating=""\n      ref={rootRef}\n      {...rest}\n    >\n      {children}\n    </opui-sample>\n  )\n}\n',
     )
     expect(port(".svelte")).toContain(
       "  let {\n    class: className,\n    onclose,\n\n    // Snippets\n    children,\n    ...rest\n  }: Props = $props()\n",
@@ -978,21 +978,6 @@ describe("the ports of a sample", () => {
     )
   })
 
-  test("a map callback returning a condition keys both branches", async () => {
-    const ports = await compile(
-      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<datalist class:list={[className]} {...rest}>\n  {items?.map((option) =>\n    typeof option === "object" ? (\n      <option value={option.value} label={option.label} />\n    ) : (\n      <option value={option} />\n    ),\n  )}\n</datalist>\n',
-    )
-    expect(ports["react.tsx"]).toContain(
-      '      {items?.map((option, index) =>\n        typeof option === "object" ? (\n          <option key={index} value={option.value} label={option.label} />\n        ) : (\n          <option key={index} value={option} />\n        ),\n      )}\n',
-    )
-    expect(ports.svelte).toContain(
-      '{#each items as option, index (index)}\n    {#if typeof option === "object"}\n      <option',
-    )
-    expect(ports.vue).toContain(
-      '<template v-for="(option, index) in items" :key="index"',
-    )
-  })
-
   test("Solid reads a default only for undefined and tests an accessor with && where the content only prints it", async () => {
     const ports = await compile(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, label, size = "medium", ...rest } = Astro.props\n\nconst caption = label?.trim()\n---\n\n<div class:list={["ui-sample", size !== "medium" && `ui-${size}`, className]} {...rest}>\n  {caption && <span class="ui-caption">{caption}</span>}\n  <slot />\n</div>\n',
@@ -1073,31 +1058,25 @@ describe("the ports of a sample", () => {
     )
   })
 
-  test("a list is keyed by index and options by their value in every framework, and Solid reads an item through an accessor, once per row for a condition between two rows", async () => {
+  test("a list is keyed by index in every framework, an option row too, and Solid reads an item through an accessor", async () => {
     const options = await compile(
-      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<select class:list={["ui-sample", className]} {...rest}>\n  {items.map((item) => <option selected={item.selected || undefined} value={item.value}>{item.label}</option>)}\n</select>\n',
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<select class:list={["ui-sample", className]} {...rest}>\n  {items.map((item) => <option value={item.value}>{item.label}</option>)}\n</select>\n',
     )
     expect(options["solid.tsx"]).toContain(
-      "      <For each={props.items} keyed={(item) => item.value}>\n        {(item) => {\n          const itemSelected = optionSelected(\n            untrack(() => item().selected || undefined),\n          )\n          return (\n            <option\n              {...itemSelected.server}\n              ref={itemSelected.ref}\n              value={item().value}\n            >\n              {item().label}\n            </option>\n          )\n        }}\n      </For>\n",
+      "      <For each={props.items} keyed={false}>\n        {(item) => <option value={item().value}>{item().label}</option>}\n      </For>\n",
     )
     expect(options["react.tsx"]).toContain(
-      "{items.map((item) => (\n        <option\n          key={item.value}",
+      "{items.map((item, index) => (\n        <option key={index}",
     )
-    expect(options.svelte).toContain("{#each items as item (item.value)}")
+    expect(options.svelte).toContain("{#each items as item, index (index)}")
     expect(options.vue).toContain(
-      '<option\n      v-for="item in items"\n      :key="item.value"',
+      '<option v-for="(item, index) in items" :key="index" :value="item.value">',
     )
     const rows = await compile(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<ol class:list={["ui-sample", className]} {...rest}>\n  {items.map(({ description, ...item }) => <li {...item}>{description}</li>)}\n</ol>\n',
     )
     expect(rows["solid.tsx"]).toContain(
       '      <For each={props.items} keyed={false}>\n        {(entry) => {\n          const item = () => omit(entry(), "description")\n          return <li {...item()}>{entry().description}</li>\n        }}\n      </For>\n',
-    )
-    const branches = await compile(
-      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<datalist class:list={[className]} {...rest}>\n  {items?.map((option) =>\n    typeof option === "object" ? (\n      <option value={option.value} label={option.label} />\n    ) : (\n      <option value={option} />\n    ),\n  )}\n</datalist>\n',
-    )
-    expect(branches["solid.tsx"]).toContain(
-      '      <For each={props.items} keyed={false}>\n        {(item) => {\n          const row = () => {\n            const option = item()\n            return typeof option === "object" ? (\n',
     )
     const refused = await compileComponent(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<ol class:list={["ui-sample", className]} {...rest}>\n  {items.map(({ label = "x" }) => <li>{label}</li>)}\n</ol>\n',
@@ -1251,10 +1230,10 @@ describe("the ports of a sample", () => {
       "const current = () => Number(props.value ?? props.defaultValue)",
     )
     expect(solid).toContain(
-      'const checkedControl = control(\n    "checked",\n    () => (props.value === undefined ? undefined : current() === 0),\n    untrack(() => current() === 0),\n  )',
+      "const checkedControl = control(\n    () => (props.value === undefined ? undefined : current() === 0),\n    untrack(() => current() === 0),\n  )",
     )
     expect(solid).toContain(
-      'const itemCheckedControl = control(\n            "checked",\n            () =>\n              props.value === undefined ? undefined : current() === star(),\n            untrack(() => current() === star()),\n          )',
+      "const itemCheckedControl = control(\n            () =>\n              props.value === undefined ? undefined : current() === star(),\n            untrack(() => current() === star()),\n          )",
     )
     expect(solid).toContain("{...itemCheckedControl.server}\n")
     expect(solid).toContain('onChange={() => props.onValueChange?.("0")}')
@@ -1455,7 +1434,7 @@ describe("the ports of a sample", () => {
       '<input\n    v-if="bound"\n    type="checkbox"\n    :name="name"\n    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"\n    v-model="modelValue"\n  />\n  <input\n    v-else\n    type="checkbox"\n    :name="name"\n    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"\n  />',
     )
     expect(outputs.get(sampleFile().replace(".astro", ".solid.tsx"))).toContain(
-      '  const rest = omit(props, "checked", "name", "ref")\n  const checkedControl = control("checked", () => props.checked)\n\n  return (\n    <input\n      type="checkbox"\n      name={props.name}\n      {...checkedControl.server}\n      ref={[props.ref, checkedControl.ref]}\n      {...defined(rest)}\n',
+      '  const rest = omit(props, "checked", "name", "ref")\n  const checkedControl = control(() => props.checked)\n\n  return (\n    <input\n      type="checkbox"\n      name={props.name}\n      {...checkedControl.server}\n      ref={[props.ref, checkedControl.ref]}\n      {...defined(rest)}\n',
     )
   })
 
@@ -1478,7 +1457,7 @@ describe("the ports of a sample", () => {
       '<input\n    v-if="bound"\n    type="radio"\n    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"\n    :value="attrs.value"\n    v-model="modelValue"\n  />\n  <input\n    v-else\n    type="radio"\n    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"\n  />',
     )
     expect(outputs.get(sampleFile().replace(".astro", ".solid.tsx"))).toContain(
-      '  const checkedControl = control("checked", () => props.checked)\n\n  return (\n    <input\n      type="radio"\n      {...checkedControl.server}\n      ref={[props.ref, checkedControl.ref]}\n      {...defined(rest)}\n',
+      '  const checkedControl = control(() => props.checked)\n\n  return (\n    <input\n      type="radio"\n      {...checkedControl.server}\n      ref={[props.ref, checkedControl.ref]}\n      {...defined(rest)}\n',
     )
   })
 
@@ -1607,7 +1586,7 @@ describe("the ports of a sample", () => {
     )
     expect(solid).toContain('import { callHandler, control } from "../solid"\n')
     expect(solid).toContain(
-      '  const checkedControl = control(\n    "checked",\n    () => grouped() ?? props.checked,\n    untrack(\n      () =>\n        isSelected(parent?.defaultValue, props.value) ?? props.defaultChecked,\n    ),\n  )\n',
+      "  const checkedControl = control(\n    () => grouped() ?? props.checked,\n    untrack(\n      () =>\n        isSelected(parent?.defaultValue, props.value) ?? props.defaultChecked,\n    ),\n  )\n",
     )
     expect(solid).toContain(
       '        {...checkedControl.server}\n        class={["ui-sample", props.class]}\n        type="radio"\n        value={props.value}\n        {...defined(rest)}\n        ref={[props.ref, checkedControl.ref]}\n',
@@ -1747,7 +1726,7 @@ describe("the ports of a sample", () => {
     expect(vue.match(/:data-off="!\(model \?\? checked\)"/g)).toHaveLength(2)
     const solid = outputs.get(sampleFile().replace(".astro", ".solid.tsx"))
     expect(solid).toContain(
-      '"checked",\n    () => grouped() ?? props.checked,\n    untrack(\n      () =>\n        isSelected(group?.defaultValue, props.value) ?? props.defaultChecked,\n    ),\n',
+      "() => grouped() ?? props.checked,\n    untrack(\n      () =>\n        isSelected(group?.defaultValue, props.value) ?? props.defaultChecked,\n    ),\n",
     )
     expect(solid).toContain("data-off={!props.checked}")
     expect(solid).toContain("ref={[props.ref, checkedControl.ref]}")
@@ -1782,7 +1761,11 @@ describe("the ports of a sample", () => {
     ],
     [
       "<div {...rest}>{items.map((item) => (item.b ? <b>{item.b}</b> : item.b))}</div>",
-      "map callback doesn't return one element or a condition between two",
+      "map callback doesn't return one element",
+    ],
+    [
+      "<div {...rest}>{items.map((item) => (item.b ? <b>{item.b}</b> : <i>{item}</i>))}</div>",
+      "map callback doesn't return one element",
     ],
     [
       "<div {...rest}>{items.map((item, index, all) => <b>{all.length}</b>)}</div>",
@@ -2596,7 +2579,7 @@ describe("the compiled components", () => {
 
   test("a model kind's helper is imported when the code calls it, from its module", () => {
     const used = helpersCalled(
-      'const checkedControl = control("checked", read)\nitemCheckedControl(x)\nprops.untrack(y)\nseedChecked(input)',
+      "const checkedControl = control(read)\nitemCheckedControl(x)\nprops.untrack(y)\nseedChecked(input)",
       { control: "../solid", seedChecked: "../svelte", untrack: "solid-js" },
     )
     expect(used).toEqual([

@@ -55,13 +55,34 @@ const FOUNDATIONS = ["layout", "typography"]
 
 const isFoundation = (slug: string) => FOUNDATIONS.includes(slug)
 
+const baseOf = (slug: string) =>
+  docSources[`../docs/components/${slug}.astro`]?.match(
+    /^\s+base="([\w-]+)"$/m,
+  )?.[1]
+
+const bases = [
+  ...new Set([...slugs].flatMap((slug) => baseOf(slug) ?? [])),
+].toSorted()
+
+const familyOf = (slug: string) =>
+  baseOf(slug) ?? (bases.includes(slug) ? slug : undefined)
+
 export function componentGroupsFor(framework: FrameworkId) {
   const all = componentsFor(framework)
   return [
     {
       label: "Components",
-      components: all.filter((component) => !isFoundation(component.slug)),
+      components: all.filter(
+        (component) =>
+          !isFoundation(component.slug) && !familyOf(component.slug),
+      ),
     },
+    ...bases.map((base) => ({
+      label: `${componentName(base)}s`,
+      components: all
+        .filter((component) => familyOf(component.slug) === base)
+        .toSorted((a, b) => Number(b.slug === base) - Number(a.slug === base)),
+    })),
     {
       label: "Foundations",
       components: all.filter((component) => isFoundation(component.slug)),

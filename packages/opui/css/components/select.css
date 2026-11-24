@@ -1,5 +1,5 @@
 @layer components.extended {
-  /* Reads --_duration, --_ease and the other --_ properties text-field.css declares on .ui-field */
+  /* Reads --_duration, --_ease and the other --_ properties field.css declares on .ui-field */
   :where(.ui-field > .ui-field-container > select) {
     min-block-size: 0;
     position: relative;

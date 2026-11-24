@@ -1,9 +1,11 @@
 import state from "./standard-site.json"
 
-export const {
+const {
   documents,
   publication,
 }: { documents: Partial<Record<string, string>>; publication?: string } = state
+
+export { publication }
 
 export const documentFor = (pathname: string) => {
   const slug = /^\/blog\/([^/]+)\/$/.exec(pathname)?.[1]

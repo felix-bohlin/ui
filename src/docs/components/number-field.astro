@@ -10,8 +10,8 @@ import PropOrClass from "../../components/PropOrClass.astro"
 import ValidationNotes from "./partials/ValidationNotes.astro"
 
 import ButtonCSS from "@opui/css/components/button.css?raw"
+import FieldCSS from "@opui/css/components/field.css?raw"
 import StepButtonCSS from "@opui/css/components/step-button.css?raw"
-import TextFieldCSS from "@opui/css/components/text-field.css?raw"
 import StepButtonJS from "@opui/elements/step-button.js?raw"
 
 import stepButtonApi from "../../component-api/step-button/api"
@@ -24,6 +24,7 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
 
 <Component
   description={description}
+  base="field"
   slug="number-field"
   browserSupport={[
     "alt-text-generated-content",
@@ -49,8 +50,8 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
     { title: "step-button.css", code: StepButtonCSS, lang: "css" },
     { title: "step-button.js", code: StepButtonJS, lang: "js" },
     {
-      title: "text-field.css",
-      code: TextFieldCSS,
+      title: "field.css",
+      code: FieldCSS,
       lang: "css",
       isDependency: true,
     },
@@ -109,7 +110,10 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
       <Fragment slot="html">
         Put <code>&lt;opui-step-button&gt;</code> around a button in
         <code>.ui-start</code> and <code>.ui-end</code>, and import
-        <code>opui-css/elements/step-button.js</code>.
+        <code>opui-css/elements/step-button.js</code>. Give each button
+        <code>command="--step-down"</code> or <code>command="--step-up"</code>,
+        <code>commandfor</code> and <code>aria-controls</code> set to the
+        input's <code>id</code>, and an <code>aria-label</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="Basics" />
@@ -129,6 +133,15 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
     <h2>Step</h2>
     <p>Use <code>step</code> for decimals.</p>
     <AutoExample name="Step" />
+  </section>
+
+  <section id="unit">
+    <h2>Unit</h2>
+    <p>
+      Put the unit in the end text, and point the input's
+      <code>aria-describedby</code> at it.
+    </p>
+    <AutoExample name="Unit" />
   </section>
 
   <section id="buttons">

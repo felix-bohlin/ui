@@ -41,7 +41,7 @@ import { Field } from "opui-css/vue"
       aria-describedby="field-spread-4-start-text"
       disabled
       id="field-spread-4"
-      value="BASS-20931"
+      :value.attr="'BASS-20931'"
     />
     <template #start-text>Assigned when you joined Bassbook</template>
   </Field>
@@ -51,7 +51,7 @@ import { Field } from "opui-css/vue"
       aria-describedby="field-spread-5-start-text field-spread-5-end-text"
       aria-invalid="true"
       id="field-spread-5"
-      value="A"
+      :value.attr="'A'"
     />
     <template #start-text>Shown next to your wall posts</template>
     <template #end-text>Enter at least two characters.</template>
@@ -92,7 +92,7 @@ import { Field } from "opui-css/vue"
 
   <Field for="field-spread-9" label="Secret riff" spread variant="filled">
     <input
-      aria-describedby="field-spread-9-start-text field-spread-9-top field-spread-9-start field-spread-9-bottom field-spread-9-end-text"
+      aria-describedby="field-spread-9-start-text field-spread-9-top field-spread-9-bottom field-spread-9-end-text"
       id="field-spread-9"
       placeholder="Paste your riff"
       type="password"

@@ -63,7 +63,6 @@ import {
       </a>
       <Field class="shell-search" for="app-shell-search" size="small">
         <input
-          aria-describedby="app-shell-search-start"
           aria-label="Search"
           id="app-shell-search"
           name="app-shell-search"

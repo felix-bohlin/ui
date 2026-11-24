@@ -783,14 +783,22 @@ interaction(
 interaction(
   "range",
   "TickMarksLabels",
-  "range steps from tick to tick",
+  "range steps from tick to tick and names its value with the label of the tick at it",
   async ({ page, root }) => {
+    const quality = root.getByRole("slider", { name: "Quality" })
     const opacity = root.getByRole("slider", { name: "Opacity" })
 
+    await expect(quality).toHaveAttribute("aria-valuetext", "Medium")
+    await quality.focus()
+    await page.keyboard.press("ArrowRight")
+    await expect(quality).toHaveValue("2")
+    await expect(quality).toHaveAttribute("aria-valuetext", "High")
     await expect(opacity).toHaveValue("50")
+    await expect(opacity).toHaveAttribute("aria-valuetext", "50%")
     await opacity.focus()
     await page.keyboard.press("ArrowRight")
     await expect(opacity).toHaveValue("75")
+    await expect(opacity).toHaveAttribute("aria-valuetext", "75%")
   },
 )
 
@@ -861,26 +869,6 @@ interaction(
     await expect(band).toHaveValue("low-end-theory")
     await role.selectOption("tambourine")
     await expect(role).toHaveValue("tambourine")
-  },
-)
-
-interaction(
-  "select",
-  "Binding",
-  "select binds its value and resets",
-  async ({ root }) => {
-    const select = root.locator("select")
-    const text = root.locator(".select-binding-text")
-
-    await expect(select).toHaveValue("apples")
-    await expect(text).toHaveText("Selected: apples")
-    await select.selectOption("cherries")
-    await expect(text).toHaveText("Selected: cherries")
-    await expect(select).toHaveValue("cherries")
-
-    await root.getByRole("button", { name: "Reset" }).click()
-    await expect(select).toHaveValue("apples")
-    await expect(text).toHaveText("Selected: apples")
   },
 )
 
@@ -1142,27 +1130,6 @@ interaction(
 )
 
 interaction(
-  "text-field",
-  "Binding",
-  "text field binds its value and resets",
-  async ({ root }) => {
-    const input = root.getByRole("textbox", { name: "Name" })
-    const text = root.locator(".text-field-binding-text")
-
-    await expect(input).toHaveValue("Holly")
-    await expect(text).toHaveText("Heyyy, Holly.")
-    await input.fill("Percy")
-    await expect(text).toHaveText("Heyyy, Percy.")
-    await input.fill("")
-    await expect(text).toHaveText("Heyyy, stranger.")
-
-    await root.getByRole("button", { name: "Reset" }).click()
-    await expect(input).toHaveValue("Holly")
-    await expect(text).toHaveText("Heyyy, Holly.")
-  },
-)
-
-interaction(
   "field",
   "Validation",
   "a required text field only looks invalid once the user leaves it empty",
@@ -1186,25 +1153,6 @@ interaction(
     await page.keyboard.type("Holly")
     await page.keyboard.press("Tab")
     await expect.poll(border).toBe(initial)
-  },
-)
-
-interaction(
-  "textarea",
-  "Binding",
-  "textarea binds its value and resets",
-  async ({ root }) => {
-    const textarea = root.getByRole("textbox", { name: "Message" })
-    const text = root.locator(".textarea-binding-text")
-
-    await expect(textarea).toHaveValue("Thanks for the update.")
-    await expect(text).toHaveText("22 characters")
-    await textarea.fill("Hi")
-    await expect(text).toHaveText("2 characters")
-
-    await root.getByRole("button", { name: "Reset" }).click()
-    await expect(textarea).toHaveValue("Thanks for the update.")
-    await expect(text).toHaveText("22 characters")
   },
 )
 
@@ -2476,7 +2424,7 @@ interaction(
   async ({ root }) => {
     await expect(
       root.getByRole("spinbutton", { name: "Quantity" }),
-    ).toHaveAccessibleDescription("Only 4 sets of flatwounds left, whoops.")
+    ).toHaveAccessibleDescription("Only 4 left in stock.")
   },
 )
 

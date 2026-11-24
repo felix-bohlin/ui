@@ -341,7 +341,7 @@ test("every entry point is in the tarball", () => {
   expect(missing).toEqual([])
 })
 
-test("every compiled component file has a deep import, with its types", () => {
+test("every compiled component file has a deep import, with its types, and Node takes the server build of a Vue file", () => {
   const consumer = path.join(work, "deep-imports")
   mkdirSync(path.join(consumer, "node_modules"), { recursive: true })
   writeFileSync(path.join(consumer, "package.json"), '{ "type": "module" }')
@@ -372,7 +372,11 @@ test("every compiled component file has a deep import, with its types", () => {
         .replace(/\.(react|vue)\.js$/, ".$1")}`
       const declaration = file.replace(/(\.svelte)?(\.js)?$/, "$1.d.ts")
       return [
-        [specifier, inPackage(require.resolve(specifier)), file],
+        [
+          specifier,
+          inPackage(require.resolve(specifier)),
+          file.replace(/\.vue\.js$/, ".vue.server.js"),
+        ],
         ...(["Bundler", "NodeNext"] as const).map((resolution) => [
           `${specifier} (types, ${resolution})`,
           typesOf(specifier, resolution),
@@ -688,10 +692,75 @@ describe("the opui-css command", () => {
     { args: ["--help"], name: "--help" },
     { args: [], name: "no command" },
     { args: ["unknown"], name: "an unknown command" },
+    { args: ["check"], name: "check without a file" },
+    { args: ["check", "missing.html"], name: "check with a missing file" },
   ])("$name prints the usage and fails", ({ args }) => {
     const { output, status } = opui(...args)
     expect(status).not.toBe(0)
     expect(output).toContain("Usage: npx opui-css skill")
+  })
+
+  const FIELD = (id: string, labelFor = id) =>
+    `<div class="ui-field"><label class="ui-label" for="${labelFor}">Quantity</label><span class="ui-field-container"><input aria-describedby="${id}-end-text" id="${id}" type="number"></span><span class="ui-end-text" id="${id}-end-text">Up to 10 per order.</span></div>`
+
+  test("check without parse5 says how to install it", () => {
+    writeFileSync(path.join(dir, "page.html"), FIELD("quantity"))
+    const { output, status } = opui("check", "page.html")
+    expect(status).not.toBe(0)
+    expect(output).toContain("npm install --save-dev parse5")
+  })
+
+  describe("with parse5 installed", () => {
+    beforeAll(() => {
+      mkdirSync(path.join(work, "node_modules"))
+      symlinkSync(
+        realpathSync(path.join(root, "node_modules/parse5")),
+        path.join(work, "node_modules/parse5"),
+      )
+    })
+
+    afterAll(() => {
+      rmSync(path.join(work, "node_modules"), { force: true, recursive: true })
+    })
+
+    test("check passes fields that follow their control's id", () => {
+      const { output, status } = opui("check", "page.html")
+      expect(status).toBe(0)
+      expect(output).toContain("Checked 1 field in 1 file")
+    })
+
+    test("check names the file, line and problem of each field, and fails", () => {
+      writeFileSync(
+        path.join(dir, "broken.html"),
+        `<!doctype html>\n<main>\n${FIELD("quantity", "amount")}\n</main>`,
+      )
+      const { output, status } = opui("check", "broken.html")
+      expect(status).not.toBe(0)
+      expect(output).toContain(
+        'broken.html:3: #quantity: the label\'s for is "amount", not "quantity"',
+      )
+      expect(output).toContain("1 problem in 1 field in 1 file.")
+    })
+
+    test("check reads the .html files of a folder and skips node_modules", () => {
+      mkdirSync(path.join(dir, "site/node_modules"), { recursive: true })
+      writeFileSync(path.join(dir, "site/a.html"), FIELD("a"))
+      writeFileSync(path.join(dir, "site/b.html"), FIELD("b"))
+      writeFileSync(
+        path.join(dir, "site/node_modules/c.html"),
+        FIELD("c", "elsewhere"),
+      )
+      const { output, status } = opui("check", "site")
+      expect(status).toBe(0)
+      expect(output).toContain("Checked 2 fields in 2 files")
+    })
+
+    test("check says when the HTML has no fields", () => {
+      writeFileSync(path.join(dir, "empty.html"), '<div id="root"></div>')
+      const { output, status } = opui("check", "empty.html")
+      expect(status).toBe(0)
+      expect(output).toContain("Found no fields in 1 file.")
+    })
   })
 })
 

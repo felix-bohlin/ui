@@ -20,29 +20,3 @@ export const autoLabelledBy = (
   attrs: { "aria-label"?: unknown; "aria-labelledby"?: unknown },
   id: string,
 ) => (attrs["aria-label"] || attrs["aria-labelledby"] ? undefined : id)
-
-type IdRef = string | false | null | undefined
-
-export const idRefs = (...ids: IdRef[]) =>
-  ids.filter(Boolean).join(" ") || undefined
-
-export const fieldDescribedBy = (
-  parts: {
-    bottom?: IdRef
-    end?: IdRef
-    endText?: IdRef
-    start?: IdRef
-    startText?: IdRef
-    top?: IdRef
-  },
-  ...ids: IdRef[]
-) =>
-  idRefs(
-    parts.startText,
-    parts.top,
-    parts.start,
-    parts.end,
-    parts.bottom,
-    parts.endText,
-    ...ids,
-  )

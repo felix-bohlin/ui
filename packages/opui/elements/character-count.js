@@ -3,8 +3,9 @@ const Base = globalThis.HTMLElement ?? class {}
 const DELAY = 750
 const LABEL = "Characters left: {count}"
 
+const WATCH = Symbol.for("opui-value-watch")
+
 const announcers = new WeakMap()
-const watched = new WeakMap()
 
 function announce(announcer, text, lang) {
   announcer.lang = lang
@@ -37,7 +38,7 @@ function descriptorOf(object) {
 }
 
 function watchValue(control, update) {
-  let watch = watched.get(control)
+  let watch = control[WATCH]
   if (!watch) {
     const own = Object.getOwnPropertyDescriptor(control, "value")
     const { get, set } = own ?? descriptorOf(control)
@@ -75,14 +76,14 @@ function watchValue(control, update) {
       }
     }
     watch = { restore, updates }
-    watched.set(control, watch)
+    control[WATCH] = watch
   }
   watch.updates.add(update)
   return () => {
     watch.updates.delete(update)
     if (watch.updates.size) return
     watch.restore()
-    watched.delete(control)
+    delete control[WATCH]
   }
 }
 
@@ -91,6 +92,7 @@ export class CharacterCountElement extends Base {
   #observer
   #timeout
   #unwatch
+  #watched
 
   get control() {
     return this.closest(".ui-field")?.querySelector("input, textarea") ?? null
@@ -102,7 +104,8 @@ export class CharacterCountElement extends Base {
     }
     this.#controller = new AbortController()
     const { signal } = this.#controller
-    this.ownerDocument.addEventListener(
+    const root = this.getRootNode()
+    root.addEventListener(
       "input",
       (event) => {
         if (event.target !== this.control) return
@@ -111,7 +114,7 @@ export class CharacterCountElement extends Base {
       },
       { signal },
     )
-    this.ownerDocument.addEventListener(
+    root.addEventListener(
       "reset",
       (event) => {
         if (event.target === this.control?.form)
@@ -119,18 +122,17 @@ export class CharacterCountElement extends Base {
       },
       { signal },
     )
-    this.#observer = new MutationObserver(() => this.#update())
-    const root = this.closest(".ui-field")
-    if (root) {
-      this.#observer.observe(root, {
+    this.#observer = new MutationObserver(() => this.#sync())
+    const field = this.closest(".ui-field")
+    if (field) {
+      this.#observer.observe(field, {
         attributeFilter: ["maxlength", "value"],
+        childList: true,
         subtree: true,
       })
     }
-    const control = this.control
-    if (control) this.#unwatch = watchValue(control, () => this.#update())
-    this.#update()
-    queueMicrotask(() => this.#update())
+    this.#sync()
+    queueMicrotask(() => this.#sync())
   }
 
   disconnectedCallback() {
@@ -138,6 +140,7 @@ export class CharacterCountElement extends Base {
     this.#observer?.disconnect()
     this.#unwatch?.()
     this.#unwatch = undefined
+    this.#watched = undefined
     clearTimeout(this.#timeout)
   }
 
@@ -164,6 +167,18 @@ export class CharacterCountElement extends Base {
     }, DELAY)
   }
 
+  #sync() {
+    const control = this.control
+    if (control !== this.#watched) {
+      this.#unwatch?.()
+      this.#unwatch = control
+        ? watchValue(control, () => this.#update())
+        : undefined
+      this.#watched = control
+    }
+    this.#update()
+  }
+
   #update() {
     const control = this.control
     const text =
@@ -176,6 +191,47 @@ export class CharacterCountElement extends Base {
   }
 }
 
+const NULLISH_REMOVES = [
+  "accessKey",
+  "autocapitalize",
+  "autocorrect",
+  "className",
+  "contentEditable",
+  "dir",
+  "draggable",
+  "enterKeyHint",
+  "id",
+  "inputMode",
+  "lang",
+  "slot",
+  "spellcheck",
+  "tabIndex",
+  "title",
+  "translate",
+  "writingSuggestions",
+]
+
+function removeOnNullish(element) {
+  for (const name of NULLISH_REMOVES) {
+    let proto = Object.getPrototypeOf(element.prototype)
+    while (proto && !Object.hasOwn(proto, name)) {
+      proto = Object.getPrototypeOf(proto)
+    }
+    const descriptor = proto && Object.getOwnPropertyDescriptor(proto, name)
+    if (!descriptor?.set) continue
+    const attribute = name === "className" ? "class" : name.toLowerCase()
+    Object.defineProperty(element.prototype, name, {
+      configurable: true,
+      get: descriptor.get,
+      set(value) {
+        if (value == null) this.removeAttribute(attribute)
+        else descriptor.set.call(this, value)
+      },
+    })
+  }
+}
+
 if (globalThis.customElements && !customElements.get("opui-character-count")) {
+  removeOnNullish(CharacterCountElement)
   customElements.define("opui-character-count", CharacterCountElement)
 }

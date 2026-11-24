@@ -6,6 +6,7 @@
     class: className,
     for: htmlFor,
     grouped,
+    hideLabel,
     size,
 
     // Snippets
@@ -30,7 +31,7 @@
   {...rest}
 >
   {#if hasLabel}
-    <label class="ui-label" for={htmlFor}>
+    <label class={hideLabel ? "ui-sr-only" : "ui-label"} for={htmlFor}>
       {@render content(label)}
     </label>
   {/if}

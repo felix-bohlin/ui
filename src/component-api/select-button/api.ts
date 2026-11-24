@@ -2,7 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "SelectButton",
-  css: ["list", "select", "text-field"],
+  css: ["field", "list", "select"],
   notes: {
     default:
       "Put it first in your `<select>`, before the options. The select keeps clicks, focus and the name, and the browser fills `<selectedcontent>` with a copy of the selected option, so an option with an icon or a description shows them in the field. Browsers without customizable select leave it out.",

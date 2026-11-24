@@ -9,6 +9,7 @@ export default function OneTimeCode(props: Props) {
     "class",
     "for",
     "grouped",
+    "hideLabel",
     "size",
     "children",
     "endText",
@@ -31,7 +32,10 @@ export default function OneTimeCode(props: Props) {
       {...rest}
     >
       {hasLabel() && (
-        <label class="ui-label" for={props.for}>
+        <label
+          class={props.hideLabel ? "ui-sr-only" : "ui-label"}
+          for={props.for}
+        >
           {resolvedLabel()}
         </label>
       )}

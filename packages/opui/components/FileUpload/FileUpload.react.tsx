@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect, useId } from "react"
+import { useId } from "react"
+import "../../elements/file-upload.js"
 import { cx } from "../cx"
 import { useHydrated, useListener } from "../react"
 import Button from "../Button/Button.react"
@@ -31,9 +32,6 @@ export default function FileUpload({
   const rootRef = useHydrated(
     useListener(useListener(ref, "remove", onRemove), "select", onSelect),
   )
-  useEffect(() => {
-    void import("../../elements/file-upload.js")
-  }, [])
 
   return (
     <opui-file-upload

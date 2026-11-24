@@ -47,7 +47,7 @@ export const ENGINE_BUGS = {
   ],
 } as const
 
-export type Engine = keyof typeof ENGINE_BUGS
+type Engine = keyof typeof ENGINE_BUGS
 
 export type EngineBug = (typeof ENGINE_BUGS)[Engine][number]
 

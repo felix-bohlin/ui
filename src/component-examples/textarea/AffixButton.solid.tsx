@@ -28,7 +28,6 @@ export default function AffixButton() {
       label="Message"
     >
       <textarea
-        aria-describedby="textarea-affix-button-1-end"
         id="textarea-affix-button-1"
         placeholder="Write a message..."
       ></textarea>

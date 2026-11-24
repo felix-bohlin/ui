@@ -3,10 +3,8 @@
 </script>
 
 <Field for="textarea-affix-button-1" label="Message">
-  <textarea
-    aria-describedby="textarea-affix-button-1-end"
-    id="textarea-affix-button-1"
-    placeholder="Write a message..."></textarea>
+  <textarea id="textarea-affix-button-1" placeholder="Write a message..."
+  ></textarea>
   {#snippet end()}
     <Button
       aria-label="Send"

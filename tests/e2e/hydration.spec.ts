@@ -19,25 +19,6 @@ type Late = {
 const LATE: Partial<Record<Framework, Late[]>> = {
   react: [
     {
-      attribute: "disabled",
-      examples: ["number-field/Disabled"],
-      on: "opui-step-button button",
-      reason:
-        "the element disables the step buttons while the input you write is disabled, which the component can't see on the server, and the React component imports the element in an effect, after hydration",
-    },
-    {
-      attribute: "aria-disabled",
-      examples: [
-        "control-group/Fields",
-        "number-field/Basics",
-        "number-field/Buttons",
-        "number-field/Stretch",
-      ],
-      on: "opui-step-button button",
-      reason:
-        "the element marks the step button at the limit, and the React component imports the element in an effect, after hydration",
-    },
-    {
       attribute: "data-hydrating",
       examples: [
         "callout/Dismissible",
@@ -131,13 +112,16 @@ const PROBES: Partial<Record<Framework, Record<string, string>>> = {
     select:
       "Svelte builds one select it never inserts, to test whether the browser keeps elements inside an option",
   },
-  vue: {
-    input:
-      "serverValue in packages/opui/components/vue.ts builds an input it never inserts, to read the value the server markup resets to",
-  },
 }
 
-const KNOWN: Partial<Record<Framework, Record<string, string>>> = {}
+const KNOWN: Partial<Record<Framework, Record<string, string>>> = {
+  svelte: {
+    "field/ValidationBinding":
+      "Svelte drops the server's value attribute from an input whose only dynamic attribute is bind: when it hydrates (TODO.md Limitations: Text field, in Svelte, the Binding example's own <input bind:value>)",
+    "range/Value":
+      "Svelte drops the server's value attribute from an input whose only dynamic attribute is bind: when it hydrates (TODO.md Limitations: Text field, in Svelte, the Binding example's own <input bind:value>)",
+  },
+}
 
 type Captured = {
   attributesOf: (element: Element) => string[]

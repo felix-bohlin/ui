@@ -8,8 +8,8 @@ import { Field as UIField } from "opui-css/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
 
+import FieldCSS from "@opui/css/components/field.css?raw"
 import RangeCSS from "@opui/css/components/range.css?raw"
-import TextFieldCSS from "@opui/css/components/text-field.css?raw"
 import Conditional from "../../components/Conditional.astro"
 import ValidationNotes from "./partials/ValidationNotes.astro"
 import RangeBuild from "../../components/UnderTheHood/RangeBuild.astro"
@@ -23,6 +23,7 @@ export const keywords = ["slider"]
 
 <Component
   description={description}
+  base="field"
   slug="range"
   heroAnatomy
   apis={[{ title: "Range API", api: rangeApi }]}
@@ -47,8 +48,8 @@ export const keywords = ["slider"]
   installationTabs={[
     { title: "range.css", code: RangeCSS, lang: "css" },
     {
-      title: "text-field.css",
-      code: TextFieldCSS,
+      title: "field.css",
+      code: FieldCSS,
       lang: "css",
       isDependency: true,
     },
@@ -67,8 +68,8 @@ export const keywords = ["slider"]
       volume or brightness.
     </li>
     <li slot="when">
-      A value on a scale with a few marked steps, with
-      <a href="#tick-marks">tick marks</a>.
+      A value on a scale with a few named steps, with
+      <a href="#labels">labels</a>.
     </li>
     <li slot="when-not">
       An exact number, like a quantity or a price. Use a
@@ -170,22 +171,30 @@ export const keywords = ["slider"]
         <code>aria-valuetext</code> to match.
       </Fragment>
     </Conditional>
+    <AutoExample name="Value" column />
   </section>
 
-  <section id="tick-marks">
-    <h2>Tick marks</h2>
+  <section id="labels">
+    <h2>Labels</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Write a <code>&lt;datalist&gt;</code> after the input and link it with
         <code>list</code>. The <code>label</code> of each option shows under its
-        mark.
+        value. Screen readers don't read the datalist, so set
+        <code>aria-valuetext</code> on the input to the label at its value.
       </Fragment>
       <Fragment slot="html">
         Put a <code>&lt;datalist&gt;</code> after the input and link it with
         <code>list</code>. The <code>label</code> of each option shows under its
-        mark.
+        value. Screen readers don't read the datalist, so set
+        <code>aria-valuetext</code> on the input to the label at its value, on
+        <code>input</code>.
       </Fragment>
     </Conditional>
+    <p>
+      The labels are spread evenly, so space the option values evenly from
+      <code>min</code> to <code>max</code>.
+    </p>
     <AutoExample name="TickMarksLabels" column />
   </section>
 
@@ -196,7 +205,7 @@ export const keywords = ["slider"]
 
   <section id="validation">
     <h2>Validation</h2>
-    <ValidationNotes element="input" subject="Fields">
+    <ValidationNotes element="input" own subject="Fields">
       <li>
         A range always has a value, so <code>required</code> doesn't apply.
       </li>
@@ -230,6 +239,18 @@ export const keywords = ["slider"]
   </Fragment>
 
   <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Set <code>aria-valuetext</code> when the number alone doesn't say the
+        value, like with a unit or a word. Screen readers read it instead of the
+        number.
+      </li>
+      <li>
+        Point the input's <code>aria-describedby</code> at the start and end
+        text. Leave out an end text that only holds the value's
+        <code>&lt;output&gt;</code>, since the input already says its value.
+      </li>
+    </ul>
     <KeyboardSupport />
   </Fragment>
 </Component>

@@ -1,6 +1,8 @@
 "use client"
 
-import { useEffect, useMemo } from "react"
+import { useMemo } from "react"
+import "../../elements/close-on-navigate.js"
+import "../../elements/menu.js"
 import { defined, filled } from "../attrs"
 import { cx } from "../cx"
 import { MenuContext, useMenuContext } from "./context.react"
@@ -26,10 +28,6 @@ export default function Menu({
   const parent = useMenuContext()
   const rootId = parent?.rootId ?? id
   warnMissingId("Menu", id)
-  useEffect(() => {
-    void import("../../elements/close-on-navigate.js")
-    void import("../../elements/menu.js")
-  }, [])
   const context = useMemo<Context>(() => ({ rootId }), [rootId])
 
   return (

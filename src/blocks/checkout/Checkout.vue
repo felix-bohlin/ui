@@ -61,7 +61,7 @@ import {
                 placeholder="you@example.com"
                 required
                 type="email"
-                value="ines.hertz@example.com"
+                :value.attr="'ines.hertz@example.com'"
               />
             </Field>
             <Checkbox checked id="checkout-news" name="news">
@@ -80,7 +80,7 @@ import {
                   name="first-name"
                   required
                   type="text"
-                  value="Ines"
+                  :value.attr="'Ines'"
                 />
               </Field>
               <Field for="checkout-last-name" label="Last name">
@@ -90,7 +90,7 @@ import {
                   name="last-name"
                   required
                   type="text"
-                  value="Hertz"
+                  :value.attr="'Hertz'"
                 />
               </Field>
             </FieldGroup>
@@ -101,7 +101,7 @@ import {
                 name="address"
                 required
                 type="text"
-                value="4 Drop D Drive"
+                :value.attr="'4 Drop D Drive'"
               />
             </Field>
             <FieldGroup orientation="horizontal">
@@ -113,7 +113,7 @@ import {
                   name="postal-code"
                   required
                   type="text"
-                  value="444 44"
+                  :value.attr="'444 44'"
                 />
               </Field>
               <Field for="checkout-city" label="City">
@@ -123,7 +123,7 @@ import {
                   name="city"
                   required
                   type="text"
-                  value="Bassville"
+                  :value.attr="'Bassville'"
                 />
               </Field>
             </FieldGroup>
@@ -152,7 +152,7 @@ import {
                   id="checkout-phone"
                   name="phone"
                   type="tel"
-                  value="555 0144"
+                  :value.attr="'555 0144'"
                 />
               </Field>
             </FieldGroup>
@@ -224,7 +224,6 @@ import {
                 <FieldGroup>
                   <Field for="checkout-card-number" label="Card number">
                     <input
-                      aria-describedby="checkout-card-number-start"
                       autocomplete="cc-number"
                       id="checkout-card-number"
                       inputmode="numeric"
@@ -392,7 +391,7 @@ import {
                 id="checkout-discount"
                 name="discount"
                 type="text"
-                value="LOWEND10"
+                :value.attr="'LOWEND10'"
               />
             </Field>
             <Button type="button">Apply</Button>

@@ -77,7 +77,7 @@ const state = ref({
   </form>
   <form data-case="number-default">
     <Field autoFit for="number-default" label="Quantity">
-      <input id="number-default" type="number" value="1" />
+      <input id="number-default" type="number" :value.attr="'1'" />
       <template #start>
         <StepButton command="--step-down" for="number-default" />
       </template>
@@ -107,7 +107,7 @@ const state = ref({
   </form>
   <form data-case="range-default">
     <Field for="range-default" label="Level">
-      <input id="range-default" type="range" value="40" />
+      <input id="range-default" type="range" :value.attr="'40'" />
     </Field>
   </form>
   <form data-case="rating-bound">
@@ -176,7 +176,7 @@ const state = ref({
   </form>
   <form data-case="text-default">
     <Field for="text-default" label="Name">
-      <input id="text-default" value="Ada" />
+      <input id="text-default" :value.attr="'Ada'" />
     </Field>
   </form>
   <form data-case="text-empty">

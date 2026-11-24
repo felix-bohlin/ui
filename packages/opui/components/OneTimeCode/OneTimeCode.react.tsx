@@ -5,6 +5,7 @@ import type { Props } from "./types.react"
 export default function OneTimeCode({
   className,
   grouped,
+  hideLabel,
   htmlFor,
   size,
   children,
@@ -27,7 +28,10 @@ export default function OneTimeCode({
       {...rest}
     >
       {hasLabel && (
-        <label className="ui-label" htmlFor={htmlFor}>
+        <label
+          className={hideLabel ? "ui-sr-only" : "ui-label"}
+          htmlFor={htmlFor}
+        >
           {label}
         </label>
       )}

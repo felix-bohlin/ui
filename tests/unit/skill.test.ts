@@ -167,6 +167,49 @@ test("a reference writes only its first icon in full", () => {
   ).toEqual([])
 })
 
+const importsOf = (markdown: string) =>
+  [
+    ...markdown.matchAll(/^`import \{ ([^}]+) \} from "opui-css\/(\w+)"`$/gm),
+  ].map(([, names, framework]) => ({ framework, names: names.split(", ") }))
+
+const missingImports = (reference: string, base: string, component: string) =>
+  importsOf(base).flatMap(({ framework }) =>
+    importsOf(reference)
+      .find((line) => line.framework === framework)
+      ?.names.includes(component)
+      ? []
+      : [`${framework}: ${component}`],
+  )
+
+test("a reference imports the component of the page its docs page builds on", () => {
+  expect(
+    missingImports(
+      '`import { PasswordToggle } from "opui-css/react"`',
+      '`import { Field } from "opui-css/react"`',
+      "Field",
+    ),
+  ).toEqual(["react: Field"])
+  const reference = (page: string) =>
+    readFileSync(path.join(REFERENCES, `${page}.md`), "utf8")
+  const pascal = (slug: string) =>
+    slug.replace(/(^|-)([a-z])/g, (_, __, letter: string) =>
+      letter.toUpperCase(),
+    )
+  expect(
+    pages.flatMap((page) => {
+      const base = readFileSync(
+        `src/docs/components/${page}.astro`,
+        "utf8",
+      ).match(/^\s+base="([\w-]+)"$/m)?.[1]
+      return base
+        ? missingImports(reference(page), reference(base), pascal(base)).map(
+            (problem) => `${page}.md ${problem}`,
+          )
+        : []
+    }),
+  ).toEqual([])
+})
+
 test("the index lists every component reference", () => {
   const index = readFileSync(path.join(REFERENCES, "index.md"), "utf8")
   expect(pages.filter((page) => !index.includes(`\`${page}.md\``))).toEqual([])

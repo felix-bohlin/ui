@@ -2,7 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "OneTimeCode",
-  css: ["one-time-code", "text-field"],
+  css: ["field", "one-time-code"],
   notes: {
     default:
       'Write the `<input>` inside, with its `id` set to `for`, `autocomplete="one-time-code"`, a `maxlength` from 4 to 8, which sets the number of boxes, and a matching `pattern`: `inputmode="numeric"` and `[0-9]{6}` for digits, or `autocapitalize="characters"`, `spellcheck="false"` and `[A-Za-z0-9]{6}` for letters and digits. Bind it like any input. Other attributes go to the `.ui-one-time-code` root.',
@@ -13,7 +13,7 @@ export default {
   options: [
     {
       description:
-        "The `id` of your `<input>`. The label points at it, and the end text's id, `x-end-text`, starts with it, for the input's `aria-describedby`.",
+        'The `id` of your `<input>`. The label points at it, and the end text gets an id that starts with it: `x-end-text` for `for="x"`. Point the input\'s `aria-describedby` at it.',
       frameworks: ["astro", "solid", "svelte", "vue"],
       prop: "for",
       type: "string",
@@ -27,8 +27,17 @@ export default {
       prop: "grouped",
     },
     {
+      class: ".ui-sr-only",
+      default: "false",
       description:
-        "The `id` of your `<input>`, as `htmlFor` like on the element. The label points at it, and the end text's id, `x-end-text`, starts with it, for the input's `aria-describedby`.",
+        "Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The input keeps it as its accessible name.",
+      group: "Label",
+      part: ".ui-one-time-code > label",
+      prop: "hideLabel",
+    },
+    {
+      description:
+        'The `id` of your `<input>`, as `htmlFor` like on the element. The label points at it, and the end text gets an id that starts with it: `x-end-text` for `htmlFor="x"`. Point the input\'s `aria-describedby` at it.',
       frameworks: ["react"],
       prop: "htmlFor",
       type: "string",
@@ -71,7 +80,8 @@ export default {
     },
   ],
   root: {
-    description: "Container element.",
+    description:
+      "Holds the label, the boxes and the end text, and fits the boxes to its width.",
     selector: "div.ui-one-time-code",
   },
   slots: [

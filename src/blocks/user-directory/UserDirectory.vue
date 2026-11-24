@@ -46,7 +46,6 @@ import {
     >
       <Field for="user-directory-q" hideLabel label="Search bassists">
         <input
-          aria-describedby="user-directory-q-start"
           id="user-directory-q"
           name="q"
           placeholder="Search by name, gear or city"

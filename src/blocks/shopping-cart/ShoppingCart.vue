@@ -67,7 +67,7 @@ import {
                   min="1"
                   name="qty-gig-bag"
                   type="number"
-                  value="1"
+                  :value.attr="'1'"
                 />
                 <template #start>
                   <StepButton
@@ -133,7 +133,7 @@ import {
                   min="1"
                   name="qty-strings"
                   type="number"
-                  value="2"
+                  :value.attr="'2'"
                 />
                 <template #start>
                   <StepButton
@@ -194,7 +194,7 @@ import {
                   min="1"
                   name="qty-tee"
                   type="number"
-                  value="1"
+                  :value.attr="'1'"
                 />
                 <template #start>
                   <StepButton

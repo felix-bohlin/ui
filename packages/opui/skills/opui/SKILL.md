@@ -15,6 +15,7 @@ Install with `npm install opui-css`. Open Props is bundled in `dist/opui.css` fo
 - Without a bundler, link `https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css`. It includes the browser fallbacks of the `components.compat` layer: `dist/opui.no-compat.css` leaves them out, and `dist/opui.baseline-<year>.css` keeps only the ones browsers of that Baseline year need.
 - Astro: `import { Button } from "opui-css/astro"`. React: `import { Button } from "opui-css/react"`. Solid: `import { Button } from "opui-css/solid"`. Svelte: `import { Button } from "opui-css/svelte"`. Vue: `import { Button } from "opui-css/vue"`. All still need the CSS imported once.
 - `npx opui-css skill` copies this skill, matching the installed version, into `.claude/skills/opui`. Pass `--dir <path>` for another agent's skills folder and `--force` to replace an older copy after an upgrade.
+- After building a page with a `Field` or `.ui-field`, run `npx opui-css check <files or folders>` on its HTML. It lists each field whose label, part ids, `aria-describedby` or step and password buttons don't follow its control's `id`, and fails. It needs `parse5` (`npm install --save-dev parse5`). For a page that renders in the browser, save `document.documentElement.outerHTML` to a file and check that.
 
 ## Conventions
 

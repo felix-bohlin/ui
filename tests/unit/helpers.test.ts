@@ -6,8 +6,6 @@ import {
   autoLabelledBy,
   createId,
   createIds,
-  fieldDescribedBy,
-  idRefs,
 } from "../../packages/opui/components/id"
 import {
   counterLabel,
@@ -220,31 +218,6 @@ describe("ids", () => {
     )
   })
 
-  test("idRefs joins the ids that are set", () => {
-    expect(idRefs("a", undefined, false, null, "b")).toBe("a b")
-    expect(idRefs(undefined, "")).toBe(undefined)
-  })
-
-  test("fieldDescribedBy lists a field's parts in the order they're drawn, then the other ids", () => {
-    expect(
-      fieldDescribedBy(
-        {
-          bottom: "bottom",
-          end: "end",
-          endText: "end-text",
-          start: "start",
-          startText: "start-text",
-          top: "top",
-        },
-        "outside",
-      ),
-    ).toBe("start-text top start end bottom end-text outside")
-    expect(
-      fieldDescribedBy({ endText: "end-text", top: false }, undefined),
-    ).toBe("end-text")
-    expect(fieldDescribedBy({ start: undefined })).toBe(undefined)
-  })
-
   test("createIds asks for one base per instance, only when a part needs it", () => {
     const calls: string[] = []
     const locals = {
@@ -301,5 +274,11 @@ describe("toggleInGroup", () => {
     const group = ["a"]
     toggleInGroup(group, "b", true)
     expect(group).toEqual(["a"])
+  })
+
+  test("returns the group as it is when it already holds the value or lacks it, so a form reset that sets every box again adds nothing twice", () => {
+    const group = ["a", "b"]
+    expect(toggleInGroup(group, "a", true)).toBe(group)
+    expect(toggleInGroup(group, "c", false)).toBe(group)
   })
 })

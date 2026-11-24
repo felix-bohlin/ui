@@ -71,8 +71,6 @@ export const REACT_FIXED_VALUE_TYPES = [
 
 export const REACT_DEFAULT_VALUE = ["Rating", "Tabs", "ToggleGroup"]
 
-export const SVELTE_DEFAULT_VALUE = []
-
 const NUMERIC_ATTRIBUTES = [
   "colspan",
   "maxlength",
@@ -1048,18 +1046,13 @@ const markupTarget = (framework, roles) => {
     const checked = reactPropsOf(node.name, node.component)?.has(
       "defaultChecked",
     )
-    const value =
-      SVELTE_DEFAULT_VALUE.includes(node.name) &&
-      !node.attributes.some((item) => item.name === "readonly")
-    return checked || value
+    return checked
       ? {
           ...node,
           attributes: node.attributes.map((item) =>
-            checked && item.name === "checked"
+            item.name === "checked"
               ? { ...item, name: "defaultChecked" }
-              : value && item.name === "value"
-                ? { ...item, name: "defaultValue" }
-                : item,
+              : item,
           ),
         }
       : node
@@ -1073,13 +1066,35 @@ const markupTarget = (framework, roles) => {
           ),
         }
       : node
+  const attributeValue = (child) =>
+    child.name === "input" &&
+    !child.component &&
+    !child.attributes.some((item) => item.name === "readonly")
+      ? {
+          ...child,
+          attributes: child.attributes.map((item) =>
+            item.kind === "string" && item.name === "value"
+              ? {
+                  kind: "expression",
+                  name: "value.attr",
+                  value: `'${item.value.replaceAll("\\", "\\\\").replaceAll("'", "\\'")}'`,
+                }
+              : item,
+          ),
+        }
+      : child.type === "fragment"
+        ? { ...child, children: child.children.map(attributeValue) }
+        : child
   const element = (node, html) => {
     const attributes = markupAttributes(
       vueModel(svelteDefaults(node)),
       expression,
       !vue,
     )
-    const children = emit(node.children, html)
+    const children = emit(
+      vue && node.component ? node.children.map(attributeValue) : node.children,
+      html,
+    )
     if (VOID_ELEMENTS.has(node.name)) {
       return `${openTag(node.name, attributes)} />`
     }

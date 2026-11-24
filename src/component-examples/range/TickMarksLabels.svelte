@@ -1,9 +1,17 @@
 <script lang="ts">
   import { Field } from "opui-css/svelte"
+
+  const qualities = ["Low", "Medium", "High"]
+
+  let opacity = $state(50)
+  let quality = $state(1)
 </script>
 
 <Field for="range-tick-marks-labels-1" label="Opacity">
   <input
+    aria-valuetext={`${opacity}%`}
+    bind:value={opacity}
+    defaultValue={50}
     id="range-tick-marks-labels-1"
     list="range-tick-marks-labels-1-list"
     step="25"
@@ -19,11 +27,13 @@
 </Field>
 <Field for="range-tick-marks-labels-2" label="Quality">
   <input
+    aria-valuetext={qualities[quality]}
+    bind:value={quality}
+    defaultValue={1}
     id="range-tick-marks-labels-2"
     list="range-tick-marks-labels-2-list"
     max="2"
     type="range"
-    value="1"
   />
   <datalist aria-hidden="true" id="range-tick-marks-labels-2-list">
     <option label="Low" value="0"></option>

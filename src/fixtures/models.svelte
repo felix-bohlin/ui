@@ -42,6 +42,7 @@
   let steps = $state(stepsOf(0))
   let name = $state("Ada")
   let plan = $state("free")
+  let toppings = $state(["basil", "cheese"])
 
   $effect(() => {
     const refresh = () => {
@@ -197,4 +198,11 @@
     Set values
   </button>
   <button type="reset">Reset</button>
+  <fieldset id="models-toppings">
+    <legend>Toppings</legend>
+    {#each ["basil", "cheese", "olives"] as topping (topping)}
+      <Checkbox bind:group={toppings} value={topping}>{topping}</Checkbox>
+    {/each}
+    <output>{JSON.stringify(toppings)}</output>
+  </fieldset>
 </form>

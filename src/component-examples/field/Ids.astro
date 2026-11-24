@@ -1,0 +1,18 @@
+---
+import { Field, StepButton } from "opui-css/astro"
+
+const id = "field-ids-1"
+---
+
+<Field autoFit endText="Up to 10 per order." for={id} label="Quantity">
+  <input
+    aria-describedby={`${id}-end-text`}
+    id={id}
+    max="10"
+    min="1"
+    type="number"
+    value="1"
+  />
+  <StepButton command="--step-down" for={id} slot="start" />
+  <StepButton command="--step-up" for={id} slot="end" />
+</Field>

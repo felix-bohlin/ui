@@ -190,11 +190,11 @@ The default palette is blue (hue `222.8`) in both color schemes, and the primary
 }
 ```
 
-`kbd`, `mark`, `var`, `Tooltip`, `Checkbox`, file inputs outside `TextField` and rounded `Avatar` never get rounder than `--ui-radius` (a `TextField` with `type="file"` follows `--ui-field-radius` like other fields).
+`kbd`, `mark`, `var`, `Tooltip`, `Checkbox`, file inputs outside a `Field` and rounded `Avatar` never get rounder than `--ui-radius` (a file input in a `Field` follows `--ui-field-radius` like other fields).
 
 Component padding, gaps and margins read `--ui-space-1` to `--ui-space-8` instead of the Open Props `--size-*` steps. The steps resolve on `html`, so overriding `--size-*` on a part of the page no longer changes the components in it. Set `--ui-space-scale` on `html` to change the spacing everywhere, or a component's `--_` property to change one.
 
-The `Select` picker and `Drawer` use `--ui-shadow-overlay` (`--shadow-3`, was `--shadow-2`), and elevated `Accordion` uses `--ui-shadow-elevated`, the elevated `Card` shadow.
+A select's picker and `Drawer` use `--ui-shadow-overlay` (`--shadow-3`, was `--shadow-2`), and elevated `Accordion` uses `--ui-shadow-elevated`, the elevated `Card` shadow.
 
 `--ui-primary` is derived from `--ui-primary-source` (`oklch(0.499 0.191 222.8)` in light mode and `--ui-color-6` in dark mode), and `--ui-on-primary` is derived from `--ui-primary` with relative color. If you set your own `--ui-primary` on `html` (or on `.ui-palette`), its text color follows it; elsewhere, add `.ui-palette` or set `--ui-on-primary` too.
 
@@ -202,7 +202,7 @@ The `Select` picker and `Drawer` use `--ui-shadow-overlay` (`--shadow-3`, was `-
 
 `--ui-motion` and its `prefers-reduced-motion` default moved from `core/normalize.css` to `theme.css`, and the `.ui-motion-*` classes moved to `core/utils.css`. `theme.css` also declares `--ui-palette-hue-rotate-by`, `--ui-gray-hue` and `--ui-gray-chroma`. If you import single files, import `theme.css` and `utils.css` too.
 
-Component borders read `--ui-border-width` (`Accordion`, `Callout`, `Card`, `Chip`, `ControlGroup`, `DescriptionList`, `List`, `Table`, `ToggleButton`, `ToggleGroup`) and `--ui-field-border-width` (`Checkbox`, `Radio`, `Switch`, `TextField`) instead of a hardcoded `1px`. If you set either token, check those components too.
+Component borders read `--ui-border-width` (`Accordion`, `Callout`, `Card`, `Chip`, `ControlGroup`, `DescriptionList`, `List`, `Table`, `ToggleButton`, `ToggleGroup`) and `--ui-field-border-width` (`Checkbox`, `Field`, `Radio`, `Switch`) instead of a hardcoded `1px`. If you set either token, check those components too.
 
 Links (`.ui-link` and rich text links) darken in light mode and lighten in dark mode on hover and focus, and their underline gets `3px` thick.
 
@@ -1072,7 +1072,7 @@ Deep type imports from `opui-css/components/*` are renamed, see [Package and imp
 
 ## Range
 
-`Range` is gone from every framework. A range is a `Field` with your own `<input type="range">` in it, its `id` set to the required `for` (`htmlFor` in React), which the types enforce. `label`, `startText`, `endText` and `spread` are Field's props of the same name, and `id`, `name`, `list`, `min`, `max`, `step` and the value go on the input: bind it with your framework's own `value`, `bind:value` or `v-model`. Point the input's `aria-describedby` at `x-start-text` and `x-end-text` for `for="x"` when the field shows them. Import `text-field.css` with `range.css`, or use `components.css`.
+`Range` is gone from every framework. A range is a `Field` with your own `<input type="range">` in it, its `id` set to the required `for` (`htmlFor` in React), which the types enforce. `label`, `startText`, `endText` and `spread` are Field's props of the same name, and `id`, `name`, `list`, `min`, `max`, `step` and the value go on the input: bind it with your framework's own `value`, `bind:value` or `v-model`. Point the input's `aria-describedby` at `x-start-text` and `x-end-text` for `for="x"` when the field shows them. Import `field.css` with `range.css`, or use `components.css`.
 
 ```diff
 - <Range endText="Quieter after 22:00." label="Volume" max="11" v-model="volume" />
@@ -1149,6 +1149,28 @@ The picker is `--ui-surface-elevated` with a `--ui-border-color-on-raised` edge,
 +     <option v-for="item in countries" :key="item.value" :value="item.value">{{ item.label }}</option>
 +   </select>
 + </Field>
+```
+
+In HTML, the select starts with `<button><selectedcontent></selectedcontent></button>`, the `SelectButton` part. Remove the `<div class="ui-list">` around the options and write them straight in the `<select>`. `.ui-dense` moves from that wrapper to the `.ui-field` root.
+
+```diff
+- <label class="ui-select">
+-   <span class="ui-label">Fruit</span>
+-   <span class="ui-field">
+-     <select>
++ <div class="ui-field ui-dense">
++   <label class="ui-label" for="fruit">Fruit</label>
++   <span class="ui-field-container">
++     <select id="fruit">
+        <button><selectedcontent></selectedcontent></button>
+-       <div class="ui-list ui-dense">
+-         <option>Apple</option>
+-       </div>
++       <option>Apple</option>
+      </select>
+    </span>
+- </label>
++ </div>
 ```
 
 Same as Text field: the root is a `<div>` with a `<label for>` inside, instead of a `<label>`, the label alone names the select, and the start and end text, the affixes and the `top` and `bottom` parts describe it. A click on those parts no longer opens the select. Target `.ui-field` instead of `label.ui-select`, and in HTML give the select an `id` for the label's `for`.
@@ -1327,7 +1349,7 @@ The root is `.ui-field` instead of `.ui-text-field`, and the box around the inpu
 + </Field>
 ```
 
-`TextField` takes a `size` prop like `Select`, with `x-small`, `small` and `large`.
+`Field` takes a `size` prop instead of `small`, with `x-small`, `small` and `large`.
 
 ```diff
 - <TextField small label="Name" />
@@ -1367,9 +1389,9 @@ The root is a `<div>` with a `<label for>` inside, instead of a `<label>` around
 + </Field>
 ```
 
-With `spread`, label and field split the container into equal columns. Fields keep a `12ch` minimum width in table cells, the invalid state uses `--ui-invalid`, and the auto-suggest arrow is a chevron with the `Select` arrow size.
+With `spread`, label and field split the container into equal columns. Fields keep a `12ch` minimum width in table cells, the invalid state uses `--ui-invalid`, and the auto-suggest arrow is a chevron with a select's arrow size.
 
-The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is still `.ui-filled`.
+The boolean `filled` is gone. Use `variant="filled"` on `Field`. The class is still `.ui-filled`.
 
 ```diff
 - <TextField filled label="Name" />
@@ -1383,11 +1405,12 @@ The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is
 + <div class="ui-field"> … <input aria-invalid="true">
 ```
 
-`text-input.css` is gone, its styles are in `text-field.css`. Remove the import:
+`text-field.css` is `field.css`, and `text-input.css` is gone, its styles are in `field.css` too. Replace both imports:
 
 ```diff
-  @import "opui-css/css/components/text-field.css";
+- @import "opui-css/css/components/text-field.css";
 - @import "opui-css/css/components/text-input.css";
++ @import "opui-css/css/components/field.css";
 ```
 
 The slots inside the field's border are `start` and `end` instead of `prefix` and `suffix`, and `top` and `bottom` instead of `header` and `footer`. In HTML, the classes are `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`.
@@ -1426,7 +1449,7 @@ Same as Text field: `Textarea` is `Field`, which takes your `<textarea>` instead
 + </Field>
 ```
 
-`Textarea` takes a `size` prop instead of `small`, like `TextField`.
+`Field` takes a `size` prop instead of `small`.
 
 ```diff
 - <Textarea small label="Message" />
@@ -1439,7 +1462,7 @@ Same as Text field: the root is a `<div>` with a `<label for>` inside, the label
 
 The minimum height is three lines plus padding at every size (small was a fixed 64px), or the lines in `rows` where the browser reads typed `attr()`. With `spread`, the fixed `30ch` minimum is gone and label and field split the container into equal columns. Textareas keep a `12ch` minimum width in table cells.
 
-The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is still `.ui-filled`.
+The boolean `filled` is gone. Use `variant="filled"` on `Field`. The class is still `.ui-filled`.
 
 ```diff
 - <Textarea filled label="Name" />
@@ -1457,10 +1480,10 @@ The slots inside the field's border are `start` and `end` instead of `prefix` an
 
 ```diff
 - <Textarea label="Bio"><span slot="footer">0 / 160</span></Textarea>
-+ <Field for="bio" label="Bio"><textarea id="bio"></textarea><span slot="bottom">0 / 160</span></Field>
++ <Field for="bio" label="Bio"><textarea aria-describedby="bio-end-text" id="bio" maxlength="160"></textarea><CharacterCount slot="end-text" /></Field>
 ```
 
-In Vue, use `<template #bottom>0 / 160</template>`.
+A count like `0 / 160` is a `CharacterCount` part in the end text. It counts against the textarea's `maxlength`. In Vue, use `<template #end-text><CharacterCount /></template>`.
 
 ## Toast
 

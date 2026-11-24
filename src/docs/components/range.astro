@@ -11,6 +11,7 @@ import AutoExample from "../../components/AutoExample.astro"
 import FieldCSS from "@opui/css/components/field.css?raw"
 import RangeCSS from "@opui/css/components/range.css?raw"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 import ValidationNotes from "./partials/ValidationNotes.astro"
 import RangeBuild from "../../components/UnderTheHood/RangeBuild.astro"
 
@@ -88,43 +89,19 @@ export const keywords = ["slider"]
   <section id="basics">
     <h2>Basics</h2>
     <p>
-      A range is a <DocLink href="/components/field">Field</DocLink> with an
-      <code>&lt;input type="range"&gt;</code> inside. The Field page shows the
-      hidden label, start and end text and spread every field shares.
+      A <DocLink href="/components/field">Field</DocLink> with an
+      <code>&lt;input type="range"&gt;</code> inside.
     </p>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Write the <code>&lt;input type="range"&gt;</code> inside the field, with
-        its <code>id</code> set to <code>for</code>, and give it <code>min</code
-        >, <code>max</code> and <code>step</code> like any range input.
-      </Fragment>
-      <Fragment slot="react">
-        Write the <code>&lt;input type="range"&gt;</code> inside the field, with
-        its <code>id</code> set to <code>htmlFor</code>, and give it
-        <code>min</code>, <code>max</code> and <code>step</code> like any range
-        input.
-      </Fragment>
-      <Fragment slot="html">
-        Put the <code>&lt;input type="range"&gt;</code> directly in
-        <code>.ui-field-container</code>, and point the
-        <code>&lt;label for&gt;</code> at its <code>id</code>.
-      </Fragment>
-    </Conditional>
     <AutoExample name="Basics" column />
   </section>
 
   <section id="variants">
     <h2>Variants</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        The track is outlined by default. Use <code>variant="filled"</code> for
-        a filled track.
-      </Fragment>
-      <Fragment slot="html">
-        The track is outlined by default. Use <code>.ui-filled</code> for a
-        filled track.
-      </Fragment>
-    </Conditional>
+    <p>
+      The track is outlined by default. Use
+      <PropOrClass prop='variant="filled"' class=".ui-filled" /> for a filled
+      track.
+    </p>
     <AutoExample name="Surfaces" column spacious />
   </section>
 
@@ -135,43 +112,14 @@ export const keywords = ["slider"]
 
   <section id="value">
     <h2>Value</h2>
+    <p>
+      Show the value yourself, in an <code>&lt;output&gt;</code> in the end
+      text.
+    </p>
     <Conditional as="p">
-      <Fragment slot="astro">
-        Show the value yourself: update an <code>&lt;output&gt;</code> in the
-        end text on <code>input</code>. When the number alone doesn't say it,
-        like a unit or a word, set <code>aria-valuetext</code> to match.
-      </Fragment>
-      <Fragment slot="html">
-        Show the value yourself: update an <code>&lt;output&gt;</code> in the
-        end text on <code>input</code>. When the number alone doesn't say it,
-        like a unit or a word, set <code>aria-valuetext</code> to match.
-      </Fragment>
-      <Fragment slot="react">
-        Show the value yourself: render it from your state in an
-        <code>&lt;output&gt;</code> in <code>endText</code>. When the number
-        alone doesn't say it, like a unit or a word, set
-        <code>aria-valuetext</code> to match.
-      </Fragment>
-      <Fragment slot="solid">
-        Show the value yourself: render it from your state, kept with
-        <code>onInput</code>, in an <code>&lt;output&gt;</code> in
-        <code>endText</code>. When the number alone doesn't say it, like a unit
-        or a word, set <code>aria-valuetext</code> to match.
-      </Fragment>
       <Fragment slot="svelte">
-        Show the value yourself: render the bound value in an
-        <code>&lt;output&gt;</code> in the <code>endText</code> snippet. When
-        the number alone doesn't say it, like a unit or a word, set
-        <code>aria-valuetext</code> to match. Svelte drops the starting
-        <code>value</code> from an input with <code>bind:value</code> when the
-        page hydrates, so give it <code>defaultValue</code> too if a form reset
-        should bring it back.
-      </Fragment>
-      <Fragment slot="vue">
-        Show the value yourself: render the <code>v-model</code> value in an
-        <code>&lt;output&gt;</code> in the <code>end-text</code> slot. When the
-        number alone doesn't say it, like a unit or a word, set
-        <code>aria-valuetext</code> to match.
+        Give the input <code>defaultValue</code> too, so a form reset brings its
+        value back.
       </Fragment>
     </Conditional>
     <AutoExample name="Value" column />
@@ -179,24 +127,9 @@ export const keywords = ["slider"]
 
   <section id="labels">
     <h2>Labels</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Write a <code>&lt;datalist&gt;</code> after the input and link it with
-        <code>list</code>. The <code>label</code> of each option shows under its
-        value. Screen readers don't read the datalist, so set
-        <code>aria-valuetext</code> on the input to the label at its value.
-      </Fragment>
-      <Fragment slot="html">
-        Put a <code>&lt;datalist&gt;</code> after the input and link it with
-        <code>list</code>. The <code>label</code> of each option shows under its
-        value. Screen readers don't read the datalist, so set
-        <code>aria-valuetext</code> on the input to the label at its value, on
-        <code>input</code>.
-      </Fragment>
-    </Conditional>
     <p>
-      The labels are spread evenly, so space the option values evenly from
-      <code>min</code> to <code>max</code>.
+      Link a <code>&lt;datalist&gt;</code> with <code>list</code>, with evenly
+      spaced values. Each option's <code>label</code> shows under its value.
     </p>
     <AutoExample name="TickMarksLabels" column />
   </section>
@@ -245,13 +178,11 @@ export const keywords = ["slider"]
     <ul>
       <li>
         Set <code>aria-valuetext</code> when the number alone doesn't say the
-        value, like with a unit or a word. Screen readers read it instead of the
-        number.
+        value, like a unit or a label.
       </li>
       <li>
-        Point the input's <code>aria-describedby</code> at the start and end
-        text. Leave out an end text that only holds the value's
-        <code>&lt;output&gt;</code>, since the input already says its value.
+        Leave an end text that only holds the <code>&lt;output&gt;</code> out of
+        <code>aria-describedby</code>.
       </li>
     </ul>
     <KeyboardSupport />

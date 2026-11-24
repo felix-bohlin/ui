@@ -73,11 +73,8 @@ export const keywords = ["multiline", "text area"]
   <section id="textarea">
     <h2>Textarea</h2>
     <p>
-      A textarea is a <DocLink href="/components/field">Field</DocLink> with a
-      <code>&lt;textarea&gt;</code> inside. Write it and wire its
-      <code>aria-describedby</code> as the
-      <DocLink href="/components/field#basics">Field</DocLink> page shows, with
-      the variants, sizes, affixes, validation and layout every field shares.
+      A <DocLink href="/components/field">Field</DocLink> with a
+      <code>&lt;textarea&gt;</code> inside.
     </p>
     <AutoExample name="Basics" column />
   </section>
@@ -85,9 +82,8 @@ export const keywords = ["multiline", "text area"]
   <section id="rows">
     <h2>Rows</h2>
     <p>
-      A textarea starts three lines tall and grows with its text.
-      <code>rows</code> sets the lines it starts at, so <code>rows="1"</code>
-      makes a one-line field that grows, like a reply box.
+      Three lines tall by default, growing with its text. Use <code>rows</code>
+      to change it.
     </p>
 
     <AutoExample name="Rows" column />
@@ -107,11 +103,7 @@ export const keywords = ["multiline", "text area"]
 
   <section id="affix">
     <h2>Affix</h2>
-    <p>
-      A button can go in an affix, like a send button. Leave a part that only
-      holds buttons out of the textarea's <code>aria-describedby</code>, as on
-      the <DocLink href="/components/field#basics">Field</DocLink> page.
-    </p>
+    <p>A button can go in an affix, like a send button.</p>
     <AutoExample name="AffixButton" row />
   </section>
 

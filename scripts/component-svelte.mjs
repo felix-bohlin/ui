@@ -127,8 +127,7 @@ export const toSvelte = (component) => {
         !node.variable &&
         !node.component &&
         !node.custom &&
-        element &&
-        node.tag !== element
+        ((element && node.tag !== element) || !!item.cast)
       if (cast) usesElements = true
       const filtered = filtersSpread(node, item, component)
       if (filtered) usesDefined = true

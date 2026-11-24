@@ -333,7 +333,10 @@ export const toReact = (component) => {
         )
         return filtered ? `{...defined(${chosen})}` : `{...(${chosen})}`
       }
-      if (node.variable && item.code === rest) {
+      if (
+        item.code === rest &&
+        (node.variable || (item.cast && !node.component && !node.custom))
+      ) {
         const cast = `${item.code} as ${restType(node, item)}`
         return filtered ? filteredRest(cast) : `{...(${cast})}`
       }

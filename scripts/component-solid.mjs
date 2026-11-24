@@ -449,6 +449,7 @@ export const toSolid = (component) => {
         entry.code === rest &&
         (node.variable ||
           entry.condition !== undefined ||
+          (!!entry.cast && !node.component && !node.custom) ||
           (!node.component &&
             !node.custom &&
             !!element &&

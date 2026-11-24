@@ -218,7 +218,9 @@ describe("the ports of a sample", () => {
     expect([...wrapped.outputs]).toEqual([...bare.outputs])
     expect(
       wrapped.outputs.get(sampleFile().replace(".astro", ".react.tsx")),
-    ).toContain('<button className={cx(["ui-sample", className])} {...rest} />')
+    ).toContain(
+      '<button\n      className={cx(["ui-sample", className])}\n      {...(rest as ComponentProps<"button">)}\n    />',
+    )
   })
 
   test("a variable tag with a default and a rest cast", async () => {
@@ -2276,9 +2278,9 @@ describe("toTypes", () => {
       {
         astro:
           'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props =\n  | (Base.Props & { as?: "button"; href?: never } & HTMLAttributes<"button">)\n  | (Base.Props & { as?: "a"; href: string } & HTMLAttributes<"a">)\n\nexport type SampleItem = Base.SampleItem & Omit<HTMLAttributes<"a">, "children">\n\nexport type SampleTagProps = Base.SampleTagProps & Omit<HTMLAttributes<"div">, "id">\n',
-        base: 'export type Props = {\n  size?: "small"\n}\n\nexport type Slots<S> =\n  | { "aria-label": string; children?: S }\n  | { "aria-label"?: string; children: S }\n\nexport type SampleItem = { label: string }\n\nexport type SampleTagProps = { id: string }\n\nexport type SampleTagSlots<S> = {\n  end?: S\n  label?: string | S\n}\n',
+        base: 'export type Props = {\n  size?: "small"\n}\n\nexport type Slots<S> =\n  | { "aria-label": string; children?: S }\n  | { "aria-label"?: string; children: S }\n\nexport type SampleItem = { label: string }\n\nexport type SampleTagProps = { id: string; label?: string }\n\nexport type SampleTagSlots<S> = {\n  end?: S\n  label?: string | S\n  top?: string | S\n}\n',
       },
-      { Sample: ["default"], SampleTag: ["end", "label"] },
+      { Sample: ["default"], SampleTag: ["end", "label", "top"] },
       {},
       { SampleTag: ["opui-sample"] },
     )
@@ -2299,7 +2301,7 @@ describe("toTypes", () => {
     )
     expect(types.vue).toContain("export type Slots = DefaultSlots")
     expect(types.vue).toContain(
-      "export type SampleTagSlots = { end?: Slot; label?: Slot }",
+      "export type SampleTagSlots = { end?: Slot; label?: Slot; top?: Slot }",
     )
   })
 
@@ -2554,6 +2556,15 @@ describe("toTypes", () => {
       },
       { Sample: ["default"] },
       "the type parameter Link of Props without the default never",
+    ],
+    [
+      {
+        astro:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & Omit<HTMLAttributes<"fieldset"> & HTMLAttributes<"meter">, keyof Base.Props>\n',
+        base,
+      },
+      { Sample: ["default"] },
+      "the type Props, which joins the attributes of fieldset and meter with &",
     ],
   ])("rejects %j", (files, slots, reason) => {
     expect(() => toTypes("Sample", files, slots)).toThrow(reason)

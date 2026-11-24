@@ -56,7 +56,7 @@ export default function Rating(props: Props) {
           disabled={props.disabled}
           lang={props.lang}
           style={props.style}
-          {...rest}
+          {...(rest as object)}
         >
           <legend>{props.label}</legend>
           {!props.required && (
@@ -113,7 +113,7 @@ export default function Rating(props: Props) {
             props.style,
           )}
           value={Number.isFinite(current()) ? current() : 0}
-          {...rest}
+          {...(rest as object)}
         />
       )}
     </>

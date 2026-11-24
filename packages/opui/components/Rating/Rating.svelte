@@ -3,6 +3,7 @@
   import { seedChecked } from "../svelte"
   import { mergeStyle, pluralLabel } from "../style"
   import type { Props } from "./types.svelte"
+  import type { SvelteHTMLElements } from "svelte/elements"
 
   let {
     "aria-describedby": ariaDescribedBy,
@@ -37,7 +38,7 @@
     {disabled}
     {lang}
     {style}
-    {...rest}
+    {...rest as SvelteHTMLElements["fieldset"]}
   >
     <legend>{label}</legend>{#if !required}
       <input
@@ -89,6 +90,6 @@
     max={Number.isFinite(count) ? count : undefined}
     style={mergeStyle({ "--_max": count === 5 ? undefined : count }, style)}
     value={Number.isFinite(current) ? current : 0}
-    {...rest}
+    {...rest as SvelteHTMLElements["meter"]}
   ></meter>
 {/if}

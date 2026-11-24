@@ -199,6 +199,11 @@ export const DIAGNOSTICS = {
     explain:
       "A props type whose `as` takes a framework's link component declares a type parameter `Link = never`, since Astro and Svelte take element names only, while React, Solid and Vue pass their link component type. Such an `as` can't sit next to a model. Write `Link = never`, and keep the link component off a component with a model.",
   },
+  BC608: {
+    title: "A props type that joins two elements' attributes",
+    explain:
+      'A component that renders one of two elements types each with its own attributes. Joined with `&`, the attributes of two elements give a `ref` and event handlers typed for both at once, which no ref or handler satisfies in React and Solid. Write a union with one member per element, told apart by a prop, as Button does with `href`: `(Base.Props & { href?: never } & HTMLAttributes<"button">) | (Base.Props & { href: string } & HTMLAttributes<"a">)`.',
+  },
 }
 
 export const explain = (code) => {

@@ -18,5 +18,6 @@
     id="field-validation-binding-1"
     name="field-validation-binding"
     bind:value={username}
+    defaultValue="holly"
   />
 </Field>

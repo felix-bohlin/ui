@@ -334,6 +334,13 @@ export const skillExamples = ["Basics", "Ids"]
       Set <code>aria-invalid</code> from your own check, and show the error in
       the end text in place of the hint.
     </p>
+    <Conditional as="p">
+      <Fragment slot="svelte">
+        Svelte drops the starting <code>value</code> from an input with
+        <code>bind:value</code> when the page hydrates, so give it
+        <code>defaultValue</code> too if a form reset should bring it back.
+      </Fragment>
+    </Conditional>
     <AutoExample name="ValidationBinding" centered />
   </section>
 

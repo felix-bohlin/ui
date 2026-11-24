@@ -162,7 +162,10 @@ export const keywords = ["slider"]
         Show the value yourself: render the bound value in an
         <code>&lt;output&gt;</code> in the <code>endText</code> snippet. When
         the number alone doesn't say it, like a unit or a word, set
-        <code>aria-valuetext</code> to match.
+        <code>aria-valuetext</code> to match. Svelte drops the starting
+        <code>value</code> from an input with <code>bind:value</code> when the
+        page hydrates, so give it <code>defaultValue</code> too if a form reset
+        should bring it back.
       </Fragment>
       <Fragment slot="vue">
         Show the value yourself: render the <code>v-model</code> value in an

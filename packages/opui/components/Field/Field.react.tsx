@@ -1,3 +1,4 @@
+import { filled } from "../attrs"
 import { cx } from "../cx"
 import type { Props } from "./types.react"
 
@@ -22,12 +23,12 @@ export default function Field({
   ...rest
 }: Props) {
   const hasLabel = Boolean(label)
-  const hasStartText = Boolean(startText)
-  const hasEndText = Boolean(endText)
-  const startId = start ? `${htmlFor}-start` : undefined
-  const endId = end ? `${htmlFor}-end` : undefined
-  const topId = top ? `${htmlFor}-top` : undefined
-  const bottomId = bottom ? `${htmlFor}-bottom` : undefined
+  const hasStartText = Boolean(filled(startText))
+  const hasEndText = Boolean(filled(endText))
+  const startId = filled(start) ? `${htmlFor}-start` : undefined
+  const endId = filled(end) ? `${htmlFor}-end` : undefined
+  const topId = filled(top) ? `${htmlFor}-top` : undefined
+  const bottomId = filled(bottom) ? `${htmlFor}-bottom` : undefined
   const startTextId = hasStartText ? `${htmlFor}-start-text` : undefined
   const endTextId = hasEndText ? `${htmlFor}-end-text` : undefined
 
@@ -61,23 +62,23 @@ export default function Field({
         </span>
       )}
       <span className="ui-field-container">
-        {top && (
+        {filled(top) && (
           <span className="ui-top" id={topId}>
             {top}
           </span>
         )}
-        {start && (
+        {filled(start) && (
           <span className="ui-start" id={startId}>
             {start}
           </span>
         )}
         {children}
-        {end && (
+        {filled(end) && (
           <span className="ui-end" id={endId}>
             {end}
           </span>
         )}
-        {bottom && (
+        {filled(bottom) && (
           <span className="ui-bottom" id={bottomId}>
             {bottom}
           </span>

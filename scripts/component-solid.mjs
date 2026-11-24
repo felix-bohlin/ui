@@ -12,7 +12,12 @@ import {
   slotOrder,
   withImport,
 } from "./component-emit.mjs"
-import { componentFunction, jsxEmitter, tagNamer } from "./component-jsx.mjs"
+import {
+  attrsImport,
+  componentFunction,
+  jsxEmitter,
+  tagNamer,
+} from "./component-jsx.mjs"
 import {
   helpersCalled,
   importLinesOf,
@@ -248,7 +253,7 @@ export const toSolid = (component) => {
     hoisted: [],
     ids: component.ids,
     rename,
-    slotHas: (name) => propAccess(slotProp(name)),
+    slotHas: (name) => `filled(${propAccess(slotProp(name))})`,
   }
   const rewrite = (code, scope = options) => rewriteExpression(code, scope)
   const taken = new Set([
@@ -609,7 +614,8 @@ export const toSolid = (component) => {
       rename: inner,
       shadowed: [...(scope.shadowed ?? []), ...shadowed],
     }
-    eachScope.slotHas = (name) => slotRead(slotProp(name), eachScope)
+    eachScope.slotHas = (name) =>
+      `filled(${slotRead(slotProp(name), eachScope)})`
     const consts = node.consts.map(({ code, name }) => {
       const local = loopTags.has(name) ? loopTag(name) : name
       const value = rewrite(code, eachScope)
@@ -840,7 +846,10 @@ export const toSolid = (component) => {
       ? [`import { ${[...new Set(solidValues)].join(", ")} } from "solid-js"`]
       : []),
     ...scriptImports(component),
-    ...(usesDefined ? [`import { defined } from "../attrs"`] : []),
+    ...attrsImport(
+      usesDefined,
+      [resolvedBody, resolvedReturn].flat().join("\n"),
+    ),
     ...components
       .map((entry) => componentImport(entry, ".solid"))
       .toSorted(byName),

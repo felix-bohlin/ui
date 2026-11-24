@@ -1,3 +1,4 @@
+import { filled } from "../attrs"
 import { cx } from "../cx"
 import type { TimelineItemProps as Props } from "./types.react"
 
@@ -24,9 +25,9 @@ export default function TimelineItem({
       className={cx([color && `ui-${color}`, className])}
       {...rest}
     >
-      {marker && <span className="ui-marker">{marker}</span>}{" "}
+      {filled(marker) && <span className="ui-marker">{marker}</span>}{" "}
       {time && <time dateTime={datetime}>{time}</time>}
-      {label && <Heading className="ui-h6">{label}</Heading>}
+      {filled(label) && <Heading className="ui-h6">{label}</Heading>}
       {children}
     </li>
   )

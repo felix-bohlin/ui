@@ -1,5 +1,6 @@
 /** @jsxImportSource @solidjs/web */
 import { children, omit } from "solid-js"
+import { filled } from "../attrs"
 import type { Props } from "./types.solid"
 
 export default function Field(props: Props) {
@@ -31,12 +32,14 @@ export default function Field(props: Props) {
   const resolvedStartText = children(() => props.startText)
   const resolvedTop = children(() => props.top)
   const hasLabel = () => Boolean(resolvedLabel())
-  const hasStartText = () => Boolean(resolvedStartText())
-  const hasEndText = () => Boolean(resolvedEndText())
-  const startId = () => (resolvedStart() ? `${props.for}-start` : undefined)
-  const endId = () => (resolvedEnd() ? `${props.for}-end` : undefined)
-  const topId = () => (resolvedTop() ? `${props.for}-top` : undefined)
-  const bottomId = () => (resolvedBottom() ? `${props.for}-bottom` : undefined)
+  const hasStartText = () => Boolean(filled(resolvedStartText()))
+  const hasEndText = () => Boolean(filled(resolvedEndText()))
+  const startId = () =>
+    filled(resolvedStart()) ? `${props.for}-start` : undefined
+  const endId = () => (filled(resolvedEnd()) ? `${props.for}-end` : undefined)
+  const topId = () => (filled(resolvedTop()) ? `${props.for}-top` : undefined)
+  const bottomId = () =>
+    filled(resolvedBottom()) ? `${props.for}-bottom` : undefined
   const startTextId = () =>
     hasStartText() ? `${props.for}-start-text` : undefined
   const endTextId = () => (hasEndText() ? `${props.for}-end-text` : undefined)
@@ -71,23 +74,23 @@ export default function Field(props: Props) {
         </span>
       )}
       <span class="ui-field-container">
-        {resolvedTop() && (
+        {filled(resolvedTop()) && (
           <span class="ui-top" id={topId()}>
             {resolvedTop()}
           </span>
         )}
-        {resolvedStart() && (
+        {filled(resolvedStart()) && (
           <span class="ui-start" id={startId()}>
             {resolvedStart()}
           </span>
         )}
         {props.children}
-        {resolvedEnd() && (
+        {filled(resolvedEnd()) && (
           <span class="ui-end" id={endId()}>
             {resolvedEnd()}
           </span>
         )}
-        {resolvedBottom() && (
+        {filled(resolvedBottom()) && (
           <span class="ui-bottom" id={bottomId()}>
             {resolvedBottom()}
           </span>

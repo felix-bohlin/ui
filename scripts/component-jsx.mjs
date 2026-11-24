@@ -112,3 +112,11 @@ export const jsxEmitter = ({
 
 export const componentFunction = (name, parameters, body, returned) =>
   `export default function ${name}(${parameters}) {\n${body.map((line) => `  ${line}\n`).join("")}${body.length ? "\n" : ""}  return (\n${indent(returned, 4)}\n  )\n}\n`
+
+export const attrsImport = (usesDefined, code) => {
+  const names = [
+    ...(usesDefined ? ["defined"] : []),
+    ...(/(?<![\w$.])filled\(/.test(code) ? ["filled"] : []),
+  ]
+  return names.length ? [`import { ${names.join(", ")} } from "../attrs"`] : []
+}

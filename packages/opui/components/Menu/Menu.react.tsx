@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useMemo } from "react"
-import { defined } from "../attrs"
+import { defined, filled } from "../attrs"
 import { cx } from "../cx"
 import { MenuContext, useMenuContext } from "./context.react"
 import { warnMissingId } from "../dev"
@@ -97,7 +97,7 @@ export default function Menu({
                       <kbd>{shortcut}</kbd>
                     </div>
                   )}
-                  {iconChecked && (
+                  {filled(iconChecked) && (
                     <span aria-hidden="true" className="ui-icon-checked">
                       {iconChecked}
                     </span>

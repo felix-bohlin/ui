@@ -592,7 +592,7 @@ describe("the ports of a sample", () => {
     const ports = await compile(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, label, ...rest } = Astro.props\nconst hasLabel = !!label || Astro.slots.has("label")\n---\n\n<p class:list={["ui-sample", className]} {...rest}>\n  {hasLabel && <b>{label}<slot name="label" /></b>}\n</p>\n',
     )
-    expect(ports["react.tsx"]).toContain("const hasLabel = !!label\n")
+    expect(ports["react.tsx"]).toContain("const hasLabel = filled(label)\n")
     expect(ports.svelte).toContain("const hasLabel = $derived(!!label)\n")
     expect(ports.vue).toContain(
       "const hasLabel = () => !!label || slots.label\n",
@@ -1017,7 +1017,7 @@ describe("the ports of a sample", () => {
       ),
     )
     expect(ports["solid.tsx"]).toBe(
-      '/** @jsxImportSource @solidjs/web */\nimport { children, omit } from "solid-js"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "children")\n  const resolvedChildren = children(() => props.children)\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      {resolvedChildren() && <span class="ui-label">{resolvedChildren()}</span>}\n    </div>\n  )\n}\n',
+      '/** @jsxImportSource @solidjs/web */\nimport { children, omit } from "solid-js"\nimport { filled } from "../attrs"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "children")\n  const resolvedChildren = children(() => props.children)\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      {filled(resolvedChildren()) && (\n        <span class="ui-label">{resolvedChildren()}</span>\n      )}\n    </div>\n  )\n}\n',
     )
   })
 
@@ -1069,7 +1069,7 @@ describe("the ports of a sample", () => {
       '  const rest = omit(props, "class", "items", "end", "icon")\n\n  return (\n',
     )
     expect(ports["solid.tsx"]).toContain(
-      '      <For each={props.items} keyed={false}>\n        {(item, index) => {\n          const resolvedIcon = children(() => props.icon)\n          return (\n            <li value={index + 1}>\n              {item()}\n              {resolvedIcon() && <span class="ui-icon">{resolvedIcon()}</span>}\n              {props.end}\n            </li>\n          )\n        }}\n      </For>\n',
+      '      <For each={props.items} keyed={false}>\n        {(item, index) => {\n          const resolvedIcon = children(() => props.icon)\n          return (\n            <li value={index + 1}>\n              {item()}\n              {filled(resolvedIcon()) && (\n                <span class="ui-icon">{resolvedIcon()}</span>\n              )}\n              {props.end}\n            </li>\n          )\n        }}\n      </For>\n',
     )
   })
 
@@ -1114,7 +1114,7 @@ describe("the ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, name, ...rest } = Astro.props\n\nconst groupName = name || "sample"\nconst hasIcon = Astro.slots.has("icon")\nconst html = await sampleContext.provide(\n  { name: groupName, open: true },\n  () => Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", { "ui-icon": hasIcon }, className]} {...rest}>\n  {Astro.slots.has("icon") && <span class="ui-icon"><slot name="icon" /></span>}\n  <Fragment set:html={html} />\n</div>\n',
     )
     expect(ports["solid.tsx"]).toBe(
-      '/** @jsxImportSource @solidjs/web */\nimport { children, omit } from "solid-js"\nimport { SampleContext } from "./context.solid"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "name", "children", "icon")\n  const content = () => {\n    const resolvedIcon = children(() => props.icon)\n    const hasIcon = () => resolvedIcon()\n    return (\n      <div\n        class={["ui-sample", { "ui-icon": hasIcon() }, props.class]}\n        {...rest}\n      >\n        {resolvedIcon() && <span class="ui-icon">{resolvedIcon()}</span>}{" "}\n        {props.children}\n      </div>\n    )\n  }\n\n  return (\n    <SampleContext\n      value={{\n        get name() {\n          return props.name || "sample"\n        },\n        get open() {\n          return true\n        },\n      }}\n    >\n      {content()}\n    </SampleContext>\n  )\n}\n',
+      '/** @jsxImportSource @solidjs/web */\nimport { children, omit } from "solid-js"\nimport { filled } from "../attrs"\nimport { SampleContext } from "./context.solid"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "name", "children", "icon")\n  const content = () => {\n    const resolvedIcon = children(() => props.icon)\n    const hasIcon = () => filled(resolvedIcon())\n    return (\n      <div\n        class={["ui-sample", { "ui-icon": hasIcon() }, props.class]}\n        {...rest}\n      >\n        {filled(resolvedIcon()) && (\n          <span class="ui-icon">{resolvedIcon()}</span>\n        )}{" "}\n        {props.children}\n      </div>\n    )\n  }\n\n  return (\n    <SampleContext\n      value={{\n        get name() {\n          return props.name || "sample"\n        },\n        get open() {\n          return true\n        },\n      }}\n    >\n      {content()}\n    </SampleContext>\n  )\n}\n',
     )
   })
 
@@ -1141,7 +1141,7 @@ describe("the ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\nimport Button from "../Button/Button.astro"\nimport { hasName, warnUnnamed } from "../dev"\n\nconst { class: className, items, label, ...rest } = Astro.props\n\nconst title = "Close"\nwarnUnnamed("Sample", hasName({ ...rest, label }, Astro.slots.has("default")))\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Button aria-invalid={label ? "true" : rest["aria-invalid"]} title={label ? title : undefined}>Close</Button>\n  {items.map((item) => {\n    const closes = !item\n    return <Button command={closes ? "hide-popover" : undefined} title={closes ? label : undefined}>{item}</Button>\n  })}\n  <slot />\n</div>\n',
     )
     expect(ports["solid.tsx"]).toBe(
-      '/** @jsxImportSource @solidjs/web */\nimport { children, For, omit, untrack } from "solid-js"\nimport Button from "../Button/Button.solid"\nimport { hasName, warnUnnamed } from "../dev"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "items", "label", "children")\n  const resolvedChildren = children(() => props.children)\n  const title = "Close"\n  untrack(() => {\n    warnUnnamed("Sample", hasName(props, resolvedChildren()))\n  })\n  const invalid = () => (props.label ? "true" : rest["aria-invalid"])\n  const buttonTitle = () => (props.label ? title : undefined)\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      <Button aria-invalid={invalid()} title={buttonTitle()}>\n        Close\n      </Button>{" "}\n      <For each={props.items} keyed={false}>\n        {(item) => {\n          const closes = () => !item()\n          const command = () => (closes() ? "hide-popover" : undefined)\n          const itemTitle = () => (closes() ? props.label : undefined)\n          return (\n            <Button command={command()} title={itemTitle()}>\n              {item()}\n            </Button>\n          )\n        }}\n      </For>{" "}\n      {resolvedChildren()}\n    </div>\n  )\n}\n',
+      '/** @jsxImportSource @solidjs/web */\nimport { children, For, omit, untrack } from "solid-js"\nimport { filled } from "../attrs"\nimport Button from "../Button/Button.solid"\nimport { hasName, warnUnnamed } from "../dev"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "items", "label", "children")\n  const resolvedChildren = children(() => props.children)\n  const title = "Close"\n  untrack(() => {\n    warnUnnamed("Sample", hasName(props, filled(resolvedChildren())))\n  })\n  const invalid = () => (props.label ? "true" : rest["aria-invalid"])\n  const buttonTitle = () => (props.label ? title : undefined)\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      <Button aria-invalid={invalid()} title={buttonTitle()}>\n        Close\n      </Button>{" "}\n      <For each={props.items} keyed={false}>\n        {(item) => {\n          const closes = () => !item()\n          const command = () => (closes() ? "hide-popover" : undefined)\n          const itemTitle = () => (closes() ? props.label : undefined)\n          return (\n            <Button command={command()} title={itemTitle()}>\n              {item()}\n            </Button>\n          )\n        }}\n      </For>{" "}\n      {resolvedChildren()}\n    </div>\n  )\n}\n',
     )
   })
 

@@ -20,7 +20,7 @@ import {
   styleOption,
   withImport,
 } from "./component-emit.mjs"
-import { componentFunction, jsxEmitter } from "./component-jsx.mjs"
+import { attrsImport, componentFunction, jsxEmitter } from "./component-jsx.mjs"
 import {
   helpersCalled,
   importLinesOf,
@@ -213,7 +213,7 @@ export const toReact = (component) => {
   const options = {
     rename,
     ids: component.ids,
-    slotHas: (name) => slotProp(name),
+    slotHas: (name) => `filled(${slotProp(name)})`,
     style: styleOption(component, "style ?? {}"),
   }
   const entries = props.map((entry) => {
@@ -505,7 +505,7 @@ export const toReact = (component) => {
     : undefined
   const importLines = [
     ...(reactImport ? [reactImport] : []),
-    ...(usesDefined ? [`import { defined } from "../attrs"`] : []),
+    ...attrsImport(usesDefined, [...body, returned].join("\n")),
     ...(usesCx ? [`import { cx } from "../cx"`] : []),
     ...(reactHelpers.length
       ? [`import { ${reactHelpers.join(", ")} } from "../react"`]

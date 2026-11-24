@@ -1,5 +1,6 @@
 /** @jsxImportSource @solidjs/web */
 import { children, omit } from "solid-js"
+import { filled } from "../attrs"
 import { cx } from "../cx"
 import type { StepperItemProps as Props } from "./types.solid"
 
@@ -41,7 +42,7 @@ export default function StepperItem(props: Props) {
       ])}
       {...rest}
     >
-      {resolvedIconComplete() && (
+      {filled(resolvedIconComplete()) && (
         <span aria-hidden="true" class="ui-icon-complete">
           {resolvedIconComplete()}
         </span>
@@ -57,7 +58,7 @@ export default function StepperItem(props: Props) {
           {state() && <span class="ui-sr-only">{state()}</span>}
         </>
       )}{" "}
-      {resolvedDescription() && (
+      {filled(resolvedDescription()) && (
         <span class="ui-description">{resolvedDescription()}</span>
       )}
     </li>

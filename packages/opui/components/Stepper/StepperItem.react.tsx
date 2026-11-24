@@ -1,3 +1,4 @@
+import { filled } from "../attrs"
 import { cx } from "../cx"
 import type { StepperItemProps as Props } from "./types.react"
 
@@ -27,7 +28,7 @@ export default function StepperItem({
       ])}
       {...rest}
     >
-      {iconComplete && (
+      {filled(iconComplete) && (
         <span aria-hidden="true" className="ui-icon-complete">
           {iconComplete}
         </span>
@@ -43,7 +44,9 @@ export default function StepperItem({
           {state && <span className="ui-sr-only">{state}</span>}
         </>
       )}{" "}
-      {description && <span className="ui-description">{description}</span>}
+      {filled(description) && (
+        <span className="ui-description">{description}</span>
+      )}
     </li>
   )
 }

@@ -79,7 +79,11 @@ for (const theme of THEMES) {
         await expect
           .soft(preview)
           .toHaveScreenshot(`themes/${theme}/${component}.png`, {
-            mask: [preview.locator("img"), preview.locator("video")],
+            mask: [
+              preview.locator("iframe"),
+              preview.locator("img"),
+              preview.locator("video"),
+            ],
           })
       }
 
@@ -90,7 +94,11 @@ for (const theme of THEMES) {
         await expect
           .soft(example)
           .toHaveScreenshot(`themes/${theme}/${component}/${name}.png`, {
-            mask: [example.locator("img"), example.locator("video")],
+            mask: [
+              example.locator("iframe"),
+              example.locator("img"),
+              example.locator("video"),
+            ],
           })
       }
     })

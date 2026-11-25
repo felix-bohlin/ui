@@ -4,7 +4,10 @@ export const blockCategories = [
   { id: "dashboards", label: "Dashboards" },
   { id: "data", label: "Data display" },
   { id: "e-commerce", label: "E-commerce" },
+  { id: "events", label: "Events" },
   { id: "feedback", label: "Feedback" },
+  { id: "games", label: "Games" },
+  { id: "lifestyle", label: "Lifestyle" },
   { id: "marketing", label: "Marketing" },
   { id: "settings", label: "Settings" },
 ] as const
@@ -60,6 +63,13 @@ export const blocks: Block[] = [
       "Releases on a timeline, each with a version, a date and grouped changes.",
     name: "Changelog",
     slug: "changelog",
+  },
+  {
+    category: "games",
+    description:
+      "An RPG-style profile with hit points, experience, attribute meters, an inventory, abilities and a quest log.",
+    name: "Character sheet",
+    slug: "character-sheet",
   },
   {
     category: "application",
@@ -125,6 +135,13 @@ export const blocks: Block[] = [
     slug: "forgot-password",
   },
   {
+    category: "events",
+    description:
+      "A festival ticket with a tear-off stub and barcode, the running order and who holds each ticket.",
+    name: "Gig ticket",
+    slug: "gig-ticket",
+  },
+  {
     category: "marketing",
     description:
       "A headline, a short pitch, two calls to action and a product preview.",
@@ -153,11 +170,25 @@ export const blocks: Block[] = [
     slug: "kanban-board",
   },
   {
+    category: "games",
+    description:
+      "A podium for the top three, a table of the rest with your own row highlighted, and your stats for the week.",
+    name: "Leaderboard",
+    slug: "leaderboard",
+  },
+  {
     category: "application",
     description:
       "A post's photos in a dark full-screen viewer: swipe sideways between them, and down to close.",
     name: "Lightbox",
     slug: "lightbox",
+  },
+  {
+    category: "lifestyle",
+    description:
+      "The track playing now with a cover, seek bar and controls, next to the queue and the lyrics.",
+    name: "Music player",
+    slug: "music-player",
   },
   {
     category: "marketing",
@@ -195,6 +226,13 @@ export const blocks: Block[] = [
     slug: "order-history",
   },
   {
+    category: "events",
+    description:
+      "A birthday invitation with the when, where and who, next to an RSVP form with guests, food and a song request.",
+    name: "Party invitation",
+    slug: "party-invitation",
+  },
+  {
     category: "marketing",
     description:
       "Three plans with a monthly or yearly toggle, a highlighted plan and a feature comparison.",
@@ -214,6 +252,13 @@ export const blocks: Block[] = [
       "Milestones, progress, the team and recent activity for a single project.",
     name: "Project overview",
     slug: "project-overview",
+  },
+  {
+    category: "lifestyle",
+    description:
+      "A cooking recipe with times and a rating, a servings stepper, an ingredient checklist and numbered steps.",
+    name: "Recipe",
+    slug: "recipe",
   },
   {
     category: "dashboards",

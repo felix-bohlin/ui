@@ -47,7 +47,7 @@ export const blocks: Block[] = [
   {
     category: "content",
     description:
-      "A magazine article with a breadcrumb, byline, cover photo, a sticky table of contents, rich text, tags and an author card.",
+      "A magazine article with a breadcrumb, byline, cover image, a sticky table of contents, rich text, tags and an author card.",
     name: "Article",
     slug: "article",
   },
@@ -110,7 +110,7 @@ export const blocks: Block[] = [
   {
     category: "marketing",
     description:
-      "A headline and pitch next to an overlapping photo collage with a floating stat card.",
+      "A headline and pitch next to an overlapping collage of illustrated scenes with a floating stat card.",
     name: "Collage hero",
     slug: "collage-hero",
   },
@@ -124,7 +124,7 @@ export const blocks: Block[] = [
   {
     category: "marketing",
     description:
-      "A full-bleed photo with a dark scrim, a headline, calls to action and quick facts on top.",
+      "A full-bleed illustrated scene with a dark scrim, a headline, calls to action and quick facts on top.",
     name: "Cover hero",
     slug: "cover-hero",
   },
@@ -362,7 +362,7 @@ export const blocks: Block[] = [
   {
     category: "content",
     description:
-      "Alternating rows of photo and text, image left then image right, each with a tag, a title and a link.",
+      "Alternating rows of image and text, image left then image right, each with a tag, a title and a link.",
     name: "Teasers",
     slug: "teasers",
   },

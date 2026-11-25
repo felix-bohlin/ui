@@ -34,12 +34,11 @@
     </div>
   </header>
   <figure class="article-cover">
-    <img
-      alt="A tall pine forest in the fog"
-      height="700"
-      src="https://picsum.photos/id/1044/1600/700"
-      width="1600"
-    />
+    <div
+      aria-label="Illustration of mountains under a pale sun"
+      class="article-cover-art"
+      role="img"
+    ></div>
     <figcaption class="ui-caption">
       Where Holly tested six sets of strings: a damp cabin, perfect for rust.
     </figcaption>
@@ -188,11 +187,53 @@
     .article-cover {
       margin: 0;
 
-      img {
+      .article-cover-art {
+        --_far: oklch(
+          from var(--ui-primary) 0.62 0.09 calc(h + var(--_shift, 0))
+        );
+        --_near: oklch(
+          from var(--ui-primary) 0.36 0.08 calc(h + var(--_shift, 0))
+        );
+        --_shift: 160;
+        --_sky: oklch(
+          from var(--ui-primary) 0.86 0.07 calc(h + var(--_shift, 0))
+        );
+        --_sun: oklch(
+          from var(--ui-primary) 0.96 0.09 calc(h + var(--_shift, 0) + 60)
+        );
         aspect-ratio: 16 / 7;
+
+        background-color: var(--_sky);
+        background-image:
+          conic-gradient(
+            from 135deg at 50% 40%,
+            var(--_near) 90deg,
+            transparent 0
+          ),
+          conic-gradient(
+            from 135deg at 50% 25%,
+            var(--_far) 90deg,
+            transparent 0
+          ),
+          radial-gradient(
+            circle at 72% 28%,
+            var(--_sun) 0 7%,
+            transparent 7.5%
+          ),
+          linear-gradient(var(--_sky), var(--_sun));
+        background-position:
+          0 100%,
+          20% 100%,
+          0 0,
+          0 0;
+        background-repeat: repeat-x, repeat-x, no-repeat, no-repeat;
+        background-size:
+          45% 50%,
+          32% 72%,
+          100% 100%,
+          100% 100%;
         border-radius: var(--ui-radius);
         inline-size: 100%;
-        object-fit: cover;
       }
 
       figcaption {

@@ -33,12 +33,51 @@ import { Button, Card, CardContent, Stat } from "opui-css/astro"
       grid-template-rows: repeat(6, minmax(0, 3.5rem));
       position: relative;
 
-      img {
-        block-size: 100%;
+      .collage-scene {
+        --_far: oklch(
+          from var(--ui-primary) 0.62 0.09 calc(h + var(--_shift, 0))
+        );
+        --_near: oklch(
+          from var(--ui-primary) 0.36 0.08 calc(h + var(--_shift, 0))
+        );
+        --_sky: oklch(
+          from var(--ui-primary) 0.86 0.07 calc(h + var(--_shift, 0))
+        );
+        --_sun: oklch(
+          from var(--ui-primary) 0.96 0.09 calc(h + var(--_shift, 0) + 60)
+        );
+
+        background-color: var(--_sky);
+        background-image:
+          conic-gradient(
+            from 135deg at 50% 40%,
+            var(--_near) 90deg,
+            transparent 0
+          ),
+          conic-gradient(
+            from 135deg at 50% 25%,
+            var(--_far) 90deg,
+            transparent 0
+          ),
+          radial-gradient(
+            circle at 72% 28%,
+            var(--_sun) 0 7%,
+            transparent 7.5%
+          ),
+          linear-gradient(var(--_sky), var(--_sun));
+        background-position:
+          0 100%,
+          20% 100%,
+          0 0,
+          0 0;
+        background-repeat: repeat-x, repeat-x, no-repeat, no-repeat;
+        background-size:
+          45% 50%,
+          32% 72%,
+          100% 100%,
+          100% 100%;
         border-radius: var(--ui-radius);
         box-shadow: var(--ui-shadow-elevated);
-        inline-size: 100%;
-        object-fit: cover;
       }
 
       .collage-a {
@@ -102,27 +141,21 @@ import { Button, Card, CardContent, Stat } from "opui-css/astro"
     </div>
 
     <div class="collage">
-      <img
-        alt="A deep blue fjord between steep mountains"
-        class="collage-a"
-        height="600"
-        src="https://picsum.photos/id/1015/800/600"
-        width="800"
-      />
-      <img
-        alt="A tall pine forest in the fog"
-        class="collage-b"
-        height="800"
-        src="https://picsum.photos/id/1044/600/800"
-        width="600"
-      />
-      <img
-        alt="Yellow tents in a snowy mountain camp"
-        class="collage-c"
-        height="450"
-        src="https://picsum.photos/id/1036/800/450"
-        width="800"
-      />
+      <div
+        aria-hidden="true"
+        class="collage-scene collage-a"
+        style="--_shift: 0"
+      ></div>
+      <div
+        aria-hidden="true"
+        class="collage-scene collage-b"
+        style="--_shift: 120"
+      ></div>
+      <div
+        aria-hidden="true"
+        class="collage-scene collage-c"
+        style="--_shift: 220"
+      ></div>
       <Card class="collage-stat" density="dense" variant="elevated">
         <CardContent>
           <Stat label="Next free weekend" size="small">14 to 16 May</Stat>

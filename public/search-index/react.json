@@ -4139,7 +4139,7 @@
   {
     "id": "block-article",
     "title": "Article",
-    "description": "A magazine article with a breadcrumb, byline, cover photo, a sticky table of contents, rich text, tags and an author card.",
+    "description": "A magazine article with a breadcrumb, byline, cover image, a sticky table of contents, rich text, tags and an author card.",
     "headings": "Content",
     "category": "Blocks",
     "url": "/blocks/article/"
@@ -4211,7 +4211,7 @@
   {
     "id": "block-collage-hero",
     "title": "Collage hero",
-    "description": "A headline and pitch next to an overlapping photo collage with a floating stat card.",
+    "description": "A headline and pitch next to an overlapping collage of illustrated scenes with a floating stat card.",
     "headings": "Marketing",
     "category": "Blocks",
     "url": "/blocks/collage-hero/"
@@ -4227,7 +4227,7 @@
   {
     "id": "block-cover-hero",
     "title": "Cover hero",
-    "description": "A full-bleed photo with a dark scrim, a headline, calls to action and quick facts on top.",
+    "description": "A full-bleed illustrated scene with a dark scrim, a headline, calls to action and quick facts on top.",
     "headings": "Marketing",
     "category": "Blocks",
     "url": "/blocks/cover-hero/"
@@ -4499,7 +4499,7 @@
   {
     "id": "block-teasers",
     "title": "Teasers",
-    "description": "Alternating rows of photo and text, image left then image right, each with a tag, a title and a link.",
+    "description": "Alternating rows of image and text, image left then image right, each with a tag, a title and a link.",
     "headings": "Content",
     "category": "Blocks",
     "url": "/blocks/teasers/"

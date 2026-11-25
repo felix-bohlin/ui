@@ -17,14 +17,11 @@ export default function Teasers() {
           className="teaser ui-layout-columns"
           style={{ "--_columns": "1fr 1fr", "--_gap": "var(--ui-space-8)" }}
         >
-          <img
-            alt="A deep blue fjord between steep mountains"
+          <div
+            aria-hidden="true"
             className="teaser-media"
-            height="600"
-            loading="lazy"
-            src="https://picsum.photos/id/1015/800/600"
-            width="800"
-          />
+            style={{ "--_shift": "0" }}
+          ></div>
           <div className="teaser-copy ui-layout-column">
             <Chip as="span" label="Tour diary" size="small" />
             <h2 className="ui-h3" id="teasers-fjord">
@@ -58,14 +55,11 @@ export default function Teasers() {
           className="teaser teaser-reverse ui-layout-columns"
           style={{ "--_columns": "1fr 1fr", "--_gap": "var(--ui-space-8)" }}
         >
-          <img
-            alt="A lighthouse on a rocky shore"
+          <div
+            aria-hidden="true"
             className="teaser-media"
-            height="600"
-            loading="lazy"
-            src="https://picsum.photos/id/1043/800/600"
-            width="800"
-          />
+            style={{ "--_shift": "140" }}
+          ></div>
           <div className="teaser-copy ui-layout-column">
             <Chip as="span" label="Rehearsal spaces" size="small" />
             <h2 className="ui-h3" id="teasers-lighthouse">
@@ -99,14 +93,11 @@ export default function Teasers() {
           className="teaser ui-layout-columns"
           style={{ "--_columns": "1fr 1fr", "--_gap": "var(--ui-space-8)" }}
         >
-          <img
-            alt="Yellow tents in a snowy mountain camp"
+          <div
+            aria-hidden="true"
             className="teaser-media"
-            height="600"
-            loading="lazy"
-            src="https://picsum.photos/id/1036/800/600"
-            width="800"
-          />
+            style={{ "--_shift": "220" }}
+          ></div>
           <div className="teaser-copy ui-layout-column">
             <Chip as="span" label="Gear test" size="small" />
             <h2 className="ui-h3" id="teasers-camp">
@@ -148,10 +139,47 @@ export default function Teasers() {
           }
 
           .teaser-media {
+            --_far: oklch(
+              from var(--ui-primary) 0.62 0.09 calc(h + var(--_shift, 0))
+            );
+            --_near: oklch(
+              from var(--ui-primary) 0.36 0.08 calc(h + var(--_shift, 0))
+            );
+            --_sky: oklch(
+              from var(--ui-primary) 0.86 0.07 calc(h + var(--_shift, 0))
+            );
+            --_sun: oklch(
+              from var(--ui-primary) 0.96 0.09 calc(h + var(--_shift, 0) + 60)
+            );
+
             aspect-ratio: 4 / 3;
+
+            background-color: var(--_sky);
+            background-image:
+              conic-gradient(
+                from 135deg at 50% 40%,
+                var(--_near) 90deg,
+                transparent 0
+              ),
+              conic-gradient(
+                from 135deg at 50% 25%,
+                var(--_far) 90deg,
+                transparent 0
+              ),
+              radial-gradient(circle at 72% 28%, var(--_sun) 0 7%, transparent 7.5%),
+              linear-gradient(var(--_sky), var(--_sun));
+            background-position:
+              0 100%,
+              20% 100%,
+              0 0,
+              0 0;
+            background-repeat: repeat-x, repeat-x, no-repeat, no-repeat;
+            background-size:
+              45% 50%,
+              32% 72%,
+              100% 100%,
+              100% 100%;
             border-radius: var(--ui-radius);
-            inline-size: 100%;
-            object-fit: cover;
           }
 
           .teaser-copy {

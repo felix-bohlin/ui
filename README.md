@@ -26,6 +26,7 @@ The project is managed as a monorepo with two main parts:
   - `core/`: Normalize, palette and utility classes.
   - `css/`: Component styles, theme, layer order, entry-point imports and the HTML helper scripts in `css/js/`.
   - `elements/`: Custom elements for the components that need a script, one module each.
+  - `figma/`: The default theme's Figma variables and `sync.js`, which the Figma plugin runs.
   - `react/`: Public entry point and barrel exports for React-based projects.
   - `scripts/`: The build that writes the pre-bundled CSS and the compiled React, Solid, Svelte and Vue entry points to `dist/`.
   - `skills/`: The agent skill shipped with the package. `skills/opui/references` is generated.

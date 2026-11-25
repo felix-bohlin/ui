@@ -76,6 +76,10 @@
     "./open-props": "./dist/op.css",
     "./open-props.css": "./open-props.css",
     "./astro": "./astro/index.ts",
+    "./check": {
+      "types": "./bin/check.d.mts",
+      "default": "./bin/check.mjs"
+    },
     "./react": {
       "types": "./dist/react/index.d.ts",
       "default": "./dist/react/index.js"

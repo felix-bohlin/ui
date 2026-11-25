@@ -1,6 +1,7 @@
 "use client"
 
 import "../../elements/password-toggle.js"
+import { filled } from "../attrs"
 import type { Props } from "./types.react"
 
 export default function PasswordToggle({
@@ -20,7 +21,7 @@ export default function PasswordToggle({
         command="--toggle-password"
         commandfor={htmlFor}
       >
-        {iconUnchecked ? (
+        {filled(iconUnchecked) ? (
           <span aria-hidden="true" className="ui-icon-unchecked">
             {iconUnchecked}
           </span>
@@ -34,7 +35,7 @@ export default function PasswordToggle({
             viewBox="0 0 24 24"
           />
         )}{" "}
-        {iconChecked ? (
+        {filled(iconChecked) ? (
           <span aria-hidden="true" className="ui-icon-checked">
             {iconChecked}
           </span>

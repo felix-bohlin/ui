@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, useAttrs } from "vue"
+import { computed } from "vue"
+import { useRestAttrs } from "../vue"
 import { disabledLink, tagAttrs } from "../tag"
 import { defined } from "../attrs"
 import type { Props, Slots } from "./types.vue-props"
@@ -11,7 +12,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs()
+const attrs = useRestAttrs()
 
 const Tag = computed(() =>
   disabledLink(as, disabled) ? "a" : as || (href ? "a" : "button"),
@@ -27,7 +28,7 @@ const Tag = computed(() =>
       color && `ui-${color}`,
       size && size !== 'medium' && `ui-${size}`,
       variant && variant !== 'transparent' && `ui-${variant}`,
-      $props.class,
+      $attrs.class,
     ]"
     v-bind="{ ...tagAttrs(Tag, disabled, href), ...defined(attrs) }"
   >

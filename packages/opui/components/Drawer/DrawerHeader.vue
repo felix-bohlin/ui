@@ -20,7 +20,7 @@ if (closeButton) warnMissingCloseTarget("DrawerHeader", target.value, "Drawer")
 </script>
 
 <template>
-  <div :class="['ui-header', $props.class]">
+  <div class="ui-header">
     <TrimmedSlot :nodes="$slots.default?.()" /><Button
       v-if="closeButton"
       :aria-label="closeLabel"

@@ -2,7 +2,6 @@
 import { inject } from "vue"
 import { DrawerKey } from "./context.vue"
 import { warnReplacedId } from "../dev"
-import { classAttrs } from "../cx"
 import type { DrawerTitleProps as Props, Slots } from "./types.vue-props"
 
 const { id } = defineProps<Props>()
@@ -14,7 +13,7 @@ warnReplacedId("DrawerTitle", "Drawer", id, drawer?.titleId)
 </script>
 
 <template>
-  <h2 v-bind="classAttrs($props.class)" :id="drawer?.titleId ?? id">
+  <h2 :id="drawer?.titleId ?? id">
     <slot></slot>
   </h2>
 </template>

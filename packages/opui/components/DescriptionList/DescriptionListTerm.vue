@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { classAttrs } from "../cx"
 import type {
   DescriptionListTermProps as Props,
   Slots,
@@ -10,7 +9,7 @@ defineSlots<Slots>()
 </script>
 
 <template>
-  <dt v-bind="classAttrs($props.class)">
+  <dt>
     <slot></slot>
   </dt>
 </template>

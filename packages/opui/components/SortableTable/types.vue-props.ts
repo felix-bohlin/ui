@@ -1,7 +1,7 @@
-import type { Class, DefaultSlots } from "../vue"
+import type { DefaultSlots } from "../vue"
 import type { Events as BaseEvents, Props as BaseProps } from "./types"
 
-export type Props = BaseProps & Class
+export type Props = BaseProps
 
 export type Emits = { sort: [event: BaseEvents["sort"]] }
 

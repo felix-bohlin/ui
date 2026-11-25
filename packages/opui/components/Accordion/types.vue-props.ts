@@ -1,5 +1,5 @@
 import type { Slot } from "vue"
-import type { Class, DefaultSlots } from "../vue"
+import type { DefaultSlots } from "../vue"
 import type {
   AccordionActionsProps as BaseAccordionActionsProps,
   AccordionContentProps as BaseAccordionContentProps,
@@ -7,13 +7,13 @@ import type {
   Props as BaseProps,
 } from "./types"
 
-export type AccordionActionsProps = BaseAccordionActionsProps & Class
+export type AccordionActionsProps = BaseAccordionActionsProps
 
-export type AccordionContentProps = BaseAccordionContentProps & Class
+export type AccordionContentProps = BaseAccordionContentProps
 
-export type AccordionSummaryProps = BaseAccordionSummaryProps & Class
+export type AccordionSummaryProps = BaseAccordionSummaryProps
 
-export type Props = BaseProps & Class
+export type Props = BaseProps
 
 export type Slots = DefaultSlots
 

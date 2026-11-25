@@ -3,11 +3,7 @@ import { registerHooks } from "node:module"
 import path from "node:path"
 import { fileURLToPath, pathToFileURL } from "node:url"
 
-import {
-  componentHasFramework,
-  exampleExtension,
-  FRAMEWORKS,
-} from "../src/utils/framework.js"
+import { exampleExtension, FRAMEWORKS } from "../src/utils/framework.js"
 import { barrelExports } from "../src/utils/package-source.js"
 import { loadCatalog } from "./catalog.mjs"
 
@@ -20,7 +16,6 @@ const DOCS = path.resolve(ROOT, "src/docs/components")
 const EXAMPLES = path.resolve(ROOT, "src/component-examples")
 const STYLESHEETS = path.resolve(ROOT, "packages/opui/css/components")
 const TOKENS = path.resolve(ROOT, "packages/opui/tokens.json")
-const FIGMA_THEMES = path.resolve(ROOT, "packages/opui/figma/themes")
 
 process.chdir(ROOT)
 
@@ -614,11 +609,25 @@ const stripSections = (markdown) =>
     .join("")
     .trimEnd()
 
+const exampleImports = (slug) => {
+  const dir = path.join(EXAMPLES, slug)
+  const files = fs.existsSync(dir)
+    ? fs.readdirSync(dir).filter((file) => file.endsWith(".astro"))
+    : []
+  return new Set(
+    files.flatMap((file) =>
+      [
+        ...fs
+          .readFileSync(path.join(dir, file), "utf-8")
+          .matchAll(/import\s*\{([^}]*)\}\s*from\s*"opui-css\/astro"/g),
+      ].flatMap(([, names]) => names.split(",").map((name) => name.trim())),
+    ),
+  )
+}
+
 async function componentReference(component, apis, docs) {
   const { slug } = component
-  const pageFrameworks = FRAMEWORKS.filter((f) =>
-    componentHasFramework(f.id, slug),
-  )
+  const pageFrameworks = FRAMEWORKS
   const frameworkIds = pageFrameworks.map((f) => f.id)
   const own = apis.filter((entry) => entry.page === slug)
   const order = (entry) => {
@@ -672,7 +681,12 @@ async function componentReference(component, apis, docs) {
             ordered,
             slug,
             docs.examples,
-            apis.filter((entry) => docs.base && entry.page === docs.base),
+            apis.filter(
+              (entry) =>
+                docs.base &&
+                entry.page === docs.base &&
+                exampleImports(slug).has(entry.api.component),
+            ),
           ),
     ),
   ]
@@ -816,16 +830,6 @@ async function buildSkill() {
 
   fs.writeFileSync(path.join(REFERENCES, "index.md"), index)
   fs.copyFileSync(path.join(DIST, "tokens.json"), TOKENS)
-  fs.rmSync(FIGMA_THEMES, { force: true, recursive: true })
-  fs.cpSync(
-    path.join(DIST, "figma/default"),
-    path.join(FIGMA_THEMES, "default"),
-    { recursive: true },
-  )
-  fs.copyFileSync(
-    path.join(DIST, "figma/default.figma.json"),
-    path.join(FIGMA_THEMES, "default.figma.json"),
-  )
   console.log(
     `Wrote ${components.length} component references and ${GUIDES.length + 1} guides to ${REFERENCES}`,
   )

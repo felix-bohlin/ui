@@ -43,7 +43,7 @@ warnUnnamed("Checkbox", hasName({ ...attrs.value, label }, slots.default))
       card && variant && variant !== 'outlined' && `ui-${variant}`,
       orientation && orientation !== 'horizontal' && `ui-${orientation}`,
       size && size !== 'medium' && `ui-${size}`,
-      $props.class,
+      $attrs.class,
     ]"
     v-bind="styleAttrs($attrs.style)"
   >

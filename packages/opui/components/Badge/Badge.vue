@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue"
+import { useRestAttrs } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import Anchor from "../Anchor/Anchor.vue"
 import AnchorContent from "../Anchor/AnchorContent.vue"
@@ -12,6 +13,8 @@ defineOptions({
   inheritAttrs: false,
 })
 
+const attrs = useRestAttrs()
+
 const hidden = computed(() => dot || hideLabel)
 </script>
 
@@ -22,9 +25,9 @@ const hidden = computed(() => dot || hideLabel)
       { 'ui-dot': dot, 'ui-invisible': invisible },
       color && `ui-${color}`,
       corner && corner !== 'start-end' && `ui-${corner}`,
-      $props.class,
+      $attrs.class,
     ]"
-    v-bind="$attrs"
+    v-bind="attrs"
   >
     <slot></slot>{{ " "
     }}<AnchorContent>

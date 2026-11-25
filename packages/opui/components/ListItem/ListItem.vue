@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, useAttrs } from "vue"
+import { computed } from "vue"
+import { useRestAttrs } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import { disabledLink, tagAttrs } from "../tag"
 import { defined } from "../attrs"
@@ -24,7 +25,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs()
+const attrs = useRestAttrs()
 
 const hasControl = computed(
   () => choice === "checkbox" || choice === "radio" || choice === "switch",
@@ -52,7 +53,7 @@ const hasDescription = () => !!description || slots.description
       ...classAttrs([
         { 'ui-border-top': borderTop, 'ui-inset': inset },
         color && `ui-${color}`,
-        $props.class,
+        $attrs.class,
       ]),
     }"
   >

@@ -116,11 +116,11 @@ const steps = Array.from({ length: 16 }, (_, index) => index + 1)
       &:not(:last-child)::after {
         background-color: var(--ui-border-color);
         content: "";
-        inline-size: var(--ui-border-width-thick);
+        inline-size: var(--ui-border-width-large);
         inset-block: calc(var(--_marker) + var(--size-2))
           calc(-1 * var(--size-7) + var(--size-2));
         inset-inline-start: calc(
-          var(--_marker) / 2 - var(--ui-border-width-thick) / 2
+          var(--_marker) / 2 - var(--ui-border-width-large) / 2
         );
         position: absolute;
       }

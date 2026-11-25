@@ -9,7 +9,6 @@ import {
 } from "../../utils/baseline"
 import { SHARED_FEATURES } from "../../utils/browser-support"
 import { componentHrefFor } from "../../utils/components"
-import { componentHasFramework } from "../../utils/framework"
 import { baselineYears } from "../../../packages/opui/scripts/features.mjs"
 import DocLink from "../../components/DocLink.astro"
 import { Chip } from "opui-css/astro"
@@ -388,13 +387,9 @@ export const keywords = [
             {featureToComponents[id].map((component, index) => (
               <>
                 {index > 0 && ", "}
-                {componentHasFramework(currentFramework, component.slug) ? (
-                  <a href={componentHrefFor(currentFramework, component.slug)}>
-                    {component.name}
-                  </a>
-                ) : (
-                  component.name
-                )}
+                <a href={componentHrefFor(currentFramework, component.slug)}>
+                  {component.name}
+                </a>
               </>
             ))}
           </p>

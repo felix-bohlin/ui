@@ -1,6 +1,5 @@
 {
   "files": [
-    "packages/opui/figma/themes",
     "packages/opui/icons",
     "packages/opui/skills/opui/references",
     "packages/opui/tokens.json",

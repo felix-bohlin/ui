@@ -3,7 +3,7 @@ import { Dynamic } from "@solidjs/web"
 import { children, For, omit, untrack } from "solid-js"
 import "../../elements/close-on-navigate.js"
 import "../../elements/menu.js"
-import { defined } from "../attrs"
+import { defined, filled } from "../attrs"
 import { MenuContext, useMenuContext } from "./context.solid"
 import { warnMissingId } from "../dev"
 import { disabledLink, tagAttrs } from "../tag"
@@ -109,7 +109,7 @@ export default function Menu(props: Props) {
                       <kbd>{item().shortcut}</kbd>
                     </div>
                   )}
-                  {resolvedIconChecked() && (
+                  {filled(resolvedIconChecked()) && (
                     <span aria-hidden="true" class="ui-icon-checked">
                       {resolvedIconChecked()}
                     </span>

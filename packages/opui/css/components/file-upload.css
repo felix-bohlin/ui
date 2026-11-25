@@ -198,7 +198,7 @@
         }
       }
 
-      &.ui-error > .ui-text > .ui-description {
+      &.ui-state-error > .ui-text > .ui-description {
         color: var(--ui-critical-text);
       }
 
@@ -276,8 +276,8 @@
           }
         }
 
-        &.ui-error > .ui-start {
-          border: var(--ui-border-width-thick) solid var(--ui-critical);
+        &.ui-state-error > .ui-start {
+          border: var(--ui-border-width-large) solid var(--ui-critical);
         }
 
         & > .ui-text {

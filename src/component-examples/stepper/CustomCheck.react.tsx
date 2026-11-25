@@ -4,7 +4,6 @@ export default function CustomCheck() {
   return (
     <Stepper aria-label="Checkout steps">
       <StepperItem
-        complete
         href="#"
         iconComplete={
           <svg
@@ -25,9 +24,9 @@ export default function CustomCheck() {
           </svg>
         }
         label="Cart"
+        state="complete"
       />
       <StepperItem
-        complete
         href="#"
         iconComplete={
           <svg
@@ -48,6 +47,7 @@ export default function CustomCheck() {
           </svg>
         }
         label="Shipping"
+        state="complete"
       />
       <StepperItem current label="Payment" />
       <StepperItem label="Review" />

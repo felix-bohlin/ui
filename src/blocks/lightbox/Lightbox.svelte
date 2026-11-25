@@ -8,33 +8,6 @@
     DrawerContent,
     DrawerHeader,
   } from "opui-css/svelte"
-
-  const photos = [
-    {
-      alt: "Photo 1 of 4: a deep blue fjord between steep mountains",
-      height: 450,
-      id: 1015,
-      width: 800,
-    },
-    {
-      alt: "Photo 2 of 4: a lighthouse on a rocky shore",
-      height: 800,
-      id: 1043,
-      width: 600,
-    },
-    {
-      alt: "Photo 3 of 4: yellow tents in a snowy mountain camp",
-      height: 450,
-      id: 1036,
-      width: 800,
-    },
-    {
-      alt: "Photo 4 of 4: a tall pine forest in the fog",
-      height: 800,
-      id: 1044,
-      width: 600,
-    },
-  ]
 </script>
 
 <div class="lightbox">
@@ -60,12 +33,7 @@
       commandfor="lightbox-viewer"
       type="button"
     >
-      <img
-        alt=""
-        height={450}
-        src="https://picsum.photos/id/1015/800/450"
-        width={800}
-      />
+      <span aria-hidden="true" class="lightbox-scene"></span>
       <span><span class="ui-sr-only">View all{" "}</span>4 photos</span>
     </button>
   </Card>
@@ -85,17 +53,38 @@
         data-drawer-swipe=""
         tabindex={0}
       >
-        {#each photos as { alt, height, id, width } (id)}
-          <li>
-            <img
-              {alt}
-              {height}
-              loading="lazy"
-              src={`https://picsum.photos/id/${id}/${width}/${height}`}
-              {width}
-            />
-          </li>
-        {/each}
+        <li>
+          <div
+            aria-label="Photo 1 of 4: mountains under a low sun"
+            class="lightbox-scene"
+            role="img"
+            style="--_ratio: 1.7778; --_shift: 0"
+          ></div>
+        </li>
+        <li>
+          <div
+            aria-label="Photo 2 of 4: a sharp ridge at dusk"
+            class="lightbox-scene"
+            role="img"
+            style="--_ratio: 0.75; --_shift: 140"
+          ></div>
+        </li>
+        <li>
+          <div
+            aria-label="Photo 3 of 4: rolling hills at noon"
+            class="lightbox-scene"
+            role="img"
+            style="--_ratio: 1.7778; --_shift: 220"
+          ></div>
+        </li>
+        <li>
+          <div
+            aria-label="Photo 4 of 4: peaks in the evening haze"
+            class="lightbox-scene"
+            role="img"
+            style="--_ratio: 0.75; --_shift: 300"
+          ></div>
+        </li>
       </Carousel>
     </DrawerContent>
   </Drawer>
@@ -115,6 +104,48 @@
       }
     }
 
+    .lightbox-scene {
+      --_far: oklch(
+        from var(--ui-primary) 0.62 0.09 calc(h + var(--_shift, 0))
+      );
+      --_near: oklch(
+        from var(--ui-primary) 0.36 0.08 calc(h + var(--_shift, 0))
+      );
+      --_sky: oklch(
+        from var(--ui-primary) 0.86 0.07 calc(h + var(--_shift, 0))
+      );
+      --_sun: oklch(
+        from var(--ui-primary) 0.96 0.09 calc(h + var(--_shift, 0) + 60)
+      );
+
+      aspect-ratio: var(--_ratio, 16 / 9);
+      background-color: var(--_sky);
+      background-image:
+        conic-gradient(
+          from 135deg at 50% 40%,
+          var(--_near) 90deg,
+          transparent 0
+        ),
+        conic-gradient(
+          from 135deg at 50% 25%,
+          var(--_far) 90deg,
+          transparent 0
+        ),
+        radial-gradient(circle at 72% 28%, var(--_sun) 0 7%, transparent 7.5%),
+        linear-gradient(var(--_sky), var(--_sun));
+      background-position:
+        0 100%,
+        20% 100%,
+        0 0,
+        0 0;
+      background-repeat: repeat-x, repeat-x, no-repeat, no-repeat;
+      background-size:
+        45% 50%,
+        32% 72%,
+        100% 100%,
+        100% 100%;
+    }
+
     .lightbox {
       .lightbox-open {
         background: none;
@@ -127,14 +158,11 @@
           grid-area: 1 / 1;
         }
 
-        img {
-          aspect-ratio: 16 / 9;
-          block-size: auto;
+        .lightbox-scene {
           inline-size: 100%;
-          object-fit: cover;
         }
 
-        & > span {
+        & > span:not(.lightbox-scene) {
           background-color: oklch(0% 0 0 / 60%);
           border-radius: var(--ui-radius-round);
           color: oklch(100% 0 0);
@@ -191,9 +219,6 @@
       .ui-carousel {
         --_block-room: 0px;
         --_inline-room: 0px;
-        --_media-aspect-ratio: auto;
-        --_media-fit: contain;
-        --_media-radius: 0px;
 
         block-size: 100%;
         flex: 1;
@@ -207,11 +232,14 @@
         }
 
         & > li {
+          container-type: size;
+          display: grid;
           min-block-size: 0;
+          place-items: center;
         }
 
-        img {
-          block-size: 100%;
+        .lightbox-scene {
+          inline-size: min(100cqi, 100cqb * var(--_ratio));
         }
       }
     }

@@ -86,7 +86,7 @@ export default function SignUp() {
                       defaultValue="four-strings-4ever"
                     />
                   </Field>
-                  <div className="ui-layout-column ui-x-small">
+                  <div className="ui-layout-column ui-gap-x-small">
                     <span
                       className="ui-layout-row ui-spread sign-up-strength-label"
                       id="sign-up-strength"
@@ -205,7 +205,7 @@ export default function SignUp() {
           </Card>
           <aside
             aria-label="Why Bassbook"
-            className="ui-layout-column ui-large sign-up-aside"
+            className="ui-layout-column ui-gap-large sign-up-aside"
           >
             <hgroup className="ui-hgroup">
               <p className="ui-overline">Why bassists join</p>

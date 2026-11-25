@@ -1,20 +1,12 @@
 import { computeFeatureSupport } from "./browser-support"
-import {
-  componentHasFramework,
-  DEFAULT_FRAMEWORK,
-  hrefFor,
-  type FrameworkId,
-} from "./framework"
+import { hrefFor, type FrameworkId } from "./framework"
 import { posts } from "./blog-posts"
 import { componentName } from "./components"
 
 export { componentName, posts }
 
 export const componentHref = (framework: FrameworkId, component: string) =>
-  hrefFor(
-    componentHasFramework(framework, component) ? framework : DEFAULT_FRAMEWORK,
-    `/components/${component}`,
-  )
+  hrefFor(framework, `/components/${component}`)
 
 const categoryLabels: Record<string, string> = {
   release: "Releases",

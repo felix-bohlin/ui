@@ -51,7 +51,7 @@ import {
             </svg>
           </Button>
         </div>
-        <div class="ui-layout-column ui-x-small">
+        <div class="ui-layout-column ui-gap-x-small">
           <span
             class="ui-layout-row ui-spread"
             id="onboarding-checklist-progress"
@@ -81,7 +81,7 @@ import {
             </AccordionSummary>
             <AccordionContent>
               <p>Your profile bassbook.example/rory is live!</p>
-              <div class="ui-layout-row ui-small">
+              <div class="ui-layout-row ui-gap-small">
                 <Button href="#onboarding-checklist-profile" size="small"
                   >Edit profile</Button
                 >
@@ -107,7 +107,7 @@ import {
               <p>
                 Big Bertha looks totally rad. Five stars, no notes. Add more!
               </p>
-              <div class="ui-layout-row ui-small">
+              <div class="ui-layout-row ui-gap-small">
                 <Button href="#onboarding-checklist-photos" size="small"
                   >Add photos</Button
                 >
@@ -127,7 +127,7 @@ import {
             </AccordionSummary>
             <AccordionContent>
               <p>Lou, Percy and Stella are now on your friends list. Rad!</p>
-              <div class="ui-layout-row ui-small">
+              <div class="ui-layout-row ui-gap-small">
                 <Button href="#onboarding-checklist-friends" size="small"
                   >Find more friends</Button
                 >
@@ -150,7 +150,7 @@ import {
                 Your best friend shows up first on your profile, with a sparkly
                 badge. Choose wisely (we won't tell your drummer).
               </p>
-              <div class="ui-layout-row ui-small">
+              <div class="ui-layout-row ui-gap-small">
                 <Button
                   href="#onboarding-checklist-best-friend"
                   size="small"
@@ -182,7 +182,7 @@ import {
                 Say hi to a fellow bassist! A "nice slap tone" goes a long, long
                 way.
               </p>
-              <div class="ui-layout-row ui-small">
+              <div class="ui-layout-row ui-gap-small">
                 <Button
                   href="#onboarding-checklist-wall"
                   size="small"
@@ -207,7 +207,7 @@ import {
               <p>
                 Chat with your bass buddies from the desktop, with buzzy nudges.
               </p>
-              <div class="ui-layout-row ui-small">
+              <div class="ui-layout-row ui-gap-small">
                 <Button
                   href="#onboarding-checklist-download"
                   size="small"

@@ -24,7 +24,9 @@ const TYPES: [RegExp, string][] = [
 ]
 
 export const tokenType = (name: string) =>
-  TYPES.find(([pattern]) => pattern.test(name))?.[1]
+  name.endsWith("-image")
+    ? undefined
+    : TYPES.find(([pattern]) => pattern.test(name))?.[1]
 
 const NUMBER = /^-?\d*\.?\d+$/
 const LENGTH = /^(-?\d*\.?\d+)(px|rem)$/

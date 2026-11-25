@@ -1,6 +1,6 @@
 {
   "name": "opui-css",
-  "version": "6.0.0-rc.6",
+  "version": "6.0.0-rc.7",
   "description": "Design system. Components. Modern HTML & CSS. HTML, Astro, React, Solid, Svelte and Vue. The tokens started from Open Props, and the components don't need it.",
   "type": "module",
   "license": "MIT",
@@ -52,7 +52,6 @@
     "dist",
     "elements",
     "env.d.ts",
-    "figma",
     "icons",
     "open-props.css",
     "react",
@@ -76,6 +75,10 @@
     "./open-props": "./dist/op.css",
     "./open-props.css": "./open-props.css",
     "./astro": "./astro/index.ts",
+    "./check": {
+      "types": "./bin/check.d.mts",
+      "default": "./bin/check.mjs"
+    },
     "./react": {
       "types": "./dist/react/index.d.ts",
       "default": "./dist/react/index.js"
@@ -139,7 +142,6 @@
     "./dist/*": "./dist/*",
     "./elements/*": "./elements/*",
     "./env.d.ts": "./env.d.ts",
-    "./figma/*": "./figma/*",
     "./icons/*.css": "./icons/*.css",
     "./icons/*": "./icons/*.css",
     "./package.json": "./package.json"

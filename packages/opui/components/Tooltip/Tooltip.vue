@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRestAttrs } from "../vue"
 import Anchor from "../Anchor/Anchor.vue"
 import { warnMissingId } from "../dev"
 import type { Props, Slots } from "./types.vue-props"
@@ -10,16 +11,18 @@ defineOptions({
   inheritAttrs: false,
 })
 
+const attrs = useRestAttrs()
+
 warnMissingId("Tooltip", id, "interestfor")
 </script>
 
 <template>
   <Anchor
-    :class="['ui-tooltip', { 'ui-arrow': arrow }, $props.class]"
+    :class="['ui-tooltip', { 'ui-arrow': arrow }, $attrs.class]"
     :id="id"
     :positionArea="positionArea"
     trigger="hover"
-    v-bind="$attrs"
+    v-bind="attrs"
   >
     <slot></slot>
   </Anchor>

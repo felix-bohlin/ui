@@ -19,7 +19,7 @@
 </script>
 
 <div
-  class="sales-dashboard ui-layout-container ui-layout-column ui-large"
+  class="sales-dashboard ui-layout-container ui-layout-column ui-gap-large"
   style="--_max-inline-size: 80rem"
 >
   <div class="ui-layout-row ui-spread">
@@ -27,7 +27,7 @@
       <p>Bassbook Shop, updated 8 October, 14:05</p>
       <h1 class="ui-h3">Merch sales</h1>
     </hgroup>
-    <div class="ui-layout-row ui-small sales-actions">
+    <div class="ui-layout-row ui-gap-small sales-actions">
       <Field
         for="sales-dashboard-sales-dashboard-period"
         label="Period"
@@ -110,7 +110,7 @@
       </Card>
     </li>
   </ul>
-  <div class="ui-layout-columns ui-large" style="--_columns: 2fr 1fr">
+  <div class="ui-layout-columns ui-gap-large" style="--_columns: 2fr 1fr">
     <Card
       aria-labelledby="sales-dashboard-revenue-heading"
       as="section"
@@ -125,10 +125,10 @@
       </hgroup>
       <CardContent>
         <ul aria-hidden="true" class="ui-layout-row ui-caption">
-          <li class="ui-layout-row ui-x-small">
+          <li class="ui-layout-row ui-gap-x-small">
             <span class="ui-swatch sales-revenue"></span>Revenue
           </li>
-          <li class="ui-layout-row ui-x-small">
+          <li class="ui-layout-row ui-gap-x-small">
             <span class="sales-target-line"></span>Target
           </li>
         </ul>
@@ -229,9 +229,9 @@
       </hgroup>
       <CardContent>
         <ul class="ui-layout-column">
-          <li class="ui-layout-column ui-x-small">
+          <li class="ui-layout-column ui-gap-x-small">
             <div
-              class="ui-layout-row ui-small ui-tabular-nums sales-target"
+              class="ui-layout-row ui-gap-small ui-tabular-nums sales-target"
               id="sales-dashboard-target-shop"
             >
               <span>Online shop</span><span class="ui-caption"
@@ -244,9 +244,9 @@
               value={248}
             />
           </li>
-          <li class="ui-layout-column ui-x-small">
+          <li class="ui-layout-column ui-gap-x-small">
             <div
-              class="ui-layout-row ui-small ui-tabular-nums sales-target"
+              class="ui-layout-row ui-gap-small ui-tabular-nums sales-target"
               id="sales-dashboard-target-gigs"
             >
               <span>Merch table at gigs</span><span class="ui-caption"
@@ -259,9 +259,9 @@
               value={112}
             />
           </li>
-          <li class="ui-layout-column ui-x-small">
+          <li class="ui-layout-column ui-gap-x-small">
             <div
-              class="ui-layout-row ui-small ui-tabular-nums sales-target"
+              class="ui-layout-row ui-gap-small ui-tabular-nums sales-target"
               id="sales-dashboard-target-bass-shops"
             >
               <span>Bass shops</span><span class="ui-caption"
@@ -274,9 +274,9 @@
               value={64}
             />
           </li>
-          <li class="ui-layout-column ui-x-small">
+          <li class="ui-layout-column ui-gap-x-small">
             <div
-              class="ui-layout-row ui-small ui-tabular-nums sales-target"
+              class="ui-layout-row ui-gap-small ui-tabular-nums sales-target"
               id="sales-dashboard-target-bundles"
             >
               <span>Band bundles</span><span class="ui-caption"
@@ -439,7 +439,7 @@
       }
 
       .sales-target-line {
-        border-block-start: var(--ui-border-width-thick) dashed var(--ui-text);
+        border-block-start: var(--ui-border-width-large) dashed var(--ui-text);
         inline-size: var(--ui-space-3);
       }
 
@@ -460,7 +460,7 @@
         position: relative;
 
         &::before {
-          border-block-start: var(--ui-border-width-thick) dashed var(--ui-text);
+          border-block-start: var(--ui-border-width-large) dashed var(--ui-text);
           content: "";
           inset-block-end: var(--target);
           inset-inline: 0;

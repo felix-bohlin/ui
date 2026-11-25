@@ -9,13 +9,13 @@ A number input in a Field with step buttons that step the value down and up, for
 
 ### Parts
 
-- `<opui-step-button>` (root): A `.ui-button.ui-round` with `command="--step-down"` or `command="--step-up"`. Renders a minus or a plus icon by default, or the icon in its default slot. Disabled while the input is, and `aria-disabled` at `min` or `max`, while the input is read-only and while it is `aria-disabled`. `<opui-step-button>` keeps it in step, also when a script changes the input. Hidden until `<opui-step-button>` is defined.
+- `<opui-step-button>` (root): A `.ui-button.ui-round` with `command="--step-down"` or `command="--step-up"`, showing a minus or a plus, or your icon. Disabled with the input, and `aria-disabled` at `min` or `max` or while the input is read-only or `aria-disabled`. Hidden until `<opui-step-button>` is defined.
 
 ### Props and modifiers
 
-- `command`: `"--step-down" | "--step-up"`. Which way the button steps the input: `--step-down` or `--step-up`, as on the element.
-- `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of the number input the button steps, as its button's `commandfor` and `aria-controls`.
-- `htmlFor` (React): `string`. The `id` of the number input the button steps, as `htmlFor` like on a label, and its button's `commandfor` and `aria-controls`.
+- `command`: `"--step-down" | "--step-up"`. Which way the button steps: `--step-down` or `--step-up`.
+- `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of the number input, as its button's `commandfor` and `aria-controls`.
+- `htmlFor` (React): `string`. The `id` of the number input, as its button's `commandfor` and `aria-controls`.
 - `label`: `string`, `aria-label`, default `"Decrease" or "Increase"`. The accessible name of the button, by `command`. Pass it translated.
 
 ### Slots
@@ -26,13 +26,13 @@ A number input in a Field with step buttons that step the value down and up, for
 
 - `<opui-step-button>`, defined by `opui-css/elements/step-button.js`:
   - `input`: The `<input>` its button's `commandfor` names, or `null`. Read-only.
-  - `step()`: Steps the value down or up by `step`, as its button's `command` says, unless the input is disabled, read-only or at `min` or `max`, and fires `input` and `change`.
+  - `step()`: Steps the value by `step` in the button's direction, within `min` and `max` and unless the input is disabled or read-only, and fires `input` and `change`.
 
 ### Notes
 
-- HTML: Put `<opui-step-button>` in `.ui-start` and `.ui-end`, around a `.ui-button.ui-round` with `commandfor` and `aria-controls` naming the input, `command="--step-down"` or `command="--step-up"` and an `aria-label`, and import `opui-css/elements/step-button.js`. Without it, the buttons are hidden and the input keeps the browser's own spin buttons.
-- Astro, Solid, Svelte and Vue: Put one with `command="--step-down"` in the field's `start` and one with `command="--step-up"` in its `end`, next to an `<input type="number">`, and leave those parts out of the input's `aria-describedby`. It loads `opui-css/elements/step-button.js`, which steps the value when the button is pressed or held. Attributes that aren't props, `class` and `style` go to the `<opui-step-button>`, which has `display: contents`, not to the button.
-- React: Put one with `command="--step-down"` in the field's `start` and one with `command="--step-up"` in its `end`, next to an `<input type="number">`, and leave those parts out of the input's `aria-describedby`. It loads `opui-css/elements/step-button.js`, which steps the value when the button is pressed or held. Attributes that aren't props, `className` and `style` go to the `<opui-step-button>`, which has `display: contents`, not to the button.
+- HTML: Put `<opui-step-button>` in `.ui-start` and `.ui-end`, around a `.ui-button.ui-round` with `command="--step-down"` or `command="--step-up"`, `commandfor` and `aria-controls` naming the input and an `aria-label`, and import `opui-css/elements/step-button.js`. Without it, the input keeps its own spin buttons.
+- Astro, Solid, Svelte and Vue: Put one with `command="--step-down"` in `start` and one with `command="--step-up"` in `end`, next to an `<input type="number">`. It loads `opui-css/elements/step-button.js`. Attributes that aren't props, `class` and `style` go to the `<opui-step-button>`, not the button.
+- React: Put one with `command="--step-down"` in `start` and one with `command="--step-up"` in `end`, next to an `<input type="number">`. It loads `opui-css/elements/step-button.js`. Attributes that aren't props, `className` and `style` go to the `<opui-step-button>`, not the button.
 
 ## Component properties
 
@@ -40,28 +40,28 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### step-button.css
 
-- `--_min-inline-size`: The least width of the input of a field with step buttons and `autoFit`, which otherwise fits its value. `4ch`, instead of the `8ch` of the other fields, which `field.css` keeps next to the affixes.
+- `--_min-inline-size`: Minimum width of the input between the step buttons, which fits its value in `.ui-auto-fit`. Defaults to `4ch`.
 
 ### field.css
 
-- `--_accent`: Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
-- `--_arrow-inset`: Distance of the select arrow from the inline end.
-- `--_chevron-image`: The select arrow, as an image used for a mask.
-- `--_chevron-size`: Width and height of the select arrow.
+- `--_accent`: Border color of `.ui-field-container` on focus without `:focus-visible`: a clicked select, file or color input, not a text field. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
+- `--_arrow-inset`: Distance of the select and `datalist` arrow from the inline end.
+- `--_chevron-image`: Mask image of the select and `datalist` arrow. Defaults to `--ui-icon-expand`.
+- `--_chevron-size`: Size of the select and `datalist` arrow.
 - `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
-- `--_end-end-radius`: The radius of the end-end corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the next control.
-- `--_end-start-radius`: The radius of the end-start corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
-- `--_field-padding-block`: The preferred block padding of the control. Set by the size classes.
-- `--_field-padding-inline`: The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.
-- `--_file-button-padding`: The preferred gap around the `::file-selector-button` of a file field: `--ui-space-2`, or `--ui-space-1` in `.ui-small` and `.ui-x-small`.
-- `--_font-size`: The font size of the control and affixes. At least 16px on iPhone and iPad (`css/compat/field.css`), so iOS Safari doesn't zoom in on focus.
-- `--_min-inline-size`: The least width of the control next to `.ui-start` and `.ui-end`, which shrink and end in an ellipsis to keep it, or the whole field when it is narrower. Defaults to `8ch`; a field with a `StepButton` sets its own.
+- `--_end-end-radius`: End-end corner radius of `.ui-field-container`. Defaults to `--_radius`, `0` against the next control in a `ControlGroup`.
+- `--_end-start-radius`: End-start corner radius of `.ui-field-container`. Defaults to `--_radius`, `0` against another control in a `ControlGroup`.
+- `--_field-padding-block`: Preferred block padding of the control. Set by the size classes.
+- `--_field-padding-inline`: Inline padding of the control and affixes. Defaults to `--ui-field-padding-inline` (else `--ui-space-2`), or `--ui-field-padding-inline-large` (else `--ui-space-3`) in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.
+- `--_file-button-padding`: Preferred space above and below the `::file-selector-button`, outside `.ui-drop-zone`. `--ui-space-2`, `--ui-space-1` in `.ui-small` and `.ui-x-small`.
+- `--_font-size`: Font size of the control, `.ui-start` and `.ui-end`. Set by `.ui-x-small` and `.ui-small`, at least 16px on iPhone and iPad.
+- `--_min-inline-size`: Minimum width of the control beside `.ui-start` and `.ui-end`, which shrink to keep it, capped at the field's width. Defaults to `8ch`, `4ch` with a `StepButton`.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
-- `--_radius`: The corner radius of `.ui-field-container` and a file input's button. Defaults to `--ui-field-radius`, or `--ui-radius` when the theme doesn't set it.
-- `--_shadow`: The shadow of `.ui-field-container`. Defaults to `--ui-field-shadow`, or `--ui-shadow-control` when the theme leaves it unset. `none` in a `ControlGroup`.
-- `--_size`: The height of `.ui-field-container`, a minimum so a textarea can grow, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.
-- `--_start-end-radius`: The radius of the start-end corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
-- `--_start-start-radius`: The radius of the start-start corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the control before it.
+- `--_radius`: Corner radius of `.ui-field-container` and the file button. Defaults to `--ui-field-radius`, else `--ui-radius`.
+- `--_shadow`: Shadow of `.ui-field-container`. Defaults to `--ui-field-shadow`, else `--ui-shadow-control`; `none` in a `ControlGroup`.
+- `--_size`: Minimum height of `.ui-field-container`, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.
+- `--_start-end-radius`: Start-end corner radius of `.ui-field-container`. Defaults to `--_radius`, `0` against another control in a `ControlGroup`.
+- `--_start-start-radius`: Start-start corner radius of `.ui-field-container`. Defaults to `--_radius`, `0` against the previous control in a `ControlGroup`.
 
 Outputs: `--_affix-block-size`, `--_affix-button-size`, `--_affix-padding-block`, `--_affix-text-color`, `--_arrow-padding`, `--_bg-color`, `--_border-color`, `--_duration`, `--_field-padding-block-fit`, `--_file-button-inset` and `--_helper-text-color`.
 

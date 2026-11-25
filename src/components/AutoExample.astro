@@ -5,7 +5,6 @@ import type { Component } from "solid-js"
 import { renderSolid } from "./Example/render-solid"
 import { SOLID_PRAGMA } from "../../scripts/component-shared.mjs"
 import {
-  componentHasFramework,
   FRAMEWORK_AGNOSTIC_EXAMPLES,
   type FrameworkId,
 } from "../utils/framework"
@@ -88,7 +87,6 @@ const framework = Astro.locals.framework
 if (
   !frameworkAgnostic &&
   framework !== "html" &&
-  componentHasFramework(framework, slug) &&
   !exampleSources[examplePath(slug, name, framework)]
 ) {
   throw new Error(

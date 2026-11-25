@@ -14,6 +14,7 @@
   :where(html) {
     accent-color: var(--ui-primary);
     background-color: var(--ui-surface);
+    background-image: var(--ui-surface-image, none);
     caret-color: var(--ui-primary);
     color: var(--ui-text);
     font-family: var(--ui-font-body);

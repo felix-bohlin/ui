@@ -85,7 +85,7 @@ export default {
   },
   "--_selected-indicator-size": {
     description:
-      "Width of the bar on selected and current items. Defaults to `--ui-border-width-thick`.",
+      "Width of the bar on selected and current items. Defaults to `--ui-border-width-large`.",
     kind: "input",
   },
   "--_selected-shadow": {

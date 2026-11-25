@@ -110,6 +110,39 @@ export const keywords = ["lightbox", "modal", "overlay", "popup"]
     </Conditional>
 
     <AutoExample name="Basics" row />
+    <Conditional as="p">
+      <Fragment slot="components">
+        A <code>Button</code> with <code>command="show-modal"</code> and
+        <code>commandfor</code> opens the dialog without a ref, and its click
+        handler can update your state at the same time.
+      </Fragment>
+    </Conditional>
+    <Conditional as="p">
+      <Fragment slot="react">
+        To open it from a script,
+        <DocLink href="/guide/getting-started#element"
+          >reach the element</DocLink
+        >.
+      </Fragment>
+      <Fragment slot="solid">
+        To open it from a script,
+        <DocLink href="/guide/getting-started#element"
+          >reach the element</DocLink
+        >.
+      </Fragment>
+      <Fragment slot="svelte">
+        To open it from a script,
+        <DocLink href="/guide/getting-started#element"
+          >reach the element</DocLink
+        >.
+      </Fragment>
+      <Fragment slot="vue">
+        To open it from a script,
+        <DocLink href="/guide/getting-started#element"
+          >reach the element</DocLink
+        >.
+      </Fragment>
+    </Conditional>
 
     <h3 id="non-modal">Non-modal</h3>
     <p>Open it with <code>show()</code> from a script.</p>

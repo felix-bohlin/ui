@@ -20,7 +20,6 @@ defineSlots<Slots>()
       'ui-stepper',
       orientation && orientation !== 'auto' && `ui-${orientation}`,
       size && size !== 'medium' && `ui-${size}`,
-      $props.class,
     ]"
   >
     <StepperItem
@@ -29,10 +28,13 @@ defineSlots<Slots>()
       :completeLabel="completeLabel"
       :errorLabel="errorLabel"
       v-bind="item"
-      :complete="
-        item.complete || complete || (current !== undefined && index < current)
-      "
       :current="item.current || index === current"
+      :state="
+        item.state ??
+        (complete || (current !== undefined && index < current)
+          ? 'complete'
+          : undefined)
+      "
     />{{
       " "
     }}<slot></slot>

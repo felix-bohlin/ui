@@ -264,7 +264,7 @@ Breaking changes and how to update your code are in [MIGRATING.md](https://githu
 | `opui-css/css/js/checkbox.js`            | `activateIndeterminate()`, `initCheckbox()` and `syncIndeterminate()` for indeterminate checkboxes without a framework                                                                                                                                                                                     |
 | `opui-css/elements/*.js`                 | Custom elements, one module per component that needs one, like `step-button.js`, which exports `StepButtonElement`. `close-on-navigate.js` defines no element: importing it closes open menus and `[data-close-on-navigate]` drawers when the page navigates                                               |
 | `opui-css/icons/*`                       | Icon sets for the `--ui-icon-*` tokens (`fluent`, `lucide`, `material-symbols`, `phosphor`, `tabler`), with or without `.css`                                                                                                                                                                              |
-| `opui-css/themes/*`                      | Example themes (`bootstrap`, `brutalist`, `govuk`, `m3`, `shadcn`), with or without `.css`                                                                                                                                                                                                                 |
+| `opui-css/themes/*`                      | Example themes (`bootstrap`, `brutalist`, `govuk`, `m3`, `shadcn`, `vice-city`), with or without `.css`                                                                                                                                                                                                    |
 | `opui-css/tokens.json`                   | Every theme token in the W3C design tokens format                                                                                                                                                                                                                                                          |
 | `opui-css/astro`                         | All Astro components                                                                                                                                                                                                                                                                                       |
 | `opui-css/react`                         | All React components, compiled, with their types                                                                                                                                                                                                                                                           |
@@ -277,14 +277,13 @@ Breaking changes and how to update your code are in [MIGRATING.md](https://githu
 | `opui-css/components/*.vue`              | One Vue component or part: the compiled file `opui-css/vue` exports, with its types                                                                                                                                                                                                                        |
 | `opui-css/components/*`                  | The Astro component sources and the type files, such as `types` and `types.astro`. The files at the top of `components/` (`cx.ts`, `dev.ts`, `group.ts`, `id.ts`, `solid.ts`, `style.ts`, `tag.ts`, `vue.ts`, `context.astro.ts` and `content.svelte`) are internal helpers that can change in any release |
 | `opui-css/env.d.ts`                      | Astro types for `Astro.locals.$id` and `interestfor` (see [Ids in Astro](#ids-in-astro))                                                                                                                                                                                                                   |
-| `opui-css/figma/*`                       | The default theme's Figma variables in `figma/themes/`, and `sync.js`, the function the Figma plugin runs ([Figma](https://opui.dev/html/guide/theme-tokens/#figma))                                                                                                                                       |
 | `opui-css/package.json`                  | The package manifest, for tools that read it                                                                                                                                                                                                                                                               |
 
 Importing a React component from `opui-css/components/*.react` skips the type augmentation in `opui-css/react`, which adds `command`, `commandfor` and `interestfor` to React's element types. `Menu` and `DrawerHeader` need it, so add `import type {} from "opui-css/react"` once in your app. A Solid component imported from `opui-css/components/*.solid` likewise skips the augmentation in `opui-css/solid`, which types `interestfor` and the `opui-*` elements, so add `import type {} from "opui-css/solid"`.
 
 ## Themes
 
-Put your own tokens in `@layer theme.custom`, which beats the defaults and loses to everything else. Example themes ship in `themes/`: `bootstrap` (Bootstrap 5), `brutalist` (neobrutalism), `govuk` (GOV.UK Design System), `m3` (Material 3) and `shadcn` (shadcn/ui). They borrow those looks and aren't affiliated with the projects behind them. They name their fonts (DM Sans, Roboto and Geist) but don't load them.
+Put your own tokens in `@layer theme.custom`, which beats the defaults and loses to everything else. Example themes ship in `themes/`: `bootstrap` (Bootstrap 5), `brutalist` (neobrutalism), `govuk` (GOV.UK Design System), `m3` (Material 3), `shadcn` (shadcn/ui) and `vice-city` (the Grand Theft Auto VI site). They borrow those looks and aren't affiliated with the projects behind them. They name their fonts (DM Sans, Figtree, GTAArtDeco, Roboto and Geist) but don't load them.
 
 ```css
 @import "opui-css/css/imports.css";
@@ -311,7 +310,13 @@ After a build, check the fields in the HTML it wrote:
 npx opui-css check dist
 ```
 
-It reads the `.html` files you name, and those in the folders you name, and lists each field whose label, part ids, `aria-describedby` or step and password buttons don't follow its control's `id`, with the file and line, and fails when it finds one. It reads HTML with `parse5`, an optional peer dependency: `npm install --save-dev parse5`. A page that renders in the browser has no fields in its HTML file, so save the rendered page, `document.documentElement.outerHTML`, to a file and check that.
+It reads the `.html` files you name, and those in the folders you name, and lists each field whose label, part ids, `aria-describedby` or step and password buttons don't follow its control's `id`, with the file and line, and fails when it finds one. It reads HTML with `parse5`, an optional peer dependency: `npm install --save-dev parse5`. A page that renders in the browser has no fields in its HTML file, and the fields that matter most, those showing an error, only render after a failed submit. Check them in an end-to-end test with `checkHtml` from `opui-css/check`, which takes HTML and returns the problems the command prints:
+
+```ts
+import { checkHtml } from "opui-css/check"
+
+expect(checkHtml(await page.content()).problems).toEqual([])
+```
 
 The docs are also available as [llms.txt](https://opui.dev/llms.txt), and every docs page has a Markdown version, e.g. [/html/components/button.md](https://opui.dev/html/components/button.md).
 

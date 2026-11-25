@@ -755,6 +755,45 @@ describe("the opui-css command", () => {
       expect(output).toContain("Checked 2 fields in 2 files")
     })
 
+    test("opui-css/check exports checkHtml, with its types", () => {
+      symlinkSync(unpacked, path.join(work, "node_modules/opui-css"))
+      const result = spawnSync(
+        process.execPath,
+        [
+          "--input-type=module",
+          "--eval",
+          'import { checkHtml } from "opui-css/check"\nconsole.log(JSON.stringify(checkHtml(process.argv[1])))',
+          FIELD("quantity", "amount"),
+        ],
+        { cwd: dir, encoding: "utf8" },
+      )
+      expect(JSON.parse(result.stdout)).toEqual({
+        fields: 1,
+        problems: [
+          {
+            line: 1,
+            message: '#quantity: the label\'s for is "amount", not "quantity"',
+          },
+        ],
+      })
+      const { resolvedModule } = ts.resolveModuleName(
+        "opui-css/check",
+        path.join(dir, "index.ts"),
+        {
+          module: ts.ModuleKind.NodeNext,
+          moduleResolution: ts.ModuleResolutionKind.NodeNext,
+        },
+        ts.sys,
+      )
+      expect(
+        resolvedModule &&
+          path.relative(
+            realpathSync(unpacked),
+            realpathSync(resolvedModule.resolvedFileName),
+          ),
+      ).toBe(path.join("bin", "check.d.mts"))
+    })
+
     test("check says when the HTML has no fields", () => {
       writeFileSync(path.join(dir, "empty.html"), '<div id="root"></div>')
       const { output, status } = opui("check", "empty.html")

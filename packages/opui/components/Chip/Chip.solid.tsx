@@ -1,7 +1,7 @@
 /** @jsxImportSource @solidjs/web */
 import { dynamic } from "@solidjs/web"
 import { children, omit } from "solid-js"
-import { defined } from "../attrs"
+import { defined, filled } from "../attrs"
 import { disabledLink, tagAttrs } from "../tag"
 import type { Props } from "./types.solid"
 
@@ -43,7 +43,9 @@ export default function Chip(props: Props) {
       {...defined(rest as object)}
     >
       {props.start}
-      {resolvedLabel() && <span class="ui-text">{resolvedLabel()}</span>}
+      {filled(resolvedLabel()) && (
+        <span class="ui-text">{resolvedLabel()}</span>
+      )}
       {props.end}
     </Tag>
   )

@@ -23,9 +23,9 @@ import {
   >
     <Card variant="outlined">
       <CardContent>
-        <div class="ui-layout-row ui-small ui-spread">
+        <div class="ui-layout-row ui-gap-small ui-spread">
           <h1 class="ui-h4">Notifications</h1>
-          <div class="ui-layout-row ui-x-small">
+          <div class="ui-layout-row ui-gap-x-small">
             <Button size="small" type="button">
               <svg
                 data-icon="check-all"
@@ -69,10 +69,10 @@ import {
           <TabsItem checked id="notifications-tab-all">
             <TabsLabel>All</TabsLabel>
             <TabsPanel>
-              <div class="ui-layout-column ui-large notifications-feed">
+              <div class="ui-layout-column ui-gap-large notifications-feed">
                 <section
                   aria-labelledby="notifications-today"
-                  class="ui-layout-column ui-small"
+                  class="ui-layout-column ui-gap-small"
                 >
                   <h2 class="ui-overline" id="notifications-today">Today</h2>
                   <List flush variant="transparent">
@@ -89,7 +89,9 @@ import {
                         @rory is it true you can play a whole set on 3 strings?
                         asking for a guitarist
                       </p>
-                      <div class="ui-layout-row ui-small notifications-actions">
+                      <div
+                        class="ui-layout-row ui-gap-small notifications-actions"
+                      >
                         <Button size="small" type="button" variant="tonal"
                           >Reply</Button
                         >
@@ -111,7 +113,9 @@ import {
                           ><Avatar aria-hidden="true">LH</Avatar></Badge
                         >
                       </template>
-                      <div class="ui-layout-row ui-small notifications-actions">
+                      <div
+                        class="ui-layout-row ui-gap-small notifications-actions"
+                      >
                         <Button size="small" type="button" variant="filled"
                           >Accept</Button
                         >
@@ -143,7 +147,7 @@ import {
                 </section>
                 <section
                   aria-labelledby="notifications-yesterday"
-                  class="ui-layout-column ui-small"
+                  class="ui-layout-column ui-gap-small"
                 >
                   <h2 class="ui-overline" id="notifications-yesterday">
                     Yesterday
@@ -184,7 +188,7 @@ import {
                 </section>
                 <section
                   aria-labelledby="notifications-earlier"
-                  class="ui-layout-column ui-small"
+                  class="ui-layout-column ui-gap-small"
                 >
                   <h2 class="ui-overline" id="notifications-earlier">
                     Monday 5 October
@@ -197,7 +201,9 @@ import {
                       <template #start>
                         <Avatar aria-hidden="true" shape="squircle">BB</Avatar>
                       </template>
-                      <div class="ui-layout-row ui-small notifications-actions">
+                      <div
+                        class="ui-layout-row ui-gap-small notifications-actions"
+                      >
                         <Button
                           href="#notifications-gold"
                           size="small"
@@ -219,7 +225,7 @@ import {
           <TabsItem id="notifications-tab-mentions">
             <TabsLabel>Mentions</TabsLabel>
             <TabsPanel>
-              <div class="ui-layout-column ui-large notifications-feed">
+              <div class="ui-layout-column ui-gap-large notifications-feed">
                 <List flush variant="transparent">
                   <ListItem class="notifications-unread">
                     <template #start>
@@ -262,7 +268,7 @@ import {
             <TabsLabel>Archived</TabsLabel>
             <TabsPanel>
               <div
-                class="ui-layout-column ui-small ui-align-center notifications-empty"
+                class="ui-layout-column ui-gap-small ui-align-center notifications-empty"
               >
                 <svg
                   data-icon="inbox"

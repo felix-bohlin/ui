@@ -18,7 +18,7 @@ warnReplacedId("FieldLegend", "Fieldset", id, fieldset?.legendId)
 <template>
   <component
     :is="Tag"
-    v-bind="classAttrs([{ 'ui-legend': !isLegend }, $props.class])"
+    v-bind="classAttrs([{ 'ui-legend': !isLegend }])"
     :id="fieldset?.legendId ?? id"
   >
     <slot></slot>

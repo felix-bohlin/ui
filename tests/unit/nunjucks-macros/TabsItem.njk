@@ -1,0 +1,18 @@
+{% macro TabsItem(props = {}) %}
+  {%- set rest = props | opuiOmit(["checked", "class", "id", "name", "value", "slots"]) -%}
+  {%- set parent = opui.context("Tabs") -%}
+  {%- set groupName = props.name or parent.groupName or opui.id("tabs") -%}
+  {%- set tabId = props.id or opui.id("tab") -%}
+  {%- set grouped = opui.isSelected(parent.value, props.value) -%}
+  {{- opui.warnGroupedChecked("TabsItem", grouped, props.checked, "Tabs") -}}
+  {%- set checked = grouped if grouped != none else props.checked -%}
+  <input
+    {%- if checked %} checked{% endif %}
+    class="ui-input
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    id="{{ tabId }}"
+    name="{{ groupName }}"
+    type="radio"
+    {%- if props.value != none %} value="{{ props.value }}"{% endif %}
+    {{- rest | opuiAttributes }}>{{ opui.provide("Tabs", { groupName: groupName, tabId: tabId }, caller) }}
+{%- endmacro %}

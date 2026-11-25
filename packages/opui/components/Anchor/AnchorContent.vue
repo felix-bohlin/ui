@@ -14,7 +14,7 @@ warnReplacedAnchorAttributes(id, popover, anchor?.floatingId, anchor?.popover)
 
 <template>
   <span
-    :class="['ui-floating', $props.class]"
+    class="ui-floating"
     :id="anchor?.floatingId ?? id"
     :popover="anchor?.popover ?? popover"
   >

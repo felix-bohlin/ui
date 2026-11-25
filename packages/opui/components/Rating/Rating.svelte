@@ -2,7 +2,9 @@
   import { untrack } from "svelte"
   import { seedChecked } from "../svelte"
   import { mergeStyle, pluralLabel } from "../style"
+  import { ratingOf } from "./rating"
   import type { Props } from "./types.svelte"
+  import type { SvelteHTMLElements } from "svelte/elements"
 
   let {
     "aria-describedby": ariaDescribedBy,
@@ -24,9 +26,7 @@
     ...rest
   }: Props = $props()
 
-  const count = $derived(Number(max))
-  const stars = $derived(Array.from({ length: count }, (_, index) => index + 1))
-  const current = $derived(Number(value))
+  const rating = $derived(ratingOf(max, value))
   const invalid = $derived(error ? "true" : ariaInvalid)
 </script>
 
@@ -37,7 +37,7 @@
     {disabled}
     {lang}
     {style}
-    {...rest}
+    {...rest as SvelteHTMLElements["fieldset"]}
   >
     <legend>{label}</legend>{#if !required}
       <input
@@ -47,9 +47,9 @@
         {name}
         type="radio"
         value={0}
-        defaultChecked={untrack(() => current === 0)}
+        defaultChecked={untrack(() => rating.current === 0)}
         {@attach seedChecked(
-          () => current === 0,
+          () => rating.current === 0,
           () => {
             value = 0
           },
@@ -58,7 +58,7 @@
           value = 0
         }}
       />
-    {/if}{#each stars as star, index (index)}
+    {/if}{#each rating.stars as star, index (index)}
       <input
         aria-describedby={ariaDescribedBy}
         aria-invalid={invalid}
@@ -67,9 +67,9 @@
         {required}
         type="radio"
         value={star}
-        defaultChecked={untrack(() => current === star)}
+        defaultChecked={untrack(() => rating.current === star)}
         {@attach seedChecked(
-          () => current === star,
+          () => rating.current === star,
           () => {
             value = star
           },
@@ -86,9 +86,12 @@
     aria-label={ariaLabel ?? label}
     class={["ui-rating", size && size !== "medium" && `ui-${size}`, className]}
     {lang}
-    max={Number.isFinite(count) ? count : undefined}
-    style={mergeStyle({ "--_max": count === 5 ? undefined : count }, style)}
-    value={Number.isFinite(current) ? current : 0}
-    {...rest}
+    max={rating.max}
+    style={mergeStyle(
+      { "--_max": rating.count === 5 ? undefined : rating.count },
+      style,
+    )}
+    value={rating.value}
+    {...rest as SvelteHTMLElements["meter"]}
   ></meter>
 {/if}

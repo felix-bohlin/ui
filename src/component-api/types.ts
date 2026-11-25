@@ -18,7 +18,7 @@ export type ApiPart = {
   slots?: string[]
 }
 
-export type ApiElement = {
+type ApiElement = {
   members: {
     description: string
     kind: "event" | "method" | "property"

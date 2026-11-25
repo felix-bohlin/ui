@@ -125,8 +125,10 @@ opui
 ├─ themes
 │  ├─ bootstrap.css
 │  ├─ brutalist.css
+│  ├─ govuk.css
 │  ├─ m3.css
-│  └─ shadcn.css
+│  ├─ shadcn.css
+│  └─ vice-city.css
 ├─ open-props.css
 └─ tokens.json
 ```
@@ -220,7 +222,7 @@ Without a bundler, add this import map to the `head`:
 
 #### [Blocks](https://opui.dev/blocks.md)
 
-37 pages and sections built from the components.
+52 pages and sections built from the components.
 
 #### [Components](https://opui.dev/html/components.md)
 
@@ -431,6 +433,28 @@ Slots are props: `children`, and camelCased names like `endText`.
 
 A [Field](https://opui.dev/react/components/field.md) wraps your own control. Give the control an `id`, set `htmlFor` on the field to it, and bind it like any input. For a hint, set the control's `aria-describedby` to `<id>-end-text`.
 
+### Reaching the element
+
+Every component hands `ref` to its root element, typed for it: a `Dialog` ref is an `HTMLDialogElement`. Most of the time you need none: a `Button` with `command="show-modal"` and `commandfor` opens a dialog by its `id`, and its click handler can set your state at the same time. When a script opens it, such as after a check, reach the element:
+
+```tsx
+import { useRef } from "react"
+import { Button, Dialog, DialogContent } from "opui-css/react"
+
+export function Confirm() {
+  const dialog = useRef<HTMLDialogElement>(null)
+
+  return (
+    <>
+      <Button onClick={() => dialog.current?.showModal()}>Delete</Button>
+      <Dialog aria-label="Delete the file?" id="confirm" ref={dialog}>
+        <DialogContent>The file goes to the bin for 30 days.</DialogContent>
+      </Dialog>
+    </>
+  )
+}
+```
+
 ### Server rendering
 
 Every component renders full HTML on the server. Components with state or effects are marked `"use client"`, the rest are Server Components. The props in the last column need hydration.
@@ -456,7 +480,7 @@ A choice the user makes before the page hydrates stays on screen. The form contr
 | [`CardActions`](https://opui.dev/react/components/card.md) | Yes | Yes | Yes | - |
 | [`CardHeader`](https://opui.dev/react/components/card.md) | Yes | Yes | Yes | - |
 | [`Carousel`](https://opui.dev/react/components/carousel.md) | Yes | Yes | Yes | - |
-| [`CharacterCount`](https://opui.dev/react/components/textarea.md) | Yes | Yes | No | - |
+| [`CharacterCount`](https://opui.dev/react/components/field.md) | Yes | Yes | No | - |
 | [`Checkbox`](https://opui.dev/react/components/checkbox.md) | Yes | No | Yes | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component loads the module once it hydrates, so the box looks unchecked until then. Import `opui-css/css/js/checkbox.js` in the page. |
 | [`CheckboxInput`](https://opui.dev/react/components/checkbox.md) | Yes | No | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component loads the module once it hydrates, so the box looks unchecked until then. Import `opui-css/css/js/checkbox.js` in the page. |
 | [`Chip`](https://opui.dev/react/components/chip.md) | Yes | Yes | Yes | - |
@@ -582,6 +606,29 @@ The types work with TypeScript 6 and 7, with `moduleResolution` set to `"bundler
 
 A [Field](https://opui.dev/solid/components/field.md) wraps your own control. Give the control an `id`, set `for` on the field to it, and bind it like any input. For a hint, set the control's `aria-describedby` to `<id>-end-text`.
 
+### Reaching the element
+
+```tsx
+import { Button, Dialog, DialogContent } from "opui-css/solid"
+
+export function Confirm() {
+  let dialog: HTMLDialogElement | undefined
+
+  return (
+    <>
+      <Button onClick={() => dialog?.showModal()}>Delete</Button>
+      <Dialog
+        aria-label="Delete the file?"
+        id="confirm"
+        ref={(element) => (dialog = element)}
+      >
+        <DialogContent>The file goes to the bin for 30 days.</DialogContent>
+      </Dialog>
+    </>
+  )
+}
+```
+
 ### Server rendering
 
 Every component renders full HTML on the server and hydrates. Solid 2 renders on the server with the `start` and `ssr` options of `@solidjs/vite-plugin`, which need no setting for the package:
@@ -619,7 +666,7 @@ A choice the user makes before the page hydrates stays on screen, as on a plain 
 | [`CardActions`](https://opui.dev/solid/components/card.md) | Yes | Yes | - |
 | [`CardHeader`](https://opui.dev/solid/components/card.md) | Yes | Yes | - |
 | [`Carousel`](https://opui.dev/solid/components/carousel.md) | Yes | Yes | - |
-| [`CharacterCount`](https://opui.dev/solid/components/textarea.md) | Yes | Yes | - |
+| [`CharacterCount`](https://opui.dev/solid/components/field.md) | Yes | Yes | - |
 | [`Checkbox`](https://opui.dev/solid/components/checkbox.md) | Yes | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. |
 | [`CheckboxInput`](https://opui.dev/solid/components/checkbox.md) | Yes | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. |
 | [`Chip`](https://opui.dev/solid/components/chip.md) | Yes | Yes | - |
@@ -794,6 +841,29 @@ These components bind their own value:
 - [Tabs](https://opui.dev/svelte/components/tabs.md)
 - [ToggleGroup](https://opui.dev/svelte/components/toggle.md)                                                                                                                                                                                              |
 
+### Reaching the element
+
+Every component spreads its other props on its root element, attachments too, so `{@attach}` on a component reaches the element, typed for it: a `Dialog` attachment gets the `HTMLDialogElement`. Most of the time you need none: a `Button` with `command="show-modal"` and `commandfor` opens a dialog by its `id`, and its click handler can set your state at the same time. When a script opens it, such as after a check, reach the element:
+
+```svelte
+<script lang="ts">
+  import { Button, Dialog, DialogContent } from "opui-css/svelte"
+
+  let dialog: HTMLDialogElement | undefined
+</script>
+
+<Button onclick={() => dialog?.showModal()}>Delete</Button>
+<Dialog
+  aria-label="Delete the file?"
+  id="confirm"
+  {@attach (element) => {
+    dialog = element
+  }}
+>
+  <DialogContent>The file goes to the bin for 30 days.</DialogContent>
+</Dialog>
+```
+
 ### Server rendering
 
 Every component renders full HTML on the server. The props in the last column need hydration.
@@ -816,7 +886,7 @@ Every component renders full HTML on the server. The props in the last column ne
 | [`CardActions`](https://opui.dev/svelte/components/card.md) | Yes | Yes | - |
 | [`CardHeader`](https://opui.dev/svelte/components/card.md) | Yes | Yes | - |
 | [`Carousel`](https://opui.dev/svelte/components/carousel.md) | Yes | Yes | - |
-| [`CharacterCount`](https://opui.dev/svelte/components/textarea.md) | Yes | Yes | - |
+| [`CharacterCount`](https://opui.dev/svelte/components/field.md) | Yes | Yes | - |
 | [`Checkbox`](https://opui.dev/svelte/components/checkbox.md) | Yes | No | `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. |
 | [`CheckboxInput`](https://opui.dev/svelte/components/checkbox.md) | Yes | No | `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. |
 | [`Chip`](https://opui.dev/svelte/components/chip.md) | Yes | Yes | - |
@@ -960,6 +1030,26 @@ Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` 
 
 A [Field](https://opui.dev/vue/components/field.md) wraps your own control. Give the control an `id`, set `for` on the field to it, and bind it with `v-model` like any input. For a hint, set the control's `aria-describedby` to `<id>-end-text`.
 
+### Reaching the element
+
+A template ref on a component is the component, and its `$el` is the root element, typed for it: a `Dialog`'s `$el` is an `HTMLDialogElement`. Most of the time you need none: a `Button` with `command="show-modal"` and `commandfor` opens a dialog by its `id`, and its click handler can set your state at the same time. When a script opens it, such as after a check, reach the element:
+
+```vue
+<script setup lang="ts">
+import { useTemplateRef } from "vue"
+import { Button, Dialog, DialogContent } from "opui-css/vue"
+
+const dialog = useTemplateRef("dialog")
+</script>
+
+<template>
+  <Button @click="dialog?.$el.showModal()">Delete</Button>
+  <Dialog ref="dialog" aria-label="Delete the file?" id="confirm">
+    <DialogContent>The file goes to the bin for 30 days.</DialogContent>
+  </Dialog>
+</template>
+```
+
 ### Server rendering
 
 - **62** of 72 need no hydration
@@ -980,7 +1070,7 @@ A [Field](https://opui.dev/vue/components/field.md) wraps your own control. Give
 | [`CardActions`](https://opui.dev/vue/components/card.md) | Yes | Yes | - |
 | [`CardHeader`](https://opui.dev/vue/components/card.md) | Yes | Yes | - |
 | [`Carousel`](https://opui.dev/vue/components/carousel.md) | Yes | Yes | - |
-| [`CharacterCount`](https://opui.dev/vue/components/textarea.md) | Yes | Yes | - |
+| [`CharacterCount`](https://opui.dev/vue/components/field.md) | Yes | Yes | - |
 | [`Checkbox`](https://opui.dev/vue/components/checkbox.md) | Yes | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. , `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`CheckboxInput`](https://opui.dev/vue/components/checkbox.md) | Yes | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. , `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Chip`](https://opui.dev/vue/components/chip.md) | Yes | Yes | - |

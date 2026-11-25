@@ -3,7 +3,7 @@
 import { useMemo } from "react"
 import "../../elements/close-on-navigate.js"
 import "../../elements/menu.js"
-import { defined } from "../attrs"
+import { defined, filled } from "../attrs"
 import { cx } from "../cx"
 import { MenuContext, useMenuContext } from "./context.react"
 import { warnMissingId } from "../dev"
@@ -95,7 +95,7 @@ export default function Menu({
                       <kbd>{shortcut}</kbd>
                     </div>
                   )}
-                  {iconChecked && (
+                  {filled(iconChecked) && (
                     <span aria-hidden="true" className="ui-icon-checked">
                       {iconChecked}
                     </span>

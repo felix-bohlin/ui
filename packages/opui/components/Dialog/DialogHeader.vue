@@ -20,7 +20,7 @@ if (closeButton) warnMissingCloseTarget("DialogHeader", target.value, "Dialog")
 </script>
 
 <template>
-  <div :class="['ui-header', $props.class]">
+  <div class="ui-header">
     <TrimmedSlot :nodes="$slots.default?.()" /><Button
       v-if="closeButton"
       :aria-label="closeLabel"

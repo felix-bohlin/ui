@@ -4,12 +4,12 @@ import { Button } from "opui-css/vue"
 
 <template>
   <div class="ui-layout-column">
-    <div class="ui-layout-row ui-x-small">
+    <div class="ui-layout-row ui-gap-x-small">
       <Button variant="outlined">Day</Button>
       <Button variant="outlined">Week</Button>
       <Button variant="outlined">Month</Button>
     </div>
-    <div class="ui-layout-row ui-small">
+    <div class="ui-layout-row ui-gap-small">
       <Button variant="outlined">Day</Button>
       <Button variant="outlined">Week</Button>
       <Button variant="outlined">Month</Button>
@@ -19,7 +19,7 @@ import { Button } from "opui-css/vue"
       <Button variant="outlined">Week</Button>
       <Button variant="outlined">Month</Button>
     </div>
-    <div class="ui-layout-row ui-large">
+    <div class="ui-layout-row ui-gap-large">
       <Button variant="outlined">Day</Button>
       <Button variant="outlined">Week</Button>
       <Button variant="outlined">Month</Button>

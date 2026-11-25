@@ -2,7 +2,7 @@
 export default function Icon() {
   return (
     <>
-      <p class="ui-layout-row ui-small">
+      <p class="ui-layout-row ui-gap-small">
         <svg
           data-icon="check-circle"
           aria-hidden="true"
@@ -17,7 +17,7 @@ export default function Icon() {
         </svg>
         All checks passed
       </p>
-      <p class="ui-layout-row ui-small">
+      <p class="ui-layout-row ui-gap-small">
         <svg
           data-icon="check-circle"
           aria-hidden="true"
@@ -32,7 +32,7 @@ export default function Icon() {
         </svg>
         Small
       </p>
-      <p class="ui-layout-row ui-small">
+      <p class="ui-layout-row ui-gap-small">
         <svg
           data-icon="check-circle"
           aria-hidden="true"

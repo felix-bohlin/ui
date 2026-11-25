@@ -82,7 +82,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-choice-checked":
     "How a checked `Checkbox` and `Radio` look. `mark` keeps the surface and the border of the unchecked input and draws the check, dash or dot in the choice accent, lifted to text lightness in dark mode, like GOV.UK. When unset (`fill`), the input fills with the accent under a mark in its on-accent color. Forced colors always fill. `Switch` and checkbox and radio cards don't read it.",
   "--ui-choice-fill-max-lightness":
-    "The highest OKLCH lightness of a checked `Checkbox`, `Radio` and `Switch` fill in dark mode, so the light mark keeps 3:1. `0.62`.",
+    "The highest OKLCH lightness of a checked `Checkbox`, `Radio` and `Switch` fill in dark mode, so the light mark keeps 3:1. `0.62`. It turns a light brand color, such as a pastel, dull: set `--ui-choice-accent` to `--ui-primary` and `--ui-choice-on-accent` to `--ui-on-primary` to keep the brand color with a dark mark, as `themes/vice-city.css` does.",
   "--ui-choice-label-offset":
     "Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font.",
   "--ui-choice-on-accent":

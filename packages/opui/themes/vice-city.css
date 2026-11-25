@@ -21,6 +21,8 @@
     );
     --ui-button-radius: var(--ui-radius-round);
     --ui-chip-radius: var(--ui-radius-round);
+    --ui-choice-accent: var(--ui-primary);
+    --ui-choice-on-accent: var(--ui-on-primary);
     --ui-dialog-radius: 1.25rem;
     --ui-field-radius: 0.75rem;
     --ui-focus-ring-color: var(--ui-primary);

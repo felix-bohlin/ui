@@ -6,7 +6,7 @@ const files = import.meta.glob<string>("../../packages/opui/themes/*.css", {
 
 const LABELS = new Map([
   ["govuk", "GOV.UK"],
-  ["gta-vi", "GTA VI"],
+  ["vice-city", "Vice City"],
 ])
 
 export const EXAMPLE_THEMES = Object.entries(files)

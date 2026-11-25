@@ -4870,6 +4870,9 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - B: keep it, and move the sentence from the API note to the top of the Vue binding sections of both pages.
   - Must stay green: `tests/e2e/example-state.spec.ts`, `tests/unit/dev-warnings.test.ts` (no false grouped `checked` warning) and the Nuxt and Vite Vue apps in `pnpm test:apps`.
   - Fixed: A bound Vue group shares its model, and each item binds its input with `v-model` to it, so the first choice writes a ref that starts `undefined`, as `v-model` on native radios does (`packages/opui/components/Tabs/TabsItem.vue`, `src/component-api/tabs/api.ts`).
+- [ ] (1) CSS: `normalize.css` gives every `svg` without a `width` attribute the large icon size, so an illustration sized only by its `block-size`, like the home page scenery, renders 24px wide until it also sets `inline-size: auto` and an `aspect-ratio` (`packages/opui/core/normalize.css:195-197`, `src/components/Scenery.astro:122-124`)
+  - Summary: A decorative SVG sized only by its height shows up as a thin 24px sliver.
+  - Recommended: Explain further. The default suits icons, so this may only need a line in the docs.
 - [ ] (2) SelectButton: the React, Svelte and Vue SelectButton files are written by hand for one construct, a tag that is always one string. The compiler folds it into the element only in Solid (`staticTag`); compiled today, React gets a bare `<SelectedContent />` from a const, Svelte a `<svelte:element>` on `$derived("selectedcontent")` and Vue a `<component :is>` on a constant `computed`, none of which leaves the content the browser writes alone when it hydrates (`scripts/hand-written-components.json:1-5`, `packages/opui/components/SelectButton/SelectButton.astro:6-12`, `scripts/component-solid.mjs:146-203`, `scripts/component-svelte.mjs:269`, `scripts/component-vue.mjs:648-649`, `scripts/component-reader.mjs:1056-1062`)
   - Summary: Three of the five SelectButton files are kept by hand because the compiler handles a constant tag only in Solid.
   - Recommended: Fix with option A. The construct is generic, and the ledger then loses all three files.
@@ -6224,6 +6227,20 @@ Custom elements (web components) the library could add, for behavior that HTML a
     v-bind="mergeProps(styleAttrs($attrs.style), restAttrs)"
     ```
   - Fixed: the Vue emitter passes the spread to `mergeProps()` as written, so Rating binds `mergeProps(styleAttrs($attrs.style), restAttrs)` on the fieldset and the same on the meter. The sample in `tests/unit/build-components.test.ts` pins it. The `styleAttrs($attrs.style)` that `restAttrs` also carries is left for the open item on the Vue leftovers.
+- [ ] (1) Docs: Adding an example theme leaves three lists unchecked: the `themes/` lines of the file tree on the HTML getting started page (it lacked `govuk` until the gta-vi theme), the theme count in the CHANGELOG summary, and the themes the customizing guide says derive from `--ui-palette-source` (`src/docs/guide/getting-started/HTML.astro:157-163`, `packages/opui/CHANGELOG.md:9`, `src/docs/guide/customizing.astro:70-76`)
+  - Summary: A new example theme can go missing from the getting started tree and the customizing guide without any test noticing.
+  - Recommended: Fix. The lists can come from the themes folder, like the README's.
+  - Fix: build the tree's `themes/` lines and the derive list from `EXAMPLE_THEMES` (`src/utils/example-themes.ts`), the derive list from the themes whose tokens read `--ui-palette-source`, and have `tests/unit/changelog.test.ts` check the count in the summary against `packages/opui/themes/`.
+- [ ] (1) Tokens: `tokenType` reads a token's design token type from its name, so any `--ui-surface-*` name is a `color`: `--ui-surface-image` was typed as one until an `-image` exception went in (`src/utils/tokens-json.ts:5-29`)
+  - Summary: A new token whose name starts like a color one gets the wrong type in tokens.json and the Figma files unless someone notices.
+  - Recommended: Fix with option B. It is small and catches the next collision.
+  - Options:
+    - A: type a token from the syntax of its default value (a color function, a length, a number) and keep the name rules for unset tokens.
+    - B (recommended): keep the name rules, and have `tests/unit/theme-tokens.test.ts` fail when a token typed `color`, `dimension` or `number` has a default value of another kind.
+- [ ] (1) Docs site: The theme font loader only reads the first family of a stack, so a theme can't name a font it doesn't ship ahead of a web font: gta-vi names `GTAArtDeco` in `--ui-font-heading` only, since naming it first in `--ui-font-body` would stop Figtree from loading (`src/components/ThemeBootstrap.astro:137-150`)
+  - Summary: A theme that names an installed-only font first gets no web font on the docs site.
+  - Recommended: Fix. Stopping at the first generic family keeps today's behavior for every other theme.
+  - Fix: walk the families in order and load the first one in `webFonts`, stopping at a generic family (`system-ui`, `sans-serif`, `serif`, `monospace`), so a system stack like bootstrap's still loads nothing.
 - [ ] (2) Tests: the update-snapshots workflow deletes every baseline and writes them all again, so each run commits every image that renders a few pixels differently from the last run, though the comparison accepts 100 pixels at a 0.05 threshold, and 49 of the 61 baselines in `c8efbfc` that are no block went back to an image an earlier run had replaced (`.github/workflows/update-snapshots.yml:69`, `playwright.config.ts:11-19`)
   - Summary: Each snapshot update commits dozens of baselines that only changed by antialiasing, so a real change hides among them.
   - Recommended: Fix with option A. It keeps the removal of baselines no test writes and commits only the images a test would fail on.
@@ -6400,6 +6417,24 @@ Custom elements (web components) the library could add, for behavior that HTML a
       {(shownTag) => <Tag ...>{content()}</Tag>}
     </Show>
     ```
+- [ ] (2) Tokens: `--ui-surface-image` and `--ui-surface-elevated-image` can lower text contrast without any check noticing: the contrast promises measure text against the flat surface colors only, axe skips gradients, and more contrast keeps the images unless each theme hands them back with `revert-layer` (`packages/opui/core/normalize.css:17`, `packages/opui/css/components/card.css:72`, `src/utils/theme-token-promises.ts:7-12`, `packages/opui/themes/gta-vi.css:117-127`)
+  - Summary: A theme's gradient can make text harder to read than the contrast checks report, also with more contrast turned on.
+  - Recommended: Fix with option A. It makes more contrast safe for every theme without each one remembering the handback.
+  - Fix: keep both tokens, and decide how more contrast treats them and whether the contrast spec checks the image as well.
+  - Options:
+    - A (recommended): the library ignores both images under more contrast. Read them as `if(style(--ui-contrast: more): none; else: var(--ui-surface-image, none))` in `normalize.css`, `card.css`, `drawer.css`, `menu.css` and `select.css`, with the plain `var()` as the `@supports` fallback, and drop the image handback from `themes/gta-vi.css`.
+    - B: `tests/e2e/contrast.spec.ts` resolves each color stop of a theme's image tokens and holds the text promises against them as well as against the surface.
+    - C: leave it to the themes and say in both token descriptions (`src/utils/theme-token-descriptions.ts`) that a theme hands them back with `revert-layer` under more contrast.
+- [ ] (2) Checkbox, Radio, Switch: In dark mode a checked choice control caps the primary at `--ui-choice-fill-max-lightness` (0.62) so its white check reads, which turns a pastel brand color muddy: the gta-vi pink `oklch(0.86 0.07 355)` fills checkboxes and switches with a dusty mauve while its buttons stay pink (`packages/opui/css/components/choice.css:4-24`, `packages/opui/css/theme.css:215`)
+  - Summary: With a light brand color in dark mode, checked checkboxes, radios and switches look darker and duller than the buttons in the same color.
+  - Recommended: Fix with option B. It fixes the theme now without changing the dark mode of the other themes.
+  - Options:
+    - A: fill with the uncapped primary in dark mode too and pick the check color from the fill's luminance, like `--ui-on-primary` does for buttons: `--_accent` falls back to `var(--ui-primary)` and `--_on-accent` to `var(--ui-on-primary)` in both schemes. The default theme's dark choice controls get lighter, so it needs new baselines.
+    - B (recommended): keep the cap, set `--ui-choice-accent: var(--ui-primary)` and `--ui-choice-on-accent: var(--ui-on-primary)` in `themes/gta-vi.css`, and say in the `--ui-choice-fill-max-lightness` description that a pastel brand does the same.
+- [ ] (2) Tests: The Figma records depend on the Chromium version: a near-gray color serializes its hue as a number in CI's Chromium (`oklch(1 0.0000258286 21.384)`) and as `none` in a newer one, so `pnpm test:e2e:record-figma` run locally rewrites every `src/figma/*.json` file and the exact comparison then fails in CI (`src/utils/figma-probe.ts:111-115`, `tests/e2e/figma.spec.ts:72-79`)
+  - Summary: Recording the Figma values with another Chromium changes every theme's file, and committing them fails CI.
+  - Recommended: Fix. One normalization makes the records the same on every Chromium.
+  - Fix: in the probe, write the hue as `none` when the chroma is below `0.0001`, before a value is recorded or compared, then re-record `src/figma/` once.
 - [ ] (3) Docs site: the icon libraries list no Solid package: `lucide-solid` 1.74 and `@tabler/icons-solidjs` 3.52 require solid-js 1, and Fluent, Material Symbols and Phosphor ship none (`src/utils/icon-libraries.ts`)
   - Summary: The icon pages name React, Svelte and Vue icon packages but none for Solid, since none supports Solid 2 yet.
   - Recommended: Fix with option A. Add the `solid:` entries once each upstream package takes solid-js 2 as a peer.

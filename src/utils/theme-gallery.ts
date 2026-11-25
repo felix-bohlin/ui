@@ -56,6 +56,46 @@ export const GALLERY: GalleryEntry[] = [
   },
   {
     author: "opui",
+    description:
+      "Sunset pinks on deep violet night surfaces, a peach call to action, pill buttons and a soft pink glow.",
+    id: "dusk",
+    name: "Dusk",
+    theme: {
+      preset: null,
+      tokens: {
+        "--ui-button-accent-filled":
+          "light-dark(oklch(0.84 0.09 60), oklch(0.88 0.07 70))",
+        "--ui-button-on-accent-filled": "oklch(0.24 0.05 300)",
+        "--ui-button-radius": "var(--ui-radius-round)",
+        "--ui-chip-radius": "var(--ui-radius-round)",
+        "--ui-dialog-radius": "var(--ui-radius)",
+        "--ui-field-radius": "var(--ui-radius)",
+        "--ui-font-body":
+          'Figtree, "DM Sans", Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, sans-serif',
+        "--ui-gray-chroma": "0.04",
+        "--ui-gray-hue": "295",
+        "--ui-menu-radius": "var(--ui-radius)",
+        "--ui-palette-source": "oklch(0.62 0.15 335)",
+        "--ui-primary-source":
+          "light-dark(oklch(0.52 0.17 340), oklch(0.86 0.07 355))",
+        "--ui-radius": "1rem",
+        "--ui-radius-small": "min(0.5rem, var(--ui-radius))",
+        "--ui-radius-x-small": "min(0.25rem, var(--ui-radius))",
+        "--ui-shadow-color":
+          "light-dark(oklch(0.55 0.18 340 / 12%), oklch(0.05 0.04 300 / 60%))",
+        "--ui-surface":
+          "light-dark(oklch(0.97 0.015 330), oklch(0.21 0.035 290))",
+        "--ui-surface-elevated":
+          "light-dark(oklch(1 0 0), oklch(0.26 0.045 292))",
+        "--ui-surface-tonal":
+          "light-dark(oklch(0.93 0.035 330), oklch(0.32 0.06 300))",
+        "--ui-text-strong":
+          "light-dark(oklch(0.22 0.07 300), oklch(0.97 0.02 320))",
+      },
+    },
+  },
+  {
+    author: "opui",
     description: "Material surfaces with a violet brand and soft shadows.",
     id: "orchid",
     name: "Orchid",

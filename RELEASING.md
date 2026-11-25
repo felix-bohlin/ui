@@ -63,6 +63,8 @@ CI builds `main` and, once the e2e tests pass, deploys the docs. The dated headi
 
 The `Publish` workflow (`.github/workflows/publish.yml`) runs on the tag in the `npm` environment. It checks out the tag, runs `pnpm install --frozen-lockfile` and `pnpm check`, then `node scripts/release.mjs publish`, which stops when it runs outside GitHub Actions, when `HEAD` isn't the tag of the `package.json` version, or when `pnpm check` changed `packages/opui`. It packs the package with `pnpm pack` (`prepack` builds `dist`, and pnpm replaces the `catalog:` versions) and publishes the tarball with `npm publish --provenance --tag latest`, or `--tag next` for a candidate. npm trusts the workflow through the trusted publisher (see One-time setup), and the package page links the release to the workflow run and the tagged commit.
 
+npm can take a quarter of an hour to serve a version after `npm publish` returns. The `on-npm` job waits until `npm pack` fetches the tag's version, for up to an hour, and then the `published` and `published-reference` jobs run `tests/apps` and `tests/reference` against the version on npm.
+
 If the publish fails, nothing is on npm yet. When the cause is outside the release commit, such as the trusted publisher on npmjs.com, fix it and run the workflow again on the tag (Actions, Publish, Run workflow, with the tag picked under "Use workflow from"). When the cause is in the release commit itself, release the next patch.
 
 ## After

@@ -108,7 +108,7 @@
       oklch(0.765 0.007 248)
     );
     --ui-underline-offset: auto;
-    --ui-underline-thickness-hover: auto;
+    --ui-underline-hover-thickness: auto;
     --ui-warning: oklch(0.844 0.17217 85);
   }
 

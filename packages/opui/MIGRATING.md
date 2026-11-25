@@ -736,29 +736,29 @@ The part files are renamed to `DescriptionListDescription.*`, `DescriptionListIt
 + <dd>Holly</dd>
 ```
 
-`border` sets the style of the line between a term and its description, `"solid"` or `"dotted"`, and the list draws none without it. In Astro and Vue, `bordered` is `border="solid"` and `bordered="dotted"` is `border="dotted"`.
+`leader` sets the style of the leader, the line between a term and its description, `"solid"` or `"dotted"`, and the list draws none without it. In Astro and Vue, `bordered` is `leader="solid"` and `bordered="dotted"` is `leader="dotted"`.
 
 ```diff
 - <DescriptionList bordered>
-+ <DescriptionList border="solid">
++ <DescriptionList leader="solid">
 ```
 
 ```diff
 - <DescriptionList bordered="dotted">
-+ <DescriptionList border="dotted">
++ <DescriptionList leader="dotted">
 ```
 
-In HTML, `.ui-bordered` is `.ui-border-solid`, and `.ui-bordered.ui-dotted` is `.ui-border-dotted`. `.ui-dotted` is gone.
+In HTML, `.ui-bordered` is `.ui-leader-solid`, and `.ui-bordered.ui-dotted` is `.ui-leader-dotted`. `.ui-dotted` is gone.
 
 ```diff
 - <dl class="ui-description-list ui-bordered ui-dotted">
-+ <dl class="ui-description-list ui-border-dotted">
++ <dl class="ui-description-list ui-leader-dotted">
 ```
 
 The items are plain `div`s without `.ui-item`.
 
 ```diff
-  <dl class="ui-description-list ui-border-dotted">
+  <dl class="ui-description-list ui-leader-dotted">
 -   <div class="ui-item">
 +   <div>
 ```

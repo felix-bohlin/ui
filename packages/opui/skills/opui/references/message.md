@@ -69,7 +69,7 @@ Chat bubbles that group by sender, with attachments, reactions and a typing indi
 - Quick label (HTML): `[quick-label]`. The name of the quick reaction without a count, such as `Thumbs up`, which `delete()` gives its pill.
 - Quick text (HTML): `[quick-text]`. The emoji of the quick reaction without a count, which `delete()` gives its pill.
 - Quick value (HTML): `[quick-value]`. The `value` of the quick reaction, the one-tap reaction whose pill comes first and stays when `delete()` is called with it.
-- Unused (HTML): `.ui-toggle-button.ui-unused`. The pill of the quick reaction while nobody has used it: a dashed border.
+- Suggested (HTML): `.ui-toggle-button.ui-suggested`. The pill of the quick reaction while nobody has picked it, which suggests it: a dashed border.
 
 ### Slots
 
@@ -79,10 +79,10 @@ Chat bubbles that group by sender, with attachments, reactions and a typing indi
 
 - `<opui-reactions>`, defined by `opui-css/elements/reactions.js`:
   - `announce(message)`: Reads `message` to screen readers, through the `role="status"` child.
-  - `delete(value)`: Removes the pill of `value`, and moves focus to the next pill, the previous one or the first button after the pills when the removed pill had it. The pill of the `quick-value` reaction stays, unchecked and `.ui-unused`, with the `quick-label` and `quick-text` attributes as its name and text, and keeps focus.
+  - `delete(value)`: Removes the pill of `value`, and moves focus to the next pill, the previous one or the first button after the pills when the removed pill had it. The pill of the `quick-value` reaction stays, unchecked and `.ui-suggested`, with the `quick-label` and `quick-text` attributes as its name and text, and keeps focus.
   - `group`: The `.ui-toggle-group` of pills, or `null`. Read-only.
   - `reaction` event: Fires when a pill is clicked, or a button with `command="--react"` and this element in `commandfor`, with the `value` and the `checked` state asked for in `event.detail`. It bubbles, and changes nothing.
-  - `set(value, reaction)`: Updates the pill of `value` with `{ checked, label, text }`, the accessible name in `label` and the emoji and count in `text`, or adds one at the end, and the `quick-value` reaction first. It removes `.ui-unused` from the pill.
+  - `set(value, reaction)`: Updates the pill of `value` with `{ checked, label, text }`, the accessible name in `label` and the emoji and count in `text`, or adds one at the end, and the `quick-value` reaction first. It removes `.ui-suggested` from the pill.
 
 ### Notes
 

@@ -3,7 +3,7 @@
 </script>
 
 <Stepper aria-label="Checkout steps">
-  <StepperItem complete href="#" label="Cart">
+  <StepperItem href="#" label="Cart" state="complete">
     {#snippet iconComplete()}
       <svg
         data-icon="check-all"
@@ -23,7 +23,7 @@
       </svg>
     {/snippet}
   </StepperItem>
-  <StepperItem complete href="#" label="Shipping">
+  <StepperItem href="#" label="Shipping" state="complete">
     {#snippet iconComplete()}
       <svg
         data-icon="check-all"

@@ -77,7 +77,7 @@ export default function TwoFactor() {
                 </Button>
               </FieldGroup>
             </Form>
-            <p class="ui-layout-row ui-x-small ui-align-center">
+            <p class="ui-layout-row ui-gap-x-small ui-align-center">
               Didn't get a code?
               <Button size="small" type="button">
                 <svg

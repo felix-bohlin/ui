@@ -12,7 +12,7 @@ export default function Changelog() {
   return (
     <>
       <div
-        className="changelog ui-layout-container ui-layout-column ui-large"
+        className="changelog ui-layout-container ui-layout-column ui-gap-large"
         style={{ "--_max-inline-size": "56rem" }}
       >
         <div className="ui-layout-row ui-spread changelog-header">
@@ -21,7 +21,7 @@ export default function Changelog() {
             <h1 className="ui-h2">What's new!</h1>
             <p>Totally rad new stuff, tweaks and fixes in every release.</p>
           </hgroup>
-          <div className="ui-layout-row ui-small">
+          <div className="ui-layout-row ui-gap-small">
             <Button href="#changelog-rss" size="small" variant="outlined">
               <svg
                 data-icon="rss"
@@ -46,7 +46,7 @@ export default function Changelog() {
         <Timeline style={{ "--_item-gap": "var(--ui-space-8)" }}>
           <TimelineItem current datetime="2026-10-01" time="Oct 1, 2026">
             <div className="ui-layout-column">
-              <div className="ui-layout-row ui-small">
+              <div className="ui-layout-row ui-gap-small">
                 <h2 className="ui-h4" id="changelog-6-0">
                   The Megaphone shoutbox is here!
                 </h2>
@@ -61,8 +61,8 @@ export default function Changelog() {
                 Bassbook 6.0 brings the Megaphone, so you can finally be heard
                 over the drummer, and profiles now load 3× faster. Woohoo!
               </p>
-              <div className="ui-layout-column ui-small changelog-group">
-                <h3 className="ui-h6 ui-layout-row ui-small">
+              <div className="ui-layout-column ui-gap-small changelog-group">
+                <h3 className="ui-h6 ui-layout-row ui-gap-small">
                   <span className="ui-swatch ui-success"></span>Added
                 </h3>
                 <ul>
@@ -77,8 +77,8 @@ export default function Changelog() {
                   </li>
                 </ul>
               </div>
-              <div className="ui-layout-column ui-small changelog-group">
-                <h3 className="ui-h6 ui-layout-row ui-small">
+              <div className="ui-layout-column ui-gap-small changelog-group">
+                <h3 className="ui-h6 ui-layout-row ui-gap-small">
                   <span className="ui-swatch ui-info"></span>Improved
                 </h3>
                 <ul>
@@ -105,7 +105,7 @@ export default function Changelog() {
           </TimelineItem>
           <TimelineItem datetime="2026-09-12" time="Sep 12, 2026">
             <div className="ui-layout-column">
-              <div className="ui-layout-row ui-small">
+              <div className="ui-layout-row ui-gap-small">
                 <h2 className="ui-h4" id="changelog-5-8">
                   Polls and profile themes
                 </h2>
@@ -120,8 +120,8 @@ export default function Changelog() {
                 Ask your friends anything (flatwounds or roundwounds?) and dress
                 up your profile with a theme as loud as your low B.
               </p>
-              <div className="ui-layout-column ui-small changelog-group">
-                <h3 className="ui-h6 ui-layout-row ui-small">
+              <div className="ui-layout-column ui-gap-small changelog-group">
+                <h3 className="ui-h6 ui-layout-row ui-gap-small">
                   <span className="ui-swatch ui-success"></span>Added
                 </h3>
                 <ul>
@@ -133,8 +133,8 @@ export default function Changelog() {
                   </li>
                 </ul>
               </div>
-              <div className="ui-layout-column ui-small changelog-group">
-                <h3 className="ui-h6 ui-layout-row ui-small">
+              <div className="ui-layout-column ui-gap-small changelog-group">
+                <h3 className="ui-h6 ui-layout-row ui-gap-small">
                   <span className="ui-swatch ui-warning"></span>Fixed
                 </h3>
                 <ul>
@@ -150,7 +150,7 @@ export default function Changelog() {
           </TimelineItem>
           <TimelineItem datetime="2026-08-28" time="Aug 28, 2026">
             <div className="ui-layout-column">
-              <div className="ui-layout-row ui-small">
+              <div className="ui-layout-row ui-gap-small">
                 <h2 className="ui-h4" id="changelog-5-7-2">
                   Bug fixes
                 </h2>
@@ -161,8 +161,8 @@ export default function Changelog() {
                   variant="outlined"
                 />
               </div>
-              <div className="ui-layout-column ui-small changelog-group">
-                <h3 className="ui-h6 ui-layout-row ui-small">
+              <div className="ui-layout-column ui-gap-small changelog-group">
+                <h3 className="ui-h6 ui-layout-row ui-gap-small">
                   <span className="ui-swatch ui-warning"></span>Fixed
                 </h3>
                 <ul>

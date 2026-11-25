@@ -2,19 +2,19 @@
 export default function Swatch() {
   return (
     <ul role="list" class="ui-layout-row">
-      <li class="ui-layout-row ui-x-small">
+      <li class="ui-layout-row ui-gap-x-small">
         <span class="ui-swatch ui-success"></span>
         Online
       </li>
-      <li class="ui-layout-row ui-x-small">
+      <li class="ui-layout-row ui-gap-x-small">
         <span class="ui-swatch ui-warning"></span>
         Degraded
       </li>
-      <li class="ui-layout-row ui-x-small">
+      <li class="ui-layout-row ui-gap-x-small">
         <span class="ui-swatch ui-critical"></span>
         Down
       </li>
-      <li class="ui-layout-row ui-x-small">
+      <li class="ui-layout-row ui-gap-x-small">
         <span
           class="ui-swatch"
           style="--_swatch-bg-color: var(--ui-color-7)"

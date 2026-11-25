@@ -234,7 +234,7 @@ const emailId = Astro.locals.$id("component-showcase-email")
     <Fragment slot="copy">
       <div
         aria-hidden="true"
-        class="ui-layout-row ui-small showcase-copy"
+        class="ui-layout-row ui-gap-small showcase-copy"
         inert
       >
         <Field
@@ -266,7 +266,7 @@ const emailId = Astro.locals.$id("component-showcase-email")
     </Fragment>
 
     <Fragment slot="description-list">
-      <DescriptionList aria-hidden="true" border="dotted">
+      <DescriptionList aria-hidden="true" leader="dotted">
         <DescriptionListItem>
           <DescriptionListTerm>Name</DescriptionListTerm>
           <DescriptionListDescription>Open Props UI</DescriptionListDescription>
@@ -326,7 +326,7 @@ const emailId = Astro.locals.$id("component-showcase-email")
             {
               label: "lou-headstock.png",
               preview: "/photos/lou-headstock.png",
-              state: "done",
+              state: "complete",
               value: "lou",
             },
             {
@@ -361,17 +361,20 @@ const emailId = Astro.locals.$id("component-showcase-email")
     </Fragment>
 
     <Fragment slot="layout">
-      <div class="ui-layout-column ui-small showcase-layout" aria-hidden="true">
-        <div class="ui-layout-column ui-x-small">
+      <div
+        class="ui-layout-column ui-gap-small showcase-layout"
+        aria-hidden="true"
+      >
+        <div class="ui-layout-column ui-gap-x-small">
           <span class="showcase-layout-heading"></span>
           <span class="showcase-layout-text"></span>
         </div>
-        <div class="ui-layout-grid ui-x-small">
+        <div class="ui-layout-grid ui-gap-x-small">
           <span class="showcase-layout-tile"></span>
           <span class="showcase-layout-tile"></span>
           <span class="showcase-layout-tile"></span>
         </div>
-        <div class="ui-layout-row ui-x-small showcase-layout-actions">
+        <div class="ui-layout-row ui-gap-x-small showcase-layout-actions">
           <span class="showcase-layout-button"></span>
           <span class="showcase-layout-button showcase-layout-primary"></span>
         </div>
@@ -604,7 +607,7 @@ const emailId = Astro.locals.$id("component-showcase-email")
     </Fragment>
 
     <Fragment slot="toast">
-      <div aria-hidden="true" class="ui-layout-column ui-x-small" inert>
+      <div aria-hidden="true" class="ui-layout-column ui-gap-x-small" inert>
         <Callout severity="success">
           <CalloutContent><p>Changes saved</p></CalloutContent>
         </Callout>

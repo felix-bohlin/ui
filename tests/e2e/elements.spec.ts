@@ -458,7 +458,7 @@ const ELEMENTS: Scenario[] = [
     file: "reactions.js",
     markup: `<opui-reactions class="ui-reactions" quick-label="Thumbs up" quick-text="Up" quick-value="+1">
       <div class="ui-toggle-group" role="group" aria-label="Reactions">
-        <label class="ui-toggle-button ui-unused"><input type="checkbox" name="reaction" value="+1" aria-label="Thumbs up" /><span aria-hidden="true">Up</span></label>
+        <label class="ui-toggle-button ui-suggested"><input type="checkbox" name="reaction" value="+1" aria-label="Thumbs up" /><span aria-hidden="true">Up</span></label>
       </div>
       <span class="ui-sr-only" role="status"></span>
     </opui-reactions>`,
@@ -496,7 +496,7 @@ const ELEMENTS: Scenario[] = [
       })
       await expect(quick).toBeChecked()
       await expect(pill).toHaveText("Up 1")
-      await expect(pill).not.toHaveClass(/ui-unused/)
+      await expect(pill).not.toHaveClass(/ui-suggested/)
       await page.evaluate(() => {
         const element = document.querySelector("opui-reactions")!
         element.delete("+1")
@@ -505,7 +505,7 @@ const ELEMENTS: Scenario[] = [
       await expect(quick).not.toBeChecked()
       await expect(quick).toHaveAccessibleName("Thumbs up")
       await expect(pill).toHaveText("Up")
-      await expect(pill).toHaveClass(/ui-unused/)
+      await expect(pill).toHaveClass(/ui-suggested/)
       await expect(page.getByRole("status")).toHaveText("Thumbs up removed")
     },
   },

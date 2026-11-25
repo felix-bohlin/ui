@@ -5,10 +5,10 @@ export default {
   options: [
     {
       description:
-        "The style of the line between the term and the description. Without it, there's no line.",
-      group: "Borders",
-      prop: "border",
-      values: { dotted: ".ui-border-dotted", solid: ".ui-border-solid" },
+        "The style of the leader, the line between the term and the description. Without it, there's no line.",
+      group: "Leader",
+      prop: "leader",
+      values: { dotted: ".ui-leader-dotted", solid: ".ui-leader-solid" },
     },
     {
       default: '"auto"',

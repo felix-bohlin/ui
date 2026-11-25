@@ -113,7 +113,7 @@
 
     &.ui-dot.ui-neutral::before {
       background-color: transparent;
-      border: var(--ui-border-width-thick) solid var(--_dot-bg-color);
+      border: var(--ui-border-width-large) solid var(--_dot-bg-color);
 
       @media (forced-colors: active) {
         border-color: CanvasText;

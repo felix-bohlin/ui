@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes, mergeProps, useAttrs } from "vue"
-import { useBound } from "../vue"
+import { computed, mergeProps } from "vue"
+import { useBound, useRestAttrs } from "../vue"
 import { mergeStyle, pluralLabel, styleAttrs } from "../style"
 import { defined } from "../attrs"
 import type { Props } from "./types.vue-props"
@@ -23,7 +23,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs() as HTMLAttributes
+const attrs = useRestAttrs()
 
 const restAttrs = computed(() => {
   const {
@@ -31,7 +31,7 @@ const restAttrs = computed(() => {
     "aria-invalid": _ariaInvalid,
     "aria-label": _ariaLabel,
     ...rest
-  } = attrs
+  } = attrs.value
   return rest
 })
 
@@ -49,7 +49,7 @@ const stars = computed(() =>
 
 const current = computed(() => Number(model.value))
 
-const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
+const invalid = computed(() => (error ? "true" : attrs.value["aria-invalid"]))
 </script>
 
 <template>
@@ -59,7 +59,7 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
     :class="[
       'ui-rating',
       size && size !== 'medium' && `ui-${size}`,
-      $props.class,
+      $attrs.class,
     ]"
     :disabled="disabled"
     :lang="lang"
@@ -115,7 +115,7 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
     :class="[
       'ui-rating',
       size && size !== 'medium' && `ui-${size}`,
-      $props.class,
+      $attrs.class,
     ]"
     :lang="lang"
     :max="Number.isFinite(count) ? count : undefined"

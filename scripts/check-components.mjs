@@ -322,6 +322,18 @@ const classTokens = (lists) =>
     .filter((tokens) => tokens !== "className")
     .join("\n")
 
+export const vueClassOrder = (tokens) =>
+  tokens
+    .split("\n")
+    .map((line) =>
+      line
+        .split(" ")
+        .filter((token) => token && token !== "className")
+        .join(" "),
+    )
+    .filter((line) => line.includes(" "))
+    .join("\n")
+
 const clientProblems = (source, used, uses) => {
   const client = source.startsWith('"use client"\n')
   if (used && !client) return [`uses ${uses}; start it with "use client"`]
@@ -1403,7 +1415,7 @@ const main = async () => {
         const lists = classLists(
           extension === ".vue"
             ? withoutBoundBranches(source).replace(
-                /\$?props\.class\b/g,
+                /\$attrs\.class\b/g,
                 "className",
               )
             : extension === ".solid.tsx"
@@ -1428,9 +1440,10 @@ const main = async () => {
     for (const name of astro) {
       for (const [extension] of CLASS_LISTS.slice(1)) {
         const file = `${name}${extension}`
+        const order = extension === ".vue" ? vueClassOrder : (text) => text
         if (
           tokens.has(file) &&
-          tokens.get(file) !== tokens.get(`${name}.astro`)
+          order(tokens.get(file)) !== order(tokens.get(`${name}.astro`))
         ) {
           report(
             join(dir, file),

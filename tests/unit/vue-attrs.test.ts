@@ -28,7 +28,7 @@ test("useInputAttrs passes on an attribute that arrives after a mount with none"
   })
   const { attrs, root } = mountWith(Field)
   expect(html(root)).toBe("<main><label><input></input></label></main>")
-  attrs.value = { placeholder: "Search", style: "color: red" }
+  attrs.value = { class: "wide", placeholder: "Search", style: "color: red" }
   await Vue.nextTick()
   expect(html(root)).toBe(
     '<main><label><input placeholder="Search"></input></label></main>',
@@ -42,14 +42,18 @@ test("a compiled Vue component passes on an attribute that arrives after a mount
   )
   const source = outputs.get("packages/opui/components/Sample/Sample.vue")
   expect(source).toContain("const restAttrs = computed(")
-  const Sample = clientComponent(source!, "type Props = { class?: string }")
+  const Sample = clientComponent(source!, "type Props = {}")
   const { attrs, root } = mountWith(Sample)
   expect(html(root)).toBe(
     '<main><div class="ui-sample"><input></input></div></main>',
   )
-  attrs.value = { "aria-label": "Rating", title: "Your rating" }
+  attrs.value = {
+    "aria-label": "Rating",
+    class: "wide",
+    title: "Your rating",
+  }
   await Vue.nextTick()
   expect(html(root)).toBe(
-    '<main><div class="ui-sample" title="Your rating"><input aria-label="Rating"></input></div></main>',
+    '<main><div class="ui-sample wide" title="Your rating"><input aria-label="Rating"></input></div></main>',
   )
 }, 15_000)

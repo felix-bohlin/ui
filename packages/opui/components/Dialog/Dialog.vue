@@ -1,12 +1,6 @@
 <script setup lang="ts">
-import {
-  computed,
-  type HTMLAttributes,
-  provide,
-  reactive,
-  useAttrs,
-  useId,
-} from "vue"
+import { computed, provide, reactive, useId } from "vue"
+import { useRestAttrs } from "../vue"
 import { DialogKey } from "./context.vue"
 import { autoLabelledBy } from "../id"
 import { defined } from "../attrs"
@@ -19,24 +13,27 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs() as HTMLAttributes
+const attrs = useRestAttrs()
 
 const uid = useId()
 
-const titleId = computed(() => `${attrs.id || `dialog-${uid}`}-title`)
+const titleId = computed(() => `${attrs.value.id || `dialog-${uid}`}-title`)
 
-const labelledBy = computed(() => autoLabelledBy(attrs, titleId.value))
+const labelledBy = computed(() => autoLabelledBy(attrs.value, titleId.value))
 
 provide(
   DialogKey,
-  reactive({ id: computed(() => attrs.id || undefined), titleId: labelledBy }),
+  reactive({
+    id: computed(() => attrs.value.id || undefined),
+    titleId: labelledBy,
+  }),
 )
 </script>
 
 <template>
   <dialog
     :aria-labelledby="labelledBy"
-    :class="['ui-dialog', 'ui-elevated', $props.class]"
+    :class="['ui-dialog', 'ui-elevated', $attrs.class]"
     :closedby="closedby"
     v-bind="defined(attrs)"
   >

@@ -45,6 +45,7 @@ import {
   checkTypesImport,
   checkVariableTagClassList,
   checkVueAttrs,
+  vueClassOrder,
   withoutBoundBranches,
 } from "../../scripts/check-components.mjs"
 import { colorProblems } from "../../scripts/check-colors.mjs"
@@ -880,6 +881,18 @@ describe("check-components", () => {
       "className must be the last entry in cx",
     ])
     expect(checkClassOrder([['"ui-badge"', "className"]], "cx")).toEqual([])
+  })
+
+  test("Vue's class order leaves out the caller's class and one-class lists, and still sees a swap", () => {
+    expect(
+      vueClassOrder("ui-card ui-${variant} className\nui-content className"),
+    ).toBe("ui-card ui-${variant}")
+    expect(vueClassOrder("ui-card ui-${variant}")).toBe(
+      vueClassOrder("ui-card ui-${variant} className"),
+    )
+    expect(vueClassOrder("ui-${variant} ui-card")).not.toBe(
+      vueClassOrder("ui-card ui-${variant} className"),
+    )
   })
 
   test("a Vue control's bound branch is left out of the class lists", () => {

@@ -43,7 +43,6 @@ provide(ToggleGroupKey, reactive({ bound, groupName, inputType, value: model }))
       { 'ui-vertical': orientation === 'vertical' },
       overflow && overflow !== 'wrap' && `ui-overflow-${overflow}`,
       size && size !== 'medium' && `ui-${size}`,
-      $props.class,
     ]"
     :role="role ?? (multiple ? 'group' : 'radiogroup')"
   >

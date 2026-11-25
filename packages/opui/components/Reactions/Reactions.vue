@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import "../../elements/reactions.js"
-import { computed, type HTMLAttributes, useAttrs } from "vue"
-import { vHydrated } from "../vue"
+import { computed } from "vue"
+import { useRestAttrs, vHydrated } from "../vue"
 import ToggleButton from "../ToggleButton/ToggleButton.vue"
 import ToggleGroup from "../ToggleGroup/ToggleGroup.vue"
 import { defined } from "../attrs"
@@ -16,14 +16,14 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs() as HTMLAttributes
+const attrs = useRestAttrs()
 
 const restAttrs = computed(() => {
   const {
     "aria-label": _ariaLabel,
     "aria-labelledby": _ariaLabelledby,
     ...rest
-  } = attrs
+  } = attrs.value
   return rest
 })
 
@@ -42,7 +42,7 @@ const pills = computed(() =>
 <template>
   <component
     is="opui-reactions"
-    :class="['ui-reactions', $props.class]"
+    :class="['ui-reactions', $attrs.class]"
     :quick-label="quick?.['aria-label']"
     :quick-text="quick?.label"
     :quick-value="quick?.value"

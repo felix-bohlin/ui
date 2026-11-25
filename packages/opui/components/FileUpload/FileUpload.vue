@@ -35,7 +35,7 @@ const descriptionId = computed(() =>
 <template>
   <component
     is="opui-file-upload"
-    :class="['ui-file-upload', $props.class]"
+    class="ui-file-upload"
     @remove="emit('remove', $event)"
     @select="emit('select', $event)"
     data-hydrating=""

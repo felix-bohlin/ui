@@ -842,16 +842,12 @@ export const toTypes = (
       node.members.length > 0 &&
       node.members.every((member) => undeclared(model, member.name.getText()))
     const kept = []
-    let hasClass = false
     for (const part of members(alias.node.type)) {
       if (ts.isTypeLiteralNode(part) && hasElement(part)) {
         kept.push(vueText(part))
         continue
       }
-      if (hasElement(part)) {
-        hasClass = true
-        continue
-      }
+      if (hasElement(part)) continue
       if (
         modelOnly(part) ||
         (ts.isTypeReferenceNode(part) &&
@@ -885,7 +881,7 @@ export const toTypes = (
         `the type ${alias.name}, whose part ${part.getText()} has no Vue form`,
       )
     }
-    return { hasClass, kept }
+    return { kept }
   }
   const asValues = (node) => {
     const values = []
@@ -984,7 +980,11 @@ export const toTypes = (
           ),
         ].join(" & ")
       })
-      return `export type ${name} = ${[...withoutAttributes, "Class", ...(extras.length ? [`{ ${extras.join("; ")} }`] : [])].join(" & ")}`
+      const parts = [
+        ...withoutAttributes,
+        ...(extras.length ? [`{ ${extras.join("; ")} }`] : []),
+      ]
+      return `export type ${name} = ${parts.length ? parts.join(" & ") : "{}"}`
     })
   const vueTypeImports = [
     ...(linking ? ["Component"] : []),
@@ -1018,7 +1018,9 @@ export const toTypes = (
       ...(vueTypeImports.length
         ? [`import type { ${vueTypeImports.join(", ")} } from "vue"`]
         : []),
-      `import type { Class${vueBody.some((line) => line.includes("DefaultSlots")) ? ", DefaultSlots" : ""} } from "../vue"`,
+      ...(vueBody.some((line) => line.includes("DefaultSlots"))
+        ? [`import type { DefaultSlots } from "../vue"`]
+        : []),
       `import type {\n${imported.map((entry) => `  ${entry},`).join("\n")}\n} from "./types"`,
     ].join("\n"),
     ...vueBody,

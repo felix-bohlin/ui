@@ -7,7 +7,7 @@ defineSlots<Slots>()
 </script>
 
 <template>
-  <td v-bind="classAttrs([{ 'ui-numeric': numeric }, $props.class])">
+  <td v-bind="classAttrs([{ 'ui-numeric': numeric }])">
     <slot></slot>
   </td>
 </template>

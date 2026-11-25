@@ -11,7 +11,6 @@ defineSlots<Slots>()
       'ui-description-list',
       border && `ui-border-${border}`,
       orientation && orientation !== 'auto' && `ui-${orientation}`,
-      $props.class,
     ]"
   >
     <slot></slot>

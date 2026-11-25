@@ -67,7 +67,6 @@ provide(MenuKey, reactive({ rootId }))
       },
       orientation && orientation !== 'vertical' && `ui-${orientation}`,
       side && side !== 'block-end' && `ui-${side}`,
-      $props.class,
     ]"
     :id="id"
     :popover="popover === 'auto' ? '' : popover"

@@ -6,13 +6,7 @@ defineSlots<Slots>()
 </script>
 
 <template>
-  <div
-    :class="[
-      'ui-actions',
-      align && align !== 'end' && `ui-align-${align}`,
-      $props.class,
-    ]"
-  >
+  <div :class="['ui-actions', align && align !== 'end' && `ui-align-${align}`]">
     <slot></slot>
   </div>
 </template>

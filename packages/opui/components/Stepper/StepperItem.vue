@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes, useAttrs } from "vue"
+import { computed } from "vue"
+import { useRestAttrs } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import { classAttrs } from "../cx"
 import type {
@@ -23,10 +24,10 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs() as HTMLAttributes
+const attrs = useRestAttrs()
 
 const restAttrs = computed(() => {
-  const { "aria-current": _ariaCurrent, ...rest } = attrs
+  const { "aria-current": _ariaCurrent, ...rest } = attrs.value
   return rest
 })
 
@@ -44,7 +45,7 @@ const link = computed(() => href && !current && (complete || error))
       ...restAttrs,
       ...classAttrs([
         { 'ui-complete': complete, 'ui-error': error },
-        $props.class,
+        $attrs.class,
       ]),
     }"
   >

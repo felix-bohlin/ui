@@ -12,7 +12,7 @@ warnMissingId("Copy", id)
 <template>
   <component
     is="opui-copy"
-    :class="['ui-copy', $props.class]"
+    class="ui-copy"
     :copied-label="copiedLabel"
     :failed-label="failedLabel"
     :id="id"

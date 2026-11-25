@@ -164,6 +164,11 @@ export const DIAGNOSTICS = {
     explain:
       "Vue merges the attributes that fall through after the root's own, so the caller's value wins over a root attribute computed from the rest props. Destructure the prop in the Astro file and compute the attribute from it.",
   },
+  BC504: {
+    title: "A caller class Vue can't place",
+    explain:
+      "In Vue the caller's `class` is an attribute, not a prop. On a root that inherits the attributes, Vue adds it after the root's own classes, so the root's class list ends in `className` as a plain entry, the one the port drops. A component that passes its attributes to an inner element reads the class from `$attrs.class` in the template, so its script can't read it. Make `className` the last entry of the root's class list, or read it in the template.",
+  },
   BC601: {
     title: "A types.astro.ts without the Base import",
     explain:

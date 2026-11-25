@@ -715,7 +715,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `normalize.css` body text reads `--ui-font-weight-normal` and headings `--ui-font-weight-bold`, so a theme's weights reach bare text and headings.
 - `opui-css/css/js/checkbox.js` resolves through `exports`. It resolved to `checkbox.js.css`.
 - `opui-css/open-props.css` resolves through `exports`.
-- `opui-css/vue` keeps a class named `class` (`<Card class="class">`), which Vue cast to `true` and dropped. Components type `class` as `unknown`, as Vue types it on a component that doesn't declare it.
+- `opui-css/vue` components take `class` as an attribute instead of a prop, so `<Card class="class">` keeps its class, which Vue cast to `true` and dropped. Their props types no longer list `class`, which Vue accepts on any component.
 - `opui-css/vue` renders no `class` or `style` attribute on an element whose class list or style comes out empty, instead of `class=""` or `style=""`.
 - `package.json` `exports` resolve documented source imports with a `.css` extension (`opui-css/css/imports.css`, `opui-css/core/normalize.css`, `opui-css/css/components/button.css`, …) Previously they resolved to `*.css.css`.
 - `package.json` peer dependency ranges are `astro` `^7`, `svelte` `^5.57` and `vue` `^3.5.2` instead of the versions used for development.

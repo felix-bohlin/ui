@@ -37,7 +37,6 @@ provide(TabsKey, reactive({ bound, groupName, value: model }))
       orientation === 'vertical' && 'ui-vertical',
       overflow && overflow !== 'scroll' && `ui-overflow-${overflow}`,
       variant && variant !== 'tonal' && `ui-${variant}`,
-      $props.class,
     ]"
     :role="role"
   >

@@ -464,6 +464,28 @@ const repeatedAttribute = (markup: string) => {
   return undefined
 }
 
+type ParsedNode = ReturnType<typeof parseHtml>[number]
+
+const elementsIn = (nodes: ParsedNode[]): ParsedNode[] =>
+  nodes.flatMap((node) =>
+    node.type === "element" ? [node, ...elementsIn(node.children)] : [],
+  )
+
+const callerClassPlaces = (markup: string, callerClass: string) =>
+  elementsIn(parseHtml(markup)).flatMap((node) => {
+    const tokens: string[] =
+      node.attrs
+        .find((attr: { name: string }) => attr.name === "class")
+        ?.value.split(/[\t\n\f\r ]+/)
+        .filter(Boolean) ?? []
+    return tokens.includes(callerClass)
+      ? [tokens.at(-1) === callerClass ? "last" : "before another class"]
+      : []
+  })
+
+const CALLER_CLASS_RULE =
+  "the caller's class comes last in every framework, as in Astro: in Vue it is an attribute, which falls through after the root's own classes, or which a root that doesn't inherit attributes reads as $attrs.class at the end of its class list"
+
 const BEFORE_SPREAD_RULE =
   "Astro prints an attribute an element writes before {...rest} and then the caller's, and the browser keeps the first, while React, Svelte and Vue render the caller's: where the caller may replace the value, destructure the attribute and fall back with ?? (role={role ?? \"list\"}); where the component's value must stay, leave the attribute out of the types, so no caller passes it, as CheckboxInput does for type"
 
@@ -537,6 +559,15 @@ describe("every component renders the same in Astro, React, Solid, Svelte and Vu
       const actual = known
         ? withoutAttribute(rendered, known.attribute)
         : rendered
+      const callerClass = entry.props.class
+      if (typeof callerClass === "string") {
+        expect
+          .soft(
+            callerClassPlaces(actual, callerClass),
+            `${entry.component} with ${entry.name}: ${framework} places the class differently from Astro: ${CALLER_CLASS_RULE}`,
+          )
+          .toEqual(callerClassPlaces(expected, callerClass))
+      }
       expect
         .soft(
           emptyAttribute(actual),
@@ -564,6 +595,15 @@ describe("every component renders the same in Astro, React, Solid, Svelte and Vu
         )
         .toBe(reference)
     }
+  })
+
+  test("a sample the check must flag: the caller's class before the component's", () => {
+    expect(
+      callerClassPlaces(
+        '<div class="ui-card class"><p class="class ui-content"></p></div>',
+        "class",
+      ),
+    ).toEqual(["last", "before another class"])
   })
 
   test("a sample the check must flag: an empty class or style attribute", () => {

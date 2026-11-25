@@ -66,7 +66,7 @@ const target = computed({
     :class="[
       'ui-toggle-button',
       size && size !== 'medium' && `ui-${size}`,
-      $props.class,
+      $attrs.class,
     ]"
     v-bind="styleAttrs($attrs.style)"
   >

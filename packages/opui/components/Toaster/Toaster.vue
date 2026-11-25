@@ -15,7 +15,6 @@ warnMissingId("Toaster", id)
       'ui-toaster',
       side && side !== 'block-end' && `ui-${side}`,
       align && align !== 'end' && `ui-align-${align}`,
-      $props.class,
     ]"
     :close-label="closeLabel"
     :duration="duration"

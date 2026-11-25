@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useAttrs } from "vue"
+import { useRestAttrs } from "../vue"
 import { defined } from "../attrs"
 import { classAttrs } from "../cx"
 import type { TableHeaderCellProps as Props, Slots } from "./types.vue-props"
@@ -11,7 +11,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs()
+const attrs = useRestAttrs()
 </script>
 
 <template>
@@ -19,7 +19,7 @@ const attrs = useAttrs()
     :data-sort="sortable ? '' : undefined"
     v-bind="{
       ...defined(attrs),
-      ...classAttrs([{ 'ui-numeric': numeric }, $props.class]),
+      ...classAttrs([{ 'ui-numeric': numeric }, $attrs.class]),
     }"
   >
     <button v-if="sortable" type="button">

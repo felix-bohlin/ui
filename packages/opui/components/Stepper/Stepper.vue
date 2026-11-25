@@ -20,7 +20,6 @@ defineSlots<Slots>()
       'ui-stepper',
       orientation && orientation !== 'auto' && `ui-${orientation}`,
       size && size !== 'medium' && `ui-${size}`,
-      $props.class,
     ]"
   >
     <StepperItem

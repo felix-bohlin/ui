@@ -1,0 +1,129 @@
+@layer openprops, theme, normalize, components.prose, components.root, components.extended, components.compat, utils;
+@layer theme.palette, theme.base, theme.custom, theme.severity;
+
+@layer theme.custom {
+  :where(html, .ui-palette, .ui-contrast-more) {
+    --ui-backdrop-bg-color: light-dark(
+      oklch(from var(--ui-palette-source) 0.3 0.08 calc(h - 35) / 45%),
+      oklch(from var(--ui-palette-source) 0.12 0.05 calc(h - 35) / 65%)
+    );
+    --ui-backdrop-blur: 6px;
+    --ui-border-color: light-dark(
+      oklch(from var(--ui-palette-source) 0.86 0.035 calc(h - 15)),
+      oklch(from var(--ui-palette-source) 0.4 0.06 calc(h - 35))
+    );
+    --ui-button-accent-filled: light-dark(
+      oklch(from var(--ui-palette-source) 0.84 0.09 calc(h + 85)),
+      oklch(from var(--ui-palette-source) 0.88 0.07 calc(h + 95))
+    );
+    --ui-button-on-accent-filled: oklch(
+      from var(--ui-palette-source) 0.24 0.05 calc(h - 35)
+    );
+    --ui-button-radius: var(--ui-radius-round);
+    --ui-chip-radius: var(--ui-radius-round);
+    --ui-dialog-radius: 1.25rem;
+    --ui-field-radius: 0.75rem;
+    --ui-focus-ring-color: var(--ui-primary);
+    --ui-font-body:
+      Figtree, "DM Sans", Avenir, Montserrat, Corbel, URW Gothic,
+      source-sans-pro, sans-serif;
+    --ui-gray-chroma: 0.04;
+    --ui-gray-hue: 295;
+    --ui-menu-radius: 0.75rem;
+    --ui-palette-source: oklch(0.62 0.15 335);
+    --ui-primary-source: light-dark(
+      oklch(from var(--ui-palette-source) 0.52 0.17 calc(h + 10)),
+      oklch(from var(--ui-palette-source) 0.86 0.07 calc(h + 20))
+    );
+    --ui-radius: 1rem;
+    --ui-radius-small: 0.5rem;
+    --ui-radius-x-small: 0.25rem;
+    --ui-shadow-color: light-dark(
+      oklch(from var(--ui-palette-source) 0.55 0.2 calc(h + 5) / 6%),
+      oklch(from var(--ui-palette-source) 0.08 0.04 calc(h - 35) / 45%)
+    );
+    --ui-surface: light-dark(
+      oklch(from var(--ui-palette-source) 0.975 0.012 calc(h - 5)),
+      oklch(from var(--ui-palette-source) 0.2 0.035 calc(h - 47))
+    );
+    --ui-surface-elevated: light-dark(
+      oklch(1 0 0),
+      oklch(from var(--ui-palette-source) 0.255 0.045 calc(h - 43))
+    );
+    --ui-surface-elevated-image: linear-gradient(
+      in oklab,
+      light-dark(
+        oklch(from var(--ui-palette-source) 0.955 0.03 calc(h + 5)),
+        oklch(from var(--ui-palette-source) 0.38 0.08 calc(h + 5))
+      ),
+      transparent
+    );
+    --ui-surface-filled: light-dark(
+      oklch(from var(--ui-palette-source) 0.92 0.035 calc(h - 25)),
+      oklch(from var(--ui-palette-source) 0.3 0.05 calc(h - 40))
+    );
+    --ui-surface-image:
+      radial-gradient(
+        48rem 30rem at 85% 0,
+        light-dark(
+          oklch(from var(--ui-palette-source) 0.95 0.05 calc(h + 80) / 80%),
+          oklch(from var(--ui-palette-source) 0.42 0.12 calc(h + 15) / 40%)
+        ),
+        transparent
+      ),
+      radial-gradient(
+        64rem 36rem at 30% -8rem,
+        light-dark(
+          transparent,
+          oklch(from var(--ui-palette-source) 0.36 0.1 calc(h - 20) / 75%)
+        ),
+        transparent
+      ),
+      linear-gradient(
+        in oklab,
+        light-dark(
+          oklch(from var(--ui-palette-source) 0.9 0.06 calc(h - 30)),
+          transparent
+        ),
+        light-dark(
+            oklch(from var(--ui-palette-source) 0.93 0.05 calc(h + 15)),
+            transparent
+          )
+          16rem,
+        transparent 40rem
+      );
+    --ui-surface-tonal: light-dark(
+      oklch(from var(--ui-palette-source) 0.935 0.03 calc(h - 15)),
+      oklch(from var(--ui-palette-source) 0.32 0.055 calc(h - 42))
+    );
+    --ui-text-strong: light-dark(
+      oklch(from var(--ui-palette-source) 0.24 0.07 calc(h - 35)),
+      oklch(from var(--ui-palette-source) 0.96 0.02 calc(h - 25))
+    );
+    --ui-text-subtle: light-dark(
+      oklch(from var(--ui-palette-source) 0.44 0.06 calc(h - 30)),
+      oklch(from var(--ui-palette-source) 0.76 0.04 calc(h - 35))
+    );
+  }
+
+  @media (prefers-contrast: more) {
+    :where(
+      html:not(.ui-contrast-normal),
+      html:not(.ui-contrast-normal) .ui-palette
+    ) {
+      --ui-border-color: revert-layer;
+      --ui-focus-ring-color: revert-layer;
+      --ui-surface-elevated-image: revert-layer;
+      --ui-surface-image: revert-layer;
+      --ui-text-subtle: revert-layer;
+    }
+  }
+
+  :where(.ui-contrast-more, .ui-contrast-more .ui-palette) {
+    --ui-border-color: revert-layer;
+    --ui-focus-ring-color: revert-layer;
+    --ui-surface-elevated-image: revert-layer;
+    --ui-surface-image: revert-layer;
+    --ui-text-subtle: revert-layer;
+  }
+}

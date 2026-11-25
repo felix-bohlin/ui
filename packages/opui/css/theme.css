@@ -597,6 +597,8 @@
       oklch(from var(--ui-surface-tonal) calc(l * 0.93) c h),
       oklch(from var(--ui-surface-tonal) calc(l * 1.1) c h)
     );
+    /* --ui-surface-image: none; */
+    /* --ui-surface-elevated-image: none; */
 
     /* Borders */
     --ui-border-color: light-dark(

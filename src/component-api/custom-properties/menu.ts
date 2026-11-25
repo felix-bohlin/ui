@@ -5,6 +5,11 @@ export default {
     description: "The background. Defaults to `--ui-surface-elevated`.",
     kind: "input",
   },
+  "--_bg-image": {
+    description:
+      "The image over the background, such as a gradient. Defaults to `--ui-surface-elevated-image`, `none` unless a theme sets it.",
+    kind: "input",
+  },
   "--_border-color": {
     description:
       "The edge color. `--ui-border-color-raised` when a theme sets it, otherwise `--ui-border-color-on-raised`.",

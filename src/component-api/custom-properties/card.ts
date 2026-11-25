@@ -20,6 +20,11 @@ export default {
     description: "The current background. Set by the variants.",
     kind: "output",
   },
+  "--_bg-image": {
+    description:
+      "The image over the background. `none`, or `--ui-surface-elevated-image` in `.ui-elevated` when a theme sets it.",
+    kind: "output",
+  },
   "--_border-color": {
     description:
       "The current border color. Set by the variants (`--ui-border-color-raised` in `.ui-tonal` and `.ui-elevated` when a theme sets it) and by hovering `.ui-card-link`.",

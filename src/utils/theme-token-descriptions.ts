@@ -483,8 +483,12 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-surface": "Page and card background.",
   "--ui-surface-elevated":
     "Background of elevated cards and accordions, dialogs, drawers, menus and native select options.",
+  "--ui-surface-elevated-image":
+    "An image, such as a gradient, painted over `--ui-surface-elevated` on elevated cards and accordions, dialogs, drawers, menus and the select picker. `none` when unset. Contrast checks measure text against `--ui-surface-elevated`, so keep the image close to it.",
   "--ui-surface-filled":
     "Background of filled areas: lists, `.ui-filled` progress and range tracks, table headers and footers, and hovered table rows.",
+  "--ui-surface-image":
+    "An image, such as a gradient, painted over `--ui-surface` on the page (`html`). `none` when unset. It spans the whole page and scrolls with it, so give gradient stops a length to keep a glow at the top. Contrast checks measure text against `--ui-surface`, so keep the image close to it.",
   "--ui-surface-inverse":
     "Background of `Tooltip`, the `Carousel` buttons and `kbd`, `var`, `.ui-kbd` and `.ui-var`, inverted against the page.",
   "--ui-surface-tonal": "Background of tonal variants.",

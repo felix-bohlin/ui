@@ -1,6 +1,7 @@
 export const blockCategories = [
   { id: "application", label: "Application" },
   { id: "authentication", label: "Authentication" },
+  { id: "content", label: "Content" },
   { id: "dashboards", label: "Dashboards" },
   { id: "data", label: "Data display" },
   { id: "e-commerce", label: "E-commerce" },
@@ -44,6 +45,13 @@ export const blocks: Block[] = [
     slug: "app-shell",
   },
   {
+    category: "content",
+    description:
+      "A magazine article with a breadcrumb, byline, cover photo, a sticky table of contents, rich text, tags and an author card.",
+    name: "Article",
+    slug: "article",
+  },
+  {
     category: "settings",
     description:
       "The current plan, usage against its limits, the payment method and past invoices.",
@@ -56,6 +64,20 @@ export const blocks: Block[] = [
       "A featured post followed by a grid of post cards with tags, authors and reading time.",
     name: "Blog list",
     slug: "blog-list",
+  },
+  {
+    category: "marketing",
+    description:
+      "A bold banner with one call to action, and a split section with an inline email sign-up.",
+    name: "Call to action",
+    slug: "call-to-action",
+  },
+  {
+    category: "marketing",
+    description:
+      "A centered headline with a soft glow, two calls to action, member avatars and a row of band names.",
+    name: "Centered hero",
+    slug: "centered-hero",
   },
   {
     category: "marketing",
@@ -84,6 +106,27 @@ export const blocks: Block[] = [
       "Contact, shipping and payment details next to an order summary.",
     name: "Checkout",
     slug: "checkout",
+  },
+  {
+    category: "marketing",
+    description:
+      "A headline and pitch next to an overlapping photo collage with a floating stat card.",
+    name: "Collage hero",
+    slug: "collage-hero",
+  },
+  {
+    category: "content",
+    description:
+      "Ways to get in touch and opening hours, next to a contact form with a topic and a consent box.",
+    name: "Contact",
+    slug: "contact",
+  },
+  {
+    category: "marketing",
+    description:
+      "A full-bleed photo with a dark scrim, a headline, calls to action and quick facts on top.",
+    name: "Cover hero",
+    slug: "cover-hero",
   },
   {
     category: "data",
@@ -296,11 +339,32 @@ export const blocks: Block[] = [
     slug: "sign-up",
   },
   {
+    category: "content",
+    description:
+      "A site footer with a newsletter field, columns of links, legal links and a language picker.",
+    name: "Site footer",
+    slug: "site-footer",
+  },
+  {
+    category: "content",
+    description:
+      "A site header with a logo, navigation with a dropdown menu and calls to action, collapsing into a drawer on small screens.",
+    name: "Site header",
+    slug: "site-header",
+  },
+  {
     category: "settings",
     description:
       "An invite form and a member list with roles, statuses and actions.",
     name: "Team members",
     slug: "team-members",
+  },
+  {
+    category: "content",
+    description:
+      "Alternating rows of photo and text, image left then image right, each with a tag, a title and a link.",
+    name: "Teasers",
+    slug: "teasers",
   },
   {
     category: "marketing",

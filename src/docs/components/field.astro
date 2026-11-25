@@ -240,13 +240,14 @@ export const skillExamples = ["Basics", "Ids"]
       <Fragment slot="components">
         Each part gets an id from <code>for</code>, like <code>x-end-text</code
         >. List the parts in the control's <code>aria-describedby</code> in the
-        order they're drawn, except parts with nothing to read.
+        order they're drawn, except parts with nothing to read. Set it on your
+        control, not on the Field.
       </Fragment>
       <Fragment slot="react">
         Each part gets an id from <code>htmlFor</code>, like
         <code>x-end-text</code>. List the parts in the control's
         <code>aria-describedby</code> in the order they're drawn, except parts
-        with nothing to read.
+        with nothing to read. Set it on your control, not on the Field.
       </Fragment>
       <Fragment slot="html">
         Give each part an id that starts with the control's, like
@@ -255,7 +256,17 @@ export const skillExamples = ["Basics", "Ids"]
         with nothing to read.
       </Fragment>
     </Conditional>
-    <p><code>npx opui-css check</code> finds fields that don't follow this.</p>
+    <p>
+      A part that only holds buttons, an output or hidden content has nothing to
+      read. Keep the list in step with parts that come and go, like an end text
+      that only shows an error.
+    </p>
+    <p>
+      <code>npx opui-css check</code> finds fields that don't follow this in
+      HTML files, and <code>checkHtml</code> from <code>opui-css/check</code> in
+      the HTML of a page, such as <code>await page.content()</code> in an
+      end-to-end test after a failed submit.
+    </p>
   </section>
 
   <section id="validation">

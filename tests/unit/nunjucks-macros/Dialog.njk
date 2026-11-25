@@ -1,5 +1,5 @@
 {% macro Dialog(props = {}) %}
-  {%- set rest = props | opuiOmit(["class", "closedby", "slots"]) -%}
+  {%- set rest = props | opuiRest("Dialog") -%}
   {%- set titleId = (rest.id or opui.id("dialog")) ~ "-title" -%}
   {%- set labelledBy = opui.autoLabelledBy(rest, titleId) -%}
   {%- set dialog = { id: rest.id or undefined, titleId: labelledBy } -%}

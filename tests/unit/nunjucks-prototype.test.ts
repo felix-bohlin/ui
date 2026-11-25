@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs"
 import { spreadAttributes } from "astro/runtime/server/index.js"
-import { afterAll, beforeAll, describe, expect, test } from "vitest"
+import { afterAll, beforeAll, describe, expect, test, vi } from "vitest"
 import { createRenderer } from "../../scripts/build-examples.mjs"
 import { nunjucksExpression } from "../../scripts/component-nunjucks-expression.mjs"
 import { readComponent } from "../../scripts/component-reader.mjs"
@@ -9,7 +9,7 @@ import {
   compileNunjucks,
   componentFiles,
   nunjucksCensus,
-  nunjucksTemplates,
+  nunjucksBuild,
 } from "../../scripts/component-nunjucks.mjs"
 import {
   createEnvironment,
@@ -43,20 +43,21 @@ const CASES = Object.values(apis)
   .toSorted((a, b) => a.component.localeCompare(b.component, "en"))
 
 let templates: Record<string, string>
+let components: Record<string, unknown>
 let renderer: Awaited<ReturnType<typeof createRenderer>>
 
 beforeAll(async () => {
-  templates = await nunjucksTemplates(census.compiled)
+  ;({ components, templates } = await nunjucksBuild(census.compiled))
   renderer = await createRenderer()
 }, 60_000)
 
 afterAll(() => renderer?.close())
 
 const renderNunjucks = (source: string, context = {}) =>
-  createEnvironment(templates, { id: createIdGenerator() }).renderString(
-    source,
-    context,
-  )
+  createEnvironment(templates, {
+    components,
+    id: createIdGenerator(),
+  }).renderString(source, context)
 
 const renderAstro = (name: string, source: string, props = {}) =>
   renderer.renderSource(`tests/unit/.nunjucks/${name}.astro`, source, {
@@ -104,7 +105,7 @@ const nunjucksCase = ({ component, props, slots }: Case, template = "") => {
   if (template) {
     return createEnvironment(
       { ...templates, [`opui/${component}.njk`]: template },
-      { id: createIdGenerator() },
+      { components, id: createIdGenerator() },
     ).renderString(
       `{% from "opui/${component}.njk" import ${component} %}${source}`,
       context,
@@ -541,5 +542,90 @@ describe("the macros", () => {
       missing.push(...unregistered(imports).map((name) => `${file}: ${name}`))
     }
     expect(missing).toEqual([])
+  })
+})
+
+describe("the macro library", () => {
+  test("every macro is named after its component, and the index exports them all", () => {
+    for (const name of COMPILED) {
+      expect(templates[`opui/${name}.njk`]).toContain(
+        `{% macro ${name}(props = {}) %}`,
+      )
+    }
+    const names = Object.keys(templates)
+      .filter((key) => key !== "opui/index.njk")
+      .map((key) => key.slice(5, -4))
+      .toSorted()
+    expect(names).toEqual(COMPILED.toSorted())
+    expect(
+      renderNunjucks(
+        `{% import "opui/index.njk" as ui %}{% for name in names %}{{ "" if ui[name] else name }}{% endfor %}`,
+        { names },
+      ),
+    ).toBe("")
+    expect(
+      renderNunjucks(
+        `{% import "opui/index.njk" as ui %}{% call ui.Button({ variant: "filled" }) %}Save{% endcall %}`,
+      ),
+    ).toBe(
+      renderNunjucks(
+        `{% from "opui/Button.njk" import Button %}{% call Button({ variant: "filled" }) %}Save{% endcall %}`,
+      ),
+    )
+  })
+
+  test("an unknown prop or slot warns in development, and no contract case does", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {})
+    try {
+      for (const entry of [...CASES, ...UNDEFINED_CASES]) nunjucksCase(entry)
+      for (const composition of COMPOSITIONS) {
+        renderNunjucks(
+          `${[
+            ...new Set(
+              [...composition.astro.matchAll(/<([A-Z]\w*)/g)].map(
+                ([, tag]) => tag,
+              ),
+            ),
+          ]
+            .filter((tag) => tag !== "Fragment")
+            .map((tag) => `{% from "opui/${tag}.njk" import ${tag} %}`)
+            .join("")}${composition.nunjucks}`,
+        )
+      }
+      const unknown = (calls: unknown[][]) =>
+        calls
+          .map(([message]) => String(message))
+          .filter((message) => /Unknown (prop|slot)/.test(message))
+      expect(unknown(warn.mock.calls)).toEqual([])
+      renderNunjucks(
+        `{% from "opui/Button.njk" import Button %}{% call Button({ lable: "Save", slots: { icon: "+" } }) %}Save{% endcall %}`,
+      )
+      expect(unknown(warn.mock.calls)).toEqual([
+        expect.stringContaining('[OPUI Button] Unknown prop "lable"'),
+        expect.stringContaining('[OPUI Button] Unknown slot "icon"'),
+      ])
+    } finally {
+      warn.mockRestore()
+    }
+  })
+
+  test.each([
+    ["a boolean", false],
+    ["true", true],
+    ["null", null],
+    ["zero", 0],
+    ["a number", 2.5],
+    ["NaN", Number.NaN],
+    ["a list", ["a", 1, false, "<b>"]],
+    ["a string with markup", "<b>&"],
+  ])("opuiText prints %s as Astro does", async (_, value) => {
+    const expected = await renderAstro(
+      "opui-text",
+      "---\nconst { props } = Astro.props\n---\n\n<p>{props.value}</p>\n",
+      { value },
+    )
+    expect(renderNunjucks("<p>{{ value | opuiText }}</p>", { value })).toBe(
+      expected,
+    )
   })
 })

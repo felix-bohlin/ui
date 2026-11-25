@@ -1,6 +1,9 @@
 {% macro Button(props = {}) %}
-  {%- set rest = props | opuiOmit(["as", "class", "color", "disabled", "href", "round", "size", "variant", "slots"]) -%}
-  {%- set tag = "a" if opui.disabledLink(props.as, props.disabled) else props.as or ("a" if props.href else "button") -%}
+  {%- set rest = props | opuiRest("Button") -%}
+  {%- set tag = "a"
+    if opui.disabledLink(props.as, props.disabled)
+    else props.as
+    or ("a" if props.href else "button") -%}
   {%- set classes = [
     "ui-button",
     { "ui-round": props.round },

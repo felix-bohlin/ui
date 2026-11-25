@@ -1,5 +1,6 @@
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
+import { inResult } from "./component-nunjucks-facts.mjs"
 import { sourceFileOf, unsupported, unwrap } from "./component-shared.mjs"
 
 export const COMPILER = "scripts/component-nunjucks.mjs"
@@ -196,7 +197,11 @@ const translate = (root, scope, sourceFile) => {
     if (scope.props?.has(name)) {
       return primary(`props${nunjucksName(scope.props.get(name))}`)
     }
-    if (name === "undefined") return primary("undefined")
+    if (name === "undefined") {
+      return primary(
+        scope.undefinedAs === "none" && inResult(node) ? "none" : "undefined",
+      )
+    }
     if (scope.helpers?.has(name)) return primary(`opui.${name}`)
     if (scope.imports?.has(name)) {
       throw unsupported(
@@ -541,7 +546,13 @@ export const isNonNull = (code, scope) => {
     ) {
       return true
     }
-    if (ts.isIdentifier(inner)) return !!scope.nonNull?.has(inner.text)
+    if (ts.isIdentifier(inner)) {
+      return (
+        !!scope.nonNull?.has(inner.text) ||
+        (!!scope.guarded?.has(inner.text) &&
+          !!scope.facts?.has(scope.guarded.get(inner.text)))
+      )
+    }
     if (ts.isConditionalExpression(inner)) {
       return check(inner.whenTrue) && check(inner.whenFalse)
     }

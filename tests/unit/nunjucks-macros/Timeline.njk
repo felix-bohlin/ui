@@ -1,7 +1,7 @@
 {% from "opui/TimelineItem.njk" import TimelineItem %}
 
 {% macro Timeline(props = {}) %}
-  {%- set rest = props | opuiOmit(["class", "items", "size", "tracked", "slots"]) -%}
+  {%- set rest = props | opuiRest("Timeline") -%}
   <ol
     class="ui-timeline
       {%- if props.tracked %} ui-tracked{% endif %}

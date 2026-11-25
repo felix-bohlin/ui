@@ -4341,6 +4341,7 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - C: Remove the prototype: the three modules, the BC701 to BC705 codes, the test, the snapshots and the `nunjucks` dependency. Keep the Rating and Reactions helpers, which the ports use.
   - Note: a named slot passed to an inner component (BC704) and a context provided around a named slot (BC703) are still refused; no component needs either today.
   - Note: Nunjucks has had no release since 3.2.4 in April 2023.
+  - Note: the review's remaining points are settled: prop types from the TypeScript checker, facts that drop guards and `undefined` only where they change nothing, a layout that breaks lines only where whitespace is free, `opuiRest` with development warnings for unknown props and slots, and `opui/index.njk`; a shared `tagOf` helper was dropped, since React's `static-components` lint rule refuses a component a helper call returns during render. `docs/plans/nunjucks.md` is the handoff for the docs work.
 - [ ] (2) Web components: a color picker needs a script, and `<input type="color">` only gives hex, which the library's colors never use. The Theme builder has a light-DOM `<oklch-input>` for it, but it lives in the docs site and isn't form-associated (`src/utils/oklch-input.ts:83`, `src/utils/oklch-input.ts:297-299`)
   - Summary: There is no OKLCH color field, and the native color input only gives hex values.
   - Recommended: Fix. The element already exists on the docs site and mostly needs to move into the package.

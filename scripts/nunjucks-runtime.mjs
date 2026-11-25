@@ -1,14 +1,15 @@
+import { readdirSync } from "node:fs"
+import { join } from "node:path"
+import { fileURLToPath, pathToFileURL } from "node:url"
 import nunjucks from "nunjucks"
-import * as attrs from "../packages/opui/components/attrs.ts"
-import * as cx from "../packages/opui/components/cx.ts"
-import * as dev from "../packages/opui/components/dev.ts"
-import * as id from "../packages/opui/components/id.ts"
-import * as style from "../packages/opui/components/style.ts"
-import * as tag from "../packages/opui/components/tag.ts"
-import * as selection from "../packages/opui/components/ToggleGroup/selection.ts"
-import * as whitespace from "../packages/opui/components/whitespace.ts"
+import { cx } from "../packages/opui/components/cx.ts"
+import { trimEdges } from "../packages/opui/components/whitespace.ts"
 
 const { markSafe, SafeString } = nunjucks.runtime
+
+const componentsDir = fileURLToPath(
+  new URL("../packages/opui/components/", import.meta.url),
+)
 
 const UNREGISTERED = new Set([
   "checkedValues",
@@ -17,6 +18,18 @@ const UNREGISTERED = new Set([
   "resetWarnings",
   "selectionOf",
 ])
+
+export const helperModules = () =>
+  readdirSync(componentsDir, { recursive: true })
+    .map((file) => file.split("\\").join("/"))
+    .filter(
+      (file) =>
+        /(^|\/)[a-z][\w-]*\.ts$/.test(file) &&
+        !/(^|\/)(context|types)\b/.test(file) &&
+        !/(^|\/)(react|solid|svelte|vue)\.ts$/.test(file) &&
+        !/\.(react|solid|svelte|vue)\.ts$/.test(file),
+    )
+    .toSorted()
 
 const helpersOf = (modules) => {
   const entries = modules.flatMap((module) =>
@@ -34,16 +47,13 @@ const helpersOf = (modules) => {
   return Object.fromEntries(entries.toSorted(([a], [b]) => (a < b ? -1 : 1)))
 }
 
-export const HELPERS = helpersOf([
-  attrs,
-  cx,
-  dev,
-  id,
-  selection,
-  style,
-  tag,
-  whitespace,
-])
+export const HELPERS = helpersOf(
+  await Promise.all(
+    helperModules().map(
+      (file) => import(pathToFileURL(join(componentsDir, file)).href),
+    ),
+  ),
+)
 
 const BOOLEAN_ATTRIBUTES =
   /^(?:allowfullscreen|async|autofocus|autoplay|checked|controls|default|defer|disabled|disablepictureinpicture|disableremoteplayback|formnovalidate|inert|loop|muted|nomodule|novalidate|open|playsinline|readonly|required|reversed|scoped|seamless|selected|itemscope)$/i
@@ -140,23 +150,36 @@ const attributesOf = (part, tagName) =>
         .join("")
     : ""
 
-const content = (value) => {
-  const rendered = typeof value === "function" ? value() : value
-  if (rendered == null || String(rendered) === "") return ""
-  return rendered instanceof SafeString ? rendered : markSafe(String(rendered))
+export const FILTERS = {
+  opuiAttributes: (value, tagName) =>
+    markSafe(attributesOf(value, tagName ? elementName(tagName) : "")),
+  opuiClass: (value) => cx([value]),
+  opuiOmit: (value, names) =>
+    Object.fromEntries(
+      Object.entries(value ?? {}).filter(([name]) => !names.includes(name)),
+    ),
+  opuiTag: elementName,
+  opuiTrim: (value) => {
+    const trimmed = trimEdges(String(value ?? ""))
+    return trimmed ? markSafe(trimmed) : ""
+  },
 }
 
-export const createRuntime = ({ id: idOf = id.createId({}) } = {}) => {
+const counter = () => {
+  const counts = new Map()
+  return (prefix) => {
+    const count = (counts.get(prefix) ?? 0) + 1
+    counts.set(prefix, count)
+    return `${prefix}-${count}`
+  }
+}
+
+export const createRuntime = ({ id = counter() } = {}) => {
   let store = new Map()
   return {
     ...HELPERS,
-    attrs: (...parts) =>
-      markSafe(parts.map((part) => attributesOf(part, "")).join("")),
     context: (key) => store.get(key),
-    elementAttrs: (tagName, part) =>
-      markSafe(attributesOf(part, elementName(tagName))),
-    has: (props, key) => props?.slots?.[key] != null,
-    id: (prefix) => idOf(prefix),
+    id,
     merge: (...parts) => Object.assign({}, ...parts),
     provide: (key, value, render) => {
       if (typeof render !== "function") return ""
@@ -169,19 +192,6 @@ export const createRuntime = ({ id: idOf = id.createId({}) } = {}) => {
         store = previous
       }
     },
-    rest: (props, names) =>
-      Object.fromEntries(
-        Object.entries(props ?? {}).filter(
-          ([name]) => name !== "slots" && !names.includes(name),
-        ),
-      ),
-    slot: (props, key) => content(props?.slots?.[key]),
-    tag: elementName,
-    trimEdges: (value) => {
-      const trimmed = whitespace.trimEdges(String(value ?? ""))
-      return trimmed ? markSafe(trimmed) : ""
-    },
-    undefined,
   }
 }
 
@@ -193,6 +203,9 @@ export const configure = (env, options = {}) => {
     )
   }
   env.addGlobal("opui", createRuntime(options))
+  for (const [name, filter] of Object.entries(FILTERS)) {
+    env.addFilter(name, filter)
+  }
   return env
 }
 

@@ -1,8 +1,10 @@
+import { readFileSync } from "node:fs"
 import { spreadAttributes } from "astro/runtime/server/index.js"
 import { afterAll, beforeAll, describe, expect, test } from "vitest"
 import { createRenderer } from "../../scripts/build-examples.mjs"
-import { DIAGNOSTICS } from "../../scripts/component-diagnostics.mjs"
 import { nunjucksExpression } from "../../scripts/component-nunjucks-expression.mjs"
+import { readComponent } from "../../scripts/component-reader.mjs"
+import { formatCode } from "../../scripts/format.mjs"
 import {
   compileNunjucks,
   componentFiles,
@@ -11,7 +13,7 @@ import {
 } from "../../scripts/component-nunjucks.mjs"
 import {
   createEnvironment,
-  createRuntime,
+  FILTERS,
   HELPERS,
 } from "../../scripts/nunjucks-runtime.mjs"
 import { slotProp } from "../../src/component-api/frameworks"
@@ -186,27 +188,95 @@ const COMPOSITIONS = [
     name: "Field with named slots",
     nunjucks: `{% set start %}<b>@</b>{% endset %}{% set label %} <i>Work</i> {% endset %}{% call Field({ for: "email", label: "Email", slots: { start: start, label: label } }) %}<input id="email">{% endcall %}`,
   },
+  {
+    astro: `<Rating label="Quality" name="quality" value={3} />`,
+    name: "Rating with a name and a value",
+    nunjucks: `{{ Rating({ label: "Quality", name: "quality", value: 3 }) }}`,
+  },
+  {
+    astro: `<Rating label="Quality" max="3" name="quality" required value="2" />`,
+    name: "Rating that is required, with string numbers",
+    nunjucks: `{{ Rating({ label: "Quality", max: "3", name: "quality", required: true, value: "2" }) }}`,
+  },
+  {
+    astro: `<Rating label="Quality" value={4} /><Rating label="Unrated" max="many" />`,
+    name: "Rating as a meter",
+    nunjucks: `{{ Rating({ label: "Quality", value: 4 }) }}{{ Rating({ label: "Unrated", max: "many" }) }}`,
+  },
+  {
+    astro: `<Reactions aria-label="Reactions" items={[{ "aria-label": "Thumbs up", checked: true, label: "Up", value: "up" }, { "aria-label": "Heart", label: "Heart", value: "heart" }]} quick={{ "aria-label": "Thumbs up", label: "Up", value: "up" }} />`,
+    name: "Reactions with a quick reaction among the items",
+    nunjucks: `{{ Reactions({ "aria-label": "Reactions", items: [{ "aria-label": "Thumbs up", checked: true, label: "Up", value: "up" }, { "aria-label": "Heart", label: "Heart", value: "heart" }], quick: { "aria-label": "Thumbs up", label: "Up", value: "up" } }) }}`,
+  },
+  {
+    astro: `<Reactions aria-labelledby="reactions" items={[{ "aria-label": "Heart", label: "Heart", value: "heart" }]} name="post" quick={{ "aria-label": "Party", label: "Party", value: "party" }}><p id="reactions">React</p></Reactions>`,
+    name: "Reactions with a new quick reaction",
+    nunjucks: `{% call Reactions({ "aria-labelledby": "reactions", items: [{ "aria-label": "Heart", label: "Heart", value: "heart" }], name: "post", quick: { "aria-label": "Party", label: "Party", value: "party" } }) %}<p id="reactions">React</p>{% endcall %}`,
+  },
+  {
+    astro: `<Stepper current={1} items={[{ label: "Cart", state: "complete" }, { description: "Address and method", label: "Shipping" }, { href: "/pay", label: "Pay", state: "error" }]} />`,
+    name: "Stepper with items",
+    nunjucks: `{{ Stepper({ current: 1, items: [{ label: "Cart", state: "complete" }, { description: "Address and method", label: "Shipping" }, { href: "/pay", label: "Pay", state: "error" }] }) }}`,
+  },
+  {
+    astro: `<Timeline items={[{ description: "Paid by card", label: "Ordered", time: "Monday" }, { current: true, label: "Shipped" }]} tracked />`,
+    name: "Timeline with items",
+    nunjucks: `{{ Timeline({ items: [{ description: "Paid by card", label: "Ordered", time: "Monday" }, { current: true, label: "Shipped" }], tracked: true }) }}`,
+  },
+  {
+    astro: `<FileUpload description="Up to 5 MB" items={[{ label: "beach.png", state: "complete", value: "a" }, { label: "dunes.png", progress: 40, state: "uploading", value: "b" }, { label: "pier.png", state: "queued", value: "c" }, { description: "Too large", label: "map.png", state: "error", value: "d" }]} label="Add photos" multiple />`,
+    name: "FileUpload with an item in each state",
+    nunjucks: `{{ FileUpload({ description: "Up to 5 MB", items: [{ label: "beach.png", state: "complete", value: "a" }, { label: "dunes.png", progress: 40, state: "uploading", value: "b" }, { label: "pier.png", state: "queued", value: "c" }, { description: "Too large", label: "map.png", state: "error", value: "d" }], label: "Add photos", multiple: true }) }}`,
+  },
+  {
+    astro: `<Menu id="actions" items={[{ label: "Edit", shortcut: "E" }, { href: "/open", label: "Open" }, { "data-action": "copy", keepOpen: true, label: "Copy" }, { borderTop: true, color: "critical", label: "Delete" }, { disabled: true, href: "/archive", label: "Archive" }]} />`,
+    name: "Menu with items",
+    nunjucks: `{{ Menu({ id: "actions", items: [{ label: "Edit", shortcut: "E" }, { href: "/open", label: "Open" }, { "data-action": "copy", keepOpen: true, label: "Copy" }, { borderTop: true, color: "critical", label: "Delete" }, { disabled: true, href: "/archive", label: "Archive" }] }) }}`,
+  },
+  {
+    astro: `<Badge color="critical" label="3 new"><button>Inbox</button><Fragment slot="indicator">3</Fragment></Badge><Badge dot label="Online"><span>Ada</span></Badge>`,
+    name: "Badge with an indicator and as a dot",
+    nunjucks: `{% set indicator %}3{% endset %}{% call Badge({ color: "critical", label: "3 new", slots: { indicator: indicator } }) %}<button>Inbox</button>{% endcall %}{% call Badge({ dot: true, label: "Online" }) %}<span>Ada</span>{% endcall %}`,
+  },
+  {
+    astro: `<Tooltip arrow id="save-tip">Saves the draft</Tooltip>`,
+    name: "Tooltip",
+    nunjucks: `{% call Tooltip({ arrow: true, id: "save-tip" }) %}Saves the draft{% endcall %}`,
+  },
+  {
+    astro: `<Callout closeButton closeLabel="Dismiss" severity="info"><p>Saved</p><Fragment slot="close-icon"><b>x</b></Fragment></Callout><Callout closeButton><p>Sent</p></Callout>`,
+    name: "Callout with a close button",
+    nunjucks: `{% set closeIcon %}<b>x</b>{% endset %}{% call Callout({ closeButton: true, closeLabel: "Dismiss", severity: "info", slots: { closeIcon: closeIcon } }) %}<p>Saved</p>{% endcall %}{% call Callout({ closeButton: true }) %}<p>Sent</p>{% endcall %}`,
+  },
+  {
+    astro: `<Dialog id="settings"><DialogHeader closeButton><DialogTitle>Settings</DialogTitle></DialogHeader></Dialog>`,
+    name: "Dialog with a closing header",
+    nunjucks: `{% call Dialog({ id: "settings" }) %}{% call DialogHeader({ closeButton: true }) %}{% call DialogTitle() %}Settings{% endcall %}{% endcall %}{% endcall %}`,
+  },
 ]
 
 describe("compositions render what Astro renders", () => {
   test.each(COMPOSITIONS)("$name", async ({ astro, name, nunjucks }) => {
-    const imports = TARGETS.map(
-      (target) => `import ${target} from "../../../${fileOf(target)}"`,
-    ).join("\n")
+    const used = [
+      ...new Set([...astro.matchAll(/<([A-Z]\w*)/g)].map(([, tag]) => tag)),
+    ].filter((tag) => tag !== "Fragment")
+    const imports = used
+      .map((target) => `import ${target} from "../../../${fileOf(target)}"`)
+      .join("\n")
     const expected = await renderAstro(
       `composition-${name.replace(/\W+/g, "-")}`,
       `---\n${imports}\n---\n\n${astro}\n`,
     )
-    const macros = TARGETS.map(
-      (target) => `{% from "opui/${target}.njk" import ${target} %}`,
-    ).join("")
+    const macros = used
+      .map((target) => `{% from "opui/${target}.njk" import ${target} %}`)
+      .join("")
     expect(normalize(renderNunjucks(`${macros}${nunjucks}`))).toBe(
       normalize(expected),
     )
   })
 })
 
-describe("opui.attrs writes what Astro writes", () => {
+describe("opuiAttributes writes what Astro writes", () => {
   const KEYS = [
     "class",
     "class:list",
@@ -233,16 +303,15 @@ describe("opui.attrs writes what Astro writes", () => {
     undefined,
     { "--x": "1", fontSize: "2px", gap: 3, margin: "" },
   ]
-  const runtime = createRuntime()
   const rows = KEYS.flatMap((key) => VALUES.map((value) => ({ key, value })))
 
   test.each(rows)("$key = $value", ({ key, value }) => {
     const part = { [key]: value }
-    expect(String(runtime.attrs(part))).toBe(
+    expect(String(FILTERS.opuiAttributes(part))).toBe(
       String(spreadAttributes({ ...part })),
     )
     for (const tag of ["div", "x-el"]) {
-      expect(String(runtime.elementAttrs(tag, part))).toBe(
+      expect(String(FILTERS.opuiAttributes(part, tag))).toBe(
         String(spreadAttributes({ ...part }, tag)),
       )
     }
@@ -250,15 +319,20 @@ describe("opui.attrs writes what Astro writes", () => {
 })
 
 describe("the expression translator", () => {
-  const LOCALS = ["a", "b", "c"]
+  const LOCALS = ["a", "b", "c", "index", "size"]
   const scope = {
     file: "Sample.astro",
     helpers: new Set(Object.keys(HELPERS)),
     locals: new Set(LOCALS),
+    numbers: new Set(["index"]),
+    strings: new Set(["size"]),
   }
   const EXPRESSIONS = [
     "!(a && b)",
     "!a",
+    "!a === b",
+    "(a ? b : c) || a",
+    "(a || b) && c",
     "-1",
     "[a, b]",
     "`${a}-${b}x`",
@@ -269,9 +343,16 @@ describe("the expression translator", () => {
     "a ? b : c",
     "a ? undefined : 'x'",
     "a + 1",
+    "a + b - c",
+    "a - (b + c)",
     "a == null",
     "a === b",
+    "a === null",
+    "a === undefined",
+    "a !== null",
+    "a !== undefined",
     "a ?? b",
+    "a || (b && c)",
     "a || b",
     "a?.b ?? c",
     "a?.length",
@@ -279,7 +360,11 @@ describe("the expression translator", () => {
     'cx(["x", { y: a }, b && `z-${b}`])',
     "null",
     "String(a)",
+    "index === 0",
+    "size !== 'medium'",
+    "size === 'medium' && `ui-${size}`",
     "undefined",
+    "{ ...a, x: b }",
     "{ x: a, 'y-z': { w: b } }",
   ]
   const VALUES = [
@@ -306,18 +391,22 @@ describe("the expression translator", () => {
     for (const a of VALUES) {
       for (const b of [undefined, "", "y", 0]) {
         for (const c of [null, "z"]) {
-          const expected = new Function(...LOCALS, "cx", `return (${code})`)(
-            a,
-            b,
-            c,
-            HELPERS.cx,
-          )
-          captured = Symbol("unset")
-          env.renderString(`{{ capture(${translated}) }}`, { a, b, c })
-          expect(
-            captured,
-            `${translated} with ${JSON.stringify({ a, b, c })}`,
-          ).toStrictEqual(expected)
+          for (const index of [0, 1]) {
+            for (const size of [undefined, "medium", "small"]) {
+              const values = { a, b, c, index, size }
+              const expected = new Function(
+                ...LOCALS,
+                "cx",
+                `return (${code})`,
+              )(a, b, c, index, size, HELPERS.cx)
+              captured = Symbol("unset")
+              env.renderString(`{{ capture(${translated}) }}`, values)
+              expect(
+                captured,
+                `${translated} with ${JSON.stringify(values)}`,
+              ).toStrictEqual(expected)
+            }
+          }
         }
       }
     }
@@ -325,7 +414,7 @@ describe("the expression translator", () => {
 
   test.each([
     ["a.map((x) => x)", "a function"],
-    ["{ ...a }", "an object spread"],
+    ["[...a]", "an array spread"],
     ["typeof a", "TypeOfExpression"],
     ["Math.max(a, b)", "the global Math"],
     ["(a || b) ?? c", "?? after an expression that isn't a name"],
@@ -363,8 +452,8 @@ describe("the emitter refuses what it can't write", () => {
     ],
     [
       "BC704",
-      `---\n${FRONTMATTER}import Button from "../Button/Button.astro"\nconst { ...rest } = Astro.props\n---\n\n<div {...rest}><Button>Save</Button></div>\n`,
-      "the component Button",
+      `---\n${FRONTMATTER}import Button from "../Button/Button.astro"\nconst { ...rest } = Astro.props\n---\n\n<div {...rest}><Button><span slot="icon">+</span>Add</Button></div>\n`,
+      "a named slot passed to Button",
     ],
     [
       "BC705",
@@ -385,14 +474,62 @@ describe("the emitter refuses what it can't write", () => {
   })
 })
 
-test("the census compiles or refuses every component, and compiles the six targets", async () => {
+test("the census compiles every component", async () => {
   const { compiled, refused } = census
   expect([...compiled, ...refused.map(({ file }) => file)].toSorted()).toEqual(
     await componentFiles(),
   )
-  expect(refused.filter(({ code }) => !(code in DIAGNOSTICS))).toEqual([])
+  expect(refused).toEqual([])
   expect(COMPILED).toEqual(expect.arrayContaining(TARGETS))
   expect(
     COMPILED.filter((name) => !CASES.some((entry) => entry.component === name)),
   ).toEqual([])
+})
+
+describe("the macros", () => {
+  test.each([
+    "Button",
+    "Callout",
+    "Dialog",
+    "Field",
+    "Tabs",
+    "TabsItem",
+    "Timeline",
+  ])("%s matches its snapshot", async (name) => {
+    await expect(templates[`opui/${name}.njk`]).toMatchFileSnapshot(
+      `./nunjucks-macros/${name}.njk`,
+    )
+  })
+
+  test.each(census.compiled)(
+    "%s compiles to the same macro formatted at printWidth 40 and 200",
+    async (file) => {
+      const source = readFileSync(file, "utf8")
+      const [narrow, wide] = await Promise.all(
+        [40, 200].map(async (printWidth) =>
+          compileNunjucks(await formatCode(source, file, { printWidth }), file),
+        ),
+      )
+      expect(narrow).toBe(wide)
+    },
+  )
+
+  const unregistered = (imports: string[]) =>
+    imports.flatMap((line) =>
+      (/\{([^}]*)\}/.exec(line)?.[1].split(",") ?? [])
+        .map((name) => name.trim().split(/\s+as\s+/)[0])
+        .filter((name) => name && !(name in HELPERS)),
+    )
+
+  test("the runtime registers every helper a component imports", async () => {
+    expect(unregistered(['import { nope, cx } from "../style"'])).toEqual([
+      "nope",
+    ])
+    const missing = []
+    for (const file of census.compiled) {
+      const { imports } = await readComponent(readFileSync(file, "utf8"), file)
+      missing.push(...unregistered(imports).map((name) => `${file}: ${name}`))
+    }
+    expect(missing).toEqual([])
+  })
 })

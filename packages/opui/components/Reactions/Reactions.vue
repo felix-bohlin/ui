@@ -4,6 +4,7 @@ import { computed } from "vue"
 import { useRestAttrs, vHydrated } from "../vue"
 import ToggleButton from "../ToggleButton/ToggleButton.vue"
 import ToggleGroup from "../ToggleGroup/ToggleGroup.vue"
+import { pillsOf, usedItem } from "./pills"
 import { defined } from "../attrs"
 import { classAttrs } from "../cx"
 import type { Props, Emits, Slots } from "./types.vue-props"
@@ -27,16 +28,9 @@ const restAttrs = computed(() => {
   return rest
 })
 
-const used = computed(() => items.find((item) => item.value === quick?.value))
+const used = computed(() => usedItem(items, quick))
 
-const pills = computed(() =>
-  quick
-    ? [
-        used.value ?? quick,
-        ...items.filter((item) => item.value !== quick?.value),
-      ]
-    : items,
-)
+const pills = computed(() => pillsOf(items, quick, used.value))
 </script>
 
 <template>

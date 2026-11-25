@@ -1,0 +1,37 @@
+{% from "opui/Button.njk" import Button %}
+
+{% macro Callout(props = {}) %}
+  {%- set rest = props | opuiOmit(["class", "closeButton", "closeLabel", "id", "severity", "variant", "slots"]) -%}
+  {%- set closeLabel = props.closeLabel if props.closeLabel is defined else "Close" -%}
+  {%- set base = props.id or opui.id("callout") -%}
+  {%- set Root = "opui-callout" if props.closeButton else "div" -%}
+  {%- set rootId = base if props.closeButton else props.id -%}
+  {%- set callout = { severity: props.severity } -%}
+  <{{ Root | opuiTag }}{{ opui.merge(
+    {
+      class: [
+        "ui-callout",
+        props.severity and "ui-" ~ props.severity,
+        props.variant and props.variant != "tonal" and "ui-" ~ props.variant,
+        props.class
+      ] | opuiClass,
+      id: rootId
+    },
+    opui.defined(rest)
+  ) | opuiAttributes(Root) }}>
+    {{ opui.provide("Callout", callout, caller) }}{% if props.closeButton -%}
+      {% call Button({
+        "aria-label": closeLabel,
+        command: "--dismiss",
+        commandfor: rootId,
+        round: true,
+        size: "small"
+      }) %}{% if props.slots.closeIcon != none %}{{ props.slots.closeIcon | safe }}{% else %}<svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"></svg>{% endif %}{% endcall %}
+    {%- endif %}
+  </{{ Root | opuiTag }}>
+{%- endmacro %}

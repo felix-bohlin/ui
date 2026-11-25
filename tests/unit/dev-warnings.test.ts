@@ -42,12 +42,22 @@ import DrawerHeaderVue from "../../packages/opui/components/Drawer/DrawerHeader.
 import DrawerTitleReact from "../../packages/opui/components/Drawer/DrawerTitle.react"
 import DrawerTitleSolid from "../../packages/opui/components/Drawer/DrawerTitle.solid"
 import DrawerTitleVue from "../../packages/opui/components/Drawer/DrawerTitle.vue"
+import FieldAstro from "../../packages/opui/components/Field/Field.astro"
+import FieldReact from "../../packages/opui/components/Field/Field.react"
+import FieldSolid from "../../packages/opui/components/Field/Field.solid"
+import FieldVue from "../../packages/opui/components/Field/Field.vue"
+import FieldSvelte from "../../packages/opui/components/Field/Field.svelte"
 import FieldLegendReact from "../../packages/opui/components/FieldLegend/FieldLegend.react"
 import FieldLegendSolid from "../../packages/opui/components/FieldLegend/FieldLegend.solid"
 import FieldLegendVue from "../../packages/opui/components/FieldLegend/FieldLegend.vue"
 import FieldsetReact from "../../packages/opui/components/Fieldset/Fieldset.react"
 import FieldsetSolid from "../../packages/opui/components/Fieldset/Fieldset.solid"
 import FieldsetVue from "../../packages/opui/components/Fieldset/Fieldset.vue"
+import OneTimeCodeAstro from "../../packages/opui/components/OneTimeCode/OneTimeCode.astro"
+import OneTimeCodeReact from "../../packages/opui/components/OneTimeCode/OneTimeCode.react"
+import OneTimeCodeSolid from "../../packages/opui/components/OneTimeCode/OneTimeCode.solid"
+import OneTimeCodeSvelte from "../../packages/opui/components/OneTimeCode/OneTimeCode.svelte"
+import OneTimeCodeVue from "../../packages/opui/components/OneTimeCode/OneTimeCode.vue"
 import RadioAstro from "../../packages/opui/components/Radio/Radio.astro"
 import RadioReact from "../../packages/opui/components/Radio/Radio.react"
 import RadioSolid from "../../packages/opui/components/Radio/Radio.solid"
@@ -284,6 +294,52 @@ describe("Tabs", () => {
       expect(warnings()).toEqual([])
     },
   )
+})
+
+const FIELDS: Record<string, Record<ComponentFramework, unknown>> = {
+  Field: {
+    astro: FieldAstro,
+    react: FieldReact,
+    solid: FieldSolid,
+    svelte: FieldSvelte,
+    vue: FieldVue,
+  },
+  OneTimeCode: {
+    astro: OneTimeCodeAstro,
+    react: OneTimeCodeReact,
+    solid: OneTimeCodeSolid,
+    svelte: OneTimeCodeSvelte,
+    vue: OneTimeCodeVue,
+  },
+}
+
+describe.each(Object.entries(FIELDS))("%s", (name, components) => {
+  const forProp = (framework: ComponentFramework) =>
+    framework === "react" ? { htmlFor: "code" } : { for: "code" }
+
+  test.each(FRAMEWORKS)(
+    "%s warns when aria-describedby or aria-invalid is passed to it, not the control",
+    async (framework) => {
+      await render[framework](components[framework], {
+        ...forProp(framework),
+        "aria-describedby": "code-end-text",
+        "aria-invalid": "true",
+        endText: "Wrong code.",
+      })
+      expect(warnings()).toEqual([
+        `[OPUI ${name}] \`aria-describedby\` goes on your control, not on the ${name}, which passes it to its root \`<div>\`.`,
+        `[OPUI ${name}] \`aria-invalid\` goes on your control, not on the ${name}, which passes it to its root \`<div>\`.`,
+      ])
+    },
+  )
+
+  test.each(FRAMEWORKS)("%s doesn't warn without them", async (framework) => {
+    await render[framework](components[framework], {
+      ...forProp(framework),
+      endText: "Wrong code.",
+    })
+    expect(warnings()).toEqual([])
+  })
 })
 
 const replacedIds: Record<

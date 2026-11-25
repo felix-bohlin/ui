@@ -10,6 +10,7 @@
   {%- set bottomId = props.for ~ "-bottom" if props.slots.bottom != none else undefined -%}
   {%- set startTextId = props.for ~ "-start-text" if hasStartText else undefined -%}
   {%- set endTextId = props.for ~ "-end-text" if hasEndText else undefined -%}
+  {{- opui.warnControlAttributes("Field", rest) -}}
   <div
     class="ui-field
       {%- if props.autoFit %} ui-auto-fit{% endif %}

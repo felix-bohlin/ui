@@ -310,7 +310,13 @@ After a build, check the fields in the HTML it wrote:
 npx opui-css check dist
 ```
 
-It reads the `.html` files you name, and those in the folders you name, and lists each field whose label, part ids, `aria-describedby` or step and password buttons don't follow its control's `id`, with the file and line, and fails when it finds one. It reads HTML with `parse5`, an optional peer dependency: `npm install --save-dev parse5`. A page that renders in the browser has no fields in its HTML file, so save the rendered page, `document.documentElement.outerHTML`, to a file and check that.
+It reads the `.html` files you name, and those in the folders you name, and lists each field whose label, part ids, `aria-describedby` or step and password buttons don't follow its control's `id`, with the file and line, and fails when it finds one. It reads HTML with `parse5`, an optional peer dependency: `npm install --save-dev parse5`. A page that renders in the browser has no fields in its HTML file, and the fields that matter most, those showing an error, only render after a failed submit. Check them in an end-to-end test with `checkHtml` from `opui-css/check`, which takes HTML and returns the problems the command prints:
+
+```ts
+import { checkHtml } from "opui-css/check"
+
+expect(checkHtml(await page.content()).problems).toEqual([])
+```
 
 The docs are also available as [llms.txt](https://opui.dev/llms.txt), and every docs page has a Markdown version, e.g. [/html/components/button.md](https://opui.dev/html/components/button.md).
 

@@ -16,7 +16,7 @@ export const EXAMPLE_THEME_NOTES = {
   },
   "gta-vi": {
     description:
-      "Sunset pinks and violets. In dark mode a deep violet night page with a violet and pink glow at the top, in light mode a lavender to pink to peach sky over a blush page (<code>--ui-surface-image</code>), dialogs, drawers, menus and elevated cards that fade down from mauve or blush (<code>--ui-surface-elevated-image</code>), the pastel pink primary, a deep magenta in light mode, also on the focus ring, peach default filled buttons with dark violet text, pill buttons and chips, 16px corners with 12px fields and menus and 20px dialogs, lavender borders and secondary text, a pink glow in the shadows, a blurred violet backdrop and Figtree. With more contrast the gradients go flat.",
+      "Sunset pinks and violets. In dark mode a deep violet night page with a violet and pink glow at the top, in light mode a lavender to pink to peach sky over a blush page (<code>--ui-surface-image</code>), dialogs, drawers, menus and elevated cards that fade down from mauve or blush (<code>--ui-surface-elevated-image</code>), the pastel pink primary, a deep magenta in light mode, also on the focus ring, peach default filled buttons with dark violet text, pill buttons and chips, 16px corners with 12px fields and menus and 20px dialogs, lavender borders and secondary text, a pink glow in the shadows, a blurred violet backdrop, Figtree, and GTAArtDeco, the site's font, for headings where it is installed. With more contrast the gradients go flat.",
     original: "the Grand Theft Auto VI site",
   },
   m3: {

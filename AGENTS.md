@@ -38,6 +38,7 @@ Sort lists, arrays, query results and data displays in ascending order (lowest t
 
 - Prefer inference over explicit types.
 - `pnpm lint` fails on `interface` and on annotations a literal already implies. Files that need declaration merging are listed in the `overrides` of `.oxlintrc.json`.
+- No `enum`: `erasableSyntaxOnly` in `tsconfig.json` makes `pnpm typecheck` refuse one, and `tests/unit/typescript-config.test.ts` checks the option.
 
 ## Dependencies
 

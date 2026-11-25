@@ -16,9 +16,10 @@ const visit = async (
   sinceLastView: number,
 ) => {
   await instantScrolling(page)
-  await page.goto("/html/")
-  await page.evaluate(
+  await page.addInitScript(
     ({ keys, preset, since, tokens }) => {
+      if (sessionStorage.getItem("seeded")) return
+      sessionStorage.setItem("seeded", "true")
       localStorage.setItem(
         keys.theme,
         JSON.stringify({ css: "", preset, tokens }),
@@ -32,7 +33,7 @@ const visit = async (
       tokens: stored.tokens ?? {},
     },
   )
-  await page.reload()
+  await page.goto("/html/")
 }
 
 const storedTheme = (page: Page) =>

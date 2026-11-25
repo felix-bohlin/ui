@@ -8,7 +8,7 @@ export default {
       members: [
         {
           description:
-            "The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.",
+            "The field's `<input>` or `<textarea>`, or `null` outside a field. Read-only.",
           kind: "property",
           name: "control",
         },
@@ -18,14 +18,14 @@ export default {
   ],
   notes: {
     default:
-      "Put it in the field's `end-text` slot. It loads `opui-css/elements/character-count.js`, which keeps the count.",
+      "Put it in the `end-text` slot. It loads `opui-css/elements/character-count.js`.",
     react:
-      "Put it in the field's `endText`. It loads `opui-css/elements/character-count.js`, which keeps the count.",
+      "Put it in `endText`. It loads `opui-css/elements/character-count.js`.",
     solid:
-      "Put it in the field's `endText`. It loads `opui-css/elements/character-count.js`, which keeps the count.",
+      "Put it in `endText`. It loads `opui-css/elements/character-count.js`.",
     svelte:
-      "Put it in the field's `endText` snippet. It loads `opui-css/elements/character-count.js`, which keeps the count.",
-    html: 'Add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`.',
+      "Put it in the `endText` snippet. It loads `opui-css/elements/character-count.js`.",
+    html: 'Add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, with the announcement in `label`, and import `opui-css/elements/character-count.js`.',
   },
   options: [
     {
@@ -42,7 +42,7 @@ export default {
   root: {
     code: "<opui-character-count>",
     description:
-      "Shows the characters typed out of the control's `maxlength`, `aria-hidden` so it stays out of the field's description. Once 10% or 10 are left, whichever is more, a live region outside the label announces the characters left.",
+      "Shows the characters typed out of `maxlength`, `aria-hidden` so it stays out of the description. Screen readers hear the characters left once 10% or 10 remain, whichever is more.",
     selector: ".ui-end-text > .ui-value",
   },
   source: "CharacterCount",

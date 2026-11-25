@@ -9,45 +9,45 @@ The label, hints and box around a form control you write: an input, a select or 
 
 ### Parts
 
-- `.ui-field` (root): Container element, a `<div>`. The label inside is a `<label for>` that names the control by itself.
+- `.ui-field` (root): A `<div>`, whose `<label for>` names the control.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
-- `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
-- `.ui-field-container`: The boxed control area.
-- `.ui-field-container > .ui-top` (slot `top`): Content above the control, inside the border, with a divider.
-- `.ui-field-container > .ui-start` (slot `start`): Content at the inline-start of the field, inside the border.
-- `<input>, <select> or <textarea>`: Your control, written directly inside `.ui-field-container` with its `id` set to `for`. Bind it, name it and mark it `required`, `disabled` or `aria-invalid="true"` like any control. A `<textarea>` grows with its content, and a `<select>` is a customizable select.
-- `.ui-field-container > .ui-end` (slot `end`): Content at the inline-end of the field, inside the border, such as a `PasswordToggle`.
-- `.ui-field-container > .ui-bottom` (slot `bottom`): Content below the control, inside the border, with a divider.
-- `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field, and a `CharacterCount`.
+- `.ui-start-text` (prop `startText`, slot `start-text`): Text above the box.
+- `.ui-field-container`: The box around the control.
+- `.ui-field-container > .ui-top` (slot `top`): Content above the control, inside the box.
+- `.ui-field-container > .ui-start` (slot `start`): Content before the control, inside the box.
+- `<input>, <select> or <textarea>`: Your control, with the field's `for` as its `id`.
+- `.ui-field-container > .ui-end` (slot `end`): Content after the control, inside the box, like a `PasswordToggle`.
+- `.ui-field-container > .ui-bottom` (slot `bottom`): Content below the control, inside the box.
+- `.ui-end-text` (prop `endText`, slot `end-text`): Text below the box, and a `CharacterCount`.
 
 ### Props and modifiers
 
-- `autoFit`: `boolean`, `.ui-auto-fit`. Lets the width follow the content, from `25ch`, or `4ch` with step buttons. A textarea can then be resized both ways.
-- `dense`: `boolean`, `.ui-dense`. Packs the options of a select tighter.
-- `dropZone`: `boolean`, `.ui-drop-zone`. Makes a `type="file"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker.
-- `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of your control. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`. Point the control's `aria-describedby` at the ones it shows, in that order.
-- `hideLabel`: `boolean`, `.ui-field > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
-- `htmlFor` (React): `string`. The `id` of your control, as `htmlFor` like on the element. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `htmlFor="x"`. Point the control's `aria-describedby` at the ones it shows, in that order.
+- `autoFit`: `boolean`, `.ui-auto-fit`. Fits the width to the content, from `25ch` (`4ch` with step buttons), and lets a textarea resize sideways.
+- `dense`: `boolean`, `.ui-dense`. Tighter select options.
+- `dropZone`: `boolean`, `.ui-drop-zone`. Makes a `type="file"` input a tall, dashed drop zone.
+- `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of your control, which the label points at and the part ids start with: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`.
+- `hideLabel`: `boolean`, `.ui-field > label.ui-sr-only`. Visually hides the label but keeps its name.
+- `htmlFor` (React): `string`. The `id` of your control, which the label points at and the part ids start with: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `htmlFor="x"`.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
-- `spread`: `boolean`, `.ui-spread`. Pushes the label and start text to one side and the control to the other.
-- State (HTML): `disabled` (`:has(:is(input, select, textarea):is(:disabled, [aria-disabled="true"]))`), `invalid` (`:has([aria-invalid="true"], :user-invalid)`), `readonly` (`:has([readonly])`), `required` (`:has(:required)`). Set on the control: `aria-invalid="true"`, or `:user-invalid`, shows the error colors, `required` adds a required mark after the label, `disabled` or `aria-disabled="true"` dims the field, and `readonly` keeps the text cursor.
+- `spread`: `boolean`, `.ui-spread`. Puts the label and start text beside the control.
+- State (HTML): `disabled` (`:has(:is(input, select, textarea):is(:disabled, [aria-disabled="true"]))`), `invalid` (`:has([aria-invalid="true"], :user-invalid)`), `readonly` (`:has([readonly])`), `required` (`:has(:required)`). Set on the control: invalid shows the error colors, required marks the label, disabled dims the field and read-only keeps the text cursor.
 - `variant`: `"filled"` (`.ui-filled`), `"outlined"` (default). The variant to use.
 
 ### Slots
 
-- `default`: Your `<input>`, `<select>` or `<textarea>`, and a `<datalist>` for an input with suggestions. Both go in `.ui-field-container`.
+- `default`: Your `<input>`, `<select>` or `<textarea>`, and a `<datalist>` for suggestions.
 
 ### Notes
 
-- HTML: Put a `<label class="ui-label" for>` inside the root that points at the control's `id`, so the label alone names it, and point the control's `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Leave out a part with nothing to read: a `.ui-start` or `.ui-end` that only holds buttons or a hidden icon, and a `.ui-end-text` that only holds an `<output>`. Put `.ui-top` and `.ui-start` before the control and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they're drawn.
-- Astro, Solid, Svelte and Vue: Write the `<input>`, `<select>` or `<textarea>` inside, with its `id` set to `for`, and bind it like any control. Other attributes go to the `.ui-field` root.
-- React: Write the `<input>`, `<select>` or `<textarea>` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-field` root.
+- HTML: Point the `<label class="ui-label" for>` at the control's `id`, and the control's `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text` in that order, leaving out parts with nothing to read. Write `.ui-top` and `.ui-start` before the control, and `.ui-end` and `.ui-bottom` after it.
+- Astro, Solid, Svelte and Vue: Write your control inside, with its `id` set to `for`. Other attributes go to the `.ui-field` root.
+- React: Write your control inside, with its `id` set to `htmlFor`. Other attributes go to the `.ui-field` root.
 
 ## CharacterCount
 
 ### Parts
 
-- `<opui-character-count>` (root): Shows the characters typed out of the control's `maxlength`, `aria-hidden` so it stays out of the field's description. Once 10% or 10 are left, whichever is more, a live region outside the label announces the characters left.
+- `<opui-character-count>` (root): Shows the characters typed out of `maxlength`, `aria-hidden` so it stays out of the description. Screen readers hear the characters left once 10% or 10 remain, whichever is more.
 
 ### Props and modifiers
 
@@ -56,14 +56,14 @@ The label, hints and box around a form control you write: an input, a select or 
 ### Element
 
 - `<opui-character-count>`, defined by `opui-css/elements/character-count.js`:
-  - `control`: The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.
+  - `control`: The field's `<input>` or `<textarea>`, or `null` outside a field. Read-only.
 
 ### Notes
 
-- HTML: Add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`.
-- Astro and Vue: Put it in the field's `end-text` slot. It loads `opui-css/elements/character-count.js`, which keeps the count.
-- React and Solid: Put it in the field's `endText`. It loads `opui-css/elements/character-count.js`, which keeps the count.
-- Svelte: Put it in the field's `endText` snippet. It loads `opui-css/elements/character-count.js`, which keeps the count.
+- HTML: Add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, with the announcement in `label`, and import `opui-css/elements/character-count.js`.
+- Astro and Vue: Put it in the `end-text` slot. It loads `opui-css/elements/character-count.js`.
+- React and Solid: Put it in `endText`. It loads `opui-css/elements/character-count.js`.
+- Svelte: Put it in the `endText` snippet. It loads `opui-css/elements/character-count.js`.
 
 ## Component properties
 
@@ -71,24 +71,24 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### field.css
 
-- `--_accent`: Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
-- `--_arrow-inset`: Distance of the select arrow from the inline end.
-- `--_chevron-image`: The select arrow, as an image used for a mask.
-- `--_chevron-size`: Width and height of the select arrow.
+- `--_accent`: Border color of `.ui-field-container` on focus without `:focus-visible`: a clicked select, file or color input, not a text field. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
+- `--_arrow-inset`: Distance of the select and `datalist` arrow from the inline end.
+- `--_chevron-image`: Mask image of the select and `datalist` arrow. Defaults to `--ui-icon-expand`.
+- `--_chevron-size`: Size of the select and `datalist` arrow.
 - `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
-- `--_end-end-radius`: The radius of the end-end corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the next control.
-- `--_end-start-radius`: The radius of the end-start corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
-- `--_field-padding-block`: The preferred block padding of the control. Set by the size classes.
-- `--_field-padding-inline`: The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.
-- `--_file-button-padding`: The preferred gap around the `::file-selector-button` of a file field: `--ui-space-2`, or `--ui-space-1` in `.ui-small` and `.ui-x-small`.
-- `--_font-size`: The font size of the control and affixes. At least 16px on iPhone and iPad (`css/compat/field.css`), so iOS Safari doesn't zoom in on focus.
-- `--_min-inline-size`: The least width of the control next to `.ui-start` and `.ui-end`, which shrink and end in an ellipsis to keep it, or the whole field when it is narrower. Defaults to `8ch`; a field with a `StepButton` sets its own.
+- `--_end-end-radius`: End-end corner radius of `.ui-field-container`. Defaults to `--_radius`, `0` against the next control in a `ControlGroup`.
+- `--_end-start-radius`: End-start corner radius of `.ui-field-container`. Defaults to `--_radius`, `0` against another control in a `ControlGroup`.
+- `--_field-padding-block`: Preferred block padding of the control. Set by the size classes.
+- `--_field-padding-inline`: Inline padding of the control and affixes. Defaults to `--ui-field-padding-inline` (else `--ui-space-2`), or `--ui-field-padding-inline-large` (else `--ui-space-3`) in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.
+- `--_file-button-padding`: Preferred space above and below the `::file-selector-button`, outside `.ui-drop-zone`. `--ui-space-2`, `--ui-space-1` in `.ui-small` and `.ui-x-small`.
+- `--_font-size`: Font size of the control, `.ui-start` and `.ui-end`. Set by `.ui-x-small` and `.ui-small`, at least 16px on iPhone and iPad.
+- `--_min-inline-size`: Minimum width of the control beside `.ui-start` and `.ui-end`, which shrink to keep it, capped at the field's width. Defaults to `8ch`, `4ch` with a `StepButton`.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
-- `--_radius`: The corner radius of `.ui-field-container` and a file input's button. Defaults to `--ui-field-radius`, or `--ui-radius` when the theme doesn't set it.
-- `--_shadow`: The shadow of `.ui-field-container`. Defaults to `--ui-field-shadow`, or `--ui-shadow-control` when the theme leaves it unset. `none` in a `ControlGroup`.
-- `--_size`: The height of `.ui-field-container`, a minimum so a textarea can grow, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.
-- `--_start-end-radius`: The radius of the start-end corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
-- `--_start-start-radius`: The radius of the start-start corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the control before it.
+- `--_radius`: Corner radius of `.ui-field-container` and the file button. Defaults to `--ui-field-radius`, else `--ui-radius`.
+- `--_shadow`: Shadow of `.ui-field-container`. Defaults to `--ui-field-shadow`, else `--ui-shadow-control`; `none` in a `ControlGroup`.
+- `--_size`: Minimum height of `.ui-field-container`, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.
+- `--_start-end-radius`: Start-end corner radius of `.ui-field-container`. Defaults to `--_radius`, `0` against another control in a `ControlGroup`.
+- `--_start-start-radius`: Start-start corner radius of `.ui-field-container`. Defaults to `--_radius`, `0` against the previous control in a `ControlGroup`.
 
 Outputs: `--_affix-block-size`, `--_affix-button-size`, `--_affix-padding-block`, `--_affix-text-color`, `--_arrow-padding`, `--_bg-color`, `--_border-color`, `--_duration`, `--_field-padding-block-fit`, `--_file-button-inset` and `--_helper-text-color`.
 

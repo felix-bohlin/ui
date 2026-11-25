@@ -4524,7 +4524,7 @@
     "id": "api-character-count-svelte",
     "title": "Character count API",
     "description": "Reference for Character count Svelte component.",
-    "api": "CharacterCount Shows the characters typed out of the control's `maxlength`, `aria-hidden` so it stays out of the field's description. Once 10% or 10 are left, whichever is more, a live region outside the label announces the characters left. label The announcement near the limit, with `{count}` for the characters left. Pass it translated. control The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.",
+    "api": "CharacterCount Shows the characters typed out of `maxlength`, `aria-hidden` so it stays out of the description. Screen readers hear the characters left once 10% or 10 remain, whichever is more. label The announcement near the limit, with `{count}` for the characters left. Pass it translated. control The field's `<input>` or `<textarea>`, or `null` outside a field. Read-only.",
     "category": "API",
     "url": "/svelte/api/#character-count"
   },
@@ -4668,7 +4668,7 @@
     "id": "api-field-svelte",
     "title": "Field API",
     "description": "Reference for Field Svelte component.",
-    "api": "Field Container element, a `<div>`. The label inside is a `<label for>` that names the control by itself. The label for the field. label label Start text displayed above the field. startText start-text The boxed control area. Content above the control, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start Your control, written directly inside `.ui-field-container` with its `id` set to `for`. Bind it, name it and mark it `required`, `disabled` or `aria-invalid=\"true\"` like any control. A `<textarea>` grows with its content, and a `<select>` is a customizable select. Content at the inline-end of the field, inside the border, such as a `PasswordToggle`. end Content below the control, inside the border, with a divider. bottom Supporting text displayed below the field, and a `CharacterCount`. endText end-text autoFit Lets the width follow the content, from `25ch`, or `4ch` with step buttons. A textarea can then be resized both ways. dense Packs the options of a select tighter. dropZone Makes a `type=\"file\"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker. for The `id` of your control. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for=\"x\"`. Point the control's `aria-describedby` at the ones it shows, in that order. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. size The size of the element. spread Pushes the label and start text to one side and the control to the other. variant The variant to use.",
+    "api": "Field A `<div>`, whose `<label for>` names the control. The label for the field. label label Text above the box. startText start-text The box around the control. Content above the control, inside the box. top Content before the control, inside the box. start Your control, with the field's `for` as its `id`. Content after the control, inside the box, like a `PasswordToggle`. end Content below the control, inside the box. bottom Text below the box, and a `CharacterCount`. endText end-text autoFit Fits the width to the content, from `25ch` (`4ch` with step buttons), and lets a textarea resize sideways. dense Tighter select options. dropZone Makes a `type=\"file\"` input a tall, dashed drop zone. for The `id` of your control, which the label points at and the part ids start with: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for=\"x\"`. hideLabel Visually hides the label but keeps its name. size The size of the element. spread Puts the label and start text beside the control. variant The variant to use.",
     "category": "API",
     "url": "/svelte/api/#field"
   },
@@ -4764,7 +4764,7 @@
     "id": "api-password-toggle-svelte",
     "title": "Password toggle API",
     "description": "Reference for Password toggle Svelte component.",
-    "api": "PasswordToggle A `.ui-button.ui-round` with `aria-pressed` and `command=\"--toggle-password\"` that shows and hides the password. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is disabled, and `aria-disabled` while the input is `aria-disabled`. `<opui-password-toggle>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-password-toggle>` is defined. for The `id` of the password input the toggle shows and hides, as its button's `commandfor`. label The accessible name of the toggle. Pass it translated. hidePassword() Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits. input The `<input>` its button's `commandfor` names, or `null`. Read-only. showPassword() Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
+    "api": "PasswordToggle A `.ui-button.ui-round` with `aria-pressed` that shows and hides the password, with an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked`, or your icons. It follows the input's `disabled` and `aria-disabled`, and stays hidden until `<opui-password-toggle>` is defined. for The `id` of the password input, as its button's `commandfor`. label The accessible name of the toggle. Pass it translated. hidePassword() Hides the password, as on a form reset or submit. input The `<input>` its button's `commandfor` names, or `null`. Read-only. showPassword() Shows the password.",
     "category": "API",
     "url": "/svelte/api/#password-toggle"
   },
@@ -4796,7 +4796,7 @@
     "id": "api-range-svelte",
     "title": "Range API",
     "description": "Reference for Range Svelte component.",
-    "api": "Range A `.ui-field` with an `<input type=\"range\">` in its container, which `range.css` draws without the field's box, as tall as any field's control. Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's variant (`variant`, `.ui-filled`) and size (`size`, `.ui-x-small`, `.ui-small`, `.ui-large`) set the track and thumb. Labels for the input it's linked to with `list`: the `label` of each option shows under its value. The labels are spread evenly, so space the values evenly. Give it `aria-hidden=\"true\"`, and set `aria-valuetext` on the input to the label at its value, since screen readers don't read the datalist.",
+    "api": "Range A `.ui-field` with an `<input type=\"range\">`, drawn without the field's box. Your range input. The track fills up to the thumb without a script, and the field's variant (`variant`, `.ui-filled`) and size (`size`, `.ui-x-small`, `.ui-small`, `.ui-large`) set the track and thumb. Labels under the input, linked with `list`: each option's `label`, spread evenly. Give it `aria-hidden=\"true\"`, and set the input's `aria-valuetext` to the label at its value.",
     "category": "API",
     "url": "/svelte/api/#range"
   },
@@ -4828,7 +4828,7 @@
     "id": "api-select-button-svelte",
     "title": "Select button API",
     "description": "Reference for Select button Svelte component.",
-    "api": "SelectButton The select's button, with `<selectedcontent>` inside, which shows the selected option.",
+    "api": "SelectButton The select's button, showing the selected option in `<selectedcontent>`.",
     "category": "API",
     "url": "/svelte/api/#select-button"
   },
@@ -4860,7 +4860,7 @@
     "id": "api-step-button-svelte",
     "title": "Step button API",
     "description": "Reference for Step button Svelte component.",
-    "api": "StepButton A `.ui-button.ui-round` with `command=\"--step-down\"` or `command=\"--step-up\"`. Renders a minus or a plus icon by default, or the icon in its default slot. Disabled while the input is, and `aria-disabled` at `min` or `max`, while the input is read-only and while it is `aria-disabled`. `<opui-step-button>` keeps it in step, also when a script changes the input. Hidden until `<opui-step-button>` is defined. command Which way the button steps the input: `--step-down` or `--step-up`, as on the element. for The `id` of the number input the button steps, as its button's `commandfor` and `aria-controls`. label The accessible name of the button, by `command`. Pass it translated. input The `<input>` its button's `commandfor` names, or `null`. Read-only. step() Steps the value down or up by `step`, as its button's `command` says, unless the input is disabled, read-only or at `min` or `max`, and fires `input` and `change`.",
+    "api": "StepButton A `.ui-button.ui-round` with `command=\"--step-down\"` or `command=\"--step-up\"`, showing a minus or a plus, or your icon. Disabled with the input, and `aria-disabled` at `min` or `max` or while the input is read-only or `aria-disabled`. Hidden until `<opui-step-button>` is defined. command Which way the button steps: `--step-down` or `--step-up`. for The `id` of the number input, as its button's `commandfor` and `aria-controls`. label The accessible name of the button, by `command`. Pass it translated. input The `<input>` its button's `commandfor` names, or `null`. Read-only. step() Steps the value by `step` in the button's direction, within `min` and `max` and unless the input is disabled or read-only, and fires `input` and `change`.",
     "category": "API",
     "url": "/svelte/api/#step-button"
   },
@@ -4972,7 +4972,7 @@
     "id": "api-textarea-svelte",
     "title": "Textarea API",
     "description": "Reference for Textarea Svelte component.",
-    "api": "Textarea A `.ui-field` with a `<textarea>` in its container. `field.css` draws the box, and `textarea.css` sizes the textarea. Your textarea, directly in `.ui-field-container`. It is `rows` lines tall, 3 by default, grows with its content up to `--_max-block-size` (20 lines) and can be resized taller. With the field's `autoFit` (`.ui-auto-fit`), it can be resized wider too.",
+    "api": "Textarea A `.ui-field` with a `<textarea>`. Your textarea, `rows` lines tall (3 by default), growing to `--_max-block-size` (20 lines). It resizes taller, and wider with `autoFit` (`.ui-auto-fit`).",
     "category": "API",
     "url": "/svelte/api/#textarea"
   },

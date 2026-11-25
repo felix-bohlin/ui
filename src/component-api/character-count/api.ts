@@ -25,7 +25,7 @@ export default {
       "Put it in `endText`. It loads `opui-css/elements/character-count.js`.",
     svelte:
       "Put it in the `endText` snippet. It loads `opui-css/elements/character-count.js`.",
-    html: 'Add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, and import `opui-css/elements/character-count.js`.',
+    html: 'Add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, with the announcement in `label`, and import `opui-css/elements/character-count.js`.',
   },
   options: [
     {
@@ -42,7 +42,7 @@ export default {
   root: {
     code: "<opui-character-count>",
     description:
-      "Shows the characters typed out of `maxlength`. Screen readers hear the characters left once 10% or 10 remain, whichever is more.",
+      "Shows the characters typed out of `maxlength`, `aria-hidden` so it stays out of the description. Screen readers hear the characters left once 10% or 10 remain, whichever is more.",
     selector: ".ui-end-text > .ui-value",
   },
   source: "CharacterCount",

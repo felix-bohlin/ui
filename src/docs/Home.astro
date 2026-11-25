@@ -516,7 +516,16 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
       padding-block: var(--size-10);
     }
 
-    :global(html[data-example-theme="vice-city"]) & {
+    :global(
+        html:is(
+          [data-example-theme="brutalist"],
+          [data-example-theme="govuk"],
+          [data-example-theme="m3"],
+          [data-example-theme="shadcn"],
+          [data-example-theme="vice-city"]
+        )
+      )
+      & {
       isolation: isolate;
       overflow: clip;
       padding-block-end: calc(var(--size-8) + clamp(10rem, 26vw, 17rem));

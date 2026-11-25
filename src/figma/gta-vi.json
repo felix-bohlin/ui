@@ -47,7 +47,7 @@
         "textTransform": "none"
       },
       "heading/h1": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "56px",
         "fontWeight": "700",
         "letterSpacing": "-1.12px",
@@ -55,7 +55,7 @@
         "textTransform": "none"
       },
       "heading/h2": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "40px",
         "fontWeight": "700",
         "letterSpacing": "-0.8px",
@@ -63,7 +63,7 @@
         "textTransform": "none"
       },
       "heading/h3": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "24px",
         "fontWeight": "700",
         "letterSpacing": "-0.24px",
@@ -71,7 +71,7 @@
         "textTransform": "none"
       },
       "heading/h4": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "20px",
         "fontWeight": "700",
         "letterSpacing": "-0.2px",
@@ -79,7 +79,7 @@
         "textTransform": "none"
       },
       "heading/h5": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "18px",
         "fontWeight": "700",
         "letterSpacing": "normal",
@@ -87,7 +87,7 @@
         "textTransform": "none"
       },
       "heading/h6": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "16px",
         "fontWeight": "700",
         "letterSpacing": "normal",
@@ -222,7 +222,7 @@
       "--ui-on-focus-highlight": "oklch(1 0 0)",
       "--ui-font-body": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
       "--ui-font-code": "\"Dank Mono\", \"Operator Mono\", Inconsolata, \"Fira Mono\", ui-monospace, \"SF Mono\", Monaco, \"Droid Sans Mono\", \"Source Code Pro\", \"Cascadia Code\", Menlo, Consolas, \"DejaVu Sans Mono\", monospace",
-      "--ui-font-heading": "",
+      "--ui-font-heading": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
       "--ui-font-size-100": "12px",
       "--ui-font-size-200": "14px",
       "--ui-font-size-300": "16px",
@@ -412,7 +412,7 @@
         "textTransform": "none"
       },
       "heading/h1": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "56px",
         "fontWeight": "700",
         "letterSpacing": "-1.12px",
@@ -420,7 +420,7 @@
         "textTransform": "none"
       },
       "heading/h2": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "40px",
         "fontWeight": "700",
         "letterSpacing": "-0.8px",
@@ -428,7 +428,7 @@
         "textTransform": "none"
       },
       "heading/h3": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "24px",
         "fontWeight": "700",
         "letterSpacing": "-0.24px",
@@ -436,7 +436,7 @@
         "textTransform": "none"
       },
       "heading/h4": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "20px",
         "fontWeight": "700",
         "letterSpacing": "-0.2px",
@@ -444,7 +444,7 @@
         "textTransform": "none"
       },
       "heading/h5": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "18px",
         "fontWeight": "700",
         "letterSpacing": "normal",
@@ -452,7 +452,7 @@
         "textTransform": "none"
       },
       "heading/h6": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "16px",
         "fontWeight": "700",
         "letterSpacing": "normal",
@@ -587,7 +587,7 @@
       "--ui-on-focus-highlight": "oklch(0 0 0)",
       "--ui-font-body": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
       "--ui-font-code": "\"Dank Mono\", \"Operator Mono\", Inconsolata, \"Fira Mono\", ui-monospace, \"SF Mono\", Monaco, \"Droid Sans Mono\", \"Source Code Pro\", \"Cascadia Code\", Menlo, Consolas, \"DejaVu Sans Mono\", monospace",
-      "--ui-font-heading": "",
+      "--ui-font-heading": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
       "--ui-font-size-100": "12px",
       "--ui-font-size-200": "14px",
       "--ui-font-size-300": "16px",
@@ -777,7 +777,7 @@
         "textTransform": "none"
       },
       "heading/h1": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "56px",
         "fontWeight": "700",
         "letterSpacing": "-1.12px",
@@ -785,7 +785,7 @@
         "textTransform": "none"
       },
       "heading/h2": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "40px",
         "fontWeight": "700",
         "letterSpacing": "-0.8px",
@@ -793,7 +793,7 @@
         "textTransform": "none"
       },
       "heading/h3": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "24px",
         "fontWeight": "700",
         "letterSpacing": "-0.24px",
@@ -801,7 +801,7 @@
         "textTransform": "none"
       },
       "heading/h4": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "20px",
         "fontWeight": "700",
         "letterSpacing": "-0.2px",
@@ -809,7 +809,7 @@
         "textTransform": "none"
       },
       "heading/h5": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "18px",
         "fontWeight": "700",
         "letterSpacing": "normal",
@@ -817,7 +817,7 @@
         "textTransform": "none"
       },
       "heading/h6": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "16px",
         "fontWeight": "700",
         "letterSpacing": "normal",
@@ -952,7 +952,7 @@
       "--ui-on-focus-highlight": "oklch(1 0 0)",
       "--ui-font-body": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
       "--ui-font-code": "\"Dank Mono\", \"Operator Mono\", Inconsolata, \"Fira Mono\", ui-monospace, \"SF Mono\", Monaco, \"Droid Sans Mono\", \"Source Code Pro\", \"Cascadia Code\", Menlo, Consolas, \"DejaVu Sans Mono\", monospace",
-      "--ui-font-heading": "",
+      "--ui-font-heading": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
       "--ui-font-size-100": "12px",
       "--ui-font-size-200": "14px",
       "--ui-font-size-300": "16px",
@@ -1142,7 +1142,7 @@
         "textTransform": "none"
       },
       "heading/h1": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "56px",
         "fontWeight": "700",
         "letterSpacing": "-1.12px",
@@ -1150,7 +1150,7 @@
         "textTransform": "none"
       },
       "heading/h2": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "40px",
         "fontWeight": "700",
         "letterSpacing": "-0.8px",
@@ -1158,7 +1158,7 @@
         "textTransform": "none"
       },
       "heading/h3": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "24px",
         "fontWeight": "700",
         "letterSpacing": "-0.24px",
@@ -1166,7 +1166,7 @@
         "textTransform": "none"
       },
       "heading/h4": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "20px",
         "fontWeight": "700",
         "letterSpacing": "-0.2px",
@@ -1174,7 +1174,7 @@
         "textTransform": "none"
       },
       "heading/h5": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "18px",
         "fontWeight": "700",
         "letterSpacing": "normal",
@@ -1182,7 +1182,7 @@
         "textTransform": "none"
       },
       "heading/h6": {
-        "fontFamily": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
+        "fontFamily": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
         "fontSize": "16px",
         "fontWeight": "700",
         "letterSpacing": "normal",
@@ -1317,7 +1317,7 @@
       "--ui-on-focus-highlight": "oklch(0 0 0)",
       "--ui-font-body": "Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
       "--ui-font-code": "\"Dank Mono\", \"Operator Mono\", Inconsolata, \"Fira Mono\", ui-monospace, \"SF Mono\", Monaco, \"Droid Sans Mono\", \"Source Code Pro\", \"Cascadia Code\", Menlo, Consolas, \"DejaVu Sans Mono\", monospace",
-      "--ui-font-heading": "",
+      "--ui-font-heading": "GTAArtDeco, Figtree, \"DM Sans\", Avenir, Montserrat, Corbel, \"URW Gothic\", source-sans-pro, sans-serif",
       "--ui-font-size-100": "12px",
       "--ui-font-size-200": "14px",
       "--ui-font-size-300": "16px",

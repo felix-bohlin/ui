@@ -3,6 +3,7 @@
   {%- set labelSlot = props.slots.label | opuiTrim -%}
   {%- set hasStartText = props.startText or props.slots.startText != none -%}
   {%- set hasEndText = props.endText or props.slots.endText != none -%}
+  {{- opui.warnControlAttributes("Field", rest) -}}
   <div
     class="ui-field
       {%- if props.autoFit %} ui-auto-fit{% endif %}

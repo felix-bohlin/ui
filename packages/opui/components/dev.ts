@@ -31,6 +31,20 @@ export const resetWarnings = () => {
   warned.clear()
 }
 
+export const warnControlAttributes = (
+  component: string,
+  attrs: { "aria-describedby"?: unknown; "aria-invalid"?: unknown },
+) => {
+  if (!DEV) return
+  for (const name of ["aria-describedby", "aria-invalid"] as const) {
+    if (attrs[name] != null) {
+      warnOnce(
+        `[OPUI ${component}] \`${name}\` goes on your control, not on the ${component}, which passes it to its root \`<div>\`.`,
+      )
+    }
+  }
+}
+
 export const warnGroupedChecked = (
   component: string,
   grouped: unknown,

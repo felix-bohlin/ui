@@ -18,7 +18,7 @@ export default function CharacterSheet() {
   return (
     <>
       <div
-        className="character-sheet ui-layout-container ui-layout-column ui-large"
+        className="character-sheet ui-layout-container ui-layout-column ui-gap-large"
         style={{ "--_max-inline-size": "64rem" }}
       >
         <header className="cs-hero">
@@ -32,19 +32,19 @@ export default function CharacterSheet() {
           >
             PG
           </Avatar>
-          <div className="ui-layout-column ui-small">
+          <div className="ui-layout-column ui-gap-small">
             <hgroup className="ui-hgroup">
               <p className="ui-overline">Level 12 bard, Low End Oracle</p>
               <h1 className="ui-h2">Percy Groove</h1>
             </hgroup>
-            <div className="ui-layout-row ui-x-small">
+            <div className="ui-layout-row ui-gap-x-small">
               <Chip as="span" label="Human" size="small" />
               <Chip as="span" label="Chaotic groovy" size="small" />
               <Chip as="span" label="Band: The Flatwounds" size="small" />
             </div>
           </div>
           <div className="cs-vitals">
-            <div className="ui-layout-column ui-x-small">
+            <div className="ui-layout-column ui-gap-x-small">
               <span
                 className="ui-layout-row ui-spread ui-tabular-nums"
                 id="character-sheet-hp"
@@ -61,7 +61,7 @@ export default function CharacterSheet() {
                 value={34}
               />
             </div>
-            <div className="ui-layout-column ui-x-small">
+            <div className="ui-layout-column ui-gap-x-small">
               <span
                 className="ui-layout-row ui-spread ui-tabular-nums"
                 id="character-sheet-xp"
@@ -78,10 +78,10 @@ export default function CharacterSheet() {
           </div>
         </header>
         <div
-          className="ui-layout-columns ui-large"
+          className="ui-layout-columns ui-gap-large"
           style={{ "--_columns": "2fr 3fr" }}
         >
-          <div className="ui-layout-column ui-large">
+          <div className="ui-layout-column ui-gap-large">
             <Card
               aria-labelledby="character-sheet-attributes-heading"
               as="section"
@@ -200,7 +200,7 @@ export default function CharacterSheet() {
               </CardContent>
             </Card>
           </div>
-          <div className="ui-layout-column ui-large">
+          <div className="ui-layout-column ui-gap-large">
             <Card
               aria-labelledby="character-sheet-inventory-heading"
               as="section"
@@ -253,7 +253,7 @@ export default function CharacterSheet() {
             </Card>
             <section
               aria-labelledby="character-sheet-abilities-heading"
-              className="ui-layout-column ui-small"
+              className="ui-layout-column ui-gap-small"
             >
               <h2 className="ui-h5" id="character-sheet-abilities-heading">
                 Abilities

@@ -24,7 +24,7 @@ export default function PartyInvitation() {
   return (
     <>
       <div
-        class="party-invitation ui-layout-container ui-layout-columns ui-large"
+        class="party-invitation ui-layout-container ui-layout-columns ui-gap-large"
         style="--_columns: 1fr 1fr; --_max-inline-size: 60rem"
       >
         <Card
@@ -70,7 +70,7 @@ export default function PartyInvitation() {
                 </DescriptionListDescription>
               </DescriptionListItem>
             </DescriptionList>
-            <div class="ui-layout-row ui-small">
+            <div class="ui-layout-row ui-gap-small">
               <AvatarGroup aria-label="Guests who are coming">
                 <Avatar aria-label="Holly Humbucker" role="img">
                   HH

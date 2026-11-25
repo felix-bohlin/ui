@@ -18,7 +18,7 @@
 
 <article
   aria-labelledby="recipe-title"
-  class="recipe ui-layout-container ui-layout-column ui-large"
+  class="recipe ui-layout-container ui-layout-column ui-gap-large"
   style="--_max-inline-size: 60rem"
 >
   <div class="ui-layout-row ui-spread">
@@ -30,7 +30,7 @@
         fewer beans.
       </p>
     </hgroup>
-    <div class="ui-layout-row ui-small">
+    <div class="ui-layout-row ui-gap-small">
       <Button size="small" type="button" variant="outlined">
         <svg
           data-icon="heart"
@@ -65,11 +65,11 @@
       </Button>
     </div>
   </div>
-  <div class="ui-layout-row ui-large recipe-meta">
+  <div class="ui-layout-row ui-gap-large recipe-meta">
     <Stat label="Prep" size="small">15 min</Stat>
     <Stat label="Cook" size="small">45 min</Stat>
     <Stat label="Difficulty" size="small">Easy</Stat>
-    <div class="ui-layout-row ui-small">
+    <div class="ui-layout-row ui-gap-small">
       <Rating
         aria-hidden="true"
         label="Rated 4.8 out of 5"
@@ -78,12 +78,12 @@
       />
       <span>4.8 from 212 cooks</span>
     </div>
-    <div class="ui-layout-row ui-x-small">
+    <div class="ui-layout-row ui-gap-x-small">
       <Chip as="span" label="Gluten free" size="small" />
       <Chip as="span" label="Freezes well" size="small" />
     </div>
   </div>
-  <div class="ui-layout-columns ui-large" style="--_columns: 2fr 3fr">
+  <div class="ui-layout-columns ui-gap-large" style="--_columns: 2fr 3fr">
     <Card
       aria-labelledby="recipe-ingredients-heading"
       as="section"
@@ -135,7 +135,7 @@
     </Card>
     <section
       aria-labelledby="recipe-method-heading"
-      class="ui-layout-column ui-large"
+      class="ui-layout-column ui-gap-large"
     >
       <h2 class="ui-h5" id="recipe-method-heading">Method</h2>
       <ol class="recipe-steps">

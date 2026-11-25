@@ -19,7 +19,7 @@ export default function Recipe() {
     <>
       <article
         aria-labelledby="recipe-title"
-        className="recipe ui-layout-container ui-layout-column ui-large"
+        className="recipe ui-layout-container ui-layout-column ui-gap-large"
         style={{ "--_max-inline-size": "60rem" }}
       >
         <div className="ui-layout-row ui-spread">
@@ -33,7 +33,7 @@ export default function Recipe() {
               with fewer beans.
             </p>
           </hgroup>
-          <div className="ui-layout-row ui-small">
+          <div className="ui-layout-row ui-gap-small">
             <Button size="small" type="button" variant="outlined">
               <svg
                 data-icon="heart"
@@ -68,7 +68,7 @@ export default function Recipe() {
             </Button>
           </div>
         </div>
-        <div className="ui-layout-row ui-large recipe-meta">
+        <div className="ui-layout-row ui-gap-large recipe-meta">
           <Stat label="Prep" size="small">
             15 min
           </Stat>
@@ -78,7 +78,7 @@ export default function Recipe() {
           <Stat label="Difficulty" size="small">
             Easy
           </Stat>
-          <div className="ui-layout-row ui-small">
+          <div className="ui-layout-row ui-gap-small">
             <Rating
               aria-hidden="true"
               defaultValue={4.8}
@@ -87,13 +87,13 @@ export default function Recipe() {
             />
             <span>4.8 from 212 cooks</span>
           </div>
-          <div className="ui-layout-row ui-x-small">
+          <div className="ui-layout-row ui-gap-x-small">
             <Chip as="span" label="Gluten free" size="small" />
             <Chip as="span" label="Freezes well" size="small" />
           </div>
         </div>
         <div
-          className="ui-layout-columns ui-large"
+          className="ui-layout-columns ui-gap-large"
           style={{ "--_columns": "2fr 3fr" }}
         >
           <Card
@@ -158,7 +158,7 @@ export default function Recipe() {
           </Card>
           <section
             aria-labelledby="recipe-method-heading"
-            className="ui-layout-column ui-large"
+            className="ui-layout-column ui-gap-large"
           >
             <h2 className="ui-h5" id="recipe-method-heading">
               Method

@@ -16,7 +16,7 @@ export default function MusicPlayer() {
   return (
     <>
       <div
-        className="music-player ui-layout-container ui-layout-columns ui-large"
+        className="music-player ui-layout-container ui-layout-columns ui-gap-large"
         style={{ "--_columns": "2fr 3fr", "--_max-inline-size": "60rem" }}
       >
         <Card

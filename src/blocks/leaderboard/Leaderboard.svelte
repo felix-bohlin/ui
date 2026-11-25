@@ -18,7 +18,7 @@
 </script>
 
 <div
-  class="leaderboard ui-layout-container ui-layout-column ui-large"
+  class="leaderboard ui-layout-container ui-layout-column ui-gap-large"
   style="--_max-inline-size: 56rem"
 >
   <div class="ui-layout-row ui-spread">
@@ -37,7 +37,7 @@
     <ol class="lb-podium">
       <li class="lb-first">
         <Avatar aria-hidden="true" size="large" variant="filled">SN</Avatar>
-        <span class="ui-layout-column ui-x-small">
+        <span class="ui-layout-column ui-gap-x-small">
           <strong>Stella Nut</strong>
           <span class="ui-caption ui-tabular-nums">98 420 points</span>
         </span>
@@ -45,7 +45,7 @@
       </li>
       <li class="lb-second">
         <Avatar aria-hidden="true" size="large">RR</Avatar>
-        <span class="ui-layout-column ui-x-small">
+        <span class="ui-layout-column ui-gap-x-small">
           <strong>Reggie Riff</strong>
           <span class="ui-caption ui-tabular-nums">91 005 points</span>
         </span>
@@ -53,7 +53,7 @@
       </li>
       <li class="lb-third">
         <Avatar aria-hidden="true" size="large">HH</Avatar>
-        <span class="ui-layout-column ui-x-small">
+        <span class="ui-layout-column ui-gap-x-small">
           <strong>Holly Humbucker</strong>
           <span class="ui-caption ui-tabular-nums">87 760 points</span>
         </span>
@@ -76,7 +76,7 @@
       <TableRow>
         <TableCell numeric>4</TableCell>
         <TableCell>
-          <div class="ui-layout-media ui-small">
+          <div class="ui-layout-media ui-gap-small">
             <Avatar aria-hidden="true" size="small">LH</Avatar>
             <span>Lou Headstock</span>
           </div>
@@ -95,7 +95,7 @@
       <TableRow>
         <TableCell numeric>5</TableCell>
         <TableCell>
-          <div class="ui-layout-media ui-small">
+          <div class="ui-layout-media ui-gap-small">
             <Avatar aria-hidden="true" size="small">MM</Avatar>
             <span>Mo Mute</span>
           </div>
@@ -114,7 +114,7 @@
       <TableRow>
         <TableCell numeric>6</TableCell>
         <TableCell>
-          <div class="ui-layout-media ui-small">
+          <div class="ui-layout-media ui-gap-small">
             <Avatar aria-hidden="true" size="small">FF</Avatar>
             <span>Fran Fretless</span>
           </div>
@@ -133,7 +133,7 @@
       <TableRow>
         <TableCell numeric>7</TableCell>
         <TableCell>
-          <div class="ui-layout-media ui-small">
+          <div class="ui-layout-media ui-gap-small">
             <Avatar aria-hidden="true" size="small">DD</Avatar>
             <span>Dee Detune</span>
           </div>
@@ -145,7 +145,7 @@
       <TableRow class="lb-you">
         <TableCell numeric>42</TableCell>
         <TableCell>
-          <div class="ui-layout-media ui-small">
+          <div class="ui-layout-media ui-gap-small">
             <Avatar aria-hidden="true" size="small" variant="filled">PG</Avatar>
             <span><strong>Percy Groove (you)</strong></span>
           </div>
@@ -165,7 +165,7 @@
   </Table>
   <section
     aria-labelledby="leaderboard-stats-heading"
-    class="ui-layout-column ui-small"
+    class="ui-layout-column ui-gap-small"
   >
     <h2 class="ui-h5" id="leaderboard-stats-heading">Your week</h2>
     <div class="ui-layout-grid ui-stretch" style="--_min-inline-size: 12rem">

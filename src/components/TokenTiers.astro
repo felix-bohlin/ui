@@ -60,13 +60,13 @@ const scopes = [
     id: "component",
     name: "Button",
     selector: ".ui-button",
-    note: "Read by every Button and nothing else",
+    note: "Read by every Button, and only Buttons",
   },
   {
     id: "element",
     name: "Element",
     selector: "<button>",
-    note: "Declared by the Button's CSS, set on this element only",
+    note: "Declared by the Button's CSS",
   },
 ]
 
@@ -342,6 +342,8 @@ const name = "token-tiers-trace"
   }
 
   .stage {
+    --_label: 9rem;
+
     position: relative;
   }
 
@@ -387,6 +389,7 @@ const name = "token-tiers-trace"
     flex-wrap: wrap;
     gap: 0 var(--ui-space-2);
     margin: 0 0 var(--ui-space-1);
+    max-inline-size: var(--_label);
 
     strong {
       font-weight: var(--ui-font-weight-semibold);
@@ -400,6 +403,7 @@ const name = "token-tiers-trace"
       color: var(--ui-text);
       flex-basis: 100%;
       font-size: var(--ui-font-size-small);
+      line-height: var(--ui-line-height-tight);
     }
   }
 
@@ -408,7 +412,7 @@ const name = "token-tiers-trace"
     border-block-start: var(--ui-border-width) dashed var(--_edge);
     display: grid;
     gap: var(--ui-space-2);
-    grid-template-columns: minmax(7rem, 9rem) repeat(3, minmax(0, 1fr));
+    grid-template-columns: var(--_label) repeat(3, minmax(0, 1fr));
     padding-block: var(--ui-space-4);
 
     .scope-head + & {
@@ -517,8 +521,12 @@ const name = "token-tiers-trace"
       display: none;
     }
 
+    .stage {
+      --_label: 7rem;
+    }
+
     .band {
-      grid-template-columns: minmax(6rem, 8rem) minmax(0, 1fr);
+      grid-template-columns: var(--_label) minmax(0, 1fr);
     }
 
     .slot {
@@ -534,6 +542,21 @@ const name = "token-tiers-trace"
   }
 
   @container (width < 21rem) {
+    :is(.scope-head, .band-label) {
+      display: grid;
+      justify-items: start;
+    }
+
+    .scope-head {
+      max-inline-size: none;
+    }
+
+    :is(.scope-head, .band-label) > * {
+      background-color: var(--_fill);
+      position: relative;
+      z-index: 2;
+    }
+
     .band {
       grid-template-columns: minmax(0, 1fr);
     }

@@ -24,9 +24,9 @@ import {
 export default function ProductDetail() {
   return (
     <>
-      <div className="product-detail ui-layout-container ui-layout-column ui-large">
+      <div className="product-detail ui-layout-container ui-layout-column ui-gap-large">
         <nav aria-label="Breadcrumb" className="pd-breadcrumb">
-          <ol className="ui-layout-row ui-small">
+          <ol className="ui-layout-row ui-gap-small">
             <li>
               <a className="ui-link" href="#product-detail-shop">
                 Shop
@@ -87,12 +87,12 @@ export default function ProductDetail() {
               </li>
             </Carousel>
           </div>
-          <div className="ui-layout-column ui-large">
+          <div className="ui-layout-column ui-gap-large">
             <hgroup className="ui-hgroup">
               <p className="ui-overline">Bassbook Shop</p>
               <h1 className="ui-h3">Comfy Cloud Gig Bag</h1>
             </hgroup>
-            <div className="ui-layout-row ui-small">
+            <div className="ui-layout-row ui-gap-small">
               <Rating
                 aria-hidden="true"
                 defaultValue={4.7}
@@ -103,7 +103,7 @@ export default function ProductDetail() {
                 128 reviews
               </a>
             </div>
-            <div className="ui-layout-row ui-small pd-price">
+            <div className="ui-layout-row ui-gap-small pd-price">
               <strong className="ui-tabular-nums">€119.00</strong>
               <s>
                 <span className="ui-sr-only">Was </span>€149.00
@@ -157,7 +157,7 @@ export default function ProductDetail() {
                   </a>
                 </FieldDescription>
               </Fieldset>
-              <div className="ui-layout-row ui-small pd-buy">
+              <div className="ui-layout-row ui-gap-small pd-buy">
                 <Field
                   autoFit
                   end={

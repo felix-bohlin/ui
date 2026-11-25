@@ -39,7 +39,7 @@ const pills = quick
     {pills.map((item, index) => <ToggleButton
       aria-label={item["aria-label"]}
       checked={!!item.checked}
-      class:list={[{ "ui-unused": quick && !used && index === 0 }]}
+      class:list={[{ "ui-suggested": quick && !used && index === 0 }]}
       value={item.value}
       ><span aria-hidden="true">{item.label}</span></ToggleButton
     >)}

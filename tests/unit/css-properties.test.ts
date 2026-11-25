@@ -193,3 +193,30 @@ test("the token rules catch -contrast and an on-color without a fill", () => {
     expect.stringContaining("needs --ui-tonal or --ui-surface-tonal"),
   ])
 })
+
+const STATE_ENDING = /-(checked|focus|hover)$/
+
+const stateEndingProblem = ({ name, value }: { name: string; value: string }) =>
+  STATE_ENDING.test(name) &&
+  !/^[a-z-]+$/.test(value.trim()) &&
+  !/\b(color|color-mix|light-dark|oklch)\(/.test(value)
+    ? `${name} ends in a state but holds ${value}: a length or a number ends in the property it sets, after the state (--ui-underline-hover-thickness), and only a keyword switch (--ui-button-hover: shade) or a color ends in the state (--ui-surface-tonal-hover)`
+    : undefined
+
+test("a token that ends in a state holds a keyword or a color", () => {
+  const ending = themeTokens().filter((token) => STATE_ENDING.test(token.name))
+  expect(ending.length).toBeGreaterThan(3)
+  expect(ending.map(stateEndingProblem).filter(Boolean)).toEqual([])
+})
+
+test("a sample the state ending rule must flag: a length after the state", () => {
+  expect(
+    stateEndingProblem({
+      name: "--ui-underline-thickness-hover",
+      value: "3px",
+    }),
+  ).toContain("ends in a state but holds 3px")
+  expect(
+    stateEndingProblem({ name: "--ui-button-hover", value: "shade" }),
+  ).toBeUndefined()
+})

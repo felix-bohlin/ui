@@ -26,7 +26,7 @@ export default function ProjectOverview() {
   return (
     <>
       <div
-        class="project-overview ui-layout-container ui-layout-column ui-large"
+        class="project-overview ui-layout-container ui-layout-column ui-gap-large"
         style="--_max-inline-size: 80rem"
       >
         <div class="ui-layout-row ui-spread">
@@ -44,7 +44,7 @@ export default function ProjectOverview() {
               />
             </p>
           </hgroup>
-          <div class="ui-layout-row ui-small">
+          <div class="ui-layout-row ui-gap-small">
             <Button size="small" type="button" variant="outlined">
               Share
             </Button>
@@ -140,8 +140,8 @@ export default function ProjectOverview() {
             </Card>
           </li>
         </ul>
-        <div class="ui-layout-columns ui-large" style="--_columns: 3fr 2fr">
-          <div class="ui-layout-column ui-large">
+        <div class="ui-layout-columns ui-gap-large" style="--_columns: 3fr 2fr">
+          <div class="ui-layout-column ui-gap-large">
             <Card
               aria-labelledby="project-overview-milestones-heading"
               as="section"
@@ -322,7 +322,7 @@ export default function ProjectOverview() {
               </List>
             </Card>
           </div>
-          <div class="ui-layout-column ui-large">
+          <div class="ui-layout-column ui-gap-large">
             <Card
               aria-labelledby="project-overview-team-heading"
               as="section"
@@ -399,7 +399,7 @@ export default function ProjectOverview() {
                 </h2>
               </hgroup>
               <CardContent>
-                <DescriptionList border="solid">
+                <DescriptionList leader="solid">
                   <DescriptionListItem>
                     <DescriptionListTerm>Host</DescriptionListTerm>
                     <DescriptionListDescription>

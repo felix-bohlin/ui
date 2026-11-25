@@ -166,8 +166,8 @@
     </nav>
     <main class="ui-layout-columns" style="--_columns: 20rem 1fr; --_gap: 0">
       <section aria-labelledby="inbox-heading" class="inbox-list">
-        <div class="ui-layout-row ui-small ui-spread inbox-list-header">
-          <div class="ui-layout-row ui-small">
+        <div class="ui-layout-row ui-gap-small ui-spread inbox-list-header">
+          <div class="ui-layout-row ui-gap-small">
             <Button
               aria-label="Open folders"
               class="inbox-menu-button"
@@ -281,12 +281,12 @@
       </section>
       <article
         aria-labelledby="inbox-subject"
-        class="ui-layout-column ui-large inbox-reader"
+        class="ui-layout-column ui-gap-large inbox-reader"
       >
-        <div class="ui-layout-row ui-x-small ui-spread">
+        <div class="ui-layout-row ui-gap-x-small ui-spread">
           <div
             aria-label="Message actions"
-            class="ui-layout-row ui-x-small"
+            class="ui-layout-row ui-gap-x-small"
             role="group"
           >
             <Button aria-label="Archive" round size="small" type="button"
@@ -340,7 +340,7 @@
               </svg></Button
             >
           </div>
-          <div class="ui-layout-row ui-x-small">
+          <div class="ui-layout-row ui-gap-x-small">
             <Button size="small" type="button" variant="outlined"
               ><svg
                 data-icon="reply"
@@ -373,11 +373,11 @@
             >
           </div>
         </div>
-        <div class="ui-layout-column ui-small">
+        <div class="ui-layout-column ui-gap-small">
           <h2 class="ui-h4" id="inbox-subject">
             You're IN! Gig details inside
           </h2>
-          <div class="ui-layout-row ui-x-small">
+          <div class="ui-layout-row ui-gap-x-small">
             <Chip
               as="span"
               dot
@@ -418,7 +418,7 @@
           <p>They promised to turn you UP this time! &lt;3</p>
           <p>Holly</p>
         </div>
-        <div class="ui-layout-row ui-small">
+        <div class="ui-layout-row ui-gap-small">
           <Chip
             href="#inbox-attachment-setlist"
             label="Setlist-final-final.pdf, 1.2 MB"
@@ -462,7 +462,7 @@
             {/snippet}
           </Chip>
         </div>
-        <form action="#" class="ui-layout-column ui-small inbox-reply">
+        <form action="#" class="ui-layout-column ui-gap-small inbox-reply">
           <Field for="inbox-inbox-reply" label="Reply to Holly">
             <textarea
               id="inbox-inbox-reply"

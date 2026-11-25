@@ -83,7 +83,7 @@ import {
                   <PasswordToggle for="sign-up-password" />
                 </template>
               </Field>
-              <div class="ui-layout-column ui-x-small">
+              <div class="ui-layout-column ui-gap-x-small">
                 <span
                   class="ui-layout-row ui-spread sign-up-strength-label"
                   id="sign-up-strength"
@@ -181,7 +181,7 @@ import {
       </Card>
       <aside
         aria-label="Why Bassbook"
-        class="ui-layout-column ui-large sign-up-aside"
+        class="ui-layout-column ui-gap-large sign-up-aside"
       >
         <hgroup class="ui-hgroup">
           <p class="ui-overline">Why bassists join</p>

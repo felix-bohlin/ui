@@ -16,9 +16,9 @@ import {
 export default function Pricing() {
   return (
     <>
-      <div className="pricing ui-layout-container ui-layout-column ui-large">
+      <div className="pricing ui-layout-container ui-layout-column ui-gap-large">
         <div
-          className="ui-layout-container ui-layout-column ui-large ui-align-center pricing-intro"
+          className="ui-layout-container ui-layout-column ui-gap-large ui-align-center pricing-intro"
           style={{ "--_max-inline-size": "40rem", "--_padding-inline": "0" }}
         >
           <hgroup className="ui-hgroup">
@@ -29,7 +29,7 @@ export default function Pricing() {
               paid plan comes with a 14-day trial.
             </p>
           </hgroup>
-          <div className="ui-layout-row ui-small ui-align-center">
+          <div className="ui-layout-row ui-gap-small ui-align-center">
             <ToggleGroup
               aria-label="Billing period"
               defaultValue="yearly"
@@ -51,7 +51,7 @@ export default function Pricing() {
             </span>
           </div>
         </div>
-        <ul className="ui-layout-grid ui-large pricing-plans">
+        <ul className="ui-layout-grid ui-gap-large pricing-plans">
           <li>
             <Card
               aria-labelledby="pricing-basic-heading"
@@ -66,14 +66,14 @@ export default function Pricing() {
                 <p>For bassists just dipping a toe in.</p>
               </hgroup>
               <CardContent>
-                <div className="ui-layout-column ui-small">
+                <div className="ui-layout-column ui-gap-small">
                   <span className="ui-tabular-nums pricing-amount">€0</span>
                   <span>Free forever</span>
                 </div>
                 <Button href="#pricing-basic" variant="outlined">
                   Join for free
                 </Button>
-                <ul className="ui-layout-column ui-small pricing-features">
+                <ul className="ui-layout-column ui-gap-small pricing-features">
                   <li>Your very own profile</li>
                   <li>A wall for shoutouts</li>
                   <li>Up to 3 bands</li>
@@ -102,18 +102,18 @@ export default function Pricing() {
                 <p>For bassists ready to shine (finally).</p>
               </hgroup>
               <CardContent>
-                <div className="ui-layout-column ui-small pricing-monthly">
+                <div className="ui-layout-column ui-gap-small pricing-monthly">
                   <span className="ui-tabular-nums pricing-amount">€3</span>
                   <span>per month</span>
                 </div>
-                <div className="ui-layout-column ui-small pricing-yearly">
+                <div className="ui-layout-column ui-gap-small pricing-yearly">
                   <span className="ui-tabular-nums pricing-amount">€30</span>
                   <span>per year, that's 2 months free</span>
                 </div>
                 <Button href="#pricing-gold" variant="filled">
                   Start free trial
                 </Button>
-                <ul className="ui-layout-column ui-small pricing-features">
+                <ul className="ui-layout-column ui-gap-small pricing-features">
                   <li>Everything in Basic</li>
                   <li>A shiny gold name</li>
                   <li>Unlimited gear photos</li>
@@ -137,18 +137,18 @@ export default function Pricing() {
                 <p>For legends of the low end. You know who you are.</p>
               </hgroup>
               <CardContent>
-                <div className="ui-layout-column ui-small pricing-monthly">
+                <div className="ui-layout-column ui-gap-small pricing-monthly">
                   <span className="ui-tabular-nums pricing-amount">€5</span>
                   <span>per month</span>
                 </div>
-                <div className="ui-layout-column ui-small pricing-yearly">
+                <div className="ui-layout-column ui-gap-small pricing-yearly">
                   <span className="ui-tabular-nums pricing-amount">€50</span>
                   <span>per year, that's 2 months free</span>
                 </div>
                 <Button href="#pricing-platinum" variant="outlined">
                   Go Platinum
                 </Button>
-                <ul className="ui-layout-column ui-small pricing-features">
+                <ul className="ui-layout-column ui-gap-small pricing-features">
                   <li>Everything in Gold</li>
                   <li>Posts 10% louder</li>
                   <li>Custom profile glitter</li>
@@ -299,8 +299,8 @@ export default function Pricing() {
 
           .pricing-plan {
             &.pricing-featured {
-              outline: var(--ui-border-width-thick) solid var(--ui-primary);
-              outline-offset: calc(-1 * var(--ui-border-width-thick));
+              outline: var(--ui-border-width-large) solid var(--ui-primary);
+              outline-offset: calc(-1 * var(--ui-border-width-large));
             }
 
             .ui-content {

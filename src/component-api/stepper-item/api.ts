@@ -7,14 +7,6 @@ export default {
   },
   options: [
     {
-      class: ".ui-complete",
-      default: "false",
-      description:
-        "Marks the step complete: a check in the marker and the line to the next step in the accent color.",
-      group: "Complete",
-      prop: "complete",
-    },
-    {
       default: '", completed"',
       description: "Screen reader text after the label of a complete step.",
       group: "Complete label",
@@ -24,7 +16,7 @@ export default {
       attribute: '[aria-current="step"]',
       default: "false",
       description:
-        "Marks the current step. The steps before it show as complete, with or without `.ui-complete`.",
+        "Marks the current step. The steps before it show as complete, with or without `.ui-state-complete`.",
       group: "Current",
       prop: "current",
     },
@@ -32,14 +24,6 @@ export default {
       description: "A short line under the label.",
       group: "Description",
       prop: "description",
-    },
-    {
-      class: ".ui-error",
-      default: "false",
-      description:
-        "Marks a step with an error: an exclamation mark in the marker and the label in the invalid color. Wins over `complete`.",
-      group: "Validation",
-      prop: "error",
     },
     {
       default: '", error"',
@@ -50,7 +34,7 @@ export default {
     },
     {
       description:
-        "Renders the label as a link on a complete step or a step with an error, but not on the current one.",
+        "Renders the label as a link on a step with a `state`, but not on the current one.",
       group: "Href",
       prop: "href",
     },
@@ -58,6 +42,13 @@ export default {
       description: "The name of the step.",
       group: "Label",
       prop: "label",
+    },
+    {
+      description:
+        "The step's state: `complete` shows a check in the marker and the line to the next step in the accent color, `error` an exclamation mark in the marker and the label in the invalid color. Without it the step is still to come, or the current one.",
+      group: "State",
+      prop: "state",
+      values: { complete: ".ui-state-complete", error: ".ui-state-error" },
     },
   ],
   page: "stepper",

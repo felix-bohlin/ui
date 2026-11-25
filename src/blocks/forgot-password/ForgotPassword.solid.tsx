@@ -20,7 +20,7 @@ export default function ForgotPassword() {
         style="--_max-inline-size: 56rem"
       >
         <div
-          class="ui-layout-grid ui-large forgot-password-grid"
+          class="ui-layout-grid ui-gap-large forgot-password-grid"
           style="--_max-columns: 2; --_min-inline-size: 19rem"
         >
           <Card

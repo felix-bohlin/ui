@@ -1,5 +1,5 @@
 <template>
-  <ul role="list" class="ui-layout-column ui-x-small ui-tabular-nums">
+  <ul role="list" class="ui-layout-column ui-gap-x-small ui-tabular-nums">
     <li class="ui-layout-row ui-spread">
       <span>Profile visits</span>
       <span>48,210</span>

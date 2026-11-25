@@ -2,8 +2,8 @@
   import { Button } from "opui-css/svelte"
 </script>
 
-<div class="ui-layout-column ui-large">
-  <div class="ui-layout-column ui-x-small ui-align-center">
+<div class="ui-layout-column ui-gap-large">
+  <div class="ui-layout-column ui-gap-x-small ui-align-center">
     <h3 class="ui-h4">Plans for every bassist</h3>
     <p>Start free and upgrade when you add a fifth string.</p>
   </div>

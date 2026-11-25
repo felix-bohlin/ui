@@ -8,8 +8,8 @@
     --_gap: var(--ui-space-2);
     --_icon-size: calc(var(--_marker-size) * 0.6);
     --_line-border-color: var(--ui-border-color);
-    --_line-border-width: var(--ui-border-width-thick);
-    --_marker-border-width: var(--ui-border-width-thick);
+    --_line-border-width: var(--ui-border-width-large);
+    --_marker-border-width: var(--ui-border-width-large);
     --_marker-complete-image: var(--ui-icon-check);
     --_marker-error-image: var(--ui-icon-invalid);
     --_marker-size: var(--ui-space-6);
@@ -133,24 +133,24 @@
 
     /* Completed steps */
     & > li:has(~ [aria-current="step"]),
-    & > li.ui-complete {
+    & > li.ui-state-complete {
       --_label-text-color: var(--ui-text);
       --_line-border-color: var(--_accent);
       --_marker-bg-color: var(--_accent);
       --_marker-border-color: var(--_accent);
       --_marker-image: var(--_marker-complete-image);
 
-      &:not(.ui-error):has(> .ui-icon-complete)::before {
+      &:not(.ui-state-error):has(> .ui-icon-complete)::before {
         mask: none;
       }
 
-      &:not(.ui-error) > .ui-icon-complete {
+      &:not(.ui-state-error) > .ui-icon-complete {
         display: grid;
       }
     }
 
     /* Steps with an error */
-    & > li.ui-error {
+    & > li.ui-state-error {
       --_label-text-color: var(--ui-invalid-text);
       --_marker-bg-color: var(--ui-invalid);
       --_marker-border-color: var(--ui-invalid);
@@ -160,8 +160,8 @@
     &
       > :is(
         li:has(~ [aria-current="step"]),
-        li.ui-complete,
-        li.ui-error
+        li.ui-state-complete,
+        li.ui-state-error
       )::before {
       color: transparent;
       mask-composite: exclude;
@@ -224,8 +224,8 @@
       }
 
       & > li:has(~ [aria-current="step"]),
-      & > li.ui-complete,
-      & > li.ui-error {
+      & > li.ui-state-complete,
+      & > li.ui-state-error {
         &:not(:last-child)::after {
           background-color: CanvasText;
         }

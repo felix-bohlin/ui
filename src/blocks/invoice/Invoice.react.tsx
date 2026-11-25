@@ -23,10 +23,10 @@ export default function Invoice() {
   return (
     <>
       <div
-        className="invoice ui-layout-container ui-layout-column ui-large"
+        className="invoice ui-layout-container ui-layout-column ui-gap-large"
         style={{ "--_max-inline-size": "58rem" }}
       >
-        <div className="ui-layout-row ui-small ui-spread invoice-toolbar">
+        <div className="ui-layout-row ui-gap-small ui-spread invoice-toolbar">
           <Button href="#invoice-all" size="small">
             <svg
               data-icon="chevron-left"
@@ -43,7 +43,7 @@ export default function Invoice() {
             </svg>
             <span className="ui-text">All invoices</span>
           </Button>
-          <div className="ui-layout-row ui-small">
+          <div className="ui-layout-row ui-gap-small">
             <Button size="small" type="button" variant="outlined">
               <svg
                 data-icon="print"
@@ -102,7 +102,7 @@ export default function Invoice() {
         >
           <CardContent>
             <div className="ui-layout-row ui-spread invoice-head">
-              <div className="ui-layout-row ui-small invoice-brand">
+              <div className="ui-layout-row ui-gap-small invoice-brand">
                 <svg
                   data-icon="layers"
                   aria-hidden="true"
@@ -118,7 +118,7 @@ export default function Invoice() {
                 </svg>
                 Bassbook
               </div>
-              <div className="ui-layout-column ui-small invoice-title">
+              <div className="ui-layout-column ui-gap-small invoice-title">
                 <hgroup>
                   <h1 className="ui-h3" id="invoice-heading">
                     Invoice BB-2026-0418
@@ -135,7 +135,7 @@ export default function Invoice() {
               </div>
             </div>
             <div
-              className="ui-layout-grid ui-large ui-stretch invoice-parties"
+              className="ui-layout-grid ui-gap-large ui-stretch invoice-parties"
               style={{ "--_min-inline-size": "12rem" }}
             >
               <section aria-labelledby="invoice-from">
@@ -252,8 +252,8 @@ export default function Invoice() {
               </TableBody>
             </Table>
             <DescriptionList
-              border="solid"
               className="invoice-totals"
+              leader="solid"
               orientation="horizontal"
             >
               <DescriptionListItem>
@@ -272,7 +272,7 @@ export default function Invoice() {
             <Divider />
             <section
               aria-labelledby="invoice-payment-heading"
-              className="ui-layout-columns ui-large ui-breakpoint-small"
+              className="ui-layout-columns ui-gap-large ui-breakpoint-small"
               style={{ "--_columns": "3fr 2fr" }}
             >
               <div>
@@ -282,7 +282,7 @@ export default function Invoice() {
                 >
                   Payment details
                 </h2>
-                <DescriptionList border="solid">
+                <DescriptionList leader="solid">
                   <DescriptionListItem>
                     <DescriptionListTerm>Bankgiro</DescriptionListTerm>
                     <DescriptionListDescription>

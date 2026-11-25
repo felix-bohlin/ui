@@ -7,7 +7,7 @@ export default function Spread() {
         <p>Setlists</p>
         <h3 className="ui-h4">Summer tour</h3>
       </hgroup>
-      <div className="ui-layout-row ui-small">
+      <div className="ui-layout-row ui-gap-small">
         <Button variant="outlined">Share</Button>
         <Button color="primary" variant="filled">
           New song

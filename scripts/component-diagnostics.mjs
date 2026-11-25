@@ -225,9 +225,9 @@ export const DIAGNOSTICS = {
       "A named slot reaches a Nunjucks macro as content captured with `{% set %}`, which renders before the macro runs, so a context the macro provides can't reach it. Only the default slot, the macro's `caller()`, renders inside the macro. Provide the context around the default slot.",
   },
   BC704: {
-    title: "A component inside a component in Nunjucks",
+    title: "A named slot passed to an inner component in Nunjucks",
     explain:
-      "The Nunjucks prototype doesn't yet write a component that renders another opui component. Write the markup of the inner component in place, or teach `scripts/component-nunjucks.mjs` to import the inner macro and call it.",
+      "The Nunjucks prototype writes an inner component as a `{% call %}` of its macro, whose body is the inner component's default slot. A child with a `slot` attribute fills one of its named slots, which a macro reads from `props.slots`, and the prototype doesn't yet capture it there. Pass the content in the default slot, or teach `scripts/component-nunjucks.mjs` to capture it with `{% set %}` into `slots`.",
   },
   BC705: {
     title: "A name Nunjucks or the Nunjucks prototype reserves",

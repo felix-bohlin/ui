@@ -2,17 +2,20 @@
 const tiers = [
   {
     name: "Knob",
-    note: "Set by a theme",
+    note: "Inputs a theme sets",
+    scope: "theme",
     tokens: ["--ui-palette-hue", "--ui-density", ""],
   },
   {
     name: "Primitive",
-    note: "Palette steps derived from the knobs, plain type scale steps, never read by components",
+    note: "Derived from the knobs, never read by components",
+    scope: "theme",
     tokens: ["--ui-color-16", "", "--ui-font-size-300"],
   },
   {
     name: "Role",
-    note: "Set by a theme, read by every component with that job",
+    note: "Read by every component with that job",
+    scope: "theme",
     tokens: [
       "--ui-palette-strong",
       "--ui-control-size",
@@ -21,234 +24,522 @@ const tiers = [
   },
   {
     name: "Component token",
-    note: "Set by a theme, read by one component",
+    note: "Read by one component",
     optional: ["--ui-button-accent"],
+    scope: "component",
     tokens: ["--ui-button-accent", "--ui-button-size", ""],
   },
   {
     name: "Private property",
-    note: "Declared by the component, set on one element",
+    note: "Set on one element",
+    scope: "element",
     tokens: ["--_accent", "--_size", "--_font-size"],
   },
   {
     name: "CSS property",
+    note: "What the browser paints",
+    scope: "element",
     tokens: ["background-color", "min-block-size", "font-size"],
   },
 ]
 
-const traces = ["Accent", "Height", "Font size"]
+const traces = [
+  { id: "accent", name: "Accent" },
+  { id: "height", name: "Height" },
+  { id: "font", name: "Font size" },
+]
 
-const span = traces.map((_, column) => {
-  const filled = tiers.flatMap((tier, row) =>
-    tier.tokens[column] ? [row] : [],
+const scopes = [
+  {
+    id: "theme",
+    name: "Theme",
+    selector: ":root",
+    note: "Set once for the page",
+  },
+  {
+    id: "component",
+    name: "Button",
+    selector: ".ui-button",
+    note: "Read by every Button and nothing else",
+  },
+  {
+    id: "element",
+    name: "Element",
+    selector: "<button>",
+    note: "Declared by the Button's CSS, set on this element only",
+  },
+]
+
+const tierId = (name: string) => name.toLowerCase().replace(/\s+/g, "-")
+
+const chains = traces
+  .map(
+    (trace, column) =>
+      `${trace.name}: ${tiers
+        .flatMap((tier) => tier.tokens[column] || [])
+        .join(" to ")}`,
   )
-  return { first: filled[0], last: filled[filled.length - 1] }
-})
+  .join(". ")
 
-const link = (row: number, column: number) => {
-  const { first, last } = span[column]
-  if (row < first || row > last) return undefined
-  if (row === first) return "start"
-  if (row === last) return "end"
-  return "through"
-}
+const fallback = traces.flatMap((trace, column) =>
+  tiers.some((tier) => tier.optional?.includes(tier.tokens[column]))
+    ? [trace.id]
+    : [],
+)
+
+const name = "token-tiers-trace"
 ---
 
-<figure class="token-tiers ui-not-rich-text">
-  <div class="scroll">
-    <table>
-      <thead>
-        <tr>
-          <th scope="col">Tier</th>
-          {traces.map((trace) => <th scope="col">{trace}</th>)}
-        </tr>
-      </thead>
-      <tbody>
-        {tiers.map((tier, row) => <tr
-          data-tier={tier.name.toLowerCase().replace(/\s+/g, "-")}
-        >
-          <th scope="row">
-            <span class="tier">
-              <span class="name">{tier.name}</span>
-              {tier.note && <span class="note">{tier.note}</span>}
-            </span>
-          </th>
-          {tier.tokens.map((token, column) => <td data-link={link(row, column)}>
-            {token && <code
-              data-optional={tier.optional?.includes(token) ? "" : undefined}
+<figure class="token-tiers ui-not-rich-text" data-fallback={fallback.join(" ")}>
+  <div class="toolbar">
+    <div aria-label="Trace" class="ui-toggle-group ui-small" role="radiogroup">
+      <label class="ui-toggle-button" data-option="all">
+        <input checked {name} type="radio" value="all" />
+        All traces
+      </label>
+      {traces.map((trace) => <label class="ui-toggle-button">
+        <input {name} type="radio" value={trace.id} />
+        <span aria-hidden="true" class="dot" data-trace={trace.id}></span>
+        {trace.name}
+      </label>)}
+    </div>
+    <ul class="legend">
+      <li><span aria-hidden="true" class="key-wire"></span>Reads</li>
+      <li>
+        <span aria-hidden="true" class="key-wire" data-fallback></span>Falls
+        back when unset
+      </li>
+      <li><span aria-hidden="true" class="key-chip"></span>Unset by default</li>
+    </ul>
+  </div>
+  <div class="stage">
+    <svg aria-label={`${chains}.`} class="wires" role="img"></svg>
+    {(function nest(level: number): unknown {
+      const scope = scopes[level]
+      if (!scope) return null
+      return <div class="scope" data-scope={scope.id}>
+        <p class="scope-head">
+          <strong>{scope.name}</strong>
+          <code>{scope.selector}</code>
+          <span>{scope.note}</span>
+        </p>
+        {tiers
+          .filter((tier) => tier.scope === scope.id)
+          .map((tier) => <div class="band" data-tier={tierId(tier.name)}>
+            <p class="band-label">
+              <strong>{tier.name}</strong>
+              <span>{tier.note}</span>
+            </p>
+            {traces.map((trace, column) => <div
+              class="slot"
+              data-trace={trace.id}
             >
-              {token}
-            </code>}
-          </td>)}
-        </tr>)}
-      </tbody>
-    </table>
+              {tier.tokens[column] && <code
+                class="chip"
+                data-optional={
+                  tier.optional?.includes(tier.tokens[column]) ? "" : undefined
+                }
+                data-tier={tierId(tier.name)}
+                data-trace={trace.id}
+              >
+                {tier.tokens[column]}
+              </code>}
+            </div>)}
+          </div>)}
+        {nest(level + 1)}
+      </div>
+    })(0)}
   </div>
   <figcaption>
-    A filled Button, traced from the theme to its CSS. Component CSS reads from
-    the line down. An empty cell skips a tier, and a dashed token is unset by
-    default and falls back to the role.
+    A filled Button, traced from the theme to its CSS. Each box is how far a
+    token reaches, and an arrow that jumps a band skips that tier. The theme
+    sets the Button's tokens too, but only a Button reads them. Unset,
+    <code>--ui-button-accent</code> falls back to the role.
   </figcaption>
 </figure>
 
+<script>
+  const NS = "http://www.w3.org/2000/svg"
+
+  const draw = (figure: HTMLElement, index: number) => {
+    const stage = figure.querySelector<HTMLElement>(".stage")
+    const svg = stage?.querySelector("svg")
+    if (!stage || !svg) return
+    const box = stage.getBoundingClientRect()
+    svg.setAttribute("viewBox", `0 0 ${box.width} ${box.height}`)
+    svg.replaceChildren()
+    const defs = document.createElementNS(NS, "defs")
+    svg.append(defs)
+    const rect = (element: Element) => {
+      const { height, left, top, width } = element.getBoundingClientRect()
+      return { h: height, w: width, x: left - box.left, y: top - box.top }
+    }
+    const shown = (element: Element | null): element is HTMLElement =>
+      element instanceof HTMLElement && element.checkVisibility()
+    const traces = new Set(
+      [...stage.querySelectorAll<HTMLElement>(".chip")].map(
+        (chip) => chip.dataset.trace ?? "",
+      ),
+    )
+    for (const trace of traces) {
+      const head = `${figure.dataset.id ?? index}-${trace}`
+      const marker = document.createElementNS(NS, "marker")
+      marker.id = `token-tiers-head-${head}`
+      for (const [key, value] of Object.entries({
+        markerHeight: "7",
+        markerWidth: "7",
+        orient: "auto-start-reverse",
+        refX: "8",
+        refY: "5",
+        viewBox: "0 0 10 10",
+      })) {
+        marker.setAttribute(key, value)
+      }
+      const tip = document.createElementNS(NS, "path")
+      tip.setAttribute("d", "M0,1 L9,5 L0,9 z")
+      tip.dataset.trace = trace
+      marker.append(tip)
+      defs.append(marker)
+      const wire = (from: Element, to: Element, fallback = false) => {
+        const a = rect(from)
+        const b = rect(to)
+        const path = document.createElementNS(NS, "path")
+        if (fallback) {
+          const bend = Math.min(
+            box.width - 4,
+            Math.max(a.x + a.w, b.x + b.w) + 40,
+          )
+          const y1 = a.y + a.h / 2
+          const y2 = b.y + b.h / 2
+          path.setAttribute(
+            "d",
+            `M${a.x + a.w + 2},${y1} C${bend},${y1} ${bend},${y2} ${b.x + b.w + 3},${y2}`,
+          )
+          path.dataset.fallback = ""
+        } else {
+          const x1 = a.x + a.w / 2
+          const y1 = a.y + a.h + 2
+          const x2 = b.x + b.w / 2
+          const y2 = b.y - 3
+          const middle = (y2 - y1) / 2
+          path.setAttribute(
+            "d",
+            `M${x1},${y1} C${x1},${y1 + middle} ${x2},${y2 - middle} ${x2},${y2}`,
+          )
+        }
+        path.classList.add("wire")
+        path.dataset.trace = trace
+        path.setAttribute("marker-end", `url(#${marker.id})`)
+        svg.append(path)
+      }
+      const chips = [
+        ...stage.querySelectorAll(`.chip[data-trace="${trace}"]`),
+      ].filter(shown)
+      chips.slice(1).forEach((chip, step) => wire(chips[step], chip))
+      if (figure.dataset.fallback?.split(" ").includes(trace)) {
+        const role = stage.querySelector(
+          `.chip[data-trace="${trace}"][data-tier="role"]`,
+        )
+        const own = stage.querySelector(
+          `.chip[data-trace="${trace}"][data-tier="private-property"]`,
+        )
+        if (shown(role) && shown(own)) wire(role, own, true)
+      }
+    }
+  }
+
+  document
+    .querySelectorAll<HTMLElement>(".token-tiers")
+    .forEach((figure, index) => {
+      figure.dataset.id = String(index)
+      const all = figure.querySelector<HTMLInputElement>('input[value="all"]')
+      const first = figure.querySelector<HTMLInputElement>(
+        'input:not([value="all"])',
+      )
+      const render = () => {
+        if (all?.checked && !all.checkVisibility()) {
+          if (first) first.checked = true
+        }
+        draw(figure, index)
+      }
+      figure.addEventListener("change", render)
+      const stage = figure.querySelector(".stage")
+      if (stage) new ResizeObserver(render).observe(stage)
+      document.fonts?.ready.then(render)
+    })
+</script>
+
 <style>
   .token-tiers {
-    --_line: color-mix(in oklch, var(--ui-primary) 60%, transparent);
+    --_accent-trace: light-dark(oklch(0.55 0.2 258), oklch(0.74 0.14 258));
+    --_font-trace: light-dark(oklch(0.54 0.21 340), oklch(0.76 0.16 340));
+    --_height-trace: light-dark(oklch(0.58 0.16 55), oklch(0.8 0.13 65));
 
+    container-type: inline-size;
     display: grid;
-    gap: var(--size-3);
-    margin-block: var(--size-5);
-    place-items: stretch;
+    gap: var(--ui-space-3);
+    margin-block: var(--ui-space-5);
   }
 
-  .scroll {
-    background-color: var(--ui-surface);
-    border: var(--ui-border-width) solid var(--ui-border-color);
-    border-radius: var(--ui-radius);
-    overflow-x: auto;
-    padding-block: var(--size-3);
+  .token-tiers :global([data-trace="accent"]) {
+    --_trace: var(--_accent-trace);
   }
 
-  table {
-    border-collapse: separate;
-    border-spacing: 0;
+  .token-tiers :global([data-trace="height"]) {
+    --_trace: var(--_height-trace);
+  }
+
+  .token-tiers :global([data-trace="font"]) {
+    --_trace: var(--_font-trace);
+  }
+
+  .toolbar {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-2) var(--ui-space-4);
+  }
+
+  .dot {
+    background-color: var(--_trace);
+    block-size: 0.6em;
+    border-radius: 50%;
+    forced-color-adjust: none;
+    inline-size: 0.6em;
+  }
+
+  .legend {
+    color: var(--ui-text);
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--ui-font-size-caption);
+    gap: var(--ui-space-1) var(--ui-space-4);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      align-items: center;
+      display: inline-flex;
+      gap: var(--ui-space-2);
+    }
+  }
+
+  .key-wire {
+    border-block-start: 2px dashed currentColor;
+    inline-size: var(--ui-space-6);
+
+    &[data-fallback] {
+      border-block-start-style: dotted;
+    }
+  }
+
+  .key-chip {
+    block-size: 0.9em;
+    border: var(--ui-border-width) dashed currentColor;
+    border-radius: var(--ui-radius-small);
+    inline-size: var(--ui-space-6);
+  }
+
+  .stage {
+    position: relative;
+  }
+
+  .wires {
+    block-size: 100%;
     inline-size: 100%;
-    min-inline-size: 36rem;
-  }
-
-  th,
-  td {
-    padding: var(--size-2) var(--size-3);
-    vertical-align: middle;
-  }
-
-  th:first-child {
-    background-color: var(--ui-surface);
-    border-inline-end: var(--ui-border-width) solid var(--ui-border-color);
-    inset-inline-start: 0;
-    padding-inline-start: var(--size-4);
-    position: sticky;
+    inset: 0;
+    overflow: visible;
+    pointer-events: none;
+    position: absolute;
     z-index: 1;
   }
 
-  thead th {
-    color: var(--ui-text);
-    font-size: var(--ui-font-size-caption);
-    font-weight: var(--ui-font-weight-medium);
-    letter-spacing: var(--ui-letter-spacing-caps);
-    padding-block-end: var(--size-3);
-    text-align: center;
-    text-transform: uppercase;
+  .scope {
+    --_edge: oklch(from var(--_fill) calc(l - 0.15) calc(c * 3) h);
 
-    &:first-child {
-      text-align: start;
-    }
-  }
-
-  tbody th {
-    inline-size: 12rem;
-    min-inline-size: 9rem;
-    text-align: start;
-  }
-
-  .tier {
+    background-color: var(--_fill);
+    border: var(--ui-border-width) solid var(--_edge);
+    border-radius: calc(var(--ui-radius) * 1.5);
     display: grid;
-    gap: var(--size-1);
+    padding: var(--ui-space-3);
+
+    .scope {
+      margin-block-start: var(--ui-space-2);
+    }
+
+    &[data-scope="theme"] {
+      --_fill: light-dark(oklch(0.96 0.02 258), oklch(0.27 0.03 258));
+    }
+
+    &[data-scope="component"] {
+      --_fill: light-dark(oklch(0.97 0.02 75), oklch(0.29 0.03 70));
+    }
+
+    &[data-scope="element"] {
+      --_fill: light-dark(oklch(0.97 0.02 330), oklch(0.3 0.035 330));
+    }
+  }
+
+  .scope-head {
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--ui-space-2);
+    margin: 0 0 var(--ui-space-1);
+
+    strong {
+      font-weight: var(--ui-font-weight-semibold);
+    }
+
+    code {
+      font-size: var(--ui-font-size-caption);
+    }
+
+    span {
+      color: var(--ui-text);
+      flex-basis: 100%;
+      font-size: var(--ui-font-size-small);
+    }
+  }
+
+  .band {
+    align-items: center;
+    border-block-start: var(--ui-border-width) dashed var(--_edge);
+    display: grid;
+    gap: var(--ui-space-2);
+    grid-template-columns: minmax(7rem, 9rem) repeat(3, minmax(0, 1fr));
+    padding-block: var(--ui-space-4);
+
+    .scope-head + & {
+      border-block-start: 0;
+      padding-block-start: var(--ui-space-2);
+    }
+  }
+
+  .band-label {
+    display: grid;
     line-height: var(--ui-line-height-tight);
+    margin: 0;
+
+    strong {
+      font-size: var(--ui-font-size-small);
+      font-weight: var(--ui-font-weight-semibold);
+    }
+
+    span {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-caption);
+    }
   }
 
-  .name {
-    font-weight: var(--ui-font-weight-semibold);
-  }
-
-  .note {
-    color: var(--ui-text);
-    font-size: var(--ui-font-size-small);
-    font-weight: var(--ui-font-weight-normal);
-    line-height: var(--ui-line-height-tight);
-  }
-
-  td {
-    position: relative;
+  .slot {
+    min-inline-size: 0;
     text-align: center;
-
-    &[data-link]::before {
-      background-color: var(--_line);
-      content: "";
-      inline-size: 2px;
-      inset-block: 0;
-      inset-inline-start: calc(50% - 1px);
-      position: absolute;
-    }
-
-    &[data-link="start"]::before {
-      inset-block-start: 50%;
-    }
-
-    &[data-link="end"]::before {
-      inset-block-end: 50%;
-    }
   }
 
-  code {
+  .chip {
     background-color: var(--ui-surface);
-    border: var(--ui-border-width) solid var(--ui-border-color);
+    border: var(--ui-border-width) solid var(--_trace);
     border-radius: var(--ui-radius-small);
     display: inline-block;
     font-size: var(--ui-font-size-caption);
-    padding: var(--size-1) var(--size-2);
+    padding: var(--ui-space-1) var(--ui-space-2);
     position: relative;
+    transition: opacity 0.2s;
     white-space: nowrap;
+    z-index: 2;
 
     &[data-optional] {
       border-style: dashed;
     }
-  }
 
-  td:not([data-link="start"]) code::before {
-    border-block-start: 6px solid var(--_line);
-    border-inline: 5px solid transparent;
-    content: "";
-    inset-block-end: calc(100% + 1px);
-    inset-inline-start: calc(50% - 5px);
-    position: absolute;
-  }
-
-  [data-tier="knob"] code {
-    background-color: var(--ui-palette-tint-subtle);
-    border-color: var(--ui-palette-accent);
-  }
-
-  [data-tier="primitive"] {
-    code {
+    &[data-tier="primitive"] {
       border-style: dotted;
-      color: var(--ui-text);
+    }
+
+    &[data-tier="css-property"] {
+      background-color: var(--ui-surface-inverse);
+      border-color: var(--ui-surface-inverse);
+      color: var(--ui-on-inverse);
     }
   }
 
-  [data-tier="role"] {
-    > * {
-      border-block-start: var(--ui-border-width-thick) solid var(--ui-primary);
-    }
+  .wires :global(.wire) {
+    fill: none;
+    stroke: var(--_trace);
+    stroke-dasharray: 6 5;
+    stroke-linecap: round;
+    stroke-width: 2;
+    transition: opacity 0.2s;
 
-    code {
-      border-color: var(--ui-primary);
+    &[data-fallback] {
+      stroke-dasharray: 1.5 5;
     }
   }
 
-  [data-tier="css-property"] code {
-    background-color: var(--ui-surface-inverse);
-    border-color: var(--ui-surface-inverse);
-    color: var(--ui-on-inverse);
+  .wires :global(marker path) {
+    fill: var(--_trace);
   }
 
-  tbody tr + tr > * {
-    padding-block-start: var(--size-4);
+  .token-tiers:has(input:not([value="all"]):checked) {
+    @media (prefers-reduced-motion: no-preference) {
+      .wires :global(.wire) {
+        animation: token-tiers-flow 1.2s linear infinite;
+      }
+    }
+  }
+
+  .token-tiers:has([value="accent"]:checked)
+    :global(:is(.chip, .wire):not([data-trace="accent"])),
+  .token-tiers:has([value="height"]:checked)
+    :global(:is(.chip, .wire):not([data-trace="height"])),
+  .token-tiers:has([value="font"]:checked)
+    :global(:is(.chip, .wire):not([data-trace="font"])) {
+    animation: none;
+    opacity: 0.15;
+  }
+
+  @keyframes token-tiers-flow {
+    to {
+      stroke-dashoffset: -22;
+    }
   }
 
   figcaption {
     color: var(--ui-text);
     font-size: var(--ui-font-size-small);
     text-align: start;
+  }
+
+  @container (width < 40rem) {
+    [data-option="all"] {
+      display: none;
+    }
+
+    .band {
+      grid-template-columns: minmax(6rem, 8rem) minmax(0, 1fr);
+    }
+
+    .slot {
+      display: none;
+    }
+
+    .token-tiers:has(:is([value="all"], [value="accent"]):checked)
+      .slot[data-trace="accent"],
+    .token-tiers:has([value="height"]:checked) .slot[data-trace="height"],
+    .token-tiers:has([value="font"]:checked) .slot[data-trace="font"] {
+      display: block;
+    }
+  }
+
+  @container (width < 21rem) {
+    .band {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .slot {
+      text-align: end;
+    }
   }
 </style>

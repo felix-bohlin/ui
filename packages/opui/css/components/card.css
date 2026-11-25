@@ -83,8 +83,8 @@
 
     /* Colors */
     &:where(.ui-card).ui-primary {
-      outline: var(--ui-border-width-thick) solid var(--ui-primary);
-      outline-offset: calc(-1 * var(--ui-border-width-thick));
+      outline: var(--ui-border-width-large) solid var(--ui-primary);
+      outline-offset: calc(-1 * var(--ui-border-width-large));
     }
 
     & > :where(hgroup, .ui-content, .ui-header) {

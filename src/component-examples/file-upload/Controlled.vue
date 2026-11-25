@@ -30,7 +30,7 @@ const upload = (file: File) => {
       if (!item) return
       item.progress = (item.progress ?? 0) + 0.1
       if (item.progress < 1) return
-      item.state = "done"
+      item.state = "complete"
       clearInterval(uploads.get(value))
       status.value = `${file.name} is uploaded.`
     }, 400),

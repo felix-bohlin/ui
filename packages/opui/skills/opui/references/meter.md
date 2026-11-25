@@ -36,14 +36,14 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_ease`: Easing of the value transition. Defaults to `--ui-ease-enter`.
 - `--_loop-duration`: Length of one cycle of the indeterminate animation, and of the pulse that replaces it when `--_motion` is `0`. `2s` by default, multiplied by `--_motion`.
 - `--_motion`: Motion multiplier for the value transition and the indeterminate animation.
-- `--_ring-border-width`: Thickness of the ring of `.ui-round`. Defaults to `--ui-border-width-thick`.
+- `--_ring-border-width`: Thickness of the ring of `.ui-round`. Defaults to `--ui-border-width-large`.
 - `--_ring-size`: Width and height of `.ui-round`. Defaults to `--ui-icon-size-large`.
 
 Outputs: `--_duration` and `--_ring-fraction`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width`, `--ui-border-width-thick`, `--ui-critical`, `--ui-duration`, `--ui-ease-enter`, `--ui-field-border-color`, `--ui-icon-size-large`, `--ui-motion`, `--ui-radius`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-space-1`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-track-bg-color` and `--ui-warning`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-border-width-large`, `--ui-critical`, `--ui-duration`, `--ui-ease-enter`, `--ui-field-border-color`, `--ui-icon-size-large`, `--ui-motion`, `--ui-radius`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-space-1`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-track-bg-color` and `--ui-warning`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

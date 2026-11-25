@@ -15,7 +15,7 @@ export default function UserDirectory() {
   return (
     <>
       <div
-        className="user-directory ui-layout-container ui-layout-column ui-large"
+        className="user-directory ui-layout-container ui-layout-column ui-gap-large"
         style={{ "--_max-inline-size": "80rem" }}
       >
         <div className="ui-layout-row ui-spread">
@@ -97,7 +97,7 @@ export default function UserDirectory() {
                     <p>Upright wrangler, jazz only</p>
                   </hgroup>
                 </div>
-                <div className="ui-layout-row ui-small ui-caption">
+                <div className="ui-layout-row ui-gap-small ui-caption">
                   <Chip as="span" label="Upright" size="small" />
                   <span>Berlin, 14:20 local time</span>
                 </div>
@@ -157,7 +157,7 @@ export default function UserDirectory() {
                     </p>
                   </hgroup>
                 </div>
-                <div className="ui-layout-row ui-small ui-caption">
+                <div className="ui-layout-row ui-gap-small ui-caption">
                   <Chip as="span" label="5-string" size="small" />
                   <span>Accra, 12:20 local time</span>
                 </div>
@@ -217,7 +217,7 @@ export default function UserDirectory() {
                     </p>
                   </hgroup>
                 </div>
-                <div className="ui-layout-row ui-small ui-caption">
+                <div className="ui-layout-row ui-gap-small ui-caption">
                   <Chip as="span" label="Upright" size="small" />
                   <span>Copenhagen, 14:20 local time</span>
                 </div>
@@ -277,7 +277,7 @@ export default function UserDirectory() {
                     </p>
                   </hgroup>
                 </div>
-                <div className="ui-layout-row ui-small ui-caption">
+                <div className="ui-layout-row ui-gap-small ui-caption">
                   <Chip as="span" label="4-string" size="small" />
                   <span>Amsterdam, 14:20 local time</span>
                 </div>
@@ -326,7 +326,7 @@ export default function UserDirectory() {
                     <p>Fretless and fearless</p>
                   </hgroup>
                 </div>
-                <div className="ui-layout-row ui-small ui-caption">
+                <div className="ui-layout-row ui-gap-small ui-caption">
                   <Chip as="span" label="Fretless" size="small" />
                   <span>Oslo, 14:20 local time</span>
                 </div>
@@ -386,7 +386,7 @@ export default function UserDirectory() {
                     </p>
                   </hgroup>
                 </div>
-                <div className="ui-layout-row ui-small ui-caption">
+                <div className="ui-layout-row ui-gap-small ui-caption">
                   <Chip as="span" label="4-string" size="small" />
                   <span>Stockholm, 14:20 local time</span>
                 </div>
@@ -435,7 +435,7 @@ export default function UserDirectory() {
                     <p>Low B believer</p>
                   </hgroup>
                 </div>
-                <div className="ui-layout-row ui-small ui-caption">
+                <div className="ui-layout-row ui-gap-small ui-caption">
                   <Chip as="span" label="5-string" size="small" />
                   <span>Bengaluru, 17:50 local time</span>
                 </div>
@@ -484,7 +484,7 @@ export default function UserDirectory() {
                     <p>Pedalboard hoarder</p>
                   </hgroup>
                 </div>
-                <div className="ui-layout-row ui-small ui-caption">
+                <div className="ui-layout-row ui-gap-small ui-caption">
                   <Chip as="span" label="5-string" size="small" />
                   <span>Madrid, 14:20 local time</span>
                 </div>
@@ -524,7 +524,7 @@ export default function UserDirectory() {
             </Card>
           </li>
         </ul>
-        <div className="ui-layout-column ui-small user-directory-footer">
+        <div className="ui-layout-column ui-gap-small user-directory-footer">
           <p>Showing 8 of 48 bassists</p>
           <Button type="button" variant="outlined">
             Load more

@@ -24,9 +24,9 @@ import {
 </script>
 
 <template>
-  <div class="product-detail ui-layout-container ui-layout-column ui-large">
+  <div class="product-detail ui-layout-container ui-layout-column ui-gap-large">
     <nav aria-label="Breadcrumb" class="pd-breadcrumb">
-      <ol class="ui-layout-row ui-small">
+      <ol class="ui-layout-row ui-gap-small">
         <li><a class="ui-link" href="#product-detail-shop">Shop</a></li>
         <li><a class="ui-link" href="#product-detail-gear">Gear</a></li>
         <li><a class="ui-link" href="#product-detail-gig-bags">Gig bags</a></li>
@@ -70,17 +70,17 @@ import {
           </li>
         </Carousel>
       </div>
-      <div class="ui-layout-column ui-large">
+      <div class="ui-layout-column ui-gap-large">
         <hgroup class="ui-hgroup">
           <p class="ui-overline">Bassbook Shop</p>
           <h1 class="ui-h3">Comfy Cloud Gig Bag</h1>
         </hgroup>
-        <div class="ui-layout-row ui-small">
+        <div class="ui-layout-row ui-gap-small">
           <Rating aria-hidden="true" label="Rated 4.7 out of 5" :value="4.7" />
           <span>4.7 out of 5</span>
           <a class="ui-link" href="#product-detail-reviews">128 reviews</a>
         </div>
-        <div class="ui-layout-row ui-small pd-price">
+        <div class="ui-layout-row ui-gap-small pd-price">
           <strong class="ui-tabular-nums">€119.00</strong>
           <s><span class="ui-sr-only">Was </span>€149.00</s>
           <Chip as="span" label="Save 20%" size="small" />
@@ -132,7 +132,7 @@ import {
               >
             </FieldDescription>
           </Fieldset>
-          <div class="ui-layout-row ui-small pd-buy">
+          <div class="ui-layout-row ui-gap-small pd-buy">
             <Field autoFit for="product-detail-quantity" label="Quantity">
               <input
                 id="product-detail-quantity"

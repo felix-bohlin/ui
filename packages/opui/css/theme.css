@@ -32,7 +32,7 @@
 
     /* Borders */
     --ui-border-width: 1px;
-    --ui-border-width-thick: 2px;
+    --ui-border-width-large: 2px;
     --ui-radius: 0.5rem;
     --ui-radius-round: 1e5px;
     /* --ui-chip-radius: var(--ui-radius); */
@@ -88,7 +88,7 @@
 
     --ui-underline-offset: 2px;
     --ui-underline-offset-small: 1px;
-    --ui-underline-thickness-hover: 3px;
+    --ui-underline-hover-thickness: 3px;
     /* --ui-link-focus: ring; */
     /* --ui-link-font-weight: var(--ui-font-weight-bold); */
 

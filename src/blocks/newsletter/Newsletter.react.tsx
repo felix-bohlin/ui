@@ -26,7 +26,7 @@ export default function Newsletter() {
           style={{ "--_columns": "1fr 1.2fr", "--_gap": "var(--ui-space-6)" }}
           variant="outlined"
         >
-          <div className="ui-layout-column ui-large">
+          <div className="ui-layout-column ui-gap-large">
             <hgroup className="ui-hgroup">
               <p>The Bassbook Low-Down</p>
               <h1 className="ui-h3">

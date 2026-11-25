@@ -139,7 +139,7 @@ export const GALLERY: GalleryEntry[] = [
         "--ui-shadow-selected": "none",
         "--ui-shadow-surface": "none",
         "--ui-underline-offset": "4px",
-        "--ui-underline-thickness-hover": "1px",
+        "--ui-underline-hover-thickness": "1px",
       },
     },
   },

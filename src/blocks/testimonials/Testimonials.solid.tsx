@@ -5,7 +5,7 @@ export default function Testimonials() {
   return (
     <>
       <section
-        class="testimonials ui-layout-container ui-layout-column ui-large"
+        class="testimonials ui-layout-container ui-layout-column ui-gap-large"
         aria-labelledby="testimonials-heading"
       >
         <div

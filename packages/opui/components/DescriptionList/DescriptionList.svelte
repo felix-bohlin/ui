@@ -2,8 +2,8 @@
   import type { Props } from "./types.svelte"
 
   let {
-    border,
     class: className,
+    leader,
     orientation,
 
     // Snippets
@@ -15,7 +15,7 @@
 <dl
   class={[
     "ui-description-list",
-    border && `ui-border-${border}`,
+    leader && `ui-leader-${leader}`,
     orientation && orientation !== "auto" && `ui-${orientation}`,
     className,
   ]}

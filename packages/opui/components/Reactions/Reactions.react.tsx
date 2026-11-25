@@ -47,7 +47,7 @@ export default function Reactions({
             key={index}
             aria-label={item["aria-label"]}
             checked={!!item.checked}
-            className={cx([{ "ui-unused": quick && !used && index === 0 }])}
+            className={cx([{ "ui-suggested": quick && !used && index === 0 }])}
             value={item.value}
           >
             <span aria-hidden="true">{item.label}</span>

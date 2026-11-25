@@ -2,7 +2,7 @@ import { Stepper } from "opui-css/react"
 
 const items = [
   { href: "#", label: "Varukorg" },
-  { error: true, href: "#", label: "Leverans" },
+  { href: "#", label: "Leverans", state: "error" as const },
   { href: "#", label: "Betalning" },
   { href: "#", label: "Granska" },
 ]

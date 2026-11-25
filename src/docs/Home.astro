@@ -17,6 +17,7 @@ import Scenery from "../components/Scenery.astro"
 import SolidLogo from "../components/SolidLogo.astro"
 import SvelteLogo from "../components/SvelteLogo.astro"
 import ThemeQuickControls from "../components/ThemeQuickControls.astro"
+import ViMark from "../components/ViMark.astro"
 import VueLogo from "../components/VueLogo.astro"
 import Default from "../layouts/Default.astro"
 import { allBlocks, blockPreviewHref } from "../utils/blocks"
@@ -88,10 +89,16 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         <div class="hero-copy">
           <hgroup class="ui-hgroup">
             <p class="hero-version">
-              <a href={link("/blog/release-6")}>v{releaseVersion}</a>
+              <a href={link("/blog/release-6")}
+                ><span class="vi-off">v{releaseVersion}</span
+                ><span class="vi-on"><ViMark /></span></a
+              >
             </p>
 
-            <h1 class="ui-h1" id="main-heading">Open Props UI</h1>
+            <h1 class="ui-h1" id="main-heading">
+              Open Props <span class="vi-off">UI</span
+              ><span class="vi-on"><ViMark /></span>
+            </h1>
 
             <p class="hero-description">{description}</p>
           </hgroup>
@@ -428,7 +435,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
       z-index: -1;
     }
 
-    &[data-example-theme="gta-vi"]::before {
+    &[data-example-theme="vice-city"]::before {
       display: none;
     }
 
@@ -512,7 +519,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
       padding-block: var(--size-10);
     }
 
-    :global(html[data-example-theme="gta-vi"]) & {
+    :global(html[data-example-theme="vice-city"]) & {
       isolation: isolate;
       overflow: clip;
       padding-block-end: calc(var(--size-8) + clamp(10rem, 26vw, 17rem));

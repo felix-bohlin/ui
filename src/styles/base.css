@@ -208,3 +208,17 @@ aside.sidebar {
     }
   }
 }
+
+.vi-on {
+  display: none;
+}
+
+html[data-example-theme="vice-city"] {
+  .vi-off {
+    display: none;
+  }
+
+  .vi-on {
+    display: inline;
+  }
+}

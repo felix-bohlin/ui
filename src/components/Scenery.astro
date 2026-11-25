@@ -72,7 +72,7 @@
     </g>
     <path
       class="scenery-plane"
-      d="M0 6 22 4 30 -1 34 -1 30 4 44 3 49 -3 52 -3 50 4 52 6 50 8 52 15 49 15 44 9 30 8 34 13 30 13 22 8 0 8Z"
+      d="M0 0C0-2 4-3 10-3H46C52-3 56-1 57 0C56 1 52 2 46 2H10C4 2 0 1 0 0ZM2-2 0-12H5L13-3ZM30 0 18 9H23L38 1ZM3 0-2 4H2L9 1Z"
       transform="translate(470 96)"
     />
     <g class="scenery-birds">
@@ -107,7 +107,7 @@
     position: absolute;
     z-index: -1;
 
-    :global(html[data-example-theme="gta-vi"]) & {
+    :global(html[data-example-theme="vice-city"]) & {
       display: block;
     }
   }
@@ -190,7 +190,7 @@
       }
 
       .scenery-plane {
-        animation: scenery-fly 40s linear infinite alternate;
+        animation: scenery-fly 90s linear infinite;
       }
     }
   }
@@ -206,8 +206,12 @@
   }
 
   @keyframes scenery-fly {
+    from {
+      translate: -600px 24px;
+    }
+
     to {
-      translate: 220px -24px;
+      translate: 1200px -30px;
     }
   }
 </style>

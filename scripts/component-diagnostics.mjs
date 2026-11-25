@@ -199,6 +199,31 @@ export const DIAGNOSTICS = {
     explain:
       "A props type whose `as` takes a framework's link component declares a type parameter `Link = never`, since Astro and Svelte take element names only, while React, Solid and Vue pass their link component type. Such an `as` can't sit next to a model. Write `Link = never`, and keep the link component off a component with a model.",
   },
+  BC701: {
+    title: "An expression the Nunjucks prototype can't write",
+    explain:
+      "The Nunjucks prototype (`scripts/component-nunjucks.mjs`) translates each expression into Nunjucks syntax, which has no arrow functions, spreads, `typeof`, `new`, regular expressions, assignments, optional calls or globals such as `Intl` and `Math`. Move the logic into a helper in `packages/opui/components/` and call it, or write the expression with the operators the translator takes.",
+  },
+  BC702: {
+    title: "A helper the Nunjucks runtime doesn't register",
+    explain:
+      "The Nunjucks macros call helpers through the `opui` global that `scripts/nunjucks-runtime.mjs` registers from the shared helper modules in `packages/opui/components/`. Export the helper from one of the modules the runtime imports, or import it from one.",
+  },
+  BC703: {
+    title: "A context provided around a named slot in Nunjucks",
+    explain:
+      "A named slot reaches a Nunjucks macro as content captured with `{% set %}`, which renders before the macro runs, so a context the macro provides can't reach it. Only the default slot, the macro's `caller()`, renders inside the macro. Provide the context around the default slot.",
+  },
+  BC704: {
+    title: "A component inside a component in Nunjucks",
+    explain:
+      "The Nunjucks prototype doesn't yet write a component that renders another opui component. Write the markup of the inner component in place, or teach `scripts/component-nunjucks.mjs` to import the inner macro and call it.",
+  },
+  BC705: {
+    title: "A name Nunjucks or the Nunjucks prototype reserves",
+    explain:
+      "A Nunjucks macro reads its props from `props`, its default slot from `caller`, the helpers from `opui` and the loop state from `loop`, and the prototype names its own values with a `__` prefix, so a local or prop with one of those names or a Nunjucks keyword (`and`, `else`, `false`, `if`, `in`, `is`, `none`, `not`, `null`, `or`, `true`) can't be written. Rename the local.",
+  },
 }
 
 export const explain = (code) => {

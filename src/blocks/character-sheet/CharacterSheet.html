@@ -259,7 +259,9 @@
               <span>
                 Slap of Thunder
                 <span class="ui-layout-row ui-caption cs-ability-meta">
-                  <span>Action</span>
+                  <span class="ui-chip ui-x-small">
+                    <span class="ui-text">Action</span>
+                  </span>
                   <span>Once per set</span>
                 </span>
               </span>
@@ -284,7 +286,9 @@
               <span>
                 In the Pocket
                 <span class="ui-layout-row ui-caption cs-ability-meta">
-                  <span>Passive</span>
+                  <span class="ui-chip ui-x-small">
+                    <span class="ui-text">Passive</span>
+                  </span>
                   <span>Always on</span>
                 </span>
               </span>
@@ -309,7 +313,9 @@
               <span>
                 Soundcheck Stall
                 <span class="ui-layout-row ui-caption cs-ability-meta">
-                  <span>Reaction</span>
+                  <span class="ui-chip ui-x-small">
+                    <span class="ui-text">Reaction</span>
+                  </span>
                   <span>Twice per gig</span>
                 </span>
               </span>
@@ -352,6 +358,12 @@
       gap: var(--ui-space-5);
       grid-template-columns: auto minmax(0, 1fr);
       padding: var(--ui-space-6);
+
+      @container (inline-size < 30rem) {
+        align-items: start;
+        grid-template-columns: minmax(0, 1fr);
+        padding: var(--ui-space-5);
+      }
     }
 
     .cs-portrait {
@@ -388,6 +400,7 @@
     .cs-ability-meta {
       --_gap: var(--ui-space-2);
 
+      align-items: center;
       font-weight: var(--ui-font-weight-normal);
     }
   }

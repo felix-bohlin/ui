@@ -33,12 +33,11 @@ export default function CenteredHero() {
           </div>
           <div className="ui-layout-row ui-gap-small ui-align-center">
             <AvatarGroup aria-label="Some of our members">
-              <Avatar
-                label="Holly Humbucker"
-                src="/photos/holly-humbucker.png"
-              />
               <Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
               <Avatar label="Percy Groove" src="/photos/percy-groove.png" />
+              <Avatar aria-label="Stella Nut" role="img">
+                SN
+              </Avatar>
             </AvatarGroup>
             <span>Joined by 18 000 bassists this year</span>
           </div>
@@ -100,6 +99,7 @@ export default function CenteredHero() {
           }
 
           .ch-title {
+            color: var(--ui-text-strong);
             font-size: clamp(var(--ui-font-size-800), 9cqi, var(--ui-font-size-900));
             letter-spacing: var(--ui-letter-spacing-display);
             line-height: var(--ui-line-height-tight);
@@ -123,6 +123,7 @@ export default function CenteredHero() {
             font-size: var(--ui-font-size-large);
             font-weight: var(--ui-font-weight-bold);
             letter-spacing: var(--ui-letter-spacing-caps);
+            row-gap: var(--ui-space-2);
             text-transform: uppercase;
           }
         }

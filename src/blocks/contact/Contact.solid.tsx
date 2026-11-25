@@ -35,7 +35,7 @@ export default function Contact() {
               every message within two working days.
             </p>
           </hgroup>
-          <List variant="transparent">
+          <List flush variant="transparent">
             <ListItem
               description="hello@bassbook.example"
               href="#contact-email"
@@ -199,6 +199,7 @@ export default function Contact() {
           }
 
           .contact-title {
+            color: var(--ui-text-strong);
             font-size: clamp(var(--ui-font-size-700), 6cqi, var(--ui-font-size-800));
             letter-spacing: var(--ui-letter-spacing-heading);
             line-height: var(--ui-line-height-tight);

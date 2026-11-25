@@ -133,7 +133,7 @@
           from var(--ui-primary) 0.96 0.09 calc(h + var(--_shift, 0) + 60)
         );
 
-        aspect-ratio: 4 / 3;
+        aspect-ratio: 16 / 9;
 
         background-color: var(--_sky);
         background-image:
@@ -172,6 +172,10 @@
       }
 
       @container (inline-size >= 56rem) {
+        .teaser-media {
+          aspect-ratio: 4 / 3;
+        }
+
         .teaser-reverse .teaser-media {
           order: 2;
         }

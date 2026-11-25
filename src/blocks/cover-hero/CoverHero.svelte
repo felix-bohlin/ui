@@ -75,9 +75,9 @@
             transparent 0
           ),
           radial-gradient(
-            circle at 72% 28%,
-            var(--_sun) 0 7%,
-            transparent 7.5%
+            circle at 86% 16%,
+            var(--_sun) 0 5%,
+            transparent 5.5%
           ),
           linear-gradient(var(--_sky), var(--_sun));
         background-position:

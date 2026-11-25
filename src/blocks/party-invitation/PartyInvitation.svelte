@@ -6,10 +6,6 @@
     Card,
     CardContent,
     Checkbox,
-    DescriptionList,
-    DescriptionListDescription,
-    DescriptionListItem,
-    DescriptionListTerm,
     Field,
     FieldGroup,
     FieldLegend,
@@ -40,38 +36,30 @@
         </h1>
         <p>A night of karaoke, chili and one very loud birthday solo.</p>
       </hgroup>
-      <DescriptionList class="pi-details">
-        <DescriptionListItem>
-          <DescriptionListTerm>When</DescriptionListTerm>
-          <DescriptionListDescription>
+      <dl class="pi-details">
+        <div>
+          <dt>When</dt>
+          <dd>
             <time datetime="2027-03-20T19:00">Saturday 20 March, 19:00</time>
-          </DescriptionListDescription>
-        </DescriptionListItem>
-        <DescriptionListItem>
-          <DescriptionListTerm>Where</DescriptionListTerm>
-          <DescriptionListDescription
-            >The Rehearsal Basement, Fretgatan 4</DescriptionListDescription
-          >
-        </DescriptionListItem>
-        <DescriptionListItem>
-          <DescriptionListTerm>Dress code</DescriptionListTerm>
-          <DescriptionListDescription
-            >Anything with a bass on it</DescriptionListDescription
-          >
-        </DescriptionListItem>
-        <DescriptionListItem>
-          <DescriptionListTerm>Reply by</DescriptionListTerm>
-          <DescriptionListDescription>
-            <time datetime="2027-03-06">Saturday 6 March</time>
-          </DescriptionListDescription>
-        </DescriptionListItem>
-      </DescriptionList>
+          </dd>
+        </div>
+        <div>
+          <dt>Where</dt>
+          <dd>The Rehearsal Basement, Fretgatan 4</dd>
+        </div>
+        <div>
+          <dt>Dress code</dt>
+          <dd>Anything with a bass on it</dd>
+        </div>
+        <div>
+          <dt>Reply by</dt>
+          <dd><time datetime="2027-03-06">Saturday 6 March</time></dd>
+        </div>
+      </dl>
       <div class="ui-layout-row ui-gap-small">
         <AvatarGroup aria-label="Guests who are coming">
-          <Avatar aria-label="Holly Humbucker" role="img">HH</Avatar>
-          <Avatar aria-label="Reggie Riff" role="img">RR</Avatar>
+          <Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
           <Avatar aria-label="Stella Nut" role="img">SN</Avatar>
-          <Avatar aria-label="Lou Headstock" role="img">LH</Avatar>
         </AvatarGroup>
         <span>23 going, 4 maybe</span>
       </div>
@@ -88,19 +76,19 @@
     </hgroup>
     <CardContent>
       <Form action="#" id="party-invitation-form">
-        <Fieldset>
-          <FieldLegend>Can you make it?</FieldLegend>
-          <FieldGroup
-            name="party-invitation-attending"
-            orientation="horizontal"
-            role="radiogroup"
-          >
-            <Radio defaultChecked label="Yes, I'm in" value="yes" />
-            <Radio label="Maybe" value="maybe" />
-            <Radio label="Can't make it" value="no" />
-          </FieldGroup>
-        </Fieldset>
         <FieldGroup>
+          <Fieldset>
+            <FieldLegend>Can you make it?</FieldLegend>
+            <FieldGroup
+              name="party-invitation-attending"
+              orientation="horizontal"
+              role="radiogroup"
+            >
+              <Radio defaultChecked label="Yes, I'm in" value="yes" />
+              <Radio label="Maybe" value="maybe" />
+              <Radio label="Can't make it" value="no" />
+            </FieldGroup>
+          </Fieldset>
           <Field
             autoFit
             for="party-invitation-guests"
@@ -181,6 +169,7 @@
       }
 
       .pi-title {
+        color: var(--ui-text-strong);
         font-size: var(--ui-font-size-900);
         letter-spacing: var(--ui-letter-spacing-display);
         line-height: var(--ui-line-height-tight);
@@ -225,7 +214,27 @@
       }
 
       .pi-details {
-        text-align: start;
+        border-block: var(--ui-border-width) solid var(--ui-border-color);
+        display: grid;
+        gap: var(--ui-space-4) var(--ui-space-6);
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+        inline-size: 100%;
+        margin: 0;
+        max-inline-size: 26rem;
+        padding-block: var(--ui-space-5);
+
+        dt {
+          color: var(--ui-text-subtle);
+          font-size: var(--ui-font-size-caption);
+          letter-spacing: var(--ui-letter-spacing-caps);
+          text-transform: uppercase;
+        }
+
+        dd {
+          color: var(--ui-text-strong);
+          font-weight: var(--ui-font-weight-semibold);
+          margin: 0;
+        }
       }
     }
   }

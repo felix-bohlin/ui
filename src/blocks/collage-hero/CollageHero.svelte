@@ -79,6 +79,7 @@
       }
 
       .collage-title {
+        color: var(--ui-text-strong);
         font-size: clamp(
           var(--ui-font-size-800),
           6cqi,
@@ -98,7 +99,7 @@
         display: grid;
         gap: var(--ui-space-4);
         grid-template-columns: repeat(6, minmax(0, 1fr));
-        grid-template-rows: repeat(6, minmax(0, 3.5rem));
+        grid-template-rows: repeat(6, clamp(3rem, 7cqi, 4.5rem));
         position: relative;
 
         .collage-scene {
@@ -162,6 +163,7 @@
 
         .collage-stat {
           grid-area: 4 / 1 / 6 / 3;
+          inline-size: max-content;
           place-self: center start;
           z-index: 1;
         }

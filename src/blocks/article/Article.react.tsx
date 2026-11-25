@@ -46,11 +46,11 @@ export default function Article() {
             engineer.
           </p>
           <div className="ui-layout-media ui-gap-small">
-            <Avatar label="Holly Humbucker" src="/photos/holly-humbucker.png" />
+            <Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
             <div>
               <p>
                 <a className="ui-link" href="#article-author">
-                  Holly Humbucker
+                  Lou Headstock
                 </a>
               </p>
               <p className="ui-caption">
@@ -67,7 +67,7 @@ export default function Article() {
             role="img"
           ></div>
           <figcaption className="ui-caption">
-            Where Holly tested six sets of strings: a damp cabin, perfect for
+            Where Lou tested six sets of strings: a damp cabin, perfect for
             rust.
           </figcaption>
         </figure>
@@ -196,16 +196,16 @@ export default function Article() {
           <CardContent>
             <div className="ui-layout-media">
               <Avatar
-                label="Holly Humbucker"
+                label="Lou Headstock"
                 size="large"
-                src="/photos/holly-humbucker.png"
+                src="/photos/lou-headstock.png"
               />
               <div className="ui-layout-column ui-gap-small">
                 <h2 className="ui-h5" id="article-author">
-                  About Holly Humbucker
+                  About Lou Headstock
                 </h2>
                 <p>
-                  Fretless player, string hoarder and our gear editor. Holly has
+                  Fretless player, string hoarder and our gear editor. Lou has
                   owned 41 basses and regrets selling every single one.
                 </p>
               </div>
@@ -228,6 +228,7 @@ export default function Article() {
           }
 
           .article-title {
+            color: var(--ui-text-strong);
             font-size: clamp(var(--ui-font-size-700), 6cqi, var(--ui-font-size-900));
             letter-spacing: var(--ui-letter-spacing-heading);
             line-height: var(--ui-line-height-tight);

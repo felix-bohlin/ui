@@ -118,11 +118,13 @@ const name = "token-tiers-trace"
       const scope = scopes[level]
       if (!scope) return null
       return <div class="scope" data-scope={scope.id}>
-        <p class="scope-head">
-          <strong>{scope.name}</strong>
-          <code>{scope.selector}</code>
-          <span>{scope.note}</span>
-        </p>
+        <div class="scope-head">
+          <p class="scope-tag">
+            <strong>{scope.name}</strong>
+            <code>{scope.selector}</code>
+          </p>
+          <p class="scope-note">{scope.note}</p>
+        </div>
         {tiers
           .filter((tier) => tier.scope === scope.id)
           .map((tier) => <div class="band" data-tier={tierId(tier.name)}>
@@ -344,6 +346,7 @@ const name = "token-tiers-trace"
   .stage {
     --_label: 9rem;
 
+    padding-block-start: var(--ui-space-3);
     position: relative;
   }
 
@@ -367,7 +370,7 @@ const name = "token-tiers-trace"
     padding: var(--ui-space-3);
 
     .scope {
-      margin-block-start: var(--ui-space-2);
+      margin-block-start: var(--ui-space-5);
     }
 
     &[data-scope="theme"] {
@@ -384,27 +387,45 @@ const name = "token-tiers-trace"
   }
 
   .scope-head {
+    display: grid;
+    gap: var(--ui-space-1);
+    justify-items: start;
+    margin-block-start: calc(-1 * var(--ui-space-3) - 0.8em);
+  }
+
+  .scope-tag {
     align-items: baseline;
+    background-color: var(--_fill);
+    border: var(--ui-border-width) solid var(--_edge);
+    border-radius: 999px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 0 var(--ui-space-2);
-    margin: 0 0 var(--ui-space-1);
-    max-inline-size: var(--_label);
+    font-size: var(--ui-font-size-caption);
+    gap: var(--ui-space-2);
+    line-height: var(--ui-line-height-tight);
+    margin: 0;
+    padding: var(--ui-space-1) var(--ui-space-3);
+    position: relative;
+    white-space: nowrap;
+    z-index: 2;
 
     strong {
       font-weight: var(--ui-font-weight-semibold);
+      letter-spacing: var(--ui-letter-spacing-caps);
+      text-transform: uppercase;
     }
 
     code {
-      font-size: var(--ui-font-size-caption);
+      font-size: inherit;
     }
+  }
 
-    span {
-      color: var(--ui-text);
-      flex-basis: 100%;
-      font-size: var(--ui-font-size-small);
-      line-height: var(--ui-line-height-tight);
-    }
+  .scope-note {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-caption);
+    font-style: italic;
+    line-height: var(--ui-line-height-tight);
+    margin: 0;
+    max-inline-size: var(--_label);
   }
 
   .band {
@@ -417,7 +438,7 @@ const name = "token-tiers-trace"
 
     .scope-head + & {
       border-block-start: 0;
-      padding-block-start: var(--ui-space-2);
+      padding-block-start: var(--ui-space-3);
     }
   }
 
@@ -542,16 +563,15 @@ const name = "token-tiers-trace"
   }
 
   @container (width < 21rem) {
-    :is(.scope-head, .band-label) {
-      display: grid;
+    .band-label {
       justify-items: start;
     }
 
-    .scope-head {
+    .scope-note {
       max-inline-size: none;
     }
 
-    :is(.scope-head, .band-label) > * {
+    :is(.scope-note, .band-label > *) {
       background-color: var(--_fill);
       position: relative;
       z-index: 2;

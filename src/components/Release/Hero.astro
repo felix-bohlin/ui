@@ -19,6 +19,7 @@ const numeral = releaseVersion.split(".").slice(0, 2).join(".")
     display: grid;
     justify-items: center;
     margin-block: var(--ui-space-5);
+    max-inline-size: min(var(--content-inline-size), var(--site-content-text));
 
     & .hero-numeral {
       --_glow-inner: light-dark(oklch(0.8 0.16 65), oklch(0.86 0.15 75));
@@ -52,7 +53,7 @@ const numeral = releaseVersion.split(".").slice(0, 2).join(".")
       letter-spacing: -0.06em;
       line-height: 0.9;
       margin: 0;
-      padding: 0.05em 0.12em;
+      padding-inline-end: 0.06em;
     }
   }
 

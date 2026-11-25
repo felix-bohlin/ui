@@ -178,7 +178,10 @@ export const keywords = [
         (<code>css/compat/field.css</code>): on iPhone and iPad, fields of every
         size set their text in <code>--ui-font-size-control</code> or 16px,
         whichever is larger, because iOS Safari zooms the page in on a focused
-        field with text under 16px.
+        field with text under 16px. Date and time inputs drop their native look
+        there, since iOS Safari sizes them with
+        <code>box-sizing: content-box</code>, which adds the field's padding to
+        their height and made them taller than the other fields.
       </li>
       <li>
         Toggle group (<code>css/compat/toggle-group.css</code>): without

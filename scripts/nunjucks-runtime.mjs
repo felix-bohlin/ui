@@ -3,6 +3,7 @@ import { join } from "node:path"
 import { fileURLToPath, pathToFileURL } from "node:url"
 import nunjucks from "nunjucks"
 import { cx } from "../packages/opui/components/cx.ts"
+import { WARNED_ONCE } from "../packages/opui/components/dev.ts"
 import { trimEdges } from "../packages/opui/components/whitespace.ts"
 
 const { markSafe, SafeString } = nunjucks.runtime
@@ -150,6 +151,68 @@ const attributesOf = (part, tagName) =>
         .join("")
     : ""
 
+const DEV =
+  typeof process === "undefined" || process.env.NODE_ENV !== "production"
+
+const warned = new Set()
+
+const warnOnce = (message) => {
+  if (warned.has(message)) return
+  warned.add(message)
+  console.warn(`${message} ${WARNED_ONCE}`)
+}
+
+const textOf = (value) => {
+  if (value instanceof SafeString || typeof value === "string") return value
+  if (value == null || value === false || value === "") return ""
+  if (Array.isArray(value)) {
+    const parts = value.map(textOf)
+    return parts.some((part) => part instanceof SafeString)
+      ? markSafe(
+          parts
+            .map((part) =>
+              part instanceof SafeString
+                ? String(part)
+                : nunjucks.lib.escape(String(part)),
+            )
+            .join(""),
+        )
+      : parts.join("")
+  }
+  if (typeof value === "function") return textOf(value())
+  return String(value)
+}
+
+export const restOf = (components) => (props, name) => {
+  const meta = components[name]
+  if (!meta) {
+    throw new Error(
+      `opuiRest has no metadata for ${name}: pass the components of nunjucksBuild to configure(env, { components })`,
+    )
+  }
+  const rest = {}
+  for (const [key, value] of Object.entries(props ?? {})) {
+    if (key === "slots") {
+      for (const slot of DEV ? Object.keys(value ?? {}) : []) {
+        if (!meta.slots.includes(slot)) {
+          warnOnce(
+            `[OPUI ${name}] Unknown slot "${slot}": ${name} has no slot by that name, so nothing renders it.`,
+          )
+        }
+      }
+      continue
+    }
+    if (meta.omit.includes(key)) continue
+    if (DEV && !meta.attributes.includes(key) && !/^(aria|data)-/.test(key)) {
+      warnOnce(
+        `[OPUI ${name}] Unknown prop "${key}": ${name} has no prop by that name and its element no attribute, so it renders as an attribute.`,
+      )
+    }
+    rest[key] = value
+  }
+  return rest
+}
+
 export const FILTERS = {
   opuiAttributes: (value, tagName) =>
     markSafe(attributesOf(value, tagName ? elementName(tagName) : "")),
@@ -159,6 +222,7 @@ export const FILTERS = {
       Object.entries(value ?? {}).filter(([name]) => !names.includes(name)),
     ),
   opuiTag: elementName,
+  opuiText: textOf,
   opuiTrim: (value) => {
     const trimmed = trimEdges(String(value ?? ""))
     return trimmed ? markSafe(trimmed) : ""
@@ -210,7 +274,10 @@ export const configure = (env, options = {}) => {
     )
   }
   env.addGlobal("opui", createRuntime(options))
-  for (const [name, filter] of Object.entries(FILTERS)) {
+  for (const [name, filter] of Object.entries({
+    ...FILTERS,
+    opuiRest: restOf(options.components ?? {}),
+  })) {
     env.addFilter(name, filter)
   }
   return env

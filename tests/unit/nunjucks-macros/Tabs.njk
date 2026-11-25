@@ -1,7 +1,7 @@
 {% macro Tabs(props = {}) %}
-  {%- set rest = props | opuiOmit(["class", "name", "orientation", "overflow", "role", "value", "variant", "slots"]) -%}
+  {%- set rest = props | opuiRest("Tabs") -%}
   {%- set groupName = props.name or opui.id("tabs") -%}
-  {{- opui.warnUnnamedGroup("Tabs", rest) if props.role === "radiogroup" -}}
+  {{- opui.warnUnnamedGroup("Tabs", rest) if props.role == "radiogroup" -}}
   <div
     class="ui-tabs
       {%- if props.orientation == 'vertical' %} ui-vertical{% endif %}

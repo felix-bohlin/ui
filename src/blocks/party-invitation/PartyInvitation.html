@@ -15,7 +15,7 @@
         </h1>
         <p>A night of karaoke, chili and one very loud birthday solo.</p>
       </hgroup>
-      <dl class="ui-description-list pi-details">
+      <dl class="pi-details">
         <div>
           <dt>When</dt>
           <dd>
@@ -32,9 +32,7 @@
         </div>
         <div>
           <dt>Reply by</dt>
-          <dd>
-            <time datetime="2027-03-06">Saturday 6 March</time>
-          </dd>
+          <dd><time datetime="2027-03-06">Saturday 6 March</time></dd>
         </div>
       </dl>
       <div class="ui-layout-row ui-gap-small">
@@ -43,17 +41,11 @@
           role="group"
           aria-label="Guests who are coming"
         >
-          <div class="ui-avatar" aria-label="Holly Humbucker" role="img">
-            <span aria-hidden="true">HH</span>
-          </div>
-          <div class="ui-avatar" aria-label="Reggie Riff" role="img">
-            <span aria-hidden="true">RR</span>
+          <div class="ui-avatar">
+            <img src="/photos/lou-headstock.png" alt="Lou Headstock" />
           </div>
           <div class="ui-avatar" aria-label="Stella Nut" role="img">
             <span aria-hidden="true">SN</span>
-          </div>
-          <div class="ui-avatar" aria-label="Lou Headstock" role="img">
-            <span aria-hidden="true">LH</span>
           </div>
         </div>
         <span>23 going, 4 maybe</span>
@@ -70,37 +62,37 @@
     </hgroup>
     <div class="ui-content">
       <form class="ui-form" action="#" id="party-invitation-form">
-        <fieldset class="ui-fieldset">
-          <legend>Can you make it?</legend>
-          <div class="ui-field-group ui-horizontal" role="radiogroup">
-            <label class="ui-radio">
-              <input
-                type="radio"
-                name="party-invitation-attending"
-                checked
-                value="yes"
-              />
-              <span class="ui-label">Yes, I'm in</span>
-            </label>
-            <label class="ui-radio">
-              <input
-                type="radio"
-                name="party-invitation-attending"
-                value="maybe"
-              />
-              <span class="ui-label">Maybe</span>
-            </label>
-            <label class="ui-radio">
-              <input
-                type="radio"
-                name="party-invitation-attending"
-                value="no"
-              />
-              <span class="ui-label">Can't make it</span>
-            </label>
-          </div>
-        </fieldset>
         <div class="ui-field-group">
+          <fieldset class="ui-fieldset">
+            <legend>Can you make it?</legend>
+            <div class="ui-field-group ui-horizontal" role="radiogroup">
+              <label class="ui-radio">
+                <input
+                  type="radio"
+                  name="party-invitation-attending"
+                  checked
+                  value="yes"
+                />
+                <span class="ui-label">Yes, I'm in</span>
+              </label>
+              <label class="ui-radio">
+                <input
+                  type="radio"
+                  name="party-invitation-attending"
+                  value="maybe"
+                />
+                <span class="ui-label">Maybe</span>
+              </label>
+              <label class="ui-radio">
+                <input
+                  type="radio"
+                  name="party-invitation-attending"
+                  value="no"
+                />
+                <span class="ui-label">Can't make it</span>
+              </label>
+            </div>
+          </fieldset>
           <div class="ui-field ui-auto-fit">
             <label class="ui-label" for="party-invitation-guests"
               >Guests, you included</label
@@ -231,6 +223,7 @@
     }
 
     .pi-title {
+      color: var(--ui-text-strong);
       font-size: var(--ui-font-size-900);
       letter-spacing: var(--ui-letter-spacing-display);
       line-height: var(--ui-line-height-tight);
@@ -275,7 +268,27 @@
     }
 
     .pi-details {
-      text-align: start;
+      border-block: var(--ui-border-width) solid var(--ui-border-color);
+      display: grid;
+      gap: var(--ui-space-4) var(--ui-space-6);
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+      inline-size: 100%;
+      margin: 0;
+      max-inline-size: 26rem;
+      padding-block: var(--ui-space-5);
+
+      dt {
+        color: var(--ui-text-subtle);
+        font-size: var(--ui-font-size-caption);
+        letter-spacing: var(--ui-letter-spacing-caps);
+        text-transform: uppercase;
+      }
+
+      dd {
+        color: var(--ui-text-strong);
+        font-weight: var(--ui-font-weight-semibold);
+        margin: 0;
+      }
     }
   }
 </style>

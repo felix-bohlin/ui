@@ -264,7 +264,7 @@ export default function CharacterSheet() {
                     <span>
                       Slap of Thunder
                       <span className="ui-layout-row ui-caption cs-ability-meta">
-                        <span>Action</span>
+                        <Chip as="span" label="Action" size="x-small" />
                         <span>Once per set</span>
                       </span>
                     </span>
@@ -281,7 +281,7 @@ export default function CharacterSheet() {
                     <span>
                       In the Pocket
                       <span className="ui-layout-row ui-caption cs-ability-meta">
-                        <span>Passive</span>
+                        <Chip as="span" label="Passive" size="x-small" />
                         <span>Always on</span>
                       </span>
                     </span>
@@ -298,7 +298,7 @@ export default function CharacterSheet() {
                     <span>
                       Soundcheck Stall
                       <span className="ui-layout-row ui-caption cs-ability-meta">
-                        <span>Reaction</span>
+                        <Chip as="span" label="Reaction" size="x-small" />
                         <span>Twice per gig</span>
                       </span>
                     </span>
@@ -332,6 +332,12 @@ export default function CharacterSheet() {
             gap: var(--ui-space-5);
             grid-template-columns: auto minmax(0, 1fr);
             padding: var(--ui-space-6);
+
+            @container (inline-size < 30rem) {
+              align-items: start;
+              grid-template-columns: minmax(0, 1fr);
+              padding: var(--ui-space-5);
+            }
           }
 
           .cs-portrait {
@@ -368,6 +374,7 @@ export default function CharacterSheet() {
           .cs-ability-meta {
             --_gap: var(--ui-space-2);
 
+            align-items: center;
             font-weight: var(--ui-font-weight-normal);
           }
         }

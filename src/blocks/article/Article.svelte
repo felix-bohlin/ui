@@ -34,9 +34,9 @@
       asked five players, two luthiers and one very tired sound engineer.
     </p>
     <div class="ui-layout-media ui-gap-small">
-      <Avatar label="Holly Humbucker" src="/photos/holly-humbucker.png" />
+      <Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
       <div>
-        <p><a class="ui-link" href="#article-author">Holly Humbucker</a></p>
+        <p><a class="ui-link" href="#article-author">Lou Headstock</a></p>
         <p class="ui-caption">
           <time datetime="2026-11-18">18 November 2026</time>, 7 minute read
         </p>
@@ -50,7 +50,7 @@
       role="img"
     ></div>
     <figcaption class="ui-caption">
-      Where Holly tested six sets of strings: a damp cabin, perfect for rust.
+      Where Lou tested six sets of strings: a damp cabin, perfect for rust.
     </figcaption>
   </figure>
   <div
@@ -157,14 +157,14 @@
     <CardContent>
       <div class="ui-layout-media">
         <Avatar
-          label="Holly Humbucker"
+          label="Lou Headstock"
           size="large"
-          src="/photos/holly-humbucker.png"
+          src="/photos/lou-headstock.png"
         />
         <div class="ui-layout-column ui-gap-small">
-          <h2 class="ui-h5" id="article-author">About Holly Humbucker</h2>
+          <h2 class="ui-h5" id="article-author">About Lou Headstock</h2>
           <p>
-            Fretless player, string hoarder and our gear editor. Holly has owned
+            Fretless player, string hoarder and our gear editor. Lou has owned
             41 basses and regrets selling every single one.
           </p>
         </div>
@@ -189,6 +189,7 @@
       }
 
       .article-title {
+        color: var(--ui-text-strong);
         font-size: clamp(
           var(--ui-font-size-700),
           6cqi,

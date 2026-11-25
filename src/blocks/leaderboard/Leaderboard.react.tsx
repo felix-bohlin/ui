@@ -86,7 +86,7 @@ export default function Leaderboard() {
             </li>
           </ol>
         </section>
-        <Table flush overflow="scroll" tabIndex={0}>
+        <Table className="lb-table" flush overflow="scroll" tabIndex={0}>
           <TableCaption className="ui-sr-only">
             Places 4 to 8, and yours
           </TableCaption>
@@ -254,6 +254,7 @@ export default function Leaderboard() {
           container-type: inline-size;
 
           .lb-title {
+            color: var(--ui-text-strong);
             font-size: var(--ui-font-size-800);
             letter-spacing: var(--ui-letter-spacing-display);
             line-height: var(--ui-line-height-tight);
@@ -311,8 +312,17 @@ export default function Leaderboard() {
             }
           }
 
-          .lb-you {
-            background-color: oklch(from var(--ui-primary) l c h / 12%);
+          .lb-you > td {
+            background-image: linear-gradient(
+              oklch(from var(--ui-primary) l c h / 14%),
+              oklch(from var(--ui-primary) l c h / 14%)
+            );
+          }
+
+          @container (inline-size < 30rem) {
+            .lb-table :is(th, td):is(:nth-child(3), :nth-child(5)) {
+              display: none;
+            }
           }
         }
       `}</style>

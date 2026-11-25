@@ -81,7 +81,7 @@
           </svg>
         </button>
         <button
-          class="ui-button ui-round ui-large ui-filled"
+          class="ui-button ui-round ui-large mp-play"
           type="button"
           aria-label="Play"
         >
@@ -246,6 +246,8 @@
         );
       border-radius: var(--ui-radius-large);
       box-shadow: var(--ui-shadow-elevated);
+      inline-size: min(100%, 22rem);
+      justify-self: center;
     }
 
     .mp-track {
@@ -255,6 +257,17 @@
     .mp-seek {
       display: grid;
       gap: var(--ui-space-1);
+    }
+
+    .mp-play {
+      --_icon-size: var(--ui-button-size-large);
+
+      color: var(--ui-primary-text);
+
+      svg {
+        block-size: var(--_icon-size);
+        inline-size: var(--_icon-size);
+      }
     }
 
     .mp-controls {

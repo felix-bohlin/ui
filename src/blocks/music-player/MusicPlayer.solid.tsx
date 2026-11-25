@@ -101,10 +101,11 @@ export default function MusicPlayer() {
               </Button>
               <Button
                 aria-label="Play"
+                class="mp-play"
                 round
                 size="large"
                 type="button"
-                variant="filled"
+                variant="transparent"
               >
                 <svg
                   data-icon="play"
@@ -235,6 +236,8 @@ export default function MusicPlayer() {
               );
             border-radius: var(--ui-radius-large);
             box-shadow: var(--ui-shadow-elevated);
+            inline-size: min(100%, 22rem);
+            justify-self: center;
           }
 
           .mp-track {
@@ -244,6 +247,17 @@ export default function MusicPlayer() {
           .mp-seek {
             display: grid;
             gap: var(--ui-space-1);
+          }
+
+          .mp-play {
+            --_icon-size: var(--ui-button-size-large);
+
+            color: var(--ui-primary-text);
+
+            svg {
+              block-size: var(--_icon-size);
+              inline-size: var(--_icon-size);
+            }
           }
 
           .mp-controls {

@@ -42,7 +42,7 @@ import { Button, ControlGroup, Field, Form } from "opui-css/vue"
               autocomplete="email"
               id="call-to-action-email"
               name="email"
-              placeholder="you@lowend.example"
+              placeholder="Your email"
               required
               type="email"
             />

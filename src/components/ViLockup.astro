@@ -17,7 +17,7 @@ const { panel = true } = Astro.props
     <path d="M0 0h38l24 82 24-82h38L62 130zM132 0h40v130h-40z"></path>
   </svg>
   <span aria-hidden="true" class="vi-lockup-script">
-    Open Props UI
+    <span class="vi-lockup-words">Open Props UI</span>
     <svg
       class="vi-lockup-swash"
       preserveAspectRatio="none"
@@ -84,8 +84,22 @@ const { panel = true } = Astro.props
     white-space: nowrap;
   }
 
+  .vi-lockup-words {
+    animation: vi-lockup-write calc(1.6s * var(--ui-motion)) linear
+      calc(0.3s * var(--ui-motion)) both;
+    margin: -0.3em;
+    mask-image: linear-gradient(to right, black 46%, transparent 54%);
+    mask-position: 0 0;
+    mask-repeat: no-repeat;
+    mask-size: 250% 100%;
+    padding: 0.3em;
+  }
+
   .vi-lockup-swash {
+    animation: vi-lockup-swash calc(0.5s * var(--ui-motion)) ease-out
+      calc(1.9s * var(--ui-motion)) both;
     block-size: 0.22em;
+    clip-path: inset(-100% -10%);
     filter: drop-shadow(0 0 0.06em var(--vi-lockup-glow));
     inline-size: 112%;
     margin-block-start: -0.08em;
@@ -98,6 +112,18 @@ const { panel = true } = Astro.props
       stroke-linecap: round;
       stroke-width: 3;
       vector-effect: non-scaling-stroke;
+    }
+  }
+
+  @keyframes vi-lockup-write {
+    from {
+      mask-position: 100% 0;
+    }
+  }
+
+  @keyframes vi-lockup-swash {
+    from {
+      clip-path: inset(-100% 110% -100% -10%);
     }
   }
 </style>

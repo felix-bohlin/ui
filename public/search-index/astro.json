@@ -4130,6 +4130,14 @@
     "url": "/blocks/app-shell/"
   },
   {
+    "id": "block-article",
+    "title": "Article",
+    "description": "A magazine article with a breadcrumb, byline, cover photo, a sticky table of contents, rich text, tags and an author card.",
+    "headings": "Content",
+    "category": "Blocks",
+    "url": "/blocks/article/"
+  },
+  {
     "id": "block-billing",
     "title": "Billing",
     "description": "The current plan, usage against its limits, the payment method and past invoices.",
@@ -4144,6 +4152,22 @@
     "headings": "Marketing",
     "category": "Blocks",
     "url": "/blocks/blog-list/"
+  },
+  {
+    "id": "block-call-to-action",
+    "title": "Call to action",
+    "description": "A bold banner with one call to action, and a split section with an inline email sign-up.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/call-to-action/"
+  },
+  {
+    "id": "block-centered-hero",
+    "title": "Centered hero",
+    "description": "A centered headline with a soft glow, two calls to action, member avatars and a row of band names.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/centered-hero/"
   },
   {
     "id": "block-changelog",
@@ -4176,6 +4200,30 @@
     "headings": "E-commerce",
     "category": "Blocks",
     "url": "/blocks/checkout/"
+  },
+  {
+    "id": "block-collage-hero",
+    "title": "Collage hero",
+    "description": "A headline and pitch next to an overlapping photo collage with a floating stat card.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/collage-hero/"
+  },
+  {
+    "id": "block-contact",
+    "title": "Contact",
+    "description": "Ways to get in touch and opening hours, next to a contact form with a topic and a consent box.",
+    "headings": "Content",
+    "category": "Blocks",
+    "url": "/blocks/contact/"
+  },
+  {
+    "id": "block-cover-hero",
+    "title": "Cover hero",
+    "description": "A full-bleed photo with a dark scrim, a headline, calls to action and quick facts on top.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/cover-hero/"
   },
   {
     "id": "block-data-table",
@@ -4418,12 +4466,36 @@
     "url": "/blocks/sign-up/"
   },
   {
+    "id": "block-site-footer",
+    "title": "Site footer",
+    "description": "A site footer with a newsletter field, columns of links, legal links and a language picker.",
+    "headings": "Content",
+    "category": "Blocks",
+    "url": "/blocks/site-footer/"
+  },
+  {
+    "id": "block-site-header",
+    "title": "Site header",
+    "description": "A site header with a logo, navigation with a dropdown menu and calls to action, collapsing into a drawer on small screens.",
+    "headings": "Content",
+    "category": "Blocks",
+    "url": "/blocks/site-header/"
+  },
+  {
     "id": "block-team-members",
     "title": "Team members",
     "description": "An invite form and a member list with roles, statuses and actions.",
     "headings": "Settings",
     "category": "Blocks",
     "url": "/blocks/team-members/"
+  },
+  {
+    "id": "block-teasers",
+    "title": "Teasers",
+    "description": "Alternating rows of photo and text, image left then image right, each with a tag, a title and a link.",
+    "headings": "Content",
+    "category": "Blocks",
+    "url": "/blocks/teasers/"
   },
   {
     "id": "block-testimonials",

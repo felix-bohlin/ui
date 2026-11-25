@@ -28,7 +28,7 @@ export default function GigTicket() {
   return (
     <>
       <div
-        className="gig-ticket ui-layout-container ui-layout-column ui-large"
+        className="gig-ticket ui-layout-container ui-layout-column ui-gap-large"
         style={{ "--_max-inline-size": "64rem" }}
       >
         <div className="ui-layout-row ui-spread">
@@ -36,7 +36,7 @@ export default function GigTicket() {
             <p>Order BB-20417, 2 tickets</p>
             <h1 className="ui-h3">Your tickets</h1>
           </hgroup>
-          <div className="ui-layout-row ui-small">
+          <div className="ui-layout-row ui-gap-small">
             <Button size="small" type="button" variant="outlined">
               <svg
                 data-icon="calendar"
@@ -111,7 +111,7 @@ export default function GigTicket() {
             </DescriptionList>
           </div>
           <div className="gt-stub">
-            <div className="ui-layout-column ui-x-small">
+            <div className="ui-layout-column ui-gap-x-small">
               <span className="gt-admit">Admit one</span>
               <span className="ui-caption">Standing, front of stage</span>
             </div>
@@ -124,7 +124,7 @@ export default function GigTicket() {
           </div>
         </Card>
         <div
-          className="ui-layout-columns ui-large"
+          className="ui-layout-columns ui-gap-large"
           style={{ "--_columns": "3fr 2fr" }}
         >
           <Card
@@ -180,7 +180,7 @@ export default function GigTicket() {
               </Timeline>
             </CardContent>
           </Card>
-          <div className="ui-layout-column ui-large">
+          <div className="ui-layout-column ui-gap-large">
             <Card
               aria-labelledby="gig-ticket-holders-heading"
               as="section"

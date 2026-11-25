@@ -1,0 +1,272 @@
+<div class="site-header">
+  <header class="sh-bar">
+    <a class="sh-brand ui-layout-row ui-gap-small" href="#site-header-home">
+      <svg
+        data-icon="box"
+        aria-hidden="true"
+        class="ui-icon ui-large"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M12 2 3 7v10l9 5 9-5V7zm0 2.3 6.6 3.7L12 11.7 5.4 8zM5 9.7l6 3.4v6.6l-6-3.4zm8 10v-6.6l6-3.4v6.6z"
+        ></path>
+      </svg>
+      Bassbook
+    </a>
+    <nav aria-label="Site" class="sh-nav">
+      <ul class="ui-layout-row ui-gap-x-small">
+        <li>
+          <a class="ui-button" href="#site-header-features" aria-current="page"
+            >Features</a
+          >
+        </li>
+        <li>
+          <a class="ui-button" href="#site-header-bands">Bands</a>
+        </li>
+        <li>
+          <a class="ui-button" href="#site-header-gigs">Gigs</a>
+        </li>
+        <li>
+          <button
+            class="ui-button"
+            type="button"
+            command="toggle-popover"
+            commandfor="site-header-community"
+          >
+            <span class="ui-text">Community</span>
+            <svg
+              data-icon="chevron-down"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"
+              ></path>
+            </svg>
+          </button>
+          <menu class="ui-menu" id="site-header-community" popover>
+            <li>
+              <a href="#site-header-forum">
+                <div class="ui-text">
+                  <p>Forum</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#site-header-jams">
+                <div class="ui-text">
+                  <p>Open jams</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#site-header-lessons">
+                <div class="ui-text">
+                  <p>Lessons</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#site-header-magazine">
+                <div class="ui-text">
+                  <p>Magazine</p>
+                </div>
+              </a>
+            </li>
+          </menu>
+        </li>
+        <li>
+          <a class="ui-button" href="#site-header-pricing">Pricing</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="sh-actions ui-layout-row ui-gap-small">
+      <a class="ui-button ui-outlined sh-sign-in" href="#site-header-sign-in"
+        >Sign in</a
+      >
+      <a class="ui-button ui-filled" href="#site-header-join">Join free</a>
+      <button
+        class="ui-button ui-round sh-menu-button"
+        type="button"
+        aria-label="Open navigation"
+        command="show-modal"
+        commandfor="site-header-drawer"
+      >
+        <svg
+          data-icon="menu"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"
+          ></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+  <dialog
+    closedby="any"
+    class="ui-drawer ui-scroll-lock ui-inline-end"
+    aria-labelledby="site-header-drawer-title"
+    id="site-header-drawer"
+  >
+    <div class="ui-header">
+      <h2 id="site-header-drawer-title">Bassbook</h2>
+      <button
+        class="ui-button ui-round ui-small"
+        type="button"
+        aria-label="Close navigation"
+        command="close"
+        commandfor="site-header-drawer"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        ></svg>
+      </button>
+    </div>
+    <div class="ui-content">
+      <nav aria-label="Site menu">
+        <ul class="ui-list ui-transparent" role="list">
+          <li>
+            <a href="#site-header-features" aria-current="page">
+              <div class="ui-text">
+                <p>Features</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#site-header-bands">
+              <div class="ui-text">
+                <p>Bands</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#site-header-gigs">
+              <div class="ui-text">
+                <p>Gigs</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#site-header-forum">
+              <div class="ui-text">
+                <p>Forum</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#site-header-jams">
+              <div class="ui-text">
+                <p>Open jams</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#site-header-lessons">
+              <div class="ui-text">
+                <p>Lessons</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#site-header-magazine">
+              <div class="ui-text">
+                <p>Magazine</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#site-header-pricing">
+              <div class="ui-text">
+                <p>Pricing</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#site-header-sign-in">
+              <div class="ui-text">
+                <p>Sign in</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </dialog>
+</div>
+
+<style>
+  .site-header {
+    container-type: inline-size;
+
+    .sh-bar {
+      align-items: center;
+      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+      display: flex;
+      gap: var(--ui-space-4);
+      padding: var(--ui-space-3) var(--ui-space-4);
+    }
+
+    .sh-brand {
+      align-items: center;
+      color: inherit;
+      font-size: var(--ui-font-size-large);
+      font-weight: var(--ui-font-weight-bold);
+      text-decoration: none;
+    }
+
+    .sh-nav {
+      display: none;
+      margin-inline-end: auto;
+
+      @container (inline-size >= 52rem) {
+        display: block;
+      }
+    }
+
+    .sh-actions {
+      margin-inline-start: auto;
+    }
+
+    .sh-sign-in {
+      display: none;
+
+      @container (inline-size >= 36rem) {
+        display: inline-flex;
+      }
+    }
+
+    .sh-menu-button {
+      @container (inline-size >= 52rem) {
+        display: none;
+      }
+    }
+
+    @container (inline-size >= 52rem) {
+      .sh-actions {
+        margin-inline-start: 0;
+      }
+    }
+  }
+</style>
+
+<script type="module">
+  import "opui-css/elements/menu.js"
+</script>

@@ -28,7 +28,7 @@ import {
 
 <template>
   <div
-    class="gig-ticket ui-layout-container ui-layout-column ui-large"
+    class="gig-ticket ui-layout-container ui-layout-column ui-gap-large"
     style="--_max-inline-size: 64rem"
   >
     <div class="ui-layout-row ui-spread">
@@ -36,7 +36,7 @@ import {
         <p>Order BB-20417, 2 tickets</p>
         <h1 class="ui-h3">Your tickets</h1>
       </hgroup>
-      <div class="ui-layout-row ui-small">
+      <div class="ui-layout-row ui-gap-small">
         <Button size="small" type="button" variant="outlined">
           <svg
             data-icon="calendar"
@@ -109,7 +109,7 @@ import {
         </DescriptionList>
       </div>
       <div class="gt-stub">
-        <div class="ui-layout-column ui-x-small">
+        <div class="ui-layout-column ui-gap-x-small">
           <span class="gt-admit">Admit one</span>
           <span class="ui-caption">Standing, front of stage</span>
         </div>
@@ -121,7 +121,7 @@ import {
         <span class="ui-caption ui-tabular-nums">BB-20417-01</span>
       </div>
     </Card>
-    <div class="ui-layout-columns ui-large" style="--_columns: 3fr 2fr">
+    <div class="ui-layout-columns ui-gap-large" style="--_columns: 3fr 2fr">
       <Card
         aria-labelledby="gig-ticket-running-order-heading"
         as="section"
@@ -173,7 +173,7 @@ import {
           </Timeline>
         </CardContent>
       </Card>
-      <div class="ui-layout-column ui-large">
+      <div class="ui-layout-column ui-gap-large">
         <Card
           aria-labelledby="gig-ticket-holders-heading"
           as="section"

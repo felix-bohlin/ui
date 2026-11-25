@@ -20,7 +20,7 @@ export default function Leaderboard() {
   return (
     <>
       <div
-        class="leaderboard ui-layout-container ui-layout-column ui-large"
+        class="leaderboard ui-layout-container ui-layout-column ui-gap-large"
         style="--_max-inline-size: 56rem"
       >
         <div class="ui-layout-row ui-spread">
@@ -47,7 +47,7 @@ export default function Leaderboard() {
               <Avatar aria-hidden="true" size="large" variant="filled">
                 SN
               </Avatar>
-              <span class="ui-layout-column ui-x-small">
+              <span class="ui-layout-column ui-gap-x-small">
                 <strong>Stella Nut</strong>
                 <span class="ui-caption ui-tabular-nums">98 420 points</span>
               </span>
@@ -59,7 +59,7 @@ export default function Leaderboard() {
               <Avatar aria-hidden="true" size="large">
                 RR
               </Avatar>
-              <span class="ui-layout-column ui-x-small">
+              <span class="ui-layout-column ui-gap-x-small">
                 <strong>Reggie Riff</strong>
                 <span class="ui-caption ui-tabular-nums">91 005 points</span>
               </span>
@@ -71,7 +71,7 @@ export default function Leaderboard() {
               <Avatar aria-hidden="true" size="large">
                 HH
               </Avatar>
-              <span class="ui-layout-column ui-x-small">
+              <span class="ui-layout-column ui-gap-x-small">
                 <strong>Holly Humbucker</strong>
                 <span class="ui-caption ui-tabular-nums">87 760 points</span>
               </span>
@@ -104,7 +104,7 @@ export default function Leaderboard() {
             <TableRow>
               <TableCell numeric>4</TableCell>
               <TableCell>
-                <div class="ui-layout-media ui-small">
+                <div class="ui-layout-media ui-gap-small">
                   <Avatar aria-hidden="true" size="small">
                     LH
                   </Avatar>
@@ -120,7 +120,7 @@ export default function Leaderboard() {
             <TableRow>
               <TableCell numeric>5</TableCell>
               <TableCell>
-                <div class="ui-layout-media ui-small">
+                <div class="ui-layout-media ui-gap-small">
                   <Avatar aria-hidden="true" size="small">
                     MM
                   </Avatar>
@@ -141,7 +141,7 @@ export default function Leaderboard() {
             <TableRow>
               <TableCell numeric>6</TableCell>
               <TableCell>
-                <div class="ui-layout-media ui-small">
+                <div class="ui-layout-media ui-gap-small">
                   <Avatar aria-hidden="true" size="small">
                     FF
                   </Avatar>
@@ -157,7 +157,7 @@ export default function Leaderboard() {
             <TableRow>
               <TableCell numeric>7</TableCell>
               <TableCell>
-                <div class="ui-layout-media ui-small">
+                <div class="ui-layout-media ui-gap-small">
                   <Avatar aria-hidden="true" size="small">
                     DD
                   </Avatar>
@@ -173,7 +173,7 @@ export default function Leaderboard() {
             <TableRow class="lb-you">
               <TableCell numeric>42</TableCell>
               <TableCell>
-                <div class="ui-layout-media ui-small">
+                <div class="ui-layout-media ui-gap-small">
                   <Avatar aria-hidden="true" size="small" variant="filled">
                     PG
                   </Avatar>
@@ -192,7 +192,7 @@ export default function Leaderboard() {
         </Table>
         <section
           aria-labelledby="leaderboard-stats-heading"
-          class="ui-layout-column ui-small"
+          class="ui-layout-column ui-gap-small"
         >
           <h2 class="ui-h5" id="leaderboard-stats-heading">
             Your week

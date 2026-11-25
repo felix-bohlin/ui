@@ -18,7 +18,7 @@ import {
 
 <template>
   <div
-    class="character-sheet ui-layout-container ui-layout-column ui-large"
+    class="character-sheet ui-layout-container ui-layout-column ui-gap-large"
     style="--_max-inline-size: 64rem"
   >
     <header class="cs-hero">
@@ -31,19 +31,19 @@ import {
         variant="filled"
         >PG</Avatar
       >
-      <div class="ui-layout-column ui-small">
+      <div class="ui-layout-column ui-gap-small">
         <hgroup class="ui-hgroup">
           <p class="ui-overline">Level 12 bard, Low End Oracle</p>
           <h1 class="ui-h2">Percy Groove</h1>
         </hgroup>
-        <div class="ui-layout-row ui-x-small">
+        <div class="ui-layout-row ui-gap-x-small">
           <Chip as="span" label="Human" size="small" />
           <Chip as="span" label="Chaotic groovy" size="small" />
           <Chip as="span" label="Band: The Flatwounds" size="small" />
         </div>
       </div>
       <div class="cs-vitals">
-        <div class="ui-layout-column ui-x-small">
+        <div class="ui-layout-column ui-gap-x-small">
           <span
             class="ui-layout-row ui-spread ui-tabular-nums"
             id="character-sheet-hp"
@@ -58,7 +58,7 @@ import {
             :value="34"
           />
         </div>
-        <div class="ui-layout-column ui-x-small">
+        <div class="ui-layout-column ui-gap-x-small">
           <span
             class="ui-layout-row ui-spread ui-tabular-nums"
             id="character-sheet-xp"
@@ -72,8 +72,8 @@ import {
         </div>
       </div>
     </header>
-    <div class="ui-layout-columns ui-large" style="--_columns: 2fr 3fr">
-      <div class="ui-layout-column ui-large">
+    <div class="ui-layout-columns ui-gap-large" style="--_columns: 2fr 3fr">
+      <div class="ui-layout-column ui-gap-large">
         <Card
           aria-labelledby="character-sheet-attributes-heading"
           as="section"
@@ -180,7 +180,7 @@ import {
           </CardContent>
         </Card>
       </div>
-      <div class="ui-layout-column ui-large">
+      <div class="ui-layout-column ui-gap-large">
         <Card
           aria-labelledby="character-sheet-inventory-heading"
           as="section"
@@ -239,7 +239,7 @@ import {
         </Card>
         <section
           aria-labelledby="character-sheet-abilities-heading"
-          class="ui-layout-column ui-small"
+          class="ui-layout-column ui-gap-small"
         >
           <h2 class="ui-h5" id="character-sheet-abilities-heading">
             Abilities

@@ -1,11 +1,14 @@
 ---
 import { releaseVersion } from "../../utils/release"
+import ViLockup from "../ViLockup.astro"
 
 const numeral = releaseVersion.split(".").slice(0, 2).join(".")
 ---
 
 <div class="hero ui-not-rich-text" id="hero">
-  <p class="hero-numeral">{numeral}</p>
+  <p class="hero-numeral">
+    <span class="vi-off">{numeral}</span><span class="vi-on"><ViLockup /></span>
+  </p>
 </div>
 
 <style is:global>
@@ -33,8 +36,7 @@ const numeral = releaseVersion.split(".").slice(0, 2).join(".")
         oklch(from var(--ui-primary) 0.6 0.1 h)
       );
 
-      background-clip: text;
-      background-image:
+      --vi-mark-paint:
         radial-gradient(
           90% 60% at 50% calc(100% + var(--hero-dawn)),
           var(--_glow-inner),
@@ -46,6 +48,9 @@ const numeral = releaseVersion.split(".").slice(0, 2).join(".")
           transparent 70%
         ),
         linear-gradient(var(--_sky-top), var(--_sky-bottom));
+
+      background-clip: text;
+      background-image: var(--vi-mark-paint);
       color: transparent;
       font-family: var(--ui-font-heading, var(--ui-font-body));
       font-size: clamp(8rem, 22vw, 16rem);

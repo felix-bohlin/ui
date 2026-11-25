@@ -4306,16 +4306,6 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Summary: Nested folders or categories can't be shown as a tree that the keyboard can move through.
   - Recommended: Explain further. Nested `<details>` lists already cover most uses without a script.
   - Fix: document nested `.ui-list` items in `<details>` as the tree without a script. An `<opui-tree>` then adds `role="tree"`, `treeitem` and `group`, roving tabindex, the arrow keys to move, open and close, typeahead and `aria-selected`, only once it is defined.
-- [ ] (1) Tokens: Figma's Dev Mode shows no opui markup for a design: Code Connect needs a published component library and an Organization or Enterprise plan, so the variables' `var(--ui-*)` code syntax is the only link to the code (`src/utils/figma-tokens.ts:474`)
-  - Summary: A developer inspecting a Figma design sees opui token names but no opui component code.
-  - Recommended: Fix with option B. Code Connect needs a component kit that doesn't exist yet and a plan the account doesn't have.
-  - Options:
-    - A: once the kit exists on a plan that allows it, generate `figma.html` and `figma.tsx` Code Connect templates from the `api.ts` data, one per component.
-    - B (recommended): keep the code syntax on the variables as the link until there is a kit and a plan for it.
-- [ ] (1) Release: the opui Figma plugin isn't on Figma Community: its manifest has a placeholder id, so people install it from the zip on the theme tokens page through Import plugin from manifest (`packages/figma-plugin/manifest.json:5`)
-  - Summary: People can install the Figma plugin only from a downloaded zip, not from Figma Community.
-  - Recommended: Fix. Publishing takes the Figma desktop app and the owner's account, as the plugin README describes.
-  - Fix: publish it from the Figma desktop app (Plugins, Development, Manage plugins in development, Publish), put the id Figma assigns in `manifest.json`, and link the Community page from the theme tokens page.
 - [x] (1) Select: the customizable picker hides the browser's checkmark on the selected option with `::checkmark { display: none; }`, to be revisited once the `::checkmark` API is final (`packages/opui/css/components/select.css:149-152`)
   - Summary: The selected option in the customizable Select picker shows no checkmark, since the browser's own is hidden.
   - Recommended: Explain further. The `::checkmark` pseudo-element is still changing, so showing it is a decision for when the spec settles.
@@ -4328,6 +4318,29 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Fix: once `@mixin` and `@apply` ship, define the visually hidden declarations once and apply them in the four rules.
   - Moved from a `TODO` comment in `tabs.css`, as the 6.0 release checklist asked.
   - Still open: Re-checked on 2026-11-23: the same declarations are now also in `packages/opui/css/components/message.css:23-30`, `packages/opui/css/components/file-upload.css:232-242` and `packages/opui/css/components/file-upload.css:288-295`.
+- [x] (1) Tooling: the Nunjucks prototype compiles 73 of the 89 components to macros that render what Astro renders on every contract case, and refuses 16: 7 render another component, 4 spread an object, 2 destructure a loop item, 2 call a function or a global, and Anchor calls a helper the runtime doesn't register (`scripts/component-nunjucks.mjs:1-373`, `scripts/component-nunjucks-expression.mjs:1-359`, `scripts/nunjucks-runtime.mjs:1-211`, `tests/unit/nunjucks-prototype.test.ts:1-398`)
+  - Summary: Nunjucks and Eleventy users can't use opui macros yet, since the prototype only runs in the repo's tests and ships nothing.
+  - Recommended: Fix with option A. Closing the 16 refusals first shows what full support costs before the package takes on a sixth framework.
+  - Fix: `node scripts/component-nunjucks.mjs --report` lists the refusals and `--print <Name>` prints one macro. A macro takes one `props` dict, named slots in `props.slots` (captured with `{% set %}`) and the default slot as `caller()`, with the helpers registered once as the `opui` global by `configure(env)`.
+  - Options:
+    - A (recommended): Close the refusals in the prototype: import and call the inner macro for a component inside a component (Badge, Callout, DialogHeader, DrawerHeader, FileUpload, Stepper, Tooltip), translate object spreads with `opui.merge` (Avatar, Checkbox, Radio, Switch), write destructured loop items as `{% set %}` lines and `opui.rest` (Menu, Timeline), register the sibling helper modules such as `Anchor/root.ts`, and move the `Number` and arrow logic of Rating and Reactions into helpers. Then decide on shipping with every component compiled.
+    - B: Ship it as a server-only framework: a `FRAMEWORKS` category that `isHydratedFramework` and the package checks in `tests/unit/framework-coverage.test.ts` leave out, a `./nunjucks` package export with the macros and `configure`, an Eleventy plugin, a Nunjucks writer in `scripts/build-examples.mjs` with a docs tab, a getting-started page, and CHANGELOG and What's new entries.
+    - C: Remove the prototype: the three modules, the BC701 to BC705 codes, the test and the `nunjucks` dependency.
+  - Note: Nunjucks drops keyword arguments a macro doesn't declare, so `Button(variant="filled")` silently loses `variant`; the macros take one dict, `Button({ variant: "filled" })`.
+  - Note: a named slot renders before the macro runs, so a context the macro provides can't reach it (BC703). Only `caller()` renders inside the macro.
+  - Note: `a ?? b` is translated as `(a if a != none else b)`, exact when `a` is a name or property chain, which covers all 29 uses. Text expressions print `false` and arrays as Nunjucks does, not as Astro does; none of the compiled components prints one.
+  - Note: ids are random unless `configure(env, { id })` runs before each render with a per-request generator, as Astro's `locals.$id`. Nunjucks has had no release since 3.2.4 in April 2023.
+  > Fix with option A
+  - Fixed: option A, and the output now reads as hand-written Nunjucks. All 89 components compile, and each macro renders what its Astro component renders on every contract case, in 20 compositions (with the generated ids compared literally) and from its source formatted at printWidth 40 and 200. Inner components are `{% call %}`s of their imported macros, destructured loop items are read as `entry.field`, object spreads become `opui.merge`, and `Anchor/root.ts` is found by the runtime, which now discovers every helper module instead of listing them. Rating's numbers moved into `ratingOf` (`Rating/rating.ts`) and Reactions' quick pick into `usedItem` and `pillsOf` (`Reactions/pills.ts`); their React, Solid, Svelte and Vue ports are recompiled and render the same. The macros put computed values in `{%- set -%}` lines, build class lists in the template, write one conditional per attribute (none where the value can't be empty), pass the rest through the `opuiAttributes` filter, use `| default()` for prop defaults, and use `==`, `is defined` and `is null` where the prop types make them exact. The macros of seven components are snapshots in `tests/unit/nunjucks-macros/`. Ids come from one counter per environment that is never reset, and `opui.ids()` creates a component's id only when it is used, as Astro's `createIds` does (the eager version gave a later Callout the wrong number). An independent review of the earlier output put it at 60 to 70 percent of hand-written; what it raised and stays: guards that a value inside a block testing the same condition can't fail (Field's slot ids), `opui.disabledLink` in Button, which only matters for a component `as` that Nunjucks can't pass, the unprefixed macro names (`{% from "opui/Button.njk" import Button as opuiButton %}` renames them), and unknown keys becoming attributes, which is the components' API in every framework.
+- [ ] (1) Tooling: the Nunjucks prototype compiles all 89 components to macros that render what Astro renders, but nothing ships: there is no package export, docs tab, getting-started page or Eleventy plugin (`scripts/component-nunjucks.mjs:1-1092`, `scripts/nunjucks-runtime.mjs:1-231`)
+  - Summary: Nunjucks and Eleventy users can't use the opui macros, which exist only in the repo's tests.
+  - Recommended: Fix with option A. The macros already match Astro for every component, and 6.1 leaves room for a new framework.
+  - Options:
+    - A (recommended): Ship it in 6.1 as a server-only framework: a `FRAMEWORKS` category that `isHydratedFramework` and the package checks in `tests/unit/framework-coverage.test.ts` leave out, the macros written to `packages/opui/nunjucks/` by `pnpm build-components` with a `./nunjucks` export of the runtime (`configure(env)`) and an Eleventy plugin, a Nunjucks writer in `scripts/build-examples.mjs` with a docs tab, a getting-started page, an app in `pnpm test:apps`, and CHANGELOG and What's new entries.
+    - B: Keep the prototype in the repo's tests as it is.
+    - C: Remove the prototype: the three modules, the BC701 to BC705 codes, the test, the snapshots and the `nunjucks` dependency. Keep the Rating and Reactions helpers, which the ports use.
+  - Note: a named slot passed to an inner component (BC704) and a context provided around a named slot (BC703) are still refused; no component needs either today.
+  - Note: Nunjucks has had no release since 3.2.4 in April 2023.
 - [ ] (2) Web components: a color picker needs a script, and `<input type="color">` only gives hex, which the library's colors never use. The Theme builder has a light-DOM `<oklch-input>` for it, but it lives in the docs site and isn't form-associated (`src/utils/oklch-input.ts:83`, `src/utils/oklch-input.ts:297-299`)
   - Summary: There is no OKLCH color field, and the native color input only gives hex values.
   - Recommended: Fix. The element already exists on the docs site and mostly needs to move into the package.
@@ -4396,14 +4409,6 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - C: one element per widget (`<opui-menu>`, `<opui-tree>`), each with its own key handling and no `focusgroup`.
   - Explained: Re-checked on 2026-11-17: the Menu page documents the arrow keys only in its keyboard table now (`src/docs/components/menu.astro:278`, from `src/component-api/menu/api.ts:28-31`), and no element or `focusgroup` attribute exists in the package yet. The citation now names that line.
   - Explained: Re-checked on 2026-11-23: no arrow-key handling or `focusgroup` in the package yet. `opui-css/elements/menu.js` now closes the menu after a click on a link, submit or reset item (`packages/opui/elements/menu.js:1-25`), so option A would extend it. The types also need `focusgroup` in `packages/opui/solid/elements.ts`.
-- [ ] (2) Tokens: there is no Figma component kit. The Figma files, the plugin and `sync.js` carry variables, effect styles and text styles, but no components, so a designer draws buttons, fields and cards again (`packages/opui/figma/sync.js:1-350`, `src/utils/figma-tokens.ts:474`)
-  - Summary: Designers get opui's variables and styles in Figma, but no ready-made components.
-  - Recommended: Fix with option B. The plugin runs it without Figma MCP calls, which the Starter plan caps at six a month.
-  - Options:
-    - A: build the kit with the Figma MCP server's `use_figma` and `/figma-generate-library` from the `api.ts` props and slots (enum props as variant properties, booleans as boolean properties, slots as text or instance swap properties), starting with Button, TextField, Select, Checkbox, Radio, Switch, Card, Dialog, Tabs and Callout. It takes a Professional plan with a Full seat.
-    - B (recommended): a component script next to `sync.js` that builds the same components from the `api.ts` data with the synced variables bound, run by the plugin, with one `use_figma` run and a screenshot per component to check it.
-    - C: wait until someone asks for components.
-  - Explained: `TextField` and `Select` are one `Field` now, so the kit's starter list would have Field with variants for an input, a select and a textarea.
 - [ ] (3) Web components: there is no combobox: a search field can't suggest or filter options as the user types, so the app shell's search is a plain input and a long Select has no filter (`src/blocks/app-shell/AppShell.astro:118-125`)
   - Summary: Users can't filter a long list of options by typing, and search fields offer no suggestions.
   - Recommended: Fix. A combobox is the most requested control the library lacks, and `<datalist>` gives a fallback without the script.
@@ -4870,6 +4875,9 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - B: keep it, and move the sentence from the API note to the top of the Vue binding sections of both pages.
   - Must stay green: `tests/e2e/example-state.spec.ts`, `tests/unit/dev-warnings.test.ts` (no false grouped `checked` warning) and the Nuxt and Vite Vue apps in `pnpm test:apps`.
   - Fixed: A bound Vue group shares its model, and each item binds its input with `v-model` to it, so the first choice writes a ref that starts `undefined`, as `v-model` on native radios does (`packages/opui/components/Tabs/TabsItem.vue`, `src/component-api/tabs/api.ts`).
+- [ ] (1) CSS: `normalize.css` gives every `svg` without a `width` attribute the large icon size, so an illustration sized only by its `block-size`, like the home page scenery, renders 24px wide until it also sets `inline-size: auto` and an `aspect-ratio` (`packages/opui/core/normalize.css:195-197`, `src/components/scenery/ViceCity.astro:118-120`)
+  - Summary: A decorative SVG sized only by its height shows up as a thin 24px sliver.
+  - Recommended: Explain further. The default suits icons, so this may only need a line in the docs.
 - [ ] (2) SelectButton: the React, Svelte and Vue SelectButton files are written by hand for one construct, a tag that is always one string. The compiler folds it into the element only in Solid (`staticTag`); compiled today, React gets a bare `<SelectedContent />` from a const, Svelte a `<svelte:element>` on `$derived("selectedcontent")` and Vue a `<component :is>` on a constant `computed`, none of which leaves the content the browser writes alone when it hydrates (`scripts/hand-written-components.json:1-5`, `packages/opui/components/SelectButton/SelectButton.astro:6-12`, `scripts/component-solid.mjs:146-203`, `scripts/component-svelte.mjs:269`, `scripts/component-vue.mjs:648-649`, `scripts/component-reader.mjs:1056-1062`)
   - Summary: Three of the five SelectButton files are kept by hand because the compiler handles a constant tag only in Solid.
   - Recommended: Fix with option A. The construct is generic, and the ledger then loses all three files.
@@ -5442,7 +5450,122 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Recommended: Fix. The output is the same, and the file reads like the hand-written one.
   - Fix: in `toReact`'s `attribute`, emit `className={item}` without `cx` when the class list has one item and `classMayBeEmpty(item)` is false. Keep `cx` for an item that can be empty (`cx([className])`), where it turns an empty string into no attribute. Found by the `framework-idioms` agent.
   - Fixed: `toReact` writes `className={...}` without `cx` when the class is always one non-empty string (`classText` in `scripts/component-shared.mjs`), in Checkbox, NumberField, Radio, Range, Switch, Textarea and TextField. A class that can be empty or holds a list keeps `cx`, which `tests/unit/build-components.test.ts` checks with both kinds.
-- [x] (2) Tokens: there is no Figma kit. Peers build one from their tokens: Primer generates Figma variables from its token files, Material has Theme Builder, and Carbon, Spectrum and Nord ship kits. `tokens.json` is the starting point, but its values are CSS expressions (`var()`, `light-dark()`, relative colors), so a kit needs them resolved per mode first (`packages/opui/tokens.json`, `src/utils/tokens-json.ts`)
+- [ ] (1) ToggleGroup: in React and Solid, ToggleGroup and Tabs type `value`, `defaultValue` and `onValueChange` with plain `string`, so state typed as a union like `"all" | "photos"` needs a guard (`packages/opui/components/ToggleGroup/types.react.ts:6-15`, `packages/opui/components/ToggleGroup/types.solid.ts:6-15`, `scripts/component-types.mjs:580-613`)
+  - Summary: A ToggleGroup whose values are a union type can't hand its value to typed state without a guard in React and Solid.
+  - Recommended: Explain further. A generic needs an unchecked cast inside the component, which the item that removed `as never` turned down.
+  - Fix: a generic `V extends string = string` with `defaultValue?: NoInfer<V>` works for Tabs. ToggleGroup needs two generic signatures, single and `multiple: true`; one generic over the existing union falls back to `string`. Both need the React and Solid compilers to emit a generic component, and `onValueChange?.(input.value as V)` in `scripts/component-models.mjs`, which trusts `V`. Without it, document the guard on the Toggle and Tabs pages.
+- [ ] (1) Package: small leftovers in the compiled Svelte files and the hand-written Select: Menu spreads `classAttrs()` on an `li` that has no other spread, loops are keyed by their own index, two `$derived` only rename another value, a root event handler is destructured and written back next to the spread that carries it, and ListItem writes its body twice (`scripts/component-svelte.mjs`, `packages/opui/components/Menu/Menu.svelte:65-67`, `packages/opui/components/Rating/Rating.svelte:61`, `packages/opui/components/Callout/Callout.svelte:43`, `packages/opui/components/ListItem/ListItem.svelte:54-121`)
+  - Summary: The Svelte files carry a few wrappers and repeats that a hand-written component would not have.
+  - Recommended: Explain further. Each one touches the guide, a check or more than one emitter, so say which to take.
+  - Fix: none changes the markup. In turn: (1) Svelte omits an empty `class` itself on an element without a spread, so `Menu.svelte` could bind `class={[...]}` and get `set_class` instead of an attribute effect per item; the guide sentence on `classAttrs()` then needs "next to a spread". (2) Svelte compiles `{#each stars as star, index (index)}` like an unkeyed block (its analyzer treats a key that is the index as none), so the key the reader now sets on every loop does nothing in Svelte when it is the index; only Stepper reads the index. (3) `const inputId = $derived(base)` and `const hasValueText = $derived(valueText)` add a signal each; Solid and Vue have the same two aliases, so the fix belongs where the name is lowered, and it trades the readable name for the base. (4) `{ondismiss}` beside `{...defined(rest)}` compiles into the same attribute object as leaving it in the rest, as Solid does; `scripts/AGENTS.md` describes the handler prop. (5) `ListItem.astro` repeats its body in both branches of its optional wrapper, which a snippet would hold once. (6) `Select.svelte` repeats `aria-labelledby` after the spread that carries it.
+    ```svelte
+    <!-- before -->
+    <li {...classAttrs([{ "ui-border-top": borderTop }, color && `ui-${color}`])}>
+    {#each stars as star, index (index)}
+    <!-- after -->
+    <li class={[{ "ui-border-top": borderTop }, color && `ui-${color}`]}>
+    {#each stars as star}
+    ```
+  - Still open: Re-checked after Field replaced Select: the Select leftover is gone, since the hand-written `SelectButton.svelte` only spreads its rest, and of the two `$derived` aliases only `inputId` in `packages/opui/components/FileUpload/FileUpload.svelte:28` is left. The `classAttrs()` spread, the index keys, the written-back handler and the doubled ListItem body remain; Stepper and FileUpload now read their loop index.
+- [ ] (1) Package: small leftovers in the compiled Vue files and their helper: an attribute is bound again to the value the attrs spread already carries, a computed only returns another, `.number` sits on `type="number"`, a slot fallback is a `v-if` and `v-else` pair, label slots go through `TrimmedSlot`, and `vue.ts` reaches into `v-model`'s private state (`scripts/component-vue.mjs`, `packages/opui/components/Rating/Rating.vue:66`, `packages/opui/components/Callout/Callout.vue:52-61`, `packages/opui/components/whitespace.vue.ts`, `packages/opui/components/FileUpload/FileUpload.vue:28`)
+  - Summary: The Vue files carry a few wrappers and repeats that a hand-written component would not have.
+  - Recommended: Explain further. Each one touches the guide, a check or a model kind, so say which to take.
+  - Fix: in turn: (1) `:aria-labelledby="attrs['aria-labelledby']"` after `v-bind="attrs"` (TextField, Textarea, OneTimeCode, Select) and `styleAttrs($attrs.style)` beside `restAttrs` in Rating bind a value the spread already holds; the emitter could drop a binding that reads the caller's own attribute after the unconditional attrs spread. (2) `const inputId = computed(() => base.value)` could be `const inputId = base`. (3) Vue casts a `type="number"` input to a number without `.number`. (4) `<slot name="close-icon"><svg ... /></slot>` is Vue's own fallback and also shows when the slot renders nothing, where the `v-if="$slots.x"` pair shows an empty button; it adds fragment markers to the server markup. (5) `TrimmedSlot` calls the slot outside `renderSlot`, so its content is diffed in full, to trim the space Vue leaves at the edges of slot text; it is the weakest challenge, since the parity with Astro's `trimEdges` depends on it. (6) `vue.ts` finds `v-model`'s binding in `vnode.dirs`, reads `_value` and calls `onUpdate:modelValue` itself, none of which is a documented contract; it works in 3.5.45, and the alternative is one model directive of about the same size.
+  - Still open: Re-checked after the state work: (3) and (6) are gone. No Vue file puts `.number` on `v-model` any more, and `vue.ts` no longer reads `v-model`'s binding, since `vSeed` was removed. The other four remain, and (1) now appears twice per file, once in the bound and once in the unbound branch.
+  - Still open: Re-checked after Field replaced TextField, Textarea and Select: the repeated `aria-labelledby` is gone, and the one left in `Reactions.vue:56` binds it on the inner ToggleGroup, which the root's `restAttrs` leaves out. Rating's `styleAttrs($attrs.style)` beside `restAttrs`, the `inputId` alias in `FileUpload.vue:28`, the close icon fallback pair in `Callout.vue:52-61` and `TrimmedSlot` in 10 files remain. `vue.ts` no longer reaches into `v-model`.
+  - Still open: (5) is not a leftover: drop it. Without `TrimmedSlot` a label slot written on its own lines renders with a space at each edge, which Astro's `trimEdges` removes. Two census blind ports confirmed it, and so did Chromium on 2026-11-23: a plain Vue `<slot name="label">` renders `" Full name "`, and the Field's `TrimmedSlot` renders `"Full name"`. The full diff of the slot content is the price of matching Astro. (1) Rating's `styleAttrs($attrs.style)` (`Rating.vue:66`), (2) the `inputId` alias (`FileUpload.vue:28`) and (4) the close icon pair (`Callout.vue:52-61`) still hold.
+- [ ] (1) Package: small leftovers in the compiled Solid files: two accessors only call another, and six Table parts take `children` out of the rest only to put them back (`scripts/component-solid.mjs`, `packages/opui/components/Table/TableBody.solid.tsx:6-8`, `packages/opui/components/FileUpload/FileUpload.solid.tsx:34`)
+  - Summary: The Solid files carry two accessors and a step that a hand-written component would not have.
+  - Recommended: Explain further. The second changes a rule the guide and `check-components` state.
+  - Fix: in turn: (1) `const inputId = () => base()` and `const hasValueText = () => resolvedValueText()` could alias the accessor; Svelte and Vue have the same two aliases. (2) a spread inserts `children` itself, so the six Table parts could be `<tbody {...props} />`; the guide and `check-components` name `omit`.
+    ```tsx
+    // before
+    const inputId = () => base()
+    const rest = omit(props, "children")
+    return <tbody {...rest}>{props.children}</tbody>
+    // after
+    const inputId = base
+    return <tbody {...props} />
+    ```
+  - Still open: One of the two accessors is left, `inputId` in `FileUpload.solid.tsx:34`; `hasValueText` went with Range. The six Table parts still omit `children` and put it back.
+- [ ] (1) Package: the compiled type files carry keys that do nothing: `Without<Base.Props, ...>` lists slot names the base type lacks in Select, TextField and Textarea, inner `Omit`s repeat what the outer one removes in Menu and Rating, and the Solid types alone omit base keys the element also declares, in 17 folders (`scripts/component-types.mjs`, `packages/opui/components/Field/types.react.ts:6-9`, `packages/opui/components/Menu/types.solid.ts:5-10`)
+  - Summary: Hovering a props type in an editor shows omitted keys that the type never had.
+  - Recommended: Fix. What is left is checking type equality in the remaining Solid folders before dropping their omit.
+  - Fix: the meaning of the types is unchanged for the first two (checked with a `tsc` equality test on four props). The Solid-only omit is verified equal for TextField, TabsItem and TableColumn only, so check the other 13 folders before removing it.
+    ```ts
+    // before
+    Omit<
+      Omit<ComponentProps<"a">, "href"> &
+        Omit<ComponentProps<"button">, "disabled">,
+      keyof Base.MenuItem | "children"
+    >
+    // after
+    Omit<
+      ComponentProps<"a"> & ComponentProps<"button">,
+      keyof Base.MenuItem | "children"
+    >
+    ```
+  - Still open: Select, TextField and Textarea are gone, and Field carries the same no-op keys: its `Without` omits `bottom`, `end`, `start` and `top`, which `Base.Props` doesn't have. The repeated inner `Omit`s are left in the Solid Menu and Rating only, and the Solid-only omits are in 15 folders.
+  - Still open: two of the three are fixed. `Without<Base.Props, ...>` lists only the string slots the base type has (`stringSlotKeys` filtered by the base keys in `scripts/component-types.mjs`), so Field's types drop `bottom`, `end`, `start` and `top`, and a file whose list comes out empty no longer declares the helper; `tests/unit/build-components.test.ts` has a string slot of each kind. The nested `Omit`s of Menu and Rating went with the union types of the Menu, Rating item under Bugs, and the Solid types no longer add the base keys an element declares to an `Omit` that already removes `keyof Base.<Name>`, which made `"disabled" | "name"` and `"max" | "value"` repeat it in Rating and `"disabled"` and `"href"` in Menu. Left: the Solid omits in folders without such an `Omit`, such as `Omit<ComponentProps<"button">, "disabled">` in Button, which change the type unless Solid's attribute type equals the base one, so each needs the `tsc` equality check before it goes.
+- [ ] (1) Package: the compiled Solid files create more memos and effects per instance than a hand-written component in four places: a slot with a fallback goes through `children()` only to be compared with `undefined`, Rating builds its stars with `Array.from` and loops them with `<For>`, `dynamic()` never gets the `static` option, and Menu uses `<Dynamic>`, which `@solidjs/web` 2 marks deprecated (`scripts/component-solid.mjs:483`, `scripts/component-solid.mjs:668-677`, `packages/opui/components/Accordion/AccordionSummary.solid.tsx:7-22`, `packages/opui/components/Rating/Rating.solid.tsx:37-96`, `packages/opui/components/Menu/Menu.solid.tsx:96-117`, `packages/opui/components/ListItem/ListItem.solid.tsx:45`)
+  - Summary: The Solid files create more memos and effects per instance than a hand-written component would.
+  - Recommended: Explain further. Each is a separate emitter change with its own trade-off, so say which to take.
+  - Fix: found by the census blind ports and re-read on the current files; none changes the markup. In turn: (1) `{resolvedMarker() === undefined ? <svg /> : resolvedMarker()}` costs two lazy memos and a condition memo where `{props.marker ?? <svg />}` is one read, in AccordionSummary, Callout, DialogHeader and DrawerHeader; with `??` a `null` slot shows the fallback, where today it renders nothing. (2) Rating builds `stars()` with `Array.from` and loops with `<For keyed={false}>`, where `<Repeat count from>` passes a plain number. (3) `dynamic(tag, { static: isStatic(props, "as") })` saves about four computations per instance in the 12 files that call `dynamic()`, for about 25 bytes each. (4) `<Dynamic component={tag()}>` is `dynamic()` plus an `omit`, and the guide documents it for a per-item tag; `@solidjs/web` 2.0 keeps it without a runtime warning. The census's Select option spread went with Select, and `group?.change?.(input)` needs its `?.` now that `change` is optional in the context type.
+    ```tsx
+    // before
+    const resolvedMarker = children(() => props.marker)
+    {resolvedMarker() === undefined ? <svg aria-hidden="true" /> : resolvedMarker()}
+    <For each={stars()} keyed={false}>{(star) => ...star()...}</For>
+    // after
+    {props.marker ?? <svg aria-hidden="true" />}
+    <Repeat count={count()} from={1}>{(star) => ...star...}</Repeat>
+    ```
+- [ ] (1) Package: four input parts set `type` before `{...rest}` in their Astro file, so their compiled React, Solid, Svelte and Vue files filter the rest with `defined()` on every render to keep a caller's `type={undefined}` from removing it, and the Vue CheckboxInput, RadioInput and SwitchInput turn attribute inheritance off to bind that filtered copy. `Tabs.astro` also destructures `role` only to read it and pass it back (`packages/opui/components/Checkbox/CheckboxInput.astro:10-15`, `packages/opui/components/Radio/RadioInput.astro:9`, `packages/opui/components/Switch/SwitchInput.astro:1-10`, `packages/opui/components/Tabs/TabsItem.astro:1-30`, `packages/opui/components/Tabs/Tabs.astro:15-37`, `packages/opui/components/Checkbox/CheckboxInput.vue:12-42`)
+  - Summary: Four inputs filter their attributes on every render to protect one fixed attribute.
+  - Recommended: Explain further and provide an example. The fix reorders the attributes of every checkbox, radio and switch in the HTML examples readers copy.
+  - Fix: found by the census (Checkbox and Tabs blind ports), which compiled a reordered `CheckboxInput.astro` in memory and got all four ports without `defined` or its import; re-read on the current files. The cost is an `Object.entries`, a filter and a `fromEntries` per render and per item, and the bytes are noise (3 to 6% per file). The census also measured the Vue CheckboxInput at 591 bytes gzipped against 458 for a plain one; part of that is the bound and unbound branches `packages/opui/components/AGENTS.md` now asks for, and the rest is this filter. With `type` after the rest, the attribute order changes in the markup and the HTML examples, so run `pnpm build-examples` and re-record the parity snapshots as intended. For `role`, leave it in the rest and read `rest.role` for the warning.
+    ```astro
+    <!-- before -->
+    <input
+      type="checkbox"
+      data-indeterminate={indeterminate ? "" : undefined}
+      name={name ?? field?.name}
+      {...rest}
+    />
+    <!-- after -->
+    <input
+      {...rest}
+      type="checkbox"
+      data-indeterminate={indeterminate ? "" : undefined}
+      name={name ?? field?.name}
+    />
+    ```
+- [ ] (1) Package: the Svelte emitter wraps every const of the Astro frontmatter in `$derived`, also one that is only read inside the `{#if}` of the slot it tests: Field declares nine, and `startId`, `endId`, `topId` and `bottomId` are each read only under `{#if start}`, `{#if end}`, `{#if top}` and `{#if bottom}` (`scripts/component-svelte.mjs:320`, `packages/opui/components/Field/Field.svelte:28-38`)
+  - Summary: The Svelte Field keeps nine derived signals per instance where a hand-written one would keep two.
+  - Recommended: Explain further. None is visible to a user, so say whether it is worth an emitter change.
+  - Fix: found by the census (TextField blind port, 2 derived signals per instance against 12 and 2.9% fewer bytes, which is noise) and re-read on the current Field, which replaced TextField. The census's other two small items are gone: the React Rating no longer passes a new `ref` to every radio, and the hand-written Vue Select went with Select. Inline a const in the template when every read sits inside a block that tests the slot or prop it reads.
+    ```svelte
+    <!-- before -->
+    const startId = $derived(start ? `${htmlFor}-start` : undefined)
+    {#if start}<span class="ui-start" id={startId}>
+    <!-- after -->
+    {#if start}<span class="ui-start" id={`${htmlFor}-start`}>
+    ```
+- [ ] (1) Docs: Adding an example theme leaves three lists unchecked: the `themes/` lines of the file tree on the HTML getting started page (it lacked `govuk` until the gta-vi theme), the theme count in the CHANGELOG summary, and the themes the customizing guide says derive from `--ui-palette-source` (`src/docs/guide/getting-started/HTML.astro:157-163`, `packages/opui/CHANGELOG.md:9`, `src/docs/guide/customizing.astro:70-76`)
+  - Summary: A new example theme can go missing from the getting started tree and the customizing guide without any test noticing.
+  - Recommended: Fix. The lists can come from the themes folder, like the README's.
+  - Fix: build the tree's `themes/` lines and the derive list from `EXAMPLE_THEMES` (`src/utils/example-themes.ts`), the derive list from the themes whose tokens read `--ui-palette-source`, and have `tests/unit/changelog.test.ts` check the count in the summary against `packages/opui/themes/`.
+- [ ] (1) Tokens: `tokenType` reads a token's design token type from its name, so any `--ui-surface-*` name is a `color`: `--ui-surface-image` was typed as one until an `-image` exception went in (`src/utils/tokens-json.ts:5-29`)
+  - Summary: A new token whose name starts like a color one gets the wrong type in tokens.json unless someone notices.
+  - Recommended: Fix with option B. It is small and catches the next collision.
+  - Options:
+    - A: type a token from the syntax of its default value (a color function, a length, a number) and keep the name rules for unset tokens.
+    - B (recommended): keep the name rules, and have `tests/unit/theme-tokens.test.ts` fail when a token typed `color`, `dimension` or `number` has a default value of another kind.
+- [ ] (1) Docs site: The theme font loader only reads the first family of a stack, so a theme can't name a font it doesn't ship ahead of a web font: gta-vi names `GTAArtDeco` in `--ui-font-heading` only, since naming it first in `--ui-font-body` would stop Figtree from loading (`src/components/ThemeBootstrap.astro:137-150`)
+  - Summary: A theme that names an installed-only font first gets no web font on the docs site.
+  - Recommended: Fix. Stopping at the first generic family keeps today's behavior for every other theme.
+  - Fix: walk the families in order and load the first one in `webFonts`, stopping at a generic family (`system-ui`, `sans-serif`, `serif`, `monospace`), so a system stack like bootstrap's still loads nothing.
+- [ ] (2) Tokens: there is no Figma kit. Peers build one from their tokens: Primer generates Figma variables from its token files, Material has Theme Builder, and Carbon, Spectrum and Nord ship kits. `tokens.json` is the starting point, but its values are CSS expressions (`var()`, `light-dark()`, relative colors), so a kit needs them resolved per mode first (`packages/opui/tokens.json`, `src/utils/tokens-json.ts`)
   - Summary: There is no Figma kit, and tokens.json holds CSS expressions that a kit would need resolved per mode first.
   - Recommended: Fix with option A. A resolved-tokens export is a small script over the existing `tokens.json` and is what every Figma variables importer needs.
   > Explain further
@@ -5453,7 +5576,7 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - C: nothing until someone asks for Figma.
   - Explained: the example previews option A in the browser: it reads `/tokens.json`, sets each token on a property of its type (`color`, `margin-inline-start`, `box-shadow` and so on) in a `.ui-light` and a `.ui-dark` scope, and prints the file an export would write. Measured in Chromium: 249 of the 251 tokens resolve (the two without a `$type` don't), 123 of them are CSS expressions in `tokens.json`, and 51 differ between light and dark; `--ui-surface`, for one, comes out as `oklch(0.98 0.01 255)` with a dark mode of `oklch(0.27 0.01 255)`. Example: resolved-tokens
   > I want all the bells and whistles, let’s do this right and do this great
-  - Fixed: option A and more, checked in a Figma draft. Every theme is recorded from Chromium per mode in `src/figma/` (`tests/e2e/figma.spec.ts`, `pnpm test:e2e:record-figma`), and the build turns the recordings into downloads on the theme tokens page, with the default theme's in `packages/opui/figma/themes/`: a DTCG file per mode for Figma's Import mode, with sRGB colors, a hex fallback and the oklch value, aliases, `var(--ui-*)` code syntax, scopes and hidden palette steps, and a `<theme>.figma.json` that adds effect styles for the shadows and text styles for the type roles. `packages/opui/figma/sync.js` syncs one into a file through the Plugin API. The opui Figma plugin (`packages/figma-plugin`, a download on the theme tokens page) runs it, the Theme builder's Figma button exports the current theme, and the agent skill says how to run it with `use_figma`. A run through `use_figma` with a sample theme on the Starter plan, which allows one mode, made a collection per mode, and the variables, aliases, code syntax, scopes, timing and easing variables, the effect style's bound color and the text styles' bound size, family and weight all came through. A second run updated them in place. The components, Code Connect, the Import mode check and publishing the plugin are new items.
+  - Still open: the Figma variables, styles, sync script, plugin and Theme builder download are on the `feat/figma` branch, to ship after 6.0.
 - [x] (2) Tokens: motion and elevation scales are thin. Material has 16 durations, 10 easings and 6 elevation levels, and Carbon has 6 durations with productive and expressive easings. OPUI has three durations, three easings, `--ui-motion` as an on and off switch, and shadows per use (`packages/opui/css/theme.css`)
   - Summary: The motion and elevation scales are thin compared with peers, with three durations, three easings and shadows per use.
   - Recommended: Fix with option A. The per-use tokens are what the components and themes read, and a level scale would only duplicate them.
@@ -6102,112 +6225,11 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Recommended: Fix. Add a SolidStart app next to it once a release takes solid-js 2, so the meta-framework people scaffold is covered like Next.js, Nuxt and SvelteKit.
   - Fix: when a `@solidjs/start` release takes solid-js 2 as a peer, add a SolidStart app to `tests/apps/apps.ts` with `ssr: true`, and name it in the app test lines of `AGENTS.md` and `README.md`.
   - Removed: Solid 2 needs no SolidStart: start mode of `@solidjs/vite-plugin` is its own application layer ("in place of SolidStart" in the plugin's README), and `tests/apps/solid-start` already renders every example on the server with it. The Solid Getting started page and the README name the `start` and `ssr` options.
-- [ ] (1) ToggleGroup: in React and Solid, ToggleGroup and Tabs type `value`, `defaultValue` and `onValueChange` with plain `string`, so state typed as a union like `"all" | "photos"` needs a guard (`packages/opui/components/ToggleGroup/types.react.ts:6-15`, `packages/opui/components/ToggleGroup/types.solid.ts:6-15`, `scripts/component-types.mjs:580-613`)
-  - Summary: A ToggleGroup whose values are a union type can't hand its value to typed state without a guard in React and Solid.
-  - Recommended: Explain further. A generic needs an unchecked cast inside the component, which the item that removed `as never` turned down.
-  - Fix: a generic `V extends string = string` with `defaultValue?: NoInfer<V>` works for Tabs. ToggleGroup needs two generic signatures, single and `multiple: true`; one generic over the existing union falls back to `string`. Both need the React and Solid compilers to emit a generic component, and `onValueChange?.(input.value as V)` in `scripts/component-models.mjs`, which trusts `V`. Without it, document the guard on the Toggle and Tabs pages.
-- [ ] (1) Package: small leftovers in the compiled Svelte files and the hand-written Select: Menu spreads `classAttrs()` on an `li` that has no other spread, loops are keyed by their own index, two `$derived` only rename another value, a root event handler is destructured and written back next to the spread that carries it, and ListItem writes its body twice (`scripts/component-svelte.mjs`, `packages/opui/components/Menu/Menu.svelte:65-67`, `packages/opui/components/Rating/Rating.svelte:61`, `packages/opui/components/Callout/Callout.svelte:43`, `packages/opui/components/ListItem/ListItem.svelte:54-121`)
-  - Summary: The Svelte files carry a few wrappers and repeats that a hand-written component would not have.
-  - Recommended: Explain further. Each one touches the guide, a check or more than one emitter, so say which to take.
-  - Fix: none changes the markup. In turn: (1) Svelte omits an empty `class` itself on an element without a spread, so `Menu.svelte` could bind `class={[...]}` and get `set_class` instead of an attribute effect per item; the guide sentence on `classAttrs()` then needs "next to a spread". (2) Svelte compiles `{#each stars as star, index (index)}` like an unkeyed block (its analyzer treats a key that is the index as none), so the key the reader now sets on every loop does nothing in Svelte when it is the index; only Stepper reads the index. (3) `const inputId = $derived(base)` and `const hasValueText = $derived(valueText)` add a signal each; Solid and Vue have the same two aliases, so the fix belongs where the name is lowered, and it trades the readable name for the base. (4) `{ondismiss}` beside `{...defined(rest)}` compiles into the same attribute object as leaving it in the rest, as Solid does; `scripts/AGENTS.md` describes the handler prop. (5) `ListItem.astro` repeats its body in both branches of its optional wrapper, which a snippet would hold once. (6) `Select.svelte` repeats `aria-labelledby` after the spread that carries it.
-    ```svelte
-    <!-- before -->
-    <li {...classAttrs([{ "ui-border-top": borderTop }, color && `ui-${color}`])}>
-    {#each stars as star, index (index)}
-    <!-- after -->
-    <li class={[{ "ui-border-top": borderTop }, color && `ui-${color}`]}>
-    {#each stars as star}
-    ```
-  - Still open: Re-checked after Field replaced Select: the Select leftover is gone, since the hand-written `SelectButton.svelte` only spreads its rest, and of the two `$derived` aliases only `inputId` in `packages/opui/components/FileUpload/FileUpload.svelte:28` is left. The `classAttrs()` spread, the index keys, the written-back handler and the doubled ListItem body remain; Stepper and FileUpload now read their loop index.
-- [ ] (1) Package: small leftovers in the compiled Vue files and their helper: an attribute is bound again to the value the attrs spread already carries, a computed only returns another, `.number` sits on `type="number"`, a slot fallback is a `v-if` and `v-else` pair, label slots go through `TrimmedSlot`, and `vue.ts` reaches into `v-model`'s private state (`scripts/component-vue.mjs`, `packages/opui/components/Rating/Rating.vue:66`, `packages/opui/components/Callout/Callout.vue:52-61`, `packages/opui/components/whitespace.vue.ts`, `packages/opui/components/FileUpload/FileUpload.vue:28`)
-  - Summary: The Vue files carry a few wrappers and repeats that a hand-written component would not have.
-  - Recommended: Explain further. Each one touches the guide, a check or a model kind, so say which to take.
-  - Fix: in turn: (1) `:aria-labelledby="attrs['aria-labelledby']"` after `v-bind="attrs"` (TextField, Textarea, OneTimeCode, Select) and `styleAttrs($attrs.style)` beside `restAttrs` in Rating bind a value the spread already holds; the emitter could drop a binding that reads the caller's own attribute after the unconditional attrs spread. (2) `const inputId = computed(() => base.value)` could be `const inputId = base`. (3) Vue casts a `type="number"` input to a number without `.number`. (4) `<slot name="close-icon"><svg ... /></slot>` is Vue's own fallback and also shows when the slot renders nothing, where the `v-if="$slots.x"` pair shows an empty button; it adds fragment markers to the server markup. (5) `TrimmedSlot` calls the slot outside `renderSlot`, so its content is diffed in full, to trim the space Vue leaves at the edges of slot text; it is the weakest challenge, since the parity with Astro's `trimEdges` depends on it. (6) `vue.ts` finds `v-model`'s binding in `vnode.dirs`, reads `_value` and calls `onUpdate:modelValue` itself, none of which is a documented contract; it works in 3.5.45, and the alternative is one model directive of about the same size.
-  - Still open: Re-checked after the state work: (3) and (6) are gone. No Vue file puts `.number` on `v-model` any more, and `vue.ts` no longer reads `v-model`'s binding, since `vSeed` was removed. The other four remain, and (1) now appears twice per file, once in the bound and once in the unbound branch.
-  - Still open: Re-checked after Field replaced TextField, Textarea and Select: the repeated `aria-labelledby` is gone, and the one left in `Reactions.vue:56` binds it on the inner ToggleGroup, which the root's `restAttrs` leaves out. Rating's `styleAttrs($attrs.style)` beside `restAttrs`, the `inputId` alias in `FileUpload.vue:28`, the close icon fallback pair in `Callout.vue:52-61` and `TrimmedSlot` in 10 files remain. `vue.ts` no longer reaches into `v-model`.
-  - Still open: (5) is not a leftover: drop it. Without `TrimmedSlot` a label slot written on its own lines renders with a space at each edge, which Astro's `trimEdges` removes. Two census blind ports confirmed it, and so did Chromium on 2026-11-23: a plain Vue `<slot name="label">` renders `" Full name "`, and the Field's `TrimmedSlot` renders `"Full name"`. The full diff of the slot content is the price of matching Astro. (1) Rating's `styleAttrs($attrs.style)` (`Rating.vue:66`), (2) the `inputId` alias (`FileUpload.vue:28`) and (4) the close icon pair (`Callout.vue:52-61`) still hold.
-- [ ] (1) Package: small leftovers in the compiled Solid files: two accessors only call another, and six Table parts take `children` out of the rest only to put them back (`scripts/component-solid.mjs`, `packages/opui/components/Table/TableBody.solid.tsx:6-8`, `packages/opui/components/FileUpload/FileUpload.solid.tsx:34`)
-  - Summary: The Solid files carry two accessors and a step that a hand-written component would not have.
-  - Recommended: Explain further. The second changes a rule the guide and `check-components` state.
-  - Fix: in turn: (1) `const inputId = () => base()` and `const hasValueText = () => resolvedValueText()` could alias the accessor; Svelte and Vue have the same two aliases. (2) a spread inserts `children` itself, so the six Table parts could be `<tbody {...props} />`; the guide and `check-components` name `omit`.
-    ```tsx
-    // before
-    const inputId = () => base()
-    const rest = omit(props, "children")
-    return <tbody {...rest}>{props.children}</tbody>
-    // after
-    const inputId = base
-    return <tbody {...props} />
-    ```
-  - Still open: One of the two accessors is left, `inputId` in `FileUpload.solid.tsx:34`; `hasValueText` went with Range. The six Table parts still omit `children` and put it back.
 - [x] (1) OneTimeCode, Select, TextField, Textarea: four Astro files destructure `aria-labelledby` only to pass it back to the element that also gets the rest, which the components guide says not to do, and every port copies it (`packages/opui/components/TextField/TextField.astro:15`, `packages/opui/components/Textarea/Textarea.astro`, `packages/opui/components/OneTimeCode/OneTimeCode.astro`, `packages/opui/components/Select/Select.astro`, `packages/opui/components/AGENTS.md`)
   - Summary: Four fields take `aria-labelledby` apart from their attributes and put it straight back.
   - Recommended: Fix. Leaving it in the rest is the rule the guide already states.
   - Fix: the attribute reaches the input either way (checked on the React TextField). Leave it in the rest in the four Astro files, run `pnpm build-components` and `pnpm build-examples`, and check whether the attribute order of the HTML examples moves.
   - Fixed: `Select`, `TextField` and `Textarea` are gone, `Field` takes no `aria-labelledby`, and `OneTimeCode` leaves it in the rest.
-- [ ] (1) Package: the compiled type files carry keys that do nothing: `Without<Base.Props, ...>` lists slot names the base type lacks in Select, TextField and Textarea, inner `Omit`s repeat what the outer one removes in Menu and Rating, and the Solid types alone omit base keys the element also declares, in 17 folders (`scripts/component-types.mjs`, `packages/opui/components/Field/types.react.ts:6-9`, `packages/opui/components/Menu/types.solid.ts:5-10`)
-  - Summary: Hovering a props type in an editor shows omitted keys that the type never had.
-  - Recommended: Fix. What is left is checking type equality in the remaining Solid folders before dropping their omit.
-  - Fix: the meaning of the types is unchanged for the first two (checked with a `tsc` equality test on four props). The Solid-only omit is verified equal for TextField, TabsItem and TableColumn only, so check the other 13 folders before removing it.
-    ```ts
-    // before
-    Omit<
-      Omit<ComponentProps<"a">, "href"> &
-        Omit<ComponentProps<"button">, "disabled">,
-      keyof Base.MenuItem | "children"
-    >
-    // after
-    Omit<
-      ComponentProps<"a"> & ComponentProps<"button">,
-      keyof Base.MenuItem | "children"
-    >
-    ```
-  - Still open: Select, TextField and Textarea are gone, and Field carries the same no-op keys: its `Without` omits `bottom`, `end`, `start` and `top`, which `Base.Props` doesn't have. The repeated inner `Omit`s are left in the Solid Menu and Rating only, and the Solid-only omits are in 15 folders.
-  - Still open: two of the three are fixed. `Without<Base.Props, ...>` lists only the string slots the base type has (`stringSlotKeys` filtered by the base keys in `scripts/component-types.mjs`), so Field's types drop `bottom`, `end`, `start` and `top`, and a file whose list comes out empty no longer declares the helper; `tests/unit/build-components.test.ts` has a string slot of each kind. The nested `Omit`s of Menu and Rating went with the union types of the Menu, Rating item under Bugs, and the Solid types no longer add the base keys an element declares to an `Omit` that already removes `keyof Base.<Name>`, which made `"disabled" | "name"` and `"max" | "value"` repeat it in Rating and `"disabled"` and `"href"` in Menu. Left: the Solid omits in folders without such an `Omit`, such as `Omit<ComponentProps<"button">, "disabled">` in Button, which change the type unless Solid's attribute type equals the base one, so each needs the `tsc` equality check before it goes.
-- [ ] (1) Package: the compiled Solid files create more memos and effects per instance than a hand-written component in four places: a slot with a fallback goes through `children()` only to be compared with `undefined`, Rating builds its stars with `Array.from` and loops them with `<For>`, `dynamic()` never gets the `static` option, and Menu uses `<Dynamic>`, which `@solidjs/web` 2 marks deprecated (`scripts/component-solid.mjs:483`, `scripts/component-solid.mjs:668-677`, `packages/opui/components/Accordion/AccordionSummary.solid.tsx:7-22`, `packages/opui/components/Rating/Rating.solid.tsx:37-96`, `packages/opui/components/Menu/Menu.solid.tsx:96-117`, `packages/opui/components/ListItem/ListItem.solid.tsx:45`)
-  - Summary: The Solid files create more memos and effects per instance than a hand-written component would.
-  - Recommended: Explain further. Each is a separate emitter change with its own trade-off, so say which to take.
-  - Fix: found by the census blind ports and re-read on the current files; none changes the markup. In turn: (1) `{resolvedMarker() === undefined ? <svg /> : resolvedMarker()}` costs two lazy memos and a condition memo where `{props.marker ?? <svg />}` is one read, in AccordionSummary, Callout, DialogHeader and DrawerHeader; with `??` a `null` slot shows the fallback, where today it renders nothing. (2) Rating builds `stars()` with `Array.from` and loops with `<For keyed={false}>`, where `<Repeat count from>` passes a plain number. (3) `dynamic(tag, { static: isStatic(props, "as") })` saves about four computations per instance in the 12 files that call `dynamic()`, for about 25 bytes each. (4) `<Dynamic component={tag()}>` is `dynamic()` plus an `omit`, and the guide documents it for a per-item tag; `@solidjs/web` 2.0 keeps it without a runtime warning. The census's Select option spread went with Select, and `group?.change?.(input)` needs its `?.` now that `change` is optional in the context type.
-    ```tsx
-    // before
-    const resolvedMarker = children(() => props.marker)
-    {resolvedMarker() === undefined ? <svg aria-hidden="true" /> : resolvedMarker()}
-    <For each={stars()} keyed={false}>{(star) => ...star()...}</For>
-    // after
-    {props.marker ?? <svg aria-hidden="true" />}
-    <Repeat count={count()} from={1}>{(star) => ...star...}</Repeat>
-    ```
-- [ ] (1) Package: four input parts set `type` before `{...rest}` in their Astro file, so their compiled React, Solid, Svelte and Vue files filter the rest with `defined()` on every render to keep a caller's `type={undefined}` from removing it, and the Vue CheckboxInput, RadioInput and SwitchInput turn attribute inheritance off to bind that filtered copy. `Tabs.astro` also destructures `role` only to read it and pass it back (`packages/opui/components/Checkbox/CheckboxInput.astro:10-15`, `packages/opui/components/Radio/RadioInput.astro:9`, `packages/opui/components/Switch/SwitchInput.astro:1-10`, `packages/opui/components/Tabs/TabsItem.astro:1-30`, `packages/opui/components/Tabs/Tabs.astro:15-37`, `packages/opui/components/Checkbox/CheckboxInput.vue:12-42`)
-  - Summary: Four inputs filter their attributes on every render to protect one fixed attribute.
-  - Recommended: Explain further and provide an example. The fix reorders the attributes of every checkbox, radio and switch in the HTML examples readers copy.
-  - Fix: found by the census (Checkbox and Tabs blind ports), which compiled a reordered `CheckboxInput.astro` in memory and got all four ports without `defined` or its import; re-read on the current files. The cost is an `Object.entries`, a filter and a `fromEntries` per render and per item, and the bytes are noise (3 to 6% per file). The census also measured the Vue CheckboxInput at 591 bytes gzipped against 458 for a plain one; part of that is the bound and unbound branches `packages/opui/components/AGENTS.md` now asks for, and the rest is this filter. With `type` after the rest, the attribute order changes in the markup and the HTML examples, so run `pnpm build-examples` and re-record the parity snapshots as intended. For `role`, leave it in the rest and read `rest.role` for the warning.
-    ```astro
-    <!-- before -->
-    <input
-      type="checkbox"
-      data-indeterminate={indeterminate ? "" : undefined}
-      name={name ?? field?.name}
-      {...rest}
-    />
-    <!-- after -->
-    <input
-      {...rest}
-      type="checkbox"
-      data-indeterminate={indeterminate ? "" : undefined}
-      name={name ?? field?.name}
-    />
-    ```
-- [ ] (1) Package: the Svelte emitter wraps every const of the Astro frontmatter in `$derived`, also one that is only read inside the `{#if}` of the slot it tests: Field declares nine, and `startId`, `endId`, `topId` and `bottomId` are each read only under `{#if start}`, `{#if end}`, `{#if top}` and `{#if bottom}` (`scripts/component-svelte.mjs:320`, `packages/opui/components/Field/Field.svelte:28-38`)
-  - Summary: The Svelte Field keeps nine derived signals per instance where a hand-written one would keep two.
-  - Recommended: Explain further. None is visible to a user, so say whether it is worth an emitter change.
-  - Fix: found by the census (TextField blind port, 2 derived signals per instance against 12 and 2.9% fewer bytes, which is noise) and re-read on the current Field, which replaced TextField. The census's other two small items are gone: the React Rating no longer passes a new `ref` to every radio, and the hand-written Vue Select went with Select. Inline a const in the template when every read sits inside a block that tests the slot or prop it reads.
-    ```svelte
-    <!-- before -->
-    const startId = $derived(start ? `${htmlFor}-start` : undefined)
-    {#if start}<span class="ui-start" id={startId}>
-    <!-- after -->
-    {#if start}<span class="ui-start" id={`${htmlFor}-start`}>
-    ```
 - [x] (2) Dialog: no guide shows how to reach a component's element, and Vue types it as `any`: the Vue Dialog's `$el` is the `<dialog>`, but the emitted `Dialog.vue.d.ts` leaves `$el` as `any`. React already types `ref` as `Ref<HTMLDialogElement>` through `ComponentProps<"dialog">` (`packages/opui/scripts/build-frameworks.mjs:209-228`, `packages/opui/components/Dialog/types.react.ts:4`)
   - Summary: Vue apps reach a Dialog's element through an untyped `$el`, and no page says how to reach it in any framework.
   - Recommended: Fix. One compiler option types `$el` with no new API, and the guide section is already planned.
@@ -6400,6 +6422,21 @@ Custom elements (web components) the library could add, for behavior that HTML a
       {(shownTag) => <Tag ...>{content()}</Tag>}
     </Show>
     ```
+- [ ] (2) Tokens: `--ui-surface-image` and `--ui-surface-elevated-image` can lower text contrast without any check noticing: the contrast promises measure text against the flat surface colors only, axe skips gradients, and more contrast keeps the images unless each theme hands them back with `revert-layer` (`packages/opui/core/normalize.css:17`, `packages/opui/css/components/card.css:72`, `src/utils/theme-token-promises.ts:7-12`, `packages/opui/themes/vice-city.css:117-127`)
+  - Summary: A theme's gradient can make text harder to read than the contrast checks report, also with more contrast turned on.
+  - Recommended: Fix with option A. It makes more contrast safe for every theme without each one remembering the handback.
+  - Fix: keep both tokens, and decide how more contrast treats them and whether the contrast spec checks the image as well.
+  - Options:
+    - A (recommended): the library ignores both images under more contrast. Read them as `if(style(--ui-contrast: more): none; else: var(--ui-surface-image, none))` in `normalize.css`, `card.css`, `drawer.css`, `menu.css` and `select.css`, with the plain `var()` as the `@supports` fallback, and drop the image handback from `themes/vice-city.css`.
+    - B: `tests/e2e/contrast.spec.ts` resolves each color stop of a theme's image tokens and holds the text promises against them as well as against the surface.
+    - C: leave it to the themes and say in both token descriptions (`src/utils/theme-token-descriptions.ts`) that a theme hands them back with `revert-layer` under more contrast.
+- [x] (2) Checkbox, Radio, Switch: In dark mode a checked choice control caps the primary at `--ui-choice-fill-max-lightness` (0.62) so its white check reads, which turns a pastel brand color muddy: the gta-vi pink `oklch(0.86 0.07 355)` fills checkboxes and switches with a dusty mauve while its buttons stay pink (`packages/opui/css/components/choice.css:4-24`, `packages/opui/css/theme.css:215`)
+  - Summary: With a light brand color in dark mode, checked checkboxes, radios and switches look darker and duller than the buttons in the same color.
+  - Recommended: Fix with option B. It fixes the theme now without changing the dark mode of the other themes.
+  - Options:
+    - A: fill with the uncapped primary in dark mode too and pick the check color from the fill's luminance, like `--ui-on-primary` does for buttons: `--_accent` falls back to `var(--ui-primary)` and `--_on-accent` to `var(--ui-on-primary)` in both schemes. The default theme's dark choice controls get lighter, so it needs new baselines.
+    - B (recommended): keep the cap, set `--ui-choice-accent: var(--ui-primary)` and `--ui-choice-on-accent: var(--ui-on-primary)` in `themes/vice-city.css`, and say in the `--ui-choice-fill-max-lightness` description that a pastel brand does the same.
+  - Fixed: option B. `themes/vice-city.css` (renamed from gta-vi) sets `--ui-choice-accent: var(--ui-primary)` and `--ui-choice-on-accent: var(--ui-on-primary)`, so checked checkboxes, radios and switches keep the pink with a dark mark in dark mode, and the `--ui-choice-fill-max-lightness` description says a pastel brand can do the same.
 - [ ] (3) Docs site: the icon libraries list no Solid package: `lucide-solid` 1.74 and `@tabler/icons-solidjs` 3.52 require solid-js 1, and Fluent, Material Symbols and Phosphor ship none (`src/utils/icon-libraries.ts`)
   - Summary: The icon pages name React, Svelte and Vue icon packages but none for Solid, since none supports Solid 2 yet.
   - Recommended: Fix with option A. Add the `solid:` entries once each upstream package takes solid-js 2 as a peer.
@@ -6756,10 +6793,6 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - B: keep the item open until someone files it.
   - Still open: The axe tests of the five flagged tooltips now read the tooltip's opacity once during its fade, in the repro's order: on the first `transitionrun` of `opacity` when the tooltip is already open, or else on its `toggle` event once `showPopover()` opens it after the hover rule started the fade, each time after a layout like the repro's placement check (`tests/e2e/stress-overlays-a11y.spec.ts:20-44`). Before, the test read it only after waiting for the animations to finish, so whether a read fell inside the fade depended on timing, and the first attempt sometimes passed and reported "Expected to fail, but passed": seven times in the Firefox engine jobs from 2026-11-06 to 2026-11-12, all on the three drawer header tooltips. In Chromium the read lands at the start of the fade (opacity 0) in all five. Only the next Firefox engine job can confirm that the expected failure holds on every attempt. The report to Mozilla is still to file.
   - Explained: The stress page is at `/dev/tests/overlays/` now; the old path redirects there only with the test pages on.
-- [ ] (2) Tokens: the mode files (`<theme>/<mode>.tokens.json`) haven't been through Figma's Import mode, so whether it reads their sRGB color objects, aliases, `com.figma` code syntax, scopes, hidden flag and descriptions is unconfirmed (`src/utils/figma-tokens.ts:626`)
-  - Summary: Whether Figma's own variables import reads the opui mode files is unconfirmed.
-  - Recommended: Fix. Only an import in the Figma app can confirm it.
-  - Fix: in a draft, add a variable collection, right-click its mode, choose Import mode and pick `light.tokens.json` from the theme tokens page. Check a color (`surfaces/ui-surface`), an alias (`typography/ui-font-size-body`), the code syntax, scopes and hidden flag of a palette step, and the descriptions, then change `figmaModeFiles` to what Figma reads.
 - [x] (2) Copy: when the clipboard is blocked and the content isn't a field, `copy.js` selects every child of `opui-copy`. Then it writes "Copy failed" into the visually hidden status and into the label it shows, both inside that selection. So copying by hand likely takes that text along with the snippet (`packages/opui/elements/copy.js:53-61`, `packages/opui/elements/copy.js:81-89`, `packages/opui/components/Copy/Copy.astro:21-23`, `src/docs/components/copy.astro:159-166`)
   - Summary: Copying a snippet by hand after a failed copy may paste the words Copy failed along with it.
   - Recommended: Explain further. It needs a browser with the clipboard blocked before choosing a fix.

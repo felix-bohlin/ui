@@ -1,0 +1,62 @@
+{% macro Field(props = {}) %}
+  {%- set rest = props | opuiOmit(["autoFit", "class", "dense", "dropZone", "endText", "for", "hideLabel", "label", "size", "spread", "startText", "variant", "slots"]) -%}
+  {%- set labelSlot = props.slots.label | opuiTrim -%}
+  {%- set hasLabel = props.label or labelSlot -%}
+  {%- set hasStartText = props.startText or props.slots.startText != none -%}
+  {%- set hasEndText = props.endText or props.slots.endText != none -%}
+  {%- set startId = props.for ~ "-start" if props.slots.start != none else undefined -%}
+  {%- set endId = props.for ~ "-end" if props.slots.end != none else undefined -%}
+  {%- set topId = props.for ~ "-top" if props.slots.top != none else undefined -%}
+  {%- set bottomId = props.for ~ "-bottom" if props.slots.bottom != none else undefined -%}
+  {%- set startTextId = props.for ~ "-start-text" if hasStartText else undefined -%}
+  {%- set endTextId = props.for ~ "-end-text" if hasEndText else undefined -%}
+  <div
+    class="ui-field
+      {%- if props.autoFit %} ui-auto-fit{% endif %}
+      {%- if props.dense %} ui-dense{% endif %}
+      {%- if props.dropZone %} ui-drop-zone{% endif %}
+      {%- if props.variant == 'filled' %} ui-filled{% endif %}
+      {%- if props.spread %} ui-spread{% endif %}
+      {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    {% if hasLabel -%}
+      <label
+        class="{{ 'ui-sr-only' if props.hideLabel else 'ui-label' }}"
+        {%- if props.for != none %} for="{{ props.for }}"{% endif %}>{{ props.label }}{{ labelSlot }}</label>
+    {%- endif %}
+    {% if hasStartText -%}
+      <span
+        class="ui-start-text"
+        {%- if startTextId != none %} id="{{ startTextId }}"{% endif %}>{{ props.startText }}{{ props.slots.startText | safe }}</span>
+    {%- endif %}
+    <span class="ui-field-container">
+      {% if props.slots.top != none -%}
+        <span class="ui-top"{% if topId != none %} id="{{ topId }}"{% endif %}>
+          {{ props.slots.top | safe }}
+        </span>
+      {%- endif %}
+      {% if props.slots.start != none -%}
+        <span
+          class="ui-start"
+          {%- if startId != none %} id="{{ startId }}"{% endif %}>{{ props.slots.start | safe }}</span>
+      {%- endif %}
+      {{ caller() if caller }}
+      {% if props.slots.end != none -%}
+        <span class="ui-end"{% if endId != none %} id="{{ endId }}"{% endif %}>{{ props.slots.end | safe }}</span>
+      {%- endif %}
+      {% if props.slots.bottom != none -%}
+        <span
+          class="ui-bottom"
+          {%- if bottomId != none %} id="{{ bottomId }}"{% endif %}>
+          {{ props.slots.bottom | safe }}
+        </span>
+      {%- endif %}
+    </span>
+    {% if hasEndText -%}
+      <span
+        class="ui-end-text"
+        {%- if endTextId != none %} id="{{ endTextId }}"{% endif %}>{{ props.endText }}{{ props.slots.endText | safe }}</span>
+    {%- endif %}
+  </div>
+{%- endmacro %}

@@ -209,6 +209,31 @@ export const DIAGNOSTICS = {
     explain:
       'A component that renders one of two elements types each with its own attributes. Joined with `&`, the attributes of two elements give a `ref` and event handlers typed for both at once, which no ref or handler satisfies in React and Solid. Write a union with one member per element, told apart by a prop, as Button does with `href`: `(Base.Props & { href?: never } & HTMLAttributes<"button">) | (Base.Props & { href: string } & HTMLAttributes<"a">)`.',
   },
+  BC701: {
+    title: "An expression the Nunjucks prototype can't write",
+    explain:
+      "The Nunjucks prototype (`scripts/component-nunjucks.mjs`) translates each expression into Nunjucks syntax, which has no arrow functions, spreads, `typeof`, `new`, regular expressions, assignments, optional calls or globals such as `Intl` and `Math`. Move the logic into a helper in `packages/opui/components/` and call it, or write the expression with the operators the translator takes.",
+  },
+  BC702: {
+    title: "A helper the Nunjucks runtime doesn't register",
+    explain:
+      "The Nunjucks macros call helpers through the `opui` global that `scripts/nunjucks-runtime.mjs` registers from the shared helper modules in `packages/opui/components/`. Export the helper from one of the modules the runtime imports, or import it from one.",
+  },
+  BC703: {
+    title: "A context provided around a named slot in Nunjucks",
+    explain:
+      "A named slot reaches a Nunjucks macro as content captured with `{% set %}`, which renders before the macro runs, so a context the macro provides can't reach it. Only the default slot, the macro's `caller()`, renders inside the macro. Provide the context around the default slot.",
+  },
+  BC704: {
+    title: "A named slot passed to an inner component in Nunjucks",
+    explain:
+      "The Nunjucks prototype writes an inner component as a `{% call %}` of its macro, whose body is the inner component's default slot. A child with a `slot` attribute fills one of its named slots, which a macro reads from `props.slots`, and the prototype doesn't yet capture it there. Pass the content in the default slot, or teach `scripts/component-nunjucks.mjs` to capture it with `{% set %}` into `slots`.",
+  },
+  BC705: {
+    title: "A name Nunjucks or the Nunjucks prototype reserves",
+    explain:
+      "A Nunjucks macro reads its props from `props`, its default slot from `caller`, the helpers from `opui` and the loop state from `loop`, and the prototype names its own values with a `__` prefix, so a local or prop with one of those names or a Nunjucks keyword (`and`, `else`, `false`, `if`, `in`, `is`, `none`, `not`, `null`, `or`, `true`) can't be written. Rename the local.",
+  },
 }
 
 export const explain = (code) => {

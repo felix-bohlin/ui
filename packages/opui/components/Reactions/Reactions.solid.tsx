@@ -4,6 +4,7 @@ import "../../elements/reactions.js"
 import { defined } from "../attrs"
 import ToggleButton from "../ToggleButton/ToggleButton.solid"
 import ToggleGroup from "../ToggleGroup/ToggleGroup.solid"
+import { pillsOf, usedItem } from "./pills"
 import { cx } from "../cx"
 import { hydrated, hydrating } from "../solid"
 import type { Props } from "./types.solid"
@@ -21,16 +22,8 @@ export default function Reactions(props: Props) {
     "children",
   )
   const items = () => (props.items === undefined ? [] : props.items)
-  const used = () => items().find((item) => item.value === props.quick?.value)
-  const pills = () => {
-    const itemsValue = items()
-    return props.quick
-      ? [
-          used() ?? props.quick,
-          ...itemsValue.filter((item) => item.value !== props.quick?.value),
-        ]
-      : itemsValue
-  }
+  const used = () => usedItem(items(), props.quick)
+  const pills = () => pillsOf(items(), props.quick, used())
 
   return (
     <opui-reactions

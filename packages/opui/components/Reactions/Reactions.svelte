@@ -3,6 +3,7 @@
   import { hydrated } from "../svelte"
   import ToggleButton from "../ToggleButton/ToggleButton.svelte"
   import ToggleGroup from "../ToggleGroup/ToggleGroup.svelte"
+  import { pillsOf, usedItem } from "./pills"
   import { defined } from "../attrs"
   import { classAttrs } from "../cx"
   import type { Props } from "./types.svelte"
@@ -21,12 +22,8 @@
     ...rest
   }: Props = $props()
 
-  const used = $derived(items.find((item) => item.value === quick?.value))
-  const pills = $derived(
-    quick
-      ? [used ?? quick, ...items.filter((item) => item.value !== quick?.value)]
-      : items,
-  )
+  const used = $derived(usedItem(items, quick))
+  const pills = $derived(pillsOf(items, quick, used))
 </script>
 
 <opui-reactions

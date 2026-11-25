@@ -52,7 +52,6 @@
     "dist",
     "elements",
     "env.d.ts",
-    "figma",
     "icons",
     "open-props.css",
     "react",
@@ -143,7 +142,6 @@
     "./dist/*": "./dist/*",
     "./elements/*": "./elements/*",
     "./env.d.ts": "./env.d.ts",
-    "./figma/*": "./figma/*",
     "./icons/*.css": "./icons/*.css",
     "./icons/*": "./icons/*.css",
     "./package.json": "./package.json"

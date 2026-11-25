@@ -1,13 +1,13 @@
 ---
 import { releaseVersion } from "../../utils/release"
-import ViMark from "../ViMark.astro"
+import ViLockup from "../ViLockup.astro"
 
 const numeral = releaseVersion.split(".").slice(0, 2).join(".")
 ---
 
 <div class="hero ui-not-rich-text" id="hero">
   <p class="hero-numeral">
-    <span class="vi-off">{numeral}</span><span class="vi-on"><ViMark /></span>
+    <span class="vi-off">{numeral}</span><span class="vi-on"><ViLockup /></span>
   </p>
 </div>
 

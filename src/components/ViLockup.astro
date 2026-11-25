@@ -1,0 +1,85 @@
+---
+import "@fontsource/yellowtail/400.css"
+---
+
+<span aria-label="Open Props UI VI" class="vi-lockup" role="img">
+  <svg aria-hidden="true" class="vi-lockup-letters" viewBox="-3 -3 144 136">
+    <path d="M0 0h26l24 80 24-80h26L50 130zM112 0h26v130h-26z"></path>
+  </svg>
+  <span aria-hidden="true" class="vi-lockup-script">
+    Open Props UI
+    <svg
+      class="vi-lockup-swash"
+      preserveAspectRatio="none"
+      viewBox="0 0 300 24"
+    >
+      <path d="M4 20C70 16 150 10 296 3"></path>
+    </svg>
+  </span>
+</span>
+
+<style>
+  .vi-lockup {
+    --vi-lockup-ink: oklch(0.99 0.01 340);
+    --vi-lockup-glow: oklch(0.62 0.22 350);
+
+    background: linear-gradient(
+      oklch(0.62 0.12 305),
+      oklch(0.74 0.13 350) 55%,
+      oklch(0.86 0.1 55)
+    );
+    border-radius: var(--ui-radius-large, 1.5rem);
+    display: inline-grid;
+    line-height: 1;
+    padding: 0.12em 0.22em;
+    place-items: center;
+  }
+
+  .vi-lockup-letters {
+    block-size: 0.86em;
+    filter: drop-shadow(0 0 0.04em var(--vi-lockup-glow));
+    grid-area: 1 / 1;
+    inline-size: auto;
+    overflow: visible;
+
+    & path {
+      fill: none;
+      stroke: var(--vi-lockup-ink);
+      stroke-linejoin: miter;
+      stroke-width: 3;
+    }
+  }
+
+  .vi-lockup-script {
+    color: var(--vi-lockup-ink);
+    display: grid;
+    font-family: Yellowtail, cursive;
+    font-size: 0.3em;
+    font-weight: 400;
+    grid-area: 1 / 1;
+    letter-spacing: normal;
+    margin-block-start: 0.6em;
+    rotate: -9deg;
+    text-shadow:
+      0 0 0.06em var(--vi-lockup-glow),
+      0 0 0.2em var(--vi-lockup-glow);
+    white-space: nowrap;
+  }
+
+  .vi-lockup-swash {
+    block-size: 0.22em;
+    filter: drop-shadow(0 0 0.06em var(--vi-lockup-glow));
+    inline-size: 112%;
+    margin-block-start: -0.08em;
+    margin-inline-start: -4%;
+    overflow: visible;
+
+    & path {
+      fill: none;
+      stroke: var(--vi-lockup-ink);
+      stroke-linecap: round;
+      stroke-width: 3;
+      vector-effect: non-scaling-stroke;
+    }
+  }
+</style>

@@ -12,6 +12,7 @@ import AstroLogo from "../components/AstroLogo.astro"
 import ComponentCard from "../components/ComponentShowcase/ComponentCard.astro"
 import ComponentShowcase from "../components/ComponentShowcase/ComponentShowcase.astro"
 import Html5Logo from "../components/Html5Logo.astro"
+import NunjucksLogo from "../components/NunjucksLogo.astro"
 import ReactLogo from "../components/ReactLogo.astro"
 import Scenery from "../components/Scenery.astro"
 import SolidLogo from "../components/SolidLogo.astro"
@@ -39,6 +40,7 @@ const builderHref = link("/theme-builder")
 const FRAMEWORK_BRANDING: Record<FrameworkId, { Logo: typeof AstroLogo }> = {
   astro: { Logo: AstroLogo },
   html: { Logo: Html5Logo },
+  nunjucks: { Logo: NunjucksLogo },
   react: { Logo: ReactLogo },
   solid: { Logo: SolidLogo },
   svelte: { Logo: SvelteLogo },

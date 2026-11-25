@@ -76,11 +76,28 @@ test("every app has a folder, and every folder an app", () => {
   )
 })
 
+const WITHOUT_APP: Record<string, string> = {
+  nunjucks:
+    "TODO.md: Tests: the reference app has no Nunjucks port, an Eleventy site",
+}
+
 test("every framework but HTML has a reference app", () => {
   expect(
     FRAMEWORK_IDS.filter(
-      (id) => id !== "html" && !ALL_APPS.some((app) => app.framework === id),
+      (id) =>
+        id !== "html" &&
+        !(id in WITHOUT_APP) &&
+        !ALL_APPS.some((app) => app.framework === id),
     ),
     "add an app for the framework to tests/reference/apps.ts and tests/reference/apps/",
+  ).toEqual([])
+})
+
+test("a framework without a reference app has none", () => {
+  expect(
+    Object.keys(WITHOUT_APP).filter((id) =>
+      ALL_APPS.some((app) => app.framework === id),
+    ),
+    "the framework has an app now: remove it from WITHOUT_APP",
   ).toEqual([])
 })

@@ -4,7 +4,7 @@ Design system. Components. Modern HTML & CSS.
 
 ## Usage
 
-Install `opui-css` from npm, or link `dist/opui.css` from a CDN, and follow [Getting started](https://opui.dev/html/guide/getting-started/). The [package README](packages/opui/README.md) covers the install, the Astro, React, Solid, Svelte and Vue entry points, the example themes and the agent skill.
+Install `opui-css` from npm, or link `dist/opui.css` from a CDN, and follow [Getting started](https://opui.dev/html/guide/getting-started/). The [package README](packages/opui/README.md) covers the install, the Astro, Nunjucks, React, Solid, Svelte and Vue entry points, the example themes and the agent skill.
 
 ### AI assistants
 
@@ -22,7 +22,7 @@ The project is managed as a monorepo with two main parts:
 - **The Library (`packages/opui`)**: Contains the framework-agnostic core of the library. It is managed as a standalone workspace package named `opui-css`.
   - `astro/`: Public entry point and barrel exports for Astro-based projects.
   - `bin/`: The `opui-css` command, which copies the agent skill into a project.
-  - `components/`: UI components organized by folder. Each folder contains the Astro, React, Solid, Svelte and Vue templates (e.g., `Button.astro`, `Button.react.tsx`, `Button.solid.tsx`, `Button.svelte`, `Button.vue`) and their types. `pnpm build-components` compiles the React, Solid, Svelte and Vue files and their type files from the Astro file, `types.ts` and `types.astro.ts`.
+  - `components/`: UI components organized by folder. Each folder contains the Astro, Nunjucks, React, Solid, Svelte and Vue templates (e.g., `Button.astro`, `Button.njk`, `Button.react.tsx`, `Button.solid.tsx`, `Button.svelte`, `Button.vue`) and their types. `pnpm build-components` compiles the Nunjucks, React, Solid, Svelte and Vue files and the type files from the Astro file, `types.ts` and `types.astro.ts`.
   - `core/`: Normalize, palette and utility classes.
   - `css/`: Component styles, theme, layer order, entry-point imports and the HTML helper scripts in `css/js/`.
   - `elements/`: Custom elements for the components that need a script, one module each.
@@ -96,10 +96,10 @@ One topic per pull request, so it can be reviewed, reverted and logged on its ow
 
 ### Adding New Components
 
-1. Create a folder in `packages/opui/components/[ComponentName]` with `[ComponentName].astro`, `types.ts` and `types.astro.ts`, then run `pnpm build-components`, which compiles the React, Solid, Svelte and Vue files and their type files (see `packages/opui/components/AGENTS.md`).
+1. Create a folder in `packages/opui/components/[ComponentName]` with `[ComponentName].astro`, `types.ts` and `types.astro.ts`, then run `pnpm build-components`, which compiles the Nunjucks, React, Solid, Svelte and Vue files and the type files (see `packages/opui/components/AGENTS.md`).
 2. Export the component and its `Props` type from the five barrels, `packages/opui/{astro,react,solid,svelte,vue}/index.ts`, sorted.
 3. Add the CSS in `packages/opui/css/components/[component-name].css` and list it in `packages/opui/css/components.css`.
-4. Add the docs page `src/docs/components/[component-name].astro`, the `.astro` examples in `src/component-examples/[component-name]/` (`pnpm build-examples` writes the HTML, React, Solid, Svelte and Vue files), the API data in `src/component-api/[component-name]/api.ts` and the `--_` custom properties in `src/component-api/custom-properties/[component-name].ts` (see `src/docs/components/AGENTS.md` and `src/component-api/AGENTS.md`).
+4. Add the docs page `src/docs/components/[component-name].astro`, the `.astro` examples in `src/component-examples/[component-name]/` (`pnpm build-examples` writes the HTML, Nunjucks, React, Solid, Svelte and Vue files), the API data in `src/component-api/[component-name]/api.ts` and the `--_` custom properties in `src/component-api/custom-properties/[component-name].ts` (see `src/docs/components/AGENTS.md` and `src/component-api/AGENTS.md`).
 5. Run `pnpm check` (it writes the new parity snapshots) and `pnpm test:e2e`, and commit the snapshots.
 6. Add the CHANGELOG entry and the What's new note (see `AGENTS.md`), a theme token description for new tokens in `src/utils/theme-token-descriptions.ts`, and the component to a stress page in `src/stress-tests/`.
 7. Commit the files `pnpm build` regenerates, listed in `scripts/generated-files.json`. When they're stale on a pull request from this repository, CI commits them to the branch and runs again; on `main` and on forks it fails. New screenshots come from CI: add the `update-snapshots` label.

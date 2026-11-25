@@ -67,6 +67,7 @@ const COMPONENT_FRAMEWORKS = FRAMEWORKS.filter((f) => f.id !== "html")
 const LANGUAGES = {
   astro: "astro",
   html: "html",
+  nunjucks: "njk",
   react: "tsx",
   solid: "tsx",
   svelte: "svelte",
@@ -418,6 +419,11 @@ function slotLine(api, framework) {
     const names = slotNamesOf(api).map(slotProp).toSorted()
     return [`- ${prefix} slot ${kind}: ${list(names.map(code))}.`]
   }
+  if (framework === "nunjucks") {
+    return [
+      `- ${prefix} named slots: ${list(named.map((name) => code(`slots.${slotProp(name)}`)))}. Pass a string, or markup captured with \`{% set %}\`.`,
+    ]
+  }
   const fill =
     framework === "astro"
       ? `\`slot="${named[0]}"\` on a child`
@@ -472,7 +478,12 @@ function exportsOf(framework) {
   return new Set(
     barrelExports(
       fs.readFileSync(
-        path.resolve(ROOT, "packages/opui", framework, "index.ts"),
+        path.resolve(
+          ROOT,
+          "packages/opui",
+          framework === "nunjucks" ? "astro" : framework,
+          "index.ts",
+        ),
         "utf-8",
       ),
     ).map(({ name }) => name),
@@ -499,7 +510,9 @@ function frameworkSection(framework, apis, slug, examples, baseApis) {
     )
   } else {
     lines.push(
-      `\`import { ${names.join(", ")} } from "opui-css/${framework}"\``,
+      framework === "nunjucks"
+        ? `\`{% from "opui/index.njk" import ${names.join(", ")} %}\``
+        : `\`import { ${names.join(", ")} } from "opui-css/${framework}"\``,
     )
     const clients =
       framework === "react"
@@ -741,7 +754,7 @@ async function gettingStarted() {
   return `${compact(
     [
       "# Getting started",
-      "Every framework needs the CSS. The HTML section covers the CDN file, the npm imports and the files to copy. The Astro, React, Solid, Svelte and Vue sections add their install, CSS import and component import steps.",
+      "Every framework needs the CSS. The HTML section covers the CDN file, the npm imports and the files to copy. The Astro, Nunjucks, React, Solid, Svelte and Vue sections add their install, CSS and component import steps.",
       ...sections,
     ].join("\n\n"),
   )}\n`
@@ -811,7 +824,7 @@ async function buildSkill() {
     "",
     "Guides: `getting-started.md` (setup, with a section per framework), `theming.md` (colors, scopes, density, spacing, corners, fonts, elevation, motion and contrast) and `customizing.md` (the `theme.custom` layer and component properties).",
     "",
-    "Each component reference covers HTML, Astro, React, Solid, Svelte and Vue: the parts, props, classes, slots and notes they share, the component properties and theme tokens, then a section per framework with its import line, slots, hydration and an example.",
+    "Each component reference covers HTML, Astro, Nunjucks, React, Solid, Svelte and Vue: the parts, props, classes, slots and notes they share, the component properties and theme tokens, then a section per framework with its import line, slots, hydration and an example.",
     "",
     "| Component | File | Description |",
     "| --- | --- | --- |",

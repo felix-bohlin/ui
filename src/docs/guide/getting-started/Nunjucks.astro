@@ -1,0 +1,178 @@
+---
+import Guide from "../../../layouts/Guide.astro"
+import Code from "../../../components/Code.astro"
+import DocLink from "../../../components/DocLink.astro"
+import ScriptTable from "../../../components/ScriptTable.astro"
+import CssFiles from "./partials/CssFiles.astro"
+import InstallCommand from "./partials/InstallCommand.astro"
+import NextSteps from "./partials/NextSteps.astro"
+import PickAndChoose from "./partials/PickAndChoose.astro"
+import QuickStart from "./partials/QuickStart.astro"
+
+export const keywords = ["eleventy", "install", "macro", "npm", "setup", "ssr"]
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Getting started</Fragment>
+  <Fragment slot="preamble">
+    OPUI ships every component as a Nunjucks 3 macro. Install the package, add
+    the plugin, and import the macros you need.
+  </Fragment>
+
+  <section id="quick-start">
+    <h2>Quick start</h2>
+    <QuickStart>
+      <Fragment slot="install">
+        <InstallCommand packages="nunjucks" />
+        <Code
+          code={`// eleventy.config.js
+import opui from "opui-css/nunjucks/eleventy"
+
+export default (eleventyConfig) => {
+  eleventyConfig.addPlugin(opui)
+  eleventyConfig.addPassthroughCopy({
+    "node_modules/opui-css/dist/opui.css": "opui.css",
+  })
+}`}
+          lang="js"
+        />
+        <Code
+          code={`<!-- _includes/layout.njk -->
+<link rel="stylesheet" href="/opui.css" />`}
+          lang="html"
+        />
+      </Fragment>
+      <Code
+        slot="use"
+        code={`{% from "opui/index.njk" import Button %}
+
+{% call Button({ color: "primary", variant: "filled" }) %}Save{% endcall %}`}
+        lang="html"
+      />
+    </QuickStart>
+  </section>
+
+  <section id="whats-in-the-css">
+    <h2>What's in the CSS</h2>
+    <CssFiles />
+  </section>
+
+  <section id="css">
+    <h2>Link only what you use</h2>
+    <p>Copy the CSS folders to your site:</p>
+    <Code
+      code={`// eleventy.config.js
+eleventyConfig.addPassthroughCopy({
+  "node_modules/opui-css/core": "opui/core",
+  "node_modules/opui-css/css": "opui/css",
+})`}
+      lang="js"
+    />
+    <p>
+      List the files in a CSS file, and link it instead of <code>opui.css</code
+      >:
+    </p>
+    <PickAndChoose file="css/main.css" from="/opui" />
+  </section>
+
+  <section id="environment">
+    <h2>Without Eleventy</h2>
+    <p>Pass your environment to <code>configure</code>:</p>
+    <Code
+      code={`import nunjucks from "nunjucks"
+import { configure } from "opui-css/nunjucks"
+
+const env = configure(nunjucks.configure("views"))`}
+      lang="js"
+    />
+    <p>
+      It adds the macros under <code>opui/</code>, their filters and the
+      <code>opui</code> global. It needs <code>autoescape</code> on and
+      <code>trimBlocks</code>, <code>lstripBlocks</code> and
+      <code>throwOnUndefined</code> off, the Nunjucks defaults. Your own
+      templates come first, so <code>views/opui/Button.njk</code> replaces the
+      Button macro.
+    </p>
+  </section>
+
+  <section id="usage">
+    <h2>How to use</h2>
+    <p>
+      Each macro takes one dict with the component's props. The default slot is
+      the body of <code>{"{% call %}"}</code>, and named slots go in
+      <code>slots</code> under their camelCase name, as a string or captured
+      with <code>{"{% set %}"}</code>:
+    </p>
+    <Code
+      code={`{% from "opui/index.njk" import Field %}
+
+{% set start %}<b>@</b>{% endset %}
+{% call Field({ for: "handle", label: "Handle", slots: { start: start } }) %}
+  <input aria-describedby="handle-start" id="handle" />
+{% endcall %}`}
+      lang="html"
+    />
+    <p>
+      Keys the macro doesn't take go to its element as attributes. Import a
+      macro on its own with
+      <code>{'{% from "opui/Button.njk" import Button %}'}</code>, or all of
+      them as <code>{'{% import "opui/index.njk" as ui %}'}</code>.
+    </p>
+    <p>
+      A <DocLink href="/components/field">Field</DocLink> wraps your own
+      control. Give the control an <code>id</code>, set <code>for</code> on the
+      field to it, and name it like any input. For a hint, set the control's
+      <code>aria-describedby</code> to <code>&lt;id&gt;-end-text</code>.
+    </p>
+  </section>
+
+  <section id="scripts">
+    <h2>Scripts</h2>
+    <p>The macros render markup only. A few features need a script:</p>
+    <ScriptTable />
+    <p>Without a bundler, copy the scripts to your site:</p>
+    <Code
+      code={`// eleventy.config.js
+eleventyConfig.addPassthroughCopy({
+  "node_modules/opui-css/css/js": "opui/css/js",
+  "node_modules/opui-css/elements": "opui/elements",
+})`}
+      lang="js"
+    />
+    <p>And map the package in the <code>head</code>:</p>
+    <Code
+      code={`<script type="importmap">
+  { "imports": { "opui-css/": "/opui/" } }
+</script>`}
+      lang="html"
+    />
+  </section>
+
+  <section id="ids">
+    <h2>Ids</h2>
+    <p>
+      Components a trigger points at need an <code>id</code>. Generated ids come
+      from one counter per environment, so they never repeat, but their numbers
+      follow the render order. Pass <code>id</code> where it has to stay the
+      same, or your own generator as <code>configure(env, {"{ id }"})</code>.
+    </p>
+  </section>
+
+  <section id="warnings">
+    <h2>Warnings</h2>
+    <p>
+      Unless <code>NODE_ENV</code> is <code>production</code>, a key that is no
+      prop and no attribute of the element, or a slot the macro doesn't have,
+      warns once:
+    </p>
+    <Code
+      code={`[OPUI Button] Unknown prop "lable": Button has no prop by that name and its element no attribute, so it renders as an attribute.`}
+      lang="text"
+    />
+  </section>
+
+  <section id="next-steps">
+    <h2>Next steps</h2>
+    <NextSteps />
+  </section>
+</Guide>

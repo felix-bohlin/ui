@@ -1071,7 +1071,10 @@ describe("generated examples", () => {
     }
     expect(scripted.length).toBeGreaterThan(0)
     for (const key of scripted) {
-      expect(generatedTargets(key, handWritten), key).toEqual(["html"])
+      expect(generatedTargets(key, handWritten), key).toEqual([
+        "html",
+        "nunjucks",
+      ])
     }
   })
 

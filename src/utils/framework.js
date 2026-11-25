@@ -75,6 +75,12 @@ export const TYPES_FILES = {
 }
 
 /** @param {FrameworkId} framework */
+export function codeLanguage(framework) {
+  if (framework === "react" || framework === "solid") return "tsx"
+  return framework === "nunjucks" ? "html" : framework
+}
+
+/** @param {FrameworkId} framework */
 export function exampleExtension(framework) {
   return EXAMPLE_EXTENSIONS[framework]
 }
@@ -113,7 +119,9 @@ export function conditionalSlot(framework, has) {
   return (
     framework === "html"
       ? [framework, DEFAULT_FRAMEWORK]
-      : [framework, "components", DEFAULT_FRAMEWORK]
+      : framework === "nunjucks"
+        ? [framework, "astro", "components", DEFAULT_FRAMEWORK]
+        : [framework, "components", DEFAULT_FRAMEWORK]
   ).find(has)
 }
 

@@ -3,19 +3,20 @@ import Code from "../../../../components/Code.astro"
 
 type Props = {
   file?: string
+  from?: string
 }
 
-const { file } = Astro.props
+const { file, from = "opui-css" } = Astro.props
 
-const css = `@import "opui-css/css/layers.css";
-@import "opui-css/core/palette.css";
-@import "opui-css/css/theme.css";
-@import "opui-css/core/normalize.css";
-@import "opui-css/css/components/button.css";
-@import "opui-css/css/components/choice.css";
-@import "opui-css/css/components/checkbox.css";
-@import "opui-css/css/compat.css";
-@import "opui-css/core/utils.css";`
+const css = `@import "${from}/css/layers.css";
+@import "${from}/core/palette.css";
+@import "${from}/css/theme.css";
+@import "${from}/core/normalize.css";
+@import "${from}/css/components/button.css";
+@import "${from}/css/components/choice.css";
+@import "${from}/css/components/checkbox.css";
+@import "${from}/css/compat.css";
+@import "${from}/core/utils.css";`
 ---
 
 <Code code={file ? `/* ${file} */\n${css}` : css} lang="css" />

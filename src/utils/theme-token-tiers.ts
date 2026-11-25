@@ -63,6 +63,8 @@ const primitives = [
   "--ui-font-size-700",
   "--ui-font-size-800",
   "--ui-font-size-900",
+  "--ui-icon-size-x-small",
+  "--ui-radius-large",
 ]
 
 const componentTokens = [

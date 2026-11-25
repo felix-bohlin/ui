@@ -1,5 +1,6 @@
 /** @jsxImportSource @solidjs/web */
 import { children, omit } from "solid-js"
+import { filled } from "../attrs"
 import type { Props } from "./types.solid"
 
 export default function OneTimeCode(props: Props) {
@@ -17,7 +18,7 @@ export default function OneTimeCode(props: Props) {
   const resolvedEndText = children(() => props.endText)
   const resolvedLabel = children(() => props.label)
   const hasLabel = () => Boolean(resolvedLabel())
-  const hasEndText = () => Boolean(resolvedEndText())
+  const hasEndText = () => Boolean(filled(resolvedEndText()))
   const endTextId = () => (hasEndText() ? `${props.for}-end-text` : undefined)
 
   return (

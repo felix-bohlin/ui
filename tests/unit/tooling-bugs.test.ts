@@ -106,8 +106,7 @@ describe("tooling bugs the generator and the components work around", () => {
       },
     })
     const Inner = defineComponent({
-      props: ["class"],
-      template: '<span :class="$props.class"><slot /></span>',
+      template: "<span><slot /></span>",
     })
     const Outer = defineComponent({
       components: { Inner },

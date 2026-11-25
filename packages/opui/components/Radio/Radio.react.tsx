@@ -1,3 +1,4 @@
+import { filled } from "../attrs"
 import { cx } from "../cx"
 import RadioInput from "./RadioInput.react"
 import { hasName, warnUnnamed } from "../dev"
@@ -19,7 +20,7 @@ export default function Radio({
   endText,
   ...rest
 }: Props) {
-  warnUnnamed("Radio", hasName({ ...rest, label }, children))
+  warnUnnamed("Radio", hasName({ ...rest, label }, filled(children)))
 
   return (
     <label
@@ -40,7 +41,7 @@ export default function Radio({
           {children}
         </span>
       )}
-      {endText && <span className="ui-end-text">{endText}</span>}
+      {filled(endText) && <span className="ui-end-text">{endText}</span>}
     </label>
   )
 }

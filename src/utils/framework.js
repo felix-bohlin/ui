@@ -118,27 +118,7 @@ export function frameworkPaths() {
   }))
 }
 
-/** @type {Record<string, FrameworkId[]>} */
-export const COMPONENT_FRAMEWORKS = {}
-
 export const FRAMEWORK_AGNOSTIC_EXAMPLES = ["typography/Default"]
-
-/**
- * @param {FrameworkId} framework
- * @param {string} slug
- */
-export function componentHasFramework(framework, slug) {
-  return COMPONENT_FRAMEWORKS[slug]?.includes(framework) ?? true
-}
-
-/**
- * @param {FrameworkId} framework
- * @param {string} sharedPath
- */
-export function pathHasFramework(framework, sharedPath) {
-  const slug = sharedPath.match(/^\/components\/([^/]+)/)?.[1]
-  return !slug || componentHasFramework(framework, slug)
-}
 
 export const FRAMEWORK_FREE_PREFIXES = [
   "/blocks",
@@ -219,13 +199,11 @@ export function hrefFor(framework, pathname) {
 export function frameworkVariantsOf(pathname) {
   const sharedPath = stripFrameworkPrefix(pathname)
   if (isFrameworkFree(sharedPath)) return []
-  return FRAMEWORKS.filter((l) => pathHasFramework(l.id, sharedPath)).map(
-    (l) => ({
-      framework: l.id,
-      url: hrefFor(l.id, pathname),
-      isDefault: l.id === DEFAULT_FRAMEWORK,
-    }),
-  )
+  return FRAMEWORKS.map((l) => ({
+    framework: l.id,
+    url: hrefFor(l.id, pathname),
+    isDefault: l.id === DEFAULT_FRAMEWORK,
+  }))
 }
 
 export const FRAMEWORK_STORAGE_KEY = "opui-framework"

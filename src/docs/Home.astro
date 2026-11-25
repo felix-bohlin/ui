@@ -13,9 +13,11 @@ import ComponentCard from "../components/ComponentShowcase/ComponentCard.astro"
 import ComponentShowcase from "../components/ComponentShowcase/ComponentShowcase.astro"
 import Html5Logo from "../components/Html5Logo.astro"
 import ReactLogo from "../components/ReactLogo.astro"
+import Scenery from "../components/Scenery.astro"
 import SolidLogo from "../components/SolidLogo.astro"
 import SvelteLogo from "../components/SvelteLogo.astro"
 import ThemeQuickControls from "../components/ThemeQuickControls.astro"
+import ViLockup from "../components/ViLockup.astro"
 import VueLogo from "../components/VueLogo.astro"
 import Default from "../layouts/Default.astro"
 import { allBlocks, blockPreviewHref } from "../utils/blocks"
@@ -82,14 +84,18 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 <Default description={description}>
   <main id="main-content" class="blueprint">
     <section class="hero ui-palette" aria-labelledby="main-heading">
+      <Scenery />
       <div class="hero-inner">
         <div class="hero-copy">
           <hgroup class="ui-hgroup">
-            <p class="hero-version">
+            <p class="hero-version vi-off">
               <a href={link("/blog/release-6")}>v{releaseVersion}</a>
             </p>
 
-            <h1 class="ui-h1" id="main-heading">Open Props UI</h1>
+            <h1 class="ui-h1" id="main-heading">
+              <span class="vi-off">Open Props UI</span
+              ><span class="vi-on"><ViLockup panel={false} /></span>
+            </h1>
 
             <p class="hero-description">{description}</p>
           </hgroup>
@@ -426,6 +432,10 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
       z-index: -1;
     }
 
+    &[data-example-theme="vice-city"]::before {
+      display: none;
+    }
+
     &::after {
       background: radial-gradient(
         120% 80% at 50% 0%,
@@ -505,6 +515,26 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     @media (width >= 900px) {
       padding-block: var(--size-10);
     }
+
+    :global(
+        html:is(
+          [data-example-theme="brutalist"],
+          [data-example-theme="govuk"],
+          [data-example-theme="m3"],
+          [data-example-theme="shadcn"],
+          [data-example-theme="vice-city"]
+        )
+      )
+      & {
+      isolation: isolate;
+      overflow: clip;
+      padding-block-end: calc(var(--size-8) + clamp(10rem, 26vw, 17rem));
+      position: relative;
+
+      @media (width >= 900px) {
+        padding-block-end: calc(var(--size-10) + clamp(10rem, 26vw, 17rem));
+      }
+    }
   }
 
   .hero-inner {
@@ -544,6 +574,20 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     font-size: var(--font-size-2);
     line-height: var(--font-lineheight-4);
     text-wrap: balance;
+
+    :global(html[data-example-theme="vice-city"]) & {
+      color: var(--ui-primary-text);
+      font-size: var(--font-size-1);
+      font-weight: var(--ui-font-weight-bold);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+  }
+
+  .hero-copy :global(.vi-lockup) {
+    display: grid;
+    font-size: clamp(8rem, 24vw, 15rem);
+    inline-size: fit-content;
   }
 
   .hero-ctas {

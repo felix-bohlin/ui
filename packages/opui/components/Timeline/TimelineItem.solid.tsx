@@ -1,6 +1,7 @@
 /** @jsxImportSource @solidjs/web */
 import { dynamic } from "@solidjs/web"
 import { children, omit } from "solid-js"
+import { filled } from "../attrs"
 import { cx } from "../cx"
 import type { TimelineItemProps as Props } from "./types.solid"
 
@@ -34,9 +35,13 @@ export default function TimelineItem(props: Props) {
       class={cx([props.color && `ui-${props.color}`, props.class])}
       {...rest}
     >
-      {resolvedMarker() && <span class="ui-marker">{resolvedMarker()}</span>}{" "}
+      {filled(resolvedMarker()) && (
+        <span class="ui-marker">{resolvedMarker()}</span>
+      )}{" "}
       {props.time && <time datetime={props.datetime}>{props.time}</time>}
-      {resolvedLabel() && <Heading class="ui-h6">{resolvedLabel()}</Heading>}
+      {filled(resolvedLabel()) && (
+        <Heading class="ui-h6">{resolvedLabel()}</Heading>
+      )}
       {props.children}
     </li>
   )

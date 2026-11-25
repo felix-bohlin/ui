@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, useAttrs } from "vue"
+import { computed } from "vue"
+import { useRestAttrs } from "../vue"
 import { warnUnnamedControl } from "../dev"
 import { disabledLink, tagAttrs } from "../tag"
 import { defined } from "../attrs"
@@ -13,13 +14,13 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs()
+const attrs = useRestAttrs()
 
 const Tag = computed(() =>
   disabledLink(as, disabled) ? "a" : as || (href ? "a" : "div"),
 )
 
-warnUnnamedControl("Avatar", as === "button" || href, { ...attrs, label })
+warnUnnamedControl("Avatar", as === "button" || href, { ...attrs.value, label })
 </script>
 
 <template>
@@ -30,7 +31,7 @@ warnUnnamedControl("Avatar", as === "button" || href, { ...attrs, label })
       shape && shape !== 'circle' && `ui-${shape}`,
       size && size !== 'medium' && `ui-${size}`,
       variant && variant !== 'filled' && `ui-${variant}`,
-      $props.class,
+      $attrs.class,
     ]"
     v-bind="{ ...tagAttrs(Tag, disabled, href), ...defined(attrs) }"
   >

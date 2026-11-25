@@ -2,7 +2,6 @@
 import Code from "./Code.astro"
 import { compatCss } from "../utils/compat"
 import { components, dependentsOf } from "../utils/components"
-import { componentHasFramework } from "../utils/framework"
 import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
 import InstallationFiles from "./InstallationFiles.astro"
 import InstallCommand from "../docs/guide/getting-started/partials/InstallCommand.astro"
@@ -58,11 +57,7 @@ const allTabs = [
   ),
 ]
 
-const usedBy = slug
-  ? dependentsOf(slug).filter((c) =>
-      componentHasFramework(Astro.locals.framework, c.slug),
-    )
-  : []
+const usedBy = slug ? dependentsOf(slug) : []
 ---
 
 <section id="installation">

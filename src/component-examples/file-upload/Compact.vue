@@ -11,7 +11,7 @@ import { FileUpload } from "opui-css/vue"
         {
           label: 'lou-headstock.png',
           preview: '/photos/lou-headstock.png',
-          state: 'done',
+          state: 'complete',
           value: 'lou',
         },
         {

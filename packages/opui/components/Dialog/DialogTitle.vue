@@ -2,7 +2,6 @@
 import { inject } from "vue"
 import { DialogKey } from "./context.vue"
 import { warnReplacedId } from "../dev"
-import { classAttrs } from "../cx"
 import type { DialogTitleProps as Props, Slots } from "./types.vue-props"
 
 const { id } = defineProps<Props>()
@@ -14,7 +13,7 @@ warnReplacedId("DialogTitle", "Dialog", id, dialog?.titleId)
 </script>
 
 <template>
-  <h2 v-bind="classAttrs($props.class)" :id="dialog?.titleId ?? id">
+  <h2 :id="dialog?.titleId ?? id">
     <slot></slot>
   </h2>
 </template>

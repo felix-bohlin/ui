@@ -1,0 +1,170 @@
+import { Button, Chip } from "opui-css/react"
+
+export default function Teasers() {
+  return (
+    <>
+      <div
+        className="teasers ui-layout-container ui-layout-column"
+        style={{ "--_gap": "var(--ui-space-8)", "--_max-inline-size": "68rem" }}
+      >
+        <hgroup className="ui-hgroup teasers-intro">
+          <p className="ui-overline">From the tour van</p>
+          <h1 className="ui-h2">Stories from the road</h1>
+          <p>Three bands, three trips, one shared love of the low end.</p>
+        </hgroup>
+        <article
+          aria-labelledby="teasers-fjord"
+          className="teaser ui-layout-columns"
+          style={{ "--_columns": "1fr 1fr", "--_gap": "var(--ui-space-8)" }}
+        >
+          <img
+            alt="A deep blue fjord between steep mountains"
+            className="teaser-media"
+            height="600"
+            loading="lazy"
+            src="https://picsum.photos/id/1015/800/600"
+            width="800"
+          />
+          <div className="teaser-copy ui-layout-column">
+            <Chip as="span" label="Tour diary" size="small" />
+            <h2 className="ui-h3" id="teasers-fjord">
+              A gig at the end of the fjord
+            </h2>
+            <p>
+              The Flatwounds drove six hours on a road with more bends than a
+              fretless solo to play for 40 people and a goat. The goat stayed
+              for the encore.
+            </p>
+            <Button href="#teasers-fjord-story" variant="outlined">
+              <span className="ui-text">Read the tour diary</span>
+              <svg
+                data-icon="arrow-right"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M13.3 5.3a1 1 0 0 1 1.4 0l6 6a1 1 0 0 1 0 1.4l-6 6a1 1 0 0 1-1.4-1.4l4.29-4.3H4a1 1 0 1 1 0-2h13.59l-4.3-4.3a1 1 0 0 1 0-1.4"
+                ></path>
+              </svg>
+            </Button>
+          </div>
+        </article>
+        <article
+          aria-labelledby="teasers-lighthouse"
+          className="teaser teaser-reverse ui-layout-columns"
+          style={{ "--_columns": "1fr 1fr", "--_gap": "var(--ui-space-8)" }}
+        >
+          <img
+            alt="A lighthouse on a rocky shore"
+            className="teaser-media"
+            height="600"
+            loading="lazy"
+            src="https://picsum.photos/id/1043/800/600"
+            width="800"
+          />
+          <div className="teaser-copy ui-layout-column">
+            <Chip as="span" label="Rehearsal spaces" size="small" />
+            <h2 className="ui-h3" id="teasers-lighthouse">
+              Rehearsing in a lighthouse
+            </h2>
+            <p>
+              No neighbours, perfect natural reverb and 117 steps to carry the
+              amp up. Sub Club on why their new album was recorded one floor
+              below the lamp.
+            </p>
+            <Button href="#teasers-lighthouse-story" variant="outlined">
+              <span className="ui-text">Climb the lighthouse</span>
+              <svg
+                data-icon="arrow-right"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M13.3 5.3a1 1 0 0 1 1.4 0l6 6a1 1 0 0 1 0 1.4l-6 6a1 1 0 0 1-1.4-1.4l4.29-4.3H4a1 1 0 1 1 0-2h13.59l-4.3-4.3a1 1 0 0 1 0-1.4"
+                ></path>
+              </svg>
+            </Button>
+          </div>
+        </article>
+        <article
+          aria-labelledby="teasers-camp"
+          className="teaser ui-layout-columns"
+          style={{ "--_columns": "1fr 1fr", "--_gap": "var(--ui-space-8)" }}
+        >
+          <img
+            alt="Yellow tents in a snowy mountain camp"
+            className="teaser-media"
+            height="600"
+            loading="lazy"
+            src="https://picsum.photos/id/1036/800/600"
+            width="800"
+          />
+          <div className="teaser-copy ui-layout-column">
+            <Chip as="span" label="Gear test" size="small" />
+            <h2 className="ui-h3" id="teasers-camp">
+              What cold does to your strings
+            </h2>
+            <p>
+              Holly took three sets of strings to a snowy base camp and played
+              them at minus 18. Two of them survived. Her fingers, mostly.
+            </p>
+            <Button href="#teasers-camp-story" variant="outlined">
+              <span className="ui-text">See the gear test</span>
+              <svg
+                data-icon="arrow-right"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M13.3 5.3a1 1 0 0 1 1.4 0l6 6a1 1 0 0 1 0 1.4l-6 6a1 1 0 0 1-1.4-1.4l4.29-4.3H4a1 1 0 1 1 0-2h13.59l-4.3-4.3a1 1 0 0 1 0-1.4"
+                ></path>
+              </svg>
+            </Button>
+          </div>
+        </article>
+      </div>
+      <style>{`
+        .teasers {
+          container-type: inline-size;
+
+          .teasers-intro {
+            text-align: center;
+          }
+
+          .teaser {
+            align-items: center;
+          }
+
+          .teaser-media {
+            aspect-ratio: 4 / 3;
+            border-radius: var(--ui-radius);
+            inline-size: 100%;
+            object-fit: cover;
+          }
+
+          .teaser-copy {
+            align-items: start;
+          }
+
+          @container (inline-size >= 56rem) {
+            .teaser-reverse .teaser-media {
+              order: 2;
+            }
+          }
+        }
+      `}</style>
+    </>
+  )
+}

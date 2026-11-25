@@ -1,3 +1,4 @@
+import { filled } from "../attrs"
 import { cx } from "../cx"
 import type { Props } from "./types.react"
 
@@ -38,16 +39,16 @@ export default function Message({
         <div className="ui-content">
           {author && <p className="ui-header">{author}</p>}
           {children}
-          {(time || end) && (
+          {(time || filled(end)) && (
             <p className="ui-footer">
               {time && <time dateTime={datetime}>{time}</time>}
-              {end && <span className="ui-end">{end}</span>}
+              {filled(end) && <span className="ui-end">{end}</span>}
             </p>
           )}
         </div>
       )}
-      {actions && <div className="ui-actions">{actions}</div>}
-      {bottom && <div className="ui-bottom">{bottom}</div>}
+      {filled(actions) && <div className="ui-actions">{actions}</div>}
+      {filled(bottom) && <div className="ui-bottom">{bottom}</div>}
     </li>
   )
 }

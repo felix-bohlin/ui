@@ -8,11 +8,7 @@ import { catalog } from "../component-api/catalog.glob"
 import type { ComponentApi } from "../component-api/types"
 import { Field } from "opui-css/astro"
 import { componentName, components } from "../utils/components"
-import {
-  componentHasFramework,
-  FRAMEWORKS,
-  type FrameworkId,
-} from "../utils/framework"
+import { FRAMEWORKS, type FrameworkId } from "../utils/framework"
 
 const apiModules = import.meta.glob<AstroInstance>(
   "../component-api/**/*.astro",
@@ -59,7 +55,6 @@ for (const { api, folder, page } of catalog.apis) {
 }
 
 const { link } = Astro.locals
-const currentFramework = Astro.locals.framework
 const pages = new Set(components.map((component) => component.slug))
 const sectionOf = (apis: ApiGroup["apis"]) => {
   const api = Array.isArray(apis) ? apis[0]?.api : undefined
@@ -67,9 +62,6 @@ const sectionOf = (apis: ApiGroup["apis"]) => {
 }
 
 const apiList = Object.values(groups)
-  .filter(({ folder, page }) =>
-    componentHasFramework(currentFramework, page ?? folder),
-  )
   .map((group) => {
     let slug = group.prefix ? group.prefix.toLowerCase() : group.folder
 

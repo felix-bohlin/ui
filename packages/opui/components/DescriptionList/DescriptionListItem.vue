@@ -10,7 +10,7 @@ defineSlots<Slots>()
 </script>
 
 <template>
-  <div v-bind="classAttrs([total && 'ui-total', $props.class])">
+  <div v-bind="classAttrs([total && 'ui-total'])">
     <slot></slot>
   </div>
 </template>

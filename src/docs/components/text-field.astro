@@ -47,7 +47,7 @@ export const keywords = ["email", "input", "password", "search", "text box"]
   ]}
   fallbacks={{
     "reading-flow":
-      "Without `reading-flow`, Tab and screen readers follow the markup, which puts the top and start parts before the control, as they're drawn. Hand-written HTML needs that order too.",
+      "Without `reading-flow`, Tab and screen readers follow the markup, so write the top and start parts before the control.",
   }}
   apis={[{ title: "Password toggle API", api: passwordToggleApi }]}
   changelogPaths={[
@@ -100,11 +100,8 @@ export const keywords = ["email", "input", "password", "search", "text box"]
   <section id="input">
     <h2>Input</h2>
     <p>
-      A text field is a <DocLink href="/components/field">Field</DocLink> with
-      an <code>&lt;input&gt;</code> inside. Write it and wire its
-      <code>aria-describedby</code> as the
-      <DocLink href="/components/field#basics">Field</DocLink> page shows, with
-      the variants, sizes, affixes, validation and layout every field shares.
+      A <DocLink href="/components/field">Field</DocLink> with an
+      <code>&lt;input&gt;</code> inside.
     </p>
     <AutoExample name="Basics" column />
   </section>
@@ -147,44 +144,19 @@ export const keywords = ["email", "input", "password", "search", "text box"]
         <UICalloutIcon />
         <UICalloutContent>
           <h3>Use <code>&lt;input type="number"&gt;</code> only for amounts</h3>
-          <div class="ui-rich-text">
-            <p>
-              <code>&lt;input type="number"&gt;</code> fits an amount you count
-              or step, like a quantity, which the
-              <DocLink class="ui-link" href="/components/number-field"
-                >Number field</DocLink
-              >
-              covers. Card numbers, IDs and codes are text made of digits: use
-              <code
-                >&lt;input type="text" inputmode="numeric"
-                pattern="[0-9]*"&gt;</code
-              >
-              for them.
-            </p>
-
-            <p>
-              It brings up the numeric keyboard on touch screens without the
-              problems of number inputs:
-            </p>
-
-            <ul>
-              <li>Unexpected value increments from scroll wheels</li>
-              <li>Browser-specific validation differences</li>
-              <li>Accessibility problems</li>
-              <li>Removal of leading zeros</li>
-              <li>Acceptance of non-numeric characters, like <code>e</code></li>
-            </ul>
-
-            <p>
-              GOV.UK explains these problems in
-              <a
-                href="https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/"
-                class="ui-link"
-                >Why the GOV.UK Design System team changed the input type for
-                numbers</a
-              >.
-            </p>
-          </div>
+          <p>
+            Card numbers, IDs and codes are text made of digits, and a number
+            input drops their leading zeros, accepts <code>e</code> and changes
+            on scroll
+            (<a
+              class="ui-link"
+              href="https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/"
+              >GOV.UK</a
+            >). For an amount, use a
+            <DocLink class="ui-link" href="/components/number-field"
+              >Number field</DocLink
+            >.
+          </p>
         </UICalloutContent>
       </UICallout>
     </div>
@@ -205,19 +177,16 @@ export const keywords = ["email", "input", "password", "search", "text box"]
     <h2>Password toggle</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Put a <code>PasswordToggle</code> in the field's <code>end</code>, with
-        <code>for</code> set to the input's <code>id</code>, and leave the end
-        part out of the input's <code>aria-describedby</code>.
+        Put a <code>PasswordToggle</code> in <code>end</code>, with
+        <code>for</code> set to the input's <code>id</code>.
       </Fragment>
       <Fragment slot="react">
-        Put a <code>PasswordToggle</code> in the field's <code>end</code>, with
-        <code>htmlFor</code> set to the input's <code>id</code>, and leave the
-        end part out of the input's <code>aria-describedby</code>.
+        Put a <code>PasswordToggle</code> in <code>end</code>, with
+        <code>htmlFor</code> set to the input's <code>id</code>.
       </Fragment>
       <Fragment slot="html">
         Put <code>&lt;opui-password-toggle&gt;</code> around the button in
-        <code>.ui-end</code>, leave <code>.ui-end</code> out of the input's
-        <code>aria-describedby</code>, and import
+        <code>.ui-end</code>, and import
         <code>opui-css/elements/password-toggle.js</code>.
       </Fragment>
     </Conditional>

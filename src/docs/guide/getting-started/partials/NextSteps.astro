@@ -2,13 +2,11 @@
 import { Card, CardContent, CardHeader } from "opui-css/astro"
 import { allBlocks } from "../../../../utils/blocks"
 import { components } from "../../../../utils/components"
-import { componentHasFramework, FRAMEWORKS } from "../../../../utils/framework"
+import { FRAMEWORKS } from "../../../../utils/framework"
 
 const { framework, link } = Astro.locals
 const label = FRAMEWORKS.find((f) => f.id === framework)!.label
-const count = components.filter(({ slug }) =>
-  componentHasFramework(framework, slug),
-).length
+const count = components.length
 
 const cards = [
   {

@@ -25,7 +25,6 @@ const endTextId = () => (hasEndText() ? `${htmlFor}-end-text` : undefined)
       'ui-one-time-code',
       { 'ui-grouped': grouped },
       size && size !== 'medium' && `ui-${size}`,
-      $props.class,
     ]"
   >
     <label

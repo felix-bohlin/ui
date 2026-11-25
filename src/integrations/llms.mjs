@@ -6,7 +6,6 @@ import { fileURLToPath } from "node:url"
 import { Worker } from "node:worker_threads"
 
 import {
-  componentHasFramework,
   DEFAULT_FRAMEWORK,
   FRAMEWORK_FREE_PREFIXES,
   FRAMEWORKS,
@@ -221,9 +220,9 @@ async function devPages(framework, origin, rewriteHref) {
     ...["getting-started", ...slugsIn("../docs/guide/")]
       .toSorted()
       .map((slug) => `/${framework.id}/guide/${slug}/`),
-    ...slugsIn("../docs/components/")
-      .filter((slug) => componentHasFramework(framework.id, slug))
-      .map((slug) => `/${framework.id}/components/${slug}/`),
+    ...slugsIn("../docs/components/").map(
+      (slug) => `/${framework.id}/components/${slug}/`,
+    ),
     ...slugsIn("../docs/blog/")
       .filter((slug) => slug !== "index")
       .map((slug) => `/blog/${slug}/`),

@@ -9,7 +9,7 @@ defineSlots<CalloutContentSlots>()
 </script>
 
 <template>
-  <div :class="['ui-content', $props.class]">
+  <div class="ui-content">
     <slot></slot>
   </div>
 </template>

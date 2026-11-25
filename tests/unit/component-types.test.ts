@@ -2,7 +2,13 @@ import type {
   ComponentProps as SolidComponentProps,
   JSX as SolidJSX,
 } from "@solidjs/web"
-import type { ComponentProps, ComponentType, ReactNode } from "react"
+import type {
+  ComponentProps,
+  ComponentType,
+  MouseEvent,
+  ReactNode,
+  Ref,
+} from "react"
 import type { Component as SolidComponent } from "solid-js"
 import type { Snippet } from "svelte"
 import type {
@@ -102,7 +108,9 @@ test("a slot without a string form is only the slot type", () => {
 })
 
 test("a value model is a prop in Svelte and declared in Vue", () => {
-  expectTypeOf<RatingSvelte.Props>().toHaveProperty("value")
+  expectTypeOf<RatingSvelte.Props["value"]>().toEqualTypeOf<
+    number | string | undefined
+  >()
   expectTypeOf<RatingVue.Props["value"]>().toEqualTypeOf<
     number | string | undefined
   >()
@@ -339,6 +347,44 @@ test("an attribute a component with several elements reads takes each element's 
     | IntrinsicElementAttributes["legend"]["id"]
     | IntrinsicElementAttributes["p"]["id"]
   >()
+})
+
+test("a props type with one member per element takes a ref and a handler typed for the element it renders", () => {
+  expectTypeOf<{
+    label: string
+    name: string
+    onClick: (event: MouseEvent<HTMLFieldSetElement>) => void
+    ref: Ref<HTMLFieldSetElement>
+  }>().toExtend<RatingReact.Props>()
+  expectTypeOf<{
+    label: string
+    ref: Ref<HTMLMeterElement>
+  }>().toExtend<RatingReact.Props>()
+  expectTypeOf<{
+    label: string
+    name: string
+    ref: Ref<HTMLMeterElement>
+  }>().not.toExtend<RatingReact.Props>()
+  expectTypeOf<{
+    label: string
+    onClick: (event: MouseEvent<HTMLButtonElement>) => void
+    ref: Ref<HTMLButtonElement>
+  }>().toExtend<MenuReact.MenuItem>()
+  expectTypeOf<{
+    href: string
+    label: string
+    ref: Ref<HTMLAnchorElement>
+  }>().toExtend<MenuReact.MenuItem>()
+  expectTypeOf<{
+    label: string
+    name: string
+    ref: (element: HTMLFieldSetElement) => void
+  }>().toExtend<RatingSolid.Props>()
+  expectTypeOf<{
+    href: string
+    label: string
+    ref: (element: HTMLAnchorElement) => void
+  }>().toExtend<MenuSolid.MenuItem>()
 })
 
 test("an event is on<Event> in React, on<event> in Svelte and an emit in Vue, with the element's event object", () => {

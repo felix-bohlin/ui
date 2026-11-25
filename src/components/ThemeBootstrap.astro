@@ -1,7 +1,14 @@
 ---
 import "../styles/theme-fonts.css"
 import { EXAMPLE_THEMES } from "../utils/example-themes"
-import { FONT_TOKENS, LAYERS, THEME_KEY, VIEW_KEYS } from "../utils/theme"
+import {
+  FONT_TOKENS,
+  LAYERS,
+  THEME_KEY,
+  THEME_SESSION_GAP,
+  THEME_SESSION_KEY,
+  VIEW_KEYS,
+} from "../utils/theme"
 import { BUNDLED_FONTS, WEB_FONTS, fontCssUrls } from "../utils/theme-fonts"
 
 type Props = {
@@ -40,6 +47,8 @@ const webFonts = Object.fromEntries(
     LAYERS,
     overrides,
     THEME_KEY,
+    THEME_SESSION_GAP,
+    THEME_SESSION_KEY,
     VIEW_KEYS,
     webFonts,
   }}
@@ -180,6 +189,36 @@ const webFonts = Object.fromEntries(
       window.themeUtils.getStoredTheme() ||
         window.themeUtils.getSystemPreference(),
     )
+
+  const stampSession = () => {
+    try {
+      localStorage.setItem(THEME_SESSION_KEY, String(Date.now()))
+    } catch {}
+  }
+
+  const rotateTheme = () => {
+    try {
+      const last = Number(localStorage.getItem(THEME_SESSION_KEY))
+      if (Date.now() - last < THEME_SESSION_GAP) return
+      const theme = window.themeUtils.readTheme()
+      if (Object.keys(theme?.tokens ?? {}).length > 0) return
+      const current = theme?.preset ?? null
+      const choices = [null, ...Object.keys(exampleThemes)].filter(
+        (preset) => preset !== current,
+      )
+      const preset = choices[Math.floor(Math.random() * choices.length)]
+      localStorage.setItem(
+        THEME_KEY,
+        JSON.stringify({ css: "", preset, tokens: {} }),
+      )
+    } catch {}
+  }
+
+  if (!navigator.webdriver) {
+    rotateTheme()
+    stampSession()
+    window.addEventListener("pagehide", stampSession)
+  }
 
   applyMode()
   window.themeUtils.applyContrast(

@@ -18,7 +18,7 @@ export const ICON_ROLES = [
   "warning",
 ] as const
 
-export type IconRole = (typeof ICON_ROLES)[number]
+type IconRole = (typeof ICON_ROLES)[number]
 
 export const SAMPLE_ICONS = [
   "add",
@@ -112,11 +112,9 @@ export const SAMPLE_ICONS = [
   "warning",
 ] as const
 
-export type SampleIcon = (typeof SAMPLE_ICONS)[number]
+type SampleIcon = (typeof SAMPLE_ICONS)[number]
 
-export type IconSource =
-  | string
-  | { attributes: Record<string, string>; file: string }
+type IconSource = string | { attributes: Record<string, string>; file: string }
 
 export type IconLibrary = {
   copyright?: string
@@ -731,8 +729,6 @@ export const ICON_LIBRARIES = {
     url: "https://tabler.io/icons",
   },
 } satisfies Record<string, IconLibrary>
-
-export type IconLibraryId = keyof typeof ICON_LIBRARIES
 
 const FRAMEWORK_NAMES = {
   react: "React",

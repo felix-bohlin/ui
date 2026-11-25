@@ -100,6 +100,22 @@ const elementsOf = (node) => [
 
 const hasElement = (node) => elementRefs(node).length > 0
 
+const joinedElements = (node) => {
+  if (ts.isIntersectionTypeNode(node)) {
+    const elements = [
+      ...new Set(
+        node.types.filter((part) => !isUnion(part)).flatMap(elementsOf),
+      ),
+    ]
+    if (elements.length > 1) return elements
+  }
+  let found
+  ts.forEachChild(node, (child) => {
+    found ??= joinedElements(child)
+  })
+  return found
+}
+
 const baseRef = (node, name) =>
   ts.isTypeReferenceNode(node) &&
   ts.isQualifiedName(node.typeName) &&
@@ -412,6 +428,15 @@ export const toTypes = (
     if (!hasElement(alias.node.type)) {
       throw unsupported("BC602", file, `the type ${alias.name}`)
     }
+    const joined = joinedElements(alias.node.type)
+    if (joined) {
+      throw unsupported(
+        "BC608",
+        file,
+        `the type ${alias.name}, which joins the attributes of ${joined.join(" and ")} with &`,
+        "write a union with one element per member, as Button does",
+      )
+    }
   }
   const propsAliases = aliases.filter(({ name }) => name.endsWith("Props"))
   const baseFileName = `packages/opui/components/${folder}/types.ts`
@@ -498,10 +523,14 @@ export const toTypes = (
       .filter((key) => key !== "class" && REACT_ATTRIBUTE_NAMES[key])
       .toSorted(byName)
   }
+  const baseKeys = (name) => {
+    const baseAlias = baseAliases.find((entry) => entry.name.text === name)
+    return baseAlias ? typeKeys(baseAlias.type, baseAliases) : []
+  }
   const withoutHelper = (framework) =>
     propsAliases.some(
       ({ name }) =>
-        stringSlotKeys(name).length > 0 ||
+        stringSlotKeys(name).some((key) => baseKeys(name).includes(key)) ||
         (framework === "react" && reactRenamed(name).length > 0),
     )
       ? "\n\ntype Without<T, K extends PropertyKey> = T extends unknown\n  ? Omit<T, K>\n  : never"
@@ -564,7 +593,8 @@ export const toTypes = (
                 ? [
                     ...ref.keys,
                     ...omit,
-                    ...(framework === "solid"
+                    ...(framework === "solid" &&
+                    !ref.others?.includes(`keyof Base.${name}`)
                       ? declaredAttributes(
                           tag ? JSON.stringify(tag) : ref.element,
                           known,
@@ -667,7 +697,10 @@ export const toTypes = (
         const omitted = omitsBase(part, name)
           ? literalKeys(part.typeArguments[1])
           : []
-        const dropped = [...strings, ...renamed].toSorted(byName)
+        const dropped = [
+          ...strings.filter((key) => known.includes(key)),
+          ...renamed,
+        ].toSorted(byName)
         const baseType = `Base.${name}${link && linked.has(name) ? `<${link}>` : ""}`
         const wrapped = dropped.length
           ? `Without<${baseType}, ${[...omitted, ...dropped]
@@ -809,16 +842,12 @@ export const toTypes = (
       node.members.length > 0 &&
       node.members.every((member) => undeclared(model, member.name.getText()))
     const kept = []
-    let hasClass = false
     for (const part of members(alias.node.type)) {
       if (ts.isTypeLiteralNode(part) && hasElement(part)) {
         kept.push(vueText(part))
         continue
       }
-      if (hasElement(part)) {
-        hasClass = true
-        continue
-      }
+      if (hasElement(part)) continue
       if (
         modelOnly(part) ||
         (ts.isTypeReferenceNode(part) &&
@@ -852,7 +881,7 @@ export const toTypes = (
         `the type ${alias.name}, whose part ${part.getText()} has no Vue form`,
       )
     }
-    return { hasClass, kept }
+    return { kept }
   }
   const asValues = (node) => {
     const values = []
@@ -951,7 +980,11 @@ export const toTypes = (
           ),
         ].join(" & ")
       })
-      return `export type ${name} = ${[...withoutAttributes, "Class", ...(extras.length ? [`{ ${extras.join("; ")} }`] : [])].join(" & ")}`
+      const parts = [
+        ...withoutAttributes,
+        ...(extras.length ? [`{ ${extras.join("; ")} }`] : []),
+      ]
+      return `export type ${name} = ${parts.length ? parts.join(" & ") : "{}"}`
     })
   const vueTypeImports = [
     ...(linking ? ["Component"] : []),
@@ -985,7 +1018,9 @@ export const toTypes = (
       ...(vueTypeImports.length
         ? [`import type { ${vueTypeImports.join(", ")} } from "vue"`]
         : []),
-      `import type { Class${vueBody.some((line) => line.includes("DefaultSlots")) ? ", DefaultSlots" : ""} } from "../vue"`,
+      ...(vueBody.some((line) => line.includes("DefaultSlots"))
+        ? [`import type { DefaultSlots } from "../vue"`]
+        : []),
       `import type {\n${imported.map((entry) => `  ${entry},`).join("\n")}\n} from "./types"`,
     ].join("\n"),
     ...vueBody,

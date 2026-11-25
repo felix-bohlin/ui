@@ -1,3 +1,4 @@
+import { filled } from "../attrs"
 import { cx } from "../cx"
 import SwitchInput from "./SwitchInput.react"
 import { hasName, warnUnnamed } from "../dev"
@@ -21,7 +22,7 @@ export default function Switch({
   iconUnchecked,
   ...rest
 }: Props) {
-  warnUnnamed("Switch", hasName({ ...rest, label }, children))
+  warnUnnamed("Switch", hasName({ ...rest, label }, filled(children)))
 
   return (
     <label
@@ -35,12 +36,12 @@ export default function Switch({
       ])}
       style={style}
     >
-      {iconUnchecked && (
+      {filled(iconUnchecked) && (
         <span className="ui-icon-unchecked" aria-hidden="true">
           {iconUnchecked}
         </span>
       )}{" "}
-      {iconChecked && (
+      {filled(iconChecked) && (
         <span className="ui-icon-checked" aria-hidden="true">
           {iconChecked}
         </span>
@@ -52,7 +53,7 @@ export default function Switch({
           {children}
         </span>
       )}
-      {endText && <span className="ui-end-text">{endText}</span>}
+      {filled(endText) && <span className="ui-end-text">{endText}</span>}
     </label>
   )
 }

@@ -12,7 +12,6 @@ defineSlots<Slots>()
       'ui-timeline',
       { 'ui-tracked': tracked },
       size && size !== 'medium' && `ui-${size}`,
-      $props.class,
     ]"
   >
     <TimelineItem

@@ -62,6 +62,7 @@ export default defineConfig({
   testDir: "tests/e2e",
   use: {
     baseURL: "http://localhost:4322",
+    proxy: { bypass: "localhost,127.0.0.1", server: "http://127.0.0.1:9" },
     trace: "retain-on-failure",
   },
   webServer: {

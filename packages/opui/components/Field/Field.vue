@@ -48,7 +48,6 @@ const endTextId = () => (hasEndText() ? `${htmlFor}-end-text` : undefined)
         'ui-spread': spread,
       },
       size && size !== 'medium' && `ui-${size}`,
-      $props.class,
     ]"
   >
     <label

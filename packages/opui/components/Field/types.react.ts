@@ -5,6 +5,6 @@ type Without<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never
 
 export type Props = Without<
   Base.Props,
-  "bottom" | "end" | "endText" | "for" | "label" | "start" | "startText" | "top"
+  "endText" | "for" | "label" | "startText"
 > & { htmlFor: Base.Props["for"] } & Base.Slots<ReactNode> &
   ComponentProps<"div">

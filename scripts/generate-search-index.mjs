@@ -6,12 +6,7 @@ import { parseFragment } from "parse5"
 
 import { blockCategories, blocks } from "../src/utils/blocks-data.ts"
 import { posts } from "../src/utils/blog-posts.ts"
-import {
-  componentHasFramework,
-  conditionalSlot,
-  FRAMEWORKS,
-  hrefFor,
-} from "../src/utils/framework.js"
+import { conditionalSlot, FRAMEWORKS, hrefFor } from "../src/utils/framework.js"
 import { componentName } from "../src/utils/names.js"
 import { SEARCH_CATEGORIES } from "../src/utils/search-categories.js"
 import { VOID_ELEMENTS } from "./html-tokens.mjs"
@@ -365,7 +360,6 @@ async function generateIndex() {
     titles.set(slug, meta.title)
 
     for (const framework of FRAMEWORKS) {
-      if (!componentHasFramework(framework.id, slug)) continue
       index.push(
         ...pageEntries({
           category: "Component",
@@ -507,7 +501,6 @@ async function generateIndex() {
     const name = componentName(folder, titles)
 
     for (const framework of FRAMEWORKS) {
-      if (!componentHasFramework(framework.id, api.page ?? folder)) continue
       const html = framework.id === "html"
       const options = api.options
         .filter(

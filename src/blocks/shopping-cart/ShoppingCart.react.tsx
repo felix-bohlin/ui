@@ -16,13 +16,13 @@ import {
 export default function ShoppingCart() {
   return (
     <>
-      <div className="shopping-cart ui-layout-container ui-layout-column ui-large">
+      <div className="shopping-cart ui-layout-container ui-layout-column ui-gap-large">
         <hgroup className="ui-hgroup">
           <h1 className="ui-h3">Your gear cart</h1>
           <p>3 totally rad items, prices include VAT</p>
         </hgroup>
         <div
-          className="ui-layout-columns ui-large"
+          className="ui-layout-columns ui-gap-large"
           style={{ "--_columns": "2fr 1fr" }}
         >
           <Card aria-label="Cart items" as="section" variant="outlined">
@@ -34,7 +34,7 @@ export default function ShoppingCart() {
                   style={{ "--hue": "0" }}
                   role="img"
                 ></div>
-                <div className="ui-layout-column ui-x-small cart-info">
+                <div className="ui-layout-column ui-gap-x-small cart-info">
                   <h2 className="ui-h6">
                     <a className="ui-link" href="#shopping-cart-gig-bag">
                       Comfy Cloud Gig Bag
@@ -50,7 +50,7 @@ export default function ShoppingCart() {
                       size="small"
                     />
                   </p>
-                  <div className="ui-layout-row ui-x-small cart-links">
+                  <div className="ui-layout-row ui-gap-x-small cart-links">
                     <Button size="x-small" type="button">
                       Save for later
                     </Button>
@@ -102,7 +102,7 @@ export default function ShoppingCart() {
                   style={{ "--hue": "140" }}
                   role="img"
                 ></div>
-                <div className="ui-layout-column ui-x-small cart-info">
+                <div className="ui-layout-column ui-gap-x-small cart-info">
                   <h2 className="ui-h6">
                     <a className="ui-link" href="#shopping-cart-strings">
                       Flatwound string set
@@ -118,7 +118,7 @@ export default function ShoppingCart() {
                       size="small"
                     />
                   </p>
-                  <div className="ui-layout-row ui-x-small cart-links">
+                  <div className="ui-layout-row ui-gap-x-small cart-links">
                     <Button size="x-small" type="button">
                       Save for later
                     </Button>
@@ -165,7 +165,7 @@ export default function ShoppingCart() {
                   style={{ "--hue": "-80" }}
                   role="img"
                 ></div>
-                <div className="ui-layout-column ui-x-small cart-info">
+                <div className="ui-layout-column ui-gap-x-small cart-info">
                   <h2 className="ui-h6">
                     <a className="ui-link" href="#shopping-cart-tee">
                       I'm with the bassist tee
@@ -181,7 +181,7 @@ export default function ShoppingCart() {
                       size="small"
                     />
                   </p>
-                  <div className="ui-layout-row ui-x-small cart-links">
+                  <div className="ui-layout-row ui-gap-x-small cart-links">
                     <Button size="x-small" type="button">
                       Save for later
                     </Button>
@@ -235,7 +235,7 @@ export default function ShoppingCart() {
               </h2>
             </hgroup>
             <CardContent>
-              <div className="ui-layout-column ui-small">
+              <div className="ui-layout-column ui-gap-small">
                 <p id="shopping-cart-free-shipping">
                   Woohoo, you've unlocked <strong>free delivery</strong>!
                 </p>
@@ -280,7 +280,7 @@ export default function ShoppingCart() {
                   variant="outlined"
                 />
               </div>
-              <DescriptionList border="solid" orientation="horizontal">
+              <DescriptionList leader="solid" orientation="horizontal">
                 <DescriptionListItem>
                   <DescriptionListTerm>Subtotal</DescriptionListTerm>
                   <DescriptionListDescription>

@@ -1,5 +1,6 @@
 "use client"
 
+import type { ComponentProps } from "react"
 import { cx } from "../cx"
 import { mergeStyle, pluralLabel } from "../style"
 import type { Props } from "./types.react"
@@ -41,7 +42,7 @@ export default function Rating({
       disabled={disabled}
       lang={lang}
       style={style}
-      {...rest}
+      {...(rest as ComponentProps<"fieldset">)}
     >
       <legend>{label}</legend>
       {!required && (
@@ -89,7 +90,7 @@ export default function Rating({
         style ?? {},
       )}
       value={Number.isFinite(current) ? current : 0}
-      {...rest}
+      {...(rest as ComponentProps<"meter">)}
     />
   )
 }

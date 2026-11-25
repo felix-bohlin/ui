@@ -1541,12 +1541,12 @@
       "$type": "number",
       "$value": 1
     },
-    "ui-border-width-thick": {
+    "ui-border-width-large": {
       "$description": "Width of emphasized rules: the head and foot rules of rich text tables, the `AvatarGroup` ring, the `Badge` border, the neutral `Chip` dot, the dotted `DescriptionList` rule, the `Tabs` indicator, the bar on a selected `List` row, the `Spinner` ring, and at one and a half times, the blockquote bar.",
       "$extensions": {
         "com.figma": {
           "codeSyntax": {
-            "WEB": "var(--ui-border-width-thick)"
+            "WEB": "var(--ui-border-width-large)"
           },
           "scopes": ["STROKE_FLOAT"]
         }
@@ -1581,13 +1581,14 @@
       "$value": 100000
     },
     "ui-radius-large": {
-      "$description": "Corner radius for large surfaces, such as cards and dialogs that want more rounding than controls. `--ui-radius` times 1.5, so `0` still squares it. Not read by a component yet.",
+      "$description": "Largest step of the radius scale, for your own large surfaces that want more rounding than controls. `--ui-radius` times 1.5, so `0` still squares it. No component reads it.",
       "$extensions": {
         "com.figma": {
           "codeSyntax": {
             "WEB": "var(--ui-radius-large)"
           },
-          "scopes": ["CORNER_RADIUS"]
+          "hiddenFromPublishing": true,
+          "scopes": []
         }
       },
       "$type": "number",
@@ -2291,12 +2292,12 @@
       "$type": "number",
       "$value": 1
     },
-    "ui-underline-thickness-hover": {
+    "ui-underline-hover-thickness": {
       "$description": "Underline thickness of `Link` and rich text links on hover and keyboard focus. At rest they keep the font's own thickness.",
       "$extensions": {
         "com.figma": {
           "codeSyntax": {
-            "WEB": "var(--ui-underline-thickness-hover)"
+            "WEB": "var(--ui-underline-hover-thickness)"
           },
           "scopes": ["STROKE_FLOAT"]
         }
@@ -2875,13 +2876,14 @@
   },
   "icons": {
     "ui-icon-size-x-small": {
-      "$description": "Smallest icon size, for icons in x-small controls. Not read by a component yet.",
+      "$description": "Smallest step of the icon size scale, for your own icons in x-small controls. No component reads it.",
       "$extensions": {
         "com.figma": {
           "codeSyntax": {
             "WEB": "var(--ui-icon-size-x-small)"
           },
-          "scopes": ["WIDTH_HEIGHT"]
+          "hiddenFromPublishing": true,
+          "scopes": []
         }
       },
       "$type": "number",

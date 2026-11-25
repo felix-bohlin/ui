@@ -6,8 +6,8 @@ export default function Composition() {
       className="ui-layout-container"
       style={{ "--_max-inline-size": "40rem" }}
     >
-      <div className="ui-layout-column ui-large">
-        <div className="ui-layout-column ui-x-small">
+      <div className="ui-layout-column ui-gap-large">
+        <div className="ui-layout-column ui-gap-x-small">
           <h3 className="ui-h4">Band</h3>
           <p>Invite bandmates to jam on this setlist.</p>
         </div>

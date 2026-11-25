@@ -2,8 +2,8 @@ import { cx } from "../cx"
 import type { Props } from "./types.react"
 
 export default function DescriptionList({
-  border,
   className,
+  leader,
   orientation,
   children,
   ...rest
@@ -12,7 +12,7 @@ export default function DescriptionList({
     <dl
       className={cx([
         "ui-description-list",
-        border && `ui-border-${border}`,
+        leader && `ui-leader-${leader}`,
         orientation && orientation !== "auto" && `ui-${orientation}`,
         className,
       ])}

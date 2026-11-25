@@ -2,6 +2,7 @@ import { expect, test } from "@playwright/test"
 import type { Page } from "@playwright/test"
 import {
   ENGINE_BUGS,
+  FIREFOX_DOWNLOAD_NAVIGATE,
   FIREFOX_SELF_RTL,
   FIREFOX_STALE_FALLBACK_OPACITY,
   FIREFOX_STICKY_ANCHOR_SCROLL,
@@ -14,6 +15,7 @@ import {
   failsIn,
   type EngineBug,
 } from "./engine-bugs"
+import { instantScrolling } from "./fixtures"
 
 const reproduced = new Set<EngineBug>()
 
@@ -98,6 +100,40 @@ repro(WEBKIT_TOP_LAYER_ANCHOR, () => {
     await tab.locator("#trigger").scrollIntoViewIfNeeded()
     await tab.locator("#trigger").click()
     await expect.poll(async () => (await placement(tab)).below).toBe(0)
+  })
+})
+
+repro(FIREFOX_DOWNLOAD_NAVIGATE, () => {
+  test("a link with download fires one navigate event, which carries the download", async ({
+    browserName,
+    page: tab,
+  }) => {
+    failsIn(browserName, { firefox: FIREFOX_DOWNLOAD_NAVIGATE })
+    await tab.route("https://engines.test/**", (route) =>
+      route.fulfill({
+        body: `<!doctype html>
+          <a download="export.csv" href="data:text/csv,a%2Cb">Export</a>
+          <script>
+            window.navigations = []
+            navigation.addEventListener("navigate", (event) => {
+              navigations.push(event.downloadRequest)
+            })
+          </script>`,
+        contentType: "text/html",
+      }),
+    )
+    await instantScrolling(tab)
+    await tab.goto("https://engines.test/")
+    const downloaded = tab.waitForEvent("download")
+    await tab.getByRole("link", { name: "Export" }).click()
+    await (await downloaded).cancel()
+    await expect
+      .poll(() =>
+        tab.evaluate(
+          () => (window as unknown as { navigations: unknown[] }).navigations,
+        ),
+      )
+      .toEqual(["export.csv"])
   })
 })
 

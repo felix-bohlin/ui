@@ -3,7 +3,7 @@ import { Stat } from "opui-css/react"
 export default function Bordered() {
   return (
     <ul
-      className="ui-layout-grid ui-bordered ui-large"
+      className="ui-layout-grid ui-bordered ui-gap-large"
       role="list"
       style={{ "--_min-inline-size": "9rem" }}
     >

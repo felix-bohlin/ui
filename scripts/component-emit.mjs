@@ -208,6 +208,21 @@ const transformer =
             ? node.operand
             : undefined
         const coerced = negated(left) && negated(negated(left))
+        const filledOf = (node) =>
+          ts.isCallExpression(node) &&
+          ts.isIdentifier(node.expression) &&
+          node.expression.text === "filled" &&
+          node.arguments.length === 1
+            ? node.arguments[0]
+            : undefined
+        if (
+          filledOf(right) &&
+          [left, coerced].some(
+            (node) => node && text(node) === text(filledOf(right)),
+          )
+        ) {
+          return right
+        }
         return text(left) === text(right) ||
           (coerced && text(coerced) === text(right))
           ? left

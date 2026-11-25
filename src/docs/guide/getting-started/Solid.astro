@@ -95,6 +95,40 @@ import "./styles/main.css"`}
     </p>
   </section>
 
+  <section id="element">
+    <h2>Reaching the element</h2>
+    <p>
+      Every component hands <code>ref</code> to its root element, typed for it:
+      a <code>Dialog</code> ref is an <code>HTMLDialogElement</code>. Most of
+      the time you need none: a <code>Button</code> with
+      <code>command="show-modal"</code> and <code>commandfor</code> opens a
+      dialog by its <code>id</code>, and its click handler can set your state at
+      the same time. When a script opens it, such as after a check, reach the
+      element:
+    </p>
+    <Code
+      code={`import { Button, Dialog, DialogContent } from "opui-css/solid"
+
+export function Confirm() {
+  let dialog: HTMLDialogElement | undefined
+
+  return (
+    <>
+      <Button onClick={() => dialog?.showModal()}>Delete</Button>
+      <Dialog
+        aria-label="Delete the file?"
+        id="confirm"
+        ref={(element) => (dialog = element)}
+      >
+        <DialogContent>The file goes to the bin for 30 days.</DialogContent>
+      </Dialog>
+    </>
+  )
+}`}
+      lang="tsx"
+    />
+  </section>
+
   <section id="ssr">
     <h2>Server rendering</h2>
     <p>

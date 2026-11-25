@@ -5,7 +5,7 @@
       "--ui-rich-text-heading-margin-block-start",
       "--ui-rich-text-heading-margin-block-end",
       "--ui-underline-offset",
-      "--ui-underline-thickness-hover"
+      "--ui-underline-hover-thickness"
     ],
     "text": {
       "body/default": {
@@ -184,7 +184,7 @@
       "--ui-surface-tonal": "oklch(0.964 0 0)",
       "--ui-surface-tonal-hover": "oklch(0.89652 0 0)",
       "--ui-border-width": "1px",
-      "--ui-border-width-thick": "2px",
+      "--ui-border-width-large": "2px",
       "--ui-radius": "0px",
       "--ui-radius-round": "100000px",
       "--ui-chip-radius": "",
@@ -252,7 +252,7 @@
       "--ui-rich-text-heading-margin-block-end": "12.8px",
       "--ui-underline-offset": "2.5248px",
       "--ui-underline-offset-small": "1px",
-      "--ui-underline-thickness-hover": "3px",
+      "--ui-underline-hover-thickness": "3px",
       "--ui-link-font-weight": "400",
       "--ui-font-size-caption": "16px",
       "--ui-font-size-small": "16px",
@@ -372,7 +372,7 @@
       "--ui-rich-text-heading-margin-block-start",
       "--ui-rich-text-heading-margin-block-end",
       "--ui-underline-offset",
-      "--ui-underline-thickness-hover"
+      "--ui-underline-hover-thickness"
     ],
     "text": {
       "body/default": {
@@ -551,7 +551,7 @@
       "--ui-surface-tonal": "oklch(0.26 0 0)",
       "--ui-surface-tonal-hover": "oklch(0.286 0 0)",
       "--ui-border-width": "1px",
-      "--ui-border-width-thick": "2px",
+      "--ui-border-width-large": "2px",
       "--ui-radius": "0px",
       "--ui-radius-round": "100000px",
       "--ui-chip-radius": "",
@@ -619,7 +619,7 @@
       "--ui-rich-text-heading-margin-block-end": "12.8px",
       "--ui-underline-offset": "2.5248px",
       "--ui-underline-offset-small": "1px",
-      "--ui-underline-thickness-hover": "3px",
+      "--ui-underline-hover-thickness": "3px",
       "--ui-link-font-weight": "400",
       "--ui-font-size-caption": "16px",
       "--ui-font-size-small": "16px",
@@ -739,7 +739,7 @@
       "--ui-rich-text-heading-margin-block-start",
       "--ui-rich-text-heading-margin-block-end",
       "--ui-underline-offset",
-      "--ui-underline-thickness-hover"
+      "--ui-underline-hover-thickness"
     ],
     "text": {
       "body/default": {
@@ -918,7 +918,7 @@
       "--ui-surface-tonal": "oklch(0.964 0 0)",
       "--ui-surface-tonal-hover": "oklch(0.89652 0 0)",
       "--ui-border-width": "1px",
-      "--ui-border-width-thick": "2px",
+      "--ui-border-width-large": "2px",
       "--ui-radius": "0px",
       "--ui-radius-round": "100000px",
       "--ui-chip-radius": "",
@@ -986,7 +986,7 @@
       "--ui-rich-text-heading-margin-block-end": "12.8px",
       "--ui-underline-offset": "2.5248px",
       "--ui-underline-offset-small": "1px",
-      "--ui-underline-thickness-hover": "3px",
+      "--ui-underline-hover-thickness": "3px",
       "--ui-link-font-weight": "400",
       "--ui-font-size-caption": "16px",
       "--ui-font-size-small": "16px",
@@ -1106,7 +1106,7 @@
       "--ui-rich-text-heading-margin-block-start",
       "--ui-rich-text-heading-margin-block-end",
       "--ui-underline-offset",
-      "--ui-underline-thickness-hover"
+      "--ui-underline-hover-thickness"
     ],
     "text": {
       "body/default": {
@@ -1285,7 +1285,7 @@
       "--ui-surface-tonal": "oklch(0.26 0 0)",
       "--ui-surface-tonal-hover": "oklch(0.286 0 0)",
       "--ui-border-width": "1px",
-      "--ui-border-width-thick": "2px",
+      "--ui-border-width-large": "2px",
       "--ui-radius": "0px",
       "--ui-radius-round": "100000px",
       "--ui-chip-radius": "",
@@ -1353,7 +1353,7 @@
       "--ui-rich-text-heading-margin-block-end": "12.8px",
       "--ui-underline-offset": "2.5248px",
       "--ui-underline-offset-small": "1px",
-      "--ui-underline-thickness-hover": "3px",
+      "--ui-underline-hover-thickness": "3px",
       "--ui-link-font-weight": "400",
       "--ui-font-size-caption": "16px",
       "--ui-font-size-small": "16px",

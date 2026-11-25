@@ -28,7 +28,7 @@ export const themeTokenDescriptions: Record<string, string> = {
     "How much of `--ui-text-strong` is mixed into `--ui-surface` for `--ui-border-color` in light mode. `17%`, and `55%` with more contrast.",
   "--ui-border-width":
     "Default border width for components that draw a border.",
-  "--ui-border-width-thick":
+  "--ui-border-width-large":
     "Width of emphasized rules: the head and foot rules of rich text tables, the `AvatarGroup` ring, the `Badge` border, the neutral `Chip` dot, the dotted `DescriptionList` rule, the `Tabs` indicator, the bar on a selected `List` row, the `Spinner` ring, and at one and a half times, the blockquote bar.",
   "--ui-button-accent":
     "Color of `Button` and `ControlGroup` without `.ui-primary` or `.ui-critical`: the fill of filled buttons, the text and border of outlined and text buttons. When unset, `--ui-control-accent`, else the darkest palette color in light mode and the lightest in dark mode.",
@@ -82,7 +82,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-choice-checked":
     "How a checked `Checkbox` and `Radio` look. `mark` keeps the surface and the border of the unchecked input and draws the check, dash or dot in the choice accent, lifted to text lightness in dark mode, like GOV.UK. When unset (`fill`), the input fills with the accent under a mark in its on-accent color. Forced colors always fill. `Switch` and checkbox and radio cards don't read it.",
   "--ui-choice-fill-max-lightness":
-    "The highest OKLCH lightness of a checked `Checkbox`, `Radio` and `Switch` fill in dark mode, so the light mark keeps 3:1. `0.62`.",
+    "The highest OKLCH lightness of a checked `Checkbox`, `Radio` and `Switch` fill in dark mode, so the light mark keeps 3:1. `0.62`. It turns a light brand color, such as a pastel, dull: set `--ui-choice-accent` to `--ui-primary` and `--ui-choice-on-accent` to `--ui-on-primary` to keep the brand color with a dark mark, as `themes/vice-city.css` does.",
   "--ui-choice-label-offset":
     "Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font.",
   "--ui-choice-on-accent":
@@ -291,7 +291,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-icon-size-small":
     "Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the chevron of a select and of an input with a datalist.",
   "--ui-icon-size-x-small":
-    "Smallest icon size, for icons in x-small controls. Not read by a component yet.",
+    "Smallest step of the icon size scale, for your own icons in x-small controls. No component reads it.",
   "--ui-icon-sort":
     "The arrow of a sorted `SortableTable` column, turned for the other direction. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-success":
@@ -408,7 +408,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-radius":
     "Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.",
   "--ui-radius-large":
-    "Corner radius for large surfaces, such as cards and dialogs that want more rounding than controls. `--ui-radius` times 1.5, so `0` still squares it. Not read by a component yet.",
+    "Largest step of the radius scale, for your own large surfaces that want more rounding than controls. `--ui-radius` times 1.5, so `0` still squares it. No component reads it.",
   "--ui-radius-round":
     "The pill radius for round buttons, avatars, badges, the chip dot, radios, switches, the range track and the carousel buttons and markers.",
   "--ui-radius-small":
@@ -483,8 +483,12 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-surface": "Page and card background.",
   "--ui-surface-elevated":
     "Background of elevated cards and accordions, dialogs, drawers, menus and native select options.",
+  "--ui-surface-elevated-image":
+    "An image, such as a gradient, painted over `--ui-surface-elevated` on elevated cards and accordions, dialogs, drawers, menus and the select picker. `none` when unset. Contrast checks measure text against `--ui-surface-elevated`, so keep the image close to it.",
   "--ui-surface-filled":
     "Background of filled areas: lists, `.ui-filled` progress and range tracks, table headers and footers, and hovered table rows.",
+  "--ui-surface-image":
+    "An image, such as a gradient, painted over `--ui-surface` on the page (`html`). `none` when unset. It spans the whole page and scrolls with it, so give gradient stops a length to keep a glow at the top. Contrast checks measure text against `--ui-surface`, so keep the image close to it.",
   "--ui-surface-inverse":
     "Background of `Tooltip`, the `Carousel` buttons and `kbd`, `var`, `.ui-kbd` and `.ui-var`, inverted against the page.",
   "--ui-surface-tonal": "Background of tonal variants.",
@@ -542,12 +546,12 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Secondary text: placeholders, field helper text, overlines, descriptions in `List` and `Menu` items, unselected `Tabs` labels and `Table` captions. `--ui-text` unless a theme sets it.",
   "--ui-track-bg-color":
     "The empty part of a track: the unchecked `Switch`, `Progress` and the track of a range. When unset, `Progress` uses `--ui-surface-tonal`, the range its field border and the switch `--ui-surface-tonal` (at `0.58` lightness in dark mode). `--ui-switch-track-bg-color` comes first on the switch.",
+  "--ui-underline-hover-thickness":
+    "Underline thickness of `Link` and rich text links on hover and keyboard focus. At rest they keep the font's own thickness.",
   "--ui-underline-offset":
     "Gap between text and its underline for `Link`, rich text links and `Stepper` links.",
   "--ui-underline-offset-small":
     "Gap between text and the underline of `abbr`, `dfn`, `ins` and `u` and their classes.",
-  "--ui-underline-thickness-hover":
-    "Underline thickness of `Link` and rich text links on hover and keyboard focus. At rest they keep the font's own thickness.",
   "--ui-warning":
     "Severity color for warnings. Unlike the other severities it keeps its lightness with more contrast: the fill is light and takes dark `--ui-on-warning` text, and `--ui-warning-text` gets the stricter lightness limits instead.",
   "--ui-warning-text":

@@ -3,11 +3,7 @@ import { registerHooks } from "node:module"
 import path from "node:path"
 import { fileURLToPath, pathToFileURL } from "node:url"
 
-import {
-  componentHasFramework,
-  exampleExtension,
-  FRAMEWORKS,
-} from "../src/utils/framework.js"
+import { exampleExtension, FRAMEWORKS } from "../src/utils/framework.js"
 import { barrelExports } from "../src/utils/package-source.js"
 import { loadCatalog } from "./catalog.mjs"
 
@@ -614,11 +610,25 @@ const stripSections = (markdown) =>
     .join("")
     .trimEnd()
 
+const exampleImports = (slug) => {
+  const dir = path.join(EXAMPLES, slug)
+  const files = fs.existsSync(dir)
+    ? fs.readdirSync(dir).filter((file) => file.endsWith(".astro"))
+    : []
+  return new Set(
+    files.flatMap((file) =>
+      [
+        ...fs
+          .readFileSync(path.join(dir, file), "utf-8")
+          .matchAll(/import\s*\{([^}]*)\}\s*from\s*"opui-css\/astro"/g),
+      ].flatMap(([, names]) => names.split(",").map((name) => name.trim())),
+    ),
+  )
+}
+
 async function componentReference(component, apis, docs) {
   const { slug } = component
-  const pageFrameworks = FRAMEWORKS.filter((f) =>
-    componentHasFramework(f.id, slug),
-  )
+  const pageFrameworks = FRAMEWORKS
   const frameworkIds = pageFrameworks.map((f) => f.id)
   const own = apis.filter((entry) => entry.page === slug)
   const order = (entry) => {
@@ -672,7 +682,12 @@ async function componentReference(component, apis, docs) {
             ordered,
             slug,
             docs.examples,
-            apis.filter((entry) => docs.base && entry.page === docs.base),
+            apis.filter(
+              (entry) =>
+                docs.base &&
+                entry.page === docs.base &&
+                exampleImports(slug).has(entry.api.component),
+            ),
           ),
     ),
   ]

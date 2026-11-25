@@ -6,7 +6,7 @@ defineSlots<Slots>()
 </script>
 
 <template>
-  <div :class="['ui-avatar-group', $props.class]" :role="role ?? 'group'">
+  <div class="ui-avatar-group" :role="role ?? 'group'">
     <slot></slot>
   </div>
 </template>

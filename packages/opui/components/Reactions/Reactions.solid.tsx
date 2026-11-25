@@ -54,7 +54,7 @@ export default function Reactions(props: Props) {
               aria-label={item()["aria-label"]}
               checked={!!item().checked}
               class={cx([
-                { "ui-unused": props.quick && !used() && index === 0 },
+                { "ui-suggested": props.quick && !used() && index === 0 },
               ])}
               value={item().value}
             >

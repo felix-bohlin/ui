@@ -16,7 +16,6 @@ provide(FieldGroupKey, reactive({ name: computed(() => name || parent?.name) }))
     :class="[
       'ui-field-group',
       orientation && orientation !== 'auto' && `ui-${orientation}`,
-      $props.class,
     ]"
   >
     <slot></slot>

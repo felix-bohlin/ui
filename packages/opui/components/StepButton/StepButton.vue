@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import "../../elements/step-button.js"
 import { computed } from "vue"
-import { classAttrs } from "../cx"
 import type { Props, Slots } from "./types.vue-props"
 
 const { command, for: htmlFor, label } = defineProps<Props>()
@@ -13,7 +12,7 @@ const name = computed(
 </script>
 
 <template>
-  <component is="opui-step-button" v-bind="classAttrs($props.class)">
+  <component is="opui-step-button">
     <button
       class="ui-button ui-round"
       type="button"

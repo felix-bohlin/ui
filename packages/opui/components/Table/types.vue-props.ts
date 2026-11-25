@@ -1,4 +1,4 @@
-import type { Class, DefaultSlots } from "../vue"
+import type { DefaultSlots } from "../vue"
 import type {
   Props as BaseProps,
   TableCellProps as BaseTableCellProps,
@@ -6,24 +6,24 @@ import type {
   TableHeaderCellProps as BaseTableHeaderCellProps,
 } from "./types"
 
-export type Props = BaseProps & Class
+export type Props = BaseProps
 
-export type TableBodyProps = Class
+export type TableBodyProps = {}
 
-export type TableCaptionProps = Class
+export type TableCaptionProps = {}
 
-export type TableCellProps = BaseTableCellProps & Class
+export type TableCellProps = BaseTableCellProps
 
-export type TableColumnGroupProps = Class
+export type TableColumnGroupProps = {}
 
-export type TableColumnProps = BaseTableColumnProps & Class
+export type TableColumnProps = BaseTableColumnProps
 
-export type TableFootProps = Class
+export type TableFootProps = {}
 
-export type TableHeaderCellProps = BaseTableHeaderCellProps & Class
+export type TableHeaderCellProps = BaseTableHeaderCellProps
 
-export type TableHeadProps = Class
+export type TableHeadProps = {}
 
-export type TableRowProps = Class
+export type TableRowProps = {}
 
 export type Slots = DefaultSlots

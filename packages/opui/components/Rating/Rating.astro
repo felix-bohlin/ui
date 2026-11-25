@@ -1,5 +1,6 @@
 ---
 import type { Props } from "./types.astro"
+import type { HTMLAttributes } from "astro/types"
 import { mergeStyle, pluralLabel } from "../style"
 
 export const title = "Rating"
@@ -41,7 +42,7 @@ const invalid = error ? "true" : ariaInvalid
     disabled={disabled}
     lang={lang}
     style={style}
-    {...rest}
+    {...(rest as HTMLAttributes<"fieldset">)}
   >
     <legend>{label}</legend>
     {!required && (
@@ -81,6 +82,6 @@ const invalid = error ? "true" : ariaInvalid
     max={Number.isFinite(count) ? count : undefined}
     style={mergeStyle({ "--_max": count === 5 ? undefined : count }, style)}
     value={Number.isFinite(current) ? current : 0}
-    {...rest}
+    {...(rest as HTMLAttributes<"meter">)}
   />
 )}

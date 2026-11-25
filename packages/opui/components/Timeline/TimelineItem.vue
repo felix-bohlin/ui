@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes, useAttrs } from "vue"
+import { computed } from "vue"
+import { useRestAttrs } from "../vue"
 import { classAttrs } from "../cx"
 import type {
   TimelineItemProps as Props,
@@ -20,10 +21,10 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs() as HTMLAttributes
+const attrs = useRestAttrs()
 
 const restAttrs = computed(() => {
-  const { "aria-current": _ariaCurrent, ...rest } = attrs
+  const { "aria-current": _ariaCurrent, ...rest } = attrs.value
   return rest
 })
 
@@ -40,7 +41,7 @@ const Heading = computed(
     "
     v-bind="{
       ...restAttrs,
-      ...classAttrs([color && `ui-${color}`, $props.class]),
+      ...classAttrs([color && `ui-${color}`, $attrs.class]),
     }"
   >
     <span v-if="$slots.marker" class="ui-marker"

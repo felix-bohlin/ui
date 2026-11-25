@@ -10,7 +10,7 @@ export default function Compact() {
           {
             label: "lou-headstock.png",
             preview: "/photos/lou-headstock.png",
-            state: "done",
+            state: "complete",
             value: "lou",
           },
           {

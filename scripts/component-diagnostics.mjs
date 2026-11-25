@@ -164,6 +164,11 @@ export const DIAGNOSTICS = {
     explain:
       "Vue merges the attributes that fall through after the root's own, so the caller's value wins over a root attribute computed from the rest props. Destructure the prop in the Astro file and compute the attribute from it.",
   },
+  BC504: {
+    title: "A caller class Vue can't place",
+    explain:
+      "In Vue the caller's `class` is an attribute, not a prop. On a root that inherits the attributes, Vue adds it after the root's own classes, so the root's class list ends in `className` as a plain entry, the one the port drops. A component that passes its attributes to an inner element reads the class from `$attrs.class` in the template, so its script can't read it. Make `className` the last entry of the root's class list, or read it in the template.",
+  },
   BC601: {
     title: "A types.astro.ts without the Base import",
     explain:
@@ -198,6 +203,11 @@ export const DIAGNOSTICS = {
     title: "A link component type the compiler can't place",
     explain:
       "A props type whose `as` takes a framework's link component declares a type parameter `Link = never`, since Astro and Svelte take element names only, while React, Solid and Vue pass their link component type. Such an `as` can't sit next to a model. Write `Link = never`, and keep the link component off a component with a model.",
+  },
+  BC608: {
+    title: "A props type that joins two elements' attributes",
+    explain:
+      'A component that renders one of two elements types each with its own attributes. Joined with `&`, the attributes of two elements give a `ref` and event handlers typed for both at once, which no ref or handler satisfies in React and Solid. Write a union with one member per element, told apart by a prop, as Button does with `href`: `(Base.Props & { href?: never } & HTMLAttributes<"button">) | (Base.Props & { href: string } & HTMLAttributes<"a">)`.',
   },
   BC701: {
     title: "An expression the Nunjucks prototype can't write",

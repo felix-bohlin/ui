@@ -5,7 +5,7 @@ export default function Round() {
     <>
       <Progress aria-label="Uploading photos" max="8" round value="3" />
       <Progress aria-label="Syncing" round />
-      <div className="ui-layout-media ui-small">
+      <div className="ui-layout-media ui-gap-small">
         <Progress
           aria-labelledby="progress-round-1"
           max="100"

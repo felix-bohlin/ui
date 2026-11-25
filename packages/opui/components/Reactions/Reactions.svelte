@@ -49,7 +49,7 @@
       <ToggleButton
         aria-label={item["aria-label"]}
         checked={!!item.checked}
-        {...classAttrs([{ "ui-unused": quick && !used && index === 0 }])}
+        {...classAttrs([{ "ui-suggested": quick && !used && index === 0 }])}
         value={item.value}
       >
         <span aria-hidden="true">{item.label}</span>

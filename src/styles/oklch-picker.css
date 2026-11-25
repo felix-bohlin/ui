@@ -185,7 +185,7 @@
       appearance: none;
       background-color: var(--oklch-current);
       block-size: var(--oklch-thumb);
-      border: var(--ui-border-width-thick) solid var(--ui-surface);
+      border: var(--ui-border-width-large) solid var(--ui-surface);
       border-radius: 50%;
       box-shadow: 0 0 0 var(--ui-border-width) var(--ui-text-strong);
       inline-size: var(--oklch-thumb);
@@ -194,7 +194,7 @@
     &::-moz-range-thumb {
       background-color: var(--oklch-current);
       block-size: var(--oklch-thumb);
-      border: var(--ui-border-width-thick) solid var(--ui-surface);
+      border: var(--ui-border-width-large) solid var(--ui-surface);
       border-radius: 50%;
       box-shadow: 0 0 0 var(--ui-border-width) var(--ui-text-strong);
       box-sizing: border-box;

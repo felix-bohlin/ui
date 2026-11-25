@@ -962,7 +962,7 @@ export const GROUPS: ControlGroup[] = [
             label: "Default",
             tokens: revert(
               "--ui-underline-offset",
-              "--ui-underline-thickness-hover",
+              "--ui-underline-hover-thickness",
             ),
             value: "default",
           },
@@ -970,7 +970,7 @@ export const GROUPS: ControlGroup[] = [
             label: "Loose",
             tokens: {
               "--ui-underline-offset": "4px",
-              "--ui-underline-thickness-hover": "1px",
+              "--ui-underline-hover-thickness": "1px",
             },
             value: "loose",
           },
@@ -978,7 +978,7 @@ export const GROUPS: ControlGroup[] = [
             label: "Browser",
             tokens: {
               "--ui-underline-offset": "auto",
-              "--ui-underline-thickness-hover": "auto",
+              "--ui-underline-hover-thickness": "auto",
             },
             value: "browser",
           },

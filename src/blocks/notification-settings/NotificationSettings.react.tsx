@@ -18,7 +18,7 @@ export default function NotificationSettings() {
   return (
     <>
       <form
-        className="notification-settings ui-layout-container ui-layout-column ui-large"
+        className="notification-settings ui-layout-container ui-layout-column ui-gap-large"
         style={{ "--_max-inline-size": "56rem" }}
         action="#"
       >
@@ -416,7 +416,7 @@ export default function NotificationSettings() {
             </Table>
           </CardContent>
         </Card>
-        <div className="ui-layout-columns ui-large ui-breakpoint-small">
+        <div className="ui-layout-columns ui-gap-large ui-breakpoint-small">
           <Card
             aria-labelledby="notification-settings-quiet-heading"
             as="section"
@@ -476,9 +476,9 @@ export default function NotificationSettings() {
             </CardContent>
           </Card>
         </div>
-        <div className="ui-layout-row ui-small ui-spread">
+        <div className="ui-layout-row ui-gap-small ui-spread">
           <p>Changes apply to all your computers and phones.</p>
-          <div className="ui-layout-row ui-small">
+          <div className="ui-layout-row ui-gap-small">
             <Button type="reset">Reset to defaults</Button>
             <Button type="submit" variant="filled">
               Save changes

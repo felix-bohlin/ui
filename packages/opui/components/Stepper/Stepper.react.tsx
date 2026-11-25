@@ -30,12 +30,13 @@ export default function Stepper({
           completeLabel={completeLabel}
           errorLabel={errorLabel}
           {...item}
-          complete={
-            item.complete ||
-            complete ||
-            (current !== undefined && index < current)
-          }
           current={item.current || index === current}
+          state={
+            item.state ??
+            (complete || (current !== undefined && index < current)
+              ? "complete"
+              : undefined)
+          }
         />
       ))}{" "}
       {children}

@@ -13,7 +13,7 @@ const REGIONS = [
         .closest("section[id]")
         ?.querySelector("[data-heading]")
         ?.getAttribute("data-heading") || "Table",
-    selector: ":is(.docs-table, .token-tiers) > .scroll",
+    selector: ".docs-table > .scroll",
   },
   {
     selector: "#main-content table:not([class], .example-preview *)",

@@ -28,7 +28,7 @@ export default {
   },
   "--_line-border-width": {
     description:
-      "Width of the line and the marker border. Defaults to `--ui-border-width-thick`.",
+      "Width of the line and the marker border. Defaults to `--ui-border-width-large`.",
     kind: "input",
   },
   "--_marker-accent": {

@@ -19,7 +19,7 @@
       border-inline-color: currentColor;
       border-radius: 50%;
       border-style: solid;
-      border-width: max(var(--ui-border-width-thick), 0.1875em);
+      border-width: max(var(--ui-border-width-large), 0.1875em);
       content: "";
       display: inline-block;
       inline-size: 1em;

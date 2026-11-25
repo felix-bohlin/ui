@@ -45,7 +45,7 @@
           </svg>
         </Button>
       </div>
-      <div class="ui-layout-column ui-x-small">
+      <div class="ui-layout-column ui-gap-x-small">
         <span class="ui-layout-row ui-spread" id="onboarding-checklist-progress"
           ><span>3 of 6 steps done</span><span>50%</span></span
         >
@@ -72,7 +72,7 @@
           </AccordionSummary>
           <AccordionContent>
             <p>Your profile bassbook.example/rory is live!</p>
-            <div class="ui-layout-row ui-small">
+            <div class="ui-layout-row ui-gap-small">
               <Button href="#onboarding-checklist-profile" size="small"
                 >Edit profile</Button
               >
@@ -96,7 +96,7 @@
           </AccordionSummary>
           <AccordionContent>
             <p>Big Bertha looks totally rad. Five stars, no notes. Add more!</p>
-            <div class="ui-layout-row ui-small">
+            <div class="ui-layout-row ui-gap-small">
               <Button href="#onboarding-checklist-photos" size="small"
                 >Add photos</Button
               >
@@ -116,7 +116,7 @@
           </AccordionSummary>
           <AccordionContent>
             <p>Lou, Percy and Stella are now on your friends list. Rad!</p>
-            <div class="ui-layout-row ui-small">
+            <div class="ui-layout-row ui-gap-small">
               <Button href="#onboarding-checklist-friends" size="small"
                 >Find more friends</Button
               >
@@ -138,7 +138,7 @@
               Your best friend shows up first on your profile, with a sparkly
               badge. Choose wisely (we won't tell your drummer).
             </p>
-            <div class="ui-layout-row ui-small">
+            <div class="ui-layout-row ui-gap-small">
               <Button
                 href="#onboarding-checklist-best-friend"
                 size="small"
@@ -167,7 +167,7 @@
               Say hi to a fellow bassist! A "nice slap tone" goes a long, long
               way.
             </p>
-            <div class="ui-layout-row ui-small">
+            <div class="ui-layout-row ui-gap-small">
               <Button
                 href="#onboarding-checklist-wall"
                 size="small"
@@ -190,7 +190,7 @@
             <p>
               Chat with your bass buddies from the desktop, with buzzy nudges.
             </p>
-            <div class="ui-layout-row ui-small">
+            <div class="ui-layout-row ui-gap-small">
               <Button
                 href="#onboarding-checklist-download"
                 size="small"

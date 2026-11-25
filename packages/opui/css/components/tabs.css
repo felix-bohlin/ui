@@ -6,7 +6,7 @@
     --_focus-ring-duration: calc(var(--ui-duration) * var(--_motion));
     --_indicator-bg-color: transparent;
     --_indicator-duration: calc(var(--ui-duration) * var(--_motion));
-    --_indicator-size: var(--ui-border-width-thick);
+    --_indicator-size: var(--ui-border-width-large);
     --_inset: calc(var(--ui-space-1) - var(--_track-border-width));
     --_panel-gap: var(--ui-space-2);
     --_radius: var(--ui-radius);

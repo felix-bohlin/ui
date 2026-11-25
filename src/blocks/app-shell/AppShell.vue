@@ -20,7 +20,7 @@ import {
 
 <template>
   <div class="app-shell">
-    <header class="shell-header ui-layout-row ui-small">
+    <header class="shell-header ui-layout-row ui-gap-small">
       <Button
         aria-label="Open navigation"
         class="shell-menu-button"
@@ -44,7 +44,7 @@ import {
           ></path>
         </svg>
       </Button>
-      <a class="shell-brand ui-layout-row ui-small" href="#app-shell-home">
+      <a class="shell-brand ui-layout-row ui-gap-small" href="#app-shell-home">
         <svg
           data-icon="box"
           aria-hidden="true"
@@ -248,7 +248,7 @@ import {
           </ListItem>
         </List>
       </nav>
-      <main class="ui-layout-column ui-large">
+      <main class="ui-layout-column ui-gap-large">
         <div class="ui-layout-row ui-spread">
           <hgroup class="ui-hgroup">
             <p>Wednesday, 8 October</p>
@@ -306,7 +306,7 @@ import {
           </li>
         </ul>
         <div
-          class="ui-layout-columns ui-large ui-breakpoint-large"
+          class="ui-layout-columns ui-gap-large ui-breakpoint-large"
           style="--_columns: 3fr 2fr"
         >
           <Card

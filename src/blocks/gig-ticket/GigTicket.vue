@@ -290,7 +290,7 @@ import {
 
   .gt-stub {
     align-content: space-between;
-    border-inline-start: var(--ui-border-width-thick) dashed
+    border-inline-start: var(--ui-border-width-large) dashed
       var(--ui-border-color);
     display: grid;
     gap: var(--ui-space-4);
@@ -349,7 +349,7 @@ import {
     }
 
     .gt-stub {
-      border-block-start: var(--ui-border-width-thick) dashed
+      border-block-start: var(--ui-border-width-large) dashed
         var(--ui-border-color);
       border-inline-start: 0;
 

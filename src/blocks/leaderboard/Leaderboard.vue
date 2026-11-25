@@ -215,7 +215,7 @@ import {
       align-content: start;
       background-color: oklch(from var(--_place) l c h / 25%);
       block-size: var(--_height);
-      border-block-start: var(--ui-border-width-thick) solid var(--_place);
+      border-block-start: var(--ui-border-width-large) solid var(--_place);
       border-start-end-radius: var(--ui-radius);
       border-start-start-radius: var(--ui-radius);
       display: grid;

@@ -13,6 +13,7 @@ import ComponentCard from "../components/ComponentShowcase/ComponentCard.astro"
 import ComponentShowcase from "../components/ComponentShowcase/ComponentShowcase.astro"
 import Html5Logo from "../components/Html5Logo.astro"
 import ReactLogo from "../components/ReactLogo.astro"
+import Scenery from "../components/Scenery.astro"
 import SolidLogo from "../components/SolidLogo.astro"
 import SvelteLogo from "../components/SvelteLogo.astro"
 import ThemeQuickControls from "../components/ThemeQuickControls.astro"
@@ -82,6 +83,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 <Default description={description}>
   <main id="main-content" class="blueprint">
     <section class="hero ui-palette" aria-labelledby="main-heading">
+      <Scenery />
       <div class="hero-inner">
         <div class="hero-copy">
           <hgroup class="ui-hgroup">
@@ -426,6 +428,10 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
       z-index: -1;
     }
 
+    &[data-example-theme="gta-vi"]::before {
+      display: none;
+    }
+
     &::after {
       background: radial-gradient(
         120% 80% at 50% 0%,
@@ -504,6 +510,17 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
     @media (width >= 900px) {
       padding-block: var(--size-10);
+    }
+
+    :global(html[data-example-theme="gta-vi"]) & {
+      isolation: isolate;
+      overflow: clip;
+      padding-block-end: calc(var(--size-8) + clamp(10rem, 26vw, 17rem));
+      position: relative;
+
+      @media (width >= 900px) {
+        padding-block-end: calc(var(--size-10) + clamp(10rem, 26vw, 17rem));
+      }
     }
   }
 

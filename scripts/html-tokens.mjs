@@ -208,10 +208,13 @@ const parseTree = (source) => {
           source.slice(location.startOffset, location.endOffset),
         )
         if (repeated) {
-          throw fail(
-            source,
-            location.startOffset,
-            `the attribute ${repeated} twice with different values on <${token.tagName}>`,
+          throw Object.assign(
+            fail(
+              source,
+              location.startOffset,
+              `the attribute ${repeated} twice with different values on <${token.tagName}>`,
+            ),
+            { attribute: repeated },
           )
         }
         const parent = top()

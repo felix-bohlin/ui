@@ -10,6 +10,7 @@ import { readFileSync } from "node:fs"
 import { createRenderer } from "../../scripts/build-examples.mjs"
 import { readComponent } from "../../scripts/component-reader.mjs"
 import { reactAttributeName } from "../../scripts/example-react-props.mjs"
+import { parseHtml } from "../../scripts/html-tokens.mjs"
 import { tagAttrs } from "../../packages/opui/components/tag"
 import { slotProp } from "../../src/component-api/frameworks"
 import { typedAttributes } from "../../src/utils/component-source"
@@ -452,14 +453,13 @@ const emptyAttribute = (markup: string) =>
   /\s(?:class|style)=""/.exec(markup)?.[0].trim()
 
 const repeatedAttribute = (markup: string) => {
-  for (const [, attributes] of markup.matchAll(
-    /<[a-z][\w-]*((?:\s+[^\s"'=<>/]+(?:="[^"]*")?)*)\s*\/?>/g,
-  )) {
-    const names = [
-      ...attributes.matchAll(/\s([^\s"'=<>/]+)(?:="[^"]*")?/g),
-    ].map(([, name]) => name)
-    const repeated = names.find((name, index) => names.indexOf(name) !== index)
-    if (repeated) return repeated
+  try {
+    parseHtml(markup)
+  } catch (error) {
+    if (error instanceof Error && "attribute" in error) {
+      return String(error.attribute)
+    }
+    throw error
   }
   return undefined
 }
@@ -595,13 +595,20 @@ describe("every component renders the same in Astro, React, Solid, Svelte and Vu
         .beforeSpread,
     ]).toEqual(["aria-label"])
     expect(
-      repeatedAttribute('<ol class="ui-list" role="list" role="log">'),
+      repeatedAttribute('<ol class="ui-list" role="list" role="log"></ol>'),
     ).toBe("role")
     expect(
-      repeatedAttribute('<ol class="ui-list" role="log" data-role="list">'),
+      repeatedAttribute("<ol class=ui-list role=list role='log'></ol>"),
+    ).toBe("role")
+    expect(
+      repeatedAttribute(
+        '<ol class="ui-list" role="log" data-role="list"></ol>',
+      ),
     ).toBeUndefined()
     expect(
-      repeatedAttribute('<button class="ui-button class" type="button">'),
+      repeatedAttribute(
+        '<button class="ui-button class" title="role=x" type="button"></button>',
+      ),
     ).toBeUndefined()
   })
 

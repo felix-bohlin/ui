@@ -1,0 +1,22 @@
+{% from "opui/index.njk" import CharacterCount, Field %}
+
+{% set endText %}
+Up to 60 characters.
+{{ CharacterCount({ label: "{count} characters left" }) }}
+{% endset %}
+{% call Field({
+  for: "field-character-count-1",
+  label: "Headline",
+  slots: { endText: endText }
+}) %}
+  <input
+    aria-describedby="field-character-count-1-end-text"
+    id="field-character-count-1"
+    maxlength="60"
+    name="headline"
+  />
+{% endcall %}
+
+<script type="module">
+  import "opui-css/elements/character-count.js"
+</script>

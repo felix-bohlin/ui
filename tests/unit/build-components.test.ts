@@ -2727,8 +2727,8 @@ describe("the compiled components", () => {
   test("the source formatted at printWidth 40 and 200 compiles to the same files", async () => {
     const sources = [
       ...new Set(
-        [...all.outputs.keys()].map((file) =>
-          astroSourceOf(file, () => true, {})!,
+        [...all.outputs.keys()].flatMap(
+          (file) => astroSourceOf(file, () => true, {}) ?? [],
         ),
       ),
     ]

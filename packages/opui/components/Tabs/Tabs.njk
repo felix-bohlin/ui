@@ -1,0 +1,15 @@
+{% macro Tabs(props = {}) %}
+  {%- set rest = props | opuiRest("Tabs") -%}
+  {%- set groupName = props.name or opui.id("tabs") -%}
+  {{- opui.warnUnnamedGroup("Tabs", rest) if props.role == "radiogroup" -}}
+  <div
+    class="ui-tabs
+      {%- if props.orientation == 'vertical' %} ui-vertical{% endif %}
+      {%- if props.overflow and props.overflow != 'scroll' %} ui-overflow-{{ props.overflow }}{% endif %}
+      {%- if props.variant and props.variant != 'tonal' %} ui-{{ props.variant }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {%- if props.role != none %} role="{{ props.role }}"{% endif %}
+    {{- rest | opuiAttributes }}>
+    {{- opui.provide("Tabs", { groupName: groupName, value: props.value }, caller) -}}
+  </div>
+{%- endmacro %}

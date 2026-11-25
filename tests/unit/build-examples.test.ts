@@ -30,7 +30,7 @@ import { HYDRATED_FRAMEWORK_IDS } from "../../src/utils/framework"
 const EXAMPLES = "../../src/component-examples/"
 
 const sources = import.meta.glob<string>(
-  "../../src/component-examples/**/*.{astro,html,react.tsx,solid.tsx,svelte,vue}",
+  "../../src/component-examples/**/*.{astro,html,njk,react.tsx,solid.tsx,svelte,vue}",
   { eager: true, import: "default", query: "?raw" },
 )
 const blocks = import.meta.glob("../../src/blocks/*/*.astro")

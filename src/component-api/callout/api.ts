@@ -43,6 +43,7 @@ export default {
   notes: {
     astro: `${icon} ${closeButton.astro} Listen for \`dismiss\` in a client script.`,
     html: 'For a close button that hides the callout, use `<opui-callout class="ui-callout">` with an id, end it with a `.ui-button` with `commandfor` naming it and `command="--dismiss"`, and import `opui-css/elements/callout.js`. Until it loads, the button is hidden.',
+    nunjucks: `${icon} ${closeButton.nunjucks} Listen for \`dismiss\` in a client script.`,
     react: `${icon} ${closeButton.react}`,
     solid: `${icon} ${closeButton.solid}`,
     svelte: `${icon} ${closeButton.svelte}`,

@@ -1,0 +1,16 @@
+{% from "opui/index.njk" import Button, Toaster %}
+
+{% call Button({
+  command: "--toast",
+  commandfor: "toast-limit-1",
+  "data-toast": "Added to your cart",
+  "data-toast-severity": "success",
+  variant: "outlined"
+}) %}
+  Add to cart
+{% endcall %}
+{{ Toaster({ id: "toast-limit-1", limit: 1 }) }}
+
+<script type="module">
+  import "opui-css/elements/toaster.js"
+</script>

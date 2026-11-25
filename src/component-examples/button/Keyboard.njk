@@ -1,0 +1,9 @@
+{% from "opui/index.njk" import Button %}
+
+{% call Button({ "aria-keyshortcuts": "Control+S" }) %} Save <kbd>Ctrl+S</kbd> {% endcall %}
+{% call Button({ "aria-keyshortcuts": "Control+K", variant: "outlined" }) %}
+  Search <kbd>Ctrl+K</kbd>
+{% endcall %}
+{% call Button({ "aria-keyshortcuts": "Control+Alt+M", variant: "tonal" }) %}
+  Comment <kbd>Ctrl+Alt+M</kbd>
+{% endcall %}

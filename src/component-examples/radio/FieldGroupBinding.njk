@@ -1,0 +1,38 @@
+{% from "opui/index.njk" import
+  Button,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Radio
+%}
+
+{% call Fieldset() %}
+  {% call FieldLegend() %}Plan{% endcall %}
+  {% call FieldGroup({ name: "radio-binding" }) %}
+    {% call Radio({ checked: true, value: "basic" }) %}Basic{% endcall %}
+    {% call Radio({ value: "gold" }) %}Gold{% endcall %}
+    {% call Radio({ value: "platinum" }) %}Platinum{% endcall %}
+  {% endcall %}
+{% endcall %}
+<p class="radio-binding-text">Selected: basic</p>
+{% call Button({ class: "radio-binding-reset" }) %}Reset{% endcall %}
+
+<script type="module">
+  const text = document.querySelector(".radio-binding-text")
+  const inputs = [...document.querySelectorAll('[name="radio-binding"]')]
+
+  function update() {
+    if (!text) return
+    text.textContent = `Selected: ${
+      inputs.find((input) => input.checked)?.value ?? "none"
+    }`
+  }
+
+  inputs.forEach((input) => input.addEventListener("change", update))
+  document
+    .querySelector(".radio-binding-reset")
+    ?.addEventListener("click", () => {
+      inputs.forEach((input) => (input.checked = input.defaultChecked))
+      update()
+    })
+</script>

@@ -13,7 +13,7 @@
     props.class
   ] | opuiClass -%}
   <{{ root | opuiTag }}{{ opui.merge({ class: classes, id: rootId }, opui.defined(rest)) | opuiAttributes(root) }}>
-    {{ opui.provide("Callout", { severity: props.severity }, caller) }}{% if props.closeButton -%}
+    {{- opui.provide("Callout", { severity: props.severity }, caller) }}{% if props.closeButton -%}
       {% call Button({
         "aria-label": closeLabel,
         command: "--dismiss",
@@ -28,6 +28,6 @@
           height="32"
           viewBox="0 0 32 32"></svg>{% endif %}
       {%- endcall %}
-    {%- endif %}
+    {%- endif -%}
   </{{ root | opuiTag }}>
 {%- endmacro %}

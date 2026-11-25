@@ -71,7 +71,7 @@ export default {
     {
       description:
         'The `id` of your control, which the label points at and the part ids start with: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`.',
-      frameworks: ["astro", "solid", "svelte", "vue"],
+      frameworks: ["astro", "nunjucks", "solid", "svelte", "vue"],
       prop: "for",
       type: "string",
     },

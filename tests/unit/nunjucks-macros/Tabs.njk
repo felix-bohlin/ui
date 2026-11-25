@@ -10,6 +10,6 @@
       {%- if props.class %} {{ props.class }}{% endif %}"
     {%- if props.role != none %} role="{{ props.role }}"{% endif %}
     {{- rest | opuiAttributes }}>
-    {{ opui.provide("Tabs", { groupName: groupName, value: props.value }, caller) }}
+    {{- opui.provide("Tabs", { groupName: groupName, value: props.value }, caller) -}}
   </div>
 {%- endmacro %}

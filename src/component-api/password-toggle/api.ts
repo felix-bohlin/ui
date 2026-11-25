@@ -37,7 +37,7 @@ export default {
     {
       description:
         "The `id` of the password input, as its button's `commandfor`.",
-      frameworks: ["astro", "solid", "svelte", "vue"],
+      frameworks: ["astro", "nunjucks", "solid", "svelte", "vue"],
       prop: "for",
       type: "string",
     },

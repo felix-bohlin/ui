@@ -1,0 +1,57 @@
+{% from "opui/index.njk" import Button %}
+
+{% call Button({ "aria-label": "Edit" }) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+{% call Button({ "aria-label": "Edit", round: true }) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+
+{% call Button({ "aria-label": "Edit", variant: "outlined" }) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+{% call Button({ "aria-label": "Edit", round: true, variant: "outlined" }) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+
+{% call Button({ "aria-label": "Edit", variant: "tonal" }) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+{% call Button({ "aria-label": "Edit", round: true, variant: "tonal" }) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+
+{% call Button({ "aria-label": "Edit", variant: "filled" }) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+{% call Button({ "aria-label": "Edit", round: true, variant: "filled" }) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+
+{% call Button({
+  "aria-label": "Edit",
+  round: true,
+  size: "x-small",
+  variant: "tonal"
+}) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+{% call Button({
+  "aria-label": "Edit",
+  round: true,
+  size: "small",
+  variant: "tonal"
+}) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+{% call Button({ "aria-label": "Edit", round: true, variant: "tonal" }) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+{% call Button({
+  "aria-label": "Edit",
+  round: true,
+  size: "large",
+  variant: "tonal"
+}) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}

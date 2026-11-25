@@ -1,0 +1,11 @@
+{% from "opui/index.njk" import Button, Tooltip, TooltipContent %}
+
+{% call Tooltip({ id: "tooltip-rich-content-1" }) %}
+  {% call Button({
+    "aria-describedby": "tooltip-rich-content-1",
+    interestfor: "tooltip-rich-content-1"
+  }) %}Keyboard shortcuts{% endcall %}
+  {% call TooltipContent() %}
+    Press <kbd>⌘</kbd> + <kbd>K</kbd> to open the command palette.
+  {% endcall %}
+{% endcall %}

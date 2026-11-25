@@ -12,6 +12,7 @@ type Node = ReturnType<typeof parseHtml>[number]
 
 const MENU: Record<ComponentFramework, unknown> = {
   astro: MenuAstro,
+  nunjucks: "Menu",
   react: MenuReact,
   solid: MenuSolid,
   svelte: MenuSvelte,

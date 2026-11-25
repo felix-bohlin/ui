@@ -1,0 +1,6 @@
+{% macro TableCaption(props = {}) %}
+  {%- set rest = props | opuiRest("TableCaption") -%}
+  <caption{{ rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </caption>
+{%- endmacro %}

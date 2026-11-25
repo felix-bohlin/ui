@@ -1,0 +1,40 @@
+{% from "opui/index.njk" import
+  Button,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle
+%}
+
+{% call Button({
+  command: "show-modal",
+  commandfor: "dialog-footer-content-1",
+  variant: "outlined"
+}) %}
+  Export data
+{% endcall %}
+
+{% call Dialog({ id: "dialog-footer-content-1" }) %}
+  {% call DialogHeader() %}
+    {% call DialogTitle() %}Export data{% endcall %}
+  {% endcall %}
+  {% call DialogContent() %}
+    <p>Download your projects, files and comments as one ZIP archive.</p>
+  {% endcall %}
+  {% call DialogFooter() %}
+    <p>About 24 MB</p>
+    <div class="ui-actions">
+      {% call Button({ command: "close", commandfor: "dialog-footer-content-1" }) %}
+        Cancel
+      {% endcall %}
+      {% call Button({
+        command: "close",
+        commandfor: "dialog-footer-content-1",
+        variant: "filled"
+      }) %}
+        Export
+      {% endcall %}
+    </div>
+  {% endcall %}
+{% endcall %}

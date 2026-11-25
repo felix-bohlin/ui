@@ -1,0 +1,22 @@
+{% macro Button(props = {}) %}
+  {%- set rest = props | opuiRest("Button") -%}
+  {%- set tag = "a"
+    if opui.disabledLink(props.as, props.disabled)
+    else props.as
+    or ("a" if props.href else "button") -%}
+  {%- set classes = [
+    "ui-button",
+    { "ui-round": props.round },
+    props.color and "ui-" ~ props.color,
+    props.size and props.size != "medium" and "ui-" ~ props.size,
+    props.variant and props.variant != "transparent" and "ui-" ~ props.variant,
+    props.class
+  ] | opuiClass -%}
+  <{{ tag | opuiTag }}{{ opui.merge(
+    { class: classes },
+    opui.tagAttrs(tag, props.disabled, props.href),
+    opui.defined(rest)
+  ) | opuiAttributes(tag) }}>
+    {{- caller() if caller -}}
+  </{{ tag | opuiTag }}>
+{%- endmacro %}

@@ -22,7 +22,7 @@ export default {
       default: '"div"',
       description:
         'The element to render. Defaults to `"a"` with `href`. Use `"span"` inside a `<label>` or `<button>`, like a count in a tab.',
-      frameworks: ["astro", "svelte"],
+      frameworks: ["astro", "nunjucks", "svelte"],
       prop: "as",
     },
     {

@@ -23,6 +23,8 @@ export default {
     astro:
       "`value` selects the item whose `value` matches on the server. After that the selection lives in the inputs: read it from the form, or listen for `change` in a script.",
     html: 'Each tab is three elements, in this order: `input.ui-input[type="radio"]`, `label.ui-label` and `.ui-panel`.',
+    nunjucks:
+      "`value` selects the item whose `value` matches on the server. After that the selection lives in the inputs: read it from the form, or listen for `change` in a script.",
     react:
       "Use `value` with `onValueChange`, or `defaultValue`. Without them the items keep their own state, and `onValueChange` still reports changes.",
     solid:
@@ -93,7 +95,7 @@ export default {
     {
       description:
         "The `value` of the selected tab. The item whose `value` matches is checked, and the items' own `checked` is ignored.",
-      frameworks: ["astro", "react", "solid"],
+      frameworks: ["astro", "nunjucks", "react", "solid"],
       prop: "value",
     },
   ],

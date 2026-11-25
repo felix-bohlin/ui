@@ -1,0 +1,9 @@
+{% macro RadioInput(props = {}) %}
+  {%- set rest = props | opuiRest("RadioInput") -%}
+  {%- set field = opui.context("FieldGroup") -%}
+  {%- set name = props.name if props.name != none else field.name -%}
+  <input
+    type="radio"
+    {%- if name != none %} name="{{ name }}"{% endif %}
+    {{- rest | opuiAttributes }}>
+{%- endmacro %}

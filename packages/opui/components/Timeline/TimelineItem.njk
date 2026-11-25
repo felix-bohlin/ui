@@ -1,0 +1,25 @@
+{% macro TimelineItem(props = {}) %}
+  {%- set rest = props | opuiRest("TimelineItem") -%}
+  {%- set headingLevel = props.headingLevel | default(3) -%}
+  {%- set heading = "h" ~ headingLevel -%}
+  {%- set ariaCurrent = props["aria-current"]
+    if props["aria-current"] != none
+    else ('true' if props.current === true else props.current or none) -%}
+  {%- set classes = [props.color and 'ui-' ~ props.color, props.class] | opuiClass -%}
+  <li
+    {%- if ariaCurrent != none %} aria-current="{{ ariaCurrent }}"{% endif %}
+    {%- if classes %} class="{{ classes }}"{% endif %}
+    {{- rest | opuiAttributes }}>
+    {%- if props.slots.marker != none %}<span class="ui-marker">
+      {{- props.slots.marker | safe }}</span>{% endif %}
+    {% if props.time -%}
+      <time{% if props.datetime != none %} datetime="{{ props.datetime }}"{% endif %}>
+        {{- props.time }}</time>
+    {%- endif %}
+    {% if props.label or props.slots.label != none -%}
+      <{{ heading | opuiTag }}{{ { class: "ui-h6" } | opuiAttributes(heading) }}>{{ props.label }}
+        {{- props.slots.label | safe }}</{{ heading | opuiTag }}>
+    {%- endif %}
+    {{ caller() if caller -}}
+  </li>
+{%- endmacro %}

@@ -1,0 +1,24 @@
+{% macro Toaster(props = {}) %}
+  {%- set rest = props | opuiRest("Toaster") -%}
+  {{- opui.warnMissingId("Toaster", props.id) -}}
+  {%- set classes = [
+    "ui-toaster",
+    props.side and props.side != "block-end" and "ui-" ~ props.side,
+    props.align and props.align != "end" and "ui-align-" ~ props.align,
+    props.class
+  ] | opuiClass -%}
+  <opui-toaster{{ opui.merge(
+    {
+      class: classes,
+      "close-label": props.closeLabel,
+      duration: props.duration,
+      id: props.id,
+      limit: props.limit
+    },
+    opui.defined(rest)
+  ) | opuiAttributes("opui-toaster") }}>
+    <ol popover="manual"></ol>
+    <div class="ui-sr-only" role="status"></div>
+    <div class="ui-sr-only" role="alert"></div>
+  </opui-toaster>
+{%- endmacro %}

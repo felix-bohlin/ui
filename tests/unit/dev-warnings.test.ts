@@ -83,11 +83,12 @@ import AnchorContentAttributesAstro from "./fixtures/AnchorContentAttributes.ast
 import AnchorContentAttributesSvelte from "./fixtures/AnchorContentAttributes.svelte"
 import ReplacedIdsAstro from "./fixtures/ReplacedIds.astro"
 import ReplacedIdsSvelte from "./fixtures/ReplacedIds.svelte"
-import { render } from "./renderers"
+import { render, renderNunjucks } from "./renderers"
 
 const CONTROLS: Record<string, Record<ComponentFramework, unknown>> = {
   Checkbox: {
     astro: CheckboxAstro,
+    nunjucks: "Checkbox",
     react: CheckboxReact,
     solid: CheckboxSolid,
     svelte: CheckboxSvelte,
@@ -95,6 +96,7 @@ const CONTROLS: Record<string, Record<ComponentFramework, unknown>> = {
   },
   Radio: {
     astro: RadioAstro,
+    nunjucks: "Radio",
     react: RadioReact,
     solid: RadioSolid,
     svelte: RadioSvelte,
@@ -102,6 +104,7 @@ const CONTROLS: Record<string, Record<ComponentFramework, unknown>> = {
   },
   Switch: {
     astro: SwitchAstro,
+    nunjucks: "Switch",
     react: SwitchReact,
     solid: SwitchSolid,
     svelte: SwitchSvelte,
@@ -170,6 +173,7 @@ describe.each(Object.entries(CONTROLS))("%s", (name, components) => {
 
 const TOGGLE_GROUP: Record<ComponentFramework, unknown> = {
   astro: ToggleGroupAstro,
+  nunjucks: "ToggleGroup",
   react: ToggleGroupReact,
   solid: ToggleGroupSolid,
   svelte: ToggleGroupSvelte,
@@ -203,6 +207,7 @@ describe("ToggleGroup", () => {
 
 const AVATAR: Record<ComponentFramework, unknown> = {
   astro: AvatarAstro,
+  nunjucks: "Avatar",
   react: AvatarReact,
   solid: AvatarSolid,
   svelte: AvatarSvelte,
@@ -266,6 +271,7 @@ describe("Avatar", () => {
 
 const TABS: Record<ComponentFramework, unknown> = {
   astro: TabsAstro,
+  nunjucks: "Tabs",
   react: TabsReact,
   solid: TabsSolid,
   svelte: TabsSvelte,
@@ -299,6 +305,7 @@ describe("Tabs", () => {
 const FIELDS: Record<string, Record<ComponentFramework, unknown>> = {
   Field: {
     astro: FieldAstro,
+    nunjucks: "Field",
     react: FieldReact,
     solid: FieldSolid,
     svelte: FieldSvelte,
@@ -306,6 +313,7 @@ const FIELDS: Record<string, Record<ComponentFramework, unknown>> = {
   },
   OneTimeCode: {
     astro: OneTimeCodeAstro,
+    nunjucks: "OneTimeCode",
     react: OneTimeCodeReact,
     solid: OneTimeCodeSolid,
     svelte: OneTimeCodeSvelte,
@@ -347,6 +355,20 @@ const replacedIds: Record<
   (labelledby?: string) => Promise<string>
 > = {
   astro: (labelledby) => render.astro(ReplacedIdsAstro, { labelledby }),
+  nunjucks: async (labelledby) =>
+    renderNunjucks(
+      `{% from "opui/index.njk" import Dialog, DialogTitle, Drawer, DrawerTitle, FieldLegend, Fieldset %}
+{% call Dialog({ "aria-labelledby": labelledby }) %}
+  {% call DialogTitle({ id: "own-dialog-title" }) %}Title{% endcall %}
+{% endcall %}
+{% call Drawer({ "aria-labelledby": labelledby, id: "drawer" }) %}
+  {% call DrawerTitle({ id: "own-title" }) %}Title{% endcall %}
+{% endcall %}
+{% call Fieldset({ "aria-labelledby": labelledby, as: "div" }) %}
+  {% call FieldLegend({ id: "own-legend" }) %}Shipping{% endcall %}
+{% endcall %}`,
+      { labelledby },
+    ),
   react: (labelledby) =>
     render.react(() =>
       createElement(
@@ -456,6 +478,22 @@ const anchorContentAttributes: Record<
   (hover: boolean) => Promise<string>
 > = {
   astro: (hover) => render.astro(AnchorContentAttributesAstro, { hover }),
+  nunjucks: async (hover) =>
+    renderNunjucks(
+      `{% from "opui/index.njk" import Anchor, AnchorContent %}
+{% if hover %}
+  {% call Anchor({ id: "card", trigger: "hover" }) %}
+    <a href="/repo" interestfor="card"> Repo </a>
+    {% call AnchorContent({ id: "own", popover: "manual" }) %} Card {% endcall %}
+  {% endcall %}
+{% else %}
+  {% call Anchor() %}
+    <button popovertarget="own">Repo</button>
+    {% call AnchorContent({ id: "own", popover: "manual" }) %} Card {% endcall %}
+  {% endcall %}
+{% endif %}`,
+      { hover },
+    ),
   react: (hover) =>
     render.react(() =>
       hover
@@ -535,8 +573,8 @@ const anchorContentAttributes: Record<
 }
 
 const floatingAttributes = (html: string) =>
-  [...html.matchAll(/<span class="ui-floating"([^>]*)>/g)].map(
-    ([, attributes]) => attributes.trim(),
+  [...html.matchAll(/<span\s+class="ui-floating"([^>]*)>/g)].map(
+    ([, attributes]) => attributes.trim().replace(/\s+/g, " "),
   )
 
 describe("AnchorContent id and popover", () => {
@@ -565,6 +603,7 @@ describe("AnchorContent id and popover", () => {
 
 const DIALOG_HEADER: Record<ComponentFramework, unknown> = {
   astro: DialogHeaderAstro,
+  nunjucks: "DialogHeader",
   react: DialogHeaderReact,
   solid: DialogHeaderSolid,
   svelte: DialogHeaderSvelte,
@@ -607,6 +646,7 @@ describe("DialogHeader", () => {
 
 const DRAWER_HEADER: Record<ComponentFramework, unknown> = {
   astro: DrawerHeaderAstro,
+  nunjucks: "DrawerHeader",
   react: DrawerHeaderReact,
   solid: DrawerHeaderSolid,
   svelte: DrawerHeaderSvelte,

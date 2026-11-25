@@ -1,0 +1,44 @@
+{% from "opui/index.njk" import
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+  Switch
+%}
+
+{% call Form() %}
+  {% call Fieldset({
+    "aria-describedby": "switch-field-group-field-description-1-description"
+  }) %}
+    {% call FieldLegend() %}Email me about{% endcall %}
+    {% call FieldDescription({
+      id: "switch-field-group-field-description-1-description"
+    }) %}We send at most one email a week.{% endcall %}
+    {% call FieldGroup({
+      name: "switch-group-field-description-1",
+      orientation: "horizontal"
+    }) %}
+      {% call Switch({ value: "news" }) %}Product news{% endcall %}
+      {% call Switch({ value: "tips" }) %}Tips{% endcall %}
+      {% call Switch({ value: "offers" }) %}Offers{% endcall %}
+    {% endcall %}
+  {% endcall %}
+
+  {% call Fieldset({
+    "aria-describedby": "switch-field-group-field-description-2-description"
+  }) %}
+    {% call FieldLegend() %}Accessibility{% endcall %}
+    {% call FieldGroup({
+      name: "switch-group-field-description-2",
+      orientation: "horizontal"
+    }) %}
+      {% call Switch({ value: "reduce-motion" }) %}Reduce motion{% endcall %}
+      {% call Switch({ value: "high-contrast" }) %}High contrast{% endcall %}
+      {% call Switch({ value: "captions" }) %}Captions{% endcall %}
+    {% endcall %}
+    {% call FieldDescription({
+      id: "switch-field-group-field-description-2-description"
+    }) %}These apply on this device only.{% endcall %}
+  {% endcall %}
+{% endcall %}

@@ -197,6 +197,7 @@ const documentedClasses = (api: ComponentApi) => [
 
 const SCRIPTS: Record<ComponentFramework, RegExp> = {
   astro: /^---\n([\s\S]*?)\n---/g,
+  nunjucks: /(?!)/g,
   react: /^([\s\S]*)$/g,
   solid: /^([\s\S]*)$/g,
   svelte: /<script\b[^>]*>([\s\S]*?)<\/script>/g,
@@ -439,6 +440,16 @@ export const slotNames = (target: Target, framework: ComponentFramework) => {
   const text = read(target.source, componentFile(target, framework))
   if (!text) return []
 
+  if (framework === "nunjucks") {
+    return [
+      ...new Set([
+        ...(/\bcaller\b/.test(text) ? ["caller()"] : []),
+        ...[...text.matchAll(/\bprops\.slots\.(\w+)/g)].map(
+          ([, name]) => `slots.${name}`,
+        ),
+      ]),
+    ].sort()
+  }
   const names = [
     ...[...text.matchAll(/<slot\b([^>]*)>/g)].map(
       ([, attributes]) =>
@@ -460,7 +471,9 @@ export const describe = (
 ) => {
   const syntax = frameworks[framework]
   const matches = (slot: string) =>
-    kind === "slot" ? slot === name : slotProp(slot) === name
+    kind === "slot"
+      ? slot === name || syntax.slot(slot) === name
+      : slotProp(slot) === name
   const legacyOf = (primary: string) =>
     kind === "slot"
       ? `Legacy alias of the \`${primary}\` slot.`
@@ -729,7 +742,10 @@ export const checkApi = (api: ComponentApi) => {
         ...(part.legacy?.slots ?? []),
       ]),
     ].forEach((slot) => {
-      if (!slots.includes(slot)) {
+      if (
+        !slots.includes(slot) &&
+        !slots.includes(frameworks[framework].slot(slot))
+      ) {
         report(`slot "${slot}" does not exist`, framework)
       }
     })

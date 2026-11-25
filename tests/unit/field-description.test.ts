@@ -10,7 +10,7 @@ type Element = DefaultTreeAdapterMap["element"]
 type Node = DefaultTreeAdapterMap["childNode"] | Element
 
 const components = import.meta.glob<unknown>(
-  "../../packages/opui/components/*/*.{astro,react.tsx,solid.tsx,svelte,vue}",
+  "../../packages/opui/components/*/*.{astro,njk,react.tsx,solid.tsx,svelte,vue}",
   { import: "default" },
 )
 

@@ -60,6 +60,8 @@ export default {
   notes: {
     astro:
       "Attributes that aren't props go to the root `<opui-toaster>`. The component loads `opui-css/elements/toaster.js`, which exports `toast()` for a client script.",
+    nunjucks:
+      "Attributes that aren't props go to the root `<opui-toaster>`. Load `opui-css/elements/toaster.js` on the page: it shows the toasts and exports `toast()` for a client script.",
     react:
       "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once `opui-css/elements/toaster.js` runs, which the component loads once it mounts and `toast()` brings with your code. `opui-css/react` exports `toast()` next to `Toaster`.",
     solid:

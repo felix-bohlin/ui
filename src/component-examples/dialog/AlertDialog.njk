@@ -1,0 +1,43 @@
+{% from "opui/index.njk" import
+  Button,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle
+%}
+
+{% call Button({
+  color: "critical",
+  command: "show-modal",
+  commandfor: "dialog-alert-dialog-1",
+  variant: "outlined"
+}) %}
+  Delete project
+{% endcall %}
+
+{% call Dialog({
+  "aria-describedby": "dialog-alert-dialog-1-description",
+  id: "dialog-alert-dialog-1",
+  role: "alertdialog"
+}) %}
+  {% call DialogHeader() %}
+    {% call DialogTitle() %}Delete project?{% endcall %}
+  {% endcall %}
+  {% call DialogContent() %}
+    <p id="dialog-alert-dialog-1-description">
+      This deletes the project and all its files. You can't undo this.
+    </p>
+  {% endcall %}
+  {% call DialogFooter() %}
+    {% call Button({ command: "close", commandfor: "dialog-alert-dialog-1" }) %} Cancel {% endcall %}
+    {% call Button({
+      color: "critical",
+      command: "close",
+      commandfor: "dialog-alert-dialog-1",
+      variant: "filled"
+    }) %}
+      Delete
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

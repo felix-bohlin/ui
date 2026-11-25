@@ -1,0 +1,40 @@
+{% from "opui/index.njk" import
+  DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm
+%}
+
+{% call DescriptionList({ leader: "solid", style: "max-inline-size: 18rem" }) %}
+  {% call DescriptionListItem() %}
+    {% call DescriptionListTerm() %}Plan{% endcall %}
+    {% call DescriptionListDescription() %}Gold{% endcall %}
+  {% endcall %}
+  {% call DescriptionListItem() %}
+    {% call DescriptionListTerm() %}Bandmates{% endcall %}
+    {% call DescriptionListDescription() %}4{% endcall %}
+  {% endcall %}
+  {% call DescriptionListItem() %}
+    {% call DescriptionListTerm() %}Renews{% endcall %}
+    {% call DescriptionListDescription() %}Mar 1, 2027{% endcall %}
+  {% endcall %}
+{% endcall %}
+
+{% call DescriptionList({
+  leader: "solid",
+  orientation: "horizontal",
+  style: "max-inline-size: 18rem"
+}) %}
+  {% call DescriptionListItem() %}
+    {% call DescriptionListTerm() %}Plan{% endcall %}
+    {% call DescriptionListDescription() %}Gold{% endcall %}
+  {% endcall %}
+  {% call DescriptionListItem() %}
+    {% call DescriptionListTerm() %}Bandmates{% endcall %}
+    {% call DescriptionListDescription() %}4{% endcall %}
+  {% endcall %}
+  {% call DescriptionListItem() %}
+    {% call DescriptionListTerm() %}Renews{% endcall %}
+    {% call DescriptionListDescription() %}Mar 1, 2027{% endcall %}
+  {% endcall %}
+{% endcall %}

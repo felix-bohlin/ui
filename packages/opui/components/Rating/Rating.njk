@@ -1,0 +1,48 @@
+{% macro Rating(props = {}) %}
+  {%- set rest = props | opuiRest("Rating") -%}
+  {%- set clearLabel = props.clearLabel | default("No rating") -%}
+  {%- set max = props.max | default(5) -%}
+  {%- set starLabel = props.starLabel | default({ one: "{count} star", other: "{count} stars" }) -%}
+  {%- set rating = opui.ratingOf(max, props.value) -%}
+  {%- set invalid = "true" if props.error else props["aria-invalid"] -%}
+  {% if props.name %}<fieldset
+    {%- if props["aria-label"] != none %} aria-label="{{ props["aria-label"] }}"{% endif %}
+    class="ui-rating
+      {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {%- if props.disabled %} disabled{% endif %}
+    {%- if props.lang != none %} lang="{{ props.lang }}"{% endif %}
+    {{- { style: props.style } | opuiAttributes }}
+    {{- rest | opuiAttributes }}>
+    <legend>{{ props.label }}</legend>{% if not props.required -%}
+      {% set checked = rating.current === 0 %}<input
+        {%- if props["aria-describedby"] != none %} aria-describedby="{{ props["aria-describedby"] }}"{% endif %}
+        {%- if invalid != none %} aria-invalid="{{ invalid }}"{% endif %}
+        {%- if clearLabel != none %} aria-label="{{ clearLabel }}"{% endif %}
+        {%- if checked %} checked{% endif %}
+        {%- if props.name != none %} name="{{ props.name }}"{% endif %}
+        type="radio"
+        value="0">
+    {%- endif %}{% for star in rating.stars -%}
+      {% set ariaLabel = opui.pluralLabel(starLabel, star, props.lang) %}{% set checkedValue = rating.current === star %}<input
+        {%- if props["aria-describedby"] != none %} aria-describedby="{{ props["aria-describedby"] }}"{% endif %}
+        {%- if invalid != none %} aria-invalid="{{ invalid }}"{% endif %}
+        {%- if ariaLabel != none %} aria-label="{{ ariaLabel }}"{% endif %}
+        {%- if checkedValue %} checked{% endif %}
+        {%- if props.name != none %} name="{{ props.name }}"{% endif %}
+        {%- if props.required %} required{% endif %}
+        type="radio"
+        {%- if star != none %} value="{{ star }}"{% endif %}>
+    {%- endfor -%}
+  </fieldset>{% else %}{% set ariaLabelValue = props["aria-label"] if props["aria-label"] != none else props.label %}<meter
+    {%- if props["aria-describedby"] != none %} aria-describedby="{{ props["aria-describedby"] }}"{% endif %}
+    {%- if ariaLabelValue != none %} aria-label="{{ ariaLabelValue }}"{% endif %}
+    class="ui-rating
+      {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {%- if props.lang != none %} lang="{{ props.lang }}"{% endif %}
+    {%- if rating.max != none %} max="{{ rating.max }}"{% endif %}
+    {{- { style: opui.mergeStyle({ "--_max": undefined if rating.count === 5 else rating.count }, props.style) } | opuiAttributes }}
+    {%- if rating.value != none %} value="{{ rating.value }}"{% endif %}
+    {{- rest | opuiAttributes }}></meter>{% endif %}
+{%- endmacro %}

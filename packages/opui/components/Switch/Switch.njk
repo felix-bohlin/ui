@@ -1,0 +1,35 @@
+{% from "opui/SwitchInput.njk" import SwitchInput %}
+
+{% macro Switch(props = {}) %}
+  {%- set rest = props | opuiRest("Switch") -%}
+  {%- set labelSlot = (caller() if caller) | opuiTrim -%}
+  {{- opui.warnUnnamed("Switch", opui.hasName(opui.merge(rest, { label: props.label }), caller is defined)) -}}
+  <label
+    class="ui-switch
+      {%- if props.card %} ui-card{% endif %}
+      {%- if props.spread %} ui-spread{% endif %}
+      {%- if props.card and props.variant and props.variant != 'outlined' %} ui-{{ props.variant }}{% endif %}
+      {%- if props.orientation and props.orientation != 'horizontal' %} ui-{{ props.orientation }}{% endif %}
+      {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- { style: props.style } | opuiAttributes }}>
+    {%- if props.slots.iconUnchecked != none -%}
+      <span class="ui-icon-unchecked" aria-hidden="true">
+        {{- props.slots.iconUnchecked | safe }}</span>
+    {%- endif %}
+    {% if props.slots.iconChecked != none -%}
+      <span class="ui-icon-checked" aria-hidden="true">{{ props.slots.iconChecked | safe }}</span>
+    {%- endif %}
+    {{ SwitchInput(opui.merge(
+      rest,
+      { "aria-invalid": "true" if props.error else props["aria-invalid"] }
+    )) }}
+    {% if props.label or labelSlot -%}
+      <span class="{{ 'ui-sr-only' if props.hideLabel else 'ui-label' }}">{{ props.label }}
+        {{- labelSlot }}</span>
+    {%- endif %}
+    {% if props.endText or props.slots.endText != none -%}
+      <span class="ui-end-text">{{ props.endText }}{{ props.slots.endText | safe }}</span>
+    {%- endif -%}
+  </label>
+{%- endmacro %}

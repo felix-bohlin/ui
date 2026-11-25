@@ -38,6 +38,11 @@ const FIXTURES: {
     framework: "astro",
   },
   {
+    build: { args: [], bin: "eleventy", package: "@11ty/eleventy" },
+    check: { args: ["--noEmit", "-p", "."], bin: "tsc", package: "typescript" },
+    framework: "nunjucks",
+  },
+  {
     build: { args: ["build"], package: "vite" },
     check: { args: ["--noEmit", "-p", "."], bin: "tsc", package: "typescript" },
     framework: "react",
@@ -147,6 +152,29 @@ console.log([deps.size, "pre-bundled dependencies served"].join(" "))
 `
 
 const SERVER_RENDER = {
+  nunjucks: String.raw`
+import { readFileSync } from "node:fs"
+import nunjucks from "nunjucks"
+import { configure } from "opui-css/nunjucks"
+
+const env = configure(new nunjucks.Environment(null, { autoescape: true }))
+const render = (source) => env.renderString(source, {})
+
+console.log(
+  render(
+    '{% from "opui/index.njk" import Button %}{% call Button({ color: "primary", type: "submit", variant: "filled" }) %}Save{% endcall %}',
+  ).replace(/>\s+/g, ">").replace(/\s+</g, "<"),
+)
+console.log(
+  render('{% import "opui/index.njk" as ui %}{% for name, macro in ui %}.{% endfor %}').length,
+  "components",
+)
+console.log(
+  "deep imports share the entry point's modules:",
+  env.getTemplate("opui/DialogTitle.njk").tmplStr ===
+    readFileSync("node_modules/opui-css/components/Dialog/DialogTitle.njk", "utf8"),
+)
+`,
   react: String.raw`
 import { createElement } from "react"
 import { renderToString } from "react-dom/server"
@@ -834,7 +862,9 @@ describe.each(FIXTURES)(
       const dist = path.join(dir, "dist")
       const html = readFileSync(path.join(dist, "index.html"), "utf8")
       expect(html).toMatch(
-        framework === "astro" ? /class="ui-button/ : /<script type="module"/,
+        framework === "astro" || framework === "nunjucks"
+          ? /class="ui-button/
+          : /<script type="module"/,
       )
       const css = cssIn(dist)
       expect(css).toContain("@layer openprops")

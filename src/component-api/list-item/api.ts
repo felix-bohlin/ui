@@ -16,7 +16,7 @@ export default {
     {
       description:
         'The element to render inside the `<li>`: `"a"` or `"button"`. Defaults to `"a"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type="button"`.',
-      frameworks: ["astro", "svelte"],
+      frameworks: ["astro", "nunjucks", "svelte"],
       prop: "as",
     },
     {
@@ -58,7 +58,7 @@ export default {
     },
     {
       description: "The `for` attribute of the `<label>` when `choice` is set.",
-      frameworks: ["astro", "solid", "svelte", "vue"],
+      frameworks: ["astro", "nunjucks", "solid", "svelte", "vue"],
       prop: "for",
     },
     {

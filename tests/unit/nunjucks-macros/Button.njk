@@ -17,6 +17,6 @@
     opui.tagAttrs(tag, props.disabled, props.href),
     opui.defined(rest)
   ) | opuiAttributes(tag) }}>
-    {{ caller() if caller }}
+    {{- caller() if caller -}}
   </{{ tag | opuiTag }}>
 {%- endmacro %}

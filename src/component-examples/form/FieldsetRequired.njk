@@ -1,0 +1,20 @@
+{% from "opui/index.njk" import
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  Fieldset
+%}
+
+{% call Fieldset({ "aria-describedby": "form-fieldset-required-1-description" }) %}
+  {% call FieldLegend() %}Delivery{% endcall %}
+  {% call FieldDescription({ id: "form-fieldset-required-1-description" }) %}Where should we send your order?{% endcall %}
+  {% call FieldGroup() %}
+    {% call Field({ for: "form-fieldset-required-2", label: "Recipient" }) %}
+      <input id="form-fieldset-required-2" name="recipient" />
+    {% endcall %}
+    {% call Field({ for: "form-fieldset-required-3", label: "Address" }) %}
+      <textarea id="form-fieldset-required-3" name="address" required></textarea>
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

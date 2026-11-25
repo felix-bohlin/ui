@@ -53,7 +53,7 @@ export default {
     {
       description:
         "The `id` of the number input, as its button's `commandfor` and `aria-controls`.",
-      frameworks: ["astro", "solid", "svelte", "vue"],
+      frameworks: ["astro", "nunjucks", "solid", "svelte", "vue"],
       prop: "for",
       type: "string",
     },

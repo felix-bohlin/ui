@@ -1,0 +1,144 @@
+{% from "opui/index.njk" import
+  Button,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow
+%}
+
+{% call Table({ id: "table-expandable-1" }) %}
+  {% call TableCaption() %}Gear orders{% endcall %}
+  {% call TableHead() %}
+    {% call TableRow() %}
+      {% call TableHeaderCell() %}<span class="ui-sr-only">Details</span>{% endcall %}
+      {% call TableHeaderCell() %}Order{% endcall %}
+      {% call TableHeaderCell() %}Bassist{% endcall %}
+      {% call TableHeaderCell({ numeric: true }) %}Total{% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call TableBody() %}
+    {% call TableRow() %}
+      {% call TableCell() %}
+        {% call Button({
+          "aria-controls": "table-expandable-1-details",
+          "aria-expanded": "false",
+          "aria-label": "Details of order 1042",
+          class: "table-expand",
+          round: true,
+          size: "small"
+        }) %}
+          <svg
+            data-icon="chevron-down"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M5.366 11.116a1.25 1.25 0 0 1 1.768 0L16 19.982l8.866-8.866a1.25 1.25 0 0 1 1.768 1.768l-9.75 9.75a1.25 1.25 0 0 1-1.768 0l-9.75-9.75a1.25 1.25 0 0 1 0-1.768"
+            ></path>
+          </svg>
+        {% endcall %}
+      {% endcall %}
+      {% call TableCell() %}1042{% endcall %}
+      {% call TableCell() %}Lou Headstock{% endcall %}
+      {% call TableCell({ numeric: true }) %}€84.00{% endcall %}
+    {% endcall %}
+    {% call TableRow({ hidden: true, id: "table-expandable-1-details" }) %}
+      {% call TableCell({ colspan: "4" }) %}Flatwounds and a comfy strap, shipped to Göteborg on 3
+        March.{% endcall %}
+    {% endcall %}
+    {% call TableRow() %}
+      {% call TableCell() %}
+        {% call Button({
+          "aria-controls": "table-expandable-2-details",
+          "aria-expanded": "false",
+          "aria-label": "Details of order 1043",
+          class: "table-expand",
+          round: true,
+          size: "small"
+        }) %}
+          <svg
+            data-icon="chevron-down"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M5.366 11.116a1.25 1.25 0 0 1 1.768 0L16 19.982l8.866-8.866a1.25 1.25 0 0 1 1.768 1.768l-9.75 9.75a1.25 1.25 0 0 1-1.768 0l-9.75-9.75a1.25 1.25 0 0 1 0-1.768"
+            ></path>
+          </svg>
+        {% endcall %}
+      {% endcall %}
+      {% call TableCell() %}1043{% endcall %}
+      {% call TableCell() %}Percy Groove{% endcall %}
+      {% call TableCell({ numeric: true }) %}€126.50{% endcall %}
+    {% endcall %}
+    {% call TableRow({ hidden: true, id: "table-expandable-2-details" }) %}
+      {% call TableCell({ colspan: "4" }) %}Three items, waiting for the low B string to come back in
+        stock.{% endcall %}
+    {% endcall %}
+    {% call TableRow() %}
+      {% call TableCell() %}
+        {% call Button({
+          "aria-controls": "table-expandable-3-details",
+          "aria-expanded": "false",
+          "aria-label": "Details of order 1044",
+          class: "table-expand",
+          round: true,
+          size: "small"
+        }) %}
+          <svg
+            data-icon="chevron-down"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M5.366 11.116a1.25 1.25 0 0 1 1.768 0L16 19.982l8.866-8.866a1.25 1.25 0 0 1 1.768 1.768l-9.75 9.75a1.25 1.25 0 0 1-1.768 0l-9.75-9.75a1.25 1.25 0 0 1 0-1.768"
+            ></path>
+          </svg>
+        {% endcall %}
+      {% endcall %}
+      {% call TableCell() %}1044{% endcall %}
+      {% call TableCell() %}Ines Hertz{% endcall %}
+      {% call TableCell({ numeric: true }) %}€39.90{% endcall %}
+    {% endcall %}
+    {% call TableRow({ hidden: true, id: "table-expandable-3-details" }) %}
+      {% call TableCell({ colspan: "4" }) %}One fuzz pedal, delivered to Berlin on 5 March.{% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}
+
+<style>
+  .table-expand[aria-expanded="true"] > svg {
+    rotate: 180deg;
+  }
+</style>
+
+<script type="module">
+  document
+    .querySelectorAll("#table-expandable-1 .table-expand")
+    .forEach((button) => {
+      button.addEventListener("click", () => {
+        const row = document.getElementById(
+          button.getAttribute("aria-controls") ?? "",
+        )
+        if (!(row instanceof HTMLTableRowElement)) return
+        const expanded = button.getAttribute("aria-expanded") !== "true"
+        button.setAttribute("aria-expanded", String(expanded))
+        row.hidden = !expanded
+      })
+    })
+</script>

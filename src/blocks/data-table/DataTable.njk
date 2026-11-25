@@ -1,0 +1,563 @@
+{% from "opui/index.njk" import
+  Avatar,
+  Button,
+  Checkbox,
+  Chip,
+  ControlGroup,
+  Field,
+  FieldGroup,
+  Menu,
+  SelectAll,
+  SelectButton,
+  SortableTable,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow
+%}
+
+<div
+  class="data-table ui-layout-container ui-layout-column ui-gap-large"
+  style="--_max-inline-size: 80rem"
+>
+  <div class="ui-layout-row ui-spread">
+    <hgroup class="ui-hgroup">
+      <p>Admin corner</p>
+      <h1 class="ui-h3">Members</h1>
+      <p>128 bassists, 94 of them on a paid plan. Woohoo!</p>
+    </hgroup>
+    <div class="ui-layout-row ui-gap-small">
+      {% call Button({ type: "button", variant: "outlined" }) %}
+        <svg
+          data-icon="download"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path fill="currentColor" d="M5 20h14v-2H5zM19 9h-4V3H9v6H5l7 7z"></path>
+        </svg><span class="ui-text">Export</span>
+      {% endcall %}
+      {% call Button({ type: "button", variant: "filled" }) %}
+        <svg
+          data-icon="add"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path>
+        </svg><span class="ui-text">Add member</span>
+      {% endcall %}
+    </div>
+  </div>
+
+  <search>
+    {% call FieldGroup({ orientation: "horizontal" }) %}
+      {% set start %}<svg
+        data-icon="search"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"
+        ></path>
+      </svg>{% endset %}
+      {% call Field({
+        for: "data-table-q",
+        hideLabel: true,
+        label: "Search members",
+        slots: { start: start }
+      }) %}
+        <input
+          id="data-table-q"
+          name="q"
+          placeholder="Search by name or email"
+          type="search"
+        />
+      {% endcall %}
+      {% call Field({
+        for: "data-table-status",
+        hideLabel: true,
+        label: "Status"
+      }) %}
+        <select id="data-table-status" name="status">
+          {{ SelectButton() }}
+          <option value="">All statuses</option>
+          <option value="active">Active</option>
+          <option value="on-break">On a break</option>
+          <option value="past-due">Past due</option>
+          <option value="trial">Trial</option>
+        </select>
+      {% endcall %}
+      {% call Field({ for: "data-table-plan", hideLabel: true, label: "Plan" }) %}
+        <select id="data-table-plan" name="plan">
+          {{ SelectButton() }}
+          <option value="">All plans</option>
+          <option value="platinum">Platinum</option>
+          <option value="silver">Silver</option>
+          <option value="gold">Gold</option>
+        </select>
+      {% endcall %}
+    {% endcall %}
+  </search>
+
+  <div class="ui-layout-row ui-gap-small ui-spread data-table-bulk">
+    <p>2 members selected</p>
+    <div class="ui-layout-row ui-gap-x-small">
+      {% call Button({ size: "small", type: "button" }) %}Send a poke{% endcall %}
+      {% call Button({ size: "small", type: "button" }) %}Export{% endcall %}
+      {% call Button({ color: "critical", size: "small", type: "button" }) %}Delete{% endcall %}
+    </div>
+  </div>
+
+  {% call SelectAll() %}
+    {% call SortableTable() %}
+      {% call Table({ flush: true, overflow: "scroll", tabindex: 0 }) %}
+        {% call TableCaption({ class: "ui-sr-only" }) %}Members{% endcall %}
+        {% call TableHead() %}
+          {% call TableRow() %}
+            {% call TableHeaderCell({ scope: "col" }) %}
+              {{ Checkbox({
+                "data-select-all": "",
+                hideLabel: true,
+                label: "Select all members",
+                name: "data-table-all"
+              }) }}
+            {% endcall %}
+            {% call TableHeaderCell({
+              "aria-sort": "ascending",
+              scope: "col",
+              sortable: true
+            }) %}Member{% endcall %}
+            {% call TableHeaderCell({ scope: "col", sortable: true }) %}Plan{% endcall %}
+            {% call TableHeaderCell({ scope: "col", sortable: true }) %}Status{% endcall %}
+            {% call TableHeaderCell({
+              numeric: true,
+              scope: "col",
+              sortable: true
+            }) %}Points{% endcall %}
+            {% call TableHeaderCell({ scope: "col", sortable: true }) %}Joined{% endcall %}
+            {% call TableHeaderCell({
+              class: "data-table-actions",
+              scope: "col"
+            }) %}
+              <span class="ui-sr-only">Actions</span>
+            {% endcall %}
+          {% endcall %}
+        {% endcall %}
+        {% call TableBody() %}
+          {% call TableRow() %}
+            {% call TableCell() %}
+              {{ Checkbox({
+                checked: true,
+                hideLabel: true,
+                label: "Select Holly Humbucker",
+                name: "data-table-row",
+                value: "holly"
+              }) }}
+            {% endcall %}
+            {% call TableCell({ "data-sort-value": "Holly Humbucker" }) %}
+              <div class="ui-layout-media ui-gap-small">
+                {% call Avatar({ "aria-hidden": "true" }) %}HH{% endcall %}
+                <div>
+                  <p class="data-table-person">Holly Humbucker</p>
+                  <p class="ui-caption">holly@humbucker.example</p>
+                </div>
+              </div>
+            {% endcall %}
+            {% call TableCell() %}Gold{% endcall %}
+            {% call TableCell() %}
+              {{ Chip({
+                as: "span",
+                dot: true,
+                label: "Trial",
+                severity: "info",
+                size: "small"
+              }) }}
+            {% endcall %}
+            {% call TableCell({ "data-sort-value": "120", numeric: true }) %}120{% endcall %}
+            {% call TableCell({ "data-sort-value": "2026-09-28" }) %}28 Sep 2026{% endcall %}
+            {% call TableCell({ class: "data-table-actions" }) %}
+              {% call Button({
+                "aria-label": "Actions for Holly Humbucker",
+                command: "toggle-popover",
+                commandfor: "data-table-menu-holly",
+                round: true,
+                size: "small",
+                type: "button"
+              }) %}
+                <svg
+                  data-icon="more-vertical"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                  ></path>
+                </svg>
+              {% endcall %}
+              {{ Menu({
+                align: "end",
+                id: "data-table-menu-holly",
+                items: [
+                  { href: "#data-table-holly", label: "View profile" },
+                  { label: "Change plan" },
+                  { borderTop: true, color: "critical", label: "Delete" }
+                ]
+              }) }}
+            {% endcall %}
+          {% endcall %}
+          {% call TableRow() %}
+            {% call TableCell() %}
+              {{ Checkbox({
+                hideLabel: true,
+                label: "Select Ines Hertz",
+                name: "data-table-row",
+                value: "ines"
+              }) }}
+            {% endcall %}
+            {% call TableCell({ "data-sort-value": "Ines Hertz" }) %}
+              <div class="ui-layout-media ui-gap-small">
+                {% call Avatar({ "aria-hidden": "true" }) %}IH{% endcall %}
+                <div>
+                  <p class="data-table-person">Ines Hertz</p>
+                  <p class="ui-caption">ines@hertz.example</p>
+                </div>
+              </div>
+            {% endcall %}
+            {% call TableCell() %}Gold{% endcall %}
+            {% call TableCell() %}
+              {{ Chip({
+                as: "span",
+                dot: true,
+                label: "On a break",
+                severity: "neutral",
+                size: "small"
+              }) }}
+            {% endcall %}
+            {% call TableCell({ "data-sort-value": "1840", numeric: true }) %}1 840{% endcall %}
+            {% call TableCell({ "data-sort-value": "2025-11-22" }) %}22 Nov 2025{% endcall %}
+            {% call TableCell({ class: "data-table-actions" }) %}
+              {% call Button({
+                "aria-label": "Actions for Ines Hertz",
+                command: "toggle-popover",
+                commandfor: "data-table-menu-ines",
+                round: true,
+                size: "small",
+                type: "button"
+              }) %}
+                <svg
+                  data-icon="more-vertical"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                  ></path>
+                </svg>
+              {% endcall %}
+              {{ Menu({
+                align: "end",
+                id: "data-table-menu-ines",
+                items: [
+                  { href: "#data-table-ines", label: "View profile" },
+                  { label: "Change plan" },
+                  { borderTop: true, color: "critical", label: "Delete" }
+                ]
+              }) }}
+            {% endcall %}
+          {% endcall %}
+          {% call TableRow() %}
+            {% call TableCell() %}
+              {{ Checkbox({
+                checked: true,
+                hideLabel: true,
+                label: "Select Lou Headstock",
+                name: "data-table-row",
+                value: "lou"
+              }) }}
+            {% endcall %}
+            {% call TableCell({ "data-sort-value": "Lou Headstock" }) %}
+              <div class="ui-layout-media ui-gap-small">
+                {% call Avatar({ "aria-hidden": "true" }) %}LH{% endcall %}
+                <div>
+                  <p class="data-table-person">Lou Headstock</p>
+                  <p class="ui-caption">lou@headstock.example</p>
+                </div>
+              </div>
+            {% endcall %}
+            {% call TableCell() %}Gold{% endcall %}
+            {% call TableCell() %}
+              {{ Chip({
+                as: "span",
+                dot: true,
+                label: "Active",
+                severity: "success",
+                size: "small"
+              }) }}
+            {% endcall %}
+            {% call TableCell({ "data-sort-value": "4800", numeric: true }) %}4 800{% endcall %}
+            {% call TableCell({ "data-sort-value": "2026-03-03" }) %}3 Mar 2026{% endcall %}
+            {% call TableCell({ class: "data-table-actions" }) %}
+              {% call Button({
+                "aria-label": "Actions for Lou Headstock",
+                command: "toggle-popover",
+                commandfor: "data-table-menu-lou",
+                round: true,
+                size: "small",
+                type: "button"
+              }) %}
+                <svg
+                  data-icon="more-vertical"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                  ></path>
+                </svg>
+              {% endcall %}
+              {{ Menu({
+                align: "end",
+                id: "data-table-menu-lou",
+                items: [
+                  { href: "#data-table-lou", label: "View profile" },
+                  { label: "Change plan" },
+                  { borderTop: true, color: "critical", label: "Delete" }
+                ]
+              }) }}
+            {% endcall %}
+          {% endcall %}
+          {% call TableRow() %}
+            {% call TableCell() %}
+              {{ Checkbox({
+                hideLabel: true,
+                label: "Select Percy Groove",
+                name: "data-table-row",
+                value: "percy"
+              }) }}
+            {% endcall %}
+            {% call TableCell({ "data-sort-value": "Percy Groove" }) %}
+              <div class="ui-layout-media ui-gap-small">
+                {% call Avatar({ "aria-hidden": "true" }) %}PG{% endcall %}
+                <div>
+                  <p class="data-table-person">Percy Groove</p>
+                  <p class="ui-caption">percy@groove.example</p>
+                </div>
+              </div>
+            {% endcall %}
+            {% call TableCell() %}Silver{% endcall %}
+            {% call TableCell() %}
+              {{ Chip({
+                as: "span",
+                dot: true,
+                label: "Past due",
+                severity: "warning",
+                size: "small"
+              }) }}
+            {% endcall %}
+            {% call TableCell({ "data-sort-value": "490", numeric: true }) %}490{% endcall %}
+            {% call TableCell({ "data-sort-value": "2026-05-19" }) %}19 May 2026{% endcall %}
+            {% call TableCell({ class: "data-table-actions" }) %}
+              {% call Button({
+                "aria-label": "Actions for Percy Groove",
+                command: "toggle-popover",
+                commandfor: "data-table-menu-percy",
+                round: true,
+                size: "small",
+                type: "button"
+              }) %}
+                <svg
+                  data-icon="more-vertical"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                  ></path>
+                </svg>
+              {% endcall %}
+              {{ Menu({
+                align: "end",
+                id: "data-table-menu-percy",
+                items: [
+                  { href: "#data-table-percy", label: "View profile" },
+                  { label: "Change plan" },
+                  { borderTop: true, color: "critical", label: "Delete" }
+                ]
+              }) }}
+            {% endcall %}
+          {% endcall %}
+          {% call TableRow() %}
+            {% call TableCell() %}
+              {{ Checkbox({
+                hideLabel: true,
+                label: "Select Rory Rootnote",
+                name: "data-table-row",
+                value: "rory"
+              }) }}
+            {% endcall %}
+            {% call TableCell({ "data-sort-value": "Rory Rootnote" }) %}
+              <div class="ui-layout-media ui-gap-small">
+                {% call Avatar({ "aria-hidden": "true" }) %}RR{% endcall %}
+                <div>
+                  <p class="data-table-person">Rory Rootnote</p>
+                  <p class="ui-caption">rory@lowend.example</p>
+                </div>
+              </div>
+            {% endcall %}
+            {% call TableCell() %}Platinum{% endcall %}
+            {% call TableCell() %}
+              {{ Chip({
+                as: "span",
+                dot: true,
+                label: "Active",
+                severity: "success",
+                size: "small"
+              }) }}
+            {% endcall %}
+            {% call TableCell({ "data-sort-value": "9120", numeric: true }) %}9 120{% endcall %}
+            {% call TableCell({ "data-sort-value": "2026-01-12" }) %}12 Jan 2026{% endcall %}
+            {% call TableCell({ class: "data-table-actions" }) %}
+              {% call Button({
+                "aria-label": "Actions for Rory Rootnote",
+                command: "toggle-popover",
+                commandfor: "data-table-menu-rory",
+                round: true,
+                size: "small",
+                type: "button"
+              }) %}
+                <svg
+                  data-icon="more-vertical"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                  ></path>
+                </svg>
+              {% endcall %}
+              {{ Menu({
+                align: "end",
+                id: "data-table-menu-rory",
+                items: [
+                  { href: "#data-table-rory", label: "View profile" },
+                  { label: "Change plan" },
+                  { borderTop: true, color: "critical", label: "Delete" }
+                ]
+              }) }}
+            {% endcall %}
+          {% endcall %}
+        {% endcall %}
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+
+  <div class="ui-layout-row ui-spread">
+    <p>Showing 1–5 of 128 members</p>
+    <nav aria-label="Pagination">
+      {% call ControlGroup({ size: "small", variant: "outlined" }) %}
+        {% call Button({
+          "aria-label": "Previous page",
+          disabled: true,
+          href: "#data-table-page-1"
+        }) %}<svg
+            data-icon="chevron-left"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+            ></path>
+          </svg>{% endcall %}
+        {% call Button({ "aria-current": "page", href: "#data-table-page-1" }) %}1{% endcall %}
+        {% call Button({ href: "#data-table-page-2" }) %}2{% endcall %}
+        {% call Button({ href: "#data-table-page-3" }) %}3{% endcall %}
+        {% call Button({ href: "#data-table-page-22" }) %}22{% endcall %}
+        {% call Button({ "aria-label": "Next page", href: "#data-table-page-2" }) %}<svg
+            data-icon="chevron-right"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+            ></path>
+          </svg>{% endcall %}
+      {% endcall %}
+    </nav>
+  </div>
+</div>
+
+<style>
+  .data-table {
+    .data-table-bulk {
+      border: var(--ui-border-width) solid var(--ui-border-color);
+      border-radius: var(--ui-radius);
+      padding: var(--ui-space-2) var(--ui-space-3);
+
+      p {
+        font-weight: var(--ui-font-weight-semibold);
+      }
+    }
+
+    &:not(:has(tbody :checked)) .data-table-bulk {
+      display: none;
+    }
+
+    tbody tr:has(:checked) > * {
+      background-color: oklch(from var(--ui-primary) l c h / 8%);
+    }
+
+    .data-table-person {
+      font-weight: var(--ui-font-weight-medium);
+    }
+
+    .data-table-actions {
+      text-align: end;
+    }
+  }
+</style>
+
+<script type="module">
+  import "opui-css/elements/select-all.js"
+  import "opui-css/elements/sortable-table.js"
+  import "opui-css/elements/menu.js"
+</script>

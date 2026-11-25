@@ -24,7 +24,8 @@
     },
     "packages/opui": {
       "entry": [
-        "{astro,react,solid,svelte,vue}/index.ts",
+        "{astro,nunjucks,react,solid,svelte,vue}/index.ts",
+        "nunjucks/eleventy.ts",
         "bin/*.mjs",
         "scripts/*.mjs"
       ],
@@ -32,7 +33,12 @@
     },
     "tests/package/fixtures/*": {
       "entry": ["src/**"],
-      "ignoreDependencies": ["@astrojs/check", "svelte-check", "vue-tsc"]
+      "ignoreDependencies": [
+        "@11ty/eleventy",
+        "@astrojs/check",
+        "svelte-check",
+        "vue-tsc"
+      ]
     }
   }
 }

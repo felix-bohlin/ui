@@ -1,0 +1,79 @@
+{% from "opui/index.njk" import
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+  Switch
+%}
+
+{% call Form() %}
+  {% call Fieldset() %}
+    {% call FieldLegend() %}Notifications{% endcall %}
+    {% call FieldGroup({ name: "switch-cards-end", orientation: "horizontal" }) %}
+      {% call Switch({
+        card: true,
+        checked: true,
+        slots: { endText: "A summary every morning." },
+        spread: true,
+        value: "email"
+      }) %}
+        Email
+        
+      {% endcall %}
+      {% call Switch({
+        card: true,
+        slots: { endText: "On this device only." },
+        spread: true,
+        value: "push",
+        variant: "elevated"
+      }) %}
+        Push
+        
+      {% endcall %}
+      {% call Switch({
+        card: true,
+        slots: { endText: "For security alerts only." },
+        spread: true,
+        value: "sms",
+        variant: "tonal"
+      }) %}
+        SMS
+        
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call Fieldset() %}
+    {% call FieldLegend() %}Privacy{% endcall %}
+    {% call FieldGroup({ name: "switch-cards-start", orientation: "horizontal" }) %}
+      {% call Switch({
+        card: true,
+        checked: true,
+        slots: { endText: "Others see when you're active." },
+        value: "status"
+      }) %}
+        Online status
+        
+      {% endcall %}
+      {% call Switch({
+        card: true,
+        slots: {
+          endText: "Others see when you've read a message."
+        },
+        value: "receipts",
+        variant: "elevated"
+      }) %}
+        Read receipts
+        
+      {% endcall %}
+      {% call Switch({
+        card: true,
+        slots: { endText: "People can find you by email." },
+        value: "search",
+        variant: "tonal"
+      }) %}
+        Profile search
+        
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

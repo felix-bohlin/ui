@@ -1,0 +1,12 @@
+{% from "opui/index.njk" import Button, Toaster %}
+
+{% call Button({ id: "toast-script-1-button", variant: "filled" }) %}Save changes{% endcall %}
+{{ Toaster({ id: "toast-script-1" }) }}
+
+<script type="module">
+  import { toast } from "opui-css/elements/toaster.js"
+
+  document
+    .getElementById("toast-script-1-button")
+    ?.addEventListener("click", () => toast.success("Changes saved"))
+</script>

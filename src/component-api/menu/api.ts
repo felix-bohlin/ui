@@ -86,7 +86,7 @@ export default {
     {
       description:
         'The items, as `{ borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `borderTop` adds a border above the item, `color: "critical"` marks a destructive one, a disabled link has no `href`, and `keepOpen` keeps the menu open on click. Other keys go to the item\'s `<a>` or `<button>`, like `type: "submit"` with `form` for an item that submits a form.',
-      frameworks: ["astro", "html", "svelte"],
+      frameworks: ["astro", "html", "nunjucks", "svelte"],
       prop: "items",
     },
     {

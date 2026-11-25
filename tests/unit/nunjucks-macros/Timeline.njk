@@ -5,14 +5,12 @@
   <ol
     class="ui-timeline
       {%- if props.tracked %} ui-tracked{% endif %}
-      {%- if props.size and props.size != "medium" %} ui-{{ props.size }}{% endif %}
+      {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}
       {%- if props.class %} {{ props.class }}{% endif %}"
     {{- rest | opuiAttributes }}>
-    {% for entry in props.items %}
-      {%- set description = entry.description -%}
-      {%- set item = entry | opuiOmit(["description"]) -%}
-      {% call TimelineItem(item) %}
-        {% if description %}<p>{{ description }}</p>{% endif %}
+    {% for entry in props.items -%}
+      {% call TimelineItem(entry | opuiOmit(["description"])) %}
+        {% if entry.description %}<p>{{ entry.description }}</p>{% endif %}
       {% endcall %}
     {%- endfor %}
     {{ caller() if caller }}

@@ -1,16 +1,15 @@
 {% macro Tabs(props = {}) %}
   {%- set rest = props | opuiOmit(["class", "name", "orientation", "overflow", "role", "value", "variant", "slots"]) -%}
   {%- set groupName = props.name or opui.id("tabs") -%}
-  {%- if props.role === "radiogroup" %}{{ opui.warnUnnamedGroup("Tabs", rest) }}{% endif -%}
-  {%- set tabs = { groupName: groupName, value: props.value } -%}
+  {{- opui.warnUnnamedGroup("Tabs", rest) if props.role === "radiogroup" -}}
   <div
     class="ui-tabs
-      {%- if props.orientation == "vertical" %} ui-vertical{% endif %}
-      {%- if props.overflow and props.overflow != "scroll" %} ui-overflow-{{ props.overflow }}{% endif %}
-      {%- if props.variant and props.variant != "tonal" %} ui-{{ props.variant }}{% endif %}
+      {%- if props.orientation == 'vertical' %} ui-vertical{% endif %}
+      {%- if props.overflow and props.overflow != 'scroll' %} ui-overflow-{{ props.overflow }}{% endif %}
+      {%- if props.variant and props.variant != 'tonal' %} ui-{{ props.variant }}{% endif %}
       {%- if props.class %} {{ props.class }}{% endif %}"
     {%- if props.role != none %} role="{{ props.role }}"{% endif %}
     {{- rest | opuiAttributes }}>
-    {{ opui.provide("Tabs", tabs, caller) }}
+    {{ opui.provide("Tabs", { groupName: groupName, value: props.value }, caller) }}
   </div>
 {%- endmacro %}

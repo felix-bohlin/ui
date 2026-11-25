@@ -61,16 +61,21 @@ const IDENTIFIER = /^[A-Za-z_][\w]*$/
 
 const ID_FACTORY = "createIds"
 
-export const nunjucksString = (value) =>
-  `"${value.replace(/[\\"\n\r\t]/g, (char) =>
-    char === "\n"
-      ? "\\n"
-      : char === "\r"
-        ? "\\r"
-        : char === "\t"
-          ? "\\t"
-          : `\\${char}`,
-  )}"`
+export const nunjucksString = (value, quote = '"') => {
+  const mark = quote === "'" && !value.includes("'") ? "'" : '"'
+  const escaped = value.replace(
+    mark === "'" ? /[\\\n\r\t]/g : /[\\"\n\r\t]/g,
+    (char) =>
+      char === "\n"
+        ? "\\n"
+        : char === "\r"
+          ? "\\r"
+          : char === "\t"
+            ? "\\t"
+            : `\\${char}`,
+  )
+  return `${mark}${escaped}${mark}`
+}
 
 const isName = (name) => IDENTIFIER.test(name) && !KEYWORDS.has(name)
 
@@ -175,12 +180,18 @@ const translate = (root, scope, sourceFile) => {
       COMPILER,
     )
   const primary = (text) => ({ level: LEVEL.primary, text })
+  const string = (raw) => ({
+    level: LEVEL.primary,
+    string: raw,
+    text: nunjucksString(raw, scope.quote),
+  })
   const binary = (left, operator, right, level) => ({
     level,
     text: `${at(left, level)} ${operator} ${at(right, level + 1)}`,
   })
   const identifier = (node) => {
     const name = node.text
+    if (scope.renames?.has(name)) return scope.renames.get(name)
     if (scope.locals?.has(name)) return primary(name)
     if (scope.props?.has(name)) {
       return primary(`props${nunjucksName(scope.props.get(name))}`)
@@ -247,14 +258,16 @@ const translate = (root, scope, sourceFile) => {
       if (!prefix || !ts.isStringLiteral(prefix)) {
         throw refuse(node, "an id prefix")
       }
-      const generated = primary(`opui.id(${nunjucksString(prefix.text)})`)
+      const generated = primary(
+        `opui.id(${nunjucksString(prefix.text, scope.quote)})`,
+      )
       const base = ids.id
         ? {
             level: LEVEL.or,
             text: `${at(visit(ids.id), LEVEL.or)} or ${generated.text}`,
           }
         : generated
-      return ids.part ? concat([base, primary('"-"'), visit(ids.part)]) : base
+      return ids.part ? concat([base, string("-"), visit(ids.part)]) : base
     }
     const callee = unwrap(node.expression)
     const args = () => node.arguments.map((item) => visit(item).text).join(", ")
@@ -262,12 +275,6 @@ const translate = (root, scope, sourceFile) => {
       const name = callee.text
       if (scope.idPrefixes?.has(name) && node.arguments.length === 1) {
         return primary(`opui.id(${args()})`)
-      }
-      if (scope.idBases?.has(name)) {
-        const base = primary(scope.idBases.get(name))
-        return node.arguments.length
-          ? concat([base, primary('"-"'), visit(node.arguments[0])])
-          : base
       }
       if (!scope.locals?.has(name) && !scope.props?.has(name)) {
         if (name === "Boolean" && node.arguments.length === 1) {
@@ -277,7 +284,7 @@ const translate = (root, scope, sourceFile) => {
           }
         }
         if (name === "String" && node.arguments.length === 1) {
-          return concat([visit(node.arguments[0]), primary('""')])
+          return concat([visit(node.arguments[0]), string("")])
         }
       }
       return primary(`${identifier(callee).text}(${args()})`)
@@ -290,18 +297,14 @@ const translate = (root, scope, sourceFile) => {
   const concat = (parts) => {
     const merged = parts.reduce((list, part) => {
       const last = list.at(-1)
-      const string = /^"(.*)"$/s
-      return last && string.test(last.text) && string.test(part.text)
-        ? [
-            ...list.slice(0, -1),
-            primary(`${last.text.slice(0, -1)}${part.text.slice(1)}`),
-          ]
+      return last?.string !== undefined && part.string !== undefined
+        ? [...list.slice(0, -1), string(`${last.string}${part.string}`)]
         : [...list, part]
     }, [])
     if (merged.length === 1) {
-      return merged[0].text.startsWith('"')
-        ? merged[0]
-        : concat([merged[0], primary('""')])
+      return merged[0].string === undefined
+        ? concat([merged[0], string("")])
+        : merged[0]
     }
     return {
       level: LEVEL.concat,
@@ -317,7 +320,7 @@ const translate = (root, scope, sourceFile) => {
       }
       return primary(node.getText(sourceFile))
     }
-    return primary(nunjucksString(node.text))
+    return string(node.text)
   }
   const template = (node) => {
     const head = node.head.text
@@ -328,15 +331,15 @@ const translate = (root, scope, sourceFile) => {
       span.literal.text === "" &&
       head.endsWith("-")
     ) {
-      return primary(`opui.id(${nunjucksString(head.slice(0, -1))})`)
+      return primary(
+        `opui.id(${nunjucksString(head.slice(0, -1), scope.quote)})`,
+      )
     }
     return concat([
-      ...(head ? [primary(nunjucksString(head))] : []),
+      ...(head ? [string(head)] : []),
       ...node.templateSpans.flatMap((item) => [
         visit(item.expression),
-        ...(item.literal.text
-          ? [primary(nunjucksString(item.literal.text))]
-          : []),
+        ...(item.literal.text ? [string(item.literal.text)] : []),
       ]),
     ])
   }
@@ -517,7 +520,52 @@ export const nunjucksStatement = (code, scope) => {
     })
   }
   if (ts.isIfStatement(statement) && !statement.elseStatement) {
-    return `{% if ${translate(statement.expression, scope, sourceFile).text} %}${calls(statement.thenStatement).join("")}{% endif %}`
+    const test = translate(statement.expression, scope, sourceFile)
+    const lines = calls(statement.thenStatement)
+    return lines.length === 1
+      ? `${lines[0].slice(0, -3)} if ${at(test, LEVEL.or)} }}`
+      : `{% if ${test.text} %}${lines.join("")}{% endif %}`
   }
   return calls(statement).join("")
+}
+
+export const isNonNull = (code, scope) => {
+  const sourceFile = sourceFileOf(`(${code})`, "expression.ts")
+  const check = (node) => {
+    const inner = unwrap(node)
+    if (
+      ts.isStringLiteral(inner) ||
+      ts.isNoSubstitutionTemplateLiteral(inner) ||
+      ts.isTemplateExpression(inner) ||
+      ts.isNumericLiteral(inner)
+    ) {
+      return true
+    }
+    if (ts.isIdentifier(inner)) return !!scope.nonNull?.has(inner.text)
+    if (ts.isConditionalExpression(inner)) {
+      return check(inner.whenTrue) && check(inner.whenFalse)
+    }
+    if (ts.isBinaryExpression(inner)) {
+      const operator = inner.operatorToken.kind
+      if (
+        operator === ts.SyntaxKind.BarBarToken ||
+        operator === ts.SyntaxKind.QuestionQuestionToken
+      ) {
+        return check(inner.right)
+      }
+      return false
+    }
+    if (ts.isCallExpression(inner)) {
+      const callee = unwrap(inner.expression)
+      if (ts.isIdentifier(callee)) {
+        return (
+          !!scope.idPrefixes?.has(callee.text) ||
+          !!scope.idBases?.has(callee.text)
+        )
+      }
+      return !!idCall(inner)
+    }
+    return false
+  }
+  return check(sourceFile.statements[0].expression)
 }

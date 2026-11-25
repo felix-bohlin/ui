@@ -8,6 +8,7 @@ import {
   at,
   COMPILER,
   dict,
+  isNonNull,
   KEYWORDS,
   LEVEL,
   nunjucksKey,
@@ -21,12 +22,13 @@ import {
 import { readComponent } from "./component-reader.mjs"
 import {
   codesIn,
-  identifiersIn,
+  identifierCounts,
   itemBinding,
   PRESERVED_TAGS,
   root,
   sourceFileOf,
   unsupported,
+  unwrap,
 } from "./component-shared.mjs"
 import { baseTypesOf } from "./component-types.mjs"
 import { VOID_ELEMENTS } from "./html-tokens.mjs"
@@ -156,10 +158,13 @@ const layoutList = (open, items, close, depth, pad = "") => {
     .join(",\n")}\n${indent(depth)}${close}`
 }
 
-const block = (open, body, close, depth, sets = []) => {
+const block = (open, body, close, depth, sets = [], force = false) => {
   const startsBlank = /^\s/.test(body)
   const endsBlank = /\s$/.test(body)
-  if (!sets.length && (startsBlank || endsBlank || !body.includes("\n"))) {
+  if (
+    !sets.length &&
+    (startsBlank || endsBlank || (!force && !body.includes("\n")))
+  ) {
     return `${open}${body}${close}`
   }
   const head = sets.length
@@ -199,19 +204,32 @@ export const toNunjucks = (component, { strings = new Set() } = {}) => {
     return name
   }
   const defaulted = component.props.filter((prop) => prop.default !== undefined)
+  const idsName = component.idBases[0]?.[0]
+  const isIdBase = ({ name }) => !!idsName && name === "base"
   const locals = new Set(
     [
       component.rest,
       ...defaulted.map((prop) => prop.local),
       ...component.reads.map((read) => read.name),
       ...component.trimmedSlots.map((slot) => slot.local),
-      ...component.derived.map((value) => value.name),
+      ...component.derived
+        .filter((entry) => !isIdBase(entry))
+        .map((entry) => entry.name),
+      idsName,
     ]
       .filter(Boolean)
       .map(reserve),
-    COMPILER,
   )
   const taken = new Set([...locals, ...RESERVED])
+  const renames = new Map()
+  for (const tag of component.variableTags ?? []) {
+    const lower = lowerFirst(tag)
+    if (tag !== lower && locals.has(tag) && !taken.has(lower)) {
+      renames.set(tag, { level: LEVEL.primary, text: lower })
+      taken.add(lower)
+    }
+  }
+  const localName = (name) => renames.get(name)?.text ?? name
   const fresh = (...names) => {
     const name =
       names.find((item) => !taken.has(item)) ?? `${names[0]}${taken.size}`
@@ -227,21 +245,120 @@ export const toNunjucks = (component, { strings = new Set() } = {}) => {
   const scope = {
     file,
     helpers: new Set(Object.keys(HELPERS)),
-    idBases: new Map(component.idBases),
+    idBases: new Set(idsName ? [idsName] : []),
     idPrefixes: new Set(component.idPrefixes),
     imports: new Set(importedNames(component.imports)),
     locals,
+    nonNull: new Set(),
     numbers: new Set(),
     props: new Map(
       component.props
         .filter((prop) => prop.default === undefined)
         .map((prop) => [prop.local, prop.prop]),
     ),
+    renames,
     strings: new Set(
       component.props
         .filter((prop) => strings.has(prop.prop))
         .map((prop) => prop.local),
     ),
+  }
+  const codeUses = (nodes, list = []) => {
+    for (const node of nodes) {
+      if (node.type === "if") {
+        list.push({ code: node.test, test: true })
+        codeUses(node.consequent, list)
+        codeUses(node.alternate ?? [], list)
+      } else if (node.type === "each") {
+        list.push({ code: node.list })
+        for (const { code } of node.consts) list.push({ code })
+        codeUses(node.children, list)
+      } else if (node.type === "expression") {
+        list.push({ code: node.code })
+      } else if (node.type === "slot") {
+        codeUses(node.fallback, list)
+      } else if (node.type === "element") {
+        for (const item of node.attributes) {
+          if (item.code) list.push({ code: item.code })
+          if (item.condition) list.push({ code: item.condition })
+        }
+        codeUses(node.children, list)
+      }
+    }
+    return list
+  }
+  const uses = [
+    ...codeUses(component.tree),
+    ...component.derived.map(({ code }) => ({ code })),
+    ...component.warnings.map((code) => ({ code, statement: true })),
+    ...(component.provide?.value ?? []).map(({ code }) => ({ code })),
+  ]
+  const PASSES = new Set([
+    ts.SyntaxKind.AmpersandAmpersandToken,
+    ts.SyntaxKind.BarBarToken,
+  ])
+  const testOnly = (name) =>
+    uses.every(({ code, statement, test }) => {
+      const sourceFile = sourceFileOf(statement ? code : `(${code})`, "use.ts")
+      let only = true
+      const visit = (node) => {
+        if (
+          ts.isIdentifier(node) &&
+          node.text === name &&
+          !(
+            ts.isPropertyAccessExpression(node.parent) &&
+            node.parent.name === node
+          ) &&
+          !(ts.isPropertyAssignment(node.parent) && node.parent.name === node)
+        ) {
+          let current = node
+          for (;;) {
+            const parent = current.parent
+            if (
+              ts.isParenthesizedExpression(parent) ||
+              (ts.isPrefixUnaryExpression(parent) &&
+                parent.operator === ts.SyntaxKind.ExclamationToken) ||
+              (ts.isBinaryExpression(parent) &&
+                PASSES.has(parent.operatorToken.kind))
+            ) {
+              current = parent
+              continue
+            }
+            const tested =
+              (ts.isConditionalExpression(parent) &&
+                parent.condition === current) ||
+              (ts.isIfStatement(parent) && parent.expression === current) ||
+              (test && ts.isExpressionStatement(parent))
+            if (!tested) only = false
+            break
+          }
+        }
+        ts.forEachChild(node, visit)
+      }
+      visit(sourceFile)
+      return only
+    })
+  const derivedCode = ({ code, name }) => {
+    const sourceFile = sourceFileOf(`(${code})`, "derived.ts")
+    const call = unwrap(sourceFile.statements[0].expression)
+    return ts.isCallExpression(call) &&
+      ts.isIdentifier(call.expression) &&
+      call.expression.text === "Boolean" &&
+      call.arguments.length === 1 &&
+      testOnly(name)
+      ? call.arguments[0].getText(sourceFile)
+      : code
+  }
+  const idsLine = ({ code }) => {
+    const sourceFile = sourceFileOf(`(${code})`, "base.ts")
+    const expression = unwrap(sourceFile.statements[0].expression)
+    const [given, template] =
+      ts.isBinaryExpression(expression) &&
+      expression.operatorToken.kind === ts.SyntaxKind.BarBarToken
+        ? [expression.left.getText(sourceFile), unwrap(expression.right)]
+        : [undefined, expression]
+    const prefix = nunjucksString(template.head.text.replace(/-$/, ""))
+    return `{% set ${idsName} = opui.ids(${prefix}${given ? `, ${value(given).text}` : ""}) %}`
   }
   const value = (code, inner = scope) => nunjucksValue(code, inner)
   const expression = (code, inner = scope) => value(code, inner).text
@@ -249,8 +366,17 @@ export const toNunjucks = (component, { strings = new Set() } = {}) => {
     const folder = context.folder ?? component.folder
     return folder === context.name ? context.name : `${folder}/${context.name}`
   }
+  const provideEntries = component.provide?.value.map(({ code, key }) => [
+    key,
+    value(code),
+  ])
+  const provideInline = provideEntries?.every(
+    ([, shown]) => shown.level === LEVEL.primary && !shown.text.includes("("),
+  )
   const provided = component.provide
-    ? fresh(lowerFirst(component.provide.context.name), "provided")
+    ? provideInline
+      ? dict(provideEntries.map(([key, shown]) => [key, shown.text]))
+      : fresh(lowerFirst(component.provide.context.name), "provided")
     : undefined
   const hoisted = []
   const preamble = [
@@ -264,21 +390,25 @@ export const toNunjucks = (component, { strings = new Set() } = {}) => {
             .join(", ")}]) %}`,
         ]
       : []),
-    ...defaulted.map(({ default: initial, local, prop }) => {
-      const read = `props${nunjucksName(prop)}`
-      return `{% set ${local} = ${read} if ${read} is defined else ${at(value(initial), LEVEL.or)} %}`
-    }),
+    ...defaulted.map(
+      ({ default: initial, local, prop }) =>
+        `{% set ${localName(local)} = props${nunjucksName(prop)} | default(${value(initial).text}) %}`,
+    ),
     ...component.reads.map(
       ({ context, name }) =>
         `{% set ${name} = opui.context(${nunjucksString(contextKey(context))}) %}`,
     ),
     ...component.trimmedSlots.map(({ local, slot }) => {
       const read = slotRead(slot)
-      return `{% set ${local} = ${read} | opuiTrim if ${read} != none else "" %}`
+      return `{% set ${local} = ${read} | opuiTrim %}`
     }),
-    ...component.derived.map(
-      ({ code, name }) => `{% set ${name} = ${expression(code)} %}`,
-    ),
+    ...component.derived.map((entry) => {
+      if (isIdBase(entry)) return idsLine(entry)
+      const code = derivedCode(entry)
+      const line = `{% set ${localName(entry.name)} = ${expression(code)} %}`
+      if (isNonNull(code, scope)) scope.nonNull.add(entry.name)
+      return line
+    }),
     ...component.warnings.map((code) => nunjucksStatement(code, scope)),
     ...(component.item
       ? [
@@ -288,13 +418,10 @@ export const toNunjucks = (component, { strings = new Set() } = {}) => {
           ),
         ]
       : []),
-    ...(component.provide
+    ...(component.provide && !provideInline
       ? [
           `{% set ${provided} = ${dict(
-            component.provide.value.map(({ code, key }) => [
-              key,
-              expression(code),
-            ]),
+            provideEntries.map(([key, shown]) => [key, shown.text]),
           )} %}`,
         ]
       : []),
@@ -303,6 +430,7 @@ export const toNunjucks = (component, { strings = new Set() } = {}) => {
     translated.level === LEVEL.primary && !translated.text.includes("(")
   const isLiteral = (code) =>
     /^(?:"[^"\\]*"|'[^'\\]*'|\d+(?:\.\d+)?)$/.test(code.trim())
+  const quoted = (inner) => ({ ...inner, quote: "'" })
   const templateOutput = (node, inner, sourceFile, covered) => {
     if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) {
       return attributeValue(node.text)
@@ -311,7 +439,16 @@ export const toNunjucks = (component, { strings = new Set() } = {}) => {
     const spans = node.templateSpans.map((span) =>
       expression(span.expression.getText(sourceFile), inner),
     )
-    if (spans.every((span) => covered.includes(span))) {
+    if (
+      spans.every(
+        (span, index) =>
+          covered.includes(span) ||
+          isNonNull(
+            node.templateSpans[index].expression.getText(sourceFile),
+            inner,
+          ),
+      )
+    ) {
       return `${attributeValue(node.head.text)}${node.templateSpans
         .map(
           (span, index) =>
@@ -321,7 +458,8 @@ export const toNunjucks = (component, { strings = new Set() } = {}) => {
     }
     return `{{ ${expression(node.getText(sourceFile), inner)} }}`
   }
-  const classTokens = (code, inner, multiline) => {
+  const classTokens = (code, outer, multiline) => {
+    const inner = quoted(outer)
     const sourceFile = sourceFileOf(`(${code})`, "class.ts")
     const list = sourceFile.statements[0]?.expression
     const array =
@@ -432,7 +570,8 @@ export const toNunjucks = (component, { strings = new Set() } = {}) => {
         .join("")}"`,
     ]
   }
-  const attributeTokens = (node, inner, sets, multiline) => {
+  const attributeTokens = (node, outer, sets, multiline) => {
+    const inner = quoted(outer)
     const tokens = []
     for (const item of node.attributes) {
       if (item.kind === "static") {
@@ -479,6 +618,16 @@ export const toNunjucks = (component, { strings = new Set() } = {}) => {
         tokens.push(`{{ ${dict([[item.name, shown.text]])} | opuiAttributes }}`)
         continue
       }
+      const certain =
+        !BOOLEAN_ATTRIBUTES.has(item.name) && isNonNull(item.code, inner)
+      const source = sourceFileOf(`(${item.code})`, "attribute.ts")
+      const written = unwrap(source.statements[0].expression)
+      if (certain && ts.isTemplateExpression(written)) {
+        tokens.push(
+          ` ${item.name}="${templateOutput(written, inner, source, [])}"`,
+        )
+        continue
+      }
       if (!isSimple(shown)) {
         const name = nameFor(item, camel(item.name), `${camel(item.name)}Value`)
         sets.push(`{% set ${name} = ${shown.text} %}`)
@@ -487,7 +636,9 @@ export const toNunjucks = (component, { strings = new Set() } = {}) => {
       tokens.push(
         BOOLEAN_ATTRIBUTES.has(item.name)
           ? `{% if ${shown.text} %} ${item.name}{% endif %}`
-          : `{% if ${shown.text} != none %} ${item.name}="{{ ${shown.text} }}"{% endif %}`,
+          : certain
+            ? ` ${item.name}="{{ ${shown.text} }}"`
+            : `{% if ${shown.text} != none %} ${item.name}="{{ ${shown.text} }}"{% endif %}`,
       )
     }
     return tokens
@@ -513,7 +664,7 @@ export const toNunjucks = (component, { strings = new Set() } = {}) => {
       depth,
     )} | opuiClass`
   }
-  const mergedProps = (node, inner, depth) => {
+  const mergedProps = (node, inner, depth, hoistClass = false) => {
     const parts = []
     let entries = []
     const flush = () => {
@@ -525,6 +676,10 @@ export const toNunjucks = (component, { strings = new Set() } = {}) => {
         entries.push([item.name, nunjucksString(item.value)])
       } else if (item.kind === "boolean") {
         entries.push([item.name, "true"])
+      } else if (item.kind === "class" && hoistClass) {
+        const name = nameFor(item, "classes", "classNames")
+        hoisted.push(`{% set ${name} = ${classList(item.code, inner, 1)} %}`)
+        entries.push(["class", name])
       } else if (item.kind === "class") {
         entries.push(["class", (at) => classList(item.code, inner, at)])
       } else if (item.kind === "expression") {
@@ -607,53 +762,74 @@ export const toNunjucks = (component, { strings = new Set() } = {}) => {
         COMPILER,
       )
     }
-    const fields = binding.name
-      ? []
-      : [...binding.fields.map(({ local }) => local), binding.rest].filter(
-          Boolean,
-        )
+    const codes = [
+      ...codesIn(node.children),
+      ...node.consts.map(({ code }) => code),
+    ]
+    const references = (name) =>
+      codes.reduce(
+        (sum, code) => sum + (identifierCounts(code).get(name) ?? 0),
+        0,
+      )
+    const restOnce = !!binding.rest && references(binding.rest) === 1
     const names = [
       binding.name,
-      ...fields,
+      ...(binding.rest && !restOnce ? [binding.rest] : []),
       node.index,
       ...node.consts.map(({ name }) => name),
     ]
       .filter(Boolean)
       .map(reserve)
     names.forEach((name) => taken.add(name))
+    if (!binding.name) {
+      binding.fields.forEach(({ local }) => taken.add(local))
+      if (binding.rest) taken.add(binding.rest)
+    }
     const item = binding.name ?? nameFor(node, "item", "entry", "row")
-    const indexUsed =
-      !!node.index &&
-      [...codesIn(node.children), ...node.consts.map(({ code }) => code)].some(
-        (code) => identifiersIn(code).has(node.index),
-      )
+    const omitted = `${item} | opuiOmit([${(binding.fields ?? [])
+      .map(({ key }) => nunjucksString(key))
+      .join(", ")}])`
+    const loopRenames = new Map(ctx.scope.renames)
+    for (const { name } of node.consts) {
+      const lower = lowerFirst(name)
+      if (
+        name !== lower &&
+        component.variableTags?.includes(name) &&
+        !taken.has(lower)
+      ) {
+        loopRenames.set(name, { level: LEVEL.primary, text: lower })
+        taken.add(lower)
+      }
+    }
+    if (!binding.name) {
+      for (const { key, local } of binding.fields) {
+        loopRenames.set(local, {
+          level: LEVEL.primary,
+          text: `${item}${nunjucksName(key)}`,
+        })
+      }
+      if (restOnce) {
+        loopRenames.set(binding.rest, { level: LEVEL.filter, text: omitted })
+      }
+    }
+    const indexUsed = !!node.index && references(node.index) > 0
     const inner = {
       ...ctx.scope,
       locals: new Set([...ctx.scope.locals, item, ...names]),
+      renames: loopRenames,
       numbers: new Set([
         ...ctx.scope.numbers,
         ...(node.index ? [node.index] : []),
       ]),
     }
     const sets = [
-      ...(binding.name
-        ? []
-        : [
-            ...binding.fields.map(
-              ({ key, local }) =>
-                `{% set ${local} = ${item}${nunjucksName(key)} %}`,
-            ),
-            ...(binding.rest
-              ? [
-                  `{% set ${binding.rest} = ${item} | opuiOmit([${binding.fields
-                    .map(({ key }) => nunjucksString(key))
-                    .join(", ")}]) %}`,
-                ]
-              : []),
-          ]),
+      ...(binding.rest && !restOnce
+        ? [`{% set ${binding.rest} = ${omitted} %}`]
+        : []),
       ...(indexUsed ? [`{% set ${node.index} = loop.index0 %}`] : []),
       ...node.consts.map(
-        ({ code, name }) => `{% set ${name} = ${expression(code, inner)} %}`,
+        ({ code, name }) =>
+          `{% set ${loopRenames.get(name)?.text ?? name} = ${expression(code, inner)} %}`,
       ),
     ]
     return block(
@@ -689,7 +865,12 @@ export const toNunjucks = (component, { strings = new Set() } = {}) => {
     used.add(node.tag)
     const props = mergedProps(node, ctx.scope, ctx.depth)
     if (node.children.length === 0) return `{{ ${node.tag}(${props}) }}`
-    return `{% call ${node.tag}(${props}) %}${emit(node.children, { ...child(ctx), hoist: false }, true)}{% endcall %}`
+    return block(
+      `{% call ${node.tag}(${props}) %}`,
+      emit(node.children, { ...child(ctx), hoist: false }, true),
+      "{% endcall %}",
+      ctx.depth,
+    )
   }
   const child = (ctx) => ({ ...ctx, depth: ctx.depth + 1 })
   const elementNode = (node, ctx) => {
@@ -702,7 +883,7 @@ export const toNunjucks = (component, { strings = new Set() } = {}) => {
     const sets = []
     const layout = (multiline) => {
       if (variable) {
-        const props = mergedProps(node, ctx.scope, ctx.depth)
+        const props = mergedProps(node, ctx.scope, ctx.depth, ctx.hoist)
         const tagName = node.variable
           ? expression(node.tag, ctx.scope)
           : nunjucksString(node.tag)
@@ -772,12 +953,14 @@ export const toNunjucks = (component, { strings = new Set() } = {}) => {
             return `{% if ${test} %}${emit(node.consequent, inner)}{% else %}${emit(node.alternate, inner)}{% endif %}`
           }
           const consequent = emit(node.consequent, inner)
-          return consequent.includes("\n") && consequent.length > LINE
+          return consequent.length > LINE
             ? block(
                 `{% if ${test} %}`,
                 emit(node.consequent, { ...inner, depth: ctx.depth + 1 }, true),
                 "{% endif %}",
                 ctx.depth,
+                [],
+                true,
               )
             : `{% if ${test} %}${consequent}{% endif %}`
         }

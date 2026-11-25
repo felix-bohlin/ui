@@ -180,6 +180,13 @@ export const createRuntime = ({ id = counter() } = {}) => {
     ...HELPERS,
     context: (key) => store.get(key),
     id,
+    ids: (prefix, given) => {
+      let base = given === false ? undefined : given
+      return (part) => {
+        base ||= id(prefix)
+        return part ? `${base}-${part}` : base
+      }
+    },
     merge: (...parts) => Object.assign({}, ...parts),
     provide: (key, value, render) => {
       if (typeof render !== "function") return ""

@@ -249,11 +249,19 @@ const COMPOSITIONS = [
     nunjucks: `{% set closeIcon %}<b>x</b>{% endset %}{% call Callout({ closeButton: true, closeLabel: "Dismiss", severity: "info", slots: { closeIcon: closeIcon } }) %}<p>Saved</p>{% endcall %}{% call Callout({ closeButton: true }) %}<p>Sent</p>{% endcall %}`,
   },
   {
+    astro: `<Callout><p>Saved</p></Callout><Callout closeButton><p>Sent</p></Callout><Callout closeButton id="kept"><p>Kept</p></Callout>`,
+    name: "Callouts that do and don't take an id",
+    nunjucks: `{% call Callout() %}<p>Saved</p>{% endcall %}{% call Callout({ closeButton: true }) %}<p>Sent</p>{% endcall %}{% call Callout({ closeButton: true, id: "kept" }) %}<p>Kept</p>{% endcall %}`,
+  },
+  {
     astro: `<Dialog id="settings"><DialogHeader closeButton><DialogTitle>Settings</DialogTitle></DialogHeader></Dialog>`,
     name: "Dialog with a closing header",
     nunjucks: `{% call Dialog({ id: "settings" }) %}{% call DialogHeader({ closeButton: true }) %}{% call DialogTitle() %}Settings{% endcall %}{% endcall %}{% endcall %}`,
   },
 ]
+
+const idsIn = (html: string) =>
+  [...html.matchAll(/\sid="([^"]*)"/g)].map(([, id]) => id)
 
 describe("compositions render what Astro renders", () => {
   test.each(COMPOSITIONS)("$name", async ({ astro, name, nunjucks }) => {
@@ -270,8 +278,10 @@ describe("compositions render what Astro renders", () => {
     const macros = used
       .map((target) => `{% from "opui/${target}.njk" import ${target} %}`)
       .join("")
-    expect(normalize(renderNunjucks(`${macros}${nunjucks}`))).toBe(
-      normalize(expected),
+    const rendered = renderNunjucks(`${macros}${nunjucks}`)
+    expect(normalize(rendered)).toBe(normalize(expected))
+    expect(idsIn(rendered), "the generated ids follow Astro's").toEqual(
+      idsIn(expected),
     )
   })
 })

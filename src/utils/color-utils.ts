@@ -11,6 +11,10 @@ function toLinear(c: number): number {
   return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)
 }
 
+function toGamma(c: number): number {
+  return c <= 0.0031308 ? 12.92 * c : 1.055 * Math.pow(c, 1 / 2.4) - 0.055
+}
+
 /** Convert a 6-digit hex string (e.g. "#3b62d9") to OKLCH components. */
 function hexToOklch(hex: string): { L: number; C: number; H: number } {
   return srgbToOklch(
@@ -49,6 +53,21 @@ export function srgbToOklch(
   if (H < 0) H += 360
 
   return { L, C, H }
+}
+
+/**
+ * Convert OKLCH components to the nearest in-gamut sRGB hex string.
+ * Out-of-gamut values are clamped to [0, 1] per channel.
+ */
+export function oklchToHex(L: number, C: number, H: number): string {
+  const [lr, lg, lb] = oklchToLinearSrgb(L, C, H)
+
+  const clamp = (v: number) => Math.max(0, Math.min(1, v))
+  const ri = Math.round(clamp(toGamma(lr)) * 255)
+  const gi = Math.round(clamp(toGamma(lg)) * 255)
+  const bi = Math.round(clamp(toGamma(lb)) * 255)
+
+  return "#" + [ri, gi, bi].map((v) => v.toString(16).padStart(2, "0")).join("")
 }
 
 export type Oklch = { C: number; H: number; L: number }
@@ -112,6 +131,90 @@ export function oklchGamut(L: number, C: number, H: number) {
   if (inUnit(srgb)) return "srgb"
   return inUnit(toP3(srgb)) ? "p3" : "wide"
 }
+
+const P3_TO_SRGB = [
+  [1.2249399401, -0.22493994, 0],
+  [-0.0420569467, 1.0420569467, 0],
+  [-0.0196375508, -0.0786360494, 1.0982736002],
+]
+
+type RgbSpace = "p3" | "srgb"
+
+const JUST_NOTICEABLE = 0.02
+
+const CHROMA_EPSILON = 0.0001
+
+const toOklab = ({ C, H, L }: Oklch) => {
+  const radians = H * (Math.PI / 180)
+  return [L, C * Math.cos(radians), C * Math.sin(radians)]
+}
+
+const deltaEOK = (a: Oklch, b: Oklch) => {
+  const [x, y] = [toOklab(a), toOklab(b)]
+  return Math.hypot(x[0] - y[0], x[1] - y[1], x[2] - y[2])
+}
+
+const encode = (color: Oklch, space: RgbSpace) => {
+  const linear = oklchToLinearSrgb(color.L, color.C, color.H)
+  return (space === "p3" ? toP3(linear) : linear).map(toGamma)
+}
+
+const decode = (channels: number[], space: RgbSpace): Oklch => {
+  const linear = channels.map(toLinear)
+  const srgb =
+    space === "p3"
+      ? P3_TO_SRGB.map((row) =>
+          row.reduce((sum, weight, index) => sum + weight * linear[index], 0),
+        )
+      : linear
+  const [r, g, b] = srgb.map(toGamma)
+  return srgbToOklch(r, g, b)
+}
+
+const clip = (channels: number[]) =>
+  channels.map((channel) => Math.min(1, Math.max(0, channel)))
+
+export function oklchToRgb({ C, H, L }: Oklch, space: RgbSpace = "srgb") {
+  if (L >= 1) return [1, 1, 1]
+  if (L <= 0) return [0, 0, 0]
+  let current = { C, H, L }
+  if (inUnit(encode(current, space))) return clip(encode(current, space))
+  let clipped = clip(encode(current, space))
+  if (deltaEOK(decode(clipped, space), current) < JUST_NOTICEABLE) {
+    return clipped
+  }
+  let min = 0
+  let max = C
+  let minInGamut = true
+  while (max - min > CHROMA_EPSILON) {
+    const chroma = (min + max) / 2
+    current = { C: chroma, H, L }
+    if (minInGamut && inUnit(encode(current, space))) {
+      min = chroma
+      continue
+    }
+    clipped = clip(encode(current, space))
+    const error = deltaEOK(decode(clipped, space), current)
+    if (error < JUST_NOTICEABLE) {
+      if (JUST_NOTICEABLE - error < CHROMA_EPSILON) return clipped
+      minInGamut = false
+      min = chroma
+    } else {
+      max = chroma
+    }
+  }
+  return clipped
+}
+
+export const rgbToHex = (channels: number[]) =>
+  `#${channels
+    .map((channel) =>
+      Math.round(Math.min(1, Math.max(0, channel)) * 255)
+        .toString(16)
+        .padStart(2, "0"),
+    )
+    .join("")
+    .toUpperCase()}`
 
 export function oklchLuminances(L: number, C: number, H: number) {
   const srgb = oklchToLinearSrgb(L, C, H)

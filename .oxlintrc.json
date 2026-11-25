@@ -42,6 +42,12 @@
       }
     },
     {
+      "files": ["packages/opui/figma/sync.js"],
+      "rules": {
+        "no-unused-vars": "off"
+      }
+    },
+    {
       "files": ["packages/opui/solid/elements.ts"],
       "rules": {
         "no-unused-vars": "off"

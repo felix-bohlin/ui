@@ -67,7 +67,7 @@ export const sectionKey = (title: string) => {
   const key = SECTIONS.find(([name]) => name === title)?.[1]
   if (!key) {
     throw new Error(
-      `The theme.css section "${title}" has no key: give it one in SECTIONS in src/utils/theme-tokens.ts. The key names the group in tokens.json, so it never changes once released.`,
+      `The theme.css section "${title}" has no key: give it one in SECTIONS in src/utils/theme-tokens.ts. The key names the group in tokens.json and the Figma variables, so it never changes once released.`,
     )
   }
   return key

@@ -17,6 +17,7 @@ import { tmpdir } from "node:os"
 import path from "node:path"
 import ts from "typescript"
 import { afterAll, beforeAll, describe, expect, test } from "vitest"
+import * as dev from "../../packages/opui/components/dev"
 import { HYDRATED_FRAMEWORK_IDS } from "../../src/utils/framework.js"
 import { lightDarkSettings } from "./readme.ts"
 
@@ -216,6 +217,43 @@ const [outDir, settings] = process.argv.slice(2)
 const config = JSON.parse(settings)
 await build({ ...config, build: { ...config.build, outDir }, logLevel: "silent" })
 `
+
+const PRODUCTION_BUILD = String.raw`
+process.env.NODE_ENV = "production"
+const { build } = await import("vite")
+
+const result = await build({
+  build: {
+    lib: { entry: process.argv[2], formats: ["es"] },
+    minify: false,
+    rollupOptions: {
+      external: (id) => /^[^./\0]/.test(id) && !id.startsWith("opui-css"),
+    },
+    write: false,
+  },
+  logLevel: "silent",
+  mode: "production",
+})
+process.stdout.write(
+  [result]
+    .flat()
+    .flatMap(({ output }) => output)
+    .map((chunk) => chunk.code ?? "")
+    .join("\n"),
+)
+`
+
+const DEV_ONLY = Object.keys(dev).filter(
+  (name) => name === "hasName" || name.startsWith("warn"),
+)
+
+const devLeftovers = (code: string) => [
+  ...(code.includes("[OPUI") ? ["[OPUI"] : []),
+  ...DEV_ONLY.filter((name) => new RegExp(`\\b${name}\\(`).test(code)),
+  ...new Set(
+    [...code.matchAll(/^\s*(untrack|watchEffect)\(/gm)].map(([, name]) => name),
+  ),
+]
 
 const cssIn = (dist: string) =>
   readdirSync(dist, { recursive: true })
@@ -863,6 +901,57 @@ describe.each(FIXTURES)(
           "the vite.config block in the README's Builds that rewrite light-dark() section no longer keeps light-dark()",
         ).toContain("light-dark(")
         expect(lightDarkProblems(css)).toEqual([])
+      },
+    )
+
+    test.runIf(framework !== "astro")(
+      "a production build leaves out the dev warnings and the code that computes what they check",
+      () => {
+        writeFileSync(path.join(dir, "production-build.mjs"), PRODUCTION_BUILD)
+        writeFileSync(
+          path.join(dir, "production-entry.js"),
+          `export * from "opui-css/${framework}"\n`,
+        )
+        expect(
+          devLeftovers(
+            run("node", ["production-build.mjs", "production-entry.js"], dir),
+          ),
+          `the ${framework} components still call these in a production build: put each warning behind \`if (DEV)\` from components/dev.ts`,
+        ).toEqual([])
+      },
+    )
+
+    test.runIf(framework === "vue")(
+      "the production check flags a warning without the flag, and an effect that only ran one",
+      () => {
+        writeFileSync(path.join(dir, "production-build.mjs"), PRODUCTION_BUILD)
+        const leftovers = (name: string, call: string) => {
+          writeFileSync(
+            path.join(dir, `${name}.js`),
+            `import { watchEffect } from "vue"\nimport { DEV, hasName, warnUnnamed } from "opui-css/dist/components/dev.js"\nexport const sample = (props) => {\n  ${call}\n  return [watchEffect, props.label]\n}\n`,
+          )
+          return devLeftovers(
+            run("node", ["production-build.mjs", `${name}.js`], dir),
+          )
+        }
+        expect(
+          leftovers(
+            "unguarded",
+            'warnUnnamed("Sample", hasName(props, undefined))',
+          ),
+        ).toEqual(["hasName"])
+        expect(
+          leftovers(
+            "effect",
+            'watchEffect(() => warnUnnamed("Sample", props.label))',
+          ),
+        ).toEqual(["watchEffect"])
+        expect(
+          leftovers(
+            "guarded",
+            'if (DEV) warnUnnamed("Sample", hasName(props, undefined))',
+          ),
+        ).toEqual([])
       },
     )
 

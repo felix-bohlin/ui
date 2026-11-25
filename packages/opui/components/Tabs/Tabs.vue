@@ -9,7 +9,7 @@ import {
 } from "vue"
 import { useBound } from "../vue"
 import { TabsKey } from "./context.vue"
-import { warnUnnamedGroup } from "../dev"
+import { DEV, warnUnnamedGroup } from "../dev"
 import type { Props, Slots } from "./types.vue-props"
 
 const { name, orientation, overflow, role, variant } = defineProps<Props>()
@@ -25,7 +25,7 @@ const uid = useId()
 
 const groupName = computed(() => name || `tabs-${uid}`)
 
-if (role === "radiogroup") warnUnnamedGroup("Tabs", attrs)
+if (DEV && role === "radiogroup") warnUnnamedGroup("Tabs", attrs)
 
 provide(TabsKey, reactive({ bound, groupName, value: model }))
 </script>

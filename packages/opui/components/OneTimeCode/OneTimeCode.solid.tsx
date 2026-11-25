@@ -1,7 +1,7 @@
 /** @jsxImportSource @solidjs/web */
 import { children, omit, untrack } from "solid-js"
 import { filled } from "../attrs"
-import { warnControlAttributes } from "../dev"
+import { DEV, warnControlAttributes } from "../dev"
 import type { Props } from "./types.solid"
 
 export default function OneTimeCode(props: Props) {
@@ -21,9 +21,10 @@ export default function OneTimeCode(props: Props) {
   const hasLabel = () => Boolean(resolvedLabel())
   const hasEndText = () => Boolean(filled(resolvedEndText()))
   const endTextId = () => (hasEndText() ? `${props.for}-end-text` : undefined)
-  untrack(() => {
-    warnControlAttributes("OneTimeCode", rest)
-  })
+  if (DEV)
+    untrack(() => {
+      warnControlAttributes("OneTimeCode", rest)
+    })
 
   return (
     <div

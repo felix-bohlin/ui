@@ -3,7 +3,7 @@
 import type { HTMLAttributes } from "react"
 import { cx } from "../cx"
 import { useFieldsetContext } from "../Fieldset/context.react"
-import { warnReplacedId } from "../dev"
+import { DEV, warnReplacedId } from "../dev"
 import type { Props } from "./types.react"
 
 export default function FieldLegend({
@@ -16,7 +16,7 @@ export default function FieldLegend({
   const fieldset = useFieldsetContext()
   const Tag = as || "legend"
   const isLegend = Tag === "legend"
-  warnReplacedId("FieldLegend", "Fieldset", id, fieldset?.legendId)
+  if (DEV) warnReplacedId("FieldLegend", "Fieldset", id, fieldset?.legendId)
 
   return (
     <Tag

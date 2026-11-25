@@ -1,7 +1,7 @@
 /** @jsxImportSource @solidjs/web */
 import { omit, untrack } from "solid-js"
 import { AnchorContext } from "./context.solid"
-import { warnMissingId } from "../dev"
+import { DEV, warnMissingId } from "../dev"
 import { mergeStyle } from "../style"
 import { extendsAnchor } from "./root"
 import { cx } from "../cx"
@@ -19,11 +19,12 @@ export default function Anchor(props: Props) {
   )
   const isHover = () => props.trigger === "hover"
   const id = () => (isHover() ? props.id || undefined : undefined)
-  untrack(() => {
-    if (isHover() && !extendsAnchor(props.class)) {
-      warnMissingId("Anchor", id(), "interestfor")
-    }
-  })
+  if (DEV)
+    untrack(() => {
+      if (isHover() && !extendsAnchor(props.class)) {
+        warnMissingId("Anchor", id(), "interestfor")
+      }
+    })
 
   return (
     <AnchorContext

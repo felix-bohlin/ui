@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRestAttrs } from "../vue"
 import Anchor from "../Anchor/Anchor.vue"
-import { warnMissingId } from "../dev"
+import { DEV, warnMissingId } from "../dev"
 import type { Props, Slots } from "./types.vue-props"
 
 const { arrow, id, positionArea } = defineProps<Props>()
@@ -13,7 +13,7 @@ defineOptions({
 
 const attrs = useRestAttrs()
 
-warnMissingId("Tooltip", id, "interestfor")
+if (DEV) warnMissingId("Tooltip", id, "interestfor")
 </script>
 
 <template>

@@ -268,6 +268,28 @@ export const rewriteStatement = (code, options) => {
     .join("\n")
 }
 
+const DEV = ts.factory.createIdentifier("DEV")
+
+export const devOnly = (code) => {
+  const sourceFile = sourceFileOf(code, "warning.ts")
+  return sourceFile.statements
+    .map((statement) =>
+      printer.printNode(
+        ts.EmitHint.Unspecified,
+        ts.isIfStatement(statement) && !statement.elseStatement
+          ? ts.factory.updateIfStatement(
+              statement,
+              ts.factory.createLogicalAnd(DEV, statement.expression),
+              statement.thenStatement,
+              undefined,
+            )
+          : ts.factory.createIfStatement(DEV, statement),
+        sourceFile,
+      ),
+    )
+    .join("\n")
+}
+
 export const styleOption = (component, code) => {
   const style = component.props.find(({ prop }) => prop === "style")
   return style ? { code, local: style.local } : undefined

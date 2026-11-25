@@ -1,6 +1,6 @@
 import { filled } from "../attrs"
 import { cx } from "../cx"
-import { warnControlAttributes } from "../dev"
+import { DEV, warnControlAttributes } from "../dev"
 import type { Props } from "./types.react"
 
 export default function Field({
@@ -32,7 +32,7 @@ export default function Field({
   const bottomId = filled(bottom) ? `${htmlFor}-bottom` : undefined
   const startTextId = hasStartText ? `${htmlFor}-start-text` : undefined
   const endTextId = hasEndText ? `${htmlFor}-end-text` : undefined
-  warnControlAttributes("Field", rest)
+  if (DEV) warnControlAttributes("Field", rest)
 
   return (
     <div

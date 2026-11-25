@@ -3,7 +3,7 @@ import { computed, inject, provide, reactive, useId, watchEffect } from "vue"
 import { useRestAttrs } from "../vue"
 import { TabsKey } from "./context.vue"
 import { isSelected } from "../ToggleGroup/selection"
-import { warnGroupedChecked } from "../dev"
+import { DEV, warnGroupedChecked } from "../dev"
 import { defined } from "../attrs"
 import type { TabsItemProps as Props, Slots } from "./types.vue-props"
 
@@ -26,9 +26,10 @@ const tabId = computed(() => id || `tab-${uid}`)
 
 const grouped = computed(() => isSelected(parent?.value, value))
 
-watchEffect(() =>
-  warnGroupedChecked("TabsItem", grouped.value, checked, "Tabs"),
-)
+if (DEV)
+  watchEffect(() =>
+    warnGroupedChecked("TabsItem", grouped.value, checked, "Tabs"),
+  )
 
 const target = computed({
   get: () => parent?.value,

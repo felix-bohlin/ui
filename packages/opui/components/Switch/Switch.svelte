@@ -2,7 +2,7 @@
   import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import SwitchInput from "./SwitchInput.svelte"
-  import { hasName, warnUnnamed } from "../dev"
+  import { DEV, hasName, warnUnnamed } from "../dev"
   import type { Props } from "./types.svelte"
 
   let {
@@ -28,7 +28,8 @@
     ...rest
   }: Props = $props()
 
-  untrack(() => warnUnnamed("Switch", hasName({ ...rest, label }, children)))
+  if (DEV)
+    untrack(() => warnUnnamed("Switch", hasName({ ...rest, label }, children)))
 </script>
 
 <label

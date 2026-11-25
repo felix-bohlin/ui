@@ -2,7 +2,7 @@
 import { dynamic } from "@solidjs/web"
 import { omit, untrack } from "solid-js"
 import { useFieldsetContext } from "../Fieldset/context.solid"
-import { warnReplacedId } from "../dev"
+import { DEV, warnReplacedId } from "../dev"
 import { cx } from "../cx"
 import type { Props } from "./types.solid"
 
@@ -12,9 +12,10 @@ export default function FieldLegend(props: Props) {
   const tag = () => props.as || "legend"
   const Tag = dynamic(tag)
   const isLegend = () => tag() === "legend"
-  untrack(() => {
-    warnReplacedId("FieldLegend", "Fieldset", props.id, fieldset?.legendId)
-  })
+  if (DEV)
+    untrack(() => {
+      warnReplacedId("FieldLegend", "Fieldset", props.id, fieldset?.legendId)
+    })
   const tagId = () => fieldset?.legendId ?? props.id
 
   return (

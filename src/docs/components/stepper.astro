@@ -66,10 +66,10 @@ export const keywords = ["progress steps", "wizard"]
         style="inline-size: 16rem; max-inline-size: 100%"
       >
         <UIStepperItem
-          complete
           description="Name and email"
           href="#basics"
           label="Account"
+          state="complete"
         >
           <svg
             slot="icon-complete"
@@ -101,7 +101,7 @@ export const keywords = ["progress steps", "wizard"]
       >
       <Fragment slot="html"
         >Mark the current step with <code>aria-current="step"</code> and the
-        ones before it with <code>.ui-complete</code>.</Fragment
+        ones before it with <code>.ui-state-complete</code>.</Fragment
       >
     </Conditional>
 
@@ -150,7 +150,7 @@ export const keywords = ["progress steps", "wizard"]
     <Conditional as="p">
       <Fragment slot="components">Set <code>complete</code>.</Fragment>
       <Fragment slot="html"
-        >Add <code>.ui-complete</code> to every step.</Fragment
+        >Add <code>.ui-state-complete</code> to every step.</Fragment
       >
     </Conditional>
 
@@ -159,7 +159,11 @@ export const keywords = ["progress steps", "wizard"]
 
   <section id="errors">
     <h2>Errors</h2>
-    <p>Use <PropOrClass prop="error" class=".ui-error" />.</p>
+    <p>
+      Use <PropOrClass prop='state="error"' class=".ui-state-error" />. A step
+      with <PropOrClass prop='state="complete"' class=".ui-state-complete" />
+      shows the check.
+    </p>
 
     <AutoExample name="Errors" />
   </section>
@@ -218,13 +222,13 @@ export const keywords = ["progress steps", "wizard"]
       <code>li:not(:last-child)::after</code> the line to the next step.
     </p>
     <p>
-      <code>li.ui-complete</code> and
+      <code>li.ui-state-complete</code> and
       <code>li:has(~ [aria-current="step"])</code> fill the marker with
       <code>--_accent</code> and cut <code>--_marker-complete-image</code> out
       of it with <code>mask-composite: exclude</code>. A
       <code>.ui-icon-complete</code> child turns the mask off and shows instead.
-      <code>li.ui-error</code> cuts <code>--_marker-error-image</code> out of a
-      <code>--ui-invalid</code> fill.
+      <code>li.ui-state-error</code> cuts <code>--_marker-error-image</code> out
+      of a <code>--ui-invalid</code> fill.
     </p>
     <p>
       <code>.ui-horizontal</code> and <code>.ui-vertical</code> set

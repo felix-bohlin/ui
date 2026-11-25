@@ -67,7 +67,7 @@
     {#if items && items.length > 0}
       <ul class="ui-list">
         {#each items as item, index (index)}
-          <li {...classAttrs([{ "ui-error": item.state === "error" }])}>
+          <li {...classAttrs([{ "ui-state-error": item.state === "error" }])}>
             <div class="ui-start">
               {#if item.preview}
                 <img alt="" src={item.preview} />

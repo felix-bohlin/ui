@@ -29,7 +29,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width-thick`, `--ui-contrast` and `--ui-motion`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width-large`, `--ui-contrast` and `--ui-motion`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

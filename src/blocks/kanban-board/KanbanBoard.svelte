@@ -12,7 +12,7 @@
 </script>
 
 <div
-  class="kanban-board ui-layout-container ui-layout-column ui-large"
+  class="kanban-board ui-layout-container ui-layout-column ui-gap-large"
   style="--_max-inline-size: none"
 >
   <div class="ui-layout-row ui-spread">
@@ -20,7 +20,7 @@
       <p>Gig countdown, 6–17 October</p>
       <h1 class="ui-h3">Gig at The Rusty Amp</h1>
     </hgroup>
-    <div class="ui-layout-row ui-small">
+    <div class="ui-layout-row ui-gap-small">
       <AvatarGroup aria-label="Band members">
         <Avatar aria-label="Holly Humbucker" role="img">HH</Avatar>
         <Avatar aria-label="Ines Hertz" role="img">IH</Avatar>
@@ -50,9 +50,9 @@
   <div class="kanban-columns">
     <section
       aria-labelledby="kanban-board-todo-heading"
-      class="ui-layout-column ui-small kanban-column"
+      class="ui-layout-column ui-gap-small kanban-column"
     >
-      <div class="ui-layout-row ui-small kanban-column-header">
+      <div class="ui-layout-row ui-gap-small kanban-column-header">
         <span class="ui-swatch ui-neutral"></span>
         <h2 class="ui-h6" id="kanban-board-todo-heading">To do</h2>
         <span class="ui-caption ui-tabular-nums">3</span>
@@ -75,11 +75,11 @@
           </svg>
         </Button>
       </div>
-      <ol class="ui-layout-column ui-small">
+      <ol class="ui-layout-column ui-gap-small">
         <li>
           <Card as="article" variant="outlined">
             <CardContent>
-              <div class="ui-layout-row ui-x-small">
+              <div class="ui-layout-row ui-gap-x-small">
                 <Chip
                   as="span"
                   label="Setlist"
@@ -97,7 +97,7 @@
                 >
               </h3>
               <div class="ui-layout-row ui-caption kanban-meta">
-                <span class="ui-layout-row ui-x-small">
+                <span class="ui-layout-row ui-gap-x-small">
                   <svg
                     data-icon="calendar"
                     aria-hidden="true"
@@ -123,7 +123,7 @@
         <li>
           <Card as="article" variant="outlined">
             <CardContent>
-              <div class="ui-layout-row ui-x-small">
+              <div class="ui-layout-row ui-gap-x-small">
                 <Chip as="span" label="Gear" size="x-small" variant="outlined">
                   {#snippet start()}
                     <span class="ui-swatch ui-success"></span>
@@ -141,7 +141,7 @@
                 >
               </h3>
               <div class="ui-layout-row ui-caption kanban-meta">
-                <span class="ui-layout-row ui-x-small">
+                <span class="ui-layout-row ui-gap-x-small">
                   <svg
                     data-icon="calendar"
                     aria-hidden="true"
@@ -167,7 +167,7 @@
         <li>
           <Card as="article" variant="outlined">
             <CardContent>
-              <div class="ui-layout-row ui-x-small">
+              <div class="ui-layout-row ui-gap-x-small">
                 <Chip as="span" label="Promo" size="x-small" variant="outlined">
                   {#snippet start()}
                     <span class="ui-swatch ui-critical"></span>
@@ -180,7 +180,7 @@
                 >
               </h3>
               <div class="ui-layout-row ui-caption kanban-meta">
-                <span class="ui-layout-row ui-x-small">
+                <span class="ui-layout-row ui-gap-x-small">
                   <svg
                     data-icon="calendar"
                     aria-hidden="true"
@@ -219,9 +219,9 @@
     </section>
     <section
       aria-labelledby="kanban-board-progress-heading"
-      class="ui-layout-column ui-small kanban-column"
+      class="ui-layout-column ui-gap-small kanban-column"
     >
-      <div class="ui-layout-row ui-small kanban-column-header">
+      <div class="ui-layout-row ui-gap-small kanban-column-header">
         <span class="ui-swatch ui-info"></span>
         <h2 class="ui-h6" id="kanban-board-progress-heading">In progress</h2>
         <span class="ui-caption ui-tabular-nums">2</span>
@@ -244,11 +244,11 @@
           </svg>
         </Button>
       </div>
-      <ol class="ui-layout-column ui-small">
+      <ol class="ui-layout-column ui-gap-small">
         <li>
           <Card as="article" variant="outlined">
             <CardContent>
-              <div class="ui-layout-row ui-x-small">
+              <div class="ui-layout-row ui-gap-x-small">
                 <Chip as="span" label="Gear" size="x-small" variant="outlined">
                   {#snippet start()}
                     <span class="ui-swatch ui-success"></span>
@@ -274,7 +274,7 @@
                 >
               </h3>
               <div class="ui-layout-row ui-caption kanban-meta">
-                <span class="ui-layout-row ui-x-small ui-p ui-critical">
+                <span class="ui-layout-row ui-gap-x-small ui-p ui-critical">
                   <svg
                     data-icon="calendar"
                     aria-hidden="true"
@@ -292,7 +292,7 @@
                   <span class="ui-sr-only">Overdue, was due</span>
                   <time datetime="2026-10-07">7 Oct</time>
                 </span>
-                <span class="ui-layout-row ui-x-small">
+                <span class="ui-layout-row ui-gap-x-small">
                   <svg
                     data-icon="comment"
                     aria-hidden="true"
@@ -320,7 +320,7 @@
         <li>
           <Card as="article" variant="outlined">
             <CardContent>
-              <div class="ui-layout-row ui-x-small">
+              <div class="ui-layout-row ui-gap-x-small">
                 <Chip
                   as="span"
                   label="Setlist"
@@ -338,7 +338,7 @@
                 >
               </h3>
               <div class="ui-layout-row ui-caption kanban-meta">
-                <span class="ui-layout-row ui-x-small">
+                <span class="ui-layout-row ui-gap-x-small">
                   <svg
                     data-icon="check-square"
                     aria-hidden="true"
@@ -365,9 +365,9 @@
     </section>
     <section
       aria-labelledby="kanban-board-review-heading"
-      class="ui-layout-column ui-small kanban-column"
+      class="ui-layout-column ui-gap-small kanban-column"
     >
-      <div class="ui-layout-row ui-small kanban-column-header">
+      <div class="ui-layout-row ui-gap-small kanban-column-header">
         <span class="ui-swatch ui-warning"></span>
         <h2 class="ui-h6" id="kanban-board-review-heading">In review</h2>
         <span class="ui-caption ui-tabular-nums">1</span>
@@ -390,11 +390,11 @@
           </svg>
         </Button>
       </div>
-      <ol class="ui-layout-column ui-small">
+      <ol class="ui-layout-column ui-gap-small">
         <li>
           <Card as="article" variant="outlined">
             <CardContent>
-              <div class="ui-layout-row ui-x-small">
+              <div class="ui-layout-row ui-gap-x-small">
                 <Chip as="span" label="Gear" size="x-small" variant="outlined">
                   {#snippet start()}
                     <span class="ui-swatch ui-success"></span>
@@ -407,7 +407,7 @@
                 >
               </h3>
               <div class="ui-layout-row ui-caption kanban-meta">
-                <span class="ui-layout-row ui-x-small">
+                <span class="ui-layout-row ui-gap-x-small">
                   <svg
                     data-icon="calendar"
                     aria-hidden="true"
@@ -425,7 +425,7 @@
                   <span class="ui-sr-only">Due</span>
                   <time datetime="2026-10-09">9 Oct</time>
                 </span>
-                <span class="ui-layout-row ui-x-small">
+                <span class="ui-layout-row ui-gap-x-small">
                   <svg
                     data-icon="comment"
                     aria-hidden="true"
@@ -451,18 +451,18 @@
     </section>
     <section
       aria-labelledby="kanban-board-done-heading"
-      class="ui-layout-column ui-small kanban-column"
+      class="ui-layout-column ui-gap-small kanban-column"
     >
-      <div class="ui-layout-row ui-small kanban-column-header">
+      <div class="ui-layout-row ui-gap-small kanban-column-header">
         <span class="ui-swatch ui-success"></span>
         <h2 class="ui-h6" id="kanban-board-done-heading">Done</h2>
         <span class="ui-caption ui-tabular-nums">2</span>
       </div>
-      <ol class="ui-layout-column ui-small">
+      <ol class="ui-layout-column ui-gap-small">
         <li>
           <Card as="article" class="kanban-done" variant="outlined">
             <CardContent>
-              <div class="ui-layout-row ui-x-small">
+              <div class="ui-layout-row ui-gap-x-small">
                 <Chip
                   as="span"
                   label="Rehearsal"
@@ -492,7 +492,7 @@
         <li>
           <Card as="article" class="kanban-done" variant="outlined">
             <CardContent>
-              <div class="ui-layout-row ui-x-small">
+              <div class="ui-layout-row ui-gap-x-small">
                 <Chip
                   as="span"
                   label="Roadie"

@@ -114,7 +114,7 @@ Outputs: `--_duration`, `--_focus-ring-duration`, `--_indicator-duration` and `-
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-control-border-color`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-move`, `--ui-field-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-control`, `--ui-font-weight-medium`, `--ui-line-height-relaxed`, `--ui-motion`, `--ui-on-selected-strong`, `--ui-radius`, `--ui-selected-strong`, `--ui-shadow-selected`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-tabs-accent`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-large`, `--ui-control-border-color`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-move`, `--ui-field-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-control`, `--ui-font-weight-medium`, `--ui-line-height-relaxed`, `--ui-motion`, `--ui-on-selected-strong`, `--ui-radius`, `--ui-selected-strong`, `--ui-shadow-selected`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-tabs-accent`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

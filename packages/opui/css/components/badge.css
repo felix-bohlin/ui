@@ -3,7 +3,7 @@
     --_motion: var(--ui-motion);
     --_bg-color: var(--ui-primary);
     --_border-color: var(--ui-surface);
-    --_border-width: var(--ui-border-width-thick);
+    --_border-width: var(--ui-border-width-large);
     --_direction: 1;
     --_dot-size: var(--ui-space-2);
     --_duration: calc(var(--ui-duration) * var(--_motion));

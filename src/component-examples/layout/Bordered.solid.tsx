@@ -4,7 +4,7 @@ import { Stat } from "opui-css/solid"
 export default function Bordered() {
   return (
     <ul
-      class="ui-layout-grid ui-bordered ui-large"
+      class="ui-layout-grid ui-bordered ui-gap-large"
       role="list"
       style="--_min-inline-size: 9rem"
     >

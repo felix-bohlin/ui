@@ -104,7 +104,7 @@
     --ui-text-strong: light-dark(oklch(0.153 0 0), oklch(1 0 0));
     --ui-text-subtle: light-dark(oklch(0.404 0 0), oklch(0.851 0 0));
     --ui-underline-offset: 0.1578em;
-    --ui-underline-thickness-hover: max(3px, 0.1875rem, 0.12em);
+    --ui-underline-hover-thickness: max(3px, 0.1875rem, 0.12em);
     --ui-warning: oklch(0.706 0.171 44.8);
   }
 

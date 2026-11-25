@@ -148,15 +148,15 @@
     .ui-layout-columns,
     .ui-layout-media
   ) {
-    &.ui-x-small {
+    &.ui-gap-x-small {
       --_gap: var(--ui-space-1);
     }
 
-    &.ui-small {
+    &.ui-gap-small {
       --_gap: var(--ui-space-2);
     }
 
-    &.ui-large {
+    &.ui-gap-large {
       --_gap: var(--ui-space-5);
     }
   }

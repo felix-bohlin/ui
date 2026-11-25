@@ -5,7 +5,7 @@ export default function BlogList() {
   return (
     <>
       <div
-        class="blog-list ui-layout-container ui-layout-column ui-large"
+        class="blog-list ui-layout-container ui-layout-column ui-gap-large"
         style="--_max-inline-size: 76rem"
       >
         <div class="ui-layout-row ui-spread blog-header">
@@ -18,7 +18,7 @@ export default function BlogList() {
             </p>
           </hgroup>
           <nav aria-label="Categories">
-            <ul class="ui-layout-row ui-small">
+            <ul class="ui-layout-row ui-gap-small">
               <li>
                 <Chip
                   aria-current="page"
@@ -82,7 +82,10 @@ export default function BlogList() {
                 three times louder. Here's what's new and how we built it.
               </p>
             </hgroup>
-            <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
+            <ul
+              class="ui-layout-row ui-gap-x-small blog-tags"
+              aria-label="Tags"
+            >
               <li>
                 <Chip label="Bassbook news" size="small" />
               </li>
@@ -108,7 +111,10 @@ export default function BlogList() {
           <h2 class="ui-h4" id="blog-list-latest-heading">
             Latest posts
           </h2>
-          <ul class="ui-layout-grid ui-large" style="--_min-inline-size: 20rem">
+          <ul
+            class="ui-layout-grid ui-gap-large"
+            style="--_min-inline-size: 20rem"
+          >
             <li>
               <Card as="article" variant="outlined">
                 <div
@@ -130,7 +136,7 @@ export default function BlogList() {
                 </hgroup>
                 <CardContent class="blog-meta">
                   <ul
-                    class="ui-layout-row ui-x-small blog-tags"
+                    class="ui-layout-row ui-gap-x-small blog-tags"
                     aria-label="Tags"
                   >
                     <li>
@@ -174,7 +180,7 @@ export default function BlogList() {
                 </hgroup>
                 <CardContent class="blog-meta">
                   <ul
-                    class="ui-layout-row ui-x-small blog-tags"
+                    class="ui-layout-row ui-gap-x-small blog-tags"
                     aria-label="Tags"
                   >
                     <li>
@@ -218,7 +224,7 @@ export default function BlogList() {
                 </hgroup>
                 <CardContent class="blog-meta">
                   <ul
-                    class="ui-layout-row ui-x-small blog-tags"
+                    class="ui-layout-row ui-gap-x-small blog-tags"
                     aria-label="Tags"
                   >
                     <li>
@@ -259,7 +265,7 @@ export default function BlogList() {
                 </hgroup>
                 <CardContent class="blog-meta">
                   <ul
-                    class="ui-layout-row ui-x-small blog-tags"
+                    class="ui-layout-row ui-gap-x-small blog-tags"
                     aria-label="Tags"
                   >
                     <li>
@@ -300,7 +306,7 @@ export default function BlogList() {
                 </hgroup>
                 <CardContent class="blog-meta">
                   <ul
-                    class="ui-layout-row ui-x-small blog-tags"
+                    class="ui-layout-row ui-gap-x-small blog-tags"
                     aria-label="Tags"
                   >
                     <li>
@@ -344,7 +350,7 @@ export default function BlogList() {
                 </hgroup>
                 <CardContent class="blog-meta">
                   <ul
-                    class="ui-layout-row ui-x-small blog-tags"
+                    class="ui-layout-row ui-gap-x-small blog-tags"
                     aria-label="Tags"
                   >
                     <li>

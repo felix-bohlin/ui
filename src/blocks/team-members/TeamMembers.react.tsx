@@ -20,7 +20,7 @@ export default function TeamMembers() {
   return (
     <>
       <div
-        className="team-members ui-layout-container ui-layout-column ui-large"
+        className="team-members ui-layout-container ui-layout-column ui-gap-large"
         style={{ "--_max-inline-size": "58rem" }}
       >
         <div className="ui-layout-row ui-spread">
@@ -28,7 +28,7 @@ export default function TeamMembers() {
             <h1 className="ui-h3">Band members</h1>
             <p>Invite bandmates and pick what they get to do.</p>
           </hgroup>
-          <div className="ui-layout-column ui-x-small team-seats">
+          <div className="ui-layout-column ui-gap-x-small team-seats">
             <p id="team-members-seats">8 of 10 seats in the van</p>
             <Progress aria-labelledby="team-members-seats" max={10} value={8} />
           </div>

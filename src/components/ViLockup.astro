@@ -1,8 +1,18 @@
 ---
 import "@fontsource/yellowtail/400.css"
+
+type Props = {
+  panel?: boolean
+}
+
+const { panel = true } = Astro.props
 ---
 
-<span aria-label="Open Props UI VI" class="vi-lockup" role="img">
+<span
+  aria-label="Open Props UI VI"
+  class:list={["vi-lockup", { "vi-lockup-bare": !panel }]}
+  role="img"
+>
   <svg aria-hidden="true" class="vi-lockup-letters" viewBox="-3 -3 176 136">
     <path d="M0 0h34l31 91 31-91h34L65 130zM140 0h30v130h-30z"></path>
   </svg>
@@ -33,6 +43,14 @@ import "@fontsource/yellowtail/400.css"
     line-height: 1;
     padding: 0.12em 0.22em;
     place-items: center;
+  }
+
+  .vi-lockup-bare {
+    --vi-lockup-ink: light-dark(var(--ui-primary), oklch(0.99 0.01 340));
+    --vi-lockup-glow: light-dark(oklch(0.82 0.11 350), oklch(0.62 0.22 350));
+
+    background: none;
+    padding: 0;
   }
 
   .vi-lockup-letters {

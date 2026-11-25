@@ -55,13 +55,13 @@ export const skillExamples = ["Basics", "Ids"]
   fallbacks={{
     attr: "Without typed `attr()`, a textarea is at least three lines tall, whatever `rows` says.",
     "customizable-select":
-      "Without customizable select, the field draws its own chevron on a select and the browser's own picker opens, with the text of each option only.",
+      "Without customizable select, a select gets the field's chevron and the browser's picker, with option text only.",
     "display-animation":
-      "Without display animation, the select picker disappears at once instead of fading out.",
+      "Without display animation, the select picker closes without fading.",
     overlay:
       "Without `overlay`, the page can cover the select picker while it fades out.",
     "reading-flow":
-      "Without `reading-flow`, Tab and screen readers follow the markup, which puts the top and start parts before the control, as they're drawn. Hand-written HTML needs that order too.",
+      "Without `reading-flow`, Tab and screen readers follow the markup, so write the top and start parts before the control.",
   }}
   apis={[
     { title: "Field API", api: fieldApi },

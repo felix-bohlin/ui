@@ -4161,6 +4161,14 @@
     "url": "/blocks/changelog/"
   },
   {
+    "id": "block-character-sheet",
+    "title": "Character sheet",
+    "description": "An RPG-style profile with hit points, experience, attribute meters, an inventory, abilities and a quest log.",
+    "headings": "Games",
+    "category": "Blocks",
+    "url": "/blocks/character-sheet/"
+  },
+  {
     "id": "block-chat",
     "title": "Chat",
     "description": "Conversations next to a message thread with a composer at the bottom.",
@@ -4233,6 +4241,14 @@
     "url": "/blocks/forgot-password/"
   },
   {
+    "id": "block-gig-ticket",
+    "title": "Gig ticket",
+    "description": "A festival ticket with a tear-off stub and barcode, the running order and who holds each ticket.",
+    "headings": "Events",
+    "category": "Blocks",
+    "url": "/blocks/gig-ticket/"
+  },
+  {
     "id": "block-hero",
     "title": "Hero",
     "description": "A headline, a short pitch, two calls to action and a product preview.",
@@ -4265,12 +4281,28 @@
     "url": "/blocks/kanban-board/"
   },
   {
+    "id": "block-leaderboard",
+    "title": "Leaderboard",
+    "description": "A podium for the top three, a table of the rest with your own row highlighted, and your stats for the week.",
+    "headings": "Games",
+    "category": "Blocks",
+    "url": "/blocks/leaderboard/"
+  },
+  {
     "id": "block-lightbox",
     "title": "Lightbox",
     "description": "A post's photos in a dark full-screen viewer: swipe sideways between them, and down to close.",
     "headings": "Application",
     "category": "Blocks",
     "url": "/blocks/lightbox/"
+  },
+  {
+    "id": "block-music-player",
+    "title": "Music player",
+    "description": "The track playing now with a cover, seek bar and controls, next to the queue and the lyrics.",
+    "headings": "Lifestyle",
+    "category": "Blocks",
+    "url": "/blocks/music-player/"
   },
   {
     "id": "block-newsletter",
@@ -4313,6 +4345,14 @@
     "url": "/blocks/order-history/"
   },
   {
+    "id": "block-party-invitation",
+    "title": "Party invitation",
+    "description": "A birthday invitation with the when, where and who, next to an RSVP form with guests, food and a song request.",
+    "headings": "Events",
+    "category": "Blocks",
+    "url": "/blocks/party-invitation/"
+  },
+  {
     "id": "block-pricing",
     "title": "Pricing",
     "description": "Three plans with a monthly or yearly toggle, a highlighted plan and a feature comparison.",
@@ -4335,6 +4375,14 @@
     "headings": "Dashboards",
     "category": "Blocks",
     "url": "/blocks/project-overview/"
+  },
+  {
+    "id": "block-recipe",
+    "title": "Recipe",
+    "description": "A cooking recipe with times and a rating, a servings stepper, an ingredient checklist and numbered steps.",
+    "headings": "Lifestyle",
+    "category": "Blocks",
+    "url": "/blocks/recipe/"
   },
   {
     "id": "block-sales-dashboard",

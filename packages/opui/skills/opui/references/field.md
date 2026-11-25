@@ -39,9 +39,9 @@ The label, hints and box around a form control you write: an input, a select or 
 
 ### Notes
 
-- HTML: Point the `<label class="ui-label" for>` at the control's `id`, and the control's `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text` in that order, leaving out parts with nothing to read. Write `.ui-top` and `.ui-start` before the control, and `.ui-end` and `.ui-bottom` after it.
-- Astro, Solid, Svelte and Vue: Write your control inside, with its `id` set to `for`. Other attributes go to the `.ui-field` root.
-- React: Write your control inside, with its `id` set to `htmlFor`. Other attributes go to the `.ui-field` root.
+- HTML: Point the `<label class="ui-label" for>` at the control's `id`, and the control's `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text` in that order, leaving out a part that only holds buttons, an output or hidden content, and keep the list in step with parts that come and go, like an error end text. `npx opui-css check` checks the HTML files. Write `.ui-top` and `.ui-start` before the control, and `.ui-end` and `.ui-bottom` after it.
+- Astro, Solid, Svelte and Vue: Write your control inside, with its `id` set to `for`, and point its `aria-describedby` at the parts with something to read, `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"` in that order. Leave out a part that only holds buttons, an output or hidden content, and keep the list in step with parts that come and go, like an error end text. `checkHtml` from `opui-css/check` checks the rendered page. Other attributes go to the `.ui-field` root, so set `aria-describedby` and `aria-invalid` on your control.
+- React: Write your control inside, with its `id` set to `htmlFor`, and point its `aria-describedby` at the parts with something to read, `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `htmlFor="x"` in that order. Leave out a part that only holds buttons, an output or hidden content, and keep the list in step with parts that come and go, like an error end text. `checkHtml` from `opui-css/check` checks the rendered page. Other attributes go to the `.ui-field` root, so set `aria-describedby` and `aria-invalid` on your control.
 
 ## CharacterCount
 

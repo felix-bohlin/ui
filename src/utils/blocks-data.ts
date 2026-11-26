@@ -31,6 +31,13 @@ export const blocks: Block[] = [
     slug: "account-settings",
   },
   {
+    category: "marketing",
+    description:
+      "A release countdown on a dark stage, with record art, big digits, a pre-save field and the first tracks to hear.",
+    name: "Album launch",
+    slug: "album-launch",
+  },
+  {
     category: "dashboards",
     description:
       "Key metrics, a bar chart, top pages and traffic sources, with a date range toggle.",
@@ -50,6 +57,13 @@ export const blocks: Block[] = [
       "A magazine article with a breadcrumb, byline, cover image, a sticky table of contents, rich text, tags and an author card.",
     name: "Article",
     slug: "article",
+  },
+  {
+    category: "application",
+    description:
+      "A musician's profile with a stage-light cover, stats, gear, and a wall of posts with reactions.",
+    name: "Bassist profile",
+    slug: "bassist-profile",
   },
   {
     category: "settings",
@@ -318,6 +332,13 @@ export const blocks: Block[] = [
     slug: "server-status",
   },
   {
+    category: "events",
+    description:
+      "A setlist taped to the stage floor with keys, tempos and notes, songs ticked off as they're played, and a stage plot.",
+    name: "Setlist",
+    slug: "setlist",
+  },
+  {
     category: "e-commerce",
     description:
       "Cart items with quantity controls, a discount code and an order summary.",
@@ -373,6 +394,27 @@ export const blocks: Block[] = [
     slug: "testimonials",
   },
   {
+    category: "games",
+    description:
+      "A battle of the bands bracket with scores, connector lines between rounds and the champion still to be decided.",
+    name: "Tournament bracket",
+    slug: "tournament-bracket",
+  },
+  {
+    category: "games",
+    description:
+      "A quiz question with answer tiles, a timer meter, progress, a streak and the feedback after answering.",
+    name: "Trivia quiz",
+    slug: "trivia-quiz",
+  },
+  {
+    category: "lifestyle",
+    description:
+      "A tuner with a needle gauge and string picker, next to a metronome with tempo, beats and time signature.",
+    name: "Tuner",
+    slug: "tuner",
+  },
+  {
     category: "authentication",
     description:
       "A one-time code form for two-factor authentication, with a way to resend the code.",
@@ -385,5 +427,12 @@ export const blocks: Block[] = [
       "A grid of people cards with a search field, team filters, avatars, roles and contact actions.",
     name: "User directory",
     slug: "user-directory",
+  },
+  {
+    category: "dashboards",
+    description:
+      "A year-end recap in bold cards: hours played, a personality, top songs, a favourite string and a practice streak.",
+    name: "Year in review",
+    slug: "year-in-review",
   },
 ]

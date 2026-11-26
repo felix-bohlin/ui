@@ -1,0 +1,11 @@
+---
+pagination:
+  data: site.blocks
+  size: 1
+  alias: slug
+permalink: "/blocks/{{ slug }}.html"
+layout: layout.njk
+eleventyComputed:
+  title: "{{ slug }}"
+---
+<div data-block="{{ slug }}">{% include "blocks/" ~ slug ~ ".njk" %}</div>

@@ -44,11 +44,13 @@ tests/apps/*/.output/
 tests/apps/*/.output-readme/
 tests/apps/*/.svelte-kit/
 tests/apps/*/.svelte-kit-readme/
+tests/apps/*/_site/
 tests/apps/*/build/
 tests/apps/*/build-readme/
 tests/apps/*/dist-readme/
 tests/apps/*/next-env.d.ts
 tests/apps/*/public/photos/
+tests/apps/*/src/_includes/blocks/
 tests/apps/*/static/photos/
 tests/apps/*/tsconfig.tsbuildinfo
 

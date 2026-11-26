@@ -14,6 +14,7 @@ import {
   APPS,
   appDir,
   appsDir,
+  blocksOf,
   exampleSource,
   examplesOf,
   root,
@@ -154,6 +155,14 @@ for (const app of APPS) {
     path.join(examplesDir, "slugs.json"),
     `${JSON.stringify([...examples.keys()], null, 2)}\n`,
   )
+  if (app.blocks) {
+    const blocksDir = path.join(examplesDir, "../blocks")
+    rmSync(blocksDir, { force: true, recursive: true })
+    mkdirSync(blocksDir, { recursive: true })
+    for (const [slug, file] of blocksOf(app.framework)) {
+      cpSync(file, path.join(blocksDir, `${slug}${path.extname(file)}`))
+    }
+  }
   if (app.registry) {
     writeFileSync(path.join(examplesDir, "index.ts"), registry(examples))
     writeFileSync(

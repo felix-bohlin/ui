@@ -9,22 +9,23 @@ import {
 export const appsDir = import.meta.dirname
 export const root = path.resolve(appsDir, "../..")
 
-type Framework = (typeof HYDRATED_FRAMEWORK_IDS)[number]
+const FRAMEWORKS = [...HYDRATED_FRAMEWORK_IDS, "nunjucks"] as const
+
+type Framework = (typeof FRAMEWORKS)[number]
 
 const EXTENSIONS = Object.fromEntries(
-  HYDRATED_FRAMEWORK_IDS.map((framework) => [
-    framework,
-    `.${exampleExtension(framework)}`,
-  ]),
+  FRAMEWORKS.map((framework) => [framework, `.${exampleExtension(framework)}`]),
 ) as Record<Framework, string>
 
-type App = {
+export type App = {
+  blocks?: true
   build: string[]
   check: string[][]
   dir?: string
   examples: string
   framework: Framework
   name: string
+  navigation?: "document"
   port: number
   prefixes?: string[]
   publicDir: string
@@ -40,6 +41,19 @@ type App = {
 }
 
 export const ALL_APPS: App[] = [
+  {
+    blocks: true,
+    build: ["eleventy"],
+    check: [],
+    examples: "src/_includes/examples",
+    framework: "nunjucks",
+    name: "eleventy",
+    navigation: "document",
+    port: 4410,
+    publicDir: "public",
+    ssr: true,
+    start: "node server.js",
+  },
   {
     build: ["next", "build"],
     check: [],
@@ -187,6 +201,19 @@ export const APPS = selected
 
 export const appDir = (app: App) => path.join(appsDir, app.dir ?? app.name)
 
+export const ANCHORS_VISIBLE = {
+  apps: ["eleventy"],
+  message: /`position-visibility: anchors-visible` value has been deprecated/,
+  reason:
+    "A Chromium that takes anchor-visible warns about the anchors-visible fallback in css/compat/anchor.css and copy.css when a page links them unbundled, as the Nunjucks getting-started page does, until Firefox takes anchor-visible and the fallback goes",
+}
+
+export const KNOWN_CONSOLE: {
+  apps: string[]
+  message: RegExp
+  reason: string
+}[] = [ANCHORS_VISIBLE]
+
 export const KNOWN_PROBLEMS: {
   app: string
   message: string
@@ -218,6 +245,20 @@ export const examplesOf = (framework: Framework) =>
         ),
       ["native", filesOf(nativeDir, framework)] as const,
     ].filter(([, examples]) => examples.length > 0),
+  )
+
+const blocksDir = path.join(root, "src/blocks")
+
+export const blocksOf = (framework: Framework) =>
+  new Map(
+    readdirSync(blocksDir)
+      .toSorted()
+      .flatMap((slug) => {
+        const file = readdirSync(path.join(blocksDir, slug)).find((name) =>
+          name.endsWith(EXTENSIONS[framework]),
+        )
+        return file ? [[slug, path.join(blocksDir, slug, file)] as const] : []
+      }),
   )
 
 export const exampleSource = (slug: string, file: string) =>

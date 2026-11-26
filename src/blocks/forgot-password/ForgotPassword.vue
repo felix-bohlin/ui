@@ -64,7 +64,7 @@ import {
                   autocomplete="email"
                   id="forgot-password-email"
                   name="email"
-                  placeholder="rory@lowend.example"
+                  placeholder="rory@bassmail.example"
                   required
                   type="email"
                 />
@@ -126,7 +126,9 @@ import {
             <h2 class="ui-h4" id="forgot-password-sent-heading">
               Check your inbox!
             </h2>
-            <p>We sent a reset link to <strong>rory@lowend.example</strong>.</p>
+            <p>
+              We sent a reset link to <strong>rory@bassmail.example</strong>.
+            </p>
           </hgroup>
           <Callout severity="info">
             <CalloutIcon />

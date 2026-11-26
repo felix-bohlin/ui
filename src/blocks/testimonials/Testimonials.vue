@@ -50,7 +50,7 @@ import { Avatar, Card, CardContent, Rating } from "opui-css/vue"
                 <Avatar aria-hidden="true">SN</Avatar>
                 <div>
                   <p class="testimonials-name">Stella Nut</p>
-                  <p class="ui-caption">Bassist, The Low Enders</p>
+                  <p class="ui-caption">Bassist, Slap Like Now</p>
                 </div>
               </figcaption>
             </figure>
@@ -109,8 +109,8 @@ import { Avatar, Card, CardContent, Rating } from "opui-css/vue"
               <Rating label="Rated 5 out of 5" size="small" :value="5" />
               <blockquote>
                 <p>
-                  My Ignored Bassists Anonymous group meets here every Tuesday.
-                  Finally, people who know what a root note is. Totally rad!
+                  My Mixed Too Low group meets here every Tuesday. Finally,
+                  people who know what a root note is. Totally rad!
                 </p>
               </blockquote>
               <figcaption class="ui-layout-media">

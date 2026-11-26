@@ -191,7 +191,7 @@ import {
                     ></path>
                   </svg>
                 </template>
-                <p class="ui-caption">Completed, low end approved</p>
+                <p class="ui-caption">Completed, bassist approved</p>
               </TimelineItem>
               <TimelineItem
                 color="success"
@@ -366,7 +366,7 @@ import {
               <DescriptionListItem
                 ><DescriptionListTerm>Host</DescriptionListTerm
                 ><DescriptionListDescription
-                  >Low End Theory</DescriptionListDescription
+                  >Bassists Anonymous</DescriptionListDescription
                 ></DescriptionListItem
               >
               <DescriptionListItem

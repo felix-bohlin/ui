@@ -34,7 +34,7 @@ export default function CharacterSheet() {
           </Avatar>
           <div className="ui-layout-column ui-gap-small">
             <hgroup className="ui-hgroup">
-              <p className="ui-overline">Level 12 bard, Low End Oracle</p>
+              <p className="ui-overline">Level 12 bard, Oracle of the Groove</p>
               <h1 className="ui-h2">Percy Groove</h1>
             </hgroup>
             <div className="ui-layout-row ui-gap-x-small">

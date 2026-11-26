@@ -59,7 +59,7 @@ import {
                   autocomplete="email"
                   id="sign-up-email"
                   name="email"
-                  placeholder="rory@lowend.example"
+                  placeholder="rory@bassmail.example"
                   required
                   type="email"
                 />

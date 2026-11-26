@@ -35,7 +35,7 @@ import {
         />
         <hgroup class="ui-hgroup">
           <h1 class="bp-name">Lou Headstock</h1>
-          <p>@lowendlou, Gothenburg</p>
+          <p>@flatwoundlou, Gothenburg</p>
         </hgroup>
       </div>
       <div class="ui-layout-row ui-gap-small">
@@ -211,7 +211,7 @@ import {
               </ListItem>
               <ListItem
                 description="Harbour Stage, Gothenburg"
-                label="Low End Festival"
+                label="Bassquake Festival"
               >
                 <template #end>
                   <span class="ui-caption">12 Jun</span>

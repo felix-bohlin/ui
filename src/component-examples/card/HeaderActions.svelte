@@ -33,6 +33,6 @@
   </CardHeader>
   <CardContent>
     Played the whole gig in drop D and nobody noticed, not even the drummer.
-    Woohoo, the low end lives on in secret :)
+    Woohoo, drop D lives on in secret :)
   </CardContent>
 </Card>

@@ -27,7 +27,7 @@
   style="--_max-inline-size: 64rem"
 >
   <hgroup class="ui-hgroup">
-    <p>The Low Enders band account</p>
+    <p>Slap Like Now band account</p>
     <h1 class="ui-h3">Billing</h1>
   </hgroup>
   <div class="ui-layout-columns ui-gap-large" style="--_columns: 3fr 2fr">
@@ -141,13 +141,12 @@
         <DescriptionListItem>
           <DescriptionListTerm>Billing email</DescriptionListTerm>
           <DescriptionListDescription
-            >rory@lowend.example</DescriptionListDescription
+            >rory@bassmail.example</DescriptionListDescription
           >
         </DescriptionListItem>
         <DescriptionListItem>
           <DescriptionListTerm>Band</DescriptionListTerm>
-          <DescriptionListDescription>The Low Enders</DescriptionListDescription
-          >
+          <DescriptionListDescription>Slap Like Now</DescriptionListDescription>
         </DescriptionListItem>
         <DescriptionListItem>
           <DescriptionListTerm>VAT number</DescriptionListTerm>
@@ -157,7 +156,7 @@
         <DescriptionListItem>
           <DescriptionListTerm>Address</DescriptionListTerm>
           <DescriptionListDescription
-            >Rehearsal Room B, 4 Low End Lane, Bassville</DescriptionListDescription
+            >Rehearsal Room B, 4 Fretboard Lane, Bassville</DescriptionListDescription
           >
         </DescriptionListItem>
       </DescriptionList>

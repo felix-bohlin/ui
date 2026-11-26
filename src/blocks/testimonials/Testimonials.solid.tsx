@@ -55,7 +55,7 @@ export default function Testimonials() {
                     <Avatar aria-hidden="true">SN</Avatar>
                     <div>
                       <p class="testimonials-name">Stella Nut</p>
-                      <p class="ui-caption">Bassist, The Low Enders</p>
+                      <p class="ui-caption">Bassist, Slap Like Now</p>
                     </div>
                   </figcaption>
                 </figure>
@@ -126,9 +126,8 @@ export default function Testimonials() {
                   />
                   <blockquote>
                     <p>
-                      My Ignored Bassists Anonymous group meets here every
-                      Tuesday. Finally, people who know what a root note is.
-                      Totally rad!
+                      My Mixed Too Low group meets here every Tuesday. Finally,
+                      people who know what a root note is. Totally rad!
                     </p>
                   </blockquote>
                   <figcaption class="ui-layout-media">

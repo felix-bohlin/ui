@@ -95,7 +95,7 @@ export default function BlogList() {
             <div className="ui-layout-media">
               <Avatar aria-hidden="true">LH</Avatar>
               <div>
-                <p>Lou Headstock, Head of Low End</p>
+                <p>Lou Headstock, Head of Groove</p>
                 <p className="ui-caption">
                   <time dateTime="2026-10-01">Oct 1, 2026</time>, 12 min read
                 </p>
@@ -208,16 +208,16 @@ export default function BlogList() {
                   className="blog-cover"
                   style={{ "--hue": "320" }}
                   role="img"
-                  aria-label="Cover image for How The Low Enders gig weekly with 4 bassists"
+                  aria-label="Cover image for How Slap Like Now gig weekly with 4 bassists"
                 ></div>
                 <hgroup>
                   <h3 className="ui-h5">
-                    <a className="ui-card-link" href="#blog-list-low-enders">
-                      How The Low Enders gig weekly with 4 bassists
+                    <a className="ui-card-link" href="#blog-list-slap-like-now">
+                      How Slap Like Now gig weekly with 4 bassists
                     </a>
                   </h3>
                   <p>
-                    Sol Lowend on going from one gig a year to a gig every
+                    Sol Saddle on going from one gig a year to a gig every
                     single Friday.
                   </p>
                 </hgroup>

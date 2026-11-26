@@ -14,7 +14,7 @@ import { Avatar, AvatarGroup, Button, Chip } from "opui-css/vue"
         variant="outlined"
       />
       <h1 class="ch-title">
-        Where the <em>low end</em> finally gets the spotlight
+        Where the <em>bass</em> finally gets the spotlight
       </h1>
       <p class="ch-pitch">
         Find a band that needs you, book the rehearsal room and share the

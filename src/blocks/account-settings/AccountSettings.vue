@@ -94,7 +94,7 @@ import {
                     name="email"
                     required
                     type="email"
-                    :value.attr="'percy@lowend.example'"
+                    :value.attr="'percy@bassmail.example'"
                   />
                   <template #end-text>
                     <span class="ui-p ui-success">Verified</span>, used for
@@ -301,7 +301,7 @@ Fretless bassist in a garage band. Into flatwounds, drop D and very long root no
       </DialogHeader>
       <DialogContent>
         <p id="account-settings-delete-description">
-          This deletes percy@lowend.example, your wall and every photo of your
+          This deletes percy@bassmail.example, your wall and every photo of your
           gear. You can't undo this.
         </p>
       </DialogContent>

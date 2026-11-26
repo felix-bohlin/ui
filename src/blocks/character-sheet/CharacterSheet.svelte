@@ -31,7 +31,7 @@
     >
     <div class="ui-layout-column ui-gap-small">
       <hgroup class="ui-hgroup">
-        <p class="ui-overline">Level 12 bard, Low End Oracle</p>
+        <p class="ui-overline">Level 12 bard, Oracle of the Groove</p>
         <h1 class="ui-h2">Percy Groove</h1>
       </hgroup>
       <div class="ui-layout-row ui-gap-x-small">

@@ -9,7 +9,7 @@ export default function Disabled() {
           disabled
           id="field-disabled-1"
           name="band"
-          defaultValue="The Low Ends"
+          defaultValue="Slap Like Now"
         />
       </Field>
       <Field for="field-disabled-2" label="Instrument">

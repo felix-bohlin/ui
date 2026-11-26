@@ -3,7 +3,7 @@ import { Avatar, Message, MessageList } from "opui-css/vue"
 </script>
 
 <template>
-  <MessageList aria-label="Messages in Low End Theory">
+  <MessageList aria-label="Messages in Bassists Anonymous">
     <li class="ui-divider">Today</li>
     <Message author="Lou" datetime="2026-10-08T09:12" time="09:12">
       <template #start>

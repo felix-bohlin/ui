@@ -55,7 +55,7 @@ export const NATIVE_CASES: NativeCase[] = [
 ]
 
 export const SVELTE_GROUP =
-  "a component can't use bind:group, so Radio, Rating, TabsItem and ToggleButton write checked from the bound value with the seedChecked attachment (components/svelte.ts), which keeps the first state as defaultChecked to tell a choice made before hydration from the server's"
+  "bind:group only ties together the inputs of one component, so Radio, Rating, TabsItem and ToggleButton write checked from the bound value with the seedChecked attachment (components/svelte.ts), which keeps the first state as defaultChecked to tell a choice made before hydration from the server's"
 
 export const SVELTE_SPREAD =
   "Svelte drops the server's value and checked attributes from an input with only bind: when it hydrates, and keeps them on an input with a spread, as every component's input has"

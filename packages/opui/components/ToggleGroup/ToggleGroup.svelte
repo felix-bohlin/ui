@@ -26,7 +26,7 @@
   if (DEV) untrack(() => warnUnnamedGroup("ToggleGroup", rest))
   setToggleGroupContext({
     change(input) {
-      if (value !== undefined) value = selectionOf(input, multiple)
+      if (value !== undefined) value = selectionOf(input, multiple, value)
     },
     get groupName() {
       return groupName

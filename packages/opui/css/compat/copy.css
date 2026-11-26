@@ -8,8 +8,8 @@
     }
   }
 
-  /* Firefox and older Chromium only take anchors-visible, which newer
-     Chromium deprecates and warns about even here, where the rule never
+  /* Firefox and older Chromium only take anchors-visible. Newer Chromium
+     deprecates it and can warn about it even here, where the rule never
      applies. Remove once Firefox takes anchor-visible. */
   @supports not (position-visibility: anchor-visible) {
     :where(.ui-copy) > .ui-floating[popover] {

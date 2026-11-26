@@ -573,9 +573,10 @@ describe("every component renders the same in Astro, Nunjucks, React, Solid, Sve
         )
         .toBeDefined()
       if (rendered === undefined) continue
-      const known = isHydratedFramework(framework)
-        ? KNOWN_ATTRIBUTES[entry.component]
-        : undefined
+      const known =
+        isHydratedFramework(framework) && framework !== "solid"
+          ? KNOWN_ATTRIBUTES[entry.component]
+          : undefined
       if (known && (known.when?.(entry.props) ?? true)) {
         expect
           .soft(

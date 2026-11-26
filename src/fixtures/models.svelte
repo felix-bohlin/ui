@@ -42,6 +42,7 @@
   let steps = $state(stepsOf(0))
   let name = $state("Ada")
   let plan = $state("free")
+  let tags = $state(["archived", "news"])
   let toppings = $state(["basil", "cheese"])
 
   $effect(() => {
@@ -145,6 +146,16 @@
     <ToggleButton value="left">Left</ToggleButton>
     <ToggleButton value="right">Right</ToggleButton>
   </ToggleGroup>
+  <ToggleGroup
+    aria-label="Stored tags"
+    multiple
+    name="stored-tags"
+    bind:value={tags}
+  >
+    <ToggleButton value="news">News</ToggleButton>
+    <ToggleButton value="sports">Sports</ToggleButton>
+  </ToggleGroup>
+  <output id="models-tags">{JSON.stringify(tags)}</output>
   <ToggleGroup aria-label="Own density" name="own-density">
     <ToggleButton checked value="compact">Compact</ToggleButton>
     <ToggleButton value="roomy">Roomy</ToggleButton>

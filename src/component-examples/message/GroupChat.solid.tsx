@@ -3,7 +3,7 @@ import { Avatar, Message, MessageList } from "opui-css/solid"
 
 export default function GroupChat() {
   return (
-    <MessageList aria-label="Messages in Low End Theory">
+    <MessageList aria-label="Messages in Bassists Anonymous">
       <li class="ui-divider">Today</li>
       <Message
         author="Lou"

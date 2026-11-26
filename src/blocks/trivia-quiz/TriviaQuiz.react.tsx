@@ -21,7 +21,7 @@ export default function TriviaQuiz() {
       >
         <div className="ui-layout-row ui-spread">
           <hgroup className="ui-hgroup">
-            <p className="ui-overline">Low End Trivia, round 2</p>
+            <p className="ui-overline">Bass Trivia, round 2</p>
             <h1 className="ui-h4">Know your strings</h1>
           </hgroup>
           <div className="ui-layout-row ui-gap-small">

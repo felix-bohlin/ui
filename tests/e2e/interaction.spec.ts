@@ -868,7 +868,7 @@ interaction(
     const band = root.locator("select").nth(1)
 
     await expect(role).toHaveValue("bass")
-    await expect(band).toHaveValue("low-end-theory")
+    await expect(band).toHaveValue("bassists-anonymous")
     await role.selectOption("tambourine")
     await expect(role).toHaveValue("tambourine")
   },
@@ -2137,7 +2137,7 @@ interaction(
     await party.focus()
     await page.keyboard.press("Space")
     await expect(party).not.toBeChecked()
-    expect(await requests()).toEqual([
+    await expect.poll(requests).toEqual([
       { checked: true, value: "tada" },
       { checked: false, value: "+1" },
       { checked: true, value: "tada" },
@@ -2166,7 +2166,7 @@ interaction(
     await expect(
       message.getByRole("checkbox", { name: "Thumbs up, 2" }),
     ).toBeChecked()
-    expect(await requests()).toEqual([
+    await expect.poll(requests).toEqual([
       { checked: true, value: "heart" },
       { checked: false, value: "+1" },
     ])
@@ -2257,7 +2257,7 @@ interaction(
     await pills.click()
     await expect(quick).not.toBeChecked()
     await expect(pills).toHaveClass(/ui-suggested/)
-    expect(await requests()).toEqual([{ checked: true, value: "+1" }])
+    await expect.poll(requests).toEqual([{ checked: true, value: "+1" }])
 
     await page.emulateMedia({ forcedColors: "active" })
     expect(await computed(pills, "border-top-style")).toBe("dashed")

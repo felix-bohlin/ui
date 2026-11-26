@@ -77,7 +77,7 @@ export default function GigTicket() {
             <hgroup className="ui-hgroup">
               <p className="ui-overline">Bassbook presents</p>
               <h2 className="gt-title" id="gig-ticket-title">
-                Low End Festival 2027
+                Bassquake Festival 2027
               </h2>
               <p>The Flatwounds, Drop D Dynasty and Sub Club</p>
             </hgroup>
@@ -248,7 +248,7 @@ export default function GigTicket() {
                   autoComplete="email"
                   id="gig-ticket-friend-email"
                   name="friend-email"
-                  placeholder="friend@lowend.example"
+                  placeholder="friend@bassmail.example"
                   required
                   type="email"
                 />

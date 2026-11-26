@@ -8,7 +8,7 @@ import { Field, SelectButton } from "opui-css/vue"
       disabled
       id="field-disabled-1"
       name="band"
-      :value.attr="'The Low Ends'"
+      :value.attr="'Slap Like Now'"
     />
   </Field>
   <Field for="field-disabled-2" label="Instrument">

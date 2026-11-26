@@ -28,7 +28,7 @@ export default function Billing() {
         style={{ "--_max-inline-size": "64rem" }}
       >
         <hgroup className="ui-hgroup">
-          <p>The Low Enders band account</p>
+          <p>Slap Like Now band account</p>
           <h1 className="ui-h3">Billing</h1>
         </hgroup>
         <div
@@ -168,13 +168,13 @@ export default function Billing() {
               <DescriptionListItem>
                 <DescriptionListTerm>Billing email</DescriptionListTerm>
                 <DescriptionListDescription>
-                  rory@lowend.example
+                  rory@bassmail.example
                 </DescriptionListDescription>
               </DescriptionListItem>
               <DescriptionListItem>
                 <DescriptionListTerm>Band</DescriptionListTerm>
                 <DescriptionListDescription>
-                  The Low Enders
+                  Slap Like Now
                 </DescriptionListDescription>
               </DescriptionListItem>
               <DescriptionListItem>
@@ -186,7 +186,7 @@ export default function Billing() {
               <DescriptionListItem>
                 <DescriptionListTerm>Address</DescriptionListTerm>
                 <DescriptionListDescription>
-                  Rehearsal Room B, 4 Low End Lane, Bassville
+                  Rehearsal Room B, 4 Fretboard Lane, Bassville
                 </DescriptionListDescription>
               </DescriptionListItem>
             </DescriptionList>

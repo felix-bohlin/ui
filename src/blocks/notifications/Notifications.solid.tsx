@@ -276,7 +276,7 @@ export default function Notifications() {
                             Tue
                           </time>
                         }
-                        label="Stella Nut mentioned you in Ignored Bassists Anonymous"
+                        label="Stella Nut mentioned you in Mixed Too Low"
                         start={<Avatar aria-hidden="true">SN</Avatar>}
                       >
                         <p class="notifications-quote">

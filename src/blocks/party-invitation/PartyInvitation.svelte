@@ -134,7 +134,7 @@
             <textarea
               id="party-invitation-message"
               name="message"
-              placeholder="Happy birthday, you low-end legend"
+              placeholder="Happy birthday, you groove legend"
               rows="3"></textarea>
           </Field>
           <Checkbox defaultChecked name="reminder">

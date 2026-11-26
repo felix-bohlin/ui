@@ -9,7 +9,7 @@
   <hgroup class="ui-hgroup teasers-intro">
     <p class="ui-overline">From the tour van</p>
     <h1 class="ui-h2">Stories from the road</h1>
-    <p>Three bands, three trips, one shared love of the low end.</p>
+    <p>Three bands, three trips, one shared love of the groove.</p>
   </hgroup>
   <article
     aria-labelledby="teasers-fjord"

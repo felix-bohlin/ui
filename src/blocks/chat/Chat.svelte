@@ -79,13 +79,13 @@
         </ListItem>
         <ListItem
           description="Holly: Rate my new 5-string!! 😍"
-          href="#chat-low-end-theory"
+          href="#chat-bassists-anonymous"
         >
           {#snippet start()}
-            <Avatar aria-label="Low End Theory" role="img">LE</Avatar>
+            <Avatar aria-label="Bassists Anonymous" role="img">BA</Avatar>
           {/snippet}
           {#snippet label()}
-            <strong>Low End Theory</strong>
+            <strong>Bassists Anonymous</strong>
           {/snippet}
           {#snippet end()}
             <span class="chat-unread"
@@ -115,13 +115,11 @@
         </ListItem>
         <ListItem
           description={'Lou: My singer called me "the tall guitarist" again'}
-          href="#chat-ignored-bassists"
-          label="Ignored Bassists Anonymous"
+          href="#chat-mixed-too-low"
+          label="Mixed Too Low"
         >
           {#snippet start()}
-            <Avatar aria-label="Ignored Bassists Anonymous" role="img"
-              >IB</Avatar
-            >
+            <Avatar aria-label="Mixed Too Low" role="img">MT</Avatar>
           {/snippet}
           {#snippet end()}Sun{/snippet}
         </ListItem>
@@ -341,7 +339,7 @@
       <ListItem aria-current="page" href="#chat-stella" label="Stella Nut">
         {#snippet end()}14:32{/snippet}
       </ListItem>
-      <ListItem href="#chat-low-end-theory" label="Low End Theory">
+      <ListItem href="#chat-bassists-anonymous" label="Bassists Anonymous">
         {#snippet end()}
           <span class="chat-unread"
             >3 <span class="ui-sr-only">unread</span></span
@@ -354,10 +352,7 @@
       <ListItem href="#chat-ines" label="Ines Hertz">
         {#snippet end()}Mon{/snippet}
       </ListItem>
-      <ListItem
-        href="#chat-ignored-bassists"
-        label="Ignored Bassists Anonymous"
-      >
+      <ListItem href="#chat-mixed-too-low" label="Mixed Too Low">
         {#snippet end()}Sun{/snippet}
       </ListItem>
     </List>

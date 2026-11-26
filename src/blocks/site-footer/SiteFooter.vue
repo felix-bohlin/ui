@@ -48,7 +48,7 @@ import {
                   autocomplete="email"
                   id="site-footer-email"
                   name="email"
-                  placeholder="you@lowend.example"
+                  placeholder="you@bassmail.example"
                   required
                   type="email"
                 />

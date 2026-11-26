@@ -105,8 +105,8 @@ export default function OrderHistory() {
               <CardContent>
                 <div className="ui-layout-column ui-gap-x-small">
                   <p id="order-history-4821-eta">
-                    Arrives <strong>Thursday 8 October</strong>, Low End
-                    Logistics 0037 4821
+                    Arrives <strong>Thursday 8 October</strong>, Fretboard
+                    Freight 0037 4821
                   </p>
                   <Progress
                     aria-labelledby="order-history-4821-eta"

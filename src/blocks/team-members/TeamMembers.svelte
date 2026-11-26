@@ -90,7 +90,7 @@
           <List bordered class="team-list" variant="transparent">
             <ListItem
               class="team-end"
-              description="holly@lowenders.example"
+              description="holly@slaplikenow.example"
               label="Holly Humbucker"
             >
               {#snippet start()}
@@ -142,7 +142,7 @@
             </ListItem>
             <ListItem
               class="team-end"
-              description="ines@lowenders.example"
+              description="ines@slaplikenow.example"
               label="Ines Hertz"
             >
               {#snippet start()}
@@ -197,7 +197,7 @@
             </ListItem>
             <ListItem
               class="team-end"
-              description="lou@lowenders.example"
+              description="lou@slaplikenow.example"
               label="Lou Headstock"
             >
               {#snippet start()}
@@ -257,7 +257,7 @@
             </ListItem>
             <ListItem
               class="team-end"
-              description="percy@lowenders.example"
+              description="percy@slaplikenow.example"
               label="Percy Groove"
             >
               {#snippet start()}
@@ -317,7 +317,7 @@
             </ListItem>
             <ListItem
               class="team-end"
-              description="rory@lowend.example"
+              description="rory@bassmail.example"
               label="Rory Rootnote (you)"
             >
               {#snippet start()}
@@ -372,7 +372,7 @@
             </ListItem>
             <ListItem
               class="team-end"
-              description="stella@lowenders.example"
+              description="stella@slaplikenow.example"
               label="Stella Nut"
             >
               {#snippet start()}
@@ -442,7 +442,7 @@
             <ListItem
               class="team-pending-actions"
               description="Member, invited by Holly Humbucker on 6 Oct 2026"
-              label="tambourine.tam@lowenders.example"
+              label="tambourine.tam@slaplikenow.example"
             >
               {#snippet start()}
                 <svg
@@ -469,7 +469,7 @@
             <ListItem
               class="team-pending-actions"
               description="Admin, expires in 2 days"
-              label="keytar.kit@lowenders.example"
+              label="keytar.kit@slaplikenow.example"
             >
               {#snippet start()}
                 <svg

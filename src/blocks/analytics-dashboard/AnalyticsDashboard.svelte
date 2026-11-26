@@ -205,11 +205,11 @@
           <li class="ui-layout-column ui-gap-x-small">
             <span
               class="ui-layout-row ui-spread"
-              id="analytics-dashboard-source-low-end"
-              ><span>Low End Theory</span><span>28%</span></span
+              id="analytics-dashboard-source-bassists-anonymous"
+              ><span>Bassists Anonymous</span><span>28%</span></span
             >
             <Progress
-              aria-labelledby="analytics-dashboard-source-low-end"
+              aria-labelledby="analytics-dashboard-source-bassists-anonymous"
               max={100}
               value={28}
             />

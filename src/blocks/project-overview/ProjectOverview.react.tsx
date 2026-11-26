@@ -204,7 +204,7 @@ export default function ProjectOverview() {
                     }
                     time="5 Sep"
                   >
-                    <p className="ui-caption">Completed, low end approved</p>
+                    <p className="ui-caption">Completed, bassist approved</p>
                   </TimelineItem>
                   <TimelineItem
                     color="success"
@@ -410,7 +410,7 @@ export default function ProjectOverview() {
                   <DescriptionListItem>
                     <DescriptionListTerm>Host</DescriptionListTerm>
                     <DescriptionListDescription>
-                      Low End Theory
+                      Bassists Anonymous
                     </DescriptionListDescription>
                   </DescriptionListItem>
                   <DescriptionListItem>

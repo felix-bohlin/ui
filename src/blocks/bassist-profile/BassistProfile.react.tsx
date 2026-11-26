@@ -38,7 +38,7 @@ export default function BassistProfile() {
             />
             <hgroup className="ui-hgroup">
               <h1 className="bp-name">Lou Headstock</h1>
-              <p>@lowendlou, Gothenburg</p>
+              <p>@flatwoundlou, Gothenburg</p>
             </hgroup>
           </div>
           <div className="ui-layout-row ui-gap-small">
@@ -245,7 +245,7 @@ export default function BassistProfile() {
                   <ListItem
                     description="Harbour Stage, Gothenburg"
                     end={<span className="ui-caption">12 Jun</span>}
-                    label="Low End Festival"
+                    label="Bassquake Festival"
                   />
                 </List>
               </TabsPanel>

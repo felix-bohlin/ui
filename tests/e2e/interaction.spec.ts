@@ -1695,7 +1695,7 @@ interaction(
 interaction(
   "menu",
   "Basics",
-  "menu rows paint no background at rest, so a translucent surface reads the same on the rows as between them",
+  "menu rows paint no background at rest, so the menu's surface color and image show the same on the rows as between them",
   async ({ page, root }) => {
     const menu = root.locator("menu.ui-menu")
 

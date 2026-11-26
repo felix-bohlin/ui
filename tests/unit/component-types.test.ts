@@ -138,7 +138,7 @@ test("a checked model declares the Svelte bindables, also on the wrapper that fo
     ComponentProps<"input">["checked"]
   >()
   expectTypeOf<SwitchReact.Props>().not.toHaveProperty("group")
-  expectTypeOf<SwitchVue.SwitchInputProps["name"]>().toEqualTypeOf<
+  expectTypeOf<ToggleButtonVue.Props["name"]>().toEqualTypeOf<
     IntrinsicElementAttributes["input"]["name"]
   >()
   expectTypeOf<SwitchVue.Slots["icon-checked"]>().toEqualTypeOf<

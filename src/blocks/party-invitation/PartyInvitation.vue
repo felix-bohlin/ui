@@ -80,14 +80,23 @@ import {
           <FieldGroup>
             <Fieldset>
               <FieldLegend>Can you make it?</FieldLegend>
-              <FieldGroup
-                name="party-invitation-attending"
-                orientation="horizontal"
-                role="radiogroup"
-              >
-                <Radio checked label="Yes, I'm in" value="yes" />
-                <Radio label="Maybe" value="maybe" />
-                <Radio label="Can't make it" value="no" />
+              <FieldGroup orientation="horizontal" role="radiogroup">
+                <Radio
+                  checked
+                  label="Yes, I'm in"
+                  name="party-invitation-attending"
+                  value="yes"
+                />
+                <Radio
+                  label="Maybe"
+                  name="party-invitation-attending"
+                  value="maybe"
+                />
+                <Radio
+                  label="Can't make it"
+                  name="party-invitation-attending"
+                  value="no"
+                />
               </FieldGroup>
             </Fieldset>
             <Field

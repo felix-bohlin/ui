@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, watchEffect } from "vue"
 import { useBound, useInputAttrs } from "../vue"
-import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { ToggleGroupKey } from "../ToggleGroup/context.vue"
 import { isSelected } from "../ToggleGroup/selection"
 import { DEV, warnGroupedChecked } from "../dev"
@@ -31,11 +30,9 @@ const model = defineModel<boolean | undefined>({
 
 const bound = useBound()
 
-const field = inject(FieldGroupKey, undefined)
-
 const group = inject(ToggleGroupKey, undefined)
 
-const finalName = computed(() => name || group?.groupName || field?.name)
+const finalName = computed(() => name || group?.groupName)
 
 const finalType = computed(() =>
   group?.inputType === "radio" ? "radio" : (type ?? "checkbox"),

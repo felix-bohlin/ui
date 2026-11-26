@@ -9,10 +9,11 @@
 {% call Form() %}
   {% call Fieldset() %}
     {% call FieldLegend() %}Notifications{% endcall %}
-    {% call FieldGroup({ name: "switch-cards-end", orientation: "horizontal" }) %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
       {% call Switch({
         card: true,
         checked: true,
+        name: "switch-cards-end",
         slots: { endText: "A summary every morning." },
         spread: true,
         value: "email"
@@ -22,6 +23,7 @@
       {% endcall %}
       {% call Switch({
         card: true,
+        name: "switch-cards-end",
         slots: { endText: "On this device only." },
         spread: true,
         value: "push",
@@ -32,6 +34,7 @@
       {% endcall %}
       {% call Switch({
         card: true,
+        name: "switch-cards-end",
         slots: { endText: "For security alerts only." },
         spread: true,
         value: "sms",
@@ -44,10 +47,11 @@
   {% endcall %}
   {% call Fieldset() %}
     {% call FieldLegend() %}Privacy{% endcall %}
-    {% call FieldGroup({ name: "switch-cards-start", orientation: "horizontal" }) %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
       {% call Switch({
         card: true,
         checked: true,
+        name: "switch-cards-start",
         slots: { endText: "Others see when you're active." },
         value: "status"
       }) %}
@@ -56,6 +60,7 @@
       {% endcall %}
       {% call Switch({
         card: true,
+        name: "switch-cards-start",
         slots: {
           endText: "Others see when you've read a message."
         },
@@ -67,6 +72,7 @@
       {% endcall %}
       {% call Switch({
         card: true,
+        name: "switch-cards-start",
         slots: { endText: "People can find you by email." },
         value: "search",
         variant: "tonal"

@@ -1,12 +1,10 @@
 {% macro FieldGroup(props = {}) %}
   {%- set rest = props | opuiRest("FieldGroup") -%}
-  {%- set parent = opui.context("FieldGroup") -%}
-  {%- set fieldGroup = { name: props.name or parent.name } -%}
   <div
     class="ui-field-group
       {%- if props.orientation and props.orientation != 'auto' %} ui-{{ props.orientation }}{% endif %}
       {%- if props.class %} {{ props.class }}{% endif %}"
     {{- rest | opuiAttributes }}>
-    {{- opui.provide("FieldGroup", fieldGroup, caller) -}}
+    {{- caller() if caller -}}
   </div>
 {%- endmacro %}

@@ -9,10 +9,11 @@
 {% call Form() %}
   {% call Fieldset() %}
     {% call FieldLegend() %}Gold add-ons{% endcall %}
-    {% call FieldGroup({ name: "checkbox-cards-end", orientation: "horizontal" }) %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
       {% call Checkbox({
         card: true,
         checked: true,
+        name: "checkbox-cards-end",
         slots: { endText: "€8 per month" },
         spread: true,
         value: "support"
@@ -22,6 +23,7 @@
       {% endcall %}
       {% call Checkbox({
         card: true,
+        name: "checkbox-cards-end",
         slots: { endText: "€4 per month" },
         spread: true,
         value: "storage",
@@ -32,6 +34,7 @@
       {% endcall %}
       {% call Checkbox({
         card: true,
+        name: "checkbox-cards-end",
         slots: { endText: "€6 per month" },
         spread: true,
         value: "audit-log",
@@ -44,13 +47,11 @@
   {% endcall %}
   {% call Fieldset() %}
     {% call FieldLegend() %}Email updates{% endcall %}
-    {% call FieldGroup({
-      name: "checkbox-cards-start",
-      orientation: "horizontal"
-    }) %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
       {% call Checkbox({
         card: true,
         checked: true,
+        name: "checkbox-cards-start",
         slots: { endText: "Every Monday morning." },
         value: "weekly"
       }) %}
@@ -59,6 +60,7 @@
       {% endcall %}
       {% call Checkbox({
         card: true,
+        name: "checkbox-cards-start",
         slots: { endText: "When your band books a gig." },
         value: "usage",
         variant: "elevated"
@@ -68,6 +70,7 @@
       {% endcall %}
       {% call Checkbox({
         card: true,
+        name: "checkbox-cards-start",
         slots: { endText: "After each payment." },
         value: "invoices",
         variant: "tonal"

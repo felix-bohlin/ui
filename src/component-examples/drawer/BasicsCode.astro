@@ -129,10 +129,10 @@ const editIcon = `<svg data-icon="edit" aria-hidden="true" xmlns="http://www.w3.
   <DrawerContent>
     <Fieldset>
       <FieldLegend>Status</FieldLegend>
-      <FieldGroup name="status" orientation="horizontal">
-        <Checkbox checked value="done">Done</Checkbox>
-        <Checkbox checked value="in-progress">Rocking</Checkbox>
-        <Checkbox value="open">Not yet</Checkbox>
+      <FieldGroup orientation="horizontal">
+        <Checkbox checked name="status" value="done">Done</Checkbox>
+        <Checkbox checked name="status" value="in-progress">Rocking</Checkbox>
+        <Checkbox name="status" value="open">Not yet</Checkbox>
       </FieldGroup>
     </Fieldset>
   </DrawerContent>

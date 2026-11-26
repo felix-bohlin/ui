@@ -9,23 +9,29 @@
 {% call Form() %}
   {% call Fieldset({ disabled: true }) %}
     {% call FieldLegend() %}Band practice{% endcall %}
-    {% call FieldGroup({
-      name: "radio-group-disabled",
-      orientation: "horizontal"
-    }) %}
-      {% call Radio({ checked: true, value: "weekly" }) %}Weekly{% endcall %}
-      {% call Radio({ value: "monthly" }) %}Monthly{% endcall %}
-      {% call Radio({ value: "drummer" }) %}When the drummer shows up{% endcall %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
+      {% call Radio({
+        checked: true,
+        name: "radio-group-disabled",
+        value: "weekly"
+      }) %}Weekly{% endcall %}
+      {% call Radio({ name: "radio-group-disabled", value: "monthly" }) %}Monthly{% endcall %}
+      {% call Radio({ name: "radio-group-disabled", value: "drummer" }) %}When the drummer shows up{% endcall %}
     {% endcall %}
   {% endcall %}
   {% call Fieldset() %}
     {% call FieldLegend() %}Delivery{% endcall %}
-    {% call FieldGroup({
-      name: "radio-group-disabled-single",
-      orientation: "horizontal"
-    }) %}
-      {% call Radio({ checked: true, value: "standard" }) %}Standard{% endcall %}
-      {% call Radio({ disabled: true, value: "same-day" }) %}Same day{% endcall %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
+      {% call Radio({
+        checked: true,
+        name: "radio-group-disabled-single",
+        value: "standard"
+      }) %}Standard{% endcall %}
+      {% call Radio({
+        disabled: true,
+        name: "radio-group-disabled-single",
+        value: "same-day"
+      }) %}Same day{% endcall %}
     {% endcall %}
   {% endcall %}
 {% endcall %}

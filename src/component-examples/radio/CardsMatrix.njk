@@ -9,10 +9,11 @@
 {% call Form() %}
   {% call Fieldset() %}
     {% call FieldLegend() %}Plan{% endcall %}
-    {% call FieldGroup({ name: "radio-cards-end", orientation: "horizontal" }) %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
       {% call Radio({
         card: true,
         checked: true,
+        name: "radio-cards-end",
         slots: { endText: "€0 per month, forever" },
         spread: true,
         value: "basic"
@@ -22,6 +23,7 @@
       {% endcall %}
       {% call Radio({
         card: true,
+        name: "radio-cards-end",
         slots: { endText: "€3 per month, shiny badge included" },
         spread: true,
         value: "gold",
@@ -32,6 +34,7 @@
       {% endcall %}
       {% call Radio({
         card: true,
+        name: "radio-cards-end",
         slots: { endText: "€5 per month, extra sparkly" },
         spread: true,
         value: "platinum",
@@ -44,10 +47,11 @@
   {% endcall %}
   {% call Fieldset() %}
     {% call FieldLegend() %}Billing{% endcall %}
-    {% call FieldGroup({ name: "radio-cards-start", orientation: "horizontal" }) %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
       {% call Radio({
         card: true,
         checked: true,
+        name: "radio-cards-start",
         slots: { endText: "Cancel any time, no hard feelings." },
         value: "monthly"
       }) %}
@@ -56,6 +60,7 @@
       {% endcall %}
       {% call Radio({
         card: true,
+        name: "radio-cards-start",
         slots: { endText: "Two months free, woohoo." },
         value: "yearly",
         variant: "elevated"
@@ -65,6 +70,7 @@
       {% endcall %}
       {% call Radio({
         card: true,
+        name: "radio-cards-start",
         slots: { endText: "Pay in coins after your next gig." },
         value: "gig-money",
         variant: "tonal"

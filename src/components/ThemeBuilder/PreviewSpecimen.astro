@@ -191,9 +191,9 @@ const callouts = [
     <p class="specimen-caption">Choices</p>
     <Fieldset>
       <FieldLegend>Pay for Gold</FieldLegend>
-      <FieldGroup name={name("billing")} orientation="horizontal">
-        <Radio checked value="monthly">Monthly</Radio>
-        <Radio value="yearly">Yearly</Radio>
+      <FieldGroup orientation="horizontal">
+        <Radio checked name={name("billing")} value="monthly">Monthly</Radio>
+        <Radio name={name("billing")} value="yearly">Yearly</Radio>
       </FieldGroup>
     </Fieldset>
     <Checkbox checked name={name("updates")}

@@ -5,11 +5,12 @@ export default function CardsMatrix() {
     <Form>
       <Fieldset>
         <FieldLegend>Plan</FieldLegend>
-        <FieldGroup name="radio-cards-end" orientation="horizontal">
+        <FieldGroup orientation="horizontal">
           <Radio
             card
             defaultChecked
             endText="€0 per month, forever"
+            name="radio-cards-end"
             spread
             value="basic"
           >
@@ -18,6 +19,7 @@ export default function CardsMatrix() {
           <Radio
             card
             endText="€3 per month, shiny badge included"
+            name="radio-cards-end"
             spread
             value="gold"
             variant="elevated"
@@ -27,6 +29,7 @@ export default function CardsMatrix() {
           <Radio
             card
             endText="€5 per month, extra sparkly"
+            name="radio-cards-end"
             spread
             value="platinum"
             variant="tonal"
@@ -37,11 +40,12 @@ export default function CardsMatrix() {
       </Fieldset>
       <Fieldset>
         <FieldLegend>Billing</FieldLegend>
-        <FieldGroup name="radio-cards-start" orientation="horizontal">
+        <FieldGroup orientation="horizontal">
           <Radio
             card
             defaultChecked
             endText="Cancel any time, no hard feelings."
+            name="radio-cards-start"
             value="monthly"
           >
             Monthly
@@ -49,6 +53,7 @@ export default function CardsMatrix() {
           <Radio
             card
             endText="Two months free, woohoo."
+            name="radio-cards-start"
             value="yearly"
             variant="elevated"
           >
@@ -57,6 +62,7 @@ export default function CardsMatrix() {
           <Radio
             card
             endText="Pay in coins after your next gig."
+            name="radio-cards-start"
             value="gig-money"
             variant="tonal"
           >

@@ -141,10 +141,12 @@
   <DrawerContent>
     <Fieldset>
       <FieldLegend>Status</FieldLegend>
-      <FieldGroup name="status" orientation="horizontal">
-        <Checkbox defaultChecked value="done">Done</Checkbox>
-        <Checkbox defaultChecked value="in-progress">Rocking</Checkbox>
-        <Checkbox value="open">Not yet</Checkbox>
+      <FieldGroup orientation="horizontal">
+        <Checkbox defaultChecked name="status" value="done">Done</Checkbox>
+        <Checkbox defaultChecked name="status" value="in-progress"
+          >Rocking</Checkbox
+        >
+        <Checkbox name="status" value="open">Not yet</Checkbox>
       </FieldGroup>
     </Fieldset>
   </DrawerContent>

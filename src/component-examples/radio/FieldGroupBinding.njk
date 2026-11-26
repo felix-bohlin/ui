@@ -8,10 +8,10 @@
 
 {% call Fieldset() %}
   {% call FieldLegend() %}Plan{% endcall %}
-  {% call FieldGroup({ name: "radio-binding" }) %}
-    {% call Radio({ checked: true, value: "basic" }) %}Basic{% endcall %}
-    {% call Radio({ value: "gold" }) %}Gold{% endcall %}
-    {% call Radio({ value: "platinum" }) %}Platinum{% endcall %}
+  {% call FieldGroup() %}
+    {% call Radio({ checked: true, name: "radio-binding", value: "basic" }) %}Basic{% endcall %}
+    {% call Radio({ name: "radio-binding", value: "gold" }) %}Gold{% endcall %}
+    {% call Radio({ name: "radio-binding", value: "platinum" }) %}Platinum{% endcall %}
   {% endcall %}
 {% endcall %}
 <p class="radio-binding-text">Selected: basic</p>

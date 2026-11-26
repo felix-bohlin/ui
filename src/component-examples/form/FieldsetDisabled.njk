@@ -12,8 +12,8 @@
 }) %}
   {% call FieldLegend() %}Security alerts{% endcall %}
   {% call FieldDescription({ id: "form-fieldset-disabled-1-description" }) %}Your administrator manages these settings.{% endcall %}
-  {% call FieldGroup({ name: "alerts" }) %}
-    {% call Checkbox({ checked: true, value: "email" }) %}Email{% endcall %}
-    {% call Checkbox({ checked: true, value: "sms" }) %}SMS{% endcall %}
+  {% call FieldGroup() %}
+    {% call Checkbox({ checked: true, name: "alerts", value: "email" }) %}Email{% endcall %}
+    {% call Checkbox({ checked: true, name: "alerts", value: "sms" }) %}SMS{% endcall %}
   {% endcall %}
 {% endcall %}

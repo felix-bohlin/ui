@@ -152,10 +152,10 @@
   {% call DrawerContent() %}
     {% call Fieldset() %}
       {% call FieldLegend() %}Status{% endcall %}
-      {% call FieldGroup({ name: "status", orientation: "horizontal" }) %}
-        {% call Checkbox({ checked: true, value: "done" }) %}Done{% endcall %}
-        {% call Checkbox({ checked: true, value: "in-progress" }) %}Rocking{% endcall %}
-        {% call Checkbox({ value: "open" }) %}Not yet{% endcall %}
+      {% call FieldGroup({ orientation: "horizontal" }) %}
+        {% call Checkbox({ checked: true, name: "status", value: "done" }) %}Done{% endcall %}
+        {% call Checkbox({ checked: true, name: "status", value: "in-progress" }) %}Rocking{% endcall %}
+        {% call Checkbox({ name: "status", value: "open" }) %}Not yet{% endcall %}
       {% endcall %}
     {% endcall %}
   {% endcall %}

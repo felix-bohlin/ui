@@ -5,14 +5,14 @@ export default function FieldGroupRequired() {
     <Form>
       <Fieldset>
         <FieldLegend>Admin security</FieldLegend>
-        <FieldGroup name="switch-group-required" orientation="horizontal">
-          <Switch required value="two-step-login">
+        <FieldGroup orientation="horizontal">
+          <Switch name="switch-group-required" required value="two-step-login">
             Two-step login
           </Switch>
-          <Switch required value="login-alerts">
+          <Switch name="switch-group-required" required value="login-alerts">
             Login alerts
           </Switch>
-          <Switch required value="auto-lock">
+          <Switch name="switch-group-required" required value="auto-lock">
             Auto-lock
           </Switch>
         </FieldGroup>

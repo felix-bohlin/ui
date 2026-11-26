@@ -1,6 +1,5 @@
 /** @jsxImportSource @solidjs/web */
 import { children, omit, untrack } from "solid-js"
-import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import { useToggleGroupContext } from "../ToggleGroup/context.solid"
 import { isSelected } from "../ToggleGroup/selection"
 import { DEV, warnGroupedChecked } from "../dev"
@@ -24,9 +23,8 @@ export default function ToggleButton(props: Props) {
     "children",
   )
   const resolvedChildren = children(() => props.children)
-  const field = useFieldGroupContext()
   const group = useToggleGroupContext()
-  const finalName = () => props.name || group?.groupName || field?.name
+  const finalName = () => props.name || group?.groupName
   const finalType = () =>
     group?.inputType === "radio" ? "radio" : (props.type ?? "checkbox")
   const grouped = () => isSelected(group?.value, props.value)

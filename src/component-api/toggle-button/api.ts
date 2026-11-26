@@ -52,7 +52,7 @@ export default {
     },
     {
       description:
-        "The name of the input. Falls back to the `ToggleGroup`'s name, then to a `FieldGroup`'s.",
+        "The name of the input. Falls back to the `ToggleGroup`'s name.",
       inherited: true,
       prop: "name",
       type: "string",

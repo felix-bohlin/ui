@@ -72,14 +72,12 @@
       {% call Fieldset() %}
         {% call FieldLegend() %}Topics{% endcall %}
         {% call FieldDescription() %}Pick what you wanna hear about.{% endcall %}
-        {% call FieldGroup({
-          class: "newsletter-topics",
-          name: "newsletter-topics"
-        }) %}
+        {% call FieldGroup({ class: "newsletter-topics" }) %}
           {% set endText %}<span id="newsletter-topic-news-text">Shiny new features and fixes</span>{% endset %}
           {% call Checkbox({
             "aria-describedby": "newsletter-topic-news-text",
             checked: true,
+            name: "newsletter-topics",
             slots: { endText: endText },
             value: "news"
           }) %}
@@ -89,6 +87,7 @@
           {% set endText %}<span id="newsletter-topic-gear-text">Strings, amps and pedal hoarding</span>{% endset %}
           {% call Checkbox({
             "aria-describedby": "newsletter-topic-gear-text",
+            name: "newsletter-topics",
             slots: { endText: endText },
             value: "gear"
           }) %}
@@ -99,6 +98,7 @@
           {% call Checkbox({
             "aria-describedby": "newsletter-topic-tips-text",
             checked: true,
+            name: "newsletter-topics",
             slots: { endText: endText },
             value: "tips"
           }) %}
@@ -108,6 +108,7 @@
           {% set endText %}<span id="newsletter-topic-diaries-text">Bassists just like you, venting</span>{% endset %}
           {% call Checkbox({
             "aria-describedby": "newsletter-topic-diaries-text",
+            name: "newsletter-topics",
             slots: { endText: endText },
             value: "diaries"
           }) %}

@@ -461,13 +461,25 @@ import {
         <CardContent
           ><FieldGroup
             aria-labelledby="notification-settings-digest-heading"
-            name="notification-settings-digest"
             orientation="horizontal"
             role="radiogroup"
           >
-            <Radio label="Off" value="off" />
-            <Radio checked label="Daily" value="daily" />
-            <Radio label="Weekly" value="weekly" /> </FieldGroup
+            <Radio
+              label="Off"
+              name="notification-settings-digest"
+              value="off"
+            />
+            <Radio
+              checked
+              label="Daily"
+              name="notification-settings-digest"
+              value="daily"
+            />
+            <Radio
+              label="Weekly"
+              name="notification-settings-digest"
+              value="weekly"
+            /> </FieldGroup
         ></CardContent>
       </Card>
     </div>

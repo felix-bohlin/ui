@@ -8,11 +8,6 @@ export default {
   },
   options: [
     {
-      description:
-        "Sets `name` on the OPUI fields inside that don't set their own. A text field's input is your own, so name it there.",
-      prop: "name",
-    },
-    {
       default: '"auto"',
       description:
         "The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row.",

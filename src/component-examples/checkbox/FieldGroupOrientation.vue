@@ -6,10 +6,10 @@ import { Checkbox, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/vue"
   <Form>
     <Fieldset>
       <FieldLegend>Toppings</FieldLegend>
-      <FieldGroup name="checkbox-group-orientation" orientation="horizontal">
-        <Checkbox checked>Cheese</Checkbox>
-        <Checkbox>Mushrooms</Checkbox>
-        <Checkbox>Olives</Checkbox>
+      <FieldGroup orientation="horizontal">
+        <Checkbox checked name="checkbox-group-orientation">Cheese</Checkbox>
+        <Checkbox name="checkbox-group-orientation">Mushrooms</Checkbox>
+        <Checkbox name="checkbox-group-orientation">Olives</Checkbox>
       </FieldGroup>
     </Fieldset>
   </Form>

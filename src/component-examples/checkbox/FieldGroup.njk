@@ -9,10 +9,10 @@
 {% call Form() %}
   {% call Fieldset() %}
     {% call FieldLegend() %}Notifications{% endcall %}
-    {% call FieldGroup({ name: "checkbox-group" }) %}
-      {% call Checkbox({ checked: true }) %}Email{% endcall %}
-      {% call Checkbox() %}Push{% endcall %}
-      {% call Checkbox() %}SMS{% endcall %}
+    {% call FieldGroup() %}
+      {% call Checkbox({ checked: true, name: "checkbox-group" }) %}Email{% endcall %}
+      {% call Checkbox({ name: "checkbox-group" }) %}Push{% endcall %}
+      {% call Checkbox({ name: "checkbox-group" }) %}SMS{% endcall %}
     {% endcall %}
   {% endcall %}
 {% endcall %}

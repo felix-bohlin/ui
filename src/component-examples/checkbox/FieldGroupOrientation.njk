@@ -9,13 +9,10 @@
 {% call Form() %}
   {% call Fieldset() %}
     {% call FieldLegend() %}Toppings{% endcall %}
-    {% call FieldGroup({
-      name: "checkbox-group-orientation",
-      orientation: "horizontal"
-    }) %}
-      {% call Checkbox({ checked: true }) %}Cheese{% endcall %}
-      {% call Checkbox() %}Mushrooms{% endcall %}
-      {% call Checkbox() %}Olives{% endcall %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
+      {% call Checkbox({ checked: true, name: "checkbox-group-orientation" }) %}Cheese{% endcall %}
+      {% call Checkbox({ name: "checkbox-group-orientation" }) %}Mushrooms{% endcall %}
+      {% call Checkbox({ name: "checkbox-group-orientation" }) %}Olives{% endcall %}
     {% endcall %}
   {% endcall %}
 {% endcall %}

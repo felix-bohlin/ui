@@ -68,12 +68,16 @@ export default function KitchenSink() {
         <FieldDescription id="form-kitchen-sink-4-description">
           Pick the look of your awesome profile page.
         </FieldDescription>
-        <FieldGroup name="theme">
-          <Radio defaultChecked value="light">
+        <FieldGroup>
+          <Radio defaultChecked name="theme" value="light">
             Light theme
           </Radio>
-          <Radio value="dark">Dark theme</Radio>
-          <Radio value="system">System default</Radio>
+          <Radio name="theme" value="dark">
+            Dark theme
+          </Radio>
+          <Radio name="theme" value="system">
+            System default
+          </Radio>
         </FieldGroup>
       </Fieldset>
       <Divider />

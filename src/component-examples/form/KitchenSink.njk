@@ -66,10 +66,10 @@
   {% call Fieldset({ "aria-describedby": "form-kitchen-sink-4-description" }) %}
     {% call FieldLegend() %}Profile theme{% endcall %}
     {% call FieldDescription({ id: "form-kitchen-sink-4-description" }) %}Pick the look of your awesome profile page.{% endcall %}
-    {% call FieldGroup({ name: "theme" }) %}
-      {% call Radio({ checked: true, value: "light" }) %}Light theme{% endcall %}
-      {% call Radio({ value: "dark" }) %}Dark theme{% endcall %}
-      {% call Radio({ value: "system" }) %}System default{% endcall %}
+    {% call FieldGroup() %}
+      {% call Radio({ checked: true, name: "theme", value: "light" }) %}Light theme{% endcall %}
+      {% call Radio({ name: "theme", value: "dark" }) %}Dark theme{% endcall %}
+      {% call Radio({ name: "theme", value: "system" }) %}System default{% endcall %}
     {% endcall %}
   {% endcall %}
 

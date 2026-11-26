@@ -100,10 +100,11 @@ import {
       <Fieldset>
         <FieldLegend>Topics</FieldLegend>
         <FieldDescription>Pick what you wanna hear about.</FieldDescription>
-        <FieldGroup class="newsletter-topics" name="newsletter-topics">
+        <FieldGroup class="newsletter-topics">
           <Checkbox
             aria-describedby="newsletter-topic-news-text"
             checked
+            name="newsletter-topics"
             value="news"
           >
             Bassbook news
@@ -111,7 +112,11 @@ import {
               >Shiny new features and fixes</span
             >
           </Checkbox>
-          <Checkbox aria-describedby="newsletter-topic-gear-text" value="gear">
+          <Checkbox
+            aria-describedby="newsletter-topic-gear-text"
+            name="newsletter-topics"
+            value="gear"
+          >
             Gear Talk
             <span id="newsletter-topic-gear-text" slot="end-text"
               >Strings, amps and pedal hoarding</span
@@ -120,6 +125,7 @@ import {
           <Checkbox
             aria-describedby="newsletter-topic-tips-text"
             checked
+            name="newsletter-topics"
             value="tips"
           >
             Tabs &amp; tips
@@ -129,6 +135,7 @@ import {
           </Checkbox>
           <Checkbox
             aria-describedby="newsletter-topic-diaries-text"
+            name="newsletter-topics"
             value="diaries"
           >
             Member diaries

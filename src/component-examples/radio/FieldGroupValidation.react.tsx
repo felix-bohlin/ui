@@ -5,14 +5,19 @@ export default function FieldGroupValidation() {
     <Form>
       <Fieldset aria-describedby="radio-field-group-validation-1-error">
         <FieldLegend>Color</FieldLegend>
-        <FieldGroup name="radio-group-validation" orientation="horizontal">
-          <Radio defaultChecked error value="black">
+        <FieldGroup orientation="horizontal">
+          <Radio
+            defaultChecked
+            error
+            name="radio-group-validation"
+            value="black"
+          >
             Black
           </Radio>
-          <Radio error value="white">
+          <Radio error name="radio-group-validation" value="white">
             White
           </Radio>
-          <Radio error value="red">
+          <Radio error name="radio-group-validation" value="red">
             Red
           </Radio>
         </FieldGroup>

@@ -87,7 +87,7 @@ export default function App() {
 }
 ```
 
-Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are props: `children`, and camelCased names such as `endText`. Form controls take the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` props, and Rating, Tabs and ToggleGroup report a choice with `onValueChange(value)`. Components that need context, state or effects (Anchor, Callout, CharacterCount, Copy, Dialog, Drawer, FieldGroup, FieldLegend, Fieldset, FileUpload, Menu, PasswordToggle, Rating, Reactions, SelectAll, SortableTable, StepButton, Tabs, Toaster, ToggleButton and ToggleGroup, and the CheckboxInput, RadioInput and SwitchInput parts) are marked `"use client"`; the rest also render as React Server Components.
+Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are props: `children`, and camelCased names such as `endText`. Form controls take the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` props, and Rating, Tabs and ToggleGroup report a choice with `onValueChange(value)`. Components that need context, state or effects (Anchor, Callout, CharacterCount, Copy, Dialog, Drawer, FieldLegend, Fieldset, FileUpload, Menu, PasswordToggle, Rating, Reactions, SelectAll, SortableTable, StepButton, Tabs, Toaster, ToggleButton and ToggleGroup, and the CheckboxInput part) are marked `"use client"`; the rest also render as React Server Components.
 
 ### Solid components
 

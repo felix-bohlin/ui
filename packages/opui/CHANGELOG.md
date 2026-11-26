@@ -69,6 +69,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `DrawerHeader` renders its close button only with `closeButton`, like `DialogHeader` and `Callout`. Add `closeButton` to keep it. `closeLabel` names it ("Close" by default). `closeLabel` or `commandfor` alone renders no button, so the types take them, and `closeIcon` in React, Solid and Svelte, only with `closeButton`, whatever its value.
 - `FieldGroup` no longer sets `role="group"`. Wrap it in a `Fieldset` (a `<fieldset>`, already a group) to group and name the fields. `Fieldset` with another element in `as` gets `role="group"`.
 - `FieldGroup` `direction` (`"row"`, `"column"`) is `orientation` (`"auto"`, `"horizontal"`, `"vertical"`), like `ControlGroup`, `ToggleGroup` and `Carousel`, and `.ui-row` and `.ui-column` are `.ui-horizontal` and `.ui-vertical`. `auto`, the default, stacks fields and lines up a group of only buttons in a row, and `vertical` stacks the buttons too.
+- `FieldGroup` no longer takes `name`, and the fields inside no longer read one from it. Set `name` on each `Checkbox`, `Radio`, `Switch` or `ToggleButton`, as on a native `<input>`.
 - `Fieldset` (`.ui-fieldset`) no longer reads `data-invalid`. Its end text turns red when a control inside has `aria-invalid="true"` or is `:user-invalid`, so mark each control in the group (`error` on each `Checkbox`, `Radio` or `Switch` in Astro and Vue).
 - `FieldSet` is `Fieldset` (`components/Fieldset/Fieldset.*`), and `FieldDescription` renders `.ui-description` instead of `.ui-field-description`.
 - `List` no longer takes `divided`. Use `bordered` (`.ui-bordered`) ([#395](https://github.com/felix-bohlin/ui/issues/395)).
@@ -572,8 +573,6 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Drawer` `--_block-size` sets the height of a top or bottom drawer up to the full viewport, instead of stopping at 80%. Its default, `min(80dvb, 650px)`, keeps that cap.
 - `Drawer` with `.ui-backdrop-transparent` (`backdrop="transparent"`) no longer dims the page behind it. It only removed the blur before.
 - `Drawer` with a transparent backdrop locks the page below `31.25rem` instead of `500px`, so the threshold follows the reader's font size.
-- `FieldGroup` `name` only applies to its own fields in Astro and Vue, and `ToggleGroup` `name` and selection only to its own buttons in Astro. A field or button after a group, or behind an async component in the next group, no longer takes the group's name.
-- `FieldGroup` in Vue passes a `name` that changes or comes from an outer group to its inputs.
 - `Fieldset` no longer overrides the error color of an invalid `Checkbox`, `Radio` or `Switch` end text inside it. Its helper styles only apply to its own end text.
 - `Fieldset`, `FieldLegend`, `FieldDescription`, `FieldGroup` and `Form` in Vue no longer apply attributes and listeners twice.
 - `Fieldset` with `disabled` dims its legend, description and end text instead of the whole fieldset, so the controls inside, which dim themselves, are no longer dimmed twice.
@@ -671,7 +670,6 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `TextField`, `Select` and `Textarea` look disabled, and a filled field no longer darkens on hover, when a disabled `fieldset` disables the control or it has `aria-disabled="true"`, and a disabled `option` no longer makes a `Select` look disabled. Read-only and `aria-disabled` fields get no hover styles.
 - `TextField` and `Select` keep the control height of buttons in Firefox and Safari. Single-line inputs and selects get a definite height, `1lh` plus their padding, so the engine's own input height and padding rounding no longer make the field up to 2px taller. On iPhone and iPad, date and time inputs drop their native look (`css/compat/field.css`), since iOS Safari sizes them with `box-sizing: content-box` and the field's padding would make them taller than the other fields.
 - `TextField`, `Select` and `Textarea` cover the browser's autofill color with the field's own background, so an autofilled input in a `.ui-filled` field no longer shows a page-colored box, and keep the field's text color, so an autofilled value no longer looks fainter than a typed one.
-- `ToggleButton` in Vue takes the `FieldGroup` name.
 - `ToggleButton` only grows inside a `ToggleGroup`. On its own in a flex container it stretched to fill the row.
 - `ToggleButton` in Vue is a radio in a single-selection `ToggleGroup`, like Astro, even with a `type`.
 - `ToggleButton` declares `--_selected-bg-color` on the root with its other inputs, so an override on `.ui-toggle-button` reaches the checked button instead of losing to the checked rule.
@@ -681,6 +679,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `ToggleGroup` is as high as a `ToggleButton` of the same size. The group border made it 2px taller.
 - `ToggleGroup` separators show in forced colors.
 - `ToggleGroup` in Astro renders a passed `role` instead of `radiogroup` or `group`, like Vue.
+- `ToggleGroup` `name` and selection only apply to its own buttons in Astro. A button after a group, or behind an async component in the next group, no longer takes the group's name.
 - `Tooltip` shifts along the viewport edge instead of squeezing, with or without an arrow, and shows when its trigger is more than one viewport down the page.
 - `Tooltip` arrow points at the trigger for every position, after flips and shifts.
 - `Tooltip` keeps its edge in forced colors with a `CanvasText` border, and the arrow stays visible.

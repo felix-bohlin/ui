@@ -66,10 +66,11 @@
       <Fieldset>
         <FieldLegend>Topics</FieldLegend>
         <FieldDescription>Pick what you wanna hear about.</FieldDescription>
-        <FieldGroup class="newsletter-topics" name="newsletter-topics">
+        <FieldGroup class="newsletter-topics">
           <Checkbox
             aria-describedby="newsletter-topic-news-text"
             defaultChecked
+            name="newsletter-topics"
             value="news"
           >
             Bassbook news
@@ -79,7 +80,11 @@
               >
             {/snippet}
           </Checkbox>
-          <Checkbox aria-describedby="newsletter-topic-gear-text" value="gear">
+          <Checkbox
+            aria-describedby="newsletter-topic-gear-text"
+            name="newsletter-topics"
+            value="gear"
+          >
             Gear Talk
             {#snippet endText()}
               <span id="newsletter-topic-gear-text"
@@ -90,6 +95,7 @@
           <Checkbox
             aria-describedby="newsletter-topic-tips-text"
             defaultChecked
+            name="newsletter-topics"
             value="tips"
           >
             Tabs &amp; tips
@@ -101,6 +107,7 @@
           </Checkbox>
           <Checkbox
             aria-describedby="newsletter-topic-diaries-text"
+            name="newsletter-topics"
             value="diaries"
           >
             Member diaries

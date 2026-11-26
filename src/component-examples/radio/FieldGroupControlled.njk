@@ -8,10 +8,10 @@
 
 {% call Fieldset() %}
   {% call FieldLegend() %}Shipping{% endcall %}
-  {% call FieldGroup({ name: "radio-controlled" }) %}
-    {% call Radio({ checked: true, value: "standard" }) %}Standard{% endcall %}
-    {% call Radio({ value: "express" }) %}Express{% endcall %}
-    {% call Radio({ value: "pickup" }) %}Pickup{% endcall %}
+  {% call FieldGroup() %}
+    {% call Radio({ checked: true, name: "radio-controlled", value: "standard" }) %}Standard{% endcall %}
+    {% call Radio({ name: "radio-controlled", value: "express" }) %}Express{% endcall %}
+    {% call Radio({ name: "radio-controlled", value: "pickup" }) %}Pickup{% endcall %}
   {% endcall %}
 {% endcall %}
 <p class="radio-controlled-text">Selected: standard</p>

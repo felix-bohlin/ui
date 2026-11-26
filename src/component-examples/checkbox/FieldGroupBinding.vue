@@ -25,10 +25,16 @@ function reset() {
 <template>
   <Fieldset>
     <FieldLegend>Newsletter topics</FieldLegend>
-    <FieldGroup name="checkbox-binding">
-      <Checkbox v-model="selected" value="updates">Bassbook news</Checkbox>
-      <Checkbox v-model="selected" value="events">Events</Checkbox>
-      <Checkbox v-model="selected" value="offers">Gear deals</Checkbox>
+    <FieldGroup>
+      <Checkbox name="checkbox-binding" v-model="selected" value="updates"
+        >Bassbook news</Checkbox
+      >
+      <Checkbox name="checkbox-binding" v-model="selected" value="events"
+        >Events</Checkbox
+      >
+      <Checkbox name="checkbox-binding" v-model="selected" value="offers"
+        >Gear deals</Checkbox
+      >
     </FieldGroup>
   </Fieldset>
   <p class="checkbox-binding-text">Selected: {{ summary }}</p>

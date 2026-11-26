@@ -15,13 +15,13 @@
     {% call FieldDescription({
       id: "checkbox-field-group-field-description-1-description"
     }) %}How we tell you a bandmate finally replied.{% endcall %}
-    {% call FieldGroup({
-      name: "checkbox-group-field-description-1",
-      orientation: "horizontal"
-    }) %}
-      {% call Checkbox({ checked: true }) %}Email{% endcall %}
-      {% call Checkbox() %}Push{% endcall %}
-      {% call Checkbox() %}SMS{% endcall %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
+      {% call Checkbox({
+        checked: true,
+        name: "checkbox-group-field-description-1"
+      }) %}Email{% endcall %}
+      {% call Checkbox({ name: "checkbox-group-field-description-1" }) %}Push{% endcall %}
+      {% call Checkbox({ name: "checkbox-group-field-description-1" }) %}SMS{% endcall %}
     {% endcall %}
   {% endcall %}
 
@@ -29,13 +29,13 @@
     "aria-describedby": "checkbox-field-group-field-description-2-description"
   }) %}
     {% call FieldLegend() %}Newsletter topics{% endcall %}
-    {% call FieldGroup({
-      name: "checkbox-group-field-description-2",
-      orientation: "horizontal"
-    }) %}
-      {% call Checkbox({ checked: true }) %}Bassbook news{% endcall %}
-      {% call Checkbox() %}Events{% endcall %}
-      {% call Checkbox() %}Gear deals{% endcall %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
+      {% call Checkbox({
+        checked: true,
+        name: "checkbox-group-field-description-2"
+      }) %}Bassbook news{% endcall %}
+      {% call Checkbox({ name: "checkbox-group-field-description-2" }) %}Events{% endcall %}
+      {% call Checkbox({ name: "checkbox-group-field-description-2" }) %}Gear deals{% endcall %}
     {% endcall %}
     {% call FieldDescription({
       id: "checkbox-field-group-field-description-2-description"

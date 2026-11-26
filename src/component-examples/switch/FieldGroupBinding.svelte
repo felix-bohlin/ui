@@ -22,10 +22,16 @@
 
 <Fieldset>
   <FieldLegend>Notifications</FieldLegend>
-  <FieldGroup name="switch-binding">
-    <Switch bind:group={notifications} value="email">Email</Switch>
-    <Switch bind:group={notifications} value="push">Push</Switch>
-    <Switch bind:group={notifications} value="sms">SMS</Switch>
+  <FieldGroup>
+    <Switch bind:group={notifications} name="switch-binding" value="email"
+      >Email</Switch
+    >
+    <Switch bind:group={notifications} name="switch-binding" value="push"
+      >Push</Switch
+    >
+    <Switch bind:group={notifications} name="switch-binding" value="sms"
+      >SMS</Switch
+    >
   </FieldGroup>
 </Fieldset>
 <p class="switch-binding-text">Selected: {summary}</p>

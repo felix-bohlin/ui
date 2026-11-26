@@ -6,22 +6,29 @@ export default function FieldGroupDisabled() {
     <Form>
       <Fieldset disabled>
         <FieldLegend>Share with friends</FieldLegend>
-        <FieldGroup name="switch-group-disabled" orientation="horizontal">
-          <Switch value="profile">Profile</Switch>
-          <Switch value="activity">Activity</Switch>
-          <Switch value="location">Location</Switch>
+        <FieldGroup orientation="horizontal">
+          <Switch name="switch-group-disabled" value="profile">
+            Profile
+          </Switch>
+          <Switch name="switch-group-disabled" value="activity">
+            Activity
+          </Switch>
+          <Switch name="switch-group-disabled" value="location">
+            Location
+          </Switch>
         </FieldGroup>
       </Fieldset>
       <Fieldset>
         <FieldLegend>Sync</FieldLegend>
-        <FieldGroup
-          name="switch-group-disabled-single"
-          orientation="horizontal"
-        >
-          <Switch defaultChecked value="contacts">
+        <FieldGroup orientation="horizontal">
+          <Switch
+            defaultChecked
+            name="switch-group-disabled-single"
+            value="contacts"
+          >
             Contacts
           </Switch>
-          <Switch disabled value="photos">
+          <Switch disabled name="switch-group-disabled-single" value="photos">
             Photos
           </Switch>
         </FieldGroup>

@@ -55,12 +55,12 @@ export const USERS: User[] = [
   },
   {
     bio: "Bass player, coffee snob, and the one who always brings snacks to rehearsal.",
-    handle: "holly",
-    initials: "HH",
+    handle: "scott",
+    initials: "SH",
     joined: "March 2024",
     location: "Gothenburg",
-    name: "Holly Humbucker",
-    photo: "/photos/holly-humbucker.png",
+    name: "Scott Humbucker",
+    photo: "/photos/scott-humbucker.png",
   },
   {
     bio: "Keeps a list of every concert since 2009.",
@@ -72,21 +72,21 @@ export const USERS: User[] = [
   },
   {
     bio: "Drums on weekends, spreadsheets on weekdays.",
-    handle: "lou",
-    initials: "LH",
+    handle: "kinga",
+    initials: "KH",
     joined: "January 2025",
     location: "Malmö",
-    name: "Lou Headstock",
-    photo: "/photos/lou-headstock.png",
+    name: "Kinga Headstock",
+    photo: "/photos/kinga-headstock.png",
   },
   {
     bio: "Writes songs about trains. Has never been on a night train.",
-    handle: "percy",
-    initials: "PG",
+    handle: "adam",
+    initials: "AG",
     joined: "June 2023",
     location: "Uppsala",
-    name: "Percy Groove",
-    photo: "/photos/percy-groove.png",
+    name: "Adam Groove",
+    photo: "/photos/adam-groove.png",
   },
   {
     bio: "Organizes the Thursday jam. Bring your own cable.",
@@ -106,7 +106,7 @@ const reactions = (like: number, laugh: number, wow: number) => [
 
 export const POSTS: Post[] = [
   {
-    author: "holly",
+    author: "scott",
     datetime: "2026-11-18T19:42",
     id: "p12",
     photos: [],
@@ -124,7 +124,7 @@ export const POSTS: Post[] = [
     time: "Nov 18, 17:05",
   },
   {
-    author: "lou",
+    author: "kinga",
     datetime: "2026-11-18T12:30",
     id: "p10",
     photos: [],
@@ -142,12 +142,12 @@ export const POSTS: Post[] = [
     time: "Nov 17, 21:14",
   },
   {
-    author: "percy",
+    author: "adam",
     datetime: "2026-11-17T16:48",
     id: "p8",
     photos: [],
     reactions: reactions(2, 1, 0),
-    text: "Setlist draft: https://example.com/setlists/percy/thursday-jam-final-final-really-final-version-2026-11-17",
+    text: "Setlist draft: https://example.com/setlists/adam/thursday-jam-final-final-really-final-version-2026-11-17",
     time: "Nov 17, 16:48",
   },
   {
@@ -160,7 +160,7 @@ export const POSTS: Post[] = [
     time: "Nov 16, 22:01",
   },
   {
-    author: "holly",
+    author: "scott",
     datetime: "2026-11-16T10:15",
     id: "p6",
     photos: [],
@@ -178,7 +178,7 @@ export const POSTS: Post[] = [
     time: "Nov 15, 08:40",
   },
   {
-    author: "lou",
+    author: "kinga",
     datetime: "2026-11-14T18:22",
     id: "p4",
     photos: [],
@@ -187,7 +187,7 @@ export const POSTS: Post[] = [
     time: "Nov 14, 18:22",
   },
   {
-    author: "percy",
+    author: "adam",
     datetime: "2026-11-13T13:03",
     id: "p3",
     photos: [],
@@ -227,41 +227,41 @@ export const CONVERSATIONS: Conversation[] = [
   {
     lines: [
       { kind: "divider", label: "Yesterday" },
-      message("holly", "2026-11-18T14:02", "Did you hear the new strings?"),
-      message("holly", "2026-11-18T14:03", "Flatwounds. So smooth."),
+      message("scott", "2026-11-18T14:02", "Did you hear the new strings?"),
+      message("scott", "2026-11-18T14:03", "Flatwounds. So smooth."),
       message(ME, "2026-11-18T14:18", "Not yet, but I believe you."),
       { kind: "divider", label: "Today" },
-      message("holly", "2026-11-19T09:12", "Coming on Thursday?"),
+      message("scott", "2026-11-19T09:12", "Coming on Thursday?"),
     ],
     unread: 1,
-    with: "holly",
+    with: "scott",
   },
   {
     lines: [
       { kind: "divider", label: "Monday" },
       message(ME, "2026-11-17T11:00", "Room moved one floor down, right?"),
-      message("lou", "2026-11-17T11:04", "Yes. Follow the smell of incense."),
+      message("kinga", "2026-11-17T11:04", "Yes. Follow the smell of incense."),
     ],
     unread: 0,
-    with: "lou",
+    with: "kinga",
   },
   {
     lines: [
       { kind: "divider", label: "Last week" },
-      message("percy", "2026-11-12T19:30", "Can I play the train song again?"),
+      message("adam", "2026-11-12T19:30", "Can I play the train song again?"),
       message(ME, "2026-11-12T19:31", "Only if it is shorter than the delay."),
     ],
     unread: 0,
-    with: "percy",
+    with: "adam",
   },
 ]
 
 export const NOTIFICATIONS: Notification[] = [
   {
-    href: "/chat?with=holly",
+    href: "/chat?with=scott",
     id: "n4",
     read: false,
-    text: "Holly Humbucker sent you a message",
+    text: "Scott Humbucker sent you a message",
   },
   {
     href: "/u/ada",
@@ -270,10 +270,10 @@ export const NOTIFICATIONS: Notification[] = [
     text: "Ada Okafor posted 2 photos",
   },
   {
-    href: "/u/lou",
+    href: "/u/kinga",
     id: "n2",
     read: true,
-    text: "Lou Headstock liked your post",
+    text: "Kinga Headstock liked your post",
   },
   {
     href: "/settings",

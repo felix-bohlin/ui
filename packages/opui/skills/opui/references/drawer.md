@@ -247,8 +247,9 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   </div>
   <div class="ui-content" aria-label="Gig details" role="region" tabindex="0">
     <p>
-      Assigned to Lou Headstock, due Friday. Holly Humbucker checks the setlist,
-      and the drummer promises (again) to bring the cymbals by Wednesday.
+      Assigned to Kinga Headstock, due Friday. Scott Humbucker checks the
+      setlist, and the drummer promises (again) to bring the cymbals by
+      Wednesday.
     </p>
   </div>
   <div class="ui-footer">
@@ -282,7 +283,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
     </button>
   </div>
   <div class="ui-content">
-    <p>Holly Humbucker commented on Friday gig prep.</p>
+    <p>Scott Humbucker commented on Friday gig prep.</p>
   </div>
   <div class="ui-footer">
     <button
@@ -416,8 +417,9 @@ const editIcon = `<svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"><
   </DrawerHeader>
   <DrawerContent aria-label="Gig details" role="region" tabindex="0">
     <p>
-      Assigned to Lou Headstock, due Friday. Holly Humbucker checks the setlist,
-      and the drummer promises (again) to bring the cymbals by Wednesday.
+      Assigned to Kinga Headstock, due Friday. Scott Humbucker checks the
+      setlist, and the drummer promises (again) to bring the cymbals by
+      Wednesday.
     </p>
   </DrawerContent>
   <DrawerFooter>
@@ -436,7 +438,7 @@ const editIcon = `<svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"><
     <DrawerTitle>Notifications</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
-    <p>Holly Humbucker commented on Friday gig prep.</p>
+    <p>Scott Humbucker commented on Friday gig prep.</p>
   </DrawerContent>
   <DrawerFooter>
     <Button command="close" commandfor="drawer-basics-3" size="small"
@@ -546,8 +548,9 @@ const editIcon = `<svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"><
     tabindex: "0"
   }) %}
     <p>
-      Assigned to Lou Headstock, due Friday. Holly Humbucker checks the setlist,
-      and the drummer promises (again) to bring the cymbals by Wednesday.
+      Assigned to Kinga Headstock, due Friday. Scott Humbucker checks the
+      setlist, and the drummer promises (again) to bring the cymbals by
+      Wednesday.
     </p>
   {% endcall %}
   {% call DrawerFooter() %}
@@ -565,7 +568,7 @@ const editIcon = `<svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"><
     {% call DrawerTitle() %}Notifications{% endcall %}
   {% endcall %}
   {% call DrawerContent() %}
-    <p>Holly Humbucker commented on Friday gig prep.</p>
+    <p>Scott Humbucker commented on Friday gig prep.</p>
   {% endcall %}
   {% call DrawerFooter() %}
     {% call Button({
@@ -679,7 +682,7 @@ export default function BasicsCode() {
         </DrawerHeader>
         <DrawerContent aria-label="Gig details" role="region" tabIndex={0}>
           <p>
-            Assigned to Lou Headstock, due Friday. Holly Humbucker checks the
+            Assigned to Kinga Headstock, due Friday. Scott Humbucker checks the
             setlist, and the drummer promises (again) to bring the cymbals by
             Wednesday.
           </p>
@@ -701,7 +704,7 @@ export default function BasicsCode() {
           <DrawerTitle>Notifications</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
-          <p>Holly Humbucker commented on Friday gig prep.</p>
+          <p>Scott Humbucker commented on Friday gig prep.</p>
         </DrawerContent>
         <DrawerFooter>
           <Button command="close" commandfor="drawer-basics-3" size="small">
@@ -817,7 +820,7 @@ export default function BasicsCode() {
         </DrawerHeader>
         <DrawerContent aria-label="Gig details" role="region" tabindex="0">
           <p>
-            Assigned to Lou Headstock, due Friday. Holly Humbucker checks the
+            Assigned to Kinga Headstock, due Friday. Scott Humbucker checks the
             setlist, and the drummer promises (again) to bring the cymbals by
             Wednesday.
           </p>
@@ -839,7 +842,7 @@ export default function BasicsCode() {
           <DrawerTitle>Notifications</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
-          <p>Holly Humbucker commented on Friday gig prep.</p>
+          <p>Scott Humbucker commented on Friday gig prep.</p>
         </DrawerContent>
         <DrawerFooter>
           <Button command="close" commandfor="drawer-basics-3" size="small">
@@ -945,8 +948,9 @@ export default function BasicsCode() {
   </DrawerHeader>
   <DrawerContent aria-label="Gig details" role="region" tabindex={0}>
     <p>
-      Assigned to Lou Headstock, due Friday. Holly Humbucker checks the setlist,
-      and the drummer promises (again) to bring the cymbals by Wednesday.
+      Assigned to Kinga Headstock, due Friday. Scott Humbucker checks the
+      setlist, and the drummer promises (again) to bring the cymbals by
+      Wednesday.
     </p>
   </DrawerContent>
   <DrawerFooter>
@@ -964,7 +968,7 @@ export default function BasicsCode() {
     <DrawerTitle>Notifications</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
-    <p>Holly Humbucker commented on Friday gig prep.</p>
+    <p>Scott Humbucker commented on Friday gig prep.</p>
   </DrawerContent>
   <DrawerFooter>
     <Button command="close" commandfor="drawer-basics-3" size="small"
@@ -1064,7 +1068,7 @@ import {
     </DrawerHeader>
     <DrawerContent aria-label="Gig details" role="region" tabindex="0">
       <p>
-        Assigned to Lou Headstock, due Friday. Holly Humbucker checks the
+        Assigned to Kinga Headstock, due Friday. Scott Humbucker checks the
         setlist, and the drummer promises (again) to bring the cymbals by
         Wednesday.
       </p>
@@ -1085,7 +1089,7 @@ import {
       <DrawerTitle>Notifications</DrawerTitle>
     </DrawerHeader>
     <DrawerContent>
-      <p>Holly Humbucker commented on Friday gig prep.</p>
+      <p>Scott Humbucker commented on Friday gig prep.</p>
     </DrawerContent>
     <DrawerFooter>
       <Button command="close" commandfor="drawer-basics-3" size="small"

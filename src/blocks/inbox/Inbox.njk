@@ -199,10 +199,10 @@
         </div>
         {% call List({ class: "inbox-messages", variant: "transparent" }) %}
           {% set start %}{% call Badge({ dot: true, label: "Unread" }) %}{% call Avatar({
-              "aria-label": "Holly Humbucker",
+              "aria-label": "Scott Humbucker",
               role: "img"
-            }) %}HH{% endcall %}{% endcall %}{% endset %}
-          {% set label %}<span>Holly Humbucker</span>
+            }) %}SH{% endcall %}{% endcall %}{% endset %}
+          {% set label %}<span>Scott Humbucker</span>
           <time class="ui-caption" datetime="2026-10-08T09:41">09:41</time>{% endset %}
           {% call ListItem({
             "aria-current": "page",
@@ -217,10 +217,10 @@
             </p>
           {% endcall %}
           {% set start %}{% call Badge({ dot: true, label: "Unread" }) %}{% call Avatar({
-              "aria-label": "Ines Hertz",
+              "aria-label": "Mohini Hertz",
               role: "img"
-            }) %}IH{% endcall %}{% endcall %}{% endset %}
-          {% set label %}<span>Ines Hertz</span>
+            }) %}MH{% endcall %}{% endcall %}{% endset %}
+          {% set label %}<span>Mohini Hertz</span>
           <time class="ui-caption" datetime="2026-10-08T08:12">08:12</time>{% endset %}
           {% call ListItem({
             class: "inbox-unread",
@@ -250,8 +250,8 @@
               download.
             </p>
           {% endcall %}
-          {% set start %}{% call Avatar({ "aria-label": "Stella Nut", role: "img" }) %}SN{% endcall %}{% endset %}
-          {% set label %}<span>Stella Nut</span>
+          {% set start %}{% call Avatar({ "aria-label": "Ellen Nut", role: "img" }) %}EN{% endcall %}{% endset %}
+          {% set label %}<span>Ellen Nut</span>
           <time class="ui-caption" datetime="2026-10-06T14:05">Mon</time>{% endset %}
           {% call ListItem({
             href: "#inbox-message-4",
@@ -263,8 +263,8 @@
               Uploading the rest tonight.
             </p>
           {% endcall %}
-          {% set start %}{% call Avatar({ "aria-label": "Percy Groove", role: "img" }) %}PG{% endcall %}{% endset %}
-          {% set label %}<span>Percy Groove</span>
+          {% set start %}{% call Avatar({ "aria-label": "Adam Groove", role: "img" }) %}AG{% endcall %}{% endset %}
+          {% set label %}<span>Adam Groove</span>
           <time class="ui-caption" datetime="2026-10-03T11:20">3 Oct</time>{% endset %}
           {% call ListItem({
             href: "#inbox-message-5",
@@ -405,19 +405,19 @@
         </div>
 
         <div class="ui-layout-row">
-          {% call Avatar({ "aria-label": "Holly Humbucker", role: "img" }) %}HH{% endcall %}
+          {% call Avatar({ "aria-label": "Scott Humbucker", role: "img" }) %}SH{% endcall %}
           <div class="inbox-sender-info">
             <p>
-              <strong>Holly Humbucker</strong>
-              <span class="ui-caption">holly@humbucker-booking.example</span>
+              <strong>Scott Humbucker</strong>
+              <span class="ui-caption">scott@humbucker-booking.example</span>
             </p>
-            <p class="ui-caption">To you and Percy Groove</p>
+            <p class="ui-caption">To you and Adam Groove</p>
           </div>
           <time class="ui-caption" datetime="2026-10-08T09:41">Wed 8 Oct, 09:41</time>
         </div>
 
         <div class="ui-layout-column inbox-body">
-          <p>Heyyy Rory,</p>
+          <p>Heyyy Josh,</p>
           <p>
             Totally awesome news, Brad and the Brads want a real bassist (you!).
             Attached is the setlist, plus the bass tabs we talked about on
@@ -430,7 +430,7 @@
             <li>Merch money goes to merch@brads.example</li>
           </ul>
           <p>They promised to turn you UP this time! &lt;3</p>
-          <p>Holly</p>
+          <p>Scott</p>
         </div>
 
         <div class="ui-layout-row ui-gap-small">
@@ -475,7 +475,7 @@
         </div>
 
         <form action="#" class="ui-layout-column ui-gap-small inbox-reply">
-          {% call Field({ for: "inbox-inbox-reply", label: "Reply to Holly" }) %}
+          {% call Field({ for: "inbox-inbox-reply", label: "Reply to Scott" }) %}
             <textarea
               id="inbox-inbox-reply"
               name="inbox-reply"

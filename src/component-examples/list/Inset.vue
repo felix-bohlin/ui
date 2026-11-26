@@ -4,7 +4,7 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem label="Lou Headstock">
+    <ListItem label="Kinga Headstock">
       <template #start>
         <svg
           data-icon="person"
@@ -22,6 +22,6 @@ import { List, ListItem } from "opui-css/vue"
       </template>
     </ListItem>
     <ListItem description="Mobile" inset label="555-0142" />
-    <ListItem description="Email" inset label="lou@bassmail.example" />
+    <ListItem description="Email" inset label="kinga@bassmail.example" />
   </List>
 </template>

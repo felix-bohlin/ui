@@ -49,12 +49,8 @@ export default function AccountSettings() {
                 <Fieldset>
                   <FieldLegend>Photo</FieldLegend>
                   <div className="ui-layout-row acct-photo">
-                    <Avatar
-                      aria-label="Percy Groove"
-                      role="img"
-                      shape="rounded"
-                    >
-                      PG
+                    <Avatar aria-label="Adam Groove" role="img" shape="rounded">
+                      AG
                     </Avatar>
                     <div className="ui-layout-row ui-gap-small">
                       <Button size="small" type="button" variant="outlined">
@@ -87,7 +83,7 @@ export default function AccountSettings() {
                           name="first-name"
                           required
                           type="text"
-                          defaultValue="Percy"
+                          defaultValue="Adam"
                         />
                       </Field>
                       <Field
@@ -121,7 +117,7 @@ export default function AccountSettings() {
                         name="email"
                         required
                         type="email"
-                        defaultValue="percy@bassmail.example"
+                        defaultValue="adam@bassmail.example"
                       />
                     </Field>
                     <Field
@@ -352,7 +348,7 @@ export default function AccountSettings() {
           </DialogHeader>
           <DialogContent>
             <p id="account-settings-delete-description">
-              This deletes percy@bassmail.example, your wall and every photo of
+              This deletes adam@bassmail.example, your wall and every photo of
               your gear. You can't undo this.
             </p>
           </DialogContent>

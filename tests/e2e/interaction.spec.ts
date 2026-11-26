@@ -1152,7 +1152,7 @@ interaction(
     await expect.poll(border).toBe(invalid)
 
     await input.focus()
-    await page.keyboard.type("Holly")
+    await page.keyboard.type("Scott")
     await page.keyboard.press("Tab")
     await expect.poll(border).toBe(initial)
   },
@@ -2341,7 +2341,7 @@ interaction(
       await expect(avatar).toBeHidden()
     }
     const headers = root.locator(".ui-message > .ui-content > .ui-header")
-    await expect(headers).toHaveText(["Stella", "Stella", "You", "Stella"])
+    await expect(headers).toHaveText(["Ellen", "Ellen", "You", "Ellen"])
     for (const header of await headers.all()) {
       expect(await computed(header, "clip-path")).toBe("inset(50%)")
       expect(await computed(header, "display")).not.toBe("none")
@@ -2390,7 +2390,7 @@ interaction(
       await input.evaluate((element: HTMLInputElement) =>
         [...(element.list?.options ?? [])].map((option) => option.value),
       ),
-    ).toEqual(["Ines Hertz", "Lou Headstock", "Percy Groove"])
+    ).toEqual(["Adam Groove", "Kinga Headstock", "Mohini Hertz"])
   },
 )
 
@@ -2586,12 +2586,12 @@ interaction(
       root.getByRole("columnheader", { name, exact: true })
     const names = root.locator("tbody tr td:first-child")
     const byGigs = [
-      "Percy Groove",
-      "Stella Nut",
-      "Ines Hertz",
-      "Rory Rootnote",
-      "Holly Humbucker",
-      "Lou Headstock",
+      "Adam Groove",
+      "Ellen Nut",
+      "Mohini Hertz",
+      "Josh Rootnote",
+      "Scott Humbucker",
+      "Kinga Headstock",
     ]
 
     await expect(root.locator("opui-sortable-table")).not.toHaveAttribute(
@@ -2626,14 +2626,14 @@ test("the data-table block selects and sorts its rows together", async ({
   for (const row of await rows.all()) await expect(row).toBeChecked()
 
   await page.getByRole("button", { name: "Points" }).click()
-  await expect(firstCustomer).toContainText("Holly Humbucker")
+  await expect(firstCustomer).toContainText("Scott Humbucker")
   await page.getByRole("button", { name: "Points" }).click()
-  await expect(firstCustomer).toContainText("Rory Rootnote")
+  await expect(firstCustomer).toContainText("Josh Rootnote")
   await page.getByRole("button", { name: "Joined" }).click()
-  await expect(firstCustomer).toContainText("Ines Hertz")
+  await expect(firstCustomer).toContainText("Mohini Hertz")
   for (const row of await rows.all()) await expect(row).toBeChecked()
 
-  await page.getByRole("checkbox", { name: "Select Percy Groove" }).click()
+  await page.getByRole("checkbox", { name: "Select Adam Groove" }).click()
   await expect(all).not.toBeChecked()
   await expect(all).toHaveJSProperty("indeterminate", true)
 })
@@ -3424,17 +3424,17 @@ interaction(
     )
     await countEvents(root, "select")
     await input.setInputFiles([
-      photo("lou.png"),
+      photo("kinga.png"),
       { buffer: Buffer.from("notes"), mimeType: "text/plain", name: "a.txt" },
-      photo("percy.png"),
+      photo("adam.png"),
     ])
     await expect(rows).toHaveCount(2)
-    await expect(rows.nth(0)).toContainText("lou.png")
-    await expect(rows.nth(1)).toContainText("percy.png")
+    await expect(rows.nth(0)).toContainText("kinga.png")
+    await expect(rows.nth(1)).toContainText("adam.png")
     await expect(element).toHaveAttribute("data-select-count", "1")
     await expect(input).toHaveValue("")
 
-    await input.setInputFiles([photo("lou.png")])
+    await input.setInputFiles([photo("kinga.png")])
     await expect(rows).toHaveCount(3)
     await expect(element).toHaveAttribute("data-select-count", "2")
   },
@@ -3452,22 +3452,22 @@ interaction(
       root.getByRole("button", { name: `Remove ${name}` })
 
     await input.setInputFiles([
-      photo("lou.png"),
-      photo("percy.png"),
-      photo("holly.png"),
+      photo("kinga.png"),
+      photo("adam.png"),
+      photo("scott.png"),
     ])
     await expect(rows).toHaveCount(3)
     await countEvents(root, "remove")
 
-    await remove("percy.png").focus()
+    await remove("adam.png").focus()
     await page.keyboard.press("Enter")
     await expect(rows).toHaveCount(2)
     await expect(element).toHaveAttribute("data-remove-count", "1")
-    await expect(remove("holly.png")).toBeFocused()
+    await expect(remove("scott.png")).toBeFocused()
 
     await page.keyboard.press("Enter")
     await expect(rows).toHaveCount(1)
-    await expect(remove("lou.png")).toBeFocused()
+    await expect(remove("kinga.png")).toBeFocused()
 
     await page.keyboard.press("Enter")
     await expect(rows).toHaveCount(0)
@@ -3537,7 +3537,7 @@ interaction(
     const list = root.locator(".ui-list")
     const first = list.locator("li").first()
     const failed = root.getByRole("button", {
-      name: "holly-humbucker.png This photo is larger than 10 MB.",
+      name: "scott-humbucker.png This photo is larger than 10 MB.",
     })
     const message = root.locator(".ui-description[popover]")
     const box = async (locator: Locator) => {

@@ -22,7 +22,7 @@
 >
   <div class="ui-layout-row ui-spread">
     <hgroup class="ui-hgroup">
-      <p>bassbook.example/rory</p>
+      <p>bassbook.example/josh</p>
       <h1 class="ui-h3">Your profile stats</h1>
     </hgroup>
     <div class="ui-layout-row ui-gap-small">
@@ -271,7 +271,7 @@
         <TableBody>
           <TableRow>
             <TableCell
-              ><a class="ui-link" href="#analytics-page-home">/rory</a
+              ><a class="ui-link" href="#analytics-page-home">/josh</a
               ></TableCell
             >
             <TableCell numeric>612</TableCell>
@@ -280,7 +280,7 @@
           </TableRow>
           <TableRow>
             <TableCell>
-              <a class="ui-link" href="#analytics-page-wall">/rory/wall</a>
+              <a class="ui-link" href="#analytics-page-wall">/josh/wall</a>
             </TableCell>
             <TableCell numeric>388</TableCell>
             <TableCell numeric>902</TableCell>
@@ -289,7 +289,7 @@
           <TableRow>
             <TableCell>
               <a class="ui-link" href="#analytics-page-videos"
-                >/rory/videos/slap-in-drop-d</a
+                >/josh/videos/slap-in-drop-d</a
               >
             </TableCell>
             <TableCell numeric>245</TableCell>
@@ -299,7 +299,7 @@
           <TableRow>
             <TableCell>
               <a class="ui-link" href="#analytics-page-gear"
-                >/rory/gear/pedalboard</a
+                >/josh/gear/pedalboard</a
               >
             </TableCell>
             <TableCell numeric>104</TableCell>

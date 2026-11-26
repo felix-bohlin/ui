@@ -85,16 +85,16 @@ export default function Chat() {
                 aria-current="page"
                 description="Nobody will hear it, but WE will know"
                 end="14:32"
-                href="#chat-stella"
-                label="Stella Nut"
+                href="#chat-ellen"
+                label="Ellen Nut"
                 start={
-                  <Avatar aria-label="Stella Nut" role="img">
-                    SN
+                  <Avatar aria-label="Ellen Nut" role="img">
+                    EN
                   </Avatar>
                 }
               />
               <ListItem
-                description="Holly: Rate my new 5-string!! 😍"
+                description="Scott: Rate my new 5-string!! 😍"
                 end={
                   <span class="chat-unread">
                     3 <span class="ui-sr-only">unread</span>
@@ -111,27 +111,27 @@ export default function Chat() {
               <ListItem
                 description="Is it normal that my band booked a gig without me?"
                 end="11:05"
-                href="#chat-percy"
-                label="Percy Groove"
+                href="#chat-adam"
+                label="Adam Groove"
                 start={
-                  <Avatar aria-label="Percy Groove" role="img">
-                    PG
+                  <Avatar aria-label="Adam Groove" role="img">
+                    AG
                   </Avatar>
                 }
               />
               <ListItem
                 description="You: Pick or fingers? Fight me :P"
                 end="Mon"
-                href="#chat-ines"
-                label="Ines Hertz"
+                href="#chat-mohini"
+                label="Mohini Hertz"
                 start={
-                  <Avatar aria-label="Ines Hertz" role="img">
-                    IH
+                  <Avatar aria-label="Mohini Hertz" role="img">
+                    MH
                   </Avatar>
                 }
               />
               <ListItem
-                description='Lou: My singer called me "the tall guitarist" again'
+                description='Kinga: My singer called me "the tall guitarist" again'
                 end="Sun"
                 href="#chat-mixed-too-low"
                 label="Mixed Too Low"
@@ -168,11 +168,11 @@ export default function Chat() {
                   ></path>
                 </svg>
               </Button>
-              <Avatar aria-label="Stella Nut" role="img">
-                SN
+              <Avatar aria-label="Ellen Nut" role="img">
+                EN
               </Avatar>
               <hgroup>
-                <h1 class="ui-h6">Stella Nut</h1>
+                <h1 class="ui-h6">Ellen Nut</h1>
                 <p>
                   <Chip
                     as="span"
@@ -242,17 +242,17 @@ export default function Chat() {
               </div>
             </header>
             <MessageList
-              aria-label="Messages with Stella Nut"
+              aria-label="Messages with Ellen Nut"
               class="chat-message-list"
               direct
             >
               <li class="ui-divider">Today</li>
               <Message
-                author="Stella"
+                author="Ellen"
                 datetime="2026-10-08T14:02"
                 start={
-                  <Avatar aria-label="Stella Nut" role="img">
-                    SN
+                  <Avatar aria-label="Ellen Nut" role="img">
+                    EN
                   </Avatar>
                 }
                 time="14:02"
@@ -283,11 +283,11 @@ export default function Chat() {
                 </p>
               </Message>
               <Message
-                author="Stella"
+                author="Ellen"
                 datetime="2026-10-08T14:31"
                 start={
-                  <Avatar aria-label="Stella Nut" role="img">
-                    SN
+                  <Avatar aria-label="Ellen Nut" role="img">
+                    EN
                   </Avatar>
                 }
                 time="14:31"
@@ -318,11 +318,11 @@ export default function Chat() {
                 </Card>
               </Message>
               <Message
-                author="Stella"
+                author="Ellen"
                 datetime="2026-10-08T14:32"
                 start={
-                  <Avatar aria-label="Stella Nut" role="img">
-                    SN
+                  <Avatar aria-label="Ellen Nut" role="img">
+                    EN
                   </Avatar>
                 }
                 time="14:32"
@@ -331,13 +331,13 @@ export default function Chat() {
               </Message>
               <Message
                 start={
-                  <Avatar aria-label="Stella Nut" role="img">
-                    SN
+                  <Avatar aria-label="Ellen Nut" role="img">
+                    EN
                   </Avatar>
                 }
                 typing
               >
-                Stella is typing
+                Ellen is typing
               </Message>
             </MessageList>
             <div>
@@ -360,7 +360,7 @@ export default function Chat() {
                   </Button>
                   <Field for="chat-chat-message">
                     <textarea
-                      aria-label="Message Stella Nut"
+                      aria-label="Message Ellen Nut"
                       id="chat-chat-message"
                       name="chat-message"
                       placeholder="Write something rad…"
@@ -400,8 +400,8 @@ export default function Chat() {
             <ListItem
               aria-current="page"
               end="14:32"
-              href="#chat-stella"
-              label="Stella Nut"
+              href="#chat-ellen"
+              label="Ellen Nut"
             />
             <ListItem
               end={
@@ -412,8 +412,8 @@ export default function Chat() {
               href="#chat-bassists-anonymous"
               label="Bassists Anonymous"
             />
-            <ListItem end="11:05" href="#chat-percy" label="Percy Groove" />
-            <ListItem end="Mon" href="#chat-ines" label="Ines Hertz" />
+            <ListItem end="11:05" href="#chat-adam" label="Adam Groove" />
+            <ListItem end="Mon" href="#chat-mohini" label="Mohini Hertz" />
             <ListItem
               end="Sun"
               href="#chat-mixed-too-low"

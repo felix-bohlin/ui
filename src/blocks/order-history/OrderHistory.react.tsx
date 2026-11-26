@@ -89,7 +89,7 @@ export default function OrderHistory() {
                   </div>
                   <div>
                     <dt className="ui-caption">Ship to</dt>
-                    <dd>Ines Hertz</dd>
+                    <dd>Mohini Hertz</dd>
                   </div>
                 </dl>
                 <div className="ui-layout-row ui-gap-small">
@@ -228,7 +228,7 @@ export default function OrderHistory() {
                   </div>
                   <div>
                     <dt className="ui-caption">Ship to</dt>
-                    <dd>Ines Hertz</dd>
+                    <dd>Mohini Hertz</dd>
                   </div>
                 </dl>
                 <div className="ui-layout-row ui-gap-small">
@@ -353,7 +353,7 @@ export default function OrderHistory() {
                   </div>
                   <div>
                     <dt className="ui-caption">Ship to</dt>
-                    <dd>Holly Humbucker</dd>
+                    <dd>Scott Humbucker</dd>
                   </div>
                 </dl>
                 <div className="ui-layout-row ui-gap-small">

@@ -69,16 +69,16 @@
         <ListItem
           aria-current="page"
           description="Nobody will hear it, but WE will know"
-          href="#chat-stella"
-          label="Stella Nut"
+          href="#chat-ellen"
+          label="Ellen Nut"
         >
           {#snippet start()}
-            <Avatar aria-label="Stella Nut" role="img">SN</Avatar>
+            <Avatar aria-label="Ellen Nut" role="img">EN</Avatar>
           {/snippet}
           {#snippet end()}14:32{/snippet}
         </ListItem>
         <ListItem
-          description="Holly: Rate my new 5-string!! 😍"
+          description="Scott: Rate my new 5-string!! 😍"
           href="#chat-bassists-anonymous"
         >
           {#snippet start()}
@@ -95,26 +95,26 @@
         </ListItem>
         <ListItem
           description="Is it normal that my band booked a gig without me?"
-          href="#chat-percy"
-          label="Percy Groove"
+          href="#chat-adam"
+          label="Adam Groove"
         >
           {#snippet start()}
-            <Avatar aria-label="Percy Groove" role="img">PG</Avatar>
+            <Avatar aria-label="Adam Groove" role="img">AG</Avatar>
           {/snippet}
           {#snippet end()}11:05{/snippet}
         </ListItem>
         <ListItem
           description="You: Pick or fingers? Fight me :P"
-          href="#chat-ines"
-          label="Ines Hertz"
+          href="#chat-mohini"
+          label="Mohini Hertz"
         >
           {#snippet start()}
-            <Avatar aria-label="Ines Hertz" role="img">IH</Avatar>
+            <Avatar aria-label="Mohini Hertz" role="img">MH</Avatar>
           {/snippet}
           {#snippet end()}Mon{/snippet}
         </ListItem>
         <ListItem
-          description={'Lou: My singer called me "the tall guitarist" again'}
+          description={'Kinga: My singer called me "the tall guitarist" again'}
           href="#chat-mixed-too-low"
           label="Mixed Too Low"
         >
@@ -149,9 +149,9 @@
             ></path>
           </svg></Button
         >
-        <Avatar aria-label="Stella Nut" role="img">SN</Avatar>
+        <Avatar aria-label="Ellen Nut" role="img">EN</Avatar>
         <hgroup>
-          <h1 class="ui-h6">Stella Nut</h1>
+          <h1 class="ui-h6">Ellen Nut</h1>
           <p>
             <Chip
               as="span"
@@ -215,14 +215,14 @@
         </div>
       </header>
       <MessageList
-        aria-label="Messages with Stella Nut"
+        aria-label="Messages with Ellen Nut"
         class="chat-message-list"
         direct
       >
         <li class="ui-divider">Today</li>
-        <Message author="Stella" datetime="2026-10-08T14:02" time="14:02">
+        <Message author="Ellen" datetime="2026-10-08T14:02" time="14:02">
           {#snippet start()}
-            <Avatar aria-label="Stella Nut" role="img">SN</Avatar>
+            <Avatar aria-label="Ellen Nut" role="img">EN</Avatar>
           {/snippet}
           <p>Heyyy! Did your band notice you changed strings yet?</p>
         </Message>
@@ -239,9 +239,9 @@
           </p>
           {#snippet end()}Read{/snippet}
         </Message>
-        <Message author="Stella" datetime="2026-10-08T14:31" time="14:31">
+        <Message author="Ellen" datetime="2026-10-08T14:31" time="14:31">
           {#snippet start()}
-            <Avatar aria-label="Stella Nut" role="img">SN</Avatar>
+            <Avatar aria-label="Ellen Nut" role="img">EN</Avatar>
           {/snippet}
           <p>Totally! Here it is:</p>
           <Card variant="outlined">
@@ -268,17 +268,17 @@
             </CardContent>
           </Card>
         </Message>
-        <Message author="Stella" datetime="2026-10-08T14:32" time="14:32">
+        <Message author="Ellen" datetime="2026-10-08T14:32" time="14:32">
           {#snippet start()}
-            <Avatar aria-label="Stella Nut" role="img">SN</Avatar>
+            <Avatar aria-label="Ellen Nut" role="img">EN</Avatar>
           {/snippet}
           <p>Nobody will hear it, but WE will know 🤘</p>
         </Message>
         <Message typing>
           {#snippet start()}
-            <Avatar aria-label="Stella Nut" role="img">SN</Avatar>
+            <Avatar aria-label="Ellen Nut" role="img">EN</Avatar>
           {/snippet}
-          Stella is typing
+          Ellen is typing
         </Message>
       </MessageList>
       <div>
@@ -301,7 +301,7 @@
             >
             <Field for="chat-chat-message">
               <textarea
-                aria-label="Message Stella Nut"
+                aria-label="Message Ellen Nut"
                 id="chat-chat-message"
                 name="chat-message"
                 placeholder="Write something rad…"></textarea>
@@ -336,7 +336,7 @@
       <DrawerTitle>Messages</DrawerTitle>
     </DrawerHeader>
     <List variant="transparent">
-      <ListItem aria-current="page" href="#chat-stella" label="Stella Nut">
+      <ListItem aria-current="page" href="#chat-ellen" label="Ellen Nut">
         {#snippet end()}14:32{/snippet}
       </ListItem>
       <ListItem href="#chat-bassists-anonymous" label="Bassists Anonymous">
@@ -346,10 +346,10 @@
           >
         {/snippet}
       </ListItem>
-      <ListItem href="#chat-percy" label="Percy Groove">
+      <ListItem href="#chat-adam" label="Adam Groove">
         {#snippet end()}11:05{/snippet}
       </ListItem>
-      <ListItem href="#chat-ines" label="Ines Hertz">
+      <ListItem href="#chat-mohini" label="Mohini Hertz">
         {#snippet end()}Mon{/snippet}
       </ListItem>
       <ListItem href="#chat-mixed-too-low" label="Mixed Too Low">

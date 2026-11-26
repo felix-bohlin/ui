@@ -23,19 +23,19 @@ export default function CharacterSheet() {
       >
         <header className="cs-hero">
           <Avatar
-            aria-label="Percy Groove"
+            aria-label="Adam Groove"
             className="cs-portrait"
             role="img"
             shape="squircle"
             size="large"
             variant="filled"
           >
-            PG
+            AG
           </Avatar>
           <div className="ui-layout-column ui-gap-small">
             <hgroup className="ui-hgroup">
               <p className="ui-overline">Level 12 bard, Oracle of the Groove</p>
-              <h1 className="ui-h2">Percy Groove</h1>
+              <h1 className="ui-h2">Adam Groove</h1>
             </hgroup>
             <div className="ui-layout-row ui-gap-x-small">
               <Chip as="span" label="Human" size="small" />

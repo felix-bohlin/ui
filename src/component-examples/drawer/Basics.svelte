@@ -63,8 +63,9 @@
   </DrawerHeader>
   <DrawerContent aria-label="Gig details" role="region" tabindex={0}>
     <p>
-      Assigned to Lou Headstock, due Friday. Holly Humbucker checks the setlist,
-      and the drummer promises (again) to bring the cymbals by Wednesday.
+      Assigned to Kinga Headstock, due Friday. Scott Humbucker checks the
+      setlist, and the drummer promises (again) to bring the cymbals by
+      Wednesday.
     </p>
     <p>
       The band booked this gig without telling you, so here is the totally rad
@@ -103,8 +104,8 @@
       on the actual stage, before the doors open at eight.
     </p>
     <p>
-      Holly Humbucker created the task on 3 March, and Lou Headstock moved it to
-      Rocking on 5 March.
+      Scott Humbucker created the task on 3 March, and Kinga Headstock moved it
+      to Rocking on 5 March.
     </p>
   </DrawerContent>
   <DrawerFooter>
@@ -122,9 +123,9 @@
     <DrawerTitle>Notifications</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
-    <p>Holly Humbucker commented on Friday gig prep.</p>
+    <p>Scott Humbucker commented on Friday gig prep.</p>
     <p>Your setlist export is ready to download, woohoo.</p>
-    <p>Lou Headstock invited you to Mixed Too Low.</p>
+    <p>Kinga Headstock invited you to Mixed Too Low.</p>
   </DrawerContent>
   <DrawerFooter>
     <Button command="close" commandfor="drawer-basics-3" size="small"

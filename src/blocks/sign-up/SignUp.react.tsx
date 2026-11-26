@@ -43,7 +43,7 @@ export default function SignUp() {
                         autoComplete="given-name"
                         id="sign-up-first-name"
                         name="first-name"
-                        placeholder="Rory"
+                        placeholder="Josh"
                         required
                         type="text"
                       />
@@ -64,7 +64,7 @@ export default function SignUp() {
                       autoComplete="email"
                       id="sign-up-email"
                       name="email"
-                      placeholder="rory@bassmail.example"
+                      placeholder="josh@bassmail.example"
                       required
                       type="email"
                     />
@@ -276,7 +276,7 @@ export default function SignUp() {
               “My band still won't let me pick the songs, but here 300 people
               liked my pedalboard!”
               <footer>
-                Percy Groove, <cite>bassist in Brad and the Brads</cite>
+                Adam Groove, <cite>bassist in Brad and the Brads</cite>
               </footer>
             </blockquote>
           </aside>

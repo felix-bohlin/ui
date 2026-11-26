@@ -195,7 +195,7 @@ export default function GigTicket() {
                       size="small"
                     />
                   }
-                  label="Percy Groove"
+                  label="Adam Groove"
                 />
                 <ListItem
                   description="BB-20417-02"
@@ -208,7 +208,7 @@ export default function GigTicket() {
                       size="small"
                     />
                   }
-                  label="Holly Humbucker"
+                  label="Scott Humbucker"
                 />
               </List>
               <CardActions>

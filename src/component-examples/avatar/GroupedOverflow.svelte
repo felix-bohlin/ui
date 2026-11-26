@@ -3,8 +3,8 @@
 </script>
 
 <AvatarGroup aria-label="Fans">
-  <Avatar label="Holly Humbucker">HH</Avatar>
-  <Avatar label="Ines Hertz">IH</Avatar>
-  <Avatar label="Lou Headstock">LH</Avatar>
+  <Avatar label="Kinga Headstock">KH</Avatar>
+  <Avatar label="Mohini Hertz">MH</Avatar>
+  <Avatar label="Scott Humbucker">SH</Avatar>
   <Avatar as="button" label="+4 more fans" variant="tonal">+4</Avatar>
 </AvatarGroup>

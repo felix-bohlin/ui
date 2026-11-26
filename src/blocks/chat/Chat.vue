@@ -69,16 +69,16 @@ import {
           <ListItem
             aria-current="page"
             description="Nobody will hear it, but WE will know"
-            href="#chat-stella"
-            label="Stella Nut"
+            href="#chat-ellen"
+            label="Ellen Nut"
           >
             <template #start>
-              <Avatar aria-label="Stella Nut" role="img">SN</Avatar>
+              <Avatar aria-label="Ellen Nut" role="img">EN</Avatar>
             </template>
             <template #end>14:32</template>
           </ListItem>
           <ListItem
-            description="Holly: Rate my new 5-string!! 😍"
+            description="Scott: Rate my new 5-string!! 😍"
             href="#chat-bassists-anonymous"
           >
             <template #start>
@@ -95,26 +95,26 @@ import {
           </ListItem>
           <ListItem
             description="Is it normal that my band booked a gig without me?"
-            href="#chat-percy"
-            label="Percy Groove"
+            href="#chat-adam"
+            label="Adam Groove"
           >
             <template #start>
-              <Avatar aria-label="Percy Groove" role="img">PG</Avatar>
+              <Avatar aria-label="Adam Groove" role="img">AG</Avatar>
             </template>
             <template #end>11:05</template>
           </ListItem>
           <ListItem
             description="You: Pick or fingers? Fight me :P"
-            href="#chat-ines"
-            label="Ines Hertz"
+            href="#chat-mohini"
+            label="Mohini Hertz"
           >
             <template #start>
-              <Avatar aria-label="Ines Hertz" role="img">IH</Avatar>
+              <Avatar aria-label="Mohini Hertz" role="img">MH</Avatar>
             </template>
             <template #end>Mon</template>
           </ListItem>
           <ListItem
-            description='Lou: My singer called me "the tall guitarist" again'
+            description='Kinga: My singer called me "the tall guitarist" again'
             href="#chat-mixed-too-low"
             label="Mixed Too Low"
           >
@@ -148,9 +148,9 @@ import {
                 d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"
               ></path></svg
           ></Button>
-          <Avatar aria-label="Stella Nut" role="img">SN</Avatar>
+          <Avatar aria-label="Ellen Nut" role="img">EN</Avatar>
           <hgroup>
-            <h1 class="ui-h6">Stella Nut</h1>
+            <h1 class="ui-h6">Ellen Nut</h1>
             <p>
               <Chip
                 as="span"
@@ -212,14 +212,14 @@ import {
           </div>
         </header>
         <MessageList
-          aria-label="Messages with Stella Nut"
+          aria-label="Messages with Ellen Nut"
           class="chat-message-list"
           direct
         >
           <li class="ui-divider">Today</li>
-          <Message author="Stella" datetime="2026-10-08T14:02" time="14:02">
+          <Message author="Ellen" datetime="2026-10-08T14:02" time="14:02">
             <template #start>
-              <Avatar aria-label="Stella Nut" role="img">SN</Avatar>
+              <Avatar aria-label="Ellen Nut" role="img">EN</Avatar>
             </template>
             <p>Heyyy! Did your band notice you changed strings yet?</p>
           </Message>
@@ -246,9 +246,9 @@ import {
             </p>
             <template #end>Read</template>
           </Message>
-          <Message author="Stella" datetime="2026-10-08T14:31" time="14:31">
+          <Message author="Ellen" datetime="2026-10-08T14:31" time="14:31">
             <template #start>
-              <Avatar aria-label="Stella Nut" role="img">SN</Avatar>
+              <Avatar aria-label="Ellen Nut" role="img">EN</Avatar>
             </template>
             <p>Totally! Here it is:</p>
             <Card variant="outlined">
@@ -275,17 +275,17 @@ import {
               </CardContent>
             </Card>
           </Message>
-          <Message author="Stella" datetime="2026-10-08T14:32" time="14:32">
+          <Message author="Ellen" datetime="2026-10-08T14:32" time="14:32">
             <template #start>
-              <Avatar aria-label="Stella Nut" role="img">SN</Avatar>
+              <Avatar aria-label="Ellen Nut" role="img">EN</Avatar>
             </template>
             <p>Nobody will hear it, but WE will know 🤘</p>
           </Message>
           <Message typing>
             <template #start>
-              <Avatar aria-label="Stella Nut" role="img">SN</Avatar>
+              <Avatar aria-label="Ellen Nut" role="img">EN</Avatar>
             </template>
-            Stella is typing
+            Ellen is typing
           </Message>
         </MessageList>
         <div>
@@ -307,7 +307,7 @@ import {
               ></Button>
               <Field for="chat-chat-message">
                 <textarea
-                  aria-label="Message Stella Nut"
+                  aria-label="Message Ellen Nut"
                   id="chat-chat-message"
                   name="chat-message"
                   placeholder="Write something rad…"
@@ -342,7 +342,7 @@ import {
         <DrawerTitle>Messages</DrawerTitle>
       </DrawerHeader>
       <List variant="transparent">
-        <ListItem aria-current="page" href="#chat-stella" label="Stella Nut">
+        <ListItem aria-current="page" href="#chat-ellen" label="Ellen Nut">
           <template #end>14:32</template>
         </ListItem>
         <ListItem href="#chat-bassists-anonymous" label="Bassists Anonymous">
@@ -352,10 +352,10 @@ import {
             >
           </template>
         </ListItem>
-        <ListItem href="#chat-percy" label="Percy Groove">
+        <ListItem href="#chat-adam" label="Adam Groove">
           <template #end>11:05</template>
         </ListItem>
-        <ListItem href="#chat-ines" label="Ines Hertz">
+        <ListItem href="#chat-mohini" label="Mohini Hertz">
           <template #end>Mon</template>
         </ListItem>
         <ListItem href="#chat-mixed-too-low" label="Mixed Too Low">

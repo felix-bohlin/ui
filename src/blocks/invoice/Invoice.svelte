@@ -137,7 +137,7 @@
         <section aria-labelledby="invoice-to">
           <h2 class="ui-overline invoice-label" id="invoice-to">Bill to</h2>
           <address>
-            <strong>Slap Like Now</strong><br /> Attn. Percy Groove<br />
+            <strong>Slap Like Now</strong><br /> Attn. Adam Groove<br />
             Rehearsal Room B, 7 Drop D Drive<br /> 411 36 Rumbleton
           </address>
         </section>

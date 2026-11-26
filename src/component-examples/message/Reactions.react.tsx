@@ -85,7 +85,7 @@ const secondPicker = [
 
 export default function ReactionsExample() {
   return (
-    <MessageList aria-label="Messages with Stella">
+    <MessageList aria-label="Messages with Ellen">
       <Message
         actions={
           <>
@@ -119,7 +119,7 @@ export default function ReactionsExample() {
             />
           </>
         }
-        author="Stella"
+        author="Ellen"
         bottom={
           <Reactions
             aria-label="Reactions"
@@ -137,7 +137,7 @@ export default function ReactionsExample() {
           />
         }
         datetime="2026-10-08T16:05"
-        start={<Avatar>SN</Avatar>}
+        start={<Avatar>EN</Avatar>}
         time="16:05"
       >
         <p>My slap cover is up. Thanks for listening, everyone!</p>

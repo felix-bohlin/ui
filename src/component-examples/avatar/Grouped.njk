@@ -1,13 +1,13 @@
 {% from "opui/index.njk" import Avatar, AvatarGroup, Badge %}
 
 {% call AvatarGroup({ "aria-label": "Band" }) %}
-  {% call Avatar({ label: "Ada Bridge" }) %}AB{% endcall %}
-  {% call Avatar({ label: "Holly Humbucker" }) %}HH{% endcall %}
-  {% call Avatar({ as: "button", label: "Ines Hertz" }) %}IH{% endcall %}
-  {% call Avatar({ as: "button", label: "Lou Headstock" }) %}LH{% endcall %}
-  {% call Avatar({ href: "#", label: "Percy Groove" }) %}PG{% endcall %}
-  {% call Avatar({ href: "#", label: "Rory Rootnote" }) %}RR{% endcall %}
+  {% call Avatar({ label: "Adam Groove" }) %}AG{% endcall %}
+  {% call Avatar({ label: "Ellen Nut" }) %}EN{% endcall %}
+  {% call Avatar({ as: "button", label: "Josh Rootnote" }) %}JR{% endcall %}
+  {% call Avatar({ as: "button", label: "Kinga Headstock" }) %}KH{% endcall %}
+  {% call Avatar({ href: "#", label: "Mohini Hertz" }) %}MH{% endcall %}
+  {% call Avatar({ href: "#", label: "Scott Humbucker" }) %}SH{% endcall %}
   {% call Badge({ dot: true, label: "Online" }) %}
-    {% call Avatar({ href: "#", label: "Stella Nut, online" }) %}SN{% endcall %}
+    {% call Avatar({ href: "#", label: "Yonit Bridge, online" }) %}YB{% endcall %}
   {% endcall %}
 {% endcall %}

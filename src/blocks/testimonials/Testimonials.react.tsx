@@ -51,9 +51,9 @@ export default function Testimonials() {
                     </p>
                   </blockquote>
                   <figcaption className="ui-layout-media">
-                    <Avatar aria-hidden="true">SN</Avatar>
+                    <Avatar aria-hidden="true">EN</Avatar>
                     <div>
-                      <p className="testimonials-name">Stella Nut</p>
+                      <p className="testimonials-name">Ellen Nut</p>
                       <p className="ui-caption">Bassist, Slap Like Now</p>
                     </div>
                   </figcaption>
@@ -77,9 +77,9 @@ export default function Testimonials() {
                     </p>
                   </blockquote>
                   <figcaption className="ui-layout-media">
-                    <Avatar aria-hidden="true">HH</Avatar>
+                    <Avatar aria-hidden="true">SH</Avatar>
                     <div>
-                      <p className="testimonials-name">Holly Humbucker</p>
+                      <p className="testimonials-name">Scott Humbucker</p>
                       <p className="ui-caption">Bassist, Brad and the Brads</p>
                     </div>
                   </figcaption>
@@ -104,9 +104,9 @@ export default function Testimonials() {
                     </p>
                   </blockquote>
                   <figcaption className="ui-layout-media">
-                    <Avatar aria-hidden="true">IH</Avatar>
+                    <Avatar aria-hidden="true">MH</Avatar>
                     <div>
-                      <p className="testimonials-name">Ines Hertz</p>
+                      <p className="testimonials-name">Mohini Hertz</p>
                       <p className="ui-caption">Bassist, Treble Makers</p>
                     </div>
                   </figcaption>
@@ -130,9 +130,9 @@ export default function Testimonials() {
                     </p>
                   </blockquote>
                   <figcaption className="ui-layout-media">
-                    <Avatar aria-hidden="true">PG</Avatar>
+                    <Avatar aria-hidden="true">AG</Avatar>
                     <div>
-                      <p className="testimonials-name">Percy Groove</p>
+                      <p className="testimonials-name">Adam Groove</p>
                       <p className="ui-caption">
                         Fretless player, Groove Juice
                       </p>
@@ -158,9 +158,9 @@ export default function Testimonials() {
                     </p>
                   </blockquote>
                   <figcaption className="ui-layout-media">
-                    <Avatar aria-hidden="true">LH</Avatar>
+                    <Avatar aria-hidden="true">KH</Avatar>
                     <div>
-                      <p className="testimonials-name">Lou Headstock</p>
+                      <p className="testimonials-name">Kinga Headstock</p>
                       <p className="ui-caption">Bassist, The Tall Guitarists</p>
                     </div>
                   </figcaption>
@@ -185,11 +185,11 @@ export default function Testimonials() {
                     </p>
                   </blockquote>
                   <figcaption className="ui-layout-media">
-                    <Avatar aria-hidden="true">RR</Avatar>
+                    <Avatar aria-hidden="true">JR</Avatar>
                     <div>
-                      <p className="testimonials-name">Rory Rootnote</p>
+                      <p className="testimonials-name">Josh Rootnote</p>
                       <p className="ui-caption">
-                        Bassist, Fretless Fiona's Bass Barn
+                        Bassist, Fretless Tal's Bass Barn
                       </p>
                     </div>
                   </figcaption>

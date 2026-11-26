@@ -24,17 +24,17 @@ export default function KanbanBoard() {
           </hgroup>
           <div class="ui-layout-row ui-gap-small">
             <AvatarGroup aria-label="Band members">
-              <Avatar aria-label="Holly Humbucker" role="img">
-                HH
+              <Avatar aria-label="Adam Groove" role="img">
+                AG
               </Avatar>
-              <Avatar aria-label="Ines Hertz" role="img">
-                IH
+              <Avatar aria-label="Josh Rootnote" role="img">
+                JR
               </Avatar>
-              <Avatar aria-label="Percy Groove" role="img">
-                PG
+              <Avatar aria-label="Mohini Hertz" role="img">
+                MH
               </Avatar>
-              <Avatar aria-label="Rory Rootnote" role="img">
-                RR
+              <Avatar aria-label="Scott Humbucker" role="img">
+                SH
               </Avatar>
             </AvatarGroup>
             <Button size="small" type="button" variant="outlined">
@@ -135,8 +135,8 @@ export default function KanbanBoard() {
                         <span class="ui-sr-only">Due</span>
                         <time datetime="2026-10-14">14 Oct</time>
                       </span>
-                      <Avatar aria-label="Holly Humbucker" role="img">
-                        HH
+                      <Avatar aria-label="Scott Humbucker" role="img">
+                        SH
                       </Avatar>
                     </div>
                   </CardContent>
@@ -185,8 +185,8 @@ export default function KanbanBoard() {
                         <span class="ui-sr-only">Due</span>
                         <time datetime="2026-10-16">16 Oct</time>
                       </span>
-                      <Avatar aria-label="Ines Hertz" role="img">
-                        IH
+                      <Avatar aria-label="Mohini Hertz" role="img">
+                        MH
                       </Avatar>
                     </div>
                   </CardContent>
@@ -348,11 +348,11 @@ export default function KanbanBoard() {
                         5<span class="ui-sr-only">comments</span>
                       </span>
                       <AvatarGroup aria-label="Assignees">
-                        <Avatar aria-label="Percy Groove" role="img">
-                          PG
+                        <Avatar aria-label="Adam Groove" role="img">
+                          AG
                         </Avatar>
-                        <Avatar aria-label="Rory Rootnote" role="img">
-                          RR
+                        <Avatar aria-label="Josh Rootnote" role="img">
+                          JR
                         </Avatar>
                       </AvatarGroup>
                     </div>
@@ -395,8 +395,8 @@ export default function KanbanBoard() {
                         <span class="ui-sr-only">Subtasks done:</span>
                         18/42
                       </span>
-                      <Avatar aria-label="Holly Humbucker" role="img">
-                        HH
+                      <Avatar aria-label="Scott Humbucker" role="img">
+                        SH
                       </Avatar>
                     </div>
                   </CardContent>
@@ -490,8 +490,8 @@ export default function KanbanBoard() {
                         12
                         <span class="ui-sr-only">comments</span>
                       </span>
-                      <Avatar aria-label="Rory Rootnote" role="img">
-                        RR
+                      <Avatar aria-label="Josh Rootnote" role="img">
+                        JR
                       </Avatar>
                     </div>
                   </CardContent>
@@ -537,8 +537,8 @@ export default function KanbanBoard() {
                       <span>
                         Completed <time datetime="2026-10-06">6 Oct</time>
                       </span>
-                      <Avatar aria-label="Percy Groove" role="img">
-                        PG
+                      <Avatar aria-label="Adam Groove" role="img">
+                        AG
                       </Avatar>
                     </div>
                   </CardContent>
@@ -565,8 +565,8 @@ export default function KanbanBoard() {
                       <span>
                         Completed <time datetime="2026-10-03">3 Oct</time>
                       </span>
-                      <Avatar aria-label="Ines Hertz" role="img">
-                        IH
+                      <Avatar aria-label="Mohini Hertz" role="img">
+                        MH
                       </Avatar>
                     </div>
                   </CardContent>

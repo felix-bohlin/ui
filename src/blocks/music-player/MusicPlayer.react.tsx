@@ -168,12 +168,12 @@ export default function MusicPlayer() {
                   label="Tuned Down, Turned Up"
                 />
                 <ListItem
-                  description="Stella Nut"
+                  description="Ellen Nut"
                   end={<span className="ui-tabular-nums">3:09</span>}
                   label="Thumb Thing Special"
                 />
                 <ListItem
-                  description="Holly Humbucker"
+                  description="Scott Humbucker"
                   end={<span className="ui-tabular-nums">4:05</span>}
                   label="Fretless Lullaby"
                 />

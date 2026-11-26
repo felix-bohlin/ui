@@ -47,11 +47,11 @@ export default function Article() {
             engineer.
           </p>
           <div class="ui-layout-media ui-gap-small">
-            <Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
+            <Avatar label="Kinga Headstock" src="/photos/kinga-headstock.png" />
             <div>
               <p>
                 <a class="ui-link" href="#article-author">
-                  Lou Headstock
+                  Kinga Headstock
                 </a>
               </p>
               <p class="ui-caption">
@@ -68,7 +68,7 @@ export default function Article() {
             role="img"
           ></div>
           <figcaption class="ui-caption">
-            Where Lou tested six sets of strings: a damp cabin, perfect for
+            Where Kinga tested six sets of strings: a damp cabin, perfect for
             rust.
           </figcaption>
         </figure>
@@ -197,16 +197,16 @@ export default function Article() {
           <CardContent>
             <div class="ui-layout-media">
               <Avatar
-                label="Lou Headstock"
+                label="Kinga Headstock"
                 size="large"
-                src="/photos/lou-headstock.png"
+                src="/photos/kinga-headstock.png"
               />
               <div class="ui-layout-column ui-gap-small">
                 <h2 class="ui-h5" id="article-author">
-                  About Lou Headstock
+                  About Kinga Headstock
                 </h2>
                 <p>
-                  Fretless player, string hoarder and our gear editor. Lou has
+                  Fretless player, string hoarder and our gear editor. Kinga has
                   owned 41 basses and regrets selling every single one.
                 </p>
               </div>

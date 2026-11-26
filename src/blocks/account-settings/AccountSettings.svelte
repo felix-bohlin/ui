@@ -46,8 +46,8 @@
           <Fieldset>
             <FieldLegend>Photo</FieldLegend>
             <div class="ui-layout-row acct-photo">
-              <Avatar aria-label="Percy Groove" role="img" shape="rounded"
-                >PG</Avatar
+              <Avatar aria-label="Adam Groove" role="img" shape="rounded"
+                >AG</Avatar
               >
               <div class="ui-layout-row ui-gap-small">
                 <Button size="small" type="button" variant="outlined"
@@ -71,7 +71,7 @@
                     name="first-name"
                     required
                     type="text"
-                    value="Percy"
+                    value="Adam"
                   />
                 </Field>
                 <Field for="account-settings-last-name" label="Last name">
@@ -93,7 +93,7 @@
                   name="email"
                   required
                   type="email"
-                  value="percy@bassmail.example"
+                  value="adam@bassmail.example"
                 />
                 {#snippet endText()}
                   <span class="ui-p ui-success">Verified</span>, used for
@@ -296,7 +296,7 @@
     </DialogHeader>
     <DialogContent>
       <p id="account-settings-delete-description">
-        This deletes percy@bassmail.example, your wall and every photo of your
+        This deletes adam@bassmail.example, your wall and every photo of your
         gear. You can't undo this.
       </p>
     </DialogContent>

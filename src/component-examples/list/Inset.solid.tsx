@@ -5,7 +5,7 @@ export default function Inset() {
   return (
     <List>
       <ListItem
-        label="Lou Headstock"
+        label="Kinga Headstock"
         start={
           <svg
             data-icon="person"
@@ -23,7 +23,7 @@ export default function Inset() {
         }
       />
       <ListItem description="Mobile" inset label="555-0142" />
-      <ListItem description="Email" inset label="lou@bassmail.example" />
+      <ListItem description="Email" inset label="kinga@bassmail.example" />
     </List>
   )
 }

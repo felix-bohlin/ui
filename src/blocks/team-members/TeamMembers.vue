@@ -93,11 +93,11 @@ import {
             <List bordered class="team-list" variant="transparent">
               <ListItem
                 class="team-end"
-                description="holly@slaplikenow.example"
-                label="Holly Humbucker"
+                description="scott@slaplikenow.example"
+                label="Scott Humbucker"
               >
                 <template #start>
-                  <Avatar aria-label="Holly Humbucker" role="img">HH</Avatar>
+                  <Avatar aria-label="Scott Humbucker" role="img">SH</Avatar>
                 </template>
                 <template #end>
                   <Chip
@@ -115,7 +115,7 @@ import {
                     variant="outlined"
                   />
                   <Button
-                    aria-label="Actions for Holly Humbucker"
+                    aria-label="Actions for Scott Humbucker"
                     command="toggle-popover"
                     commandfor="team-members-menu-hh"
                     round
@@ -148,11 +148,11 @@ import {
               </ListItem>
               <ListItem
                 class="team-end"
-                description="ines@slaplikenow.example"
-                label="Ines Hertz"
+                description="mohini@slaplikenow.example"
+                label="Mohini Hertz"
               >
                 <template #start>
-                  <Avatar aria-label="Ines Hertz" role="img">IH</Avatar>
+                  <Avatar aria-label="Mohini Hertz" role="img">MH</Avatar>
                 </template>
                 <template #end>
                   <Chip
@@ -170,7 +170,7 @@ import {
                     variant="outlined"
                   />
                   <Button
-                    aria-label="Actions for Ines Hertz"
+                    aria-label="Actions for Mohini Hertz"
                     command="toggle-popover"
                     commandfor="team-members-menu-ih"
                     round
@@ -208,11 +208,11 @@ import {
               </ListItem>
               <ListItem
                 class="team-end"
-                description="lou@slaplikenow.example"
-                label="Lou Headstock"
+                description="kinga@slaplikenow.example"
+                label="Kinga Headstock"
               >
                 <template #start>
-                  <Avatar aria-label="Lou Headstock" role="img">LH</Avatar>
+                  <Avatar aria-label="Kinga Headstock" role="img">KH</Avatar>
                 </template>
                 <template #end>
                   <Chip
@@ -230,7 +230,7 @@ import {
                     variant="outlined"
                   />
                   <Button
-                    aria-label="Actions for Lou Headstock"
+                    aria-label="Actions for Kinga Headstock"
                     command="toggle-popover"
                     commandfor="team-members-menu-lh"
                     round
@@ -268,11 +268,11 @@ import {
               </ListItem>
               <ListItem
                 class="team-end"
-                description="percy@slaplikenow.example"
-                label="Percy Groove"
+                description="adam@slaplikenow.example"
+                label="Adam Groove"
               >
                 <template #start>
-                  <Avatar aria-label="Percy Groove" role="img">PG</Avatar>
+                  <Avatar aria-label="Adam Groove" role="img">AG</Avatar>
                 </template>
                 <template #end>
                   <Chip
@@ -290,7 +290,7 @@ import {
                     variant="outlined"
                   />
                   <Button
-                    aria-label="Actions for Percy Groove"
+                    aria-label="Actions for Adam Groove"
                     command="toggle-popover"
                     commandfor="team-members-menu-pg"
                     round
@@ -328,11 +328,11 @@ import {
               </ListItem>
               <ListItem
                 class="team-end"
-                description="rory@bassmail.example"
-                label="Rory Rootnote (you)"
+                description="josh@bassmail.example"
+                label="Josh Rootnote (you)"
               >
                 <template #start>
-                  <Avatar aria-label="Rory Rootnote" role="img">RR</Avatar>
+                  <Avatar aria-label="Josh Rootnote" role="img">JR</Avatar>
                 </template>
                 <template #end>
                   <Chip
@@ -350,7 +350,7 @@ import {
                     variant="outlined"
                   />
                   <Button
-                    aria-label="Actions for Rory Rootnote"
+                    aria-label="Actions for Josh Rootnote"
                     command="toggle-popover"
                     commandfor="team-members-menu-rr"
                     round
@@ -388,11 +388,11 @@ import {
               </ListItem>
               <ListItem
                 class="team-end"
-                description="stella@slaplikenow.example"
-                label="Stella Nut"
+                description="ellen@slaplikenow.example"
+                label="Ellen Nut"
               >
                 <template #start>
-                  <Avatar aria-label="Stella Nut" role="img">SN</Avatar>
+                  <Avatar aria-label="Ellen Nut" role="img">EN</Avatar>
                 </template>
                 <template #end>
                   <Chip
@@ -410,7 +410,7 @@ import {
                     variant="outlined"
                   />
                   <Button
-                    aria-label="Actions for Stella Nut"
+                    aria-label="Actions for Ellen Nut"
                     command="toggle-popover"
                     commandfor="team-members-menu-sn"
                     round
@@ -457,7 +457,7 @@ import {
             <List bordered class="team-list" variant="transparent">
               <ListItem
                 class="team-pending-actions"
-                description="Member, invited by Holly Humbucker on 6 Oct 2026"
+                description="Member, invited by Scott Humbucker on 6 Oct 2026"
                 label="tambourine.tam@slaplikenow.example"
               >
                 <template #start>

@@ -78,15 +78,15 @@ import {
                   <List flush variant="transparent">
                     <ListItem
                       class="notifications-unread"
-                      label="Holly Humbucker mentioned you in Gear Talk 🎸"
+                      label="Scott Humbucker mentioned you in Gear Talk 🎸"
                     >
                       <template #start>
                         <Badge dot label="Unread"
-                          ><Avatar aria-hidden="true">HH</Avatar></Badge
+                          ><Avatar aria-hidden="true">SH</Avatar></Badge
                         >
                       </template>
                       <p class="notifications-quote">
-                        @rory is it true you can play a whole set on 3 strings?
+                        @josh is it true you can play a whole set on 3 strings?
                         asking for a guitarist
                       </p>
                       <div
@@ -105,12 +105,12 @@ import {
                     </ListItem>
                     <ListItem
                       class="notifications-unread"
-                      description="14 members, including Stella and Percy. Loud ones only!"
-                      label="Lou Headstock invited you to the group Bassists Who Were Told To Turn It Down"
+                      description="14 members, including Ellen and Adam. Loud ones only!"
+                      label="Kinga Headstock invited you to the group Bassists Who Were Told To Turn It Down"
                     >
                       <template #start>
                         <Badge dot label="Unread"
-                          ><Avatar aria-hidden="true">LH</Avatar></Badge
+                          ><Avatar aria-hidden="true">KH</Avatar></Badge
                         >
                       </template>
                       <div
@@ -129,9 +129,9 @@ import {
                         >
                       </template>
                     </ListItem>
-                    <ListItem label="Holly Humbucker scribbled on your wall">
+                    <ListItem label="Scott Humbucker scribbled on your wall">
                       <template #start>
-                        <Avatar aria-hidden="true">HH</Avatar>
+                        <Avatar aria-hidden="true">SH</Avatar>
                       </template>
                       <p>
                         "Saw your gig!! I was the only one watching your fingers
@@ -155,10 +155,10 @@ import {
                   <List flush variant="transparent">
                     <ListItem>
                       <template #start>
-                        <Avatar aria-hidden="true">PG</Avatar>
+                        <Avatar aria-hidden="true">AG</Avatar>
                       </template>
                       <template #label
-                        >Percy Groove commented on your photo "Me and Big
+                        >Adam Groove commented on your photo "Me and Big
                         Bertha"</template
                       >
                       <p class="notifications-quote">
@@ -170,9 +170,9 @@ import {
                         >
                       </template>
                     </ListItem>
-                    <ListItem label="Ines Hertz reacted 🔥 to your post">
+                    <ListItem label="Mohini Hertz reacted 🔥 to your post">
                       <template #start>
-                        <Avatar aria-hidden="true">IH</Avatar>
+                        <Avatar aria-hidden="true">MH</Avatar>
                       </template>
                       <p>
                         "My drummer asked if bass is just a guitar with fewer
@@ -229,14 +229,14 @@ import {
                 <List flush variant="transparent">
                   <ListItem class="notifications-unread">
                     <template #start>
-                      <Avatar aria-hidden="true">HH</Avatar>
+                      <Avatar aria-hidden="true">SH</Avatar>
                     </template>
                     <template #label>
-                      <span class="ui-sr-only">Unread: </span>Holly Humbucker
+                      <span class="ui-sr-only">Unread: </span>Scott Humbucker
                       mentioned you in Gear Talk 🎸</template
                     >
                     <p class="notifications-quote">
-                      @rory is it true you can play a whole set on 3 strings?
+                      @josh is it true you can play a whole set on 3 strings?
                       asking for a guitarist
                     </p>
                     <template #end>
@@ -245,12 +245,12 @@ import {
                       >
                     </template>
                   </ListItem>
-                  <ListItem label="Stella Nut mentioned you in Mixed Too Low">
+                  <ListItem label="Ellen Nut mentioned you in Mixed Too Low">
                     <template #start>
-                      <Avatar aria-hidden="true">SN</Avatar>
+                      <Avatar aria-hidden="true">EN</Avatar>
                     </template>
                     <p class="notifications-quote">
-                      @rory is our hero. A bass solo. At a WEDDING!!
+                      @josh is our hero. A bass solo. At a WEDDING!!
                     </p>
                     <template #end>
                       <time class="ui-caption" datetime="2026-10-06T14:48"

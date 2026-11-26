@@ -30,25 +30,25 @@ export default function InCard() {
         </TableHead>
         <TableBody>
           <TableRow>
-            <TableCell>Battle of the Bands</TableCell>
-            <TableCell>The Rusty Fret</TableCell>
-            <TableCell>Holly Humbucker</TableCell>
-            <TableCell>8 October, 09:42</TableCell>
-            <TableCell numeric>0 min 12 s</TableCell>
-          </TableRow>
-          <TableRow>
             <TableCell>Pub night</TableCell>
             <TableCell>Low Tide Pub</TableCell>
-            <TableCell>Percy Groove</TableCell>
+            <TableCell>Adam Groove</TableCell>
             <TableCell>7 October, 16:05</TableCell>
             <TableCell numeric>0 min 8 s</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Cousin's wedding</TableCell>
             <TableCell>The Big Barn</TableCell>
-            <TableCell>Stella Nut</TableCell>
+            <TableCell>Ellen Nut</TableCell>
             <TableCell>1 October, 11:20</TableCell>
             <TableCell numeric>0 min 0 s</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Battle of the Bands</TableCell>
+            <TableCell>The Rusty Fret</TableCell>
+            <TableCell>Scott Humbucker</TableCell>
+            <TableCell>8 October, 09:42</TableCell>
+            <TableCell numeric>0 min 12 s</TableCell>
           </TableRow>
         </TableBody>
       </Table>

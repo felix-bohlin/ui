@@ -202,12 +202,12 @@
           >
             {#snippet start()}
               <Badge dot label="Unread"
-                ><Avatar aria-label="Holly Humbucker" role="img">HH</Avatar
+                ><Avatar aria-label="Scott Humbucker" role="img">SH</Avatar
                 ></Badge
               >
             {/snippet}
             {#snippet label()}
-              <span>Holly Humbucker</span>
+              <span>Scott Humbucker</span>
               <time class="ui-caption" datetime="2026-10-08T09:41">09:41</time>
             {/snippet}
             <p class="inbox-subject">You're IN! Gig details inside</p>
@@ -219,11 +219,11 @@
           <ListItem class="inbox-unread" href="#inbox-message-2">
             {#snippet start()}
               <Badge dot label="Unread"
-                ><Avatar aria-label="Ines Hertz" role="img">IH</Avatar></Badge
+                ><Avatar aria-label="Mohini Hertz" role="img">MH</Avatar></Badge
               >
             {/snippet}
             {#snippet label()}
-              <span>Ines Hertz</span>
+              <span>Mohini Hertz</span>
               <time class="ui-caption" datetime="2026-10-08T08:12">08:12</time>
             {/snippet}
             <p class="inbox-subject">Jam night on Thursday</p>
@@ -252,10 +252,10 @@
           </ListItem>
           <ListItem href="#inbox-message-4">
             {#snippet start()}
-              <Avatar aria-label="Stella Nut" role="img">SN</Avatar>
+              <Avatar aria-label="Ellen Nut" role="img">EN</Avatar>
             {/snippet}
             {#snippet label()}
-              <span>Stella Nut</span>
+              <span>Ellen Nut</span>
               <time class="ui-caption" datetime="2026-10-06T14:05">Mon</time>
             {/snippet}
             <p class="inbox-subject">Re: Photos from band camp</p>
@@ -266,10 +266,10 @@
           </ListItem>
           <ListItem href="#inbox-message-5">
             {#snippet start()}
-              <Avatar aria-label="Percy Groove" role="img">PG</Avatar>
+              <Avatar aria-label="Adam Groove" role="img">AG</Avatar>
             {/snippet}
             {#snippet label()}
-              <span>Percy Groove</span>
+              <span>Adam Groove</span>
               <time class="ui-caption" datetime="2026-10-03T11:20">3 Oct</time>
             {/snippet}
             <p class="inbox-subject">Setlist review (0 bass solos)</p>
@@ -390,20 +390,20 @@
           </div>
         </div>
         <div class="ui-layout-row">
-          <Avatar aria-label="Holly Humbucker" role="img">HH</Avatar>
+          <Avatar aria-label="Scott Humbucker" role="img">SH</Avatar>
           <div class="inbox-sender-info">
             <p>
-              <strong>Holly Humbucker</strong>
-              <span class="ui-caption">holly@humbucker-booking.example</span>
+              <strong>Scott Humbucker</strong>
+              <span class="ui-caption">scott@humbucker-booking.example</span>
             </p>
-            <p class="ui-caption">To you and Percy Groove</p>
+            <p class="ui-caption">To you and Adam Groove</p>
           </div>
           <time class="ui-caption" datetime="2026-10-08T09:41"
             >Wed 8 Oct, 09:41</time
           >
         </div>
         <div class="ui-layout-column inbox-body">
-          <p>Heyyy Rory,</p>
+          <p>Heyyy Josh,</p>
           <p>
             Totally awesome news, Brad and the Brads want a real bassist (you!).
             Attached is the setlist, plus the bass tabs we talked about on
@@ -416,7 +416,7 @@
             <li>Merch money goes to merch@brads.example</li>
           </ul>
           <p>They promised to turn you UP this time! &lt;3</p>
-          <p>Holly</p>
+          <p>Scott</p>
         </div>
         <div class="ui-layout-row ui-gap-small">
           <Chip
@@ -463,7 +463,7 @@
           </Chip>
         </div>
         <form action="#" class="ui-layout-column ui-gap-small inbox-reply">
-          <Field for="inbox-inbox-reply" label="Reply to Holly">
+          <Field for="inbox-inbox-reply" label="Reply to Scott">
             <textarea
               id="inbox-inbox-reply"
               name="inbox-reply"

@@ -60,7 +60,7 @@ import {
                 autocomplete="email"
                 id="sign-in-email"
                 name="email"
-                placeholder="rory@bassmail.example"
+                placeholder="josh@bassmail.example"
                 required
                 type="email"
               />

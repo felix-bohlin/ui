@@ -158,7 +158,7 @@ export default function Invoice() {
                 <address>
                   <strong>Slap Like Now</strong>
                   <br />
-                  Attn. Percy Groove
+                  Attn. Adam Groove
                   <br />
                   Rehearsal Room B, 7 Drop D Drive
                   <br />

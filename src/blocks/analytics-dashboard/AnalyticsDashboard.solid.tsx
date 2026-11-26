@@ -24,7 +24,7 @@ export default function AnalyticsDashboard() {
       >
         <div class="ui-layout-row ui-spread">
           <hgroup class="ui-hgroup">
-            <p>bassbook.example/rory</p>
+            <p>bassbook.example/josh</p>
             <h1 class="ui-h3">Your profile stats</h1>
           </hgroup>
           <div class="ui-layout-row ui-gap-small">
@@ -302,7 +302,7 @@ export default function AnalyticsDashboard() {
                 <TableRow>
                   <TableCell>
                     <a class="ui-link" href="#analytics-page-home">
-                      /rory
+                      /josh
                     </a>
                   </TableCell>
                   <TableCell numeric>612</TableCell>
@@ -312,7 +312,7 @@ export default function AnalyticsDashboard() {
                 <TableRow>
                   <TableCell>
                     <a class="ui-link" href="#analytics-page-wall">
-                      /rory/wall
+                      /josh/wall
                     </a>
                   </TableCell>
                   <TableCell numeric>388</TableCell>
@@ -322,7 +322,7 @@ export default function AnalyticsDashboard() {
                 <TableRow>
                   <TableCell>
                     <a class="ui-link" href="#analytics-page-videos">
-                      /rory/videos/slap-in-drop-d
+                      /josh/videos/slap-in-drop-d
                     </a>
                   </TableCell>
                   <TableCell numeric>245</TableCell>
@@ -332,7 +332,7 @@ export default function AnalyticsDashboard() {
                 <TableRow>
                   <TableCell>
                     <a class="ui-link" href="#analytics-page-gear">
-                      /rory/gear/pedalboard
+                      /josh/gear/pedalboard
                     </a>
                   </TableCell>
                   <TableCell numeric>104</TableCell>

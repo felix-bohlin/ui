@@ -33,7 +33,7 @@ export default function PartyInvitation() {
             <hgroup className="ui-hgroup">
               <p className="ui-overline">You're invited</p>
               <h1 className="pi-title" id="party-invitation-title">
-                Percy turns 40 and still slaps
+                Adam turns 40 and still slaps
               </h1>
               <p>A night of karaoke, chili and one very loud birthday solo.</p>
             </hgroup>
@@ -63,9 +63,12 @@ export default function PartyInvitation() {
             </dl>
             <div className="ui-layout-row ui-gap-small">
               <AvatarGroup aria-label="Guests who are coming">
-                <Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
-                <Avatar aria-label="Stella Nut" role="img">
-                  SN
+                <Avatar
+                  label="Kinga Headstock"
+                  src="/photos/kinga-headstock.png"
+                />
+                <Avatar aria-label="Ellen Nut" role="img">
+                  EN
                 </Avatar>
               </AvatarGroup>
               <span>23 going, 4 maybe</span>
@@ -81,7 +84,7 @@ export default function PartyInvitation() {
             <h2 className="ui-h4" id="party-invitation-rsvp-heading">
               RSVP
             </h2>
-            <p>Percy is counting chairs. Please tell him soon.</p>
+            <p>Adam is counting chairs. Please tell him soon.</p>
           </hgroup>
           <CardContent>
             <Form action="#" id="party-invitation-form">
@@ -139,7 +142,7 @@ export default function PartyInvitation() {
                 <Field
                   htmlFor="party-invitation-song"
                   label="Karaoke song"
-                  startText="Percy vetoes anything without a bass line"
+                  startText="Adam vetoes anything without a bass line"
                 >
                   <input
                     aria-describedby="party-invitation-song-start-text"
@@ -149,10 +152,7 @@ export default function PartyInvitation() {
                     type="text"
                   />
                 </Field>
-                <Field
-                  htmlFor="party-invitation-message"
-                  label="Note for Percy"
-                >
+                <Field htmlFor="party-invitation-message" label="Note for Adam">
                   <textarea
                     id="party-invitation-message"
                     name="message"

@@ -7,7 +7,7 @@ export default function Validation() {
         <Field htmlFor="field-validation-1" label="Full name">
           <input
             id="field-validation-1"
-            placeholder="Holly Humbucker"
+            placeholder="Scott Humbucker"
             required
           />
         </Field>

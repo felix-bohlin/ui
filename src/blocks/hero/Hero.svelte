@@ -116,25 +116,25 @@
             </Card>
           </div>
           <List bordered class="hero-tasks" dense variant="transparent">
-            <ListItem description="Ines Hertz" label="Learn the setlist">
+            <ListItem description="Mohini Hertz" label="Learn the setlist">
               {#snippet start()}
-                <Avatar>IH</Avatar>
+                <Avatar>MH</Avatar>
               {/snippet}
               {#snippet end()}
                 <Progress max={100} value={80} variant="filled" />
               {/snippet}
             </ListItem>
-            <ListItem description="Percy Groove" label="Restring the 5-string">
+            <ListItem description="Adam Groove" label="Restring the 5-string">
               {#snippet start()}
-                <Avatar>PG</Avatar>
+                <Avatar>AG</Avatar>
               {/snippet}
               {#snippet end()}
                 <Progress max={100} value={55} variant="filled" />
               {/snippet}
             </ListItem>
-            <ListItem description="Stella Nut" label="Nail the slap break">
+            <ListItem description="Ellen Nut" label="Nail the slap break">
               {#snippet start()}
-                <Avatar>SN</Avatar>
+                <Avatar>EN</Avatar>
               {/snippet}
               {#snippet end()}
                 <Progress max={100} value={30} variant="filled" />

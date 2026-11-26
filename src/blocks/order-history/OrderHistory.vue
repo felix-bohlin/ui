@@ -81,7 +81,7 @@ import {
               </div>
               <div>
                 <dt class="ui-caption">Ship to</dt>
-                <dd>Ines Hertz</dd>
+                <dd>Mohini Hertz</dd>
               </div>
             </dl>
             <div class="ui-layout-row ui-gap-small">
@@ -208,7 +208,7 @@ import {
               </div>
               <div>
                 <dt class="ui-caption">Ship to</dt>
-                <dd>Ines Hertz</dd>
+                <dd>Mohini Hertz</dd>
               </div>
             </dl>
             <div class="ui-layout-row ui-gap-small">
@@ -330,7 +330,7 @@ import {
               </div>
               <div>
                 <dt class="ui-caption">Ship to</dt>
-                <dd>Holly Humbucker</dd>
+                <dd>Scott Humbucker</dd>
               </div>
             </dl>
             <div class="ui-layout-row ui-gap-small">

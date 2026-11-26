@@ -281,26 +281,26 @@ import {
           <List variant="transparent">
             <ListItem
               description="Today, 10:24"
-              label="Holly closed “Extension cords for 40 amps”"
+              label="Scott closed “Extension cords for 40 amps”"
             >
               <template #start>
-                <Avatar aria-label="Holly Humbucker" role="img">HH</Avatar>
+                <Avatar aria-label="Scott Humbucker" role="img">SH</Avatar>
               </template>
             </ListItem>
             <ListItem
               description="Today, 08:51"
-              label="Lou uploaded “Bass Day poster v4.png”"
+              label="Kinga uploaded “Bass Day poster v4.png”"
             >
               <template #start>
-                <Avatar aria-label="Lou Headstock" role="img">LH</Avatar>
+                <Avatar aria-label="Kinga Headstock" role="img">KH</Avatar>
               </template>
             </ListItem>
             <ListItem
               description="Yesterday, 16:02"
-              label="Percy moved the jam rehearsal to 14 October"
+              label="Adam moved the jam rehearsal to 14 October"
             >
               <template #start>
-                <Avatar aria-label="Percy Groove" role="img">PG</Avatar>
+                <Avatar aria-label="Adam Groove" role="img">AG</Avatar>
               </template>
             </ListItem>
           </List>
@@ -317,33 +317,33 @@ import {
             <p>5 bassists making it happen.</p>
           </hgroup>
           <List dense variant="transparent">
-            <ListItem description="Party boss" label="Percy Groove">
+            <ListItem description="Party boss" label="Adam Groove">
               <template #start>
-                <Avatar aria-label="Percy Groove" role="img">PG</Avatar>
+                <Avatar aria-label="Adam Groove" role="img">AG</Avatar>
               </template>
 
               <template #end>
                 <Chip as="span" label="Owner" size="x-small" />
               </template>
             </ListItem>
-            <ListItem description="Poster artist" label="Lou Headstock">
+            <ListItem description="Poster artist" label="Kinga Headstock">
               <template #start>
-                <Avatar aria-label="Lou Headstock" role="img">LH</Avatar>
+                <Avatar aria-label="Kinga Headstock" role="img">KH</Avatar>
               </template>
             </ListItem>
-            <ListItem description="Amp wrangler" label="Holly Humbucker">
+            <ListItem description="Amp wrangler" label="Scott Humbucker">
               <template #start>
-                <Avatar aria-label="Holly Humbucker" role="img">HH</Avatar>
+                <Avatar aria-label="Scott Humbucker" role="img">SH</Avatar>
               </template>
             </ListItem>
-            <ListItem description="Snack captain" label="Ines Hertz">
+            <ListItem description="Snack captain" label="Mohini Hertz">
               <template #start>
-                <Avatar aria-label="Ines Hertz" role="img">IH</Avatar>
+                <Avatar aria-label="Mohini Hertz" role="img">MH</Avatar>
               </template>
             </ListItem>
-            <ListItem description="Sound check hero" label="Rory Rootnote">
+            <ListItem description="Sound check hero" label="Josh Rootnote">
               <template #start>
-                <Avatar aria-label="Rory Rootnote" role="img">RR</Avatar>
+                <Avatar aria-label="Josh Rootnote" role="img">JR</Avatar>
               </template>
             </ListItem>
           </List>

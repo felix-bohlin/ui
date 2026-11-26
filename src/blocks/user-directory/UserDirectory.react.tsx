@@ -91,9 +91,9 @@ export default function UserDirectory() {
             <Card variant="outlined">
               <CardContent>
                 <div className="ui-layout-media">
-                  <Avatar aria-hidden="true">ER</Avatar>
+                  <Avatar aria-hidden="true">VR</Avatar>
                   <hgroup>
-                    <h2 className="ui-h6">Elmo Rumble</h2>
+                    <h2 className="ui-h6">Victor Rumble</h2>
                     <p>Upright wrangler, jazz only</p>
                   </hgroup>
                 </div>
@@ -104,18 +104,18 @@ export default function UserDirectory() {
               </CardContent>
               <CardActions>
                 <Button
-                  href="#user-directory-elmo-email"
+                  href="#user-directory-victor-email"
                   size="small"
                   variant="outlined"
                 >
                   Email
                 </Button>
-                <Button href="#user-directory-elmo-chat" size="small">
+                <Button href="#user-directory-victor-chat" size="small">
                   Message
                 </Button>
                 <Button
-                  aria-label="Call Elmo"
-                  href="#user-directory-elmo-call"
+                  aria-label="Call Victor"
+                  href="#user-directory-victor-call"
                   round
                   size="small"
                 >
@@ -147,10 +147,10 @@ export default function UserDirectory() {
                     dot
                     label="Online"
                   >
-                    <Avatar>HH</Avatar>
+                    <Avatar>SH</Avatar>
                   </Badge>
                   <hgroup>
-                    <h2 className="ui-h6">Holly Humbucker</h2>
+                    <h2 className="ui-h6">Scott Humbucker</h2>
                     <p>
                       Slap enthusiast
                       <span className="ui-sr-only">, online</span>
@@ -164,18 +164,18 @@ export default function UserDirectory() {
               </CardContent>
               <CardActions>
                 <Button
-                  href="#user-directory-holly-email"
+                  href="#user-directory-scott-email"
                   size="small"
                   variant="outlined"
                 >
                   Email
                 </Button>
-                <Button href="#user-directory-holly-chat" size="small">
+                <Button href="#user-directory-scott-chat" size="small">
                   Message
                 </Button>
                 <Button
-                  aria-label="Call Holly"
-                  href="#user-directory-holly-call"
+                  aria-label="Call Scott"
+                  href="#user-directory-scott-call"
                   round
                   size="small"
                 >
@@ -207,10 +207,10 @@ export default function UserDirectory() {
                     dot
                     label="Online"
                   >
-                    <Avatar>IH</Avatar>
+                    <Avatar>MH</Avatar>
                   </Badge>
                   <hgroup>
-                    <h2 className="ui-h6">Ines Hertz</h2>
+                    <h2 className="ui-h6">Mohini Hertz</h2>
                     <p>
                       Root note purist
                       <span className="ui-sr-only">, online</span>
@@ -224,18 +224,18 @@ export default function UserDirectory() {
               </CardContent>
               <CardActions>
                 <Button
-                  href="#user-directory-ines-email"
+                  href="#user-directory-mohini-email"
                   size="small"
                   variant="outlined"
                 >
                   Email
                 </Button>
-                <Button href="#user-directory-ines-chat" size="small">
+                <Button href="#user-directory-mohini-chat" size="small">
                   Message
                 </Button>
                 <Button
-                  aria-label="Call Ines"
-                  href="#user-directory-ines-call"
+                  aria-label="Call Mohini"
+                  href="#user-directory-mohini-call"
                   round
                   size="small"
                 >
@@ -267,10 +267,10 @@ export default function UserDirectory() {
                     dot
                     label="Online"
                   >
-                    <Avatar>LH</Avatar>
+                    <Avatar>KH</Avatar>
                   </Badge>
                   <hgroup>
-                    <h2 className="ui-h6">Lou Headstock</h2>
+                    <h2 className="ui-h6">Kinga Headstock</h2>
                     <p>
                       Not the tall guitarist
                       <span className="ui-sr-only">, online</span>
@@ -284,18 +284,18 @@ export default function UserDirectory() {
               </CardContent>
               <CardActions>
                 <Button
-                  href="#user-directory-lou-email"
+                  href="#user-directory-kinga-email"
                   size="small"
                   variant="outlined"
                 >
                   Email
                 </Button>
-                <Button href="#user-directory-lou-chat" size="small">
+                <Button href="#user-directory-kinga-chat" size="small">
                   Message
                 </Button>
                 <Button
-                  aria-label="Call Lou"
-                  href="#user-directory-lou-call"
+                  aria-label="Call Kinga"
+                  href="#user-directory-kinga-call"
                   round
                   size="small"
                 >
@@ -320,9 +320,9 @@ export default function UserDirectory() {
             <Card variant="outlined">
               <CardContent>
                 <div className="ui-layout-media">
-                  <Avatar aria-hidden="true">PG</Avatar>
+                  <Avatar aria-hidden="true">AG</Avatar>
                   <hgroup>
-                    <h2 className="ui-h6">Percy Groove</h2>
+                    <h2 className="ui-h6">Adam Groove</h2>
                     <p>Fretless and fearless</p>
                   </hgroup>
                 </div>
@@ -333,18 +333,18 @@ export default function UserDirectory() {
               </CardContent>
               <CardActions>
                 <Button
-                  href="#user-directory-percy-email"
+                  href="#user-directory-adam-email"
                   size="small"
                   variant="outlined"
                 >
                   Email
                 </Button>
-                <Button href="#user-directory-percy-chat" size="small">
+                <Button href="#user-directory-adam-chat" size="small">
                   Message
                 </Button>
                 <Button
-                  aria-label="Call Percy"
-                  href="#user-directory-percy-call"
+                  aria-label="Call Adam"
+                  href="#user-directory-adam-call"
                   round
                   size="small"
                 >
@@ -376,10 +376,10 @@ export default function UserDirectory() {
                     dot
                     label="Online"
                   >
-                    <Avatar>RR</Avatar>
+                    <Avatar>JR</Avatar>
                   </Badge>
                   <hgroup>
-                    <h2 className="ui-h6">Rory Rootnote</h2>
+                    <h2 className="ui-h6">Josh Rootnote</h2>
                     <p>
                       Flatwound fanatic
                       <span className="ui-sr-only">, online</span>
@@ -393,18 +393,18 @@ export default function UserDirectory() {
               </CardContent>
               <CardActions>
                 <Button
-                  href="#user-directory-rory-email"
+                  href="#user-directory-josh-email"
                   size="small"
                   variant="outlined"
                 >
                   Email
                 </Button>
-                <Button href="#user-directory-rory-chat" size="small">
+                <Button href="#user-directory-josh-chat" size="small">
                   Message
                 </Button>
                 <Button
-                  aria-label="Call Rory"
-                  href="#user-directory-rory-call"
+                  aria-label="Call Josh"
+                  href="#user-directory-josh-call"
                   round
                   size="small"
                 >
@@ -429,9 +429,9 @@ export default function UserDirectory() {
             <Card variant="outlined">
               <CardContent>
                 <div className="ui-layout-media">
-                  <Avatar aria-hidden="true">SN</Avatar>
+                  <Avatar aria-hidden="true">EN</Avatar>
                   <hgroup>
-                    <h2 className="ui-h6">Stella Nut</h2>
+                    <h2 className="ui-h6">Ellen Nut</h2>
                     <p>Low B believer</p>
                   </hgroup>
                 </div>
@@ -442,18 +442,18 @@ export default function UserDirectory() {
               </CardContent>
               <CardActions>
                 <Button
-                  href="#user-directory-stella-email"
+                  href="#user-directory-ellen-email"
                   size="small"
                   variant="outlined"
                 >
                   Email
                 </Button>
-                <Button href="#user-directory-stella-chat" size="small">
+                <Button href="#user-directory-ellen-chat" size="small">
                   Message
                 </Button>
                 <Button
-                  aria-label="Call Stella"
-                  href="#user-directory-stella-call"
+                  aria-label="Call Ellen"
+                  href="#user-directory-ellen-call"
                   round
                   size="small"
                 >
@@ -478,9 +478,9 @@ export default function UserDirectory() {
             <Card variant="outlined">
               <CardContent>
                 <div className="ui-layout-media">
-                  <Avatar aria-hidden="true">TO</Avatar>
+                  <Avatar aria-hidden="true">FO</Avatar>
                   <hgroup>
-                    <h2 className="ui-h6">Theo Octave</h2>
+                    <h2 className="ui-h6">Federico Octave</h2>
                     <p>Pedalboard hoarder</p>
                   </hgroup>
                 </div>
@@ -491,18 +491,18 @@ export default function UserDirectory() {
               </CardContent>
               <CardActions>
                 <Button
-                  href="#user-directory-theo-email"
+                  href="#user-directory-federico-email"
                   size="small"
                   variant="outlined"
                 >
                   Email
                 </Button>
-                <Button href="#user-directory-theo-chat" size="small">
+                <Button href="#user-directory-federico-chat" size="small">
                   Message
                 </Button>
                 <Button
-                  aria-label="Call Theo"
-                  href="#user-directory-theo-call"
+                  aria-label="Call Federico"
+                  href="#user-directory-federico-call"
                   round
                   size="small"
                 >

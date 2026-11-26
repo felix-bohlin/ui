@@ -281,8 +281,8 @@ const ELEMENTS: Scenario[] = [
         </div>
         <ul class="ui-list">
           <li>
-            <div class="ui-text"><p>lou.png</p></div>
-            <div class="ui-end"><button class="ui-button" type="button" aria-label="Remove lou.png" command="--remove" commandfor="photos" value="lou">x</button></div>
+            <div class="ui-text"><p>kinga.png</p></div>
+            <div class="ui-end"><button class="ui-button" type="button" aria-label="Remove kinga.png" command="--remove" commandfor="photos" value="kinga">x</button></div>
           </li>
         </ul>
       </div>
@@ -321,8 +321,8 @@ const ELEMENTS: Scenario[] = [
       expect(await selected).toEqual(["b.png", "c.png"])
       await expect(input).toHaveValue("")
       const removed = heard("remove")
-      await page.getByRole("button", { name: "Remove lou.png" }).click()
-      expect(await removed).toEqual(["lou"])
+      await page.getByRole("button", { name: "Remove kinga.png" }).click()
+      expect(await removed).toEqual(["kinga"])
     },
   },
   {
@@ -953,7 +953,7 @@ const navigationDrawer = async (page: Page) => {
     ),
   )
   await instantScrolling(page)
-  await page.goto(`${ORIGIN}/chat?with=lou`)
+  await page.goto(`${ORIGIN}/chat?with=kinga`)
   const drawer = page.getByRole("dialog", { name: "Navigate" })
   const show = () =>
     page.evaluate(() => document.querySelector("dialog")!.showModal())
@@ -980,7 +980,7 @@ test("close-on-navigate.js closes a drawer on a click on a link in it, unless th
     .getByRole("link", { name: "Chat" })
     .click({ modifiers: ["Shift"] })
   await expect(drawer).toBeVisible()
-  await expect(page).toHaveURL(`${ORIGIN}/chat?with=lou`)
+  await expect(page).toHaveURL(`${ORIGIN}/chat?with=kinga`)
   await drawer.getByRole("link", { name: "Load more" }).click()
   await expect(page).toHaveURL(`${ORIGIN}/chat?pages=2`)
   await expect(drawer).toBeVisible()

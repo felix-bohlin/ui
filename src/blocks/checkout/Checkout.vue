@@ -61,7 +61,7 @@ import {
                 placeholder="you@example.com"
                 required
                 type="email"
-                :value.attr="'ines.hertz@example.com'"
+                :value.attr="'mohini.hertz@example.com'"
               />
             </Field>
             <Checkbox checked id="checkout-news" name="news">
@@ -80,7 +80,7 @@ import {
                   name="first-name"
                   required
                   type="text"
-                  :value.attr="'Ines'"
+                  :value.attr="'Mohini'"
                 />
               </Field>
               <Field for="checkout-last-name" label="Last name">
@@ -280,7 +280,7 @@ import {
               <TabsPanel>
                 <p>
                   Pay within 30 days of delivery. We'll email the invoice to
-                  ines.hertz@example.com once your gear ships.
+                  mohini.hertz@example.com once your gear ships.
                 </p>
               </TabsPanel>
             </TabsItem>

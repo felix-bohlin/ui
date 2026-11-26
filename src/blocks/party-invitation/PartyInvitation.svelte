@@ -32,7 +32,7 @@
       <hgroup class="ui-hgroup">
         <p class="ui-overline">You're invited</p>
         <h1 class="pi-title" id="party-invitation-title">
-          Percy turns 40 and still slaps
+          Adam turns 40 and still slaps
         </h1>
         <p>A night of karaoke, chili and one very loud birthday solo.</p>
       </hgroup>
@@ -58,8 +58,8 @@
       </dl>
       <div class="ui-layout-row ui-gap-small">
         <AvatarGroup aria-label="Guests who are coming">
-          <Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
-          <Avatar aria-label="Stella Nut" role="img">SN</Avatar>
+          <Avatar label="Kinga Headstock" src="/photos/kinga-headstock.png" />
+          <Avatar aria-label="Ellen Nut" role="img">EN</Avatar>
         </AvatarGroup>
         <span>23 going, 4 maybe</span>
       </div>
@@ -72,7 +72,7 @@
   >
     <hgroup>
       <h2 class="ui-h4" id="party-invitation-rsvp-heading">RSVP</h2>
-      <p>Percy is counting chairs. Please tell him soon.</p>
+      <p>Adam is counting chairs. Please tell him soon.</p>
     </hgroup>
     <CardContent>
       <Form action="#" id="party-invitation-form">
@@ -120,7 +120,7 @@
           <Field
             for="party-invitation-song"
             label="Karaoke song"
-            startText="Percy vetoes anything without a bass line"
+            startText="Adam vetoes anything without a bass line"
           >
             <input
               aria-describedby="party-invitation-song-start-text"
@@ -130,7 +130,7 @@
               type="text"
             />
           </Field>
-          <Field for="party-invitation-message" label="Note for Percy">
+          <Field for="party-invitation-message" label="Note for Adam">
             <textarea
               id="party-invitation-message"
               name="message"

@@ -8,7 +8,7 @@ export default function StartImage() {
         label="Gig in a basement"
         start={
           <img
-            src="/photos/lou-headstock.png"
+            src="/photos/kinga-headstock.png"
             alt=""
             decoding="async"
             loading="lazy"
@@ -20,7 +20,7 @@ export default function StartImage() {
         label="Pedalboard glamour shots"
         start={
           <img
-            src="/photos/lou-headstock.png"
+            src="/photos/kinga-headstock.png"
             alt=""
             decoding="async"
             loading="lazy"

@@ -27,7 +27,7 @@ export default function Setlist() {
                 <span className="sl-key">E</span>
                 <span>96 BPM</span>
               </span>
-              <span className="sl-note ui-caption">Holly counts in</span>
+              <span className="sl-note ui-caption">Scott counts in</span>
             </li>
             <li className="sl-song">
               <Checkbox defaultChecked name="setlist-song-2">

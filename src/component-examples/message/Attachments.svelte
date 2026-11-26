@@ -8,10 +8,10 @@
   } from "opui-css/svelte"
 </script>
 
-<MessageList aria-label="Messages with Stella">
-  <Message author="Stella" datetime="2026-10-08T14:31" time="14:31">
+<MessageList aria-label="Messages with Ellen">
+  <Message author="Ellen" datetime="2026-10-08T14:31" time="14:31">
     {#snippet start()}
-      <Avatar>SN</Avatar>
+      <Avatar>EN</Avatar>
     {/snippet}
     <p>Totally! Here's my slap break:</p>
     <Card variant="outlined">

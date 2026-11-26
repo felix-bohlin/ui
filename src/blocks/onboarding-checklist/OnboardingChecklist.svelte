@@ -71,7 +71,7 @@
             </span>
           </AccordionSummary>
           <AccordionContent>
-            <p>Your profile bassbook.example/rory is live!</p>
+            <p>Your profile bassbook.example/josh is live!</p>
             <div class="ui-layout-row ui-gap-small">
               <Button href="#onboarding-checklist-profile" size="small"
                 >Edit profile</Button
@@ -115,7 +115,7 @@
             </span>
           </AccordionSummary>
           <AccordionContent>
-            <p>Lou, Percy and Stella are now on your friends list. Rad!</p>
+            <p>Kinga, Adam and Ellen are now on your friends list. Rad!</p>
             <div class="ui-layout-row ui-gap-small">
               <Button href="#onboarding-checklist-friends" size="small"
                 >Find more friends</Button
@@ -219,7 +219,7 @@
             Stuck on a step? <a
               class="ui-link"
               href="#onboarding-checklist-message">Send a message</a
-            > to Ines, our super friendly welcome wizard.
+            > to Mohini, our super friendly welcome wizard.
           </p>
         </CalloutContent>
       </Callout>

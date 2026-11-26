@@ -104,8 +104,8 @@ export default function Teasers() {
               What cold does to your strings
             </h2>
             <p>
-              Holly took three sets of strings to a snowy base camp and played
-              them at minus 18. Two of them survived. Her fingers, mostly.
+              Scott took three sets of strings to a snowy base camp and played
+              them at minus 18. Two of them survived. His fingers, mostly.
             </p>
             <Button href="#teasers-camp-story" variant="outlined">
               <span className="ui-text">See the gear test</span>

@@ -60,7 +60,7 @@
               placeholder="you@example.com"
               required
               type="email"
-              value="ines.hertz@example.com"
+              value="mohini.hertz@example.com"
             />
           </Field>
           <Checkbox defaultChecked id="checkout-news" name="news">
@@ -79,7 +79,7 @@
                 name="first-name"
                 required
                 type="text"
-                value="Ines"
+                value="Mohini"
               />
             </Field>
             <Field for="checkout-last-name" label="Last name">
@@ -280,7 +280,7 @@
             <TabsPanel>
               <p>
                 Pay within 30 days of delivery. We'll email the invoice to
-                ines.hertz@example.com once your gear ships.
+                mohini.hertz@example.com once your gear ships.
               </p>
             </TabsPanel>
           </TabsItem>

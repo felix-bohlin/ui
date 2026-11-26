@@ -168,7 +168,7 @@ export default function Billing() {
               <DescriptionListItem>
                 <DescriptionListTerm>Billing email</DescriptionListTerm>
                 <DescriptionListDescription>
-                  rory@bassmail.example
+                  josh@bassmail.example
                 </DescriptionListDescription>
               </DescriptionListItem>
               <DescriptionListItem>

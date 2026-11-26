@@ -2,12 +2,12 @@
   import { Avatar } from "opui-css/svelte"
 </script>
 
-<Avatar label="Percy Groove" shape="rounded" src="/photos/percy-groove.png" />
+<Avatar label="Adam Groove" shape="rounded" src="/photos/adam-groove.png" />
 
-<Avatar label="Rory Rootnote" shape="squared">RR</Avatar>
+<Avatar label="Josh Rootnote" shape="squared">JR</Avatar>
 
 <Avatar
-  label="Lou Headstock"
+  label="Kinga Headstock"
   shape="squircle"
-  src="/photos/lou-headstock.png"
+  src="/photos/kinga-headstock.png"
 />

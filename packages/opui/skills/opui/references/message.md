@@ -137,14 +137,14 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size
 ### Example: Basics
 
 ```html
-<div aria-label="Chat with Stella" role="log">
-  <ol class="ui-message-list" role="list" aria-label="Messages with Stella">
+<div aria-label="Chat with Ellen" role="log">
+  <ol class="ui-message-list" role="list" aria-label="Messages with Ellen">
     <li class="ui-message">
       <div class="ui-avatar">
-        <span aria-hidden="true">SN</span>
+        <span aria-hidden="true">EN</span>
       </div>
       <div class="ui-content">
-        <p class="ui-header">Stella</p>
+        <p class="ui-header">Ellen</p>
         <p>Heyyy! Did your band notice you changed strings yet?</p>
         <p class="ui-footer">
           <time datetime="2026-10-08T14:02">14:02</time>
@@ -153,10 +153,10 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size
     </li>
     <li class="ui-message">
       <div class="ui-avatar">
-        <span aria-hidden="true">SN</span>
+        <span aria-hidden="true">EN</span>
       </div>
       <div class="ui-content">
-        <p class="ui-header">Stella</p>
+        <p class="ui-header">Ellen</p>
         <p>Flatwounds, right? So rad.</p>
         <p class="ui-footer">
           <time datetime="2026-10-08T14:03">14:03</time>
@@ -199,14 +199,14 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size
 import { Avatar, Message, MessageList } from "opui-css/astro"
 ---
 
-<div aria-label="Chat with Stella" role="log">
-  <MessageList aria-label="Messages with Stella">
-    <Message author="Stella" datetime="2026-10-08T14:02" time="14:02">
-      <Avatar slot="start">SN</Avatar>
+<div aria-label="Chat with Ellen" role="log">
+  <MessageList aria-label="Messages with Ellen">
+    <Message author="Ellen" datetime="2026-10-08T14:02" time="14:02">
+      <Avatar slot="start">EN</Avatar>
       <p>Heyyy! Did your band notice you changed strings yet?</p>
     </Message>
-    <Message author="Stella" datetime="2026-10-08T14:03" time="14:03">
-      <Avatar slot="start">SN</Avatar>
+    <Message author="Ellen" datetime="2026-10-08T14:03" time="14:03">
+      <Avatar slot="start">EN</Avatar>
       <p>Flatwounds, right? So rad.</p>
     </Message>
     <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
@@ -231,20 +231,20 @@ import { Avatar, Message, MessageList } from "opui-css/astro"
 ```njk
 {% from "opui/index.njk" import Avatar, Message, MessageList %}
 
-<div aria-label="Chat with Stella" role="log">
-  {% call MessageList({ "aria-label": "Messages with Stella" }) %}
-    {% set start %}{% call Avatar() %}SN{% endcall %}{% endset %}
+<div aria-label="Chat with Ellen" role="log">
+  {% call MessageList({ "aria-label": "Messages with Ellen" }) %}
+    {% set start %}{% call Avatar() %}EN{% endcall %}{% endset %}
     {% call Message({
-      author: "Stella",
+      author: "Ellen",
       datetime: "2026-10-08T14:02",
       slots: { start: start },
       time: "14:02"
     }) %}
       <p>Heyyy! Did your band notice you changed strings yet?</p>
     {% endcall %}
-    {% set start %}{% call Avatar() %}SN{% endcall %}{% endset %}
+    {% set start %}{% call Avatar() %}EN{% endcall %}{% endset %}
     {% call Message({
-      author: "Stella",
+      author: "Ellen",
       datetime: "2026-10-08T14:03",
       slots: { start: start },
       time: "14:03"
@@ -286,20 +286,20 @@ import { Avatar, Message, MessageList } from "opui-css/react"
 
 export default function Basics() {
   return (
-    <div aria-label="Chat with Stella" role="log">
-      <MessageList aria-label="Messages with Stella">
+    <div aria-label="Chat with Ellen" role="log">
+      <MessageList aria-label="Messages with Ellen">
         <Message
-          author="Stella"
+          author="Ellen"
           datetime="2026-10-08T14:02"
-          start={<Avatar>SN</Avatar>}
+          start={<Avatar>EN</Avatar>}
           time="14:02"
         >
           <p>Heyyy! Did your band notice you changed strings yet?</p>
         </Message>
         <Message
-          author="Stella"
+          author="Ellen"
           datetime="2026-10-08T14:03"
-          start={<Avatar>SN</Avatar>}
+          start={<Avatar>EN</Avatar>}
           time="14:03"
         >
           <p>Flatwounds, right? So rad.</p>
@@ -336,20 +336,20 @@ import { Avatar, Message, MessageList } from "opui-css/solid"
 
 export default function Basics() {
   return (
-    <div aria-label="Chat with Stella" role="log">
-      <MessageList aria-label="Messages with Stella">
+    <div aria-label="Chat with Ellen" role="log">
+      <MessageList aria-label="Messages with Ellen">
         <Message
-          author="Stella"
+          author="Ellen"
           datetime="2026-10-08T14:02"
-          start={<Avatar>SN</Avatar>}
+          start={<Avatar>EN</Avatar>}
           time="14:02"
         >
           <p>Heyyy! Did your band notice you changed strings yet?</p>
         </Message>
         <Message
-          author="Stella"
+          author="Ellen"
           datetime="2026-10-08T14:03"
-          start={<Avatar>SN</Avatar>}
+          start={<Avatar>EN</Avatar>}
           time="14:03"
         >
           <p>Flatwounds, right? So rad.</p>
@@ -385,17 +385,17 @@ export default function Basics() {
   import { Avatar, Message, MessageList } from "opui-css/svelte"
 </script>
 
-<div aria-label="Chat with Stella" role="log">
-  <MessageList aria-label="Messages with Stella">
-    <Message author="Stella" datetime="2026-10-08T14:02" time="14:02">
+<div aria-label="Chat with Ellen" role="log">
+  <MessageList aria-label="Messages with Ellen">
+    <Message author="Ellen" datetime="2026-10-08T14:02" time="14:02">
       {#snippet start()}
-        <Avatar>SN</Avatar>
+        <Avatar>EN</Avatar>
       {/snippet}
       <p>Heyyy! Did your band notice you changed strings yet?</p>
     </Message>
-    <Message author="Stella" datetime="2026-10-08T14:03" time="14:03">
+    <Message author="Ellen" datetime="2026-10-08T14:03" time="14:03">
       {#snippet start()}
-        <Avatar>SN</Avatar>
+        <Avatar>EN</Avatar>
       {/snippet}
       <p>Flatwounds, right? So rad.</p>
     </Message>
@@ -424,17 +424,17 @@ import { Avatar, Message, MessageList } from "opui-css/vue"
 </script>
 
 <template>
-  <div aria-label="Chat with Stella" role="log">
-    <MessageList aria-label="Messages with Stella">
-      <Message author="Stella" datetime="2026-10-08T14:02" time="14:02">
+  <div aria-label="Chat with Ellen" role="log">
+    <MessageList aria-label="Messages with Ellen">
+      <Message author="Ellen" datetime="2026-10-08T14:02" time="14:02">
         <template #start>
-          <Avatar>SN</Avatar>
+          <Avatar>EN</Avatar>
         </template>
         <p>Heyyy! Did your band notice you changed strings yet?</p>
       </Message>
-      <Message author="Stella" datetime="2026-10-08T14:03" time="14:03">
+      <Message author="Ellen" datetime="2026-10-08T14:03" time="14:03">
         <template #start>
-          <Avatar>SN</Avatar>
+          <Avatar>EN</Avatar>
         </template>
         <p>Flatwounds, right? So rad.</p>
       </Message>

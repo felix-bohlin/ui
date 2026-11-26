@@ -29,13 +29,13 @@ import {
       <div class="bp-identity ui-layout-row" style="--_gap: var(--ui-space-4)">
         <Avatar
           class="bp-avatar"
-          label="Lou Headstock"
+          label="Kinga Headstock"
           size="large"
-          src="/photos/lou-headstock.png"
+          src="/photos/kinga-headstock.png"
         />
         <hgroup class="ui-hgroup">
-          <h1 class="bp-name">Lou Headstock</h1>
-          <p>@flatwoundlou, Gothenburg</p>
+          <h1 class="bp-name">Kinga Headstock</h1>
+          <p>@flatwoundkinga, Gothenburg</p>
         </hgroup>
       </div>
       <div class="ui-layout-row ui-gap-small">
@@ -81,7 +81,7 @@ import {
         >
           <hgroup>
             <h2 class="ui-h6" id="bassist-profile-gear-heading">Gear</h2>
-            <p>What Lou plays through.</p>
+            <p>What Kinga plays through.</p>
           </hgroup>
           <CardContent>
             <DescriptionList leader="dotted" orientation="horizontal">
@@ -116,11 +116,11 @@ import {
                 <CardContent>
                   <div class="ui-layout-media ui-gap-small">
                     <Avatar
-                      label="Lou Headstock"
-                      src="/photos/lou-headstock.png"
+                      label="Kinga Headstock"
+                      src="/photos/kinga-headstock.png"
                     />
                     <div>
-                      <p><strong>Lou Headstock</strong></p>
+                      <p><strong>Kinga Headstock</strong></p>
                       <p class="ui-caption">
                         <time datetime="2026-11-24T21:40">Monday, 21:40</time>
                       </p>
@@ -160,20 +160,17 @@ import {
               <Card as="article" class="bp-post" variant="outlined">
                 <CardContent>
                   <div class="ui-layout-media ui-gap-small">
-                    <Avatar
-                      label="Percy Groove"
-                      src="/photos/percy-groove.png"
-                    />
+                    <Avatar label="Adam Groove" src="/photos/adam-groove.png" />
                     <div>
-                      <p><strong>Percy Groove</strong></p>
+                      <p><strong>Adam Groove</strong></p>
                       <p class="ui-caption">
                         <time datetime="2026-11-22T10:05">Saturday, 10:05</time>
                       </p>
                     </div>
                   </div>
                   <p>
-                    Lou taught me the thumb mute in ten minutes. My neighbours
-                    would like a word with Lou.
+                    Kinga taught me the thumb mute in ten minutes. My neighbours
+                    would like a word with Kinga.
                   </p>
                   <Reactions
                     aria-label="Reactions"
@@ -203,7 +200,7 @@ import {
               </ListItem>
               <ListItem
                 description="The Rehearsal Basement"
-                label="Percy's 40th"
+                label="Adam's 40th"
               >
                 <template #end>
                   <span class="ui-caption">20 Mar</span>

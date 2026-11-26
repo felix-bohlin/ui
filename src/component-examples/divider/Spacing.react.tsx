@@ -5,7 +5,7 @@ export default function Spacing() {
     <>
       <Card variant="outlined">
         <CardContent>
-          Order 1042 from Fretless Fiona's Bass Barn, placed on 3 March.
+          Order 1042 from Fretless Tal's Bass Barn, placed on 3 March.
         </CardContent>
         <Divider />
         <CardContent>
@@ -16,7 +16,7 @@ export default function Spacing() {
       </Card>
 
       <div style={{ "--ui-divider-gap": "var(--ui-space-1)" }}>
-        Ships to Lou Headstock, Fretboard Lane
+        Ships to Kinga Headstock, Fretboard Lane
         <Divider />
         Arrives in 2 to 4 days
       </div>

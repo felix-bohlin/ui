@@ -171,12 +171,12 @@
           <p>Each ticket gets its own barcode.</p>
         </hgroup>
         <List bordered variant="transparent">
-          <ListItem description="BB-20417-01" label="Percy Groove">
+          <ListItem description="BB-20417-01" label="Adam Groove">
             {#snippet end()}
               <Chip as="span" label="Yours" severity="info" size="small" />
             {/snippet}
           </ListItem>
-          <ListItem description="BB-20417-02" label="Holly Humbucker">
+          <ListItem description="BB-20417-02" label="Scott Humbucker">
             {#snippet end()}
               <Chip
                 as="span"

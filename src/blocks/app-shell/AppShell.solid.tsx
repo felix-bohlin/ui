@@ -119,13 +119,13 @@ export default function AppShell() {
             as="button"
             command="toggle-popover"
             commandfor="app-shell-account"
-            label="Account menu for Rory Rootnote"
+            label="Account menu for Josh Rootnote"
             type="button"
           >
-            RR
+            JR
           </Avatar>
           <Menu align="end" id="app-shell-account">
-            <li class="ui-heading">rory@bassmail.example</li>
+            <li class="ui-heading">josh@bassmail.example</li>
             <ListItem href="#app-shell-profile" label="Profile" />
             <ListItem href="#app-shell-settings" label="Settings" />
             <ListItem
@@ -268,7 +268,7 @@ export default function AppShell() {
             <div class="ui-layout-row ui-spread">
               <hgroup class="ui-hgroup">
                 <p>Wednesday, 8 October</p>
-                <h1 class="ui-h3">Heyyy, Rory! :)</h1>
+                <h1 class="ui-h3">Heyyy, Josh! :)</h1>
               </hgroup>
               <Button size="small" type="button" variant="filled">
                 <svg
@@ -388,28 +388,28 @@ export default function AppShell() {
                 <List variant="transparent">
                   <ListItem
                     description="Gear Talk, 09:42"
-                    label="Percy posted “Rate my pedalboard!!”"
+                    label="Adam posted “Rate my pedalboard!!”"
                     start={
-                      <Avatar aria-label="Percy Groove" role="img">
-                        PG
+                      <Avatar aria-label="Adam Groove" role="img">
+                        AG
                       </Avatar>
                     }
                   />
                   <ListItem
                     description="Bassists Anonymous, 08:15"
-                    label="Stella commented on “Drop D or bust”"
+                    label="Ellen commented on “Drop D or bust”"
                     start={
-                      <Avatar aria-label="Stella Nut" role="img">
-                        SN
+                      <Avatar aria-label="Ellen Nut" role="img">
+                        EN
                       </Avatar>
                     }
                   />
                   <ListItem
                     description="Mixed Too Low, 07:58"
-                    label="Ines uploaded 12 gig photos"
+                    label="Mohini uploaded 12 gig photos"
                     start={
-                      <Avatar aria-label="Ines Hertz" role="img">
-                        IH
+                      <Avatar aria-label="Mohini Hertz" role="img">
+                        MH
                       </Avatar>
                     }
                   />

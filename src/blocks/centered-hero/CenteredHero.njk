@@ -33,9 +33,12 @@
     </div>
     <div class="ui-layout-row ui-gap-small ui-align-center">
       {% call AvatarGroup({ "aria-label": "Some of our members" }) %}
-        {{ Avatar({ label: "Lou Headstock", src: "/photos/lou-headstock.png" }) }}
-        {{ Avatar({ label: "Percy Groove", src: "/photos/percy-groove.png" }) }}
-        {% call Avatar({ "aria-label": "Stella Nut", role: "img" }) %}SN{% endcall %}
+        {{ Avatar({ label: "Adam Groove", src: "/photos/adam-groove.png" }) }}
+        {% call Avatar({ "aria-label": "Ellen Nut", role: "img" }) %}EN{% endcall %}
+        {{ Avatar({
+          label: "Kinga Headstock",
+          src: "/photos/kinga-headstock.png"
+        }) }}
       {% endcall %}
       <span>Joined by 18 000 bassists this year</span>
     </div>

@@ -29,7 +29,7 @@ export default function Recipe() {
               One-pot pre-gig chili
             </h1>
             <p>
-              Warm, filling and done before soundcheck. Holly's van recipe, now
+              Warm, filling and done before soundcheck. Scott's van recipe, now
               with fewer beans.
             </p>
           </hgroup>

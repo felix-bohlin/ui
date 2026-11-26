@@ -2,27 +2,27 @@
 
 {% call MessageList({ "aria-label": "Messages in Bassists Anonymous" }) %}
   <li class="ui-divider">Today</li>
-  {% set start %}{% call Avatar() %}LH{% endcall %}{% endset %}
+  {% set start %}{% call Avatar() %}KH{% endcall %}{% endset %}
   {% call Message({
-    author: "Lou",
+    author: "Kinga",
     datetime: "2026-10-08T09:12",
     slots: { start: start },
     time: "09:12"
   }) %}
     <p>My new pedalboard is ready.</p>
   {% endcall %}
-  {% set start %}{% call Avatar() %}LH{% endcall %}{% endset %}
+  {% set start %}{% call Avatar() %}KH{% endcall %}{% endset %}
   {% call Message({
-    author: "Lou",
+    author: "Kinga",
     datetime: "2026-10-08T09:13",
     slots: { start: start },
     time: "09:13"
   }) %}
     <p>Can we jam with it today?</p>
   {% endcall %}
-  {% set start %}{% call Avatar() %}HH{% endcall %}{% endset %}
+  {% set start %}{% call Avatar() %}SH{% endcall %}{% endset %}
   {% call Message({
-    author: "Holly",
+    author: "Scott",
     datetime: "2026-10-08T09:15",
     newAuthor: true,
     slots: { start: start },
@@ -30,16 +30,16 @@
   }) %}
     <p>I'm free after lunch :)</p>
   {% endcall %}
-  {% set start %}{% call Avatar() %}HH{% endcall %}{% endset %}
+  {% set start %}{% call Avatar() %}SH{% endcall %}{% endset %}
   {% call Message({
-    author: "Holly",
+    author: "Scott",
     datetime: "2026-10-08T09:16",
     slots: { start: start },
     time: "09:16"
   }) %}
     <p>I'll book the rehearsal room.</p>
   {% endcall %}
-  <li class="ui-divider">Holly added you</li>
+  <li class="ui-divider">Scott added you</li>
   {% call Message({
     author: "You",
     datetime: "2026-10-08T09:20",

@@ -69,39 +69,39 @@
         {% endcall %}
       </div>
       {% call List({ variant: "transparent" }) %}
-        {% set start %}{% call Avatar({ "aria-label": "Stella Nut", role: "img" }) %}SN{% endcall %}{% endset %}
+        {% set start %}{% call Avatar({ "aria-label": "Ellen Nut", role: "img" }) %}EN{% endcall %}{% endset %}
         {{ ListItem({
           "aria-current": "page",
           description: "Nobody will hear it, but WE will know",
-          href: "#chat-stella",
-          label: "Stella Nut",
+          href: "#chat-ellen",
+          label: "Ellen Nut",
           slots: { end: "14:32", start: start }
         }) }}
         {% set start %}{% call Avatar({ "aria-label": "Bassists Anonymous", role: "img" }) %}BA{% endcall %}{% endset %}
         {% set label %}<strong>Bassists Anonymous</strong>{% endset %}
         {% set end %}<span class="chat-unread">3 <span class="ui-sr-only">unread</span></span>{% endset %}
         {{ ListItem({
-          description: "Holly: Rate my new 5-string!! 😍",
+          description: "Scott: Rate my new 5-string!! 😍",
           href: "#chat-bassists-anonymous",
           slots: { end: end, label: label, start: start }
         }) }}
-        {% set start %}{% call Avatar({ "aria-label": "Percy Groove", role: "img" }) %}PG{% endcall %}{% endset %}
+        {% set start %}{% call Avatar({ "aria-label": "Adam Groove", role: "img" }) %}AG{% endcall %}{% endset %}
         {{ ListItem({
           description: "Is it normal that my band booked a gig without me?",
-          href: "#chat-percy",
-          label: "Percy Groove",
+          href: "#chat-adam",
+          label: "Adam Groove",
           slots: { end: "11:05", start: start }
         }) }}
-        {% set start %}{% call Avatar({ "aria-label": "Ines Hertz", role: "img" }) %}IH{% endcall %}{% endset %}
+        {% set start %}{% call Avatar({ "aria-label": "Mohini Hertz", role: "img" }) %}MH{% endcall %}{% endset %}
         {{ ListItem({
           description: "You: Pick or fingers? Fight me :P",
-          href: "#chat-ines",
-          label: "Ines Hertz",
+          href: "#chat-mohini",
+          label: "Mohini Hertz",
           slots: { end: "Mon", start: start }
         }) }}
         {% set start %}{% call Avatar({ "aria-label": "Mixed Too Low", role: "img" }) %}MT{% endcall %}{% endset %}
         {{ ListItem({
-          description: "Lou: My singer called me \"the tall guitarist\" again",
+          description: "Kinga: My singer called me \"the tall guitarist\" again",
           href: "#chat-mixed-too-low",
           label: "Mixed Too Low",
           slots: { end: "Sun", start: start }
@@ -132,9 +132,9 @@
               d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"
             ></path>
           </svg>{% endcall %}
-        {% call Avatar({ "aria-label": "Stella Nut", role: "img" }) %}SN{% endcall %}
+        {% call Avatar({ "aria-label": "Ellen Nut", role: "img" }) %}EN{% endcall %}
         <hgroup>
-          <h1 class="ui-h6">Stella Nut</h1>
+          <h1 class="ui-h6">Ellen Nut</h1>
           <p>
             {{ Chip({
               as: "span",
@@ -201,14 +201,14 @@
       </header>
 
       {% call MessageList({
-        "aria-label": "Messages with Stella Nut",
+        "aria-label": "Messages with Ellen Nut",
         class: "chat-message-list",
         direct: true
       }) %}
         <li class="ui-divider">Today</li>
-        {% set start %}{% call Avatar({ "aria-label": "Stella Nut", role: "img" }) %}SN{% endcall %}{% endset %}
+        {% set start %}{% call Avatar({ "aria-label": "Ellen Nut", role: "img" }) %}EN{% endcall %}{% endset %}
         {% call Message({
-          author: "Stella",
+          author: "Ellen",
           datetime: "2026-10-08T14:02",
           slots: { start: start },
           time: "14:02"
@@ -238,9 +238,9 @@
             the encore.
           </p>
         {% endcall %}
-        {% set start %}{% call Avatar({ "aria-label": "Stella Nut", role: "img" }) %}SN{% endcall %}{% endset %}
+        {% set start %}{% call Avatar({ "aria-label": "Ellen Nut", role: "img" }) %}EN{% endcall %}{% endset %}
         {% call Message({
-          author: "Stella",
+          author: "Ellen",
           datetime: "2026-10-08T14:31",
           slots: { start: start },
           time: "14:31"
@@ -268,18 +268,18 @@
             {% endcall %}
           {% endcall %}
         {% endcall %}
-        {% set start %}{% call Avatar({ "aria-label": "Stella Nut", role: "img" }) %}SN{% endcall %}{% endset %}
+        {% set start %}{% call Avatar({ "aria-label": "Ellen Nut", role: "img" }) %}EN{% endcall %}{% endset %}
         {% call Message({
-          author: "Stella",
+          author: "Ellen",
           datetime: "2026-10-08T14:32",
           slots: { start: start },
           time: "14:32"
         }) %}
           <p>Nobody will hear it, but WE will know 🤘</p>
         {% endcall %}
-        {% set start %}{% call Avatar({ "aria-label": "Stella Nut", role: "img" }) %}SN{% endcall %}{% endset %}
+        {% set start %}{% call Avatar({ "aria-label": "Ellen Nut", role: "img" }) %}EN{% endcall %}{% endset %}
         {% call Message({ slots: { start: start }, typing: true }) %}
-          Stella is typing
+          Ellen is typing
         {% endcall %}
       {% endcall %}
 
@@ -308,7 +308,7 @@
               </svg>{% endcall %}
             {% call Field({ for: "chat-chat-message" }) %}
               <textarea
-                aria-label="Message Stella Nut"
+                aria-label="Message Ellen Nut"
                 id="chat-chat-message"
                 name="chat-message"
                 placeholder="Write something rad…"
@@ -346,8 +346,8 @@
     {% call List({ variant: "transparent" }) %}
       {{ ListItem({
         "aria-current": "page",
-        href: "#chat-stella",
-        label: "Stella Nut",
+        href: "#chat-ellen",
+        label: "Ellen Nut",
         slots: { end: "14:32" }
       }) }}
       {% set end %}<span class="chat-unread">3 <span class="ui-sr-only">unread</span></span>{% endset %}
@@ -357,13 +357,13 @@
         slots: { end: end }
       }) }}
       {{ ListItem({
-        href: "#chat-percy",
-        label: "Percy Groove",
+        href: "#chat-adam",
+        label: "Adam Groove",
         slots: { end: "11:05" }
       }) }}
       {{ ListItem({
-        href: "#chat-ines",
-        label: "Ines Hertz",
+        href: "#chat-mohini",
+        label: "Mohini Hertz",
         slots: { end: "Mon" }
       }) }}
       {{ ListItem({

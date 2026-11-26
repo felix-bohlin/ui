@@ -27,9 +27,9 @@
     </div>
     <div class="ui-layout-row ui-gap-small ui-align-center">
       <AvatarGroup aria-label="Some of our members">
-        <Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
-        <Avatar label="Percy Groove" src="/photos/percy-groove.png" />
-        <Avatar aria-label="Stella Nut" role="img">SN</Avatar>
+        <Avatar label="Adam Groove" src="/photos/adam-groove.png" />
+        <Avatar aria-label="Ellen Nut" role="img">EN</Avatar>
+        <Avatar label="Kinga Headstock" src="/photos/kinga-headstock.png" />
       </AvatarGroup>
       <span>Joined by 18 000 bassists this year</span>
     </div>

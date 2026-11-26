@@ -79,15 +79,15 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 
 ```html
 <div class="ui-avatar">
-  <img src="/photos/lou-headstock.png" alt="Lou Headstock" />
+  <img src="/photos/kinga-headstock.png" alt="Kinga Headstock" />
 </div>
 
 <div class="ui-avatar">
-  <img src="/photos/holly-humbucker.png" alt="Holly Humbucker" />
+  <img src="/photos/scott-humbucker.png" alt="Scott Humbucker" />
 </div>
 
 <div class="ui-avatar">
-  <img src="/photos/percy-groove.png" alt="Percy Groove" />
+  <img src="/photos/adam-groove.png" alt="Adam Groove" />
 </div>
 ```
 
@@ -102,11 +102,11 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 import { Avatar } from "opui-css/astro"
 ---
 
-<Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
+<Avatar label="Kinga Headstock" src="/photos/kinga-headstock.png" />
 
-<Avatar label="Holly Humbucker" src="/photos/holly-humbucker.png" />
+<Avatar label="Scott Humbucker" src="/photos/scott-humbucker.png" />
 
-<Avatar label="Percy Groove" src="/photos/percy-groove.png" />
+<Avatar label="Adam Groove" src="/photos/adam-groove.png" />
 ```
 
 ## Nunjucks
@@ -118,11 +118,11 @@ import { Avatar } from "opui-css/astro"
 ```njk
 {% from "opui/index.njk" import Avatar %}
 
-{{ Avatar({ label: "Lou Headstock", src: "/photos/lou-headstock.png" }) }}
+{{ Avatar({ label: "Kinga Headstock", src: "/photos/kinga-headstock.png" }) }}
 
-{{ Avatar({ label: "Holly Humbucker", src: "/photos/holly-humbucker.png" }) }}
+{{ Avatar({ label: "Scott Humbucker", src: "/photos/scott-humbucker.png" }) }}
 
-{{ Avatar({ label: "Percy Groove", src: "/photos/percy-groove.png" }) }}
+{{ Avatar({ label: "Adam Groove", src: "/photos/adam-groove.png" }) }}
 ```
 
 ## React
@@ -137,11 +137,11 @@ import { Avatar } from "opui-css/react"
 export default function Image() {
   return (
     <>
-      <Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
+      <Avatar label="Kinga Headstock" src="/photos/kinga-headstock.png" />
 
-      <Avatar label="Holly Humbucker" src="/photos/holly-humbucker.png" />
+      <Avatar label="Scott Humbucker" src="/photos/scott-humbucker.png" />
 
-      <Avatar label="Percy Groove" src="/photos/percy-groove.png" />
+      <Avatar label="Adam Groove" src="/photos/adam-groove.png" />
     </>
   )
 }
@@ -160,11 +160,11 @@ import { Avatar } from "opui-css/solid"
 export default function Image() {
   return (
     <>
-      <Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
+      <Avatar label="Kinga Headstock" src="/photos/kinga-headstock.png" />
 
-      <Avatar label="Holly Humbucker" src="/photos/holly-humbucker.png" />
+      <Avatar label="Scott Humbucker" src="/photos/scott-humbucker.png" />
 
-      <Avatar label="Percy Groove" src="/photos/percy-groove.png" />
+      <Avatar label="Adam Groove" src="/photos/adam-groove.png" />
     </>
   )
 }
@@ -181,11 +181,11 @@ export default function Image() {
   import { Avatar } from "opui-css/svelte"
 </script>
 
-<Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
+<Avatar label="Kinga Headstock" src="/photos/kinga-headstock.png" />
 
-<Avatar label="Holly Humbucker" src="/photos/holly-humbucker.png" />
+<Avatar label="Scott Humbucker" src="/photos/scott-humbucker.png" />
 
-<Avatar label="Percy Groove" src="/photos/percy-groove.png" />
+<Avatar label="Adam Groove" src="/photos/adam-groove.png" />
 ```
 
 ## Vue
@@ -200,10 +200,10 @@ import { Avatar } from "opui-css/vue"
 </script>
 
 <template>
-  <Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
+  <Avatar label="Kinga Headstock" src="/photos/kinga-headstock.png" />
 
-  <Avatar label="Holly Humbucker" src="/photos/holly-humbucker.png" />
+  <Avatar label="Scott Humbucker" src="/photos/scott-humbucker.png" />
 
-  <Avatar label="Percy Groove" src="/photos/percy-groove.png" />
+  <Avatar label="Adam Groove" src="/photos/adam-groove.png" />
 </template>
 ```

@@ -140,22 +140,22 @@ export default function Hero() {
                   variant="transparent"
                 >
                   <ListItem
-                    description="Ines Hertz"
+                    description="Mohini Hertz"
                     end={<Progress max={100} value={80} variant="filled" />}
                     label="Learn the setlist"
-                    start={<Avatar>IH</Avatar>}
+                    start={<Avatar>MH</Avatar>}
                   />
                   <ListItem
-                    description="Percy Groove"
+                    description="Adam Groove"
                     end={<Progress max={100} value={55} variant="filled" />}
                     label="Restring the 5-string"
-                    start={<Avatar>PG</Avatar>}
+                    start={<Avatar>AG</Avatar>}
                   />
                   <ListItem
-                    description="Stella Nut"
+                    description="Ellen Nut"
                     end={<Progress max={100} value={30} variant="filled" />}
                     label="Nail the slap break"
-                    start={<Avatar>SN</Avatar>}
+                    start={<Avatar>EN</Avatar>}
                   />
                 </List>
               </div>

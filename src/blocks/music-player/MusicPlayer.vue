@@ -167,12 +167,12 @@ import {
                 <span class="ui-tabular-nums">2:47</span>
               </template>
             </ListItem>
-            <ListItem description="Stella Nut" label="Thumb Thing Special">
+            <ListItem description="Ellen Nut" label="Thumb Thing Special">
               <template #end>
                 <span class="ui-tabular-nums">3:09</span>
               </template>
             </ListItem>
-            <ListItem description="Holly Humbucker" label="Fretless Lullaby">
+            <ListItem description="Scott Humbucker" label="Fretless Lullaby">
               <template #end>
                 <span class="ui-tabular-nums">4:05</span>
               </template>

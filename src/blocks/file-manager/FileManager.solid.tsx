@@ -341,7 +341,7 @@ export default function FileManager() {
                       <span>Drop-D-cheat-sheet.pdf</span>
                     </div>
                   </TableCell>
-                  <TableCell class="files-owner">Lou Headstock</TableCell>
+                  <TableCell class="files-owner">Kinga Headstock</TableCell>
                   <TableCell>6 Oct 2026</TableCell>
                   <TableCell numeric>1.2 MB</TableCell>
                   <TableCell class="files-row-action">
@@ -398,7 +398,7 @@ export default function FileManager() {
                       <span>Gear-wishlist.xlsx</span>
                     </div>
                   </TableCell>
-                  <TableCell class="files-owner">Holly Humbucker</TableCell>
+                  <TableCell class="files-owner">Scott Humbucker</TableCell>
                   <TableCell>2 Oct 2026</TableCell>
                   <TableCell numeric>86 KB</TableCell>
                   <TableCell class="files-row-action">
@@ -455,7 +455,7 @@ export default function FileManager() {
                       <span>Low-B-glamour-shot.png</span>
                     </div>
                   </TableCell>
-                  <TableCell class="files-owner">Percy Groove</TableCell>
+                  <TableCell class="files-owner">Adam Groove</TableCell>
                   <TableCell>29 Sep 2026</TableCell>
                   <TableCell numeric>3.4 MB</TableCell>
                   <TableCell class="files-row-action">
@@ -512,7 +512,7 @@ export default function FileManager() {
                       <span>Slap-solo-take-7.mp4</span>
                     </div>
                   </TableCell>
-                  <TableCell class="files-owner">Lou Headstock</TableCell>
+                  <TableCell class="files-owner">Kinga Headstock</TableCell>
                   <TableCell>24 Sep 2026</TableCell>
                   <TableCell numeric>248 MB</TableCell>
                   <TableCell class="files-row-action">
@@ -569,7 +569,7 @@ export default function FileManager() {
                       <span>Why-bass-matters.docx</span>
                     </div>
                   </TableCell>
-                  <TableCell class="files-owner">Stella Nut</TableCell>
+                  <TableCell class="files-owner">Ellen Nut</TableCell>
                   <TableCell>18 Sep 2026</TableCell>
                   <TableCell numeric>42 KB</TableCell>
                   <TableCell class="files-row-action">

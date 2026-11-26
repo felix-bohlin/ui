@@ -61,7 +61,7 @@ export default function Checkout() {
                     placeholder="you@example.com"
                     required
                     type="email"
-                    defaultValue="ines.hertz@example.com"
+                    defaultValue="mohini.hertz@example.com"
                   />
                 </Field>
                 <Checkbox defaultChecked id="checkout-news" name="news">
@@ -80,7 +80,7 @@ export default function Checkout() {
                       name="first-name"
                       required
                       type="text"
-                      defaultValue="Ines"
+                      defaultValue="Mohini"
                     />
                   </Field>
                   <Field htmlFor="checkout-last-name" label="Last name">
@@ -306,7 +306,7 @@ export default function Checkout() {
                   <TabsPanel>
                     <p>
                       Pay within 30 days of delivery. We'll email the invoice to
-                      ines.hertz@example.com once your gear ships.
+                      mohini.hertz@example.com once your gear ships.
                     </p>
                   </TabsPanel>
                 </TabsItem>

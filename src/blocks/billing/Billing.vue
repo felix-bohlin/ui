@@ -143,7 +143,7 @@ import {
           <DescriptionListItem>
             <DescriptionListTerm>Billing email</DescriptionListTerm>
             <DescriptionListDescription
-              >rory@bassmail.example</DescriptionListDescription
+              >josh@bassmail.example</DescriptionListDescription
             >
           </DescriptionListItem>
           <DescriptionListItem>

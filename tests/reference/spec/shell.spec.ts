@@ -199,13 +199,13 @@ test.describe("on a phone", () => {
   test("the nav drawer closes when a link only changes the query", async ({
     page,
   }) => {
-    await open(page, "/chat?with=lou")
+    await open(page, "/chat?with=kinga")
     await page.getByRole("button", { name: "Menu" }).click()
     const drawer = page.getByRole("dialog", { name: "Navigate" })
     await expect(drawer).toBeVisible()
     await drawer.getByRole("link", { name: "Chat" }).click()
     await expect(page).toHaveURL("/chat")
-    await expect(page.locator("#chat-title")).toHaveText("Holly Humbucker")
+    await expect(page.locator("#chat-title")).toHaveText("Scott Humbucker")
     await expect(drawer).toBeHidden({ timeout: 2000 })
   })
 

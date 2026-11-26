@@ -91,15 +91,15 @@ export default function Notifications() {
                               10:42
                             </time>
                           }
-                          label="Holly Humbucker mentioned you in Gear Talk 🎸"
+                          label="Scott Humbucker mentioned you in Gear Talk 🎸"
                           start={
                             <Badge dot label="Unread">
-                              <Avatar aria-hidden="true">HH</Avatar>
+                              <Avatar aria-hidden="true">SH</Avatar>
                             </Badge>
                           }
                         >
                           <p className="notifications-quote">
-                            @rory is it true you can play a whole set on 3
+                            @josh is it true you can play a whole set on 3
                             strings? asking for a guitarist
                           </p>
                           <div className="ui-layout-row ui-gap-small notifications-actions">
@@ -113,7 +113,7 @@ export default function Notifications() {
                         </ListItem>
                         <ListItem
                           className="notifications-unread"
-                          description="14 members, including Stella and Percy. Loud ones only!"
+                          description="14 members, including Ellen and Adam. Loud ones only!"
                           end={
                             <time
                               className="ui-caption"
@@ -122,10 +122,10 @@ export default function Notifications() {
                               09:15
                             </time>
                           }
-                          label="Lou Headstock invited you to the group Bassists Who Were Told To Turn It Down"
+                          label="Kinga Headstock invited you to the group Bassists Who Were Told To Turn It Down"
                           start={
                             <Badge dot label="Unread">
-                              <Avatar aria-hidden="true">LH</Avatar>
+                              <Avatar aria-hidden="true">KH</Avatar>
                             </Badge>
                           }
                         >
@@ -151,8 +151,8 @@ export default function Notifications() {
                               08:03
                             </time>
                           }
-                          label="Holly Humbucker scribbled on your wall"
-                          start={<Avatar aria-hidden="true">HH</Avatar>}
+                          label="Scott Humbucker scribbled on your wall"
+                          start={<Avatar aria-hidden="true">SH</Avatar>}
                         >
                           <p>
                             "Saw your gig!! I was the only one watching your
@@ -178,8 +178,8 @@ export default function Notifications() {
                               16:20
                             </time>
                           }
-                          label='Percy Groove commented on your photo "Me and Big Bertha"'
-                          start={<Avatar aria-hidden="true">PG</Avatar>}
+                          label='Adam Groove commented on your photo "Me and Big Bertha"'
+                          start={<Avatar aria-hidden="true">AG</Avatar>}
                         >
                           <p className="notifications-quote">
                             That fretboard tho 😍 Is she a '74?
@@ -194,8 +194,8 @@ export default function Notifications() {
                               11:05
                             </time>
                           }
-                          label="Ines Hertz reacted 🔥 to your post"
-                          start={<Avatar aria-hidden="true">IH</Avatar>}
+                          label="Mohini Hertz reacted 🔥 to your post"
+                          start={<Avatar aria-hidden="true">MH</Avatar>}
                         >
                           <p>
                             "My drummer asked if bass is just a guitar with
@@ -261,14 +261,14 @@ export default function Notifications() {
                         }
                         label={
                           <>
-                            <span className="ui-sr-only">Unread: </span>Holly
+                            <span className="ui-sr-only">Unread: </span>Scott
                             Humbucker mentioned you in Gear Talk 🎸
                           </>
                         }
-                        start={<Avatar aria-hidden="true">HH</Avatar>}
+                        start={<Avatar aria-hidden="true">SH</Avatar>}
                       >
                         <p className="notifications-quote">
-                          @rory is it true you can play a whole set on 3
+                          @josh is it true you can play a whole set on 3
                           strings? asking for a guitarist
                         </p>
                       </ListItem>
@@ -281,11 +281,11 @@ export default function Notifications() {
                             Tue
                           </time>
                         }
-                        label="Stella Nut mentioned you in Mixed Too Low"
-                        start={<Avatar aria-hidden="true">SN</Avatar>}
+                        label="Ellen Nut mentioned you in Mixed Too Low"
+                        start={<Avatar aria-hidden="true">EN</Avatar>}
                       >
                         <p className="notifications-quote">
-                          @rory is our hero. A bass solo. At a WEDDING!!
+                          @josh is our hero. A bass solo. At a WEDDING!!
                         </p>
                       </ListItem>
                     </List>

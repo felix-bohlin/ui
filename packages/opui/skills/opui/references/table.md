@@ -161,17 +161,17 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
   </thead>
   <tbody>
     <tr>
-      <td>Lou Headstock</td>
+      <td>Kinga Headstock</td>
       <td>Flatwound collector</td>
       <td>Göteborg</td>
     </tr>
     <tr>
-      <td>Percy Groove</td>
+      <td>Adam Groove</td>
       <td>Slap enthusiast</td>
       <td>Lisbon</td>
     </tr>
     <tr>
-      <td>Ines Hertz</td>
+      <td>Mohini Hertz</td>
       <td>Low B whisperer</td>
       <td>Berlin</td>
     </tr>
@@ -209,17 +209,17 @@ import {
   </TableHead>
   <TableBody>
     <TableRow>
-      <TableCell>Lou Headstock</TableCell>
+      <TableCell>Kinga Headstock</TableCell>
       <TableCell>Flatwound collector</TableCell>
       <TableCell>Göteborg</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Percy Groove</TableCell>
+      <TableCell>Adam Groove</TableCell>
       <TableCell>Slap enthusiast</TableCell>
       <TableCell>Lisbon</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Ines Hertz</TableCell>
+      <TableCell>Mohini Hertz</TableCell>
       <TableCell>Low B whisperer</TableCell>
       <TableCell>Berlin</TableCell>
     </TableRow>
@@ -255,17 +255,17 @@ import {
   {% endcall %}
   {% call TableBody() %}
     {% call TableRow() %}
-      {% call TableCell() %}Lou Headstock{% endcall %}
+      {% call TableCell() %}Kinga Headstock{% endcall %}
       {% call TableCell() %}Flatwound collector{% endcall %}
       {% call TableCell() %}Göteborg{% endcall %}
     {% endcall %}
     {% call TableRow() %}
-      {% call TableCell() %}Percy Groove{% endcall %}
+      {% call TableCell() %}Adam Groove{% endcall %}
       {% call TableCell() %}Slap enthusiast{% endcall %}
       {% call TableCell() %}Lisbon{% endcall %}
     {% endcall %}
     {% call TableRow() %}
-      {% call TableCell() %}Ines Hertz{% endcall %}
+      {% call TableCell() %}Mohini Hertz{% endcall %}
       {% call TableCell() %}Low B whisperer{% endcall %}
       {% call TableCell() %}Berlin{% endcall %}
     {% endcall %}
@@ -305,17 +305,17 @@ export default function Normal() {
       </TableHead>
       <TableBody>
         <TableRow>
-          <TableCell>Lou Headstock</TableCell>
+          <TableCell>Kinga Headstock</TableCell>
           <TableCell>Flatwound collector</TableCell>
           <TableCell>Göteborg</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Percy Groove</TableCell>
+          <TableCell>Adam Groove</TableCell>
           <TableCell>Slap enthusiast</TableCell>
           <TableCell>Lisbon</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Ines Hertz</TableCell>
+          <TableCell>Mohini Hertz</TableCell>
           <TableCell>Low B whisperer</TableCell>
           <TableCell>Berlin</TableCell>
         </TableRow>
@@ -356,17 +356,17 @@ export default function Normal() {
       </TableHead>
       <TableBody>
         <TableRow>
-          <TableCell>Lou Headstock</TableCell>
+          <TableCell>Kinga Headstock</TableCell>
           <TableCell>Flatwound collector</TableCell>
           <TableCell>Göteborg</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Percy Groove</TableCell>
+          <TableCell>Adam Groove</TableCell>
           <TableCell>Slap enthusiast</TableCell>
           <TableCell>Lisbon</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Ines Hertz</TableCell>
+          <TableCell>Mohini Hertz</TableCell>
           <TableCell>Low B whisperer</TableCell>
           <TableCell>Berlin</TableCell>
         </TableRow>
@@ -406,17 +406,17 @@ export default function Normal() {
   </TableHead>
   <TableBody>
     <TableRow>
-      <TableCell>Lou Headstock</TableCell>
+      <TableCell>Kinga Headstock</TableCell>
       <TableCell>Flatwound collector</TableCell>
       <TableCell>Göteborg</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Percy Groove</TableCell>
+      <TableCell>Adam Groove</TableCell>
       <TableCell>Slap enthusiast</TableCell>
       <TableCell>Lisbon</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Ines Hertz</TableCell>
+      <TableCell>Mohini Hertz</TableCell>
       <TableCell>Low B whisperer</TableCell>
       <TableCell>Berlin</TableCell>
     </TableRow>
@@ -455,17 +455,17 @@ import {
     </TableHead>
     <TableBody>
       <TableRow>
-        <TableCell>Lou Headstock</TableCell>
+        <TableCell>Kinga Headstock</TableCell>
         <TableCell>Flatwound collector</TableCell>
         <TableCell>Göteborg</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>Percy Groove</TableCell>
+        <TableCell>Adam Groove</TableCell>
         <TableCell>Slap enthusiast</TableCell>
         <TableCell>Lisbon</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>Ines Hertz</TableCell>
+        <TableCell>Mohini Hertz</TableCell>
         <TableCell>Low B whisperer</TableCell>
         <TableCell>Berlin</TableCell>
       </TableRow>

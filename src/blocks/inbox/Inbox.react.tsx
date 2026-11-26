@@ -227,7 +227,7 @@ export default function Inbox() {
                   href="#inbox-message-1"
                   label={
                     <>
-                      <span>Holly Humbucker</span>
+                      <span>Scott Humbucker</span>
                       <time className="ui-caption" dateTime="2026-10-08T09:41">
                         09:41
                       </time>
@@ -235,8 +235,8 @@ export default function Inbox() {
                   }
                   start={
                     <Badge dot label="Unread">
-                      <Avatar aria-label="Holly Humbucker" role="img">
-                        HH
+                      <Avatar aria-label="Scott Humbucker" role="img">
+                        SH
                       </Avatar>
                     </Badge>
                   }
@@ -252,7 +252,7 @@ export default function Inbox() {
                   href="#inbox-message-2"
                   label={
                     <>
-                      <span>Ines Hertz</span>
+                      <span>Mohini Hertz</span>
                       <time className="ui-caption" dateTime="2026-10-08T08:12">
                         08:12
                       </time>
@@ -260,8 +260,8 @@ export default function Inbox() {
                   }
                   start={
                     <Badge dot label="Unread">
-                      <Avatar aria-label="Ines Hertz" role="img">
-                        IH
+                      <Avatar aria-label="Mohini Hertz" role="img">
+                        MH
                       </Avatar>
                     </Badge>
                   }
@@ -302,15 +302,15 @@ export default function Inbox() {
                   href="#inbox-message-4"
                   label={
                     <>
-                      <span>Stella Nut</span>
+                      <span>Ellen Nut</span>
                       <time className="ui-caption" dateTime="2026-10-06T14:05">
                         Mon
                       </time>
                     </>
                   }
                   start={
-                    <Avatar aria-label="Stella Nut" role="img">
-                      SN
+                    <Avatar aria-label="Ellen Nut" role="img">
+                      EN
                     </Avatar>
                   }
                 >
@@ -324,15 +324,15 @@ export default function Inbox() {
                   href="#inbox-message-5"
                   label={
                     <>
-                      <span>Percy Groove</span>
+                      <span>Adam Groove</span>
                       <time className="ui-caption" dateTime="2026-10-03T11:20">
                         3 Oct
                       </time>
                     </>
                   }
                   start={
-                    <Avatar aria-label="Percy Groove" role="img">
-                      PG
+                    <Avatar aria-label="Adam Groove" role="img">
+                      AG
                     </Avatar>
                   }
                 >
@@ -463,24 +463,24 @@ export default function Inbox() {
                 </div>
               </div>
               <div className="ui-layout-row">
-                <Avatar aria-label="Holly Humbucker" role="img">
-                  HH
+                <Avatar aria-label="Scott Humbucker" role="img">
+                  SH
                 </Avatar>
                 <div className="inbox-sender-info">
                   <p>
-                    <strong>Holly Humbucker</strong>{" "}
+                    <strong>Scott Humbucker</strong>{" "}
                     <span className="ui-caption">
-                      holly@humbucker-booking.example
+                      scott@humbucker-booking.example
                     </span>
                   </p>
-                  <p className="ui-caption">To you and Percy Groove</p>
+                  <p className="ui-caption">To you and Adam Groove</p>
                 </div>
                 <time className="ui-caption" dateTime="2026-10-08T09:41">
                   Wed 8 Oct, 09:41
                 </time>
               </div>
               <div className="ui-layout-column inbox-body">
-                <p>Heyyy Rory,</p>
+                <p>Heyyy Josh,</p>
                 <p>
                   Totally awesome news, Brad and the Brads want a real bassist
                   (you!). Attached is the setlist, plus the bass tabs we talked
@@ -493,7 +493,7 @@ export default function Inbox() {
                   <li>Merch money goes to merch@brads.example</li>
                 </ul>
                 <p>They promised to turn you UP this time! &lt;3</p>
-                <p>Holly</p>
+                <p>Scott</p>
               </div>
               <div className="ui-layout-row ui-gap-small">
                 <Chip
@@ -541,7 +541,7 @@ export default function Inbox() {
                 action="#"
                 className="ui-layout-column ui-gap-small inbox-reply"
               >
-                <Field htmlFor="inbox-inbox-reply" label="Reply to Holly">
+                <Field htmlFor="inbox-inbox-reply" label="Reply to Scott">
                   <textarea
                     id="inbox-inbox-reply"
                     name="inbox-reply"

@@ -32,13 +32,13 @@ export default function BassistProfile() {
           >
             <Avatar
               className="bp-avatar"
-              label="Lou Headstock"
+              label="Kinga Headstock"
               size="large"
-              src="/photos/lou-headstock.png"
+              src="/photos/kinga-headstock.png"
             />
             <hgroup className="ui-hgroup">
-              <h1 className="bp-name">Lou Headstock</h1>
-              <p>@flatwoundlou, Gothenburg</p>
+              <h1 className="bp-name">Kinga Headstock</h1>
+              <p>@flatwoundkinga, Gothenburg</p>
             </hgroup>
           </div>
           <div className="ui-layout-row ui-gap-small">
@@ -102,7 +102,7 @@ export default function BassistProfile() {
                 <h2 className="ui-h6" id="bassist-profile-gear-heading">
                   Gear
                 </h2>
-                <p>What Lou plays through.</p>
+                <p>What Kinga plays through.</p>
               </hgroup>
               <CardContent>
                 <DescriptionList leader="dotted" orientation="horizontal">
@@ -140,12 +140,12 @@ export default function BassistProfile() {
                     <CardContent>
                       <div className="ui-layout-media ui-gap-small">
                         <Avatar
-                          label="Lou Headstock"
-                          src="/photos/lou-headstock.png"
+                          label="Kinga Headstock"
+                          src="/photos/kinga-headstock.png"
                         />
                         <div>
                           <p>
-                            <strong>Lou Headstock</strong>
+                            <strong>Kinga Headstock</strong>
                           </p>
                           <p className="ui-caption">
                             <time dateTime="2026-11-24T21:40">
@@ -193,12 +193,12 @@ export default function BassistProfile() {
                     <CardContent>
                       <div className="ui-layout-media ui-gap-small">
                         <Avatar
-                          label="Percy Groove"
-                          src="/photos/percy-groove.png"
+                          label="Adam Groove"
+                          src="/photos/adam-groove.png"
                         />
                         <div>
                           <p>
-                            <strong>Percy Groove</strong>
+                            <strong>Adam Groove</strong>
                           </p>
                           <p className="ui-caption">
                             <time dateTime="2026-11-22T10:05">
@@ -208,8 +208,8 @@ export default function BassistProfile() {
                         </div>
                       </div>
                       <p>
-                        Lou taught me the thumb mute in ten minutes. My
-                        neighbours would like a word with Lou.
+                        Kinga taught me the thumb mute in ten minutes. My
+                        neighbours would like a word with Kinga.
                       </p>
                       <Reactions
                         aria-label="Reactions"
@@ -240,7 +240,7 @@ export default function BassistProfile() {
                   <ListItem
                     description="The Rehearsal Basement"
                     end={<span className="ui-caption">20 Mar</span>}
-                    label="Percy's 40th"
+                    label="Adam's 40th"
                   />
                   <ListItem
                     description="Harbour Stage, Gothenburg"

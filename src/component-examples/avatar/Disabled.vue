@@ -3,8 +3,8 @@ import { Avatar } from "opui-css/vue"
 </script>
 
 <template>
-  <Avatar as="button" label="Holly Humbucker">HH</Avatar>
-  <Avatar as="button" disabled label="Ines Hertz">IH</Avatar>
-  <Avatar href="#" label="Lou Headstock">LH</Avatar>
-  <Avatar disabled href="#" label="Percy Groove">PG</Avatar>
+  <Avatar as="button" label="Adam Groove">AG</Avatar>
+  <Avatar as="button" disabled label="Kinga Headstock">KH</Avatar>
+  <Avatar href="#" label="Mohini Hertz">MH</Avatar>
+  <Avatar disabled href="#" label="Scott Humbucker">SH</Avatar>
 </template>

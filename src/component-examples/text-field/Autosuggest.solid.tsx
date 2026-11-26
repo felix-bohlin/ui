@@ -11,9 +11,9 @@ export default function Autosuggest() {
           placeholder="Search bassists"
         />
         <datalist id="text-field-autosuggest-1-list">
-          <option value="Ines Hertz"></option>
-          <option value="Lou Headstock"></option>
-          <option value="Percy Groove"></option>
+          <option value="Adam Groove"></option>
+          <option value="Kinga Headstock"></option>
+          <option value="Mohini Hertz"></option>
         </datalist>
       </Field>
 
@@ -25,9 +25,9 @@ export default function Autosuggest() {
           type="email"
         />
         <datalist id="text-field-autosuggest-2-list">
-          <option value="ines@bassmail.example"></option>
-          <option value="lou@bassmail.example"></option>
-          <option value="percy@bassmail.example"></option>
+          <option value="adam@bassmail.example"></option>
+          <option value="kinga@bassmail.example"></option>
+          <option value="mohini@bassmail.example"></option>
         </datalist>
       </Field>
     </>

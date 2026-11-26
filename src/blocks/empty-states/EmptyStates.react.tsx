@@ -223,14 +223,14 @@ export default function EmptyStates() {
               </hgroup>
               <div className="ui-layout-row ui-gap-small ui-align-center">
                 <AvatarGroup aria-label="Band admins">
-                  <Avatar aria-label="Holly Humbucker" role="img">
-                    HH
+                  <Avatar aria-label="Ellen Nut" role="img">
+                    EN
                   </Avatar>
-                  <Avatar aria-label="Reggie Riff" role="img">
-                    RR
+                  <Avatar aria-label="Leland Riff" role="img">
+                    LR
                   </Avatar>
-                  <Avatar aria-label="Stella Nut" role="img">
-                    SN
+                  <Avatar aria-label="Scott Humbucker" role="img">
+                    SH
                   </Avatar>
                 </AvatarGroup>
                 <span>3 band admins</span>

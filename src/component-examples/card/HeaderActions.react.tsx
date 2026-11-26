@@ -4,9 +4,9 @@ export default function HeaderActions() {
   return (
     <Card variant="outlined">
       <CardHeader as="div">
-        <Avatar>LH</Avatar>
+        <Avatar>KH</Avatar>
         <hgroup>
-          <h3>Lou Headstock</h3>
+          <h3>Kinga Headstock</h3>
           <p>Posted 2 hours ago</p>
         </hgroup>
         <Button aria-label="More actions" round size="small">

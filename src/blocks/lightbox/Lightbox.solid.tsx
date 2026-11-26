@@ -16,9 +16,9 @@ export default function Lightbox() {
         <Card as="article" variant="outlined">
           <CardContent class="ui-layout-column">
             <div class="ui-layout-media">
-              <Avatar aria-hidden="true">FF</Avatar>
+              <Avatar aria-hidden="true">TF</Avatar>
               <div>
-                <p>Fiona Fretless</p>
+                <p>Tal Fretless</p>
                 <p class="ui-caption">
                   <time datetime="2026-07-18">Jul 18, 2026</time>
                 </p>

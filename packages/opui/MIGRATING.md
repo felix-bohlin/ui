@@ -413,12 +413,12 @@ The floating content is `.ui-floating` instead of `.ui-anchor-floating`, also in
 `alt` is `label`, the name of the person or thing. With `src` it is still the `alt` of the image. Without `src`, the letters or icon sit in a `<span aria-hidden="true">` and `label` is visually hidden text after them, so select `.ui-avatar svg` where a selector matched a direct child. Leave `label` out when the name is shown next to the avatar: the avatar is then decorative, with `alt=""` on the image.
 
 ```diff
-- <Avatar alt="Lou Headstock" src="/lou.jpg" />
-+ <Avatar label="Lou Headstock" src="/lou.jpg" />
-- <Avatar aria-label="Lou Headstock" role="img">LH</Avatar>
-+ <Avatar label="Lou Headstock">LH</Avatar>
-- <Avatar as="button"><span aria-label="Lou Headstock" role="img">LH</span></Avatar>
-+ <Avatar as="button" label="Lou Headstock">LH</Avatar>
+- <Avatar alt="Kinga Headstock" src="/kinga.jpg" />
++ <Avatar label="Kinga Headstock" src="/kinga.jpg" />
+- <Avatar aria-label="Kinga Headstock" role="img">KH</Avatar>
++ <Avatar label="Kinga Headstock">KH</Avatar>
+- <Avatar as="button"><span aria-label="Kinga Headstock" role="img">KH</span></Avatar>
++ <Avatar as="button" label="Kinga Headstock">KH</Avatar>
 ```
 
 The content is hidden from assistive technology, so a name inside it is no longer read: move it to `label`. A link or button avatar needs `label`, `aria-label` or `aria-labelledby` (types in Astro, React, Solid and Svelte, and a warning in development).
@@ -434,7 +434,7 @@ Text uses `--ui-on-primary`, and sizes follow `--ui-control-size` and `--ui-cont
 ```diff
 - <Avatar aria-label="Team" isGroup>
 + <AvatarGroup aria-label="Team">
-    <Avatar label="Lou Headstock" src="/lou.jpg" />
+    <Avatar label="Kinga Headstock" src="/kinga.jpg" />
 - </Avatar>
 + </AvatarGroup>
 ```
@@ -731,9 +731,9 @@ The part files are renamed to `DescriptionListDescription.*`, `DescriptionListIt
 
 ```diff
 - <dt class="ui-term">Name</dt>
-- <dd class="ui-description">Holly</dd>
+- <dd class="ui-description">Scott</dd>
 + <dt>Name</dt>
-+ <dd>Holly</dd>
++ <dd>Scott</dd>
 ```
 
 `leader` sets the style of the leader, the line between a term and its description, `"solid"` or `"dotted"`, and the list draws none without it. In Astro and Vue, `bordered` is `leader="solid"` and `bordered="dotted"` is `leader="dotted"`.

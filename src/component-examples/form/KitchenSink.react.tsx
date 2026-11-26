@@ -26,7 +26,7 @@ export default function KitchenSink() {
             <input
               autoComplete="name"
               id="form-kitchen-sink-7"
-              placeholder="Holly Humbucker"
+              placeholder="Scott Humbucker"
               required
             />
           </Field>
@@ -34,7 +34,7 @@ export default function KitchenSink() {
             <input
               autoComplete="email"
               id="form-kitchen-sink-8"
-              placeholder="rory@bassmail.example"
+              placeholder="josh@bassmail.example"
               required
               type="email"
             />

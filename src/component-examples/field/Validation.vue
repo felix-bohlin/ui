@@ -5,7 +5,7 @@ import { Field } from "opui-css/vue"
 <template>
   <div class="example-row">
     <Field for="field-validation-1" label="Full name">
-      <input id="field-validation-1" placeholder="Holly Humbucker" required />
+      <input id="field-validation-1" placeholder="Scott Humbucker" required />
     </Field>
     <Field for="field-validation-2" label="Email" variant="filled">
       <input

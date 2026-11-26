@@ -37,25 +37,25 @@ import {
       <h2 class="ui-sr-only" id="leaderboard-podium-heading">Top three</h2>
       <ol class="lb-podium">
         <li class="lb-first">
-          <Avatar aria-hidden="true" size="large" variant="filled">SN</Avatar>
+          <Avatar aria-hidden="true" size="large" variant="filled">EN</Avatar>
           <span class="ui-layout-column ui-gap-x-small">
-            <strong>Stella Nut</strong>
+            <strong>Ellen Nut</strong>
             <span class="ui-caption ui-tabular-nums">98 420 points</span>
           </span>
           <span class="lb-step"><span class="ui-sr-only">Place </span>1</span>
         </li>
         <li class="lb-second">
-          <Avatar aria-hidden="true" size="large">RR</Avatar>
+          <Avatar aria-hidden="true" size="large">LR</Avatar>
           <span class="ui-layout-column ui-gap-x-small">
-            <strong>Reggie Riff</strong>
+            <strong>Leland Riff</strong>
             <span class="ui-caption ui-tabular-nums">91 005 points</span>
           </span>
           <span class="lb-step"><span class="ui-sr-only">Place </span>2</span>
         </li>
         <li class="lb-third">
-          <Avatar aria-hidden="true" size="large">HH</Avatar>
+          <Avatar aria-hidden="true" size="large">SH</Avatar>
           <span class="ui-layout-column ui-gap-x-small">
-            <strong>Holly Humbucker</strong>
+            <strong>Scott Humbucker</strong>
             <span class="ui-caption ui-tabular-nums">87 760 points</span>
           </span>
           <span class="lb-step"><span class="ui-sr-only">Place </span>3</span>
@@ -78,8 +78,8 @@ import {
           <TableCell numeric>4</TableCell>
           <TableCell>
             <div class="ui-layout-media ui-gap-small">
-              <Avatar aria-hidden="true" size="small">LH</Avatar>
-              <span>Lou Headstock</span>
+              <Avatar aria-hidden="true" size="small">KH</Avatar>
+              <span>Kinga Headstock</span>
             </div>
           </TableCell>
           <TableCell numeric>64×</TableCell>
@@ -92,8 +92,8 @@ import {
           <TableCell numeric>5</TableCell>
           <TableCell>
             <div class="ui-layout-media ui-gap-small">
-              <Avatar aria-hidden="true" size="small">MM</Avatar>
-              <span>Mo Mute</span>
+              <Avatar aria-hidden="true" size="small">IM</Avatar>
+              <span>Ian Mute</span>
             </div>
           </TableCell>
           <TableCell numeric>58×</TableCell>
@@ -106,8 +106,8 @@ import {
           <TableCell numeric>6</TableCell>
           <TableCell>
             <div class="ui-layout-media ui-gap-small">
-              <Avatar aria-hidden="true" size="small">FF</Avatar>
-              <span>Fran Fretless</span>
+              <Avatar aria-hidden="true" size="small">EF</Avatar>
+              <span>Esperanza Fretless</span>
             </div>
           </TableCell>
           <TableCell numeric>51×</TableCell>
@@ -120,8 +120,8 @@ import {
           <TableCell numeric>7</TableCell>
           <TableCell>
             <div class="ui-layout-media ui-gap-small">
-              <Avatar aria-hidden="true" size="small">DD</Avatar>
-              <span>Dee Detune</span>
+              <Avatar aria-hidden="true" size="small">ND</Avatar>
+              <span>Nik Detune</span>
             </div>
           </TableCell>
           <TableCell numeric>49×</TableCell>
@@ -133,9 +133,9 @@ import {
           <TableCell>
             <div class="ui-layout-media ui-gap-small">
               <Avatar aria-hidden="true" size="small" variant="filled"
-                >PG</Avatar
+                >AG</Avatar
               >
-              <span><strong>Percy Groove (you)</strong></span>
+              <span><strong>Adam Groove (you)</strong></span>
             </div>
           </TableCell>
           <TableCell numeric>23×</TableCell>

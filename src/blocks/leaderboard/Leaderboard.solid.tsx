@@ -45,10 +45,10 @@ export default function Leaderboard() {
           <ol class="lb-podium">
             <li class="lb-first">
               <Avatar aria-hidden="true" size="large" variant="filled">
-                SN
+                EN
               </Avatar>
               <span class="ui-layout-column ui-gap-x-small">
-                <strong>Stella Nut</strong>
+                <strong>Ellen Nut</strong>
                 <span class="ui-caption ui-tabular-nums">98 420 points</span>
               </span>
               <span class="lb-step">
@@ -57,10 +57,10 @@ export default function Leaderboard() {
             </li>
             <li class="lb-second">
               <Avatar aria-hidden="true" size="large">
-                RR
+                LR
               </Avatar>
               <span class="ui-layout-column ui-gap-x-small">
-                <strong>Reggie Riff</strong>
+                <strong>Leland Riff</strong>
                 <span class="ui-caption ui-tabular-nums">91 005 points</span>
               </span>
               <span class="lb-step">
@@ -69,10 +69,10 @@ export default function Leaderboard() {
             </li>
             <li class="lb-third">
               <Avatar aria-hidden="true" size="large">
-                HH
+                SH
               </Avatar>
               <span class="ui-layout-column ui-gap-x-small">
-                <strong>Holly Humbucker</strong>
+                <strong>Scott Humbucker</strong>
                 <span class="ui-caption ui-tabular-nums">87 760 points</span>
               </span>
               <span class="lb-step">
@@ -106,9 +106,9 @@ export default function Leaderboard() {
               <TableCell>
                 <div class="ui-layout-media ui-gap-small">
                   <Avatar aria-hidden="true" size="small">
-                    LH
+                    KH
                   </Avatar>
-                  <span>Lou Headstock</span>
+                  <span>Kinga Headstock</span>
                 </div>
               </TableCell>
               <TableCell numeric>64×</TableCell>
@@ -122,9 +122,9 @@ export default function Leaderboard() {
               <TableCell>
                 <div class="ui-layout-media ui-gap-small">
                   <Avatar aria-hidden="true" size="small">
-                    MM
+                    IM
                   </Avatar>
-                  <span>Mo Mute</span>
+                  <span>Ian Mute</span>
                 </div>
               </TableCell>
               <TableCell numeric>58×</TableCell>
@@ -143,9 +143,9 @@ export default function Leaderboard() {
               <TableCell>
                 <div class="ui-layout-media ui-gap-small">
                   <Avatar aria-hidden="true" size="small">
-                    FF
+                    EF
                   </Avatar>
-                  <span>Fran Fretless</span>
+                  <span>Esperanza Fretless</span>
                 </div>
               </TableCell>
               <TableCell numeric>51×</TableCell>
@@ -159,9 +159,9 @@ export default function Leaderboard() {
               <TableCell>
                 <div class="ui-layout-media ui-gap-small">
                   <Avatar aria-hidden="true" size="small">
-                    DD
+                    ND
                   </Avatar>
-                  <span>Dee Detune</span>
+                  <span>Nik Detune</span>
                 </div>
               </TableCell>
               <TableCell numeric>49×</TableCell>
@@ -175,10 +175,10 @@ export default function Leaderboard() {
               <TableCell>
                 <div class="ui-layout-media ui-gap-small">
                   <Avatar aria-hidden="true" size="small" variant="filled">
-                    PG
+                    AG
                   </Avatar>
                   <span>
-                    <strong>Percy Groove (you)</strong>
+                    <strong>Adam Groove (you)</strong>
                   </span>
                 </div>
               </TableCell>

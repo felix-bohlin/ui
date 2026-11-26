@@ -26,7 +26,7 @@
       <p class="ui-overline">Tour food</p>
       <h1 class="ui-h2" id="recipe-title">One-pot pre-gig chili</h1>
       <p>
-        Warm, filling and done before soundcheck. Holly's van recipe, now with
+        Warm, filling and done before soundcheck. Scott's van recipe, now with
         fewer beans.
       </p>
     </hgroup>

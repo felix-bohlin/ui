@@ -381,7 +381,7 @@ export default function SalesDashboard() {
                       #2482
                     </a>
                   </TableCell>
-                  <TableCell>Lou Headstock</TableCell>
+                  <TableCell>Kinga Headstock</TableCell>
                   <TableCell>8 Oct, 13:58</TableCell>
                   <TableCell>
                     <Chip
@@ -401,7 +401,7 @@ export default function SalesDashboard() {
                       #2481
                     </a>
                   </TableCell>
-                  <TableCell>Fretless Fiona's Bass Barn</TableCell>
+                  <TableCell>Fretless Tal's Bass Barn</TableCell>
                   <TableCell>8 Oct, 13:41</TableCell>
                   <TableCell>
                     <Chip
@@ -421,7 +421,7 @@ export default function SalesDashboard() {
                       #2480
                     </a>
                   </TableCell>
-                  <TableCell>Holly Humbucker</TableCell>
+                  <TableCell>Scott Humbucker</TableCell>
                   <TableCell>8 Oct, 13:12</TableCell>
                   <TableCell>
                     <Chip
@@ -441,7 +441,7 @@ export default function SalesDashboard() {
                       #2479
                     </a>
                   </TableCell>
-                  <TableCell>Ines Hertz</TableCell>
+                  <TableCell>Mohini Hertz</TableCell>
                   <TableCell>8 Oct, 12:47</TableCell>
                   <TableCell>
                     <Chip
@@ -461,7 +461,7 @@ export default function SalesDashboard() {
                       #2478
                     </a>
                   </TableCell>
-                  <TableCell>Percy Groove</TableCell>
+                  <TableCell>Adam Groove</TableCell>
                   <TableCell>8 Oct, 12:30</TableCell>
                   <TableCell>
                     <Chip

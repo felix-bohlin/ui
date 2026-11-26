@@ -27,7 +27,7 @@ import {
           <input
             autocomplete="name"
             id="form-kitchen-sink-7"
-            placeholder="Holly Humbucker"
+            placeholder="Scott Humbucker"
             required
           />
         </Field>
@@ -35,7 +35,7 @@ import {
           <input
             autocomplete="email"
             id="form-kitchen-sink-8"
-            placeholder="rory@bassmail.example"
+            placeholder="josh@bassmail.example"
             required
             type="email"
           />

@@ -4,14 +4,14 @@ import { Avatar, List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem label="Ines Hertz">
+    <ListItem label="Mohini Hertz">
       <template #start>
-        <Avatar>IH</Avatar>
+        <Avatar>MH</Avatar>
       </template>
     </ListItem>
-    <ListItem description="Fretless enthusiast" label="Lou Headstock">
+    <ListItem description="Fretless enthusiast" label="Kinga Headstock">
       <template #start>
-        <Avatar src="/photos/lou-headstock.png" />
+        <Avatar src="/photos/kinga-headstock.png" />
       </template>
     </ListItem>
   </List>

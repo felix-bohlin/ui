@@ -6,7 +6,7 @@
   <input
     aria-describedby="field-spread-1-start-text"
     id="field-spread-1"
-    placeholder="Holly Humbucker"
+    placeholder="Scott Humbucker"
   />
   {#snippet label()}Name{/snippet}
   {#snippet startText()}Your full name, as the drummer never says it{/snippet}

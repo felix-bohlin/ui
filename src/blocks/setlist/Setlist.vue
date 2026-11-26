@@ -22,7 +22,7 @@ import { Button, Card, CardContent, Checkbox, Chip } from "opui-css/vue"
           <span class="sl-meta ui-caption ui-tabular-nums"
             ><span class="sl-key">E</span><span>96 BPM</span></span
           >
-          <span class="sl-note ui-caption">Holly counts in</span>
+          <span class="sl-note ui-caption">Scott counts in</span>
         </li>
         <li class="sl-song">
           <Checkbox checked name="setlist-song-2">Chest Cavity Dub</Checkbox>

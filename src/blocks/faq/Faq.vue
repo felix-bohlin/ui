@@ -184,10 +184,10 @@ import {
           <p>Our support bassists usually reply within 2 hours. &lt;3</p>
         </hgroup>
         <CardContent class="ui-layout-media">
-          <Avatar aria-hidden="true">LH</Avatar>
+          <Avatar aria-hidden="true">KH</Avatar>
           <div>
             <p>
-              Lou Headstock
+              Kinga Headstock
               <Chip
                 as="span"
                 dot

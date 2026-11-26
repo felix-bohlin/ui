@@ -66,7 +66,7 @@ export default function ForgotPassword() {
                       autocomplete="email"
                       id="forgot-password-email"
                       name="email"
-                      placeholder="rory@bassmail.example"
+                      placeholder="josh@bassmail.example"
                       required
                       type="email"
                     />
@@ -131,7 +131,7 @@ export default function ForgotPassword() {
                   Check your inbox!
                 </h2>
                 <p>
-                  We sent a reset link to <strong>rory@bassmail.example</strong>
+                  We sent a reset link to <strong>josh@bassmail.example</strong>
                   .
                 </p>
               </hgroup>

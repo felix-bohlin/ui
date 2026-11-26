@@ -10,7 +10,7 @@
                    <label class="ui-toggle-button">
 @@ -137,5 +137,5 @@
                </div>
-               <p>Lou taught me the thumb mute in ten minutes. My neighbours would like a word with Lou.</p>
+               <p>Kinga taught me the thumb mute in ten minutes. My neighbours would like a word with Kinga.</p>
 -              <opui-reactions class="ui-reactions" id="id-5">
 +              <opui-reactions class="ui-reactions" data-hydrating id="id-5">
                  <div aria-label="Reactions" class="ui-toggle-group" role="group">

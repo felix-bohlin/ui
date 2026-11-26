@@ -163,12 +163,12 @@
               <span class="ui-tabular-nums">2:47</span>
             {/snippet}
           </ListItem>
-          <ListItem description="Stella Nut" label="Thumb Thing Special">
+          <ListItem description="Ellen Nut" label="Thumb Thing Special">
             {#snippet end()}
               <span class="ui-tabular-nums">3:09</span>
             {/snippet}
           </ListItem>
-          <ListItem description="Holly Humbucker" label="Fretless Lullaby">
+          <ListItem description="Scott Humbucker" label="Fretless Lullaby">
             {#snippet end()}
               <span class="ui-tabular-nums">4:05</span>
             {/snippet}

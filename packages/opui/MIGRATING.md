@@ -101,7 +101,7 @@ To add the prefix in one pass, search your CSS and markup for each of these regu
 --(blue|critical|green|info|neutral|orange|primary|red|success|warning)(?![\w-])
 --((?:color|gray)-(?:1[0-6]|[1-9]))(?![\w-])
 --((?:gray|palette)-(?:chroma|hue)|palette-(?:hue-rotate-by|source))(?![\w-])
---((?:border|field-border)-(?:color|width)|color-scheme|surface-(?:elevated|filled|tonal))(?![\w-])
+--((?:border|field-border)-(?:color|width)|color-scheme|surface-(?:filled|tonal))(?![\w-])
 --((?:button|control|field)-size(?:-x-small|-small|-large)?|focus-ring-(?:color|offset|style|width)|font-size-h[1-6])(?![\w-])
 ```
 
@@ -114,6 +114,7 @@ These tokens also have a new name, so adding the prefix isn't enough:
 | `--field-border-radius`   | `--ui-field-radius` (unset, falls back to `--ui-radius`)  |
 | `--primary-contrast`      | `--ui-on-primary`                                         |
 | `--surface-default`       | `--ui-surface`                                            |
+| `--surface-elevated`      | `--ui-surface-raised`                                     |
 | `--text-muted`            | `--ui-text`                                               |
 | `--text-muted-contrast`   | removed, use `--ui-on-inverse` on `--ui-surface-inverse`  |
 | `--text-primary`          | `--ui-text-strong`                                        |
@@ -143,7 +144,7 @@ These tokens also have a new name, so adding the prefix isn't enough:
 }
 ```
 
-A theme pins a role by setting it, and the scope classes `.ui-scope` and `.ui-contrast-more` derive every role again from the knobs. Set pinned roles on `:where(html, .ui-scope, .ui-contrast-more)` so the scopes keep them; knobs such as `--ui-radius` or `--ui-palette-hue` can stay on `html`. More contrast tightens knobs and no longer replaces a pinned role, so a theme that wants its primary darkened under `prefers-contrast: more` sets `--ui-primary-source` instead of `--ui-primary`, and a theme that wants another pinned role back under more contrast sets it to `revert-layer` there (see Contrast in the theming guide). The example themes do that and leave `--ui-on-primary` and `--ui-primary-text` to derive from it (brutalist pins `--ui-primary-text` to its text color for black links):
+A theme pins a role by setting it, and the scope classes `.ui-scope` (`.ui-palette` in 5.x) and `.ui-contrast-more` derive every role again from the knobs. Set pinned roles on `:where(html, .ui-scope, .ui-contrast-more)` so the scopes keep them; knobs such as `--ui-radius` or `--ui-palette-hue` can stay on `html`. More contrast tightens knobs and no longer replaces a pinned role, so a theme that wants its primary darkened under `prefers-contrast: more` sets `--ui-primary-source` instead of `--ui-primary`, and a theme that wants another pinned role back under more contrast sets it to `revert-layer` there (see Contrast in the theming guide). The example themes do that and leave `--ui-on-primary` and `--ui-primary-text` to derive from it (brutalist pins `--ui-primary-text` to its text color for black links):
 
 ```css
 @layer theme.custom {

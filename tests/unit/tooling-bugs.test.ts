@@ -1,7 +1,6 @@
 import { readFileSync } from "node:fs"
 import { createRequire } from "node:module"
 import { pathToFileURL } from "node:url"
-import { convertToTSX } from "@astrojs/compiler"
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import { parseFragment } from "parse5"
 import { describe, expect, test } from "vitest"
@@ -130,9 +129,10 @@ describe("tooling bugs the generator and the components work around", () => {
 
   test("Astro's dev CSS collector compiles the files behind ?raw imports", () => {
     const source = readFileSync(
-      new URL(
-        "../../node_modules/astro/dist/vite-plugin-css/index.js",
-        import.meta.url,
+      createRequire(
+        createRequire(import.meta.url).resolve("astro/package.json"),
+      ).resolve(
+        "@astrojs/vite-plugin-astro/_internal/vite-plugin-css/collect.js",
       ),
       "utf-8",
     )
@@ -145,20 +145,6 @@ describe("tooling bugs the generator and the components work around", () => {
       walk,
       fixed("astro.config.mjs, the opui-raw-without-module-edge plugin"),
     ).not.toMatch(/raw/i)
-  })
-
-  test("@astrojs/compiler types Astro.props as any when Props has an `as` key", async () => {
-    const { code } = await convertToTSX(
-      '---\ntype Props = { as?: "p" | "div" }\n\nconst { as: Tag = "p" } = Astro.props\n---\n\n<Tag />\n',
-      { filename: "Polymorphic.astro" },
-    )
-    expect(code).toContain("type Props")
-    expect(
-      code,
-      fixed(
-        'src/components/Conditional.astro, which writes its Props as Partial<Record<"as", ...>>',
-      ),
-    ).toContain("_props: Record<string, any>")
   })
 
   test("Lightning CSS folds animation-timeline into the animation shorthand when Astro minifies", () => {

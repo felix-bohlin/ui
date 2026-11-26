@@ -57,7 +57,7 @@
       pointer-events: none;
       position-area: var(--ui-anchor-position-area, self-inline-start);
       position-try-fallbacks: flip-inline;
-      position-visibility: anchors-visible;
+      position-visibility: anchor-visible;
       transition:
         clip-path var(--_duration) var(--_ease),
         display var(--_duration) allow-discrete,

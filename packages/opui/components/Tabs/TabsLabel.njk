@@ -1,4 +1,5 @@
 {% macro TabsLabel(props = {}) %}
+  {%- set props = props | opuiProps("TabsLabel") -%}
   {%- set rest = props | opuiRest("TabsLabel") -%}
   {%- set tabs = opui.context("Tabs") -%}
   {%- set for = props.for or tabs.tabId -%}

@@ -1,4 +1,5 @@
 {% macro Copy(props = {}) %}
+  {%- set props = props | opuiProps("Copy") -%}
   {%- set rest = props | opuiRest("Copy") -%}
   {{- opui.warnMissingId("Copy", props.id) -}}
   {%- set classes = ["ui-copy", props.class] | opuiClass -%}

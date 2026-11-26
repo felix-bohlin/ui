@@ -1,4 +1,5 @@
 {% macro CalloutActions(props = {}) %}
+  {%- set props = props | opuiProps("CalloutActions") -%}
   {%- set rest = props | opuiRest("CalloutActions") -%}
   <div
     class="ui-actions

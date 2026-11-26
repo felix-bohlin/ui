@@ -1,4 +1,5 @@
 {% macro TabsItem(props = {}) %}
+  {%- set props = props | opuiProps("TabsItem") -%}
   {%- set rest = props | opuiRest("TabsItem") -%}
   {%- set parent = opui.context("Tabs") -%}
   {%- set groupName = props.name or parent.groupName or opui.id("tabs") -%}

@@ -44,10 +44,11 @@ const CASES = Object.values(apis)
   .toSorted((a, b) => a.component.localeCompare(b.component, "en"))
 
 let templates: Record<string, string>
+let components: Record<string, { keepsNone: string[]; omit: string[] }>
 let renderer: Awaited<ReturnType<typeof createRenderer>>
 
 beforeAll(async () => {
-  ;({ templates } = await nunjucksBuild(census.compiled))
+  ;({ components, templates } = await nunjucksBuild(census.compiled))
   renderer = await createRenderer()
 }, 60_000)
 
@@ -282,6 +283,11 @@ const COMPOSITIONS = [
     nunjucks: `{% call Dialog({ id: "settings" }) %}{% call DialogHeader() %}  <h2>Settings</h2>  {% endcall %}{% call DialogHeader() %}{% endcall %}{% endcall %}`,
   },
   {
+    astro: `<Badge label="3 new" /><Tooltip id="save-tip" />`,
+    name: "Badge and Tooltip without content to pass on",
+    nunjucks: `{{ Badge({ label: "3 new" }) }}{{ Tooltip({ id: "save-tip" }) }}`,
+  },
+  {
     astro: `<Switch name="wifi"><Fragment set:html={"  Wi-Fi  "} /></Switch><Switch aria-label="Bluetooth" name="bluetooth"><Fragment set:html={""} /></Switch>`,
     name: "Switch trims its label and drops an empty one",
     nunjucks: `{% call Switch({ name: "wifi" }) %}  Wi-Fi  {% endcall %}{% call Switch({ "aria-label": "Bluetooth", name: "bluetooth" }) %}{% endcall %}`,
@@ -290,6 +296,81 @@ const COMPOSITIONS = [
 
 const idsIn = (html: string) =>
   [...html.matchAll(/\sid="([^"]*)"/g)].map(([, id]) => id)
+
+const markedSafe = (value: unknown): unknown =>
+  typeof value === "string"
+    ? new nunjucks.runtime.SafeString(value)
+    : Array.isArray(value)
+      ? value.map(markedSafe)
+      : value && typeof value === "object"
+        ? Object.fromEntries(
+            Object.entries(value).map(([key, item]) => [key, markedSafe(item)]),
+          )
+        : value
+
+describe("props are text, and none counts as a prop not given", () => {
+  test("every case renders the same with its strings marked safe", () => {
+    expect(
+      CASES.filter(
+        (entry) =>
+          normalize(
+            nunjucksCase({
+              ...entry,
+              props: markedSafe(entry.props) as Case["props"],
+            }),
+          ) !== normalize(nunjucksCase(entry)),
+      ).map(({ component, name }) => `${component} with ${name}`),
+    ).toEqual([])
+  })
+
+  test("a value marked safe stays inside the attribute it fills", () => {
+    expect(
+      renderNunjucks(
+        `{% from "opui/Field.njk" import Field %}{% call Field({ for: name, label: "Email" }) %}<input>{% endcall %}`,
+        { name: new nunjucks.runtime.SafeString('email" data-x="1') },
+      ),
+    ).toContain('for="email&quot; data-x=&quot;1"')
+  })
+
+  test("none renders as a prop not given, except for a prop the component reads apart from undefined", () => {
+    expect(
+      COMPILED.filter((name) => {
+        const { keepsNone, omit } = components[name]
+        const source = `{% from "opui/${name}.njk" import ${name} %}{{ ${name}(props) }}`
+        const nones = Object.fromEntries(
+          omit
+            .filter((prop) => !keepsNone.includes(prop))
+            .map((prop) => [prop, null]),
+        )
+        return (
+          normalize(renderNunjucks(source, { props: nones })) !==
+          normalize(renderNunjucks(source, { props: {} }))
+        )
+      }),
+    ).toEqual([])
+  })
+
+  test("a prop that keeps none renders as Astro renders null", async () => {
+    const different = []
+    for (const name of COMPILED) {
+      for (const prop of components[name].keepsNone) {
+        const entry = {
+          component: name,
+          name: `${prop}: null`,
+          props: { [prop]: null },
+          slots: [],
+          types: {} as Case["types"],
+        }
+        if (
+          normalize(nunjucksCase(entry)) !== normalize(await astroCase(entry))
+        ) {
+          different.push(`${name} ${prop}`)
+        }
+      }
+    }
+    expect(different).toEqual([])
+  })
+})
 
 describe("a default slot with whitespace around it", () => {
   test.each([
@@ -493,6 +574,29 @@ describe("the expression translator", () => {
     )
   })
 
+  test("writes a ?? b as a | default(b) only where none can't reach a and b has no call to evaluate early", () => {
+    const props = {
+      ...scope,
+      helpers: new Set(["pick"]),
+      props: new Map([["role", "role"]]),
+    }
+    expect(nunjucksExpression('role ?? "group"', props)).toBe(
+      'props.role | default("group")',
+    )
+    expect(
+      nunjucksExpression('role ?? "group"', {
+        ...props,
+        keepsNone: new Set(["role"]),
+      }),
+    ).toBe('props.role if props.role != none else "group"')
+    expect(nunjucksExpression("role ?? pick(a)", props)).toBe(
+      "props.role if props.role != none else opui.pick(a)",
+    )
+    expect(nunjucksExpression('a ?? "group"', props)).toBe(
+      'a if a != none else "group"',
+    )
+  })
+
   test("refuses a helper the runtime doesn't register", () => {
     expect(() =>
       nunjucksExpression("pick(a)", { ...scope, imports: new Set(["pick"]) }),
@@ -546,7 +650,11 @@ describe("samples render what Astro renders", () => {
       { ...templates, "opui/Sample.njk": macro },
       { id: createIdGenerator() },
     )
+    const shippedProps = env.getFilter("opuiProps")
     const shippedRest = env.getFilter("opuiRest")
+    env.addFilter("opuiProps", (value: unknown, of: string) =>
+      of === "Sample" ? value : shippedProps(value, of),
+    )
     env.addFilter("opuiRest", (value: Record<string, unknown>, of: string) =>
       of === "Sample"
         ? Object.fromEntries(
@@ -723,6 +831,7 @@ describe("the package", () => {
     const env = new nunjucks.Environment(null, { autoescape: true })
     eleventy({ amendLibrary: (_, amend) => amend(env) })
     expect(env.getGlobal("opui")).toBeDefined()
+    expect(env.getFilter("opuiProps")).toBeTypeOf("function")
     expect(env.getFilter("opuiRest")).toBeTypeOf("function")
   })
 })
@@ -739,6 +848,13 @@ describe("the macro library", () => {
       .map((key) => key.slice(5, -4))
       .toSorted()
     expect(names).toEqual(COMPILED.toSorted())
+    expect(
+      names.filter(
+        (name) =>
+          templates[`opui/${name}.njk`].match(/\{%-?\s*macro\s/g)?.length !== 1,
+      ),
+      "a template defines one macro, since Nunjucks runs a {% call %} body with the variables of a macro it calls in the same template (tests/unit/tooling-bugs.test.ts)",
+    ).toEqual([])
     expect(
       renderNunjucks(
         `{% import "opui/index.njk" as ui %}{% for name in names %}{{ "" if ui[name] else name }}{% endfor %}`,

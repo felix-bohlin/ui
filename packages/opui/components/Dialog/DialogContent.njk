@@ -1,4 +1,5 @@
 {% macro DialogContent(props = {}) %}
+  {%- set props = props | opuiProps("DialogContent") -%}
   {%- set rest = props | opuiRest("DialogContent") -%}
   <div
     class="ui-content

@@ -1,4 +1,5 @@
 {% macro Field(props = {}) %}
+  {%- set props = props | opuiProps("Field") -%}
   {%- set rest = props | opuiRest("Field") -%}
   {%- set labelSlot = props.slots.label | opuiTrim -%}
   {%- set hasStartText = props.startText or props.slots.startText != none -%}

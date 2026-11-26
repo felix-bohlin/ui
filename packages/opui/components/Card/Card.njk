@@ -1,4 +1,5 @@
 {% macro Card(props = {}) %}
+  {%- set props = props | opuiProps("Card") -%}
   {%- set rest = props | opuiRest("Card") -%}
   {%- set tag = props.as | default("div") -%}
   {%- set classes = [

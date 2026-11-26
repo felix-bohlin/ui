@@ -1,4 +1,5 @@
 {% macro Progress(props = {}) %}
+  {%- set props = props | opuiProps("Progress") -%}
   {%- set rest = props | opuiRest("Progress") -%}
   <div
     class="ui-progress

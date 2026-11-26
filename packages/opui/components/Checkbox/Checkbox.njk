@@ -1,6 +1,7 @@
 {% from "opui/CheckboxInput.njk" import CheckboxInput %}
 
 {% macro Checkbox(props = {}) %}
+  {%- set props = props | opuiProps("Checkbox") -%}
   {%- set rest = props | opuiRest("Checkbox") -%}
   {%- set labelSlot = (caller() if caller) | opuiTrim -%}
   {{- opui.warnUnnamed("Checkbox", opui.hasName(opui.merge(rest, { label: props.label }), caller is defined)) -}}

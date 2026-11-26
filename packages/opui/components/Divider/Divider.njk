@@ -1,4 +1,5 @@
 {% macro Divider(props = {}) %}
+  {%- set props = props | opuiProps("Divider") -%}
   {%- set rest = props | opuiRest("Divider") -%}
   {% if caller is defined %}<div
     class="ui-divider

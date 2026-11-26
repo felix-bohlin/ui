@@ -1,4 +1,5 @@
 {% macro CalloutIcon(props = {}) %}
+  {%- set props = props | opuiProps("CalloutIcon") -%}
   {%- set rest = props | opuiRest("CalloutIcon") -%}
   {%- set callout = opui.context("Callout") -%}
   {%- set severity = callout.severity -%}

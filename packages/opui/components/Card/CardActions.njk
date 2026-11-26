@@ -1,4 +1,5 @@
 {% macro CardActions(props = {}) %}
+  {%- set props = props | opuiProps("CardActions") -%}
   {%- set rest = props | opuiRest("CardActions") -%}
   <div
     class="ui-actions

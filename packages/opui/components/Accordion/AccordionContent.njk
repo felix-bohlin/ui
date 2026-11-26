@@ -1,4 +1,5 @@
 {% macro AccordionContent(props = {}) %}
+  {%- set props = props | opuiProps("AccordionContent") -%}
   {%- set rest = props | opuiRest("AccordionContent") -%}
   <div
     class="ui-content

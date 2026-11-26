@@ -1,6 +1,7 @@
 {% from "opui/StepperItem.njk" import StepperItem %}
 
 {% macro Stepper(props = {}) %}
+  {%- set props = props | opuiProps("Stepper") -%}
   {%- set rest = props | opuiRest("Stepper") -%}
   <ol
     class="ui-stepper

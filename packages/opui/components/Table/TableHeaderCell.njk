@@ -1,4 +1,5 @@
 {% macro TableHeaderCell(props = {}) %}
+  {%- set props = props | opuiProps("TableHeaderCell") -%}
   {%- set rest = props | opuiRest("TableHeaderCell") -%}
   {%- set classes = [{ "ui-numeric": props.numeric }, props.class] | opuiClass -%}
   {%- set dataSort = '' if props.sortable else none -%}

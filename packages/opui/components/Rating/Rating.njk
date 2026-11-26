@@ -1,4 +1,5 @@
 {% macro Rating(props = {}) %}
+  {%- set props = props | opuiProps("Rating") -%}
   {%- set rest = props | opuiRest("Rating") -%}
   {%- set clearLabel = props.clearLabel | default("No rating") -%}
   {%- set max = props.max | default(5) -%}
@@ -34,7 +35,7 @@
         type="radio"
         {%- if star != none %} value="{{ star }}"{% endif %}>
     {%- endfor -%}
-  </fieldset>{% else %}{% set ariaLabelValue = props["aria-label"] if props["aria-label"] != none else props.label %}<meter
+  </fieldset>{% else %}{% set ariaLabelValue = props["aria-label"] | default(props.label) %}<meter
     {%- if props["aria-describedby"] != none %} aria-describedby="{{ props["aria-describedby"] }}"{% endif %}
     {%- if ariaLabelValue != none %} aria-label="{{ ariaLabelValue }}"{% endif %}
     class="ui-rating

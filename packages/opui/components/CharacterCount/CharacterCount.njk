@@ -1,4 +1,5 @@
 {% macro CharacterCount(props = {}) %}
+  {%- set props = props | opuiProps("CharacterCount") -%}
   {%- set rest = props | opuiRest("CharacterCount") -%}
   {%- set classes = ["ui-value", props.class] | opuiClass -%}
   <opui-character-count{{ opui.merge(

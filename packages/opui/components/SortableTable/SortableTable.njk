@@ -1,4 +1,5 @@
 {% macro SortableTable(props = {}) %}
+  {%- set props = props | opuiProps("SortableTable") -%}
   {%- set rest = props | opuiRest("SortableTable") -%}
   {%- set classes = ["ui-sortable-table", props.class] | opuiClass -%}
   <opui-sortable-table{{ opui.merge(

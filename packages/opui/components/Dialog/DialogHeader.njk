@@ -1,11 +1,12 @@
 {% from "opui/Button.njk" import Button %}
 
 {% macro DialogHeader(props = {}) %}
+  {%- set props = props | opuiProps("DialogHeader") -%}
   {%- set rest = props | opuiRest("DialogHeader") -%}
   {%- set closeLabel = props.closeLabel | default("Close") -%}
   {%- set dialog = opui.context("Dialog") -%}
   {%- set content = (caller() if caller) | opuiTrim -%}
-  {%- set target = props.commandfor if props.commandfor != none else dialog.id -%}
+  {%- set target = props.commandfor | default(dialog.id) -%}
   {{- opui.warnMissingCloseTarget("DialogHeader", target, "Dialog") if props.closeButton -}}
   <div
     class="ui-header

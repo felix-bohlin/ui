@@ -1,6 +1,7 @@
 {% from "opui/TimelineItem.njk" import TimelineItem %}
 
 {% macro Timeline(props = {}) %}
+  {%- set props = props | opuiProps("Timeline") -%}
   {%- set rest = props | opuiRest("Timeline") -%}
   <ol
     class="ui-timeline

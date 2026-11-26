@@ -1,4 +1,5 @@
 {% macro DrawerTitle(props = {}) %}
+  {%- set props = props | opuiProps("DrawerTitle") -%}
   {%- set rest = props | opuiRest("DrawerTitle") -%}
   {%- set drawer = opui.context("Drawer") -%}
   {{- opui.warnReplacedId("DrawerTitle", "Drawer", props.id, drawer.titleId) -}}

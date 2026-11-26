@@ -2,6 +2,7 @@
 {% from "opui/Progress.njk" import Progress %}
 
 {% macro FileUpload(props = {}) %}
+  {%- set props = props | opuiProps("FileUpload") -%}
   {%- set rest = props | opuiRest("FileUpload") -%}
   {%- set progressLabel = props.progressLabel | default("Uploading {label}") -%}
   {%- set removeLabel = props.removeLabel | default("Remove {label}") -%}

@@ -1,4 +1,5 @@
 {% macro DialogTitle(props = {}) %}
+  {%- set props = props | opuiProps("DialogTitle") -%}
   {%- set rest = props | opuiRest("DialogTitle") -%}
   {%- set dialog = opui.context("Dialog") -%}
   {{- opui.warnReplacedId("DialogTitle", "Dialog", props.id, dialog.titleId) -}}

@@ -1,4 +1,5 @@
 {% macro FieldGroup(props = {}) %}
+  {%- set props = props | opuiProps("FieldGroup") -%}
   {%- set rest = props | opuiRest("FieldGroup") -%}
   <div
     class="ui-field-group

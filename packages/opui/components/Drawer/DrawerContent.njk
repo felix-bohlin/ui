@@ -1,4 +1,5 @@
 {% macro DrawerContent(props = {}) %}
+  {%- set props = props | opuiProps("DrawerContent") -%}
   {%- set rest = props | opuiRest("DrawerContent") -%}
   <div
     class="ui-content

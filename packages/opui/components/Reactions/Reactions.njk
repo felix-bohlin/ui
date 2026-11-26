@@ -2,6 +2,7 @@
 {% from "opui/ToggleGroup.njk" import ToggleGroup %}
 
 {% macro Reactions(props = {}) %}
+  {%- set props = props | opuiProps("Reactions") -%}
   {%- set rest = props | opuiRest("Reactions") -%}
   {%- set items = props.items | default([]) -%}
   {%- set used = opui.usedItem(items, props.quick) -%}
@@ -29,7 +30,7 @@
           checked: true if item.checked else false,
           class: [{ "ui-suggested": props.quick and not used and index == 0 }] | opuiClass,
           value: item.value
-        }) %}<span aria-hidden="true">{{ item.label | opuiText }}</span>{% endcall %}
+        }) %}<span aria-hidden="true">{{ item.label }}</span>{% endcall %}
       {%- endfor %}
     {% endcall %}
     {{ caller() if caller }}

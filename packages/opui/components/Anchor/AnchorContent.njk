@@ -1,4 +1,5 @@
 {% macro AnchorContent(props = {}) %}
+  {%- set props = props | opuiProps("AnchorContent") -%}
   {%- set rest = props | opuiRest("AnchorContent") -%}
   {%- set anchor = opui.context("Anchor") -%}
   {{- opui.warnReplacedAnchorAttributes(props.id, props.popover, anchor.floatingId, anchor.popover) -}}

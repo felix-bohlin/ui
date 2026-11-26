@@ -1,4 +1,5 @@
 {% macro Fieldset(props = {}) %}
+  {%- set props = props | opuiProps("Fieldset") -%}
   {%- set rest = props | opuiRest("Fieldset") -%}
   {%- set tag = props.as | default("fieldset") -%}
   {%- set isFieldset = tag == "fieldset" -%}

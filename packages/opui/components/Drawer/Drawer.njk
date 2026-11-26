@@ -1,4 +1,5 @@
 {% macro Drawer(props = {}) %}
+  {%- set props = props | opuiProps("Drawer") -%}
   {%- set rest = props | opuiRest("Drawer") -%}
   {%- set backdrop = props.backdrop | default("blurred") -%}
   {%- set closedby = props.closedby | default("any") -%}

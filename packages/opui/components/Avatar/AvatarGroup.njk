@@ -1,6 +1,7 @@
 {% macro AvatarGroup(props = {}) %}
+  {%- set props = props | opuiProps("AvatarGroup") -%}
   {%- set rest = props | opuiRest("AvatarGroup") -%}
-  {%- set role = props.role if props.role != none else 'group' -%}
+  {%- set role = props.role | default('group') -%}
   <div
     class="ui-avatar-group
       {%- if props.class %} {{ props.class }}{% endif %}"

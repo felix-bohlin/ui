@@ -1,4 +1,5 @@
 {% macro Anchor(props = {}) %}
+  {%- set props = props | opuiProps("Anchor") -%}
   {%- set rest = props | opuiRest("Anchor") -%}
   {%- set isHover = props.trigger == "hover" -%}
   {%- set id = props.id or undefined if isHover else undefined -%}

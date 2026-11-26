@@ -1,4 +1,5 @@
 {% macro TabsPanel(props = {}) %}
+  {%- set props = props | opuiProps("TabsPanel") -%}
   {%- set rest = props | opuiRest("TabsPanel") -%}
   <div
     class="ui-panel

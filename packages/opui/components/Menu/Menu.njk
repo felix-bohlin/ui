@@ -1,4 +1,5 @@
 {% macro Menu(props = {}) %}
+  {%- set props = props | opuiProps("Menu") -%}
   {%- set rest = props | opuiRest("Menu") -%}
   {%- set popover = props.popover | default("auto") -%}
   {%- set parent = opui.context("Menu") -%}

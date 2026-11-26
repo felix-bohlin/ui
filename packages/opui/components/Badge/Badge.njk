@@ -2,6 +2,7 @@
 {% from "opui/AnchorContent.njk" import AnchorContent %}
 
 {% macro Badge(props = {}) %}
+  {%- set props = props | opuiProps("Badge") -%}
   {%- set rest = props | opuiRest("Badge") -%}
   {%- set indicatorSlot = props.slots.indicator | opuiTrim -%}
   {%- set hidden = props.dot or props.hideLabel -%}

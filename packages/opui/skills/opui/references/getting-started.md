@@ -445,7 +445,7 @@ import { configure } from "opui-css/nunjucks"
 const env = configure(nunjucks.configure("views"))
 ```
 
-It adds the macros under `opui/`, their filters and the `opui` global. It needs `autoescape` on and `trimBlocks`, `lstripBlocks` and `throwOnUndefined` off, the Nunjucks defaults. Your own templates come first, so `views/opui/Button.njk` replaces the Button macro.
+It adds the macros under `opui/`, their filters and the `opui` global. It needs `autoescape` on and `trimBlocks`, `lstripBlocks` and `throwOnUndefined` off, the Nunjucks defaults. Your own templates come first, so `views/opui/Button.njk` replaces the Button macro. A replacement defines that one macro and imports any other from `opui/`: when two macros sit in one template, Nunjucks runs a `{% call %}` body with the variables of the macro it calls.
 
 ### How to use
 
@@ -459,6 +459,8 @@ Each macro takes one dict with the component's props. The default slot is the bo
   <input aria-describedby="handle-start" id="handle" />
 {% endcall %}
 ```
+
+Props are text, as in the other frameworks: a value marked `| safe` prints escaped, in attributes too, so markup goes in a slot. A prop set to `none` counts as not given, so its default applies.
 
 Keys the macro doesn't take go to its element as attributes. Import a macro on its own with `{% from "opui/Button.njk" import Button %}`, or all of them as `{% import "opui/index.njk" as ui %}`.
 

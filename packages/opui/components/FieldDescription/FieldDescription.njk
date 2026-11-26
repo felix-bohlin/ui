@@ -1,4 +1,5 @@
 {% macro FieldDescription(props = {}) %}
+  {%- set props = props | opuiProps("FieldDescription") -%}
   {%- set rest = props | opuiRest("FieldDescription") -%}
   <p
     class="ui-description

@@ -1,4 +1,5 @@
 {% macro DialogFooter(props = {}) %}
+  {%- set props = props | opuiProps("DialogFooter") -%}
   {%- set rest = props | opuiRest("DialogFooter") -%}
   <div
     class="ui-footer

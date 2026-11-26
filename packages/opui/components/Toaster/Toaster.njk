@@ -1,4 +1,5 @@
 {% macro Toaster(props = {}) %}
+  {%- set props = props | opuiProps("Toaster") -%}
   {%- set rest = props | opuiRest("Toaster") -%}
   {{- opui.warnMissingId("Toaster", props.id) -}}
   {%- set classes = [

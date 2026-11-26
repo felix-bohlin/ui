@@ -1,4 +1,5 @@
 {% macro Message(props = {}) %}
+  {%- set props = props | opuiProps("Message") -%}
   {%- set rest = props | opuiRest("Message") -%}
   <li
     class="ui-message

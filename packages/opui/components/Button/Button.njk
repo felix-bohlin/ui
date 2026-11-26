@@ -1,4 +1,5 @@
 {% macro Button(props = {}) %}
+  {%- set props = props | opuiProps("Button") -%}
   {%- set rest = props | opuiRest("Button") -%}
   {%- set tag = "a"
     if opui.disabledLink(props.as, props.disabled)

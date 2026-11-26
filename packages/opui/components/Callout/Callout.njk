@@ -1,6 +1,7 @@
 {% from "opui/Button.njk" import Button %}
 
 {% macro Callout(props = {}) %}
+  {%- set props = props | opuiProps("Callout") -%}
   {%- set rest = props | opuiRest("Callout") -%}
   {%- set closeLabel = props.closeLabel | default("Close") -%}
   {%- set ids = opui.ids("callout", props.id) -%}

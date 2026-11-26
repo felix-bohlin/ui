@@ -235,6 +235,13 @@ const nullAgnostic = (node, use) => {
   for (;;) {
     const parent = current.parent
     if (
+      ts.isBinaryExpression(parent) &&
+      parent.operatorToken.kind === ts.SyntaxKind.QuestionQuestionToken &&
+      parent.left === current
+    ) {
+      return true
+    }
+    if (
       ts.isParenthesizedExpression(parent) ||
       (ts.isConditionalExpression(parent) && parent.condition !== current) ||
       (ts.isBinaryExpression(parent) && PASSING.has(parent.operatorToken.kind))

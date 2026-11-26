@@ -91,7 +91,10 @@ const env = configure(nunjucks.configure("views"))`}
       <code>trimBlocks</code>, <code>lstripBlocks</code> and
       <code>throwOnUndefined</code> off, the Nunjucks defaults. Your own
       templates come first, so <code>views/opui/Button.njk</code> replaces the
-      Button macro.
+      Button macro. A replacement defines that one macro and imports any other
+      from <code>opui/</code>: when two macros sit in one template, Nunjucks
+      runs a <code>{"{% call %}"}</code> body with the variables of the macro it
+      calls.
     </p>
   </section>
 
@@ -112,6 +115,12 @@ const env = configure(nunjucks.configure("views"))`}
 {% endcall %}`}
       lang="html"
     />
+    <p>
+      Props are text, as in the other frameworks: a value marked
+      <code>| safe</code> prints escaped, in attributes too, so markup goes in a
+      slot. A prop set to <code>none</code> counts as not given, so its default
+      applies.
+    </p>
     <p>
       Keys the macro doesn't take go to its element as attributes. Import a
       macro on its own with

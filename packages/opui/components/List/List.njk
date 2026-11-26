@@ -1,4 +1,5 @@
 {% macro List(props = {}) %}
+  {%- set props = props | opuiProps("List") -%}
   {%- set rest = props | opuiRest("List") -%}
   {%- set tag = props.as | default("ul") -%}
   {%- set classes = [
@@ -8,7 +9,7 @@
     props.class
   ] | opuiClass -%}
   <{{ tag | opuiTag }}{{ opui.merge(
-    { class: classes, role: props.role if props.role != none else "list" },
+    { class: classes, role: props.role | default("list") },
     opui.defined(rest)
   ) | opuiAttributes(tag) }}>
     {{- caller() if caller -}}

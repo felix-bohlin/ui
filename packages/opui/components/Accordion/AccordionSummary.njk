@@ -1,4 +1,5 @@
 {% macro AccordionSummary(props = {}) %}
+  {%- set props = props | opuiProps("AccordionSummary") -%}
   {%- set rest = props | opuiRest("AccordionSummary") -%}
   <summary
     {%- if props.class %} class="{{ props.class }}"{% endif %}

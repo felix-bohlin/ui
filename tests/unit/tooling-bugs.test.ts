@@ -3,6 +3,7 @@ import { createRequire } from "node:module"
 import { pathToFileURL } from "node:url"
 import { convertToTSX } from "@astrojs/compiler"
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
+import nunjucks from "nunjucks"
 import { parseFragment } from "parse5"
 import { describe, expect, test } from "vitest"
 import { createRenderer, defineComponent, h, nextTick, ref } from "vue"
@@ -201,6 +202,21 @@ describe("tooling bugs the generator and the components work around", () => {
         "packages/opui/css/components/menu.css, the inset formula for submenus of submenus",
       ),
     ).toThrow('Function("anchored")')
+  })
+
+  test("Nunjucks runs a {% call %} body with the set variables and caller of the macro it calls when both sit in one template", () => {
+    const env = new nunjucks.Environment(null, { autoescape: true })
+    const card =
+      '{% macro card() %}{% set label = "card" %}<p>{{ caller() }}</p>{% endmacro %}'
+    expect(
+      env.renderString(
+        `${card}{% macro page() %}{% set label = "page" %}{% call card() %}{{ label }}{% endcall %}{% endmacro %}{{ page() }}`,
+        {},
+      ),
+      fixed(
+        "nunjucksOutputs in scripts/component-nunjucks.mjs, which writes each macro to a template of its own, the one-macro check in tests/unit/nunjucks.test.ts and the replacement rule on the Nunjucks getting-started page",
+      ),
+    ).toBe("<p>card</p>")
   })
 
   test("parse5 drops the button and div inside a select", () => {

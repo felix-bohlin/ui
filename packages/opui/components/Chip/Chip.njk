@@ -1,4 +1,5 @@
 {% macro Chip(props = {}) %}
+  {%- set props = props | opuiProps("Chip") -%}
   {%- set rest = props | opuiRest("Chip") -%}
   {%- set variant = props.variant | default("tonal") -%}
   {%- set tag = "a"

@@ -267,60 +267,128 @@ const astroSource = () => {
 
 let astro
 
-export const astroPropsOf = (folder, propsType) => {
-  if (!astro) {
-    const program = createProgram(new Map([[astroFile, astroSource()]]), false)
-    const source = program.getSourceFile(astroFile)
-    astro = {
-      cache: new Map(),
-      checker: program.getTypeChecker(),
-      location: source.statements.find(
-        (statement) =>
-          ts.isTypeAliasDeclaration(statement) &&
-          statement.name.text === "Props",
-      ),
+const shapeOf = (checker, symbol, location) => {
+  const parts = members(checker.getTypeOfSymbolAtLocation(symbol, location))
+  const fields = new Map()
+  for (const list of parts.filter((type) => checker.isArrayType(type))) {
+    for (const item of members(checker.getTypeArguments(list)[0])) {
+      for (const field of checker.getPropertiesOfType(item)) {
+        fields.set(
+          field.name,
+          new Set([
+            ...(fields.get(field.name) ?? []),
+            ...kindsOf(checker, field, location),
+          ]),
+        )
+      }
     }
+  }
+  return {
+    fields,
+    kinds: kindsOf(checker, symbol, location),
+    nullable: parts.some((type) => type.flags & ts.TypeFlags.Null),
+  }
+}
+
+const merged = (known, shape) =>
+  known
+    ? {
+        fields: new Map(
+          [...new Set([...known.fields.keys(), ...shape.fields.keys()])].map(
+            (name) => [
+              name,
+              new Set([
+                ...(known.fields.get(name) ?? []),
+                ...(shape.fields.get(name) ?? []),
+              ]),
+            ],
+          ),
+        ),
+        kinds: new Set([...known.kinds, ...shape.kinds]),
+        nullable: known.nullable || shape.nullable,
+      }
+    : shape
+
+const typeProgram = (file, source, alias) => {
+  const program = createProgram(new Map([[file, source]]), false)
+  const location = program
+    .getSourceFile(file)
+    .statements.find(
+      (statement) =>
+        ts.isTypeAliasDeclaration(statement) && statement.name.text === alias,
+    )
+  const checker = program.getTypeChecker()
+  return {
+    checker,
+    container: checker.getTypeFromTypeNode(location.type),
+    location,
+  }
+}
+
+export const astroPropsOf = (folder, propsType) => {
+  astro ??= {
+    cache: new Map(),
+    ...typeProgram(astroFile, astroSource(), "Props"),
   }
   const key = `${folder}/${propsType}`
   if (!astro.cache.has(key)) {
-    const { checker, location } = astro
-    const container = checker.getTypeFromTypeNode(location.type)
+    const { checker, container, location } = astro
     const symbol = checker.getPropertyOfType(container, key)
     let props
     if (symbol) {
-      const type = checker.getTypeOfSymbolAtLocation(symbol, location)
       props = new Map()
-      const parts = members(type)
-      for (const member of parts) {
+      for (const member of members(
+        checker.getTypeOfSymbolAtLocation(symbol, location),
+      )) {
         for (const property of checker.getPropertiesOfType(member)) {
-          const known = props.get(property.name)
-          const fields = new Map(known?.fields)
-          for (const list of members(
-            checker.getTypeOfSymbolAtLocation(property, location),
-          ).filter((type) => checker.isArrayType(type))) {
-            for (const item of members(checker.getTypeArguments(list)[0])) {
-              for (const field of checker.getPropertiesOfType(item)) {
-                fields.set(
-                  field.name,
-                  new Set([
-                    ...(fields.get(field.name) ?? []),
-                    ...kindsOf(checker, field, location),
-                  ]),
-                )
-              }
-            }
-          }
-          props.set(property.name, {
-            fields,
-            kinds: new Set([
-              ...(known?.kinds ?? []),
-              ...kindsOf(checker, property, location),
-            ]),
-          })
+          props.set(
+            property.name,
+            merged(
+              props.get(property.name),
+              shapeOf(checker, property, location),
+            ),
+          )
         }
       }
     }
     astro.cache.set(key, props)
   }
   return astro.cache.get(key)
+}
+
+const returnsFile = join(root, "src/component-examples/helper-returns.ts")
+
+const returnsCache = new Map()
+
+export const helperReturnsOf = (entries) => {
+  const key = JSON.stringify(entries)
+  if (!returnsCache.has(key)) {
+    const modules = [...new Set(entries.map(({ file }) => file))].toSorted()
+    const source = [
+      ...modules.map(
+        (file, index) =>
+          `import type * as m${index} from "../../packages/opui/components/${file.replace(/\.ts$/, "")}"`,
+      ),
+      "export type Returns = {",
+      ...entries.map(
+        ({ file, name }) =>
+          `  ${JSON.stringify(name)}: ReturnType<typeof m${modules.indexOf(file)}.${name}>`,
+      ),
+      "}",
+    ].join("\n")
+    const { checker, container, location } = typeProgram(
+      returnsFile,
+      source,
+      "Returns",
+    )
+    returnsCache.set(
+      key,
+      new Map(
+        checker
+          .getPropertiesOfType(container)
+          .map((symbol) => [symbol.name, shapeOf(checker, symbol, location)]),
+      ),
+    )
+  }
+  return returnsCache.get(key)
 }

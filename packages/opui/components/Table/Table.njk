@@ -1,4 +1,5 @@
 {% macro Table(props = {}) %}
+  {%- set props = props | opuiProps("Table") -%}
   {%- set rest = props | opuiRest("Table") -%}
   <table
     class="ui-table

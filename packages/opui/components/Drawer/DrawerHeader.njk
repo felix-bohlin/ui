@@ -1,11 +1,12 @@
 {% from "opui/Button.njk" import Button %}
 
 {% macro DrawerHeader(props = {}) %}
+  {%- set props = props | opuiProps("DrawerHeader") -%}
   {%- set rest = props | opuiRest("DrawerHeader") -%}
   {%- set closeLabel = props.closeLabel | default("Close") -%}
   {%- set drawer = opui.context("Drawer") -%}
   {%- set content = (caller() if caller) | opuiTrim -%}
-  {%- set target = props.commandfor if props.commandfor != none else drawer.id -%}
+  {%- set target = props.commandfor | default(drawer.id) -%}
   {{- opui.warnMissingCloseTarget("DrawerHeader", target, "Drawer") if props.closeButton -}}
   <div
     class="ui-header

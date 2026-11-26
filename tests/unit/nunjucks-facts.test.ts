@@ -16,8 +16,9 @@ import {
   LIMIT,
   unmarked,
 } from "../../scripts/component-nunjucks-layout.mjs"
-import { compileNunjucks } from "../../scripts/component-nunjucks.mjs"
+import { compileNunjucks, keptNone } from "../../scripts/component-nunjucks.mjs"
 import { readComponent } from "../../scripts/component-reader.mjs"
+import { astroPropsOf } from "../../scripts/example-react-props.mjs"
 import { configure } from "../../packages/opui/nunjucks/index"
 
 const key = (code: string) => keyOfCode(code)
@@ -110,6 +111,27 @@ describe("the facts", () => {
       warnings: [],
     }
     expect(analyze(item).count("grouped")).toBe(1)
+  })
+
+  test("a prop keeps none only where its type takes null and a read tells null from not given", async () => {
+    const sample = await readComponent(
+      `---\nimport type { Props } from "./types.astro"\nconst { class: className, id = "tabs", role, ...rest } = Astro.props\n---\n\n<div {...rest} class:list={["ui-tabs", className]} id={id} role={role ?? "tablist"} />\n`,
+      FILE,
+    )
+    expect(
+      keptNone(sample, astroPropsOf("Tabs", sample.propsType)).map(
+        ({ prop }: { prop: string }) => prop,
+      ),
+    ).toEqual(["class", "id"])
+  })
+
+  test("a list a helper returns gives its items' fields their kinds", async () => {
+    const macro = await compileNunjucks(
+      `---\nimport type { Props } from "./types.astro"\nimport { pillsOf } from "./pills"\nconst { items, ...rest } = Astro.props\nconst pills = pillsOf(items)\n---\n\n<ul {...rest}>{pills.map((item) => <li>{item.label}{item.checked}</li>)}</ul>\n`,
+      "packages/opui/components/Reactions/Sample.astro",
+    )
+    expect(macro).toContain("{{ item.label }}")
+    expect(macro).toContain("{{ item.checked | opuiText }}")
   })
 
   test("the emitter inlines a value read once and drops the guard its block makes redundant", async () => {

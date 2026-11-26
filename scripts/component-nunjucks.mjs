@@ -42,7 +42,7 @@ import {
   unsupported,
   unwrap,
 } from "./component-shared.mjs"
-import { astroPropsOf } from "./example-react-props.mjs"
+import { astroPropsOf, helperReturnsOf } from "./example-react-props.mjs"
 import {
   block,
   glue,
@@ -115,6 +115,20 @@ const HELPER_ENTRIES = helperEntries(
 export const HELPERS = Object.fromEntries(
   HELPER_ENTRIES.map(({ name, value }) => [name, value]),
 )
+
+let helperReturns
+
+const returnsOf = () =>
+  (helperReturns ??= helperReturnsOf(
+    HELPER_ENTRIES.map(({ file, name }) => ({ file, name })),
+  ))
+
+export const keptNone = (component, types, analysis = analyze(component)) =>
+  component.props.filter(
+    ({ default: initial, local, prop }) =>
+      types.get(prop)?.nullable &&
+      (initial !== undefined || !analysis.nullAgnostic(local)),
+  )
 
 const RESERVED = new Set([
   "caller",
@@ -244,6 +258,19 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
     return named.get(item)
   }
   const used = new Set()
+  const analysis = analyze(component)
+  const returns = returnsOf()
+  const helperShape = (node, inner) => {
+    const call = unwrap(node)
+    if (!ts.isCallExpression(call)) return undefined
+    const callee = unwrap(call.expression)
+    return ts.isIdentifier(callee) &&
+      !inner.locals.has(callee.text) &&
+      !inner.props.has(callee.text) &&
+      !inner.renames.has(callee.text)
+      ? inner.returns.get(callee.text)
+      : undefined
+  }
   const scope = {
     derived: new Map(
       component.derived
@@ -262,6 +289,9 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
     idBases: new Set(idsName ? [idsName] : []),
     idPrefixes: new Set(component.idPrefixes),
     imports: new Set(importedNames(component.imports)),
+    keepsNone: new Set(
+      keptNone(component, types, analysis).map(({ local }) => local),
+    ),
     kinds: new Map(
       component.props.map((prop) => [prop.local, types.get(prop.prop)?.kinds]),
     ),
@@ -275,13 +305,21 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
         .map((prop) => [prop.local, prop.prop]),
     ),
     renames,
+    returns,
     strings: new Set(
       component.props
         .filter((prop) => only(types.get(prop.prop)?.kinds, STRING_KINDS))
         .map((prop) => prop.local),
     ),
   }
-  const analysis = analyze(component)
+  for (const entry of component.derived) {
+    if (isIdBase(entry)) continue
+    const fields = helperShape(
+      sourceFileOf(`(${entry.code})`, "derived.ts").statements[0].expression,
+      scope,
+    )?.fields
+    if (fields?.size) scope.fields.set(entry.name, fields)
+  }
   const derivedCode = ({ code, name }) => {
     const sourceFile = sourceFileOf(`(${code})`, "derived.ts")
     const call = unwrap(sourceFile.statements[0].expression)
@@ -390,6 +428,7 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
     : undefined
   const hoisted = []
   const preambleOf = () => [
+    `{% set props = props | opuiProps(${nunjucksString(component.name)}) %}`,
     ...(component.rest
       ? [
           `{% set ${component.rest} = props | opuiRest(${nunjucksString(component.name)}) %}`,
@@ -878,7 +917,7 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
     )
     const fieldKinds = ts.isIdentifier(listed)
       ? ctx.scope.fields.get(listed.text)
-      : undefined
+      : helperShape(listed, ctx.scope)?.fields
     const inner = {
       ...ctx.scope,
       derived: new Map(
@@ -1093,6 +1132,10 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
       }
       if (ts.isCallExpression(item)) {
         const callee = unwrap(item.expression)
+        const shape = helperShape(item, inner)
+        if (shape) {
+          return [...shape.kinds].some((kind) => BOOLEAN_KINDS.has(kind))
+        }
         return !(
           (ts.isIdentifier(callee) && callee.text === "String") ||
           isNonNull(item.getText(), inner)
@@ -1217,6 +1260,9 @@ const compiled = async (source, file) => {
     file,
     meta: {
       attributes: [...types.keys()].toSorted(),
+      keepsNone: keptNone(component, types)
+        .map(({ prop }) => prop)
+        .toSorted(),
       omit: component.props.map((prop) => prop.prop).toSorted(),
       slots: component.slots
         .filter((slot) => slot !== "default")
@@ -1320,7 +1366,7 @@ export const nunjucksModule = ({ components, templates }) => {
     .toSorted(([a], [b]) => (a < b ? -1 : 1))
     .map(
       ([name, meta]) =>
-        `  ${name}: { added: ${list(named(meta).filter((item) => !shared.includes(item)))}, folder: ${JSON.stringify(meta.folder)}, props: ${list(meta.omit)}, removed: ${list(shared.filter((item) => !named(meta).includes(item)))}, slots: ${list(meta.slots)} },`,
+        `  ${name}: { added: ${list(named(meta).filter((item) => !shared.includes(item)))}, folder: ${JSON.stringify(meta.folder)}, keepsNone: ${list(meta.keepsNone)}, props: ${list(meta.omit)}, removed: ${list(shared.filter((item) => !named(meta).includes(item)))}, slots: ${list(meta.slots)} },`,
     )
   return [
     ...imports,

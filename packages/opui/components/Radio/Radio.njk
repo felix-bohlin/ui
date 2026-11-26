@@ -1,6 +1,7 @@
 {% from "opui/RadioInput.njk" import RadioInput %}
 
 {% macro Radio(props = {}) %}
+  {%- set props = props | opuiProps("Radio") -%}
   {%- set rest = props | opuiRest("Radio") -%}
   {%- set labelSlot = (caller() if caller) | opuiTrim -%}
   {{- opui.warnUnnamed("Radio", opui.hasName(opui.merge(rest, { label: props.label }), caller is defined)) -}}

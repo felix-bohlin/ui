@@ -1,4 +1,5 @@
 {% macro Meter(props = {}) %}
+  {%- set props = props | opuiProps("Meter") -%}
   {%- set rest = props | opuiRest("Meter") -%}
   <meter
     class="ui-meter

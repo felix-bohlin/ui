@@ -1,4 +1,5 @@
 {% macro Tabs(props = {}) %}
+  {%- set props = props | opuiProps("Tabs") -%}
   {%- set rest = props | opuiRest("Tabs") -%}
   {%- set groupName = props.name or opui.id("tabs") -%}
   {{- opui.warnUnnamedGroup("Tabs", rest) if props.role == "radiogroup" -}}

@@ -1,4 +1,5 @@
 {% macro DescriptionList(props = {}) %}
+  {%- set props = props | opuiProps("DescriptionList") -%}
   {%- set rest = props | opuiRest("DescriptionList") -%}
   <dl
     class="ui-description-list

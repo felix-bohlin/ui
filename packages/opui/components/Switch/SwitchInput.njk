@@ -1,4 +1,5 @@
 {% macro SwitchInput(props = {}) %}
+  {%- set props = props | opuiProps("SwitchInput") -%}
   {%- set rest = props | opuiRest("SwitchInput") -%}
   <input type="checkbox" role="switch"{{ rest | opuiAttributes }}>
 {%- endmacro %}

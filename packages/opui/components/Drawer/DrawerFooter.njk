@@ -1,4 +1,5 @@
 {% macro DrawerFooter(props = {}) %}
+  {%- set props = props | opuiProps("DrawerFooter") -%}
   {%- set rest = props | opuiRest("DrawerFooter") -%}
   <div
     class="ui-footer

@@ -1,6 +1,7 @@
 {% from "opui/SwitchInput.njk" import SwitchInput %}
 
 {% macro Switch(props = {}) %}
+  {%- set props = props | opuiProps("Switch") -%}
   {%- set rest = props | opuiRest("Switch") -%}
   {%- set labelSlot = (caller() if caller) | opuiTrim -%}
   {{- opui.warnUnnamed("Switch", opui.hasName(opui.merge(rest, { label: props.label }), caller is defined)) -}}

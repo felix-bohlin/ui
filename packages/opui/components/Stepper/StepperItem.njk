@@ -1,4 +1,5 @@
 {% macro StepperItem(props = {}) %}
+  {%- set props = props | opuiProps("StepperItem") -%}
   {%- set rest = props | opuiRest("StepperItem") -%}
   {%- set completeLabel = props.completeLabel | default(", completed") -%}
   {%- set errorLabel = props.errorLabel | default(", error") -%}
@@ -6,9 +7,7 @@
   {%- set stateLabel = errorLabel
     if props.state == "error"
     else (completeLabel if props.state == "complete" else none) -%}
-  {%- set ariaCurrent = props["aria-current"]
-    if props["aria-current"] != none
-    else ('step' if props.current else none) -%}
+  {%- set ariaCurrent = props["aria-current"] | default('step' if props.current else none) -%}
   {%- set classes = [props.state and 'ui-state-' ~ props.state, props.class] | opuiClass -%}
   <li
     {%- if ariaCurrent != none %} aria-current="{{ ariaCurrent }}"{% endif %}

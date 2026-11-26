@@ -9,6 +9,7 @@ import { checkAttributeOrder } from "../../scripts/check-components.mjs"
 import {
   astroPropsOf,
   exportedTypes,
+  helperReturnsOf,
   reactAttributeName,
   reactBareAttribute,
   reactKinds,
@@ -415,5 +416,28 @@ describe("the Astro prop types", () => {
     expect(items?.fields.get("label")).toEqual(new Set(["string"]))
     expect(items?.fields.get("disabled")).toEqual(new Set(["boolean"]))
     expect(astroPropsOf("Menu", "Missing")).toBeUndefined()
+  })
+
+  test("a prop says whether its type takes null", () => {
+    const tabs = astroPropsOf("Tabs", "Props")
+    expect(tabs?.get("role")?.nullable).toBe(true)
+    expect(tabs?.get("orientation")?.nullable).toBe(false)
+  })
+
+  test("a helper's return type gives its kinds and a list's item fields, and a generic list gives no fields", () => {
+    const returns = helperReturnsOf([
+      { file: "Reactions/pills.ts", name: "pillsOf" },
+      { file: "attrs.ts", name: "defined" },
+      { file: "group.ts", name: "toggleInGroup" },
+    ])
+    expect(returns.get("pillsOf")?.kinds).toEqual(new Set(["other"]))
+    expect(returns.get("pillsOf")?.fields.get("label")).toEqual(
+      new Set(["string"]),
+    )
+    expect(returns.get("pillsOf")?.fields.get("checked")).toEqual(
+      new Set(["boolean"]),
+    )
+    expect(returns.get("defined")?.kinds).toEqual(new Set(["other"]))
+    expect(returns.get("toggleInGroup")?.fields).toEqual(new Map())
   })
 })

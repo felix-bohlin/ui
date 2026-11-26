@@ -1,6 +1,7 @@
 {% macro MessageList(props = {}) %}
+  {%- set props = props | opuiProps("MessageList") -%}
   {%- set rest = props | opuiRest("MessageList") -%}
-  {%- set role = props.role if props.role != none else 'list' -%}
+  {%- set role = props.role | default('list') -%}
   <ol
     class="ui-message-list
       {%- if props.direct %} ui-direct{% endif %}

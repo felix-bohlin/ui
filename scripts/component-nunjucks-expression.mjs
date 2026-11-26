@@ -1,7 +1,12 @@
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
 import { inResult } from "./component-nunjucks-facts.mjs"
-import { sourceFileOf, unsupported, unwrap } from "./component-shared.mjs"
+import {
+  containsKind,
+  sourceFileOf,
+  unsupported,
+  unwrap,
+} from "./component-shared.mjs"
 
 export const COMPILER = "scripts/component-nunjucks.mjs"
 
@@ -412,6 +417,20 @@ const translate = (root, scope, sourceFile) => {
         throw refuse(node, "?? after an expression that isn't a name")
       }
       const left = visit(node.left)
+      const name = unwrap(node.left)
+      if (
+        ts.isIdentifier(name) &&
+        !scope.renames?.has(name.text) &&
+        !scope.locals?.has(name.text) &&
+        scope.props?.has(name.text) &&
+        !scope.keepsNone?.has(name.text) &&
+        !containsKind(node.right, ts.isCallExpression)
+      ) {
+        return {
+          level: LEVEL.filter,
+          text: `${at(left, LEVEL.filter)} | default(${visit(node.right).text})`,
+        }
+      }
       return {
         level: LEVEL.if,
         text: `${at(left, LEVEL.or)} if ${at(left, LEVEL.concat)} != none else ${at(visit(node.right), LEVEL.or)}`,

@@ -1,4 +1,5 @@
 {% macro Stat(props = {}) %}
+  {%- set props = props | opuiProps("Stat") -%}
   {%- set rest = props | opuiRest("Stat") -%}
   <dl
     class="ui-stat

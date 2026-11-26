@@ -1,4 +1,5 @@
 {% macro OneTimeCode(props = {}) %}
+  {%- set props = props | opuiProps("OneTimeCode") -%}
   {%- set rest = props | opuiRest("OneTimeCode") -%}
   {%- set labelSlot = props.slots.label | opuiTrim -%}
   {%- set hasEndText = props.endText or props.slots.endText != none -%}

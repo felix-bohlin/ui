@@ -1,4 +1,5 @@
 {% macro DescriptionListDescription(props = {}) %}
+  {%- set props = props | opuiProps("DescriptionListDescription") -%}
   {%- set rest = props | opuiRest("DescriptionListDescription") -%}
   <dd
     {%- if props.class %} class="{{ props.class }}"{% endif %}

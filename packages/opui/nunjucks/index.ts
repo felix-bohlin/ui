@@ -182,22 +182,69 @@ const knownOf = (name: Name) => {
   return names
 }
 
-const rest = (props: unknown, name: Name) => {
-  if (
-    DEV &&
-    props != null &&
-    (typeof props !== "object" || Array.isArray(props))
-  ) {
-    throw new Error(
-      `[OPUI ${name}] Pass the props as one dict: ${name}({ ... }), with the default slot as the body of {% call ${name}({ ... }) %}.`,
-    )
-  }
+const metaOf = (name: Name, filter: string) => {
   const meta = components[name]
-  if (!meta) throw new Error(`opuiRest has no component named ${name}`)
+  if (!meta) throw new Error(`${filter} has no component named ${name}`)
+  return meta
+}
+
+const isDict = (value: unknown): value is Record<string, unknown> => {
+  if (!value || typeof value !== "object") return false
+  const proto = Object.getPrototypeOf(value)
+  return proto === Object.prototype || proto === null
+}
+
+const text = (value: unknown): unknown => {
+  if (value instanceof SafeString) return String(value)
+  if (Array.isArray(value)) {
+    const items = value.map(text)
+    return items.some((item, index) => item !== value[index]) ? items : value
+  }
+  if (isDict(value)) {
+    const entries = Object.entries(value).map(
+      ([key, item]) => [key, text(item)] as const,
+    )
+    return entries.some(([key, item]) => item !== value[key])
+      ? Object.fromEntries(entries)
+      : value
+  }
+  return value
+}
+
+const propsOf = (value: unknown, name: Name) => {
+  if (value == null) return {}
+  if (typeof value !== "object" || Array.isArray(value)) {
+    if (DEV) {
+      throw new Error(
+        `[OPUI ${name}] Pass the props as one dict: ${name}({ ... }), with the default slot as the body of {% call ${name}({ ... }) %}.`,
+      )
+    }
+    return {}
+  }
+  const meta = metaOf(name, "opuiProps")
+  const declared = meta.props as string[]
+  const kept = meta.keepsNone as string[]
+  const given = value as Record<string, unknown>
+  let result: Record<string, unknown> | undefined
+  for (const [key, item] of Object.entries(given)) {
+    if (key === "slots") continue
+    const dropped =
+      item === null && declared.includes(key) && !kept.includes(key)
+    const next = dropped ? undefined : text(item)
+    if (next === item) continue
+    result ??= { ...given }
+    if (dropped) delete result[key]
+    else result[key] = next
+  }
+  return result ?? given
+}
+
+const rest = (props: Record<string, unknown>, name: Name) => {
+  const meta = metaOf(name, "opuiRest")
   const slots = meta.slots as string[]
   const omitted = meta.props as string[]
   const result: Record<string, unknown> = {}
-  for (const [key, value] of Object.entries((props ?? {}) as object)) {
+  for (const [key, value] of Object.entries(props)) {
     if (key === "slots") {
       for (const slot of DEV ? Object.keys(value ?? {}) : []) {
         if (!slots.includes(slot)) {
@@ -227,6 +274,7 @@ const FILTERS = {
     Object.fromEntries(
       Object.entries(value ?? {}).filter(([name]) => !names.includes(name)),
     ),
+  opuiProps: propsOf,
   opuiRest: rest,
   opuiTag: elementName,
   opuiText: textOf,

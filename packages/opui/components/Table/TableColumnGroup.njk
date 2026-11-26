@@ -1,4 +1,5 @@
 {% macro TableColumnGroup(props = {}) %}
+  {%- set props = props | opuiProps("TableColumnGroup") -%}
   {%- set rest = props | opuiRest("TableColumnGroup") -%}
   <colgroup{{ rest | opuiAttributes }}>
     {{- caller() if caller -}}

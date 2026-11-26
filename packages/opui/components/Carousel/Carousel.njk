@@ -1,6 +1,7 @@
 {% macro Carousel(props = {}) %}
+  {%- set props = props | opuiProps("Carousel") -%}
   {%- set rest = props | opuiRest("Carousel") -%}
-  {%- set role = props.role if props.role != none else 'list' -%}
+  {%- set role = props.role | default('list') -%}
   <ul
     class="ui-carousel
       {%- if props.markers %} ui-markers{% endif %}

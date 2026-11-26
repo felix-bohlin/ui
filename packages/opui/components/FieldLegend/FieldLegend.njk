@@ -1,4 +1,5 @@
 {% macro FieldLegend(props = {}) %}
+  {%- set props = props | opuiProps("FieldLegend") -%}
   {%- set rest = props | opuiRest("FieldLegend") -%}
   {%- set tag = props.as | default("legend") -%}
   {%- set fieldset = opui.context("Fieldset") -%}

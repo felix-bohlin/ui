@@ -1,4 +1,5 @@
 {% macro Form(props = {}) %}
+  {%- set props = props | opuiProps("Form") -%}
   {%- set rest = props | opuiRest("Form") -%}
   {%- set tag = props.as | default("form") -%}
   {%- set classes = ["ui-form", props.class] | opuiClass -%}

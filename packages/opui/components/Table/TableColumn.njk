@@ -1,4 +1,5 @@
 {% macro TableColumn(props = {}) %}
+  {%- set props = props | opuiProps("TableColumn") -%}
   {%- set rest = props | opuiRest("TableColumn") -%}
   <col
     {{- { style: opui.mergeStyle({ width: props.width }, props.style) } | opuiAttributes }}

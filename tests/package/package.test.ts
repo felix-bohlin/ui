@@ -407,6 +407,50 @@ test("every entry point is in the tarball", () => {
   expect(missing).toEqual([])
 })
 
+const SOURCE_FILE = /\.(astro|js|jsx|mjs|svelte|ts|tsx|vue)$/
+
+const sideEffectImports = (file: string, code: string) =>
+  [...code.matchAll(/^\s*import\s+["']([^"']+)["']/gm)].flatMap(
+    ([, specifier]) =>
+      specifier.startsWith(".")
+        ? [path.posix.join(path.posix.dirname(file), specifier)]
+        : specifier.startsWith("opui-css/")
+          ? [specifier.slice("opui-css/".length)]
+          : [],
+  )
+
+const keptBy = (patterns: string[], file: string) =>
+  patterns.some((pattern) =>
+    pattern.includes("/")
+      ? path.posix.matchesGlob(file, pattern.replace(/^\.\//, ""))
+      : path.posix.matchesGlob(path.posix.basename(file), pattern),
+  )
+
+test("sideEffects keeps every file the package imports for its side effects or that defines an element", () => {
+  const sample = ["*.css", "./elements/*.js"]
+  expect(keptBy(sample, "css/components/button.css")).toBe(true)
+  expect(keptBy(sample, "elements/copy.js")).toBe(true)
+  expect(keptBy(sample, "css/js/checkbox.js")).toBe(false)
+  expect(
+    sideEffectImports(
+      "components/Copy/Copy.vue",
+      'import "../../elements/copy.js"\nimport { h } from "vue"\n',
+    ),
+  ).toEqual(["elements/copy.js"])
+
+  const { sideEffects } = JSON.parse(
+    readFileSync(path.join(unpacked, "package.json"), "utf8"),
+  )
+  const needed = new Set<string>()
+  for (const file of files.filter((file) => SOURCE_FILE.test(file))) {
+    const code = readFileSync(path.join(unpacked, file), "utf8")
+    if (code.includes("customElements.define(")) needed.add(file)
+    for (const target of sideEffectImports(file, code)) needed.add(target)
+  }
+  expect(needed.size).toBeGreaterThan(0)
+  expect([...needed].filter((file) => !keptBy(sideEffects, file))).toEqual([])
+})
+
 test("every compiled component file has a deep import, with its types, and Node takes the server build of a Vue file", () => {
   const consumer = path.join(work, "deep-imports")
   mkdirSync(path.join(consumer, "node_modules"), { recursive: true })

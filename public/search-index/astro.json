@@ -4093,6 +4093,14 @@
     "url": "/blocks/account-settings/"
   },
   {
+    "id": "block-album-launch",
+    "title": "Album launch",
+    "description": "A release countdown on a dark stage, with record art, big digits, a pre-save field and the first tracks to hear.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/album-launch/"
+  },
+  {
     "id": "block-analytics-dashboard",
     "title": "Analytics dashboard",
     "description": "Key metrics, a bar chart, top pages and traffic sources, with a date range toggle.",
@@ -4115,6 +4123,14 @@
     "headings": "Content",
     "category": "Blocks",
     "url": "/blocks/article/"
+  },
+  {
+    "id": "block-bassist-profile",
+    "title": "Bassist profile",
+    "description": "A musician's profile with a stage-light cover, stats, gear, and a wall of posts with reactions.",
+    "headings": "Application",
+    "category": "Blocks",
+    "url": "/blocks/bassist-profile/"
   },
   {
     "id": "block-billing",
@@ -4421,6 +4437,14 @@
     "url": "/blocks/server-status/"
   },
   {
+    "id": "block-setlist",
+    "title": "Setlist",
+    "description": "A setlist taped to the stage floor with keys, tempos and notes, songs ticked off as they're played, and a stage plot.",
+    "headings": "Events",
+    "category": "Blocks",
+    "url": "/blocks/setlist/"
+  },
+  {
     "id": "block-shopping-cart",
     "title": "Shopping cart",
     "description": "Cart items with quantity controls, a discount code and an order summary.",
@@ -4485,6 +4509,30 @@
     "url": "/blocks/testimonials/"
   },
   {
+    "id": "block-tournament-bracket",
+    "title": "Tournament bracket",
+    "description": "A battle of the bands bracket with scores, connector lines between rounds and the champion still to be decided.",
+    "headings": "Games",
+    "category": "Blocks",
+    "url": "/blocks/tournament-bracket/"
+  },
+  {
+    "id": "block-trivia-quiz",
+    "title": "Trivia quiz",
+    "description": "A quiz question with answer tiles, a timer meter, progress, a streak and the feedback after answering.",
+    "headings": "Games",
+    "category": "Blocks",
+    "url": "/blocks/trivia-quiz/"
+  },
+  {
+    "id": "block-tuner",
+    "title": "Tuner",
+    "description": "A tuner with a needle gauge and string picker, next to a metronome with tempo, beats and time signature.",
+    "headings": "Lifestyle",
+    "category": "Blocks",
+    "url": "/blocks/tuner/"
+  },
+  {
     "id": "block-two-factor",
     "title": "Two-factor authentication",
     "description": "A one-time code form for two-factor authentication, with a way to resend the code.",
@@ -4499,6 +4547,14 @@
     "headings": "Data display",
     "category": "Blocks",
     "url": "/blocks/user-directory/"
+  },
+  {
+    "id": "block-year-in-review",
+    "title": "Year in review",
+    "description": "A year-end recap in bold cards: hours played, a personality, top songs, a favourite string and a practice streak.",
+    "headings": "Dashboards",
+    "category": "Blocks",
+    "url": "/blocks/year-in-review/"
   },
   {
     "id": "theme-builder",

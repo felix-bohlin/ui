@@ -1,0 +1,274 @@
+<script setup lang="ts">
+import { Button } from "opui-css/vue"
+</script>
+
+<template>
+  <div
+    class="year-in-review ui-layout-container ui-layout-column"
+    style="--_gap: var(--ui-space-6); --_max-inline-size: 64rem"
+  >
+    <div class="ui-layout-row ui-spread">
+      <hgroup class="ui-hgroup">
+        <p class="ui-overline">Bassbook Wrapped</p>
+        <h1 class="yr-title">Your 2026 in bass</h1>
+      </hgroup>
+      <Button type="button" variant="filled">
+        <svg
+          data-icon="share"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M14 3a1 1 0 1 1 0 2H7.5A2.5 2.5 0 0 0 5 7.5v17A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5V19a1 1 0 1 1 2 0v5.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17A4.5 4.5 0 0 1 7.5 3zm5.58-.907a1 1 0 0 1 1.067.146l10 8.5a1 1 0 0 1 0 1.523l-10 8.5A1 1 0 0 1 18.999 20v-3.96c-3.193.258-5.636 1.722-7.34 3.213a15.6 15.6 0 0 0-2.115 2.26c-.234.307-.407.56-.52.733c-.085.13-.136.215-.152.243l-.006.006l.001.001A1 1 0 0 1 7 22.036c0-.222-.003-.444.003-.666c.011-.406.042-.982.12-1.67c.155-1.37.5-3.218 1.265-5.08s1.967-3.776 3.855-5.225C13.948 8.086 16.161 7.2 19 7.032V3a1 1 0 0 1 .58-.907M20.998 8a1 1 0 0 1-1 1c-2.925 0-5.018.814-6.539 1.98c-1.533 1.177-2.551 2.763-3.224 4.4a16.5 16.5 0 0 0-.957 3.38c.318-.33.672-.672 1.062-1.013C12.462 15.891 15.687 14 19.999 14a1 1 0 0 1 1 1v2.838l7.456-6.338L21 5.161z"
+          ></path>
+        </svg>
+        <span class="ui-text">Share my year</span>
+      </Button>
+    </div>
+    <ul class="yr-grid">
+      <li class="yr-card yr-wide ui-dark">
+        <p class="yr-label">Time with your bass</p>
+        <p class="yr-big">1 284 hours</p>
+        <p>
+          That's 53 days straight. More than the drummer practised, by a lot.
+        </p>
+      </li>
+      <li class="yr-card ui-dark" style="--_shift: 120">
+        <p class="yr-label">Your bass personality</p>
+        <p class="yr-headline">The Pocket Keeper</p>
+        <p>
+          You play behind the beat, never rush a fill and make everyone else
+          sound tight. Drummers trust you.
+        </p>
+      </li>
+      <li class="yr-card ui-dark" style="--_shift: 200">
+        <p class="yr-label" id="year-in-review-songs">Most played</p>
+        <ol aria-labelledby="year-in-review-songs" class="yr-songs">
+          <li>
+            <span>Root Note Romance</span>
+            <span class="ui-tabular-nums">412×</span>
+            <span
+              aria-hidden="true"
+              class="yr-bar"
+              style="--_value: 100%"
+            ></span>
+          </li>
+          <li>
+            <span>Chest Cavity Dub</span>
+            <span class="ui-tabular-nums">298×</span>
+            <span
+              aria-hidden="true"
+              class="yr-bar"
+              style="--_value: 72%"
+            ></span>
+          </li>
+          <li>
+            <span>Fretless Lullaby</span>
+            <span class="ui-tabular-nums">187×</span>
+            <span
+              aria-hidden="true"
+              class="yr-bar"
+              style="--_value: 45%"
+            ></span>
+          </li>
+        </ol>
+      </li>
+      <li class="yr-card ui-dark" style="--_shift: 300">
+        <p class="yr-label" id="year-in-review-strings">Favourite string</p>
+        <ul aria-labelledby="year-in-review-strings" class="yr-strings">
+          <li>
+            <span>G</span>
+            <span
+              aria-hidden="true"
+              class="yr-string"
+              style="--_gauge: 2px"
+            ></span>
+          </li>
+          <li>
+            <span>D</span>
+            <span
+              aria-hidden="true"
+              class="yr-string"
+              style="--_gauge: 3px"
+            ></span>
+          </li>
+          <li>
+            <span>A</span>
+            <span
+              aria-hidden="true"
+              class="yr-string"
+              style="--_gauge: 4px"
+            ></span>
+          </li>
+          <li class="yr-favourite">
+            <span>E<span class="ui-sr-only">, your favourite</span></span>
+            <span
+              aria-hidden="true"
+              class="yr-string"
+              style="--_gauge: 6px"
+            ></span>
+          </li>
+        </ul>
+        <p>The low E, 61% of your notes. A classic.</p>
+      </li>
+      <li class="yr-card ui-dark" style="--_shift: 40">
+        <p class="yr-label">Longest practice streak</p>
+        <p class="yr-headline">41 days in a row</p>
+        <div
+          aria-label="36 of the last 42 days had practice"
+          class="yr-streak"
+          role="img"
+        ></div>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<style>
+.year-in-review {
+  container-type: inline-size;
+
+  .yr-title {
+    color: var(--ui-text-strong);
+    font-size: clamp(var(--ui-font-size-800), 8cqi, var(--ui-font-size-900));
+    letter-spacing: var(--ui-letter-spacing-display);
+    line-height: var(--ui-line-height-tight);
+  }
+
+  .yr-grid {
+    display: grid;
+    gap: var(--ui-space-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .yr-card {
+    --_shift: 0;
+
+    align-content: space-between;
+    background-color: oklch(
+      from var(--ui-primary) 0.32 0.12 calc(h + var(--_shift))
+    );
+    background-image: radial-gradient(
+      circle at 100% 0,
+      oklch(from var(--ui-primary) 0.6 0.18 calc(h + var(--_shift) + 40) / 55%),
+      transparent 60%
+    );
+    border-radius: var(--ui-radius-large);
+    color: var(--ui-text);
+    display: grid;
+    gap: var(--ui-space-4);
+    min-block-size: 15rem;
+    padding: var(--ui-space-6);
+  }
+
+  .yr-wide {
+    grid-column: 1 / -1;
+
+    @container (inline-size >= 48rem) {
+      grid-column: span 2;
+    }
+  }
+
+  .yr-label {
+    font-size: var(--ui-font-size-caption);
+    font-weight: var(--ui-font-weight-semibold);
+    letter-spacing: var(--ui-letter-spacing-caps);
+    text-transform: uppercase;
+  }
+
+  .yr-big {
+    color: var(--ui-text-strong);
+    font-size: clamp(var(--ui-font-size-900), 14cqi, 6rem);
+    font-variant-numeric: tabular-nums;
+    font-weight: var(--ui-font-weight-bold);
+    letter-spacing: var(--ui-letter-spacing-display);
+    line-height: 0.9;
+  }
+
+  .yr-headline {
+    color: var(--ui-text-strong);
+    font-size: var(--ui-font-size-700);
+    font-weight: var(--ui-font-weight-bold);
+    line-height: var(--ui-line-height-tight);
+  }
+
+  .yr-songs {
+    counter-reset: yr-song;
+    display: grid;
+    gap: var(--ui-space-3);
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      counter-increment: yr-song;
+      display: grid;
+      gap: var(--ui-space-1) var(--ui-space-3);
+      grid-template-columns: 1.5rem minmax(0, 1fr) auto;
+
+      &::before {
+        color: var(--ui-text-strong);
+        content: counter(yr-song);
+        font-weight: var(--ui-font-weight-bold);
+      }
+    }
+
+    .yr-bar {
+      background-color: var(--ui-text-strong);
+      block-size: 0.375rem;
+      border-radius: var(--ui-radius-round);
+      grid-column: 2 / -1;
+      inline-size: var(--_value);
+    }
+  }
+
+  .yr-strings {
+    display: grid;
+    gap: var(--ui-space-3);
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      align-items: center;
+      display: grid;
+      gap: var(--ui-space-3);
+      grid-template-columns: 1.5rem minmax(0, 1fr);
+    }
+
+    .yr-string {
+      background-color: oklch(1 0 0 / 35%);
+      block-size: var(--_gauge);
+      border-radius: var(--ui-radius-round);
+    }
+
+    .yr-favourite .yr-string {
+      background-color: var(--ui-text-strong);
+      box-shadow: 0 0 1rem oklch(1 0 0 / 60%);
+    }
+  }
+
+  .yr-streak {
+    background-image: radial-gradient(
+      circle,
+      var(--ui-text-strong) 0 35%,
+      transparent 40%
+    );
+    background-repeat: repeat;
+    background-size: calc(100% / 14) calc(100% / 3);
+    block-size: 4.5rem;
+    mask-image: linear-gradient(
+      to right,
+      black calc(100% * 12 / 14),
+      oklch(0 0 0 / 30%) calc(100% * 12 / 14)
+    );
+  }
+}
+</style>

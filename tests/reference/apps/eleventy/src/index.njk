@@ -1,0 +1,56 @@
+---
+layout: layout.njk
+title: Feed
+---
+{% from "opui/index.njk" import
+  Button,
+  CharacterCount,
+  Field,
+  ToggleButton,
+  ToggleGroup
+%}
+{% from "post-card.njk" import postCard with context %}
+<div class="app-screen" data-screen="feed">
+  <h1>Feed</h1>
+  <form aria-label="New post" class="ui-layout-column" data-composer>
+    {% set endText %}{{ CharacterCount() }}{% endset %}
+    {% call Field({
+      for: "feed-post",
+      label: "What's on your mind?",
+      slots: { endText: endText }
+    }) %}
+      <textarea
+        aria-describedby="feed-post-end-text"
+        id="feed-post"
+        maxlength="280"
+        name="text"
+        required
+      ></textarea>
+    {% endcall %}
+    <div>
+      {% call Button({ type: "submit", variant: "filled" }) %}Post{% endcall %}
+    </div>
+  </form>
+  {% call ToggleGroup({ "aria-label": "Filter posts", name: "filter", value: "all" }) %}
+    {% for filter in app.FEED_FILTERS %}
+      {% call ToggleButton({ value: filter.value }) %}{{ filter.label }}{% endcall %}
+    {% endfor %}
+  {% endcall %}
+  <ol aria-label="Posts" class="app-posts" tabindex="-1">
+    {% for post in app.POSTS %}
+      <li
+        {%- if post.photos.length %} data-photos{% endif %}
+        {%- if loop.index0 >= app.PAGE_SIZE %} hidden{% endif %}>
+        {{ postCard(post) }}
+      </li>
+    {% endfor %}
+  </ol>
+  <template data-new-post>
+    <li>{{ postCard(app.newPost("", "new-post-template")) }}</li>
+  </template>
+  <p class="app-empty" data-feed-empty hidden>No saved posts yet.</p>
+  <div data-load-more>
+    {% call Button({ variant: "outlined" }) %}Load more{% endcall %}
+  </div>
+  <p class="app-end" data-feed-end hidden tabindex="-1">You're all caught up.</p>
+</div>

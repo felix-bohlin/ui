@@ -1,0 +1,82 @@
+{% from "opui/index.njk" import
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableFoot,
+  TableHead,
+  TableHeaderCell,
+  TableRow
+%}
+
+{% call Table() %}
+  {% call TableCaption() %}Nordic countries{% endcall %}
+  {% call TableColumnGroup() %}
+    {{ TableColumn({ width: "8rem" }) }}
+    {{ TableColumn({ span: 3 }) }}
+    {{ TableColumn({ span: 2 }) }}
+  {% endcall %}
+  {% call TableHead() %}
+    {% call TableRow() %}
+      {% call TableHeaderCell({ rowspan: 2, scope: "col" }) %}Country{% endcall %}
+      {% call TableHeaderCell({ colspan: 3, scope: "colgroup" }) %}Major cities{% endcall %}
+      {% call TableHeaderCell({ colspan: 2, scope: "colgroup" }) %}Nature{% endcall %}
+    {% endcall %}
+    {% call TableRow() %}
+      {% call TableHeaderCell({ scope: "col" }) %}Capital{% endcall %}
+      {% call TableHeaderCell({ scope: "col" }) %}2nd largest{% endcall %}
+      {% call TableHeaderCell({ scope: "col" }) %}3rd largest{% endcall %}
+      {% call TableHeaderCell({ scope: "col" }) %}National animal{% endcall %}
+      {% call TableHeaderCell({ scope: "col" }) %}National bird{% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call TableBody() %}
+    {% call TableRow() %}
+      {% call TableHeaderCell({ scope: "row" }) %}Denmark{% endcall %}
+      {% call TableCell() %}København{% endcall %}
+      {% call TableCell() %}Aarhus{% endcall %}
+      {% call TableCell() %}Odense{% endcall %}
+      {% call TableCell() %}Mute swan{% endcall %}
+      {% call TableCell() %}Mute swan{% endcall %}
+    {% endcall %}
+    {% call TableRow() %}
+      {% call TableHeaderCell({ scope: "row" }) %}Finland{% endcall %}
+      {% call TableCell() %}Helsinki{% endcall %}
+      {% call TableCell() %}Espoo{% endcall %}
+      {% call TableCell() %}Tampere{% endcall %}
+      {% call TableCell() %}Brown bear{% endcall %}
+      {% call TableCell() %}Whooper swan{% endcall %}
+    {% endcall %}
+    {% call TableRow() %}
+      {% call TableHeaderCell({ scope: "row" }) %}Iceland{% endcall %}
+      {% call TableCell() %}Reykjavík{% endcall %}
+      {% call TableCell() %}Kópavogur{% endcall %}
+      {% call TableCell() %}Hafnarfjörður{% endcall %}
+      {% call TableCell() %}Gyrfalcon{% endcall %}
+      {% call TableCell() %}Gyrfalcon{% endcall %}
+    {% endcall %}
+    {% call TableRow() %}
+      {% call TableHeaderCell({ scope: "row" }) %}Norway{% endcall %}
+      {% call TableCell() %}Oslo{% endcall %}
+      {% call TableCell() %}Bergen{% endcall %}
+      {% call TableCell() %}Trondheim{% endcall %}
+      {% call TableCell() %}Elk{% endcall %}
+      {% call TableCell() %}White-throated dipper{% endcall %}
+    {% endcall %}
+    {% call TableRow() %}
+      {% call TableHeaderCell({ scope: "row" }) %}Sweden{% endcall %}
+      {% call TableCell() %}Stockholm{% endcall %}
+      {% call TableCell() %}Göteborg{% endcall %}
+      {% call TableCell() %}Malmö{% endcall %}
+      {% call TableCell() %}Elk{% endcall %}
+      {% call TableCell() %}Common blackbird{% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call TableFoot() %}
+    {% call TableRow() %}
+      {% call TableCell({ colspan: 6 }) %}5 countries{% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

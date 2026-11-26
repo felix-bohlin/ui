@@ -38,7 +38,7 @@ import {
                     autocomplete="given-name"
                     id="sign-up-first-name"
                     name="first-name"
-                    placeholder="Rory"
+                    placeholder="Josh"
                     required
                     type="text"
                   />
@@ -59,7 +59,7 @@ import {
                   autocomplete="email"
                   id="sign-up-email"
                   name="email"
-                  placeholder="rory@lowend.example"
+                  placeholder="josh@bassmail.example"
                   required
                   type="email"
                 />
@@ -83,7 +83,7 @@ import {
                   <PasswordToggle for="sign-up-password" />
                 </template>
               </Field>
-              <div class="ui-layout-column ui-x-small">
+              <div class="ui-layout-column ui-gap-x-small">
                 <span
                   class="ui-layout-row ui-spread sign-up-strength-label"
                   id="sign-up-strength"
@@ -181,7 +181,7 @@ import {
       </Card>
       <aside
         aria-label="Why Bassbook"
-        class="ui-layout-column ui-large sign-up-aside"
+        class="ui-layout-column ui-gap-large sign-up-aside"
       >
         <hgroup class="ui-hgroup">
           <p class="ui-overline">Why bassists join</p>
@@ -253,7 +253,7 @@ import {
           “My band still won't let me pick the songs, but here 300 people liked
           my pedalboard!”
           <footer>
-            Percy Groove, <cite>bassist in Brad and the Brads</cite>
+            Adam Groove, <cite>bassist in Brad and the Brads</cite>
           </footer>
         </blockquote>
       </aside>

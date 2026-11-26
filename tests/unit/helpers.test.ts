@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest"
-import { defined } from "../../packages/opui/components/attrs"
+import { defined, filled } from "../../packages/opui/components/attrs"
 import { cx } from "../../packages/opui/components/cx"
 import { toggleInGroup } from "../../packages/opui/components/group"
 import {
@@ -15,7 +15,27 @@ import {
   styleVars,
 } from "../../packages/opui/components/style"
 import { tagAttrs } from "../../packages/opui/components/tag"
+import { checkedValues } from "../../packages/opui/components/ToggleGroup/selection"
 import { exampleIdBase } from "../../src/utils/id"
+
+describe("filled", () => {
+  test("is true for a slot value that renders, the number 0 too, and false for null, undefined, booleans and the empty string", () => {
+    expect([0, "0", "a", [], {}].map(filled)).toEqual([
+      true,
+      true,
+      true,
+      true,
+      true,
+    ])
+    expect([null, undefined, false, true, ""].map(filled)).toEqual([
+      false,
+      false,
+      false,
+      false,
+      false,
+    ])
+  })
+})
 
 describe("cx", () => {
   test("joins strings, arrays and truthy object keys", () => {
@@ -261,5 +281,16 @@ describe("toggleInGroup", () => {
     const group = ["a", "b"]
     expect(toggleInGroup(group, "a", true)).toBe(group)
     expect(toggleInGroup(group, "c", false)).toBe(group)
+  })
+})
+
+describe("checkedValues", () => {
+  test("toggles the input's value in a selection the app holds, keeping values that have no button", () => {
+    const input = { checked: true, value: "b" } as HTMLInputElement
+    expect(checkedValues(input, ["a", "z"])).toEqual(["a", "z", "b"])
+    expect(
+      checkedValues({ ...input, checked: false }, ["a", "b", "z"]),
+    ).toEqual(["a", "z"])
+    expect(checkedValues(input, "a")).toEqual(["a", "b"])
   })
 })

@@ -1,0 +1,40 @@
+{% from "opui/index.njk" import Callout, CalloutContent, CalloutIcon %}
+
+{% call Callout({ severity: "critical" }) %}
+  {{ CalloutIcon() }}
+  {% call CalloutContent() %}Payment failed. Update your card to keep Bassbook Gold.{% endcall %}
+{% endcall %}
+{% call Callout({ severity: "info" }) %}
+  {{ CalloutIcon() }}
+  {% call CalloutContent() %}Your Bassbook Gold trial ends in 7 days.{% endcall %}
+{% endcall %}
+{% call Callout({ severity: "neutral" }) %}
+  {% call CalloutContent() %}This setlist is archived and read-only.{% endcall %}
+{% endcall %}
+{% call Callout({ severity: "success" }) %}
+  {{ CalloutIcon() }}
+  {% call CalloutContent() %}Woohoo, your pedalboard changes were saved.{% endcall %}
+{% endcall %}
+{% call Callout({ severity: "warning" }) %}
+  {{ CalloutIcon() }}
+  {% call CalloutContent() %}Your slap video storage is 90% full.{% endcall %}
+{% endcall %}
+{% call Callout({ severity: "critical", variant: "outlined" }) %}
+  {{ CalloutIcon() }}
+  {% call CalloutContent() %}Payment failed. Update your card to keep Bassbook Gold.{% endcall %}
+{% endcall %}
+{% call Callout({ severity: "info", variant: "outlined" }) %}
+  {{ CalloutIcon() }}
+  {% call CalloutContent() %}Your Bassbook Gold trial ends in 7 days.{% endcall %}
+{% endcall %}
+{% call Callout({ severity: "neutral", variant: "outlined" }) %}
+  {% call CalloutContent() %}This setlist is archived and read-only.{% endcall %}
+{% endcall %}
+{% call Callout({ severity: "success", variant: "outlined" }) %}
+  {{ CalloutIcon() }}
+  {% call CalloutContent() %}Woohoo, your pedalboard changes were saved.{% endcall %}
+{% endcall %}
+{% call Callout({ severity: "warning", variant: "outlined" }) %}
+  {{ CalloutIcon() }}
+  {% call CalloutContent() %}Your slap video storage is 90% full.{% endcall %}
+{% endcall %}

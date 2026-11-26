@@ -22,9 +22,9 @@
 >
   <Card variant="outlined">
     <CardContent>
-      <div class="ui-layout-row ui-small ui-spread">
+      <div class="ui-layout-row ui-gap-small ui-spread">
         <h1 class="ui-h4">Notifications</h1>
-        <div class="ui-layout-row ui-x-small">
+        <div class="ui-layout-row ui-gap-x-small">
           <Button size="small" type="button">
             <svg
               data-icon="check-all"
@@ -69,27 +69,29 @@
         <TabsItem defaultChecked id="notifications-tab-all">
           <TabsLabel>All</TabsLabel>
           <TabsPanel>
-            <div class="ui-layout-column ui-large notifications-feed">
+            <div class="ui-layout-column ui-gap-large notifications-feed">
               <section
                 aria-labelledby="notifications-today"
-                class="ui-layout-column ui-small"
+                class="ui-layout-column ui-gap-small"
               >
                 <h2 class="ui-overline" id="notifications-today">Today</h2>
                 <List flush variant="transparent">
                   <ListItem
                     class="notifications-unread"
-                    label="Holly Humbucker mentioned you in Gear Talk 🎸"
+                    label="Scott Humbucker mentioned you in Gear Talk 🎸"
                   >
                     {#snippet start()}
                       <Badge dot label="Unread"
-                        ><Avatar aria-hidden="true">HH</Avatar></Badge
+                        ><Avatar aria-hidden="true">SH</Avatar></Badge
                       >
                     {/snippet}
                     <p class="notifications-quote">
-                      @rory is it true you can play a whole set on 3 strings?
+                      @josh is it true you can play a whole set on 3 strings?
                       asking for a guitarist
                     </p>
-                    <div class="ui-layout-row ui-small notifications-actions">
+                    <div
+                      class="ui-layout-row ui-gap-small notifications-actions"
+                    >
                       <Button size="small" type="button" variant="tonal"
                         >Reply</Button
                       >
@@ -103,15 +105,17 @@
                   </ListItem>
                   <ListItem
                     class="notifications-unread"
-                    description="14 members, including Stella and Percy. Loud ones only!"
-                    label="Lou Headstock invited you to the group Bassists Who Were Told To Turn It Down"
+                    description="14 members, including Ellen and Adam. Loud ones only!"
+                    label="Kinga Headstock invited you to the group Bassists Who Were Told To Turn It Down"
                   >
                     {#snippet start()}
                       <Badge dot label="Unread"
-                        ><Avatar aria-hidden="true">LH</Avatar></Badge
+                        ><Avatar aria-hidden="true">KH</Avatar></Badge
                       >
                     {/snippet}
-                    <div class="ui-layout-row ui-small notifications-actions">
+                    <div
+                      class="ui-layout-row ui-gap-small notifications-actions"
+                    >
                       <Button size="small" type="button" variant="filled"
                         >Accept</Button
                       >
@@ -125,9 +129,9 @@
                       >
                     {/snippet}
                   </ListItem>
-                  <ListItem label="Holly Humbucker scribbled on your wall">
+                  <ListItem label="Scott Humbucker scribbled on your wall">
                     {#snippet start()}
-                      <Avatar aria-hidden="true">HH</Avatar>
+                      <Avatar aria-hidden="true">SH</Avatar>
                     {/snippet}
                     <p>
                       "Saw your gig!! I was the only one watching your fingers
@@ -143,7 +147,7 @@
               </section>
               <section
                 aria-labelledby="notifications-yesterday"
-                class="ui-layout-column ui-small"
+                class="ui-layout-column ui-gap-small"
               >
                 <h2 class="ui-overline" id="notifications-yesterday">
                   Yesterday
@@ -151,9 +155,9 @@
                 <List flush variant="transparent">
                   <ListItem>
                     {#snippet start()}
-                      <Avatar aria-hidden="true">PG</Avatar>
+                      <Avatar aria-hidden="true">AG</Avatar>
                     {/snippet}
-                    {#snippet label()}Percy Groove commented on your photo "Me
+                    {#snippet label()}Adam Groove commented on your photo "Me
                       and Big Bertha"{/snippet}
                     <p class="notifications-quote">
                       That fretboard tho 😍 Is she a '74?
@@ -164,9 +168,9 @@
                       >
                     {/snippet}
                   </ListItem>
-                  <ListItem label="Ines Hertz reacted 🔥 to your post">
+                  <ListItem label="Mohini Hertz reacted 🔥 to your post">
                     {#snippet start()}
-                      <Avatar aria-hidden="true">IH</Avatar>
+                      <Avatar aria-hidden="true">MH</Avatar>
                     {/snippet}
                     <p>
                       "My drummer asked if bass is just a guitar with fewer
@@ -182,7 +186,7 @@
               </section>
               <section
                 aria-labelledby="notifications-earlier"
-                class="ui-layout-column ui-small"
+                class="ui-layout-column ui-gap-small"
               >
                 <h2 class="ui-overline" id="notifications-earlier">
                   Monday 5 October
@@ -195,7 +199,9 @@
                     {#snippet start()}
                       <Avatar aria-hidden="true" shape="squircle">BB</Avatar>
                     {/snippet}
-                    <div class="ui-layout-row ui-small notifications-actions">
+                    <div
+                      class="ui-layout-row ui-gap-small notifications-actions"
+                    >
                       <Button
                         href="#notifications-gold"
                         size="small"
@@ -216,17 +222,17 @@
         <TabsItem id="notifications-tab-mentions">
           <TabsLabel>Mentions</TabsLabel>
           <TabsPanel>
-            <div class="ui-layout-column ui-large notifications-feed">
+            <div class="ui-layout-column ui-gap-large notifications-feed">
               <List flush variant="transparent">
                 <ListItem class="notifications-unread">
                   {#snippet start()}
-                    <Avatar aria-hidden="true">HH</Avatar>
+                    <Avatar aria-hidden="true">SH</Avatar>
                   {/snippet}
                   {#snippet label()}
-                    <span class="ui-sr-only">Unread:{" "}</span>Holly Humbucker
+                    <span class="ui-sr-only">Unread:{" "}</span>Scott Humbucker
                     mentioned you in Gear Talk 🎸{/snippet}
                   <p class="notifications-quote">
-                    @rory is it true you can play a whole set on 3 strings?
+                    @josh is it true you can play a whole set on 3 strings?
                     asking for a guitarist
                   </p>
                   {#snippet end()}
@@ -235,14 +241,12 @@
                     >
                   {/snippet}
                 </ListItem>
-                <ListItem
-                  label="Stella Nut mentioned you in Ignored Bassists Anonymous"
-                >
+                <ListItem label="Ellen Nut mentioned you in Mixed Too Low">
                   {#snippet start()}
-                    <Avatar aria-hidden="true">SN</Avatar>
+                    <Avatar aria-hidden="true">EN</Avatar>
                   {/snippet}
                   <p class="notifications-quote">
-                    @rory is our hero. A bass solo. At a WEDDING!!
+                    @josh is our hero. A bass solo. At a WEDDING!!
                   </p>
                   {#snippet end()}
                     <time class="ui-caption" datetime="2026-10-06T14:48"
@@ -258,7 +262,7 @@
           <TabsLabel>Archived</TabsLabel>
           <TabsPanel>
             <div
-              class="ui-layout-column ui-small ui-align-center notifications-empty"
+              class="ui-layout-column ui-gap-small ui-align-center notifications-empty"
             >
               <svg
                 data-icon="inbox"

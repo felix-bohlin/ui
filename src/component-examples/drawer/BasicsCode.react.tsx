@@ -69,7 +69,7 @@ export default function BasicsCode() {
         </DrawerHeader>
         <DrawerContent aria-label="Gig details" role="region" tabIndex={0}>
           <p>
-            Assigned to Lou Headstock, due Friday. Holly Humbucker checks the
+            Assigned to Kinga Headstock, due Friday. Scott Humbucker checks the
             setlist, and the drummer promises (again) to bring the cymbals by
             Wednesday.
           </p>
@@ -111,8 +111,8 @@ export default function BasicsCode() {
             room and on the actual stage, before the doors open at eight.
           </p>
           <p>
-            Holly Humbucker created the task on 3 March, and Lou Headstock moved
-            it to Rocking on 5 March.
+            Scott Humbucker created the task on 3 March, and Kinga Headstock
+            moved it to Rocking on 5 March.
           </p>
         </DrawerContent>
         <DrawerFooter>
@@ -132,9 +132,9 @@ export default function BasicsCode() {
           <DrawerTitle>Notifications</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
-          <p>Holly Humbucker commented on Friday gig prep.</p>
+          <p>Scott Humbucker commented on Friday gig prep.</p>
           <p>Your setlist export is ready to download, woohoo.</p>
-          <p>Lou Headstock invited you to Ignored Bassists Anonymous.</p>
+          <p>Kinga Headstock invited you to Mixed Too Low.</p>
         </DrawerContent>
         <DrawerFooter>
           <Button command="close" commandfor="drawer-basics-3" size="small">
@@ -150,14 +150,16 @@ export default function BasicsCode() {
         <DrawerContent>
           <Fieldset>
             <FieldLegend>Status</FieldLegend>
-            <FieldGroup name="status" orientation="horizontal">
-              <Checkbox defaultChecked value="done">
+            <FieldGroup orientation="horizontal">
+              <Checkbox defaultChecked name="status" value="done">
                 Done
               </Checkbox>
-              <Checkbox defaultChecked value="in-progress">
+              <Checkbox defaultChecked name="status" value="in-progress">
                 Rocking
               </Checkbox>
-              <Checkbox value="open">Not yet</Checkbox>
+              <Checkbox name="status" value="open">
+                Not yet
+              </Checkbox>
             </FieldGroup>
           </Fieldset>
         </DrawerContent>

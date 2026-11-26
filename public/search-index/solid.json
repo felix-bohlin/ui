@@ -895,11 +895,11 @@
     "url": "/solid/components/description-list/#basics"
   },
   {
-    "id": "component-description-list-solid-border",
-    "title": "Border",
+    "id": "component-description-list-solid-leader",
+    "title": "Leader",
     "page": "Description list",
     "category": "Component",
-    "url": "/solid/components/description-list/#border"
+    "url": "/solid/components/description-list/#leader"
   },
   {
     "id": "component-description-list-solid-orientation",
@@ -1123,13 +1123,6 @@
     "url": "/solid/components/field/#basics"
   },
   {
-    "id": "component-field-solid-ids",
-    "title": "Ids",
-    "page": "Field",
-    "category": "Component",
-    "url": "/solid/components/field/#ids"
-  },
-  {
     "id": "component-field-solid-variants",
     "title": "Variants",
     "page": "Field",
@@ -1165,20 +1158,6 @@
     "url": "/solid/components/field/#start-text"
   },
   {
-    "id": "component-field-solid-end-text",
-    "title": "End text",
-    "page": "Field",
-    "category": "Component",
-    "url": "/solid/components/field/#end-text"
-  },
-  {
-    "id": "component-field-solid-character-count",
-    "title": "Character count",
-    "page": "Field",
-    "category": "Component",
-    "url": "/solid/components/field/#character-count"
-  },
-  {
     "id": "component-field-solid-affix",
     "title": "Affix",
     "page": "Field",
@@ -1193,6 +1172,27 @@
     "url": "/solid/components/field/#top-and-bottom"
   },
   {
+    "id": "component-field-solid-end-text",
+    "title": "End text",
+    "page": "Field",
+    "category": "Component",
+    "url": "/solid/components/field/#end-text"
+  },
+  {
+    "id": "component-field-solid-character-count",
+    "title": "Character count",
+    "page": "Field",
+    "category": "Component",
+    "url": "/solid/components/field/#character-count"
+  },
+  {
+    "id": "component-field-solid-ids",
+    "title": "Ids",
+    "page": "Field",
+    "category": "Component",
+    "url": "/solid/components/field/#ids"
+  },
+  {
     "id": "component-field-solid-validation",
     "title": "Validation",
     "page": "Field",
@@ -1205,6 +1205,13 @@
     "page": "Field",
     "category": "Component",
     "url": "/solid/components/field/#bound-validation"
+  },
+  {
+    "id": "component-field-solid-disabled",
+    "title": "Disabled and read-only",
+    "page": "Field",
+    "category": "Component",
+    "url": "/solid/components/field/#disabled"
   },
   {
     "id": "component-field-solid-spread",
@@ -2388,13 +2395,6 @@
     "page": "Select",
     "category": "Component",
     "url": "/solid/components/select/#preselected"
-  },
-  {
-    "id": "component-select-solid-disabled",
-    "title": "Disabled",
-    "page": "Select",
-    "category": "Component",
-    "url": "/solid/components/select/#disabled"
   },
   {
     "id": "component-select-solid-required",
@@ -3629,27 +3629,6 @@
     "url": "/solid/guide/theme-tokens/#tokens-json"
   },
   {
-    "id": "guide-theme-tokens-solid-figma",
-    "title": "Figma",
-    "page": "Theme tokens",
-    "category": "Guide",
-    "url": "/solid/guide/theme-tokens/#figma"
-  },
-  {
-    "id": "guide-theme-tokens-solid-figma-plugin",
-    "title": "With the plugin",
-    "page": "Theme tokens",
-    "category": "Guide",
-    "url": "/solid/guide/theme-tokens/#figma-plugin"
-  },
-  {
-    "id": "guide-theme-tokens-solid-figma-files",
-    "title": "Without the plugin",
-    "page": "Theme tokens",
-    "category": "Guide",
-    "url": "/solid/guide/theme-tokens/#figma-files"
-  },
-  {
     "id": "guide-theme-tokens-solid-naming",
     "title": "How tokens are named",
     "page": "Theme tokens",
@@ -3884,6 +3863,13 @@
     "url": "/solid/guide/getting-started/#usage"
   },
   {
+    "id": "guide-getting-started-solid-element",
+    "title": "Reaching the element",
+    "page": "Getting started",
+    "category": "Guide",
+    "url": "/solid/guide/getting-started/#element"
+  },
+  {
     "id": "guide-getting-started-solid-ssr",
     "title": "Server rendering",
     "page": "Getting started",
@@ -4021,7 +4007,7 @@
     "id": "blog-release-6",
     "title": "opui 6.0",
     "description": "What changed in 6.0 and why, with live demos.",
-    "headings": "It's a proper design system now Five example themes Token tiers Contrast as a guarantee Loads of new components So much cool stuff in the docs Blocks! Theme builder The CSS is the component One Astro file, five frameworks Slots become parts, props get one naming model The platform did the work Browser support, honestly The new \"by hand\" Working with AI Where it landed Migrating",
+    "headings": "It's a proper design system now The example themes Token tiers Contrast as a guarantee Loads of new components So much cool stuff in the docs Blocks! Theme builder The CSS is the component One Astro file, every framework Slots become parts, props get one naming model The platform did the work Browser support, honestly The new \"by hand\" Working with AI Where it landed Migrating",
     "category": "Blog",
     "url": "/blog/release-6/"
   },
@@ -4114,6 +4100,14 @@
     "url": "/blocks/account-settings/"
   },
   {
+    "id": "block-album-launch",
+    "title": "Album launch",
+    "description": "A release countdown on a dark stage, with record art, big digits, a pre-save field and the first tracks to hear.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/album-launch/"
+  },
+  {
     "id": "block-analytics-dashboard",
     "title": "Analytics dashboard",
     "description": "Key metrics, a bar chart, top pages and traffic sources, with a date range toggle.",
@@ -4128,6 +4122,22 @@
     "headings": "Application",
     "category": "Blocks",
     "url": "/blocks/app-shell/"
+  },
+  {
+    "id": "block-article",
+    "title": "Article",
+    "description": "A magazine article with a breadcrumb, byline, cover image, a sticky table of contents, rich text, tags and an author card.",
+    "headings": "Content",
+    "category": "Blocks",
+    "url": "/blocks/article/"
+  },
+  {
+    "id": "block-bassist-profile",
+    "title": "Bassist profile",
+    "description": "A musician's profile with a stage-light cover, stats, gear, and a wall of posts with reactions.",
+    "headings": "Application",
+    "category": "Blocks",
+    "url": "/blocks/bassist-profile/"
   },
   {
     "id": "block-billing",
@@ -4146,12 +4156,36 @@
     "url": "/blocks/blog-list/"
   },
   {
+    "id": "block-call-to-action",
+    "title": "Call to action",
+    "description": "A bold banner with one call to action, and a split section with an inline email sign-up.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/call-to-action/"
+  },
+  {
+    "id": "block-centered-hero",
+    "title": "Centered hero",
+    "description": "A centered headline with a soft glow, two calls to action, member avatars and a row of band names.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/centered-hero/"
+  },
+  {
     "id": "block-changelog",
     "title": "Changelog",
     "description": "Releases on a timeline, each with a version, a date and grouped changes.",
     "headings": "Marketing",
     "category": "Blocks",
     "url": "/blocks/changelog/"
+  },
+  {
+    "id": "block-character-sheet",
+    "title": "Character sheet",
+    "description": "An RPG-style profile with hit points, experience, attribute meters, an inventory, abilities and a quest log.",
+    "headings": "Games",
+    "category": "Blocks",
+    "url": "/blocks/character-sheet/"
   },
   {
     "id": "block-chat",
@@ -4168,6 +4202,30 @@
     "headings": "E-commerce",
     "category": "Blocks",
     "url": "/blocks/checkout/"
+  },
+  {
+    "id": "block-collage-hero",
+    "title": "Collage hero",
+    "description": "A headline and pitch next to an overlapping collage of illustrated scenes with a floating stat card.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/collage-hero/"
+  },
+  {
+    "id": "block-contact",
+    "title": "Contact",
+    "description": "Ways to get in touch and opening hours, next to a contact form with a topic and a consent box.",
+    "headings": "Content",
+    "category": "Blocks",
+    "url": "/blocks/contact/"
+  },
+  {
+    "id": "block-cover-hero",
+    "title": "Cover hero",
+    "description": "A full-bleed illustrated scene with a dark scrim, a headline, calls to action and quick facts on top.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/cover-hero/"
   },
   {
     "id": "block-data-table",
@@ -4226,6 +4284,14 @@
     "url": "/blocks/forgot-password/"
   },
   {
+    "id": "block-gig-ticket",
+    "title": "Gig ticket",
+    "description": "A festival ticket with a tear-off stub and barcode, the running order and who holds each ticket.",
+    "headings": "Events",
+    "category": "Blocks",
+    "url": "/blocks/gig-ticket/"
+  },
+  {
     "id": "block-hero",
     "title": "Hero",
     "description": "A headline, a short pitch, two calls to action and a product preview.",
@@ -4258,12 +4324,28 @@
     "url": "/blocks/kanban-board/"
   },
   {
+    "id": "block-leaderboard",
+    "title": "Leaderboard",
+    "description": "A podium for the top three, a table of the rest with your own row highlighted, and your stats for the week.",
+    "headings": "Games",
+    "category": "Blocks",
+    "url": "/blocks/leaderboard/"
+  },
+  {
     "id": "block-lightbox",
     "title": "Lightbox",
     "description": "A post's photos in a dark full-screen viewer: swipe sideways between them, and down to close.",
     "headings": "Application",
     "category": "Blocks",
     "url": "/blocks/lightbox/"
+  },
+  {
+    "id": "block-music-player",
+    "title": "Music player",
+    "description": "The track playing now with a cover, seek bar and controls, next to the queue and the lyrics.",
+    "headings": "Lifestyle",
+    "category": "Blocks",
+    "url": "/blocks/music-player/"
   },
   {
     "id": "block-newsletter",
@@ -4306,6 +4388,14 @@
     "url": "/blocks/order-history/"
   },
   {
+    "id": "block-party-invitation",
+    "title": "Party invitation",
+    "description": "A birthday invitation with the when, where and who, next to an RSVP form with guests, food and a song request.",
+    "headings": "Events",
+    "category": "Blocks",
+    "url": "/blocks/party-invitation/"
+  },
+  {
     "id": "block-pricing",
     "title": "Pricing",
     "description": "Three plans with a monthly or yearly toggle, a highlighted plan and a feature comparison.",
@@ -4330,6 +4420,14 @@
     "url": "/blocks/project-overview/"
   },
   {
+    "id": "block-recipe",
+    "title": "Recipe",
+    "description": "A cooking recipe with times and a rating, a servings stepper, an ingredient checklist and numbered steps.",
+    "headings": "Lifestyle",
+    "category": "Blocks",
+    "url": "/blocks/recipe/"
+  },
+  {
     "id": "block-sales-dashboard",
     "title": "Sales dashboard",
     "description": "Revenue, orders and conversion with sales targets and the latest orders.",
@@ -4344,6 +4442,14 @@
     "headings": "Dashboards",
     "category": "Blocks",
     "url": "/blocks/server-status/"
+  },
+  {
+    "id": "block-setlist",
+    "title": "Setlist",
+    "description": "A setlist taped to the stage floor with keys, tempos and notes, songs ticked off as they're played, and a stage plot.",
+    "headings": "Events",
+    "category": "Blocks",
+    "url": "/blocks/setlist/"
   },
   {
     "id": "block-shopping-cart",
@@ -4370,6 +4476,22 @@
     "url": "/blocks/sign-up/"
   },
   {
+    "id": "block-site-footer",
+    "title": "Site footer",
+    "description": "A site footer with a newsletter field, columns of links, legal links and a language picker.",
+    "headings": "Content",
+    "category": "Blocks",
+    "url": "/blocks/site-footer/"
+  },
+  {
+    "id": "block-site-header",
+    "title": "Site header",
+    "description": "A site header with a logo, navigation with a dropdown menu and calls to action, collapsing into a drawer on small screens.",
+    "headings": "Content",
+    "category": "Blocks",
+    "url": "/blocks/site-header/"
+  },
+  {
     "id": "block-team-members",
     "title": "Team members",
     "description": "An invite form and a member list with roles, statuses and actions.",
@@ -4378,12 +4500,44 @@
     "url": "/blocks/team-members/"
   },
   {
+    "id": "block-teasers",
+    "title": "Teasers",
+    "description": "Alternating rows of image and text, image left then image right, each with a tag, a title and a link.",
+    "headings": "Content",
+    "category": "Blocks",
+    "url": "/blocks/teasers/"
+  },
+  {
     "id": "block-testimonials",
     "title": "Testimonials",
     "description": "Customer quotes with names, roles and ratings.",
     "headings": "Marketing",
     "category": "Blocks",
     "url": "/blocks/testimonials/"
+  },
+  {
+    "id": "block-tournament-bracket",
+    "title": "Tournament bracket",
+    "description": "A battle of the bands bracket with scores, connector lines between rounds and the champion still to be decided.",
+    "headings": "Games",
+    "category": "Blocks",
+    "url": "/blocks/tournament-bracket/"
+  },
+  {
+    "id": "block-trivia-quiz",
+    "title": "Trivia quiz",
+    "description": "A quiz question with answer tiles, a timer meter, progress, a streak and the feedback after answering.",
+    "headings": "Games",
+    "category": "Blocks",
+    "url": "/blocks/trivia-quiz/"
+  },
+  {
+    "id": "block-tuner",
+    "title": "Tuner",
+    "description": "A tuner with a needle gauge and string picker, next to a metronome with tempo, beats and time signature.",
+    "headings": "Lifestyle",
+    "category": "Blocks",
+    "url": "/blocks/tuner/"
   },
   {
     "id": "block-two-factor",
@@ -4402,10 +4556,18 @@
     "url": "/blocks/user-directory/"
   },
   {
+    "id": "block-year-in-review",
+    "title": "Year in review",
+    "description": "A year-end recap in bold cards: hours played, a personality, top songs, a favourite string and a practice streak.",
+    "headings": "Dashboards",
+    "category": "Blocks",
+    "url": "/blocks/year-in-review/"
+  },
+  {
     "id": "theme-builder",
     "title": "Theme builder",
     "description": "Start from a preset, pick a mood and your colors, shuffle, check the contrast, and copy one CSS file.",
-    "headings": "bootstrap Brand color brutalist Contrast check Corners Density Export theme.css Fonts Generator govuk Light and dark mode m3 Motion OKLCH Presets shadcn Shadows Share link Spacing Status colors",
+    "headings": "bootstrap Brand color brutalist Contrast check Corners Density Export theme.css Fonts Generator govuk Light and dark mode m3 Motion OKLCH Presets shadcn Shadows Share link Spacing Status colors vice-city",
     "category": "Guide",
     "url": "/theme-builder/"
   },
@@ -4429,7 +4591,7 @@
     "id": "api-accordion-solid",
     "title": "Accordion API",
     "description": "Reference for Accordion Solid component.",
-    "api": "Accordion Container element. The always visible header. The marker. In Astro, React, Solid, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates. The collapsible content. A group of actions, such as buttons. name Groups accordions so only one of them can be open at a time. markerAnimation How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` turns it a quarter turn, for a marker that points to the inline end and then points down when open. The default chevron points down, so `turn` needs a custom marker. open Whether the accordion is open. variant The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface or border, and no inline padding.",
+    "api": "Accordion Container element. The always visible header. The marker. Outside HTML, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates. The collapsible content. A group of actions, such as buttons. name Groups accordions so only one of them can be open at a time. markerAnimation How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` turns it a quarter turn, for a marker that points to the inline end and then points down when open. The default chevron points down, so `turn` needs a custom marker. open Whether the accordion is open. variant The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface or border, and no inline padding.",
     "category": "API",
     "url": "/solid/api/#accordion"
   },
@@ -4453,7 +4615,7 @@
     "id": "api-avatar-solid",
     "title": "Avatar API",
     "description": "Reference for Avatar Solid component.",
-    "api": "Avatar Container element. The avatar image. Its `alt` is `label`. label src aria-label The accessible name of a link or button avatar, instead of `label`. The Astro, React, Solid and Svelte types require one of `label`, `aria-label` and `aria-labelledby` on a link or button. In Vue it passes through as an attribute. aria-labelledby The id of the element that names a link or button avatar, instead of `label`. as The element to render, or the link component of your router with `href`, such as Next's `Link`, Solid Router's `A` or Nuxt's `NuxtLink`, which gets the `href`. Defaults to `\"a\"` with `href`. With `disabled`, it renders a plain `<a>` with `role=\"link\"` and `aria-disabled=\"true\"` instead. disabled Disables a button avatar. A link avatar drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"` instead. href The link to use. Renders an `<a>`. label The name of the person or thing: the `alt` of the image, or visually hidden text next to the letters or icon. Leave it out when the name is shown next to the avatar, which then is decorative. A link or button avatar needs it. shape The shape of the avatar. size The size of the element. src The image source. Replaces the content. Without it, the avatar shows its content, so a missing photo falls back to the letters. variant The variant to use. `filled` is the primary color, `outlined` the border color with no fill and `tonal` the primary tint.",
+    "api": "Avatar Container element. The avatar image. Its `alt` is `label`. label src aria-label The accessible name of a link or button avatar, instead of `label`. The Astro, React, Solid and Svelte types require one of `label`, `aria-label` and `aria-labelledby` on a link or button. In Vue it passes through as an attribute. aria-labelledby The id of the element that names a link or button avatar, instead of `label`. as The element to render, or the link component of your router with `href`, such as Solid Router's `A`, which gets the `href`. Defaults to `\"a\"` with `href`. With `disabled`, it renders a plain `<a>` with `role=\"link\"` and `aria-disabled=\"true\"` instead. disabled Disables a button avatar. A link avatar drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"` instead. href The link to use. Renders an `<a>`. label The name of the person or thing: the `alt` of the image, or visually hidden text next to the letters or icon. Leave it out when the name is shown next to the avatar, which then is decorative. A link or button avatar needs it. shape The shape of the avatar. size The size of the element. src The image source. Replaces the content. Without it, the avatar shows its content, so a missing photo falls back to the letters. variant The variant to use. `filled` is the primary color, `outlined` the border color with no fill and `tonal` the primary tint.",
     "category": "API",
     "url": "/solid/api/#avatar"
   },
@@ -4469,7 +4631,7 @@
     "id": "api-button-solid",
     "title": "Button API",
     "description": "Reference for Button Solid component.",
-    "api": "Button Container element. An optional icon. The label next to an icon. The CSS styles the `span`, and `.ui-text` is a hook for your own styles. An optional keyboard hint. aria-label The accessible name, for a button without visible text. React, Solid and Svelte require it, or `aria-labelledby`, when there are no `children`. aria-labelledby The id of the element that names a button without visible text, instead of `aria-label`. as The element to render, or the link component of your router with `href`, such as Next's `Link`, Solid Router's `A` or Nuxt's `NuxtLink`, which gets the `href`. Defaults to `\"a\"` with `href`. With `disabled`, it renders a plain `<a>` with `role=\"link\"` and `aria-disabled=\"true\"` instead. color Optional colors. disabled Disables the button. A link button drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"`. href The link to use. Renders an `<a>`. round Fully rounded corners, a circle when icon-only. size The size of the element. type The button type. Use `\"submit\"` to submit a form, which a native `<button>` does by default. variant The variant to use.",
+    "api": "Button Container element. An optional icon. The label next to an icon. The CSS styles the `span`, and `.ui-text` is a hook for your own styles. An optional keyboard hint. aria-label The accessible name, for a button without visible text. React, Solid and Svelte require it, or `aria-labelledby`, when there are no `children`. aria-labelledby The id of the element that names a button without visible text, instead of `aria-label`. as The element to render, or the link component of your router with `href`, such as Solid Router's `A`, which gets the `href`. Defaults to `\"a\"` with `href`. With `disabled`, it renders a plain `<a>` with `role=\"link\"` and `aria-disabled=\"true\"` instead. color Optional colors. disabled Disables the button. A link button drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"`. href The link to use. Renders an `<a>`. round Fully rounded corners, a circle when icon-only. size The size of the element. type The button type. Use `\"submit\"` to submit a form, which a native `<button>` does by default. variant The variant to use.",
     "category": "API",
     "url": "/solid/api/#button"
   },
@@ -4477,7 +4639,7 @@
     "id": "api-callout-solid",
     "title": "Callout API",
     "description": "Reference for Callout Solid component.",
-    "api": "Callout Container element, a `<div>`. With `closeButton`, the `<opui-callout>` custom element, which a button with `commandfor` and `command=\"--dismiss\"` dismisses. An optional icon before the content. In Astro, React, Solid, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. The content, with an optional heading first. A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon A row of buttons under the content. closeButton Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>`, and the component loads `opui-css/elements/callout.js`, which runs the button. While the root has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, the button does nothing. closeLabel The accessible name of the close button. The types take it only with `closeButton`. id The id of the callout. With `closeButton`, the close button points at it with `commandfor`, so the component generates one when it's left out. onDismiss Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first. severity The severity. Sets the color, and in Astro, React, Solid, Svelte and Vue the icon `CalloutIcon` renders. variant The variant to use. dismiss Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout. dismiss() Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
+    "api": "Callout Container element, a `<div>`. With `closeButton`, the `<opui-callout>` custom element, which a button with `commandfor` and `command=\"--dismiss\"` dismisses. An optional icon before the content. Outside HTML, `CalloutIcon` renders the default one for critical, info, success and warning. The content, with an optional heading first. A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon A row of buttons under the content. closeButton Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>`, and the component loads `opui-css/elements/callout.js`, which runs the button. While the root has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, the button does nothing. closeLabel The accessible name of the close button. The types take it only with `closeButton`. id The id of the callout. With `closeButton`, the close button points at it with `commandfor`, so the component generates one when it's left out. onDismiss Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first. severity The severity. Sets the color, and outside HTML the icon `CalloutIcon` renders. variant The variant to use. dismiss Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout. dismiss() Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
     "category": "API",
     "url": "/solid/api/#callout"
   },
@@ -4517,7 +4679,7 @@
     "id": "api-character-count-solid",
     "title": "Character count API",
     "description": "Reference for Character count Solid component.",
-    "api": "CharacterCount Shows the characters typed out of the control's `maxlength`, `aria-hidden` so it stays out of the field's description. Once 10% or 10 are left, whichever is more, a live region outside the label announces the characters left. label The announcement near the limit, with `{count}` for the characters left. Pass it translated. control The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.",
+    "api": "CharacterCount Shows the characters typed out of `maxlength`, `aria-hidden` so it stays out of the description. Screen readers hear the characters left once 10% or 10 remain, whichever is more. label The announcement near the limit, with `{count}` for the characters left. Pass it translated. control The field's `<input>` or `<textarea>`, or `null` outside a field. Read-only.",
     "category": "API",
     "url": "/solid/api/#character-count"
   },
@@ -4525,7 +4687,7 @@
     "id": "api-checkbox-input-solid",
     "title": "Checkbox input API",
     "description": "Reference for Checkbox input Solid component.",
-    "api": "CheckboxInput The checkbox input, without a label. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. indeterminate Shows a partially checked state. Sets the `indeterminate` property on the `<input>`.",
+    "api": "CheckboxInput The checkbox input, without a label. name The name of the `<input>`. indeterminate Shows a partially checked state. Sets the `indeterminate` property on the `<input>`.",
     "category": "API",
     "url": "/solid/api/#checkbox-input"
   },
@@ -4533,7 +4695,7 @@
     "id": "api-checkbox-solid",
     "title": "Checkbox API",
     "description": "Reference for Checkbox Solid component.",
-    "api": "Checkbox Container element. The checkbox input. The label. label default Supporting text displayed below the label. endText end-text card Renders the checkbox as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. disabled Dims the checkbox and shows a not-allowed cursor. `aria-disabled=\"true\"` looks the same, but keeps the checkbox focusable and its value in the form, and doesn't stop the change, so block it with a script. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. id The id of the `<input>`. indeterminate Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. orientation The orientation of the element. `vertical` stacks the label under the input. required Adds a required mark after the label. The form won't submit until it's checked. size The size of the element. spread Pushes the label and the input to opposite ends. value The value of the `<input>`, submitted with the form when it's checked. variant The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
+    "api": "Checkbox Container element. The checkbox input. The label. label default Supporting text displayed below the label. endText end-text card Renders the checkbox as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. disabled Dims the checkbox and shows a not-allowed cursor. `aria-disabled=\"true\"` looks the same, but keeps the checkbox focusable and its value in the form, and doesn't stop the change, so block it with a script. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. id The id of the `<input>`. indeterminate Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. name The name of the `<input>`. orientation The orientation of the element. `vertical` stacks the label under the input. required Adds a required mark after the label. The form won't submit until it's checked. size The size of the element. spread Pushes the label and the input to opposite ends. value The value of the `<input>`, submitted with the form when it's checked. variant The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
     "category": "API",
     "url": "/solid/api/#checkbox"
   },
@@ -4541,7 +4703,7 @@
     "id": "api-chip-solid",
     "title": "Chip API",
     "description": "Reference for Chip Solid component.",
-    "api": "Chip Container element. Can be a `<div>`, `<span>`, `<a>` or `<button>`. Optional content at the start, such as an icon. start The label, text or rich content. label label Optional content at the end, such as an icon. end as The element to render, or the link component of your router with `href`, such as Next's `Link`, Solid Router's `A` or Nuxt's `NuxtLink`, which gets the `href`. Defaults to `\"a\"` with `href`. With `disabled`, it renders a plain `<a>` with `role=\"link\"` and `aria-disabled=\"true\"` instead. Use `\"span\"` inside a `<label>` or `<button>`, like a count in a tab. disabled Disables a button chip. A link chip drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"` instead. dot Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it. href The link to use. Renders an `<a>`. multiline Lets the label wrap to multiple lines. severity The severity of a status chip. It tints a tonal chip, and colors and shapes its dot, the only mark on an outlined one. size The size of the element. variant The variant to use.",
+    "api": "Chip Container element. Can be a `<div>`, `<span>`, `<a>` or `<button>`. Optional content at the start, such as an icon. start The label, text or rich content. label label Optional content at the end, such as an icon. end as The element to render, or the link component of your router with `href`, such as Solid Router's `A`, which gets the `href`. Defaults to `\"a\"` with `href`. With `disabled`, it renders a plain `<a>` with `role=\"link\"` and `aria-disabled=\"true\"` instead. Use `\"span\"` inside a `<label>` or `<button>`, like a count in a tab. disabled Disables a button chip. A link chip drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"` instead. dot Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it. href The link to use. Renders an `<a>`. multiline Lets the label wrap to multiple lines. severity The severity of a status chip. It tints a tonal chip, and colors and shapes its dot, the only mark on an outlined one. size The size of the element. variant The variant to use.",
     "category": "API",
     "url": "/solid/api/#chip"
   },
@@ -4573,7 +4735,7 @@
     "id": "api-description-list-solid",
     "title": "Description list API",
     "description": "Reference for Description list Solid component.",
-    "api": "DescriptionList Container element. Groups a term with its description. The term. The description. border The style of the line between the term and the description. Without it, there's no line. orientation The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.",
+    "api": "DescriptionList Container element. Groups a term with its description. The term. The description. leader The style of the leader, the line between the term and the description. Without it, there's no line. orientation The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.",
     "category": "API",
     "url": "/solid/api/#description-list"
   },
@@ -4629,7 +4791,7 @@
     "id": "api-drawer-solid",
     "title": "Drawer API",
     "description": "Reference for Drawer Solid component.",
-    "api": "Drawer Container element. The header, a row for the title and anything next to it, with an optional close button. The title. Names the drawer through `aria-labelledby`. The scrollable content. The footer, a row at the end. backdrop The backdrop style. `transparent` keeps the page behind it fully visible. closedby How the drawer can be closed. `any` also closes it on a click outside. Swiping a drawer at the block start or end toward its edge is a close request too, so `none` turns it off. closeOnNavigate Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. A link inside it closes it on click, unless it has `data-keep-open`, and a change of the query alone from outside it leaves it open. Reads the Navigation API. id The id of the `<dialog>`, which the trigger's `commandfor` points at. Required. scrollLock Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`. side The side it opens from.",
+    "api": "Drawer Container element. The header, a row for the title and anything next to it, with an optional close button. The title. Names the drawer through `aria-labelledby`. The scrollable content. The footer, a row at the end. backdrop The backdrop style. `transparent` keeps the page behind it fully visible. closedby How the drawer can be closed. `any` also closes it on a click outside. Swiping a drawer at the block start or end toward its edge is a close request too, so `none` turns it off. closeOnNavigate Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. A link inside it closes it on click, unless it has `data-keep-open` or opens elsewhere (a download, a `target` such as `_blank`, a click with a modifier key), and a change of the query alone from outside it leaves it open. Reads the Navigation API. id The id of the `<dialog>`, which the trigger's `commandfor` points at. Required. scrollLock Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`. side The side it opens from.",
     "category": "API",
     "url": "/solid/api/#drawer"
   },
@@ -4645,7 +4807,7 @@
     "id": "api-field-group-solid",
     "title": "Field group API",
     "description": "Reference for Field group Solid component.",
-    "api": "FieldGroup Container element. name Sets `name` on the OPUI fields inside that don't set their own. A text field's input is your own, so name it there. orientation The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row.",
+    "api": "FieldGroup Container element. orientation The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row.",
     "category": "API",
     "url": "/solid/api/#field-group"
   },
@@ -4661,7 +4823,7 @@
     "id": "api-field-solid",
     "title": "Field API",
     "description": "Reference for Field Solid component.",
-    "api": "Field Container element, a `<div>`. The label inside is a `<label for>` that names the control by itself. The label for the field. label label Start text displayed above the field. startText start-text The boxed control area. Content above the control, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start Your control, written directly inside `.ui-field-container` with its `id` set to `for`. Bind it, name it and mark it `required`, `disabled` or `aria-invalid=\"true\"` like any control. A `<textarea>` grows with its content, and a `<select>` is a customizable select. Content at the inline-end of the field, inside the border, such as a `PasswordToggle`. end Content below the control, inside the border, with a divider. bottom Supporting text displayed below the field, and a `CharacterCount`. endText end-text autoFit Lets the width follow the content, from `25ch`, or `4ch` with step buttons. A textarea can then be resized both ways. dense Packs the options of a select tighter. dropZone Makes a `type=\"file\"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker. for The `id` of your control. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for=\"x\"`. Point the control's `aria-describedby` at the ones it shows, in that order. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. size The size of the element. spread Pushes the label and start text to one side and the control to the other. variant The variant to use.",
+    "api": "Field A `<div>`, whose `<label for>` names the control. The label for the field. label label Text above the box. startText start-text The box around the control. Content above the control, inside the box. top Content before the control, inside the box. start Your control, with the field's `for` as its `id`. Content after the control, inside the box, like a `PasswordToggle`. end Content below the control, inside the box. bottom Text below the box, and a `CharacterCount`. endText end-text autoFit Fits the width to the content, from `25ch` (`4ch` with step buttons), and lets a textarea resize sideways. dense Tighter select options. dropZone Makes a `type=\"file\"` input a tall, dashed drop zone. for The `id` of your control, which the label points at and the part ids start with: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for=\"x\"`. hideLabel Visually hides the label but keeps its name. size The size of the element. spread Puts the label and start text beside the control. variant The variant to use.",
     "category": "API",
     "url": "/solid/api/#field"
   },
@@ -4677,7 +4839,7 @@
     "id": "api-file-upload-solid",
     "title": "File upload API",
     "description": "Reference for File upload Solid component.",
-    "api": "FileUpload The `<opui-file-upload>` custom element, a size container. It fires `select` for picks and drops and `remove` for the remove buttons, and has the `drag-over` custom state while files are dragged over it. While it has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, it holds picked files back and remove buttons do nothing. Lays out the drop zone and the files: stacked, or in one row when the root is narrower than `28rem`. The drop zone, dashed, and solid while files are dragged over the root. In the compact row it is a square add tile. Names the file input and covers the drop zone, so a click anywhere in it opens the picker. Its plus `<svg>` shows in the compact row. The file input, visually hidden. Its focus ring is drawn on the drop zone. accept disabled multiple The visible trigger, a `<span>` since a label can't hold a button. Visually hidden in the compact row. label The hint, linked to the input with `aria-describedby`. description The files, one `<li>` each: List rows, or square previews that scroll sideways in the compact row. items The preview: the `<img>` of the file, or a tonal placeholder until there is one. On a failed file it also holds the `<button popovertarget>` that opens the message in the compact row. The file name, a `Progress` while the file is queued or uploading, and the message in a `.ui-description`. In the compact row the name is visually hidden and the progress lies along the bottom edge. progressLabel The remove button, a round `.ui-button` with `command=\"--remove\"`, in every state. removeLabel The live region. It is always in the page, so a change of its text is announced. status accept The file types the input takes, as on a file input: extensions, MIME types and `type/*`. The element applies it to picks as well as drops. description The hint in the drop zone. It describes the input, and is visually hidden in the compact row. disabled Disables the input and dims the trigger. A drop does nothing. id The id of the file input. The remove buttons point at it, so the component generates one when it's left out. The ids the component generates start with it: `x-description` for the hint, and `x-label-0` and `x-description-0` for the first file's name and message, for `id=\"x\"`. items The files, as `{ description, label, preview, progress, state, value }` objects. `label` is the file name, `value` the id the `remove` event names, `preview` the URL of an image, `state` one of `\"done\"`, `\"error\"`, `\"queued\"` and `\"uploading\"`, `progress` a fraction from 0 to 1 while uploading, and `description` a message, which a failed file shows in the critical color. label The text of the trigger, which names the file input. multiple Takes several files in one pick or drop. Without it, `select` gets the first accepted file. onRemove Called when a remove button is pressed, with the item's `value` in `event.detail.value`. Take the item out of `items`, and cancel its upload. onSelect Called with the new files of one pick or drop in `event.detail.files`, after the `accept` check, and with only the first one without `multiple`. progressLabel The name of each file's progress bar, with `{label}` where the file's `label` goes. removeLabel The name of each file's remove button, with `{label}` where the file's `label` goes. status The text of the `role=\"status\"` region, which a screen reader announces when it changes, like \"2 photos didn't upload.\" input The `<input type=\"file\">` inside, or `null`. Read-only. remove Fires when a remove button is pressed, with its `value` in `event.detail.value`. It bubbles. Once the row is gone, focus moves to the next row's remove button, or else the previous one, or else the input. select Fires after a pick or a drop, with the new files in `event.detail.files`: the ones the input's `accept` allows, and only the first without `multiple`. It bubbles, and the input is cleared afterwards.",
+    "api": "FileUpload The `<opui-file-upload>` custom element, a size container. It fires `select` for picks and drops and `remove` for the remove buttons, and has the `drag-over` custom state while files are dragged over it. While it has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, it holds picked files back and remove buttons do nothing. Lays out the drop zone and the files: stacked, or in one row when the root is narrower than `28rem`. The drop zone, dashed, and solid while files are dragged over the root. In the compact row it is a square add tile. Names the file input and covers the drop zone, so a click anywhere in it opens the picker. Its plus `<svg>` shows in the compact row. The file input, visually hidden. Its focus ring is drawn on the drop zone. accept disabled multiple The visible trigger, a `<span>` since a label can't hold a button. Visually hidden in the compact row. label The hint, linked to the input with `aria-describedby`. description The files, one `<li>` each: List rows, or square previews that scroll sideways in the compact row. items The preview: the `<img>` of the file, or a tonal placeholder until there is one. On a failed file it also holds the `<button popovertarget>` that opens the message in the compact row. The file name, a `Progress` while the file is queued or uploading, and the message in a `.ui-description`. In the compact row the name is visually hidden and the progress lies along the bottom edge. progressLabel The remove button, a round `.ui-button` with `command=\"--remove\"`, in every state. removeLabel The live region. It is always in the page, so a change of its text is announced. status accept The file types the input takes, as on a file input: extensions, MIME types and `type/*`. The element applies it to picks as well as drops. description The hint in the drop zone. It describes the input, and is visually hidden in the compact row. disabled Disables the input and dims the trigger. A drop does nothing. id The id of the file input. The remove buttons point at it, so the component generates one when it's left out. The ids the component generates start with it: `x-description` for the hint, and `x-label-0` and `x-description-0` for the first file's name and message, for `id=\"x\"`. items The files, as `{ description, label, preview, progress, state, value }` objects. `label` is the file name, `value` the id the `remove` event names, `preview` the URL of an image, `state` one of `\"complete\"`, `\"error\"`, `\"queued\"` and `\"uploading\"`, `progress` a fraction from 0 to 1 while uploading, and `description` a message, which a failed file shows in the critical color. label The text of the trigger, which names the file input. multiple Takes several files in one pick or drop. Without it, `select` gets the first accepted file. onRemove Called when a remove button is pressed, with the item's `value` in `event.detail.value`. Take the item out of `items`, and cancel its upload. onSelect Called with the new files of one pick or drop in `event.detail.files`, after the `accept` check, and with only the first one without `multiple`. progressLabel The name of each file's progress bar, with `{label}` where the file's `label` goes. removeLabel The name of each file's remove button, with `{label}` where the file's `label` goes. status The text of the `role=\"status\"` region, which a screen reader announces when it changes, like \"2 photos didn't upload.\" input The `<input type=\"file\">` inside, or `null`. Read-only. remove Fires when a remove button is pressed, with its `value` in `event.detail.value`. It bubbles. Once the row is gone, focus moves to the next row's remove button, or else the previous one, or else the input. select Fires after a pick or a drop, with the new files in `event.detail.files`: the ones the input's `accept` allows, and only the first without `multiple`. It bubbles. The input is already empty by then, so the same file can be picked again: read the files from `event.detail.files`.",
     "category": "API",
     "url": "/solid/api/#file-upload"
   },
@@ -4693,7 +4855,7 @@
     "id": "api-layout-solid",
     "title": "Layout API",
     "description": "Reference for Layout Solid component.",
-    "api": "Layout Any element. The classes only set its layout. align Where `.ui-layout-row` puts its children along the row, and where `.ui-layout-column` lines up its children and their text. bordered Draws a line in the middle of each gap of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid` and `.ui-layout-columns`, only between two children, so a wrapped row or the short last row of a grid starts and ends without one. Browsers without gap decorations leave the gap without the line. breakpoint The container width at which `.ui-layout-columns` goes from one column to `--_columns`: `40rem`, `56rem` or `72rem`. column A column with even space between its children. On a `ul` or `ol` it also drops the list bullets and margins. columns One column that becomes the `--_columns` tracks at the breakpoint, measured on the nearest container, such as `.ui-layout-container`. container Centers its content, caps its width and is the container `.ui-layout-columns` measures. grid Columns that fill the width and wrap. On a `ul` or `ol` it also drops the list bullets and margins, and a `.ui-card` in each `li` fills its cell. media A media object: a fixed-size start, such as an avatar, next to text that fills the rest and wraps instead of widening the row. row A wrapping row with its children centered vertically. On a `ul` or `ol` it also drops the list bullets and margins. size The space between children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid`, `.ui-layout-columns` and `.ui-layout-media`. spread Pushes the children of `.ui-layout-row` to its two ends, for a page header with a heading group and its actions. sticky On a child of `.ui-layout-columns`, keeps it in view at `--_sticky-inset` from the top while the other column scrolls, once the columns sit side by side. stretch Stretches the columns of `.ui-layout-grid` over the row when there are fewer children than fit, instead of leaving the rest empty.",
+    "api": "Layout Any element. The classes only set its layout. align Where `.ui-layout-row` puts its children along the row, and where `.ui-layout-column` lines up its children and their text. bordered Draws a line in the middle of each gap of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid` and `.ui-layout-columns`, only between two children, so a wrapped row or the short last row of a grid starts and ends without one. Browsers without gap decorations leave the gap without the line. breakpoint The container width at which `.ui-layout-columns` goes from one column to `--_columns`: `40rem`, `56rem` or `72rem`. column A column with even space between its children. On a `ul` or `ol` it also drops the list bullets and margins. columns One column that becomes the `--_columns` tracks at the breakpoint, measured on the nearest container, such as `.ui-layout-container`. container Centers its content, caps its width and is the container `.ui-layout-columns` measures. grid Columns that fill the width and wrap. On a `ul` or `ol` it also drops the list bullets and margins, and a `.ui-card` in each `li` fills its cell. media A media object: a fixed-size start, such as an avatar, next to text that fills the rest and wraps instead of widening the row. row A wrapping row with its children centered vertically. On a `ul` or `ol` it also drops the list bullets and margins. gap The space between children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid`, `.ui-layout-columns` and `.ui-layout-media`. spread Pushes the children of `.ui-layout-row` to its two ends, for a page header with a heading group and its actions. sticky On a child of `.ui-layout-columns`, keeps it in view at `--_sticky-inset` from the top while the other column scrolls, once the columns sit side by side. stretch Stretches the columns of `.ui-layout-grid` over the row when there are fewer children than fit, instead of leaving the rest empty.",
     "category": "API",
     "url": "/solid/api/#layout"
   },
@@ -4701,7 +4863,7 @@
     "id": "api-list-item-solid",
     "title": "List item API",
     "description": "Reference for List item Solid component.",
-    "api": "ListItem The list item. The clickable row, rendered by `as`, `href` or `choice`. as choice href Optional content at the start, such as an icon or avatar. start The text content. The label, the first paragraph. label label Supporting text, the second paragraph. description description Optional content at the end, such as a value or an action. end Your own check, shown at the end while the row is selected or current. In a `Menu` or a listbox it replaces the default check. icon-checked as The element to render inside the `<li>`: `\"a\"`, `\"button\"` or the link component of your router with `href`, such as Next's `Link`, Solid Router's `A` or Nuxt's `NuxtLink`, which gets the `href`. Defaults to `\"a\"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type=\"button\"`, and a disabled link component renders a plain `<a>` with `role=\"link\"` and `aria-disabled=\"true\"` instead. borderTop Adds a border above the item. choice Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`. color Optional colors. `critical` marks a destructive item in a [Menu](/components/menu). disabled Disables a button item. A link item drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"` instead. for The `for` attribute of the `<label>` when `choice` is set. href The link to use. Renders an `<a>` inside the `<li>`. inset Aligns the text with items that have start content.",
+    "api": "ListItem The list item. The clickable row, rendered by `as`, `href` or `choice`. as choice href Optional content at the start, such as an icon or avatar. start The text content. The label, the first paragraph. label label Supporting text, the second paragraph. description description Optional content at the end, such as a value or an action. end Your own check, shown at the end while the row is selected or current. In a `Menu` or a listbox it replaces the default check. icon-checked as The element to render inside the `<li>`: `\"a\"`, `\"button\"` or the link component of your router with `href`, such as Solid Router's `A`, which gets the `href`. Defaults to `\"a\"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type=\"button\"`, and a disabled link component renders a plain `<a>` with `role=\"link\"` and `aria-disabled=\"true\"` instead. borderTop Adds a border above the item. choice Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`. color Optional colors. `critical` marks a destructive item in a [Menu](/components/menu). disabled Disables a button item. A link item drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"` instead. for The `for` attribute of the `<label>` when `choice` is set. href The link to use. Renders an `<a>` inside the `<li>`. inset Aligns the text with items that have start content.",
     "category": "API",
     "url": "/solid/api/#list-item"
   },
@@ -4717,7 +4879,7 @@
     "id": "api-menu-solid",
     "title": "Menu API",
     "description": "Reference for Menu Solid component.",
-    "api": "Menu The menu surface, a popover anchored to its trigger. A group heading. HTML and CSS only. An item, holding a `<button>` or an `<a>` with `href`. Rendered from `items`, or a `ListItem` in the default slot. Optional content at the start, such as an icon. The label (`label` on an item). Optional content at the end, such as a shortcut in a `<kbd>` (`shortcut` on an item). Your own check on the current item, which replaces the default check. The `icon-checked` slot puts it on every item from `items`. icon-checked align Which edge of the trigger the menu lines up with. bordered Adds a border between the items. dense Packs the items tighter. id The id of the menu, which the trigger's `commandfor` points at. Required. items The items, as `{ as, borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `as` takes the link component of your router for a link item, such as Next's `Link`, Solid Router's `A` or Nuxt's `NuxtLink`, which gets the `href`. `borderTop` adds a border above the item, `color: \"critical\"` marks a destructive one, a disabled link has no `href`, also with `as`, and `keepOpen` keeps the menu open on click. Other keys go to the item's `<a>`, `<button>` or link component, like `type: \"submit\"` with `form` for an item that submits a form. orientation The orientation of the element. `horizontal` lays the items out in a row, for short labels such as emoji. popover The popover type. With `manual`, Esc and a click outside don't close the menu, and opening another menu doesn't either. side The side of the trigger the menu opens on.",
+    "api": "Menu The menu surface, a popover anchored to its trigger. A group heading. HTML and CSS only. An item, holding a `<button>` or an `<a>` with `href`. Rendered from `items`, or a `ListItem` in the default slot. Optional content at the start, such as an icon. The label (`label` on an item). Optional content at the end, such as a shortcut in a `<kbd>` (`shortcut` on an item). Your own check on the current item, which replaces the default check. The `icon-checked` slot puts it on every item from `items`. icon-checked align Which edge of the trigger the menu lines up with. bordered Adds a border between the items. dense Packs the items tighter. id The id of the menu, which the trigger's `commandfor` points at. Required. items The items, as `{ as, borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `as` takes the link component of your router for a link item, such as Solid Router's `A`, which gets the `href`. `borderTop` adds a border above the item, `color: \"critical\"` marks a destructive one, a disabled link has no `href`, also with `as`, and `keepOpen` keeps the menu open on click. Other keys go to the item's `<a>`, `<button>` or link component, like `type: \"submit\"` with `form` for an item that submits a form. orientation The orientation of the element. `horizontal` lays the items out in a row, for short labels such as emoji. popover The popover type. With `manual`, Esc and a click outside don't close the menu, and opening another menu doesn't either. side The side of the trigger the menu opens on.",
     "category": "API",
     "url": "/solid/api/#menu"
   },
@@ -4757,7 +4919,7 @@
     "id": "api-password-toggle-solid",
     "title": "Password toggle API",
     "description": "Reference for Password toggle Solid component.",
-    "api": "PasswordToggle A `.ui-button.ui-round` with `aria-pressed` and `command=\"--toggle-password\"` that shows and hides the password. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is disabled, and `aria-disabled` while the input is `aria-disabled`. `<opui-password-toggle>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-password-toggle>` is defined. for The `id` of the password input the toggle shows and hides, as its button's `commandfor`. label The accessible name of the toggle. Pass it translated. hidePassword() Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits. input The `<input>` its button's `commandfor` names, or `null`. Read-only. showPassword() Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
+    "api": "PasswordToggle A `.ui-button.ui-round` with `aria-pressed` that shows and hides the password, with an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked`, or your icons. It follows the input's `disabled` and `aria-disabled`, and stays hidden until `<opui-password-toggle>` is defined. for The `id` of the password input, as its button's `commandfor`. label The accessible name of the toggle. Pass it translated. hidePassword() Hides the password, as on a form reset or submit. input The `<input>` its button's `commandfor` names, or `null`. Read-only. showPassword() Shows the password.",
     "category": "API",
     "url": "/solid/api/#password-toggle"
   },
@@ -4773,7 +4935,7 @@
     "id": "api-radio-input-solid",
     "title": "Radio input API",
     "description": "Reference for Radio input Solid component.",
-    "api": "RadioInput The radio input, without a label. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
+    "api": "RadioInput The radio input, without a label. name The name of the `<input>`. Radios with the same `name` are one group, in which one can be checked.",
     "category": "API",
     "url": "/solid/api/#radio-input"
   },
@@ -4781,7 +4943,7 @@
     "id": "api-radio-solid",
     "title": "Radio API",
     "description": "Reference for Radio Solid component.",
-    "api": "Radio Container element. The radio input. The label. label default Supporting text displayed below the label. endText end-text card Renders the radio as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. disabled Dims the radio and shows a not-allowed cursor. `aria-disabled=\"true\"` looks the same, but keeps the radio focusable and its value in the form, and doesn't stop the change, so block it with a script. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. id The id of the `<input>`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. orientation The orientation of the element. `vertical` stacks the label under the input. required The form won't submit until one radio in the group is checked. The legend of the enclosing fieldset shows the required mark. size The size of the element. spread Pushes the label and the input to opposite ends. value The value of the `<input>`, submitted with the form when it's checked. variant The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
+    "api": "Radio Container element. The radio input. The label. label default Supporting text displayed below the label. endText end-text card Renders the radio as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. disabled Dims the radio and shows a not-allowed cursor. `aria-disabled=\"true\"` looks the same, but keeps the radio focusable and its value in the form, and doesn't stop the change, so block it with a script. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. id The id of the `<input>`. name The name of the `<input>`. Radios with the same `name` are one group, in which one can be checked. orientation The orientation of the element. `vertical` stacks the label under the input. required The form won't submit until one radio in the group is checked. The legend of the enclosing fieldset shows the required mark. size The size of the element. spread Pushes the label and the input to opposite ends. value The value of the `<input>`, submitted with the form when it's checked. variant The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
     "category": "API",
     "url": "/solid/api/#radio"
   },
@@ -4789,7 +4951,7 @@
     "id": "api-range-solid",
     "title": "Range API",
     "description": "Reference for Range Solid component.",
-    "api": "Range A `.ui-field` with an `<input type=\"range\">` in its container, which `range.css` draws without the field's box, as tall as any field's control. Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's variant (`variant`, `.ui-filled`) and size (`size`, `.ui-x-small`, `.ui-small`, `.ui-large`) set the track and thumb. Labels for the input it's linked to with `list`: the `label` of each option shows under its value. The labels are spread evenly, so space the values evenly. Give it `aria-hidden=\"true\"`, and set `aria-valuetext` on the input to the label at its value, since screen readers don't read the datalist.",
+    "api": "Range A `.ui-field` with an `<input type=\"range\">`, drawn without the field's box. Your range input. The track fills up to the thumb without a script, and the field's variant (`variant`, `.ui-filled`) and size (`size`, `.ui-x-small`, `.ui-small`, `.ui-large`) set the track and thumb. Labels under the input, linked with `list`: each option's `label`, spread evenly. Give it `aria-hidden=\"true\"`, and set the input's `aria-valuetext` to the label at its value.",
     "category": "API",
     "url": "/solid/api/#range"
   },
@@ -4805,7 +4967,7 @@
     "id": "api-reactions-solid",
     "title": "Reactions API",
     "description": "Reference for Reactions Solid component.",
-    "api": "Reactions The `<opui-reactions>` custom element, a row that wraps, and `display: contents` in the `bottom` slot of a `Message`. A click on a pill, or on a button with `command=\"--react\"`, this element in `commandfor` and the emoji as its `value`, fires a `reaction` event that bubbles, and changes nothing. A pick of an emoji you already reacted with asks to uncheck it, and the menu the button is in closes. While it has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, clicks ask for nothing. The `ToggleGroup` of pills, named by the `aria-label` or `aria-labelledby` of the component. A reaction: a checkbox `ToggleButton` drawn as a pill, checked when you reacted with it. items quick The live region that `announce()` writes to, visually hidden with `.ui-sr-only`. aria-label The accessible name of the group of pills. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. aria-labelledby The id of the element that names the group of pills, instead of `aria-label`. items The reactions in use, as `{ aria-label, checked, label, value }` objects: the name with the count in `aria-label`, such as `Thumbs up, 2`, the emoji with the count in `label`, and `checked` on the ones you reacted with. name The `name` of the checkboxes. onReaction Called when a pill is clicked or an emoji is picked, with the emoji's `value` and the `checked` state asked for in `event.detail`. Nothing changes until you change `items`. quick The one-tap reaction, as an item without a count: `{ aria-label, label, value }`. Its pill always comes first. While `items` has no entry with its `value`, the pill is unchecked, has a dashed border and shows `label` alone. announce(message) Reads `message` to screen readers, through the `role=\"status\"` child. delete(value) Removes the pill of `value`, and moves focus to the next pill, the previous one or the first button after the pills when the removed pill had it. The pill of the `quick-value` reaction stays, unchecked and `.ui-unused`, with the `quick-label` and `quick-text` attributes as its name and text, and keeps focus. group The `.ui-toggle-group` of pills, or `null`. Read-only. reaction Fires when a pill is clicked, or a button with `command=\"--react\"` and this element in `commandfor`, with the `value` and the `checked` state asked for in `event.detail`. It bubbles, and changes nothing. set(value, reaction) Updates the pill of `value` with `{ checked, label, text }`, the accessible name in `label` and the emoji and count in `text`, or adds one at the end, and the `quick-value` reaction first. It removes `.ui-unused` from the pill.",
+    "api": "Reactions The `<opui-reactions>` custom element, a row that wraps, and `display: contents` in the `bottom` slot of a `Message`. A click on a pill, or on a button with `command=\"--react\"`, this element in `commandfor` and the emoji as its `value`, fires a `reaction` event that bubbles, and changes nothing. A pick of an emoji you already reacted with asks to uncheck it, and the menu the button is in closes. While it has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, clicks ask for nothing. The `ToggleGroup` of pills, named by the `aria-label` or `aria-labelledby` of the component. A reaction: a checkbox `ToggleButton` drawn as a pill, checked when you reacted with it. items quick The live region that `announce()` writes to, visually hidden with `.ui-sr-only`. aria-label The accessible name of the group of pills. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. aria-labelledby The id of the element that names the group of pills, instead of `aria-label`. items The reactions in use, as `{ aria-label, checked, label, value }` objects: the name with the count in `aria-label`, such as `Thumbs up, 2`, the emoji with the count in `label`, and `checked` on the ones you reacted with. name The `name` of the checkboxes. onReaction Called when a pill is clicked or an emoji is picked, with the emoji's `value` and the `checked` state asked for in `event.detail`. Nothing changes until you change `items`. quick The one-tap reaction, as an item without a count: `{ aria-label, label, value }`. Its pill always comes first. While `items` has no entry with its `value`, the pill is unchecked, has a dashed border and shows `label` alone. announce(message) Reads `message` to screen readers, through the `role=\"status\"` child. delete(value) Removes the pill of `value`, and moves focus to the next pill, the previous one or the first button after the pills when the removed pill had it. The pill of the `quick-value` reaction stays, unchecked and `.ui-suggested`, with the `quick-label` and `quick-text` attributes as its name and text, and keeps focus. group The `.ui-toggle-group` of pills, or `null`. Read-only. reaction Fires when a pill is clicked, or a button with `command=\"--react\"` and this element in `commandfor`, with the `value` and the `checked` state asked for in `event.detail`. It bubbles, and changes nothing. set(value, reaction) Updates the pill of `value` with `{ checked, label, text }`, the accessible name in `label` and the emoji and count in `text`, or adds one at the end, and the `quick-value` reaction first. It removes `.ui-suggested` from the pill.",
     "category": "API",
     "url": "/solid/api/#reactions"
   },
@@ -4813,7 +4975,7 @@
     "id": "api-select-all-solid",
     "title": "Select all API",
     "description": "Reference for Select all Solid component.",
-    "api": "SelectAll The `<opui-select-all>` custom element, `display: contents`, around the group, such as a `Fieldset` or a `Table`. The checkbox that checks and unchecks the other enabled checkboxes inside. It's checked when they all are, and `indeterminate` when some are. control The controlling checkbox, the one with `data-select-all`, or `null`. Read-only. items The enabled checkboxes it controls, in document order. Read-only. sync() Sets the controlling checkbox's `checked` and `indeterminate` from the others. The element calls it when one changes, so call it only after setting `checked` from a script.",
+    "api": "SelectAll The `<opui-select-all>` custom element, `display: contents`, around the group, such as a `Fieldset` or a `Table`. The checkbox that checks and unchecks the other enabled checkboxes inside. It's checked when they all are, and `indeterminate` when some are. control The controlling checkbox, the one with `data-select-all`, or `null`. Read-only. items The enabled checkboxes it controls, in document order. Read-only. sync() Sets the controlling checkbox's `checked` and `indeterminate` from the others. The element calls it when one of them changes, also when a script or your framework sets its `checked`, and when one is added, removed, enabled or disabled inside it.",
     "category": "API",
     "url": "/solid/api/#select-all"
   },
@@ -4821,7 +4983,7 @@
     "id": "api-select-button-solid",
     "title": "Select button API",
     "description": "Reference for Select button Solid component.",
-    "api": "SelectButton The select's button, with `<selectedcontent>` inside, which shows the selected option.",
+    "api": "SelectButton The select's button, showing the selected option in `<selectedcontent>`.",
     "category": "API",
     "url": "/solid/api/#select-button"
   },
@@ -4853,7 +5015,7 @@
     "id": "api-step-button-solid",
     "title": "Step button API",
     "description": "Reference for Step button Solid component.",
-    "api": "StepButton A `.ui-button.ui-round` with `command=\"--step-down\"` or `command=\"--step-up\"`. Renders a minus or a plus icon by default, or the icon in its default slot. Disabled while the input is, and `aria-disabled` at `min` or `max`, while the input is read-only and while it is `aria-disabled`. `<opui-step-button>` keeps it in step, also when a script changes the input. Hidden until `<opui-step-button>` is defined. command Which way the button steps the input: `--step-down` or `--step-up`, as on the element. for The `id` of the number input the button steps, as its button's `commandfor` and `aria-controls`. label The accessible name of the button, by `command`. Pass it translated. input The `<input>` its button's `commandfor` names, or `null`. Read-only. step() Steps the value down or up by `step`, as its button's `command` says, unless the input is disabled, read-only or at `min` or `max`, and fires `input` and `change`.",
+    "api": "StepButton A `.ui-button.ui-round` with `command=\"--step-down\"` or `command=\"--step-up\"`, showing a minus or a plus, or your icon. Disabled with the input, and `aria-disabled` at `min` or `max` or while the input is read-only or `aria-disabled`. Hidden until `<opui-step-button>` is defined. command Which way the button steps: `--step-down` or `--step-up`. for The `id` of the number input, as its button's `commandfor` and `aria-controls`. label The accessible name of the button, by `command`. Pass it translated. input The `<input>` its button's `commandfor` names, or `null`. Read-only. step() Steps the value by `step` in the button's direction, within `min` and `max` and unless the input is disabled or read-only, and fires `input` and `change`.",
     "category": "API",
     "url": "/solid/api/#step-button"
   },
@@ -4861,7 +5023,7 @@
     "id": "api-stepper-item-solid",
     "title": "Stepper item API",
     "description": "Reference for Stepper item Solid component.",
-    "api": "StepperItem A step. Replaces the check in the marker of a complete step. Hidden from screen readers. icon-complete The label, as a link back to the step. href label label A short line under the label. description description complete Marks the step complete: a check in the marker and the line to the next step in the accent color. completeLabel Screen reader text after the label of a complete step. current Marks the current step. The steps before it show as complete, with or without `.ui-complete`. description A short line under the label. error Marks a step with an error: an exclamation mark in the marker and the label in the invalid color. Wins over `complete`. errorLabel Screen reader text after the label of a step with an error. href Renders the label as a link on a complete step or a step with an error, but not on the current one. label The name of the step.",
+    "api": "StepperItem A step. Replaces the check in the marker of a complete step. Hidden from screen readers. icon-complete The label, as a link back to the step. href label label A short line under the label. description description completeLabel Screen reader text after the label of a complete step. current Marks the current step. The steps before it show as complete, with or without `.ui-state-complete`. description A short line under the label. errorLabel Screen reader text after the label of a step with an error. href Renders the label as a link on a step with a `state`, but not on the current one. label The name of the step. state The step's state: `complete` shows a check in the marker and the line to the next step in the accent color, `error` an exclamation mark in the marker and the label in the invalid color. Without it the step is still to come, or the current one.",
     "category": "API",
     "url": "/solid/api/#stepper-item"
   },
@@ -4869,7 +5031,7 @@
     "id": "api-stepper-solid",
     "title": "Stepper API",
     "description": "Reference for Stepper Solid component.",
-    "api": "Stepper The list of steps. A step, with its marker and the line to the next one. current items aria-label Accessible name of the stepper. complete Marks every step in `items` complete. completeLabel Screen reader text after the label of a complete step in `items`. current The index of the current step in `items`, from 0. The steps before it are complete. errorLabel Screen reader text after the label of a step with an error in `items`. items The steps, as `{ complete, completeLabel, current, description, error, errorLabel, href, label }` objects. orientation The orientation of the element. `auto` stacks the steps below `32rem`. size The size of the element.",
+    "api": "Stepper The list of steps. A step, with its marker and the line to the next one. current items aria-label Accessible name of the stepper. complete Marks every step in `items` complete. completeLabel Screen reader text after the label of a complete step in `items`. current The index of the current step in `items`, from 0. The steps before it are complete. errorLabel Screen reader text after the label of a step with an error in `items`. items The steps, as `{ completeLabel, current, description, errorLabel, href, label, state }` objects. A step's own `state` wins over the `complete` the stepper and `current` give it. orientation The orientation of the element. `auto` stacks the steps below `32rem`. size The size of the element.",
     "category": "API",
     "url": "/solid/api/#stepper"
   },
@@ -4877,7 +5039,7 @@
     "id": "api-switch-input-solid",
     "title": "Switch input API",
     "description": "Reference for Switch input Solid component.",
-    "api": "SwitchInput The switch input, without a label. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
+    "api": "SwitchInput The switch input, without a label. name The name of the `<input>`.",
     "category": "API",
     "url": "/solid/api/#switch-input"
   },
@@ -4885,7 +5047,7 @@
     "id": "api-switch-solid",
     "title": "Switch API",
     "description": "Reference for Switch Solid component.",
-    "api": "Switch Container element. The switch input. An optional icon on the track, shown while unchecked. icon-unchecked An optional icon on the track, shown while checked. icon-checked The label. label default Supporting text displayed below the label. endText end-text card Renders the switch as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. disabled Dims the switch and shows a not-allowed cursor. `aria-disabled=\"true\"` looks the same, but keeps the switch focusable and its value in the form, and doesn't stop the change, so block it with a script. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. id The id of the `<input>`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. orientation The orientation of the element. `vertical` stacks the label under the switch. required Adds a required mark after the label. The form won't submit until it's on. size The size of the element. spread Pushes the label and the switch to opposite ends. value The value of the `<input>`, submitted with the form when it's checked. variant The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
+    "api": "Switch Container element. The switch input. An optional icon on the track, shown while unchecked. icon-unchecked An optional icon on the track, shown while checked. icon-checked The label. label default Supporting text displayed below the label. endText end-text card Renders the switch as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. disabled Dims the switch and shows a not-allowed cursor. `aria-disabled=\"true\"` looks the same, but keeps the switch focusable and its value in the form, and doesn't stop the change, so block it with a script. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. id The id of the `<input>`. name The name of the `<input>`. orientation The orientation of the element. `vertical` stacks the label under the switch. required Adds a required mark after the label. The form won't submit until it's on. size The size of the element. spread Pushes the label and the switch to opposite ends. value The value of the `<input>`, submitted with the form when it's checked. variant The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
     "category": "API",
     "url": "/solid/api/#switch"
   },
@@ -4962,6 +5124,14 @@
     "url": "/solid/api/#tabs"
   },
   {
+    "id": "api-textarea-solid",
+    "title": "Textarea API",
+    "description": "Reference for Textarea Solid component.",
+    "api": "Textarea A `.ui-field` with a `<textarea>`. Your textarea, `rows` lines tall (3 by default), growing to `--_max-block-size` (20 lines). It resizes taller, and wider with `autoFit` (`.ui-auto-fit`).",
+    "category": "API",
+    "url": "/solid/api/#textarea"
+  },
+  {
     "id": "api-timeline-item-solid",
     "title": "Timeline item API",
     "description": "Reference for Timeline item Solid component.",
@@ -4989,7 +5159,7 @@
     "id": "api-toggle-button-solid",
     "title": "Toggle button API",
     "description": "Reference for Toggle button Solid component.",
-    "api": "ToggleButton Container element. A visually hidden checkbox or radio input. checked Selects the button. disabled Dims the button and skips it with Tab and the arrow keys. `aria-disabled=\"true\"` looks the same, but keeps the button focusable and its value in the form, and doesn't stop the change, so block it with a script. id The id of the `<input>`. label The button text when there is no child content. name The name of the input. Falls back to the `ToggleGroup`'s name, then to a `FieldGroup`'s. required The form won't submit until it's checked. A `ToggleGroup` without `multiple` needs it on one button only. size The size of the element. type The input type. `radio` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio. value The value of the input.",
+    "api": "ToggleButton Container element. A visually hidden checkbox or radio input. checked Selects the button. disabled Dims the button and skips it with Tab and the arrow keys. `aria-disabled=\"true\"` looks the same, but keeps the button focusable and its value in the form, and doesn't stop the change, so block it with a script. id The id of the `<input>`. label The button text when there is no child content. name The name of the input. Falls back to the `ToggleGroup`'s name. required The form won't submit until it's checked. A `ToggleGroup` without `multiple` needs it on one button only. size The size of the element. type The input type. `radio` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio. value The value of the input.",
     "category": "API",
     "url": "/solid/api/#toggle-button"
   },

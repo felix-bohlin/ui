@@ -7,7 +7,7 @@ import { List, ListItem } from "opui-css/vue"
     <ListItem description="48 photos" label="Gig in a basement">
       <template #start>
         <img
-          src="/photos/lou-headstock.png"
+          src="/photos/kinga-headstock.png"
           alt=""
           decoding="async"
           loading="lazy"
@@ -17,7 +17,7 @@ import { List, ListItem } from "opui-css/vue"
     <ListItem description="112 photos" label="Pedalboard glamour shots">
       <template #start>
         <img
-          src="/photos/lou-headstock.png"
+          src="/photos/kinga-headstock.png"
           alt=""
           decoding="async"
           loading="lazy"

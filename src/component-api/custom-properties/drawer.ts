@@ -15,6 +15,11 @@ export default {
     description: "The background. Defaults to `--ui-surface-elevated`.",
     kind: "input",
   },
+  "--_bg-image": {
+    description:
+      "The image over the background, such as a gradient. Defaults to `--ui-surface-elevated-image`, `none` unless a theme sets it.",
+    kind: "input",
+  },
   "--_block-size": {
     description:
       "Height of `.ui-block-start` and `.ui-block-end` drawers. Defaults to 80% of the viewport, at most `650px`.",

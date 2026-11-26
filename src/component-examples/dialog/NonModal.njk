@@ -1,0 +1,29 @@
+{% from "opui/index.njk" import
+  Button,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle
+%}
+
+{% call Button({ id: "dialog-non-modal-2", variant: "outlined" }) %}Show uploads{% endcall %}
+
+{% call Dialog({ closedby: "any", id: "dialog-non-modal-1" }) %}
+  {% call DialogHeader() %}
+    {% call DialogTitle() %}Uploads{% endcall %}
+  {% endcall %}
+  {% call DialogContent() %}
+    <p>2 of 3 files uploaded. Keep working while the last one finishes.</p>
+  {% endcall %}
+  {% call DialogFooter() %}
+    {% call Button({ command: "close", commandfor: "dialog-non-modal-1" }) %}Hide{% endcall %}
+  {% endcall %}
+{% endcall %}
+
+<script type="module">
+  const dialog = document.querySelector("#dialog-non-modal-1")
+  document
+    .querySelector("#dialog-non-modal-2")
+    ?.addEventListener("click", () => dialog?.show())
+</script>

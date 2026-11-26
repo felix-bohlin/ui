@@ -1,0 +1,10 @@
+{% macro DialogContent(props = {}) %}
+  {%- set props = props | opuiProps("DialogContent") -%}
+  {%- set rest = props | opuiRest("DialogContent") -%}
+  <div
+    class="ui-content
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </div>
+{%- endmacro %}

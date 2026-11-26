@@ -3,6 +3,7 @@
     --_motion: var(--ui-motion);
     --_actions-padding-inline: var(--_padding);
     --_bg-color: var(--_surface-bg-color);
+    --_bg-image: none;
     --_border-color: transparent;
     --_border-width: 0;
     --_duration: calc(var(--ui-duration) * var(--_motion));
@@ -20,6 +21,7 @@
     --ui-divider-gap: var(--ui-space-3);
 
     background-color: var(--_bg-color);
+    background-image: var(--_bg-image);
     border-color: var(--_border-color);
     border-radius: var(--ui-radius);
     border-style: solid;
@@ -67,6 +69,7 @@
 
     &.ui-elevated {
       --_bg-color: var(--_elevated-bg-color);
+      --_bg-image: var(--ui-surface-elevated-image, none);
       --_border-color: var(--ui-border-color-raised, var(--_surface-bg-color));
       --_border-width: var(--ui-border-width);
       --_shadow: var(--_elevated-shadow);
@@ -83,8 +86,8 @@
 
     /* Colors */
     &:where(.ui-card).ui-primary {
-      outline: var(--ui-border-width-thick) solid var(--ui-primary);
-      outline-offset: calc(-1 * var(--ui-border-width-thick));
+      outline: var(--ui-border-width-large) solid var(--ui-primary);
+      outline-offset: calc(-1 * var(--ui-border-width-large));
     }
 
     & > :where(hgroup, .ui-content, .ui-header) {

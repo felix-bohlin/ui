@@ -4,7 +4,7 @@ export default function ErrorPage() {
   return (
     <>
       <div
-        className="error-page ui-layout-container ui-layout-column ui-large"
+        className="error-page ui-layout-container ui-layout-column ui-gap-large"
         style={{ "--_max-inline-size": "36rem" }}
       >
         <div className="ui-layout-column ui-align-center">
@@ -59,7 +59,7 @@ export default function ErrorPage() {
         </search>
         <nav
           aria-labelledby="error-page-links-heading"
-          className="ui-layout-column ui-small"
+          className="ui-layout-column ui-gap-small"
         >
           <h2 className="ui-overline" id="error-page-links-heading">
             Popular hangouts
@@ -207,7 +207,7 @@ export default function ErrorPage() {
             />
           </List>
         </nav>
-        <div className="ui-layout-row ui-small ui-align-center">
+        <div className="ui-layout-row ui-gap-small ui-align-center">
           <Button href="#error-page-back" variant="outlined">
             <svg
               data-icon="arrow-left"

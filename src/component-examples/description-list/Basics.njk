@@ -1,0 +1,21 @@
+{% from "opui/index.njk" import
+  DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm
+%}
+
+{% call DescriptionList() %}
+  {% call DescriptionListItem() %}
+    {% call DescriptionListTerm() %}Order number{% endcall %}
+    {% call DescriptionListDescription() %}10482{% endcall %}
+  {% endcall %}
+  {% call DescriptionListItem() %}
+    {% call DescriptionListTerm() %}Placed on{% endcall %}
+    {% call DescriptionListDescription() %}Oct 8, 2026{% endcall %}
+  {% endcall %}
+  {% call DescriptionListItem() %}
+    {% call DescriptionListTerm() %}Status{% endcall %}
+    {% call DescriptionListDescription() %}Shipped{% endcall %}
+  {% endcall %}
+{% endcall %}

@@ -29,7 +29,7 @@ export default function AccountSettings() {
   return (
     <>
       <div
-        class="account-settings ui-layout-container ui-layout-column ui-large"
+        class="account-settings ui-layout-container ui-layout-column ui-gap-large"
         style="--_max-inline-size: 48rem"
       >
         <hgroup class="ui-hgroup">
@@ -50,14 +50,10 @@ export default function AccountSettings() {
                 <Fieldset>
                   <FieldLegend>Photo</FieldLegend>
                   <div class="ui-layout-row acct-photo">
-                    <Avatar
-                      aria-label="Percy Groove"
-                      role="img"
-                      shape="rounded"
-                    >
-                      PG
+                    <Avatar aria-label="Adam Groove" role="img" shape="rounded">
+                      AG
                     </Avatar>
-                    <div class="ui-layout-row ui-small">
+                    <div class="ui-layout-row ui-gap-small">
                       <Button size="small" type="button" variant="outlined">
                         Upload new pic
                       </Button>
@@ -88,7 +84,7 @@ export default function AccountSettings() {
                           name="first-name"
                           required
                           type="text"
-                          defaultValue="Percy"
+                          defaultValue="Adam"
                         />
                       </Field>
                       <Field for="account-settings-last-name" label="Last name">
@@ -119,7 +115,7 @@ export default function AccountSettings() {
                         name="email"
                         required
                         type="email"
-                        defaultValue="percy@lowend.example"
+                        defaultValue="adam@bassmail.example"
                       />
                     </Field>
                     <Field
@@ -342,7 +338,7 @@ export default function AccountSettings() {
           </DialogHeader>
           <DialogContent>
             <p id="account-settings-delete-description">
-              This deletes percy@lowend.example, your wall and every photo of
+              This deletes adam@bassmail.example, your wall and every photo of
               your gear. You can't undo this.
             </p>
           </DialogContent>

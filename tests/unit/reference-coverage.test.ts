@@ -11,6 +11,7 @@ const SKIPPED = new Set([
   ".nuxt",
   ".output",
   ".svelte-kit",
+  "_site",
   "build",
   "dist",
   "node_modules",
@@ -23,7 +24,7 @@ const sourcesOf = (dir: string): string[] =>
     if (SKIPPED.has(name)) return []
     const file = path.join(dir, name)
     if (statSync(file).isDirectory()) return sourcesOf(file)
-    return /\.(astro|svelte|tsx?|vue)$/.test(name)
+    return /\.(astro|njk|svelte|tsx?|vue)$/.test(name)
       ? [readFileSync(file, "utf8")]
       : []
   })

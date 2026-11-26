@@ -1,4 +1,6 @@
+import { filled } from "../attrs"
 import { cx } from "../cx"
+import { DEV, warnControlAttributes } from "../dev"
 import type { Props } from "./types.react"
 
 export default function OneTimeCode({
@@ -13,8 +15,9 @@ export default function OneTimeCode({
   ...rest
 }: Props) {
   const hasLabel = Boolean(label)
-  const hasEndText = Boolean(endText)
+  const hasEndText = Boolean(filled(endText))
   const endTextId = hasEndText ? `${htmlFor}-end-text` : undefined
+  if (DEV) warnControlAttributes("OneTimeCode", rest)
 
   return (
     <div

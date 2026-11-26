@@ -1,0 +1,33 @@
+{% from "opui/index.njk" import
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+  Switch
+%}
+
+{% call Form() %}
+  {% call Fieldset({ disabled: true }) %}
+    {% call FieldLegend() %}Share with friends{% endcall %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
+      {% call Switch({ name: "switch-group-disabled", value: "profile" }) %}Profile{% endcall %}
+      {% call Switch({ name: "switch-group-disabled", value: "activity" }) %}Activity{% endcall %}
+      {% call Switch({ name: "switch-group-disabled", value: "location" }) %}Location{% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call Fieldset() %}
+    {% call FieldLegend() %}Sync{% endcall %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
+      {% call Switch({
+        checked: true,
+        name: "switch-group-disabled-single",
+        value: "contacts"
+      }) %}Contacts{% endcall %}
+      {% call Switch({
+        disabled: true,
+        name: "switch-group-disabled-single",
+        value: "photos"
+      }) %}Photos{% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

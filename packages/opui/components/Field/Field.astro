@@ -2,6 +2,7 @@
 import type { Props } from "./types.astro"
 import { trimEdges } from "../whitespace"
 import { cx } from "../cx"
+import { warnControlAttributes } from "../dev"
 
 export const title = "Field"
 
@@ -20,6 +21,8 @@ const {
   variant,
   ...rest
 } = Astro.props
+
+warnControlAttributes("Field", rest)
 
 const labelSlot = Astro.slots.has("label")
   ? trimEdges(await Astro.slots.render("label"))

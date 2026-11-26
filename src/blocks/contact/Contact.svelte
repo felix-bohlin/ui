@@ -1,0 +1,191 @@
+<script lang="ts">
+  import {
+    Button,
+    Card,
+    CardContent,
+    Checkbox,
+    DescriptionList,
+    DescriptionListDescription,
+    DescriptionListItem,
+    DescriptionListTerm,
+    Field,
+    FieldGroup,
+    Form,
+    List,
+    ListItem,
+    SelectButton,
+  } from "opui-css/svelte"
+</script>
+
+<div
+  class="contact ui-layout-container ui-layout-columns"
+  style="--_columns: 2fr 3fr; --_gap: var(--ui-space-8); --_max-inline-size: 64rem"
+>
+  <div class="contact-intro ui-layout-column" style="--_gap: var(--ui-space-6)">
+    <hgroup class="ui-hgroup">
+      <p class="ui-overline">Contact</p>
+      <h1 class="contact-title">Say hello to the Bassbook crew</h1>
+      <p>
+        Questions, ideas or a bug that eats your bass lines? We answer every
+        message within two working days.
+      </p>
+    </hgroup>
+    <List flush variant="transparent">
+      <ListItem
+        description="hello@bassbook.example"
+        href="#contact-email"
+        label="Email us"
+      >
+        {#snippet start()}
+          <svg
+            data-icon="mail"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 4-8 5-8-5V6l8 5 8-5z"
+            ></path>
+          </svg>
+        {/snippet}
+      </ListItem>
+      <ListItem
+        description="+46 31 123 45 67"
+        href="#contact-phone"
+        label="Call us"
+      >
+        {#snippet start()}
+          <svg
+            data-icon="phone"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1A17 17 0 0 1 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02z"
+            ></path>
+          </svg>
+        {/snippet}
+      </ListItem>
+      <ListItem
+        description="Fretgatan 4, 411 05 Gothenburg"
+        label="Visit the studio"
+      >
+        {#snippet start()}
+          <svg
+            data-icon="home"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"
+            ></path>
+          </svg>
+        {/snippet}
+      </ListItem>
+    </List>
+    <section
+      aria-labelledby="contact-hours-heading"
+      class="ui-layout-column ui-gap-small"
+    >
+      <h2 class="ui-h6" id="contact-hours-heading">Opening hours</h2>
+      <DescriptionList leader="dotted" orientation="horizontal">
+        <DescriptionListItem>
+          <DescriptionListTerm>Monday to Friday</DescriptionListTerm>
+          <DescriptionListDescription>09:00 to 17:00</DescriptionListDescription
+          >
+        </DescriptionListItem>
+        <DescriptionListItem>
+          <DescriptionListTerm>Saturday</DescriptionListTerm>
+          <DescriptionListDescription>11:00 to 15:00</DescriptionListDescription
+          >
+        </DescriptionListItem>
+        <DescriptionListItem>
+          <DescriptionListTerm>Sunday</DescriptionListTerm>
+          <DescriptionListDescription>Band practice</DescriptionListDescription>
+        </DescriptionListItem>
+      </DescriptionList>
+    </section>
+  </div>
+  <Card aria-labelledby="contact-form-heading" as="section" variant="outlined">
+    <hgroup>
+      <h2 class="ui-h4" id="contact-form-heading">Send us a message</h2>
+      <p>All fields are required.</p>
+    </hgroup>
+    <CardContent>
+      <Form action="#" id="contact-form">
+        <FieldGroup>
+          <div class="ui-layout-grid" style="--_min-inline-size: 14rem">
+            <Field for="contact-name" label="Name">
+              <input
+                autocomplete="name"
+                id="contact-name"
+                name="name"
+                required
+                type="text"
+              />
+            </Field>
+            <Field for="contact-email-address" label="Email">
+              <input
+                autocomplete="email"
+                id="contact-email-address"
+                name="email"
+                required
+                type="email"
+              />
+            </Field>
+          </div>
+          <Field for="contact-topic" label="Topic">
+            <select id="contact-topic" name="topic" required>
+              <SelectButton />
+              <option value="account">My account</option>
+              <option value="bands">Bands and gigs</option>
+              <option value="bug">Something is broken</option>
+              <option selected value="idea">An idea for Bassbook</option>
+              <option value="press">Press</option>
+            </select>
+          </Field>
+          <Field for="contact-message" label="Message">
+            <textarea id="contact-message" name="message" required rows="5"
+            ></textarea>
+          </Field>
+          <Checkbox name="privacy" required>
+            I agree that Bassbook stores my message to answer it
+          </Checkbox>
+        </FieldGroup>
+        <Button type="submit" variant="filled">Send message</Button>
+      </Form>
+    </CardContent>
+  </Card>
+</div>
+
+<style>
+  :global {
+    .contact {
+      container-type: inline-size;
+
+      .contact-intro {
+        align-content: start;
+      }
+
+      .contact-title {
+        color: var(--ui-text-strong);
+        font-size: clamp(
+          var(--ui-font-size-700),
+          6cqi,
+          var(--ui-font-size-800)
+        );
+        letter-spacing: var(--ui-letter-spacing-heading);
+        line-height: var(--ui-line-height-tight);
+      }
+    }
+  }
+</style>

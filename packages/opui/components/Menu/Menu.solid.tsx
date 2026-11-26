@@ -3,9 +3,9 @@ import { Dynamic } from "@solidjs/web"
 import { children, For, omit, untrack } from "solid-js"
 import "../../elements/close-on-navigate.js"
 import "../../elements/menu.js"
-import { defined } from "../attrs"
+import { defined, filled } from "../attrs"
 import { MenuContext, useMenuContext } from "./context.solid"
-import { warnMissingId } from "../dev"
+import { DEV, warnMissingId } from "../dev"
 import { disabledLink, tagAttrs } from "../tag"
 import { cx } from "../cx"
 import type { Props } from "./types.solid"
@@ -28,9 +28,10 @@ export default function Menu(props: Props) {
   const parent = useMenuContext()
   const popover = () => (props.popover === undefined ? "auto" : props.popover)
   const rootId = () => parent?.rootId ?? props.id
-  untrack(() => {
-    warnMissingId("Menu", props.id)
-  })
+  if (DEV)
+    untrack(() => {
+      warnMissingId("Menu", props.id)
+    })
 
   return (
     <MenuContext
@@ -109,7 +110,7 @@ export default function Menu(props: Props) {
                       <kbd>{item().shortcut}</kbd>
                     </div>
                   )}
-                  {resolvedIconChecked() && (
+                  {filled(resolvedIconChecked()) && (
                     <span aria-hidden="true" class="ui-icon-checked">
                       {resolvedIconChecked()}
                     </span>

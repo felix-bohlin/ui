@@ -7,7 +7,7 @@ defineSlots<Slots>()
 </script>
 
 <template>
-  <component is="opui-select-all" :class="['ui-select-all', $props.class]">
+  <component is="opui-select-all" class="ui-select-all">
     <slot></slot>
   </component>
 </template>

@@ -18,7 +18,7 @@
   style="--_max-inline-size: 56rem"
 >
   <div
-    class="ui-layout-grid ui-large forgot-password-grid"
+    class="ui-layout-grid ui-gap-large forgot-password-grid"
     style="--_max-columns: 2; --_min-inline-size: 19rem"
   >
     <Card
@@ -63,7 +63,7 @@
                 autocomplete="email"
                 id="forgot-password-email"
                 name="email"
-                placeholder="rory@lowend.example"
+                placeholder="josh@bassmail.example"
                 required
                 type="email"
               />
@@ -125,7 +125,7 @@
           <h2 class="ui-h4" id="forgot-password-sent-heading">
             Check your inbox!
           </h2>
-          <p>We sent a reset link to <strong>rory@lowend.example</strong>.</p>
+          <p>We sent a reset link to <strong>josh@bassmail.example</strong>.</p>
         </hgroup>
         <Callout severity="info">
           <CalloutIcon />

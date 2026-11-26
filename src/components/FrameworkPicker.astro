@@ -29,7 +29,6 @@ const frameworkId = Astro.locals.$id("framework-picker")
     FRAMEWORK_STORAGE_KEY,
     hrefFor,
     isFrameworkId,
-    pathHasFramework,
     stripFrameworkPrefix,
     type FrameworkId,
   } from "../utils/framework"
@@ -41,9 +40,7 @@ const frameworkId = Astro.locals.$id("framework-picker")
 
   function urlForFramework(framework: FrameworkId): string {
     const { hash, pathname, search } = window.location
-    return pathHasFramework(framework, stripFrameworkPrefix(pathname))
-      ? hrefFor(framework, `${pathname}${search}${hash}`)
-      : hrefFor(framework, "/components")
+    return hrefFor(framework, `${pathname}${search}${hash}`)
   }
 
   function saveScroll() {

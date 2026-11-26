@@ -1,0 +1,10 @@
+{% macro CalloutContent(props = {}) %}
+  {%- set props = props | opuiProps("CalloutContent") -%}
+  {%- set rest = props | opuiRest("CalloutContent") -%}
+  <div
+    class="ui-content
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </div>
+{%- endmacro %}

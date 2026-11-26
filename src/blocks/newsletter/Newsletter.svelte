@@ -22,13 +22,13 @@
     style="--_columns: 1fr 1.2fr; --_gap: var(--ui-space-6)"
     variant="outlined"
   >
-    <div class="ui-layout-column ui-large">
+    <div class="ui-layout-column ui-gap-large">
       <hgroup class="ui-hgroup">
         <p>The Bassbook Low-Down</p>
         <h1 class="ui-h3">Bass news worth reading, every other Thursday</h1>
         <p>
           New features, gear gossip and how other bassists rock Bassbook. Join
-          12&nbsp;400 totally rad low enders.
+          12&nbsp;400 totally rad groovers.
         </p>
       </hgroup>
       <section aria-labelledby="newsletter-recent-heading">
@@ -56,7 +56,7 @@
             autocomplete="email"
             id="newsletter-email"
             name="email"
-            placeholder="you@lowend.example"
+            placeholder="you@bassmail.example"
             required
             type="email"
           />
@@ -66,10 +66,11 @@
       <Fieldset>
         <FieldLegend>Topics</FieldLegend>
         <FieldDescription>Pick what you wanna hear about.</FieldDescription>
-        <FieldGroup class="newsletter-topics" name="newsletter-topics">
+        <FieldGroup class="newsletter-topics">
           <Checkbox
             aria-describedby="newsletter-topic-news-text"
             defaultChecked
+            name="newsletter-topics"
             value="news"
           >
             Bassbook news
@@ -79,7 +80,11 @@
               >
             {/snippet}
           </Checkbox>
-          <Checkbox aria-describedby="newsletter-topic-gear-text" value="gear">
+          <Checkbox
+            aria-describedby="newsletter-topic-gear-text"
+            name="newsletter-topics"
+            value="gear"
+          >
             Gear Talk
             {#snippet endText()}
               <span id="newsletter-topic-gear-text"
@@ -90,6 +95,7 @@
           <Checkbox
             aria-describedby="newsletter-topic-tips-text"
             defaultChecked
+            name="newsletter-topics"
             value="tips"
           >
             Tabs &amp; tips
@@ -101,6 +107,7 @@
           </Checkbox>
           <Checkbox
             aria-describedby="newsletter-topic-diaries-text"
+            name="newsletter-topics"
             value="diaries"
           >
             Member diaries

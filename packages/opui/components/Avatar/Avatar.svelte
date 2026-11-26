@@ -1,6 +1,6 @@
 <script lang="ts">
   import { untrack } from "svelte"
-  import { warnUnnamedControl } from "../dev"
+  import { DEV, warnUnnamedControl } from "../dev"
   import { disabledLink, tagAttrs } from "../tag"
   import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
@@ -24,9 +24,10 @@
   const Tag = $derived(
     disabledLink(as, disabled) ? "a" : as || (href ? "a" : "div"),
   )
-  untrack(() =>
-    warnUnnamedControl("Avatar", as === "button" || href, { ...rest, label }),
-  )
+  if (DEV)
+    untrack(() =>
+      warnUnnamedControl("Avatar", as === "button" || href, { ...rest, label }),
+    )
 </script>
 
 <svelte:element

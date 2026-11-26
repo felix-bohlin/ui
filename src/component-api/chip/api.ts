@@ -22,14 +22,28 @@ export default {
       default: '"div"',
       description:
         'The element to render. Defaults to `"a"` with `href`. Use `"span"` inside a `<label>` or `<button>`, like a count in a tab.',
-      frameworks: ["astro", "svelte"],
+      frameworks: ["astro", "nunjucks", "svelte"],
       prop: "as",
     },
     {
       default: '"div"',
       description:
-        'The element to render, or the link component of your router with `href`, such as Next\'s `Link`, Solid Router\'s `A` or Nuxt\'s `NuxtLink`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead. Use `"span"` inside a `<label>` or `<button>`, like a count in a tab.',
-      frameworks: ["react", "solid", "vue"],
+        'The element to render, or the link component of your router with `href`, such as Next\'s `Link`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead. Use `"span"` inside a `<label>` or `<button>`, like a count in a tab.',
+      frameworks: ["react"],
+      prop: "as",
+    },
+    {
+      default: '"div"',
+      description:
+        'The element to render, or the link component of your router with `href`, such as Solid Router\'s `A`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead. Use `"span"` inside a `<label>` or `<button>`, like a count in a tab.',
+      frameworks: ["solid"],
+      prop: "as",
+    },
+    {
+      default: '"div"',
+      description:
+        'The element to render, or the link component of your router with `href`, such as Nuxt\'s `NuxtLink`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead. Use `"span"` inside a `<label>` or `<button>`, like a count in a tab.',
+      frameworks: ["vue"],
       prop: "as",
     },
     {

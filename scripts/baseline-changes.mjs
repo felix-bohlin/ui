@@ -1,11 +1,13 @@
 import { createHash } from "node:crypto"
 import {
+  copyFileSync,
   existsSync,
   readdirSync,
   readFileSync,
   realpathSync,
   writeFileSync,
 } from "node:fs"
+import { createRequire } from "node:module"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 import { parseArgs } from "node:util"
@@ -29,19 +31,47 @@ export const contentHash = (content) => {
       }
 }
 
-export const hashBaselines = (dir) =>
+const listBaselines = (dir) =>
   existsSync(dir)
-    ? Object.fromEntries(
-        readdirSync(dir, { recursive: true })
-          .map((file) => file.split(path.sep).join("/"))
-          .filter((file) => file.endsWith(".png"))
-          .toSorted()
-          .map((file) => [
-            file,
-            contentHash(readFileSync(path.join(dir, file))),
-          ]),
+    ? readdirSync(dir, { recursive: true })
+        .map((file) => file.split(path.sep).join("/"))
+        .filter((file) => file.endsWith(".png"))
+        .toSorted()
+    : []
+
+export const hashBaselines = (dir) =>
+  Object.fromEntries(
+    listBaselines(dir).map((file) => [
+      file,
+      contentHash(readFileSync(path.join(dir, file))),
+    ]),
+  )
+
+export const passingBaselines = (before, after, compare) =>
+  listBaselines(after).filter((file) => {
+    const old = path.join(before, file)
+    if (!existsSync(old)) return false
+    const expected = readFileSync(old)
+    const actual = readFileSync(path.join(after, file))
+    if (expected.equals(actual)) return false
+    if (contentHash(expected).lfs) {
+      throw new Error(
+        `${file} is a Git LFS pointer: pull the baselines before the update.`,
       )
-    : {}
+    }
+    return compare(actual, expected) === null
+  })
+
+export const imageComparator = async () => {
+  const require = createRequire(import.meta.url)
+  const test = createRequire(require.resolve("@playwright/test"))
+  const core = createRequire(test.resolve("playwright"))
+  const { utils } = core("playwright-core/lib/coreBundle")
+  const { default: config } = await import("../playwright.config.ts")
+  const compare = utils.getComparator("image/png")
+  return (actual, expected) =>
+    compare(actual, expected, config.expect.toHaveScreenshot)
+}
 
 export const compareBaselines = (before, after) => {
   const result = {
@@ -178,6 +208,7 @@ const usage = () => {
     [
       "Usage:",
       "  node scripts/baseline-changes.mjs record <out.json>",
+      "  node scripts/baseline-changes.mjs restore <before-dir>",
       "  node scripts/baseline-changes.mjs message <before.json> <after.json>",
       "  node scripts/baseline-changes.mjs report <before.json> <after.json> [--after <sha>] [--before <sha>] [--limit <characters>] [--more <text>] [--repository <url>]",
     ].join("\n"),
@@ -185,7 +216,7 @@ const usage = () => {
   process.exit(1)
 }
 
-const main = () => {
+const main = async () => {
   const { positionals, values } = parseArgs({
     allowPositionals: true,
     options: {
@@ -198,9 +229,17 @@ const main = () => {
   })
   const [command, ...files] = positionals
   const read = (file) => JSON.parse(readFileSync(file, "utf8"))
+  const root = fileURLToPath(new URL(`../${SCREENSHOTS}`, import.meta.url))
   if (command === "record" && files.length === 1) {
-    const root = fileURLToPath(new URL(`../${SCREENSHOTS}`, import.meta.url))
     writeFileSync(files[0], `${JSON.stringify(hashBaselines(root), null, 2)}\n`)
+  } else if (command === "restore" && files.length === 1) {
+    const passing = passingBaselines(files[0], root, await imageComparator())
+    for (const file of passing) {
+      copyFileSync(path.join(files[0], file), path.join(root, file))
+    }
+    console.log(
+      `Put back ${passing.length} baselines that pass against their new image.`,
+    )
   } else if (command === "message" && files.length === 2) {
     process.stdout.write(
       commitMessage(compareBaselines(read(files[0]), read(files[1]))),
@@ -221,5 +260,5 @@ if (
   process.argv[1] &&
   realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)
 ) {
-  main()
+  await main()
 }

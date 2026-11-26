@@ -1,0 +1,206 @@
+<div
+  class="trivia-quiz ui-layout-container ui-layout-column"
+  style="--_gap: var(--ui-space-5); --_max-inline-size: 48rem"
+>
+  <div class="ui-layout-row ui-spread">
+    <hgroup class="ui-hgroup">
+      <p class="ui-overline">Bass Trivia, round 2</p>
+      <h1 class="ui-h4">Know your strings</h1>
+    </hgroup>
+    <div class="ui-layout-row ui-gap-small">
+      <span class="ui-chip ui-small">
+        <span class="ui-text">Score 6</span>
+      </span>
+      <span class="ui-chip ui-warning ui-small">
+        <svg
+          data-icon="bolt"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M13.6 2.2a1 1 0 0 1 .4 1.1L12.3 10H19a1 1 0 0 1 .78 1.63l-8 10a1 1 0 0 1-1.75-.88L11.7 14H5a1 1 0 0 1-.78-1.63l8-10a1 1 0 0 1 1.38-.17"
+          ></path>
+        </svg>
+        <span class="ui-text">Streak 4</span>
+      </span>
+    </div>
+  </div>
+  <div class="ui-layout-column ui-gap-x-small">
+    <span class="ui-layout-row ui-spread ui-caption" id="trivia-quiz-progress">
+      <span>Question 7 of 10</span>
+      <span>70%</span>
+    </span>
+    <div class="ui-progress">
+      <progress
+        max="10"
+        value="7"
+        aria-labelledby="trivia-quiz-progress"
+      ></progress>
+    </div>
+  </div>
+  <div class="ui-card ui-outlined tq-card">
+    <div class="ui-content">
+      <div class="ui-layout-column ui-gap-x-small">
+        <span class="ui-layout-row ui-spread ui-caption" id="trivia-quiz-time">
+          <span>Time left</span>
+          <span>12 seconds</span>
+        </span>
+        <meter
+          class="ui-meter"
+          aria-labelledby="trivia-quiz-time"
+          high="15"
+          low="6"
+          max="20"
+          optimum="20"
+          value="12"
+        ></meter>
+      </div>
+      <form class="ui-form" action="#" id="trivia-quiz-form">
+        <fieldset class="tq-options">
+          <legend class="tq-question">
+            Which string is the lowest on a five-string bass?
+          </legend>
+          <label>
+            <input name="trivia-quiz-answer" type="radio" value="e" />
+            <span aria-hidden="true" class="tq-letter">A</span>
+            <span>Low E</span>
+          </label>
+          <label>
+            <input checked name="trivia-quiz-answer" type="radio" value="b" />
+            <span aria-hidden="true" class="tq-letter">B</span>
+            <span>Low B</span>
+          </label>
+          <label>
+            <input name="trivia-quiz-answer" type="radio" value="a" />
+            <span aria-hidden="true" class="tq-letter">C</span>
+            <span>Low A</span>
+          </label>
+          <label>
+            <input name="trivia-quiz-answer" type="radio" value="d" />
+            <span aria-hidden="true" class="tq-letter">D</span>
+            <span>Drop D</span>
+          </label>
+        </fieldset>
+      </form>
+      <div class="ui-callout ui-success">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        ></svg>
+        <div class="ui-content">
+          <h2>Correct, plus 10 points</h2>
+          <p>
+            The low B sits a fourth below the E. Your neighbours have noticed.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="ui-actions">
+      <button class="ui-button" type="button">Skip</button>
+      <button class="ui-button ui-filled" type="button">
+        <span class="ui-text">Next question</span>
+        <svg
+          data-icon="arrow-right"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M13.3 5.3a1 1 0 0 1 1.4 0l6 6a1 1 0 0 1 0 1.4l-6 6a1 1 0 0 1-1.4-1.4l4.29-4.3H4a1 1 0 1 1 0-2h13.59l-4.3-4.3a1 1 0 0 1 0-1.4"
+          ></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .trivia-quiz {
+    container-type: inline-size;
+
+    .tq-card .ui-content {
+      display: grid;
+      gap: var(--ui-space-5);
+    }
+
+    .tq-question {
+      color: var(--ui-text-strong);
+      font-size: var(--ui-font-size-700);
+      font-weight: var(--ui-font-weight-bold);
+      line-height: var(--ui-line-height-tight);
+      margin-block-end: var(--ui-space-5);
+      padding: 0;
+      text-wrap: balance;
+    }
+
+    .tq-options {
+      border: 0;
+      display: grid;
+      gap: var(--ui-space-3);
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+      margin: 0;
+      padding: 0;
+
+      label {
+        align-items: center;
+        border: var(--ui-border-width) solid var(--ui-border-color);
+        border-radius: var(--ui-radius);
+        cursor: pointer;
+        display: flex;
+        gap: var(--ui-space-3);
+        padding: var(--ui-space-4);
+        position: relative;
+        transition: border-color var(--ui-duration-fast) var(--ui-ease);
+
+        &:hover {
+          border-color: var(--ui-primary);
+        }
+
+        &:has(:checked) {
+          background-color: oklch(from var(--ui-success) l c h / 12%);
+          border-color: var(--ui-success);
+          color: var(--ui-text-strong);
+        }
+
+        &:has(:focus-visible) {
+          outline: var(--ui-focus-ring-width) solid var(--ui-focus-ring-color);
+          outline-offset: var(--ui-focus-ring-offset);
+        }
+      }
+
+      input {
+        appearance: none;
+        margin: 0;
+        opacity: 0;
+        position: absolute;
+      }
+    }
+
+    .tq-letter {
+      align-items: center;
+      background-color: var(--ui-surface-tonal);
+      block-size: 2rem;
+      border-radius: var(--ui-radius-small);
+      display: grid;
+      flex: none;
+      font-weight: var(--ui-font-weight-bold);
+      inline-size: 2rem;
+      justify-content: center;
+    }
+
+    .tq-options label:has(:checked) .tq-letter {
+      background-color: var(--ui-success);
+      color: var(--ui-on-fill);
+    }
+  }
+</style>

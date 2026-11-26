@@ -4,7 +4,7 @@ import { Avatar, Card, CardContent, Rating } from "opui-css/vue"
 
 <template>
   <section
-    class="testimonials ui-layout-container ui-layout-column ui-large"
+    class="testimonials ui-layout-container ui-layout-column ui-gap-large"
     aria-labelledby="testimonials-heading"
   >
     <div
@@ -47,10 +47,10 @@ import { Avatar, Card, CardContent, Rating } from "opui-css/vue"
                 </p>
               </blockquote>
               <figcaption class="ui-layout-media">
-                <Avatar aria-hidden="true">SN</Avatar>
+                <Avatar aria-hidden="true">EN</Avatar>
                 <div>
-                  <p class="testimonials-name">Stella Nut</p>
-                  <p class="ui-caption">Bassist, The Low Enders</p>
+                  <p class="testimonials-name">Ellen Nut</p>
+                  <p class="ui-caption">Bassist, Slap Like Now</p>
                 </div>
               </figcaption>
             </figure>
@@ -69,9 +69,9 @@ import { Avatar, Card, CardContent, Rating } from "opui-css/vue"
                 </p>
               </blockquote>
               <figcaption class="ui-layout-media">
-                <Avatar aria-hidden="true">HH</Avatar>
+                <Avatar aria-hidden="true">SH</Avatar>
                 <div>
-                  <p class="testimonials-name">Holly Humbucker</p>
+                  <p class="testimonials-name">Scott Humbucker</p>
                   <p class="ui-caption">Bassist, Brad and the Brads</p>
                 </div>
               </figcaption>
@@ -92,9 +92,9 @@ import { Avatar, Card, CardContent, Rating } from "opui-css/vue"
                 </p>
               </blockquote>
               <figcaption class="ui-layout-media">
-                <Avatar aria-hidden="true">IH</Avatar>
+                <Avatar aria-hidden="true">MH</Avatar>
                 <div>
-                  <p class="testimonials-name">Ines Hertz</p>
+                  <p class="testimonials-name">Mohini Hertz</p>
                   <p class="ui-caption">Bassist, Treble Makers</p>
                 </div>
               </figcaption>
@@ -109,14 +109,14 @@ import { Avatar, Card, CardContent, Rating } from "opui-css/vue"
               <Rating label="Rated 5 out of 5" size="small" :value="5" />
               <blockquote>
                 <p>
-                  My Ignored Bassists Anonymous group meets here every Tuesday.
-                  Finally, people who know what a root note is. Totally rad!
+                  My Mixed Too Low group meets here every Tuesday. Finally,
+                  people who know what a root note is. Totally rad!
                 </p>
               </blockquote>
               <figcaption class="ui-layout-media">
-                <Avatar aria-hidden="true">PG</Avatar>
+                <Avatar aria-hidden="true">AG</Avatar>
                 <div>
-                  <p class="testimonials-name">Percy Groove</p>
+                  <p class="testimonials-name">Adam Groove</p>
                   <p class="ui-caption">Fretless player, Groove Juice</p>
                 </div>
               </figcaption>
@@ -135,9 +135,9 @@ import { Avatar, Card, CardContent, Rating } from "opui-css/vue"
                 </p>
               </blockquote>
               <figcaption class="ui-layout-media">
-                <Avatar aria-hidden="true">LH</Avatar>
+                <Avatar aria-hidden="true">KH</Avatar>
                 <div>
-                  <p class="testimonials-name">Lou Headstock</p>
+                  <p class="testimonials-name">Kinga Headstock</p>
                   <p class="ui-caption">Bassist, The Tall Guitarists</p>
                 </div>
               </figcaption>
@@ -158,10 +158,10 @@ import { Avatar, Card, CardContent, Rating } from "opui-css/vue"
                 </p>
               </blockquote>
               <figcaption class="ui-layout-media">
-                <Avatar aria-hidden="true">RR</Avatar>
+                <Avatar aria-hidden="true">JR</Avatar>
                 <div>
-                  <p class="testimonials-name">Rory Rootnote</p>
-                  <p class="ui-caption">Bassist, Fretless Fiona's Bass Barn</p>
+                  <p class="testimonials-name">Josh Rootnote</p>
+                  <p class="ui-caption">Bassist, Fretless Tal's Bass Barn</p>
                 </div>
               </figcaption>
             </figure>

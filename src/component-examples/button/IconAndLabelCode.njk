@@ -1,0 +1,35 @@
+{% from "opui/index.njk" import Button %}
+
+{% call Button() %}
+  <span class="ui-text">Text</span>
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+{% call Button({ variant: "outlined" }) %}
+  <span class="ui-text">Outlined</span>
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+{% call Button({ variant: "tonal" }) %}
+  <span class="ui-text">Tonal</span>
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+{% call Button({ variant: "filled" }) %}
+  <span class="ui-text">Filled</span>
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+
+{% call Button() %}
+  <svg aria-hidden="true"><!-- --></svg>
+  <span class="ui-text">Text</span>
+{% endcall %}
+{% call Button({ variant: "outlined" }) %}
+  <svg aria-hidden="true"><!-- --></svg>
+  <span class="ui-text">Outlined</span>
+{% endcall %}
+{% call Button({ variant: "tonal" }) %}
+  <svg aria-hidden="true"><!-- --></svg>
+  <span class="ui-text">Tonal</span>
+{% endcall %}
+{% call Button({ variant: "filled" }) %}
+  <svg aria-hidden="true"><!-- --></svg>
+  <span class="ui-text">Filled</span>
+{% endcall %}

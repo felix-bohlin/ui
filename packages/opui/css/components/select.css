@@ -40,6 +40,7 @@
       --_selected-shadow: none;
       --ui-border-color: var(--ui-border-color-on-raised);
       --ui-field-border-color: var(--ui-field-border-color-on-raised);
+      background-image: var(--ui-surface-elevated-image, none);
 
       /* Animation on-stage styles */
       border: var(--ui-border-width) solid

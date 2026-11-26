@@ -19,7 +19,7 @@ const attrs = useInputAttrs()
       'ui-progress',
       { 'ui-round': round },
       variant && variant !== 'tonal' && `ui-${variant}`,
-      $props.class,
+      $attrs.class,
     ]"
     v-bind="styleAttrs($attrs.style)"
   >

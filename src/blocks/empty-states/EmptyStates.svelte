@@ -11,7 +11,7 @@
 </script>
 
 <div
-  class="empty-states ui-layout-container ui-layout-column ui-large"
+  class="empty-states ui-layout-container ui-layout-column ui-gap-large"
   style="--_max-inline-size: 64rem"
 >
   <hgroup class="ui-hgroup empty-states-header">
@@ -19,7 +19,7 @@
     <p>Every empty page says why it's empty and what to do next. Easy peasy!</p>
   </hgroup>
   <div
-    class="ui-layout-grid ui-large"
+    class="ui-layout-grid ui-gap-large"
     style="--_max-columns: 2; --_min-inline-size: 19rem"
   >
     <Card
@@ -47,9 +47,9 @@
           <h2 class="ui-h5" id="empty-states-first-run">
             Nobody has listened yet
           </h2>
-          <p>Upload your first bass line and let the low end be heard.</p>
+          <p>Upload your first bass line and make the windows rattle.</p>
         </hgroup>
-        <div class="ui-layout-row ui-small ui-align-center">
+        <div class="ui-layout-row ui-gap-small ui-align-center">
           <Button type="button" variant="filled">
             <svg
               data-icon="add"
@@ -126,7 +126,7 @@
           </h2>
           <p>Whoops! Check the spelling, or try one of these instead.</p>
         </hgroup>
-        <div class="ui-layout-row ui-small ui-align-center">
+        <div class="ui-layout-row ui-gap-small ui-align-center">
           <Chip
             href="#empty-states-flatwound"
             label="flatwound strings"
@@ -163,7 +163,7 @@
           <h2 class="ui-h5" id="empty-states-inbox">You're all caught up!</h2>
           <p>No new scribbles since 09:12. Enjoy the quiet, for once.</p>
         </hgroup>
-        <div class="ui-layout-row ui-small ui-align-center">
+        <div class="ui-layout-row ui-gap-small ui-align-center">
           <Button href="#empty-states-archive" variant="outlined"
             >Old scribbles</Button
           >
@@ -200,15 +200,15 @@
           </h2>
           <p>Ask a band admin to let you in. Yes, there's a gig. Surprise!</p>
         </hgroup>
-        <div class="ui-layout-row ui-small ui-align-center">
+        <div class="ui-layout-row ui-gap-small ui-align-center">
           <AvatarGroup aria-label="Band admins">
-            <Avatar aria-label="Holly Humbucker" role="img">HH</Avatar>
-            <Avatar aria-label="Reggie Riff" role="img">RR</Avatar>
-            <Avatar aria-label="Stella Nut" role="img">SN</Avatar>
+            <Avatar aria-label="Ellen Nut" role="img">EN</Avatar>
+            <Avatar aria-label="Leland Riff" role="img">LR</Avatar>
+            <Avatar aria-label="Scott Humbucker" role="img">SH</Avatar>
           </AvatarGroup>
           <span>3 band admins</span>
         </div>
-        <div class="ui-layout-row ui-small ui-align-center">
+        <div class="ui-layout-row ui-gap-small ui-align-center">
           <Button type="button" variant="filled">Request access</Button>
           <Button href="#empty-states-home">Back to my wall</Button>
         </div>

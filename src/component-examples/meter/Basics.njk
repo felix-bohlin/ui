@@ -1,0 +1,3 @@
+{% from "opui/index.njk" import Meter %}
+
+{% call Meter({ "aria-label": "Storage used", max: "128", value: "96" }) %}96 of 128 GB{% endcall %}

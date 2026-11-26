@@ -3,17 +3,17 @@ import { Avatar, Message, MessageList } from "opui-css/vue"
 </script>
 
 <template>
-  <div aria-label="Chat with Stella" role="log">
-    <MessageList aria-label="Messages with Stella">
-      <Message author="Stella" datetime="2026-10-08T14:02" time="14:02">
+  <div aria-label="Chat with Ellen" role="log">
+    <MessageList aria-label="Messages with Ellen">
+      <Message author="Ellen" datetime="2026-10-08T14:02" time="14:02">
         <template #start>
-          <Avatar>SN</Avatar>
+          <Avatar>EN</Avatar>
         </template>
         <p>Heyyy! Did your band notice you changed strings yet?</p>
       </Message>
-      <Message author="Stella" datetime="2026-10-08T14:03" time="14:03">
+      <Message author="Ellen" datetime="2026-10-08T14:03" time="14:03">
         <template #start>
-          <Avatar>SN</Avatar>
+          <Avatar>EN</Avatar>
         </template>
         <p>Flatwounds, right? So rad.</p>
       </Message>

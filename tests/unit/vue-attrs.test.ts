@@ -2,7 +2,7 @@ import { beforeAll, expect, test } from "vitest"
 import * as Vue from "vue"
 import { compileComponent } from "../../scripts/build-components.mjs"
 import { loadApis } from "../../scripts/component-reader.mjs"
-import { useInputAttrs } from "../../packages/opui/components/vue"
+import { useBound, useInputAttrs } from "../../packages/opui/components/vue"
 import { clientComponent, createApp, html, node } from "./vue-client"
 
 beforeAll(async () => {
@@ -28,11 +28,34 @@ test("useInputAttrs passes on an attribute that arrives after a mount with none"
   })
   const { attrs, root } = mountWith(Field)
   expect(html(root)).toBe("<main><label><input></input></label></main>")
-  attrs.value = { placeholder: "Search", style: "color: red" }
+  attrs.value = { class: "wide", placeholder: "Search", style: "color: red" }
   await Vue.nextTick()
   expect(html(root)).toBe(
     '<main><label><input placeholder="Search"></input></label></main>',
   )
+})
+
+test("useBound follows a parent that starts or stops passing a v-model to the same instance", async () => {
+  const Control = Vue.defineComponent({
+    emits: ["update:modelValue"],
+    props: { modelValue: { default: undefined, type: Boolean } },
+    setup: () => {
+      const bound = useBound()
+      return () => Vue.h("span", bound.value ? "bound" : "unbound")
+    },
+  })
+  const attrs = Vue.ref<Record<string, unknown>>({})
+  const root = node("main")
+  createApp({
+    setup: () => () => Vue.h(Control, attrs.value),
+  }).mount(root)
+  expect(html(root)).toBe("<main><span>unbound</span></main>")
+  attrs.value = { modelValue: true, "onUpdate:modelValue": () => {} }
+  await Vue.nextTick()
+  expect(html(root)).toBe("<main><span>bound</span></main>")
+  attrs.value = {}
+  await Vue.nextTick()
+  expect(html(root)).toBe("<main><span>unbound</span></main>")
 })
 
 test("a compiled Vue component passes on an attribute that arrives after a mount with none", async () => {
@@ -42,14 +65,18 @@ test("a compiled Vue component passes on an attribute that arrives after a mount
   )
   const source = outputs.get("packages/opui/components/Sample/Sample.vue")
   expect(source).toContain("const restAttrs = computed(")
-  const Sample = clientComponent(source!, "type Props = { class?: string }")
+  const Sample = clientComponent(source!, "type Props = {}")
   const { attrs, root } = mountWith(Sample)
   expect(html(root)).toBe(
     '<main><div class="ui-sample"><input></input></div></main>',
   )
-  attrs.value = { "aria-label": "Rating", title: "Your rating" }
+  attrs.value = {
+    "aria-label": "Rating",
+    class: "wide",
+    title: "Your rating",
+  }
   await Vue.nextTick()
   expect(html(root)).toBe(
-    '<main><div class="ui-sample" title="Your rating"><input aria-label="Rating"></input></div></main>',
+    '<main><div class="ui-sample wide" title="Your rating"><input aria-label="Rating"></input></div></main>',
   )
 }, 15_000)

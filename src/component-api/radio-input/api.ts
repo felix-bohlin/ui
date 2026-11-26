@@ -20,13 +20,13 @@ export default {
   },
   notes: {
     ...components(
-      "The radio `<input>` without the label, for a custom layout inside a `label.ui-radio`, such as the end of a `ListItem` with `choice=\"radio\"`. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.",
+      'The radio `<input>` without the label, for a custom layout inside a `label.ui-radio`, such as the end of a `ListItem` with `choice="radio"`. Attributes that aren\'t props go to the `<input>`.',
     ),
   },
   options: [
     {
       description:
-        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
+        "The name of the `<input>`. Radios with the same `name` are one group, in which one can be checked.",
       inherited: true,
       prop: "name",
       type: "string",

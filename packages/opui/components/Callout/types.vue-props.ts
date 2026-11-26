@@ -1,5 +1,5 @@
 import type { IntrinsicElementAttributes, Slot } from "vue"
-import type { Class, DefaultSlots } from "../vue"
+import type { DefaultSlots } from "../vue"
 import type {
   CalloutActionsProps as BaseCalloutActionsProps,
   CalloutContentProps as BaseCalloutContentProps,
@@ -8,14 +8,13 @@ import type {
   Props as BaseProps,
 } from "./types"
 
-export type CalloutActionsProps = BaseCalloutActionsProps & Class
+export type CalloutActionsProps = BaseCalloutActionsProps
 
-export type CalloutContentProps = BaseCalloutContentProps & Class
+export type CalloutContentProps = BaseCalloutContentProps
 
-export type CalloutIconProps = BaseCalloutIconProps & Class
+export type CalloutIconProps = BaseCalloutIconProps
 
-export type Props = BaseProps &
-  Class & { id?: IntrinsicElementAttributes["div"]["id"] }
+export type Props = BaseProps & { id?: IntrinsicElementAttributes["div"]["id"] }
 
 export type Emits = { dismiss: [event: BaseEvents["dismiss"]] }
 

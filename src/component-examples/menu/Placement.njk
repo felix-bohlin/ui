@@ -1,0 +1,47 @@
+{% from "opui/index.njk" import Button, Menu %}
+{% set items = [{ label: "Copy" }, { label: "Cut" }, { label: "Paste" }] %}
+
+{% call Button({
+  command: "toggle-popover",
+  commandfor: "menu-placement-1",
+  variant: "outlined"
+}) %}
+  Block end
+{% endcall %}
+{{ Menu({ id: "menu-placement-1", items: items }) }}
+
+{% call Button({
+  command: "toggle-popover",
+  commandfor: "menu-placement-2",
+  variant: "outlined"
+}) %}
+  Block start
+{% endcall %}
+{{ Menu({ id: "menu-placement-2", items: items, side: "block-start" }) }}
+
+{% call Button({
+  command: "toggle-popover",
+  commandfor: "menu-placement-3",
+  variant: "outlined"
+}) %}
+  Inline end
+{% endcall %}
+{{ Menu({ id: "menu-placement-3", items: items, side: "inline-end" }) }}
+
+{% call Button({
+  command: "toggle-popover",
+  commandfor: "menu-placement-4",
+  variant: "outlined"
+}) %}
+  Inline start
+{% endcall %}
+{{ Menu({ id: "menu-placement-4", items: items, side: "inline-start" }) }}
+
+{% call Button({
+  command: "toggle-popover",
+  commandfor: "menu-placement-5",
+  variant: "outlined"
+}) %}
+  Align end
+{% endcall %}
+{{ Menu({ align: "end", id: "menu-placement-5", items: items }) }}

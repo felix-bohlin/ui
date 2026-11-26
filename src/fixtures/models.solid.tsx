@@ -39,12 +39,14 @@ const stepsOf = (round: number) => [
 const Models = () => {
   const [actions, setActions] = createSignal(actionsOf(0))
   const [align, setAlign] = createSignal("left")
-  const [error, setError] = createSignal(false)
+  const [form, setForm] = createSignal({ error: false, newsletter: false })
+  const error = () => form().error
   const [fruits, setFruits] = createSignal(fruitsOf(0))
   const [steps, setSteps] = createSignal(stepsOf(0))
   document.addEventListener("refresh-steps", () => setSteps(stepsOf(1)))
   const [name, setName] = createSignal("Ada")
   const [plan, setPlan] = createSignal("free")
+  const [tags, setTags] = createSignal(["archived", "news"])
   const [toppings, setToppings] = createSignal(["basil", "cheese"])
 
   return (
@@ -81,7 +83,7 @@ const Models = () => {
           type="number"
         />
       </Field>
-      <Checkbox checked={false} error={error()}>
+      <Checkbox checked={form().newsletter} error={error()}>
         Newsletter
       </Checkbox>
       <Field for="models-size" label="Size">
@@ -150,6 +152,17 @@ const Models = () => {
         <ToggleButton value="right">Right</ToggleButton>
       </ToggleGroup>
       <ToggleGroup
+        aria-label="Stored tags"
+        multiple
+        name="stored-tags"
+        onValueChange={setTags}
+        value={tags()}
+      >
+        <ToggleButton value="news">News</ToggleButton>
+        <ToggleButton value="sports">Sports</ToggleButton>
+      </ToggleGroup>
+      <output id="models-tags">{JSON.stringify(tags())}</output>
+      <ToggleGroup
         aria-label="Own density"
         defaultValue="compact"
         name="own-density"
@@ -183,7 +196,10 @@ const Models = () => {
       <button onClick={() => setFruits(fruitsOf(1))} type="button">
         Refresh fruits
       </button>
-      <button onClick={() => setError(!error())} type="button">
+      <button
+        onClick={() => setForm({ ...form(), error: !error() })}
+        type="button"
+      >
         Toggle error
       </button>
       <button

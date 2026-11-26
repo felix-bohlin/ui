@@ -3,7 +3,7 @@
 Rows of similar items, like contacts, files or settings, with icons, controls and links.
 
 - CSS: `opui-css/css/components/list.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/list.md), [Astro](https://opui.dev/astro/components/list.md), [React](https://opui.dev/react/components/list.md), [Solid](https://opui.dev/solid/components/list.md), [Svelte](https://opui.dev/svelte/components/list.md), [Vue](https://opui.dev/vue/components/list.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/list.md), [Astro](https://opui.dev/astro/components/list.md), [Nunjucks](https://opui.dev/nunjucks/components/list.md), [React](https://opui.dev/react/components/list.md), [Solid](https://opui.dev/solid/components/list.md), [Svelte](https://opui.dev/svelte/components/list.md), [Vue](https://opui.dev/vue/components/list.md).
 
 ## List
 
@@ -40,13 +40,15 @@ Rows of similar items, like contacts, files or settings, with icons, controls an
 
 ### Props and modifiers
 
-- `as` (Astro and Svelte): `"a" | "button"`. The element to render inside the `<li>`: `"a"` or `"button"`. Defaults to `"a"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type="button"`.
-- `as` (React, Solid and Vue): `"a" | "button" | ComponentType<any>`. The element to render inside the `<li>`: `"a"`, `"button"` or the link component of your router with `href`, such as Next's `Link`, Solid Router's `A` or Nuxt's `NuxtLink`, which gets the `href`. Defaults to `"a"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type="button"`, and a disabled link component renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.
+- `as` (Astro, Nunjucks and Svelte): `"a" | "button"`. The element to render inside the `<li>`: `"a"` or `"button"`. Defaults to `"a"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type="button"`.
+- `as` (React): `"a" | "button" | ComponentType<any>`. The element to render inside the `<li>`: `"a"`, `"button"` or the link component of your router with `href`, such as Next's `Link`, which gets the `href`. Defaults to `"a"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type="button"`, and a disabled link component renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.
+- `as` (Solid): `"a" | "button" | Component<any>`. The element to render inside the `<li>`: `"a"`, `"button"` or the link component of your router with `href`, such as Solid Router's `A`, which gets the `href`. Defaults to `"a"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type="button"`, and a disabled link component renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.
+- `as` (Vue): `"a" | "button" | Component`. The element to render inside the `<li>`: `"a"`, `"button"` or the link component of your router with `href`, such as Nuxt's `NuxtLink`, which gets the `href`. Defaults to `"a"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type="button"`, and a disabled link component renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.
 - `borderTop`: `boolean`, `.ui-border-top`. Adds a border above the item.
 - `choice`: `"checkbox"` (`label.ui-checkbox`), `"radio"` (`label.ui-radio`), `"switch"` (`label.ui-switch`). Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.
 - `color`: `"critical"` (`.ui-critical`). Optional colors. `critical` marks a destructive item in a [Menu](/components/menu).
 - `disabled`: `boolean`. Disables a button item. A link item drops its `href` and gets `role="link"` and `aria-disabled="true"` instead.
-- `for` (Astro, Solid, Svelte and Vue): `string`. The `for` attribute of the `<label>` when `choice` is set.
+- `for` (Astro, Nunjucks, Solid, Svelte and Vue): `string`. The `for` attribute of the `<label>` when `choice` is set.
 - `href`: `string`. The link to use. Renders an `<a>` inside the `<li>`.
 - `htmlFor` (React): `string`. The `for` attribute of the `<label>` when `choice` is set, as `htmlFor` like on the element.
 - `inset`: `boolean`, `.ui-inset`. Aligns the text with items that have start content.
@@ -60,7 +62,7 @@ Rows of similar items, like contacts, files or settings, with icons, controls an
 ### Notes
 
 - HTML: To make the item interactive, wrap the content in an `<a>`, `<button>` or `<label>`.
-- Astro, Solid, Svelte and Vue: With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`, and `type` to the `<button>`. Without them, and with `choice`, they go to the `<li>`. `class` always goes to the `<li>`.
+- Astro, Nunjucks, Solid, Svelte and Vue: With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`, and `type` to the `<button>`. Without them, and with `choice`, they go to the `<li>`. `class` always goes to the `<li>`.
 - React: With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`, and `type` to the `<button>`. Without them, and with `choice`, they go to the `<li>`. `className` always goes to the `<li>`.
 
 ## Component properties
@@ -82,7 +84,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_radius`: The corner radius of a `.ui-list`. Defaults to `--ui-radius`, and `0` when the list is a direct child of a `Card`, `Accordion` or `Dialog`, which round and clip it themselves.
 - `--_selected-bg-color`: Background of selected and current items and options. `--ui-selected` when the theme sets it, otherwise `--ui-primary` at `--ui-state-selected-alpha-accent`, stronger than `--_hover-bg-color`. With more contrast it is `--_hover-bg-color`, so the text keeps 7:1, and the bar marks the row.
 - `--_selected-indicator-bg-color`: Color of the bar on the start edge of selected and current items and options, which marks them without relying on the fill. Defaults to `--ui-selected-strong`.
-- `--_selected-indicator-size`: Width of the bar on selected and current items. Defaults to `--ui-border-width-thick`.
+- `--_selected-indicator-size`: Width of the bar on selected and current items. Defaults to `--ui-border-width-large`.
 - `--_start-image-size`: Width of a square image in `.ui-start`.
 - `--_start-size`: Maximum size of leading and trailing icons, and the indent of `.ui-inset` items. Smaller in `.ui-dense`.
 - `--_start-video-size`: Height of a video in `.ui-start`, which keeps a 16:9 ratio.
@@ -91,7 +93,7 @@ Outputs: `--_font-size`, `--_icon-size`, `--_item-duration`, `--_selected-indica
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-choice-size-small`, `--ui-control-size`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-duration-fast`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-field-border-color-on-filled`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-inset`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-icon-check`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-line-height`, `--ui-list-item-padding-inline`, `--ui-menu-radius`, `--ui-motion`, `--ui-on-selected`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary`, `--ui-radius`, `--ui-radius-small`, `--ui-selected`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-hover-alpha-accent`, `--ui-state-selected-alpha-accent`, `--ui-surface-elevated`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-switch-thumb-size-small`, `--ui-switch-track-block-size-small`, `--ui-switch-track-inline-size-small`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-large`, `--ui-choice-size-small`, `--ui-control-size`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-duration-fast`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-field-border-color-on-filled`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-inset`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-icon-check`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-line-height`, `--ui-list-item-padding-inline`, `--ui-menu-radius`, `--ui-motion`, `--ui-on-selected`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary`, `--ui-radius`, `--ui-radius-small`, `--ui-selected`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-hover-alpha-accent`, `--ui-state-selected-alpha-accent`, `--ui-surface-elevated`, `--ui-surface-elevated-image`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-switch-thumb-size-small`, `--ui-switch-track-block-size-small`, `--ui-switch-track-inline-size-small`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -145,6 +147,27 @@ import { List, ListItem } from "opui-css/astro"
     <Fragment slot="end">100+</Fragment>
   </ListItem>
 </List>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import List, ListItem %}`
+
+- `ListItem` named slots: `slots.description`, `slots.end`, `slots.iconChecked`, `slots.label`, `slots.start` and `slots.submenu`. Pass a string, or markup captured with `{% set %}`.
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import List, ListItem %}
+
+{% call List() %}
+  {{ ListItem({ label: "Gig poster.pdf" }) }}
+  {{ ListItem({
+    description: "Our logo in every color, with the bass drawn way bigger than the drum kit, at last.",
+    label: "Band logo pack.pdf"
+  }) }}
+  {{ ListItem({ label: "Photos", slots: { end: "100+" } }) }}
+{% endcall %}
 ```
 
 ## React

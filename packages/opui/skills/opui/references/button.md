@@ -3,7 +3,7 @@
 A button for actions, like saving a form, with variants, colors, sizes and icons.
 
 - CSS: `opui-css/css/components/button.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/button.md), [Astro](https://opui.dev/astro/components/button.md), [React](https://opui.dev/react/components/button.md), [Solid](https://opui.dev/solid/components/button.md), [Svelte](https://opui.dev/svelte/components/button.md), [Vue](https://opui.dev/vue/components/button.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/button.md), [Astro](https://opui.dev/astro/components/button.md), [Nunjucks](https://opui.dev/nunjucks/components/button.md), [React](https://opui.dev/react/components/button.md), [Solid](https://opui.dev/solid/components/button.md), [Svelte](https://opui.dev/svelte/components/button.md), [Vue](https://opui.dev/vue/components/button.md).
 
 ## Button
 
@@ -18,8 +18,10 @@ A button for actions, like saving a form, with variants, colors, sizes and icons
 
 - `aria-label`: `string`. The accessible name, for a button without visible text. React, Solid and Svelte require it, or `aria-labelledby`, when there are no `children`.
 - `aria-labelledby`: `string`. The id of the element that names a button without visible text, instead of `aria-label`.
-- `as` (Astro and Svelte): `"a" | "button"`, default `"button"`. The element to render. Defaults to `"a"` with `href`.
-- `as` (React, Solid and Vue): `"a" | "button" | ComponentType<any>`, default `"button"`. The element to render, or the link component of your router with `href`, such as Next's `Link`, Solid Router's `A` or Nuxt's `NuxtLink`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.
+- `as` (Astro, Nunjucks and Svelte): `"a" | "button"`, default `"button"`. The element to render. Defaults to `"a"` with `href`.
+- `as` (React): `"a" | "button" | ComponentType<any>`, default `"button"`. The element to render, or the link component of your router with `href`, such as Next's `Link`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.
+- `as` (Solid): `"a" | "button" | Component<any>`, default `"button"`. The element to render, or the link component of your router with `href`, such as Solid Router's `A`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.
+- `as` (Vue): `"a" | "button" | Component`, default `"button"`. The element to render, or the link component of your router with `href`, such as Nuxt's `NuxtLink`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.
 - `color`: `"critical"` (`.ui-critical`), `"primary"` (`.ui-primary`). Optional colors.
 - `disabled`: `boolean`. Disables the button. A link button drops its `href` and gets `role="link"` and `aria-disabled="true"`.
 - `href`: `string`. The link to use. Renders an `<a>`.
@@ -123,6 +125,38 @@ import { Button } from "opui-css/astro"
   <Button variant="filled">Filled</Button>
   <Button disabled variant="filled">Disabled</Button>
   <Button href="#" variant="filled">Link</Button>
+</div>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Button %}`
+
+### Example: Variants
+
+```njk
+{% from "opui/index.njk" import Button %}
+
+<div class="example-row">
+  {% call Button() %}Transparent{% endcall %}
+  {% call Button({ disabled: true }) %}Disabled{% endcall %}
+  {% call Button({ href: "#" }) %}Link{% endcall %}
+  {% call Button({ "aria-current": "page", href: "#" }) %}Current{% endcall %}
+</div>
+<div class="example-row">
+  {% call Button({ variant: "outlined" }) %}Outlined{% endcall %}
+  {% call Button({ disabled: true, variant: "outlined" }) %}Disabled{% endcall %}
+  {% call Button({ href: "#", variant: "outlined" }) %}Link{% endcall %}
+</div>
+<div class="example-row">
+  {% call Button({ variant: "tonal" }) %}Tonal{% endcall %}
+  {% call Button({ disabled: true, variant: "tonal" }) %}Disabled{% endcall %}
+  {% call Button({ href: "#", variant: "tonal" }) %}Link{% endcall %}
+</div>
+<div class="example-row">
+  {% call Button({ variant: "filled" }) %}Filled{% endcall %}
+  {% call Button({ disabled: true, variant: "filled" }) %}Disabled{% endcall %}
+  {% call Button({ href: "#", variant: "filled" }) %}Link{% endcall %}
 </div>
 ```
 

@@ -1,0 +1,18 @@
+{% from "opui/Anchor.njk" import Anchor %}
+
+{% macro Tooltip(props = {}) %}
+  {%- set props = props | opuiProps("Tooltip") -%}
+  {%- set rest = props | opuiRest("Tooltip") -%}
+  {{- opui.warnMissingId("Tooltip", props.id, "interestfor") -}}
+  {% call Anchor(opui.merge(
+    {
+      class: ["ui-tooltip", { "ui-arrow": props.arrow }, props.class] | opuiClass,
+      id: props.id,
+      positionArea: props.positionArea,
+      trigger: "hover"
+    },
+    rest
+  )) %}
+    {{ caller() if caller }}
+  {% endcall %}
+{%- endmacro %}

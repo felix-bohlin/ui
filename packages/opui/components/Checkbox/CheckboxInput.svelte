@@ -1,7 +1,6 @@
 <script lang="ts">
   import "../../css/js/checkbox.js"
   import { toggleInGroup } from "../group"
-  import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { defined } from "../attrs"
   import type { CheckboxInputProps as Props } from "./types.svelte"
 
@@ -10,12 +9,10 @@
     defaultChecked,
     group = $bindable(),
     indeterminate,
-    name,
     value,
     ...rest
   }: Props = $props()
 
-  const field = getFieldGroupContext()
   const getChecked = () =>
     group ? group.includes(value) : !!(checked ?? defaultChecked)
   const setChecked = (isChecked: boolean) => {
@@ -27,7 +24,6 @@
 <input
   type="checkbox"
   data-indeterminate={indeterminate ? "" : undefined}
-  name={name ?? field?.name}
   {...defined(rest)}
   bind:checked={getChecked, setChecked}
   {defaultChecked}

@@ -1,0 +1,129 @@
+---
+import "@fontsource/yellowtail/400.css"
+
+type Props = {
+  panel?: boolean
+}
+
+const { panel = true } = Astro.props
+---
+
+<span
+  aria-label="Open Props UI VI"
+  class:list={["vi-lockup", { "vi-lockup-bare": !panel }]}
+  role="img"
+>
+  <svg aria-hidden="true" class="vi-lockup-letters" viewBox="-3 -3 179 136">
+    <path d="M0 0h38l27 54 27-54h38L65 130zM139 0h34v130h-34z"></path>
+  </svg>
+  <span aria-hidden="true" class="vi-lockup-script">
+    <span class="vi-lockup-words">Open Props UI</span>
+    <svg
+      class="vi-lockup-swash"
+      preserveAspectRatio="none"
+      viewBox="0 0 300 24"
+    >
+      <path d="M4 20C70 16 150 10 296 3"></path>
+    </svg>
+  </span>
+</span>
+
+<style>
+  .vi-lockup {
+    --vi-lockup-ink: oklch(0.99 0.01 340);
+    --vi-lockup-glow: oklch(0.62 0.22 350);
+
+    background: linear-gradient(
+      oklch(0.62 0.12 305),
+      oklch(0.74 0.13 350) 55%,
+      oklch(0.86 0.1 55)
+    );
+    border-radius: var(--ui-radius-large, 1.5rem);
+    display: inline-grid;
+    line-height: 1;
+    padding: 0.12em 0.22em;
+    place-items: center;
+  }
+
+  .vi-lockup-bare {
+    --vi-lockup-ink: light-dark(var(--ui-primary), oklch(0.99 0.01 340));
+    --vi-lockup-glow: light-dark(oklch(0.82 0.11 350), oklch(0.62 0.22 350));
+
+    background: none;
+    padding: 0;
+  }
+
+  .vi-lockup-letters {
+    block-size: 0.86em;
+    filter: drop-shadow(0 0 0.04em var(--vi-lockup-glow));
+    grid-area: 1 / 1;
+    inline-size: auto;
+    overflow: visible;
+
+    & path {
+      fill: none;
+      stroke: var(--vi-lockup-ink);
+      stroke-linejoin: miter;
+      stroke-width: 3;
+    }
+  }
+
+  .vi-lockup-script {
+    color: var(--vi-lockup-ink);
+    display: grid;
+    font-family: Yellowtail, cursive;
+    font-size: 0.3em;
+    font-weight: 400;
+    grid-area: 1 / 1;
+    letter-spacing: normal;
+    margin-block-start: 0.6em;
+    rotate: -9deg;
+    text-shadow:
+      0 0 0.06em var(--vi-lockup-glow),
+      0 0 0.2em var(--vi-lockup-glow);
+    white-space: nowrap;
+  }
+
+  .vi-lockup-words {
+    animation: vi-lockup-write calc(1.6s * var(--ui-motion)) linear
+      calc(0.3s * var(--ui-motion)) both;
+    margin: -0.3em;
+    mask-image: linear-gradient(to right, black 46%, transparent 54%);
+    mask-position: 0 0;
+    mask-repeat: no-repeat;
+    mask-size: 250% 100%;
+    padding: 0.3em;
+  }
+
+  .vi-lockup-swash {
+    animation: vi-lockup-swash calc(0.5s * var(--ui-motion)) ease-out
+      calc(1.9s * var(--ui-motion)) both;
+    block-size: 0.22em;
+    clip-path: inset(-100% -10%);
+    filter: drop-shadow(0 0 0.06em var(--vi-lockup-glow));
+    inline-size: 112%;
+    margin-block-start: -0.08em;
+    margin-inline-start: -4%;
+    overflow: visible;
+
+    & path {
+      fill: none;
+      stroke: var(--vi-lockup-ink);
+      stroke-linecap: round;
+      stroke-width: 3;
+      vector-effect: non-scaling-stroke;
+    }
+  }
+
+  @keyframes vi-lockup-write {
+    from {
+      mask-position: 100% 0;
+    }
+  }
+
+  @keyframes vi-lockup-swash {
+    from {
+      clip-path: inset(-100% 110% -100% -10%);
+    }
+  }
+</style>

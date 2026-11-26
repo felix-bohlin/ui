@@ -29,6 +29,8 @@ export default {
   notes: {
     astro:
       "`value` checks the buttons whose `value` matches on the server. After that the selection lives in the inputs: read it from the form, or listen for `change` in a script.",
+    nunjucks:
+      "`value` checks the buttons whose `value` matches on the server. After that the selection lives in the inputs: read it from the form, or listen for `change` in a script.",
     react:
       "Use `value` with `onValueChange`, or `defaultValue`. Without them the buttons keep their own state, and `onValueChange` still reports changes.",
     solid:
@@ -102,7 +104,7 @@ export default {
     {
       description:
         "The value of the checked button, or the values of the checked buttons with `multiple`. The buttons whose `value` matches are checked, and their own `checked` is ignored.",
-      frameworks: ["astro", "react", "solid"],
+      frameworks: ["astro", "nunjucks", "react", "solid"],
       prop: "value",
     },
   ],

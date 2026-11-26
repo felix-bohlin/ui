@@ -3,7 +3,7 @@
 Radio buttons for picking one option from a few, with sizes, cards and an invalid state.
 
 - CSS: `opui-css/css/components/radio.css`, `opui-css/css/components/choice.css`, `opui-css/css/components/form.css` and `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/radio.md), [Astro](https://opui.dev/astro/components/radio.md), [React](https://opui.dev/react/components/radio.md), [Solid](https://opui.dev/solid/components/radio.md), [Svelte](https://opui.dev/svelte/components/radio.md), [Vue](https://opui.dev/vue/components/radio.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/radio.md), [Astro](https://opui.dev/astro/components/radio.md), [Nunjucks](https://opui.dev/nunjucks/components/radio.md), [React](https://opui.dev/react/components/radio.md), [Solid](https://opui.dev/solid/components/radio.md), [Svelte](https://opui.dev/svelte/components/radio.md), [Vue](https://opui.dev/vue/components/radio.md).
 - The docs page also documents `FieldGroup`, see `form.md`.
 
 ## Radio
@@ -22,7 +22,7 @@ Radio buttons for picking one option from a few, with sizes, cards and an invali
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
 - `hideLabel`: `boolean`, `.ui-radio > span.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`.
 - `id`: `string`. The id of the `<input>`.
-- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
+- `name`: `string`. The name of the `<input>`. Radios with the same `name` are one group, in which one can be checked.
 - `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the element. `vertical` stacks the label under the input.
 - `required`: `boolean`, `input[required]`. The form won't submit until one radio in the group is checked. The legend of the enclosing fieldset shows the required mark.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
@@ -30,11 +30,11 @@ Radio buttons for picking one option from a few, with sizes, cards and an invali
 - `value`: `string | number | boolean`. The value of the `<input>`, submitted with the form when it's checked.
 - `variant`: `"elevated"` (`.ui-elevated`), `"outlined"` (default), `"tonal"` (`.ui-tonal`). The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.
 
-Model: `value` (`string | number | boolean`), the selected value of the group. Astro, React and Solid `value`, Svelte `bind:group`, Vue `v-model`.
+Model: `value` (`string | number | boolean`), the selected value of the group. Astro, Nunjucks, React and Solid `value`, Svelte `bind:group`, Vue `v-model`.
 
 ### Notes
 
-- Astro and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.
+- Astro, Nunjucks and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.
 - React: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`. Use `checked` with `onChange` on each radio, or `defaultChecked`.
 - Solid: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`. `checked` sets each radio's state and follows it when it changes, and `onChange` reports changes.
 - Svelte: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`.
@@ -47,13 +47,13 @@ Model: `value` (`string | number | boolean`), the selected value of the group. A
 
 ### Props and modifiers
 
-- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
+- `name`: `string`. The name of the `<input>`. Radios with the same `name` are one group, in which one can be checked.
 
-Model: `value` (`string | number | boolean`), the selected value of the group. Astro, React and Solid `value`, Svelte `bind:group`, Vue `v-model`.
+Model: `value` (`string | number | boolean`), the selected value of the group. Astro, Nunjucks, React and Solid `value`, Svelte `bind:group`, Vue `v-model`.
 
 ### Notes
 
-- Astro, React, Solid, Svelte and Vue: The radio `<input>` without the label, for a custom layout inside a `label.ui-radio`, such as the end of a `ListItem` with `choice="radio"`. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
+- Astro, Nunjucks, React, Solid, Svelte and Vue: The radio `<input>` without the label, for a custom layout inside a `label.ui-radio`, such as the end of a `ListItem` with `choice="radio"`. Attributes that aren't props go to the `<input>`.
 
 ## Component properties
 
@@ -103,11 +103,11 @@ Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration`, `--
 - `--_title-font-size`: Font size of a dialog's or drawer's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
 - `--_tonal-bg-color`: Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.
 
-Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration`, `--_orientation` and `--_shadow`.
+Outputs: `--_bg-color`, `--_bg-image`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration`, `--_orientation` and `--_shadow`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-choice-accent`, `--ui-choice-border-color`, `--ui-choice-border-width`, `--ui-choice-checked`, `--ui-choice-fill-max-lightness`, `--ui-choice-label-offset`, `--ui-choice-on-accent`, `--ui-choice-ripple-bg-color`, `--ui-choice-size`, `--ui-choice-size-large`, `--ui-choice-size-small`, `--ui-choice-size-x-small`, `--ui-control-accent`, `--ui-control-on-accent`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color`, `--ui-field-border-color-on-raised`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-required-text-color`, `--ui-focus-border-color`, `--ui-focus-border-width`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-icon-close`, `--ui-invalid`, `--ui-invalid-text`, `--ui-letter-spacing-heading`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-fill`, `--ui-on-primary`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-switch-thumb-size-large`, `--ui-switch-thumb-size-small`, `--ui-switch-thumb-size-x-small`, `--ui-switch-track-block-size-large`, `--ui-switch-track-block-size-small`, `--ui-switch-track-block-size-x-small`, `--ui-switch-track-inline-size-large`, `--ui-switch-track-inline-size-small`, `--ui-switch-track-inline-size-x-small`, `--ui-target-min-size`, `--ui-text`, `--ui-text-max-chroma`, `--ui-text-min-lightness` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-large`, `--ui-card-padding`, `--ui-choice-accent`, `--ui-choice-border-color`, `--ui-choice-border-width`, `--ui-choice-checked`, `--ui-choice-fill-max-lightness`, `--ui-choice-label-offset`, `--ui-choice-on-accent`, `--ui-choice-ripple-bg-color`, `--ui-choice-size`, `--ui-choice-size-large`, `--ui-choice-size-small`, `--ui-choice-size-x-small`, `--ui-control-accent`, `--ui-control-on-accent`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color`, `--ui-field-border-color-on-raised`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-required-text-color`, `--ui-focus-border-color`, `--ui-focus-border-width`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-icon-close`, `--ui-invalid`, `--ui-invalid-text`, `--ui-letter-spacing-heading`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-fill`, `--ui-on-primary`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-elevated-image`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-switch-thumb-size-large`, `--ui-switch-thumb-size-small`, `--ui-switch-thumb-size-x-small`, `--ui-switch-track-block-size-large`, `--ui-switch-track-block-size-small`, `--ui-switch-track-block-size-x-small`, `--ui-switch-track-inline-size-large`, `--ui-switch-track-inline-size-small`, `--ui-switch-track-inline-size-x-small`, `--ui-target-min-size`, `--ui-text`, `--ui-text-max-chroma`, `--ui-text-min-lightness` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -119,7 +119,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
     <legend>Payment method</legend>
     <div class="ui-field-group">
       <label class="ui-radio">
-        <input type="radio" name="radio-group" checked value="card" />
+        <input type="radio" checked name="radio-group" value="card" />
         <span class="ui-label">Card</span>
       </label>
       <label class="ui-radio">
@@ -151,13 +151,42 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
 <Form>
   <Fieldset>
     <FieldLegend>Payment method</FieldLegend>
-    <FieldGroup name="radio-group">
-      <Radio checked value="card">Card</Radio>
-      <Radio value="paypal">PayPal</Radio>
-      <Radio value="bank-transfer">Bank transfer</Radio>
+    <FieldGroup>
+      <Radio checked name="radio-group" value="card">Card</Radio>
+      <Radio name="radio-group" value="paypal">PayPal</Radio>
+      <Radio name="radio-group" value="bank-transfer">Bank transfer</Radio>
     </FieldGroup>
   </Fieldset>
 </Form>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Radio, RadioInput %}`
+
+- `Radio` named slots: `slots.endText`. Pass a string, or markup captured with `{% set %}`.
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+  Radio
+%}
+
+{% call Form() %}
+  {% call Fieldset() %}
+    {% call FieldLegend() %}Payment method{% endcall %}
+    {% call FieldGroup() %}
+      {% call Radio({ checked: true, name: "radio-group", value: "card" }) %}Card{% endcall %}
+      {% call Radio({ name: "radio-group", value: "paypal" }) %}PayPal{% endcall %}
+      {% call Radio({ name: "radio-group", value: "bank-transfer" }) %}Bank transfer{% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}
 ```
 
 ## React
@@ -165,7 +194,6 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
 `import { Radio, RadioInput } from "opui-css/react"`
 
 - `Radio` slot props (`ReactNode`): `children` and `endText`.
-- Client components (`"use client"`): `RadioInput`.
 
 ### Example: Basics
 
@@ -177,12 +205,16 @@ export default function Basics() {
     <Form>
       <Fieldset>
         <FieldLegend>Payment method</FieldLegend>
-        <FieldGroup name="radio-group">
-          <Radio defaultChecked value="card">
+        <FieldGroup>
+          <Radio defaultChecked name="radio-group" value="card">
             Card
           </Radio>
-          <Radio value="paypal">PayPal</Radio>
-          <Radio value="bank-transfer">Bank transfer</Radio>
+          <Radio name="radio-group" value="paypal">
+            PayPal
+          </Radio>
+          <Radio name="radio-group" value="bank-transfer">
+            Bank transfer
+          </Radio>
         </FieldGroup>
       </Fieldset>
     </Form>
@@ -207,12 +239,16 @@ export default function Basics() {
     <Form>
       <Fieldset>
         <FieldLegend>Payment method</FieldLegend>
-        <FieldGroup name="radio-group">
-          <Radio defaultChecked value="card">
+        <FieldGroup>
+          <Radio defaultChecked name="radio-group" value="card">
             Card
           </Radio>
-          <Radio value="paypal">PayPal</Radio>
-          <Radio value="bank-transfer">Bank transfer</Radio>
+          <Radio name="radio-group" value="paypal">
+            PayPal
+          </Radio>
+          <Radio name="radio-group" value="bank-transfer">
+            Bank transfer
+          </Radio>
         </FieldGroup>
       </Fieldset>
     </Form>
@@ -243,10 +279,10 @@ export default function Basics() {
 <Form>
   <Fieldset>
     <FieldLegend>Payment method</FieldLegend>
-    <FieldGroup name="radio-group">
-      <Radio defaultChecked value="card">Card</Radio>
-      <Radio value="paypal">PayPal</Radio>
-      <Radio value="bank-transfer">Bank transfer</Radio>
+    <FieldGroup>
+      <Radio defaultChecked name="radio-group" value="card">Card</Radio>
+      <Radio name="radio-group" value="paypal">PayPal</Radio>
+      <Radio name="radio-group" value="bank-transfer">Bank transfer</Radio>
     </FieldGroup>
   </Fieldset>
 </Form>
@@ -270,10 +306,10 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/vue"
   <Form>
     <Fieldset>
       <FieldLegend>Payment method</FieldLegend>
-      <FieldGroup name="radio-group">
-        <Radio checked value="card">Card</Radio>
-        <Radio value="paypal">PayPal</Radio>
-        <Radio value="bank-transfer">Bank transfer</Radio>
+      <FieldGroup>
+        <Radio checked name="radio-group" value="card">Card</Radio>
+        <Radio name="radio-group" value="paypal">PayPal</Radio>
+        <Radio name="radio-group" value="bank-transfer">Bank transfer</Radio>
       </FieldGroup>
     </Fieldset>
   </Form>

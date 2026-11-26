@@ -1,12 +1,18 @@
 ---
 import CodeGroup from "../../../../components/CodeGroup.astro"
+import { npmTag, prerelease, unreleased } from "../../../../utils/release"
 
 type Props = {
   packages?: string
 }
 
 const { packages } = Astro.props
-const names = ["opui-css", packages].filter(Boolean).join(" ")
+const names = [
+  prerelease && unreleased ? `opui-css@${npmTag}` : "opui-css",
+  packages,
+]
+  .filter(Boolean)
+  .join(" ")
 ---
 
 <CodeGroup

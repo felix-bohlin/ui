@@ -2,6 +2,7 @@
   :where(dialog.ui-drawer) {
     --_motion: var(--ui-motion);
     --_bg-color: var(--ui-surface-elevated);
+    --_bg-image: var(--ui-surface-elevated-image, none);
     --_block-size: min(80dvb, 650px);
     --_border-color: var(--ui-border-color);
     --_border-width: var(--ui-border-width);
@@ -24,6 +25,7 @@
     --ui-field-border-color: var(--ui-field-border-color-on-raised);
 
     background-color: var(--_bg-color);
+    background-image: var(--_bg-image);
     border: none;
     box-shadow: var(--_shadow);
     color: var(--_text-color);

@@ -1,12 +1,6 @@
 <script setup lang="ts">
-import {
-  computed,
-  type HTMLAttributes,
-  provide,
-  reactive,
-  useAttrs,
-  useId,
-} from "vue"
+import { computed, provide, reactive, useId } from "vue"
+import { useRestAttrs } from "../vue"
 import { FieldsetKey } from "./context.vue"
 import { autoLabelledBy } from "../id"
 import { defined } from "../attrs"
@@ -19,7 +13,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs() as HTMLAttributes
+const attrs = useRestAttrs()
 
 const uid = useId()
 
@@ -28,7 +22,10 @@ const isFieldset = computed(() => Tag === "fieldset")
 const legendId = computed(() =>
   isFieldset.value
     ? undefined
-    : autoLabelledBy(attrs, `${attrs.id || `fieldset-${uid}`}-legend`),
+    : autoLabelledBy(
+        attrs.value,
+        `${attrs.value.id || `fieldset-${uid}`}-legend`,
+      ),
 )
 
 provide(FieldsetKey, reactive({ legendId }))
@@ -38,7 +35,7 @@ provide(FieldsetKey, reactive({ legendId }))
   <component
     :is="Tag"
     :aria-labelledby="legendId"
-    :class="['ui-fieldset', $props.class]"
+    :class="['ui-fieldset', $attrs.class]"
     :role="isFieldset ? undefined : 'group'"
     v-bind="defined(attrs)"
   >

@@ -6,89 +6,86 @@ export default {
   keyboard: [
     {
       description:
-        "With a select's list open, closes it without changing the value. In a textarea, moves focus to the next element, like in any field, instead of typing a tab character.",
+        "Closes an open select list without changing the value. In a textarea, moves focus on instead of typing a tab.",
       keys: ["Tab"],
     },
     {
       description:
-        "In an input, submits the form it's in, when the form has a submit button or only one field that blocks implicit submission. In a textarea, starts a new line. On a file input, opens the file picker. On a select, opens the list, and in the list picks the focused option, closes the list and returns focus to the select. On the password toggle, shows or hides the password.",
+        "Submits the form from an input, and starts a new line in a textarea. Opens a file picker or a select list, and in the list picks the focused option. Shows or hides the password on the password toggle.",
       keys: ["Enter"],
     },
     {
       description:
-        "On a file input, opens the file picker. On a select, opens the list, and in the list picks the focused option, closes the list and returns focus to the select. On the password toggle, shows or hides the password.",
+        "Opens a file picker or a select list, and in the list picks the focused option. Shows or hides the password on the password toggle.",
       keys: ["Space"],
     },
     {
-      description:
-        "On a select, opens the list. In the list, moves to the previous or next option.",
+      description: "Opens a select list, and moves through its options.",
       keys: ["Up Arrow", "Down Arrow"],
     },
     {
-      description: "In a select's list, moves to the first or last option.",
+      description: "Moves to the first or last option in a select list.",
       keys: ["Home", "End"],
     },
     {
       description:
-        'Closes a select\'s list without changing the value, and focus returns to the select. Clears a `type="search"` field in Chromium.',
+        'Closes a select list without changing the value. Clears a `type="search"` field in Chromium.',
       keys: ["Esc"],
     },
     {
       description:
-        "On a select, moves to the first option that starts with the typed text. On a closed select, this picks the option.",
+        "On a select, moves to the first option that starts with the typed text, and picks it while the list is closed.",
       keys: ["Printable characters"],
     },
   ],
   notes: {
     default:
-      "Write the `<input>`, `<select>` or `<textarea>` inside, with its `id` set to `for`, and bind it like any control. Other attributes go to the `.ui-field` root.",
+      'Write your control inside, with its `id` set to `for`, and point its `aria-describedby` at the parts with something to read, `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"` in that order. Leave out a part that only holds buttons, an output or hidden content, and keep the list in step with parts that come and go, like an error end text. `checkHtml` from `opui-css/check` checks the rendered page. Other attributes go to the `.ui-field` root, so set `aria-describedby` and `aria-invalid` on your control.',
     react:
-      "Write the `<input>`, `<select>` or `<textarea>` inside, with its `id` set to `htmlFor`, and give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-field` root.",
-    html: "Put a `<label class=\"ui-label\" for>` inside the root that points at the control's `id`, so the label alone names it, and point the control's `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text`, in that order, so a unit, a hint or an error is read after the name. Leave out a part with nothing to read: a `.ui-start` or `.ui-end` that only holds buttons or a hidden icon, and a `.ui-end-text` that only holds an `<output>`. Put `.ui-top` and `.ui-start` before the control and `.ui-end` and `.ui-bottom` after it, so Tab and screen readers reach them in the order they're drawn.",
+      'Write your control inside, with its `id` set to `htmlFor`, and point its `aria-describedby` at the parts with something to read, `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `htmlFor="x"` in that order. Leave out a part that only holds buttons, an output or hidden content, and keep the list in step with parts that come and go, like an error end text. `checkHtml` from `opui-css/check` checks the rendered page. Other attributes go to the `.ui-field` root, so set `aria-describedby` and `aria-invalid` on your control.',
+    html: "Point the `<label class=\"ui-label\" for>` at the control's `id`, and the control's `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text` in that order, leaving out a part that only holds buttons, an output or hidden content, and keep the list in step with parts that come and go, like an error end text. `npx opui-css check` checks the HTML files. Write `.ui-top` and `.ui-start` before the control, and `.ui-end` and `.ui-bottom` after it.",
   },
   options: [
     {
       class: ".ui-auto-fit",
       default: "false",
       description:
-        "Lets the width follow the content, from `25ch`, or `4ch` with step buttons. A textarea can then be resized both ways.",
+        "Fits the width to the content, from `25ch` (`4ch` with step buttons), and lets a textarea resize sideways.",
       group: "Auto fit",
       prop: "autoFit",
     },
     {
       class: ".ui-dense",
       default: "false",
-      description: "Packs the options of a select tighter.",
+      description: "Tighter select options.",
       group: "Dense",
       prop: "dense",
     },
     {
       class: ".ui-drop-zone",
       default: "false",
-      description:
-        'Makes a `type="file"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker.',
+      description: 'Makes a `type="file"` input a tall, dashed drop zone.',
       group: "Drop zone",
       prop: "dropZone",
     },
     {
       description:
-        'The `id` of your control. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`. Point the control\'s `aria-describedby` at the ones it shows, in that order.',
-      frameworks: ["astro", "solid", "svelte", "vue"],
+        'The `id` of your control, which the label points at and the part ids start with: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`.',
+      frameworks: ["astro", "nunjucks", "solid", "svelte", "vue"],
       prop: "for",
       type: "string",
     },
     {
       class: ".ui-sr-only",
       default: "false",
-      description:
-        "Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.",
+      description: "Visually hides the label but keeps its name.",
       group: "Label",
       part: ".ui-field > label",
       prop: "hideLabel",
     },
     {
       description:
-        'The `id` of your control, as `htmlFor` like on the element. The label points at it, and each part the field shows gets an id that starts with it: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `htmlFor="x"`. Point the control\'s `aria-describedby` at the ones it shows, in that order.',
+        'The `id` of your control, which the label points at and the part ids start with: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `htmlFor="x"`.',
       frameworks: ["react"],
       prop: "htmlFor",
       type: "string",
@@ -108,14 +105,13 @@ export default {
     {
       class: ".ui-spread",
       default: "false",
-      description:
-        "Pushes the label and start text to one side and the control to the other.",
+      description: "Puts the label and start text beside the control.",
       group: "Spread",
       prop: "spread",
     },
     {
       description:
-        'Set on the control: `aria-invalid="true"`, or `:user-invalid`, shows the error colors, `required` adds a required mark after the label, `disabled` or `aria-disabled="true"` dims the field, and `readonly` keeps the text cursor.',
+        "Set on the control: invalid shows the error colors, required marks the label, disabled dims the field and read-only keeps the text cursor.",
       frameworks: ["html"],
       group: "State",
       prop: "state",
@@ -143,62 +139,56 @@ export default {
       slots: ["label"],
     },
     {
-      description: "Start text displayed above the field.",
+      description: "Text above the box.",
       props: ["startText"],
       selector: ".ui-start-text",
       slots: ["start-text"],
     },
     {
-      description: "The boxed control area.",
+      description: "The box around the control.",
       selector: ".ui-field-container",
     },
     {
-      description:
-        "Content above the control, inside the border, with a divider.",
+      description: "Content above the control, inside the box.",
       selector: ".ui-field-container > .ui-top",
       slots: ["top"],
     },
     {
-      description:
-        "Content at the inline-start of the field, inside the border.",
+      description: "Content before the control, inside the box.",
       selector: ".ui-field-container > .ui-start",
       slots: ["start"],
     },
     {
       code: "<input>, <select> or <textarea>",
-      description:
-        'Your control, written directly inside `.ui-field-container` with its `id` set to `for`. Bind it, name it and mark it `required`, `disabled` or `aria-invalid="true"` like any control. A `<textarea>` grows with its content, and a `<select>` is a customizable select.',
+      description: "Your control, with the field's `for` as its `id`.",
       selector: ".ui-field-container > :is(input, select, textarea)",
     },
     {
       description:
-        "Content at the inline-end of the field, inside the border, such as a `PasswordToggle`.",
+        "Content after the control, inside the box, like a `PasswordToggle`.",
       selector: ".ui-field-container > .ui-end",
       slots: ["end"],
     },
     {
-      description:
-        "Content below the control, inside the border, with a divider.",
+      description: "Content below the control, inside the box.",
       selector: ".ui-field-container > .ui-bottom",
       slots: ["bottom"],
     },
     {
-      description:
-        "Supporting text displayed below the field, and a `CharacterCount`.",
+      description: "Text below the box, and a `CharacterCount`.",
       props: ["endText"],
       selector: ".ui-end-text",
       slots: ["end-text"],
     },
   ],
   root: {
-    description:
-      "Container element, a `<div>`. The label inside is a `<label for>` that names the control by itself.",
+    description: "A `<div>`, whose `<label for>` names the control.",
     selector: ".ui-field",
   },
   slots: [
     {
       description:
-        "Your `<input>`, `<select>` or `<textarea>`, and a `<datalist>` for an input with suggestions. Both go in `.ui-field-container`.",
+        "Your `<input>`, `<select>` or `<textarea>`, and a `<datalist>` for suggestions.",
       name: "default",
     },
   ],

@@ -30,7 +30,7 @@ import {
 
 <template>
   <div
-    class="server-status ui-layout-container ui-layout-column ui-large"
+    class="server-status ui-layout-container ui-layout-column ui-gap-large"
     style="--_max-inline-size: 64rem"
   >
     <div class="ui-layout-row ui-spread">
@@ -55,13 +55,13 @@ import {
         <p>
           Some bass notes on profile songs arrive up to 2 seconds late. Like a
           bassist behind the beat! Everything else is grooving normally.
-          <a class="ui-link" href="#server-status-incident-low-end"
+          <a class="ui-link" href="#server-status-incident-laggy-bass"
             >Follow the incident</a
           >
         </p>
       </CalloutContent>
     </Callout>
-    <div class="ui-layout-columns ui-large" style="--_columns: 3fr 2fr">
+    <div class="ui-layout-columns ui-gap-large" style="--_columns: 3fr 2fr">
       <Card
         aria-labelledby="server-status-services-heading"
         as="section"
@@ -289,14 +289,18 @@ import {
     </Card>
     <section
       aria-labelledby="server-status-incidents-heading"
-      class="ui-layout-column ui-small"
+      class="ui-layout-column ui-gap-small"
     >
       <h2 class="ui-h5" id="server-status-incidents-heading">Incidents</h2>
       <div class="ui-layout-column status-incidents">
-        <Accordion id="server-status-incident-low-end" open variant="outlined">
+        <Accordion
+          id="server-status-incident-laggy-bass"
+          open
+          variant="outlined"
+        >
           <AccordionSummary>
             <span>
-              Laggy low end on profile songs
+              Laggy bass on profile songs
               <span class="ui-layout-row ui-caption status-incident-meta">
                 <Chip
                   as="span"
@@ -322,7 +326,7 @@ import {
                 <p class="ui-caption">Investigating</p>
                 <p>
                   We're hearing bass notes arrive late on profile songs and are
-                  looking into it.
+                  looking into it. No, Davie504, it's not Charles Berthoud.
                 </p>
               </TimelineItem>
             </Timeline>
@@ -390,7 +394,7 @@ import {
               autocomplete="email"
               id="server-status-server-status-email"
               name="server-status-email"
-              placeholder="you@lowend.example"
+              placeholder="you@bassmail.example"
               required
               type="email"
             />
@@ -470,7 +474,7 @@ import {
   .status-history {
     block-size: 2rem;
     display: grid;
-    gap: var(--ui-border-width-thick);
+    gap: var(--ui-border-width-large);
     grid-auto-columns: minmax(0, 1fr);
     grid-auto-flow: column;
 

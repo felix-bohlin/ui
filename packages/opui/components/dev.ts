@@ -1,6 +1,6 @@
 declare const process: { env: { NODE_ENV?: string } }
 
-const DEV =
+export const DEV =
   (import.meta as { env?: { DEV?: boolean } }).env?.DEV ??
   (typeof process !== "undefined" && process.env.NODE_ENV !== "production")
 
@@ -29,6 +29,20 @@ export const hasName = (
 
 export const resetWarnings = () => {
   warned.clear()
+}
+
+export const warnControlAttributes = (
+  component: string,
+  attrs: { "aria-describedby"?: unknown; "aria-invalid"?: unknown },
+) => {
+  if (!DEV) return
+  for (const name of ["aria-describedby", "aria-invalid"] as const) {
+    if (attrs[name] != null) {
+      warnOnce(
+        `[OPUI ${component}] \`${name}\` goes on your control, not on the ${component}, which passes it to its root \`<div>\`.`,
+      )
+    }
+  }
 }
 
 export const warnGroupedChecked = (

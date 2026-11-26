@@ -10,6 +10,10 @@ export type StoredTheme = Theme & { css: string }
 
 export const THEME_KEY = "opui-theme"
 
+export const THEME_SESSION_KEY = "opui-theme-session"
+
+export const THEME_SESSION_GAP = 30 * 60 * 1000
+
 export const VIEW_KEYS = { contrast: "contrast", mode: "theme" } as const
 
 const LEGACY_KEYS = [

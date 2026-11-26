@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs"
 import { expect, test } from "@playwright/test"
 import type { Page } from "@playwright/test"
+import { FIREFOX_DOWNLOAD_NAVIGATE, failsIn } from "./engine-bugs"
 import { instantScrolling } from "./fixtures"
 
 const ORIGIN = "https://opui.test"
@@ -280,8 +281,8 @@ const ELEMENTS: Scenario[] = [
         </div>
         <ul class="ui-list">
           <li>
-            <div class="ui-text"><p>lou.png</p></div>
-            <div class="ui-end"><button class="ui-button" type="button" aria-label="Remove lou.png" command="--remove" commandfor="photos" value="lou">x</button></div>
+            <div class="ui-text"><p>kinga.png</p></div>
+            <div class="ui-end"><button class="ui-button" type="button" aria-label="Remove kinga.png" command="--remove" commandfor="photos" value="kinga">x</button></div>
           </li>
         </ul>
       </div>
@@ -320,8 +321,8 @@ const ELEMENTS: Scenario[] = [
       expect(await selected).toEqual(["b.png", "c.png"])
       await expect(input).toHaveValue("")
       const removed = heard("remove")
-      await page.getByRole("button", { name: "Remove lou.png" }).click()
-      expect(await removed).toEqual(["lou"])
+      await page.getByRole("button", { name: "Remove kinga.png" }).click()
+      expect(await removed).toEqual(["kinga"])
     },
   },
   {
@@ -457,7 +458,7 @@ const ELEMENTS: Scenario[] = [
     file: "reactions.js",
     markup: `<opui-reactions class="ui-reactions" quick-label="Thumbs up" quick-text="Up" quick-value="+1">
       <div class="ui-toggle-group" role="group" aria-label="Reactions">
-        <label class="ui-toggle-button ui-unused"><input type="checkbox" name="reaction" value="+1" aria-label="Thumbs up" /><span aria-hidden="true">Up</span></label>
+        <label class="ui-toggle-button ui-suggested"><input type="checkbox" name="reaction" value="+1" aria-label="Thumbs up" /><span aria-hidden="true">Up</span></label>
       </div>
       <span class="ui-sr-only" role="status"></span>
     </opui-reactions>`,
@@ -481,11 +482,11 @@ const ELEMENTS: Scenario[] = [
       })
       await pill.click()
       await expect(quick).not.toBeChecked()
-      expect(
-        await page.evaluate(
-          () => (window as unknown as { asked: unknown }).asked,
-        ),
-      ).toEqual({ checked: true, value: "+1" })
+      await expect
+        .poll(() =>
+          page.evaluate(() => (window as unknown as { asked: unknown }).asked),
+        )
+        .toEqual({ checked: true, value: "+1" })
       await page.evaluate(() => {
         document.querySelector("opui-reactions")!.set("+1", {
           checked: true,
@@ -495,7 +496,7 @@ const ELEMENTS: Scenario[] = [
       })
       await expect(quick).toBeChecked()
       await expect(pill).toHaveText("Up 1")
-      await expect(pill).not.toHaveClass(/ui-unused/)
+      await expect(pill).not.toHaveClass(/ui-suggested/)
       await page.evaluate(() => {
         const element = document.querySelector("opui-reactions")!
         element.delete("+1")
@@ -504,8 +505,32 @@ const ELEMENTS: Scenario[] = [
       await expect(quick).not.toBeChecked()
       await expect(quick).toHaveAccessibleName("Thumbs up")
       await expect(pill).toHaveText("Up")
-      await expect(pill).toHaveClass(/ui-unused/)
+      await expect(pill).toHaveClass(/ui-suggested/)
       await expect(page.getByRole("status")).toHaveText("Thumbs up removed")
+      const applyAtOnce = () =>
+        page.evaluate(() => {
+          const element = document.querySelector("opui-reactions")!
+          element.addEventListener(
+            "reaction",
+            (event) => {
+              const { checked, value } = (event as CustomEvent).detail
+              element.set(value, {
+                checked,
+                label: checked ? "Thumbs up, 1" : "Thumbs up",
+                text: checked ? "Up 1" : "Up",
+              })
+            },
+            { once: true },
+          )
+        })
+      await applyAtOnce()
+      await pill.click()
+      await expect(quick).toBeChecked()
+      await expect(pill).toHaveText("Up 1")
+      await applyAtOnce()
+      await pill.click()
+      await expect(quick).not.toBeChecked()
+      await expect(pill).toHaveText("Up")
     },
   },
   {
@@ -552,6 +577,20 @@ const ELEMENTS: Scenario[] = [
             .items.map((item) => item.parentElement!.textContent!.trim()),
         ),
       ).toEqual(["Email", "Push"])
+      await page.mouse.move(0, 0)
+      const setAll = (checked: boolean) =>
+        page.evaluate((checked) => {
+          for (const input of document.querySelector("opui-select-all")!
+            .items) {
+            input.checked = checked
+          }
+        }, checked)
+      await setAll(false)
+      await expect(all).toHaveJSProperty("checked", false)
+      await expect(all).toHaveJSProperty("indeterminate", false)
+      await setAll(true)
+      await expect(all).toHaveJSProperty("checked", true)
+      await expect(all).toHaveJSProperty("indeterminate", false)
     },
   },
   {
@@ -873,9 +912,7 @@ test("an element removes a global attribute set to null or undefined, as React a
   expect(attributes).toEqual({ removed: [], set: ["class", "title"] })
 })
 
-test("close-on-navigate.js closes a drawer on a click on a link in it, unless the link has data-keep-open", async ({
-  page,
-}) => {
+const navigationDrawer = async (page: Page) => {
   await page.route(`${ORIGIN}/**`, (route) =>
     route.fulfill(
       route.request().url().endsWith(".js")
@@ -889,7 +926,16 @@ test("close-on-navigate.js closes a drawer on a click on a link in it, unless th
               <script>
                 document.addEventListener("click", (event) => {
                   const link = event.target.closest("a")
-                  if (!link) return
+                  if (
+                    !link ||
+                    link.target ||
+                    link.hasAttribute("download") ||
+                    event.ctrlKey ||
+                    event.metaKey ||
+                    event.shiftKey
+                  ) {
+                    return
+                  }
                   event.preventDefault()
                   history.pushState(null, "", link.href)
                 })
@@ -898,6 +944,8 @@ test("close-on-navigate.js closes a drawer on a click on a link in it, unless th
               <dialog aria-label="Navigate" class="ui-drawer" data-close-on-navigate>
                 <a href="/chat">Chat</a>
                 <a data-keep-open href="/chat?pages=2">Load more</a>
+                <a href="/help" target="_blank">Help</a>
+                <a download="export.csv" href="data:text/csv,a%2Cb">Export</a>
               </dialog>
             </body></html>`,
             contentType: "text/html",
@@ -905,7 +953,7 @@ test("close-on-navigate.js closes a drawer on a click on a link in it, unless th
     ),
   )
   await instantScrolling(page)
-  await page.goto(`${ORIGIN}/chat?with=lou`)
+  await page.goto(`${ORIGIN}/chat?with=kinga`)
   const drawer = page.getByRole("dialog", { name: "Navigate" })
   const show = () =>
     page.evaluate(() => document.querySelector("dialog")!.showModal())
@@ -915,8 +963,24 @@ test("close-on-navigate.js closes a drawer on a click on a link in it, unless th
         Symbol.for("opui-close-on-navigate")
       ],
   )
+  return { drawer, show }
+}
+
+test("close-on-navigate.js closes a drawer on a click on a link in it, unless the link has data-keep-open or opens elsewhere", async ({
+  page,
+}) => {
+  const { drawer, show } = await navigationDrawer(page)
 
   await show()
+  const opened = page.context().waitForEvent("page")
+  await drawer.getByRole("link", { name: "Help" }).click()
+  await (await opened).close()
+  await expect(drawer).toBeVisible()
+  await drawer
+    .getByRole("link", { name: "Chat" })
+    .click({ modifiers: ["Shift"] })
+  await expect(drawer).toBeVisible()
+  await expect(page).toHaveURL(`${ORIGIN}/chat?with=kinga`)
   await drawer.getByRole("link", { name: "Load more" }).click()
   await expect(page).toHaveURL(`${ORIGIN}/chat?pages=2`)
   await expect(drawer).toBeVisible()
@@ -929,4 +993,17 @@ test("close-on-navigate.js closes a drawer on a click on a link in it, unless th
   await show()
   await page.evaluate(() => history.pushState(null, "", "/photos"))
   await expect(drawer).toBeHidden()
+})
+
+test("close-on-navigate.js keeps a drawer open on a click on a download link in it", async ({
+  browserName,
+  page,
+}) => {
+  failsIn(browserName, { firefox: FIREFOX_DOWNLOAD_NAVIGATE })
+  const { drawer, show } = await navigationDrawer(page)
+  await show()
+  const downloaded = page.waitForEvent("download")
+  await drawer.getByRole("link", { name: "Export" }).click()
+  await (await downloaded).cancel()
+  await expect(drawer).toBeVisible()
 })

@@ -1,0 +1,44 @@
+{% from "opui/index.njk" import
+  Checkbox,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form
+%}
+
+{% call Form() %}
+  {% call Fieldset({
+    "aria-describedby": "checkbox-field-group-field-description-1-description"
+  }) %}
+    {% call FieldLegend() %}Notifications{% endcall %}
+    {% call FieldDescription({
+      id: "checkbox-field-group-field-description-1-description"
+    }) %}How we tell you a bandmate finally replied.{% endcall %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
+      {% call Checkbox({
+        checked: true,
+        name: "checkbox-group-field-description-1"
+      }) %}Email{% endcall %}
+      {% call Checkbox({ name: "checkbox-group-field-description-1" }) %}Push{% endcall %}
+      {% call Checkbox({ name: "checkbox-group-field-description-1" }) %}SMS{% endcall %}
+    {% endcall %}
+  {% endcall %}
+
+  {% call Fieldset({
+    "aria-describedby": "checkbox-field-group-field-description-2-description"
+  }) %}
+    {% call FieldLegend() %}Newsletter topics{% endcall %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
+      {% call Checkbox({
+        checked: true,
+        name: "checkbox-group-field-description-2"
+      }) %}Bassbook news{% endcall %}
+      {% call Checkbox({ name: "checkbox-group-field-description-2" }) %}Events{% endcall %}
+      {% call Checkbox({ name: "checkbox-group-field-description-2" }) %}Gear deals{% endcall %}
+    {% endcall %}
+    {% call FieldDescription({
+      id: "checkbox-field-group-field-description-2-description"
+    }) %}Change these at any time in your account.{% endcall %}
+  {% endcall %}
+{% endcall %}

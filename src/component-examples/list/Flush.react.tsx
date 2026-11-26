@@ -26,7 +26,7 @@ export default function Flush() {
       <ListItem
         description="Fretless enthusiast"
         end="Admin"
-        label="Lou Headstock"
+        label="Kinga Headstock"
         start={
           <svg
             data-icon="person"

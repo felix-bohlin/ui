@@ -75,7 +75,7 @@ import {
 </style>
 
 <div
-  class="team-members ui-layout-container ui-layout-column ui-large"
+  class="team-members ui-layout-container ui-layout-column ui-gap-large"
   style="--_max-inline-size: 58rem"
 >
   <div class="ui-layout-row ui-spread">
@@ -83,7 +83,7 @@ import {
       <h1 class="ui-h3">Band members</h1>
       <p>Invite bandmates and pick what they get to do.</p>
     </hgroup>
-    <div class="ui-layout-column ui-x-small team-seats">
+    <div class="ui-layout-column ui-gap-x-small team-seats">
       <p id="team-members-seats">8 of 10 seats in the van</p>
       <Progress aria-labelledby="team-members-seats" max={10} value={8} />
     </div>
@@ -151,11 +151,11 @@ import {
           <List bordered class="team-list" variant="transparent">
             <ListItem
               class="team-end"
-              description="holly@lowenders.example"
-              label="Holly Humbucker"
+              description="scott@slaplikenow.example"
+              label="Scott Humbucker"
             >
-              <Avatar aria-label="Holly Humbucker" role="img" slot="start"
-                >HH</Avatar
+              <Avatar aria-label="Scott Humbucker" role="img" slot="start"
+                >SH</Avatar
               >
               <Fragment slot="end">
                 <Chip
@@ -173,7 +173,7 @@ import {
                   variant="outlined"
                 />
                 <Button
-                  aria-label="Actions for Holly Humbucker"
+                  aria-label="Actions for Scott Humbucker"
                   command="toggle-popover"
                   commandfor="team-members-menu-hh"
                   round
@@ -203,11 +203,11 @@ import {
             </ListItem>
             <ListItem
               class="team-end"
-              description="ines@lowenders.example"
-              label="Ines Hertz"
+              description="mohini@slaplikenow.example"
+              label="Mohini Hertz"
             >
-              <Avatar aria-label="Ines Hertz" role="img" slot="start"
-                >IH</Avatar
+              <Avatar aria-label="Mohini Hertz" role="img" slot="start"
+                >MH</Avatar
               >
               <Fragment slot="end">
                 <Chip
@@ -220,7 +220,7 @@ import {
                 />
                 <Chip as="span" label="Admin" size="small" variant="outlined" />
                 <Button
-                  aria-label="Actions for Ines Hertz"
+                  aria-label="Actions for Mohini Hertz"
                   command="toggle-popover"
                   commandfor="team-members-menu-ih"
                   round
@@ -258,11 +258,11 @@ import {
             </ListItem>
             <ListItem
               class="team-end"
-              description="lou@lowenders.example"
-              label="Lou Headstock"
+              description="kinga@slaplikenow.example"
+              label="Kinga Headstock"
             >
-              <Avatar aria-label="Lou Headstock" role="img" slot="start"
-                >LH</Avatar
+              <Avatar aria-label="Kinga Headstock" role="img" slot="start"
+                >KH</Avatar
               >
               <Fragment slot="end">
                 <Chip
@@ -280,7 +280,7 @@ import {
                   variant="outlined"
                 />
                 <Button
-                  aria-label="Actions for Lou Headstock"
+                  aria-label="Actions for Kinga Headstock"
                   command="toggle-popover"
                   commandfor="team-members-menu-lh"
                   round
@@ -318,11 +318,11 @@ import {
             </ListItem>
             <ListItem
               class="team-end"
-              description="percy@lowenders.example"
-              label="Percy Groove"
+              description="adam@slaplikenow.example"
+              label="Adam Groove"
             >
-              <Avatar aria-label="Percy Groove" role="img" slot="start"
-                >PG</Avatar
+              <Avatar aria-label="Adam Groove" role="img" slot="start"
+                >AG</Avatar
               >
               <Fragment slot="end">
                 <Chip
@@ -340,7 +340,7 @@ import {
                   variant="outlined"
                 />
                 <Button
-                  aria-label="Actions for Percy Groove"
+                  aria-label="Actions for Adam Groove"
                   command="toggle-popover"
                   commandfor="team-members-menu-pg"
                   round
@@ -378,11 +378,11 @@ import {
             </ListItem>
             <ListItem
               class="team-end"
-              description="rory@lowend.example"
-              label="Rory Rootnote (you)"
+              description="josh@bassmail.example"
+              label="Josh Rootnote (you)"
             >
-              <Avatar aria-label="Rory Rootnote" role="img" slot="start"
-                >RR</Avatar
+              <Avatar aria-label="Josh Rootnote" role="img" slot="start"
+                >JR</Avatar
               >
               <Fragment slot="end">
                 <Chip
@@ -395,7 +395,7 @@ import {
                 />
                 <Chip as="span" label="Merch" size="small" variant="outlined" />
                 <Button
-                  aria-label="Actions for Rory Rootnote"
+                  aria-label="Actions for Josh Rootnote"
                   command="toggle-popover"
                   commandfor="team-members-menu-rr"
                   round
@@ -433,12 +433,10 @@ import {
             </ListItem>
             <ListItem
               class="team-end"
-              description="stella@lowenders.example"
-              label="Stella Nut"
+              description="ellen@slaplikenow.example"
+              label="Ellen Nut"
             >
-              <Avatar aria-label="Stella Nut" role="img" slot="start"
-                >SN</Avatar
-              >
+              <Avatar aria-label="Ellen Nut" role="img" slot="start">EN</Avatar>
               <Fragment slot="end">
                 <Chip
                   as="span"
@@ -455,7 +453,7 @@ import {
                   variant="outlined"
                 />
                 <Button
-                  aria-label="Actions for Stella Nut"
+                  aria-label="Actions for Ellen Nut"
                   command="toggle-popover"
                   commandfor="team-members-menu-sn"
                   round
@@ -503,8 +501,8 @@ import {
           <List bordered class="team-list" variant="transparent">
             <ListItem
               class="team-pending-actions"
-              description="Member, invited by Holly Humbucker on 6 Oct 2026"
-              label="tambourine.tam@lowenders.example"
+              description="Member, invited by Scott Humbucker on 6 Oct 2026"
+              label="tambourine.tam@slaplikenow.example"
             >
               <svg
                 data-icon="mail"
@@ -530,7 +528,7 @@ import {
             <ListItem
               class="team-pending-actions"
               description="Admin, expires in 2 days"
-              label="keytar.kit@lowenders.example"
+              label="keytar.kit@slaplikenow.example"
             >
               <svg
                 data-icon="mail"

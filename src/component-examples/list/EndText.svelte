@@ -6,7 +6,7 @@
   <ListItem label="Slap lesson 3.pdf">
     {#snippet end()}2.4 MB{/snippet}
   </ListItem>
-  <ListItem description="Uploaded by Lou Headstock" label="Band photo.jpg">
+  <ListItem description="Uploaded by Kinga Headstock" label="Band photo.jpg">
     {#snippet end()}860 kB{/snippet}
   </ListItem>
   <ListItem

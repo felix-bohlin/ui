@@ -6,7 +6,7 @@
   <ListItem description="48 photos" label="Gig in a basement">
     {#snippet start()}
       <img
-        src="/photos/lou-headstock.png"
+        src="/photos/kinga-headstock.png"
         alt=""
         decoding="async"
         loading="lazy"
@@ -16,7 +16,7 @@
   <ListItem description="112 photos" label="Pedalboard glamour shots">
     {#snippet start()}
       <img
-        src="/photos/lou-headstock.png"
+        src="/photos/kinga-headstock.png"
         alt=""
         decoding="async"
         loading="lazy"

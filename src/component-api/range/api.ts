@@ -20,35 +20,35 @@ export default {
     },
     {
       description:
-        "Increases or decreases the value by a larger step: 10% of the range in Chromium, and at least one step.",
+        "Changes the value by a larger step, 10% of the range in Chromium.",
       keys: ["Page Up", "Page Down"],
     },
   ],
   notes: {
     default:
-      'Write an `<input type="range">` in a `Field`, with its `id` set to `for`. A `<datalist>` after it, linked with `list`, shows the `label` of each option under its value. Show the value yourself, such as in an `<output>` in the end text, and set `aria-valuetext` when the number alone doesn\'t say it.',
+      'Write an `<input type="range">` in a `Field`, with its `id` set to `for`. Show the value yourself, and set `aria-valuetext` when the number alone doesn\'t say it.',
     react:
-      'Write an `<input type="range">` in a `Field`, with its `id` set to `htmlFor`. A `<datalist>` after it, linked with `list`, shows the `label` of each option under its value. Show the value yourself, such as in an `<output>` in `endText`, and set `aria-valuetext` when the number alone doesn\'t say it.',
-    html: "Put the `<input type=\"range\">` directly in `.ui-field-container`, and a `<datalist>` after it for labels. `range.css` drops the field's box and draws the track, the fill and the thumb. Show the value yourself, and set `aria-valuetext` when the number alone doesn't say it.",
+      'Write an `<input type="range">` in a `Field`, with its `id` set to `htmlFor`. Show the value yourself, and set `aria-valuetext` when the number alone doesn\'t say it.',
+    html: 'Put the `<input type="range">` in `.ui-field-container`, with a `<datalist>` after it for labels. Show the value yourself, and set `aria-valuetext` when the number alone doesn\'t say it.',
   },
   options: [],
   parts: [
     {
       code: '<input type="range">',
       description:
-        "Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's variant (`variant`, `.ui-filled`) and size (`size`, `.ui-x-small`, `.ui-small`, `.ui-large`) set the track and thumb.",
+        "Your range input. The track fills up to the thumb without a script, and the field's variant (`variant`, `.ui-filled`) and size (`size`, `.ui-x-small`, `.ui-small`, `.ui-large`) set the track and thumb.",
       selector: '.ui-field-container > input[type="range"]',
     },
     {
       code: "<datalist>",
       description:
-        "Labels for the input it's linked to with `list`: the `label` of each option shows under its value. The labels are spread evenly, so space the values evenly. Give it `aria-hidden=\"true\"`, and set `aria-valuetext` on the input to the label at its value, since screen readers don't read the datalist.",
+        "Labels under the input, linked with `list`: each option's `label`, spread evenly. Give it `aria-hidden=\"true\"`, and set the input's `aria-valuetext` to the label at its value.",
       selector: ".ui-field-container > datalist",
     },
   ],
   root: {
     description:
-      "A `.ui-field` with an `<input type=\"range\">` in its container, which `range.css` draws without the field's box, as tall as any field's control.",
+      'A `.ui-field` with an `<input type="range">`, drawn without the field\'s box.',
     selector: '.ui-field:has(> .ui-field-container > input[type="range"])',
   },
 } satisfies ComponentApi

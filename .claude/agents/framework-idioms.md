@@ -25,7 +25,7 @@ The components you are given, or the ones touched by `git diff --name-only` agai
 
 - `pnpm check-ports` fails on a compiled file that differs from what the compiler writes, and `pnpm check-components` checks props types, `...rest`, `$bindable` and `defineModel` lists, class order, `"use client"` and context files, a list without a key in a React, Svelte or Vue file (JSX from `.map()` without `key`, `{#each}` without `(key)`, `v-for` without `:key`), and in a Solid file the pragma, the `omit()` keys, a slot read twice outside a `<For>`, JSX built with `.map()`, `dynamic()` on a string literal and a ternary, `&&`, `||` or `??` passed to a component.
 - `tests/unit/component-contract.test.ts` and `tests/unit/parity.test.ts` compare the rendered markup with Astro's.
-- `pnpm test:apps` (`tests/apps/apps.spec.ts`) runs every example in Next.js, Nuxt, SvelteKit, the Vite starters and React's StrictMode, with changes made before hydration, elements loaded before React, a restored page and a form reset. Behavior that only shows at runtime belongs there: name the scenario that would catch it instead of guessing from the code.
+- `pnpm test:apps` (`tests/apps/apps.spec.ts`) runs every example in Eleventy, Next.js, Nuxt, SvelteKit, the Vite starters and React's StrictMode, with changes made before hydration, elements loaded before React, a restored page and a form reset. Behavior that only shows at runtime belongs there: name the scenario that would catch it instead of guessing from the code.
 
 ## Check
 
@@ -68,7 +68,7 @@ Read the compiled file next to the closest sibling of its kind (`Checkbox` for a
 - Destructured `defineProps` with defaults (Vue 3.5), `useId`, typed `InjectionKey`s and a `reactive()` provide.
 - No `computed` or function the template and script never read. `inheritAttrs: false` only with an explicit `v-bind` of the attrs.
 - `<component :is>` only for a variable tag, `is="opui-…"` for a custom element.
-- A class list of one entry is the entry (`:class="hideLabel ? 'ui-sr-only' : 'ui-label'"`, `classAttrs($props.class)` where it can come out empty); several are the `:class="[...]"` array.
+- A class list of one entry is the entry (`:class="hideLabel ? 'ui-sr-only' : 'ui-label'"`, `classAttrs($attrs.class)` where it can come out empty, and no entry for the caller's class on a root that inherits the attributes, which Vue adds); several are the `:class="[...]"` array.
 - `:key` on the element with `v-for`, the loop's index.
 
 **Every framework**

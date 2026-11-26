@@ -1,0 +1,25 @@
+{% from "opui/index.njk" import
+  Accordion,
+  AccordionContent,
+  AccordionSummary,
+  Card
+%}
+
+{% call Card({
+  "aria-label": "Plan questions",
+  role: "group",
+  variant: "outlined"
+}) %}
+  {% call Accordion({ name: "plan-questions" }) %}
+    {% call AccordionSummary() %}Can I switch to Bassbook Gold later?{% endcall %}
+    {% call AccordionContent() %}
+      <p>Yes. Upgrades apply right away, downgrades at the next renewal.</p>
+    {% endcall %}
+  {% endcall %}
+  {% call Accordion({ name: "plan-questions" }) %}
+    {% call AccordionSummary() %}Do you offer refunds?{% endcall %}
+    {% call AccordionContent() %}
+      <p>Within 14 days of purchase, for any reason (even a drummer one).</p>
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

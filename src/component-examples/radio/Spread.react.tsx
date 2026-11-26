@@ -5,21 +5,28 @@ export default function Spread() {
     <Form>
       <Fieldset>
         <FieldLegend>Delivery</FieldLegend>
-        <FieldGroup name="radio-spread">
+        <FieldGroup>
           <Radio
             defaultChecked
             endText="Arrives in 3 to 5 days."
+            name="radio-spread"
             spread
             value="standard"
           >
             Standard
           </Radio>
-          <Radio endText="Arrives tomorrow." spread value="express">
+          <Radio
+            endText="Arrives tomorrow."
+            name="radio-spread"
+            spread
+            value="express"
+          >
             Express
           </Radio>
           <Radio
             disabled
             endText="Not available in your area."
+            name="radio-spread"
             spread
             value="pickup"
           >

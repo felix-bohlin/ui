@@ -136,7 +136,7 @@ const hydrationApis = hydrationFramework
       .filter((api) => shipped(api, hydrationFramework))
   : []
 
-const componentGroups = componentGroupsFor(currentFramework)
+const componentGroups = componentGroupsFor()
 const siblings = componentGroups.flatMap((group) => group.components)
 const currentIndex = siblings.findIndex(
   (component) => component.slug === currentSlug,

@@ -10,20 +10,26 @@ const { slots = [], tokens } = Astro.props
 
 const framework = Astro.locals.framework
 const camel =
-  framework === "react" || framework === "solid" || framework === "svelte"
+  framework === "nunjucks" ||
+  framework === "react" ||
+  framework === "solid" ||
+  framework === "svelte"
 const kind = {
   astro: "slot",
   html: "",
+  nunjucks: "slot",
   react: "prop",
   solid: "prop",
   svelte: "snippet",
   vue: "slot",
 }[framework]
-const names = slots.map((slot) =>
-  camel
-    ? slot.replace(/-(\w)/g, (_, letter: string) => letter.toUpperCase())
-    : slot,
-)
+const names = slots
+  .map((slot) =>
+    camel
+      ? slot.replace(/-(\w)/g, (_, letter: string) => letter.toUpperCase())
+      : slot,
+  )
+  .map((name) => (framework === "nunjucks" ? `slots.${name}` : name))
 const list = new Intl.ListFormat("en-GB", { type: "conjunction" })
 const codes = (items: string[]) =>
   list.format(items.map((item) => `<code>${item}</code>`))

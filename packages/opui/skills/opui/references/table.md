@@ -3,7 +3,7 @@
 A table for data people scan and compare, with sticky headers, sorting and expandable rows.
 
 - CSS: `opui-css/css/components/table.css` and `opui-css/css/components/sortable-table.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/table.md), [Astro](https://opui.dev/astro/components/table.md), [React](https://opui.dev/react/components/table.md), [Solid](https://opui.dev/solid/components/table.md), [Svelte](https://opui.dev/svelte/components/table.md), [Vue](https://opui.dev/vue/components/table.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/table.md), [Astro](https://opui.dev/astro/components/table.md), [Nunjucks](https://opui.dev/nunjucks/components/table.md), [React](https://opui.dev/react/components/table.md), [Solid](https://opui.dev/solid/components/table.md), [Svelte](https://opui.dev/svelte/components/table.md), [Vue](https://opui.dev/vue/components/table.md).
 
 ## Table
 
@@ -31,7 +31,7 @@ A table for data people scan and compare, with sticky headers, sorting and expan
 
 ### Notes
 
-- Astro, React, Solid, Svelte and Vue: Set column widths with `TableColumnGroup` and `TableColumn`.
+- Astro, Nunjucks, React, Solid, Svelte and Vue: Set column widths with `TableColumnGroup` and `TableColumn`.
 
 ## TableHeaderCell
 
@@ -112,6 +112,7 @@ A table for data people scan and compare, with sticky headers, sorting and expan
 
 - HTML: Wrap the table in `<opui-sortable-table class="ui-sortable-table">`, add `data-sort` to each sortable header with a `<button type="button">` around its label, and import `opui-css/elements/sortable-table.js`. A cell sorts by its `data-sort-value`, or else its text.
 - Astro: The component loads `opui-css/elements/sortable-table.js`. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead.
+- Nunjucks: The macro renders the element without its script, so load `opui-css/elements/sortable-table.js` on the page. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead.
 - React: The component loads `opui-css/elements/sortable-table.js` once it mounts, unless the page imports it first. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead.
 - Solid, Svelte and Vue: The component imports `opui-css/elements/sortable-table.js`, so the element runs as soon as the component's code loads. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead.
 
@@ -149,7 +150,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 ```html
 <table class="ui-table">
   <caption>
-    Low End Theory members
+    Bassists Anonymous members
   </caption>
   <thead>
     <tr>
@@ -160,17 +161,17 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
   </thead>
   <tbody>
     <tr>
-      <td>Lou Headstock</td>
+      <td>Kinga Headstock</td>
       <td>Flatwound collector</td>
       <td>Göteborg</td>
     </tr>
     <tr>
-      <td>Percy Groove</td>
+      <td>Adam Groove</td>
       <td>Slap enthusiast</td>
       <td>Lisbon</td>
     </tr>
     <tr>
-      <td>Ines Hertz</td>
+      <td>Mohini Hertz</td>
       <td>Low B whisperer</td>
       <td>Berlin</td>
     </tr>
@@ -198,7 +199,7 @@ import {
 ---
 
 <Table>
-  <TableCaption>Low End Theory members</TableCaption>
+  <TableCaption>Bassists Anonymous members</TableCaption>
   <TableHead>
     <TableRow>
       <TableHeaderCell>Name</TableHeaderCell>
@@ -208,22 +209,68 @@ import {
   </TableHead>
   <TableBody>
     <TableRow>
-      <TableCell>Lou Headstock</TableCell>
+      <TableCell>Kinga Headstock</TableCell>
       <TableCell>Flatwound collector</TableCell>
       <TableCell>Göteborg</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Percy Groove</TableCell>
+      <TableCell>Adam Groove</TableCell>
       <TableCell>Slap enthusiast</TableCell>
       <TableCell>Lisbon</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Ines Hertz</TableCell>
+      <TableCell>Mohini Hertz</TableCell>
       <TableCell>Low B whisperer</TableCell>
       <TableCell>Berlin</TableCell>
     </TableRow>
   </TableBody>
 </Table>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import SortableTable, Table, TableBody, TableCaption, TableCell, TableColumn, TableColumnGroup, TableFoot, TableHead, TableHeaderCell, TableRow %}`
+
+### Example: Normal
+
+```njk
+{% from "opui/index.njk" import
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow
+%}
+
+{% call Table() %}
+  {% call TableCaption() %}Bassists Anonymous members{% endcall %}
+  {% call TableHead() %}
+    {% call TableRow() %}
+      {% call TableHeaderCell() %}Name{% endcall %}
+      {% call TableHeaderCell() %}Specialty{% endcall %}
+      {% call TableHeaderCell() %}Location{% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call TableBody() %}
+    {% call TableRow() %}
+      {% call TableCell() %}Kinga Headstock{% endcall %}
+      {% call TableCell() %}Flatwound collector{% endcall %}
+      {% call TableCell() %}Göteborg{% endcall %}
+    {% endcall %}
+    {% call TableRow() %}
+      {% call TableCell() %}Adam Groove{% endcall %}
+      {% call TableCell() %}Slap enthusiast{% endcall %}
+      {% call TableCell() %}Lisbon{% endcall %}
+    {% endcall %}
+    {% call TableRow() %}
+      {% call TableCell() %}Mohini Hertz{% endcall %}
+      {% call TableCell() %}Low B whisperer{% endcall %}
+      {% call TableCell() %}Berlin{% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}
 ```
 
 ## React
@@ -248,7 +295,7 @@ import {
 export default function Normal() {
   return (
     <Table>
-      <TableCaption>Low End Theory members</TableCaption>
+      <TableCaption>Bassists Anonymous members</TableCaption>
       <TableHead>
         <TableRow>
           <TableHeaderCell>Name</TableHeaderCell>
@@ -258,17 +305,17 @@ export default function Normal() {
       </TableHead>
       <TableBody>
         <TableRow>
-          <TableCell>Lou Headstock</TableCell>
+          <TableCell>Kinga Headstock</TableCell>
           <TableCell>Flatwound collector</TableCell>
           <TableCell>Göteborg</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Percy Groove</TableCell>
+          <TableCell>Adam Groove</TableCell>
           <TableCell>Slap enthusiast</TableCell>
           <TableCell>Lisbon</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Ines Hertz</TableCell>
+          <TableCell>Mohini Hertz</TableCell>
           <TableCell>Low B whisperer</TableCell>
           <TableCell>Berlin</TableCell>
         </TableRow>
@@ -299,7 +346,7 @@ import {
 export default function Normal() {
   return (
     <Table>
-      <TableCaption>Low End Theory members</TableCaption>
+      <TableCaption>Bassists Anonymous members</TableCaption>
       <TableHead>
         <TableRow>
           <TableHeaderCell>Name</TableHeaderCell>
@@ -309,17 +356,17 @@ export default function Normal() {
       </TableHead>
       <TableBody>
         <TableRow>
-          <TableCell>Lou Headstock</TableCell>
+          <TableCell>Kinga Headstock</TableCell>
           <TableCell>Flatwound collector</TableCell>
           <TableCell>Göteborg</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Percy Groove</TableCell>
+          <TableCell>Adam Groove</TableCell>
           <TableCell>Slap enthusiast</TableCell>
           <TableCell>Lisbon</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Ines Hertz</TableCell>
+          <TableCell>Mohini Hertz</TableCell>
           <TableCell>Low B whisperer</TableCell>
           <TableCell>Berlin</TableCell>
         </TableRow>
@@ -349,7 +396,7 @@ export default function Normal() {
 </script>
 
 <Table>
-  <TableCaption>Low End Theory members</TableCaption>
+  <TableCaption>Bassists Anonymous members</TableCaption>
   <TableHead>
     <TableRow>
       <TableHeaderCell>Name</TableHeaderCell>
@@ -359,17 +406,17 @@ export default function Normal() {
   </TableHead>
   <TableBody>
     <TableRow>
-      <TableCell>Lou Headstock</TableCell>
+      <TableCell>Kinga Headstock</TableCell>
       <TableCell>Flatwound collector</TableCell>
       <TableCell>Göteborg</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Percy Groove</TableCell>
+      <TableCell>Adam Groove</TableCell>
       <TableCell>Slap enthusiast</TableCell>
       <TableCell>Lisbon</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Ines Hertz</TableCell>
+      <TableCell>Mohini Hertz</TableCell>
       <TableCell>Low B whisperer</TableCell>
       <TableCell>Berlin</TableCell>
     </TableRow>
@@ -398,7 +445,7 @@ import {
 
 <template>
   <Table>
-    <TableCaption>Low End Theory members</TableCaption>
+    <TableCaption>Bassists Anonymous members</TableCaption>
     <TableHead>
       <TableRow>
         <TableHeaderCell>Name</TableHeaderCell>
@@ -408,17 +455,17 @@ import {
     </TableHead>
     <TableBody>
       <TableRow>
-        <TableCell>Lou Headstock</TableCell>
+        <TableCell>Kinga Headstock</TableCell>
         <TableCell>Flatwound collector</TableCell>
         <TableCell>Göteborg</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>Percy Groove</TableCell>
+        <TableCell>Adam Groove</TableCell>
         <TableCell>Slap enthusiast</TableCell>
         <TableCell>Lisbon</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>Ines Hertz</TableCell>
+        <TableCell>Mohini Hertz</TableCell>
         <TableCell>Low B whisperer</TableCell>
         <TableCell>Berlin</TableCell>
       </TableRow>

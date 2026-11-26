@@ -705,7 +705,7 @@ The bug, in the fixed item's Blocked note:
 
 > with `compact: "jsx"`, `@astrojs/compiler-rs` 0.5.1 and 0.5.2 drop the line breaks next to tags in elements but keep them in the children of a component and in a `<Fragment slot>`, so `<W><a>group</a>\n  .</W>` renders "group .". The docs prose sits in those children.
 
-Watch for: #216 closing with a fix and an `@astrojs/compiler-rs` release that has it. The repo has 0.5.2 installed and npm has 0.5.3, and the item's latest note says:
+Watch for: #216 closing with a fix and an `@astrojs/compiler-rs` release that has it. The repo has 0.5.3 installed, which still keeps the line break in component children, and an earlier note on the item says:
 
 > `@astrojs/compiler-rs` 0.5.3 is out (the repo has 0.5.2). Run the before and after comparison with it before waiting longer on compiler-rs#216.
 

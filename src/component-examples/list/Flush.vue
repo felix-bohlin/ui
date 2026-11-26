@@ -23,7 +23,7 @@ import { Button, List, ListItem } from "opui-css/vue"
         </Button>
       </template>
     </ListItem>
-    <ListItem description="Fretless enthusiast" label="Lou Headstock">
+    <ListItem description="Fretless enthusiast" label="Kinga Headstock">
       <template #start>
         <svg
           data-icon="person"

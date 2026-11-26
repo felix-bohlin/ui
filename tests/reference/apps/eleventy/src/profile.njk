@@ -1,0 +1,113 @@
+---
+layout: layout.njk
+pagination:
+  alias: profile
+  data: app.USERS
+  size: 1
+permalink: "u/{{ profile.handle }}/"
+eleventyComputed:
+  title: "{{ profile.name }}"
+---
+{% from "opui/index.njk" import
+  Button,
+  DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  Field,
+  Stat,
+  Tabs,
+  TabsItem,
+  TabsLabel,
+  TabsPanel
+%}
+{% from "user-avatar.njk" import userAvatar %}
+{% set posts = app.postsBy(profile.handle) %}
+{% set photos = app.photosBy(profile.handle) %}
+<div class="app-screen" data-screen="profile">
+  <div class="app-profile-header">
+    {{ userAvatar(profile, "large") }}
+    <h1 data-profile-name>{{ profile.name }}</h1>
+    {% if profile.handle == app.ME %}
+      {% call Button({
+        command: "show-modal",
+        commandfor: "edit-profile",
+        variant: "outlined"
+      }) %}Edit profile{% endcall %}
+    {% else %}
+      {% call Button({ href: "/chat?with=" ~ profile.handle, variant: "outlined" }) %}
+        Send message
+      {% endcall %}
+    {% endif %}
+  </div>
+  <p data-profile-bio>{{ profile.bio }}</p>
+  {% call DescriptionList() %}
+    {% call DescriptionListItem() %}
+      {% call DescriptionListTerm() %}Location{% endcall %}
+      {% call DescriptionListDescription() %}{{ profile.location }}{% endcall %}
+    {% endcall %}
+    {% call DescriptionListItem() %}
+      {% call DescriptionListTerm() %}Joined{% endcall %}
+      {% call DescriptionListDescription() %}{{ profile.joined }}{% endcall %}
+    {% endcall %}
+  {% endcall %}
+  <div class="app-stats">
+    {% call Stat({ label: "Posts" }) %}{{ posts.length }}{% endcall %}
+    {% call Stat({ label: "Photos" }) %}{{ photos.length }}{% endcall %}
+  </div>
+  {% call Tabs({ name: "profile-tabs" }) %}
+    {% call TabsItem({ checked: true }) %}
+      {% call TabsLabel() %}Posts{% endcall %}
+      {% call TabsPanel() %}
+        {% for post in posts %}
+          <article>
+            <p>{{ post.text }}</p>
+            <p><time datetime="{{ post.datetime }}">{{ post.time }}</time></p>
+          </article>
+        {% else %}
+          <p class="app-empty">No posts yet.</p>
+        {% endfor %}
+      {% endcall %}
+    {% endcall %}
+    {% call TabsItem() %}
+      {% call TabsLabel() %}Photos{% endcall %}
+      {% call TabsPanel() %}
+        {% if photos.length %}
+          <div class="app-profile-photos">
+            {% for photo in photos %}
+              <img alt="{{ photo.alt }}" src="{{ photo.src }}" />
+            {% endfor %}
+          </div>
+        {% else %}
+          <p class="app-empty">No photos yet.</p>
+        {% endif %}
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+</div>
+{% if profile.handle == app.ME %}
+  {% call Dialog({ id: "edit-profile" }) %}
+    {% call DialogHeader({ closeButton: true }) %}
+      {% call DialogTitle() %}Edit profile{% endcall %}
+    {% endcall %}
+    <form data-edit-profile method="dialog">
+      {% call DialogContent() %}
+        {% call Field({ for: "profile-name", label: "Name" }) %}
+          <input id="profile-name" name="name" required value="{{ profile.name }}" />
+        {% endcall %}
+        {% call Field({ for: "profile-bio", label: "Bio" }) %}
+          <textarea id="profile-bio" name="bio">{{ profile.bio }}</textarea>
+        {% endcall %}
+      {% endcall %}
+      {% call DialogFooter() %}
+        {% call Button({ command: "close", commandfor: "edit-profile" }) %}Cancel{% endcall %}
+        {% call Button({ type: "submit", variant: "filled" }) %}Save{% endcall %}
+      {% endcall %}
+    </form>
+  {% endcall %}
+{% endif %}

@@ -1,0 +1,7 @@
+{% macro TableBody(props = {}) %}
+  {%- set props = props | opuiProps("TableBody") -%}
+  {%- set rest = props | opuiRest("TableBody") -%}
+  <tbody{{ rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </tbody>
+{%- endmacro %}

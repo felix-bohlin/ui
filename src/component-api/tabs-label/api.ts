@@ -6,7 +6,7 @@ export default {
     {
       attribute: "[for]",
       description: "The id of the input it labels. Set by the item.",
-      frameworks: ["astro", "html", "solid", "svelte", "vue"],
+      frameworks: ["astro", "html", "nunjucks", "solid", "svelte", "vue"],
       group: "For",
       htmlDescription: "The id of the input it labels.",
       inherited: true,

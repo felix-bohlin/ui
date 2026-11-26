@@ -24,9 +24,9 @@ export default function Notifications() {
       >
         <Card variant="outlined">
           <CardContent>
-            <div class="ui-layout-row ui-small ui-spread">
+            <div class="ui-layout-row ui-gap-small ui-spread">
               <h1 class="ui-h4">Notifications</h1>
-              <div class="ui-layout-row ui-x-small">
+              <div class="ui-layout-row ui-gap-x-small">
                 <Button size="small" type="button">
                   <svg
                     data-icon="check-all"
@@ -73,10 +73,10 @@ export default function Notifications() {
               <TabsItem defaultChecked id="notifications-tab-all">
                 <TabsLabel>All</TabsLabel>
                 <TabsPanel>
-                  <div class="ui-layout-column ui-large notifications-feed">
+                  <div class="ui-layout-column ui-gap-large notifications-feed">
                     <section
                       aria-labelledby="notifications-today"
-                      class="ui-layout-column ui-small"
+                      class="ui-layout-column ui-gap-small"
                     >
                       <h2 class="ui-overline" id="notifications-today">
                         Today
@@ -92,18 +92,18 @@ export default function Notifications() {
                               10:42
                             </time>
                           }
-                          label="Holly Humbucker mentioned you in Gear Talk 🎸"
+                          label="Scott Humbucker mentioned you in Gear Talk 🎸"
                           start={
                             <Badge dot label="Unread">
-                              <Avatar aria-hidden="true">HH</Avatar>
+                              <Avatar aria-hidden="true">SH</Avatar>
                             </Badge>
                           }
                         >
                           <p class="notifications-quote">
-                            @rory is it true you can play a whole set on 3
+                            @josh is it true you can play a whole set on 3
                             strings? asking for a guitarist
                           </p>
-                          <div class="ui-layout-row ui-small notifications-actions">
+                          <div class="ui-layout-row ui-gap-small notifications-actions">
                             <Button size="small" type="button" variant="tonal">
                               Reply
                             </Button>
@@ -114,7 +114,7 @@ export default function Notifications() {
                         </ListItem>
                         <ListItem
                           class="notifications-unread"
-                          description="14 members, including Stella and Percy. Loud ones only!"
+                          description="14 members, including Ellen and Adam. Loud ones only!"
                           end={
                             <time
                               class="ui-caption"
@@ -123,14 +123,14 @@ export default function Notifications() {
                               09:15
                             </time>
                           }
-                          label="Lou Headstock invited you to the group Bassists Who Were Told To Turn It Down"
+                          label="Kinga Headstock invited you to the group Bassists Who Were Told To Turn It Down"
                           start={
                             <Badge dot label="Unread">
-                              <Avatar aria-hidden="true">LH</Avatar>
+                              <Avatar aria-hidden="true">KH</Avatar>
                             </Badge>
                           }
                         >
-                          <div class="ui-layout-row ui-small notifications-actions">
+                          <div class="ui-layout-row ui-gap-small notifications-actions">
                             <Button size="small" type="button" variant="filled">
                               Accept
                             </Button>
@@ -152,8 +152,8 @@ export default function Notifications() {
                               08:03
                             </time>
                           }
-                          label="Holly Humbucker scribbled on your wall"
-                          start={<Avatar aria-hidden="true">HH</Avatar>}
+                          label="Scott Humbucker scribbled on your wall"
+                          start={<Avatar aria-hidden="true">SH</Avatar>}
                         >
                           <p>
                             "Saw your gig!! I was the only one watching your
@@ -164,7 +164,7 @@ export default function Notifications() {
                     </section>
                     <section
                       aria-labelledby="notifications-yesterday"
-                      class="ui-layout-column ui-small"
+                      class="ui-layout-column ui-gap-small"
                     >
                       <h2 class="ui-overline" id="notifications-yesterday">
                         Yesterday
@@ -179,8 +179,8 @@ export default function Notifications() {
                               16:20
                             </time>
                           }
-                          label='Percy Groove commented on your photo "Me and Big Bertha"'
-                          start={<Avatar aria-hidden="true">PG</Avatar>}
+                          label='Adam Groove commented on your photo "Me and Big Bertha"'
+                          start={<Avatar aria-hidden="true">AG</Avatar>}
                         >
                           <p class="notifications-quote">
                             That fretboard tho 😍 Is she a '74?
@@ -195,8 +195,8 @@ export default function Notifications() {
                               11:05
                             </time>
                           }
-                          label="Ines Hertz reacted 🔥 to your post"
-                          start={<Avatar aria-hidden="true">IH</Avatar>}
+                          label="Mohini Hertz reacted 🔥 to your post"
+                          start={<Avatar aria-hidden="true">MH</Avatar>}
                         >
                           <p>
                             "My drummer asked if bass is just a guitar with
@@ -207,7 +207,7 @@ export default function Notifications() {
                     </section>
                     <section
                       aria-labelledby="notifications-earlier"
-                      class="ui-layout-column ui-small"
+                      class="ui-layout-column ui-gap-small"
                     >
                       <h2 class="ui-overline" id="notifications-earlier">
                         Monday 5 October
@@ -230,7 +230,7 @@ export default function Notifications() {
                             </Avatar>
                           }
                         >
-                          <div class="ui-layout-row ui-small notifications-actions">
+                          <div class="ui-layout-row ui-gap-small notifications-actions">
                             <Button
                               href="#notifications-gold"
                               size="small"
@@ -248,7 +248,7 @@ export default function Notifications() {
               <TabsItem id="notifications-tab-mentions">
                 <TabsLabel>Mentions</TabsLabel>
                 <TabsPanel>
-                  <div class="ui-layout-column ui-large notifications-feed">
+                  <div class="ui-layout-column ui-gap-large notifications-feed">
                     <List flush variant="transparent">
                       <ListItem
                         class="notifications-unread"
@@ -259,14 +259,14 @@ export default function Notifications() {
                         }
                         label={
                           <>
-                            <span class="ui-sr-only">Unread: </span>Holly
+                            <span class="ui-sr-only">Unread: </span>Scott
                             Humbucker mentioned you in Gear Talk 🎸
                           </>
                         }
-                        start={<Avatar aria-hidden="true">HH</Avatar>}
+                        start={<Avatar aria-hidden="true">SH</Avatar>}
                       >
                         <p class="notifications-quote">
-                          @rory is it true you can play a whole set on 3
+                          @josh is it true you can play a whole set on 3
                           strings? asking for a guitarist
                         </p>
                       </ListItem>
@@ -276,11 +276,11 @@ export default function Notifications() {
                             Tue
                           </time>
                         }
-                        label="Stella Nut mentioned you in Ignored Bassists Anonymous"
-                        start={<Avatar aria-hidden="true">SN</Avatar>}
+                        label="Ellen Nut mentioned you in Mixed Too Low"
+                        start={<Avatar aria-hidden="true">EN</Avatar>}
                       >
                         <p class="notifications-quote">
-                          @rory is our hero. A bass solo. At a WEDDING!!
+                          @josh is our hero. A bass solo. At a WEDDING!!
                         </p>
                       </ListItem>
                     </List>
@@ -290,7 +290,7 @@ export default function Notifications() {
               <TabsItem id="notifications-tab-archived">
                 <TabsLabel>Archived</TabsLabel>
                 <TabsPanel>
-                  <div class="ui-layout-column ui-small ui-align-center notifications-empty">
+                  <div class="ui-layout-column ui-gap-small ui-align-center notifications-empty">
                     <svg
                       data-icon="inbox"
                       aria-hidden="true"

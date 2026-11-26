@@ -1,0 +1,9 @@
+{% macro CharacterCount(props = {}) %}
+  {%- set props = props | opuiProps("CharacterCount") -%}
+  {%- set rest = props | opuiRest("CharacterCount") -%}
+  {%- set classes = ["ui-value", props.class] | opuiClass -%}
+  <opui-character-count{{ opui.merge(
+    { "aria-hidden": "true", class: classes, label: props.label },
+    opui.defined(rest)
+  ) | opuiAttributes("opui-character-count") }}></opui-character-count>
+{%- endmacro %}

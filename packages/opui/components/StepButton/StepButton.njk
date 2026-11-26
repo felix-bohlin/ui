@@ -1,0 +1,25 @@
+{% macro StepButton(props = {}) %}
+  {%- set props = props | opuiProps("StepButton") -%}
+  {%- set rest = props | opuiRest("StepButton") -%}
+  {%- set name = props.label | default(
+    "Decrease" if props.command == "--step-down" else "Increase"
+  ) -%}
+  <opui-step-button{{ opui.defined(rest) | opuiAttributes("opui-step-button") }}>
+    <button
+      class="ui-button ui-round"
+      type="button"
+      {%- if props.for != none %} aria-controls="{{ props.for }}"{% endif %}
+      aria-label="{{ name }}"
+      {%- if props.command != none %} command="{{ props.command }}"{% endif %}
+      {%- if props.for != none %} commandfor="{{ props.for }}"{% endif %}>
+      {%- if caller is defined %}{{ caller() }}{% else %}
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"></svg>
+      {% endif -%}
+    </button>
+  </opui-step-button>
+{%- endmacro %}

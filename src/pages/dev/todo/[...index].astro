@@ -481,11 +481,7 @@ const actions = ["None", ...actionValues]
                 <FieldLegend class="ui-sr-only">
                   {`Actions for: ${plainText(item.text)}`}
                 </FieldLegend>
-                <FieldGroup
-                  class="todo-action-row"
-                  name={`todo-action-${section.id}-${index}`}
-                  orientation="horizontal"
-                >
+                <FieldGroup class="todo-action-row" orientation="horizontal">
                   {actions
                     .filter(
                       (action) => !item.options.length || action !== "Fix",
@@ -493,6 +489,7 @@ const actions = ["None", ...actionValues]
                     .map((action) => <ToggleButton
                       checked={action === "None"}
                       class="todo-action"
+                      name={`todo-action-${section.id}-${index}`}
                       size="small"
                       type="radio"
                       value={action}
@@ -506,7 +503,7 @@ const actions = ["None", ...actionValues]
                 </FieldGroup>
                 {item.options.length > 0 && <Fieldset class="todo-fix-options">
                   <FieldLegend>{item.legend}</FieldLegend>
-                  <FieldGroup name={`todo-action-${section.id}-${index}`}>
+                  <FieldGroup>
                     {item.options.map((option) => <div
                       class:list={[
                         "todo-fix-option",
@@ -520,6 +517,7 @@ const actions = ["None", ...actionValues]
                       <Radio
                         card
                         class="todo-action"
+                        name={`todo-action-${section.id}-${index}`}
                         size="small"
                         spread
                         value={`Fix with option ${option.id}`}

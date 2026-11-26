@@ -1,7 +1,7 @@
 <script lang="ts">
   import { untrack } from "svelte"
   import { getFieldsetContext } from "../Fieldset/context.svelte"
-  import { warnReplacedId } from "../dev"
+  import { DEV, warnReplacedId } from "../dev"
   import { classAttrs } from "../cx"
   import type { Props } from "./types.svelte"
 
@@ -17,9 +17,10 @@
 
   const fieldset = getFieldsetContext()
   const isLegend = $derived(Tag === "legend")
-  untrack(() =>
-    warnReplacedId("FieldLegend", "Fieldset", id, fieldset?.legendId),
-  )
+  if (DEV)
+    untrack(() =>
+      warnReplacedId("FieldLegend", "Fieldset", id, fieldset?.legendId),
+    )
 </script>
 
 <svelte:element

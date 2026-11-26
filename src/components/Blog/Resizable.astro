@@ -37,7 +37,7 @@ const widthId = Astro.locals.$id("resizable-range")
 
 <style>
   .resizable {
-    --_chrome: calc(2 * (var(--ui-space-4) + var(--ui-border-width-thick)));
+    --_chrome: calc(2 * (var(--ui-space-4) + var(--ui-border-width-large)));
 
     container-type: inline-size;
     display: grid;
@@ -47,7 +47,7 @@ const widthId = Astro.locals.$id("resizable-range")
   }
 
   .resizable-frame {
-    border: var(--ui-border-width-thick) dashed var(--ui-border-color);
+    border: var(--ui-border-width-large) dashed var(--ui-border-color);
     border-radius: var(--ui-radius);
     box-sizing: content-box;
     display: grid;

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Props, Slots } from "./types.vue-props"
 
-const { border, orientation } = defineProps<Props>()
+const { leader, orientation } = defineProps<Props>()
 defineSlots<Slots>()
 </script>
 
@@ -9,9 +9,8 @@ defineSlots<Slots>()
   <dl
     :class="[
       'ui-description-list',
-      border && `ui-border-${border}`,
+      leader && `ui-leader-${leader}`,
       orientation && orientation !== 'auto' && `ui-${orientation}`,
-      $props.class,
     ]"
   >
     <slot></slot>

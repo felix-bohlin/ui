@@ -25,7 +25,7 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
 
   <Card variant="outlined">
     <CardContent
-      >Band photo where you're finally in focus, added by Lou
+      >Band photo where you're finally in focus, added by Kinga
       Headstock.</CardContent
     >
     <CardActions align="start">

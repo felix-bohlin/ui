@@ -1,0 +1,209 @@
+{% from "opui/index.njk" import
+  Accordion,
+  AccordionContent,
+  AccordionSummary,
+  Avatar,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Chip,
+  Tabs,
+  TabsItem,
+  TabsLabel,
+  TabsPanel
+%}
+
+<div class="faq ui-layout-container">
+  <div
+    class="ui-layout-columns faq-inner"
+    style="--_columns: 2fr 3fr; --_gap: var(--ui-space-6) var(--ui-space-8)"
+  >
+    <hgroup class="ui-hgroup">
+      <p>Help corner</p>
+      <h1 class="ui-h2">Frequently asked questions</h1>
+      <p>
+        Quick answers about Bassbook, Gold and keeping your riffs safe. Can't
+        find what you're looking for? We'd totally love to help!
+      </p>
+    </hgroup>
+
+    {% call Tabs({ name: "faq-category", variant: "line" }) %}
+      {% call TabsItem({ checked: true, id: "faq-tab-general" }) %}
+        {% call TabsLabel() %}General{% endcall %}
+        {% call TabsPanel() %}
+          {% call Card({
+            "aria-label": "General questions",
+            role: "group",
+            variant: "outlined"
+          }) %}
+            {% call Accordion({ name: "faq-general", open: true }) %}
+              {% call AccordionSummary() %}Is Bassbook only for bassists?{% endcall %}
+              {% call AccordionContent() %}
+                <p>
+                  Yep! Guitarists can visit, but they have to ask nicely and
+                  turn it down. Drummers get a free pair of earplugs at the
+                  door, easy peasy.
+                </p>
+              {% endcall %}
+            {% endcall %}
+            {% call Accordion({ name: "faq-general" }) %}
+              {% call AccordionSummary() %}Can I import my old tabs?{% endcall %}
+              {% call AccordionContent() %}
+                <p>
+                  Yes. Import tabs, setlists and gig photos from Guitar Pro,
+                  your old homepage or a text file. Most bassists are moved over
+                  in under an hour.
+                </p>
+              {% endcall %}
+            {% endcall %}
+            {% call Accordion({ name: "faq-general" }) %}
+              {% call AccordionSummary() %}Is there a mobile app?{% endcall %}
+              {% call AccordionContent() %}
+                <p>
+                  Bassbook has apps for iOS and Android with offline tabs, a
+                  built-in tuner and a ping whenever someone actually notices
+                  your bassline.
+                </p>
+              {% endcall %}
+            {% endcall %}
+            {% call Accordion({ name: "faq-general" }) %}
+              {% call AccordionSummary() %}Do you have discounts for music schools?{% endcall %}
+              {% call AccordionContent() %}
+                <p>
+                  Music schools and garage bands with zero gigs get 50% off
+                  Gold. Send us a photo of your rehearsal space and we'll add it
+                  to your account.
+                </p>
+              {% endcall %}
+            {% endcall %}
+          {% endcall %}
+        {% endcall %}
+      {% endcall %}
+      {% call TabsItem({ id: "faq-tab-gold" }) %}
+        {% call TabsLabel() %}Gold{% endcall %}
+        {% call TabsPanel() %}
+          {% call Card({
+            "aria-label": "Bassbook Gold questions",
+            role: "group",
+            variant: "outlined"
+          }) %}
+            {% call Accordion({ name: "faq-gold" }) %}
+              {% call AccordionSummary() %}Which payment methods do you accept?{% endcall %}
+              {% call AccordionContent() %}
+                <p>
+                  We take all major cards and direct debit, plus invoices with
+                  30-day terms for bands buying Gold for 10+ members.
+                </p>
+              {% endcall %}
+            {% endcall %}
+            {% call Accordion({ name: "faq-gold" }) %}
+              {% call AccordionSummary() %}Can I switch between Gold and Platinum?{% endcall %}
+              {% call AccordionContent() %}
+                <p>
+                  Upgrades kick in right away, woohoo! Downgrades apply at the
+                  end of your current billing period.
+                </p>
+              {% endcall %}
+            {% endcall %}
+            {% call Accordion({ name: "faq-gold" }) %}
+              {% call AccordionSummary() %}What happens when I add my bandmates?{% endcall %}
+              {% call AccordionContent() %}
+                <p>
+                  New bandmates are added to your next bill, prorated to the
+                  day. Fans and roadies are always free.
+                </p>
+              {% endcall %}
+            {% endcall %}
+          {% endcall %}
+        {% endcall %}
+      {% endcall %}
+      {% call TabsItem({ id: "faq-tab-privacy" }) %}
+        {% call TabsLabel() %}Privacy{% endcall %}
+        {% call TabsPanel() %}
+          {% call Card({
+            "aria-label": "Privacy questions",
+            role: "group",
+            variant: "outlined"
+          }) %}
+            {% call Accordion({ name: "faq-privacy" }) %}
+              {% call AccordionSummary() %}Where are my riffs stored?{% endcall %}
+              {% call AccordionContent() %}
+                <p>
+                  Everything lives in data centers in the EU, encrypted at rest
+                  and in transit. Even your drummer can't peek at your diary.
+                </p>
+              {% endcall %}
+            {% endcall %}
+            {% call Accordion({ name: "faq-privacy" }) %}
+              {% call AccordionSummary() %}Can my band see my private messages?{% endcall %}
+              {% call AccordionContent() %}
+                <p>
+                  Nope! Messages are only for you and the person you're chatting
+                  with. Your band can see your public profile, if they ever look
+                  at it.
+                </p>
+              {% endcall %}
+            {% endcall %}
+            {% call Accordion({ name: "faq-privacy" }) %}
+              {% call AccordionSummary() %}Can I delete my account?{% endcall %}
+              {% call AccordionContent() %}
+                <p>
+                  Yes, any time in your settings. We'll be totally sad, and
+                  we'll delete all your data, tabs and pedalboard photos for
+                  good.
+                </p>
+              {% endcall %}
+            {% endcall %}
+          {% endcall %}
+        {% endcall %}
+      {% endcall %}
+    {% endcall %}
+
+    {% call Card({
+      "aria-labelledby": "faq-support-heading",
+      as: "section",
+      variant: "outlined"
+    }) %}
+      <hgroup>
+        <h2 class="ui-h5" id="faq-support-heading">Still have questions?</h2>
+        <p>Our support bassists usually reply within 2 hours. &lt;3</p>
+      </hgroup>
+      {% call CardContent({ class: "ui-layout-media" }) %}
+        {% call Avatar({ "aria-hidden": "true" }) %}KH{% endcall %}
+        <div>
+          <p>
+            Kinga Headstock
+            {{ Chip({
+              as: "span",
+              dot: true,
+              label: "Online now",
+              severity: "success",
+              size: "small"
+            }) }}
+          </p>
+          <p class="ui-caption">Mon–Fri 08–18 CET</p>
+        </div>
+      {% endcall %}
+      {% call CardActions() %}
+        {% call Button({ href: "#faq-chat", variant: "filled" }) %}Chat with us{% endcall %}
+        {% call Button({ href: "#faq-email", variant: "outlined" }) %}Email support{% endcall %}
+      {% endcall %}
+    {% endcall %}
+  </div>
+</div>
+
+<style>
+  .faq {
+    .faq-inner {
+      align-items: start;
+
+      @container (inline-size >= 56rem) {
+        .ui-tabs {
+          grid-column: 2;
+          grid-row: 1 / span 2;
+        }
+      }
+    }
+  }
+</style>

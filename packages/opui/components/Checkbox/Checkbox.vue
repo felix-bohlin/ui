@@ -2,7 +2,7 @@
 import { useBound, useInputAttrs } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import CheckboxInput from "./CheckboxInput.vue"
-import { hasName, warnUnnamed } from "../dev"
+import { DEV, hasName, warnUnnamed } from "../dev"
 import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -32,7 +32,8 @@ const model = defineModel<boolean | (string | number)[] | undefined>({
 
 const bound = useBound()
 
-warnUnnamed("Checkbox", hasName({ ...attrs.value, label }, slots.default))
+if (DEV)
+  warnUnnamed("Checkbox", hasName({ ...attrs.value, label }, slots.default))
 </script>
 
 <template>
@@ -43,7 +44,7 @@ warnUnnamed("Checkbox", hasName({ ...attrs.value, label }, slots.default))
       card && variant && variant !== 'outlined' && `ui-${variant}`,
       orientation && orientation !== 'horizontal' && `ui-${orientation}`,
       size && size !== 'medium' && `ui-${size}`,
-      $props.class,
+      $attrs.class,
     ]"
     v-bind="styleAttrs($attrs.style)"
   >

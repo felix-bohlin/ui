@@ -1,0 +1,11 @@
+{% from "opui/index.njk" import ToggleButton, ToggleGroup %}
+
+{% call ToggleGroup({
+  "aria-label": "View",
+  name: "view",
+  orientation: "vertical"
+}) %}
+  {% call ToggleButton({ value: "day" }) %}Day{% endcall %}
+  {% call ToggleButton({ checked: true, value: "week" }) %}Week{% endcall %}
+  {% call ToggleButton({ value: "month" }) %}Month{% endcall %}
+{% endcall %}

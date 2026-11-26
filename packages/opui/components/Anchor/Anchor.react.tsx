@@ -3,7 +3,7 @@
 import { useMemo } from "react"
 import { cx } from "../cx"
 import { AnchorContext } from "./context.react"
-import { warnMissingId } from "../dev"
+import { DEV, warnMissingId } from "../dev"
 import { mergeStyle } from "../style"
 import { extendsAnchor } from "./root"
 import type { Props } from "./types.react"
@@ -20,7 +20,7 @@ export default function Anchor({
 }: Props) {
   const isHover = trigger === "hover"
   const id = isHover ? idProp || undefined : undefined
-  if (isHover && !extendsAnchor(className)) {
+  if (DEV && isHover && !extendsAnchor(className)) {
     warnMissingId("Anchor", id, "interestfor")
   }
   const context = useMemo<Context>(

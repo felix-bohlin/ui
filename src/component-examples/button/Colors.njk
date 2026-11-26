@@ -1,0 +1,14 @@
+{% from "opui/index.njk" import Button %}
+
+<div class="example-row">
+  {% call Button({ color: "critical" }) %}Critical{% endcall %}
+  {% call Button({ color: "critical", variant: "outlined" }) %}Outlined{% endcall %}
+  {% call Button({ color: "critical", variant: "tonal" }) %}Tonal{% endcall %}
+  {% call Button({ color: "critical", variant: "filled" }) %}Filled{% endcall %}
+</div>
+<div class="example-row">
+  {% call Button({ color: "primary" }) %}Primary{% endcall %}
+  {% call Button({ color: "primary", variant: "outlined" }) %}Outlined{% endcall %}
+  {% call Button({ color: "primary", variant: "tonal" }) %}Tonal{% endcall %}
+  {% call Button({ color: "primary", variant: "filled" }) %}Filled{% endcall %}
+</div>

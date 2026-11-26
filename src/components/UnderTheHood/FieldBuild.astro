@@ -61,10 +61,10 @@ const steps = [
   </span>
 </div>`,
     notes: [
-      "<code>&lt;label for&gt;</code> names the input with the label alone, so buttons can sit in the box without joining the name",
-      "The box is drawn on a wrapper, the input itself is borderless",
+      "<code>&lt;label for&gt;</code> keeps buttons in the box out of the input's name",
+      "The wrapper draws the box, the input is borderless",
       "<code>:focus-within</code> moves the focus color to the box",
-      "A 1px border color change alone is too weak a focus cue, so <code>:has(:focus-visible)</code> also draws the focus ring around the box",
+      "<code>:has(:focus-visible)</code> adds a ring, since a border color change alone is too weak",
     ],
     title: "Wrapper",
   },
@@ -110,9 +110,9 @@ const steps = [
   <span class="end" id="price-end">per month</span>
 </span>`,
     notes: [
-      "The markup follows the order the parts are drawn in, so Tab reaches a button in an affix where it sits, and <code>grid-area</code> places each part",
+      "Markup in drawn order, so Tab reaches an affix button where it sits",
       "<code>:has(> .start)</code> drops the input padding next to an affix",
-      "<code>aria-describedby</code> reads the affixes after the name, so no word order is baked into it",
+      "<code>aria-describedby</code> reads the affixes after the name, not in it",
     ],
     title: "Affixes",
   },
@@ -125,7 +125,6 @@ const steps = [
 }`,
     notes: [
       "<code>:has(:required)</code> marks the label from the input's own attribute",
-      "Nothing to keep in sync",
     ],
     title: "Required",
   },
@@ -139,9 +138,9 @@ const steps = [
 }`,
     features: ["user-pseudos"],
     notes: [
-      "<code>:user-invalid</code> waits until the user has changed the field or tried to submit, not on page load",
-      '<code>aria-invalid="true"</code> on the input for errors from the server, which screen readers also announce',
-      "Only the private custom properties change, every rule above follows",
+      "<code>:user-invalid</code> waits for an edit or a submit attempt",
+      '<code>aria-invalid="true"</code> for server errors, screen readers announce it too',
+      "Swaps the custom properties the rules above read",
     ],
     title: "Validation",
   },

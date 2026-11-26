@@ -2,6 +2,7 @@ import { createHash } from "node:crypto"
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs"
 import { tmpdir } from "node:os"
 import path from "node:path"
+import { crc32, deflateSync } from "node:zlib"
 import { afterAll, describe, expect, test } from "vitest"
 import {
   MARKER,
@@ -10,6 +11,8 @@ import {
   compareBaselines,
   contentHash,
   hashBaselines,
+  imageComparator,
+  passingBaselines,
   report,
 } from "../../scripts/baseline-changes.mjs"
 
@@ -72,6 +75,97 @@ describe("hashBaselines", () => {
 
   test("finds nothing in a missing folder", () => {
     expect(hashBaselines(path.join(dir, "missing"))).toEqual({})
+  })
+})
+
+const chunk = (type: string, data: Buffer) => {
+  const body = Buffer.concat([Buffer.from(type), data])
+  const length = Buffer.alloc(4)
+  length.writeUInt32BE(data.length)
+  const crc = Buffer.alloc(4)
+  crc.writeUInt32BE(crc32(body))
+  return Buffer.concat([length, body, crc])
+}
+
+const png = (dark: number, gray = 255) => {
+  const size = 20
+  const header = Buffer.alloc(13)
+  header.writeUInt32BE(size, 0)
+  header.writeUInt32BE(size, 4)
+  header[8] = 8
+  header[9] = 6
+  const rows = Buffer.alloc((size * 4 + 1) * size)
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      const value = y * size + x < dark ? 0 : gray
+      rows.fill(
+        value,
+        y * (size * 4 + 1) + 1 + x * 4,
+        y * (size * 4 + 1) + 4 + x * 4,
+      )
+      rows[y * (size * 4 + 1) + 4 + x * 4] = 255
+    }
+  }
+  return Buffer.concat([
+    Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]),
+    chunk("IHDR", header),
+    chunk("IDAT", deflateSync(rows)),
+    chunk("IEND", Buffer.alloc(0)),
+  ])
+}
+
+describe("imageComparator", async () => {
+  const compare = await imageComparator()
+
+  test("passes an image within the thresholds of playwright.config.ts", () => {
+    expect(compare(png(100), png(0))).toBeNull()
+    expect(compare(png(0, 250), png(0))).toBeNull()
+  })
+
+  test("fails an image a visual test would fail on", () => {
+    expect(compare(png(101), png(0))).toHaveProperty("errorMessage")
+    expect(compare(png(0, 200), png(0))).toHaveProperty("errorMessage")
+  })
+})
+
+describe("passingBaselines", () => {
+  const dir = mkdtempSync(path.join(tmpdir(), "baselines-"))
+  const before = path.join(dir, "before")
+  const after = path.join(dir, "after")
+  afterAll(() => rmSync(dir, { force: true, recursive: true }))
+  const write = (root: string, files: Record<string, string>) => {
+    mkdirSync(path.join(root, "light"), { recursive: true })
+    for (const [file, content] of Object.entries(files)) {
+      writeFileSync(path.join(root, file), content)
+    }
+  }
+  const compare = (actual: Buffer, expected: Buffer) =>
+    actual.toString().startsWith(expected.toString())
+      ? null
+      : { errorMessage: "different" }
+
+  test("lists the changed baselines whose new image passes against the old", () => {
+    write(before, {
+      "light/close.png": "image",
+      "light/far.png": "image",
+      "light/same.png": "image",
+    })
+    write(after, {
+      "light/close.png": "image, antialiased",
+      "light/far.png": "another image",
+      "light/new.png": "image",
+      "light/same.png": "image",
+    })
+    expect(passingBaselines(before, after, compare)).toEqual([
+      "light/close.png",
+    ])
+  })
+
+  test("fails on a baseline that is still a Git LFS pointer", () => {
+    write(before, { "light/close.png": pointer("image") })
+    expect(() => passingBaselines(before, after, compare)).toThrow(
+      "light/close.png is a Git LFS pointer",
+    )
   })
 })
 

@@ -1,5 +1,6 @@
 /** @jsxImportSource @solidjs/web */
 import { children, omit } from "solid-js"
+import { filled } from "../attrs"
 import type { Props } from "./types.solid"
 
 export default function Divider(props: Props) {
@@ -8,7 +9,7 @@ export default function Divider(props: Props) {
 
   return (
     <>
-      {resolvedChildren() ? (
+      {filled(resolvedChildren()) ? (
         <div
           class={[
             "ui-divider",

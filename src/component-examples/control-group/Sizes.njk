@@ -1,0 +1,37 @@
+{% from "opui/index.njk" import Button, ControlGroup %}
+
+{% call ControlGroup({
+  "aria-label": "Week",
+  size: "x-small",
+  variant: "outlined"
+}) %}
+  {% call Button() %}Previous{% endcall %}
+  {% call Button() %}Today{% endcall %}
+  {% call Button() %}Next{% endcall %}
+{% endcall %}
+
+{% call ControlGroup({
+  "aria-label": "Week",
+  size: "small",
+  variant: "outlined"
+}) %}
+  {% call Button() %}Previous{% endcall %}
+  {% call Button() %}Today{% endcall %}
+  {% call Button() %}Next{% endcall %}
+{% endcall %}
+
+{% call ControlGroup({ "aria-label": "Week", variant: "outlined" }) %}
+  {% call Button() %}Previous{% endcall %}
+  {% call Button() %}Today{% endcall %}
+  {% call Button() %}Next{% endcall %}
+{% endcall %}
+
+{% call ControlGroup({
+  "aria-label": "Week",
+  size: "large",
+  variant: "outlined"
+}) %}
+  {% call Button() %}Previous{% endcall %}
+  {% call Button() %}Today{% endcall %}
+  {% call Button() %}Next{% endcall %}
+{% endcall %}

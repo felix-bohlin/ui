@@ -1,6 +1,6 @@
 ---
 import ComponentShowcase from "./ComponentShowcase/ComponentShowcase.astro"
-import { componentsFor } from "../utils/components"
+import { components } from "../utils/components"
 import { added, isWhatsNewHighlighted } from "../utils/whats-new"
 
 const currentFramework = Astro.locals.framework
@@ -19,9 +19,7 @@ const sections = [
 ]
   .map((section) => ({
     ...section,
-    components: componentsFor(currentFramework).filter(
-      ({ slug }) => sectionOf(slug) === section.id,
-    ),
+    components: components.filter(({ slug }) => sectionOf(slug) === section.id),
   }))
   .filter((section) => section.components.length > 0)
 ---

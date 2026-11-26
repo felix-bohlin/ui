@@ -10,9 +10,9 @@
 
 <Card variant="outlined">
   <CardHeader as="div">
-    <Avatar>LH</Avatar>
+    <Avatar>KH</Avatar>
     <hgroup>
-      <h3>Lou Headstock</h3>
+      <h3>Kinga Headstock</h3>
       <p>Posted 2 hours ago</p>
     </hgroup>
     <Button aria-label="More actions" round size="small">
@@ -33,6 +33,6 @@
   </CardHeader>
   <CardContent>
     Played the whole gig in drop D and nobody noticed, not even the drummer.
-    Woohoo, the low end lives on in secret :)
+    Woohoo, drop D lives on in secret :)
   </CardContent>
 </Card>

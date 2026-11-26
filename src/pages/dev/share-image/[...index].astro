@@ -5,6 +5,7 @@ import { Font } from "astro:assets"
 import { Button, Chip, Field, Switch } from "opui-css/astro"
 import AstroLogo from "../../../components/AstroLogo.astro"
 import Html5Logo from "../../../components/Html5Logo.astro"
+import NunjucksLogo from "../../../components/NunjucksLogo.astro"
 import ReactLogo from "../../../components/ReactLogo.astro"
 import SolidLogo from "../../../components/SolidLogo.astro"
 import SvelteLogo from "../../../components/SvelteLogo.astro"
@@ -21,6 +22,7 @@ export function getStaticPaths() {
 const LOGOS = {
   astro: AstroLogo,
   html: Html5Logo,
+  nunjucks: NunjucksLogo,
   react: ReactLogo,
   solid: SolidLogo,
   svelte: SvelteLogo,
@@ -84,7 +86,7 @@ const labels = [
       <div class="copy">
         <p class="version">{version}</p>
         <h1>Open Props UI</h1>
-        <p class="tagline">Design system. Components. Modern HTML &amp; CSS.</p>
+        <p class="tagline">Welcome to modern HTML &amp; CSS</p>
         <ul class="frameworks" aria-label="Frameworks">
           {FRAMEWORKS.map((framework) => {
             const Logo = LOGOS[framework.id]
@@ -462,7 +464,7 @@ const labels = [
   }
 
   .leader-track {
-    --leader-angle: 50deg;
+    --leader-angle: -50deg;
     --leader-length: 44px;
 
     inset-block-start: anchor(--range center);
@@ -553,7 +555,7 @@ const labels = [
   }
 
   .label-track-bg-color {
-    inset-block-start: calc(anchor(--range center) + 40px);
+    inset-block-end: calc(anchor(--range center) + 46px);
     inset-inline-end: 0;
     text-align: end;
 

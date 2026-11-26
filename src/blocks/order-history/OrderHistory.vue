@@ -21,7 +21,7 @@ import {
 
 <template>
   <div
-    class="order-history ui-layout-container ui-layout-column ui-large"
+    class="order-history ui-layout-container ui-layout-column ui-gap-large"
     style="--_max-inline-size: 60rem"
   >
     <div class="ui-layout-row ui-spread">
@@ -61,7 +61,7 @@ import {
         <ToggleButton value="delivered">Delivered</ToggleButton>
       </ToggleGroup>
     </FieldGroup>
-    <ul class="ui-layout-column ui-large">
+    <ul class="ui-layout-column ui-gap-large">
       <li>
         <Card
           aria-labelledby="order-history-4821"
@@ -81,10 +81,10 @@ import {
               </div>
               <div>
                 <dt class="ui-caption">Ship to</dt>
-                <dd>Ines Hertz</dd>
+                <dd>Mohini Hertz</dd>
               </div>
             </dl>
-            <div class="ui-layout-row ui-small">
+            <div class="ui-layout-row ui-gap-small">
               <Chip
                 as="span"
                 dot
@@ -95,9 +95,9 @@ import {
             </div>
           </div>
           <CardContent>
-            <div class="ui-layout-column ui-x-small">
+            <div class="ui-layout-column ui-gap-x-small">
               <p id="order-history-4821-eta">
-                Arrives <strong>Thursday 8 October</strong>, Low End Logistics
+                Arrives <strong>Thursday 8 October</strong>, Fretboard Freight
                 0037 4821
               </p>
               <Progress
@@ -208,10 +208,10 @@ import {
               </div>
               <div>
                 <dt class="ui-caption">Ship to</dt>
-                <dd>Ines Hertz</dd>
+                <dd>Mohini Hertz</dd>
               </div>
             </dl>
-            <div class="ui-layout-row ui-small">
+            <div class="ui-layout-row ui-gap-small">
               <Chip
                 as="span"
                 dot
@@ -330,10 +330,10 @@ import {
               </div>
               <div>
                 <dt class="ui-caption">Ship to</dt>
-                <dd>Holly Humbucker</dd>
+                <dd>Scott Humbucker</dd>
               </div>
             </dl>
-            <div class="ui-layout-row ui-small">
+            <div class="ui-layout-row ui-gap-small">
               <Chip
                 as="span"
                 dot

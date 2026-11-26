@@ -1,0 +1,10 @@
+{% from "opui/index.njk" import Badge %}
+
+{% call Badge({
+  hideLabel: true,
+  invisible: true,
+  label: "5 unread messages",
+  slots: { indicator: "5" }
+}) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}

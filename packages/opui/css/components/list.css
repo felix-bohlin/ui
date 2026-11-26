@@ -33,7 +33,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
     --_selected-indicator-bg-color: var(--ui-selected-strong);
     --_selected-indicator-offset: var(--_selected-indicator-size);
-    --_selected-indicator-size: var(--ui-border-width-thick);
+    --_selected-indicator-size: var(--ui-border-width-large);
     --_selected-shadow: inset var(--_selected-indicator-offset) 0 0
       var(--_selected-indicator-bg-color);
     --_start-image-size: 3.5rem;

@@ -38,7 +38,7 @@ export default {
   },
   "--_ring-border-width": {
     description:
-      "Thickness of the ring of `.ui-round`. Defaults to `--ui-border-width-thick`.",
+      "Thickness of the ring of `.ui-round`. Defaults to `--ui-border-width-large`.",
     kind: "input",
   },
   "--_ring-fraction": {

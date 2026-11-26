@@ -33,6 +33,15 @@ export const suites = (files) =>
       : []),
   ].toSorted()
 
+const KNIP_INPUTS = [
+  "**/*.{astro,cjs,js,jsx,mjs,svelte,ts,tsx,vue}",
+  "**/package.json",
+  "knip.json",
+]
+
+export const watchesUnused = (files) =>
+  files.some((file) => KNIP_INPUTS.some((glob) => matchesGlob(file, glob)))
+
 export const binOf = (name) => {
   const folder = join(code, "node_modules", name)
   const { bin } = JSON.parse(
@@ -58,6 +67,9 @@ export const run = (name, args, cwd = code) => {
       .filter(Boolean)
   }
 }
+
+export const unused = (files) =>
+  watchesUnused(files) ? run("knip", ["--no-progress"]) : []
 
 export const vitest = (files) => {
   if (!files.length) return []

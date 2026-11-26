@@ -3,7 +3,7 @@ import { SOLID_PRAGMA } from "../../scripts/component-shared.mjs"
 import { exampleExtension, FRAMEWORK_IDS, type FrameworkId } from "./framework"
 
 const sources = import.meta.glob<string>(
-  "../blocks/*/*.{astro,html,react.tsx,solid.tsx,svelte,vue}",
+  "../blocks/*/*.{astro,html,njk,react.tsx,solid.tsx,svelte,vue}",
   {
     eager: true,
     import: "default",
@@ -11,7 +11,7 @@ const sources = import.meta.glob<string>(
   },
 )
 
-export const blockFile = (slug: string, framework: FrameworkId) =>
+const blockFile = (slug: string, framework: FrameworkId) =>
   `${slug}/${slug.replace(/(^|-)([a-z0-9])/g, (_, _dash, letter: string) => letter.toUpperCase())}.${exampleExtension(framework)}`
 
 const sourceOf = (slug: string, framework: FrameworkId) =>

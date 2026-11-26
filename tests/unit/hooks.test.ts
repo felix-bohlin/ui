@@ -10,7 +10,13 @@ import {
 import { tmpdir } from "node:os"
 import { join, resolve } from "node:path"
 import { afterAll, beforeEach, describe, expect, test } from "vitest"
-import { binOf, run, styledGlobs, suites } from "../../.claude/hooks/checks.mjs"
+import {
+  binOf,
+  run,
+  styledGlobs,
+  suites,
+  watchesUnused,
+} from "../../.claude/hooks/checks.mjs"
 import { checkFiles, report } from "../../scripts/check-staged.mjs"
 
 const EM_DASH = String.fromCodePoint(0x2014)
@@ -255,7 +261,7 @@ test("the stop hook lints the stylesheets the lint script names", () => {
   expect(styledGlobs()).toEqual(["packages/opui/**/*.css", "src/**/*.css"])
 })
 
-test.each(["oxfmt", "oxlint", "stylelint", "vitest"])(
+test.each(["knip", "oxfmt", "oxlint", "stylelint", "vitest"])(
   "the checks start %s with Node, which also works on Windows",
   (name) => {
     expect(binOf(name)).not.toContain(".bin")
@@ -269,6 +275,14 @@ test("the hooks run the TODO.md and guide tests for those files", () => {
     suites(["src/docs/components/AGENTS.md", ".claude/agents/css.md"]),
   ).toEqual(["tests/unit/agents.test.ts", "tests/unit/instructions.test.ts"])
   expect(suites(["scripts/a.mjs"])).toEqual([])
+})
+
+test("the stop hook runs Knip when code, a package.json or knip.json changed", () => {
+  expect(watchesUnused(["src/utils/a.ts"])).toBe(true)
+  expect(watchesUnused(["src/components/A.astro"])).toBe(true)
+  expect(watchesUnused(["packages/opui/package.json"])).toBe(true)
+  expect(watchesUnused(["knip.json"])).toBe(true)
+  expect(watchesUnused(["TODO.md", "packages/opui/css/a.css"])).toBe(false)
 })
 
 describe("commit-msg", () => {

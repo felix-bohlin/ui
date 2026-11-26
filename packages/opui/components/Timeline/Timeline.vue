@@ -12,7 +12,6 @@ defineSlots<Slots>()
       'ui-timeline',
       { 'ui-tracked': tracked },
       size && size !== 'medium' && `ui-${size}`,
-      $props.class,
     ]"
   >
     <TimelineItem
@@ -21,8 +20,7 @@ defineSlots<Slots>()
       v-bind="item"
     >
       <p v-if="description">{{ description }}</p> </TimelineItem
-    >{{
-      " "
+    >{{ " "
     }}<slot></slot>
   </ol>
 </template>

@@ -52,7 +52,7 @@
           color: var(--ui-on-selected, var(--ui-text-strong));
         }
 
-        &.ui-unused {
+        &.ui-suggested {
           border-style: dashed;
         }
       }

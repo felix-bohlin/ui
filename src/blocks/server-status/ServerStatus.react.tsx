@@ -30,7 +30,7 @@ export default function ServerStatus() {
   return (
     <>
       <div
-        className="server-status ui-layout-container ui-layout-column ui-large"
+        className="server-status ui-layout-container ui-layout-column ui-gap-large"
         style={{ "--_max-inline-size": "64rem" }}
       >
         <div className="ui-layout-row ui-spread">
@@ -55,14 +55,14 @@ export default function ServerStatus() {
             <p>
               Some bass notes on profile songs arrive up to 2 seconds late. Like
               a bassist behind the beat! Everything else is grooving normally.{" "}
-              <a className="ui-link" href="#server-status-incident-low-end">
+              <a className="ui-link" href="#server-status-incident-laggy-bass">
                 Follow the incident
               </a>
             </p>
           </CalloutContent>
         </Callout>
         <div
-          className="ui-layout-columns ui-large"
+          className="ui-layout-columns ui-gap-large"
           style={{ "--_columns": "3fr 2fr" }}
         >
           <Card
@@ -345,20 +345,20 @@ export default function ServerStatus() {
         </Card>
         <section
           aria-labelledby="server-status-incidents-heading"
-          className="ui-layout-column ui-small"
+          className="ui-layout-column ui-gap-small"
         >
           <h2 className="ui-h5" id="server-status-incidents-heading">
             Incidents
           </h2>
           <div className="ui-layout-column status-incidents">
             <Accordion
-              id="server-status-incident-low-end"
+              id="server-status-incident-laggy-bass"
               open
               variant="outlined"
             >
               <AccordionSummary>
                 <span>
-                  Laggy low end on profile songs
+                  Laggy bass on profile songs
                   <span className="ui-layout-row ui-caption status-incident-meta">
                     <Chip
                       as="span"
@@ -384,7 +384,8 @@ export default function ServerStatus() {
                     <p className="ui-caption">Investigating</p>
                     <p>
                       We're hearing bass notes arrive late on profile songs and
-                      are looking into it.
+                      are looking into it. No, Davie504, it's not Charles
+                      Berthoud.
                     </p>
                   </TimelineItem>
                 </Timeline>
@@ -454,7 +455,7 @@ export default function ServerStatus() {
                   autoComplete="email"
                   id="server-status-server-status-email"
                   name="server-status-email"
-                  placeholder="you@lowend.example"
+                  placeholder="you@bassmail.example"
                   required
                   type="email"
                 />
@@ -532,7 +533,7 @@ export default function ServerStatus() {
           .status-history {
             block-size: 2rem;
             display: grid;
-            gap: var(--ui-border-width-thick);
+            gap: var(--ui-border-width-large);
             grid-auto-columns: minmax(0, 1fr);
             grid-auto-flow: column;
 

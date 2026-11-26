@@ -10,9 +10,9 @@ import { Field } from "opui-css/vue"
       placeholder="Search bassists"
     />
     <datalist id="text-field-autosuggest-1-list">
-      <option value="Ines Hertz"></option>
-      <option value="Lou Headstock"></option>
-      <option value="Percy Groove"></option>
+      <option value="Adam Groove"></option>
+      <option value="Kinga Headstock"></option>
+      <option value="Mohini Hertz"></option>
     </datalist>
   </Field>
 
@@ -20,13 +20,13 @@ import { Field } from "opui-css/vue"
     <input
       id="text-field-autosuggest-2"
       list="text-field-autosuggest-2-list"
-      placeholder="name@lowend.example"
+      placeholder="name@bassmail.example"
       type="email"
     />
     <datalist id="text-field-autosuggest-2-list">
-      <option value="ines@lowend.example"></option>
-      <option value="lou@lowend.example"></option>
-      <option value="percy@lowend.example"></option>
+      <option value="adam@bassmail.example"></option>
+      <option value="kinga@bassmail.example"></option>
+      <option value="mohini@bassmail.example"></option>
     </datalist>
   </Field>
 </template>

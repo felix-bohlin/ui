@@ -3,7 +3,7 @@
 A number with its label and its change, like revenue on a dashboard.
 
 - CSS: `opui-css/css/components/stat.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/stat.md), [Astro](https://opui.dev/astro/components/stat.md), [React](https://opui.dev/react/components/stat.md), [Solid](https://opui.dev/solid/components/stat.md), [Svelte](https://opui.dev/svelte/components/stat.md), [Vue](https://opui.dev/vue/components/stat.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/stat.md), [Astro](https://opui.dev/astro/components/stat.md), [Nunjucks](https://opui.dev/nunjucks/components/stat.md), [React](https://opui.dev/react/components/stat.md), [Solid](https://opui.dev/solid/components/stat.md), [Svelte](https://opui.dev/svelte/components/stat.md), [Vue](https://opui.dev/vue/components/stat.md).
 
 ## Stat
 
@@ -69,6 +69,26 @@ import { Stat } from "opui-css/astro"
     <span class="ui-caption ui-success">+12.4%</span> from last week
   </Fragment>
 </Stat>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Stat %}`
+
+- `Stat` named slots: `slots.description` and `slots.label`. Pass a string, or markup captured with `{% set %}`.
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Stat %}
+
+{% set description %}
+  <span class="ui-caption ui-success">+12.4%</span> from last week
+{% endset %}
+{% call Stat({ label: "Visitors", slots: { description: description } }) %}
+  48,210
+  
+{% endcall %}
 ```
 
 ## React

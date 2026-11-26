@@ -31,19 +31,21 @@ export default function Stepper(props: Props) {
     >
       <For each={props.items} keyed={false}>
         {(item, index) => {
-          const stepperItemComplete = () =>
-            item().complete ||
-            props.complete ||
-            (props.current !== undefined && index < props.current)
           const stepperItemCurrent = () =>
             item().current || index === props.current
+          const state = () =>
+            item().state ??
+            (props.complete ||
+            (props.current !== undefined && index < props.current)
+              ? "complete"
+              : undefined)
           return (
             <StepperItem
               completeLabel={props.completeLabel}
               errorLabel={props.errorLabel}
               {...item()}
-              complete={stepperItemComplete()}
               current={stepperItemCurrent()}
+              state={state()}
             />
           )
         }}

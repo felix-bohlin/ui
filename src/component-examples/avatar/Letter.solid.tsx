@@ -4,9 +4,9 @@ import { Avatar } from "opui-css/solid"
 export default function Letter() {
   return (
     <>
-      <Avatar label="Lou Headstock">LH</Avatar>
-      <Avatar label="Percy Groove">PG</Avatar>
-      <Avatar label="Ines Hertz">IH</Avatar>
+      <Avatar label="Kinga Headstock">KH</Avatar>
+      <Avatar label="Adam Groove">AG</Avatar>
+      <Avatar label="Mohini Hertz">MH</Avatar>
     </>
   )
 }

@@ -31,7 +31,7 @@ export default {
     },
     {
       description:
-        'Closes the menu and returns focus to the trigger. In a submenu, it closes only the submenu, and focus moves to the page instead of the submenu\'s item. That is confirmed in Chromium and not yet checked in Firefox and Safari. A menu with `popover="manual"` stays open.',
+        'Closes the menu and returns focus to the trigger. In a submenu, it closes only the submenu, and focus moves to the page instead of the submenu\'s item, in Chromium, Firefox and Safari alike. A menu with `popover="manual"` stays open.',
       keys: ["Esc"],
     },
   ],
@@ -39,6 +39,8 @@ export default {
     ...components(
       "Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `target` or `data-*`. Open menus close when the page navigates, also with a client router, through `opui-css/elements/close-on-navigate.js`, which the component loads. A link item, and an item that submits or resets a form, closes the menu on click through `opui-css/elements/menu.js`, which the component loads too.",
     ),
+    nunjucks:
+      "Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `target` or `data-*`. The macro renders no script: load `opui-css/elements/close-on-navigate.js` on the page to close open menus when it navigates, also with a client router, and `opui-css/elements/menu.js` to close them on a click on a link item, or on an item that submits or resets a form.",
     html: 'Items are built like `List` items: icons in `.ui-start`, the text in `.ui-text` and shortcuts in `.ui-end`. Open the menu with a button that has `commandfor` set to the menu id and `command="toggle-popover"`. Import `opui-css/elements/close-on-navigate.js` to close open menus when the page navigates, also with a client router, and `opui-css/elements/menu.js` to close them on a click on a link, or on a submit or reset button.',
     react:
       "Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onClick`, `target` or `data-*`. Open menus close when the page navigates, also with a client router, through `opui-css/elements/close-on-navigate.js`, which the component loads. A link item, and an item that submits or resets a form, closes the menu on click through `opui-css/elements/menu.js`, which the component loads too.",
@@ -86,13 +88,25 @@ export default {
     {
       description:
         'The items, as `{ borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `borderTop` adds a border above the item, `color: "critical"` marks a destructive one, a disabled link has no `href`, and `keepOpen` keeps the menu open on click. Other keys go to the item\'s `<a>` or `<button>`, like `type: "submit"` with `form` for an item that submits a form.',
-      frameworks: ["astro", "html", "svelte"],
+      frameworks: ["astro", "html", "nunjucks", "svelte"],
       prop: "items",
     },
     {
       description:
-        "The items, as `{ as, borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `as` takes the link component of your router for a link item, such as Next's `Link`, Solid Router's `A` or Nuxt's `NuxtLink`, which gets the `href`. `borderTop` adds a border above the item, `color: \"critical\"` marks a destructive one, a disabled link has no `href`, also with `as`, and `keepOpen` keeps the menu open on click. Other keys go to the item's `<a>`, `<button>` or link component, like `type: \"submit\"` with `form` for an item that submits a form.",
-      frameworks: ["react", "solid", "vue"],
+        'The items, as `{ as, borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `as` takes the link component of your router for a link item, such as Next\'s `Link`, which gets the `href`. `borderTop` adds a border above the item, `color: "critical"` marks a destructive one, a disabled link has no `href`, also with `as`, and `keepOpen` keeps the menu open on click. Other keys go to the item\'s `<a>`, `<button>` or link component, like `type: "submit"` with `form` for an item that submits a form.',
+      frameworks: ["react"],
+      prop: "items",
+    },
+    {
+      description:
+        'The items, as `{ as, borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `as` takes the link component of your router for a link item, such as Solid Router\'s `A`, which gets the `href`. `borderTop` adds a border above the item, `color: "critical"` marks a destructive one, a disabled link has no `href`, also with `as`, and `keepOpen` keeps the menu open on click. Other keys go to the item\'s `<a>`, `<button>` or link component, like `type: "submit"` with `form` for an item that submits a form.',
+      frameworks: ["solid"],
+      prop: "items",
+    },
+    {
+      description:
+        'The items, as `{ as, borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `as` takes the link component of your router for a link item, such as Nuxt\'s `NuxtLink`, which gets the `href`. `borderTop` adds a border above the item, `color: "critical"` marks a destructive one, a disabled link has no `href`, also with `as`, and `keepOpen` keeps the menu open on click. Other keys go to the item\'s `<a>`, `<button>` or link component, like `type: "submit"` with `form` for an item that submits a form.',
+      frameworks: ["vue"],
       prop: "items",
     },
     {

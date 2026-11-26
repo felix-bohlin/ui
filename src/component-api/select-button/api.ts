@@ -5,7 +5,7 @@ export default {
   css: ["field", "list", "select"],
   notes: {
     default:
-      "Put it first in your `<select>`, before the options. The select keeps clicks, focus and the name, and the browser fills `<selectedcontent>` with a copy of the selected option, so an option with an icon or a description shows them in the field. Browsers without customizable select leave it out.",
+      "Put it first in your `<select>`. The browser copies the selected option into `<selectedcontent>`, icon and description included. Browsers without customizable select leave it out.",
     html: "Put `<button><selectedcontent></selectedcontent></button>` first in the `<select>`, before the options.",
   },
   options: [],
@@ -14,7 +14,7 @@ export default {
   root: {
     code: "<button>",
     description:
-      "The select's button, with `<selectedcontent>` inside, which shows the selected option.",
+      "The select's button, showing the selected option in `<selectedcontent>`.",
     selector: "select > button",
   },
   source: "SelectButton",

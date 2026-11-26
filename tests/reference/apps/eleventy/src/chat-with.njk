@@ -1,0 +1,11 @@
+---
+layout: layout.njk
+title: Chat
+pagination:
+  alias: open
+  data: app.conversationList
+  size: 1
+permalink: "chat/{{ open.with }}/"
+---
+{% from "chat-screen.njk" import chatScreen with context %}
+{{ chatScreen(open) }}

@@ -7,7 +7,7 @@ import { defined } from "../attrs"
 import { cx } from "../cx"
 import { DrawerContext } from "./context.react"
 import { autoLabelledBy } from "../id"
-import { warnMissingId } from "../dev"
+import { DEV, warnMissingId } from "../dev"
 import type { Props } from "./types.react"
 import type { Context } from "./types"
 
@@ -23,7 +23,7 @@ export default function Drawer({
   ...rest
 }: Props) {
   const labelledBy = autoLabelledBy(rest, `${id}-title`)
-  warnMissingId("Drawer", id)
+  if (DEV) warnMissingId("Drawer", id)
   const attrs = defined(rest)
   const context = useMemo<Context>(
     () => ({ id, titleId: labelledBy }),

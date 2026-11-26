@@ -3,20 +3,20 @@ import { Avatar, Message, MessageList } from "opui-css/solid"
 
 export default function Basics() {
   return (
-    <div aria-label="Chat with Stella" role="log">
-      <MessageList aria-label="Messages with Stella">
+    <div aria-label="Chat with Ellen" role="log">
+      <MessageList aria-label="Messages with Ellen">
         <Message
-          author="Stella"
+          author="Ellen"
           datetime="2026-10-08T14:02"
-          start={<Avatar>SN</Avatar>}
+          start={<Avatar>EN</Avatar>}
           time="14:02"
         >
           <p>Heyyy! Did your band notice you changed strings yet?</p>
         </Message>
         <Message
-          author="Stella"
+          author="Ellen"
           datetime="2026-10-08T14:03"
-          start={<Avatar>SN</Avatar>}
+          start={<Avatar>EN</Avatar>}
           time="14:03"
         >
           <p>Flatwounds, right? So rad.</p>

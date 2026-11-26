@@ -12,12 +12,12 @@ import {
 // will fail the whole build.
 export const exampleModules: Partial<Record<string, AstroInstance>> =
   import.meta.glob<AstroInstance>(
-    "../component-examples/*/*.{astro,react.tsx,solid.tsx,svelte,vue}",
+    "../component-examples/*/*.{astro,njk,react.tsx,solid.tsx,svelte,vue}",
     { eager: true },
   )
 
 export const exampleSources = import.meta.glob<string>(
-  "../component-examples/*/*.{astro,html,react.tsx,solid.tsx,svelte,vue}",
+  "../component-examples/*/*.{astro,html,njk,react.tsx,solid.tsx,svelte,vue}",
   { eager: true, import: "default", query: "?raw" },
 )
 

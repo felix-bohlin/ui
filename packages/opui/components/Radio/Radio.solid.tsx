@@ -2,7 +2,7 @@
 import { children, omit, untrack } from "solid-js"
 import { filled } from "../attrs"
 import RadioInput from "./RadioInput.solid"
-import { hasName, warnUnnamed } from "../dev"
+import { DEV, hasName, warnUnnamed } from "../dev"
 import type { Props } from "./types.solid"
 
 export default function Radio(props: Props) {
@@ -24,9 +24,10 @@ export default function Radio(props: Props) {
   )
   const resolvedChildren = children(() => props.children)
   const resolvedEndText = children(() => props.endText)
-  untrack(() => {
-    warnUnnamed("Radio", hasName(props, filled(resolvedChildren())))
-  })
+  if (DEV)
+    untrack(() => {
+      warnUnnamed("Radio", hasName(props, filled(resolvedChildren())))
+    })
   const invalid = () => (props.error ? "true" : props["aria-invalid"])
 
   return (

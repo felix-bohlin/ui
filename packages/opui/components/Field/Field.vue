@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type HTMLAttributes, useAttrs } from "vue"
 import { TrimmedSlot } from "../whitespace.vue"
-import { warnControlAttributes } from "../dev"
+import { DEV, warnControlAttributes } from "../dev"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -39,7 +39,7 @@ const startTextId = () => (hasStartText() ? `${htmlFor}-start-text` : undefined)
 
 const endTextId = () => (hasEndText() ? `${htmlFor}-end-text` : undefined)
 
-warnControlAttributes("Field", attrs)
+if (DEV) warnControlAttributes("Field", attrs)
 </script>
 
 <template>

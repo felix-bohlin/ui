@@ -2,7 +2,7 @@
 
 import { cx } from "../cx"
 import { useAnchorContext } from "./context.react"
-import { warnReplacedAnchorAttributes } from "../dev"
+import { DEV, warnReplacedAnchorAttributes } from "../dev"
 import type { AnchorContentProps as Props } from "./types.react"
 
 export default function AnchorContent({
@@ -13,7 +13,13 @@ export default function AnchorContent({
   ...rest
 }: Props) {
   const anchor = useAnchorContext()
-  warnReplacedAnchorAttributes(id, popover, anchor?.floatingId, anchor?.popover)
+  if (DEV)
+    warnReplacedAnchorAttributes(
+      id,
+      popover,
+      anchor?.floatingId,
+      anchor?.popover,
+    )
 
   return (
     <span

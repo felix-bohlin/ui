@@ -1,7 +1,7 @@
 <script lang="ts">
   import "../../elements/toaster.js"
   import { untrack } from "svelte"
-  import { warnMissingId } from "../dev"
+  import { DEV, warnMissingId } from "../dev"
   import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
@@ -16,7 +16,7 @@
     ...rest
   }: Props = $props()
 
-  untrack(() => warnMissingId("Toaster", id))
+  if (DEV) untrack(() => warnMissingId("Toaster", id))
 </script>
 
 <opui-toaster

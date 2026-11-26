@@ -1,7 +1,7 @@
 <script lang="ts">
   import { untrack } from "svelte"
   import { content } from "../content.svelte"
-  import { warnControlAttributes } from "../dev"
+  import { DEV, warnControlAttributes } from "../dev"
   import type { Props } from "./types.svelte"
 
   let {
@@ -38,7 +38,7 @@
     hasStartText ? `${htmlFor}-start-text` : undefined,
   )
   const endTextId = $derived(hasEndText ? `${htmlFor}-end-text` : undefined)
-  untrack(() => warnControlAttributes("Field", rest))
+  if (DEV) untrack(() => warnControlAttributes("Field", rest))
 </script>
 
 <div

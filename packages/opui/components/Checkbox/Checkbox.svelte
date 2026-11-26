@@ -2,7 +2,7 @@
   import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import CheckboxInput from "./CheckboxInput.svelte"
-  import { hasName, warnUnnamed } from "../dev"
+  import { DEV, hasName, warnUnnamed } from "../dev"
   import type { Props } from "./types.svelte"
 
   let {
@@ -26,7 +26,10 @@
     ...rest
   }: Props = $props()
 
-  untrack(() => warnUnnamed("Checkbox", hasName({ ...rest, label }, children)))
+  if (DEV)
+    untrack(() =>
+      warnUnnamed("Checkbox", hasName({ ...rest, label }, children)),
+    )
 </script>
 
 <label

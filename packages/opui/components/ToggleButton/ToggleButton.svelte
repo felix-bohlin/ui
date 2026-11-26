@@ -4,7 +4,7 @@
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { getToggleGroupContext } from "../ToggleGroup/context.svelte"
   import { isSelected } from "../ToggleGroup/selection"
-  import { warnGroupedChecked } from "../dev"
+  import { DEV, warnGroupedChecked } from "../dev"
   import type { Props } from "./types.svelte"
 
   let {
@@ -31,14 +31,15 @@
     group?.inputType === "radio" ? "radio" : (type ?? "checkbox"),
   )
   const grouped = $derived(isSelected(group?.value, value))
-  untrack(() =>
-    warnGroupedChecked(
-      "ToggleButton",
-      grouped,
-      checked ?? defaultChecked,
-      "ToggleGroup",
-    ),
-  )
+  if (DEV)
+    untrack(() =>
+      warnGroupedChecked(
+        "ToggleButton",
+        grouped,
+        checked ?? defaultChecked,
+        "ToggleGroup",
+      ),
+    )
   const isChecked = () => grouped ?? checked ?? !!defaultChecked
   const initialChecked = untrack(isChecked)
   const change = (input: HTMLInputElement) => {

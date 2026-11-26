@@ -7,6 +7,7 @@ import { VOID_ELEMENTS } from "./html-tokens.mjs"
 import {
   componentImport,
   contextImports,
+  devOnly,
   edgeTrimmed,
   eventRoots,
   groupWarning,
@@ -896,10 +897,10 @@ export const toVue = (component) => {
     ...(uid ? ["const uid = useId()"] : []),
     ...declarations.map(({ line }) => line),
     ...rowLists,
-    ...warnings.map((code) => rewriteStatement(code, script)),
+    ...warnings.map((code) => devOnly(rewriteStatement(code, script))),
     ...(item
       ? [
-          `watchEffect(() =>\n  ${groupWarning(component, item, kind?.warningChecked?.(item) ?? item.checked ?? "undefined", `${item.grouped}.value`)},\n)`,
+          `if (DEV) watchEffect(() =>\n  ${groupWarning(component, item, kind?.warningChecked?.(item) ?? item.checked ?? "undefined", `${item.grouped}.value`)},\n)`,
           kind?.ownModel
             ? `const target = computed({\n  get: () => (${item.parent}?.bound ? ${item.parent}.value : model.value),\n  set: (next) => {\n    if (${item.parent}?.bound) ${item.parent}.value = next as typeof ${item.parent}.value\n    else model.value = next as typeof model.value\n  },\n})`
             : `const target = computed({\n  get: () => ${item.parent}?.value,\n  set: (next) => {\n    if (${item.parent}) ${item.parent}.value = next\n  },\n})`,
@@ -977,6 +978,7 @@ export const toVue = (component) => {
     }),
     ...[
       ...(usesDefined ? [["../attrs", "defined"]] : []),
+      ...(warnings.length || item ? [["../dev", "DEV"]] : []),
       ...(item ? [["../dev", "warnGroupedChecked"]] : []),
       ...(attributeHelpers.has("classAttrs") ? [["../cx", "classAttrs"]] : []),
       ...(attributeHelpers.has("styleAttrs")

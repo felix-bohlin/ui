@@ -4,7 +4,7 @@ import { useBound, useInputAttrs } from "../vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { ToggleGroupKey } from "../ToggleGroup/context.vue"
 import { isSelected } from "../ToggleGroup/selection"
-import { warnGroupedChecked } from "../dev"
+import { DEV, warnGroupedChecked } from "../dev"
 import { defined } from "../attrs"
 import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
@@ -43,14 +43,15 @@ const finalType = computed(() =>
 
 const grouped = computed(() => isSelected(group?.value, value))
 
-watchEffect(() =>
-  warnGroupedChecked(
-    "ToggleButton",
-    grouped.value,
-    checked ?? model.value,
-    "ToggleGroup",
-  ),
-)
+if (DEV)
+  watchEffect(() =>
+    warnGroupedChecked(
+      "ToggleButton",
+      grouped.value,
+      checked ?? model.value,
+      "ToggleGroup",
+    ),
+  )
 
 const target = computed({
   get: () => (group?.bound ? group.value : model.value),

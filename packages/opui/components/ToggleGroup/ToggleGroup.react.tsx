@@ -4,7 +4,7 @@ import { useCallback, useId, useMemo } from "react"
 import { cx } from "../cx"
 import { ToggleGroupContext } from "./context.react"
 import { checkedValues } from "./selection"
-import { warnUnnamedGroup } from "../dev"
+import { DEV, warnUnnamedGroup } from "../dev"
 import type { Props } from "./types.react"
 import type { Context } from "./types"
 
@@ -32,7 +32,7 @@ export default function ToggleGroup({
   )
   const groupName = name || `toggle-group-${uid}`
   const inputType = multiple ? "checkbox" : "radio"
-  warnUnnamedGroup("ToggleGroup", rest)
+  if (DEV) warnUnnamedGroup("ToggleGroup", rest)
   const context = useMemo<Context>(
     () => ({ change, defaultValue, groupName, inputType, value }),
     [change, defaultValue, groupName, inputType, value],

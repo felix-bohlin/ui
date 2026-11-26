@@ -74,7 +74,7 @@
       <div class="ui-layout-media">
         <Avatar aria-hidden="true">LH</Avatar>
         <div>
-          <p>Lou Headstock, Head of Low End</p>
+          <p>Lou Headstock, Head of Groove</p>
           <p class="ui-caption">
             <time datetime="2026-10-01">Oct 1, 2026</time>, 12 min read
           </p>
@@ -163,16 +163,16 @@
             class="blog-cover"
             style="--hue: 320"
             role="img"
-            aria-label="Cover image for How The Low Enders gig weekly with 4 bassists"
+            aria-label="Cover image for How Slap Like Now gig weekly with 4 bassists"
           ></div>
           <hgroup>
             <h3 class="ui-h5">
-              <a class="ui-card-link" href="#blog-list-low-enders"
-                >How The Low Enders gig weekly with 4 bassists</a
+              <a class="ui-card-link" href="#blog-list-slap-like-now"
+                >How Slap Like Now gig weekly with 4 bassists</a
               >
             </h3>
             <p>
-              Sol Lowend on going from one gig a year to a gig every single
+              Sol Saddle on going from one gig a year to a gig every single
               Friday.
             </p>
           </hgroup>

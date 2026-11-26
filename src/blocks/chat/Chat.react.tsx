@@ -102,11 +102,11 @@ export default function Chat() {
                     3 <span className="ui-sr-only">unread</span>
                   </span>
                 }
-                href="#chat-low-end-theory"
-                label={<strong>Low End Theory</strong>}
+                href="#chat-bassists-anonymous"
+                label={<strong>Bassists Anonymous</strong>}
                 start={
-                  <Avatar aria-label="Low End Theory" role="img">
-                    LE
+                  <Avatar aria-label="Bassists Anonymous" role="img">
+                    BA
                   </Avatar>
                 }
               />
@@ -135,11 +135,11 @@ export default function Chat() {
               <ListItem
                 description='Lou: My singer called me "the tall guitarist" again'
                 end="Sun"
-                href="#chat-ignored-bassists"
-                label="Ignored Bassists Anonymous"
+                href="#chat-mixed-too-low"
+                label="Mixed Too Low"
                 start={
-                  <Avatar aria-label="Ignored Bassists Anonymous" role="img">
-                    IB
+                  <Avatar aria-label="Mixed Too Low" role="img">
+                    MT
                   </Avatar>
                 }
               />
@@ -411,15 +411,15 @@ export default function Chat() {
                   3 <span className="ui-sr-only">unread</span>
                 </span>
               }
-              href="#chat-low-end-theory"
-              label="Low End Theory"
+              href="#chat-bassists-anonymous"
+              label="Bassists Anonymous"
             />
             <ListItem end="11:05" href="#chat-percy" label="Percy Groove" />
             <ListItem end="Mon" href="#chat-ines" label="Ines Hertz" />
             <ListItem
               end="Sun"
-              href="#chat-ignored-bassists"
-              label="Ignored Bassists Anonymous"
+              href="#chat-mixed-too-low"
+              label="Mixed Too Low"
             />
           </List>
         </Drawer>

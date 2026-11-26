@@ -99,7 +99,7 @@ export default function TeamMembers() {
                 <List bordered class="team-list" variant="transparent">
                   <ListItem
                     class="team-end"
-                    description="holly@lowenders.example"
+                    description="holly@slaplikenow.example"
                     end={
                       <>
                         <Chip
@@ -157,7 +157,7 @@ export default function TeamMembers() {
                   />
                   <ListItem
                     class="team-end"
-                    description="ines@lowenders.example"
+                    description="ines@slaplikenow.example"
                     end={
                       <>
                         <Chip
@@ -220,7 +220,7 @@ export default function TeamMembers() {
                   />
                   <ListItem
                     class="team-end"
-                    description="lou@lowenders.example"
+                    description="lou@slaplikenow.example"
                     end={
                       <>
                         <Chip
@@ -283,7 +283,7 @@ export default function TeamMembers() {
                   />
                   <ListItem
                     class="team-end"
-                    description="percy@lowenders.example"
+                    description="percy@slaplikenow.example"
                     end={
                       <>
                         <Chip
@@ -346,7 +346,7 @@ export default function TeamMembers() {
                   />
                   <ListItem
                     class="team-end"
-                    description="rory@lowend.example"
+                    description="rory@bassmail.example"
                     end={
                       <>
                         <Chip
@@ -409,7 +409,7 @@ export default function TeamMembers() {
                   />
                   <ListItem
                     class="team-end"
-                    description="stella@lowenders.example"
+                    description="stella@slaplikenow.example"
                     end={
                       <>
                         <Chip
@@ -492,7 +492,7 @@ export default function TeamMembers() {
                         </Button>
                       </>
                     }
-                    label="tambourine.tam@lowenders.example"
+                    label="tambourine.tam@slaplikenow.example"
                     start={
                       <svg
                         data-icon="mail"
@@ -522,7 +522,7 @@ export default function TeamMembers() {
                         </Button>
                       </>
                     }
-                    label="keytar.kit@lowenders.example"
+                    label="keytar.kit@slaplikenow.example"
                     start={
                       <svg
                         data-icon="mail"

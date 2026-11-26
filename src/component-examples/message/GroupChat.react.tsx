@@ -2,7 +2,7 @@ import { Avatar, Message, MessageList } from "opui-css/react"
 
 export default function GroupChat() {
   return (
-    <MessageList aria-label="Messages in Low End Theory">
+    <MessageList aria-label="Messages in Bassists Anonymous">
       <li className="ui-divider">Today</li>
       <Message
         author="Lou"

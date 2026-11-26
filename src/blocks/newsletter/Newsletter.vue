@@ -29,7 +29,7 @@ import {
           <h1 class="ui-h3">Bass news worth reading, every other Thursday</h1>
           <p>
             New features, gear gossip and how other bassists rock Bassbook. Join
-            12&nbsp;400 totally rad low enders.
+            12&nbsp;400 totally rad groovers.
           </p>
         </hgroup>
         <section aria-labelledby="newsletter-recent-heading">
@@ -57,7 +57,7 @@ import {
               autocomplete="email"
               id="newsletter-email"
               name="email"
-              placeholder="you@lowend.example"
+              placeholder="you@bassmail.example"
               required
               type="email"
             />

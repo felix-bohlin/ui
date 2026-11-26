@@ -223,13 +223,13 @@ export default function AnalyticsDashboard() {
                 <li class="ui-layout-column ui-x-small">
                   <span
                     class="ui-layout-row ui-spread"
-                    id="analytics-dashboard-source-low-end"
+                    id="analytics-dashboard-source-bassists-anonymous"
                   >
-                    <span>Low End Theory</span>
+                    <span>Bassists Anonymous</span>
                     <span>28%</span>
                   </span>
                   <Progress
-                    aria-labelledby="analytics-dashboard-source-low-end"
+                    aria-labelledby="analytics-dashboard-source-bassists-anonymous"
                     max={100}
                     value={28}
                   />

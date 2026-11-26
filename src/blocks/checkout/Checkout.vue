@@ -391,7 +391,7 @@ import {
                 id="checkout-discount"
                 name="discount"
                 type="text"
-                :value.attr="'LOWEND10'"
+                :value.attr="'BASS10'"
               />
             </Field>
             <Button type="button">Apply</Button>
@@ -402,7 +402,7 @@ import {
               <DescriptionListDescription>€166.00</DescriptionListDescription>
             </DescriptionListItem>
             <DescriptionListItem>
-              <DescriptionListTerm>Discount (LOWEND10)</DescriptionListTerm>
+              <DescriptionListTerm>Discount (BASS10)</DescriptionListTerm>
               <DescriptionListDescription>−€16.60</DescriptionListDescription>
             </DescriptionListItem>
             <DescriptionListItem>

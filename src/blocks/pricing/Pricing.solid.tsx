@@ -24,7 +24,7 @@ export default function Pricing() {
         >
           <hgroup class="ui-hgroup">
             <p>Memberships</p>
-            <h1 class="ui-h2">Totally rad memberships for the low end</h1>
+            <h1 class="ui-h2">Totally rad memberships for bassists</h1>
             <p>
               Start free, upgrade when your bandmates still won't listen. Every
               paid plan comes with a 14-day trial.
@@ -135,7 +135,10 @@ export default function Pricing() {
                 <h2 class="ui-h5" id="pricing-platinum-heading">
                   Platinum
                 </h2>
-                <p>For legends of the low end. You know who you are.</p>
+                <p>
+                  For slap legends. You know who you are. Davie504 asked us to
+                  add “not Charles”.
+                </p>
               </hgroup>
               <CardContent>
                 <div class="ui-layout-column ui-small pricing-monthly">

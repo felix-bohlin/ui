@@ -13,7 +13,7 @@ import {
 export default function Empty() {
   return (
     <Table>
-      <TableCaption>Low End Theory members in Reykjavík</TableCaption>
+      <TableCaption>Bassists Anonymous members in Reykjavík</TableCaption>
       <TableHead>
         <TableRow>
           <TableHeaderCell>Name</TableHeaderCell>

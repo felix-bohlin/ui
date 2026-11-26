@@ -117,7 +117,7 @@ describe("astroMarkup", () => {
       [
         "---",
         'const note = "<p>Gear Talk</p>"',
-        "const photos = [{ alt: 'A fretless bass', size: 2 }, { 'label': `Low End` }]",
+        "const photos = [{ alt: 'A fretless bass', size: 2 }, { 'label': `Slap Like Now` }]",
         "---",
         "<Fragment set:html={note} />",
         '<div set:html={"<em>Slap</em>"} />',
@@ -126,7 +126,7 @@ describe("astroMarkup", () => {
     expect(markup.texts).toEqual(["Gear Talk", "Slap"])
     expect(markup.strings).toEqual([
       { key: "alt", value: "A fretless bass" },
-      { key: "label", value: "Low End" },
+      { key: "label", value: "Slap Like Now" },
     ])
   })
 })

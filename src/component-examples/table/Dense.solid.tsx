@@ -12,7 +12,7 @@ import {
 export default function Dense() {
   return (
     <Table density="dense">
-      <TableCaption>Low End Theory members</TableCaption>
+      <TableCaption>Bassists Anonymous members</TableCaption>
       <TableHead>
         <TableRow>
           <TableHeaderCell>Name</TableHeaderCell>

@@ -136,7 +136,7 @@ import {
             <h2 class="ui-overline invoice-label" id="invoice-from">From</h2>
             <address>
               <strong>Bassbook HQ</strong><br />
-              4 Low End Lane<br />
+              4 Fretboard Lane<br />
               444 44 Bassville<br />
               VAT EX444444444401
             </address>
@@ -144,7 +144,7 @@ import {
           <section aria-labelledby="invoice-to">
             <h2 class="ui-overline invoice-label" id="invoice-to">Bill to</h2>
             <address>
-              <strong>The Low Enders</strong><br />
+              <strong>Slap Like Now</strong><br />
               Attn. Percy Groove<br />
               Rehearsal Room B, 7 Drop D Drive<br />
               411 36 Rumbleton
@@ -207,7 +207,7 @@ import {
             <TableRow>
               <TableCell>
                 Gig flyer boost
-                <p class="ui-caption">Pinned on the Low End Theory wall</p>
+                <p class="ui-caption">Pinned on the Bassists Anonymous wall</p>
               </TableCell>
               <TableCell numeric>2</TableCell>
               <TableCell numeric>€4.50</TableCell>
@@ -295,7 +295,7 @@ import {
         </section>
         <p class="invoice-footer ui-caption">
           Bassbook, Org. no. 444444-4444, registered office Bassville. Thanks
-          for keeping the low end alive! &lt;3
+          for keeping it funky! &lt;3
         </p>
       </CardContent>
     </Card>

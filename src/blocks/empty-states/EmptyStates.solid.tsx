@@ -52,7 +52,7 @@ export default function EmptyStates() {
                 <h2 class="ui-h5" id="empty-states-first-run">
                   Nobody has listened yet
                 </h2>
-                <p>Upload your first bass line and let the low end be heard.</p>
+                <p>Upload your first bass line and make the windows rattle.</p>
               </hgroup>
               <div class="ui-layout-row ui-small ui-align-center">
                 <Button type="button" variant="filled">

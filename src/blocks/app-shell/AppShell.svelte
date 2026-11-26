@@ -114,7 +114,7 @@
       RR
     </Avatar>
     <Menu align="end" id="app-shell-account">
-      <li class="ui-heading">rory@lowend.example</li>
+      <li class="ui-heading">rory@bassmail.example</li>
       <ListItem href="#app-shell-profile" label="Profile" />
       <ListItem href="#app-shell-settings" label="Settings" />
       <ListItem
@@ -224,15 +224,15 @@
         dense
         variant="transparent"
       >
-        <ListItem href="#app-shell-low-end-theory" label="Low End Theory">
+        <ListItem
+          href="#app-shell-bassists-anonymous"
+          label="Bassists Anonymous"
+        >
           {#snippet start()}
             <span class="ui-swatch ui-info"></span>
           {/snippet}
         </ListItem>
-        <ListItem
-          href="#app-shell-ignored-bassists"
-          label="Ignored Bassists Anon."
-        >
+        <ListItem href="#app-shell-mixed-too-low" label="Mixed Too Low">
           {#snippet start()}
             <span class="ui-swatch ui-warning"></span>
           {/snippet}
@@ -321,7 +321,7 @@
             </ListItem>
             <ListItem
               choice="checkbox"
-              description="Low End Theory, due Fri 10 Oct"
+              description="Bassists Anonymous, due Fri 10 Oct"
               for="app-shell-task-2"
               label="Learn the slap break for the encore"
             >
@@ -331,7 +331,7 @@
             </ListItem>
             <ListItem
               choice="checkbox"
-              description="Ignored Bassists Anon., due Tue 14 Oct"
+              description="Mixed Too Low, due Tue 14 Oct"
               for="app-shell-task-3"
               label="Ask if the band has a gig Saturday"
             >
@@ -341,7 +341,7 @@
             </ListItem>
             <ListItem
               choice="checkbox"
-              description="Low End Theory, due Thu 16 Oct"
+              description="Bassists Anonymous, due Thu 16 Oct"
               for="app-shell-task-4"
               label="Practice my “turn it down” face"
             >
@@ -370,7 +370,7 @@
               {/snippet}
             </ListItem>
             <ListItem
-              description="Low End Theory, 08:15"
+              description="Bassists Anonymous, 08:15"
               label="Stella commented on “Drop D or bust”"
             >
               {#snippet start()}
@@ -378,7 +378,7 @@
               {/snippet}
             </ListItem>
             <ListItem
-              description="Ignored Bassists Anon., 07:58"
+              description="Mixed Too Low, 07:58"
               label="Ines uploaded 12 gig photos"
             >
               {#snippet start()}

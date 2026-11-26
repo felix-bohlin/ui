@@ -193,7 +193,7 @@
                   ></path>
                 </svg>
               {/snippet}
-              <p class="ui-caption">Completed, low end approved</p>
+              <p class="ui-caption">Completed, bassist approved</p>
             </TimelineItem>
             <TimelineItem
               color="success"
@@ -367,7 +367,7 @@
             <DescriptionListItem
               ><DescriptionListTerm>Host</DescriptionListTerm
               ><DescriptionListDescription
-                >Low End Theory</DescriptionListDescription
+                >Bassists Anonymous</DescriptionListDescription
               ></DescriptionListItem
             >
             <DescriptionListItem

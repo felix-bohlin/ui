@@ -93,7 +93,7 @@
                   name="email"
                   required
                   type="email"
-                  value="percy@lowend.example"
+                  value="percy@bassmail.example"
                 />
                 {#snippet endText()}
                   <span class="ui-p ui-success">Verified</span>, used for
@@ -296,7 +296,7 @@
     </DialogHeader>
     <DialogContent>
       <p id="account-settings-delete-description">
-        This deletes percy@lowend.example, your wall and every photo of your
+        This deletes percy@bassmail.example, your wall and every photo of your
         gear. You can't undo this.
       </p>
     </DialogContent>

@@ -420,7 +420,7 @@ import {
                   <Avatar aria-hidden="true">RR</Avatar>
                   <div>
                     <p class="data-table-person">Rory Rootnote</p>
-                    <p class="ui-caption">rory@lowend.example</p>
+                    <p class="ui-caption">rory@bassmail.example</p>
                   </div>
                 </div>
               </TableCell>

@@ -9,7 +9,7 @@
   <Field for="field-validation-2" label="Email" variant="filled">
     <input
       id="field-validation-2"
-      placeholder="name@lowend.example"
+      placeholder="name@bassmail.example"
       required
       type="email"
     />

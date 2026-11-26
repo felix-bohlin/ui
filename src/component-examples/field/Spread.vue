@@ -19,7 +19,7 @@ import { Field } from "opui-css/vue"
     <input
       aria-describedby="field-spread-2-start-text field-spread-2-end-text"
       id="field-spread-2"
-      placeholder="name@lowend.example"
+      placeholder="name@bassmail.example"
       type="email"
     />
     <template #label>Email</template>

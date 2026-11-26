@@ -402,7 +402,7 @@ export default function Checkout() {
                     id="checkout-discount"
                     name="discount"
                     type="text"
-                    defaultValue="LOWEND10"
+                    defaultValue="BASS10"
                   />
                 </Field>
                 <Button type="button">Apply</Button>
@@ -415,7 +415,7 @@ export default function Checkout() {
                   </DescriptionListDescription>
                 </DescriptionListItem>
                 <DescriptionListItem>
-                  <DescriptionListTerm>Discount (LOWEND10)</DescriptionListTerm>
+                  <DescriptionListTerm>Discount (BASS10)</DescriptionListTerm>
                   <DescriptionListDescription>
                     −€16.60
                   </DescriptionListDescription>

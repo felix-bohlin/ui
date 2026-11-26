@@ -65,7 +65,7 @@ export default function SignIn() {
                     autoComplete="email"
                     id="sign-in-email"
                     name="email"
-                    placeholder="rory@lowend.example"
+                    placeholder="rory@bassmail.example"
                     required
                     type="email"
                   />
@@ -97,7 +97,7 @@ export default function SignIn() {
             <p className="sign-in-footer">
               New to Bassbook?{" "}
               <a className="ui-link" href="#sign-up">
-                Join the low end
+                Join the rhythm section
               </a>
             </p>
           </CardContent>

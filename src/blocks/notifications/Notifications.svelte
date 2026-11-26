@@ -235,9 +235,7 @@
                     >
                   {/snippet}
                 </ListItem>
-                <ListItem
-                  label="Stella Nut mentioned you in Ignored Bassists Anonymous"
-                >
+                <ListItem label="Stella Nut mentioned you in Mixed Too Low">
                   {#snippet start()}
                     <Avatar aria-hidden="true">SN</Avatar>
                   {/snippet}

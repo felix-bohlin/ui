@@ -115,7 +115,8 @@ import {
             </h3>
             <ul>
               <li>
-                Polls with up to 8 answers. Yes, “root notes only” counts.
+                Polls with up to 8 answers. Davie504 already made one: “Who
+                slaps better?”, 8 answers, all of them Davie.
               </li>
               <li>Profile themes, from Midnight Fretless to Hot Pink Slap.</li>
             </ul>

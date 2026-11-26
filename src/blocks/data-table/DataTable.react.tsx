@@ -452,7 +452,7 @@ export default function DataTable() {
                       <Avatar aria-hidden="true">RR</Avatar>
                       <div>
                         <p className="data-table-person">Rory Rootnote</p>
-                        <p className="ui-caption">rory@lowend.example</p>
+                        <p className="ui-caption">rory@bassmail.example</p>
                       </div>
                     </div>
                   </TableCell>

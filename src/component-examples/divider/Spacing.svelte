@@ -15,7 +15,7 @@
 </Card>
 
 <div style="--ui-divider-gap: var(--ui-space-1)">
-  Ships to Lou Headstock, Low End Lane
+  Ships to Lou Headstock, Fretboard Lane
   <Divider />
   Arrives in 2 to 4 days
 </div>

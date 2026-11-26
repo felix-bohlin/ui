@@ -866,7 +866,7 @@ interaction(
     const band = root.locator("select").nth(1)
 
     await expect(role).toHaveValue("bass")
-    await expect(band).toHaveValue("low-end-theory")
+    await expect(band).toHaveValue("bassists-anonymous")
     await role.selectOption("tambourine")
     await expect(role).toHaveValue("tambourine")
   },

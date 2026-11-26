@@ -96,7 +96,7 @@
         <CardContent>
           <div class="ui-layout-column ui-x-small">
             <p id="order-history-4821-eta">
-              Arrives <strong>Thursday 8 October</strong>, Low End Logistics
+              Arrives <strong>Thursday 8 October</strong>, Fretboard Freight
               0037 4821
             </p>
             <Progress

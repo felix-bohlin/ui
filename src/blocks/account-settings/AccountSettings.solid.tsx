@@ -119,7 +119,7 @@ export default function AccountSettings() {
                         name="email"
                         required
                         type="email"
-                        defaultValue="percy@lowend.example"
+                        defaultValue="percy@bassmail.example"
                       />
                     </Field>
                     <Field
@@ -342,7 +342,7 @@ export default function AccountSettings() {
           </DialogHeader>
           <DialogContent>
             <p id="account-settings-delete-description">
-              This deletes percy@lowend.example, your wall and every photo of
+              This deletes percy@bassmail.example, your wall and every photo of
               your gear. You can't undo this.
             </p>
           </DialogContent>

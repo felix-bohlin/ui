@@ -57,7 +57,7 @@ import {
                 autocomplete="email"
                 id="sign-in-email"
                 name="email"
-                placeholder="rory@lowend.example"
+                placeholder="rory@bassmail.example"
                 required
                 type="email"
               />
@@ -82,7 +82,7 @@ import {
         </Form>
         <p class="sign-in-footer">
           New to Bassbook?
-          <a class="ui-link" href="#sign-up">Join the low end</a>
+          <a class="ui-link" href="#sign-up">Join the rhythm section</a>
         </p>
       </CardContent>
     </Card>

@@ -240,9 +240,9 @@
         </ControlGroup>
         <div>
           <Chip
-            aria-label="Remove code LOWEND10, −10%"
+            aria-label="Remove code BASS10, −10%"
             as="button"
-            label="LOWEND10, −10%"
+            label="BASS10, −10%"
             type="button"
             variant="outlined"
           >

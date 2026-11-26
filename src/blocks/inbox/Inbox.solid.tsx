@@ -269,8 +269,9 @@ export default function Inbox() {
                 >
                   <p class="inbox-subject">Jam night on Thursday</p>
                   <p class="inbox-snippet">
-                    Here's a rough plan for the evening. Tell me if we should
-                    swap the slap battle…
+                    Here's a rough plan for the evening. Davie504 wants a
+                    rematch with Charles Berthoud in the slap battle, he says
+                    the last one…
                   </p>
                 </ListItem>
                 <ListItem

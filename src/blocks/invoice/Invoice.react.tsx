@@ -144,7 +144,7 @@ export default function Invoice() {
                 </h2>
                 <address>
                   <strong>Bassbook HQ</strong>
-                  <br />4 Low End Lane
+                  <br />4 Fretboard Lane
                   <br />
                   444 44 Bassville
                   <br />
@@ -156,7 +156,7 @@ export default function Invoice() {
                   Bill to
                 </h2>
                 <address>
-                  <strong>The Low Enders</strong>
+                  <strong>Slap Like Now</strong>
                   <br />
                   Attn. Percy Groove
                   <br />
@@ -231,7 +231,7 @@ export default function Invoice() {
                   <TableCell>
                     Gig flyer boost
                     <p className="ui-caption">
-                      Pinned on the Low End Theory wall
+                      Pinned on the Bassists Anonymous wall
                     </p>
                   </TableCell>
                   <TableCell numeric>2</TableCell>
@@ -326,7 +326,7 @@ export default function Invoice() {
             </section>
             <p className="invoice-footer ui-caption">
               Bassbook, Org. no. 444444-4444, registered office Bassville.
-              Thanks for keeping the low end alive! &lt;3
+              Thanks for keeping it funky! &lt;3
             </p>
           </CardContent>
         </Card>

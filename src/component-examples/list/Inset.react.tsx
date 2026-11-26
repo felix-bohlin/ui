@@ -22,7 +22,7 @@ export default function Inset() {
         }
       />
       <ListItem description="Mobile" inset label="555-0142" />
-      <ListItem description="Email" inset label="lou@lowend.example" />
+      <ListItem description="Email" inset label="lou@bassmail.example" />
     </List>
   )
 }

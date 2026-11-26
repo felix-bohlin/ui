@@ -55,7 +55,7 @@ export default function ServerStatus() {
             <p>
               Some bass notes on profile songs arrive up to 2 seconds late. Like
               a bassist behind the beat! Everything else is grooving normally.{" "}
-              <a className="ui-link" href="#server-status-incident-low-end">
+              <a className="ui-link" href="#server-status-incident-laggy-bass">
                 Follow the incident
               </a>
             </p>
@@ -352,13 +352,13 @@ export default function ServerStatus() {
           </h2>
           <div className="ui-layout-column status-incidents">
             <Accordion
-              id="server-status-incident-low-end"
+              id="server-status-incident-laggy-bass"
               open
               variant="outlined"
             >
               <AccordionSummary>
                 <span>
-                  Laggy low end on profile songs
+                  Laggy bass on profile songs
                   <span className="ui-layout-row ui-caption status-incident-meta">
                     <Chip
                       as="span"
@@ -384,7 +384,8 @@ export default function ServerStatus() {
                     <p className="ui-caption">Investigating</p>
                     <p>
                       We're hearing bass notes arrive late on profile songs and
-                      are looking into it.
+                      are looking into it. No, Davie504, it's not Charles
+                      Berthoud.
                     </p>
                   </TimelineItem>
                 </Timeline>
@@ -454,7 +455,7 @@ export default function ServerStatus() {
                   autoComplete="email"
                   id="server-status-server-status-email"
                   name="server-status-email"
-                  placeholder="you@lowend.example"
+                  placeholder="you@bassmail.example"
                   required
                   type="email"
                 />

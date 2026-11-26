@@ -136,7 +136,7 @@ export default function Basics() {
         <DrawerContent>
           <p>Holly Humbucker commented on Friday gig prep.</p>
           <p>Your setlist export is ready to download, woohoo.</p>
-          <p>Lou Headstock invited you to Ignored Bassists Anonymous.</p>
+          <p>Lou Headstock invited you to Mixed Too Low.</p>
         </DrawerContent>
         <DrawerFooter>
           <Button command="close" commandfor="drawer-basics-3" size="small">

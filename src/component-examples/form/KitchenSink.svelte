@@ -34,7 +34,7 @@
         <input
           autocomplete="email"
           id="form-kitchen-sink-8"
-          placeholder="rory@lowend.example"
+          placeholder="rory@bassmail.example"
           required
           type="email"
         />
@@ -76,7 +76,7 @@
   <Fieldset aria-describedby="form-kitchen-sink-5-description">
     <FieldLegend>Bass experience</FieldLegend>
     <FieldDescription id="form-kitchen-sink-5-description"
-      >How many years have you held down the low end?</FieldDescription
+      >How many years have you held down the groove?</FieldDescription
     >
     <FieldGroup>
       <Field

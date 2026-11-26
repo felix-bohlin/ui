@@ -32,13 +32,14 @@
       "ignoreDependencies": ["open-props"]
     },
     "tests/package/fixtures/*": {
-      "entry": ["src/**"],
+      "entry": ["eleventy.config.js", "src/**"],
       "ignoreDependencies": [
         "@11ty/eleventy",
         "@astrojs/check",
         "svelte-check",
         "vue-tsc"
-      ]
+      ],
+      "eleventy": false
     }
   }
 }

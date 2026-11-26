@@ -341,7 +341,7 @@ export const whatsNew = {
     `Elevated cards use <a href="#api"><code>--ui-shadow-elevated</code></a>, and padding and gaps read the <code>--ui-space-*</code> scale.`,
     `Breaking: <code>--_shadow-light</code> and <code>--_shadow-dark</code> are gone. Set <a href="#api"><code>--ui-shadow-elevated</code></a> in your theme, one shadow whose color follows <code>--ui-shadow-color</code> in each scheme, or <a href="#component-properties"><code>--_elevated-shadow</code></a> on the card.`,
     `<a href="#variants">Tonal and outlined</a> cards read <a href="#api"><code>--ui-shadow-surface</code></a>, and tonal and elevated cards <code>--ui-border-color-raised</code>, when a theme sets them.`,
-    `Borders inside <a href="#variants">tonal and elevated</a> cards read <code>--ui-border-color-on-raised</code> and <code>--ui-field-border-color-on-raised</code>, so a theme's borders reach inside.`,
+    `Borders inside <a href="#variants">tonal and elevated</a> cards read the translucent <code>--ui-border-color</code> and <code>--ui-field-border-color</code>, so a theme's borders reach inside.`,
     components(
       `<a href="#variants">Variants</a> name the default: <code>variant="plain"</code>.`,
     ),
@@ -686,7 +686,7 @@ export const whatsNew = {
     ),
     `Breaking: the page scroll lock of <a href="#modal">modal dialogs</a> lives in <code>utils.css</code>. Import it too if you import single files.`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `The <a href="#long-content">scroll shadow</a> reads <code>--ui-shadow-scroll</code>, and borders inside the dialog read <code>--ui-border-color-on-raised</code> and <code>--ui-field-border-color-on-raised</code>.`,
+    `The <a href="#long-content">scroll shadow</a> reads <code>--ui-shadow-scroll</code>, and borders inside the dialog read the translucent <code>--ui-border-color</code> and <code>--ui-field-border-color</code>.`,
     components(
       `<a href="#footer"><code>DialogFooter</code></a> only adds a class for <code>align="start"</code>. The default end alignment renders no <code>.ui-align-end</code>.`,
     ),
@@ -1021,9 +1021,9 @@ export const whatsNew = {
       html: `A <a href="#custom-check">custom check</a>: <code>--ui-icon-check</code> for the check of your icon set, or any icon in <code>.ui-icon-checked</code>.`,
     },
     `Themes can set <a href="#api"><code>--ui-menu-radius</code></a> for a corner radius of its own.`,
-    `The edge reads <a href="#api"><code>--ui-border-color-raised</code></a> when a theme sets it, like drawers and elevated cards, and the separators keep <code>--ui-border-color-on-raised</code>.`,
+    `The edge reads <a href="#api"><code>--ui-border-color-raised</code></a> when a theme sets it, like drawers and elevated cards, and the separators keep <code>--ui-border-color</code>.`,
     `Themes can set <a href="#api"><code>--ui-list-item-padding-inline</code></a>. Descriptions read <code>--ui-text-subtle</code>.`,
-    `The border and dividers are <a href="#api"><code>--ui-border-color-on-raised</code></a>, like other elevated surfaces.`,
+    `The border and dividers are <a href="#api"><code>--ui-border-color</code></a>, translucent so they read the same on the raised surface.`,
     `Items are built like <code>List</code> items, with start and end icons, text and shortcuts (<a href="#basics">Basics</a>).`,
     {
       html: `New component. A <a href="#basics">popover menu</a> that anchors to its trigger, with groups, submenus and a <a href="#horizontal">horizontal</a> row of items. No JavaScript.`,

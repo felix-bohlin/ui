@@ -9,17 +9,13 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-blue":
     "A literal blue, hue 240 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
   "--ui-border-color":
-    "Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`.",
-  "--ui-border-color-on-filled":
-    "Border color inside filled surfaces: lists without a variant and table headers. `List` and `Table` set `--ui-border-color` to it on those parts.",
-  "--ui-border-color-on-raised":
-    "Borders drawn inside a raised surface (tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu`, the select picker and tonal `Callout` without a severity): dividers, separators, outlined controls. The same mix as `--ui-border-color` by default. Each raised component sets `--ui-border-color` to it on its root, so a theme that wants another border inside raised surfaces sets this one. The edge of the surface itself is `--ui-border-color-raised`.",
+    "Default border color for cards, lists, tables and dividers, on the page and inside every raised or filled surface. `--ui-text-strong` at `--ui-border-strength-light` or `--ui-border-strength-dark` over transparent, so it reads the same on every surface.",
   "--ui-border-color-raised":
-    "The edge of every raised surface: tonal and elevated `Card`, `Accordion` and `Dialog`, tonal `Callout` without a severity, `Drawer`, `Menu` and the select picker. Set it to outline them all at once, or to `transparent` to drop their edges. When unset, each keeps its own edge: cards, accordions and dialogs the page background, so they stay visible on tonal surfaces, callouts their tonal background, and drawers, menus and the picker `--ui-border-color-on-raised`. The borders inside a raised surface are `--ui-border-color-on-raised`.",
+    "The edge of every raised surface: tonal and elevated `Card`, `Accordion` and `Dialog`, tonal `Callout` without a severity, `Drawer`, `Menu` and the select picker. Set it to outline them all at once, or to `transparent` to drop their edges. When unset, each keeps its own edge: cards, accordions and dialogs the page background, so they stay visible on tonal surfaces, callouts their tonal background, and drawers, menus and the picker `--ui-border-color`. The borders inside a raised surface are `--ui-border-color`.",
   "--ui-border-strength-dark":
-    "How much of `--ui-text-strong` is mixed into `--ui-surface` for `--ui-border-color` in dark mode. `11%`, and `55%` with more contrast.",
+    "How much of `--ui-text-strong` shows through `--ui-border-color` in dark mode. `11%`, and `55%` with more contrast.",
   "--ui-border-strength-light":
-    "How much of `--ui-text-strong` is mixed into `--ui-surface` for `--ui-border-color` in light mode. `17%`, and `55%` with more contrast.",
+    "How much of `--ui-text-strong` shows through `--ui-border-color` in light mode. `17%`, and `55%` with more contrast.",
   "--ui-border-width":
     "Default border width for components that draw a border.",
   "--ui-border-width-large":
@@ -148,13 +144,9 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-field-bg-color":
     "Background of a `Field` around a text input, select or textarea. When unset, `--ui-surface`, the page color.",
   "--ui-field-border-color":
-    "Border color of every empty control: a `Field` around a text input, select or textarea, the unchecked `Checkbox`, `Radio` and `Switch` unless `--ui-choice-border-color` is set, the track of a range and the `Progress` outline. `--ui-text-strong` mixed into `--ui-surface` at `--ui-field-border-strength`, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make.",
-  "--ui-field-border-color-on-filled":
-    "Field border color inside filled surfaces: lists without a variant and table headers. `--ui-text-strong` mixed into `--ui-surface-filled` at `--ui-field-border-strength`.",
-  "--ui-field-border-color-on-raised":
-    "Field border color inside raised surfaces. The same mix as `--ui-field-border-color` by default. Each raised component sets `--ui-field-border-color` to it on its root.",
+    "Border color of every empty control: a `Field` around a text input, select or textarea, the unchecked `Checkbox`, `Radio` and `Switch` unless `--ui-choice-border-color` is set, the track of a range and the `Progress` outline. `--ui-text-strong` at `--ui-field-border-strength` over transparent, so it reaches 3:1 on every surface. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make.",
   "--ui-field-border-strength":
-    "How much of `--ui-text-strong` is mixed into the surface for `--ui-field-border-color` and its filled and raised variants. `50%`, and `70%` with more contrast.",
+    "How much of `--ui-text-strong` shows through `--ui-field-border-color`. `50%`, and `70%` with more contrast.",
   "--ui-field-border-width":
     "Border width for fields, `Checkbox`, `Radio` and `Switch`.",
   "--ui-field-helper-font-size":

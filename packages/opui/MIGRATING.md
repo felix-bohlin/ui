@@ -1149,7 +1149,7 @@ With `spread`, the label and the range split the container into equal columns, a
 
 Same as Text field: the root is `.ui-field` instead of `.ui-select`, and the box around the select `.ui-field-container` instead of `.ui-field`.
 
-The picker is `--ui-surface-raised` with a `--ui-border-color-on-raised` edge, like `Menu`, instead of `--ui-surface-filled` with the field border. Set `--_bg-color` on `.ui-field select::picker(select)` to keep the old fill, or `--ui-border-color-raised` in your theme to outline every raised surface at once.
+The picker is `--ui-surface-raised` with a `--ui-border-color` edge, like `Menu`, instead of `--ui-surface-filled` with the field border. Set `--_bg-color` on `.ui-field select::picker(select)` to keep the old fill, or `--ui-border-color-raised` in your theme to outline every raised surface at once.
 
 `Select` is `Field`, which takes your `<select>` instead of rendering one, and a required `for` (`htmlFor` in React) with the select's `id`. Write the options in it after a `SelectButton`, instead of passing `items`, and move `name`, `required`, `disabled`, `multiple` and the bound value onto the select: bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts with something to read, as for Text field. `SelectItem` is gone. Attributes that aren't Field's props go to the root, `style` included.
 

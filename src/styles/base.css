@@ -53,21 +53,6 @@ aside.sidebar {
       --shadow-strength: 20%;
     }
   }
-
-  :where(
-    html:not([data-example-theme]),
-    html:not([data-example-theme])
-      :where(.ui-scope, .ui-contrast-more):not(.preview-pane)
-  ) {
-    --ui-border-color-on-raised: light-dark(
-      color-mix(
-        in oklch,
-        var(--ui-text-strong) var(--ui-border-strength-light),
-        var(--ui-surface)
-      ),
-      var(--ui-surface)
-    );
-  }
 }
 
 :where(:root:not([data-example-theme], [data-theme-font]))

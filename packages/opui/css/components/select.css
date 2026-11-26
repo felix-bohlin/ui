@@ -38,13 +38,11 @@
       --_bg-color: var(--ui-surface-raised);
       --_ease-move: var(--ui-ease-move, var(--_ease));
       --_selected-shadow: none;
-      --ui-border-color: var(--ui-border-color-on-raised);
-      --ui-field-border-color: var(--ui-field-border-color-on-raised);
       background-image: var(--ui-surface-raised-image, none);
 
       /* Animation on-stage styles */
       border: var(--ui-border-width) solid
-        var(--ui-border-color-raised, var(--ui-border-color-on-raised));
+        var(--ui-border-color-raised, var(--ui-border-color));
       border-radius: var(
         --ui-menu-radius,
         var(--ui-field-radius, var(--ui-radius))

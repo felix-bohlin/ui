@@ -27,7 +27,7 @@ export default {
   },
   "--_border-color": {
     description:
-      "Color of the `.ui-header` and `.ui-footer` dividers, and of the inner edge unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-border-color-on-raised`.",
+      "Color of the `.ui-header` and `.ui-footer` dividers, and of the inner edge unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-border-color`.",
     kind: "input",
   },
   "--_border-width": {

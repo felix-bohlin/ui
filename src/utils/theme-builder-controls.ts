@@ -42,6 +42,14 @@ export type ChoiceControl = Base & {
   options: ChoiceOption[]
 }
 
+export const SCALE_KNOBS = {
+  density: "--ui-density",
+  space: "--ui-space-scale",
+}
+
+export const scaledValue = (control: RangeControl, value: string) =>
+  control.scale ? `calc(${value} * var(${SCALE_KNOBS[control.scale]}))` : value
+
 export type RangeControl = Base & {
   display: "number" | "percent" | "unit"
   fallback?: string
@@ -49,7 +57,7 @@ export type RangeControl = Base & {
   kind: "range"
   max: number
   min: number
-  scale?: "density"
+  scale?: keyof typeof SCALE_KNOBS
   step: number
   token: string
   unit: "" | "px" | "rem"
@@ -522,7 +530,6 @@ export const GROUPS: ControlGroup[] = [
   {
     controls: [
       color("border-color", "Border color", "--ui-border-color", "basic", {
-        follow: ["--ui-border-color-on-filled"],
         hint: "Cards, dividers and tables",
       }),
       {
@@ -582,7 +589,6 @@ export const GROUPS: ControlGroup[] = [
         "--ui-field-border-color",
         "fine",
         {
-          follow: ["--ui-field-border-color-on-filled"],
           hint: "Text fields, selects and checkboxes",
         },
       ),
@@ -1064,8 +1070,8 @@ export const GROUPS: ControlGroup[] = [
           {
             label: "Closer",
             tokens: {
-              "--ui-control-size-large": "2.5rem",
-              "--ui-control-size-small": "2rem",
+              "--ui-control-size-large": "calc(2.5rem * var(--ui-density))",
+              "--ui-control-size-small": "calc(2rem * var(--ui-density))",
             },
             value: "tight",
           },
@@ -1080,6 +1086,7 @@ export const GROUPS: ControlGroup[] = [
         label: "Card padding",
         max: 2,
         min: 0.5,
+        scale: "space",
         step: 0.125,
         tier: "fine",
         token: "--ui-card-padding",
@@ -1093,6 +1100,7 @@ export const GROUPS: ControlGroup[] = [
         label: "List item padding",
         max: 1.5,
         min: 0.25,
+        scale: "space",
         step: 0.125,
         tier: "fine",
         token: "--ui-list-item-padding-inline",
@@ -1125,9 +1133,9 @@ export const GROUPS: ControlGroup[] = [
           {
             label: "Compact",
             tokens: {
-              "--ui-switch-thumb-size": "0.75rem",
-              "--ui-switch-track-block-size": "1rem",
-              "--ui-switch-track-inline-size": "2rem",
+              "--ui-switch-thumb-size": "calc(0.75rem * var(--ui-density))",
+              "--ui-switch-track-block-size": "calc(1rem * var(--ui-density))",
+              "--ui-switch-track-inline-size": "calc(2rem * var(--ui-density))",
             },
             value: "compact",
           },

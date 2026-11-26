@@ -8,7 +8,6 @@
       oklch(0.91 0.007 248),
       oklch(0.428 0.015 248)
     );
-    --ui-border-color-on-filled: var(--ui-border-color);
     --ui-border-color-raised: var(--ui-border-color);
     --ui-radius: 0.375rem;
     --ui-radius-small: 0.375rem;
@@ -25,7 +24,7 @@
     --ui-button-padding-inline-small: 0.5rem;
     --ui-button-padding-inline-x-small: 0.5rem;
     --ui-choice-ripple-bg-color: transparent;
-    --ui-choice-size: 1rem;
+    --ui-choice-size: calc(1rem * var(--ui-density) / 0.95);
     --ui-code-bg-color: transparent;
     --ui-critical: oklch(0.592 0.202 21.2);
     --ui-density: 0.95;
@@ -35,7 +34,6 @@
       oklch(0.91 0.007 248),
       oklch(0.428 0.015 248)
     );
-    --ui-field-border-color-on-filled: var(--ui-field-border-color);
     --ui-field-helper-font-size: 0.875rem;
     --ui-field-helper-text-color: light-dark(
       oklch(0.262 0.01 248 / 0.75),
@@ -96,10 +94,10 @@
       oklch(0 0 0 / 0.25),
       oklch(1 0 0 / 0.25)
     );
-    --ui-switch-thumb-size: 0.75rem;
+    --ui-switch-thumb-size: calc(0.75rem * var(--ui-density) / 0.95);
     --ui-switch-track-bg-color: light-dark(oklch(1 0 0), oklch(0.262 0.01 248));
-    --ui-switch-track-block-size: 1rem;
-    --ui-switch-track-inline-size: 2rem;
+    --ui-switch-track-block-size: calc(1rem * var(--ui-density) / 0.95);
+    --ui-switch-track-inline-size: calc(2rem * var(--ui-density) / 0.95);
     --ui-target-min-size: 0px;
     --ui-text: light-dark(oklch(0.262 0.01 248), oklch(0.91 0.007 248));
     --ui-text-strong: light-dark(oklch(0.262 0.01 248), oklch(1 0 0));

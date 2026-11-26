@@ -41,7 +41,6 @@
       oklch(from var(--ui-palette-source) 0.567 0.016 calc(h + 14)),
       oklch(from var(--ui-palette-source) 0.657 0.015 calc(h + 10))
     );
-    --ui-field-border-color-on-filled: var(--ui-field-border-color);
     --ui-field-padding-inline: 1rem;
     --ui-field-radius: 0.25rem;
     --ui-focus-border-width: 2px;

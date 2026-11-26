@@ -1,6 +1,11 @@
 import { themeTokenDescriptions } from "./theme-token-descriptions"
 import { themeTokenPromises } from "./theme-token-promises"
-import { sectionKey, themeTokenSections, tokenTier } from "./theme-tokens"
+import {
+  scaledTokens,
+  sectionKey,
+  themeTokenSections,
+  tokenTier,
+} from "./theme-tokens"
 
 const TYPES: [RegExp, string][] = [
   [
@@ -49,6 +54,7 @@ export const tokensJson = () => {
   const sections = themeTokenSections().filter(
     (section) => section.tokens.length > 0,
   )
+  const scaled = scaledTokens()
   const paths = new Map(
     sections.flatMap((section) =>
       section.tokens.map((token) => [
@@ -85,6 +91,9 @@ export const tokensJson = () => {
                   ...(token.optional && { optional: true }),
                   ...(themeTokenPromises[token.name] && {
                     promise: themeTokenPromises[token.name],
+                  }),
+                  ...(scaled.has(token.name) && {
+                    scaledBy: scaled.get(token.name),
                   }),
                   tier: tokenTier(token.name),
                 },

@@ -287,6 +287,28 @@ export const themeTokens = () =>
     (token) => tokenTier(token.name) !== "input",
   )
 
+export const SCALE_KNOBS = ["--ui-density", "--ui-space-scale"]
+
+export const scaledTokens = (tokens = themeTokens()) => {
+  const scaled = new Map<string, string>()
+  const knobOf = (value: string) =>
+    SCALE_KNOBS.find((knob) => value.includes(`var(${knob})`)) ??
+    [...scaled].find(([name]) => value.includes(`var(${name})`))?.[1]
+  let grew = true
+  while (grew) {
+    grew = false
+    for (const token of tokens) {
+      if (token.optional || scaled.has(token.name)) continue
+      const knob = knobOf(token.value)
+      if (knob) {
+        scaled.set(token.name, knob)
+        grew = true
+      }
+    }
+  }
+  return scaled
+}
+
 export const setThemeToken = (css: string, name: string, value: string) => {
   const lines = css.split("\n")
   for (const [index, line] of walk(lines)) {

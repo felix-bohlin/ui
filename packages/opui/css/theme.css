@@ -399,17 +399,7 @@
     --ui-field-border-color: color-mix(
       in oklch,
       var(--ui-text-strong) var(--ui-field-border-strength),
-      var(--ui-surface)
-    );
-    --ui-field-border-color-on-filled: color-mix(
-      in oklch,
-      var(--ui-text-strong) var(--ui-field-border-strength),
-      var(--ui-surface-filled)
-    );
-    --ui-field-border-color-on-raised: color-mix(
-      in oklch,
-      var(--ui-text-strong) var(--ui-field-border-strength),
-      var(--ui-surface-raised)
+      transparent
     );
 
     /* Divider */
@@ -632,28 +622,12 @@
       color-mix(
         in oklch,
         var(--ui-text-strong) var(--ui-border-strength-light),
-        var(--ui-surface)
+        transparent
       ),
       color-mix(
         in oklch,
         var(--ui-text-strong) var(--ui-border-strength-dark),
-        var(--ui-surface)
-      )
-    );
-    --ui-border-color-on-filled: light-dark(
-      var(--ui-gray-6),
-      var(--ui-gray-12)
-    );
-    --ui-border-color-on-raised: light-dark(
-      color-mix(
-        in oklch,
-        var(--ui-text-strong) var(--ui-border-strength-light),
-        var(--ui-surface-raised)
-      ),
-      color-mix(
-        in oklch,
-        var(--ui-text-strong) var(--ui-border-strength-dark),
-        var(--ui-surface-raised)
+        transparent
       )
     );
     /* --ui-border-color-raised: var(--ui-border-color); */

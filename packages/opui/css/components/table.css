@@ -44,9 +44,6 @@
     }
 
     th {
-      --ui-border-color: var(--ui-border-color-on-filled);
-      --ui-field-border-color: var(--ui-field-border-color-on-filled);
-
       background-color: var(--ui-surface-filled);
       color: var(--ui-text-strong);
       font-weight: var(--ui-font-weight-semibold);
@@ -112,9 +109,6 @@
 
     /* Footer */
     tfoot :where(th, td) {
-      --ui-border-color: var(--ui-border-color-on-filled);
-      --ui-field-border-color: var(--ui-field-border-color-on-filled);
-
       background-color: var(--ui-surface-filled);
       border-block-start: var(--ui-border-width) solid var(--ui-border-color);
       color: var(--ui-text-strong);

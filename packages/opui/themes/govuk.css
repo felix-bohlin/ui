@@ -5,7 +5,6 @@
   :where(html, .ui-scope, .ui-contrast-more) {
     --ui-backdrop-blur: 0px;
     --ui-border-color: light-dark(oklch(0.851 0 0), oklch(0.404 0 0));
-    --ui-border-color-on-filled: var(--ui-border-color);
     --ui-border-color-raised: var(--ui-border-color);
     --ui-radius: 0px;
     --ui-button-accent: var(--ui-text-strong);
@@ -24,15 +23,13 @@
     --ui-choice-checked: mark;
     --ui-choice-on-accent: var(--ui-surface);
     --ui-choice-ripple-bg-color: var(--ui-border-color);
-    --ui-choice-size: 2.5rem;
-    --ui-choice-size-large: 3rem;
-    --ui-choice-size-small: 1.5rem;
-    --ui-choice-size-x-small: 1.25rem;
+    --ui-choice-size: calc(2.5rem * var(--ui-density));
+    --ui-choice-size-large: calc(3rem * var(--ui-density));
+    --ui-choice-size-small: calc(1.5rem * var(--ui-density));
+    --ui-choice-size-x-small: calc(1.25rem * var(--ui-density));
     --ui-critical: oklch(0.558 0.186 25.6);
     --ui-state-disabled-opacity: 0.5;
     --ui-field-border-color: light-dark(oklch(0.153 0 0), oklch(1 0 0));
-    --ui-field-border-color-on-filled: var(--ui-field-border-color);
-    --ui-field-border-color-on-raised: var(--ui-field-border-color);
     --ui-field-border-width: 2px;
     --ui-field-helper-font-size: 1.1875rem;
     --ui-field-label-font-size: 1.1875rem;

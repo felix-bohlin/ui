@@ -36,18 +36,6 @@
       break-inside: avoid;
     }
 
-    &:not(
-      .ui-critical,
-      .ui-info,
-      .ui-neutral,
-      .ui-outlined,
-      .ui-success,
-      .ui-warning
-    ) {
-      --ui-border-color: var(--ui-border-color-on-raised);
-      --ui-field-border-color: var(--ui-field-border-color-on-raised);
-    }
-
     &.ui-critical,
     &.ui-info,
     &.ui-neutral,

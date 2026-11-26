@@ -12,7 +12,7 @@ export default {
   },
   "--_border-color": {
     description:
-      "The edge color. `--ui-border-color-raised` when a theme sets it, otherwise `--ui-border-color-on-raised`.",
+      "The edge color. `--ui-border-color-raised` when a theme sets it, otherwise `--ui-border-color`.",
     kind: "input",
   },
   "--_border-width": {
@@ -21,7 +21,7 @@ export default {
   },
   "--_divider-border-color": {
     description:
-      "Color of the item separators. Defaults to `--ui-border-color-on-raised`.",
+      "Color of the item separators. Defaults to `--ui-border-color`.",
     kind: "input",
   },
   "--_duration": {

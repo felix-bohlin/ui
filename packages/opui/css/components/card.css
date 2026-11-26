@@ -63,8 +63,6 @@
       --_border-color: var(--ui-border-color-raised, var(--_surface-bg-color));
       --_border-width: var(--ui-border-width);
       --_shadow: var(--ui-shadow-surface);
-      --ui-border-color: var(--ui-border-color-on-raised);
-      --ui-field-border-color: var(--ui-field-border-color-on-raised);
     }
 
     &.ui-elevated {
@@ -73,8 +71,6 @@
       --_border-color: var(--ui-border-color-raised, var(--_surface-bg-color));
       --_border-width: var(--ui-border-width);
       --_shadow: var(--_elevated-shadow);
-      --ui-border-color: var(--ui-border-color-on-raised);
-      --ui-field-border-color: var(--ui-field-border-color-on-raised);
     }
 
     &:where(.ui-accordion, .ui-card).ui-outlined {

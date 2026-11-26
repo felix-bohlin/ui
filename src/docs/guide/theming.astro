@@ -162,8 +162,14 @@ export const keywords = [
     <h2>Surfaces</h2>
     <RoleSwatches roles={surfaceRoles} />
     <p>
-      Set <code>--ui-border-color-on-raised</code> for borders inside raised
-      components, and <code>--ui-border-color-raised</code> for their edge.
+      <code>--ui-border-color</code> and <code>--ui-field-border-color</code>
+      are translucent, so one value reads the same on every surface: inside a
+      card, a dialog, a menu or a filled list as on the page. Change how strong
+      they are with <code>--ui-border-strength-light</code>,
+      <code>--ui-border-strength-dark</code> and
+      <code>--ui-field-border-strength</code>, which more contrast keeps
+      tightening, or set a color. <code>--ui-border-color-raised</code> sets the
+      edge of raised components.
     </p>
   </section>
 
@@ -183,6 +189,26 @@ export const keywords = [
       minimum target size) at any density. A field with less than 24px inside
       its border grows to fit its button, such as an x-small field at
       <code>0.875</code> or a small one at <code>0.75</code>.
+    </p>
+    <p>
+      The sizes are computed where the scope classes are, so set the density of
+      a part of the page on an element with <code>.ui-scope</code>, like a
+      compact toolbar:
+    </p>
+    <Code
+      code={`<div class="ui-scope" style="--ui-density: 0.75">
+  <button class="ui-button ui-small" type="button">Bold</button>
+</div>`}
+      lang="html"
+    />
+    <p>
+      A theme that sets a size keeps the knob in it, so the size still follows
+      density: <code>calc(2.25rem * var(--ui-density))</code>. A theme that also
+      sets its own density writes the length it wants at that density,
+      <code>calc(2rem * var(--ui-density) / 0.9)</code>. The same goes for the
+      spacing steps and <code>--ui-space-scale</code>. Each size token says
+      which knob it follows in <code>tokens.json</code>, as <code>scaledBy</code
+      >.
     </p>
   </section>
 

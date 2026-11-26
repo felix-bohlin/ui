@@ -6,7 +6,6 @@
     --ui-backdrop-bg-color: oklch(0 0 0 / 0.8);
     --ui-backdrop-blur: 0px;
     --ui-border-color: oklch(0 0 0);
-    --ui-border-color-on-filled: var(--ui-border-color);
     --ui-border-color-raised: var(--ui-border-color);
     --ui-radius: 5px;
     --ui-radius-x-small: var(--ui-radius-small);
@@ -34,7 +33,6 @@
     --ui-duration-fast: 0.15s;
     --ui-field-bg-color: var(--ui-surface-raised);
     --ui-field-border-color: var(--ui-border-color);
-    --ui-field-border-color-on-filled: var(--ui-border-color);
     --ui-field-border-width: 2px;
     --ui-field-padding-inline: 0.75rem;
     --ui-field-placeholder-text-color: color-mix(

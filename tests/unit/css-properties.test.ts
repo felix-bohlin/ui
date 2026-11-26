@@ -41,14 +41,15 @@ const tokens = new Set([
 
 const ON_FILL = /^--ui-((?:[a-z]+-)?)on-([a-z0-9-]+)$/
 const ON_FILL_EXCEPTION = "--ui-on-fill"
-const SURFACE_CONTEXTS = ["filled", "raised"]
-
 const tokenProblem = (name: string, known: Set<string>) => {
+  if (/-on-(filled|raised)$/.test(name)) {
+    return "no token restates another for a surface: make the base token work on every surface, translucent where it has to be (--ui-border-color)"
+  }
   if (name !== "--ui-contrast" && /-contrast(-|$)/.test(name)) {
     return "never -contrast, which only names the contrast mode (--ui-contrast): the color on a fill is --ui-on-{fill}"
   }
   const [, family, fill] = name.match(ON_FILL) ?? []
-  if (!fill || SURFACE_CONTEXTS.includes(fill) || name === ON_FILL_EXCEPTION) {
+  if (!fill || name === ON_FILL_EXCEPTION) {
     return undefined
   }
   const fills = [`--ui-${family}${fill}`, `--ui-${family}surface-${fill}`]
@@ -81,9 +82,7 @@ const problem = (name: string) => {
   }
   if (
     name.startsWith("--ui-") &&
-    !SUFFIX.test(
-      name.replace(/-(x-small|small|large|filled|on-filled|on-raised)$/, ""),
-    )
+    !SUFFIX.test(name.replace(/-(x-small|small|large|filled)$/, ""))
   ) {
     return "end in the property it sets, a value type, -accent, -strength or -lightness"
   }
@@ -175,22 +174,27 @@ test("the token rules catch -contrast and an on-color without a fill", () => {
   ])
   expect(
     [
-      "--ui-border-color-on-raised",
       "--ui-contrast",
       "--ui-on-brand",
       "--ui-on-fill",
       "--ui-on-inverse",
       "--ui-palette-on-tonal",
     ].map((name) => tokenProblem(name, known)),
-  ).toEqual([undefined, undefined, undefined, undefined, undefined, undefined])
+  ).toEqual([undefined, undefined, undefined, undefined, undefined])
   expect(
-    ["--ui-brand-contrast", "--_accent-contrast", "--ui-on-tonal"].map((name) =>
-      tokenProblem(name, known),
-    ),
+    [
+      "--ui-brand-contrast",
+      "--_accent-contrast",
+      "--ui-on-tonal",
+      "--ui-border-color-on-raised",
+      "--ui-field-border-color-on-filled",
+    ].map((name) => tokenProblem(name, known)),
   ).toEqual([
     expect.stringContaining("never -contrast"),
     expect.stringContaining("never -contrast"),
     expect.stringContaining("needs --ui-tonal or --ui-surface-tonal"),
+    expect.stringContaining("no token restates another for a surface"),
+    expect.stringContaining("no token restates another for a surface"),
   ])
 })
 

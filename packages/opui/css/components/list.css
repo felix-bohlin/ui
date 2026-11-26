@@ -49,11 +49,6 @@ Lists meant to be used stand-alone or as part of Select elements
   }
 
   :where(.ui-list, .ui-menu) {
-    &:not(.ui-menu, .ui-tonal, .ui-transparent) {
-      --ui-border-color: var(--ui-border-color-on-filled);
-      --ui-field-border-color: var(--ui-field-border-color-on-filled);
-    }
-
     &.ui-list {
       --_motion: var(--ui-motion);
 

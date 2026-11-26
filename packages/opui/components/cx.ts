@@ -8,20 +8,21 @@ type ClassValue =
   | null
   | undefined
 
-const flatten = (value: ClassValue): string[] => {
+const flatten = (value: unknown): string[] => {
   if (!value || value === true) return []
   if (typeof value === "string") return [value]
   if (typeof value === "number" || typeof value === "bigint") {
     return [String(value)]
   }
   if (Array.isArray(value)) return value.flatMap(flatten)
-  return Object.keys(value).filter((key) => value[key])
+  if (typeof value !== "object") return []
+  return Object.entries(value).flatMap(([key, on]) => (on ? [key] : []))
 }
 
 export const cx = (values: ClassValue[]) =>
   flatten(values).join(" ") || undefined
 
-export const classAttrs = (value: ClassValue): { class?: string } => {
-  const className = cx([value])
+export const classAttrs = (value: unknown): { class?: string } => {
+  const className = flatten(value).join(" ")
   return className ? { class: className } : {}
 }

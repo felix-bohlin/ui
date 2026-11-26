@@ -34,7 +34,7 @@
         flip-block,
         flip-inline,
         flip-block flip-inline;
-      position-visibility: anchors-visible;
+      position-visibility: anchor-visible;
       translate: var(--_shift-x) var(--_shift-y);
     }
   }

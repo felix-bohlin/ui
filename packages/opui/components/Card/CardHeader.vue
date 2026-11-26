@@ -6,7 +6,7 @@ defineSlots<Slots>()
 </script>
 
 <template>
-  <component :is="Tag" :class="['ui-header', $props.class]">
+  <component :is="Tag" class="ui-header">
     <slot></slot>
   </component>
 </template>

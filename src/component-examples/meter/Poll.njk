@@ -1,0 +1,56 @@
+{% from "opui/index.njk" import Meter %}
+
+<div aria-labelledby="meter-poll-1" class="poll" role="group">
+  <p id="meter-poll-1">Best encore?</p>
+  <div class="poll-option">
+    {{ Meter({ "aria-labelledby": "meter-poll-2", max: "100", value: "62" }) }}
+    <span aria-hidden="true" class="poll-label" id="meter-poll-2">
+      <span>Bohemian Rhapsody</span>
+      <span>62%</span>
+    </span>
+  </div>
+  <div class="poll-option">
+    {{ Meter({ "aria-labelledby": "meter-poll-3", max: "100", value: "28" }) }}
+    <span aria-hidden="true" class="poll-label" id="meter-poll-3">
+      <span>Purple Rain</span>
+      <span>28%</span>
+    </span>
+  </div>
+  <div class="poll-option">
+    {{ Meter({ "aria-labelledby": "meter-poll-4", max: "100", value: "10" }) }}
+    <span aria-hidden="true" class="poll-label" id="meter-poll-4">
+      <span>Free Bird</span>
+      <span>10%</span>
+    </span>
+  </div>
+</div>
+
+<style>
+  .poll {
+    display: grid;
+    gap: var(--ui-space-2);
+  }
+
+  .poll-option {
+    display: grid;
+
+    & > * {
+      grid-area: 1 / 1;
+    }
+
+    & > meter {
+      --_accent: var(--ui-palette-tint);
+      --_bg-color: var(--ui-surface);
+      --_block-size: 100%;
+    }
+  }
+
+  .poll-label {
+    display: flex;
+    font-variant-numeric: tabular-nums;
+    gap: var(--ui-space-3);
+    justify-content: space-between;
+    padding: var(--ui-space-2) var(--ui-space-3);
+    position: relative;
+  }
+</style>

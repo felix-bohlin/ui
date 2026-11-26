@@ -13,7 +13,6 @@ defineSlots<Slots>()
         markerAnimation !== 'rotate' &&
         `ui-marker-animation-${markerAnimation}`,
       variant && variant !== 'plain' && `ui-${variant}`,
-      $props.class,
     ]"
   >
     <slot></slot>

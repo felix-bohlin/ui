@@ -1,5 +1,3 @@
-import { toggleInGroup } from "../group"
-
 export const isSelected = (
   selected: string | string[] | undefined,
   value: unknown,
@@ -9,12 +7,18 @@ export const isSelected = (
 export const checkedValues = (
   input: HTMLInputElement,
   selected?: string | string[],
-) =>
-  selected === undefined
-    ? [...(input.closest(".ui-toggle-group")?.querySelectorAll("input") ?? [])]
-        .filter((item) => item.checked && item.name === input.name)
-        .map((item) => item.value)
-    : toggleInGroup([selected].flat(), input.value, input.checked)
+) => {
+  if (selected === undefined) {
+    return [
+      ...(input.closest(".ui-toggle-group")?.querySelectorAll("input") ?? []),
+    ]
+      .filter((item) => item.checked && item.name === input.name)
+      .map((item) => item.value)
+  }
+  const values = [selected].flat()
+  if (!input.checked) return values.filter((value) => value !== input.value)
+  return values.includes(input.value) ? values : [...values, input.value]
+}
 
 export const selectionOf = (
   input: HTMLInputElement,

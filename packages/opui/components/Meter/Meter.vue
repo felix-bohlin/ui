@@ -7,11 +7,7 @@ defineSlots<Slots>()
 
 <template>
   <meter
-    :class="[
-      'ui-meter',
-      variant && variant !== 'tonal' && `ui-${variant}`,
-      $props.class,
-    ]"
+    :class="['ui-meter', variant && variant !== 'tonal' && `ui-${variant}`]"
   >
     <slot></slot>
   </meter>

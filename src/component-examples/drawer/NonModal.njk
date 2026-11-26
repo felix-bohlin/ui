@@ -1,0 +1,31 @@
+{% from "opui/index.njk" import
+  Button,
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  List,
+  ListItem
+%}
+
+{% call Button({ id: "drawer-non-modal-2", variant: "outlined" }) %}Show folders{% endcall %}
+
+{% call Drawer({ id: "drawer-non-modal-1", scrollLock: true }) %}
+  {% call DrawerHeader({ closeButton: true }) %}
+    {% call DrawerTitle() %}Folders{% endcall %}
+  {% endcall %}
+  {% call DrawerContent() %}
+    {% call List({ variant: "transparent" }) %}
+      {{ ListItem({ "aria-current": "page", href: "#non-modal", label: "Inbox" }) }}
+      {{ ListItem({ href: "#non-modal", label: "Drafts" }) }}
+      {{ ListItem({ href: "#non-modal", label: "Archive" }) }}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}
+
+<script type="module">
+  const drawer = document.querySelector("#drawer-non-modal-1")
+  document
+    .querySelector("#drawer-non-modal-2")
+    ?.addEventListener("click", () => drawer?.show())
+</script>

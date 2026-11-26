@@ -39,7 +39,8 @@ const stepsOf = (round: number) => [
 const Models = () => {
   const [actions, setActions] = createSignal(actionsOf(0))
   const [align, setAlign] = createSignal("left")
-  const [error, setError] = createSignal(false)
+  const [form, setForm] = createSignal({ error: false, newsletter: false })
+  const error = () => form().error
   const [fruits, setFruits] = createSignal(fruitsOf(0))
   const [steps, setSteps] = createSignal(stepsOf(0))
   document.addEventListener("refresh-steps", () => setSteps(stepsOf(1)))
@@ -82,7 +83,7 @@ const Models = () => {
           type="number"
         />
       </Field>
-      <Checkbox checked={false} error={error()}>
+      <Checkbox checked={form().newsletter} error={error()}>
         Newsletter
       </Checkbox>
       <Field for="models-size" label="Size">
@@ -195,7 +196,10 @@ const Models = () => {
       <button onClick={() => setFruits(fruitsOf(1))} type="button">
         Refresh fruits
       </button>
-      <button onClick={() => setError(!error())} type="button">
+      <button
+        onClick={() => setForm({ ...form(), error: !error() })}
+        type="button"
+      >
         Toggle error
       </button>
       <button

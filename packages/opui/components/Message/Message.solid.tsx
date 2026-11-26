@@ -1,5 +1,6 @@
 /** @jsxImportSource @solidjs/web */
 import { children, omit } from "solid-js"
+import { filled } from "../attrs"
 import type { Props } from "./types.solid"
 
 export default function Message(props: Props) {
@@ -45,18 +46,24 @@ export default function Message(props: Props) {
         <div class="ui-content">
           {props.author && <p class="ui-header">{props.author}</p>}
           {resolvedChildren()}
-          {(props.time || resolvedEnd()) && (
+          {(props.time || filled(resolvedEnd())) && (
             <p class="ui-footer">
               {props.time && (
                 <time datetime={props.datetime}>{props.time}</time>
               )}
-              {resolvedEnd() && <span class="ui-end">{resolvedEnd()}</span>}
+              {filled(resolvedEnd()) && (
+                <span class="ui-end">{resolvedEnd()}</span>
+              )}
             </p>
           )}
         </div>
       )}
-      {resolvedActions() && <div class="ui-actions">{resolvedActions()}</div>}
-      {resolvedBottom() && <div class="ui-bottom">{resolvedBottom()}</div>}
+      {filled(resolvedActions()) && (
+        <div class="ui-actions">{resolvedActions()}</div>
+      )}
+      {filled(resolvedBottom()) && (
+        <div class="ui-bottom">{resolvedBottom()}</div>
+      )}
     </li>
   )
 }

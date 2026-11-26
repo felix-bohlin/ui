@@ -41,7 +41,7 @@ export default {
   },
   "--_line-border-width": {
     description:
-      "Width of the line to the next step. Defaults to `--ui-border-width-thick`.",
+      "Width of the line to the next step. Defaults to `--ui-border-width-large`.",
     kind: "input",
   },
   "--_marker-bg-color": {
@@ -56,7 +56,7 @@ export default {
   },
   "--_marker-border-width": {
     description:
-      "Width of the marker border. Defaults to `--ui-border-width-thick`.",
+      "Width of the marker border. Defaults to `--ui-border-width-large`.",
     kind: "input",
   },
   "--_marker-complete-image": {

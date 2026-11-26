@@ -1,0 +1,87 @@
+{% from "opui/index.njk" import FileUpload %}
+
+{{ FileUpload({
+  accept: "image/*",
+  description: "Or drop them here. Nothing leaves your browser.",
+  id: "file-upload-controlled-1",
+  label: "Choose photos",
+  multiple: true
+}) }}
+
+<script type="module">
+  import "opui-css/elements/file-upload.js"
+</script>
+
+<script type="module">
+  const input = document.querySelector("#file-upload-controlled-1")
+  const root = input?.closest("opui-file-upload")
+  const status = root?.querySelector('[role="status"]')
+  const list = document.createElement("ul")
+  list.className = "ui-list"
+  const uploads = new Map()
+  let count = 0
+
+  const upload = (file) => {
+    const value = `photo-${++count}`
+    const row = document.createElement("li")
+    row.innerHTML = `
+        <div class="ui-start"><img alt="" /></div>
+        <div class="ui-text">
+          <p dir="auto"></p>
+          <div class="ui-progress"><progress value="0"></progress></div>
+        </div>
+        <div class="ui-end">
+          <button
+            class="ui-button ui-round ui-small"
+            command="--remove"
+            commandfor="file-upload-controlled-1"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            ></svg>
+          </button>
+        </div>`
+    const button = row.querySelector("button")
+    const image = row.querySelector("img")
+    const name = row.querySelector("p")
+    const progress = row.querySelector("progress")
+    if (!button || !image || !name || !progress) return
+    button.ariaLabel = `Remove ${file.name}`
+    button.value = value
+    image.src = URL.createObjectURL(file)
+    name.textContent = file.name
+    progress.ariaLabel = `Uploading ${file.name}`
+    list.append(row)
+    root?.querySelector(".ui-content")?.append(list)
+    uploads.set(
+      value,
+      setInterval(() => {
+        progress.value += 0.1
+        if (progress.value < 1) return
+        clearInterval(uploads.get(value))
+        progress.parentElement?.remove()
+        if (status) status.textContent = `${file.name} is uploaded.`
+      }, 400),
+    )
+  }
+
+  root?.addEventListener("select", (event) => {
+    if (!(event instanceof CustomEvent)) return
+    event.detail.files.forEach(upload)
+  })
+
+  root?.addEventListener("remove", (event) => {
+    if (!(event instanceof CustomEvent)) return
+    const { value } = event.detail
+    const row = list.querySelector(`button[value="${value}"]`)?.closest("li")
+    clearInterval(uploads.get(value))
+    URL.revokeObjectURL(row?.querySelector("img")?.src ?? "")
+    row?.remove()
+    if (list.children.length === 0) list.remove()
+  })
+</script>

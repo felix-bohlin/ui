@@ -1,7 +1,7 @@
 <script lang="ts">
   import { untrack } from "svelte"
   import { getDrawerContext } from "./context.svelte"
-  import { warnReplacedId } from "../dev"
+  import { DEV, warnReplacedId } from "../dev"
   import { classAttrs } from "../cx"
   import type { DrawerTitleProps as Props } from "./types.svelte"
 
@@ -15,7 +15,8 @@
   }: Props = $props()
 
   const drawer = getDrawerContext()
-  untrack(() => warnReplacedId("DrawerTitle", "Drawer", id, drawer?.titleId))
+  if (DEV)
+    untrack(() => warnReplacedId("DrawerTitle", "Drawer", id, drawer?.titleId))
 </script>
 
 <h2 {...classAttrs(className)} id={drawer?.titleId ?? id} {...rest}>

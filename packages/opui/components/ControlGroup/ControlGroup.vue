@@ -15,7 +15,6 @@ defineSlots<Slots>()
       overflow && overflow !== 'wrap' && `ui-overflow-${overflow}`,
       size && size !== 'medium' && `ui-${size}`,
       variant && variant !== 'transparent' && `ui-${variant}`,
-      $props.class,
     ]"
     :role="role ?? 'group'"
   >

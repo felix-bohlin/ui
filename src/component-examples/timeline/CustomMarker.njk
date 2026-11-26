@@ -1,0 +1,79 @@
+{% from "opui/index.njk" import Timeline, TimelineItem %}
+
+{% call Timeline() %}
+  {% set marker %}<svg
+    data-icon="check"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M20 6 9 17l-5-5"></path>
+  </svg>{% endset %}
+  {{ TimelineItem({
+    color: "success",
+    datetime: "2026-10-01",
+    label: "Ordered",
+    slots: { marker: marker },
+    time: "Oct 1"
+  }) }}
+  {% set marker %}<svg
+    data-icon="check"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M20 6 9 17l-5-5"></path>
+  </svg>{% endset %}
+  {{ TimelineItem({
+    color: "success",
+    datetime: "2026-10-02",
+    label: "Packed",
+    slots: { marker: marker },
+    time: "Oct 2"
+  }) }}
+  {% set marker %}<svg
+    data-icon="check"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M20 6 9 17l-5-5"></path>
+  </svg>{% endset %}
+  {% call TimelineItem({
+    color: "success",
+    datetime: "2026-10-03",
+    label: "Shipped",
+    slots: { marker: marker },
+    time: "Oct 3"
+  }) %}
+    <p>On its way from Gothenburg.</p>
+  {% endcall %}
+  {% call TimelineItem({
+    datetime: "2026-10-06",
+    label: "Delivered",
+    time: "Oct 6"
+  }) %}
+    <p>Expected</p>
+  {% endcall %}
+{% endcall %}

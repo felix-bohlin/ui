@@ -1,0 +1,6 @@
+{% macro TableRow(props = {}) %}
+  {%- set rest = props | opuiRest("TableRow") -%}
+  <tr{{ rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </tr>
+{%- endmacro %}

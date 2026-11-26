@@ -1,5 +1,5 @@
 import type { IntrinsicElementAttributes, Slot } from "vue"
-import type { Class, DefaultSlots } from "../vue"
+import type { DefaultSlots } from "../vue"
 import type {
   DrawerContentProps as BaseDrawerContentProps,
   DrawerFooterProps as BaseDrawerFooterProps,
@@ -8,16 +8,17 @@ import type {
   Props as BaseProps,
 } from "./types"
 
-export type DrawerContentProps = BaseDrawerContentProps & Class
+export type DrawerContentProps = BaseDrawerContentProps
 
-export type DrawerFooterProps = BaseDrawerFooterProps & Class
+export type DrawerFooterProps = BaseDrawerFooterProps
 
-export type DrawerHeaderProps = BaseDrawerHeaderProps & Class
+export type DrawerHeaderProps = BaseDrawerHeaderProps
 
-export type DrawerTitleProps = BaseDrawerTitleProps &
-  Class & { id?: IntrinsicElementAttributes["h2"]["id"] }
+export type DrawerTitleProps = BaseDrawerTitleProps & {
+  id?: IntrinsicElementAttributes["h2"]["id"]
+}
 
-export type Props = BaseProps & Class
+export type Props = BaseProps
 
 export type Slots = DefaultSlots
 

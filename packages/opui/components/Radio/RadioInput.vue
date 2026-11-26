@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { inject, type IntrinsicElementAttributes, useAttrs } from "vue"
-import { useBound } from "../vue"
+import { inject, type IntrinsicElementAttributes } from "vue"
+import { useBound, useRestAttrs } from "../vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { defined } from "../attrs"
 import { classAttrs } from "../cx"
@@ -12,7 +12,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs() as IntrinsicElementAttributes["input"]
+const attrs = useRestAttrs<IntrinsicElementAttributes["input"]>()
 
 const modelValue = defineModel<string | number | boolean | undefined>({
   default: undefined,
@@ -28,7 +28,7 @@ const field = inject(FieldGroupKey, undefined)
     v-if="bound"
     type="radio"
     :name="name ?? field?.name"
-    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"
+    v-bind="{ ...defined(attrs), ...classAttrs($attrs.class) }"
     :value="attrs.value"
     v-model="modelValue"
   />
@@ -36,6 +36,6 @@ const field = inject(FieldGroupKey, undefined)
     v-else
     type="radio"
     :name="name ?? field?.name"
-    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"
+    v-bind="{ ...defined(attrs), ...classAttrs($attrs.class) }"
   />
 </template>

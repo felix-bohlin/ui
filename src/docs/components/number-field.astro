@@ -43,7 +43,7 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
   ]}
   fallbacks={{
     "reading-flow":
-      "Without `reading-flow` nothing changes: the step buttons already come before and after the input in the markup.",
+      "Without `reading-flow`, nothing changes: the step buttons are already in order.",
   }}
   apis={[{ title: "Step button API", api: stepButtonApi }]}
   installationTabs={[
@@ -84,36 +84,33 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
 
   <section id="basics">
     <h2>Basics</h2>
-    <p>
-      A number field is a <DocLink href="/components/field">Field</DocLink> with
-      an <code>&lt;input type="number"&gt;</code> inside and a step button on
-      each side. The Field page shows the variants, sizes, start and end text,
-      validation and layout every field shares.
-    </p>
     <Conditional as="p">
       <Fragment slot="components">
-        Write the <code>&lt;input type="number"&gt;</code> inside the field,
-        with its <code>id</code> set to <code>for</code>, and give it
-        <code>min</code> and <code>max</code>. Put a <code>StepButton</code>
-        with <code>command="--step-down"</code> in <code>start</code> and one
-        with <code>command="--step-up"</code> in <code>end</code>, each with
+        A <DocLink href="/components/field">Field</DocLink> with an
+        <code>&lt;input type="number"&gt;</code> inside. Put a
+        <code>StepButton</code> in <code>start</code> and <code>end</code>, with
         <code>for</code> set to the input's <code>id</code>.
       </Fragment>
       <Fragment slot="react">
-        Write the <code>&lt;input type="number"&gt;</code> inside the field,
-        with its <code>id</code> set to <code>htmlFor</code>, and give it
-        <code>min</code> and <code>max</code>. Put a <code>StepButton</code>
-        with <code>command="--step-down"</code> in <code>start</code> and one
-        with <code>command="--step-up"</code> in <code>end</code>, each with
+        A <DocLink href="/components/field">Field</DocLink> with an
+        <code>&lt;input type="number"&gt;</code> inside. Put a
+        <code>StepButton</code> in <code>start</code> and <code>end</code>, with
         <code>htmlFor</code> set to the input's <code>id</code>.
       </Fragment>
       <Fragment slot="html">
-        Put <code>&lt;opui-step-button&gt;</code> around a button in
+        A <DocLink href="/components/field">Field</DocLink> with an
+        <code>&lt;input type="number"&gt;</code> inside. Put
+        <code>&lt;opui-step-button&gt;</code> around a button in
         <code>.ui-start</code> and <code>.ui-end</code>, and import
-        <code>opui-css/elements/step-button.js</code>. Give each button
-        <code>command="--step-down"</code> or <code>command="--step-up"</code>,
-        <code>commandfor</code> and <code>aria-controls</code> set to the
-        input's <code>id</code>, and an <code>aria-label</code>.
+        <code>opui-css/elements/step-button.js</code>.
+      </Fragment>
+      <Fragment slot="nunjucks">
+        A <DocLink href="/components/field">Field</DocLink> with an
+        <code>&lt;input type="number"&gt;</code> inside. Put a
+        <code>StepButton</code> in <code>slots.start</code> and
+        <code>slots.end</code>, with <code>for</code> set to the input's
+        <code>id</code>, and load <code>opui-css/elements/step-button.js</code>
+        on the page.
       </Fragment>
     </Conditional>
     <AutoExample name="Basics" />
@@ -122,9 +119,8 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
   <section id="stretch">
     <h2>Stretch</h2>
     <p>
-      With <PropOrClass prop="autoFit" class=".ui-auto-fit" />, the field fits
-      its value, from <code>--_min-inline-size</code> (<code>4ch</code>).
-      Without it, the field fills the width.
+      Fills the width by default.
+      <PropOrClass prop="autoFit" class=".ui-auto-fit" /> fits it to its value.
     </p>
     <AutoExample name="Stretch" column />
   </section>
@@ -137,10 +133,7 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
 
   <section id="unit">
     <h2>Unit</h2>
-    <p>
-      Put the unit in the end text, and point the input's
-      <code>aria-describedby</code> at it.
-    </p>
+    <p>Put the unit in the end text.</p>
     <AutoExample name="Unit" />
   </section>
 
@@ -174,12 +167,12 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
   <Fragment slot="accessibility">
     <ul>
       <li>
-        A step button changes the value without moving focus, so screen readers
-        don't announce it. The arrow keys on the input do.
+        Screen readers don't announce a value the step buttons change. The arrow
+        keys on the input do.
       </li>
       <li>
-        Leave the <code>start</code> and <code>end</code> parts out of the
-        input's <code>aria-describedby</code> when they only hold step buttons.
+        Leave parts that only hold step buttons out of
+        <code>aria-describedby</code>.
       </li>
     </ul>
     <KeyboardSupport api={stepButtonApi} />

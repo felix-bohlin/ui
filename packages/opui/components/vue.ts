@@ -9,10 +9,6 @@ import {
   useAttrs,
 } from "vue"
 
-export type Class = {
-  class?: HTMLAttributes["class"]
-}
-
 export type DefaultSlots = {
   default?: Slot
 }
@@ -20,8 +16,16 @@ export type DefaultSlots = {
 export const useInputAttrs = () => {
   const attrs = useAttrs()
   return computed(() => {
-    const { style: _style, ...rest } = attrs
+    const { class: _class, style: _style, ...rest } = attrs
     return rest as HTMLAttributes
+  })
+}
+
+export const useRestAttrs = <Attributes = HTMLAttributes>() => {
+  const attrs = useAttrs()
+  return computed(() => {
+    const { class: _class, ...rest } = attrs
+    return rest as Attributes
   })
 }
 

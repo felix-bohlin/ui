@@ -3,7 +3,7 @@
 import { cx } from "../cx"
 import Button from "../Button/Button.react"
 import { useDrawerContext } from "./context.react"
-import { warnMissingCloseTarget } from "../dev"
+import { DEV, warnMissingCloseTarget } from "../dev"
 import type { DrawerHeaderProps as Props } from "./types.react"
 
 export default function DrawerHeader({
@@ -17,7 +17,8 @@ export default function DrawerHeader({
 }: Props) {
   const drawer = useDrawerContext()
   const target = commandfor ?? drawer?.id
-  if (closeButton) warnMissingCloseTarget("DrawerHeader", target, "Drawer")
+  if (DEV && closeButton)
+    warnMissingCloseTarget("DrawerHeader", target, "Drawer")
 
   return (
     <div className={cx(["ui-header", className])} {...rest}>

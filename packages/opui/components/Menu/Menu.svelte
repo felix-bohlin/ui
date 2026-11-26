@@ -3,7 +3,7 @@
   import "../../elements/menu.js"
   import { untrack } from "svelte"
   import { getMenuContext, setMenuContext } from "./context.svelte"
-  import { warnMissingId } from "../dev"
+  import { DEV, warnMissingId } from "../dev"
   import { disabledLink, tagAttrs } from "../tag"
   import { defined } from "../attrs"
   import { classAttrs } from "../cx"
@@ -28,7 +28,7 @@
 
   const parent = getMenuContext()
   const rootId = $derived(parent?.rootId ?? id)
-  untrack(() => warnMissingId("Menu", id))
+  if (DEV) untrack(() => warnMissingId("Menu", id))
   setMenuContext({
     get rootId() {
       return rootId

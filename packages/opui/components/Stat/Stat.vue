@@ -6,13 +6,7 @@ defineSlots<Slots>()
 </script>
 
 <template>
-  <dl
-    :class="[
-      'ui-stat',
-      size && size !== 'medium' && `ui-${size}`,
-      $props.class,
-    ]"
-  >
+  <dl :class="['ui-stat', size && size !== 'medium' && `ui-${size}`]">
     <dt class="ui-label">{{ label }}<slot name="label"></slot></dt>
     <dd class="ui-value">
       <slot></slot>

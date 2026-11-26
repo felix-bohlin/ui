@@ -1,0 +1,9 @@
+{% macro CardContent(props = {}) %}
+  {%- set rest = props | opuiRest("CardContent") -%}
+  <div
+    class="ui-content
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </div>
+{%- endmacro %}

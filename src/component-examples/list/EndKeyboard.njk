@@ -1,0 +1,8 @@
+{% from "opui/index.njk" import List, ListItem %}
+
+{% call List() %}
+  {% set end %}<kbd>Ctrl+S</kbd>{% endset %}
+  {{ ListItem({ label: "Save", slots: { end: end } }) }}
+  {% set end %}<kbd>Ctrl+Shift+S</kbd>{% endset %}
+  {{ ListItem({ label: "Save all", slots: { end: end } }) }}
+{% endcall %}

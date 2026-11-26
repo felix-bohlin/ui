@@ -1,0 +1,72 @@
+{% from "opui/index.njk" import
+  Radio,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow
+%}
+
+{% call Table() %}
+  {% call TableHead() %}
+    {% call TableRow() %}
+      {% call TableHeaderCell() %}<span class="ui-sr-only">Pick</span>{% endcall %}
+      {% call TableHeaderCell() %}Plan{% endcall %}
+      {% call TableHeaderCell() %}Price{% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call TableBody() %}
+    {% call TableRow() %}
+      {% call TableCell() %}
+        {% call Radio({
+          hideLabel: true,
+          name: "radio-hidden-label",
+          value: "basic"
+        }) %}Pick Basic{% endcall %}
+      {% endcall %}
+      {% call TableCell() %}Basic{% endcall %}
+      {% call TableCell() %}€0{% endcall %}
+    {% endcall %}
+    {% call TableRow() %}
+      {% call TableCell() %}
+        {% call Radio({
+          checked: true,
+          hideLabel: true,
+          name: "radio-hidden-label",
+          value: "gold"
+        }) %}Pick Gold{% endcall %}
+      {% endcall %}
+      {% call TableCell() %}Gold{% endcall %}
+      {% call TableCell() %}€3{% endcall %}
+    {% endcall %}
+    {% call TableRow() %}
+      {% call TableCell() %}
+        {% call Radio({
+          hideLabel: true,
+          name: "radio-hidden-label",
+          value: "platinum"
+        }) %}Pick Platinum{% endcall %}
+      {% endcall %}
+      {% call TableCell() %}Platinum{% endcall %}
+      {% call TableCell() %}€5{% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}
+
+<p>
+  Ship to
+  {% call Radio({
+    checked: true,
+    hideLabel: true,
+    name: "radio-hidden-label-shipping",
+    value: "home"
+  }) %}Home{% endcall %}
+  home or
+  {% call Radio({
+    hideLabel: true,
+    name: "radio-hidden-label-shipping",
+    value: "rehearsal"
+  }) %}Rehearsal space{% endcall %}
+  the rehearsal space.
+</p>

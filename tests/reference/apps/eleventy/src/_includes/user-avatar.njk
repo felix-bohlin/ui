@@ -1,0 +1,5 @@
+{% from "opui/index.njk" import Avatar %}
+
+{% macro userAvatar(user, size) -%}
+  {% call Avatar({ size: size, src: user.photo }) %}{{ user.initials }}{% endcall %}
+{%- endmacro %}

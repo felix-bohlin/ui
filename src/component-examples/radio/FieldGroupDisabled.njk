@@ -1,0 +1,31 @@
+{% from "opui/index.njk" import
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+  Radio
+%}
+
+{% call Form() %}
+  {% call Fieldset({ disabled: true }) %}
+    {% call FieldLegend() %}Band practice{% endcall %}
+    {% call FieldGroup({
+      name: "radio-group-disabled",
+      orientation: "horizontal"
+    }) %}
+      {% call Radio({ checked: true, value: "weekly" }) %}Weekly{% endcall %}
+      {% call Radio({ value: "monthly" }) %}Monthly{% endcall %}
+      {% call Radio({ value: "drummer" }) %}When the drummer shows up{% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call Fieldset() %}
+    {% call FieldLegend() %}Delivery{% endcall %}
+    {% call FieldGroup({
+      name: "radio-group-disabled-single",
+      orientation: "horizontal"
+    }) %}
+      {% call Radio({ checked: true, value: "standard" }) %}Standard{% endcall %}
+      {% call Radio({ disabled: true, value: "same-day" }) %}Same day{% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

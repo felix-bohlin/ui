@@ -18,13 +18,13 @@ export default function FileManager() {
   return (
     <>
       <div
-        className="file-manager ui-layout-container ui-layout-column ui-large"
+        className="file-manager ui-layout-container ui-layout-column ui-gap-large"
         style={{ "--_max-inline-size": "80rem" }}
       >
         <div className="ui-layout-row ui-spread">
-          <div className="ui-layout-column ui-x-small">
+          <div className="ui-layout-column ui-gap-x-small">
             <nav aria-label="Breadcrumb" className="files-breadcrumb">
-              <ol className="ui-layout-row ui-x-small">
+              <ol className="ui-layout-row ui-gap-x-small">
                 <li>
                   <a className="ui-link" href="#file-manager-root">
                     My stuff
@@ -43,7 +43,7 @@ export default function FileManager() {
             </nav>
             <h1 className="ui-h3">Gig pics</h1>
           </div>
-          <div className="ui-layout-row ui-small">
+          <div className="ui-layout-row ui-gap-small">
             <Button size="small" type="button" variant="outlined">
               <svg
                 data-icon="folder-add"
@@ -79,7 +79,7 @@ export default function FileManager() {
           </div>
         </div>
         <div
-          className="ui-layout-columns ui-large"
+          className="ui-layout-columns ui-gap-large"
           style={{ "--_columns": "1fr 2fr" }}
         >
           <Card
@@ -105,23 +105,23 @@ export default function FileManager() {
                 max="50"
                 value="18.4"
               />
-              <ul className="ui-layout-column ui-small ui-tabular-nums files-breakdown">
-                <li className="ui-layout-row ui-small">
+              <ul className="ui-layout-column ui-gap-small ui-tabular-nums files-breakdown">
+                <li className="ui-layout-row ui-gap-small">
                   <span className="ui-swatch ui-info"></span>
                   <span>Tabs</span>
                   <span>0.3 GB</span>
                 </li>
-                <li className="ui-layout-row ui-small">
+                <li className="ui-layout-row ui-gap-small">
                   <span className="ui-swatch ui-success"></span>
                   <span>Photos</span>
                   <span>9.6 GB</span>
                 </li>
-                <li className="ui-layout-row ui-small">
+                <li className="ui-layout-row ui-gap-small">
                   <span className="ui-swatch ui-warning"></span>
                   <span>Videos</span>
                   <span>7.2 GB</span>
                 </li>
-                <li className="ui-layout-row ui-small">
+                <li className="ui-layout-row ui-gap-small">
                   <span className="ui-swatch ui-neutral"></span>
                   <span>Other</span>
                   <span>1.3 GB</span>
@@ -330,7 +330,7 @@ export default function FileManager() {
                   </TableCell>
                   <TableCell>
                     <div
-                      className="ui-layout-media ui-small files-name"
+                      className="ui-layout-media ui-gap-small files-name"
                       style={{ "--file": "var(--ui-critical)" }}
                     >
                       <svg
@@ -387,7 +387,7 @@ export default function FileManager() {
                   </TableCell>
                   <TableCell>
                     <div
-                      className="ui-layout-media ui-small files-name"
+                      className="ui-layout-media ui-gap-small files-name"
                       style={{ "--file": "var(--ui-success)" }}
                     >
                       <svg
@@ -444,7 +444,7 @@ export default function FileManager() {
                   </TableCell>
                   <TableCell>
                     <div
-                      className="ui-layout-media ui-small files-name"
+                      className="ui-layout-media ui-gap-small files-name"
                       style={{ "--file": "var(--ui-info)" }}
                     >
                       <svg
@@ -501,7 +501,7 @@ export default function FileManager() {
                   </TableCell>
                   <TableCell>
                     <div
-                      className="ui-layout-media ui-small files-name"
+                      className="ui-layout-media ui-gap-small files-name"
                       style={{ "--file": "var(--ui-warning)" }}
                     >
                       <svg
@@ -558,7 +558,7 @@ export default function FileManager() {
                   </TableCell>
                   <TableCell>
                     <div
-                      className="ui-layout-media ui-small files-name"
+                      className="ui-layout-media ui-gap-small files-name"
                       style={{ "--file": "var(--ui-info)" }}
                     >
                       <svg

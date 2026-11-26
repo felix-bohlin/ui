@@ -1,6 +1,7 @@
 import ts from "typescript"
 import * as Vue from "vue"
 import { compileScript, parse } from "vue/compiler-sfc"
+import * as helpers from "../../packages/opui/components/vue"
 
 type Node = {
   attrs: Record<string, string>
@@ -85,9 +86,10 @@ export const clientComponent = (source: string, types: string) => {
       },
     })
     .outputText.replace(
-      /import \{([^}]+)\} from ["']vue["'];?/g,
-      (_, names: string) => `const {${names.replace(/ as /g, ": ")}} = Vue;`,
+      /import \{([^}]+)\} from ["'](vue|\.\.\/vue)["'];?/g,
+      (_, names: string, module: string) =>
+        `const {${names.replace(/ as /g, ": ")}} = ${module === "vue" ? "Vue" : "helpers"};`,
     )
     .replace(/export default /, "return ")
-  return new Function("Vue", code)(Vue) as Vue.Component
+  return new Function("Vue", "helpers", code)(Vue, helpers) as Vue.Component
 }

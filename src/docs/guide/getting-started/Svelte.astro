@@ -116,6 +116,39 @@ export const keywords = ["install", "npm", "setup", "ssr"]
     <Bindings />
   </section>
 
+  <section id="element">
+    <h2>Reaching the element</h2>
+    <p>
+      Every component spreads its other props on its root element, attachments
+      too, so <code>{"{@attach}"}</code> on a component reaches the element,
+      typed for it: a <code>Dialog</code> attachment gets the
+      <code>HTMLDialogElement</code>. Most of the time you need none: a
+      <code>Button</code> with <code>command="show-modal"</code> and
+      <code>commandfor</code> opens a dialog by its <code>id</code>, and its
+      click handler can set your state at the same time. When a script opens it,
+      such as after a check, reach the element:
+    </p>
+    <Code
+      code={`<script lang="ts">
+  import { Button, Dialog, DialogContent } from "opui-css/svelte"
+
+  let dialog: HTMLDialogElement | undefined
+</script>
+
+<Button onclick={() => dialog?.showModal()}>Delete</Button>
+<Dialog
+  aria-label="Delete the file?"
+  id="confirm"
+  {@attach (element) => {
+    dialog = element
+  }}
+>
+  <DialogContent>The file goes to the bin for 30 days.</DialogContent>
+</Dialog>`}
+      lang="svelte"
+    />
+  </section>
+
   <section id="ssr">
     <h2>Server rendering</h2>
     <p>

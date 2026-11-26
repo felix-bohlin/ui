@@ -1,0 +1,23 @@
+{% from "opui/index.njk" import Button %}
+
+<div class="example-row">
+  {% call Button() %}Transparent{% endcall %}
+  {% call Button({ disabled: true }) %}Disabled{% endcall %}
+  {% call Button({ href: "#" }) %}Link{% endcall %}
+  {% call Button({ "aria-current": "page", href: "#" }) %}Current{% endcall %}
+</div>
+<div class="example-row">
+  {% call Button({ variant: "outlined" }) %}Outlined{% endcall %}
+  {% call Button({ disabled: true, variant: "outlined" }) %}Disabled{% endcall %}
+  {% call Button({ href: "#", variant: "outlined" }) %}Link{% endcall %}
+</div>
+<div class="example-row">
+  {% call Button({ variant: "tonal" }) %}Tonal{% endcall %}
+  {% call Button({ disabled: true, variant: "tonal" }) %}Disabled{% endcall %}
+  {% call Button({ href: "#", variant: "tonal" }) %}Link{% endcall %}
+</div>
+<div class="example-row">
+  {% call Button({ variant: "filled" }) %}Filled{% endcall %}
+  {% call Button({ disabled: true, variant: "filled" }) %}Disabled{% endcall %}
+  {% call Button({ href: "#", variant: "filled" }) %}Link{% endcall %}
+</div>

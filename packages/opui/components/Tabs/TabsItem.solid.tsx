@@ -3,7 +3,7 @@ import { createUniqueId, omit, untrack } from "solid-js"
 import { defined } from "../attrs"
 import { TabsContext, useTabsContext } from "./context.solid"
 import { isSelected } from "../ToggleGroup/selection"
-import { warnGroupedChecked } from "../dev"
+import { DEV, warnGroupedChecked } from "../dev"
 import { callHandler, control } from "../solid"
 import type { TabsItemProps as Props } from "./types.solid"
 
@@ -25,14 +25,15 @@ export default function TabsItem(props: Props) {
   const groupName = () => props.name || parent?.groupName || `tabs-${uid}`
   const tabId = () => props.id || `tab-${uid}`
   const grouped = () => isSelected(parent?.value, props.value)
-  untrack(() =>
-    warnGroupedChecked(
-      "TabsItem",
-      grouped(),
-      props.checked ?? props.defaultChecked,
-      "Tabs",
-    ),
-  )
+  if (DEV)
+    untrack(() =>
+      warnGroupedChecked(
+        "TabsItem",
+        grouped(),
+        props.checked ?? props.defaultChecked,
+        "Tabs",
+      ),
+    )
   const checkedControl = control(
     () => grouped() ?? props.checked,
     () => isSelected(parent?.defaultValue, props.value) ?? props.defaultChecked,

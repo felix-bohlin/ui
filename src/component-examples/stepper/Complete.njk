@@ -1,0 +1,9 @@
+{% from "opui/index.njk" import Stepper %}
+{% set items = [
+  { href: "#", label: "Cart" },
+  { href: "#", label: "Shipping" },
+  { href: "#", label: "Payment" },
+  { href: "#", label: "Review" }
+] %}
+
+{{ Stepper({ "aria-label": "Checkout steps", complete: true, items: items }) }}

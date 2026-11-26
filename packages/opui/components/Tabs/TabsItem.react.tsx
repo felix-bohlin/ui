@@ -5,7 +5,7 @@ import { defined } from "../attrs"
 import { cx } from "../cx"
 import { TabsContext, useTabsContext } from "./context.react"
 import { isSelected } from "../ToggleGroup/selection"
-import { warnGroupedChecked } from "../dev"
+import { DEV, warnGroupedChecked } from "../dev"
 import type { TabsItemProps as Props } from "./types.react"
 import type { Context } from "./types"
 
@@ -26,7 +26,8 @@ export default function TabsItem({
   const groupName = name || parent?.groupName || `tabs-${uid}`
   const tabId = id || `tab-${uid}`
   const grouped = isSelected(parent?.value, value)
-  warnGroupedChecked("TabsItem", grouped, checked ?? defaultChecked, "Tabs")
+  if (DEV)
+    warnGroupedChecked("TabsItem", grouped, checked ?? defaultChecked, "Tabs")
   const attrs = defined(rest)
   const context = useMemo<Context>(
     () => ({ groupName, tabId }),

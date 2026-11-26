@@ -1,0 +1,6 @@
+{% macro TableFoot(props = {}) %}
+  {%- set rest = props | opuiRest("TableFoot") -%}
+  <tfoot{{ rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </tfoot>
+{%- endmacro %}

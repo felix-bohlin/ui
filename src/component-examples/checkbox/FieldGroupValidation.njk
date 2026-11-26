@@ -1,0 +1,24 @@
+{% from "opui/index.njk" import
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form
+%}
+
+{% call Form() %}
+  {% call Fieldset({
+    "aria-describedby": "checkbox-field-group-validation-1-error"
+  }) %}
+    {% call FieldLegend() %}Bass interests{% endcall %}
+    {% call FieldGroup({
+      name: "checkbox-group-validation",
+      orientation: "horizontal"
+    }) %}
+      {% call Checkbox({ checked: true, error: true }) %}Slap{% endcall %}
+      {% call Checkbox({ error: true }) %}Fretless{% endcall %}
+      {% call Checkbox({ error: true }) %}Drop D{% endcall %}
+    {% endcall %}
+    <span class="ui-end-text" id="checkbox-field-group-validation-1-error">Pick at least two to continue.</span>
+  {% endcall %}
+{% endcall %}

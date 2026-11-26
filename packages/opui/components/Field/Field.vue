@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { type HTMLAttributes, useAttrs } from "vue"
 import { TrimmedSlot } from "../whitespace.vue"
+import { DEV, warnControlAttributes } from "../dev"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -16,6 +18,8 @@ const {
   variant,
 } = defineProps<Props>()
 const slots = defineSlots<Slots>()
+
+const attrs = useAttrs() as HTMLAttributes
 
 const hasLabel = () => Boolean(label || slots.label)
 
@@ -34,6 +38,8 @@ const bottomId = () => (slots.bottom ? `${htmlFor}-bottom` : undefined)
 const startTextId = () => (hasStartText() ? `${htmlFor}-start-text` : undefined)
 
 const endTextId = () => (hasEndText() ? `${htmlFor}-end-text` : undefined)
+
+if (DEV) warnControlAttributes("Field", attrs)
 </script>
 
 <template>
@@ -48,7 +54,6 @@ const endTextId = () => (hasEndText() ? `${htmlFor}-end-text` : undefined)
         'ui-spread': spread,
       },
       size && size !== 'medium' && `ui-${size}`,
-      $props.class,
     ]"
   >
     <label

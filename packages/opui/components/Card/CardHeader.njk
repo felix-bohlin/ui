@@ -1,0 +1,8 @@
+{% macro CardHeader(props = {}) %}
+  {%- set rest = props | opuiRest("CardHeader") -%}
+  {%- set tag = props.as | default("hgroup") -%}
+  {%- set classes = ["ui-header", props.class] | opuiClass -%}
+  <{{ tag | opuiTag }}{{ opui.merge({ class: classes }, rest) | opuiAttributes(tag) }}>
+    {{- caller() if caller -}}
+  </{{ tag | opuiTag }}>
+{%- endmacro %}

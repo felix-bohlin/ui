@@ -2,7 +2,7 @@
 import { children, omit, untrack } from "solid-js"
 import Button from "../Button/Button.solid"
 import { useDialogContext } from "./context.solid"
-import { warnMissingCloseTarget } from "../dev"
+import { DEV, warnMissingCloseTarget } from "../dev"
 import type { DialogHeaderProps as Props } from "./types.solid"
 
 export default function DialogHeader(props: Props) {
@@ -20,10 +20,11 @@ export default function DialogHeader(props: Props) {
   const closeLabel = () =>
     props.closeLabel === undefined ? "Close" : props.closeLabel
   const target = () => props.commandfor ?? dialog?.id
-  untrack(() => {
-    if (props.closeButton)
-      warnMissingCloseTarget("DialogHeader", target(), "Dialog")
-  })
+  if (DEV)
+    untrack(() => {
+      if (props.closeButton)
+        warnMissingCloseTarget("DialogHeader", target(), "Dialog")
+    })
 
   return (
     <div class={["ui-header", props.class]} {...rest}>

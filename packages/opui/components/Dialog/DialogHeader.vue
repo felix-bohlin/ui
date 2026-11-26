@@ -3,7 +3,7 @@ import { computed, inject } from "vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { DialogKey } from "./context.vue"
-import { warnMissingCloseTarget } from "../dev"
+import { DEV, warnMissingCloseTarget } from "../dev"
 import type {
   DialogHeaderProps as Props,
   DialogHeaderSlots,
@@ -16,11 +16,12 @@ const dialog = inject(DialogKey, undefined)
 
 const target = computed(() => commandfor ?? dialog?.id)
 
-if (closeButton) warnMissingCloseTarget("DialogHeader", target.value, "Dialog")
+if (DEV && closeButton)
+  warnMissingCloseTarget("DialogHeader", target.value, "Dialog")
 </script>
 
 <template>
-  <div :class="['ui-header', $props.class]">
+  <div class="ui-header">
     <TrimmedSlot :nodes="$slots.default?.()" /><Button
       v-if="closeButton"
       :aria-label="closeLabel"

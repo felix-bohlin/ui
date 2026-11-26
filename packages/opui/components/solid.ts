@@ -4,30 +4,29 @@ import { createRenderEffect, isHydratable, untrack } from "solid-js"
 const follow = (
   read: () => boolean | undefined,
   write: (value: boolean) => void,
-) =>
-  createRenderEffect(
-    read,
-    (value, previous) => {
-      if (value !== undefined && value !== previous) write(value)
-    },
-    { defer: true },
-  )
+) => {
+  const initial = untrack(read)
+  let last = initial
+  createRenderEffect(read, (value) => {
+    if (value !== undefined && value !== last) write(value)
+    last = value
+  })
+  return initial
+}
 
 export const control = (
   read: () => boolean | undefined,
   readDefault?: () => boolean | undefined,
 ) => {
   let element: Element | undefined
-  const initial = untrack(read)
-  const fallback = readDefault && untrack(readDefault)
-  follow(read, (checked) => {
+  const initial = follow(read, (checked) => {
     if (element) setProperty(element, "checked", checked)
   })
-  if (readDefault) {
+  const fallback =
+    readDefault &&
     follow(readDefault, (defaultChecked) => {
       if (element) setProperty(element, "defaultChecked", defaultChecked)
     })
-  }
   return {
     ref: (node: Element) => {
       if (!element) {

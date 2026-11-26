@@ -1,0 +1,8 @@
+{% macro Form(props = {}) %}
+  {%- set rest = props | opuiRest("Form") -%}
+  {%- set tag = props.as | default("form") -%}
+  {%- set classes = ["ui-form", props.class] | opuiClass -%}
+  <{{ tag | opuiTag }}{{ opui.merge({ class: classes }, rest) | opuiAttributes(tag) }}>
+    {{- caller() if caller -}}
+  </{{ tag | opuiTag }}>
+{%- endmacro %}

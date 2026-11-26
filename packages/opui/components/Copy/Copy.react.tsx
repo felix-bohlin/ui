@@ -3,7 +3,7 @@
 import "../../elements/copy.js"
 import { defined } from "../attrs"
 import { cx } from "../cx"
-import { warnMissingId } from "../dev"
+import { DEV, warnMissingId } from "../dev"
 import type { Props } from "./types.react"
 
 export default function Copy({
@@ -14,7 +14,7 @@ export default function Copy({
   children,
   ...rest
 }: Props) {
-  warnMissingId("Copy", id)
+  if (DEV) warnMissingId("Copy", id)
 
   return (
     <opui-copy

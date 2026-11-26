@@ -1,0 +1,14 @@
+{% from "opui/index.njk" import Button, Toaster %}
+
+{% call Button({
+  command: "--toast",
+  commandfor: "toast-basics-1",
+  "data-toast": "Changes saved",
+  "data-toast-severity": "success",
+  variant: "filled"
+}) %}Save changes{% endcall %}
+{{ Toaster({ id: "toast-basics-1" }) }}
+
+<script type="module">
+  import "opui-css/elements/toaster.js"
+</script>

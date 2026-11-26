@@ -13,7 +13,6 @@ defineSlots<Slots>()
       align && align !== 'center' && `ui-align-${align}`,
       color && `ui-${color}`,
       variant && variant !== 'outlined' && `ui-${variant}`,
-      $props.class,
     ]"
   >
     <slot></slot>
@@ -24,7 +23,6 @@ defineSlots<Slots>()
       'ui-divider',
       color && `ui-${color}`,
       variant && variant !== 'outlined' && `ui-${variant}`,
-      $props.class,
     ]"
   />
 </template>

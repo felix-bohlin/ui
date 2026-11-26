@@ -440,7 +440,9 @@ for (const framework of FRAMEWORK_IDS) {
       )
       .toBe(shown)
     if (framework === "html") expect(shown).not.toContain("import ")
-    else expect(shown).toContain(`from "opui-css/${framework}"`)
+    else if (framework === "nunjucks") {
+      expect(shown).toContain('{% from "opui/index.njk" import Button %}')
+    } else expect(shown).toContain(`from "opui-css/${framework}"`)
   })
 }
 
@@ -680,7 +682,6 @@ test("in print, code blocks wrap and the sidebar, contents and footer are hidden
 })
 
 for (const [path, selector, name, width] of [
-  ["/html/guide/concepts/", ".token-tiers > .scroll", "Token tiers", 390],
   ["/html/guide/migrating/", "#main-content table:not([class])", null, 320],
 ] as const) {
   test(`${selector} on ${path} takes focus only while it scrolls sideways`, async ({

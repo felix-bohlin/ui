@@ -3,7 +3,7 @@
 Chat bubbles that group by sender, with attachments, reactions and a typing indicator.
 
 - CSS: `opui-css/css/components/message.css`, `opui-css/css/components/reactions.css` and `opui-css/css/components/avatar.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/message.md), [Astro](https://opui.dev/astro/components/message.md), [React](https://opui.dev/react/components/message.md), [Solid](https://opui.dev/solid/components/message.md), [Svelte](https://opui.dev/svelte/components/message.md), [Vue](https://opui.dev/vue/components/message.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/message.md), [Astro](https://opui.dev/astro/components/message.md), [Nunjucks](https://opui.dev/nunjucks/components/message.md), [React](https://opui.dev/react/components/message.md), [Solid](https://opui.dev/solid/components/message.md), [Svelte](https://opui.dev/svelte/components/message.md), [Vue](https://opui.dev/vue/components/message.md).
 
 ## MessageList
 
@@ -69,7 +69,7 @@ Chat bubbles that group by sender, with attachments, reactions and a typing indi
 - Quick label (HTML): `[quick-label]`. The name of the quick reaction without a count, such as `Thumbs up`, which `delete()` gives its pill.
 - Quick text (HTML): `[quick-text]`. The emoji of the quick reaction without a count, which `delete()` gives its pill.
 - Quick value (HTML): `[quick-value]`. The `value` of the quick reaction, the one-tap reaction whose pill comes first and stays when `delete()` is called with it.
-- Unused (HTML): `.ui-toggle-button.ui-unused`. The pill of the quick reaction while nobody has used it: a dashed border.
+- Suggested (HTML): `.ui-toggle-button.ui-suggested`. The pill of the quick reaction while nobody has picked it, which suggests it: a dashed border.
 
 ### Slots
 
@@ -79,15 +79,16 @@ Chat bubbles that group by sender, with attachments, reactions and a typing indi
 
 - `<opui-reactions>`, defined by `opui-css/elements/reactions.js`:
   - `announce(message)`: Reads `message` to screen readers, through the `role="status"` child.
-  - `delete(value)`: Removes the pill of `value`, and moves focus to the next pill, the previous one or the first button after the pills when the removed pill had it. The pill of the `quick-value` reaction stays, unchecked and `.ui-unused`, with the `quick-label` and `quick-text` attributes as its name and text, and keeps focus.
+  - `delete(value)`: Removes the pill of `value`, and moves focus to the next pill, the previous one or the first button after the pills when the removed pill had it. The pill of the `quick-value` reaction stays, unchecked and `.ui-suggested`, with the `quick-label` and `quick-text` attributes as its name and text, and keeps focus.
   - `group`: The `.ui-toggle-group` of pills, or `null`. Read-only.
   - `reaction` event: Fires when a pill is clicked, or a button with `command="--react"` and this element in `commandfor`, with the `value` and the `checked` state asked for in `event.detail`. It bubbles, and changes nothing.
-  - `set(value, reaction)`: Updates the pill of `value` with `{ checked, label, text }`, the accessible name in `label` and the emoji and count in `text`, or adds one at the end, and the `quick-value` reaction first. It removes `.ui-unused` from the pill.
+  - `set(value, reaction)`: Updates the pill of `value` with `{ checked, label, text }`, the accessible name in `label` and the emoji and count in `text`, or adds one at the end, and the `quick-value` reaction first. It removes `.ui-suggested` from the pill.
 
 ### Notes
 
 - HTML: Put a `.ui-toggle-group` of checkbox `.ui-toggle-button` pills in `<opui-reactions class="ui-reactions">`, with an empty `<span class="ui-sr-only" role="status">` last, and import `opui-css/elements/reactions.js`. Each input takes the emoji's `value` and an `aria-label` with the name and the count, and a `<span aria-hidden="true">` after it shows the emoji and the count. Apply your server's answer with `set()` and `delete()`.
 - Astro: The component loads `opui-css/elements/reactions.js`. A click never checks or unchecks a pill on its own: change `items` when your server answers. `announce(message)` on `event.target` reads a message to screen readers.
+- Nunjucks: The macro renders the element without its script, so load `opui-css/elements/reactions.js` on the page. A click never checks or unchecks a pill on its own: change `items` when your server answers. `announce(message)` on `event.target` reads a message to screen readers.
 - React: The component loads `opui-css/elements/reactions.js` once it mounts, unless the page imports it first. A click never checks or unchecks a pill on its own: change `items` when your server answers. `announce(message)` on `event.target` reads a message to screen readers.
 - Solid, Svelte and Vue: The component imports `opui-css/elements/reactions.js`, so the element runs as soon as the component's code loads. A click never checks or unchecks a pill on its own: change `items` when your server answers. `announce(message)` on `event.target` reads a message to screen readers.
 
@@ -216,6 +217,58 @@ import { Avatar, Message, MessageList } from "opui-css/astro"
       <Fragment slot="end">Read</Fragment>
     </Message>
   </MessageList>
+</div>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Message, MessageList, Reactions %}`
+
+- `Message` named slots: `slots.actions`, `slots.bottom`, `slots.end` and `slots.start`. Pass a string, or markup captured with `{% set %}`.
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Avatar, Message, MessageList %}
+
+<div aria-label="Chat with Stella" role="log">
+  {% call MessageList({ "aria-label": "Messages with Stella" }) %}
+    {% set start %}{% call Avatar() %}SN{% endcall %}{% endset %}
+    {% call Message({
+      author: "Stella",
+      datetime: "2026-10-08T14:02",
+      slots: { start: start },
+      time: "14:02"
+    }) %}
+      <p>Heyyy! Did your band notice you changed strings yet?</p>
+    {% endcall %}
+    {% set start %}{% call Avatar() %}SN{% endcall %}{% endset %}
+    {% call Message({
+      author: "Stella",
+      datetime: "2026-10-08T14:03",
+      slots: { start: start },
+      time: "14:03"
+    }) %}
+      <p>Flatwounds, right? So rad.</p>
+    {% endcall %}
+    {% call Message({
+      author: "You",
+      datetime: "2026-10-08T14:18",
+      outgoing: true,
+      time: "14:18"
+    }) %}
+      <p>Nope, not even the drummer. Bummer, but WE know.</p>
+    {% endcall %}
+    {% call Message({
+      author: "You",
+      datetime: "2026-10-08T14:19",
+      outgoing: true,
+      slots: { end: "Read" },
+      time: "14:19"
+    }) %}
+      <p>Can you send me the tab for your slap break?</p>
+    {% endcall %}
+  {% endcall %}
 </div>
 ```
 

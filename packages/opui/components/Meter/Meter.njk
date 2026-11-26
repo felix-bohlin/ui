@@ -1,0 +1,10 @@
+{% macro Meter(props = {}) %}
+  {%- set rest = props | opuiRest("Meter") -%}
+  <meter
+    class="ui-meter
+      {%- if props.variant and props.variant != 'tonal' %} ui-{{ props.variant }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </meter>
+{%- endmacro %}

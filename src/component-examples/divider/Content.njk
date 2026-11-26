@@ -1,0 +1,11 @@
+{% from "opui/index.njk" import Button, Divider %}
+
+{% call Divider() %}or continue with email{% endcall %}
+
+{% call Divider({ align: "start" }) %}Bassbook Gold{% endcall %}
+
+{% call Divider({ align: "end", color: "primary" }) %}Today{% endcall %}
+
+{% call Divider() %}
+  {% call Button({ round: true, size: "small", variant: "outlined" }) %}Show 12 more replies{% endcall %}
+{% endcall %}

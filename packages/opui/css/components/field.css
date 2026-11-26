@@ -399,6 +399,10 @@
         overflow: hidden;
         padding: 0;
 
+        &::-moz-color-swatch {
+          border: none;
+        }
+
         &::-webkit-color-swatch {
           border: none;
         }

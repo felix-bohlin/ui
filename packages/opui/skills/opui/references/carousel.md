@@ -3,7 +3,7 @@
 A scrolling list with snap points, buttons and markers.
 
 - CSS: `opui-css/css/components/carousel.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/carousel.md), [Astro](https://opui.dev/astro/components/carousel.md), [React](https://opui.dev/react/components/carousel.md), [Solid](https://opui.dev/solid/components/carousel.md), [Svelte](https://opui.dev/svelte/components/carousel.md), [Vue](https://opui.dev/vue/components/carousel.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/carousel.md), [Astro](https://opui.dev/astro/components/carousel.md), [Nunjucks](https://opui.dev/nunjucks/components/carousel.md), [React](https://opui.dev/react/components/carousel.md), [Solid](https://opui.dev/solid/components/carousel.md), [Svelte](https://opui.dev/svelte/components/carousel.md), [Vue](https://opui.dev/vue/components/carousel.md).
 
 ## Carousel
 
@@ -36,7 +36,7 @@ A scrolling list with snap points, buttons and markers.
 ### Notes
 
 - HTML: The root is a `<ul>` with an `aria-label`. CSS adds the buttons, and `.ui-markers` the markers. Smooth scrolling follows `--ui-motion`: `.ui-motion-off` on the carousel or a parent turns it off.
-- Astro, React, Solid, Svelte and Vue: Smooth scrolling follows `--ui-motion`: `.ui-motion-off` on the carousel or a parent turns it off.
+- Astro, Nunjucks, React, Solid, Svelte and Vue: Smooth scrolling follows `--ui-motion`: `.ui-motion-off` on the carousel or a parent turns it off.
 
 ## Component properties
 
@@ -168,6 +168,41 @@ const places = [
     </Card>
   </li>)}
 </Carousel>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Carousel %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Card, CardHeader, Carousel %}
+{% set places = [
+  { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
+  { description: "Ceviche by the Pacific.", title: "Lima" },
+  { description: "Tiles, trams and custard tarts.", title: "Lisbon" },
+  { description: "Fjords, saunas and modern architecture.", title: "Oslo" },
+  { description: "Medina markets and Mediterranean light.", title: "Tunis" }
+] %}
+
+{% call Carousel({
+  "aria-label": "Destinations",
+  buttons: "outside",
+  markers: true
+}) %}
+  {% for place in places -%}
+    <li>
+      {% call Card({ variant: "tonal" }) %}
+        {% call CardHeader() %}
+          <p>Destination</p>
+          <h3>{{ place.title }}</h3>
+          <p>{{ place.description }}</p>
+        {% endcall %}
+      {% endcall %}
+    </li>
+  {%- endfor %}
+{% endcall %}
 ```
 
 ## React

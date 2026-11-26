@@ -189,8 +189,8 @@ export default function Inbox() {
             style={{ "--_columns": "20rem 1fr", "--_gap": "0" }}
           >
             <section aria-labelledby="inbox-heading" className="inbox-list">
-              <div className="ui-layout-row ui-small ui-spread inbox-list-header">
-                <div className="ui-layout-row ui-small">
+              <div className="ui-layout-row ui-gap-small ui-spread inbox-list-header">
+                <div className="ui-layout-row ui-gap-small">
                   <Button
                     aria-label="Open folders"
                     className="inbox-menu-button"
@@ -345,12 +345,12 @@ export default function Inbox() {
             </section>
             <article
               aria-labelledby="inbox-subject"
-              className="ui-layout-column ui-large inbox-reader"
+              className="ui-layout-column ui-gap-large inbox-reader"
             >
-              <div className="ui-layout-row ui-x-small ui-spread">
+              <div className="ui-layout-row ui-gap-x-small ui-spread">
                 <div
                   aria-label="Message actions"
-                  className="ui-layout-row ui-x-small"
+                  className="ui-layout-row ui-gap-x-small"
                   role="group"
                 >
                   <Button aria-label="Archive" round size="small" type="button">
@@ -405,7 +405,7 @@ export default function Inbox() {
                     </svg>
                   </Button>
                 </div>
-                <div className="ui-layout-row ui-x-small">
+                <div className="ui-layout-row ui-gap-x-small">
                   <Button size="small" type="button" variant="outlined">
                     <svg
                       data-icon="reply"
@@ -440,11 +440,11 @@ export default function Inbox() {
                   </Button>
                 </div>
               </div>
-              <div className="ui-layout-column ui-small">
+              <div className="ui-layout-column ui-gap-small">
                 <h2 className="ui-h4" id="inbox-subject">
                   You're IN! Gig details inside
                 </h2>
-                <div className="ui-layout-row ui-x-small">
+                <div className="ui-layout-row ui-gap-x-small">
                   <Chip
                     as="span"
                     dot
@@ -494,7 +494,7 @@ export default function Inbox() {
                 <p>They promised to turn you UP this time! &lt;3</p>
                 <p>Holly</p>
               </div>
-              <div className="ui-layout-row ui-small">
+              <div className="ui-layout-row ui-gap-small">
                 <Chip
                   href="#inbox-attachment-setlist"
                   label="Setlist-final-final.pdf, 1.2 MB"
@@ -538,7 +538,7 @@ export default function Inbox() {
               </div>
               <form
                 action="#"
-                className="ui-layout-column ui-small inbox-reply"
+                className="ui-layout-column ui-gap-small inbox-reply"
               >
                 <Field htmlFor="inbox-inbox-reply" label="Reply to Holly">
                   <textarea

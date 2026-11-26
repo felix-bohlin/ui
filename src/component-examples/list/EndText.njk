@@ -1,0 +1,15 @@
+{% from "opui/index.njk" import List, ListItem %}
+
+{% call List() %}
+  {{ ListItem({ label: "Slap lesson 3.pdf", slots: { end: "2.4 MB" } }) }}
+  {{ ListItem({
+    description: "Uploaded by Lou Headstock",
+    label: "Band photo.jpg",
+    slots: { end: "860 kB" }
+  }) }}
+  {{ ListItem({
+    description: "Every root note of the setlist, with a tiny drawing of where the drummer should look when it changes.",
+    label: "Bass charts.pdf",
+    slots: { end: "12 MB" }
+  }) }}
+{% endcall %}

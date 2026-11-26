@@ -3,6 +3,7 @@
   import { hydrated } from "../svelte"
   import ToggleButton from "../ToggleButton/ToggleButton.svelte"
   import ToggleGroup from "../ToggleGroup/ToggleGroup.svelte"
+  import { pillsOf, usedItem } from "./pills"
   import { defined } from "../attrs"
   import { classAttrs } from "../cx"
   import type { Props } from "./types.svelte"
@@ -21,12 +22,8 @@
     ...rest
   }: Props = $props()
 
-  const used = $derived(items.find((item) => item.value === quick?.value))
-  const pills = $derived(
-    quick
-      ? [used ?? quick, ...items.filter((item) => item.value !== quick?.value)]
-      : items,
-  )
+  const used = $derived(usedItem(items, quick))
+  const pills = $derived(pillsOf(items, quick, used))
 </script>
 
 <opui-reactions
@@ -49,7 +46,7 @@
       <ToggleButton
         aria-label={item["aria-label"]}
         checked={!!item.checked}
-        {...classAttrs([{ "ui-unused": quick && !used && index === 0 }])}
+        {...classAttrs([{ "ui-suggested": quick && !used && index === 0 }])}
         value={item.value}
       >
         <span aria-hidden="true">{item.label}</span>

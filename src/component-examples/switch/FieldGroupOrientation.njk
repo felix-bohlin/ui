@@ -1,0 +1,21 @@
+{% from "opui/index.njk" import
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+  Switch
+%}
+
+{% call Form() %}
+  {% call Fieldset() %}
+    {% call FieldLegend() %}Show in sidebar{% endcall %}
+    {% call FieldGroup({
+      name: "switch-group-orientation",
+      orientation: "horizontal"
+    }) %}
+      {% call Switch({ value: "calendar" }) %}Calendar{% endcall %}
+      {% call Switch({ value: "files" }) %}Files{% endcall %}
+      {% call Switch({ value: "tasks" }) %}Tasks{% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

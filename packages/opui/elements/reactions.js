@@ -60,7 +60,7 @@ export class ReactionsElement extends Base {
         label: this.getAttribute("quick-label") ?? undefined,
         text: this.getAttribute("quick-text") ?? undefined,
       })
-      pill.classList.add("ui-unused")
+      pill.classList.add("ui-suggested")
       return
     }
     const focused = pill.contains(this.ownerDocument.activeElement)
@@ -79,7 +79,7 @@ export class ReactionsElement extends Base {
   }
 
   set(value, reaction) {
-    this.#fill(value, reaction)?.classList.remove("ui-unused")
+    this.#fill(value, reaction)?.classList.remove("ui-suggested")
   }
 
   #fill(value, { checked, label, text } = {}) {

@@ -10,7 +10,7 @@ const tabs = inject(TabsKey, undefined)
 </script>
 
 <template>
-  <label :for="htmlFor || tabs?.tabId" :class="['ui-label', $props.class]">
+  <label :for="htmlFor || tabs?.tabId" class="ui-label">
     <slot></slot>
   </label>
 </template>

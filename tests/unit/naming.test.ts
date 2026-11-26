@@ -95,15 +95,16 @@ const sources = import.meta.glob<string>(
   { eager: true, import: "default", query: "?raw" },
 )
 
-const negativeExceptions = new Set(["notRichText"])
+const negativeExceptions = new Set(["not-rich-text"])
 const openRoots = /^(details|dialog)\b|\[popover\]/
 
 const optionalModifiers = new Set([
   "as",
-  "border",
   "choice",
   "color",
+  "leader",
   "severity",
+  "state",
   "trigger",
   "type",
 ])
@@ -186,6 +187,15 @@ const sentence = (name: string) => {
   const words = kebab(name).replaceAll("-", " ")
   return words[0].toUpperCase() + words.slice(1)
 }
+const negativeName = (name: string) => {
+  const words = kebab(name).split("-")
+  return (
+    !negativeExceptions.has(words.join("-")) &&
+    (["no", "non", "not", "un"].includes(words[0]) ||
+      /^un[a-z]{2,}ed$/.test(words[0]) ||
+      (words.at(-1) ?? "").endsWith("less"))
+  )
+}
 const isProp = (option: ApiOption) =>
   !option.frameworks || option.frameworks.some((name) => name !== "html")
 const defaultValue = (option: ApiOption) =>
@@ -198,6 +208,15 @@ const problemsOf = (api: ComponentApi) => {
   const props = api.options.filter(isProp)
 
   for (const option of api.options) {
+    const classes = [option.class, ...Object.values(option.values ?? {})]
+      .flatMap((code) => code?.match(/\.ui-[a-z0-9-]+/g) ?? [])
+      .map((name) => name.slice(".ui-".length))
+    for (const name of classes.filter(negativeName)) {
+      report(
+        option,
+        `.ui-${name} names what it turns off: name what it turns on or what the element is`,
+      )
+    }
     if (
       option.group &&
       !groups.has(option.group) &&
@@ -221,11 +240,7 @@ const problemsOf = (api: ComponentApi) => {
         "open is the state of details, dialog and popovers, use checked",
       )
     }
-    if (
-      !negativeExceptions.has(option.prop) &&
-      (/^(no|non|not|un)[A-Z]/.test(option.prop) ||
-        option.prop.endsWith("less"))
-    ) {
+    if (negativeName(option.prop)) {
       report(option, "names what turning it on turns off")
     }
     if (option.default === "true") {
@@ -551,4 +566,16 @@ test("item keys follow the naming model", () => {
     ),
     "item keys",
   ).toEqual([])
+})
+
+test.each([
+  ["noBorder", true],
+  ["gutterless", true],
+  ["unused", true],
+  ["un-checked", true],
+  ["not-rich-text", false],
+  ["underline", false],
+  ["suggested", false],
+])("negativeName(%s) is %s", (name, negative) => {
+  expect(negativeName(name)).toBe(negative)
 })

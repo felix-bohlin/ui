@@ -1,0 +1,17 @@
+{% from "opui/index.njk" import Avatar, Message, MessageList %}
+
+{% call MessageList({ "aria-label": "Messages with Stella" }) %}
+  {% set start %}{% call Avatar() %}SN{% endcall %}{% endset %}
+  {% call Message({
+    author: "Stella",
+    datetime: "2026-10-08T14:32",
+    slots: { start: start },
+    time: "14:32"
+  }) %}
+    <p>Let me ask if the band even noticed.</p>
+  {% endcall %}
+  {% set start %}{% call Avatar() %}SN{% endcall %}{% endset %}
+  {% call Message({ slots: { start: start }, typing: true }) %}
+    Stella is typing…
+  {% endcall %}
+{% endcall %}

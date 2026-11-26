@@ -17,12 +17,12 @@ import {
 export default function ShoppingCart() {
   return (
     <>
-      <div class="shopping-cart ui-layout-container ui-layout-column ui-large">
+      <div class="shopping-cart ui-layout-container ui-layout-column ui-gap-large">
         <hgroup class="ui-hgroup">
           <h1 class="ui-h3">Your gear cart</h1>
           <p>3 totally rad items, prices include VAT</p>
         </hgroup>
-        <div class="ui-layout-columns ui-large" style="--_columns: 2fr 1fr">
+        <div class="ui-layout-columns ui-gap-large" style="--_columns: 2fr 1fr">
           <Card aria-label="Cart items" as="section" variant="outlined">
             <ul class="ui-layout-column cart-items">
               <li class="cart-item">
@@ -32,7 +32,7 @@ export default function ShoppingCart() {
                   style="--hue: 0"
                   role="img"
                 ></div>
-                <div class="ui-layout-column ui-x-small cart-info">
+                <div class="ui-layout-column ui-gap-x-small cart-info">
                   <h2 class="ui-h6">
                     <a class="ui-link" href="#shopping-cart-gig-bag">
                       Comfy Cloud Gig Bag
@@ -48,7 +48,7 @@ export default function ShoppingCart() {
                       size="small"
                     />
                   </p>
-                  <div class="ui-layout-row ui-x-small cart-links">
+                  <div class="ui-layout-row ui-gap-x-small cart-links">
                     <Button size="x-small" type="button">
                       Save for later
                     </Button>
@@ -100,7 +100,7 @@ export default function ShoppingCart() {
                   style="--hue: 140"
                   role="img"
                 ></div>
-                <div class="ui-layout-column ui-x-small cart-info">
+                <div class="ui-layout-column ui-gap-x-small cart-info">
                   <h2 class="ui-h6">
                     <a class="ui-link" href="#shopping-cart-strings">
                       Flatwound string set
@@ -116,7 +116,7 @@ export default function ShoppingCart() {
                       size="small"
                     />
                   </p>
-                  <div class="ui-layout-row ui-x-small cart-links">
+                  <div class="ui-layout-row ui-gap-x-small cart-links">
                     <Button size="x-small" type="button">
                       Save for later
                     </Button>
@@ -163,7 +163,7 @@ export default function ShoppingCart() {
                   style="--hue: -80"
                   role="img"
                 ></div>
-                <div class="ui-layout-column ui-x-small cart-info">
+                <div class="ui-layout-column ui-gap-x-small cart-info">
                   <h2 class="ui-h6">
                     <a class="ui-link" href="#shopping-cart-tee">
                       I'm with the bassist tee
@@ -179,7 +179,7 @@ export default function ShoppingCart() {
                       size="small"
                     />
                   </p>
-                  <div class="ui-layout-row ui-x-small cart-links">
+                  <div class="ui-layout-row ui-gap-x-small cart-links">
                     <Button size="x-small" type="button">
                       Save for later
                     </Button>
@@ -233,7 +233,7 @@ export default function ShoppingCart() {
               </h2>
             </hgroup>
             <CardContent>
-              <div class="ui-layout-column ui-small">
+              <div class="ui-layout-column ui-gap-small">
                 <p id="shopping-cart-free-shipping">
                   Woohoo, you've unlocked <strong>free delivery</strong>!
                 </p>
@@ -278,7 +278,7 @@ export default function ShoppingCart() {
                   variant="outlined"
                 />
               </div>
-              <DescriptionList border="solid" orientation="horizontal">
+              <DescriptionList leader="solid" orientation="horizontal">
                 <DescriptionListItem>
                   <DescriptionListTerm>Subtotal</DescriptionListTerm>
                   <DescriptionListDescription>

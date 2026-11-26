@@ -102,9 +102,9 @@ export default {
       type: "string",
     },
     {
-      class: ".ui-error",
+      class: ".ui-state-error",
       description:
-        'The files, as `{ description, label, preview, progress, state, value }` objects. `label` is the file name, `value` the id the `remove` event names, `preview` the URL of an image, `state` one of `"done"`, `"error"`, `"queued"` and `"uploading"`, `progress` a fraction from 0 to 1 while uploading, and `description` a message, which a failed file shows in the critical color.',
+        'The files, as `{ description, label, preview, progress, state, value }` objects. `label` is the file name, `value` the id the `remove` event names, `preview` the URL of an image, `state` one of `"complete"`, `"error"`, `"queued"` and `"uploading"`, `progress` a fraction from 0 to 1 while uploading, and `description` a message, which a failed file shows in the critical color.',
       group: "Items",
       htmlDescription:
         "Marks the `<li>` of a file that failed: its message in the critical color, and in the compact row a critical border.",

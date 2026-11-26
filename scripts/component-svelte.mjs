@@ -127,8 +127,7 @@ export const toSvelte = (component) => {
         !node.variable &&
         !node.component &&
         !node.custom &&
-        element &&
-        node.tag !== element
+        ((element && node.tag !== element) || !!item.cast)
       if (cast) usesElements = true
       const filtered = filtersSpread(node, item, component)
       if (filtered) usesDefined = true
@@ -321,12 +320,12 @@ export const toSvelte = (component) => {
     ),
     ...warnings.map((code) =>
       /^if\b/.test(code)
-        ? `untrack(() => {\n${rewriteStatement(code, options)}\n})`
-        : `untrack(() => ${rewriteExpression(code, options)})`,
+        ? `if (DEV) untrack(() => {\n${rewriteStatement(code, options)}\n})`
+        : `if (DEV) untrack(() => ${rewriteExpression(code, options)})`,
     ),
     ...(component.item
       ? [
-          `untrack(() => ${groupWarning(component, component.item, `${component.item.checked ?? "undefined"} ?? defaultChecked`)})`,
+          `if (DEV) untrack(() => ${groupWarning(component, component.item, `${component.item.checked ?? "undefined"} ?? defaultChecked`)})`,
           `const isChecked = () => (${rewriteExpression(component.item.checkedCode, options)}) ?? !!defaultChecked`,
           "const initialChecked = untrack(isChecked)",
           `const change = (input: HTMLInputElement) => {\n${[
@@ -371,6 +370,7 @@ export const toSvelte = (component) => {
     }),
     ...[
       ...(usesDefined ? [["../attrs", "defined"]] : []),
+      ...(warnings.length || component.item ? [["../dev", "DEV"]] : []),
       ...(component.item ? [["../dev", "warnGroupedChecked"]] : []),
       ...(usesClassAttrs ? [["../cx", "classAttrs"]] : []),
     ].reduce(

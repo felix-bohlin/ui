@@ -1,0 +1,12 @@
+{% from "opui/index.njk" import FileUpload %}
+
+{{ FileUpload({
+  accept: "image/*",
+  description: "Or drop them here. PNG or JPG.",
+  label: "Choose photos",
+  multiple: true
+}) }}
+
+<script type="module">
+  import "opui-css/elements/file-upload.js"
+</script>

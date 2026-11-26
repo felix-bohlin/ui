@@ -66,12 +66,12 @@ const steps = [
     flip-block,
     flip-inline,
     flip-block flip-inline;
-  position-visibility: anchors-visible;
+  position-visibility: anchor-visible;
 }`,
     notes: [
       "Scroll the trigger to the bottom of the window and hover it again",
       "The browser tries each fallback when the card would overflow",
-      "<code>anchors-visible</code> hides it when the trigger is scrolled out of view inside a scrolling container",
+      "<code>anchor-visible</code> hides it when the trigger is scrolled out of view inside a scrolling container; the library's compat layer gives Firefox the older <code>anchors-visible</code>",
     ],
     title: "Flip",
   },

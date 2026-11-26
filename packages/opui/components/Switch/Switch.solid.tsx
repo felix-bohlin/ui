@@ -1,7 +1,8 @@
 /** @jsxImportSource @solidjs/web */
 import { children, omit, untrack } from "solid-js"
+import { filled } from "../attrs"
 import SwitchInput from "./SwitchInput.solid"
-import { hasName, warnUnnamed } from "../dev"
+import { DEV, hasName, warnUnnamed } from "../dev"
 import type { Props } from "./types.solid"
 
 export default function Switch(props: Props) {
@@ -27,9 +28,10 @@ export default function Switch(props: Props) {
   const resolvedEndText = children(() => props.endText)
   const resolvedIconChecked = children(() => props.iconChecked)
   const resolvedIconUnchecked = children(() => props.iconUnchecked)
-  untrack(() => {
-    warnUnnamed("Switch", hasName(props, resolvedChildren()))
-  })
+  if (DEV)
+    untrack(() => {
+      warnUnnamed("Switch", hasName(props, filled(resolvedChildren())))
+    })
   const invalid = () => (props.error ? "true" : props["aria-invalid"])
 
   return (
@@ -49,12 +51,12 @@ export default function Switch(props: Props) {
       ]}
       style={props.style}
     >
-      {resolvedIconUnchecked() && (
+      {filled(resolvedIconUnchecked()) && (
         <span class="ui-icon-unchecked" aria-hidden="true">
           {resolvedIconUnchecked()}
         </span>
       )}{" "}
-      {resolvedIconChecked() && (
+      {filled(resolvedIconChecked()) && (
         <span class="ui-icon-checked" aria-hidden="true">
           {resolvedIconChecked()}
         </span>
@@ -66,7 +68,7 @@ export default function Switch(props: Props) {
           {resolvedChildren()}
         </span>
       )}
-      {resolvedEndText() && (
+      {filled(resolvedEndText()) && (
         <span class="ui-end-text">{resolvedEndText()}</span>
       )}
     </label>

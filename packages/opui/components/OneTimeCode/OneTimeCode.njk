@@ -1,0 +1,26 @@
+{% macro OneTimeCode(props = {}) %}
+  {%- set rest = props | opuiRest("OneTimeCode") -%}
+  {%- set labelSlot = props.slots.label | opuiTrim -%}
+  {%- set hasEndText = props.endText or props.slots.endText != none -%}
+  {{- opui.warnControlAttributes("OneTimeCode", rest) -}}
+  <div
+    class="ui-one-time-code
+      {%- if props.grouped %} ui-grouped{% endif %}
+      {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    {%- if props.label or labelSlot -%}
+      <label
+        class="{{ 'ui-sr-only' if props.hideLabel else 'ui-label' }}"
+        {%- if props.for != none %} for="{{ props.for }}"{% endif %}>{{ props.label }}
+        {{- labelSlot }}</label>
+    {%- endif %}
+    <span class="ui-field-container">
+      {{- caller() if caller -}}
+    </span>
+    {% if hasEndText -%}
+      <span class="ui-end-text" id="{{ props.for ~ '-end-text' }}">{{ props.endText }}
+        {{- props.slots.endText | safe }}</span>
+    {%- endif -%}
+  </div>
+{%- endmacro %}

@@ -9,7 +9,7 @@ export default function Errors() {
         {
           label: "lou-headstock.png",
           preview: "/photos/lou-headstock.png",
-          state: "done",
+          state: "complete",
           value: "lou",
         },
         {

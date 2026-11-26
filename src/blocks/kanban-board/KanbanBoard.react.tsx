@@ -13,7 +13,7 @@ export default function KanbanBoard() {
   return (
     <>
       <div
-        className="kanban-board ui-layout-container ui-layout-column ui-large"
+        className="kanban-board ui-layout-container ui-layout-column ui-gap-large"
         style={{ "--_max-inline-size": "none" }}
       >
         <div className="ui-layout-row ui-spread">
@@ -21,7 +21,7 @@ export default function KanbanBoard() {
             <p>Gig countdown, 6–17 October</p>
             <h1 className="ui-h3">Gig at The Rusty Amp</h1>
           </hgroup>
-          <div className="ui-layout-row ui-small">
+          <div className="ui-layout-row ui-gap-small">
             <AvatarGroup aria-label="Band members">
               <Avatar aria-label="Holly Humbucker" role="img">
                 HH
@@ -68,9 +68,9 @@ export default function KanbanBoard() {
         <div className="kanban-columns">
           <section
             aria-labelledby="kanban-board-todo-heading"
-            className="ui-layout-column ui-small kanban-column"
+            className="ui-layout-column ui-gap-small kanban-column"
           >
-            <div className="ui-layout-row ui-small kanban-column-header">
+            <div className="ui-layout-row ui-gap-small kanban-column-header">
               <span className="ui-swatch ui-neutral"></span>
               <h2 className="ui-h6" id="kanban-board-todo-heading">
                 To do
@@ -97,11 +97,11 @@ export default function KanbanBoard() {
                 </svg>
               </Button>
             </div>
-            <ol className="ui-layout-column ui-small">
+            <ol className="ui-layout-column ui-gap-small">
               <li>
                 <Card as="article" variant="outlined">
                   <CardContent>
-                    <div className="ui-layout-row ui-x-small">
+                    <div className="ui-layout-row ui-gap-x-small">
                       <Chip
                         as="span"
                         label="Setlist"
@@ -116,7 +116,7 @@ export default function KanbanBoard() {
                       </a>
                     </h3>
                     <div className="ui-layout-row ui-caption kanban-meta">
-                      <span className="ui-layout-row ui-x-small">
+                      <span className="ui-layout-row ui-gap-x-small">
                         <svg
                           data-icon="calendar"
                           aria-hidden="true"
@@ -144,7 +144,7 @@ export default function KanbanBoard() {
               <li>
                 <Card as="article" variant="outlined">
                   <CardContent>
-                    <div className="ui-layout-row ui-x-small">
+                    <div className="ui-layout-row ui-gap-x-small">
                       <Chip
                         as="span"
                         label="Gear"
@@ -166,7 +166,7 @@ export default function KanbanBoard() {
                       </a>
                     </h3>
                     <div className="ui-layout-row ui-caption kanban-meta">
-                      <span className="ui-layout-row ui-x-small">
+                      <span className="ui-layout-row ui-gap-x-small">
                         <svg
                           data-icon="calendar"
                           aria-hidden="true"
@@ -194,7 +194,7 @@ export default function KanbanBoard() {
               <li>
                 <Card as="article" variant="outlined">
                   <CardContent>
-                    <div className="ui-layout-row ui-x-small">
+                    <div className="ui-layout-row ui-gap-x-small">
                       <Chip
                         as="span"
                         label="Promo"
@@ -209,7 +209,7 @@ export default function KanbanBoard() {
                       </a>
                     </h3>
                     <div className="ui-layout-row ui-caption kanban-meta">
-                      <span className="ui-layout-row ui-x-small">
+                      <span className="ui-layout-row ui-gap-x-small">
                         <svg
                           data-icon="calendar"
                           aria-hidden="true"
@@ -251,9 +251,9 @@ export default function KanbanBoard() {
           </section>
           <section
             aria-labelledby="kanban-board-progress-heading"
-            className="ui-layout-column ui-small kanban-column"
+            className="ui-layout-column ui-gap-small kanban-column"
           >
-            <div className="ui-layout-row ui-small kanban-column-header">
+            <div className="ui-layout-row ui-gap-small kanban-column-header">
               <span className="ui-swatch ui-info"></span>
               <h2 className="ui-h6" id="kanban-board-progress-heading">
                 In progress
@@ -280,11 +280,11 @@ export default function KanbanBoard() {
                 </svg>
               </Button>
             </div>
-            <ol className="ui-layout-column ui-small">
+            <ol className="ui-layout-column ui-gap-small">
               <li>
                 <Card as="article" variant="outlined">
                   <CardContent>
-                    <div className="ui-layout-row ui-x-small">
+                    <div className="ui-layout-row ui-gap-x-small">
                       <Chip
                         as="span"
                         label="Gear"
@@ -313,7 +313,7 @@ export default function KanbanBoard() {
                       </a>
                     </h3>
                     <div className="ui-layout-row ui-caption kanban-meta">
-                      <span className="ui-layout-row ui-x-small ui-p ui-critical">
+                      <span className="ui-layout-row ui-gap-x-small ui-p ui-critical">
                         <svg
                           data-icon="calendar"
                           aria-hidden="true"
@@ -331,7 +331,7 @@ export default function KanbanBoard() {
                         <span className="ui-sr-only">Overdue, was due</span>
                         <time dateTime="2026-10-07">7 Oct</time>
                       </span>
-                      <span className="ui-layout-row ui-x-small">
+                      <span className="ui-layout-row ui-gap-x-small">
                         <svg
                           data-icon="comment"
                           aria-hidden="true"
@@ -363,7 +363,7 @@ export default function KanbanBoard() {
               <li>
                 <Card as="article" variant="outlined">
                   <CardContent>
-                    <div className="ui-layout-row ui-x-small">
+                    <div className="ui-layout-row ui-gap-x-small">
                       <Chip
                         as="span"
                         label="Setlist"
@@ -378,7 +378,7 @@ export default function KanbanBoard() {
                       </a>
                     </h3>
                     <div className="ui-layout-row ui-caption kanban-meta">
-                      <span className="ui-layout-row ui-x-small">
+                      <span className="ui-layout-row ui-gap-x-small">
                         <svg
                           data-icon="check-square"
                           aria-hidden="true"
@@ -407,9 +407,9 @@ export default function KanbanBoard() {
           </section>
           <section
             aria-labelledby="kanban-board-review-heading"
-            className="ui-layout-column ui-small kanban-column"
+            className="ui-layout-column ui-gap-small kanban-column"
           >
-            <div className="ui-layout-row ui-small kanban-column-header">
+            <div className="ui-layout-row ui-gap-small kanban-column-header">
               <span className="ui-swatch ui-warning"></span>
               <h2 className="ui-h6" id="kanban-board-review-heading">
                 In review
@@ -436,11 +436,11 @@ export default function KanbanBoard() {
                 </svg>
               </Button>
             </div>
-            <ol className="ui-layout-column ui-small">
+            <ol className="ui-layout-column ui-gap-small">
               <li>
                 <Card as="article" variant="outlined">
                   <CardContent>
-                    <div className="ui-layout-row ui-x-small">
+                    <div className="ui-layout-row ui-gap-x-small">
                       <Chip
                         as="span"
                         label="Gear"
@@ -455,7 +455,7 @@ export default function KanbanBoard() {
                       </a>
                     </h3>
                     <div className="ui-layout-row ui-caption kanban-meta">
-                      <span className="ui-layout-row ui-x-small">
+                      <span className="ui-layout-row ui-gap-x-small">
                         <svg
                           data-icon="calendar"
                           aria-hidden="true"
@@ -473,7 +473,7 @@ export default function KanbanBoard() {
                         <span className="ui-sr-only">Due</span>
                         <time dateTime="2026-10-09">9 Oct</time>
                       </span>
-                      <span className="ui-layout-row ui-x-small">
+                      <span className="ui-layout-row ui-gap-x-small">
                         <svg
                           data-icon="comment"
                           aria-hidden="true"
@@ -502,20 +502,20 @@ export default function KanbanBoard() {
           </section>
           <section
             aria-labelledby="kanban-board-done-heading"
-            className="ui-layout-column ui-small kanban-column"
+            className="ui-layout-column ui-gap-small kanban-column"
           >
-            <div className="ui-layout-row ui-small kanban-column-header">
+            <div className="ui-layout-row ui-gap-small kanban-column-header">
               <span className="ui-swatch ui-success"></span>
               <h2 className="ui-h6" id="kanban-board-done-heading">
                 Done
               </h2>
               <span className="ui-caption ui-tabular-nums">2</span>
             </div>
-            <ol className="ui-layout-column ui-small">
+            <ol className="ui-layout-column ui-gap-small">
               <li>
                 <Card as="article" className="kanban-done" variant="outlined">
                   <CardContent>
-                    <div className="ui-layout-row ui-x-small">
+                    <div className="ui-layout-row ui-gap-x-small">
                       <Chip
                         as="span"
                         label="Rehearsal"
@@ -550,7 +550,7 @@ export default function KanbanBoard() {
               <li>
                 <Card as="article" className="kanban-done" variant="outlined">
                   <CardContent>
-                    <div className="ui-layout-row ui-x-small">
+                    <div className="ui-layout-row ui-gap-x-small">
                       <Chip
                         as="span"
                         label="Roadie"

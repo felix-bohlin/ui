@@ -1,0 +1,20 @@
+{% from "opui/index.njk" import
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  List,
+  ListItem,
+  RadioInput
+%}
+
+{% call Fieldset() %}
+  {% call FieldLegend() %}Theme{% endcall %}
+  {% call FieldGroup() %}
+    {% call List() %}
+      {% set end %}{{ RadioInput({ name: "theme", value: "dark" }) }}{% endset %}
+      {{ ListItem({ choice: "radio", slots: { end: end, label: "Dark mode" } }) }}
+      {% set end %}{{ RadioInput({ name: "theme", value: "light" }) }}{% endset %}
+      {{ ListItem({ choice: "radio", slots: { end: end, label: "Light mode" } }) }}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

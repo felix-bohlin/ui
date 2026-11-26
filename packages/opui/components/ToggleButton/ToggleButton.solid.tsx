@@ -3,7 +3,7 @@ import { children, omit, untrack } from "solid-js"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import { useToggleGroupContext } from "../ToggleGroup/context.solid"
 import { isSelected } from "../ToggleGroup/selection"
-import { warnGroupedChecked } from "../dev"
+import { DEV, warnGroupedChecked } from "../dev"
 import { callHandler, control } from "../solid"
 import type { Props } from "./types.solid"
 
@@ -30,14 +30,15 @@ export default function ToggleButton(props: Props) {
   const finalType = () =>
     group?.inputType === "radio" ? "radio" : (props.type ?? "checkbox")
   const grouped = () => isSelected(group?.value, props.value)
-  untrack(() =>
-    warnGroupedChecked(
-      "ToggleButton",
-      grouped(),
-      props.checked ?? props.defaultChecked,
-      "ToggleGroup",
-    ),
-  )
+  if (DEV)
+    untrack(() =>
+      warnGroupedChecked(
+        "ToggleButton",
+        grouped(),
+        props.checked ?? props.defaultChecked,
+        "ToggleGroup",
+      ),
+    )
   const checkedControl = control(
     () => grouped() ?? props.checked,
     () => isSelected(group?.defaultValue, props.value) ?? props.defaultChecked,

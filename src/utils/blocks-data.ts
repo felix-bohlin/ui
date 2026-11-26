@@ -1,10 +1,14 @@
 export const blockCategories = [
   { id: "application", label: "Application" },
   { id: "authentication", label: "Authentication" },
+  { id: "content", label: "Content" },
   { id: "dashboards", label: "Dashboards" },
   { id: "data", label: "Data display" },
   { id: "e-commerce", label: "E-commerce" },
+  { id: "events", label: "Events" },
   { id: "feedback", label: "Feedback" },
+  { id: "games", label: "Games" },
+  { id: "lifestyle", label: "Lifestyle" },
   { id: "marketing", label: "Marketing" },
   { id: "settings", label: "Settings" },
 ] as const
@@ -27,6 +31,13 @@ export const blocks: Block[] = [
     slug: "account-settings",
   },
   {
+    category: "marketing",
+    description:
+      "A release countdown on a dark stage, with record art, big digits, a pre-save field and the first tracks to hear.",
+    name: "Album launch",
+    slug: "album-launch",
+  },
+  {
     category: "dashboards",
     description:
       "Key metrics, a bar chart, top pages and traffic sources, with a date range toggle.",
@@ -39,6 +50,20 @@ export const blocks: Block[] = [
       "A header, a navigation sidebar that turns into a drawer on small screens, and a main area.",
     name: "App shell",
     slug: "app-shell",
+  },
+  {
+    category: "content",
+    description:
+      "A magazine article with a breadcrumb, byline, cover image, a sticky table of contents, rich text, tags and an author card.",
+    name: "Article",
+    slug: "article",
+  },
+  {
+    category: "application",
+    description:
+      "A musician's profile with a stage-light cover, stats, gear, and a wall of posts with reactions.",
+    name: "Bassist profile",
+    slug: "bassist-profile",
   },
   {
     category: "settings",
@@ -57,9 +82,30 @@ export const blocks: Block[] = [
   {
     category: "marketing",
     description:
+      "A bold banner with one call to action, and a split section with an inline email sign-up.",
+    name: "Call to action",
+    slug: "call-to-action",
+  },
+  {
+    category: "marketing",
+    description:
+      "A centered headline with a soft glow, two calls to action, member avatars and a row of band names.",
+    name: "Centered hero",
+    slug: "centered-hero",
+  },
+  {
+    category: "marketing",
+    description:
       "Releases on a timeline, each with a version, a date and grouped changes.",
     name: "Changelog",
     slug: "changelog",
+  },
+  {
+    category: "games",
+    description:
+      "An RPG-style profile with hit points, experience, attribute meters, an inventory, abilities and a quest log.",
+    name: "Character sheet",
+    slug: "character-sheet",
   },
   {
     category: "application",
@@ -74,6 +120,27 @@ export const blocks: Block[] = [
       "Contact, shipping and payment details next to an order summary.",
     name: "Checkout",
     slug: "checkout",
+  },
+  {
+    category: "marketing",
+    description:
+      "A headline and pitch next to an overlapping collage of illustrated scenes with a floating stat card.",
+    name: "Collage hero",
+    slug: "collage-hero",
+  },
+  {
+    category: "content",
+    description:
+      "Ways to get in touch and opening hours, next to a contact form with a topic and a consent box.",
+    name: "Contact",
+    slug: "contact",
+  },
+  {
+    category: "marketing",
+    description:
+      "A full-bleed illustrated scene with a dark scrim, a headline, calls to action and quick facts on top.",
+    name: "Cover hero",
+    slug: "cover-hero",
   },
   {
     category: "data",
@@ -125,6 +192,13 @@ export const blocks: Block[] = [
     slug: "forgot-password",
   },
   {
+    category: "events",
+    description:
+      "A festival ticket with a tear-off stub and barcode, the running order and who holds each ticket.",
+    name: "Gig ticket",
+    slug: "gig-ticket",
+  },
+  {
     category: "marketing",
     description:
       "A headline, a short pitch, two calls to action and a product preview.",
@@ -153,11 +227,25 @@ export const blocks: Block[] = [
     slug: "kanban-board",
   },
   {
+    category: "games",
+    description:
+      "A podium for the top three, a table of the rest with your own row highlighted, and your stats for the week.",
+    name: "Leaderboard",
+    slug: "leaderboard",
+  },
+  {
     category: "application",
     description:
       "A post's photos in a dark full-screen viewer: swipe sideways between them, and down to close.",
     name: "Lightbox",
     slug: "lightbox",
+  },
+  {
+    category: "lifestyle",
+    description:
+      "The track playing now with a cover, seek bar and controls, next to the queue and the lyrics.",
+    name: "Music player",
+    slug: "music-player",
   },
   {
     category: "marketing",
@@ -195,6 +283,13 @@ export const blocks: Block[] = [
     slug: "order-history",
   },
   {
+    category: "events",
+    description:
+      "A birthday invitation with the when, where and who, next to an RSVP form with guests, food and a song request.",
+    name: "Party invitation",
+    slug: "party-invitation",
+  },
+  {
     category: "marketing",
     description:
       "Three plans with a monthly or yearly toggle, a highlighted plan and a feature comparison.",
@@ -216,6 +311,13 @@ export const blocks: Block[] = [
     slug: "project-overview",
   },
   {
+    category: "lifestyle",
+    description:
+      "A cooking recipe with times and a rating, a servings stepper, an ingredient checklist and numbered steps.",
+    name: "Recipe",
+    slug: "recipe",
+  },
+  {
     category: "dashboards",
     description:
       "Revenue, orders and conversion with sales targets and the latest orders.",
@@ -228,6 +330,13 @@ export const blocks: Block[] = [
       "Service health, uptime history, response times and incidents.",
     name: "Server status",
     slug: "server-status",
+  },
+  {
+    category: "events",
+    description:
+      "A setlist taped to the stage floor with keys, tempos and notes, songs ticked off as they're played, and a stage plot.",
+    name: "Setlist",
+    slug: "setlist",
   },
   {
     category: "e-commerce",
@@ -251,6 +360,20 @@ export const blocks: Block[] = [
     slug: "sign-up",
   },
   {
+    category: "content",
+    description:
+      "A site footer with a newsletter field, columns of links, legal links and a language picker.",
+    name: "Site footer",
+    slug: "site-footer",
+  },
+  {
+    category: "content",
+    description:
+      "A site header with a logo, navigation with a dropdown menu and calls to action, collapsing into a drawer on small screens.",
+    name: "Site header",
+    slug: "site-header",
+  },
+  {
     category: "settings",
     description:
       "An invite form and a member list with roles, statuses and actions.",
@@ -258,10 +381,38 @@ export const blocks: Block[] = [
     slug: "team-members",
   },
   {
+    category: "content",
+    description:
+      "Alternating rows of image and text, image left then image right, each with a tag, a title and a link.",
+    name: "Teasers",
+    slug: "teasers",
+  },
+  {
     category: "marketing",
     description: "Customer quotes with names, roles and ratings.",
     name: "Testimonials",
     slug: "testimonials",
+  },
+  {
+    category: "games",
+    description:
+      "A battle of the bands bracket with scores, connector lines between rounds and the champion still to be decided.",
+    name: "Tournament bracket",
+    slug: "tournament-bracket",
+  },
+  {
+    category: "games",
+    description:
+      "A quiz question with answer tiles, a timer meter, progress, a streak and the feedback after answering.",
+    name: "Trivia quiz",
+    slug: "trivia-quiz",
+  },
+  {
+    category: "lifestyle",
+    description:
+      "A tuner with a needle gauge and string picker, next to a metronome with tempo, beats and time signature.",
+    name: "Tuner",
+    slug: "tuner",
   },
   {
     category: "authentication",
@@ -276,5 +427,12 @@ export const blocks: Block[] = [
       "A grid of people cards with a search field, team filters, avatars, roles and contact actions.",
     name: "User directory",
     slug: "user-directory",
+  },
+  {
+    category: "dashboards",
+    description:
+      "A year-end recap in bold cards: hours played, a personality, top songs, a favourite string and a practice streak.",
+    name: "Year in review",
+    slug: "year-in-review",
   },
 ]

@@ -1,0 +1,53 @@
+{% from "opui/index.njk" import
+  Card,
+  CardHeader,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow
+%}
+
+{% call Card({ style: "max-inline-size: 28rem", variant: "outlined" }) %}
+  {% call CardHeader() %}
+    <h3 class="ui-h5">Gigs booked without you</h3>
+    <p>The last three gigs and who forgot to tell you.</p>
+  {% endcall %}
+  {% call Table({ flush: true, overflow: "scroll", tabindex: "0" }) %}
+    {% call TableCaption() %}Gigs by date{% endcall %}
+    {% call TableHead() %}
+      {% call TableRow() %}
+        {% call TableHeaderCell() %}Gig{% endcall %}
+        {% call TableHeaderCell() %}Venue{% endcall %}
+        {% call TableHeaderCell() %}Booked by{% endcall %}
+        {% call TableHeaderCell() %}Booked at{% endcall %}
+        {% call TableHeaderCell({ numeric: true }) %}Bass solo{% endcall %}
+      {% endcall %}
+    {% endcall %}
+    {% call TableBody() %}
+      {% call TableRow() %}
+        {% call TableCell() %}Battle of the Bands{% endcall %}
+        {% call TableCell() %}The Rusty Fret{% endcall %}
+        {% call TableCell() %}Holly Humbucker{% endcall %}
+        {% call TableCell() %}8 October, 09:42{% endcall %}
+        {% call TableCell({ numeric: true }) %}0 min 12 s{% endcall %}
+      {% endcall %}
+      {% call TableRow() %}
+        {% call TableCell() %}Pub night{% endcall %}
+        {% call TableCell() %}Low Tide Pub{% endcall %}
+        {% call TableCell() %}Percy Groove{% endcall %}
+        {% call TableCell() %}7 October, 16:05{% endcall %}
+        {% call TableCell({ numeric: true }) %}0 min 8 s{% endcall %}
+      {% endcall %}
+      {% call TableRow() %}
+        {% call TableCell() %}Cousin's wedding{% endcall %}
+        {% call TableCell() %}The Big Barn{% endcall %}
+        {% call TableCell() %}Stella Nut{% endcall %}
+        {% call TableCell() %}1 October, 11:20{% endcall %}
+        {% call TableCell({ numeric: true }) %}0 min 0 s{% endcall %}
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

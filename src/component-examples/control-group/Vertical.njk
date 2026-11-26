@@ -1,0 +1,134 @@
+{% from "opui/index.njk" import Button, ControlGroup, Field %}
+{% set plusIcon %}<svg
+  data-icon="add"
+  aria-hidden="true"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <line x1="12" y1="5" x2="12" y2="19"></line>
+  <line x1="5" y1="12" x2="19" y2="12"></line>
+</svg>{% endset %}
+{% set minusIcon %}<svg
+  data-icon="remove"
+  aria-hidden="true"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <line x1="5" y1="12" x2="19" y2="12"></line>
+</svg>{% endset %}
+
+<div class="example-row">
+  {% call ControlGroup({ "aria-label": "Text size", orientation: "vertical" }) %}
+    {% call Button({ "aria-label": "Increase" }) %}
+      {{ plusIcon | safe }}
+    {% endcall %}
+    {% call Button({ "aria-label": "Decrease" }) %}
+      {{ minusIcon | safe }}
+    {% endcall %}
+  {% endcall %}
+
+  {% call ControlGroup({
+    "aria-label": "Text size",
+    orientation: "vertical",
+    variant: "outlined"
+  }) %}
+    {% call Button({ "aria-label": "Increase" }) %}
+      {{ plusIcon | safe }}
+    {% endcall %}
+    {% call Button({ "aria-label": "Decrease" }) %}
+      {{ minusIcon | safe }}
+    {% endcall %}
+  {% endcall %}
+
+  {% call ControlGroup({
+    "aria-label": "Text size",
+    orientation: "vertical",
+    variant: "tonal"
+  }) %}
+    {% call Button({ "aria-label": "Increase" }) %}
+      {{ plusIcon | safe }}
+    {% endcall %}
+    {% call Button({ "aria-label": "Decrease" }) %}
+      {{ minusIcon | safe }}
+    {% endcall %}
+  {% endcall %}
+
+  {% call ControlGroup({
+    "aria-label": "Text size",
+    orientation: "vertical",
+    variant: "filled"
+  }) %}
+    {% call Button({ "aria-label": "Increase" }) %}
+      {{ plusIcon | safe }}
+    {% endcall %}
+    {% call Button({ "aria-label": "Decrease" }) %}
+      {{ minusIcon | safe }}
+    {% endcall %}
+  {% endcall %}
+</div>
+
+<div class="example-row">
+  {% call ControlGroup({ "aria-label": "Move row", orientation: "vertical" }) %}
+    {% call Button() %}Up{% endcall %}
+    {% call Button() %}Down{% endcall %}
+  {% endcall %}
+
+  {% call ControlGroup({
+    "aria-label": "Move row",
+    orientation: "vertical",
+    variant: "outlined"
+  }) %}
+    {% call Button() %}Up{% endcall %}
+    {% call Button() %}Down{% endcall %}
+  {% endcall %}
+
+  {% call ControlGroup({
+    "aria-label": "Move row",
+    orientation: "vertical",
+    variant: "tonal"
+  }) %}
+    {% call Button() %}Up{% endcall %}
+    {% call Button() %}Down{% endcall %}
+  {% endcall %}
+
+  {% call ControlGroup({
+    "aria-label": "Move row",
+    orientation: "vertical",
+    variant: "filled"
+  }) %}
+    {% call Button() %}Up{% endcall %}
+    {% call Button() %}Down{% endcall %}
+  {% endcall %}
+</div>
+
+{% call ControlGroup({
+  "aria-label": "Delivery note",
+  orientation: "vertical",
+  variant: "filled"
+}) %}
+  {% call Field({
+    for: "control-group-vertical-1",
+    hideLabel: true,
+    label: "Delivery note"
+  }) %}
+    <textarea
+      id="control-group-vertical-1"
+      placeholder="Leave it at the back door"
+    ></textarea>
+  {% endcall %}
+  {% call Button() %}Send note{% endcall %}
+{% endcall %}

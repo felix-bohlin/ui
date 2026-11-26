@@ -20,7 +20,7 @@ export default function Hero() {
           class="ui-layout-columns hero-inner"
           style="--_columns: 1fr 1.1fr; --_gap: var(--ui-space-8)"
         >
-          <div class="ui-layout-column ui-large hero-copy">
+          <div class="ui-layout-column ui-gap-large hero-copy">
             <Chip
               end={
                 <svg
@@ -89,7 +89,7 @@ export default function Hero() {
               role="img"
               variant="elevated"
             >
-              <div class="ui-layout-row ui-small hero-toolbar">
+              <div class="ui-layout-row ui-gap-small hero-toolbar">
                 <span class="ui-swatch"></span>
                 <span class="ui-swatch"></span>
                 <span class="ui-swatch"></span>
@@ -98,12 +98,12 @@ export default function Hero() {
                 </span>
               </div>
               <div class="ui-layout-column hero-screen">
-                <div class="ui-layout-row ui-small ui-spread">
+                <div class="ui-layout-row ui-gap-small ui-spread">
                   <strong>Gig #42</strong>
                   <Chip as="span" label="Showtime Oct 16" size="small" />
                 </div>
                 <div
-                  class="ui-layout-grid ui-small"
+                  class="ui-layout-grid ui-gap-small"
                   style="--_max-columns: 3; --_min-inline-size: 4rem"
                 >
                   <Card density="dense" variant="outlined">

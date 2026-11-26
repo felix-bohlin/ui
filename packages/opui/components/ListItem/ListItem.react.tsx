@@ -1,5 +1,5 @@
 import type { ComponentProps, HTMLAttributes } from "react"
-import { defined } from "../attrs"
+import { defined, filled } from "../attrs"
 import { cx } from "../cx"
 import { disabledLink, tagAttrs } from "../tag"
 import type { Props } from "./types.react"
@@ -31,8 +31,8 @@ export default function ListItem({
       ? "a"
       : (as ?? (href ? "a" : undefined))
   const restOnItem = hasControl || !Tag
-  const hasLabel = !!label
-  const hasDescription = !!description
+  const hasLabel = filled(label)
+  const hasDescription = filled(description)
 
   return (
     <li
@@ -50,7 +50,7 @@ export default function ListItem({
           {...(hasControl ? {} : tagAttrs(Tag, disabled, href))}
           {...defined(restOnItem ? {} : (rest as HTMLAttributes<HTMLElement>))}
         >
-          {start && <div className="ui-start">{start}</div>}
+          {filled(start) && <div className="ui-start">{start}</div>}
           {hasLabel || hasDescription ? (
             <div className="ui-text">
               {hasLabel && <p>{label}</p>}
@@ -60,8 +60,8 @@ export default function ListItem({
           ) : (
             children
           )}
-          {end && <div className="ui-end">{end}</div>}
-          {iconChecked && (
+          {filled(end) && <div className="ui-end">{end}</div>}
+          {filled(iconChecked) && (
             <span aria-hidden="true" className="ui-icon-checked">
               {iconChecked}
             </span>
@@ -69,7 +69,7 @@ export default function ListItem({
         </Tag>
       ) : (
         <>
-          {start && <div className="ui-start">{start}</div>}
+          {filled(start) && <div className="ui-start">{start}</div>}
           {hasLabel || hasDescription ? (
             <div className="ui-text">
               {hasLabel && <p>{label}</p>}
@@ -79,8 +79,8 @@ export default function ListItem({
           ) : (
             children
           )}
-          {end && <div className="ui-end">{end}</div>}
-          {iconChecked && (
+          {filled(end) && <div className="ui-end">{end}</div>}
+          {filled(iconChecked) && (
             <span aria-hidden="true" className="ui-icon-checked">
               {iconChecked}
             </span>

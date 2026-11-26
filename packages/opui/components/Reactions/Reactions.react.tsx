@@ -6,6 +6,7 @@ import { cx } from "../cx"
 import { useHydrated, useListener } from "../react"
 import ToggleButton from "../ToggleButton/ToggleButton.react"
 import ToggleGroup from "../ToggleGroup/ToggleGroup.react"
+import { pillsOf, usedItem } from "./pills"
 import type { Props } from "./types.react"
 
 export default function Reactions({
@@ -20,10 +21,8 @@ export default function Reactions({
   children,
   ...rest
 }: Props) {
-  const used = items.find((item) => item.value === quick?.value)
-  const pills = quick
-    ? [used ?? quick, ...items.filter((item) => item.value !== quick?.value)]
-    : items
+  const used = usedItem(items, quick)
+  const pills = pillsOf(items, quick, used)
   const rootRef = useHydrated(useListener(ref, "reaction", onReaction))
 
   return (
@@ -47,7 +46,7 @@ export default function Reactions({
             key={index}
             aria-label={item["aria-label"]}
             checked={!!item.checked}
-            className={cx([{ "ui-unused": quick && !used && index === 0 }])}
+            className={cx([{ "ui-suggested": quick && !used && index === 0 }])}
             value={item.value}
           >
             <span aria-hidden="true">{item.label}</span>

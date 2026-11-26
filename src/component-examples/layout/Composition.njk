@@ -1,0 +1,25 @@
+{% from "opui/index.njk" import Button, Card, CardContent %}
+
+<div class="ui-layout-container" style="--_max-inline-size: 40rem">
+  <div class="ui-layout-column ui-gap-large">
+    <div class="ui-layout-column ui-gap-x-small">
+      <h3 class="ui-h4">Band</h3>
+      <p>Invite bandmates to jam on this setlist.</p>
+    </div>
+    <div class="ui-layout-grid" style="--_min-inline-size: 10rem">
+      {% call Card({ variant: "tonal" }) %}
+        {% call CardContent() %}Drums{% endcall %}
+      {% endcall %}
+      {% call Card({ variant: "tonal" }) %}
+        {% call CardContent() %}Guitar{% endcall %}
+      {% endcall %}
+      {% call Card({ variant: "tonal" }) %}
+        {% call CardContent() %}Vocals{% endcall %}
+      {% endcall %}
+    </div>
+    <div class="ui-layout-row ui-align-end">
+      {% call Button() %}Cancel{% endcall %}
+      {% call Button({ color: "primary", variant: "filled" }) %}Invite{% endcall %}
+    </div>
+  </div>
+</div>

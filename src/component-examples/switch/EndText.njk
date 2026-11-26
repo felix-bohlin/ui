@@ -1,0 +1,12 @@
+{% from "opui/index.njk" import Switch %}
+
+{% call Switch({ endText: "A summary every morning.", name: "switch-end-text" }) %}
+  Daily digest
+{% endcall %}
+{% call Switch({
+  endText: "Only when someone mentions you.",
+  name: "switch-end-text",
+  orientation: "vertical"
+}) %}
+  Mentions
+{% endcall %}

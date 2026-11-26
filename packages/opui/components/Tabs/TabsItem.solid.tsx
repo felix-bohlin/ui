@@ -35,10 +35,7 @@ export default function TabsItem(props: Props) {
   )
   const checkedControl = control(
     () => grouped() ?? props.checked,
-    untrack(
-      () =>
-        isSelected(parent?.defaultValue, props.value) ?? props.defaultChecked,
-    ),
+    () => isSelected(parent?.defaultValue, props.value) ?? props.defaultChecked,
   )
 
   return (

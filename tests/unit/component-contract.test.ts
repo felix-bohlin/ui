@@ -56,32 +56,39 @@ const PRELOAD = /<link rel="preload" as="image"[^>]*\/>/g
 
 const KNOWN_DIFFERENCES: Record<string, string> = {}
 
+const HYDRATING = ["react", "svelte", "vue"]
+
 const KNOWN_ATTRIBUTES: Record<
   string,
   {
     attribute: string
+    frameworks: string[]
     reason: string
     when?: (props: Record<string, unknown>) => boolean
   }
 > = {
   Callout: {
     attribute: "data-hydrating",
+    frameworks: HYDRATING,
     reason:
       "the element ignores the close button until the framework has hydrated the callout and attached its dismiss handler",
     when: ({ closeButton }) => Boolean(closeButton),
   },
   FileUpload: {
     attribute: "data-hydrating",
+    frameworks: HYDRATING,
     reason:
       "the element holds picked files back and ignores the remove buttons until the framework has hydrated the root and attached its select and remove handlers",
   },
   Reactions: {
     attribute: "data-hydrating",
+    frameworks: HYDRATING,
     reason:
       "the element asks for nothing on a click until the framework has hydrated the reactions and attached its reaction handler",
   },
   SortableTable: {
     attribute: "data-hydrating",
+    frameworks: HYDRATING,
     reason:
       "the element ignores header clicks until the framework has hydrated the table and attached its sort handler",
   },
@@ -525,7 +532,8 @@ describe("every component renders the same in Astro, React, Solid, Svelte and Vu
         )
         .toBeDefined()
       if (rendered === undefined) continue
-      const known = KNOWN_ATTRIBUTES[entry.component]
+      const listed = KNOWN_ATTRIBUTES[entry.component]
+      const known = listed?.frameworks.includes(framework) ? listed : undefined
       if (known && (known.when?.(entry.props) ?? true)) {
         expect
           .soft(

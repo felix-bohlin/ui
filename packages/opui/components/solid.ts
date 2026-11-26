@@ -1,21 +1,33 @@
 import { isServer, setProperty } from "@solidjs/web"
-import { createRenderEffect, untrack } from "solid-js"
+import { createRenderEffect, isHydratable, untrack } from "solid-js"
 
-export const control = (
+const follow = (
   read: () => boolean | undefined,
-  fallback?: boolean,
-) => {
-  let element: Element | undefined
-  const initial = untrack(read)
+  write: (value: boolean) => void,
+) =>
   createRenderEffect(
     read,
-    (checked, previous) => {
-      if (element && checked !== undefined && checked !== previous) {
-        setProperty(element, "checked", checked)
-      }
+    (value, previous) => {
+      if (value !== undefined && value !== previous) write(value)
     },
     { defer: true },
   )
+
+export const control = (
+  read: () => boolean | undefined,
+  readDefault?: () => boolean | undefined,
+) => {
+  let element: Element | undefined
+  const initial = untrack(read)
+  const fallback = readDefault && untrack(readDefault)
+  follow(read, (checked) => {
+    if (element) setProperty(element, "checked", checked)
+  })
+  if (readDefault) {
+    follow(readDefault, (defaultChecked) => {
+      if (element) setProperty(element, "defaultChecked", defaultChecked)
+    })
+  }
   return {
     ref: (node: Element) => {
       if (!element) {
@@ -33,7 +45,9 @@ export const control = (
 }
 
 export const hydrating = (custom = true) =>
-  (isServer && custom ? { "data-hydrating": "" } : {}) as object
+  (isServer && custom && isHydratable()
+    ? { "data-hydrating": "" }
+    : {}) as object
 
 export const hydrated = (element: Element) =>
   element.removeAttribute("data-hydrating")

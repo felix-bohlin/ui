@@ -3,6 +3,8 @@ import {
   getCurrentInstance,
   type HTMLAttributes,
   type ObjectDirective,
+  onBeforeUpdate,
+  shallowRef,
   type Slot,
   useAttrs,
 } from "vue"
@@ -24,13 +26,21 @@ export const useInputAttrs = () => {
 }
 
 export const useBound = () => {
-  const props = getCurrentInstance()?.vnode.props
-  return (
-    !!props &&
-    ["model-value", "modelValue", "onUpdate:modelValue"].some(
-      (key) => key in props,
+  const instance = getCurrentInstance()
+  const read = () => {
+    const props = instance?.vnode.props
+    return (
+      !!props &&
+      ["model-value", "modelValue", "onUpdate:modelValue"].some(
+        (key) => key in props,
+      )
     )
-  )
+  }
+  const bound = shallowRef(read())
+  onBeforeUpdate(() => {
+    bound.value = read()
+  })
+  return bound
 }
 
 export const vHydrated: ObjectDirective<Element> = {

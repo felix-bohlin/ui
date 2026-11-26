@@ -7,9 +7,9 @@ const bindableProps = (model) => model.bindables.map(({ prop }) => prop)
 const optionalModel = (model, name = "modelValue") =>
   `const ${name} = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`
 
-const report = (model, callback, multiple) =>
+const report = (model, callback, multiple, selected) =>
   arrayRead(model)
-    ? `if (${multiple}) ${callback}?.(checkedValues(input))\n  else ${callback}?.(input.value)`
+    ? `if (${multiple}) ${callback}?.(checkedValues(input, ${selected}))\n  else ${callback}?.(input.value)`
     : `${callback}?.(${model.read})`
 
 const solidChecked = {
@@ -113,7 +113,7 @@ export const MODEL_KINDS = {
   group: {
     react: {
       body: (model) => [
-        `const change = useCallback(\n  (input: HTMLInputElement) => {\n  ${report(model, "onValueChange", "multiple")}\n},\n  [${arrayRead(model) ? "multiple, " : ""}onValueChange],\n)`,
+        `const change = useCallback(\n  (input: HTMLInputElement) => {\n  ${report(model, "onValueChange", "multiple", model.local)}\n},\n  [${arrayRead(model) ? `multiple, onValueChange, ${model.local}` : "onValueChange"}],\n)`,
       ],
       entries: () => ["defaultValue", "onValueChange"],
       provided: (_, provide) => [
@@ -125,7 +125,7 @@ export const MODEL_KINDS = {
     },
     solid: {
       body: (model) => [
-        `const change = (input: HTMLInputElement) => {\n  ${report(model, "props.onValueChange", "props.multiple")}\n}`,
+        `const change = (input: HTMLInputElement) => {\n  ${report(model, "props.onValueChange", "props.multiple", `props.${model.prop}`)}\n}`,
       ],
       entries: () => ["defaultValue", "onValueChange"],
       locals: () => ["change"],
@@ -175,6 +175,8 @@ export const MODEL_KINDS = {
       ],
       radioChecked: (model, checked) =>
         `props.${model.prop} === undefined ? undefined : ${checked}`,
+      radioDefault: (model, checked) =>
+        `props.${model.prop} === undefined ? ${checked} : undefined`,
       rename: (model) => [
         [model.local, `props.${model.prop} ?? props.defaultValue`],
       ],

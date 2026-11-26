@@ -418,7 +418,7 @@ export const toSolid = (component) => {
       (name) => `const ${name} = () => ${code}`,
     )
   const controlOf = (read, initial, scope) => {
-    const code = `control(${read}, untrack(() => ${initial}))`
+    const code = `control(${read}, () => ${initial})`
     return declare(
       scope,
       [scope.loop ? "itemCheckedControl" : "checkedControl"],
@@ -644,7 +644,7 @@ export const toSolid = (component) => {
                 rewrite(node.groupRadio, scope),
                 controlOf(
                   `() => ${kind.radioChecked(model, rewrite(entry.code, scope))}`,
-                  rewrite(entry.code, scope),
+                  kind.radioDefault(model, rewrite(entry.code, scope)),
                   scope,
                 ),
               )

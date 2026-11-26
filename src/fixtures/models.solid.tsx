@@ -45,6 +45,7 @@ const Models = () => {
   document.addEventListener("refresh-steps", () => setSteps(stepsOf(1)))
   const [name, setName] = createSignal("Ada")
   const [plan, setPlan] = createSignal("free")
+  const [tags, setTags] = createSignal(["archived", "news"])
   const [toppings, setToppings] = createSignal(["basil", "cheese"])
 
   return (
@@ -149,6 +150,17 @@ const Models = () => {
         <ToggleButton value="left">Left</ToggleButton>
         <ToggleButton value="right">Right</ToggleButton>
       </ToggleGroup>
+      <ToggleGroup
+        aria-label="Stored tags"
+        multiple
+        name="stored-tags"
+        onValueChange={setTags}
+        value={tags()}
+      >
+        <ToggleButton value="news">News</ToggleButton>
+        <ToggleButton value="sports">Sports</ToggleButton>
+      </ToggleGroup>
+      <output id="models-tags">{JSON.stringify(tags())}</output>
       <ToggleGroup
         aria-label="Own density"
         defaultValue="compact"

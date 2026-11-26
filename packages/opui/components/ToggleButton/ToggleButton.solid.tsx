@@ -40,10 +40,7 @@ export default function ToggleButton(props: Props) {
   )
   const checkedControl = control(
     () => grouped() ?? props.checked,
-    untrack(
-      () =>
-        isSelected(group?.defaultValue, props.value) ?? props.defaultChecked,
-    ),
+    () => isSelected(group?.defaultValue, props.value) ?? props.defaultChecked,
   )
 
   return (

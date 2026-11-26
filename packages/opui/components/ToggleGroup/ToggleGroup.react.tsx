@@ -25,10 +25,10 @@ export default function ToggleGroup({
   const uid = useId()
   const change = useCallback(
     (input: HTMLInputElement) => {
-      if (multiple) onValueChange?.(checkedValues(input))
+      if (multiple) onValueChange?.(checkedValues(input, value))
       else onValueChange?.(input.value)
     },
-    [multiple, onValueChange],
+    [multiple, onValueChange, value],
   )
   const groupName = name || `toggle-group-${uid}`
   const inputType = multiple ? "checkbox" : "radio"

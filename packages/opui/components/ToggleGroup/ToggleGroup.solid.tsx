@@ -22,7 +22,7 @@ export default function ToggleGroup(props: Props) {
   )
   const uid = createUniqueId()
   const change = (input: HTMLInputElement) => {
-    if (props.multiple) props.onValueChange?.(checkedValues(input))
+    if (props.multiple) props.onValueChange?.(checkedValues(input, props.value))
     else props.onValueChange?.(input.value)
   }
   untrack(() => {

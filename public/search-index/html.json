@@ -4735,7 +4735,7 @@
     "id": "api-description-list-html",
     "title": "Description list API",
     "description": "Reference for Description list HTML component.",
-    "api": "dl.ui-description-list Container element. Groups a term with its description. dl.ui-description-list > div The term. dt The description. dd .ui-leader-dotted .ui-leader-solid Leader The style of the leader, the line between the term and the description. Without it, there's no line. .ui-horizontal Orientation The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.",
+    "api": "dl.ui-description-list Container element. Groups a term with its description. dl.ui-description-list > div The term. dt The description. dd .ui-leader-dotted .ui-leader-solid Leader The style of the leader, the line between the term and the description. Without it, there's no line. .ui-horizontal .ui-vertical Orientation The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width, and `vertical` always stacks them.",
     "category": "API",
     "url": "/html/api/#description-list"
   },

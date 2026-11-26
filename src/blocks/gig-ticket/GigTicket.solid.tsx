@@ -8,6 +8,10 @@ import {
   CardActions,
   CardContent,
   Chip,
+  DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm,
   Dialog,
   DialogContent,
   DialogFooter,
@@ -82,28 +86,42 @@ export default function GigTicket() {
               </h2>
               <p>The Flatwounds, Drop D Dynasty and Sub Club</p>
             </hgroup>
-            <dl class="gt-details">
-              <div>
-                <dt>Date</dt>
-                <dd>
+            <DescriptionList
+              class="gt-details ui-layout-grid"
+              orientation="vertical"
+              style="--_gap: var(--ui-space-4); --_min-inline-size: 12rem"
+            >
+              <DescriptionListItem>
+                <DescriptionListTerm class="ui-overline">
+                  Date
+                </DescriptionListTerm>
+                <DescriptionListDescription>
                   <time datetime="2027-06-12">Saturday 12 June 2027</time>
-                </dd>
-              </div>
-              <div>
-                <dt>Doors</dt>
-                <dd>
+                </DescriptionListDescription>
+              </DescriptionListItem>
+              <DescriptionListItem>
+                <DescriptionListTerm class="ui-overline">
+                  Doors
+                </DescriptionListTerm>
+                <DescriptionListDescription>
                   <time datetime="2027-06-12T17:00">17:00</time>
-                </dd>
-              </div>
-              <div>
-                <dt>Venue</dt>
-                <dd>Harbour Stage, Gothenburg</dd>
-              </div>
-              <div>
-                <dt>Entrance</dt>
-                <dd>Gate B</dd>
-              </div>
-            </dl>
+                </DescriptionListDescription>
+              </DescriptionListItem>
+              <DescriptionListItem>
+                <DescriptionListTerm class="ui-overline">
+                  Venue
+                </DescriptionListTerm>
+                <DescriptionListDescription>
+                  Harbour Stage, Gothenburg
+                </DescriptionListDescription>
+              </DescriptionListItem>
+              <DescriptionListItem>
+                <DescriptionListTerm class="ui-overline">
+                  Entrance
+                </DescriptionListTerm>
+                <DescriptionListDescription>Gate B</DescriptionListDescription>
+              </DescriptionListItem>
+            </DescriptionList>
           </div>
           <div class="gt-stub">
             <div class="ui-layout-column ui-gap-x-small">
@@ -292,36 +310,21 @@ export default function GigTicket() {
             );
             display: grid;
             gap: var(--ui-space-5);
+            grid-template-columns: minmax(0, 1fr);
             padding: var(--ui-space-6);
           }
 
           .gt-title {
             color: var(--ui-text-strong);
-            font-size: var(--ui-font-size-800);
+            font-size: clamp(var(--ui-font-size-700), 7cqi, var(--ui-font-size-800));
             letter-spacing: var(--ui-letter-spacing-display);
             line-height: var(--ui-line-height-tight);
+            overflow-wrap: anywhere;
             text-transform: uppercase;
           }
 
           .gt-details {
-            display: grid;
-            gap: var(--ui-space-4) var(--ui-space-6);
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
-            margin: 0;
             max-inline-size: 30rem;
-
-            dt {
-              color: var(--ui-text-subtle);
-              font-size: var(--ui-font-size-caption);
-              letter-spacing: var(--ui-letter-spacing-caps);
-              text-transform: uppercase;
-            }
-
-            dd {
-              color: var(--ui-text-strong);
-              font-weight: var(--ui-font-weight-semibold);
-              margin: 0;
-            }
           }
 
           .gt-stub {

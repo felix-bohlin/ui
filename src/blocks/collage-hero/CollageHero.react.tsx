@@ -1,4 +1,13 @@
-import { Button, Card, CardContent, Stat } from "opui-css/react"
+import {
+  Button,
+  Card,
+  CardContent,
+  DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm,
+  Stat,
+} from "opui-css/react"
 
 export default function CollageHero() {
   return (
@@ -35,23 +44,36 @@ export default function CollageHero() {
                 How it works
               </Button>
             </div>
-            <dl
+            <DescriptionList
               className="ui-layout-row"
+              orientation="vertical"
               style={{ "--_gap": "var(--ui-space-6)" }}
             >
-              <div>
-                <dt className="ui-caption">Cabins</dt>
-                <dd className="ui-h4">38</dd>
-              </div>
-              <div>
-                <dt className="ui-caption">Bands hosted</dt>
-                <dd className="ui-h4">1 240</dd>
-              </div>
-              <div>
-                <dt className="ui-caption">Noise complaints</dt>
-                <dd className="ui-h4">0</dd>
-              </div>
-            </dl>
+              <DescriptionListItem>
+                <DescriptionListTerm className="ui-caption">
+                  Cabins
+                </DescriptionListTerm>
+                <DescriptionListDescription className="ui-h4">
+                  38
+                </DescriptionListDescription>
+              </DescriptionListItem>
+              <DescriptionListItem>
+                <DescriptionListTerm className="ui-caption">
+                  Bands hosted
+                </DescriptionListTerm>
+                <DescriptionListDescription className="ui-h4">
+                  1 240
+                </DescriptionListDescription>
+              </DescriptionListItem>
+              <DescriptionListItem>
+                <DescriptionListTerm className="ui-caption">
+                  Noise complaints
+                </DescriptionListTerm>
+                <DescriptionListDescription className="ui-h4">
+                  0
+                </DescriptionListDescription>
+              </DescriptionListItem>
+            </DescriptionList>
           </div>
           <div className="collage">
             <div

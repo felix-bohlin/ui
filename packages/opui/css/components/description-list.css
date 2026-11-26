@@ -78,8 +78,32 @@
       }
     }
 
+    &.ui-vertical {
+      gap: var(--ui-space-3);
+
+      & > div {
+        align-items: normal;
+        gap: 0;
+        grid-template-columns: none;
+        justify-content: normal;
+
+        & + div {
+          margin-block-start: 0;
+        }
+
+        dd {
+          color: inherit;
+          text-align: inherit;
+        }
+
+        &::after {
+          content: none;
+        }
+      }
+    }
+
     @container (inline-size <= 45ch) {
-      &:not(.ui-horizontal) > div {
+      &:not(.ui-horizontal, .ui-vertical) > div {
         align-items: normal;
         gap: 0;
         grid-template-columns: none;

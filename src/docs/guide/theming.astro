@@ -5,6 +5,10 @@ import DocLink from "../../components/DocLink.astro"
 import Example from "../../components/Example/index"
 import RoleSwatches from "../../components/RoleSwatches.astro"
 import TokenFlow from "../../components/TokenFlow.astro"
+import { inWords } from "../../utils/count-words"
+import { ICON_LIBRARIES } from "../../utils/icon-libraries"
+
+const iconSets = Object.keys(ICON_LIBRARIES).toSorted()
 
 const surfaceRoles = [
   { name: "--ui-surface", note: "The page" },
@@ -361,11 +365,14 @@ export const keywords = [
 
     <h3 id="icons-sets">Icon sets</h3>
     <p>
-      The package has a stylesheet for each of five icon sets that sets every
-      icon token: <code>fluent</code>, <code>lucide</code>,
-      <code>material-symbols</code>, <code>phosphor</code> and
-      <code>tabler</code>. Import one to draw every component icon from that
-      set:
+      The package has a stylesheet for each of {inWords(iconSets.length)} icon
+      sets that sets every icon token:
+      {iconSets.map((set, i) => <Fragment
+        >{i > 0 && (i === iconSets.length - 1 ? " and " : ", ")}<code
+          >{set}</code
+        ></Fragment
+      >)}.
+      Import one to draw every component icon from that set:
     </p>
     <Code code={`@import "opui-css/icons/lucide.css";`} lang="css" />
     <p>

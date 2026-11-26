@@ -276,7 +276,7 @@ function readMarkdownHeadings(file, content) {
   )
 }
 
-/** @param {{ category: string, description?: string, id: string, page?: string, title: string, url: string }[]} index */
+/** @param {{ category: string, description?: string, headings?: string, id: string, page?: string, title: string, url: string }[]} index */
 export function indexProblems(index) {
   const unknown = [
     ...new Set(
@@ -294,6 +294,9 @@ export function indexProblems(index) {
   const duplicates = [...Map.groupBy(index, (item) => item.id)]
     .filter(([, items]) => items.length > 1)
     .map(([id]) => id)
+  const expressions = index
+    .filter((item) => /[{}]/.test(`${item.title} ${item.headings ?? ""}`))
+    .map((item) => item.id)
   const unslashed = index
     .filter(
       (item) => !new URL(item.url, "https://x.test").pathname.endsWith("/"),
@@ -313,6 +316,11 @@ export function indexProblems(index) {
       : []),
     ...(duplicates.length > 0
       ? [`Search entries that share an id: ${duplicates.join(", ")}`]
+      : []),
+    ...(expressions.length > 0
+      ? [
+          `Search entries whose title or headings hold an expression the index reads as source, so write those headings as text: ${expressions.join(", ")}`,
+        ]
       : []),
     ...(unslashed.length > 0
       ? [

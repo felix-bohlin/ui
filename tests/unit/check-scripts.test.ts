@@ -1664,6 +1664,19 @@ describe("generate-search-index", () => {
     ])
   })
 
+  test("reports an entry whose headings hold an expression the index can't read", () => {
+    expect(
+      indexProblems([
+        ...["API", "Blocks", "Blog", "Component", "Guide"].map((id) =>
+          entry(id),
+        ),
+        { ...entry("Blog", "blog-release"), headings: "{count} themes" },
+      ]),
+    ).toEqual([
+      "Search entries whose title or headings hold an expression the index reads as source, so write those headings as text: blog-release",
+    ])
+  })
+
   test("reads text without tags, entities, string expressions or extra spaces", () => {
     expect(
       slotText(

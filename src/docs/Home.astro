@@ -582,16 +582,32 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
     :global(html[data-example-theme="vice-city"]) & {
       color: var(--ui-primary-text);
-      font-size: var(--font-size-1);
+      font-size: min(var(--font-size-1), 100cqi / 21.4);
       font-weight: var(--ui-font-weight-bold);
       letter-spacing: 0.14em;
       text-transform: uppercase;
     }
   }
 
+  .hero-copy {
+    :global(html[data-example-theme="vice-city"]) & {
+      container-type: inline-size;
+    }
+  }
+
+  .hero-copy .ui-hgroup {
+    :global(html[data-example-theme="vice-city"]) & {
+      inline-size: fit-content;
+
+      .ui-h1 {
+        container-type: inline-size;
+      }
+    }
+  }
+
   .hero-copy :global(.vi-lockup) {
     display: grid;
-    font-size: clamp(8rem, 24vw, 15rem);
+    font-size: calc(100cqi / 1.61);
     inline-size: fit-content;
   }
 

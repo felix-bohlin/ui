@@ -93,8 +93,20 @@ export default {
     },
     {
       description:
-        "The items, as `{ as, borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `as` takes the link component of your router for a link item, such as Next's `Link`, Solid Router's `A` or Nuxt's `NuxtLink`, which gets the `href`. `borderTop` adds a border above the item, `color: \"critical\"` marks a destructive one, a disabled link has no `href`, also with `as`, and `keepOpen` keeps the menu open on click. Other keys go to the item's `<a>`, `<button>` or link component, like `type: \"submit\"` with `form` for an item that submits a form.",
-      frameworks: ["react", "solid", "vue"],
+        'The items, as `{ as, borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `as` takes the link component of your router for a link item, such as Next\'s `Link`, which gets the `href`. `borderTop` adds a border above the item, `color: "critical"` marks a destructive one, a disabled link has no `href`, also with `as`, and `keepOpen` keeps the menu open on click. Other keys go to the item\'s `<a>`, `<button>` or link component, like `type: "submit"` with `form` for an item that submits a form.',
+      frameworks: ["react"],
+      prop: "items",
+    },
+    {
+      description:
+        'The items, as `{ as, borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `as` takes the link component of your router for a link item, such as Solid Router\'s `A`, which gets the `href`. `borderTop` adds a border above the item, `color: "critical"` marks a destructive one, a disabled link has no `href`, also with `as`, and `keepOpen` keeps the menu open on click. Other keys go to the item\'s `<a>`, `<button>` or link component, like `type: "submit"` with `form` for an item that submits a form.',
+      frameworks: ["solid"],
+      prop: "items",
+    },
+    {
+      description:
+        'The items, as `{ as, borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `as` takes the link component of your router for a link item, such as Nuxt\'s `NuxtLink`, which gets the `href`. `borderTop` adds a border above the item, `color: "critical"` marks a destructive one, a disabled link has no `href`, also with `as`, and `keepOpen` keeps the menu open on click. Other keys go to the item\'s `<a>`, `<button>` or link component, like `type: "submit"` with `form` for an item that submits a form.',
+      frameworks: ["vue"],
       prop: "items",
     },
     {

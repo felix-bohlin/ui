@@ -12,7 +12,17 @@ const components = (note: string) => ({
 
 const slots = (note: string) => ({ astro: note, vue: note })
 
-const routed = (note: string) => ({ react: note, solid: note, vue: note })
+const ROUTER_LINKS = {
+  react: "Next's <code>Link</code>",
+  solid: "Solid Router's <code>A</code>",
+  vue: "Nuxt's <code>NuxtLink</code>",
+}
+
+const routed = (note: (link: string) => string) => ({
+  react: note(ROUTER_LINKS.react),
+  solid: note(ROUTER_LINKS.solid),
+  vue: note(ROUTER_LINKS.vue),
+})
 
 export const whatsNew = {
   accordion: [
@@ -99,7 +109,8 @@ export const whatsNew = {
   ],
   avatar: [
     routed(
-      `A link avatar takes <a href="#api"><code>as</code></a>: the link component of your router, such as Next's <code>Link</code>, Solid Router's <code>A</code> or Nuxt's <code>NuxtLink</code>, which gets the <code>href</code>. With <code>disabled</code> it renders a plain disabled link.`,
+      (link) =>
+        `A link avatar takes <a href="#api"><code>as</code></a>: the link component of your router, such as ${link}, which gets the <code>href</code>. With <code>disabled</code> it renders a plain disabled link.`,
     ),
     `<a href="#variants"><code>variant</code></a> takes <code>tonal</code> for the primary tint and <code>outlined</code> for the border color with no fill.`,
     components(
@@ -198,7 +209,8 @@ export const whatsNew = {
   ],
   button: [
     routed(
-      `A link button takes <a href="#api"><code>as</code></a>: the link component of your router, such as Next's <code>Link</code>, Solid Router's <code>A</code> or Nuxt's <code>NuxtLink</code>, which gets the <code>href</code>. With <code>disabled</code> it renders a plain disabled link.`,
+      (link) =>
+        `A link button takes <a href="#api"><code>as</code></a>: the link component of your router, such as ${link}, which gets the <code>href</code>. With <code>disabled</code> it renders a plain disabled link.`,
     ),
     `Themes can set <a href="#api"><code>--ui-button-hover</code></a> to <code>layer</code> for state-layer hover and pressed states, or to <code>shade-all</code> to shade tonal buttons like filled ones, and <code>--ui-button-padding-inline</code> with its <code>-x-small</code>, <code>-small</code> and <code>-large</code> variants for the horizontal padding per size.`,
     `Themes can set <a href="#api"><code>--ui-button-accent-filled</code></a> and <code>--ui-button-on-accent-filled</code> to give filled buttons a color of their own.`,
@@ -475,7 +487,8 @@ export const whatsNew = {
   ],
   chip: [
     routed(
-      `A link chip takes <a href="#api"><code>as</code></a>: the link component of your router, such as Next's <code>Link</code>, Solid Router's <code>A</code> or Nuxt's <code>NuxtLink</code>, which gets the <code>href</code>. With <code>disabled</code> it renders a plain disabled link.`,
+      (link) =>
+        `A link chip takes <a href="#api"><code>as</code></a>: the link component of your router, such as ${link}, which gets the <code>href</code>. With <code>disabled</code> it renders a plain disabled link.`,
     ),
     `Themes can set <a href="#api"><code>--ui-chip-radius</code></a> for a corner radius of its own.`,
     slots(
@@ -905,7 +918,8 @@ export const whatsNew = {
   ],
   list: [
     routed(
-      `A link <a href="#api"><code>ListItem</code></a> takes <code>as</code>: the link component of your router, such as Next's <code>Link</code>, Solid Router's <code>A</code> or Nuxt's <code>NuxtLink</code>, which gets the <code>href</code>. With <code>disabled</code> it renders a plain disabled link.`,
+      (link) =>
+        `A link <a href="#api"><code>ListItem</code></a> takes <code>as</code>: the link component of your router, such as ${link}, which gets the <code>href</code>. With <code>disabled</code> it renders a plain disabled link.`,
     ),
     `Rows with any <a href="#selected"><code>aria-current</code></a> but <code>false</code> look current, like <code>true</code> on a button, not only <code>page</code>.`,
     `<a href="#flush"><code>flush</code></a> also drops the block padding of the list, for a list in a card.`,
@@ -984,7 +998,8 @@ export const whatsNew = {
   ],
   menu: [
     routed(
-      `A link item in <a href="#api"><code>items</code></a> takes <code>as</code>: the link component of your router, such as Next's <code>Link</code>, Solid Router's <code>A</code> or Nuxt's <code>NuxtLink</code>, which gets the <code>href</code>. A disabled one renders a plain disabled link.`,
+      (link) =>
+        `A link item in <a href="#api"><code>items</code></a> takes <code>as</code>: the link component of your router, such as ${link}, which gets the <code>href</code>. A disabled one renders a plain disabled link.`,
     ),
     {
       default: `An open menu <a href="#basics">closes when the page navigates</a>, also with a client router.`,

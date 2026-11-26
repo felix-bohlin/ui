@@ -182,13 +182,22 @@ const knownOf = (name: Name) => {
   return names
 }
 
-const rest = (props: Record<string, unknown> | undefined, name: Name) => {
+const rest = (props: unknown, name: Name) => {
+  if (
+    DEV &&
+    props != null &&
+    (typeof props !== "object" || Array.isArray(props))
+  ) {
+    throw new Error(
+      `[OPUI ${name}] Pass the props as one dict: ${name}({ ... }), with the default slot as the body of {% call ${name}({ ... }) %}.`,
+    )
+  }
   const meta = components[name]
   if (!meta) throw new Error(`opuiRest has no component named ${name}`)
   const slots = meta.slots as string[]
   const omitted = meta.props as string[]
   const result: Record<string, unknown> = {}
-  for (const [key, value] of Object.entries(props ?? {})) {
+  for (const [key, value] of Object.entries((props ?? {}) as object)) {
     if (key === "slots") {
       for (const slot of DEV ? Object.keys(value ?? {}) : []) {
         if (!slots.includes(slot)) {

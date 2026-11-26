@@ -9,6 +9,7 @@ import { formatCode } from "../../scripts/format.mjs"
 import {
   compileNunjucks,
   componentFiles,
+  helperEntries,
   HELPERS,
   nunjucksCensus,
   nunjucksBuild,
@@ -275,6 +276,16 @@ const COMPOSITIONS = [
     name: "Dialog with a closing header",
     nunjucks: `{% call Dialog({ id: "settings" }) %}{% call DialogHeader({ closeButton: true }) %}{% call DialogTitle() %}Settings{% endcall %}{% endcall %}{% endcall %}`,
   },
+  {
+    astro: `<Dialog id="settings"><DialogHeader><Fragment set:html={"  <h2>Settings</h2>  "} /></DialogHeader><DialogHeader><Fragment set:html={""} /></DialogHeader></Dialog>`,
+    name: "DialogHeader trims its content",
+    nunjucks: `{% call Dialog({ id: "settings" }) %}{% call DialogHeader() %}  <h2>Settings</h2>  {% endcall %}{% call DialogHeader() %}{% endcall %}{% endcall %}`,
+  },
+  {
+    astro: `<Switch name="wifi"><Fragment set:html={"  Wi-Fi  "} /></Switch><Switch aria-label="Bluetooth" name="bluetooth"><Fragment set:html={""} /></Switch>`,
+    name: "Switch trims its label and drops an empty one",
+    nunjucks: `{% call Switch({ name: "wifi" }) %}  Wi-Fi  {% endcall %}{% call Switch({ "aria-label": "Bluetooth", name: "bluetooth" }) %}{% endcall %}`,
+  },
 ]
 
 const idsIn = (html: string) =>
@@ -496,6 +507,77 @@ describe("the expression translator", () => {
 
 const FRONTMATTER = 'import type { Props } from "./types.astro"\n'
 
+const SAMPLE_FILE = "packages/opui/components/Tabs/Sample.astro"
+
+const SAMPLES = [
+  {
+    name: "a loop const named like a frontmatter local",
+    props: { items: [{ label: "Fern" }, { label: "Moss" }], title: "Plants" },
+    source: `---\n${FRONTMATTER}const { items, title, ...rest } = Astro.props\nconst label = title || "List"\n---\n\n<div {...rest} title={label}>{items.map((item) => {\n  const label = item.label\n  return <span>{label}</span>\n})}<b>{label}</b></div>\n`,
+  },
+  {
+    name: "a loop item named like the condition of a guarded local",
+    props: { items: ["Fern"] },
+    source: `---\n${FRONTMATTER}const { items, title, ...rest } = Astro.props\nconst titleId = title ? \`\${title}-id\` : undefined\n---\n\n<div {...rest} aria-labelledby={titleId}>{items.map((title) => <span>{title && <i aria-describedby={titleId}>{title}</i>}</span>)}</div>\n`,
+  },
+  {
+    name: "a derived value that can be false, printed as text",
+    props: { open: false },
+    source: `---\n${FRONTMATTER}const { open, ...rest } = Astro.props\nconst note = open && "Open"\n---\n\n<div {...rest} title={note}>{note}</div>\n`,
+  },
+  {
+    body: ` Say "hi" <b>now</b> `,
+    name: "a trimmed slot written into an attribute",
+    props: {},
+    source: `---\n${FRONTMATTER}import { trimEdges } from "../whitespace"\nconst { ...rest } = Astro.props\nconst label = Astro.slots.has("default")\n  ? trimEdges(await Astro.slots.render("default"))\n  : ""\n---\n\n<div {...rest} title={label}><Fragment set:html={label} /></div>\n`,
+  },
+  {
+    name: "a spread written with || on a custom element",
+    props: { attrs: { title: "Kept" }, fallback: { title: "Fallback" } },
+    source: `---\n${FRONTMATTER}const { attrs, fallback, ...rest } = Astro.props\n---\n\n<opui-sample {...(attrs || fallback)}><span {...rest}>Plants</span></opui-sample>\n`,
+  },
+]
+
+describe("samples render what Astro renders", () => {
+  test.each(SAMPLES)("$name", async ({ name, props, source, ...sample }) => {
+    const body = "body" in sample ? sample.body : undefined
+    const macro = await compileNunjucks(source, SAMPLE_FILE)
+    const env = createEnvironment(
+      { ...templates, "opui/Sample.njk": macro },
+      { id: createIdGenerator() },
+    )
+    const shippedRest = env.getFilter("opuiRest")
+    env.addFilter("opuiRest", (value: Record<string, unknown>, of: string) =>
+      of === "Sample"
+        ? Object.fromEntries(
+            Object.entries(value).filter(([key]) => !(key in props)),
+          )
+        : shippedRest(value, of),
+    )
+    const rendered = env.renderString(
+      `{% from "opui/Sample.njk" import Sample %}${
+        body === undefined
+          ? "{{ Sample(props) }}"
+          : "{% call Sample(props) %}{{ body | safe }}{% endcall %}"
+      }`,
+      { body, props },
+    )
+    const expected = await renderer.renderSource(
+      `tests/unit/.nunjucks/sample-${name.replace(/\W+/g, "-")}.astro`,
+      source.replaceAll(
+        'from "../',
+        'from "../../../packages/opui/components/',
+      ),
+      {
+        locals: { $id: createIdGenerator(), framework: "astro" },
+        props,
+        ...(body !== undefined && { slots: { default: body } }),
+      },
+    )
+    expect(normalize(rendered)).toBe(normalize(expected))
+  })
+})
+
 describe("the emitter refuses what it can't write", () => {
   test.each([
     [
@@ -509,9 +591,24 @@ describe("the emitter refuses what it can't write", () => {
       "a named slot passed to Button",
     ],
     [
+      "BC703",
+      `---\n${FRONTMATTER}import { tabsContext } from "./context.astro"\nconst { ...rest } = Astro.props\nconst html = await tabsContext.provide({ rest }, () => Astro.slots.render("default"))\n---\n\n<div {...rest}><Fragment set:html={html} /><slot>No tabs</slot></div>\n`,
+      "a context provided around a default slot with fallback content",
+    ],
+    [
+      "BC704",
+      `---\n${FRONTMATTER}import Button from "../Button/Button.astro"\nconst { icon, ...rest } = Astro.props\n---\n\n<div {...rest}><Button>{icon && <span slot="icon">+</span>}Add</Button></div>\n`,
+      "a named slot passed to Button",
+    ],
+    [
       "BC705",
       `---\n${FRONTMATTER}const { value, ...rest } = Astro.props\nconst loop = value || "x"\n---\n\n<div {...rest}>{loop}</div>\n`,
       "the name loop",
+    ],
+    [
+      "BC706",
+      `---\nimport type { Missing } from "./types.astro"\nconst { value, ...rest } = Astro.props\n---\n\n<div {...rest}>{value}</div>\n`,
+      "the props type Missing",
     ],
   ])("%s", async (code, source, what) => {
     await expect(
@@ -692,6 +789,32 @@ describe("the macro library", () => {
     } finally {
       warn.mockRestore()
     }
+  })
+
+  test("a macro called without a props dict throws in development", () => {
+    expect(() =>
+      renderNunjucks(
+        `{% from "opui/Button.njk" import Button %}{{ Button("Save") }}`,
+      ),
+    ).toThrow("[OPUI Button] Pass the props as one dict: Button({ ... })")
+  })
+
+  test("a helper can't take the name of an opui built-in", () => {
+    const module = (entries: Record<string, () => unknown>) => ({
+      file: "sample.ts",
+      module: entries,
+    })
+    expect(() => helperEntries([module({ merge: () => ({}) })])).toThrow(
+      "can't register the helper merge",
+    )
+    expect(() =>
+      helperEntries([module({ pick: () => 1 }), module({ pick: () => 2 })]),
+    ).toThrow("finds two helpers named pick")
+    expect(
+      helperEntries([module({ pick: () => 1 })]).map(
+        ({ name }: { name: string }) => name,
+      ),
+    ).toEqual(["pick"])
   })
 
   test.each([

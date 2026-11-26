@@ -1692,6 +1692,24 @@ interaction(
 
 interaction(
   "menu",
+  "Basics",
+  "menu rows paint no background at rest, so a translucent surface reads the same on the rows as between them",
+  async ({ page, root }) => {
+    const menu = root.locator("menu.ui-menu")
+
+    await root.getByRole("button", { name: "Options" }).click()
+    await expect(menu).toBeVisible()
+    await page.mouse.move(0, 0)
+    const rows = await menu.locator("li, li > :is(a, button)").all()
+    expect(rows.length).toBeGreaterThan(0)
+    for (const row of rows) {
+      expect(await computed(row, "background-color")).toBe("rgba(0, 0, 0, 0)")
+    }
+  },
+)
+
+interaction(
+  "menu",
   "Horizontal",
   "a horizontal menu lays its items out in one row that fits them",
   async ({ root }) => {

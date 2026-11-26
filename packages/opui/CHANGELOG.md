@@ -593,6 +593,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `List` on touch screens only stops text selection in clickable rows (`a`, `button` and `label`), so end text and `Select` options can be selected and copied.
 - `List` options with `aria-selected="true"` keep their text color like a checked option or the current link, instead of turning `--ui-primary-text`.
 - `List` renders `role="list"`, unless it's passed another `role` such as `listbox`, so Safari keeps announcing a list without bullets as a list with its item count outside a `nav`.
+- `List` rows, `Menu` items and `Select` options no longer paint the list's background over the list's own, so a translucent `--ui-surface-filled` or `--ui-surface-elevated` no longer shows bands at the edges, between bordered rows and around separators.
 - `ListItem` with `href` and no `as` renders a link in Astro and Vue.
 - `ListItem` with `as="button"` renders `type="button"`, so it no longer submits a surrounding form.
 - `ListItem` `inset` no longer indents the label of a Chip or Button placed in `.ui-end`.

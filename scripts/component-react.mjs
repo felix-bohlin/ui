@@ -9,6 +9,7 @@ import {
 import {
   componentImport,
   contextImports,
+  devOnly,
   eventRoots,
   groupWarning,
   hydratingRoots,
@@ -266,13 +267,15 @@ export const toReact = (component) => {
     ...derived.map(
       ({ code, name }) => `const ${name} = ${rewriteExpression(code, options)}`,
     ),
-    ...warnings.map((code) => rewriteStatement(code, options)),
+    ...warnings.map((code) => devOnly(rewriteStatement(code, options))),
     ...(item
       ? [
-          groupWarning(
-            component,
-            item,
-            `${item.checked ?? "undefined"} ?? defaultChecked`,
+          devOnly(
+            groupWarning(
+              component,
+              item,
+              `${item.checked ?? "undefined"} ?? defaultChecked`,
+            ),
           ),
         ]
       : []),
@@ -514,7 +517,10 @@ export const toReact = (component) => {
       read: (name) => `use${name}Context`,
     }),
     ...importLinesOf(used, ["react"]),
-    ...(item ? withImport(imports, "../dev", "warnGroupedChecked") : imports),
+    ...[
+      ...(warnings.length || item ? ["DEV"] : []),
+      ...(item ? ["warnGroupedChecked"] : []),
+    ].reduce((lines, name) => withImport(lines, "../dev", name), imports),
     propsImport(propsType, "types.react"),
     ...(provide
       ? [

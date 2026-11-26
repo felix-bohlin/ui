@@ -8,24 +8,24 @@ export default function Compact() {
         description="Or drop them here. PNG or JPG."
         items={[
           {
-            label: "lou-headstock.png",
-            preview: "/photos/lou-headstock.png",
-            state: "done",
-            value: "lou",
+            label: "kinga-headstock.png",
+            preview: "/photos/kinga-headstock.png",
+            state: "complete",
+            value: "kinga",
           },
           {
-            label: "percy-groove.png",
-            preview: "/photos/percy-groove.png",
+            label: "adam-groove.png",
+            preview: "/photos/adam-groove.png",
             progress: 0.6,
             state: "uploading",
-            value: "percy",
+            value: "adam",
           },
           {
             description: "This photo is larger than 10 MB.",
-            label: "holly-humbucker.png",
-            preview: "/photos/holly-humbucker.png",
+            label: "scott-humbucker.png",
+            preview: "/photos/scott-humbucker.png",
             state: "error",
-            value: "holly",
+            value: "scott",
           },
           {
             label: "stage-left.png",

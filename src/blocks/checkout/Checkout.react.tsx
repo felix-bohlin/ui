@@ -30,7 +30,7 @@ import {
 export default function Checkout() {
   return (
     <>
-      <div className="checkout ui-layout-container ui-layout-column ui-large">
+      <div className="checkout ui-layout-container ui-layout-column ui-gap-large">
         <hgroup className="ui-hgroup">
           <p>Bassbook Shop</p>
           <h1 className="ui-h3">Checkout</h1>
@@ -61,7 +61,7 @@ export default function Checkout() {
                     placeholder="you@example.com"
                     required
                     type="email"
-                    defaultValue="ines.hertz@example.com"
+                    defaultValue="mohini.hertz@example.com"
                   />
                 </Field>
                 <Checkbox defaultChecked id="checkout-news" name="news">
@@ -80,7 +80,7 @@ export default function Checkout() {
                       name="first-name"
                       required
                       type="text"
-                      defaultValue="Ines"
+                      defaultValue="Mohini"
                     />
                   </Field>
                   <Field htmlFor="checkout-last-name" label="Last name">
@@ -306,7 +306,7 @@ export default function Checkout() {
                   <TabsPanel>
                     <p>
                       Pay within 30 days of delivery. We'll email the invoice to
-                      ines.hertz@example.com once your gear ships.
+                      mohini.hertz@example.com once your gear ships.
                     </p>
                   </TabsPanel>
                 </TabsItem>
@@ -330,7 +330,7 @@ export default function Checkout() {
               >
                 Pay €154.30
               </Button>
-              <p className="ui-layout-row ui-x-small ui-align-center ui-caption">
+              <p className="ui-layout-row ui-gap-x-small ui-align-center ui-caption">
                 <svg
                   data-icon="lock"
                   aria-hidden="true"
@@ -422,12 +422,12 @@ export default function Checkout() {
                     id="checkout-discount"
                     name="discount"
                     type="text"
-                    defaultValue="LOWEND10"
+                    defaultValue="BASS10"
                   />
                 </Field>
                 <Button type="button">Apply</Button>
               </ControlGroup>
-              <DescriptionList border="solid" orientation="horizontal">
+              <DescriptionList leader="solid" orientation="horizontal">
                 <DescriptionListItem>
                   <DescriptionListTerm>Subtotal</DescriptionListTerm>
                   <DescriptionListDescription>
@@ -435,7 +435,7 @@ export default function Checkout() {
                   </DescriptionListDescription>
                 </DescriptionListItem>
                 <DescriptionListItem>
-                  <DescriptionListTerm>Discount (LOWEND10)</DescriptionListTerm>
+                  <DescriptionListTerm>Discount (BASS10)</DescriptionListTerm>
                   <DescriptionListDescription>
                     −€16.60
                   </DescriptionListDescription>

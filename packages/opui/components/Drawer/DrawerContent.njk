@@ -1,0 +1,9 @@
+{% macro DrawerContent(props = {}) %}
+  {%- set rest = props | opuiRest("DrawerContent") -%}
+  <div
+    class="ui-content
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </div>
+{%- endmacro %}

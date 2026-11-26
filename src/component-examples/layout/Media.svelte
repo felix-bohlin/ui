@@ -3,9 +3,9 @@
 </script>
 
 <div class="ui-layout-media">
-  <Avatar>LH</Avatar>
+  <Avatar>KH</Avatar>
   <div>
-    <p>Lou Headstock</p>
+    <p>Kinga Headstock</p>
     <p class="ui-caption">Fretless fan, joined in March</p>
   </div>
 </div>

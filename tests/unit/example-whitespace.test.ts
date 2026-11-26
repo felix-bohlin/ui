@@ -134,7 +134,7 @@ describe("the whitespace of the generated React, Solid, Svelte and Vue", () => {
     ],
     [
       "a FieldGroup",
-      '<FieldGroup name="g">\n  <Checkbox>One</Checkbox>\n  <Checkbox>Two</Checkbox>\n</FieldGroup>',
+      '<FieldGroup>\n  <Checkbox name="g">One</Checkbox>\n  <Checkbox name="g">Two</Checkbox>\n</FieldGroup>',
       "Checkbox, FieldGroup",
     ],
     ["padding inside a Button", "<Button> Save </Button>", "Button"],

@@ -1,0 +1,16 @@
+{% from "opui/index.njk" import Tabs, TabsItem, TabsLabel, TabsPanel %}
+
+{% call Tabs({ name: "line-tabs", variant: "line" }) %}
+  {% call TabsItem({ checked: true }) %}
+    {% call TabsLabel() %}Profile{% endcall %}
+    {% call TabsPanel() %}Profile settings and information.{% endcall %}
+  {% endcall %}
+  {% call TabsItem() %}
+    {% call TabsLabel() %}Settings{% endcall %}
+    {% call TabsPanel() %}General account settings.{% endcall %}
+  {% endcall %}
+  {% call TabsItem() %}
+    {% call TabsLabel() %}Notifications{% endcall %}
+    {% call TabsPanel() %}Manage your notifications.{% endcall %}
+  {% endcall %}
+{% endcall %}

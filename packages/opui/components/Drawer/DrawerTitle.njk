@@ -1,0 +1,12 @@
+{% macro DrawerTitle(props = {}) %}
+  {%- set rest = props | opuiRest("DrawerTitle") -%}
+  {%- set drawer = opui.context("Drawer") -%}
+  {{- opui.warnReplacedId("DrawerTitle", "Drawer", props.id, drawer.titleId) -}}
+  {%- set id = drawer.titleId if drawer.titleId != none else props.id -%}
+  <h2
+    {%- if props.class %} class="{{ props.class }}"{% endif %}
+    {%- if id != none %} id="{{ id }}"{% endif %}
+    {{- rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </h2>
+{%- endmacro %}

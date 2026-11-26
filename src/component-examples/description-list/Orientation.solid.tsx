@@ -9,7 +9,7 @@ import {
 export default function Orientation() {
   return (
     <>
-      <DescriptionList border="solid" style="max-inline-size: 18rem">
+      <DescriptionList leader="solid" style="max-inline-size: 18rem">
         <DescriptionListItem>
           <DescriptionListTerm>Plan</DescriptionListTerm>
           <DescriptionListDescription>Gold</DescriptionListDescription>
@@ -25,7 +25,7 @@ export default function Orientation() {
       </DescriptionList>
 
       <DescriptionList
-        border="solid"
+        leader="solid"
         orientation="horizontal"
         style="max-inline-size: 18rem"
       >

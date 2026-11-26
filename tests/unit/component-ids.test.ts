@@ -37,7 +37,9 @@ const renderWithIds = (
         {},
         { $id, framework: "astro", link: (path: string) => path },
       )
-    : render[framework](component, props)
+    : framework === "nunjucks"
+      ? render.nunjucks(component, props, {}, { $id })
+      : render[framework](component, props)
 
 const ID_ATTRIBUTES =
   /\s(?:id|for|list|aria-labelledby|aria-describedby|aria-controls|commandfor)="([^"]*)"/g
@@ -58,6 +60,7 @@ const CASES: {
     base: (html) => /<opui-callout[^>]*\sid="([^"]+)"/.exec(html)?.[1],
     components: {
       astro: CalloutAstro,
+      nunjucks: "Callout",
       react: CalloutReact,
       solid: CalloutSolid,
       svelte: CalloutSvelte,
@@ -72,6 +75,7 @@ const CASES: {
       /aria-labelledby="([^"]+)-title"/.exec(html)?.[1] ?? undefined,
     components: {
       astro: DialogAstro,
+      nunjucks: "Dialog",
       react: DialogReact,
       solid: DialogSolid,
       svelte: DialogSvelte,
@@ -127,7 +131,9 @@ describe.each(CASES)("$name", ({ base, components, prefix, props }) => {
           (id) => id !== generated && !id.startsWith(`${generated}-`),
         ),
       ).toEqual([])
-      if (framework === "astro") expect(calls).toEqual([prefix])
+      if (framework === "astro" || framework === "nunjucks") {
+        expect(calls).toEqual([prefix])
+      }
     },
   )
 })
@@ -140,6 +146,7 @@ const OWN_CONTROL: {
   {
     components: {
       astro: FieldAstro,
+      nunjucks: "Field",
       react: FieldReact,
       solid: FieldSolid,
       svelte: FieldSvelte,
@@ -151,6 +158,7 @@ const OWN_CONTROL: {
   {
     components: {
       astro: OneTimeCodeAstro,
+      nunjucks: "OneTimeCode",
       react: OneTimeCodeReact,
       solid: OneTimeCodeSolid,
       svelte: OneTimeCodeSvelte,

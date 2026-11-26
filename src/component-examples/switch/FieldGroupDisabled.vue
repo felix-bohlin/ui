@@ -6,17 +6,21 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/vue"
   <Form>
     <Fieldset disabled>
       <FieldLegend>Share with friends</FieldLegend>
-      <FieldGroup name="switch-group-disabled" orientation="horizontal">
-        <Switch value="profile">Profile</Switch>
-        <Switch value="activity">Activity</Switch>
-        <Switch value="location">Location</Switch>
+      <FieldGroup orientation="horizontal">
+        <Switch name="switch-group-disabled" value="profile">Profile</Switch>
+        <Switch name="switch-group-disabled" value="activity">Activity</Switch>
+        <Switch name="switch-group-disabled" value="location">Location</Switch>
       </FieldGroup>
     </Fieldset>
     <Fieldset>
       <FieldLegend>Sync</FieldLegend>
-      <FieldGroup name="switch-group-disabled-single" orientation="horizontal">
-        <Switch checked value="contacts">Contacts</Switch>
-        <Switch disabled value="photos">Photos</Switch>
+      <FieldGroup orientation="horizontal">
+        <Switch checked name="switch-group-disabled-single" value="contacts"
+          >Contacts</Switch
+        >
+        <Switch disabled name="switch-group-disabled-single" value="photos"
+          >Photos</Switch
+        >
       </FieldGroup>
     </Fieldset>
   </Form>

@@ -32,10 +32,11 @@
       {completeLabel}
       {errorLabel}
       {...item}
-      complete={item.complete ||
-        complete ||
-        (current !== undefined && index < current)}
       current={item.current || index === current}
+      state={item.state ??
+        (complete || (current !== undefined && index < current)
+          ? "complete"
+          : undefined)}
     />
   {/each}
   {@render children?.()}

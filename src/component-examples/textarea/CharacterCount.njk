@@ -1,0 +1,21 @@
+{% from "opui/index.njk" import CharacterCount, Field %}
+
+{% set endText %}
+Up to 160 characters, shown on your profile.
+{{ CharacterCount({ label: "{count} characters to go" }) }}
+{% endset %}
+{% call Field({
+  for: "textarea-character-count-1",
+  label: "Bio",
+  slots: { endText: endText }
+}) %}
+  <textarea
+    aria-describedby="textarea-character-count-1-end-text"
+    id="textarea-character-count-1"
+    maxlength="160"
+  ></textarea>
+{% endcall %}
+
+<script type="module">
+  import "opui-css/elements/character-count.js"
+</script>

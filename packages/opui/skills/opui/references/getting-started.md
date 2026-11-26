@@ -1,6 +1,6 @@
 # Getting started
 
-Every framework needs the CSS. The HTML section covers the CDN file, the npm imports and the files to copy. The Astro, React, Solid, Svelte and Vue sections add their install, CSS import and component import steps.
+Every framework needs the CSS. The HTML section covers the CDN file, the npm imports and the files to copy. The Astro, Nunjucks, React, Solid, Svelte and Vue sections add their install, CSS and component import steps.
 
 ## HTML
 
@@ -125,8 +125,10 @@ opui
 ├─ themes
 │  ├─ bootstrap.css
 │  ├─ brutalist.css
+│  ├─ govuk.css
 │  ├─ m3.css
-│  └─ shadcn.css
+│  ├─ shadcn.css
+│  └─ vice-city.css
 ├─ open-props.css
 └─ tokens.json
 ```
@@ -220,7 +222,7 @@ Without a bundler, add this import map to the `head`:
 
 #### [Blocks](https://opui.dev/blocks.md)
 
-37 pages and sections built from the components.
+59 pages and sections built from the components.
 
 #### [Components](https://opui.dev/html/components.md)
 
@@ -345,6 +347,184 @@ Add `/// <reference types="opui-css/env.d.ts" />` to `env.d.ts` for the types.
 44 components, each with Astro examples and its API.
 
 #### [Concepts](https://opui.dev/astro/guide/concepts.md)
+
+#### [Theme builder](https://opui.dev/theme-builder.md)
+
+## Nunjucks
+
+OPUI ships every component as a Nunjucks 3 macro. Install the package, add the plugin, and import the macros you need.
+
+### Quick start
+
+#### Install and add the plugin
+
+Needs Node 26.10 or later. Configure Nunjucks once, and link the CSS in your layout.
+
+```sh
+pnpm add opui-css nunjucks
+```
+
+```sh
+npm install opui-css nunjucks
+```
+
+```sh
+yarn add opui-css nunjucks
+```
+
+```sh
+bun add opui-css nunjucks
+```
+
+```js
+import opui from "opui-css/nunjucks/eleventy"
+
+export default (eleventyConfig) => {
+  eleventyConfig.addPlugin(opui)
+  eleventyConfig.addPassthroughCopy({
+    "node_modules/opui-css/dist/opui.css": "opui.css",
+  })
+}
+```
+
+```html
+<link rel="stylesheet" href="/opui.css" />
+```
+
+#### Call a macro
+
+```html
+{% from "opui/index.njk" import Button %}
+
+{% call Button({ color: "primary", variant: "filled" }) %}Save{% endcall %}
+```
+
+| You write | It renders |
+| --- | --- |
+| `Button()` | `.ui-button` |
+| `color: "primary"` | `.ui-primary` |
+| `variant: "filled"` | `.ui-filled` |
+
+#### Make it yours
+
+### What's in the CSS
+
+### Link only what you use
+
+Copy the CSS folders to your site:
+
+```js
+eleventyConfig.addPassthroughCopy({
+  "node_modules/opui-css/core": "opui/core",
+  "node_modules/opui-css/css": "opui/css",
+})
+```
+
+List the files in a CSS file, and link it instead of `opui.css`:
+
+```css
+@import "/opui/css/layers.css";
+@import "/opui/core/palette.css";
+@import "/opui/css/theme.css";
+@import "/opui/core/normalize.css";
+@import "/opui/css/components/button.css";
+@import "/opui/css/components/choice.css";
+@import "/opui/css/components/checkbox.css";
+@import "/opui/css/compat.css";
+@import "/opui/core/utils.css";
+```
+
+### Without Eleventy
+
+Pass your environment to `configure`:
+
+```js
+import nunjucks from "nunjucks"
+import { configure } from "opui-css/nunjucks"
+
+const env = configure(nunjucks.configure("views"))
+```
+
+It adds the macros under `opui/`, their filters and the `opui` global. It needs `autoescape` on and `trimBlocks`, `lstripBlocks` and `throwOnUndefined` off, the Nunjucks defaults. Your own templates come first, so `views/opui/Button.njk` replaces the Button macro.
+
+### How to use
+
+Each macro takes one dict with the component's props. The default slot is the body of `{% call %}`, and named slots go in `slots` under their camelCase name, as a string or captured with `{% set %}`:
+
+```html
+{% from "opui/index.njk" import Field %}
+
+{% set start %}<b>@</b>{% endset %}
+{% call Field({ for: "handle", label: "Handle", slots: { start: start } }) %}
+  <input aria-describedby="handle-start" id="handle" />
+{% endcall %}
+```
+
+Keys the macro doesn't take go to its element as attributes. Import a macro on its own with `{% from "opui/Button.njk" import Button %}`, or all of them as `{% import "opui/index.njk" as ui %}`.
+
+A [Field](https://opui.dev/nunjucks/components/field.md) wraps your own control. Give the control an `id`, set `for` on the field to it, and name it like any input. For a hint, set the control's `aria-describedby` to `<id>-end-text`.
+
+### Scripts
+
+The macros render markup only. A few features need a script:
+
+| Feature | What it does | Import |
+| --- | --- | --- |
+| [Character count](https://opui.dev/nunjucks/components/field.md#character-count) | Counts the characters left, in a Field | `opui-css/elements/character-count.js` |
+| [Close on navigate](https://opui.dev/nunjucks/components/drawer.md#navigation) | Closes open menus and `[data-close-on-navigate]` drawers when the page navigates | `opui-css/elements/close-on-navigate.js` |
+| [Copy](https://opui.dev/nunjucks/components/copy.md) | Copies text or a field's value | `opui-css/elements/copy.js` |
+| [Dismissible callout](https://opui.dev/nunjucks/components/callout.md#dismissible) | Hides a callout with its close button | `opui-css/elements/callout.js` |
+| [File upload](https://opui.dev/nunjucks/components/file-upload.md) | Fires `select` for picked and dropped files and `remove` for a file's remove button | `opui-css/elements/file-upload.js` |
+| [Indeterminate checkbox](https://opui.dev/nunjucks/components/checkbox.md#indeterminate) | Sets `indeterminate` from `data-indeterminate` | `opui-css/css/js/checkbox.js` |
+| [Step button](https://opui.dev/nunjucks/components/number-field.md) | Steps a number input's value with its button | `opui-css/elements/step-button.js` |
+| [Password toggle](https://opui.dev/nunjucks/components/text-field.md#password-toggle) | Shows and hides the password | `opui-css/elements/password-toggle.js` |
+| [Reactions](https://opui.dev/nunjucks/components/message.md#saving-reactions) | Asks your server before a reaction changes | `opui-css/elements/reactions.js` |
+| [Select all](https://opui.dev/nunjucks/components/checkbox.md#select-all) | Checks or clears a group of checkboxes from one | `opui-css/elements/select-all.js` |
+| [Sortable table](https://opui.dev/nunjucks/components/table.md#sorting) | Sorts the rows by a column | `opui-css/elements/sortable-table.js` |
+| [Toast](https://opui.dev/nunjucks/components/toast.md) | Shows toasts and dismisses them | `opui-css/elements/toaster.js` |
+
+Without a bundler, copy the scripts to your site:
+
+```js
+eleventyConfig.addPassthroughCopy({
+  "node_modules/opui-css/css/js": "opui/css/js",
+  "node_modules/opui-css/elements": "opui/elements",
+})
+```
+
+And map the package in the `head`:
+
+```html
+<script type="importmap">
+  { "imports": { "opui-css/": "/opui/" } }
+</script>
+```
+
+### Ids
+
+Components a trigger points at need an `id`. Generated ids come from one counter per environment, so they never repeat, but their numbers follow the render order. Pass `id` where it has to stay the same, or your own generator as `configure(env, { id })`.
+
+### Warnings
+
+Unless `NODE_ENV` is `production`, a key that is no prop and no attribute of the element, or a slot the macro doesn't have, warns once:
+
+```text
+[OPUI Button] Unknown prop "lable": Button has no prop by that name and its element no attribute, so it renders as an attribute.
+```
+
+A macro called with anything but one dict, such as `Button("Save")`, throws there instead.
+
+### Next steps
+
+#### [AI assistants](https://opui.dev/nunjucks/llms.txt)
+
+#### [Blocks](https://opui.dev/blocks.md)
+
+#### [Components](https://opui.dev/nunjucks/components.md)
+
+44 components, each with Nunjucks examples and its API.
+
+#### [Concepts](https://opui.dev/nunjucks/guide/concepts.md)
 
 #### [Theme builder](https://opui.dev/theme-builder.md)
 

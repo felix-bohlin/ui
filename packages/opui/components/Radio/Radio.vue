@@ -2,7 +2,7 @@
 import { useBound, useInputAttrs } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import RadioInput from "./RadioInput.vue"
-import { hasName, warnUnnamed } from "../dev"
+import { DEV, hasName, warnUnnamed } from "../dev"
 import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -31,7 +31,7 @@ const model = defineModel<string | number | boolean | undefined>({
 
 const bound = useBound()
 
-warnUnnamed("Radio", hasName({ ...attrs.value, label }, slots.default))
+if (DEV) warnUnnamed("Radio", hasName({ ...attrs.value, label }, slots.default))
 </script>
 
 <template>

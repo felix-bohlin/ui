@@ -66,9 +66,25 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: node scripts/baseline-changes.mjs record "$RUNNER_TEMP/before.json"
+      - name: List the visual baselines in Git LFS
+        id: lfs
+        run: |
+          git lfs ls-files --long | cut -d ' ' -f 1 | sort > "$RUNNER_TEMP/lfs-objects"
+          echo "objects=$(sha256sum < "$RUNNER_TEMP/lfs-objects" | cut -d ' ' -f 1)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache/restore@v6
+        with:
+          key: lfs-${{ steps.lfs.outputs.objects }}
+          path: .git/lfs/objects
+          restore-keys: lfs-
+      - name: Keep the current baselines
+        run: |
+          git lfs pull --include "tests/e2e/__screenshots__/**"
+          cp -R tests/e2e/__screenshots__ "$RUNNER_TEMP/baselines"
       - run: rm -rf tests/e2e/__screenshots__ && pnpm test:e2e:update $(grep -l toHaveScreenshot tests/e2e/*.spec.ts)
         env:
           HOME: /root
+      - name: Put back the baselines that pass against their new image
+        run: node scripts/baseline-changes.mjs restore "$RUNNER_TEMP/baselines"
       - name: Commit updated snapshots
         id: commit
         run: |

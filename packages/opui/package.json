@@ -1,7 +1,7 @@
 {
   "name": "opui-css",
-  "version": "6.0.0-rc.6",
-  "description": "Design system. Components. Modern HTML & CSS. HTML, Astro, React, Solid, Svelte and Vue. The tokens started from Open Props, and the components don't need it.",
+  "version": "6.0.0-rc.7",
+  "description": "Design system. Components. Modern HTML & CSS. HTML, Astro, Nunjucks, React, Solid, Svelte and Vue. The tokens started from Open Props, and the components don't need it.",
   "type": "module",
   "license": "MIT",
   "author": "Felix Bohlin",
@@ -20,7 +20,10 @@
     "components",
     "css",
     "design-system",
+    "eleventy",
+    "eleventy-plugin",
     "html",
+    "nunjucks",
     "open-props",
     "react",
     "react-components",
@@ -52,8 +55,8 @@
     "dist",
     "elements",
     "env.d.ts",
-    "figma",
     "icons",
+    "nunjucks",
     "open-props.css",
     "react",
     "skills",
@@ -76,6 +79,18 @@
     "./open-props": "./dist/op.css",
     "./open-props.css": "./open-props.css",
     "./astro": "./astro/index.ts",
+    "./check": {
+      "types": "./bin/check.d.mts",
+      "default": "./bin/check.mjs"
+    },
+    "./nunjucks": {
+      "types": "./dist/nunjucks/index.d.ts",
+      "default": "./dist/nunjucks/index.js"
+    },
+    "./nunjucks/eleventy": {
+      "types": "./dist/nunjucks/eleventy.d.ts",
+      "default": "./dist/nunjucks/eleventy.js"
+    },
     "./react": {
       "types": "./dist/react/index.d.ts",
       "default": "./dist/react/index.js"
@@ -139,7 +154,6 @@
     "./dist/*": "./dist/*",
     "./elements/*": "./elements/*",
     "./env.d.ts": "./env.d.ts",
-    "./figma/*": "./figma/*",
     "./icons/*.css": "./icons/*.css",
     "./icons/*": "./icons/*.css",
     "./package.json": "./package.json"
@@ -154,7 +168,9 @@
   },
   "devDependencies": {
     "@jridgewell/remapping": "^2.3.5",
+    "@types/nunjucks": "catalog:",
     "@types/react": "catalog:",
+    "nunjucks": "catalog:",
     "open-props": "^1.7.23",
     "parse5": "^8.1.1",
     "postcss": "^8.5.33",
@@ -167,6 +183,7 @@
   "peerDependencies": {
     "@solidjs/web": "^2.0.0",
     "astro": "^7",
+    "nunjucks": "^3.2.4",
     "open-props": "^1.7.23",
     "parse5": "^8.1.0",
     "react": "^19",
@@ -180,6 +197,9 @@
       "optional": true
     },
     "astro": {
+      "optional": true
+    },
+    "nunjucks": {
       "optional": true
     },
     "open-props": {

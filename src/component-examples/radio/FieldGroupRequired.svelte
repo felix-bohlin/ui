@@ -11,10 +11,11 @@
 <Form>
   <Fieldset>
     <FieldLegend>Account type</FieldLegend>
-    <FieldGroup name="radio-group-required" orientation="horizontal">
-      <Radio required value="bassist">Bassist</Radio>
-      <Radio required value="band">Band</Radio>
-      <Radio required value="shop">Bass shop</Radio>
+    <FieldGroup orientation="horizontal">
+      <Radio name="radio-group-required" required value="bassist">Bassist</Radio
+      >
+      <Radio name="radio-group-required" required value="band">Band</Radio>
+      <Radio name="radio-group-required" required value="shop">Bass shop</Radio>
     </FieldGroup>
   </Fieldset>
 </Form>

@@ -6,12 +6,11 @@
   let {
     "aria-current": ariaCurrent,
     class: className,
-    complete,
     completeLabel = ", completed",
     current,
-    error,
     errorLabel = ", error",
     href,
+    state,
 
     // Snippets
     description,
@@ -20,15 +19,19 @@
     ...rest
   }: Props = $props()
 
-  const state = $derived(
-    error ? errorLabel : complete ? completeLabel : undefined,
+  const stateLabel = $derived(
+    state === "error"
+      ? errorLabel
+      : state === "complete"
+        ? completeLabel
+        : undefined,
   )
-  const link = $derived(href && !current && (complete || error))
+  const link = $derived(href && !current && state)
 </script>
 
 <li
   aria-current={ariaCurrent ?? (current ? "step" : undefined)}
-  {...classAttrs([{ "ui-complete": complete, "ui-error": error }, className])}
+  {...classAttrs([state && `ui-state-${state}`, className])}
   {...rest}
 >
   {#if iconComplete}
@@ -38,13 +41,13 @@
   {/if}
   {#if link}
     <a {href}>
-      {@render content(label)}{#if state}
-        <span class="ui-sr-only">{state}</span>
+      {@render content(label)}{#if stateLabel}
+        <span class="ui-sr-only">{stateLabel}</span>
       {/if}
     </a>
   {:else}
-    {@render content(label)}{#if state}
-      <span class="ui-sr-only">{state}</span>
+    {@render content(label)}{#if stateLabel}
+      <span class="ui-sr-only">{stateLabel}</span>
     {/if}
   {/if}
   {#if description}

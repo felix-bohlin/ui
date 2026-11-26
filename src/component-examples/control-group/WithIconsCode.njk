@@ -1,0 +1,26 @@
+{% from "opui/index.njk" import Button, ControlGroup %}
+
+{% call ControlGroup({ "aria-label": "RSVP", variant: "outlined" }) %}
+  {% call Button({ "aria-label": "OK" }) %}
+    <svg aria-hidden="true"><!-- --></svg>
+  {% endcall %}
+  {% call Button() %}Maybe{% endcall %}
+  {% call Button({ "aria-label": "No" }) %}
+    <svg aria-hidden="true"><!-- --></svg>
+  {% endcall %}
+{% endcall %}
+
+{% call ControlGroup({ "aria-label": "RSVP", variant: "outlined" }) %}
+  {% call Button() %}
+    <svg aria-hidden="true"><!-- --></svg>
+    <span class="ui-text">OK</span>
+  {% endcall %}
+  {% call Button() %}
+    <svg aria-hidden="true"><!-- --></svg>
+    <span class="ui-text">Maybe</span>
+  {% endcall %}
+  {% call Button() %}
+    <svg aria-hidden="true"><!-- --></svg>
+    <span class="ui-text">No</span>
+  {% endcall %}
+{% endcall %}

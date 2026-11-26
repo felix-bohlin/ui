@@ -76,7 +76,7 @@ const callouts = [
 <div class="specimen">
   <div class="specimen-block specimen-type ui-rich-text">
     <p class="ui-overline">Typography</p>
-    <div class="ui-h2">Weekly low end</div>
+    <div class="ui-h2">Bass of the week</div>
     <div class="ui-h4">Everything the bassists posted</div>
     <p>
       Slap videos got 12% more likes this week, woohoo. Read the
@@ -133,9 +133,9 @@ const callouts = [
         <Button type="button" variant="outlined">Inbox</Button>
       </Badge>
       <AvatarGroup aria-label="Band">
-        <Avatar>HH</Avatar>
-        <Avatar>PG</Avatar>
-        <Avatar>SN</Avatar>
+        <Avatar>SH</Avatar>
+        <Avatar>AG</Avatar>
+        <Avatar>EN</Avatar>
       </AvatarGroup>
     </div>
   </div>
@@ -151,7 +151,7 @@ const callouts = [
         aria-describedby={`${specimenId}-email-end-text`}
         id={`${specimenId}-email`}
         name={name("email")}
-        placeholder="rory@lowend.example"
+        placeholder="josh@bassmail.example"
         required
         type="email"
       />
@@ -191,9 +191,9 @@ const callouts = [
     <p class="specimen-caption">Choices</p>
     <Fieldset>
       <FieldLegend>Pay for Gold</FieldLegend>
-      <FieldGroup name={name("billing")} orientation="horizontal">
-        <Radio checked value="monthly">Monthly</Radio>
-        <Radio value="yearly">Yearly</Radio>
+      <FieldGroup orientation="horizontal">
+        <Radio checked name={name("billing")} value="monthly">Monthly</Radio>
+        <Radio name={name("billing")} value="yearly">Yearly</Radio>
       </FieldGroup>
     </Fieldset>
     <Checkbox checked name={name("updates")}
@@ -224,7 +224,7 @@ const callouts = [
       </TabsItem>
       <TabsItem>
         <TabsLabel>Activity</TabsLabel>
-        <TabsPanel>Holly posted two new pedalboard pics.</TabsPanel>
+        <TabsPanel>Scott posted two new pedalboard pics.</TabsPanel>
       </TabsItem>
       <TabsItem>
         <TabsLabel>Settings</TabsLabel>
@@ -306,12 +306,12 @@ const callouts = [
   <div class="specimen-block">
     <p class="specimen-caption">List</p>
     <List bordered variant="transparent">
-      <ListItem description="Can we move rehearsal to Friday?" label="Percy">
-        <Avatar slot="start">PG</Avatar>
+      <ListItem description="Can we move rehearsal to Friday?" label="Adam">
+        <Avatar slot="start">AG</Avatar>
         <span slot="end">09:41</span>
       </ListItem>
-      <ListItem description="The new flatwounds are in." label="Rory">
-        <Avatar slot="start">RR</Avatar>
+      <ListItem description="The new flatwounds are in." label="Josh">
+        <Avatar slot="start">JR</Avatar>
         <span slot="end">Mon</span>
       </ListItem>
     </List>
@@ -334,7 +334,7 @@ const callouts = [
           <TableCell>Gigging</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>The Low Enders</TableCell>
+          <TableCell>Slap Like Now</TableCell>
           <TableCell numeric>12</TableCell>
           <TableCell>On break</TableCell>
         </TableRow>

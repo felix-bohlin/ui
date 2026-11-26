@@ -2,7 +2,7 @@ import { Meter } from "opui-css/react"
 
 export default function Label() {
   return (
-    <div className="ui-layout-column ui-x-small">
+    <div className="ui-layout-column ui-gap-x-small">
       <span
         className="ui-layout-row ui-spread ui-tabular-nums"
         id="meter-label-1"

@@ -23,7 +23,7 @@ import {
 
 <template>
   <div
-    class="data-table ui-layout-container ui-layout-column ui-large"
+    class="data-table ui-layout-container ui-layout-column ui-gap-large"
     style="--_max-inline-size: 80rem"
   >
     <div class="ui-layout-row ui-spread">
@@ -32,7 +32,7 @@ import {
         <h1 class="ui-h3">Members</h1>
         <p>128 bassists, 94 of them on a paid plan. Woohoo!</p>
       </hgroup>
-      <div class="ui-layout-row ui-small">
+      <div class="ui-layout-row ui-gap-small">
         <Button type="button" variant="outlined">
           <svg
             data-icon="download"
@@ -111,9 +111,9 @@ import {
         </Field>
       </FieldGroup>
     </component>
-    <div class="ui-layout-row ui-small ui-spread data-table-bulk">
+    <div class="ui-layout-row ui-gap-small ui-spread data-table-bulk">
       <p>2 members selected</p>
-      <div class="ui-layout-row ui-x-small">
+      <div class="ui-layout-row ui-gap-x-small">
         <Button size="small" type="button">Send a poke</Button>
         <Button size="small" type="button">Export</Button>
         <Button color="critical" size="small" type="button">Delete</Button>
@@ -151,212 +151,18 @@ import {
             <TableRow>
               <TableCell>
                 <Checkbox
-                  checked
                   hideLabel
-                  label="Select Holly Humbucker"
+                  label="Select Adam Groove"
                   name="data-table-row"
-                  value="holly"
+                  value="adam"
                 />
               </TableCell>
-              <TableCell data-sort-value="Holly Humbucker">
-                <div class="ui-layout-media ui-small">
-                  <Avatar aria-hidden="true">HH</Avatar>
+              <TableCell data-sort-value="Adam Groove">
+                <div class="ui-layout-media ui-gap-small">
+                  <Avatar aria-hidden="true">AG</Avatar>
                   <div>
-                    <p class="data-table-person">Holly Humbucker</p>
-                    <p class="ui-caption">holly@humbucker.example</p>
-                  </div>
-                </div>
-              </TableCell>
-              <TableCell>Gold</TableCell>
-              <TableCell>
-                <Chip
-                  as="span"
-                  dot
-                  label="Trial"
-                  severity="info"
-                  size="small"
-                />
-              </TableCell>
-              <TableCell data-sort-value="120" numeric>120</TableCell>
-              <TableCell data-sort-value="2026-09-28">28 Sep 2026</TableCell>
-              <TableCell class="data-table-actions">
-                <Button
-                  aria-label="Actions for Holly Humbucker"
-                  command="toggle-popover"
-                  commandfor="data-table-menu-holly"
-                  round
-                  size="small"
-                  type="button"
-                >
-                  <svg
-                    data-icon="more-vertical"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
-                    ></path>
-                  </svg>
-                </Button>
-                <Menu
-                  align="end"
-                  id="data-table-menu-holly"
-                  :items="[
-                    { href: '#data-table-holly', label: 'View profile' },
-                    { label: 'Change plan' },
-                    { borderTop: true, color: 'critical', label: 'Delete' },
-                  ]"
-                />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <Checkbox
-                  hideLabel
-                  label="Select Ines Hertz"
-                  name="data-table-row"
-                  value="ines"
-                />
-              </TableCell>
-              <TableCell data-sort-value="Ines Hertz">
-                <div class="ui-layout-media ui-small">
-                  <Avatar aria-hidden="true">IH</Avatar>
-                  <div>
-                    <p class="data-table-person">Ines Hertz</p>
-                    <p class="ui-caption">ines@hertz.example</p>
-                  </div>
-                </div>
-              </TableCell>
-              <TableCell>Gold</TableCell>
-              <TableCell>
-                <Chip
-                  as="span"
-                  dot
-                  label="On a break"
-                  severity="neutral"
-                  size="small"
-                />
-              </TableCell>
-              <TableCell data-sort-value="1840" numeric>1 840</TableCell>
-              <TableCell data-sort-value="2025-11-22">22 Nov 2025</TableCell>
-              <TableCell class="data-table-actions">
-                <Button
-                  aria-label="Actions for Ines Hertz"
-                  command="toggle-popover"
-                  commandfor="data-table-menu-ines"
-                  round
-                  size="small"
-                  type="button"
-                >
-                  <svg
-                    data-icon="more-vertical"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
-                    ></path>
-                  </svg>
-                </Button>
-                <Menu
-                  align="end"
-                  id="data-table-menu-ines"
-                  :items="[
-                    { href: '#data-table-ines', label: 'View profile' },
-                    { label: 'Change plan' },
-                    { borderTop: true, color: 'critical', label: 'Delete' },
-                  ]"
-                />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <Checkbox
-                  checked
-                  hideLabel
-                  label="Select Lou Headstock"
-                  name="data-table-row"
-                  value="lou"
-                />
-              </TableCell>
-              <TableCell data-sort-value="Lou Headstock">
-                <div class="ui-layout-media ui-small">
-                  <Avatar aria-hidden="true">LH</Avatar>
-                  <div>
-                    <p class="data-table-person">Lou Headstock</p>
-                    <p class="ui-caption">lou@headstock.example</p>
-                  </div>
-                </div>
-              </TableCell>
-              <TableCell>Gold</TableCell>
-              <TableCell>
-                <Chip
-                  as="span"
-                  dot
-                  label="Active"
-                  severity="success"
-                  size="small"
-                />
-              </TableCell>
-              <TableCell data-sort-value="4800" numeric>4 800</TableCell>
-              <TableCell data-sort-value="2026-03-03">3 Mar 2026</TableCell>
-              <TableCell class="data-table-actions">
-                <Button
-                  aria-label="Actions for Lou Headstock"
-                  command="toggle-popover"
-                  commandfor="data-table-menu-lou"
-                  round
-                  size="small"
-                  type="button"
-                >
-                  <svg
-                    data-icon="more-vertical"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
-                    ></path>
-                  </svg>
-                </Button>
-                <Menu
-                  align="end"
-                  id="data-table-menu-lou"
-                  :items="[
-                    { href: '#data-table-lou', label: 'View profile' },
-                    { label: 'Change plan' },
-                    { borderTop: true, color: 'critical', label: 'Delete' },
-                  ]"
-                />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <Checkbox
-                  hideLabel
-                  label="Select Percy Groove"
-                  name="data-table-row"
-                  value="percy"
-                />
-              </TableCell>
-              <TableCell data-sort-value="Percy Groove">
-                <div class="ui-layout-media ui-small">
-                  <Avatar aria-hidden="true">PG</Avatar>
-                  <div>
-                    <p class="data-table-person">Percy Groove</p>
-                    <p class="ui-caption">percy@groove.example</p>
+                    <p class="data-table-person">Adam Groove</p>
+                    <p class="ui-caption">adam@groove.example</p>
                   </div>
                 </div>
               </TableCell>
@@ -374,9 +180,9 @@ import {
               <TableCell data-sort-value="2026-05-19">19 May 2026</TableCell>
               <TableCell class="data-table-actions">
                 <Button
-                  aria-label="Actions for Percy Groove"
+                  aria-label="Actions for Adam Groove"
                   command="toggle-popover"
-                  commandfor="data-table-menu-percy"
+                  commandfor="data-table-menu-adam"
                   round
                   size="small"
                   type="button"
@@ -397,9 +203,9 @@ import {
                 </Button>
                 <Menu
                   align="end"
-                  id="data-table-menu-percy"
+                  id="data-table-menu-adam"
                   :items="[
-                    { href: '#data-table-percy', label: 'View profile' },
+                    { href: '#data-table-adam', label: 'View profile' },
                     { label: 'Change plan' },
                     { borderTop: true, color: 'critical', label: 'Delete' },
                   ]"
@@ -410,17 +216,17 @@ import {
               <TableCell>
                 <Checkbox
                   hideLabel
-                  label="Select Rory Rootnote"
+                  label="Select Josh Rootnote"
                   name="data-table-row"
-                  value="rory"
+                  value="josh"
                 />
               </TableCell>
-              <TableCell data-sort-value="Rory Rootnote">
-                <div class="ui-layout-media ui-small">
-                  <Avatar aria-hidden="true">RR</Avatar>
+              <TableCell data-sort-value="Josh Rootnote">
+                <div class="ui-layout-media ui-gap-small">
+                  <Avatar aria-hidden="true">JR</Avatar>
                   <div>
-                    <p class="data-table-person">Rory Rootnote</p>
-                    <p class="ui-caption">rory@lowend.example</p>
+                    <p class="data-table-person">Josh Rootnote</p>
+                    <p class="ui-caption">josh@bassmail.example</p>
                   </div>
                 </div>
               </TableCell>
@@ -438,9 +244,9 @@ import {
               <TableCell data-sort-value="2026-01-12">12 Jan 2026</TableCell>
               <TableCell class="data-table-actions">
                 <Button
-                  aria-label="Actions for Rory Rootnote"
+                  aria-label="Actions for Josh Rootnote"
                   command="toggle-popover"
-                  commandfor="data-table-menu-rory"
+                  commandfor="data-table-menu-josh"
                   round
                   size="small"
                   type="button"
@@ -461,9 +267,203 @@ import {
                 </Button>
                 <Menu
                   align="end"
-                  id="data-table-menu-rory"
+                  id="data-table-menu-josh"
                   :items="[
-                    { href: '#data-table-rory', label: 'View profile' },
+                    { href: '#data-table-josh', label: 'View profile' },
+                    { label: 'Change plan' },
+                    { borderTop: true, color: 'critical', label: 'Delete' },
+                  ]"
+                />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Checkbox
+                  checked
+                  hideLabel
+                  label="Select Kinga Headstock"
+                  name="data-table-row"
+                  value="kinga"
+                />
+              </TableCell>
+              <TableCell data-sort-value="Kinga Headstock">
+                <div class="ui-layout-media ui-gap-small">
+                  <Avatar aria-hidden="true">KH</Avatar>
+                  <div>
+                    <p class="data-table-person">Kinga Headstock</p>
+                    <p class="ui-caption">kinga@headstock.example</p>
+                  </div>
+                </div>
+              </TableCell>
+              <TableCell>Gold</TableCell>
+              <TableCell>
+                <Chip
+                  as="span"
+                  dot
+                  label="Active"
+                  severity="success"
+                  size="small"
+                />
+              </TableCell>
+              <TableCell data-sort-value="4800" numeric>4 800</TableCell>
+              <TableCell data-sort-value="2026-03-03">3 Mar 2026</TableCell>
+              <TableCell class="data-table-actions">
+                <Button
+                  aria-label="Actions for Kinga Headstock"
+                  command="toggle-popover"
+                  commandfor="data-table-menu-kinga"
+                  round
+                  size="small"
+                  type="button"
+                >
+                  <svg
+                    data-icon="more-vertical"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                    ></path>
+                  </svg>
+                </Button>
+                <Menu
+                  align="end"
+                  id="data-table-menu-kinga"
+                  :items="[
+                    { href: '#data-table-kinga', label: 'View profile' },
+                    { label: 'Change plan' },
+                    { borderTop: true, color: 'critical', label: 'Delete' },
+                  ]"
+                />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Checkbox
+                  hideLabel
+                  label="Select Mohini Hertz"
+                  name="data-table-row"
+                  value="mohini"
+                />
+              </TableCell>
+              <TableCell data-sort-value="Mohini Hertz">
+                <div class="ui-layout-media ui-gap-small">
+                  <Avatar aria-hidden="true">MH</Avatar>
+                  <div>
+                    <p class="data-table-person">Mohini Hertz</p>
+                    <p class="ui-caption">mohini@hertz.example</p>
+                  </div>
+                </div>
+              </TableCell>
+              <TableCell>Gold</TableCell>
+              <TableCell>
+                <Chip
+                  as="span"
+                  dot
+                  label="On a break"
+                  severity="neutral"
+                  size="small"
+                />
+              </TableCell>
+              <TableCell data-sort-value="1840" numeric>1 840</TableCell>
+              <TableCell data-sort-value="2025-11-22">22 Nov 2025</TableCell>
+              <TableCell class="data-table-actions">
+                <Button
+                  aria-label="Actions for Mohini Hertz"
+                  command="toggle-popover"
+                  commandfor="data-table-menu-mohini"
+                  round
+                  size="small"
+                  type="button"
+                >
+                  <svg
+                    data-icon="more-vertical"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                    ></path>
+                  </svg>
+                </Button>
+                <Menu
+                  align="end"
+                  id="data-table-menu-mohini"
+                  :items="[
+                    { href: '#data-table-mohini', label: 'View profile' },
+                    { label: 'Change plan' },
+                    { borderTop: true, color: 'critical', label: 'Delete' },
+                  ]"
+                />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Checkbox
+                  checked
+                  hideLabel
+                  label="Select Scott Humbucker"
+                  name="data-table-row"
+                  value="scott"
+                />
+              </TableCell>
+              <TableCell data-sort-value="Scott Humbucker">
+                <div class="ui-layout-media ui-gap-small">
+                  <Avatar aria-hidden="true">SH</Avatar>
+                  <div>
+                    <p class="data-table-person">Scott Humbucker</p>
+                    <p class="ui-caption">scott@humbucker.example</p>
+                  </div>
+                </div>
+              </TableCell>
+              <TableCell>Gold</TableCell>
+              <TableCell>
+                <Chip
+                  as="span"
+                  dot
+                  label="Trial"
+                  severity="info"
+                  size="small"
+                />
+              </TableCell>
+              <TableCell data-sort-value="120" numeric>120</TableCell>
+              <TableCell data-sort-value="2026-09-28">28 Sep 2026</TableCell>
+              <TableCell class="data-table-actions">
+                <Button
+                  aria-label="Actions for Scott Humbucker"
+                  command="toggle-popover"
+                  commandfor="data-table-menu-scott"
+                  round
+                  size="small"
+                  type="button"
+                >
+                  <svg
+                    data-icon="more-vertical"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                    ></path>
+                  </svg>
+                </Button>
+                <Menu
+                  align="end"
+                  id="data-table-menu-scott"
+                  :items="[
+                    { href: '#data-table-scott', label: 'View profile' },
                     { label: 'Change plan' },
                     { borderTop: true, color: 'critical', label: 'Delete' },
                   ]"

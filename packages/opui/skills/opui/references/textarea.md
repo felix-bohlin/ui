@@ -3,7 +3,7 @@
 A multi-line text input in a Field that grows with its text, with a character count.
 
 - CSS: `opui-css/css/components/field.css` and `opui-css/css/components/textarea.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/textarea.md), [Astro](https://opui.dev/astro/components/textarea.md), [React](https://opui.dev/react/components/textarea.md), [Solid](https://opui.dev/solid/components/textarea.md), [Svelte](https://opui.dev/svelte/components/textarea.md), [Vue](https://opui.dev/vue/components/textarea.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/textarea.md), [Astro](https://opui.dev/astro/components/textarea.md), [Nunjucks](https://opui.dev/nunjucks/components/textarea.md), [React](https://opui.dev/react/components/textarea.md), [Solid](https://opui.dev/solid/components/textarea.md), [Svelte](https://opui.dev/svelte/components/textarea.md), [Vue](https://opui.dev/vue/components/textarea.md).
 
 ## Textarea (CSS only)
 
@@ -15,7 +15,7 @@ A multi-line text input in a Field that grows with its text, with a character co
 ### Notes
 
 - HTML: Put the `<textarea>` in `.ui-field-container`.
-- Astro, Solid, Svelte and Vue: Write a `<textarea>` in a `Field`, with its `id` set to `for`.
+- Astro, Nunjucks, Solid, Svelte and Vue: Write a `<textarea>` in a `Field`, with its `id` set to `for`.
 - React: Write a `<textarea>` in a `Field`, with its `id` set to `htmlFor`.
 
 ## Component properties
@@ -80,6 +80,20 @@ import { Field } from "opui-css/astro"
 <Field for="textarea-basics-1" label="Message">
   <textarea id="textarea-basics-1" name="message"></textarea>
 </Field>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import CharacterCount, Field %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Field %}
+
+{% call Field({ for: "textarea-basics-1", label: "Message" }) %}
+  <textarea id="textarea-basics-1" name="message"></textarea>
+{% endcall %}
 ```
 
 ## React

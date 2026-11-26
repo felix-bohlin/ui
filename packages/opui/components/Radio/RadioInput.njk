@@ -1,0 +1,4 @@
+{% macro RadioInput(props = {}) %}
+  {%- set rest = props | opuiRest("RadioInput") -%}
+  <input type="radio"{{ rest | opuiAttributes }}>
+{%- endmacro %}

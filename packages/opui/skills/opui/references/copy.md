@@ -3,7 +3,7 @@
 A button that copies text or a field's value to the clipboard.
 
 - CSS: `opui-css/css/components/copy.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/copy.md), [Astro](https://opui.dev/astro/components/copy.md), [React](https://opui.dev/react/components/copy.md), [Solid](https://opui.dev/solid/components/copy.md), [Svelte](https://opui.dev/svelte/components/copy.md), [Vue](https://opui.dev/vue/components/copy.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/copy.md), [Astro](https://opui.dev/astro/components/copy.md), [Nunjucks](https://opui.dev/nunjucks/components/copy.md), [React](https://opui.dev/react/components/copy.md), [Solid](https://opui.dev/solid/components/copy.md), [Svelte](https://opui.dev/svelte/components/copy.md), [Vue](https://opui.dev/vue/components/copy.md).
 
 ## Copy
 
@@ -33,6 +33,7 @@ A button that copies text or a field's value to the clipboard.
 
 - HTML: Wrap the text or the field in `<opui-copy class="ui-copy">` with an id, and end it with `<span class="ui-sr-only" role="status">` for the announcement and `<span class="ui-floating" popover aria-hidden="true">` for the label. Point a button at it with `commandfor` and `command="--copy"`, inside the element or right after it, and import `opui-css/elements/copy.js`. Until it loads, the button is hidden.
 - Astro: The component loads `opui-css/elements/copy.js`. Attributes that aren't props go to the root `<opui-copy>`, and the button works once the element runs.
+- Nunjucks: The macro renders the element without its script, so load `opui-css/elements/copy.js` on the page. Attributes that aren't props go to the root `<opui-copy>`, and the button works once the element runs.
 - React: The component loads `opui-css/elements/copy.js` once it mounts, unless the page imports it first. Attributes that aren't props go to the root `<opui-copy>`, and the button works once the element runs.
 - Solid, Svelte and Vue: The component imports `opui-css/elements/copy.js`, so the element runs as soon as the component's code loads. Attributes that aren't props go to the root `<opui-copy>`, and the button works once the element runs.
 
@@ -108,6 +109,35 @@ import { Button, Copy, Field } from "opui-css/astro"
 <Button command="--copy" commandfor="copy-basics-1" variant="outlined"
   >Copy</Button
 >
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Copy %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Button, Copy, Field %}
+
+{% call Copy({ id: "copy-basics-1" }) %}
+  {% call Field({ for: "copy-basics-2", hideLabel: true, label: "Invite link" }) %}
+    <input
+      id="copy-basics-2"
+      readonly
+      value="https://example.com/invite/8f3k2"
+    />
+  {% endcall %}
+{% endcall %}
+{% call Button({
+  command: "--copy",
+  commandfor: "copy-basics-1",
+  variant: "outlined"
+}) %}Copy{% endcall %}
+
+<script type="module">
+  import "opui-css/elements/copy.js"
+</script>
 ```
 
 ## React

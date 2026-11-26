@@ -1,0 +1,12 @@
+{% from "opui/index.njk" import Button %}
+
+<div class="ui-layout-column ui-gap-large">
+  <div class="ui-layout-column ui-gap-x-small ui-align-center">
+    <h3 class="ui-h4">Plans for every bassist</h3>
+    <p>Start free and upgrade when you add a fifth string.</p>
+  </div>
+  <div class="ui-layout-row ui-align-end">
+    {% call Button() %}Cancel{% endcall %}
+    {% call Button({ variant: "filled" }) %}Save{% endcall %}
+  </div>
+</div>

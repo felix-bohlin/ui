@@ -11,7 +11,7 @@ export default function TopAndBottom() {
         <input
           aria-describedby="field-top-and-bottom-1-top"
           id="field-top-and-bottom-1"
-          placeholder="Holly Humbucker"
+          placeholder="Scott Humbucker"
         />
       </Field>
 

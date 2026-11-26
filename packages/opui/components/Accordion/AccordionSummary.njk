@@ -1,0 +1,13 @@
+{% macro AccordionSummary(props = {}) %}
+  {%- set rest = props | opuiRest("AccordionSummary") -%}
+  <summary
+    {%- if props.class %} class="{{ props.class }}"{% endif %}
+    {{- rest | opuiAttributes }}>{{ caller() if caller }}{{ " " }}
+    {%- if props.slots.marker != none %}{{ props.slots.marker | safe }}{% else %}<svg
+      aria-hidden="true"
+      class="ui-marker"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"></svg>{% endif %}</summary>
+{%- endmacro %}

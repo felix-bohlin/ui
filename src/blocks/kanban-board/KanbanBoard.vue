@@ -13,7 +13,7 @@ import {
 
 <template>
   <div
-    class="kanban-board ui-layout-container ui-layout-column ui-large"
+    class="kanban-board ui-layout-container ui-layout-column ui-gap-large"
     style="--_max-inline-size: none"
   >
     <div class="ui-layout-row ui-spread">
@@ -21,12 +21,12 @@ import {
         <p>Gig countdown, 6–17 October</p>
         <h1 class="ui-h3">Gig at The Rusty Amp</h1>
       </hgroup>
-      <div class="ui-layout-row ui-small">
+      <div class="ui-layout-row ui-gap-small">
         <AvatarGroup aria-label="Band members">
-          <Avatar aria-label="Holly Humbucker" role="img">HH</Avatar>
-          <Avatar aria-label="Ines Hertz" role="img">IH</Avatar>
-          <Avatar aria-label="Percy Groove" role="img">PG</Avatar>
-          <Avatar aria-label="Rory Rootnote" role="img">RR</Avatar>
+          <Avatar aria-label="Adam Groove" role="img">AG</Avatar>
+          <Avatar aria-label="Josh Rootnote" role="img">JR</Avatar>
+          <Avatar aria-label="Mohini Hertz" role="img">MH</Avatar>
+          <Avatar aria-label="Scott Humbucker" role="img">SH</Avatar>
         </AvatarGroup>
         <Button size="small" type="button" variant="outlined"> Share </Button>
         <ToggleGroup aria-label="Show tasks" name="kanban-filter" size="small">
@@ -53,9 +53,9 @@ import {
     <div class="kanban-columns">
       <section
         aria-labelledby="kanban-board-todo-heading"
-        class="ui-layout-column ui-small kanban-column"
+        class="ui-layout-column ui-gap-small kanban-column"
       >
-        <div class="ui-layout-row ui-small kanban-column-header">
+        <div class="ui-layout-row ui-gap-small kanban-column-header">
           <span class="ui-swatch ui-neutral"></span>
           <h2 class="ui-h6" id="kanban-board-todo-heading">To do</h2>
           <span class="ui-caption ui-tabular-nums">3</span>
@@ -80,11 +80,11 @@ import {
             </svg>
           </Button>
         </div>
-        <ol class="ui-layout-column ui-small">
+        <ol class="ui-layout-column ui-gap-small">
           <li>
             <Card as="article" variant="outlined">
               <CardContent>
-                <div class="ui-layout-row ui-x-small">
+                <div class="ui-layout-row ui-gap-x-small">
                   <Chip
                     as="span"
                     label="Setlist"
@@ -102,7 +102,7 @@ import {
                   >
                 </h3>
                 <div class="ui-layout-row ui-caption kanban-meta">
-                  <span class="ui-layout-row ui-x-small">
+                  <span class="ui-layout-row ui-gap-x-small">
                     <svg
                       data-icon="calendar"
                       aria-hidden="true"
@@ -120,7 +120,7 @@ import {
                     <span class="ui-sr-only">Due</span>
                     <time datetime="2026-10-14">14 Oct</time>
                   </span>
-                  <Avatar aria-label="Holly Humbucker" role="img">HH</Avatar>
+                  <Avatar aria-label="Scott Humbucker" role="img">SH</Avatar>
                 </div>
               </CardContent>
             </Card>
@@ -128,7 +128,7 @@ import {
           <li>
             <Card as="article" variant="outlined">
               <CardContent>
-                <div class="ui-layout-row ui-x-small">
+                <div class="ui-layout-row ui-gap-x-small">
                   <Chip
                     as="span"
                     label="Gear"
@@ -156,7 +156,7 @@ import {
                   >
                 </h3>
                 <div class="ui-layout-row ui-caption kanban-meta">
-                  <span class="ui-layout-row ui-x-small">
+                  <span class="ui-layout-row ui-gap-x-small">
                     <svg
                       data-icon="calendar"
                       aria-hidden="true"
@@ -174,7 +174,7 @@ import {
                     <span class="ui-sr-only">Due</span>
                     <time datetime="2026-10-16">16 Oct</time>
                   </span>
-                  <Avatar aria-label="Ines Hertz" role="img">IH</Avatar>
+                  <Avatar aria-label="Mohini Hertz" role="img">MH</Avatar>
                 </div>
               </CardContent>
             </Card>
@@ -182,7 +182,7 @@ import {
           <li>
             <Card as="article" variant="outlined">
               <CardContent>
-                <div class="ui-layout-row ui-x-small">
+                <div class="ui-layout-row ui-gap-x-small">
                   <Chip
                     as="span"
                     label="Promo"
@@ -200,7 +200,7 @@ import {
                   >
                 </h3>
                 <div class="ui-layout-row ui-caption kanban-meta">
-                  <span class="ui-layout-row ui-x-small">
+                  <span class="ui-layout-row ui-gap-x-small">
                     <svg
                       data-icon="calendar"
                       aria-hidden="true"
@@ -241,9 +241,9 @@ import {
       </section>
       <section
         aria-labelledby="kanban-board-progress-heading"
-        class="ui-layout-column ui-small kanban-column"
+        class="ui-layout-column ui-gap-small kanban-column"
       >
-        <div class="ui-layout-row ui-small kanban-column-header">
+        <div class="ui-layout-row ui-gap-small kanban-column-header">
           <span class="ui-swatch ui-info"></span>
           <h2 class="ui-h6" id="kanban-board-progress-heading">In progress</h2>
           <span class="ui-caption ui-tabular-nums">2</span>
@@ -268,11 +268,11 @@ import {
             </svg>
           </Button>
         </div>
-        <ol class="ui-layout-column ui-small">
+        <ol class="ui-layout-column ui-gap-small">
           <li>
             <Card as="article" variant="outlined">
               <CardContent>
-                <div class="ui-layout-row ui-x-small">
+                <div class="ui-layout-row ui-gap-x-small">
                   <Chip
                     as="span"
                     label="Gear"
@@ -303,7 +303,7 @@ import {
                   >
                 </h3>
                 <div class="ui-layout-row ui-caption kanban-meta">
-                  <span class="ui-layout-row ui-x-small ui-p ui-critical">
+                  <span class="ui-layout-row ui-gap-x-small ui-p ui-critical">
                     <svg
                       data-icon="calendar"
                       aria-hidden="true"
@@ -321,7 +321,7 @@ import {
                     <span class="ui-sr-only">Overdue, was due</span>
                     <time datetime="2026-10-07">7 Oct</time>
                   </span>
-                  <span class="ui-layout-row ui-x-small">
+                  <span class="ui-layout-row ui-gap-x-small">
                     <svg
                       data-icon="comment"
                       aria-hidden="true"
@@ -339,8 +339,8 @@ import {
                     5 <span class="ui-sr-only">comments</span>
                   </span>
                   <AvatarGroup aria-label="Assignees">
-                    <Avatar aria-label="Percy Groove" role="img">PG</Avatar>
-                    <Avatar aria-label="Rory Rootnote" role="img">RR</Avatar>
+                    <Avatar aria-label="Adam Groove" role="img">AG</Avatar>
+                    <Avatar aria-label="Josh Rootnote" role="img">JR</Avatar>
                   </AvatarGroup>
                 </div>
               </CardContent>
@@ -349,7 +349,7 @@ import {
           <li>
             <Card as="article" variant="outlined">
               <CardContent>
-                <div class="ui-layout-row ui-x-small">
+                <div class="ui-layout-row ui-gap-x-small">
                   <Chip
                     as="span"
                     label="Setlist"
@@ -367,7 +367,7 @@ import {
                   >
                 </h3>
                 <div class="ui-layout-row ui-caption kanban-meta">
-                  <span class="ui-layout-row ui-x-small">
+                  <span class="ui-layout-row ui-gap-x-small">
                     <svg
                       data-icon="check-square"
                       aria-hidden="true"
@@ -385,7 +385,7 @@ import {
                     <span class="ui-sr-only">Subtasks done:</span>
                     18/42
                   </span>
-                  <Avatar aria-label="Holly Humbucker" role="img">HH</Avatar>
+                  <Avatar aria-label="Scott Humbucker" role="img">SH</Avatar>
                 </div>
               </CardContent>
             </Card>
@@ -394,9 +394,9 @@ import {
       </section>
       <section
         aria-labelledby="kanban-board-review-heading"
-        class="ui-layout-column ui-small kanban-column"
+        class="ui-layout-column ui-gap-small kanban-column"
       >
-        <div class="ui-layout-row ui-small kanban-column-header">
+        <div class="ui-layout-row ui-gap-small kanban-column-header">
           <span class="ui-swatch ui-warning"></span>
           <h2 class="ui-h6" id="kanban-board-review-heading">In review</h2>
           <span class="ui-caption ui-tabular-nums">1</span>
@@ -421,11 +421,11 @@ import {
             </svg>
           </Button>
         </div>
-        <ol class="ui-layout-column ui-small">
+        <ol class="ui-layout-column ui-gap-small">
           <li>
             <Card as="article" variant="outlined">
               <CardContent>
-                <div class="ui-layout-row ui-x-small">
+                <div class="ui-layout-row ui-gap-x-small">
                   <Chip
                     as="span"
                     label="Gear"
@@ -443,7 +443,7 @@ import {
                   >
                 </h3>
                 <div class="ui-layout-row ui-caption kanban-meta">
-                  <span class="ui-layout-row ui-x-small">
+                  <span class="ui-layout-row ui-gap-x-small">
                     <svg
                       data-icon="calendar"
                       aria-hidden="true"
@@ -461,7 +461,7 @@ import {
                     <span class="ui-sr-only">Due</span>
                     <time datetime="2026-10-09">9 Oct</time>
                   </span>
-                  <span class="ui-layout-row ui-x-small">
+                  <span class="ui-layout-row ui-gap-x-small">
                     <svg
                       data-icon="comment"
                       aria-hidden="true"
@@ -478,7 +478,7 @@ import {
                     </svg>
                     12 <span class="ui-sr-only">comments</span>
                   </span>
-                  <Avatar aria-label="Rory Rootnote" role="img">RR</Avatar>
+                  <Avatar aria-label="Josh Rootnote" role="img">JR</Avatar>
                 </div>
               </CardContent>
             </Card>
@@ -487,18 +487,18 @@ import {
       </section>
       <section
         aria-labelledby="kanban-board-done-heading"
-        class="ui-layout-column ui-small kanban-column"
+        class="ui-layout-column ui-gap-small kanban-column"
       >
-        <div class="ui-layout-row ui-small kanban-column-header">
+        <div class="ui-layout-row ui-gap-small kanban-column-header">
           <span class="ui-swatch ui-success"></span>
           <h2 class="ui-h6" id="kanban-board-done-heading">Done</h2>
           <span class="ui-caption ui-tabular-nums">2</span>
         </div>
-        <ol class="ui-layout-column ui-small">
+        <ol class="ui-layout-column ui-gap-small">
           <li>
             <Card as="article" class="kanban-done" variant="outlined">
               <CardContent>
-                <div class="ui-layout-row ui-x-small">
+                <div class="ui-layout-row ui-gap-x-small">
                   <Chip
                     as="span"
                     label="Rehearsal"
@@ -522,7 +522,7 @@ import {
                   <span
                     >Completed <time datetime="2026-10-06">6 Oct</time></span
                   >
-                  <Avatar aria-label="Percy Groove" role="img">PG</Avatar>
+                  <Avatar aria-label="Adam Groove" role="img">AG</Avatar>
                 </div>
               </CardContent>
             </Card>
@@ -530,7 +530,7 @@ import {
           <li>
             <Card as="article" class="kanban-done" variant="outlined">
               <CardContent>
-                <div class="ui-layout-row ui-x-small">
+                <div class="ui-layout-row ui-gap-x-small">
                   <Chip
                     as="span"
                     label="Roadie"
@@ -551,7 +551,7 @@ import {
                   <span
                     >Completed <time datetime="2026-10-03">3 Oct</time></span
                   >
-                  <Avatar aria-label="Ines Hertz" role="img">IH</Avatar>
+                  <Avatar aria-label="Mohini Hertz" role="img">MH</Avatar>
                 </div>
               </CardContent>
             </Card>

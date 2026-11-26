@@ -21,7 +21,7 @@ const roles = [
 export default function Controls() {
   return (
     <Table density="dense">
-      <TableCaption>Low End Theory members</TableCaption>
+      <TableCaption>Bassists Anonymous members</TableCaption>
       <TableHead>
         <TableRow>
           <TableHeaderCell>Name</TableHeaderCell>
@@ -31,12 +31,12 @@ export default function Controls() {
       </TableHead>
       <TableBody>
         <TableRow>
-          <TableCell>Lou Headstock</TableCell>
+          <TableCell>Kinga Headstock</TableCell>
           <TableCell>
             <Field
               for="table-controls-3"
               hideLabel
-              label="Specialty for Lou Headstock"
+              label="Specialty for Kinga Headstock"
             >
               <select id="table-controls-3">
                 <SelectButton />
@@ -50,7 +50,7 @@ export default function Controls() {
             <Field
               for="table-controls-1"
               hideLabel
-              label="Notes for Lou Headstock"
+              label="Notes for Kinga Headstock"
             >
               <input
                 id="table-controls-1"
@@ -60,12 +60,12 @@ export default function Controls() {
           </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Percy Groove</TableCell>
+          <TableCell>Adam Groove</TableCell>
           <TableCell>
             <Field
               for="table-controls-4"
               hideLabel
-              label="Specialty for Percy Groove"
+              label="Specialty for Adam Groove"
             >
               <select id="table-controls-4">
                 <SelectButton />
@@ -79,7 +79,7 @@ export default function Controls() {
             <Field
               for="table-controls-2"
               hideLabel
-              label="Notes for Percy Groove"
+              label="Notes for Adam Groove"
             >
               <input
                 id="table-controls-2"

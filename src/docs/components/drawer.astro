@@ -205,6 +205,18 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         click with a modifier key. A change of the query alone from outside it,
         like a filter, leaves it open.
       </Fragment>
+      <Fragment slot="nunjucks">
+        A drawer used as navigation, like the menu in
+        <a href="#basics">Basics</a>, closes when the page navigates with
+        <code>closeOnNavigate</code> and
+        <code>opui-css/elements/close-on-navigate.js</code> on the page: a link
+        inside it, Back and Forward, or a client router. A link inside it closes
+        it on click, also one that only changes the query, unless it has
+        <code>data-keep-open</code>, like a Load more link, or opens elsewhere:
+        a download, a <code>target</code> such as <code>_blank</code>, or a
+        click with a modifier key. A change of the query alone from outside it,
+        like a filter, leaves it open.
+      </Fragment>
     </Conditional>
   </section>
 

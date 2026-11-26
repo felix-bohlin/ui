@@ -1,0 +1,168 @@
+{% from "opui/index.njk" import Field %}
+
+{% call Field({
+  for: "field-spread-1",
+  slots: {
+    label: "Name",
+    startText: "Your full name, as the drummer never says it"
+  },
+  spread: true
+}) %}
+  <input
+    aria-describedby="field-spread-1-start-text"
+    id="field-spread-1"
+    placeholder="Scott Humbucker"
+  />
+{% endcall %}
+
+{% call Field({
+  for: "field-spread-2",
+  slots: {
+    endText: "Use one the band checks.",
+    label: "Email",
+    startText: "We'll send your gig invites here"
+  },
+  spread: true,
+  variant: "filled"
+}) %}
+  <input
+    aria-describedby="field-spread-2-start-text field-spread-2-end-text"
+    id="field-spread-2"
+    placeholder="name@bassmail.example"
+    type="email"
+  />
+{% endcall %}
+
+{% call Field({
+  for: "field-spread-3",
+  label: "Band",
+  slots: { startText: "Shown on your gig flyers" },
+  spread: true
+}) %}
+  <input
+    aria-describedby="field-spread-3-start-text"
+    id="field-spread-3"
+    required
+  />
+{% endcall %}
+
+{% call Field({
+  for: "field-spread-4",
+  label: "Member ID",
+  slots: { startText: "Assigned when you joined Bassbook" },
+  spread: true
+}) %}
+  <input
+    aria-describedby="field-spread-4-start-text"
+    disabled
+    id="field-spread-4"
+    value="BASS-20931"
+  />
+{% endcall %}
+
+{% call Field({
+  for: "field-spread-5",
+  label: "Display name",
+  slots: {
+    endText: "Enter at least two characters.",
+    startText: "Shown next to your wall posts"
+  },
+  spread: true
+}) %}
+  <input
+    aria-describedby="field-spread-5-start-text field-spread-5-end-text"
+    aria-invalid="true"
+    id="field-spread-5"
+    value="A"
+  />
+{% endcall %}
+
+{% call Field({
+  for: "field-spread-6",
+  label: "Amount",
+  slots: {
+    end: "EUR",
+    start: "€",
+    startText: "Daily gear spending limit"
+  },
+  spread: true
+}) %}
+  <input
+    aria-describedby="field-spread-6-start-text field-spread-6-start field-spread-6-end"
+    id="field-spread-6"
+    placeholder="0.00"
+  />
+{% endcall %}
+
+{% call Field({
+  for: "field-spread-7",
+  label: "Website",
+  slots: {
+    endText: "Include the domain, like example.com.",
+    start: "https://",
+    startText: "Your band homepage, totally rad"
+  },
+  spread: true,
+  variant: "filled"
+}) %}
+  <input
+    aria-describedby="field-spread-7-start-text field-spread-7-start field-spread-7-end-text"
+    id="field-spread-7"
+    placeholder="example.com"
+  />
+{% endcall %}
+
+{% call Field({
+  for: "field-spread-8",
+  label: "Band page",
+  slots: {
+    bottom: "Lowercase letters and dashes only",
+    startText: "Used to make your band page URL",
+    top: "bassbook.example/"
+  },
+  spread: true
+}) %}
+  <input
+    aria-describedby="field-spread-8-start-text field-spread-8-top field-spread-8-bottom"
+    id="field-spread-8"
+    placeholder="my-band"
+  />
+{% endcall %}
+
+{% set start %}
+  <svg
+    data-icon="lock"
+    aria-hidden="true"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+  </svg>
+{% endset %}
+{% call Field({
+  for: "field-spread-9",
+  label: "Secret riff",
+  slots: {
+    bottom: "Changes every 90 days",
+    endText: "Never show it to the drummer.",
+    start: start,
+    startText: "Locked away from guitarists",
+    top: "Secret"
+  },
+  spread: true,
+  variant: "filled"
+}) %}
+  <input
+    aria-describedby="field-spread-9-start-text field-spread-9-top field-spread-9-bottom field-spread-9-end-text"
+    id="field-spread-9"
+    placeholder="Paste your riff"
+    type="password"
+  />
+{% endcall %}

@@ -18,15 +18,15 @@ export default function AnalyticsDashboard() {
   return (
     <>
       <div
-        className="analytics-dashboard ui-layout-container ui-layout-column ui-large"
+        className="analytics-dashboard ui-layout-container ui-layout-column ui-gap-large"
         style={{ "--_max-inline-size": "80rem" }}
       >
         <div className="ui-layout-row ui-spread">
           <hgroup className="ui-hgroup">
-            <p>bassbook.example/rory</p>
+            <p>bassbook.example/josh</p>
             <h1 className="ui-h3">Your profile stats</h1>
           </hgroup>
-          <div className="ui-layout-row ui-small">
+          <div className="ui-layout-row ui-gap-small">
             <ToggleGroup
               aria-label="Date range"
               defaultValue="7"
@@ -129,7 +129,7 @@ export default function AnalyticsDashboard() {
           </li>
         </ul>
         <div
-          className="ui-layout-columns ui-large"
+          className="ui-layout-columns ui-gap-large"
           style={{ "--_columns": "2fr 1fr" }}
         >
           <Card
@@ -232,7 +232,7 @@ export default function AnalyticsDashboard() {
             </hgroup>
             <CardContent>
               <ul className="ui-layout-column">
-                <li className="ui-layout-column ui-x-small">
+                <li className="ui-layout-column ui-gap-x-small">
                   <span
                     className="ui-layout-row ui-spread"
                     id="analytics-dashboard-source-friends"
@@ -246,21 +246,21 @@ export default function AnalyticsDashboard() {
                     value={46}
                   />
                 </li>
-                <li className="ui-layout-column ui-x-small">
+                <li className="ui-layout-column ui-gap-x-small">
                   <span
                     className="ui-layout-row ui-spread"
-                    id="analytics-dashboard-source-low-end"
+                    id="analytics-dashboard-source-bassists-anonymous"
                   >
-                    <span>Low End Theory</span>
+                    <span>Bassists Anonymous</span>
                     <span>28%</span>
                   </span>
                   <Progress
-                    aria-labelledby="analytics-dashboard-source-low-end"
+                    aria-labelledby="analytics-dashboard-source-bassists-anonymous"
                     max={100}
                     value={28}
                   />
                 </li>
-                <li className="ui-layout-column ui-x-small">
+                <li className="ui-layout-column ui-gap-x-small">
                   <span
                     className="ui-layout-row ui-spread"
                     id="analytics-dashboard-source-gear"
@@ -274,7 +274,7 @@ export default function AnalyticsDashboard() {
                     value={17}
                   />
                 </li>
-                <li className="ui-layout-column ui-x-small">
+                <li className="ui-layout-column ui-gap-x-small">
                   <span
                     className="ui-layout-row ui-spread"
                     id="analytics-dashboard-source-band"
@@ -328,7 +328,7 @@ export default function AnalyticsDashboard() {
                 <TableRow>
                   <TableCell>
                     <a className="ui-link" href="#analytics-page-home">
-                      /rory
+                      /josh
                     </a>
                   </TableCell>
                   <TableCell numeric>612</TableCell>
@@ -338,7 +338,7 @@ export default function AnalyticsDashboard() {
                 <TableRow>
                   <TableCell>
                     <a className="ui-link" href="#analytics-page-wall">
-                      /rory/wall
+                      /josh/wall
                     </a>
                   </TableCell>
                   <TableCell numeric>388</TableCell>
@@ -348,7 +348,7 @@ export default function AnalyticsDashboard() {
                 <TableRow>
                   <TableCell>
                     <a className="ui-link" href="#analytics-page-videos">
-                      /rory/videos/slap-in-drop-d
+                      /josh/videos/slap-in-drop-d
                     </a>
                   </TableCell>
                   <TableCell numeric>245</TableCell>
@@ -358,7 +358,7 @@ export default function AnalyticsDashboard() {
                 <TableRow>
                   <TableCell>
                     <a className="ui-link" href="#analytics-page-gear">
-                      /rory/gear/pedalboard
+                      /josh/gear/pedalboard
                     </a>
                   </TableCell>
                   <TableCell numeric>104</TableCell>

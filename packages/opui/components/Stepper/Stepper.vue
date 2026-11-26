@@ -28,10 +28,13 @@ defineSlots<Slots>()
       :completeLabel="completeLabel"
       :errorLabel="errorLabel"
       v-bind="item"
-      :complete="
-        item.complete || complete || (current !== undefined && index < current)
-      "
       :current="item.current || index === current"
+      :state="
+        item.state ??
+        (complete || (current !== undefined && index < current)
+          ? 'complete'
+          : undefined)
+      "
     />{{ " "
     }}<slot></slot>
   </ol>

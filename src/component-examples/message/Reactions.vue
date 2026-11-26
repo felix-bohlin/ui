@@ -86,10 +86,10 @@ const secondPicker = [
 </script>
 
 <template>
-  <MessageList aria-label="Messages with Stella">
-    <Message author="Stella" datetime="2026-10-08T16:05" time="16:05">
+  <MessageList aria-label="Messages with Ellen">
+    <Message author="Ellen" datetime="2026-10-08T16:05" time="16:05">
       <template #start>
-        <Avatar>SN</Avatar>
+        <Avatar>EN</Avatar>
       </template>
       <p>My slap cover is up. Thanks for listening, everyone!</p>
       <template #actions>

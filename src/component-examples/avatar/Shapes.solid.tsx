@@ -5,19 +5,19 @@ export default function Shapes() {
   return (
     <>
       <Avatar
-        label="Percy Groove"
+        label="Adam Groove"
         shape="rounded"
-        src="/photos/percy-groove.png"
+        src="/photos/adam-groove.png"
       />
 
-      <Avatar label="Rory Rootnote" shape="squared">
-        RR
+      <Avatar label="Josh Rootnote" shape="squared">
+        JR
       </Avatar>
 
       <Avatar
-        label="Lou Headstock"
+        label="Kinga Headstock"
         shape="squircle"
-        src="/photos/lou-headstock.png"
+        src="/photos/kinga-headstock.png"
       />
     </>
   )

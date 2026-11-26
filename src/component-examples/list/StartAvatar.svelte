@@ -3,14 +3,14 @@
 </script>
 
 <List>
-  <ListItem label="Ines Hertz">
+  <ListItem label="Mohini Hertz">
     {#snippet start()}
-      <Avatar>IH</Avatar>
+      <Avatar>MH</Avatar>
     {/snippet}
   </ListItem>
-  <ListItem description="Fretless enthusiast" label="Lou Headstock">
+  <ListItem description="Fretless enthusiast" label="Kinga Headstock">
     {#snippet start()}
-      <Avatar src="/photos/lou-headstock.png" />
+      <Avatar src="/photos/kinga-headstock.png" />
     {/snippet}
   </ListItem>
 </List>

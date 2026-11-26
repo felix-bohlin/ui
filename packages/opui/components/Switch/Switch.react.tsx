@@ -1,7 +1,7 @@
 import { filled } from "../attrs"
 import { cx } from "../cx"
 import SwitchInput from "./SwitchInput.react"
-import { hasName, warnUnnamed } from "../dev"
+import { DEV, hasName, warnUnnamed } from "../dev"
 import type { Props } from "./types.react"
 
 export default function Switch({
@@ -22,7 +22,7 @@ export default function Switch({
   iconUnchecked,
   ...rest
 }: Props) {
-  warnUnnamed("Switch", hasName({ ...rest, label }, filled(children)))
+  if (DEV) warnUnnamed("Switch", hasName({ ...rest, label }, filled(children)))
 
   return (
     <label

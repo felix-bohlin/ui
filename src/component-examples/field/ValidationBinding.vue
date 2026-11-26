@@ -2,7 +2,7 @@
 import { computed, ref } from "vue"
 import { Field } from "opui-css/vue"
 
-const username = ref("holly")
+const username = ref("scott")
 const invalid = computed(() => /[^a-z0-9]/i.test(username.value))
 </script>
 

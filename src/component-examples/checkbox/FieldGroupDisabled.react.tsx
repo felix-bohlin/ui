@@ -11,10 +11,12 @@ export default function FieldGroupDisabled() {
     <Form>
       <Fieldset disabled>
         <FieldLegend>Newsletter topics</FieldLegend>
-        <FieldGroup name="checkbox-group-disabled" orientation="horizontal">
-          <Checkbox defaultChecked>Bassbook news</Checkbox>
-          <Checkbox>Events</Checkbox>
-          <Checkbox>Gear deals</Checkbox>
+        <FieldGroup orientation="horizontal">
+          <Checkbox defaultChecked name="checkbox-group-disabled">
+            Bassbook news
+          </Checkbox>
+          <Checkbox name="checkbox-group-disabled">Events</Checkbox>
+          <Checkbox name="checkbox-group-disabled">Gear deals</Checkbox>
         </FieldGroup>
       </Fieldset>
     </Form>

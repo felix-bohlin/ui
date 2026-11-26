@@ -1,0 +1,8 @@
+{% from "opui/index.njk" import Button %}
+
+<div class="ui-layout-row">
+  {% call Button() %}Cancel{% endcall %}
+  {% call Button({ variant: "outlined" }) %}Share{% endcall %}
+  {% call Button({ variant: "outlined" }) %}Preview{% endcall %}
+  {% call Button({ color: "primary", variant: "filled" }) %}Save{% endcall %}
+</div>

@@ -9,6 +9,7 @@ import {
   splitSource,
 } from "../../../utils/blocks"
 import {
+  codeLanguage,
   FRAMEWORK_IDS,
   FRAMEWORK_STORAGE_KEY,
   FRAMEWORKS,
@@ -53,8 +54,7 @@ const codeTabs = FRAMEWORKS.flatMap<CodeTab>(({ id: framework, label }) =>
           code: block.sources[framework],
           framework,
           label,
-          lang:
-            framework === "react" || framework === "solid" ? "tsx" : framework,
+          lang: codeLanguage(framework),
           name: framework,
         },
       ],

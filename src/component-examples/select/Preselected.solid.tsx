@@ -18,11 +18,11 @@ export default function Preselected() {
       <Field for="select-preselected-2" label="Band">
         <select id="select-preselected-2">
           <SelectButton />
-          <option value="brad-and-the-brads">Brad and the Brads</option>
-          <option selected value="low-end-theory">
-            Low End Theory
+          <option selected value="bassists-anonymous">
+            Bassists Anonymous
           </option>
-          <option value="the-low-enders">The Low Enders</option>
+          <option value="brad-and-the-brads">Brad and the Brads</option>
+          <option value="slap-like-now">Slap Like Now</option>
         </select>
       </Field>
     </>

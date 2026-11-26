@@ -1,0 +1,6 @@
+{% macro TableHead(props = {}) %}
+  {%- set rest = props | opuiRest("TableHead") -%}
+  <thead{{ rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </thead>
+{%- endmacro %}

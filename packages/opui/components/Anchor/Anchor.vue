@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type HTMLAttributes, provide, reactive, useAttrs } from "vue"
 import { AnchorKey } from "./context.vue"
-import { warnMissingId } from "../dev"
+import { DEV, warnMissingId } from "../dev"
 import { mergeStyle, styleAttrs } from "../style"
 import { extendsAnchor } from "./root"
 import { classAttrs } from "../cx"
@@ -16,7 +16,7 @@ const isHover = computed(() => trigger === "hover")
 
 const id = computed(() => (isHover.value ? idProp || undefined : undefined))
 
-if (isHover.value && !extendsAnchor(attrs.class)) {
+if (DEV && isHover.value && !extendsAnchor(attrs.class)) {
   warnMissingId("Anchor", id.value, "interestfor")
 }
 

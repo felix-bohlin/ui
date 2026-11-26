@@ -3,7 +3,7 @@
 A summary that opens to show more content, on its own or in a group.
 
 - CSS: `opui-css/css/components/accordion.css` and `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/accordion.md), [Astro](https://opui.dev/astro/components/accordion.md), [React](https://opui.dev/react/components/accordion.md), [Solid](https://opui.dev/solid/components/accordion.md), [Svelte](https://opui.dev/svelte/components/accordion.md), [Vue](https://opui.dev/vue/components/accordion.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/accordion.md), [Astro](https://opui.dev/astro/components/accordion.md), [Nunjucks](https://opui.dev/nunjucks/components/accordion.md), [React](https://opui.dev/react/components/accordion.md), [Solid](https://opui.dev/solid/components/accordion.md), [Svelte](https://opui.dev/svelte/components/accordion.md), [Vue](https://opui.dev/vue/components/accordion.md).
 
 ## Accordion
 
@@ -11,7 +11,7 @@ A summary that opens to show more content, on its own or in a group.
 
 - `details.ui-accordion` (root): Container element.
 - `<summary>` (`AccordionSummary`): The always visible header.
-- `<svg class="ui-marker">`: The marker. In Astro, React, Solid, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.
+- `<svg class="ui-marker">`: The marker. Outside HTML, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.
 - `.ui-content` (`AccordionContent`): The collapsible content.
 - `.ui-actions` (`AccordionActions`): A group of actions, such as buttons.
 
@@ -29,7 +29,7 @@ A summary that opens to show more content, on its own or in a group.
 ### Notes
 
 - HTML: To group accordions, wrap them in a `.ui-card[role="group"]` with an `aria-label`. A variant on the group styles every accordion in it.
-- Astro, React, Solid, Svelte and Vue: Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">` with an `aria-label`. Its `variant` styles every accordion in it.
+- Astro, Nunjucks, React, Solid, Svelte and Vue: Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">` with an `aria-label`. Its `variant` styles every accordion in it.
 
 ## AccordionSummary
 
@@ -100,11 +100,11 @@ Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_overflow` and 
 - `--_title-font-size`: Font size of a dialog's or drawer's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
 - `--_tonal-bg-color`: Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.
 
-Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration`, `--_orientation` and `--_shadow`.
+Outputs: `--_bg-color`, `--_bg-image`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration`, `--_orientation` and `--_shadow`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-font-weight-bold`, `--ui-icon-close`, `--ui-icon-expand`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-large`, `--ui-card-padding`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-font-weight-bold`, `--ui-icon-close`, `--ui-icon-expand`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-elevated-image`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -154,6 +154,28 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/astro"
     </p>
   </AccordionContent>
 </Accordion>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Accordion, AccordionActions, AccordionContent, AccordionSummary %}`
+
+- `AccordionSummary` named slots: `slots.marker`. Pass a string, or markup captured with `{% set %}`.
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Accordion, AccordionContent, AccordionSummary %}
+
+{% call Accordion() %}
+  {% call AccordionSummary() %}What is included in free Bassbook?{% endcall %}
+  {% call AccordionContent() %}
+    <p>
+      Three setlists, 2 GB of slap videos and email support. Upgrade to Bassbook
+      Gold at any time to add more setlists and invite your band.
+    </p>
+  {% endcall %}
+{% endcall %}
 ```
 
 ## React

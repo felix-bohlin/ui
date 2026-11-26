@@ -3,7 +3,7 @@
 A box people check for choices submitted with a form, alone or in a group.
 
 - CSS: `opui-css/css/components/checkbox.css`, `opui-css/css/components/choice.css`, `opui-css/css/components/form.css`, `opui-css/css/components/card.css` and `opui-css/css/components/select-all.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/checkbox.md), [Astro](https://opui.dev/astro/components/checkbox.md), [React](https://opui.dev/react/components/checkbox.md), [Solid](https://opui.dev/solid/components/checkbox.md), [Svelte](https://opui.dev/svelte/components/checkbox.md), [Vue](https://opui.dev/vue/components/checkbox.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/checkbox.md), [Astro](https://opui.dev/astro/components/checkbox.md), [Nunjucks](https://opui.dev/nunjucks/components/checkbox.md), [React](https://opui.dev/react/components/checkbox.md), [Solid](https://opui.dev/solid/components/checkbox.md), [Svelte](https://opui.dev/svelte/components/checkbox.md), [Vue](https://opui.dev/vue/components/checkbox.md).
 - The docs page also documents `FieldGroup`, see `form.md`.
 
 ## Checkbox
@@ -31,12 +31,12 @@ A box people check for choices submitted with a form, alone or in a group.
 - `value`: `string`. The value of the `<input>`, submitted with the form when it's checked.
 - `variant`: `"elevated"` (`.ui-elevated`), `"outlined"` (default), `"tonal"` (`.ui-tonal`). The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.
 
-Model: `checked` (`boolean | (string | number)[]`), the checked state, or the checked values of a group. Astro, React and Solid `checked`, Svelte `bind:checked`, `bind:group`, Vue `v-model`.
+Model: `checked` (`boolean | (string | number)[]`), the checked state, or the checked values of a group. Astro, Nunjucks, React and Solid `checked`, Svelte `bind:checked`, `bind:group`, Vue `v-model`.
 
 ### Notes
 
 - HTML: `data-indeterminate` needs `checkbox.js`. It sets the `indeterminate` property, and keeps it in step when the attribute changes or a checkbox is added.
-- Astro and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.
+- Astro, Nunjucks and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.
 - React: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`. Use `checked` with `onChange`, or `defaultChecked`. For a group, keep the checked values in your own state.
 - Solid: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`. `checked` sets the state and follows it when it changes, and `onChange` reports changes. For a group, keep the checked values in your own state.
 - Svelte: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`.
@@ -52,11 +52,11 @@ Model: `checked` (`boolean | (string | number)[]`), the checked state, or the ch
 - `indeterminate`: `boolean`, `[data-indeterminate]`. Shows a partially checked state. Sets the `indeterminate` property on the `<input>`.
 - `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
 
-Model: `checked` (`boolean | (string | number)[]`), the checked state, or the checked values of a group. Astro, React and Solid `checked`, Svelte `bind:checked`, `bind:group`, Vue `v-model`.
+Model: `checked` (`boolean | (string | number)[]`), the checked state, or the checked values of a group. Astro, Nunjucks, React and Solid `checked`, Svelte `bind:checked`, `bind:group`, Vue `v-model`.
 
 ### Notes
 
-- Astro, React, Solid, Svelte and Vue: The checkbox `<input>` without the label, for a custom layout inside a `label.ui-checkbox`, such as the end of a `ListItem` with `choice="checkbox"`. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
+- Astro, Nunjucks, React, Solid, Svelte and Vue: The checkbox `<input>` without the label, for a custom layout inside a `label.ui-checkbox`, such as the end of a `ListItem` with `choice="checkbox"`. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
 
 ## SelectAll
 
@@ -74,12 +74,13 @@ Model: `checked` (`boolean | (string | number)[]`), the checked state, or the ch
 - `<opui-select-all>`, defined by `opui-css/elements/select-all.js`:
   - `control`: The controlling checkbox, the one with `data-select-all`, or `null`. Read-only.
   - `items`: The enabled checkboxes it controls, in document order. Read-only.
-  - `sync()`: Sets the controlling checkbox's `checked` and `indeterminate` from the others. The element calls it when one changes, so call it only after setting `checked` from a script.
+  - `sync()`: Sets the controlling checkbox's `checked` and `indeterminate` from the others. The element calls it when one of them changes, also when a script or your framework sets its `checked`, and when one is added, removed, enabled or disabled inside it.
 
 ### Notes
 
 - HTML: Wrap the group in `<opui-select-all class="ui-select-all">`, add `data-select-all` to the controlling checkbox and import `opui-css/elements/select-all.js`.
 - Astro: The component loads `opui-css/elements/select-all.js`. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.
+- Nunjucks: The macro renders the element without its script, so load `opui-css/elements/select-all.js` on the page. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.
 - React: The component loads `opui-css/elements/select-all.js` once it mounts, unless the page imports it first. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.
 - Solid, Svelte and Vue: The component imports `opui-css/elements/select-all.js`, so the element runs as soon as the component's code loads. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.
 
@@ -128,11 +129,11 @@ Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration`, `--
 - `--_title-font-size`: Font size of a dialog's or drawer's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
 - `--_tonal-bg-color`: Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.
 
-Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration`, `--_orientation` and `--_shadow`.
+Outputs: `--_bg-color`, `--_bg-image`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration`, `--_orientation` and `--_shadow`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-choice-accent`, `--ui-choice-border-color`, `--ui-choice-border-width`, `--ui-choice-checked`, `--ui-choice-fill-max-lightness`, `--ui-choice-label-offset`, `--ui-choice-on-accent`, `--ui-choice-ripple-bg-color`, `--ui-choice-size`, `--ui-choice-size-large`, `--ui-choice-size-small`, `--ui-choice-size-x-small`, `--ui-control-accent`, `--ui-control-on-accent`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color`, `--ui-field-border-color-on-raised`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-required-text-color`, `--ui-focus-border-color`, `--ui-focus-border-width`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-icon-close`, `--ui-invalid`, `--ui-invalid-text`, `--ui-letter-spacing-heading`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-fill`, `--ui-on-primary`, `--ui-primary`, `--ui-radius`, `--ui-radius-x-small`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-switch-thumb-size-large`, `--ui-switch-thumb-size-small`, `--ui-switch-thumb-size-x-small`, `--ui-switch-track-block-size-large`, `--ui-switch-track-block-size-small`, `--ui-switch-track-block-size-x-small`, `--ui-switch-track-inline-size-large`, `--ui-switch-track-inline-size-small`, `--ui-switch-track-inline-size-x-small`, `--ui-target-min-size`, `--ui-text`, `--ui-text-max-chroma`, `--ui-text-min-lightness` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-large`, `--ui-card-padding`, `--ui-choice-accent`, `--ui-choice-border-color`, `--ui-choice-border-width`, `--ui-choice-checked`, `--ui-choice-fill-max-lightness`, `--ui-choice-label-offset`, `--ui-choice-on-accent`, `--ui-choice-ripple-bg-color`, `--ui-choice-size`, `--ui-choice-size-large`, `--ui-choice-size-small`, `--ui-choice-size-x-small`, `--ui-control-accent`, `--ui-control-on-accent`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color`, `--ui-field-border-color-on-raised`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-required-text-color`, `--ui-focus-border-color`, `--ui-focus-border-width`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-icon-close`, `--ui-invalid`, `--ui-invalid-text`, `--ui-letter-spacing-heading`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-fill`, `--ui-on-primary`, `--ui-primary`, `--ui-radius`, `--ui-radius-x-small`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-elevated-image`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-switch-thumb-size-large`, `--ui-switch-thumb-size-small`, `--ui-switch-thumb-size-x-small`, `--ui-switch-track-block-size-large`, `--ui-switch-track-block-size-small`, `--ui-switch-track-block-size-x-small`, `--ui-switch-track-inline-size-large`, `--ui-switch-track-inline-size-small`, `--ui-switch-track-inline-size-x-small`, `--ui-target-min-size`, `--ui-text`, `--ui-text-max-chroma`, `--ui-text-min-lightness` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -187,6 +188,37 @@ import { Checkbox } from "opui-css/astro"
 <Checkbox checked disabled hideLabel name="checkbox-basics"
   >Checked and disabled</Checkbox
 >
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Checkbox, CheckboxInput, SelectAll %}`
+
+- `Checkbox` named slots: `slots.endText`. Pass a string, or markup captured with `{% set %}`.
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Checkbox %}
+
+{% call Checkbox({ checked: true, hideLabel: true, name: "checkbox-basics" }) %}Checked{% endcall %}
+{% call Checkbox({ hideLabel: true, name: "checkbox-basics" }) %}Unchecked{% endcall %}
+{% call Checkbox({
+  hideLabel: true,
+  indeterminate: true,
+  name: "checkbox-basics"
+}) %}Indeterminate{% endcall %}
+{% call Checkbox({ disabled: true, hideLabel: true, name: "checkbox-basics" }) %}Disabled{% endcall %}
+{% call Checkbox({
+  checked: true,
+  disabled: true,
+  hideLabel: true,
+  name: "checkbox-basics"
+}) %}Checked and disabled{% endcall %}
+
+<script type="module">
+  import "opui-css/css/js/checkbox.js"
+</script>
 ```
 
 ## React

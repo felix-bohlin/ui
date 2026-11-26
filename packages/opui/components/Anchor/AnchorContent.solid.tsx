@@ -1,20 +1,21 @@
 /** @jsxImportSource @solidjs/web */
 import { omit, untrack } from "solid-js"
 import { useAnchorContext } from "./context.solid"
-import { warnReplacedAnchorAttributes } from "../dev"
+import { DEV, warnReplacedAnchorAttributes } from "../dev"
 import type { AnchorContentProps as Props } from "./types.solid"
 
 export default function AnchorContent(props: Props) {
   const rest = omit(props, "class", "id", "popover", "children")
   const anchor = useAnchorContext()
-  untrack(() => {
-    warnReplacedAnchorAttributes(
-      props.id,
-      props.popover,
-      anchor?.floatingId,
-      anchor?.popover,
-    )
-  })
+  if (DEV)
+    untrack(() => {
+      warnReplacedAnchorAttributes(
+        props.id,
+        props.popover,
+        anchor?.floatingId,
+        anchor?.popover,
+      )
+    })
 
   return (
     <span

@@ -5,14 +5,14 @@ export default function FieldGroupRequired() {
     <Form>
       <Fieldset>
         <FieldLegend>Account type</FieldLegend>
-        <FieldGroup name="radio-group-required" orientation="horizontal">
-          <Radio required value="bassist">
+        <FieldGroup orientation="horizontal">
+          <Radio name="radio-group-required" required value="bassist">
             Bassist
           </Radio>
-          <Radio required value="band">
+          <Radio name="radio-group-required" required value="band">
             Band
           </Radio>
-          <Radio required value="shop">
+          <Radio name="radio-group-required" required value="shop">
             Bass shop
           </Radio>
         </FieldGroup>

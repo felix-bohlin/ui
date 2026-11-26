@@ -95,7 +95,10 @@ export const keywords = [
         also while the pointer or the focus is in the card, and Esc doesn't hide
         it, also with the <code>interestfor</code> polyfill. Like the Tooltip
         fallback, it isn't in the top layer there, and a tap on a touch screen
-        follows the trigger link instead of opening the card.
+        follows the trigger link instead of opening the card. Without the
+        <code>anchor-visible</code> value of <code>position-visibility</code>, a
+        hover card or tooltip takes the older <code>anchors-visible</code>, so
+        it still hides when its trigger scrolls out of view.
       </li>
       <li>
         Avatar (<code>css/compat/avatar.css</code>): without
@@ -124,6 +127,8 @@ export const keywords = [
         Copy (<code>css/compat/copy.css</code>): without interest invokers, a
         Tooltip on the copy button stays hidden while the Copied label shows,
         since the Tooltip fallback would show it while the button is hovered.
+        Without <code>anchor-visible</code>, the Copied label takes
+        <code>anchors-visible</code>, like Anchor.
       </li>
       <li>
         Dialog (<code>css/compat/dialog.css</code>): without
@@ -178,7 +183,10 @@ export const keywords = [
         (<code>css/compat/field.css</code>): on iPhone and iPad, fields of every
         size set their text in <code>--ui-font-size-control</code> or 16px,
         whichever is larger, because iOS Safari zooms the page in on a focused
-        field with text under 16px.
+        field with text under 16px. Date and time inputs drop their native look
+        there, since iOS Safari sizes them with
+        <code>box-sizing: content-box</code>, which adds the field's padding to
+        their height and made them taller than the other fields.
       </li>
       <li>
         Toggle group (<code>css/compat/toggle-group.css</code>): without

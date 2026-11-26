@@ -40,10 +40,10 @@ export default {
   ],
   notes: {
     default:
-      "Write your control inside, with its `id` set to `for`. Other attributes go to the `.ui-field` root.",
+      'Write your control inside, with its `id` set to `for`, and point its `aria-describedby` at the parts with something to read, `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"` in that order. Leave out a part that only holds buttons, an output or hidden content, and keep the list in step with parts that come and go, like an error end text. `checkHtml` from `opui-css/check` checks the rendered page. Other attributes go to the `.ui-field` root, so set `aria-describedby` and `aria-invalid` on your control.',
     react:
-      "Write your control inside, with its `id` set to `htmlFor`. Other attributes go to the `.ui-field` root.",
-    html: "Point the `<label class=\"ui-label\" for>` at the control's `id`, and the control's `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text` in that order, leaving out parts with nothing to read. Write `.ui-top` and `.ui-start` before the control, and `.ui-end` and `.ui-bottom` after it.",
+      'Write your control inside, with its `id` set to `htmlFor`, and point its `aria-describedby` at the parts with something to read, `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `htmlFor="x"` in that order. Leave out a part that only holds buttons, an output or hidden content, and keep the list in step with parts that come and go, like an error end text. `checkHtml` from `opui-css/check` checks the rendered page. Other attributes go to the `.ui-field` root, so set `aria-describedby` and `aria-invalid` on your control.',
+    html: "Point the `<label class=\"ui-label\" for>` at the control's `id`, and the control's `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text` in that order, leaving out a part that only holds buttons, an output or hidden content, and keep the list in step with parts that come and go, like an error end text. `npx opui-css check` checks the HTML files. Write `.ui-top` and `.ui-start` before the control, and `.ui-end` and `.ui-bottom` after it.",
   },
   options: [
     {
@@ -71,7 +71,7 @@ export default {
     {
       description:
         'The `id` of your control, which the label points at and the part ids start with: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`.',
-      frameworks: ["astro", "solid", "svelte", "vue"],
+      frameworks: ["astro", "nunjucks", "solid", "svelte", "vue"],
       prop: "for",
       type: "string",
     },

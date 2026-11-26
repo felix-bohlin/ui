@@ -6,7 +6,7 @@ import "../../elements/menu.js"
 import { defined, filled } from "../attrs"
 import { cx } from "../cx"
 import { MenuContext, useMenuContext } from "./context.react"
-import { warnMissingId } from "../dev"
+import { DEV, warnMissingId } from "../dev"
 import { disabledLink, tagAttrs } from "../tag"
 import type { Props } from "./types.react"
 import type { Context } from "./types"
@@ -27,7 +27,7 @@ export default function Menu({
 }: Props) {
   const parent = useMenuContext()
   const rootId = parent?.rootId ?? id
-  warnMissingId("Menu", id)
+  if (DEV) warnMissingId("Menu", id)
   const context = useMemo<Context>(() => ({ rootId }), [rootId])
 
   return (

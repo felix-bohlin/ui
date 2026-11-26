@@ -1,0 +1,20 @@
+{% from "opui/index.njk" import Checkbox %}
+
+{% call Checkbox({ checked: true, hideLabel: true, name: "checkbox-basics" }) %}Checked{% endcall %}
+{% call Checkbox({ hideLabel: true, name: "checkbox-basics" }) %}Unchecked{% endcall %}
+{% call Checkbox({
+  hideLabel: true,
+  indeterminate: true,
+  name: "checkbox-basics"
+}) %}Indeterminate{% endcall %}
+{% call Checkbox({ disabled: true, hideLabel: true, name: "checkbox-basics" }) %}Disabled{% endcall %}
+{% call Checkbox({
+  checked: true,
+  disabled: true,
+  hideLabel: true,
+  name: "checkbox-basics"
+}) %}Checked and disabled{% endcall %}
+
+<script type="module">
+  import "opui-css/css/js/checkbox.js"
+</script>

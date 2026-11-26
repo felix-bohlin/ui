@@ -1,0 +1,13 @@
+{% from "opui/index.njk" import Stepper, StepperItem %}
+
+{% call Stepper({ "aria-label": "Checkout steps" }) %}
+  {{ StepperItem({ href: "#", label: "Cart", state: "complete" }) }}
+  {{ StepperItem({
+    description: "Check the postcode",
+    href: "#",
+    label: "Shipping",
+    state: "error"
+  }) }}
+  {{ StepperItem({ current: true, label: "Payment" }) }}
+  {{ StepperItem({ label: "Review" }) }}
+{% endcall %}

@@ -1,0 +1,72 @@
+{% from "opui/index.njk" import
+  Anchor,
+  AnchorContent,
+  Avatar,
+  Button,
+  Card,
+  CardActions,
+  CardContent
+%}
+
+<div>
+  The source lives in
+  {% call Anchor({
+    id: "anchor-repo-card-1",
+    positionArea: "block-end span-inline-end",
+    trigger: "hover"
+  }) %}
+    <a
+      class="ui-link"
+      href="https://github.com/felix-bohlin/ui"
+      interestfor="anchor-repo-card-1"
+    >felix-bohlin/ui</a>
+    {% call AnchorContent() %}
+      {% call Card({ class: "repo-card", variant: "elevated" }) %}
+        {% call CardContent() %}
+          <div class="repo-card-identity">
+            {{ Avatar({
+              shape: "rounded",
+              src: "https://github.com/felix-bohlin.png"
+            }) }}
+            <div>
+              <strong>felix-bohlin/ui</strong>
+              <span class="ui-caption">Public repository</span>
+            </div>
+          </div>
+          <p>
+            A CSS UI library exploring how next-gen HTML &amp; CSS features can
+            change the way we create components.
+          </p>
+          <p class="ui-caption">CSS, MIT license</p>
+        {% endcall %}
+        {% call CardActions() %}
+          {% call Button({ size: "small", variant: "outlined" }) %}Star{% endcall %}
+        {% endcall %}
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+  on GitHub.
+</div>
+
+<style>
+  .repo-card {
+    font-size: var(--ui-font-size-small);
+    inline-size: 280px;
+    margin-block-start: var(--ui-space-2);
+  }
+
+  .repo-card .ui-content {
+    display: grid;
+    gap: var(--ui-space-2);
+  }
+
+  .repo-card-identity {
+    align-items: center;
+    display: flex;
+    gap: var(--ui-space-3);
+  }
+
+  .repo-card-identity > div {
+    display: grid;
+  }
+</style>

@@ -1,0 +1,12 @@
+{% macro TableHeaderCell(props = {}) %}
+  {%- set rest = props | opuiRest("TableHeaderCell") -%}
+  {%- set classes = [{ "ui-numeric": props.numeric }, props.class] | opuiClass -%}
+  {%- set dataSort = '' if props.sortable else none -%}
+  <th
+    {%- if classes %} class="{{ classes }}"{% endif %}
+    {%- if dataSort != none %} data-sort="{{ dataSort }}"{% endif %}
+    {{- rest | opuiAttributes }}>
+    {%- if props.sortable %}<button type="button">
+      {{- caller() if caller }}</button>{% else %}{{ caller() if caller }}{% endif -%}
+  </th>
+{%- endmacro %}

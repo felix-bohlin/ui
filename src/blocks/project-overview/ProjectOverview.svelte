@@ -24,7 +24,7 @@
 </script>
 
 <div
-  class="project-overview ui-layout-container ui-layout-column ui-large"
+  class="project-overview ui-layout-container ui-layout-column ui-gap-large"
   style="--_max-inline-size: 80rem"
 >
   <div class="ui-layout-row ui-spread">
@@ -42,7 +42,7 @@
         />
       </p>
     </hgroup>
-    <div class="ui-layout-row ui-small">
+    <div class="ui-layout-row ui-gap-small">
       <Button size="small" type="button" variant="outlined">Share</Button>
       <Button
         command="toggle-popover"
@@ -134,8 +134,8 @@
       >
     </li>
   </ul>
-  <div class="ui-layout-columns ui-large" style="--_columns: 3fr 2fr">
-    <div class="ui-layout-column ui-large">
+  <div class="ui-layout-columns ui-gap-large" style="--_columns: 3fr 2fr">
+    <div class="ui-layout-column ui-gap-large">
       <Card
         aria-labelledby="project-overview-milestones-heading"
         as="section"
@@ -193,7 +193,7 @@
                   ></path>
                 </svg>
               {/snippet}
-              <p class="ui-caption">Completed, low end approved</p>
+              <p class="ui-caption">Completed, bassist approved</p>
             </TimelineItem>
             <TimelineItem
               color="success"
@@ -283,32 +283,32 @@
         <List variant="transparent">
           <ListItem
             description="Today, 10:24"
-            label="Holly closed “Extension cords for 40 amps”"
+            label="Scott closed “Extension cords for 40 amps”"
           >
             {#snippet start()}
-              <Avatar aria-label="Holly Humbucker" role="img">HH</Avatar>
+              <Avatar aria-label="Scott Humbucker" role="img">SH</Avatar>
             {/snippet}
           </ListItem>
           <ListItem
             description="Today, 08:51"
-            label="Lou uploaded “Bass Day poster v4.png”"
+            label="Kinga uploaded “Bass Day poster v4.png”"
           >
             {#snippet start()}
-              <Avatar aria-label="Lou Headstock" role="img">LH</Avatar>
+              <Avatar aria-label="Kinga Headstock" role="img">KH</Avatar>
             {/snippet}
           </ListItem>
           <ListItem
             description="Yesterday, 16:02"
-            label="Percy moved the jam rehearsal to 14 October"
+            label="Adam moved the jam rehearsal to 14 October"
           >
             {#snippet start()}
-              <Avatar aria-label="Percy Groove" role="img">PG</Avatar>
+              <Avatar aria-label="Adam Groove" role="img">AG</Avatar>
             {/snippet}
           </ListItem>
         </List>
       </Card>
     </div>
-    <div class="ui-layout-column ui-large">
+    <div class="ui-layout-column ui-gap-large">
       <Card
         aria-labelledby="project-overview-team-heading"
         as="section"
@@ -319,33 +319,33 @@
           <p>5 bassists making it happen.</p>
         </hgroup>
         <List dense variant="transparent">
-          <ListItem description="Party boss" label="Percy Groove">
+          <ListItem description="Party boss" label="Adam Groove">
             {#snippet start()}
-              <Avatar aria-label="Percy Groove" role="img">PG</Avatar>
+              <Avatar aria-label="Adam Groove" role="img">AG</Avatar>
             {/snippet}
 
             {#snippet end()}
               <Chip as="span" label="Owner" size="x-small" />
             {/snippet}
           </ListItem>
-          <ListItem description="Poster artist" label="Lou Headstock">
+          <ListItem description="Poster artist" label="Kinga Headstock">
             {#snippet start()}
-              <Avatar aria-label="Lou Headstock" role="img">LH</Avatar>
+              <Avatar aria-label="Kinga Headstock" role="img">KH</Avatar>
             {/snippet}
           </ListItem>
-          <ListItem description="Amp wrangler" label="Holly Humbucker">
+          <ListItem description="Amp wrangler" label="Scott Humbucker">
             {#snippet start()}
-              <Avatar aria-label="Holly Humbucker" role="img">HH</Avatar>
+              <Avatar aria-label="Scott Humbucker" role="img">SH</Avatar>
             {/snippet}
           </ListItem>
-          <ListItem description="Snack captain" label="Ines Hertz">
+          <ListItem description="Snack captain" label="Mohini Hertz">
             {#snippet start()}
-              <Avatar aria-label="Ines Hertz" role="img">IH</Avatar>
+              <Avatar aria-label="Mohini Hertz" role="img">MH</Avatar>
             {/snippet}
           </ListItem>
-          <ListItem description="Sound check hero" label="Rory Rootnote">
+          <ListItem description="Sound check hero" label="Josh Rootnote">
             {#snippet start()}
-              <Avatar aria-label="Rory Rootnote" role="img">RR</Avatar>
+              <Avatar aria-label="Josh Rootnote" role="img">JR</Avatar>
             {/snippet}
           </ListItem>
         </List>
@@ -363,11 +363,11 @@
           <h2 class="ui-h5" id="project-overview-details-heading">Details</h2>
         </hgroup>
         <CardContent
-          ><DescriptionList border="solid">
+          ><DescriptionList leader="solid">
             <DescriptionListItem
               ><DescriptionListTerm>Host</DescriptionListTerm
               ><DescriptionListDescription
-                >Low End Theory</DescriptionListDescription
+                >Bassists Anonymous</DescriptionListDescription
               ></DescriptionListItem
             >
             <DescriptionListItem

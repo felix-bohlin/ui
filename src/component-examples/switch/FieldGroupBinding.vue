@@ -20,10 +20,16 @@ function reset() {
 <template>
   <Fieldset>
     <FieldLegend>Notifications</FieldLegend>
-    <FieldGroup name="switch-binding">
-      <Switch v-model="notifications" value="email">Email</Switch>
-      <Switch v-model="notifications" value="push">Push</Switch>
-      <Switch v-model="notifications" value="sms">SMS</Switch>
+    <FieldGroup>
+      <Switch name="switch-binding" v-model="notifications" value="email"
+        >Email</Switch
+      >
+      <Switch name="switch-binding" v-model="notifications" value="push"
+        >Push</Switch
+      >
+      <Switch name="switch-binding" v-model="notifications" value="sms"
+        >SMS</Switch
+      >
     </FieldGroup>
   </Fieldset>
   <p class="switch-binding-text">Selected: {{ summary }}</p>

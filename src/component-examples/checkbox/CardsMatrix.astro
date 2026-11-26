@@ -11,16 +11,28 @@ import {
 <Form>
   <Fieldset>
     <FieldLegend>Gold add-ons</FieldLegend>
-    <FieldGroup name="checkbox-cards-end" orientation="horizontal">
-      <Checkbox card checked spread value="support">
+    <FieldGroup orientation="horizontal">
+      <Checkbox card checked name="checkbox-cards-end" spread value="support">
         Priority bass help
         <Fragment slot="end-text">€8 per month</Fragment>
       </Checkbox>
-      <Checkbox card spread value="storage" variant="elevated">
+      <Checkbox
+        card
+        name="checkbox-cards-end"
+        spread
+        value="storage"
+        variant="elevated"
+      >
         Extra slap video storage
         <Fragment slot="end-text">€4 per month</Fragment>
       </Checkbox>
-      <Checkbox card spread value="audit-log" variant="tonal">
+      <Checkbox
+        card
+        name="checkbox-cards-end"
+        spread
+        value="audit-log"
+        variant="tonal"
+      >
         Gig diary
         <Fragment slot="end-text">€6 per month</Fragment>
       </Checkbox>
@@ -28,16 +40,26 @@ import {
   </Fieldset>
   <Fieldset>
     <FieldLegend>Email updates</FieldLegend>
-    <FieldGroup name="checkbox-cards-start" orientation="horizontal">
-      <Checkbox card checked value="weekly">
+    <FieldGroup orientation="horizontal">
+      <Checkbox card checked name="checkbox-cards-start" value="weekly">
         Weekly jam recap
         <Fragment slot="end-text">Every Monday morning.</Fragment>
       </Checkbox>
-      <Checkbox card value="usage" variant="elevated">
+      <Checkbox
+        card
+        name="checkbox-cards-start"
+        value="usage"
+        variant="elevated"
+      >
         Gig alerts
         <Fragment slot="end-text">When your band books a gig.</Fragment>
       </Checkbox>
-      <Checkbox card value="invoices" variant="tonal">
+      <Checkbox
+        card
+        name="checkbox-cards-start"
+        value="invoices"
+        variant="tonal"
+      >
         Gold receipts
         <Fragment slot="end-text">After each payment.</Fragment>
       </Checkbox>

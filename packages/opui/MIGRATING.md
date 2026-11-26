@@ -413,12 +413,12 @@ The floating content is `.ui-floating` instead of `.ui-anchor-floating`, also in
 `alt` is `label`, the name of the person or thing. With `src` it is still the `alt` of the image. Without `src`, the letters or icon sit in a `<span aria-hidden="true">` and `label` is visually hidden text after them, so select `.ui-avatar svg` where a selector matched a direct child. Leave `label` out when the name is shown next to the avatar: the avatar is then decorative, with `alt=""` on the image.
 
 ```diff
-- <Avatar alt="Lou Headstock" src="/lou.jpg" />
-+ <Avatar label="Lou Headstock" src="/lou.jpg" />
-- <Avatar aria-label="Lou Headstock" role="img">LH</Avatar>
-+ <Avatar label="Lou Headstock">LH</Avatar>
-- <Avatar as="button"><span aria-label="Lou Headstock" role="img">LH</span></Avatar>
-+ <Avatar as="button" label="Lou Headstock">LH</Avatar>
+- <Avatar alt="Kinga Headstock" src="/kinga.jpg" />
++ <Avatar label="Kinga Headstock" src="/kinga.jpg" />
+- <Avatar aria-label="Kinga Headstock" role="img">KH</Avatar>
++ <Avatar label="Kinga Headstock">KH</Avatar>
+- <Avatar as="button"><span aria-label="Kinga Headstock" role="img">KH</span></Avatar>
++ <Avatar as="button" label="Kinga Headstock">KH</Avatar>
 ```
 
 The content is hidden from assistive technology, so a name inside it is no longer read: move it to `label`. A link or button avatar needs `label`, `aria-label` or `aria-labelledby` (types in Astro, React, Solid and Svelte, and a warning in development).
@@ -434,7 +434,7 @@ Text uses `--ui-on-primary`, and sizes follow `--ui-control-size` and `--ui-cont
 ```diff
 - <Avatar aria-label="Team" isGroup>
 + <AvatarGroup aria-label="Team">
-    <Avatar label="Lou Headstock" src="/lou.jpg" />
+    <Avatar label="Kinga Headstock" src="/kinga.jpg" />
 - </Avatar>
 + </AvatarGroup>
 ```
@@ -731,34 +731,34 @@ The part files are renamed to `DescriptionListDescription.*`, `DescriptionListIt
 
 ```diff
 - <dt class="ui-term">Name</dt>
-- <dd class="ui-description">Holly</dd>
+- <dd class="ui-description">Scott</dd>
 + <dt>Name</dt>
-+ <dd>Holly</dd>
++ <dd>Scott</dd>
 ```
 
-`border` sets the style of the line between a term and its description, `"solid"` or `"dotted"`, and the list draws none without it. In Astro and Vue, `bordered` is `border="solid"` and `bordered="dotted"` is `border="dotted"`.
+`leader` sets the style of the leader, the line between a term and its description, `"solid"` or `"dotted"`, and the list draws none without it. In Astro and Vue, `bordered` is `leader="solid"` and `bordered="dotted"` is `leader="dotted"`.
 
 ```diff
 - <DescriptionList bordered>
-+ <DescriptionList border="solid">
++ <DescriptionList leader="solid">
 ```
 
 ```diff
 - <DescriptionList bordered="dotted">
-+ <DescriptionList border="dotted">
++ <DescriptionList leader="dotted">
 ```
 
-In HTML, `.ui-bordered` is `.ui-border-solid`, and `.ui-bordered.ui-dotted` is `.ui-border-dotted`. `.ui-dotted` is gone.
+In HTML, `.ui-bordered` is `.ui-leader-solid`, and `.ui-bordered.ui-dotted` is `.ui-leader-dotted`. `.ui-dotted` is gone.
 
 ```diff
 - <dl class="ui-description-list ui-bordered ui-dotted">
-+ <dl class="ui-description-list ui-border-dotted">
++ <dl class="ui-description-list ui-leader-dotted">
 ```
 
 The items are plain `div`s without `.ui-item`.
 
 ```diff
-  <dl class="ui-description-list ui-border-dotted">
+  <dl class="ui-description-list ui-leader-dotted">
 -   <div class="ui-item">
 +   <div>
 ```
@@ -924,6 +924,18 @@ The header, content and footer rules, the backdrop and the closed state live in 
 + <div class="ui-field-group ui-horizontal">
 ```
 
+`FieldGroup` no longer takes `name`. Set `name` on each field in the group, as on a native `<input>`. The HTML is the same.
+
+```diff
+- <FieldGroup name="plan">
+-   <Radio value="basic">Basic</Radio>
+-   <Radio value="gold">Gold</Radio>
++ <FieldGroup>
++   <Radio name="plan" value="basic">Basic</Radio>
++   <Radio name="plan" value="gold">Gold</Radio>
+  </FieldGroup>
+```
+
 ## Icon button
 
 `IconButton` is removed. `Button` covers it: a button whose only child is an `svg` is square, `round` makes it a circle. The hover halo is gone: icon-only buttons get the button's hover background. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_size: 1.25rem`.
@@ -1072,7 +1084,7 @@ Deep type imports from `opui-css/components/*` are renamed, see [Package and imp
 
 ## Range
 
-`Range` is gone from every framework. A range is a `Field` with your own `<input type="range">` in it, its `id` set to the required `for` (`htmlFor` in React), which the types enforce. `label`, `startText`, `endText` and `spread` are Field's props of the same name, and `id`, `name`, `list`, `min`, `max`, `step` and the value go on the input: bind it with your framework's own `value`, `bind:value` or `v-model`. Point the input's `aria-describedby` at `x-start-text` and `x-end-text` for `for="x"` when the field shows them. Import `field.css` with `range.css`, or use `components.css`.
+`Range` is gone from every framework. A range is a `Field` with your own `<input type="range">` in it, its `id` set to the required `for` (`htmlFor` in React), which the types enforce. `label`, `startText`, `endText` and `spread` are Field's props of the same name, and `id`, `name`, `list`, `min`, `max`, `step` and the value go on the input: bind it with your framework's own `value`, `bind:value` or `v-model`. Point the input's `aria-describedby` at `x-start-text` and `x-end-text` for `for="x"` when they have something to read, and keep it in step with an end text that comes and goes. Import `field.css` with `range.css`, or use `components.css`.
 
 ```diff
 - <Range endText="Quieter after 22:00." label="Volume" max="11" v-model="volume" />
@@ -1139,7 +1151,7 @@ Same as Text field: the root is `.ui-field` instead of `.ui-select`, and the box
 
 The picker is `--ui-surface-elevated` with a `--ui-border-color-on-raised` edge, like `Menu`, instead of `--ui-surface-filled` with the field border. Set `--_bg-color` on `.ui-field select::picker(select)` to keep the old fill, or `--ui-border-color-raised` in your theme to outline every raised surface at once.
 
-`Select` is `Field`, which takes your `<select>` instead of rendering one, and a required `for` (`htmlFor` in React) with the select's `id`. Write the options in it after a `SelectButton`, instead of passing `items`, and move `name`, `required`, `disabled`, `multiple` and the bound value onto the select: bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. `SelectItem` is gone. Attributes that aren't Field's props go to the root, `style` included.
+`Select` is `Field`, which takes your `<select>` instead of rendering one, and a required `for` (`htmlFor` in React) with the select's `id`. Write the options in it after a `SelectButton`, instead of passing `items`, and move `name`, `required`, `disabled`, `multiple` and the bound value onto the select: bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts with something to read, as for Text field. `SelectItem` is gone. Attributes that aren't Field's props go to the root, `style` included.
 
 ```diff
 - <Select label="Country" items={countries} v-model="country" />
@@ -1340,7 +1352,7 @@ The root is `.ui-field` instead of `.ui-text-field`, and the box around the inpu
   </div>
 ```
 
-`TextField` is `Field`, which takes your `<input>` instead of rendering one, and a required `for` (`htmlFor` in React) with the input's `id`, which the types enforce. Move the input's attributes, `type`, `name`, `value`, `placeholder`, `required`, `disabled` and the rest, onto the input, bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts the field shows, in this order: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`. `id` on the component is gone, and attributes that aren't its props go to the root, as in 5.x. Inside a `FieldGroup`, name the input yourself.
+`TextField` is `Field`, which takes your `<input>` instead of rendering one, and a required `for` (`htmlFor` in React) with the input's `id`, which the types enforce. Move the input's attributes, `type`, `name`, `value`, `placeholder`, `required`, `disabled` and the rest, onto the input, bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts with something to read, in this order: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`. Leave out a part that only holds buttons, an output or hidden content, like a send button in `end`, and keep the list in step with parts that come and go, like an end text that only shows an error. `checkHtml` from `opui-css/check` finds the fields that don't follow this in a rendered page. `id` on the component is gone, and attributes that aren't its props go to the root, as in 5.x, so set `aria-describedby` and `aria-invalid` on the input, not the Field. Inside a `FieldGroup`, name the input yourself.
 
 ```diff
 - <TextField endText="Use your work email." error label="Email" type="email" v-model="email" />
@@ -1440,7 +1452,7 @@ In Vue, use `<template #start>€</template>` and `<template #end>EUR</template>
 
 Same as Text field: the root is `.ui-field` instead of `.ui-textarea`, and the box around the textarea `.ui-field-container` instead of `.ui-field`.
 
-Same as Text field: `Textarea` is `Field`, which takes your `<textarea>` instead of rendering one, and a required `for` (`htmlFor` in React) with its `id`. Move `name`, `required`, `disabled`, `maxlength` and the rest onto the textarea, write its value as its content or bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts the field shows: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`, in that order. `id` on the component is gone, and attributes that aren't its props go to the root, as in 5.x.
+Same as Text field: `Textarea` is `Field`, which takes your `<textarea>` instead of rendering one, and a required `for` (`htmlFor` in React) with its `id`. Move `name`, `required`, `disabled`, `maxlength` and the rest onto the textarea, write its value as its content or bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts with something to read, as for Text field: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`, in that order. `id` on the component is gone, and attributes that aren't its props go to the root, as in 5.x.
 
 ```diff
 - <Textarea endText="Up to 160 characters." label="Bio" name="bio" value="Bassist." />

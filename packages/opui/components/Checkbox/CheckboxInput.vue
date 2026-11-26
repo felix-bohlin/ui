@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import "../../css/js/checkbox.js"
-import { inject, type IntrinsicElementAttributes } from "vue"
+import { type IntrinsicElementAttributes } from "vue"
 import { useBound, useRestAttrs } from "../vue"
-import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { defined } from "../attrs"
 import { classAttrs } from "../cx"
 import type { CheckboxInputProps as Props } from "./types.vue-props"
 
-const { indeterminate, name } = defineProps<Props>()
+const { indeterminate } = defineProps<Props>()
 
 defineOptions({
   inheritAttrs: false,
@@ -20,8 +19,6 @@ const modelValue = defineModel<boolean | (string | number)[] | undefined>({
 })
 
 const bound = useBound()
-
-const field = inject(FieldGroupKey, undefined)
 </script>
 
 <template>
@@ -29,7 +26,6 @@ const field = inject(FieldGroupKey, undefined)
     v-if="bound"
     type="checkbox"
     :data-indeterminate="indeterminate ? '' : undefined"
-    :name="name ?? field?.name"
     v-bind="{ ...defined(attrs), ...classAttrs($attrs.class) }"
     v-model="modelValue"
   />
@@ -37,7 +33,6 @@ const field = inject(FieldGroupKey, undefined)
     v-else
     type="checkbox"
     :data-indeterminate="indeterminate ? '' : undefined"
-    :name="name ?? field?.name"
     v-bind="{ ...defined(attrs), ...classAttrs($attrs.class) }"
   />
 </template>

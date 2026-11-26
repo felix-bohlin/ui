@@ -41,6 +41,7 @@ if (!slug) {
 
 const astroPath = examplePath(slug, name, "astro")
 const htmlPath = examplePath(slug, name, "html")
+const nunjucksPath = examplePath(slug, name, "nunjucks")
 const reactPath = examplePath(slug, name, "react")
 const solidPath = examplePath(slug, name, "solid")
 const vuePath = examplePath(slug, name, "vue")
@@ -55,6 +56,7 @@ const vueComponent = exampleModules[vuePath]?.default
 const svelteComponent = exampleModules[sveltePath]?.default
 const astroSource = exampleSources[astroPath]
 const htmlSource = exampleSources[htmlPath]
+const nunjucksSource = exampleSources[nunjucksPath]
 const reactSource = exampleSources[reactPath]
 const solidSource = exampleSources[solidPath]
 const vueSource = exampleSources[vuePath]
@@ -70,6 +72,7 @@ const frameworkAgnostic = FRAMEWORK_AGNOSTIC_EXAMPLES.includes(
 )
 const frameworkFiles = [
   astroSource,
+  nunjucksSource,
   reactSource,
   solidSource,
   svelteSource,
@@ -106,7 +109,7 @@ if (
 ) {
   throw new Error(
     `<AutoExample slug="${slug}" name="${name}"> found no example files at ` +
-      `${astroPath}, ${htmlPath}, ${reactPath}, ${solidPath}, ${sveltePath} or ${vuePath}.`,
+      `${astroPath}, ${htmlPath}, ${nunjucksPath}, ${reactPath}, ${solidPath}, ${sveltePath} or ${vuePath}.`,
   )
 }
 ---
@@ -140,6 +143,9 @@ if (
   {vueComponent && <Example.Preview slot="preview-vue" code={vueComponent} />}
   {astroSource && <Example.Code slot="code-astro" code={codeSource("astro")} />}
   {htmlSource && <Example.Code slot="code-html" code={codeSource("html")} />}
+  {nunjucksSource && (
+    <Example.Code slot="code-nunjucks" code={codeSource("nunjucks")} />
+  )}
   {reactSource && <Example.Code slot="code-react" code={codeSource("react")} />}
   {solidSource && <Example.Code slot="code-solid" code={codeSource("solid")} />}
   {svelteSource && (

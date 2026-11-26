@@ -1,0 +1,15 @@
+{% from "opui/index.njk" import Avatar %}
+
+{{ Avatar({
+  label: "Adam Groove",
+  shape: "rounded",
+  src: "/photos/adam-groove.png"
+}) }}
+
+{% call Avatar({ label: "Josh Rootnote", shape: "squared" }) %}JR{% endcall %}
+
+{{ Avatar({
+  label: "Kinga Headstock",
+  shape: "squircle",
+  src: "/photos/kinga-headstock.png"
+}) }}

@@ -27,7 +27,7 @@ export default function Newsletter() {
           style="--_columns: 1fr 1.2fr; --_gap: var(--ui-space-6)"
           variant="outlined"
         >
-          <div class="ui-layout-column ui-large">
+          <div class="ui-layout-column ui-gap-large">
             <hgroup class="ui-hgroup">
               <p>The Bassbook Low-Down</p>
               <h1 class="ui-h3">
@@ -35,7 +35,7 @@ export default function Newsletter() {
               </h1>
               <p>
                 New features, gear gossip and how other bassists rock Bassbook.
-                Join 12&nbsp;400 totally rad low enders.
+                Join 12&nbsp;400 totally rad groovers.
               </p>
             </hgroup>
             <section aria-labelledby="newsletter-recent-heading">
@@ -63,7 +63,7 @@ export default function Newsletter() {
                   autocomplete="email"
                   id="newsletter-email"
                   name="email"
-                  placeholder="you@lowend.example"
+                  placeholder="you@bassmail.example"
                   required
                   type="email"
                 />
@@ -77,7 +77,7 @@ export default function Newsletter() {
               <FieldDescription>
                 Pick what you wanna hear about.
               </FieldDescription>
-              <FieldGroup class="newsletter-topics" name="newsletter-topics">
+              <FieldGroup class="newsletter-topics">
                 <Checkbox
                   aria-describedby="newsletter-topic-news-text"
                   defaultChecked
@@ -86,6 +86,7 @@ export default function Newsletter() {
                       Shiny new features and fixes
                     </span>
                   }
+                  name="newsletter-topics"
                   value="news"
                 >
                   Bassbook news
@@ -97,6 +98,7 @@ export default function Newsletter() {
                       Strings, amps and pedal hoarding
                     </span>
                   }
+                  name="newsletter-topics"
                   value="gear"
                 >
                   Gear Talk
@@ -109,6 +111,7 @@ export default function Newsletter() {
                       Grooves, slap tricks and drop D
                     </span>
                   }
+                  name="newsletter-topics"
                   value="tips"
                 >
                   Tabs &amp; tips
@@ -120,6 +123,7 @@ export default function Newsletter() {
                       Bassists just like you, venting
                     </span>
                   }
+                  name="newsletter-topics"
                   value="diaries"
                 >
                   Member diaries

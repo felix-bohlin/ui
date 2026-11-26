@@ -2,7 +2,7 @@
 import { dynamic } from "@solidjs/web"
 import { omit, untrack } from "solid-js"
 import { defined } from "../attrs"
-import { warnUnnamedControl } from "../dev"
+import { DEV, warnUnnamedControl } from "../dev"
 import { disabledLink, tagAttrs } from "../tag"
 import type { Props } from "./types.solid"
 
@@ -25,9 +25,10 @@ export default function Avatar(props: Props) {
       ? "a"
       : props.as || (props.href ? "a" : "div")
   const Tag = dynamic(tag)
-  untrack(() => {
-    warnUnnamedControl("Avatar", props.as === "button" || props.href, props)
-  })
+  if (DEV)
+    untrack(() => {
+      warnUnnamedControl("Avatar", props.as === "button" || props.href, props)
+    })
 
   return (
     <Tag

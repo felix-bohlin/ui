@@ -189,8 +189,8 @@ export default function Inbox() {
             style={{ "--_columns": "20rem 1fr", "--_gap": "0" }}
           >
             <section aria-labelledby="inbox-heading" className="inbox-list">
-              <div className="ui-layout-row ui-small ui-spread inbox-list-header">
-                <div className="ui-layout-row ui-small">
+              <div className="ui-layout-row ui-gap-small ui-spread inbox-list-header">
+                <div className="ui-layout-row ui-gap-small">
                   <Button
                     aria-label="Open folders"
                     className="inbox-menu-button"
@@ -227,7 +227,7 @@ export default function Inbox() {
                   href="#inbox-message-1"
                   label={
                     <>
-                      <span>Holly Humbucker</span>
+                      <span>Scott Humbucker</span>
                       <time className="ui-caption" dateTime="2026-10-08T09:41">
                         09:41
                       </time>
@@ -235,8 +235,8 @@ export default function Inbox() {
                   }
                   start={
                     <Badge dot label="Unread">
-                      <Avatar aria-label="Holly Humbucker" role="img">
-                        HH
+                      <Avatar aria-label="Scott Humbucker" role="img">
+                        SH
                       </Avatar>
                     </Badge>
                   }
@@ -252,7 +252,7 @@ export default function Inbox() {
                   href="#inbox-message-2"
                   label={
                     <>
-                      <span>Ines Hertz</span>
+                      <span>Mohini Hertz</span>
                       <time className="ui-caption" dateTime="2026-10-08T08:12">
                         08:12
                       </time>
@@ -260,16 +260,17 @@ export default function Inbox() {
                   }
                   start={
                     <Badge dot label="Unread">
-                      <Avatar aria-label="Ines Hertz" role="img">
-                        IH
+                      <Avatar aria-label="Mohini Hertz" role="img">
+                        MH
                       </Avatar>
                     </Badge>
                   }
                 >
                   <p className="inbox-subject">Jam night on Thursday</p>
                   <p className="inbox-snippet">
-                    Here's a rough plan for the evening. Tell me if we should
-                    swap the slap battle…
+                    Here's a rough plan for the evening. Davie504 wants a
+                    rematch with Charles Berthoud in the slap battle, he says
+                    the last one…
                   </p>
                 </ListItem>
                 <ListItem
@@ -301,15 +302,15 @@ export default function Inbox() {
                   href="#inbox-message-4"
                   label={
                     <>
-                      <span>Stella Nut</span>
+                      <span>Ellen Nut</span>
                       <time className="ui-caption" dateTime="2026-10-06T14:05">
                         Mon
                       </time>
                     </>
                   }
                   start={
-                    <Avatar aria-label="Stella Nut" role="img">
-                      SN
+                    <Avatar aria-label="Ellen Nut" role="img">
+                      EN
                     </Avatar>
                   }
                 >
@@ -323,15 +324,15 @@ export default function Inbox() {
                   href="#inbox-message-5"
                   label={
                     <>
-                      <span>Percy Groove</span>
+                      <span>Adam Groove</span>
                       <time className="ui-caption" dateTime="2026-10-03T11:20">
                         3 Oct
                       </time>
                     </>
                   }
                   start={
-                    <Avatar aria-label="Percy Groove" role="img">
-                      PG
+                    <Avatar aria-label="Adam Groove" role="img">
+                      AG
                     </Avatar>
                   }
                 >
@@ -345,12 +346,12 @@ export default function Inbox() {
             </section>
             <article
               aria-labelledby="inbox-subject"
-              className="ui-layout-column ui-large inbox-reader"
+              className="ui-layout-column ui-gap-large inbox-reader"
             >
-              <div className="ui-layout-row ui-x-small ui-spread">
+              <div className="ui-layout-row ui-gap-x-small ui-spread">
                 <div
                   aria-label="Message actions"
-                  className="ui-layout-row ui-x-small"
+                  className="ui-layout-row ui-gap-x-small"
                   role="group"
                 >
                   <Button aria-label="Archive" round size="small" type="button">
@@ -405,7 +406,7 @@ export default function Inbox() {
                     </svg>
                   </Button>
                 </div>
-                <div className="ui-layout-row ui-x-small">
+                <div className="ui-layout-row ui-gap-x-small">
                   <Button size="small" type="button" variant="outlined">
                     <svg
                       data-icon="reply"
@@ -440,11 +441,11 @@ export default function Inbox() {
                   </Button>
                 </div>
               </div>
-              <div className="ui-layout-column ui-small">
+              <div className="ui-layout-column ui-gap-small">
                 <h2 className="ui-h4" id="inbox-subject">
                   You're IN! Gig details inside
                 </h2>
-                <div className="ui-layout-row ui-x-small">
+                <div className="ui-layout-row ui-gap-x-small">
                   <Chip
                     as="span"
                     dot
@@ -462,24 +463,24 @@ export default function Inbox() {
                 </div>
               </div>
               <div className="ui-layout-row">
-                <Avatar aria-label="Holly Humbucker" role="img">
-                  HH
+                <Avatar aria-label="Scott Humbucker" role="img">
+                  SH
                 </Avatar>
                 <div className="inbox-sender-info">
                   <p>
-                    <strong>Holly Humbucker</strong>{" "}
+                    <strong>Scott Humbucker</strong>{" "}
                     <span className="ui-caption">
-                      holly@humbucker-booking.example
+                      scott@humbucker-booking.example
                     </span>
                   </p>
-                  <p className="ui-caption">To you and Percy Groove</p>
+                  <p className="ui-caption">To you and Adam Groove</p>
                 </div>
                 <time className="ui-caption" dateTime="2026-10-08T09:41">
                   Wed 8 Oct, 09:41
                 </time>
               </div>
               <div className="ui-layout-column inbox-body">
-                <p>Heyyy Rory,</p>
+                <p>Heyyy Josh,</p>
                 <p>
                   Totally awesome news, Brad and the Brads want a real bassist
                   (you!). Attached is the setlist, plus the bass tabs we talked
@@ -492,9 +493,9 @@ export default function Inbox() {
                   <li>Merch money goes to merch@brads.example</li>
                 </ul>
                 <p>They promised to turn you UP this time! &lt;3</p>
-                <p>Holly</p>
+                <p>Scott</p>
               </div>
-              <div className="ui-layout-row ui-small">
+              <div className="ui-layout-row ui-gap-small">
                 <Chip
                   href="#inbox-attachment-setlist"
                   label="Setlist-final-final.pdf, 1.2 MB"
@@ -538,9 +539,9 @@ export default function Inbox() {
               </div>
               <form
                 action="#"
-                className="ui-layout-column ui-small inbox-reply"
+                className="ui-layout-column ui-gap-small inbox-reply"
               >
-                <Field htmlFor="inbox-inbox-reply" label="Reply to Holly">
+                <Field htmlFor="inbox-inbox-reply" label="Reply to Scott">
                   <textarea
                     id="inbox-inbox-reply"
                     name="inbox-reply"

@@ -3,7 +3,7 @@
 Classes that space and group form fields, with fieldsets and field groups.
 
 - CSS: `opui-css/css/components/form.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/form.md), [Astro](https://opui.dev/astro/components/form.md), [React](https://opui.dev/react/components/form.md), [Solid](https://opui.dev/solid/components/form.md), [Svelte](https://opui.dev/svelte/components/form.md), [Vue](https://opui.dev/vue/components/form.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/form.md), [Astro](https://opui.dev/astro/components/form.md), [Nunjucks](https://opui.dev/nunjucks/components/form.md), [React](https://opui.dev/react/components/form.md), [Solid](https://opui.dev/solid/components/form.md), [Svelte](https://opui.dev/svelte/components/form.md), [Vue](https://opui.dev/vue/components/form.md).
 
 ## Form
 
@@ -164,6 +164,42 @@ import {
     <Button type="submit" variant="filled">Send</Button>
   </FieldGroup>
 </Form>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import FieldDescription, FieldGroup, FieldLegend, Fieldset, Form %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import
+  Button,
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form
+%}
+
+{% call Form() %}
+  {% call Fieldset({ "aria-describedby": "form-basics-1-description" }) %}
+    {% call FieldLegend() %}Contact{% endcall %}
+    {% call FieldDescription({ id: "form-basics-1-description" }) %}How can we reach you?{% endcall %}
+    {% call FieldGroup() %}
+      {% call Field({ for: "form-basics-2", label: "Name" }) %}
+        <input autocomplete="name" id="form-basics-2" />
+      {% endcall %}
+      {% call Field({ for: "form-basics-3", label: "Email" }) %}
+        <input autocomplete="email" id="form-basics-3" type="email" />
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call FieldGroup() %}
+    {% call Button({ type: "submit", variant: "filled" }) %}Send{% endcall %}
+  {% endcall %}
+{% endcall %}
 ```
 
 ## React

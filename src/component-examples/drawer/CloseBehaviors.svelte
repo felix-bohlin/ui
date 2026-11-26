@@ -30,10 +30,15 @@
   <DrawerContent>
     <Fieldset>
       <FieldLegend>Choose a closing behavior:</FieldLegend>
-      <FieldGroup name="closedby-demo">
-        <Radio bind:group={closedby} value="any">any</Radio>
-        <Radio bind:group={closedby} value="closerequest">closerequest</Radio>
-        <Radio bind:group={closedby} value="none">none</Radio>
+      <FieldGroup>
+        <Radio bind:group={closedby} name="closedby-demo" value="any">any</Radio
+        >
+        <Radio bind:group={closedby} name="closedby-demo" value="closerequest"
+          >closerequest</Radio
+        >
+        <Radio bind:group={closedby} name="closedby-demo" value="none"
+          >none</Radio
+        >
       </FieldGroup>
     </Fieldset>
   </DrawerContent>

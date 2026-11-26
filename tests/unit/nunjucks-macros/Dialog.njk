@@ -1,0 +1,14 @@
+{% macro Dialog(props = {}) %}
+  {%- set rest = props | opuiRest("Dialog") -%}
+  {%- set titleId = (rest.id or opui.id("dialog")) ~ "-title" -%}
+  {%- set labelledBy = opui.autoLabelledBy(rest, titleId) -%}
+  {%- set dialog = { id: rest.id or undefined, titleId: labelledBy } -%}
+  <dialog
+    {%- if labelledBy != none %} aria-labelledby="{{ labelledBy }}"{% endif %}
+    class="ui-dialog ui-elevated
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {%- if props.closedby != none %} closedby="{{ props.closedby }}"{% endif %}
+    {{- rest | opuiAttributes }}>
+    {{- opui.provide("Dialog", dialog, caller) -}}
+  </dialog>
+{%- endmacro %}

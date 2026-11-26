@@ -1,0 +1,27 @@
+{% from "opui/index.njk" import
+  Button,
+  Divider,
+  Field,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form
+%}
+
+{% call Form() %}
+  {% call Fieldset() %}
+    {% call FieldLegend() %}Post content{% endcall %}
+    {% call FieldGroup() %}
+      {% call Field({ for: "form-divider-1", label: "Title" }) %}
+        <input id="form-divider-1" placeholder="My new post" />
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+
+  {{ Divider() }}
+
+  {% call FieldGroup() %}
+    {% call Button() %}Save draft{% endcall %}
+    {% call Button({ variant: "filled" }) %}Publish{% endcall %}
+  {% endcall %}
+{% endcall %}

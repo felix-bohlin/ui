@@ -30,7 +30,7 @@ import {
 </script>
 
 <template>
-  <div class="checkout ui-layout-container ui-layout-column ui-large">
+  <div class="checkout ui-layout-container ui-layout-column ui-gap-large">
     <hgroup class="ui-hgroup">
       <p>Bassbook Shop</p>
       <h1 class="ui-h3">Checkout</h1>
@@ -61,7 +61,7 @@ import {
                 placeholder="you@example.com"
                 required
                 type="email"
-                :value.attr="'ines.hertz@example.com'"
+                :value.attr="'mohini.hertz@example.com'"
               />
             </Field>
             <Checkbox checked id="checkout-news" name="news">
@@ -80,7 +80,7 @@ import {
                   name="first-name"
                   required
                   type="text"
-                  :value.attr="'Ines'"
+                  :value.attr="'Mohini'"
                 />
               </Field>
               <Field for="checkout-last-name" label="Last name">
@@ -280,7 +280,7 @@ import {
               <TabsPanel>
                 <p>
                   Pay within 30 days of delivery. We'll email the invoice to
-                  ines.hertz@example.com once your gear ships.
+                  mohini.hertz@example.com once your gear ships.
                 </p>
               </TabsPanel>
             </TabsItem>
@@ -304,7 +304,7 @@ import {
           >
             Pay €154.30
           </Button>
-          <p class="ui-layout-row ui-x-small ui-align-center ui-caption">
+          <p class="ui-layout-row ui-gap-x-small ui-align-center ui-caption">
             <svg
               data-icon="lock"
               aria-hidden="true"
@@ -391,18 +391,18 @@ import {
                 id="checkout-discount"
                 name="discount"
                 type="text"
-                :value.attr="'LOWEND10'"
+                :value.attr="'BASS10'"
               />
             </Field>
             <Button type="button">Apply</Button>
           </ControlGroup>
-          <DescriptionList border="solid" orientation="horizontal">
+          <DescriptionList leader="solid" orientation="horizontal">
             <DescriptionListItem>
               <DescriptionListTerm>Subtotal</DescriptionListTerm>
               <DescriptionListDescription>€166.00</DescriptionListDescription>
             </DescriptionListItem>
             <DescriptionListItem>
-              <DescriptionListTerm>Discount (LOWEND10)</DescriptionListTerm>
+              <DescriptionListTerm>Discount (BASS10)</DescriptionListTerm>
               <DescriptionListDescription>−€16.60</DescriptionListDescription>
             </DescriptionListItem>
             <DescriptionListItem>

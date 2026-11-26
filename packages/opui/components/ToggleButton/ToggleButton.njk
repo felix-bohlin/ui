@@ -1,0 +1,24 @@
+{% macro ToggleButton(props = {}) %}
+  {%- set rest = props | opuiRest("ToggleButton") -%}
+  {%- set group = opui.context("ToggleGroup") -%}
+  {%- set finalName = props.name or group.groupName -%}
+  {%- set finalType = "radio"
+    if group.inputType === "radio"
+    else (props.type if props.type != none else "checkbox") -%}
+  {%- set grouped = opui.isSelected(group.value, props.value) -%}
+  {{- opui.warnGroupedChecked("ToggleButton", grouped, props.checked, "ToggleGroup") -}}
+  {%- set checked = grouped if grouped != none else props.checked -%}
+  <label
+    class="ui-toggle-button
+      {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- { style: props.style } | opuiAttributes }}>
+    <input
+      {%- if checked %} checked{% endif %}
+      {%- if finalName != none %} name="{{ finalName }}"{% endif %}
+      type="{{ finalType }}"
+      {%- if props.value != none %} value="{{ props.value }}"{% endif %}
+      {{- rest | opuiAttributes }}>
+    {% if caller is defined %}{{ caller() }}{% else %}{{ props.label }}{% endif -%}
+  </label>
+{%- endmacro %}

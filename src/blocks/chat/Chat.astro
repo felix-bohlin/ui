@@ -134,51 +134,46 @@ import {
         <ListItem
           aria-current="page"
           description="Nobody will hear it, but WE will know"
-          href="#chat-stella"
-          label="Stella Nut"
+          href="#chat-ellen"
+          label="Ellen Nut"
         >
-          <Avatar aria-label="Stella Nut" role="img" slot="start">SN</Avatar>
+          <Avatar aria-label="Ellen Nut" role="img" slot="start">EN</Avatar>
           <Fragment slot="end">14:32</Fragment>
         </ListItem>
         <ListItem
-          description="Holly: Rate my new 5-string!! 😍"
-          href="#chat-low-end-theory"
+          description="Scott: Rate my new 5-string!! 😍"
+          href="#chat-bassists-anonymous"
         >
-          <Avatar aria-label="Low End Theory" role="img" slot="start"
-            >LE</Avatar
+          <Avatar aria-label="Bassists Anonymous" role="img" slot="start"
+            >BA</Avatar
           >
-          <strong slot="label">Low End Theory</strong>
+          <strong slot="label">Bassists Anonymous</strong>
           <span class="chat-unread" slot="end"
             >3 <span class="ui-sr-only">unread</span></span
           >
         </ListItem>
         <ListItem
           description="Is it normal that my band booked a gig without me?"
-          href="#chat-percy"
-          label="Percy Groove"
+          href="#chat-adam"
+          label="Adam Groove"
         >
-          <Avatar aria-label="Percy Groove" role="img" slot="start">PG</Avatar>
+          <Avatar aria-label="Adam Groove" role="img" slot="start">AG</Avatar>
           <Fragment slot="end">11:05</Fragment>
         </ListItem>
         <ListItem
           description="You: Pick or fingers? Fight me :P"
-          href="#chat-ines"
-          label="Ines Hertz"
+          href="#chat-mohini"
+          label="Mohini Hertz"
         >
-          <Avatar aria-label="Ines Hertz" role="img" slot="start">IH</Avatar>
+          <Avatar aria-label="Mohini Hertz" role="img" slot="start">MH</Avatar>
           <Fragment slot="end">Mon</Fragment>
         </ListItem>
         <ListItem
-          description='Lou: My singer called me "the tall guitarist" again'
-          href="#chat-ignored-bassists"
-          label="Ignored Bassists Anonymous"
+          description='Kinga: My singer called me "the tall guitarist" again'
+          href="#chat-mixed-too-low"
+          label="Mixed Too Low"
         >
-          <Avatar
-            aria-label="Ignored Bassists Anonymous"
-            role="img"
-            slot="start"
-            >IB</Avatar
-          >
+          <Avatar aria-label="Mixed Too Low" role="img" slot="start">MT</Avatar>
           <Fragment slot="end">Sun</Fragment>
         </ListItem>
       </List>
@@ -208,9 +203,9 @@ import {
             ></path>
           </svg></Button
         >
-        <Avatar aria-label="Stella Nut" role="img">SN</Avatar>
+        <Avatar aria-label="Ellen Nut" role="img">EN</Avatar>
         <hgroup>
-          <h1 class="ui-h6">Stella Nut</h1>
+          <h1 class="ui-h6">Ellen Nut</h1>
           <p>
             <Chip
               as="span"
@@ -221,7 +216,7 @@ import {
             />
           </p>
         </hgroup>
-        <div class="ui-layout-row ui-x-small">
+        <div class="ui-layout-row ui-gap-x-small">
           <Button aria-label="Start call" round size="small" type="button"
             ><svg
               data-icon="phone"
@@ -275,13 +270,13 @@ import {
       </header>
 
       <MessageList
-        aria-label="Messages with Stella Nut"
+        aria-label="Messages with Ellen Nut"
         class="chat-message-list"
         direct
       >
         <li class="ui-divider">Today</li>
-        <Message author="Stella" datetime="2026-10-08T14:02" time="14:02">
-          <Avatar aria-label="Stella Nut" role="img" slot="start">SN</Avatar>
+        <Message author="Ellen" datetime="2026-10-08T14:02" time="14:02">
+          <Avatar aria-label="Ellen Nut" role="img" slot="start">EN</Avatar>
           <p>Heyyy! Did your band notice you changed strings yet?</p>
         </Message>
         <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
@@ -297,11 +292,11 @@ import {
           </p>
           <Fragment slot="end">Read</Fragment>
         </Message>
-        <Message author="Stella" datetime="2026-10-08T14:31" time="14:31">
-          <Avatar aria-label="Stella Nut" role="img" slot="start">SN</Avatar>
+        <Message author="Ellen" datetime="2026-10-08T14:31" time="14:31">
+          <Avatar aria-label="Ellen Nut" role="img" slot="start">EN</Avatar>
           <p>Totally! Here it is:</p>
           <Card variant="outlined">
-            <CardContent class="ui-layout-media ui-small">
+            <CardContent class="ui-layout-media ui-gap-small">
               <svg
                 data-icon="document"
                 aria-hidden="true"
@@ -324,13 +319,13 @@ import {
             </CardContent>
           </Card>
         </Message>
-        <Message author="Stella" datetime="2026-10-08T14:32" time="14:32">
-          <Avatar aria-label="Stella Nut" role="img" slot="start">SN</Avatar>
+        <Message author="Ellen" datetime="2026-10-08T14:32" time="14:32">
+          <Avatar aria-label="Ellen Nut" role="img" slot="start">EN</Avatar>
           <p>Nobody will hear it, but WE will know 🤘</p>
         </Message>
         <Message typing>
-          <Avatar aria-label="Stella Nut" role="img" slot="start">SN</Avatar>
-          Stella is typing
+          <Avatar aria-label="Ellen Nut" role="img" slot="start">EN</Avatar>
+          Ellen is typing
         </Message>
       </MessageList>
 
@@ -354,7 +349,7 @@ import {
             >
             <Field for="chat-chat-message">
               <textarea
-                aria-label="Message Stella Nut"
+                aria-label="Message Ellen Nut"
                 id="chat-chat-message"
                 name="chat-message"
                 placeholder="Write something rad…"
@@ -391,21 +386,21 @@ import {
       <DrawerTitle>Messages</DrawerTitle>
     </DrawerHeader>
     <List variant="transparent">
-      <ListItem aria-current="page" href="#chat-stella" label="Stella Nut"
+      <ListItem aria-current="page" href="#chat-ellen" label="Ellen Nut"
         ><Fragment slot="end">14:32</Fragment></ListItem
       >
-      <ListItem href="#chat-low-end-theory" label="Low End Theory"
+      <ListItem href="#chat-bassists-anonymous" label="Bassists Anonymous"
         ><span class="chat-unread" slot="end"
           >3 <span class="ui-sr-only">unread</span></span
         ></ListItem
       >
-      <ListItem href="#chat-percy" label="Percy Groove"
+      <ListItem href="#chat-adam" label="Adam Groove"
         ><Fragment slot="end">11:05</Fragment></ListItem
       >
-      <ListItem href="#chat-ines" label="Ines Hertz"
+      <ListItem href="#chat-mohini" label="Mohini Hertz"
         ><Fragment slot="end">Mon</Fragment></ListItem
       >
-      <ListItem href="#chat-ignored-bassists" label="Ignored Bassists Anonymous"
+      <ListItem href="#chat-mixed-too-low" label="Mixed Too Low"
         ><Fragment slot="end">Sun</Fragment></ListItem
       >
     </List>

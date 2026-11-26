@@ -103,7 +103,7 @@
   /* Round */
   @supports (inline-size: calc(attr(value type(<number>), 0) * 1px)) {
     :where(.ui-progress).ui-round {
-      --_ring-border-width: var(--ui-border-width-thick);
+      --_ring-border-width: var(--ui-border-width-large);
       --_ring-size: var(--ui-icon-size-large);
 
       background-color: transparent;

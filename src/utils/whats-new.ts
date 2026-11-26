@@ -147,7 +147,7 @@ export const whatsNew = {
     },
     `Rounded avatars never get rounder than <a href="#api"><code>--ui-radius</code></a>, so <code>0</code> squares them.`,
     `Without <code>corner-shape</code>, a squircle is a rounded square with corners at 27% of its size, from the compat layer (<a href="#browser-support">Browser support</a>).`,
-    `The ring around <a href="#grouped">grouped</a> avatars reads <code>--ui-border-width-thick</code>.`,
+    `The ring around <a href="#grouped">grouped</a> avatars reads <code>--ui-border-width-large</code>.`,
     components(
       `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
     ),
@@ -187,7 +187,7 @@ export const whatsNew = {
     `Breaking: <code>--_badge-inset</code> is <code>--_inset</code>, one length that the badge turns into <code>--_inset-block</code> and <code>--_inset-inline</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `Breaking: <code>--_size</code> is <code>--_indicator-size</code>, the height and minimum width of the indicator (<a href="#under-the-hood">Under the hood</a>).`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `The indicator border reads <a href="#api"><code>--ui-border-width-thick</code></a>.`,
+    `The indicator border reads <a href="#api"><code>--ui-border-width-large</code></a>.`,
     `<a href="#colors">Warning</a> badges read <code>--ui-on-warning</code>, the text color on a warning fill.`,
     `The indicator has a <a href="#colors">ring in the page background color</a>, so it stands out on a filled avatar or button. Set <code>--_border-color</code> on another surface.`,
     `<a href="#colors">Critical, info, neutral and success</a> fills stay below <code>--ui-accent-fill-max-lightness</code>, so their text keeps its contrast.`,
@@ -609,15 +609,15 @@ export const whatsNew = {
     },
     {
       ...slots(
-        `Breaking: <a href="#border">items</a> render a plain <code>div</code> without <code>.ui-item</code>.`,
+        `Breaking: <a href="#leader">items</a> render a plain <code>div</code> without <code>.ui-item</code>.`,
       ),
-      html: `Breaking: <a href="#border">items</a> are plain <code>div</code>s without <code>.ui-item</code>.`,
+      html: `Breaking: <a href="#leader">items</a> are plain <code>div</code>s without <code>.ui-item</code>.`,
     },
     {
       ...slots(
-        `Breaking: <a href="#border"><code>border</code></a> picks the line: replace <code>bordered</code> with <code>border="solid"</code> and <code>bordered="dotted"</code> with <code>border="dotted"</code>.`,
+        `Breaking: <a href="#leader"><code>leader</code></a> picks the line between a term and its value: replace <code>bordered</code> with <code>leader="solid"</code> and <code>bordered="dotted"</code> with <code>leader="dotted"</code>.`,
       ),
-      html: `Breaking: <a href="#border"><code>.ui-border-solid</code></a> replaces <code>.ui-bordered</code>, and <code>.ui-border-dotted</code> replaces <code>.ui-bordered.ui-dotted</code>.`,
+      html: `Breaking: <a href="#leader"><code>.ui-leader-solid</code></a> replaces <code>.ui-bordered</code>, and <code>.ui-leader-dotted</code> replaces <code>.ui-bordered.ui-dotted</code>.`,
     },
     {
       ...slots(
@@ -888,6 +888,9 @@ export const whatsNew = {
       ),
       html: `Breaking: <a href="#field-group-horizontal"><code>.ui-row</code> and <code>.ui-column</code></a> on a field group are <code>.ui-horizontal</code> and <code>.ui-vertical</code>.`,
     },
+    slots(
+      `Breaking: <a href="#field-group"><code>FieldGroup</code></a> no longer takes <code>name</code>. Set <code>name</code> on each <code>Checkbox</code>, <code>Radio</code> or <code>Switch</code> in the group.`,
+    ),
     `A <a href="#field-group-horizontal">horizontal</a> field group lines its fields up at their end and grows a text field, textarea, select or number field to share the row, so a field and its button sit on one line.`,
   ],
   layout: [
@@ -1225,7 +1228,7 @@ export const whatsNew = {
     `Busy buttons and links with <code>aria-describedby</code> <a href="#blocked-by-another-use-case">get a spinner</a> now.`,
     `With more contrast the <a href="#buttons">ring</a> is opaque, so it stands out on filled buttons and links.`,
     `The spinner styles have no specificity (<code>:where()</code>), so your own <code>::before</code> rules override them (<a href="#api">API</a>).`,
-    `The <a href="#sizes">ring</a> grows with the spinner and is at least <code>--ui-border-width-thick</code>.`,
+    `The <a href="#sizes">ring</a> grows with the spinner and is at least <code>--ui-border-width-large</code>.`,
     `Styles use logical properties only, so the <a href="#sizes">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
   ],
   switch: [
@@ -1591,7 +1594,7 @@ export const whatsNew = {
     `<a href="#inline-text-elements"><code>kbd</code> and <code>var</code></a> sit on <code>--ui-surface-inverse</code> with <code>--ui-on-inverse</code> text, like tooltips.`,
     `<a href="#rich-text-showcase">Inline <code>code</code></a> reads <code>--ui-code-bg-color</code>, code blocks read <code>--ui-code-block-bg-color</code> and <code>--ui-code-block-text-color</code>, and <code>del</code>, <code>ins</code> and <code>abbr</code> read <code>--ui-critical-text</code>, <code>--ui-success-text</code> and <code>--ui-info</code>.`,
     `Breaking: <a href="#inline-text-elements"><code>del</code>, <code>ins</code>, <code>abbr</code> and <code>dfn</code></a> and their classes are no longer severity scopes, so content inside them keeps the page palette.`,
-    `<a href="#inline-text-elements">Inline <code>code</code>, <code>kbd</code>, <code>mark</code> and <code>var</code></a> are rounded with <code>--ui-radius-small</code>, and the <a href="#blockquote">blockquote</a> bar and table rules follow <code>--ui-border-width-thick</code>.`,
+    `<a href="#inline-text-elements">Inline <code>code</code>, <code>kbd</code>, <code>mark</code> and <code>var</code></a> are rounded with <code>--ui-radius-small</code>, and the <a href="#blockquote">blockquote</a> bar and table rules follow <code>--ui-border-width-large</code>.`,
     `<a href="#variants">Text sizes</a> follow the type roles <code>--ui-font-size-caption</code>, <code>--ui-font-size-small</code>, <code>--ui-font-size-body</code> and <code>--ui-font-size-large</code> on the <code>--ui-font-size-100</code> to <code>900</code> scale, with <code>--ui-line-height-*</code> and <code>--ui-letter-spacing-*</code> roles for the rest, so a theme reshapes the type in a few lines.`,
     `<a href="#classless">Rich text</a> spacing comes from one flow space, with more room above headings than below. Themes set it with <code>--ui-rich-text-flow-gap</code>, space headings with <code>--ui-rich-text-heading-margin-block-start</code> and <code>--ui-rich-text-heading-margin-block-end</code>, and loosen prose with <code>--ui-rich-text-line-height</code>.`,
     `Breaking: <a href="#variants">heading sizes</a> changed. Sizes and line heights snap to <code>--ui-rhythm-step</code>, <code>h1</code> to <code>h4</code> grow together over one viewport window (<code>--ui-fluid-min-inline-size</code> to <code>--ui-fluid-max-inline-size</code>, with <code>progress()</code>), and the heading scale no longer inverts on narrow screens.`,
@@ -1603,7 +1606,7 @@ export const whatsNew = {
     `<a href="#link">Links</a> are documented, and get a thicker underline on hover.`,
     `Headings read <a href="#api"><code>--ui-font-heading</code></a>, and code, <code>kbd</code>, <code>samp</code> and <code>.ui-var</code> read <code>--ui-font-code</code>. Rich text padding and gaps read the <code>--ui-space-*</code> scale; its margins come from the flow space.`,
     `<a href="#link">Links</a> read <code>--ui-primary-text</code>, which keeps 4.5:1 on every surface, in a List too.`,
-    `<a href="#link">Links</a> and <a href="#inline-text-elements">underlined text</a> read <code>--ui-underline-offset</code>, <code>--ui-underline-offset-small</code> and <code>--ui-underline-thickness-hover</code>.`,
+    `<a href="#link">Links</a> and <a href="#inline-text-elements">underlined text</a> read <code>--ui-underline-offset</code>, <code>--ui-underline-offset-small</code> and <code>--ui-underline-hover-thickness</code>.`,
     `<a href="#link">Rich text links</a> are styled by <code>link.css</code>, with one rule for <code>.ui-link</code> and classless links. Install it next to <code>typography.css</code>.`,
     `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of <code>--border-size-1</code>.`,
     `<a href="#link">Links</a> only show hover styles on devices that can hover, so they no longer stick after a tap.`,

@@ -23,8 +23,12 @@ const componentsDir = join(root, "packages/opui/components")
 const examplesDir = join(root, "src/component-examples")
 const docsDir = join(root, "src/docs/components")
 
+const SOURCE_FRAMEWORK_IDS = PACKAGE_FRAMEWORK_IDS.filter(
+  (framework) => framework !== "nunjucks",
+)
+
 const COMPONENT_FILES = Object.fromEntries(
-  PACKAGE_FRAMEWORK_IDS.map((framework) => [
+  SOURCE_FRAMEWORK_IDS.map((framework) => [
     framework,
     `.${exampleExtension(framework)}`,
   ]),
@@ -127,7 +131,7 @@ const CONTEXT_IMPORTS = {
 const TYPE_FILES = [...Object.values(TYPES_FILES), "types.ts"]
 
 const BARRELS = Object.fromEntries(
-  PACKAGE_FRAMEWORK_IDS.map((framework) => [framework, `.${framework}`]),
+  SOURCE_FRAMEWORK_IDS.map((framework) => [framework, `.${framework}`]),
 )
 
 const EXAMPLE_IMPORT = new RegExp(

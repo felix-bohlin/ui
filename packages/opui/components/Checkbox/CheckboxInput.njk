@@ -1,0 +1,8 @@
+{% macro CheckboxInput(props = {}) %}
+  {%- set rest = props | opuiRest("CheckboxInput") -%}
+  {%- set dataIndeterminate = '' if props.indeterminate else none -%}
+  <input
+    type="checkbox"
+    {%- if dataIndeterminate != none %} data-indeterminate="{{ dataIndeterminate }}"{% endif %}
+    {{- rest | opuiAttributes }}>
+{%- endmacro %}

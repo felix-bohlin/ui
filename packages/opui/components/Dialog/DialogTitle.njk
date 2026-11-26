@@ -1,0 +1,12 @@
+{% macro DialogTitle(props = {}) %}
+  {%- set rest = props | opuiRest("DialogTitle") -%}
+  {%- set dialog = opui.context("Dialog") -%}
+  {{- opui.warnReplacedId("DialogTitle", "Dialog", props.id, dialog.titleId) -}}
+  {%- set id = dialog.titleId if dialog.titleId != none else props.id -%}
+  <h2
+    {%- if props.class %} class="{{ props.class }}"{% endif %}
+    {%- if id != none %} id="{{ id }}"{% endif %}
+    {{- rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </h2>
+{%- endmacro %}

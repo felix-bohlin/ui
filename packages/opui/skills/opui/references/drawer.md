@@ -3,7 +3,7 @@
 A panel that slides in from an edge of the screen, for navigation, filters or side content.
 
 - CSS: `opui-css/css/components/drawer.css` and `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/drawer.md), [Astro](https://opui.dev/astro/components/drawer.md), [React](https://opui.dev/react/components/drawer.md), [Solid](https://opui.dev/solid/components/drawer.md), [Svelte](https://opui.dev/svelte/components/drawer.md), [Vue](https://opui.dev/vue/components/drawer.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/drawer.md), [Astro](https://opui.dev/astro/components/drawer.md), [Nunjucks](https://opui.dev/nunjucks/components/drawer.md), [React](https://opui.dev/react/components/drawer.md), [Solid](https://opui.dev/solid/components/drawer.md), [Svelte](https://opui.dev/svelte/components/drawer.md), [Vue](https://opui.dev/vue/components/drawer.md).
 
 ## Drawer
 
@@ -31,7 +31,7 @@ A panel that slides in from an edge of the screen, for navigation, filters or si
 ### Notes
 
 - HTML: Add `autofocus` to the element that gets focus on open. It can be the root or an element inside. For `[data-close-on-navigate]`, import `opui-css/elements/close-on-navigate.js`. For swiping a `.ui-block-start` or `.ui-block-end` drawer closed, import `opui-css/elements/drawer-swipe.js`.
-- Astro, React, Solid, Svelte and Vue: Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer, with the id `x-title` for `id="x"`. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`. `data-drawer-swipe` on an element in a drawer at the block start or end lets a swipe on it close the drawer.
+- Astro, Nunjucks, React, Solid, Svelte and Vue: Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer, with the id `x-title` for `id="x"`. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`. `data-drawer-swipe` on an element in a drawer at the block start or end lets a swipe on it close the drawer.
 
 ## DrawerHeader
 
@@ -74,6 +74,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_backdrop-bg-color`: The backdrop color. `card.css` declares it for dialogs and drawers, and `.ui-backdrop-transparent` clears it.
 - `--_backdrop-blur`: The backdrop filter. `card.css` declares it for dialogs and drawers, and `.ui-backdrop-transparent` removes it.
 - `--_bg-color`: The background. Defaults to `--ui-surface-elevated`.
+- `--_bg-image`: The image over the background, such as a gradient. Defaults to `--ui-surface-elevated-image`, `none` unless a theme sets it.
 - `--_block-size`: Height of `.ui-block-start` and `.ui-block-end` drawers. Defaults to 80% of the viewport, at most `650px`.
 - `--_border-color`: Color of the `.ui-header` and `.ui-footer` dividers, and of the inner edge unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-border-color-on-raised`.
 - `--_border-width`: Width of the inner edge border and the `.ui-header` and `.ui-footer` dividers.
@@ -110,11 +111,11 @@ Outputs: `--_closed-translate`, `--_direction`, `--_duration` and `--_ease`.
 - `--_title-font-size`: Font size of a dialog's or drawer's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
 - `--_tonal-bg-color`: Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.
 
-Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration`, `--_orientation` and `--_shadow`.
+Outputs: `--_bg-color`, `--_bg-image`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration`, `--_orientation` and `--_shadow`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-duration`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-icon-close`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-rhythm-step`, `--ui-safe-area-inset-block-end`, `--ui-safe-area-inset-block-start`, `--ui-safe-area-inset-inline-end`, `--ui-safe-area-inset-inline-start`, `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-6`, `--ui-space-7`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-large`, `--ui-card-padding`, `--ui-duration`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-icon-close`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-rhythm-step`, `--ui-safe-area-inset-block-end`, `--ui-safe-area-inset-block-start`, `--ui-safe-area-inset-inline-end`, `--ui-safe-area-inset-inline-start`, `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-6`, `--ui-space-7`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-elevated-image`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -246,8 +247,9 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   </div>
   <div class="ui-content" aria-label="Gig details" role="region" tabindex="0">
     <p>
-      Assigned to Lou Headstock, due Friday. Holly Humbucker checks the setlist,
-      and the drummer promises (again) to bring the cymbals by Wednesday.
+      Assigned to Kinga Headstock, due Friday. Scott Humbucker checks the
+      setlist, and the drummer promises (again) to bring the cymbals by
+      Wednesday.
     </p>
   </div>
   <div class="ui-footer">
@@ -281,7 +283,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
     </button>
   </div>
   <div class="ui-content">
-    <p>Holly Humbucker commented on Friday gig prep.</p>
+    <p>Scott Humbucker commented on Friday gig prep.</p>
   </div>
   <div class="ui-footer">
     <button
@@ -415,8 +417,9 @@ const editIcon = `<svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"><
   </DrawerHeader>
   <DrawerContent aria-label="Gig details" role="region" tabindex="0">
     <p>
-      Assigned to Lou Headstock, due Friday. Holly Humbucker checks the setlist,
-      and the drummer promises (again) to bring the cymbals by Wednesday.
+      Assigned to Kinga Headstock, due Friday. Scott Humbucker checks the
+      setlist, and the drummer promises (again) to bring the cymbals by
+      Wednesday.
     </p>
   </DrawerContent>
   <DrawerFooter>
@@ -435,7 +438,7 @@ const editIcon = `<svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"><
     <DrawerTitle>Notifications</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
-    <p>Holly Humbucker commented on Friday gig prep.</p>
+    <p>Scott Humbucker commented on Friday gig prep.</p>
   </DrawerContent>
   <DrawerFooter>
     <Button command="close" commandfor="drawer-basics-3" size="small"
@@ -472,6 +475,142 @@ const editIcon = `<svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"><
     </div>
   </DrawerFooter>
 </Drawer>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle %}`
+
+- `DrawerHeader` named slots: `slots.closeIcon`. Pass a string, or markup captured with `{% set %}`.
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import
+  Button,
+  Checkbox,
+  Drawer,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  List,
+  ListItem
+%}
+
+{% call Button({ command: "show-modal", commandfor: "drawer-basics-3" }) %}Block start{% endcall %}
+{% call Button({ command: "show-modal", commandfor: "drawer-basics-1" }) %}Inline start{% endcall %}
+{% call Button({ command: "show-modal", commandfor: "drawer-basics-2" }) %}Inline end{% endcall %}
+{% call Button({ command: "show-modal", commandfor: "drawer-basics-4" }) %}Block end{% endcall %}
+
+{% call Drawer({
+  closeOnNavigate: true,
+  id: "drawer-basics-1",
+  side: "inline-start"
+}) %}
+  {% call DrawerHeader({ closeButton: true }) %}
+    {% call DrawerTitle() %}Menu{% endcall %}
+  {% endcall %}
+  {% call DrawerContent() %}
+    {% call List({ variant: "transparent" }) %}
+      {{ ListItem({ "aria-current": "page", href: "#basics", label: "My wall" }) }}
+      {{ ListItem({ href: "#basics", label: "My bands" }) }}
+      {{ ListItem({ href: "#basics", label: "Gear Talk" }) }}
+      {{ ListItem({ href: "#basics", label: "Settings" }) }}
+    {% endcall %}
+  {% endcall %}
+  {% call DrawerFooter({ align: "start" }) %}
+    {% call Button({
+      command: "close",
+      commandfor: "drawer-basics-1",
+      size: "small"
+    }) %}Sign out{% endcall %}
+  {% endcall %}
+{% endcall %}
+
+{% call Drawer({
+  backdrop: "transparent",
+  id: "drawer-basics-2",
+  side: "inline-end"
+}) %}
+  {% call DrawerHeader({ closeButton: true }) %}
+    {% call DrawerTitle() %}Friday gig prep{% endcall %}
+    {% call Button({ "aria-label": "Edit", round: true, size: "small" }) %}
+      <svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"></svg>
+    {% endcall %}
+  {% endcall %}
+  {% call DrawerContent({
+    "aria-label": "Gig details",
+    role: "region",
+    tabindex: "0"
+  }) %}
+    <p>
+      Assigned to Kinga Headstock, due Friday. Scott Humbucker checks the
+      setlist, and the drummer promises (again) to bring the cymbals by
+      Wednesday.
+    </p>
+  {% endcall %}
+  {% call DrawerFooter() %}
+    {% call Button({
+      command: "close",
+      commandfor: "drawer-basics-2",
+      size: "small",
+      variant: "filled"
+    }) %}Mark as done{% endcall %}
+  {% endcall %}
+{% endcall %}
+
+{% call Drawer({ id: "drawer-basics-3", side: "block-start" }) %}
+  {% call DrawerHeader({ closeButton: true }) %}
+    {% call DrawerTitle() %}Notifications{% endcall %}
+  {% endcall %}
+  {% call DrawerContent() %}
+    <p>Scott Humbucker commented on Friday gig prep.</p>
+  {% endcall %}
+  {% call DrawerFooter() %}
+    {% call Button({
+      command: "close",
+      commandfor: "drawer-basics-3",
+      size: "small"
+    }) %}Mark all as read{% endcall %}
+  {% endcall %}
+{% endcall %}
+
+{% call Drawer({ id: "drawer-basics-4", side: "block-end" }) %}
+  {% call DrawerHeader({ closeButton: true }) %}
+    {% call DrawerTitle() %}Filters{% endcall %}
+  {% endcall %}
+  {% call DrawerContent() %}
+    {% call Fieldset() %}
+      {% call FieldLegend() %}Status{% endcall %}
+      {% call FieldGroup({ name: "status", orientation: "horizontal" }) %}
+        {% call Checkbox({ checked: true, value: "done" }) %}Done{% endcall %}
+        {% call Checkbox({ checked: true, value: "in-progress" }) %}Rocking{% endcall %}
+        {% call Checkbox({ value: "open" }) %}Not yet{% endcall %}
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call DrawerFooter() %}
+    <p>24 tasks</p>
+    <div class="ui-actions">
+      {% call Button({ size: "small" }) %}Reset{% endcall %}
+      {% call Button({
+        command: "close",
+        commandfor: "drawer-basics-4",
+        size: "small",
+        variant: "filled"
+      }) %}Apply{% endcall %}
+    </div>
+  {% endcall %}
+{% endcall %}
+
+<script type="module">
+  import "opui-css/elements/close-on-navigate.js"
+  import "opui-css/elements/drawer-swipe.js"
+</script>
 ```
 
 ## React
@@ -543,7 +682,7 @@ export default function BasicsCode() {
         </DrawerHeader>
         <DrawerContent aria-label="Gig details" role="region" tabIndex={0}>
           <p>
-            Assigned to Lou Headstock, due Friday. Holly Humbucker checks the
+            Assigned to Kinga Headstock, due Friday. Scott Humbucker checks the
             setlist, and the drummer promises (again) to bring the cymbals by
             Wednesday.
           </p>
@@ -565,7 +704,7 @@ export default function BasicsCode() {
           <DrawerTitle>Notifications</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
-          <p>Holly Humbucker commented on Friday gig prep.</p>
+          <p>Scott Humbucker commented on Friday gig prep.</p>
         </DrawerContent>
         <DrawerFooter>
           <Button command="close" commandfor="drawer-basics-3" size="small">
@@ -681,7 +820,7 @@ export default function BasicsCode() {
         </DrawerHeader>
         <DrawerContent aria-label="Gig details" role="region" tabindex="0">
           <p>
-            Assigned to Lou Headstock, due Friday. Holly Humbucker checks the
+            Assigned to Kinga Headstock, due Friday. Scott Humbucker checks the
             setlist, and the drummer promises (again) to bring the cymbals by
             Wednesday.
           </p>
@@ -703,7 +842,7 @@ export default function BasicsCode() {
           <DrawerTitle>Notifications</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
-          <p>Holly Humbucker commented on Friday gig prep.</p>
+          <p>Scott Humbucker commented on Friday gig prep.</p>
         </DrawerContent>
         <DrawerFooter>
           <Button command="close" commandfor="drawer-basics-3" size="small">
@@ -809,8 +948,9 @@ export default function BasicsCode() {
   </DrawerHeader>
   <DrawerContent aria-label="Gig details" role="region" tabindex={0}>
     <p>
-      Assigned to Lou Headstock, due Friday. Holly Humbucker checks the setlist,
-      and the drummer promises (again) to bring the cymbals by Wednesday.
+      Assigned to Kinga Headstock, due Friday. Scott Humbucker checks the
+      setlist, and the drummer promises (again) to bring the cymbals by
+      Wednesday.
     </p>
   </DrawerContent>
   <DrawerFooter>
@@ -828,7 +968,7 @@ export default function BasicsCode() {
     <DrawerTitle>Notifications</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
-    <p>Holly Humbucker commented on Friday gig prep.</p>
+    <p>Scott Humbucker commented on Friday gig prep.</p>
   </DrawerContent>
   <DrawerFooter>
     <Button command="close" commandfor="drawer-basics-3" size="small"
@@ -928,7 +1068,7 @@ import {
     </DrawerHeader>
     <DrawerContent aria-label="Gig details" role="region" tabindex="0">
       <p>
-        Assigned to Lou Headstock, due Friday. Holly Humbucker checks the
+        Assigned to Kinga Headstock, due Friday. Scott Humbucker checks the
         setlist, and the drummer promises (again) to bring the cymbals by
         Wednesday.
       </p>
@@ -949,7 +1089,7 @@ import {
       <DrawerTitle>Notifications</DrawerTitle>
     </DrawerHeader>
     <DrawerContent>
-      <p>Holly Humbucker commented on Friday gig prep.</p>
+      <p>Scott Humbucker commented on Friday gig prep.</p>
     </DrawerContent>
     <DrawerFooter>
       <Button command="close" commandfor="drawer-basics-3" size="small"

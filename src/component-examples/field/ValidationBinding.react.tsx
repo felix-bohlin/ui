@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Field } from "opui-css/react"
 
 export default function ValidationBinding() {
-  const [username, setUsername] = useState("holly")
+  const [username, setUsername] = useState("scott")
   const invalid = /[^a-z0-9]/i.test(username)
 
   return (

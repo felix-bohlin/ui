@@ -1,0 +1,171 @@
+{% from "opui/index.njk" import
+  Button,
+  Card,
+  Checkbox,
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+  List,
+  ListItem,
+  ToggleButton,
+  ToggleGroup
+%}
+
+<div class="newsletter ui-layout-container" style="--_max-inline-size: 64rem">
+  {% call Card({
+    class: "ui-layout-columns newsletter-card",
+    style: "--_columns: 1fr 1.2fr; --_gap: var(--ui-space-6)",
+    variant: "outlined"
+  }) %}
+    <div class="ui-layout-column ui-gap-large">
+      <hgroup class="ui-hgroup">
+        <p>The Bassbook Low-Down</p>
+        <h1 class="ui-h3">Bass news worth reading, every other Thursday</h1>
+        <p>
+          New features, gear gossip and how other bassists rock Bassbook. Join
+          12&nbsp;400 totally rad groovers.
+        </p>
+      </hgroup>
+
+      <section aria-labelledby="newsletter-recent-heading">
+        <h2 class="ui-overline" id="newsletter-recent-heading">
+          Recent issues
+        </h2>
+        {% call List({
+          class: "newsletter-issue",
+          dense: true,
+          flush: true,
+          variant: "transparent"
+        }) %}
+          {{ ListItem({
+            description: "Sep 24, 2026, 6 min read",
+            href: "#newsletter-issue-48",
+            label: "#48 Rehearsing with fewer guitar solos"
+          }) }}
+          {{ ListItem({
+            description: "Sep 10, 2026, 8 min read",
+            href: "#newsletter-issue-47",
+            label: "#47 Inside my new pedalboard"
+          }) }}
+        {% endcall %}
+      </section>
+    </div>
+
+    {% call Form({ action: "#", class: "newsletter-form" }) %}
+      {% call FieldGroup({ orientation: "horizontal" }) %}
+        {% call Field({ for: "newsletter-email", label: "Email" }) %}
+          <input
+            autocomplete="email"
+            id="newsletter-email"
+            name="email"
+            placeholder="you@bassmail.example"
+            required
+            type="email"
+          />
+        {% endcall %}
+        {% call Button({ type: "submit", variant: "filled" }) %}Sign me up!{% endcall %}
+      {% endcall %}
+
+      {% call Fieldset() %}
+        {% call FieldLegend() %}Topics{% endcall %}
+        {% call FieldDescription() %}Pick what you wanna hear about.{% endcall %}
+        {% call FieldGroup({ class: "newsletter-topics" }) %}
+          {% set endText %}<span id="newsletter-topic-news-text">Shiny new features and fixes</span>{% endset %}
+          {% call Checkbox({
+            "aria-describedby": "newsletter-topic-news-text",
+            checked: true,
+            name: "newsletter-topics",
+            slots: { endText: endText },
+            value: "news"
+          }) %}
+            Bassbook news
+            
+          {% endcall %}
+          {% set endText %}<span id="newsletter-topic-gear-text">Strings, amps and pedal hoarding</span>{% endset %}
+          {% call Checkbox({
+            "aria-describedby": "newsletter-topic-gear-text",
+            name: "newsletter-topics",
+            slots: { endText: endText },
+            value: "gear"
+          }) %}
+            Gear Talk
+            
+          {% endcall %}
+          {% set endText %}<span id="newsletter-topic-tips-text">Grooves, slap tricks and drop D</span>{% endset %}
+          {% call Checkbox({
+            "aria-describedby": "newsletter-topic-tips-text",
+            checked: true,
+            name: "newsletter-topics",
+            slots: { endText: endText },
+            value: "tips"
+          }) %}
+            Tabs &amp; tips
+            
+          {% endcall %}
+          {% set endText %}<span id="newsletter-topic-diaries-text">Bassists just like you, venting</span>{% endset %}
+          {% call Checkbox({
+            "aria-describedby": "newsletter-topic-diaries-text",
+            name: "newsletter-topics",
+            slots: { endText: endText },
+            value: "diaries"
+          }) %}
+            Member diaries
+            
+          {% endcall %}
+        {% endcall %}
+      {% endcall %}
+
+      {% call Fieldset({ as: "div", id: "newsletter-frequency" }) %}
+        {% call FieldLegend({ as: "p" }) %}Frequency{% endcall %}
+        {% call ToggleGroup({
+          "aria-labelledby": "newsletter-frequency-legend",
+          name: "newsletter-frequency",
+          size: "small"
+        }) %}
+          {% call ToggleButton({ checked: true, value: "biweekly" }) %}Every other week{% endcall %}
+          {% call ToggleButton({ value: "monthly" }) %}Monthly digest{% endcall %}
+        {% endcall %}
+      {% endcall %}
+
+      <p class="ui-caption">
+        We'll only use your email for this newsletter, pinky promise.
+        Unsubscribe with one click any time. Read our
+        <a class="ui-link" href="#newsletter-privacy">privacy policy</a>.
+      </p>
+    {% endcall %}
+  {% endcall %}
+</div>
+
+<style>
+  .newsletter {
+    container-type: inline-size;
+
+    .newsletter-card {
+      padding: var(--ui-space-5);
+
+      @container (inline-size >= 56rem) {
+        padding: var(--ui-space-7);
+      }
+    }
+
+    .newsletter-issue .ui-text p:first-child {
+      font-weight: var(--ui-font-weight-medium);
+    }
+
+    .newsletter-form {
+      align-content: start;
+      gap: var(--ui-space-5);
+    }
+
+    .newsletter-topics {
+      grid-template-columns: minmax(0, 1fr);
+
+      @container (inline-size >= 40rem) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  }
+</style>

@@ -1,3 +1,4 @@
+import { readdirSync, readFileSync } from "node:fs"
 import { join } from "node:path"
 import { fileURLToPath } from "node:url"
 import ts from "typescript"
@@ -47,11 +48,15 @@ const compilerOptions = () =>
     root,
   ).options
 
-const createProgram = (files = new Map()) => {
+const createProgram = (files = new Map(), frameworks = true) => {
   const options = compilerOptions()
   const sources = new Map([
-    [virtualFile, virtualSource],
-    [solidFile, solidSource],
+    ...(frameworks
+      ? [
+          [virtualFile, virtualSource],
+          [solidFile, solidSource],
+        ]
+      : []),
     ...files,
   ])
   const host = ts.createCompilerHost(options)
@@ -208,3 +213,114 @@ export const reactBareAttribute = (name, kinds) =>
     : kinds.has("string")
       ? `${name}=""`
       : undefined
+
+const astroFile = join(root, "src/component-examples/astro-props.ts")
+
+export const exportedTypes = (source) =>
+  ts
+    .createSourceFile("types.astro.ts", source, ts.ScriptTarget.Latest)
+    .statements.flatMap((statement) =>
+      ts.isTypeAliasDeclaration(statement) &&
+      statement.modifiers?.some(
+        (modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword,
+      ) &&
+      !statement.typeParameters?.some((parameter) => !parameter.default)
+        ? [statement.name.text]
+        : ts.isExportDeclaration(statement) &&
+            statement.exportClause &&
+            ts.isNamedExports(statement.exportClause)
+          ? statement.exportClause.elements.map((element) => element.name.text)
+          : [],
+    )
+
+const astroSource = () => {
+  const componentsDir = join(root, "packages/opui/components")
+  const entries = readdirSync(componentsDir, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .toSorted()
+    .flatMap((folder) => {
+      let source
+      try {
+        source = readFileSync(
+          join(componentsDir, folder, "types.astro.ts"),
+          "utf8",
+        )
+      } catch {
+        return []
+      }
+      return exportedTypes(source).map((name) => ({ folder, name }))
+    })
+  return [
+    ...[...new Set(entries.map(({ folder }) => folder))].map(
+      (folder) =>
+        `import type * as ${folder} from "../../packages/opui/components/${folder}/types.astro"`,
+    ),
+    `export type Props = {`,
+    ...entries.map(
+      ({ folder, name }) =>
+        `  ${JSON.stringify(`${folder}/${name}`)}: ${folder}.${name}`,
+    ),
+    "}",
+  ].join("\n")
+}
+
+let astro
+
+export const astroPropsOf = (folder, propsType) => {
+  if (!astro) {
+    const program = createProgram(new Map([[astroFile, astroSource()]]), false)
+    const source = program.getSourceFile(astroFile)
+    astro = {
+      cache: new Map(),
+      checker: program.getTypeChecker(),
+      location: source.statements.find(
+        (statement) =>
+          ts.isTypeAliasDeclaration(statement) &&
+          statement.name.text === "Props",
+      ),
+    }
+  }
+  const key = `${folder}/${propsType}`
+  if (!astro.cache.has(key)) {
+    const { checker, location } = astro
+    const container = checker.getTypeFromTypeNode(location.type)
+    const symbol = checker.getPropertyOfType(container, key)
+    let props
+    if (symbol) {
+      const type = checker.getTypeOfSymbolAtLocation(symbol, location)
+      props = new Map()
+      const parts = members(type)
+      for (const member of parts) {
+        for (const property of checker.getPropertiesOfType(member)) {
+          const known = props.get(property.name)
+          const fields = new Map(known?.fields)
+          for (const list of members(
+            checker.getTypeOfSymbolAtLocation(property, location),
+          ).filter((type) => checker.isArrayType(type))) {
+            for (const item of members(checker.getTypeArguments(list)[0])) {
+              for (const field of checker.getPropertiesOfType(item)) {
+                fields.set(
+                  field.name,
+                  new Set([
+                    ...(fields.get(field.name) ?? []),
+                    ...kindsOf(checker, field, location),
+                  ]),
+                )
+              }
+            }
+          }
+          props.set(property.name, {
+            fields,
+            kinds: new Set([
+              ...(known?.kinds ?? []),
+              ...kindsOf(checker, property, location),
+            ]),
+          })
+        }
+      }
+    }
+    astro.cache.set(key, props)
+  }
+  return astro.cache.get(key)
+}

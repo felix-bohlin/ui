@@ -1,7 +1,7 @@
 import { filled } from "../attrs"
 import { cx } from "../cx"
 import RadioInput from "./RadioInput.react"
-import { hasName, warnUnnamed } from "../dev"
+import { DEV, hasName, warnUnnamed } from "../dev"
 import type { Props } from "./types.react"
 
 export default function Radio({
@@ -20,7 +20,7 @@ export default function Radio({
   endText,
   ...rest
 }: Props) {
-  warnUnnamed("Radio", hasName({ ...rest, label }, filled(children)))
+  if (DEV) warnUnnamed("Radio", hasName({ ...rest, label }, filled(children)))
 
   return (
     <label

@@ -2,7 +2,7 @@
 import { children, omit, untrack } from "solid-js"
 import Button from "../Button/Button.solid"
 import { useDrawerContext } from "./context.solid"
-import { warnMissingCloseTarget } from "../dev"
+import { DEV, warnMissingCloseTarget } from "../dev"
 import type { DrawerHeaderProps as Props } from "./types.solid"
 
 export default function DrawerHeader(props: Props) {
@@ -20,10 +20,11 @@ export default function DrawerHeader(props: Props) {
   const closeLabel = () =>
     props.closeLabel === undefined ? "Close" : props.closeLabel
   const target = () => props.commandfor ?? drawer?.id
-  untrack(() => {
-    if (props.closeButton)
-      warnMissingCloseTarget("DrawerHeader", target(), "Drawer")
-  })
+  if (DEV)
+    untrack(() => {
+      if (props.closeButton)
+        warnMissingCloseTarget("DrawerHeader", target(), "Drawer")
+    })
 
   return (
     <div class={["ui-header", props.class]} {...rest}>

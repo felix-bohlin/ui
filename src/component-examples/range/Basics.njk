@@ -1,0 +1,5 @@
+{% from "opui/index.njk" import Field %}
+
+{% call Field({ for: "range-basics-1", label: "Volume" }) %}
+  <input id="range-basics-1" type="range" />
+{% endcall %}

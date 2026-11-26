@@ -71,10 +71,10 @@ const deleteAccount = () => {
       </Fieldset>
       <Fieldset>
         <FieldLegend>Who can see your posts</FieldLegend>
-        <FieldGroup name="visibility">
-          <Radio value="everyone">Everyone</Radio>
-          <Radio checked value="friends">Friends</Radio>
-          <Radio value="only-me">Only me</Radio>
+        <FieldGroup>
+          <Radio name="visibility" value="everyone">Everyone</Radio>
+          <Radio checked name="visibility" value="friends">Friends</Radio>
+          <Radio name="visibility" value="only-me">Only me</Radio>
         </FieldGroup>
       </Fieldset>
       <Fieldset>

@@ -43,6 +43,7 @@ export default function Models() {
   const [steps, setSteps] = useState(stepsOf(0))
   const [name, setName] = useState("Ada")
   const [plan, setPlan] = useState("free")
+  const [tags, setTags] = useState(["archived", "news"])
   const [toppings, setToppings] = useState(["basil", "cheese"])
 
   useEffect(() => {
@@ -158,6 +159,17 @@ export default function Models() {
         <ToggleButton value="left">Left</ToggleButton>
         <ToggleButton value="right">Right</ToggleButton>
       </ToggleGroup>
+      <ToggleGroup
+        aria-label="Stored tags"
+        multiple
+        name="stored-tags"
+        onValueChange={setTags}
+        value={tags}
+      >
+        <ToggleButton value="news">News</ToggleButton>
+        <ToggleButton value="sports">Sports</ToggleButton>
+      </ToggleGroup>
+      <output id="models-tags">{JSON.stringify(tags)}</output>
       <ToggleGroup
         aria-label="Own density"
         defaultValue="compact"

@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from "react"
 import { defined } from "../attrs"
 import { cx } from "../cx"
-import { warnUnnamedControl } from "../dev"
+import { DEV, warnUnnamedControl } from "../dev"
 import { disabledLink, tagAttrs } from "../tag"
 import type { Props } from "./types.react"
 
@@ -19,7 +19,8 @@ export default function Avatar({
   ...rest
 }: Props) {
   const Tag = disabledLink(as, disabled) ? "a" : as || (href ? "a" : "div")
-  warnUnnamedControl("Avatar", as === "button" || href, { ...rest, label })
+  if (DEV)
+    warnUnnamedControl("Avatar", as === "button" || href, { ...rest, label })
 
   return (
     <Tag

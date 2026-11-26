@@ -2,7 +2,7 @@
 import { createUniqueId, omit, untrack } from "solid-js"
 import { ToggleGroupContext } from "./context.solid"
 import { checkedValues } from "./selection"
-import { warnUnnamedGroup } from "../dev"
+import { DEV, warnUnnamedGroup } from "../dev"
 import type { Props } from "./types.solid"
 
 export default function ToggleGroup(props: Props) {
@@ -22,12 +22,13 @@ export default function ToggleGroup(props: Props) {
   )
   const uid = createUniqueId()
   const change = (input: HTMLInputElement) => {
-    if (props.multiple) props.onValueChange?.(checkedValues(input))
+    if (props.multiple) props.onValueChange?.(checkedValues(input, props.value))
     else props.onValueChange?.(input.value)
   }
-  untrack(() => {
-    warnUnnamedGroup("ToggleGroup", rest)
-  })
+  if (DEV)
+    untrack(() => {
+      warnUnnamedGroup("ToggleGroup", rest)
+    })
 
   return (
     <ToggleGroupContext

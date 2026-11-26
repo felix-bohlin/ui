@@ -5,7 +5,7 @@ export default function FeatureGrid() {
   return (
     <>
       <section
-        class="feature-grid ui-layout-container ui-layout-column ui-large"
+        class="feature-grid ui-layout-container ui-layout-column ui-gap-large"
         aria-labelledby="feature-grid-heading"
       >
         <hgroup class="ui-hgroup feature-intro">
@@ -19,7 +19,7 @@ export default function FeatureGrid() {
           </p>
         </hgroup>
         <ul
-          class="ui-layout-grid ui-large feature-list"
+          class="ui-layout-grid ui-gap-large feature-list"
           style="--_max-columns: 3; --_min-inline-size: 18rem"
         >
           <li>
@@ -95,7 +95,7 @@ export default function FeatureGrid() {
                     ></path>
                   </svg>
                 </span>
-                <div class="ui-layout-row ui-small">
+                <div class="ui-layout-row ui-gap-small">
                   <h2 class="ui-h5">Leaderboard</h2>
                   <Chip as="span" label="New" size="x-small" />
                 </div>

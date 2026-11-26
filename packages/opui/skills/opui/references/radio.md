@@ -22,7 +22,7 @@ Radio buttons for picking one option from a few, with sizes, cards and an invali
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
 - `hideLabel`: `boolean`, `.ui-radio > span.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`.
 - `id`: `string`. The id of the `<input>`.
-- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
+- `name`: `string`. The name of the `<input>`. Radios with the same `name` are one group, in which one can be checked.
 - `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the element. `vertical` stacks the label under the input.
 - `required`: `boolean`, `input[required]`. The form won't submit until one radio in the group is checked. The legend of the enclosing fieldset shows the required mark.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
@@ -47,13 +47,13 @@ Model: `value` (`string | number | boolean`), the selected value of the group. A
 
 ### Props and modifiers
 
-- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
+- `name`: `string`. The name of the `<input>`. Radios with the same `name` are one group, in which one can be checked.
 
 Model: `value` (`string | number | boolean`), the selected value of the group. Astro, Nunjucks, React and Solid `value`, Svelte `bind:group`, Vue `v-model`.
 
 ### Notes
 
-- Astro, Nunjucks, React, Solid, Svelte and Vue: The radio `<input>` without the label, for a custom layout inside a `label.ui-radio`, such as the end of a `ListItem` with `choice="radio"`. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
+- Astro, Nunjucks, React, Solid, Svelte and Vue: The radio `<input>` without the label, for a custom layout inside a `label.ui-radio`, such as the end of a `ListItem` with `choice="radio"`. Attributes that aren't props go to the `<input>`.
 
 ## Component properties
 
@@ -119,7 +119,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
     <legend>Payment method</legend>
     <div class="ui-field-group">
       <label class="ui-radio">
-        <input type="radio" name="radio-group" checked value="card" />
+        <input type="radio" checked name="radio-group" value="card" />
         <span class="ui-label">Card</span>
       </label>
       <label class="ui-radio">
@@ -151,10 +151,10 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
 <Form>
   <Fieldset>
     <FieldLegend>Payment method</FieldLegend>
-    <FieldGroup name="radio-group">
-      <Radio checked value="card">Card</Radio>
-      <Radio value="paypal">PayPal</Radio>
-      <Radio value="bank-transfer">Bank transfer</Radio>
+    <FieldGroup>
+      <Radio checked name="radio-group" value="card">Card</Radio>
+      <Radio name="radio-group" value="paypal">PayPal</Radio>
+      <Radio name="radio-group" value="bank-transfer">Bank transfer</Radio>
     </FieldGroup>
   </Fieldset>
 </Form>
@@ -180,10 +180,10 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
 {% call Form() %}
   {% call Fieldset() %}
     {% call FieldLegend() %}Payment method{% endcall %}
-    {% call FieldGroup({ name: "radio-group" }) %}
-      {% call Radio({ checked: true, value: "card" }) %}Card{% endcall %}
-      {% call Radio({ value: "paypal" }) %}PayPal{% endcall %}
-      {% call Radio({ value: "bank-transfer" }) %}Bank transfer{% endcall %}
+    {% call FieldGroup() %}
+      {% call Radio({ checked: true, name: "radio-group", value: "card" }) %}Card{% endcall %}
+      {% call Radio({ name: "radio-group", value: "paypal" }) %}PayPal{% endcall %}
+      {% call Radio({ name: "radio-group", value: "bank-transfer" }) %}Bank transfer{% endcall %}
     {% endcall %}
   {% endcall %}
 {% endcall %}
@@ -194,7 +194,6 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
 `import { Radio, RadioInput } from "opui-css/react"`
 
 - `Radio` slot props (`ReactNode`): `children` and `endText`.
-- Client components (`"use client"`): `RadioInput`.
 
 ### Example: Basics
 
@@ -206,12 +205,16 @@ export default function Basics() {
     <Form>
       <Fieldset>
         <FieldLegend>Payment method</FieldLegend>
-        <FieldGroup name="radio-group">
-          <Radio defaultChecked value="card">
+        <FieldGroup>
+          <Radio defaultChecked name="radio-group" value="card">
             Card
           </Radio>
-          <Radio value="paypal">PayPal</Radio>
-          <Radio value="bank-transfer">Bank transfer</Radio>
+          <Radio name="radio-group" value="paypal">
+            PayPal
+          </Radio>
+          <Radio name="radio-group" value="bank-transfer">
+            Bank transfer
+          </Radio>
         </FieldGroup>
       </Fieldset>
     </Form>
@@ -236,12 +239,16 @@ export default function Basics() {
     <Form>
       <Fieldset>
         <FieldLegend>Payment method</FieldLegend>
-        <FieldGroup name="radio-group">
-          <Radio defaultChecked value="card">
+        <FieldGroup>
+          <Radio defaultChecked name="radio-group" value="card">
             Card
           </Radio>
-          <Radio value="paypal">PayPal</Radio>
-          <Radio value="bank-transfer">Bank transfer</Radio>
+          <Radio name="radio-group" value="paypal">
+            PayPal
+          </Radio>
+          <Radio name="radio-group" value="bank-transfer">
+            Bank transfer
+          </Radio>
         </FieldGroup>
       </Fieldset>
     </Form>
@@ -272,10 +279,10 @@ export default function Basics() {
 <Form>
   <Fieldset>
     <FieldLegend>Payment method</FieldLegend>
-    <FieldGroup name="radio-group">
-      <Radio defaultChecked value="card">Card</Radio>
-      <Radio value="paypal">PayPal</Radio>
-      <Radio value="bank-transfer">Bank transfer</Radio>
+    <FieldGroup>
+      <Radio defaultChecked name="radio-group" value="card">Card</Radio>
+      <Radio name="radio-group" value="paypal">PayPal</Radio>
+      <Radio name="radio-group" value="bank-transfer">Bank transfer</Radio>
     </FieldGroup>
   </Fieldset>
 </Form>
@@ -299,10 +306,10 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/vue"
   <Form>
     <Fieldset>
       <FieldLegend>Payment method</FieldLegend>
-      <FieldGroup name="radio-group">
-        <Radio checked value="card">Card</Radio>
-        <Radio value="paypal">PayPal</Radio>
-        <Radio value="bank-transfer">Bank transfer</Radio>
+      <FieldGroup>
+        <Radio checked name="radio-group" value="card">Card</Radio>
+        <Radio name="radio-group" value="paypal">PayPal</Radio>
+        <Radio name="radio-group" value="bank-transfer">Bank transfer</Radio>
       </FieldGroup>
     </Fieldset>
   </Form>

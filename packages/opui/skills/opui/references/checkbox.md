@@ -23,7 +23,7 @@ A box people check for choices submitted with a form, alone or in a group.
 - `hideLabel`: `boolean`, `.ui-checkbox > span.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`.
 - `id`: `string`. The id of the `<input>`.
 - `indeterminate`: `boolean`, `input[data-indeterminate]`. Shows a partially checked state. Sets the `indeterminate` property on the `<input>`.
-- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
+- `name`: `string`. The name of the `<input>`.
 - `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the element. `vertical` stacks the label under the input.
 - `required`: `boolean`, `input[required]`. Adds a required mark after the label. The form won't submit until it's checked.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
@@ -50,13 +50,13 @@ Model: `checked` (`boolean | (string | number)[]`), the checked state, or the ch
 ### Props and modifiers
 
 - `indeterminate`: `boolean`, `[data-indeterminate]`. Shows a partially checked state. Sets the `indeterminate` property on the `<input>`.
-- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
+- `name`: `string`. The name of the `<input>`.
 
 Model: `checked` (`boolean | (string | number)[]`), the checked state, or the checked values of a group. Astro, Nunjucks, React and Solid `checked`, Svelte `bind:checked`, `bind:group`, Vue `v-model`.
 
 ### Notes
 
-- Astro, Nunjucks, React, Solid, Svelte and Vue: The checkbox `<input>` without the label, for a custom layout inside a `label.ui-checkbox`, such as the end of a `ListItem` with `choice="checkbox"`. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
+- Astro, Nunjucks, React, Solid, Svelte and Vue: The checkbox `<input>` without the label, for a custom layout inside a `label.ui-checkbox`, such as the end of a `ListItem` with `choice="checkbox"`. Attributes that aren't props go to the `<input>`.
 
 ## SelectAll
 
@@ -141,7 +141,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 
 ```html
 <label class="ui-checkbox">
-  <input type="checkbox" name="checkbox-basics" checked />
+  <input type="checkbox" checked name="checkbox-basics" />
   <span class="ui-sr-only">Checked</span>
 </label>
 <label class="ui-checkbox">
@@ -153,11 +153,11 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   <span class="ui-sr-only">Indeterminate</span>
 </label>
 <label class="ui-checkbox">
-  <input type="checkbox" name="checkbox-basics" disabled />
+  <input type="checkbox" disabled name="checkbox-basics" />
   <span class="ui-sr-only">Disabled</span>
 </label>
 <label class="ui-checkbox">
-  <input type="checkbox" name="checkbox-basics" checked disabled />
+  <input type="checkbox" checked disabled name="checkbox-basics" />
   <span class="ui-sr-only">Checked and disabled</span>
 </label>
 

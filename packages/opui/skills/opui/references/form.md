@@ -71,7 +71,6 @@ Classes that space and group form fields, with fieldsets and field groups.
 
 ### Props and modifiers
 
-- `name`: `string`. Sets `name` on the OPUI fields inside that don't set their own. A text field's input is your own, so name it there.
 - `orientation`: `"auto"` (default), `"horizontal"` (`.ui-horizontal`), `"vertical"` (`.ui-vertical`). The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row.
 
 ### Slots
@@ -206,7 +205,7 @@ import {
 
 `import { FieldDescription, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/react"`
 
-- Client components (`"use client"`): `Fieldset`, `FieldLegend` and `FieldGroup`.
+- Client components (`"use client"`): `Fieldset` and `FieldLegend`.
 
 ### Example: Basics
 

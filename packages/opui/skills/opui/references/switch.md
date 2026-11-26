@@ -24,7 +24,7 @@ An on and off switch for a setting that applies right away.
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
 - `hideLabel`: `boolean`, `.ui-switch > span.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`.
 - `id`: `string`. The id of the `<input>`.
-- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
+- `name`: `string`. The name of the `<input>`.
 - `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the element. `vertical` stacks the label under the switch.
 - `required`: `boolean`, `input[required]`. Adds a required mark after the label. The form won't submit until it's on.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
@@ -50,13 +50,13 @@ Model: `checked` (`boolean | (string | number)[]`), the checked state, or the ch
 
 ### Props and modifiers
 
-- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
+- `name`: `string`. The name of the `<input>`.
 
 Model: `checked` (`boolean | (string | number)[]`), the checked state, or the checked values of a group. Astro, Nunjucks, React and Solid `checked`, Svelte `bind:checked`, `bind:group`, Vue `v-model`.
 
 ### Notes
 
-- Astro, Nunjucks, React, Solid, Svelte and Vue: The switch `<input>` without the label, for a custom layout such as the end of a list item. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
+- Astro, Nunjucks, React, Solid, Svelte and Vue: The switch `<input>` without the label, for a custom layout such as the end of a list item. Attributes that aren't props go to the `<input>`.
 
 ## Component properties
 
@@ -127,8 +127,8 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   <input
     type="checkbox"
     role="switch"
-    name="switch-basics"
     checked
+    name="switch-basics"
     value="wifi"
   />
   <span class="ui-sr-only">Wi-Fi</span>
@@ -141,9 +141,9 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   <input
     type="checkbox"
     role="switch"
-    name="switch-basics"
     checked
     disabled
+    name="switch-basics"
     value="location"
   />
   <span class="ui-sr-only">Location</span>
@@ -152,8 +152,8 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   <input
     type="checkbox"
     role="switch"
-    name="switch-basics"
     disabled
+    name="switch-basics"
     value="airplane-mode"
   />
   <span class="ui-sr-only">Airplane mode</span>
@@ -221,7 +221,6 @@ import { Switch } from "opui-css/astro"
 `import { Switch, SwitchInput } from "opui-css/react"`
 
 - `Switch` slot props (`ReactNode`): `children`, `endText`, `iconChecked` and `iconUnchecked`.
-- Client components (`"use client"`): `SwitchInput`.
 
 ### Example: Basics
 

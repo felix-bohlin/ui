@@ -2108,6 +2108,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): record it in `tests/e2e/engine-bugs.ts` with this repro in `tests/e2e/engines.spec.ts`, and assert the button's text after a reset in `example-state.spec.ts` as an expected failure with `failsIn()`.
     - B: refresh the content after a reset behind an engine gate: `select.selectedIndex = select.selectedIndex` in a `reset` listener makes it read Banana again (run by the census blind port). It needs a script, which the compat layer doesn't have today.
+- [ ] (3) Checkbox: in Vue, a bound checkbox, switch or toggle button with `true-value` and `false-value` renders `checked` on the server when the model holds the false value, and hydration then unchecks it. Vue's server renderer computes the checked state of an input with both a `v-bind` object and `v-model` in `ssrGetDynamicModelProps`, which reads only `type` and `value`, and its result is merged last, so the component can't override it (`packages/opui/components/Checkbox/CheckboxInput.vue:27-34`, `packages/opui/components/Switch/SwitchInput.vue:27-34`, `packages/opui/components/ToggleButton/ToggleButton.vue:73-80`)
+  - Summary: In Vue, a checkbox bound with true-value and false-value looks checked until the page hydrates, and a form sent before then submits it.
+  - Recommended: Fix. The bug is in Vue, and the component can't work around it.
+  - Fix: report it to Vue with the repro `<input type="checkbox" v-bind="attrs" v-model="m" true-value="yes" false-value="no">` and `m = "no"`, which renders `checked` on the server (a plain input with the same `v-model` and no `v-bind` object renders it unchecked), and say in the Vue notes of the Checkbox, Switch and ToggleButton `api.ts` that the server render shows a `true-value` model as checked until Vue fixes it.
 - [ ] (4) Checkbox, Radio, Rating, Switch: in Svelte, a box the user ticked, a radio they picked or a star they chose is cleared when the parent replaces the object it spreads onto the control: an unbound `$bindable()` prop the component wrote is derived again from the parent's getter, so `<Checkbox {...props}>` with `props` replaced by a new object puts `checked` back to `undefined`. A native `<input type="checkbox" {...props}>` keeps the tick, and so do ToggleGroup and Tabs (`packages/opui/components/Checkbox/CheckboxInput.svelte:9-24`, `packages/opui/components/Switch/SwitchInput.svelte:8-22`, `packages/opui/components/Radio/Radio.svelte:13`, `packages/opui/components/Rating/Rating.svelte:23`, `scripts/component-models.mjs:65-73`)
   - Summary: In Svelte, a ticked box, a picked radio or a chosen star is cleared when the parent replaces the object it spreads onto it.
   - Recommended: Fix with option A. It keeps the entry the way the native input does and leaves a bound value as it is.
@@ -2262,6 +2266,18 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fix: keep the union when the Vue props drop the dashed attribute keys, in a form Vue's `defineProps` can still resolve: it resolves `Omit` and not a conditional type such as `Without`. Then add Vue to the Carousel lines of the pair case in `tests/unit/component-types.test.ts`.
   > Fix
   - Fixed: `scripts/component-types.mjs` intersects the `Omit` of the base props with each union of the base type that holds no dashed attribute key, so the Vue `Props` in `packages/opui/components/Carousel/types.vue-props.ts` keep the `markers` union and `defineProps` still resolves them. Vue joined the Carousel lines of the pair case in `tests/unit/component-types.test.ts`, and `pnpm typecheck` passes. The Carousel CHANGELOG entry says the types take `markerLabel` only with `markers` in every framework.
+- [ ] (1) Package: every compiled loop is keyed by its index, also where each item has a unique `value`: when a file is removed or a reaction is added before others, React, Svelte and Vue hand each row's DOM to the next item, so focus and image previews move to another item (`scripts/component-react.mjs:369`, `scripts/component-vue.mjs:483`, `packages/opui/components/FileUpload/FileUpload.react.tsx:74`, `packages/opui/components/Reactions/Reactions.react.tsx:47`)
+  - Summary: Removing a file or adding a reaction can move focus or a preview to the wrong row.
+  - Recommended: Fix. Items with a unique value already name their key.
+  - Fix: key a loop by `item.value` when its items' type requires a `value`, in React, Svelte and Vue, and keep the index everywhere else.
+- [ ] (1) Progress: the Svelte Progress remounts its `<progress>` with `{#key}` to work around a Svelte bug, `value={undefined}` writes `value="0"` instead of removing the attribute, and no test reproduces the bug, so the workaround stays once Svelte fixes it (`packages/opui/components/Progress/Progress.svelte:27-31`, `scripts/component-svelte.mjs:271-280`)
+  - Summary: A workaround in the Svelte Progress would outlive the Svelte bug it works around.
+  - Recommended: Fix. Every other tooling workaround has a repro that fails once it's fixed.
+  - Fix: report it to Svelte, and add a browser repro that mounts a plain Svelte `<progress value={undefined}>` and fails once the attribute is removed, like the entries in `tests/unit/tooling-bugs.test.ts`.
+- [ ] (1) Package: three leftovers the emitters write: Svelte Button, Avatar, Chip, Menu and ListItem call `disabledLink(as, disabled)`, always false since `as` never takes a component in Svelte; the unbound branch of the Vue ToggleButton reads `model`, always `undefined` there; and the Vue RadioInput binds `:value` that its `v-bind` object already carries (`packages/opui/components/Button/Button.svelte:22`, `packages/opui/components/ToggleButton/ToggleButton.vue:87`, `packages/opui/components/Radio/RadioInput.vue:32`, `scripts/component-models.mjs:93-94`)
+  - Summary: Some compiled Svelte and Vue components carry code that never changes the result.
+  - Recommended: Fix. Each is dead code the emitter can leave out.
+  - Fix: drop `disabledLink` from the Svelte tag expression, `model` from the unbound Vue branch and the `:value` binding from RadioInput, in their emitters.
 
 ## Docs
 
@@ -4862,6 +4878,9 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - B: keep it, and move the sentence from the API note to the top of the Vue binding sections of both pages.
   - Must stay green: `tests/e2e/example-state.spec.ts`, `tests/unit/dev-warnings.test.ts` (no false grouped `checked` warning) and the Nuxt and Vite Vue apps in `pnpm test:apps`.
   - Fixed: A bound Vue group shares its model, and each item binds its input with `v-model` to it, so the first choice writes a ref that starts `undefined`, as `v-model` on native radios does (`packages/opui/components/Tabs/TabsItem.vue`, `src/component-api/tabs/api.ts`).
+- [ ] (1) FileUpload: the element's `select` event shares its name with React's built-in `onSelect`, which React wires to text selection, so `<opui-file-upload onSelect>` written as a raw element in React never gets the files. The `FileUpload` component listens with `useListener` and isn't affected (`packages/opui/elements/file-upload.js:74-76`, `packages/opui/react/elements.ts:31-34`)
+  - Summary: A raw file upload element in React never calls its onSelect handler with the picked files.
+  - Recommended: Explain further. Renaming an event of a 6.0 component affects the users of the release candidates.
 - [ ] (2) SelectButton: the React, Svelte and Vue SelectButton files are written by hand for one construct, a tag that is always one string. The compiler folds it into the element only in Solid (`staticTag`); compiled today, React gets a bare `<SelectedContent />` from a const, Svelte a `<svelte:element>` on `$derived("selectedcontent")` and Vue a `<component :is>` on a constant `computed`, none of which leaves the content the browser writes alone when it hydrates (`scripts/hand-written-components.json:1-5`, `packages/opui/components/SelectButton/SelectButton.astro:6-12`, `scripts/component-solid.mjs:146-203`, `scripts/component-svelte.mjs:269`, `scripts/component-vue.mjs:648-649`, `scripts/component-reader.mjs:1056-1062`)
   - Summary: Three of the five SelectButton files are kept by hand because the compiler handles a constant tag only in Solid.
   - Recommended: Fix with option A. The construct is generic, and the ledger then loses all three files.
@@ -6380,6 +6399,16 @@ Custom elements (web components) the library could add, for behavior that HTML a
       {(shownTag) => <Tag ...>{content()}</Tag>}
     </Show>
     ```
+- [ ] (2) Accordion: in Svelte, `<Accordion bind:open>` fails the type check and, without it, never updates the bound value, though Svelte binds `open` on a native `<details>`. The compiler only knows checked and radio models, so an `open` model on the `details` root has no kind (`packages/opui/components/Accordion/Accordion.svelte:4-27`, `scripts/component-reader.mjs:1452-1460`, `src/component-api/accordion/api.ts:45-52`)
+  - Summary: Svelte users can't bind an accordion's open state the way they bind a native details element.
+  - Recommended: Fix with option A. It matches the native element.
+  - Options:
+    - A (recommended): add an `open` model kind for a `details` root: `$bindable()` with `bind:open` in Svelte, `defineModel("open")` with `:open` and `@toggle` in Vue, and the native `open` with `onToggle` in React and Solid, plus the model in `accordion/api.ts`, an example and a Changed entry with its What's new note.
+    - B: keep `open` one-way and say in the Svelte notes of `accordion/api.ts` to follow it with `ontoggle`.
+- [ ] (2) FileUpload: a pick or drop where every file fails the `accept` check fires nothing, and one where some fail fires `select` with the others only, so the app can't tell the user why a file was left out (`packages/opui/elements/file-upload.js:66-77`, `src/component-api/file-upload/api.ts:35`)
+  - Summary: Dropping a file of a type the upload doesn't accept does nothing and shows no message.
+  - Recommended: Fix. The app needs the rejected files to explain the drop.
+  - Fix: add `rejected` to `event.detail` with the files the `accept` check or a missing `multiple` left out, fire `select` whenever a pick or drop has a file, and document both in `file-upload/api.ts`.
 - [ ] (3) Docs site: the icon libraries list no Solid package: `lucide-solid` 1.74 and `@tabler/icons-solidjs` 3.52 require solid-js 1, and Fluent, Material Symbols and Phosphor ship none (`src/utils/icon-libraries.ts`)
   - Summary: The icon pages name React, Svelte and Vue icon packages but none for Solid, since none supports Solid 2 yet.
   - Recommended: Fix with option A. Add the `solid:` entries once each upstream package takes solid-js 2 as a peer.

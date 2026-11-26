@@ -48,7 +48,8 @@ export default {
           type: "boolean",
         },
         {
-          description: "The checked values of a group.",
+          description:
+            "The checked values of a group. Start it as an array, even an empty one: bound to `undefined`, the box keeps its own state.",
           prop: "group",
           type: "(string | number)[]",
         },

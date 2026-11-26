@@ -8,9 +8,13 @@ import {
   CardActions,
   CardContent,
   Chip,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
   Form,
   Meter,
   Progress,
+  Radio,
 } from "opui-css/solid"
 
 export default function TriviaQuiz() {
@@ -80,44 +84,30 @@ export default function TriviaQuiz() {
               />
             </div>
             <Form action="#" id="trivia-quiz-form">
-              <fieldset class="tq-options">
-                <legend class="tq-question">
+              <Fieldset>
+                <FieldLegend class="tq-question">
                   Which string is the lowest on a five-string bass?
-                </legend>
-                <label>
-                  <input name="trivia-quiz-answer" type="radio" value="e" />
-                  <span aria-hidden="true" class="tq-letter">
-                    A
-                  </span>
-                  <span>Low E</span>
-                </label>
-                <label>
-                  <input
+                </FieldLegend>
+                <FieldGroup class="tq-options">
+                  <Radio card name="trivia-quiz-answer" value="e">
+                    Low E
+                  </Radio>
+                  <Radio
+                    card
                     defaultChecked
                     name="trivia-quiz-answer"
-                    type="radio"
                     value="b"
-                  />
-                  <span aria-hidden="true" class="tq-letter">
-                    B
-                  </span>
-                  <span>Low B</span>
-                </label>
-                <label>
-                  <input name="trivia-quiz-answer" type="radio" value="a" />
-                  <span aria-hidden="true" class="tq-letter">
-                    C
-                  </span>
-                  <span>Low A</span>
-                </label>
-                <label>
-                  <input name="trivia-quiz-answer" type="radio" value="d" />
-                  <span aria-hidden="true" class="tq-letter">
-                    D
-                  </span>
-                  <span>Drop D</span>
-                </label>
-              </fieldset>
+                  >
+                    Low B
+                  </Radio>
+                  <Radio card name="trivia-quiz-answer" value="a">
+                    Low A
+                  </Radio>
+                  <Radio card name="trivia-quiz-answer" value="d">
+                    Drop D
+                  </Radio>
+                </FieldGroup>
+              </Fieldset>
             </Form>
             <Callout severity="success">
               <CalloutIcon />
@@ -165,71 +155,17 @@ export default function TriviaQuiz() {
           .tq-question {
             color: var(--ui-text-strong);
             font-size: var(--ui-font-size-700);
-            font-weight: var(--ui-font-weight-bold);
             line-height: var(--ui-line-height-tight);
             margin-block-end: var(--ui-space-5);
-            padding: 0;
             text-wrap: balance;
           }
 
           .tq-options {
-            border: 0;
             display: grid;
-            gap: var(--ui-space-3);
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
-            margin: 0;
-            padding: 0;
-
-            label {
-              align-items: center;
-              border: var(--ui-border-width) solid var(--ui-border-color);
-              border-radius: var(--ui-radius);
-              cursor: pointer;
-              display: flex;
-              gap: var(--ui-space-3);
-              padding: var(--ui-space-4);
-              position: relative;
-              transition: border-color var(--ui-duration-fast) var(--ui-ease);
-
-              &:hover {
-                border-color: var(--ui-primary);
-              }
-
-              &:has(:checked) {
-                background-color: oklch(from var(--ui-success) l c h / 12%);
-                border-color: var(--ui-success);
-                color: var(--ui-text-strong);
-              }
-
-              &:has(:focus-visible) {
-                outline: var(--ui-focus-ring-width) solid var(--ui-focus-ring-color);
-                outline-offset: var(--ui-focus-ring-offset);
-              }
-            }
-
-            input {
-              appearance: none;
-              margin: 0;
-              opacity: 0;
-              position: absolute;
-            }
-          }
-
-          .tq-letter {
-            align-items: center;
-            background-color: var(--ui-surface-tonal);
-            block-size: 2rem;
-            border-radius: var(--ui-radius-small);
-            display: grid;
-            flex: none;
-            font-weight: var(--ui-font-weight-bold);
-            inline-size: 2rem;
-            justify-content: center;
-          }
-
-          .tq-options label:has(:checked) .tq-letter {
-            background-color: var(--ui-success);
-            color: var(--ui-on-fill);
+            grid-template-columns: repeat(
+              auto-fit,
+              minmax(min(100%, max(14rem, 40%)), 1fr)
+            );
           }
         }
       `}</style>

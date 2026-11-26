@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { For, omit, untrack } from "solid-js"
+import { For, omit } from "solid-js"
 import { mergeStyle, pluralLabel } from "../style"
 import { ratingOf } from "./rating"
 import { control } from "../solid"
@@ -38,7 +38,7 @@ export default function Rating(props: Props) {
   const invalid = () => (props.error ? "true" : props["aria-invalid"])
   const checkedControl = control(
     () => (props.value === undefined ? undefined : rating().current === 0),
-    untrack(() => rating().current === 0),
+    () => (props.value === undefined ? rating().current === 0 : undefined),
   )
 
   return (
@@ -77,7 +77,10 @@ export default function Rating(props: Props) {
                   props.value === undefined
                     ? undefined
                     : rating().current === star(),
-                untrack(() => rating().current === star()),
+                () =>
+                  props.value === undefined
+                    ? rating().current === star()
+                    : undefined,
               )
               return (
                 <input

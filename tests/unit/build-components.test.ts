@@ -1234,10 +1234,10 @@ describe("the ports of a sample", () => {
       "const current = () => Number(props.value ?? props.defaultValue)",
     )
     expect(solid).toContain(
-      "const checkedControl = control(\n    () => (props.value === undefined ? undefined : current() === 0),\n    untrack(() => current() === 0),\n  )",
+      "const checkedControl = control(\n    () => (props.value === undefined ? undefined : current() === 0),\n    () => (props.value === undefined ? current() === 0 : undefined),\n  )",
     )
     expect(solid).toContain(
-      "const itemCheckedControl = control(\n            () =>\n              props.value === undefined ? undefined : current() === star(),\n            untrack(() => current() === star()),\n          )",
+      "const itemCheckedControl = control(\n            () =>\n              props.value === undefined ? undefined : current() === star(),\n            () =>\n              props.value === undefined ? current() === star() : undefined,\n          )",
     )
     expect(solid).toContain("{...itemCheckedControl.server}\n")
     expect(solid).toContain('onChange={() => props.onValueChange?.("0")}')
@@ -1616,7 +1616,7 @@ describe("the ports of a sample", () => {
     )
     expect(solid).toContain('import { callHandler, control } from "../solid"\n')
     expect(solid).toContain(
-      "  const checkedControl = control(\n    () => grouped() ?? props.checked,\n    untrack(\n      () =>\n        isSelected(parent?.defaultValue, props.value) ?? props.defaultChecked,\n    ),\n  )\n",
+      "  const checkedControl = control(\n    () => grouped() ?? props.checked,\n    () => isSelected(parent?.defaultValue, props.value) ?? props.defaultChecked,\n  )\n",
     )
     expect(solid).toContain(
       '        {...checkedControl.server}\n        class={["ui-sample", props.class]}\n        type="radio"\n        value={props.value}\n        {...defined(rest)}\n        ref={[props.ref, checkedControl.ref]}\n',
@@ -1705,10 +1705,10 @@ describe("the ports of a sample", () => {
     )
     expect(vue).not.toContain("selectionOf")
     expect(outputs.get(sampleFile().replace(".astro", ".react.tsx"))).toContain(
-      "      if (multiple) onValueChange?.(checkedValues(input))\n      else onValueChange?.(input.value)\n    },\n    [multiple, onValueChange],\n",
+      "      if (multiple) onValueChange?.(checkedValues(input, value))\n      else onValueChange?.(input.value)\n    },\n    [multiple, onValueChange, value],\n",
     )
     expect(outputs.get(sampleFile().replace(".astro", ".solid.tsx"))).toContain(
-      "    if (props.multiple) props.onValueChange?.(checkedValues(input))\n    else props.onValueChange?.(input.value)\n",
+      "    if (props.multiple) props.onValueChange?.(checkedValues(input, props.value))\n    else props.onValueChange?.(input.value)\n",
     )
   })
 
@@ -1756,7 +1756,7 @@ describe("the ports of a sample", () => {
     expect(vue.match(/:data-off="!\(model \?\? checked\)"/g)).toHaveLength(2)
     const solid = outputs.get(sampleFile().replace(".astro", ".solid.tsx"))
     expect(solid).toContain(
-      "() => grouped() ?? props.checked,\n    untrack(\n      () =>\n        isSelected(group?.defaultValue, props.value) ?? props.defaultChecked,\n    ),\n",
+      "() => grouped() ?? props.checked,\n    () => isSelected(group?.defaultValue, props.value) ?? props.defaultChecked,\n",
     )
     expect(solid).toContain("data-off={!props.checked}")
     expect(solid).toContain("ref={[props.ref, checkedControl.ref]}")

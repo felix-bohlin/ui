@@ -15,6 +15,7 @@ import {
   styleVars,
 } from "../../packages/opui/components/style"
 import { tagAttrs } from "../../packages/opui/components/tag"
+import { checkedValues } from "../../packages/opui/components/ToggleGroup/selection"
 import { exampleIdBase } from "../../src/utils/id"
 
 describe("filled", () => {
@@ -280,5 +281,16 @@ describe("toggleInGroup", () => {
     const group = ["a", "b"]
     expect(toggleInGroup(group, "a", true)).toBe(group)
     expect(toggleInGroup(group, "c", false)).toBe(group)
+  })
+})
+
+describe("checkedValues", () => {
+  test("toggles the input's value in a selection the app holds, keeping values that have no button", () => {
+    const input = { checked: true, value: "b" } as HTMLInputElement
+    expect(checkedValues(input, ["a", "z"])).toEqual(["a", "z", "b"])
+    expect(
+      checkedValues({ ...input, checked: false }, ["a", "b", "z"]),
+    ).toEqual(["a", "z"])
+    expect(checkedValues(input, "a")).toEqual(["a", "b"])
   })
 })

@@ -1371,7 +1371,9 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
       kind: "group",
       local: prop.local,
       prop: declared.prop,
-      read: multiple ? "selectionOf(input, multiple)" : "input.value",
+      read: multiple
+        ? `selectionOf(input, multiple, ${prop.local})`
+        : "input.value",
       type: declared.type,
     }
   }

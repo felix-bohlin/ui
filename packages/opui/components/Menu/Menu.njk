@@ -10,23 +10,37 @@
       {%- if props.align == 'end' %} ui-align-end{% endif %}
       {%- if props.bordered %} ui-bordered{% endif %}
       {%- if props.dense %} ui-dense{% endif %}
-      {%- if props.orientation and props.orientation != 'vertical' %} ui-{{ props.orientation }}{% endif %}
+      {%- if props.orientation and props.orientation != 'vertical' %} ui-{{ props.orientation }}
+      {%- endif %}
       {%- if props.side and props.side != 'block-end' %} ui-{{ props.side }}{% endif %}
       {%- if props.class %} {{ props.class }}{% endif %}"
     {%- if props.id != none %} id="{{ props.id }}"{% endif %}
     {{- { popover: '' if popover == 'auto' else popover } | opuiAttributes }}
     {{- rest | opuiAttributes }}>
     {%- for item in props.items %}
-      {%- set itemRest = item | opuiOmit(["as", "borderTop", "color", "disabled", "href", "keepOpen", "label", "shortcut"]) -%}
+      {%- set itemRest = item | opuiOmit([
+        "as",
+        "borderTop",
+        "color",
+        "disabled",
+        "href",
+        "keepOpen",
+        "label",
+        "shortcut"
+      ]) -%}
       {%- set tag = "a"
         if opui.disabledLink(item.as, item.disabled)
         else (item.as if item.as != none else ("a" if item.href else "button")) -%}
       {%- set closes = not item.href
         and not item.keepOpen
         and not item.disabled
-        and itemRest.type !== "submit"
-        and itemRest.type !== "reset" -%}
-      {% set classes = [{ "ui-border-top": item.borderTop }, item.color and 'ui-' ~ item.color] | opuiClass %}<li{% if classes %} class="{{ classes }}"{% endif %}>
+        and itemRest.type != "submit"
+        and itemRest.type != "reset" -%}
+      {% set classes = [
+        { "ui-border-top": item.borderTop },
+        item.color and 'ui-' ~ item.color
+      ] | opuiClass -%}
+      <li{% if classes %} class="{{ classes }}"{% endif %}>
         <{{ tag | opuiTag }}{{ opui.merge(
           opui.tagAttrs(tag, item.disabled, item.href),
           {

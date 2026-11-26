@@ -7,12 +7,20 @@
     or props.choice == "switch" -%}
   {%- set tag = "label"
     if hasControl
-    else ("a" if opui.disabledLink(props.as, props.disabled) else props.as | default("a" if props.href else undefined)) -%}
+    else (
+      "a"
+        if opui.disabledLink(props.as, props.disabled)
+        else props.as | default("a" if props.href else undefined)
+    ) -%}
   {%- set restOnItem = hasControl or not tag -%}
   {%- set hasLabel = (true if props.label else false) or props.slots.label != none -%}
   {%- set hasDescription = (true if props.description else false)
     or props.slots.description != none -%}
-  {%- set classes = [{ "ui-border-top": props.borderTop, "ui-inset": props.inset }, props.color and 'ui-' ~ props.color, props.class] | opuiClass -%}
+  {%- set classes = [
+    { "ui-border-top": props.borderTop, "ui-inset": props.inset },
+    props.color and 'ui-' ~ props.color,
+    props.class
+  ] | opuiClass -%}
   <li
     {%- if classes %} class="{{ classes }}"{% endif %}
     {%- if restOnItem %}{{ rest | opuiAttributes }}{% endif %}>
@@ -35,7 +43,8 @@
         {{- props.slots.end | safe -}}
       </div>{% endif %}{% if props.slots.iconChecked != none -%}
         <span aria-hidden="true" class="ui-icon-checked">{{ props.slots.iconChecked | safe }}</span>
-      {%- endif %}</{{ tag | opuiTag }}>{% else %}{% if props.slots.start != none %}<div class="ui-start">
+      {%- endif %}</{{ tag | opuiTag }}>{% else %}{% if props.slots.start != none -%}
+      <div class="ui-start">
       {{- props.slots.start | safe -}}
     </div>{% endif %}{% if hasLabel or hasDescription %}<div class="ui-text">
       {%- if hasLabel %}<p>{{ props.label }}{{ props.slots.label | safe }}</p>{% endif %}

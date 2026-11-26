@@ -1,7 +1,9 @@
 {% macro StepButton(props = {}) %}
   {%- set props = props | opuiProps("StepButton") -%}
   {%- set rest = props | opuiRest("StepButton") -%}
-  {%- set name = props.label | default("Decrease" if props.command == "--step-down" else "Increase") -%}
+  {%- set name = props.label | default(
+    "Decrease" if props.command == "--step-down" else "Increase"
+  ) -%}
   <opui-step-button{{ opui.defined(rest) | opuiAttributes("opui-step-button") }}>
     <button
       class="ui-button ui-round"

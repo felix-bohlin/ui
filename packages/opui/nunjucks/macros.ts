@@ -173,6 +173,7 @@ export const attributes = [
 export const components = {
   Accordion: {
     added: ["markerAnimation", "name", "open", "variant"],
+    depths: {},
     folder: "Accordion",
     keepsNone: ["class"],
     props: ["class", "markerAnimation", "variant"],
@@ -181,6 +182,7 @@ export const components = {
   },
   AccordionActions: {
     added: ["align"],
+    depths: {},
     folder: "Accordion",
     keepsNone: ["class"],
     props: ["align", "class"],
@@ -189,6 +191,7 @@ export const components = {
   },
   AccordionContent: {
     added: [],
+    depths: {},
     folder: "Accordion",
     keepsNone: ["class"],
     props: ["class"],
@@ -197,6 +200,7 @@ export const components = {
   },
   AccordionSummary: {
     added: [],
+    depths: {},
     folder: "Accordion",
     keepsNone: ["class"],
     props: ["class"],
@@ -205,6 +209,7 @@ export const components = {
   },
   Anchor: {
     added: ["positionArea", "trigger"],
+    depths: { style: 1 },
     folder: "Anchor",
     keepsNone: ["class", "id", "style"],
     props: ["class", "id", "positionArea", "style", "trigger"],
@@ -213,6 +218,7 @@ export const components = {
   },
   AnchorContent: {
     added: [],
+    depths: {},
     folder: "Anchor",
     keepsNone: ["class", "id"],
     props: ["class", "id", "popover"],
@@ -251,6 +257,7 @@ export const components = {
       "value",
       "variant",
     ],
+    depths: { href: 1 },
     folder: "Avatar",
     keepsNone: ["class"],
     props: [
@@ -269,6 +276,7 @@ export const components = {
   },
   AvatarGroup: {
     added: [],
+    depths: {},
     folder: "Avatar",
     keepsNone: ["class"],
     props: ["class", "role"],
@@ -277,6 +285,7 @@ export const components = {
   },
   Badge: {
     added: ["corner", "dot", "hideLabel", "invisible", "label"],
+    depths: {},
     folder: "Badge",
     keepsNone: ["class"],
     props: [
@@ -321,6 +330,7 @@ export const components = {
       "value",
       "variant",
     ],
+    depths: { href: 1 },
     folder: "Button",
     keepsNone: ["class"],
     props: [
@@ -338,6 +348,7 @@ export const components = {
   },
   Callout: {
     added: ["closeButton", "closeLabel", "severity", "variant"],
+    depths: {},
     folder: "Callout",
     keepsNone: ["class", "id"],
     props: ["class", "closeButton", "closeLabel", "id", "severity", "variant"],
@@ -346,6 +357,7 @@ export const components = {
   },
   CalloutActions: {
     added: [],
+    depths: {},
     folder: "Callout",
     keepsNone: ["class"],
     props: ["class"],
@@ -354,6 +366,7 @@ export const components = {
   },
   CalloutContent: {
     added: [],
+    depths: {},
     folder: "Callout",
     keepsNone: ["class"],
     props: ["class"],
@@ -610,6 +623,7 @@ export const components = {
       "z",
       "zoomAndPan",
     ],
+    depths: {},
     folder: "Callout",
     keepsNone: ["class"],
     props: ["class"],
@@ -655,6 +669,7 @@ export const components = {
   },
   Card: {
     added: ["as", "density", "orientation", "variant"],
+    depths: {},
     folder: "Card",
     keepsNone: ["class"],
     props: ["as", "class", "color", "density", "orientation", "variant"],
@@ -663,6 +678,7 @@ export const components = {
   },
   CardActions: {
     added: ["align"],
+    depths: {},
     folder: "Card",
     keepsNone: ["class"],
     props: ["align", "class"],
@@ -671,6 +687,7 @@ export const components = {
   },
   CardContent: {
     added: [],
+    depths: {},
     folder: "Card",
     keepsNone: ["class"],
     props: ["class"],
@@ -679,6 +696,7 @@ export const components = {
   },
   CardHeader: {
     added: ["as"],
+    depths: {},
     folder: "Card",
     keepsNone: ["class"],
     props: ["as", "class"],
@@ -700,6 +718,7 @@ export const components = {
       "previousLabel",
       "stretch",
     ],
+    depths: { style: 1 },
     folder: "Carousel",
     keepsNone: ["class", "style"],
     props: [
@@ -724,6 +743,7 @@ export const components = {
   },
   CharacterCount: {
     added: ["label"],
+    depths: {},
     folder: "CharacterCount",
     keepsNone: ["class"],
     props: ["class", "label"],
@@ -776,6 +796,7 @@ export const components = {
       "variant",
       "width",
     ],
+    depths: { style: 1 },
     folder: "Checkbox",
     keepsNone: ["aria-invalid", "class"],
     props: [
@@ -833,6 +854,7 @@ export const components = {
       "value",
       "width",
     ],
+    depths: {},
     folder: "Checkbox",
     keepsNone: [],
     props: ["indeterminate"],
@@ -872,6 +894,7 @@ export const components = {
       "value",
       "variant",
     ],
+    depths: { href: 1 },
     folder: "Chip",
     keepsNone: ["class"],
     props: [
@@ -891,6 +914,7 @@ export const components = {
   },
   ControlGroup: {
     added: ["orientation", "overflow", "size", "variant"],
+    depths: {},
     folder: "ControlGroup",
     keepsNone: ["class"],
     props: [
@@ -907,6 +931,7 @@ export const components = {
   },
   Copy: {
     added: ["copiedLabel", "failedLabel"],
+    depths: {},
     folder: "Copy",
     keepsNone: ["class"],
     props: ["class", "copiedLabel", "failedLabel", "id"],
@@ -915,6 +940,7 @@ export const components = {
   },
   DescriptionList: {
     added: ["leader", "orientation"],
+    depths: {},
     folder: "DescriptionList",
     keepsNone: ["class"],
     props: ["class", "leader", "orientation"],
@@ -923,6 +949,7 @@ export const components = {
   },
   DescriptionListDescription: {
     added: [],
+    depths: {},
     folder: "DescriptionList",
     keepsNone: ["class"],
     props: ["class"],
@@ -931,6 +958,7 @@ export const components = {
   },
   DescriptionListItem: {
     added: ["total"],
+    depths: {},
     folder: "DescriptionList",
     keepsNone: ["class"],
     props: ["class", "total"],
@@ -939,6 +967,7 @@ export const components = {
   },
   DescriptionListTerm: {
     added: [],
+    depths: {},
     folder: "DescriptionList",
     keepsNone: ["class"],
     props: ["class"],
@@ -947,6 +976,7 @@ export const components = {
   },
   Dialog: {
     added: ["closedby", "open"],
+    depths: {},
     folder: "Dialog",
     keepsNone: ["class"],
     props: ["class", "closedby"],
@@ -955,6 +985,7 @@ export const components = {
   },
   DialogContent: {
     added: [],
+    depths: {},
     folder: "Dialog",
     keepsNone: ["class"],
     props: ["class"],
@@ -963,6 +994,7 @@ export const components = {
   },
   DialogFooter: {
     added: ["align"],
+    depths: {},
     folder: "Dialog",
     keepsNone: ["class"],
     props: ["align", "class"],
@@ -971,6 +1003,7 @@ export const components = {
   },
   DialogHeader: {
     added: ["closeButton", "closeLabel", "commandfor"],
+    depths: {},
     folder: "Dialog",
     keepsNone: ["class"],
     props: ["class", "closeButton", "closeLabel", "commandfor"],
@@ -979,6 +1012,7 @@ export const components = {
   },
   DialogTitle: {
     added: [],
+    depths: {},
     folder: "Dialog",
     keepsNone: ["class", "id"],
     props: ["class", "id"],
@@ -987,6 +1021,7 @@ export const components = {
   },
   Divider: {
     added: ["align", "variant"],
+    depths: {},
     folder: "Divider",
     keepsNone: ["class"],
     props: ["align", "class", "color", "variant"],
@@ -1002,6 +1037,7 @@ export const components = {
       "scrollLock",
       "side",
     ],
+    depths: {},
     folder: "Drawer",
     keepsNone: ["class"],
     props: [
@@ -1018,6 +1054,7 @@ export const components = {
   },
   DrawerContent: {
     added: [],
+    depths: {},
     folder: "Drawer",
     keepsNone: ["class"],
     props: ["class"],
@@ -1026,6 +1063,7 @@ export const components = {
   },
   DrawerFooter: {
     added: ["align"],
+    depths: {},
     folder: "Drawer",
     keepsNone: ["class"],
     props: ["align", "class"],
@@ -1034,6 +1072,7 @@ export const components = {
   },
   DrawerHeader: {
     added: ["closeButton", "closeLabel", "commandfor"],
+    depths: {},
     folder: "Drawer",
     keepsNone: ["class"],
     props: ["class", "closeButton", "closeLabel", "commandfor"],
@@ -1042,6 +1081,7 @@ export const components = {
   },
   DrawerTitle: {
     added: [],
+    depths: {},
     folder: "Drawer",
     keepsNone: ["class", "id"],
     props: ["class", "id"],
@@ -1062,6 +1102,7 @@ export const components = {
       "startText",
       "variant",
     ],
+    depths: {},
     folder: "Field",
     keepsNone: ["class"],
     props: [
@@ -1083,6 +1124,7 @@ export const components = {
   },
   FieldDescription: {
     added: [],
+    depths: {},
     folder: "FieldDescription",
     keepsNone: ["class"],
     props: ["class"],
@@ -1091,6 +1133,7 @@ export const components = {
   },
   FieldGroup: {
     added: ["orientation"],
+    depths: {},
     folder: "FieldGroup",
     keepsNone: ["class"],
     props: ["class", "orientation"],
@@ -1099,6 +1142,7 @@ export const components = {
   },
   FieldLegend: {
     added: ["as"],
+    depths: {},
     folder: "FieldLegend",
     keepsNone: ["class", "id"],
     props: ["as", "class", "id"],
@@ -1107,6 +1151,7 @@ export const components = {
   },
   Fieldset: {
     added: ["as", "disabled", "form", "name"],
+    depths: {},
     folder: "Fieldset",
     keepsNone: ["class"],
     props: ["as", "class"],
@@ -1125,6 +1170,7 @@ export const components = {
       "removeLabel",
       "status",
     ],
+    depths: { items: 2 },
     folder: "FileUpload",
     keepsNone: ["class", "id"],
     props: [
@@ -1156,6 +1202,7 @@ export const components = {
       "novalidate",
       "target",
     ],
+    depths: {},
     folder: "Form",
     keepsNone: ["class"],
     props: ["as", "class"],
@@ -1173,6 +1220,7 @@ export const components = {
       "type",
       "variant",
     ],
+    depths: {},
     folder: "List",
     keepsNone: ["class"],
     props: ["as", "bordered", "class", "dense", "flush", "role", "variant"],
@@ -1212,6 +1260,7 @@ export const components = {
       "type",
       "value",
     ],
+    depths: { href: 1 },
     folder: "ListItem",
     keepsNone: ["class"],
     props: [
@@ -1240,6 +1289,7 @@ export const components = {
       "side",
       "type",
     ],
+    depths: { items: 2 },
     folder: "Menu",
     keepsNone: ["class"],
     props: [
@@ -1266,6 +1316,7 @@ export const components = {
       "typing",
       "value",
     ],
+    depths: {},
     folder: "Message",
     keepsNone: ["class"],
     props: [
@@ -1282,6 +1333,7 @@ export const components = {
   },
   MessageList: {
     added: ["direct", "reversed", "start", "type"],
+    depths: {},
     folder: "Message",
     keepsNone: ["class"],
     props: ["class", "direct", "role"],
@@ -1290,6 +1342,7 @@ export const components = {
   },
   Meter: {
     added: ["form", "high", "low", "max", "min", "optimum", "value", "variant"],
+    depths: {},
     folder: "Meter",
     keepsNone: ["class"],
     props: ["class", "variant"],
@@ -1298,6 +1351,7 @@ export const components = {
   },
   OneTimeCode: {
     added: ["endText", "for", "grouped", "hideLabel", "label", "size"],
+    depths: {},
     folder: "OneTimeCode",
     keepsNone: ["class"],
     props: ["class", "endText", "for", "grouped", "hideLabel", "label", "size"],
@@ -1306,6 +1360,7 @@ export const components = {
   },
   PasswordToggle: {
     added: ["for", "label"],
+    depths: {},
     folder: "PasswordToggle",
     keepsNone: [],
     props: ["for", "label"],
@@ -1314,6 +1369,7 @@ export const components = {
   },
   Progress: {
     added: ["max", "round", "value", "variant"],
+    depths: { style: 1 },
     folder: "Progress",
     keepsNone: ["class"],
     props: ["class", "max", "round", "style", "value", "variant"],
@@ -1365,6 +1421,7 @@ export const components = {
       "variant",
       "width",
     ],
+    depths: { style: 1 },
     folder: "Radio",
     keepsNone: ["aria-invalid", "class"],
     props: [
@@ -1421,6 +1478,7 @@ export const components = {
       "value",
       "width",
     ],
+    depths: {},
     folder: "Radio",
     keepsNone: [],
     props: [],
@@ -1445,6 +1503,7 @@ export const components = {
       "starLabel",
       "value",
     ],
+    depths: { starLabel: 1, style: 1 },
     folder: "Rating",
     keepsNone: ["aria-invalid", "class", "lang", "style"],
     props: [
@@ -1470,6 +1529,7 @@ export const components = {
   },
   Reactions: {
     added: ["items", "name", "quick"],
+    depths: { items: 2, quick: 1 },
     folder: "Reactions",
     keepsNone: ["aria-label", "aria-labelledby", "class"],
     props: ["aria-label", "aria-labelledby", "class", "items", "name", "quick"],
@@ -1478,6 +1538,7 @@ export const components = {
   },
   SelectAll: {
     added: [],
+    depths: {},
     folder: "SelectAll",
     keepsNone: ["class"],
     props: ["class"],
@@ -1502,6 +1563,7 @@ export const components = {
       "type",
       "value",
     ],
+    depths: {},
     folder: "SelectButton",
     keepsNone: [],
     props: [],
@@ -1510,6 +1572,7 @@ export const components = {
   },
   SortableTable: {
     added: ["ascendingLabel", "descendingLabel"],
+    depths: {},
     folder: "SortableTable",
     keepsNone: ["class"],
     props: ["ascendingLabel", "class", "descendingLabel"],
@@ -1518,6 +1581,7 @@ export const components = {
   },
   Stat: {
     added: ["description", "label", "size"],
+    depths: {},
     folder: "Stat",
     keepsNone: ["class"],
     props: ["class", "description", "label", "size"],
@@ -1526,6 +1590,7 @@ export const components = {
   },
   StepButton: {
     added: ["command", "for", "label"],
+    depths: {},
     folder: "StepButton",
     keepsNone: [],
     props: ["command", "for", "label"],
@@ -1545,6 +1610,7 @@ export const components = {
       "start",
       "type",
     ],
+    depths: { items: 2 },
     folder: "Stepper",
     keepsNone: ["class"],
     props: [
@@ -1571,6 +1637,7 @@ export const components = {
       "state",
       "value",
     ],
+    depths: {},
     folder: "Stepper",
     keepsNone: ["class"],
     props: [
@@ -1632,6 +1699,7 @@ export const components = {
       "variant",
       "width",
     ],
+    depths: { style: 1 },
     folder: "Switch",
     keepsNone: ["aria-invalid", "class"],
     props: [
@@ -1688,6 +1756,7 @@ export const components = {
       "value",
       "width",
     ],
+    depths: {},
     folder: "Switch",
     keepsNone: [],
     props: [],
@@ -1710,6 +1779,7 @@ export const components = {
       "summary",
       "width",
     ],
+    depths: {},
     folder: "Table",
     keepsNone: ["class"],
     props: ["class", "density", "flush", "overflow", "stickyHeader"],
@@ -1718,6 +1788,7 @@ export const components = {
   },
   TableBody: {
     added: [],
+    depths: {},
     folder: "Table",
     keepsNone: [],
     props: [],
@@ -1726,6 +1797,7 @@ export const components = {
   },
   TableCaption: {
     added: [],
+    depths: {},
     folder: "Table",
     keepsNone: [],
     props: [],
@@ -1743,6 +1815,7 @@ export const components = {
       "scope",
       "valign",
     ],
+    depths: {},
     folder: "Table",
     keepsNone: ["class"],
     props: ["class", "numeric"],
@@ -1751,6 +1824,7 @@ export const components = {
   },
   TableColumn: {
     added: ["span", "width"],
+    depths: { style: 1 },
     folder: "Table",
     keepsNone: ["style"],
     props: ["style", "width"],
@@ -1759,6 +1833,7 @@ export const components = {
   },
   TableColumnGroup: {
     added: ["span"],
+    depths: {},
     folder: "Table",
     keepsNone: [],
     props: [],
@@ -1767,6 +1842,7 @@ export const components = {
   },
   TableFoot: {
     added: [],
+    depths: {},
     folder: "Table",
     keepsNone: [],
     props: [],
@@ -1775,6 +1851,7 @@ export const components = {
   },
   TableHead: {
     added: [],
+    depths: {},
     folder: "Table",
     keepsNone: [],
     props: [],
@@ -1792,6 +1869,7 @@ export const components = {
       "scope",
       "sortable",
     ],
+    depths: {},
     folder: "Table",
     keepsNone: ["class"],
     props: ["class", "numeric", "sortable"],
@@ -1800,6 +1878,7 @@ export const components = {
   },
   TableRow: {
     added: [],
+    depths: {},
     folder: "Table",
     keepsNone: [],
     props: [],
@@ -1808,8 +1887,9 @@ export const components = {
   },
   Tabs: {
     added: ["name", "orientation", "overflow", "value", "variant"],
+    depths: {},
     folder: "Tabs",
-    keepsNone: ["class", "role"],
+    keepsNone: ["class"],
     props: [
       "class",
       "name",
@@ -1859,6 +1939,7 @@ export const components = {
       "value",
       "width",
     ],
+    depths: { value: 1 },
     folder: "Tabs",
     keepsNone: ["class", "id", "value"],
     props: ["checked", "class", "id", "name", "value"],
@@ -1867,6 +1948,7 @@ export const components = {
   },
   TabsLabel: {
     added: ["for", "form"],
+    depths: {},
     folder: "Tabs",
     keepsNone: ["class"],
     props: ["class", "for"],
@@ -1875,6 +1957,7 @@ export const components = {
   },
   TabsPanel: {
     added: [],
+    depths: {},
     folder: "Tabs",
     keepsNone: ["class"],
     props: ["class"],
@@ -1883,6 +1966,7 @@ export const components = {
   },
   Timeline: {
     added: ["items", "reversed", "size", "start", "tracked", "type"],
+    depths: { items: 2 },
     folder: "Timeline",
     keepsNone: ["class"],
     props: ["class", "items", "size", "tracked"],
@@ -1891,6 +1975,7 @@ export const components = {
   },
   TimelineItem: {
     added: ["current", "datetime", "headingLevel", "label", "time", "value"],
+    depths: {},
     folder: "Timeline",
     keepsNone: ["class"],
     props: [
@@ -1908,6 +1993,7 @@ export const components = {
   },
   Toaster: {
     added: ["align", "closeLabel", "duration", "limit", "side"],
+    depths: {},
     folder: "Toaster",
     keepsNone: ["class"],
     props: ["align", "class", "closeLabel", "duration", "id", "limit", "side"],
@@ -1953,6 +2039,7 @@ export const components = {
       "value",
       "width",
     ],
+    depths: { style: 1, value: 1 },
     folder: "ToggleButton",
     keepsNone: ["class", "name", "value"],
     props: [
@@ -1970,6 +2057,7 @@ export const components = {
   },
   ToggleGroup: {
     added: ["multiple", "name", "orientation", "overflow", "size", "value"],
+    depths: { value: 1 },
     folder: "ToggleGroup",
     keepsNone: ["class"],
     props: [
@@ -1987,6 +2075,7 @@ export const components = {
   },
   Tooltip: {
     added: ["arrow", "positionArea"],
+    depths: {},
     folder: "Tooltip",
     keepsNone: ["class"],
     props: ["arrow", "class", "id", "positionArea"],
@@ -2023,7 +2112,7 @@ export const helpers = {
 
 export const templates = {
   "opui/Accordion.njk":
-    '{% macro Accordion(props = {}) %}\n  {%- set props = props | opuiProps("Accordion") -%}\n  {%- set rest = props | opuiRest("Accordion") -%}\n  <details\n    class="ui-accordion\n      {%- if props.markerAnimation and props.markerAnimation != \'rotate\' %} ui-marker-animation-{{ props.markerAnimation }}{% endif %}\n      {%- if props.variant and props.variant != \'plain\' %} ui-{{ props.variant }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </details>\n{%- endmacro %}\n',
+    '{% macro Accordion(props = {}) %}\n  {%- set props = props | opuiProps("Accordion") -%}\n  {%- set rest = props | opuiRest("Accordion") -%}\n  <details\n    class="ui-accordion\n      {%- if props.markerAnimation and props.markerAnimation != \'rotate\' %} ui-marker-animation-\n      {{- props.markerAnimation }}{% endif %}\n      {%- if props.variant and props.variant != \'plain\' %} ui-{{ props.variant }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </details>\n{%- endmacro %}\n',
   "opui/AccordionActions.njk":
     '{% macro AccordionActions(props = {}) %}\n  {%- set props = props | opuiProps("AccordionActions") -%}\n  {%- set rest = props | opuiRest("AccordionActions") -%}\n  <div\n    class="ui-actions\n      {%- if props.align and props.align != \'end\' %} ui-align-{{ props.align }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </div>\n{%- endmacro %}\n',
   "opui/AccordionContent.njk":
@@ -2031,19 +2120,19 @@ export const templates = {
   "opui/AccordionSummary.njk":
     '{% macro AccordionSummary(props = {}) %}\n  {%- set props = props | opuiProps("AccordionSummary") -%}\n  {%- set rest = props | opuiRest("AccordionSummary") -%}\n  <summary\n    {%- if props.class %} class="{{ props.class }}"{% endif %}\n    {{- rest | opuiAttributes }}>{{ caller() if caller }}{{ " " }}\n    {%- if props.slots.marker != none %}{{ props.slots.marker | safe }}{% else %}<svg\n      aria-hidden="true"\n      class="ui-marker"\n      xmlns="http://www.w3.org/2000/svg"\n      width="24"\n      height="24"\n      viewBox="0 0 24 24"></svg>{% endif %}</summary>\n{%- endmacro %}\n',
   "opui/Anchor.njk":
-    '{% macro Anchor(props = {}) %}\n  {%- set props = props | opuiProps("Anchor") -%}\n  {%- set rest = props | opuiRest("Anchor") -%}\n  {%- set isHover = props.trigger == "hover" -%}\n  {%- set id = props.id or undefined if isHover else undefined -%}\n  {{- opui.warnMissingId("Anchor", id, "interestfor")\n    if isHover\n    and not opui.extendsAnchor(props.class) -}}\n  {%- set anchor = { floatingId: id, popover: "hint" if isHover else undefined } -%}\n  {%- set classes = [not opui.extendsAnchor(props.class) and \'ui-anchor\', props.class] | opuiClass -%}\n  {%- set idValue = none if isHover else props.id -%}\n  <span\n    {%- if classes %} class="{{ classes }}"{% endif %}\n    {%- if idValue != none %} id="{{ idValue }}"{% endif %}\n    {{- { style: opui.mergeStyle({ "--ui-anchor-position-area": props.positionArea }, props.style) } | opuiAttributes }}\n    {{- rest | opuiAttributes }}>\n    {{- opui.provide("Anchor", anchor, caller) -}}\n  </span>\n{%- endmacro %}\n',
+    '{% macro Anchor(props = {}) %}\n  {%- set props = props | opuiProps("Anchor") -%}\n  {%- set rest = props | opuiRest("Anchor") -%}\n  {%- set isHover = props.trigger == "hover" -%}\n  {%- set id = props.id or undefined if isHover else undefined -%}\n  {{- opui.warnMissingId("Anchor", id, "interestfor")\n    if isHover and not opui.extendsAnchor(props.class) -}}\n  {%- set anchor = { floatingId: id, popover: "hint" if isHover else undefined } -%}\n  {%- set classes = [\n    not opui.extendsAnchor(props.class) and \'ui-anchor\',\n    props.class\n  ] | opuiClass -%}\n  {%- set idValue = none if isHover else props.id -%}\n  <span\n    {%- if classes %} class="{{ classes }}"{% endif %}\n    {%- if idValue != none %} id="{{ idValue }}"{% endif %}\n    {{- { style: opui.mergeStyle(\n      { "--ui-anchor-position-area": props.positionArea },\n      props.style\n    ) } | opuiAttributes }}\n    {{- rest | opuiAttributes }}>\n    {{- opui.provide("Anchor", anchor, caller) -}}\n  </span>\n{%- endmacro %}\n',
   "opui/AnchorContent.njk":
-    '{% macro AnchorContent(props = {}) %}\n  {%- set props = props | opuiProps("AnchorContent") -%}\n  {%- set rest = props | opuiRest("AnchorContent") -%}\n  {%- set anchor = opui.context("Anchor") -%}\n  {{- opui.warnReplacedAnchorAttributes(props.id, props.popover, anchor.floatingId, anchor.popover) -}}\n  {%- set id = anchor.floatingId if anchor.floatingId != none else props.id -%}\n  <span\n    class="ui-floating\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {%- if id != none %} id="{{ id }}"{% endif %}\n    {{- { popover: anchor.popover if anchor.popover != none else props.popover } | opuiAttributes }}\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </span>\n{%- endmacro %}\n',
+    '{% macro AnchorContent(props = {}) %}\n  {%- set props = props | opuiProps("AnchorContent") -%}\n  {%- set rest = props | opuiRest("AnchorContent") -%}\n  {%- set anchor = opui.context("Anchor") -%}\n  {{- opui.warnReplacedAnchorAttributes(\n    props.id,\n    props.popover,\n    anchor.floatingId,\n    anchor.popover\n  ) -}}\n  {%- set id = anchor.floatingId if anchor.floatingId != none else props.id -%}\n  <span\n    class="ui-floating\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {%- if id != none %} id="{{ id }}"{% endif %}\n    {{- { popover: anchor.popover if anchor.popover != none else props.popover } | opuiAttributes }}\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </span>\n{%- endmacro %}\n',
   "opui/Avatar.njk":
-    '{% macro Avatar(props = {}) %}\n  {%- set props = props | opuiProps("Avatar") -%}\n  {%- set rest = props | opuiRest("Avatar") -%}\n  {%- set tag = "a"\n    if opui.disabledLink(props.as, props.disabled)\n    else props.as\n    or ("a" if props.href else "div") -%}\n  {{- opui.warnUnnamedControl("Avatar", props.as == "button" or props.href, opui.merge(rest, { label: props.label })) -}}\n  {%- set classes = [\n    "ui-avatar",\n    props.shape and props.shape != "circle" and "ui-" ~ props.shape,\n    props.size and props.size != "medium" and "ui-" ~ props.size,\n    props.variant and props.variant != "filled" and "ui-" ~ props.variant,\n    props.class\n  ] | opuiClass -%}\n  <{{ tag | opuiTag }}{{ opui.merge(\n    { class: classes },\n    opui.tagAttrs(tag, props.disabled, props.href),\n    opui.defined(rest)\n  ) | opuiAttributes(tag) }}>\n    {%- if props.src %}{% set alt = props.label | default(\'\') %}<img\n      {%- if props.src != none %} src="{{ props.src }}"{% endif %}\n      alt="{{ alt }}">{% else %}<span aria-hidden="true">{{ caller() if caller }}</span>{% endif %}\n    {%- if not props.src and props.label %}<span class="ui-sr-only">\n      {{- props.label }}</span>{% endif -%}\n  </{{ tag | opuiTag }}>\n{%- endmacro %}\n',
+    '{% macro Avatar(props = {}) %}\n  {%- set props = props | opuiProps("Avatar") -%}\n  {%- set rest = props | opuiRest("Avatar") -%}\n  {%- set tag = "a"\n    if opui.disabledLink(props.as, props.disabled)\n    else props.as or ("a" if props.href else "div") -%}\n  {{- opui.warnUnnamedControl(\n    "Avatar",\n    props.as == "button" or props.href,\n    opui.merge(rest, { label: props.label })\n  ) -}}\n  {%- set classes = [\n    "ui-avatar",\n    props.shape and props.shape != "circle" and "ui-" ~ props.shape,\n    props.size and props.size != "medium" and "ui-" ~ props.size,\n    props.variant and props.variant != "filled" and "ui-" ~ props.variant,\n    props.class\n  ] | opuiClass -%}\n  <{{ tag | opuiTag }}{{ opui.merge(\n    { class: classes },\n    opui.tagAttrs(tag, props.disabled, props.href),\n    opui.defined(rest)\n  ) | opuiAttributes(tag) }}>\n    {%- if props.src %}{% set alt = props.label | default(\'\') -%}\n    <img src="{{ props.src }}" alt="{{ alt }}">{% else %}<span aria-hidden="true">\n      {{- caller() if caller }}</span>{% endif %}\n    {%- if not props.src and props.label %}<span class="ui-sr-only">\n      {{- props.label }}</span>{% endif -%}\n  </{{ tag | opuiTag }}>\n{%- endmacro %}\n',
   "opui/AvatarGroup.njk":
     '{% macro AvatarGroup(props = {}) %}\n  {%- set props = props | opuiProps("AvatarGroup") -%}\n  {%- set rest = props | opuiRest("AvatarGroup") -%}\n  {%- set role = props.role | default(\'group\') -%}\n  <div\n    class="ui-avatar-group\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    role="{{ role }}"\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </div>\n{%- endmacro %}\n',
   "opui/Badge.njk":
     '{% from "opui/Anchor.njk" import Anchor %}\n{% from "opui/AnchorContent.njk" import AnchorContent %}\n\n{% macro Badge(props = {}) %}\n  {%- set props = props | opuiProps("Badge") -%}\n  {%- set rest = props | opuiRest("Badge") -%}\n  {%- set indicatorSlot = props.slots.indicator | opuiTrim -%}\n  {%- set hidden = props.dot or props.hideLabel -%}\n  {% call Anchor(opui.merge(\n    {\n      class: [\n        "ui-badge",\n        { "ui-dot": props.dot, "ui-invisible": props.invisible },\n        props.color and "ui-" ~ props.color,\n        props.corner and props.corner != "start-end" and "ui-" ~ props.corner,\n        props.class\n      ] | opuiClass\n    },\n    rest\n  )) %}\n    {{ caller() if caller }}\n    {% call AnchorContent({}) %}\n      <span class="ui-indicator">{% if hidden -%}\n          {% if not props.dot and indicatorSlot %}<span aria-hidden="true">\n            {{- indicatorSlot }}</span>{% endif %}{% if props.label %}<span class="ui-sr-only">\n            {{- props.label }}</span>{% endif %}\n        {%- endif %}{{ none if hidden else props.label }}\n        {%- if not hidden %}{{ indicatorSlot }}{% endif %}</span>\n    {% endcall %}\n  {% endcall %}\n{%- endmacro %}\n',
   "opui/Button.njk":
-    '{% macro Button(props = {}) %}\n  {%- set props = props | opuiProps("Button") -%}\n  {%- set rest = props | opuiRest("Button") -%}\n  {%- set tag = "a"\n    if opui.disabledLink(props.as, props.disabled)\n    else props.as\n    or ("a" if props.href else "button") -%}\n  {%- set classes = [\n    "ui-button",\n    { "ui-round": props.round },\n    props.color and "ui-" ~ props.color,\n    props.size and props.size != "medium" and "ui-" ~ props.size,\n    props.variant and props.variant != "transparent" and "ui-" ~ props.variant,\n    props.class\n  ] | opuiClass -%}\n  <{{ tag | opuiTag }}{{ opui.merge(\n    { class: classes },\n    opui.tagAttrs(tag, props.disabled, props.href),\n    opui.defined(rest)\n  ) | opuiAttributes(tag) }}>\n    {{- caller() if caller -}}\n  </{{ tag | opuiTag }}>\n{%- endmacro %}\n',
+    '{% macro Button(props = {}) %}\n  {%- set props = props | opuiProps("Button") -%}\n  {%- set rest = props | opuiRest("Button") -%}\n  {%- set tag = "a"\n    if opui.disabledLink(props.as, props.disabled)\n    else props.as or ("a" if props.href else "button") -%}\n  {%- set classes = [\n    "ui-button",\n    { "ui-round": props.round },\n    props.color and "ui-" ~ props.color,\n    props.size and props.size != "medium" and "ui-" ~ props.size,\n    props.variant and props.variant != "transparent" and "ui-" ~ props.variant,\n    props.class\n  ] | opuiClass -%}\n  <{{ tag | opuiTag }}{{ opui.merge(\n    { class: classes },\n    opui.tagAttrs(tag, props.disabled, props.href),\n    opui.defined(rest)\n  ) | opuiAttributes(tag) }}>\n    {{- caller() if caller -}}\n  </{{ tag | opuiTag }}>\n{%- endmacro %}\n',
   "opui/Callout.njk":
-    '{% from "opui/Button.njk" import Button %}\n\n{% macro Callout(props = {}) %}\n  {%- set props = props | opuiProps("Callout") -%}\n  {%- set rest = props | opuiRest("Callout") -%}\n  {%- set closeLabel = props.closeLabel | default("Close") -%}\n  {%- set ids = opui.ids("callout", props.id) -%}\n  {%- set root = "opui-callout" if props.closeButton else "div" -%}\n  {%- set rootId = ids() if props.closeButton else props.id -%}\n  {%- set classes = [\n    "ui-callout",\n    props.severity and "ui-" ~ props.severity,\n    props.variant and props.variant != "tonal" and "ui-" ~ props.variant,\n    props.class\n  ] | opuiClass -%}\n  <{{ root | opuiTag }}{{ opui.merge({ class: classes, id: rootId }, opui.defined(rest)) | opuiAttributes(root) }}>\n    {{- opui.provide("Callout", { severity: props.severity }, caller) }}{% if props.closeButton -%}\n      {% call Button({\n        "aria-label": closeLabel,\n        command: "--dismiss",\n        commandfor: rootId,\n        round: true,\n        size: "small"\n      }) -%}\n        {% if props.slots.closeIcon != none %}{{ props.slots.closeIcon | safe }}{% else %}<svg\n          aria-hidden="true"\n          xmlns="http://www.w3.org/2000/svg"\n          width="32"\n          height="32"\n          viewBox="0 0 32 32"></svg>{% endif %}\n      {%- endcall %}\n    {%- endif -%}\n  </{{ root | opuiTag }}>\n{%- endmacro %}\n',
+    '{% from "opui/Button.njk" import Button %}\n\n{% macro Callout(props = {}) %}\n  {%- set props = props | opuiProps("Callout") -%}\n  {%- set rest = props | opuiRest("Callout") -%}\n  {%- set closeLabel = props.closeLabel | default("Close") -%}\n  {%- set ids = opui.ids("callout", props.id) -%}\n  {%- set root = "opui-callout" if props.closeButton else "div" -%}\n  {%- set rootId = ids() if props.closeButton else props.id -%}\n  {%- set classes = [\n    "ui-callout",\n    props.severity and "ui-" ~ props.severity,\n    props.variant and props.variant != "tonal" and "ui-" ~ props.variant,\n    props.class\n  ] | opuiClass -%}\n  <{{ root | opuiTag }}\n    {{- opui.merge({ class: classes, id: rootId }, opui.defined(rest)) | opuiAttributes(root) }}>\n    {{- opui.provide("Callout", { severity: props.severity }, caller) }}{% if props.closeButton -%}\n      {% call Button({\n        "aria-label": closeLabel,\n        command: "--dismiss",\n        commandfor: rootId,\n        round: true,\n        size: "small"\n      }) -%}\n        {% if props.slots.closeIcon != none %}{{ props.slots.closeIcon | safe }}{% else %}<svg\n          aria-hidden="true"\n          xmlns="http://www.w3.org/2000/svg"\n          width="32"\n          height="32"\n          viewBox="0 0 32 32"></svg>{% endif %}\n      {%- endcall %}\n    {%- endif -%}\n  </{{ root | opuiTag }}>\n{%- endmacro %}\n',
   "opui/CalloutActions.njk":
     '{% macro CalloutActions(props = {}) %}\n  {%- set props = props | opuiProps("CalloutActions") -%}\n  {%- set rest = props | opuiRest("CalloutActions") -%}\n  <div\n    class="ui-actions\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </div>\n{%- endmacro %}\n',
   "opui/CalloutContent.njk":
@@ -2059,21 +2148,21 @@ export const templates = {
   "opui/CardHeader.njk":
     '{% macro CardHeader(props = {}) %}\n  {%- set props = props | opuiProps("CardHeader") -%}\n  {%- set rest = props | opuiRest("CardHeader") -%}\n  {%- set tag = props.as | default("hgroup") -%}\n  {%- set classes = ["ui-header", props.class] | opuiClass -%}\n  <{{ tag | opuiTag }}{{ opui.merge({ class: classes }, rest) | opuiAttributes(tag) }}>\n    {{- caller() if caller -}}\n  </{{ tag | opuiTag }}>\n{%- endmacro %}\n',
   "opui/Carousel.njk":
-    '{% macro Carousel(props = {}) %}\n  {%- set props = props | opuiProps("Carousel") -%}\n  {%- set rest = props | opuiRest("Carousel") -%}\n  {%- set role = props.role | default(\'list\') -%}\n  <ul\n    class="ui-carousel\n      {%- if props.markers %} ui-markers{% endif %}\n      {%- if props.peek %} ui-peek{% endif %}\n      {%- if props.persistentButtons %} ui-persistent-buttons{% endif %}\n      {%- if props.stretch %} ui-stretch{% endif %}\n      {%- if props.orientation == \'vertical\' %} ui-vertical{% endif %}\n      {%- if props.align and props.align != \'start\' %} ui-align-{{ props.align }}{% endif %}\n      {%- if props.buttons and props.buttons != \'inside\' %} ui-buttons-{{ props.buttons }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- { style: opui.mergeStyle({ "--_button-next-label": props.nextLabel and opui.cssString(props.nextLabel), "--_button-previous-label": props.previousLabel and opui.cssString(props.previousLabel), "--_items-per-view": props.itemsPerView, "--_marker-label": props.markerLabel and opui.counterLabel(props.markerLabel, \'ui-carousel-item\'), "--_media-aspect-ratio": props.aspectRatio }, props.style) } | opuiAttributes }}\n    role="{{ role }}"\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </ul>\n{%- endmacro %}\n',
+    '{% macro Carousel(props = {}) %}\n  {%- set props = props | opuiProps("Carousel") -%}\n  {%- set rest = props | opuiRest("Carousel") -%}\n  {%- set role = props.role | default(\'list\') -%}\n  <ul\n    class="ui-carousel\n      {%- if props.markers %} ui-markers{% endif %}\n      {%- if props.peek %} ui-peek{% endif %}\n      {%- if props.persistentButtons %} ui-persistent-buttons{% endif %}\n      {%- if props.stretch %} ui-stretch{% endif %}\n      {%- if props.orientation == \'vertical\' %} ui-vertical{% endif %}\n      {%- if props.align and props.align != \'start\' %} ui-align-{{ props.align }}{% endif %}\n      {%- if props.buttons and props.buttons != \'inside\' %} ui-buttons-{{ props.buttons }}\n      {%- endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- { style: opui.mergeStyle(\n      {\n        "--_button-next-label": props.nextLabel and opui.cssString(props.nextLabel),\n        "--_button-previous-label": props.previousLabel and opui.cssString(props.previousLabel),\n        "--_items-per-view": props.itemsPerView,\n        "--_marker-label": props.markerLabel\n          and opui.counterLabel(props.markerLabel, \'ui-carousel-item\'),\n        "--_media-aspect-ratio": props.aspectRatio\n      },\n      props.style\n    ) } | opuiAttributes }}\n    role="{{ role }}"\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </ul>\n{%- endmacro %}\n',
   "opui/CharacterCount.njk":
     '{% macro CharacterCount(props = {}) %}\n  {%- set props = props | opuiProps("CharacterCount") -%}\n  {%- set rest = props | opuiRest("CharacterCount") -%}\n  {%- set classes = ["ui-value", props.class] | opuiClass -%}\n  <opui-character-count{{ opui.merge(\n    { "aria-hidden": "true", class: classes, label: props.label },\n    opui.defined(rest)\n  ) | opuiAttributes("opui-character-count") }}></opui-character-count>\n{%- endmacro %}\n',
   "opui/Checkbox.njk":
-    '{% from "opui/CheckboxInput.njk" import CheckboxInput %}\n\n{% macro Checkbox(props = {}) %}\n  {%- set props = props | opuiProps("Checkbox") -%}\n  {%- set rest = props | opuiRest("Checkbox") -%}\n  {%- set labelSlot = (caller() if caller) | opuiTrim -%}\n  {{- opui.warnUnnamed("Checkbox", opui.hasName(opui.merge(rest, { label: props.label }), caller is defined)) -}}\n  <label\n    class="ui-checkbox\n      {%- if props.card %} ui-card{% endif %}\n      {%- if props.spread %} ui-spread{% endif %}\n      {%- if props.card and props.variant and props.variant != \'outlined\' %} ui-{{ props.variant }}{% endif %}\n      {%- if props.orientation and props.orientation != \'horizontal\' %} ui-{{ props.orientation }}{% endif %}\n      {%- if props.size and props.size != \'medium\' %} ui-{{ props.size }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- { style: props.style } | opuiAttributes }}>\n    {{- CheckboxInput(opui.merge(\n      rest,\n      { "aria-invalid": "true" if props.error else props["aria-invalid"] }\n    )) }}\n    {% if props.label or labelSlot -%}\n      <span class="{{ \'ui-sr-only\' if props.hideLabel else \'ui-label\' }}">{{ props.label }}\n        {{- labelSlot }}</span>\n    {%- endif %}\n    {% if props.endText or props.slots.endText != none -%}\n      <span class="ui-end-text">{{ props.endText }}{{ props.slots.endText | safe }}</span>\n    {%- endif -%}\n  </label>\n{%- endmacro %}\n',
+    '{% from "opui/CheckboxInput.njk" import CheckboxInput %}\n\n{% macro Checkbox(props = {}) %}\n  {%- set props = props | opuiProps("Checkbox") -%}\n  {%- set rest = props | opuiRest("Checkbox") -%}\n  {%- set labelSlot = (caller() if caller) | opuiTrim -%}\n  {{- opui.warnUnnamed(\n    "Checkbox",\n    opui.hasName(opui.merge(rest, { label: props.label }), caller is defined)\n  ) -}}\n  <label\n    class="ui-checkbox\n      {%- if props.card %} ui-card{% endif %}\n      {%- if props.spread %} ui-spread{% endif %}\n      {%- if props.card and props.variant and props.variant != \'outlined\' %} ui-{{ props.variant }}\n      {%- endif %}\n      {%- if props.orientation and props.orientation != \'horizontal\' %} ui-{{ props.orientation }}\n      {%- endif %}\n      {%- if props.size and props.size != \'medium\' %} ui-{{ props.size }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- { style: props.style } | opuiAttributes }}>\n    {{- CheckboxInput(opui.merge(\n      rest,\n      { "aria-invalid": "true" if props.error else props["aria-invalid"] }\n    )) }}\n    {% if props.label or labelSlot -%}\n      <span class="{{ \'ui-sr-only\' if props.hideLabel else \'ui-label\' }}">{{ props.label }}\n        {{- labelSlot }}</span>\n    {%- endif %}\n    {% if props.endText or props.slots.endText != none -%}\n      <span class="ui-end-text">{{ props.endText }}{{ props.slots.endText | safe }}</span>\n    {%- endif -%}\n  </label>\n{%- endmacro %}\n',
   "opui/CheckboxInput.njk":
     '{% macro CheckboxInput(props = {}) %}\n  {%- set props = props | opuiProps("CheckboxInput") -%}\n  {%- set rest = props | opuiRest("CheckboxInput") -%}\n  {%- set dataIndeterminate = \'\' if props.indeterminate else none -%}\n  <input\n    type="checkbox"\n    {%- if dataIndeterminate != none %} data-indeterminate="{{ dataIndeterminate }}"{% endif %}\n    {{- rest | opuiAttributes }}>\n{%- endmacro %}\n',
   "opui/Chip.njk":
-    '{% macro Chip(props = {}) %}\n  {%- set props = props | opuiProps("Chip") -%}\n  {%- set rest = props | opuiRest("Chip") -%}\n  {%- set variant = props.variant | default("tonal") -%}\n  {%- set tag = "a"\n    if opui.disabledLink(props.as, props.disabled)\n    else props.as\n    or ("a" if props.href else "div") -%}\n  {%- set classes = [\n    "ui-chip",\n    { "ui-dot": props.dot, "ui-multiline": props.multiline },\n    props.severity and "ui-" ~ props.severity,\n    props.size and props.size != "medium" and "ui-" ~ props.size,\n    variant != "tonal" and "ui-" ~ variant,\n    props.class\n  ] | opuiClass -%}\n  <{{ tag | opuiTag }}{{ opui.merge(\n    { class: classes },\n    opui.tagAttrs(tag, props.disabled, props.href),\n    opui.defined(rest)\n  ) | opuiAttributes(tag) }}>\n    {{- props.slots.start | safe }}{% if props.label or props.slots.label != none -%}\n      <span class="ui-text">{{ props.label }}{{ props.slots.label | safe }}</span>\n    {%- endif %}{{ props.slots.end | safe -}}\n  </{{ tag | opuiTag }}>\n{%- endmacro %}\n',
+    '{% macro Chip(props = {}) %}\n  {%- set props = props | opuiProps("Chip") -%}\n  {%- set rest = props | opuiRest("Chip") -%}\n  {%- set variant = props.variant | default("tonal") -%}\n  {%- set tag = "a"\n    if opui.disabledLink(props.as, props.disabled)\n    else props.as or ("a" if props.href else "div") -%}\n  {%- set classes = [\n    "ui-chip",\n    { "ui-dot": props.dot, "ui-multiline": props.multiline },\n    props.severity and "ui-" ~ props.severity,\n    props.size and props.size != "medium" and "ui-" ~ props.size,\n    variant != "tonal" and "ui-" ~ variant,\n    props.class\n  ] | opuiClass -%}\n  <{{ tag | opuiTag }}{{ opui.merge(\n    { class: classes },\n    opui.tagAttrs(tag, props.disabled, props.href),\n    opui.defined(rest)\n  ) | opuiAttributes(tag) }}>\n    {{- props.slots.start | safe }}{% if props.label or props.slots.label != none -%}\n      <span class="ui-text">{{ props.label }}{{ props.slots.label | safe }}</span>\n    {%- endif %}{{ props.slots.end | safe -}}\n  </{{ tag | opuiTag }}>\n{%- endmacro %}\n',
   "opui/ControlGroup.njk":
-    "{% macro ControlGroup(props = {}) %}\n  {%- set props = props | opuiProps(\"ControlGroup\") -%}\n  {%- set rest = props | opuiRest(\"ControlGroup\") -%}\n  {%- set role = props.role | default('group') -%}\n  <div\n    class=\"ui-control-group\n      {%- if props.orientation == 'vertical' %} ui-vertical{% endif %}\n      {%- if props.color %} ui-{{ props.color }}{% endif %}\n      {%- if props.overflow and props.overflow != 'wrap' %} ui-overflow-{{ props.overflow }}{% endif %}\n      {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}\n      {%- if props.variant and props.variant != 'transparent' %} ui-{{ props.variant }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}\"\n    role=\"{{ role }}\"\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </div>\n{%- endmacro %}\n",
+    "{% macro ControlGroup(props = {}) %}\n  {%- set props = props | opuiProps(\"ControlGroup\") -%}\n  {%- set rest = props | opuiRest(\"ControlGroup\") -%}\n  {%- set role = props.role | default('group') -%}\n  <div\n    class=\"ui-control-group\n      {%- if props.orientation == 'vertical' %} ui-vertical{% endif %}\n      {%- if props.color %} ui-{{ props.color }}{% endif %}\n      {%- if props.overflow and props.overflow != 'wrap' %} ui-overflow-{{ props.overflow }}\n      {%- endif %}\n      {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}\n      {%- if props.variant and props.variant != 'transparent' %} ui-{{ props.variant }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}\"\n    role=\"{{ role }}\"\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </div>\n{%- endmacro %}\n",
   "opui/Copy.njk":
     '{% macro Copy(props = {}) %}\n  {%- set props = props | opuiProps("Copy") -%}\n  {%- set rest = props | opuiRest("Copy") -%}\n  {{- opui.warnMissingId("Copy", props.id) -}}\n  {%- set classes = ["ui-copy", props.class] | opuiClass -%}\n  <opui-copy{{ opui.merge(\n    {\n      class: classes,\n      "copied-label": props.copiedLabel,\n      "failed-label": props.failedLabel,\n      id: props.id\n    },\n    opui.defined(rest)\n  ) | opuiAttributes("opui-copy") }}>\n    {{- caller() if caller }}\n    <span class="ui-sr-only" role="status"></span>\n    <span aria-hidden="true" class="ui-floating" popover></span>\n  </opui-copy>\n{%- endmacro %}\n',
   "opui/DescriptionList.njk":
-    '{% macro DescriptionList(props = {}) %}\n  {%- set props = props | opuiProps("DescriptionList") -%}\n  {%- set rest = props | opuiRest("DescriptionList") -%}\n  <dl\n    class="ui-description-list\n      {%- if props.leader %} ui-leader-{{ props.leader }}{% endif %}\n      {%- if props.orientation and props.orientation != \'auto\' %} ui-{{ props.orientation }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </dl>\n{%- endmacro %}\n',
+    '{% macro DescriptionList(props = {}) %}\n  {%- set props = props | opuiProps("DescriptionList") -%}\n  {%- set rest = props | opuiRest("DescriptionList") -%}\n  <dl\n    class="ui-description-list\n      {%- if props.leader %} ui-leader-{{ props.leader }}{% endif %}\n      {%- if props.orientation and props.orientation != \'auto\' %} ui-{{ props.orientation }}\n      {%- endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </dl>\n{%- endmacro %}\n',
   "opui/DescriptionListDescription.njk":
     '{% macro DescriptionListDescription(props = {}) %}\n  {%- set props = props | opuiProps("DescriptionListDescription") -%}\n  {%- set rest = props | opuiRest("DescriptionListDescription") -%}\n  <dd\n    {%- if props.class %} class="{{ props.class }}"{% endif %}\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </dd>\n{%- endmacro %}\n',
   "opui/DescriptionListItem.njk":
@@ -2093,7 +2182,7 @@ export const templates = {
   "opui/Divider.njk":
     '{% macro Divider(props = {}) %}\n  {%- set props = props | opuiProps("Divider") -%}\n  {%- set rest = props | opuiRest("Divider") -%}\n  {% if caller is defined %}<div\n    class="ui-divider\n      {%- if props.align and props.align != \'center\' %} ui-align-{{ props.align }}{% endif %}\n      {%- if props.color %} ui-{{ props.color }}{% endif %}\n      {%- if props.variant and props.variant != \'outlined\' %} ui-{{ props.variant }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </div>{% else %}<hr\n    class="ui-divider\n      {%- if props.color %} ui-{{ props.color }}{% endif %}\n      {%- if props.variant and props.variant != \'outlined\' %} ui-{{ props.variant }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- rest | opuiAttributes }}>{% endif %}\n{%- endmacro %}\n',
   "opui/Drawer.njk":
-    '{% macro Drawer(props = {}) %}\n  {%- set props = props | opuiProps("Drawer") -%}\n  {%- set rest = props | opuiRest("Drawer") -%}\n  {%- set backdrop = props.backdrop | default("blurred") -%}\n  {%- set closedby = props.closedby | default("any") -%}\n  {%- set side = props.side | default("inline-start") -%}\n  {%- set labelledBy = opui.autoLabelledBy(rest, props.id ~ "-title") -%}\n  {{- opui.warnMissingId("Drawer", props.id) -}}\n  {%- set dataCloseOnNavigate = \'\' if props.closeOnNavigate else none -%}\n  <dialog\n    {%- if closedby != none %} closedby="{{ closedby }}"{% endif %}\n    class="ui-drawer\n      {%- if backdrop == \'transparent\' %} ui-backdrop-transparent{% endif %}\n      {%- if props.scrollLock %} ui-scroll-lock{% endif %}\n      {%- if side and side != \'inline-start\' %} ui-{{ side }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {%- if labelledBy != none %} aria-labelledby="{{ labelledBy }}"{% endif %}\n    {%- if dataCloseOnNavigate != none %} data-close-on-navigate="{{ dataCloseOnNavigate }}"{% endif %}\n    {%- if props.id != none %} id="{{ props.id }}"{% endif %}\n    {{- rest | opuiAttributes }}>\n    {{- opui.provide("Drawer", { id: props.id, titleId: labelledBy }, caller) -}}\n  </dialog>\n{%- endmacro %}\n',
+    '{% macro Drawer(props = {}) %}\n  {%- set props = props | opuiProps("Drawer") -%}\n  {%- set rest = props | opuiRest("Drawer") -%}\n  {%- set backdrop = props.backdrop | default("blurred") -%}\n  {%- set closedby = props.closedby | default("any") -%}\n  {%- set side = props.side | default("inline-start") -%}\n  {%- set labelledBy = opui.autoLabelledBy(rest, props.id ~ "-title") -%}\n  {{- opui.warnMissingId("Drawer", props.id) -}}\n  {%- set dataCloseOnNavigate = \'\' if props.closeOnNavigate else none -%}\n  <dialog\n    closedby="{{ closedby }}"\n    class="ui-drawer\n      {%- if backdrop == \'transparent\' %} ui-backdrop-transparent{% endif %}\n      {%- if props.scrollLock %} ui-scroll-lock{% endif %}\n      {%- if side and side != \'inline-start\' %} ui-{{ side }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {%- if labelledBy != none %} aria-labelledby="{{ labelledBy }}"{% endif %}\n    {%- if dataCloseOnNavigate != none %} data-close-on-navigate="{{ dataCloseOnNavigate }}"\n    {%- endif %}\n    {%- if props.id != none %} id="{{ props.id }}"{% endif %}\n    {{- rest | opuiAttributes }}>\n    {{- opui.provide("Drawer", { id: props.id, titleId: labelledBy }, caller) -}}\n  </dialog>\n{%- endmacro %}\n',
   "opui/DrawerContent.njk":
     '{% macro DrawerContent(props = {}) %}\n  {%- set props = props | opuiProps("DrawerContent") -%}\n  {%- set rest = props | opuiRest("DrawerContent") -%}\n  <div\n    class="ui-content\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </div>\n{%- endmacro %}\n',
   "opui/DrawerFooter.njk":
@@ -2107,23 +2196,23 @@ export const templates = {
   "opui/FieldDescription.njk":
     '{% macro FieldDescription(props = {}) %}\n  {%- set props = props | opuiProps("FieldDescription") -%}\n  {%- set rest = props | opuiRest("FieldDescription") -%}\n  <p\n    class="ui-description\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </p>\n{%- endmacro %}\n',
   "opui/FieldGroup.njk":
-    '{% macro FieldGroup(props = {}) %}\n  {%- set props = props | opuiProps("FieldGroup") -%}\n  {%- set rest = props | opuiRest("FieldGroup") -%}\n  <div\n    class="ui-field-group\n      {%- if props.orientation and props.orientation != \'auto\' %} ui-{{ props.orientation }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </div>\n{%- endmacro %}\n',
+    '{% macro FieldGroup(props = {}) %}\n  {%- set props = props | opuiProps("FieldGroup") -%}\n  {%- set rest = props | opuiRest("FieldGroup") -%}\n  <div\n    class="ui-field-group\n      {%- if props.orientation and props.orientation != \'auto\' %} ui-{{ props.orientation }}\n      {%- endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </div>\n{%- endmacro %}\n',
   "opui/FieldLegend.njk":
     '{% macro FieldLegend(props = {}) %}\n  {%- set props = props | opuiProps("FieldLegend") -%}\n  {%- set rest = props | opuiRest("FieldLegend") -%}\n  {%- set tag = props.as | default("legend") -%}\n  {%- set fieldset = opui.context("Fieldset") -%}\n  {%- set isLegend = tag == "legend" -%}\n  {{- opui.warnReplacedId("FieldLegend", "Fieldset", props.id, fieldset.legendId) -}}\n  {%- set classes = [{ "ui-legend": not isLegend }, props.class] | opuiClass -%}\n  <{{ tag | opuiTag }}{{ opui.merge(\n    { class: classes },\n    rest,\n    { id: fieldset.legendId if fieldset.legendId != none else props.id }\n  ) | opuiAttributes(tag) }}>\n    {{- caller() if caller -}}\n  </{{ tag | opuiTag }}>\n{%- endmacro %}\n',
   "opui/Fieldset.njk":
     '{% macro Fieldset(props = {}) %}\n  {%- set props = props | opuiProps("Fieldset") -%}\n  {%- set rest = props | opuiRest("Fieldset") -%}\n  {%- set tag = props.as | default("fieldset") -%}\n  {%- set isFieldset = tag == "fieldset" -%}\n  {%- set legendId = undefined\n    if isFieldset\n    else opui.autoLabelledBy(rest, (rest.id or opui.id("fieldset")) ~ "-legend") -%}\n  {%- set classes = ["ui-fieldset", props.class] | opuiClass -%}\n  <{{ tag | opuiTag }}{{ opui.merge(\n    {\n      "aria-labelledby": legendId,\n      class: classes,\n      role: none if isFieldset else "group"\n    },\n    opui.defined(rest)\n  ) | opuiAttributes(tag) }}>\n    {{- opui.provide("Fieldset", { legendId: legendId }, caller) -}}\n  </{{ tag | opuiTag }}>\n{%- endmacro %}\n',
   "opui/FileUpload.njk":
-    '{% from "opui/Button.njk" import Button %}\n{% from "opui/Progress.njk" import Progress %}\n\n{% macro FileUpload(props = {}) %}\n  {%- set props = props | opuiProps("FileUpload") -%}\n  {%- set rest = props | opuiRest("FileUpload") -%}\n  {%- set progressLabel = props.progressLabel | default("Uploading {label}") -%}\n  {%- set removeLabel = props.removeLabel | default("Remove {label}") -%}\n  {%- set ids = opui.ids("file-upload", props.id) -%}\n  {%- set inputId = ids() -%}\n  {%- set descriptionId = ids("description") if props.description else none -%}\n  {%- set classes = ["ui-file-upload", props.class] | opuiClass -%}\n  <opui-file-upload{{ opui.merge({ class: classes }, opui.defined(rest)) | opuiAttributes("opui-file-upload") }}>\n    <div class="ui-content">\n      <div class="ui-field-container">\n        <label class="ui-label">\n          <input\n            {%- if props.accept != none %} accept="{{ props.accept }}"{% endif %}\n            {%- if descriptionId != none %} aria-describedby="{{ descriptionId }}"{% endif %}\n            class="ui-sr-only"\n            {%- if props.disabled %} disabled{% endif %}\n            id="{{ inputId }}"\n            {%- if props.multiple != none %} multiple="{{ props.multiple }}"{% endif %}\n            type="file">\n          <span class="ui-button ui-outlined">{{ props.label }}</span>\n          <svg\n            aria-hidden="true"\n            xmlns="http://www.w3.org/2000/svg"\n            width="24"\n            height="24"\n            viewBox="0 0 24 24"></svg>\n        </label>\n        {% if props.description -%}\n          <span class="ui-description" id="{{ descriptionId }}">{{ props.description }}</span>\n        {%- endif -%}\n      </div>\n      {% if props.items and props.items.length > 0 -%}\n        <ul class="ui-list">\n          {%- for item in props.items %}\n            {%- set index = loop.index0 -%}\n            <li{% if item.state === \'error\' %} class="ui-state-error"{% endif %}>\n              <div class="ui-start">\n                {%- if item.preview -%}\n                  <img\n                    alt=""\n                    {%- if item.preview != none %} src="{{ item.preview }}"{% endif %}>\n                {%- endif %}{% if item.state === "error" and item.description -%}\n                  <button\n                    aria-labelledby="{{ inputId ~ \'-label-\' ~ index ~ \' \' ~ inputId ~ \'-description-\' ~ index }}"\n                    popovertarget="{{ inputId ~ \'-description-\' ~ index }}"\n                    type="button"></button>\n                {%- endif -%}\n              </div>\n              <div class="ui-text">\n                <p dir="auto" id="{{ inputId ~ \'-label-\' ~ index }}">{{ item.label }}</p>\n                {%- if item.state === "queued" or item.state === "uploading" -%}\n                  {{ Progress({\n                    "aria-label": progressLabel.replace("{label}", item.label),\n                    value: (item.progress if item.progress != none else 0) if item.state === "uploading" else undefined\n                  }) }}\n                {%- endif %}{% if item.description -%}\n                  <p\n                    class="ui-description"\n                    id="{{ inputId ~ \'-description-\' ~ index }}"\n                    {{- { popover: \'auto\' if item.state === \'error\' else none } | opuiAttributes }}>\n                    {{- item.description }}</p>\n                {%- endif -%}\n              </div>\n              <div class="ui-end">\n                {%- call Button({\n                  "aria-label": removeLabel.replace("{label}", item.label),\n                  command: "--remove",\n                  commandfor: inputId,\n                  round: true,\n                  size: "small",\n                  value: item.value\n                }) -%}\n                  <svg\n                    aria-hidden="true"\n                    xmlns="http://www.w3.org/2000/svg"\n                    width="32"\n                    height="32"\n                    viewBox="0 0 32 32"></svg>\n                {%- endcall -%}\n              </div>\n            </li>\n          {%- endfor -%}\n        </ul>\n      {%- endif -%}\n    </div>\n    <span class="ui-sr-only" role="status">{{ props.status }}</span>\n  </opui-file-upload>\n{%- endmacro %}\n',
+    '{% from "opui/Button.njk" import Button %}\n{% from "opui/Progress.njk" import Progress %}\n\n{% macro FileUpload(props = {}) %}\n  {%- set props = props | opuiProps("FileUpload") -%}\n  {%- set rest = props | opuiRest("FileUpload") -%}\n  {%- set progressLabel = props.progressLabel | default("Uploading {label}") -%}\n  {%- set removeLabel = props.removeLabel | default("Remove {label}") -%}\n  {%- set ids = opui.ids("file-upload", props.id) -%}\n  {%- set inputId = ids() -%}\n  {%- set descriptionId = ids("description") if props.description else none -%}\n  {%- set classes = ["ui-file-upload", props.class] | opuiClass -%}\n  {%- set multiple = props.multiple or none -%}\n  <opui-file-upload\n    {{- opui.merge({ class: classes }, opui.defined(rest)) | opuiAttributes("opui-file-upload") }}>\n    <div class="ui-content">\n      <div class="ui-field-container">\n        <label class="ui-label">\n          <input\n            {%- if props.accept != none %} accept="{{ props.accept }}"{% endif %}\n            {%- if descriptionId != none %} aria-describedby="{{ descriptionId }}"{% endif %}\n            class="ui-sr-only"\n            {%- if props.disabled %} disabled{% endif %}\n            id="{{ inputId }}"\n            {%- if multiple != none %} multiple="{{ multiple }}"{% endif %}\n            type="file">\n          <span class="ui-button ui-outlined">{{ props.label }}</span>\n          <svg\n            aria-hidden="true"\n            xmlns="http://www.w3.org/2000/svg"\n            width="24"\n            height="24"\n            viewBox="0 0 24 24"></svg>\n        </label>\n        {% if props.description -%}\n          <span class="ui-description" id="{{ descriptionId }}">{{ props.description }}</span>\n        {%- endif -%}\n      </div>\n      {% if props.items and props.items.length > 0 -%}\n        <ul class="ui-list">\n          {%- for item in props.items %}\n            {%- set index = loop.index0 -%}\n            <li{% if item.state == \'error\' %} class="ui-state-error"{% endif %}>\n              <div class="ui-start">\n                {%- if item.preview %}<img alt="" src="{{ item.preview }}">{% endif %}\n                {%- if item.state == "error" and item.description -%}\n                  <button\n                    aria-labelledby="{{ inputId }}-label-{{ index }} {{ inputId }}-description-\n                    {{- index }}"\n                    popovertarget="{{ inputId }}-description-{{ index }}"\n                    type="button"></button>\n                {%- endif -%}\n              </div>\n              <div class="ui-text">\n                <p dir="auto" id="{{ inputId }}-label-{{ index }}">{{ item.label }}</p>\n                {%- if item.state == "queued" or item.state == "uploading" -%}\n                  {{ Progress({\n                    "aria-label": progressLabel.replace("{label}", item.label),\n                    value: (item.progress if item.progress != none else 0)\n                      if item.state == "uploading"\n                      else undefined\n                  }) }}\n                {%- endif %}{% if item.description -%}\n                  <p\n                    class="ui-description"\n                    id="{{ inputId }}-description-{{ index }}"\n                    {{- { popover: \'auto\' if item.state == \'error\' else none } | opuiAttributes }}>\n                    {{- item.description }}</p>\n                {%- endif -%}\n              </div>\n              <div class="ui-end">\n                {%- call Button({\n                  "aria-label": removeLabel.replace("{label}", item.label),\n                  command: "--remove",\n                  commandfor: inputId,\n                  round: true,\n                  size: "small",\n                  value: item.value\n                }) -%}\n                  <svg\n                    aria-hidden="true"\n                    xmlns="http://www.w3.org/2000/svg"\n                    width="32"\n                    height="32"\n                    viewBox="0 0 32 32"></svg>\n                {%- endcall -%}\n              </div>\n            </li>\n          {%- endfor -%}\n        </ul>\n      {%- endif -%}\n    </div>\n    <span class="ui-sr-only" role="status">{{ props.status }}</span>\n  </opui-file-upload>\n{%- endmacro %}\n',
   "opui/Form.njk":
     '{% macro Form(props = {}) %}\n  {%- set props = props | opuiProps("Form") -%}\n  {%- set rest = props | opuiRest("Form") -%}\n  {%- set tag = props.as | default("form") -%}\n  {%- set classes = ["ui-form", props.class] | opuiClass -%}\n  <{{ tag | opuiTag }}{{ opui.merge({ class: classes }, rest) | opuiAttributes(tag) }}>\n    {{- caller() if caller -}}\n  </{{ tag | opuiTag }}>\n{%- endmacro %}\n',
   "opui/index.njk":
-    '{% from "opui/Accordion.njk" import Accordion %}{% set Accordion = Accordion %}\n{% from "opui/AccordionActions.njk" import AccordionActions %}{% set AccordionActions = AccordionActions %}\n{% from "opui/AccordionContent.njk" import AccordionContent %}{% set AccordionContent = AccordionContent %}\n{% from "opui/AccordionSummary.njk" import AccordionSummary %}{% set AccordionSummary = AccordionSummary %}\n{% from "opui/Anchor.njk" import Anchor %}{% set Anchor = Anchor %}\n{% from "opui/AnchorContent.njk" import AnchorContent %}{% set AnchorContent = AnchorContent %}\n{% from "opui/Avatar.njk" import Avatar %}{% set Avatar = Avatar %}\n{% from "opui/AvatarGroup.njk" import AvatarGroup %}{% set AvatarGroup = AvatarGroup %}\n{% from "opui/Badge.njk" import Badge %}{% set Badge = Badge %}\n{% from "opui/Button.njk" import Button %}{% set Button = Button %}\n{% from "opui/Callout.njk" import Callout %}{% set Callout = Callout %}\n{% from "opui/CalloutActions.njk" import CalloutActions %}{% set CalloutActions = CalloutActions %}\n{% from "opui/CalloutContent.njk" import CalloutContent %}{% set CalloutContent = CalloutContent %}\n{% from "opui/CalloutIcon.njk" import CalloutIcon %}{% set CalloutIcon = CalloutIcon %}\n{% from "opui/Card.njk" import Card %}{% set Card = Card %}\n{% from "opui/CardActions.njk" import CardActions %}{% set CardActions = CardActions %}\n{% from "opui/CardContent.njk" import CardContent %}{% set CardContent = CardContent %}\n{% from "opui/CardHeader.njk" import CardHeader %}{% set CardHeader = CardHeader %}\n{% from "opui/Carousel.njk" import Carousel %}{% set Carousel = Carousel %}\n{% from "opui/CharacterCount.njk" import CharacterCount %}{% set CharacterCount = CharacterCount %}\n{% from "opui/Checkbox.njk" import Checkbox %}{% set Checkbox = Checkbox %}\n{% from "opui/CheckboxInput.njk" import CheckboxInput %}{% set CheckboxInput = CheckboxInput %}\n{% from "opui/Chip.njk" import Chip %}{% set Chip = Chip %}\n{% from "opui/ControlGroup.njk" import ControlGroup %}{% set ControlGroup = ControlGroup %}\n{% from "opui/Copy.njk" import Copy %}{% set Copy = Copy %}\n{% from "opui/DescriptionList.njk" import DescriptionList %}{% set DescriptionList = DescriptionList %}\n{% from "opui/DescriptionListDescription.njk" import DescriptionListDescription %}{% set DescriptionListDescription = DescriptionListDescription %}\n{% from "opui/DescriptionListItem.njk" import DescriptionListItem %}{% set DescriptionListItem = DescriptionListItem %}\n{% from "opui/DescriptionListTerm.njk" import DescriptionListTerm %}{% set DescriptionListTerm = DescriptionListTerm %}\n{% from "opui/Dialog.njk" import Dialog %}{% set Dialog = Dialog %}\n{% from "opui/DialogContent.njk" import DialogContent %}{% set DialogContent = DialogContent %}\n{% from "opui/DialogFooter.njk" import DialogFooter %}{% set DialogFooter = DialogFooter %}\n{% from "opui/DialogHeader.njk" import DialogHeader %}{% set DialogHeader = DialogHeader %}\n{% from "opui/DialogTitle.njk" import DialogTitle %}{% set DialogTitle = DialogTitle %}\n{% from "opui/Divider.njk" import Divider %}{% set Divider = Divider %}\n{% from "opui/Drawer.njk" import Drawer %}{% set Drawer = Drawer %}\n{% from "opui/DrawerContent.njk" import DrawerContent %}{% set DrawerContent = DrawerContent %}\n{% from "opui/DrawerFooter.njk" import DrawerFooter %}{% set DrawerFooter = DrawerFooter %}\n{% from "opui/DrawerHeader.njk" import DrawerHeader %}{% set DrawerHeader = DrawerHeader %}\n{% from "opui/DrawerTitle.njk" import DrawerTitle %}{% set DrawerTitle = DrawerTitle %}\n{% from "opui/Field.njk" import Field %}{% set Field = Field %}\n{% from "opui/FieldDescription.njk" import FieldDescription %}{% set FieldDescription = FieldDescription %}\n{% from "opui/FieldGroup.njk" import FieldGroup %}{% set FieldGroup = FieldGroup %}\n{% from "opui/FieldLegend.njk" import FieldLegend %}{% set FieldLegend = FieldLegend %}\n{% from "opui/Fieldset.njk" import Fieldset %}{% set Fieldset = Fieldset %}\n{% from "opui/FileUpload.njk" import FileUpload %}{% set FileUpload = FileUpload %}\n{% from "opui/Form.njk" import Form %}{% set Form = Form %}\n{% from "opui/List.njk" import List %}{% set List = List %}\n{% from "opui/ListItem.njk" import ListItem %}{% set ListItem = ListItem %}\n{% from "opui/Menu.njk" import Menu %}{% set Menu = Menu %}\n{% from "opui/Message.njk" import Message %}{% set Message = Message %}\n{% from "opui/MessageList.njk" import MessageList %}{% set MessageList = MessageList %}\n{% from "opui/Meter.njk" import Meter %}{% set Meter = Meter %}\n{% from "opui/OneTimeCode.njk" import OneTimeCode %}{% set OneTimeCode = OneTimeCode %}\n{% from "opui/PasswordToggle.njk" import PasswordToggle %}{% set PasswordToggle = PasswordToggle %}\n{% from "opui/Progress.njk" import Progress %}{% set Progress = Progress %}\n{% from "opui/Radio.njk" import Radio %}{% set Radio = Radio %}\n{% from "opui/RadioInput.njk" import RadioInput %}{% set RadioInput = RadioInput %}\n{% from "opui/Rating.njk" import Rating %}{% set Rating = Rating %}\n{% from "opui/Reactions.njk" import Reactions %}{% set Reactions = Reactions %}\n{% from "opui/SelectAll.njk" import SelectAll %}{% set SelectAll = SelectAll %}\n{% from "opui/SelectButton.njk" import SelectButton %}{% set SelectButton = SelectButton %}\n{% from "opui/SortableTable.njk" import SortableTable %}{% set SortableTable = SortableTable %}\n{% from "opui/Stat.njk" import Stat %}{% set Stat = Stat %}\n{% from "opui/StepButton.njk" import StepButton %}{% set StepButton = StepButton %}\n{% from "opui/Stepper.njk" import Stepper %}{% set Stepper = Stepper %}\n{% from "opui/StepperItem.njk" import StepperItem %}{% set StepperItem = StepperItem %}\n{% from "opui/Switch.njk" import Switch %}{% set Switch = Switch %}\n{% from "opui/SwitchInput.njk" import SwitchInput %}{% set SwitchInput = SwitchInput %}\n{% from "opui/Table.njk" import Table %}{% set Table = Table %}\n{% from "opui/TableBody.njk" import TableBody %}{% set TableBody = TableBody %}\n{% from "opui/TableCaption.njk" import TableCaption %}{% set TableCaption = TableCaption %}\n{% from "opui/TableCell.njk" import TableCell %}{% set TableCell = TableCell %}\n{% from "opui/TableColumn.njk" import TableColumn %}{% set TableColumn = TableColumn %}\n{% from "opui/TableColumnGroup.njk" import TableColumnGroup %}{% set TableColumnGroup = TableColumnGroup %}\n{% from "opui/TableFoot.njk" import TableFoot %}{% set TableFoot = TableFoot %}\n{% from "opui/TableHead.njk" import TableHead %}{% set TableHead = TableHead %}\n{% from "opui/TableHeaderCell.njk" import TableHeaderCell %}{% set TableHeaderCell = TableHeaderCell %}\n{% from "opui/TableRow.njk" import TableRow %}{% set TableRow = TableRow %}\n{% from "opui/Tabs.njk" import Tabs %}{% set Tabs = Tabs %}\n{% from "opui/TabsItem.njk" import TabsItem %}{% set TabsItem = TabsItem %}\n{% from "opui/TabsLabel.njk" import TabsLabel %}{% set TabsLabel = TabsLabel %}\n{% from "opui/TabsPanel.njk" import TabsPanel %}{% set TabsPanel = TabsPanel %}\n{% from "opui/Timeline.njk" import Timeline %}{% set Timeline = Timeline %}\n{% from "opui/TimelineItem.njk" import TimelineItem %}{% set TimelineItem = TimelineItem %}\n{% from "opui/Toaster.njk" import Toaster %}{% set Toaster = Toaster %}\n{% from "opui/ToggleButton.njk" import ToggleButton %}{% set ToggleButton = ToggleButton %}\n{% from "opui/ToggleGroup.njk" import ToggleGroup %}{% set ToggleGroup = ToggleGroup %}\n{% from "opui/Tooltip.njk" import Tooltip %}{% set Tooltip = Tooltip %}\n{% from "opui/AnchorContent.njk" import AnchorContent %}{% set TooltipContent = AnchorContent %}\n',
+    '{% from "opui/Accordion.njk" import Accordion %}\n{% set Accordion = Accordion %}\n{% from "opui/AccordionActions.njk" import AccordionActions %}\n{% set AccordionActions = AccordionActions %}\n{% from "opui/AccordionContent.njk" import AccordionContent %}\n{% set AccordionContent = AccordionContent %}\n{% from "opui/AccordionSummary.njk" import AccordionSummary %}\n{% set AccordionSummary = AccordionSummary %}\n{% from "opui/Anchor.njk" import Anchor %}\n{% set Anchor = Anchor %}\n{% from "opui/AnchorContent.njk" import AnchorContent %}\n{% set AnchorContent = AnchorContent %}\n{% from "opui/Avatar.njk" import Avatar %}\n{% set Avatar = Avatar %}\n{% from "opui/AvatarGroup.njk" import AvatarGroup %}\n{% set AvatarGroup = AvatarGroup %}\n{% from "opui/Badge.njk" import Badge %}\n{% set Badge = Badge %}\n{% from "opui/Button.njk" import Button %}\n{% set Button = Button %}\n{% from "opui/Callout.njk" import Callout %}\n{% set Callout = Callout %}\n{% from "opui/CalloutActions.njk" import CalloutActions %}\n{% set CalloutActions = CalloutActions %}\n{% from "opui/CalloutContent.njk" import CalloutContent %}\n{% set CalloutContent = CalloutContent %}\n{% from "opui/CalloutIcon.njk" import CalloutIcon %}\n{% set CalloutIcon = CalloutIcon %}\n{% from "opui/Card.njk" import Card %}\n{% set Card = Card %}\n{% from "opui/CardActions.njk" import CardActions %}\n{% set CardActions = CardActions %}\n{% from "opui/CardContent.njk" import CardContent %}\n{% set CardContent = CardContent %}\n{% from "opui/CardHeader.njk" import CardHeader %}\n{% set CardHeader = CardHeader %}\n{% from "opui/Carousel.njk" import Carousel %}\n{% set Carousel = Carousel %}\n{% from "opui/CharacterCount.njk" import CharacterCount %}\n{% set CharacterCount = CharacterCount %}\n{% from "opui/Checkbox.njk" import Checkbox %}\n{% set Checkbox = Checkbox %}\n{% from "opui/CheckboxInput.njk" import CheckboxInput %}\n{% set CheckboxInput = CheckboxInput %}\n{% from "opui/Chip.njk" import Chip %}\n{% set Chip = Chip %}\n{% from "opui/ControlGroup.njk" import ControlGroup %}\n{% set ControlGroup = ControlGroup %}\n{% from "opui/Copy.njk" import Copy %}\n{% set Copy = Copy %}\n{% from "opui/DescriptionList.njk" import DescriptionList %}\n{% set DescriptionList = DescriptionList %}\n{% from "opui/DescriptionListDescription.njk" import DescriptionListDescription %}\n{% set DescriptionListDescription = DescriptionListDescription %}\n{% from "opui/DescriptionListItem.njk" import DescriptionListItem %}\n{% set DescriptionListItem = DescriptionListItem %}\n{% from "opui/DescriptionListTerm.njk" import DescriptionListTerm %}\n{% set DescriptionListTerm = DescriptionListTerm %}\n{% from "opui/Dialog.njk" import Dialog %}\n{% set Dialog = Dialog %}\n{% from "opui/DialogContent.njk" import DialogContent %}\n{% set DialogContent = DialogContent %}\n{% from "opui/DialogFooter.njk" import DialogFooter %}\n{% set DialogFooter = DialogFooter %}\n{% from "opui/DialogHeader.njk" import DialogHeader %}\n{% set DialogHeader = DialogHeader %}\n{% from "opui/DialogTitle.njk" import DialogTitle %}\n{% set DialogTitle = DialogTitle %}\n{% from "opui/Divider.njk" import Divider %}\n{% set Divider = Divider %}\n{% from "opui/Drawer.njk" import Drawer %}\n{% set Drawer = Drawer %}\n{% from "opui/DrawerContent.njk" import DrawerContent %}\n{% set DrawerContent = DrawerContent %}\n{% from "opui/DrawerFooter.njk" import DrawerFooter %}\n{% set DrawerFooter = DrawerFooter %}\n{% from "opui/DrawerHeader.njk" import DrawerHeader %}\n{% set DrawerHeader = DrawerHeader %}\n{% from "opui/DrawerTitle.njk" import DrawerTitle %}\n{% set DrawerTitle = DrawerTitle %}\n{% from "opui/Field.njk" import Field %}\n{% set Field = Field %}\n{% from "opui/FieldDescription.njk" import FieldDescription %}\n{% set FieldDescription = FieldDescription %}\n{% from "opui/FieldGroup.njk" import FieldGroup %}\n{% set FieldGroup = FieldGroup %}\n{% from "opui/FieldLegend.njk" import FieldLegend %}\n{% set FieldLegend = FieldLegend %}\n{% from "opui/Fieldset.njk" import Fieldset %}\n{% set Fieldset = Fieldset %}\n{% from "opui/FileUpload.njk" import FileUpload %}\n{% set FileUpload = FileUpload %}\n{% from "opui/Form.njk" import Form %}\n{% set Form = Form %}\n{% from "opui/List.njk" import List %}\n{% set List = List %}\n{% from "opui/ListItem.njk" import ListItem %}\n{% set ListItem = ListItem %}\n{% from "opui/Menu.njk" import Menu %}\n{% set Menu = Menu %}\n{% from "opui/Message.njk" import Message %}\n{% set Message = Message %}\n{% from "opui/MessageList.njk" import MessageList %}\n{% set MessageList = MessageList %}\n{% from "opui/Meter.njk" import Meter %}\n{% set Meter = Meter %}\n{% from "opui/OneTimeCode.njk" import OneTimeCode %}\n{% set OneTimeCode = OneTimeCode %}\n{% from "opui/PasswordToggle.njk" import PasswordToggle %}\n{% set PasswordToggle = PasswordToggle %}\n{% from "opui/Progress.njk" import Progress %}\n{% set Progress = Progress %}\n{% from "opui/Radio.njk" import Radio %}\n{% set Radio = Radio %}\n{% from "opui/RadioInput.njk" import RadioInput %}\n{% set RadioInput = RadioInput %}\n{% from "opui/Rating.njk" import Rating %}\n{% set Rating = Rating %}\n{% from "opui/Reactions.njk" import Reactions %}\n{% set Reactions = Reactions %}\n{% from "opui/SelectAll.njk" import SelectAll %}\n{% set SelectAll = SelectAll %}\n{% from "opui/SelectButton.njk" import SelectButton %}\n{% set SelectButton = SelectButton %}\n{% from "opui/SortableTable.njk" import SortableTable %}\n{% set SortableTable = SortableTable %}\n{% from "opui/Stat.njk" import Stat %}\n{% set Stat = Stat %}\n{% from "opui/StepButton.njk" import StepButton %}\n{% set StepButton = StepButton %}\n{% from "opui/Stepper.njk" import Stepper %}\n{% set Stepper = Stepper %}\n{% from "opui/StepperItem.njk" import StepperItem %}\n{% set StepperItem = StepperItem %}\n{% from "opui/Switch.njk" import Switch %}\n{% set Switch = Switch %}\n{% from "opui/SwitchInput.njk" import SwitchInput %}\n{% set SwitchInput = SwitchInput %}\n{% from "opui/Table.njk" import Table %}\n{% set Table = Table %}\n{% from "opui/TableBody.njk" import TableBody %}\n{% set TableBody = TableBody %}\n{% from "opui/TableCaption.njk" import TableCaption %}\n{% set TableCaption = TableCaption %}\n{% from "opui/TableCell.njk" import TableCell %}\n{% set TableCell = TableCell %}\n{% from "opui/TableColumn.njk" import TableColumn %}\n{% set TableColumn = TableColumn %}\n{% from "opui/TableColumnGroup.njk" import TableColumnGroup %}\n{% set TableColumnGroup = TableColumnGroup %}\n{% from "opui/TableFoot.njk" import TableFoot %}\n{% set TableFoot = TableFoot %}\n{% from "opui/TableHead.njk" import TableHead %}\n{% set TableHead = TableHead %}\n{% from "opui/TableHeaderCell.njk" import TableHeaderCell %}\n{% set TableHeaderCell = TableHeaderCell %}\n{% from "opui/TableRow.njk" import TableRow %}\n{% set TableRow = TableRow %}\n{% from "opui/Tabs.njk" import Tabs %}\n{% set Tabs = Tabs %}\n{% from "opui/TabsItem.njk" import TabsItem %}\n{% set TabsItem = TabsItem %}\n{% from "opui/TabsLabel.njk" import TabsLabel %}\n{% set TabsLabel = TabsLabel %}\n{% from "opui/TabsPanel.njk" import TabsPanel %}\n{% set TabsPanel = TabsPanel %}\n{% from "opui/Timeline.njk" import Timeline %}\n{% set Timeline = Timeline %}\n{% from "opui/TimelineItem.njk" import TimelineItem %}\n{% set TimelineItem = TimelineItem %}\n{% from "opui/Toaster.njk" import Toaster %}\n{% set Toaster = Toaster %}\n{% from "opui/ToggleButton.njk" import ToggleButton %}\n{% set ToggleButton = ToggleButton %}\n{% from "opui/ToggleGroup.njk" import ToggleGroup %}\n{% set ToggleGroup = ToggleGroup %}\n{% from "opui/Tooltip.njk" import Tooltip %}\n{% set Tooltip = Tooltip %}\n{% from "opui/AnchorContent.njk" import AnchorContent %}\n{% set TooltipContent = AnchorContent %}\n',
   "opui/List.njk":
     '{% macro List(props = {}) %}\n  {%- set props = props | opuiProps("List") -%}\n  {%- set rest = props | opuiRest("List") -%}\n  {%- set tag = props.as | default("ul") -%}\n  {%- set classes = [\n    "ui-list",\n    { "ui-bordered": props.bordered, "ui-dense": props.dense, "ui-flush": props.flush },\n    props.variant and props.variant != "filled" and "ui-" ~ props.variant,\n    props.class\n  ] | opuiClass -%}\n  <{{ tag | opuiTag }}{{ opui.merge(\n    { class: classes, role: props.role | default("list") },\n    opui.defined(rest)\n  ) | opuiAttributes(tag) }}>\n    {{- caller() if caller -}}\n  </{{ tag | opuiTag }}>\n{%- endmacro %}\n',
   "opui/ListItem.njk":
-    '{% macro ListItem(props = {}) %}\n  {%- set props = props | opuiProps("ListItem") -%}\n  {%- set rest = props | opuiRest("ListItem") -%}\n  {%- set submenu = props.slots.submenu | opuiTrim -%}\n  {%- set hasControl = props.choice == "checkbox"\n    or props.choice == "radio"\n    or props.choice == "switch" -%}\n  {%- set tag = "label"\n    if hasControl\n    else ("a" if opui.disabledLink(props.as, props.disabled) else props.as | default("a" if props.href else undefined)) -%}\n  {%- set restOnItem = hasControl or not tag -%}\n  {%- set hasLabel = (true if props.label else false) or props.slots.label != none -%}\n  {%- set hasDescription = (true if props.description else false)\n    or props.slots.description != none -%}\n  {%- set classes = [{ "ui-border-top": props.borderTop, "ui-inset": props.inset }, props.color and \'ui-\' ~ props.color, props.class] | opuiClass -%}\n  <li\n    {%- if classes %} class="{{ classes }}"{% endif %}\n    {%- if restOnItem %}{{ rest | opuiAttributes }}{% endif %}>\n    {%- if tag %}<{{ tag | opuiTag }}{{ opui.merge(\n      {\n        class: [hasControl and "ui-" ~ props.choice] | opuiClass,\n        for: props.for if hasControl else none\n      },\n      {} if hasControl else opui.tagAttrs(tag, props.disabled, props.href),\n      opui.defined({} if restOnItem else rest)\n    ) | opuiAttributes(tag) }}>{% if props.slots.start != none %}<div class="ui-start">\n        {{- props.slots.start | safe -}}\n      </div>{% endif %}{% if hasLabel or hasDescription %}<div class="ui-text">\n        {%- if hasLabel %}<p>{{ props.label }}{{ props.slots.label | safe }}</p>{% endif %}\n        {% if hasDescription %}<p>{{ props.description }}\n          {{- props.slots.description | safe }}</p>{% endif %}\n        {{ caller() if caller -}}\n      </div>{% else %}{{ caller() if caller }}{% endif %}\n      {%- if props.slots.end != none %}<div class="ui-end">\n        {{- props.slots.end | safe -}}\n      </div>{% endif %}{% if props.slots.iconChecked != none -%}\n        <span aria-hidden="true" class="ui-icon-checked">{{ props.slots.iconChecked | safe }}</span>\n      {%- endif %}</{{ tag | opuiTag }}>{% else %}{% if props.slots.start != none %}<div class="ui-start">\n      {{- props.slots.start | safe -}}\n    </div>{% endif %}{% if hasLabel or hasDescription %}<div class="ui-text">\n      {%- if hasLabel %}<p>{{ props.label }}{{ props.slots.label | safe }}</p>{% endif %}\n      {% if hasDescription %}<p>{{ props.description }}\n        {{- props.slots.description | safe }}</p>{% endif %}\n      {{ caller() if caller -}}\n    </div>{% else %}{{ caller() if caller }}{% endif %}\n    {%- if props.slots.end != none %}<div class="ui-end">\n      {{- props.slots.end | safe -}}\n    </div>{% endif %}{% if props.slots.iconChecked != none -%}\n      <span aria-hidden="true" class="ui-icon-checked">{{ props.slots.iconChecked | safe }}</span>\n    {%- endif %}{% endif %}{{ submenu -}}\n  </li>\n{%- endmacro %}\n',
+    '{% macro ListItem(props = {}) %}\n  {%- set props = props | opuiProps("ListItem") -%}\n  {%- set rest = props | opuiRest("ListItem") -%}\n  {%- set submenu = props.slots.submenu | opuiTrim -%}\n  {%- set hasControl = props.choice == "checkbox"\n    or props.choice == "radio"\n    or props.choice == "switch" -%}\n  {%- set tag = "label"\n    if hasControl\n    else (\n      "a"\n        if opui.disabledLink(props.as, props.disabled)\n        else props.as | default("a" if props.href else undefined)\n    ) -%}\n  {%- set restOnItem = hasControl or not tag -%}\n  {%- set hasLabel = (true if props.label else false) or props.slots.label != none -%}\n  {%- set hasDescription = (true if props.description else false)\n    or props.slots.description != none -%}\n  {%- set classes = [\n    { "ui-border-top": props.borderTop, "ui-inset": props.inset },\n    props.color and \'ui-\' ~ props.color,\n    props.class\n  ] | opuiClass -%}\n  <li\n    {%- if classes %} class="{{ classes }}"{% endif %}\n    {%- if restOnItem %}{{ rest | opuiAttributes }}{% endif %}>\n    {%- if tag %}<{{ tag | opuiTag }}{{ opui.merge(\n      {\n        class: [hasControl and "ui-" ~ props.choice] | opuiClass,\n        for: props.for if hasControl else none\n      },\n      {} if hasControl else opui.tagAttrs(tag, props.disabled, props.href),\n      opui.defined({} if restOnItem else rest)\n    ) | opuiAttributes(tag) }}>{% if props.slots.start != none %}<div class="ui-start">\n        {{- props.slots.start | safe -}}\n      </div>{% endif %}{% if hasLabel or hasDescription %}<div class="ui-text">\n        {%- if hasLabel %}<p>{{ props.label }}{{ props.slots.label | safe }}</p>{% endif %}\n        {% if hasDescription %}<p>{{ props.description }}\n          {{- props.slots.description | safe }}</p>{% endif %}\n        {{ caller() if caller -}}\n      </div>{% else %}{{ caller() if caller }}{% endif %}\n      {%- if props.slots.end != none %}<div class="ui-end">\n        {{- props.slots.end | safe -}}\n      </div>{% endif %}{% if props.slots.iconChecked != none -%}\n        <span aria-hidden="true" class="ui-icon-checked">{{ props.slots.iconChecked | safe }}</span>\n      {%- endif %}</{{ tag | opuiTag }}>{% else %}{% if props.slots.start != none -%}\n      <div class="ui-start">\n      {{- props.slots.start | safe -}}\n    </div>{% endif %}{% if hasLabel or hasDescription %}<div class="ui-text">\n      {%- if hasLabel %}<p>{{ props.label }}{{ props.slots.label | safe }}</p>{% endif %}\n      {% if hasDescription %}<p>{{ props.description }}\n        {{- props.slots.description | safe }}</p>{% endif %}\n      {{ caller() if caller -}}\n    </div>{% else %}{{ caller() if caller }}{% endif %}\n    {%- if props.slots.end != none %}<div class="ui-end">\n      {{- props.slots.end | safe -}}\n    </div>{% endif %}{% if props.slots.iconChecked != none -%}\n      <span aria-hidden="true" class="ui-icon-checked">{{ props.slots.iconChecked | safe }}</span>\n    {%- endif %}{% endif %}{{ submenu -}}\n  </li>\n{%- endmacro %}\n',
   "opui/Menu.njk":
-    '{% macro Menu(props = {}) %}\n  {%- set props = props | opuiProps("Menu") -%}\n  {%- set rest = props | opuiRest("Menu") -%}\n  {%- set popover = props.popover | default("auto") -%}\n  {%- set parent = opui.context("Menu") -%}\n  {%- set rootId = parent.rootId if parent.rootId != none else props.id -%}\n  {{- opui.warnMissingId("Menu", props.id) -}}\n  <menu\n    class="ui-menu\n      {%- if props.align == \'end\' %} ui-align-end{% endif %}\n      {%- if props.bordered %} ui-bordered{% endif %}\n      {%- if props.dense %} ui-dense{% endif %}\n      {%- if props.orientation and props.orientation != \'vertical\' %} ui-{{ props.orientation }}{% endif %}\n      {%- if props.side and props.side != \'block-end\' %} ui-{{ props.side }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {%- if props.id != none %} id="{{ props.id }}"{% endif %}\n    {{- { popover: \'\' if popover == \'auto\' else popover } | opuiAttributes }}\n    {{- rest | opuiAttributes }}>\n    {%- for item in props.items %}\n      {%- set itemRest = item | opuiOmit(["as", "borderTop", "color", "disabled", "href", "keepOpen", "label", "shortcut"]) -%}\n      {%- set tag = "a"\n        if opui.disabledLink(item.as, item.disabled)\n        else (item.as if item.as != none else ("a" if item.href else "button")) -%}\n      {%- set closes = not item.href\n        and not item.keepOpen\n        and not item.disabled\n        and itemRest.type !== "submit"\n        and itemRest.type !== "reset" -%}\n      {% set classes = [{ "ui-border-top": item.borderTop }, item.color and \'ui-\' ~ item.color] | opuiClass %}<li{% if classes %} class="{{ classes }}"{% endif %}>\n        <{{ tag | opuiTag }}{{ opui.merge(\n          opui.tagAttrs(tag, item.disabled, item.href),\n          {\n            command: "hide-popover" if closes else none,\n            commandfor: rootId if closes else none,\n            "data-keep-open": "" if item.keepOpen else none\n          },\n          opui.defined(itemRest)\n        ) | opuiAttributes(tag) }}><div class="ui-text">\n            <p>{{ item.label }}</p>\n          </div>{% if item.shortcut -%}\n            <div class="ui-end">\n              <kbd>{{ item.shortcut }}</kbd>\n            </div>\n          {%- endif %}{% if props.slots.iconChecked != none -%}\n            <span aria-hidden="true" class="ui-icon-checked">\n              {{- props.slots.iconChecked | safe }}</span>\n          {%- endif %}</{{ tag | opuiTag }}>\n      </li>\n    {%- endfor %}\n    {{ opui.provide("Menu", { rootId: rootId }, caller) -}}\n  </menu>\n{%- endmacro %}\n',
+    '{% macro Menu(props = {}) %}\n  {%- set props = props | opuiProps("Menu") -%}\n  {%- set rest = props | opuiRest("Menu") -%}\n  {%- set popover = props.popover | default("auto") -%}\n  {%- set parent = opui.context("Menu") -%}\n  {%- set rootId = parent.rootId if parent.rootId != none else props.id -%}\n  {{- opui.warnMissingId("Menu", props.id) -}}\n  <menu\n    class="ui-menu\n      {%- if props.align == \'end\' %} ui-align-end{% endif %}\n      {%- if props.bordered %} ui-bordered{% endif %}\n      {%- if props.dense %} ui-dense{% endif %}\n      {%- if props.orientation and props.orientation != \'vertical\' %} ui-{{ props.orientation }}\n      {%- endif %}\n      {%- if props.side and props.side != \'block-end\' %} ui-{{ props.side }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {%- if props.id != none %} id="{{ props.id }}"{% endif %}\n    {{- { popover: \'\' if popover == \'auto\' else popover } | opuiAttributes }}\n    {{- rest | opuiAttributes }}>\n    {%- for item in props.items %}\n      {%- set itemRest = item | opuiOmit([\n        "as",\n        "borderTop",\n        "color",\n        "disabled",\n        "href",\n        "keepOpen",\n        "label",\n        "shortcut"\n      ]) -%}\n      {%- set tag = "a"\n        if opui.disabledLink(item.as, item.disabled)\n        else (item.as if item.as != none else ("a" if item.href else "button")) -%}\n      {%- set closes = not item.href\n        and not item.keepOpen\n        and not item.disabled\n        and itemRest.type != "submit"\n        and itemRest.type != "reset" -%}\n      {% set classes = [\n        { "ui-border-top": item.borderTop },\n        item.color and \'ui-\' ~ item.color\n      ] | opuiClass -%}\n      <li{% if classes %} class="{{ classes }}"{% endif %}>\n        <{{ tag | opuiTag }}{{ opui.merge(\n          opui.tagAttrs(tag, item.disabled, item.href),\n          {\n            command: "hide-popover" if closes else none,\n            commandfor: rootId if closes else none,\n            "data-keep-open": "" if item.keepOpen else none\n          },\n          opui.defined(itemRest)\n        ) | opuiAttributes(tag) }}><div class="ui-text">\n            <p>{{ item.label }}</p>\n          </div>{% if item.shortcut -%}\n            <div class="ui-end">\n              <kbd>{{ item.shortcut }}</kbd>\n            </div>\n          {%- endif %}{% if props.slots.iconChecked != none -%}\n            <span aria-hidden="true" class="ui-icon-checked">\n              {{- props.slots.iconChecked | safe }}</span>\n          {%- endif %}</{{ tag | opuiTag }}>\n      </li>\n    {%- endfor %}\n    {{ opui.provide("Menu", { rootId: rootId }, caller) -}}\n  </menu>\n{%- endmacro %}\n',
   "opui/Message.njk":
     '{% macro Message(props = {}) %}\n  {%- set props = props | opuiProps("Message") -%}\n  {%- set rest = props | opuiRest("Message") -%}\n  <li\n    class="ui-message\n      {%- if props.newAuthor %} ui-new-author{% endif %}\n      {%- if props.outgoing %} ui-outgoing{% endif %}\n      {%- if props.typing %} ui-typing{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- rest | opuiAttributes }}>\n    {{- props.slots.start | safe }}\n    {% if props.typing %}<div class="ui-content" role="status">\n      <span class="ui-sr-only">{{ caller() if caller }}</span>\n    </div>{% else %}<div class="ui-content">\n      {%- if props.author %}<p class="ui-header">{{ props.author }}</p>{% endif %}\n      {{ caller() if caller }}\n      {% if props.time or props.slots.end != none -%}\n        <p class="ui-footer">\n          {%- if props.time -%}\n            <time{% if props.datetime != none %} datetime="{{ props.datetime }}"{% endif %}>\n              {{- props.time }}</time>\n          {%- endif %}{% if props.slots.end != none %}<span class="ui-end">\n            {{- props.slots.end | safe }}</span>{% endif -%}\n        </p>\n      {%- endif -%}\n    </div>{% endif %}\n    {% if props.slots.actions != none %}<div class="ui-actions">\n      {{- props.slots.actions | safe -}}\n    </div>{% endif %}\n    {% if props.slots.bottom != none %}<div class="ui-bottom">\n      {{- props.slots.bottom | safe -}}\n    </div>{% endif -%}\n  </li>\n{%- endmacro %}\n',
   "opui/MessageList.njk":
@@ -2133,15 +2222,15 @@ export const templates = {
   "opui/OneTimeCode.njk":
     '{% macro OneTimeCode(props = {}) %}\n  {%- set props = props | opuiProps("OneTimeCode") -%}\n  {%- set rest = props | opuiRest("OneTimeCode") -%}\n  {%- set labelSlot = props.slots.label | opuiTrim -%}\n  {%- set hasEndText = props.endText or props.slots.endText != none -%}\n  {{- opui.warnControlAttributes("OneTimeCode", rest) -}}\n  <div\n    class="ui-one-time-code\n      {%- if props.grouped %} ui-grouped{% endif %}\n      {%- if props.size and props.size != \'medium\' %} ui-{{ props.size }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- rest | opuiAttributes }}>\n    {%- if props.label or labelSlot -%}\n      <label\n        class="{{ \'ui-sr-only\' if props.hideLabel else \'ui-label\' }}"\n        {%- if props.for != none %} for="{{ props.for }}"{% endif %}>{{ props.label }}\n        {{- labelSlot }}</label>\n    {%- endif %}\n    <span class="ui-field-container">\n      {{- caller() if caller -}}\n    </span>\n    {% if hasEndText -%}\n      <span class="ui-end-text" id="{{ props.for ~ \'-end-text\' }}">{{ props.endText }}\n        {{- props.slots.endText | safe }}</span>\n    {%- endif -%}\n  </div>\n{%- endmacro %}\n',
   "opui/PasswordToggle.njk":
-    '{% macro PasswordToggle(props = {}) %}\n  {%- set props = props | opuiProps("PasswordToggle") -%}\n  {%- set rest = props | opuiRest("PasswordToggle") -%}\n  {%- set label = props.label | default("Show password") -%}\n  <opui-password-toggle{{ opui.defined(rest) | opuiAttributes("opui-password-toggle") }}>\n    <button\n      class="ui-button ui-round"\n      type="button"\n      {%- if label != none %} aria-label="{{ label }}"{% endif %}\n      aria-pressed="false"\n      command="--toggle-password"\n      {%- if props.for != none %} commandfor="{{ props.for }}"{% endif %}>\n      {%- if props.slots.iconUnchecked != none %}<span aria-hidden="true" class="ui-icon-unchecked">\n        {{- props.slots.iconUnchecked | safe }}</span>{% else %}<svg\n        aria-hidden="true"\n        class="ui-icon-unchecked"\n        xmlns="http://www.w3.org/2000/svg"\n        width="24"\n        height="24"\n        viewBox="0 0 24 24"></svg>{% endif %}\n      {% if props.slots.iconChecked != none %}<span aria-hidden="true" class="ui-icon-checked">\n        {{- props.slots.iconChecked | safe }}</span>{% else %}<svg\n        aria-hidden="true"\n        class="ui-icon-checked"\n        xmlns="http://www.w3.org/2000/svg"\n        width="24"\n        height="24"\n        viewBox="0 0 24 24"></svg>{% endif -%}\n    </button>\n  </opui-password-toggle>\n{%- endmacro %}\n',
+    '{% macro PasswordToggle(props = {}) %}\n  {%- set props = props | opuiProps("PasswordToggle") -%}\n  {%- set rest = props | opuiRest("PasswordToggle") -%}\n  {%- set label = props.label | default("Show password") -%}\n  <opui-password-toggle{{ opui.defined(rest) | opuiAttributes("opui-password-toggle") }}>\n    <button\n      class="ui-button ui-round"\n      type="button"\n      aria-label="{{ label }}"\n      aria-pressed="false"\n      command="--toggle-password"\n      {%- if props.for != none %} commandfor="{{ props.for }}"{% endif %}>\n      {%- if props.slots.iconUnchecked != none %}<span aria-hidden="true" class="ui-icon-unchecked">\n        {{- props.slots.iconUnchecked | safe }}</span>{% else %}<svg\n        aria-hidden="true"\n        class="ui-icon-unchecked"\n        xmlns="http://www.w3.org/2000/svg"\n        width="24"\n        height="24"\n        viewBox="0 0 24 24"></svg>{% endif %}\n      {% if props.slots.iconChecked != none %}<span aria-hidden="true" class="ui-icon-checked">\n        {{- props.slots.iconChecked | safe }}</span>{% else %}<svg\n        aria-hidden="true"\n        class="ui-icon-checked"\n        xmlns="http://www.w3.org/2000/svg"\n        width="24"\n        height="24"\n        viewBox="0 0 24 24"></svg>{% endif -%}\n    </button>\n  </opui-password-toggle>\n{%- endmacro %}\n',
   "opui/Progress.njk":
     '{% macro Progress(props = {}) %}\n  {%- set props = props | opuiProps("Progress") -%}\n  {%- set rest = props | opuiRest("Progress") -%}\n  <div\n    class="ui-progress\n      {%- if props.round %} ui-round{% endif %}\n      {%- if props.variant and props.variant != \'tonal\' %} ui-{{ props.variant }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- { style: props.style } | opuiAttributes }}>\n    <progress\n      {%- if props.max != none %} max="{{ props.max }}"{% endif %}\n      {%- if props.value != none %} value="{{ props.value }}"{% endif %}\n      {{- rest | opuiAttributes }}>\n      {{- caller() if caller -}}\n    </progress>\n  </div>\n{%- endmacro %}\n',
   "opui/Radio.njk":
-    '{% from "opui/RadioInput.njk" import RadioInput %}\n\n{% macro Radio(props = {}) %}\n  {%- set props = props | opuiProps("Radio") -%}\n  {%- set rest = props | opuiRest("Radio") -%}\n  {%- set labelSlot = (caller() if caller) | opuiTrim -%}\n  {{- opui.warnUnnamed("Radio", opui.hasName(opui.merge(rest, { label: props.label }), caller is defined)) -}}\n  <label\n    class="ui-radio\n      {%- if props.card %} ui-card{% endif %}\n      {%- if props.spread %} ui-spread{% endif %}\n      {%- if props.card and props.variant and props.variant != \'outlined\' %} ui-{{ props.variant }}{% endif %}\n      {%- if props.orientation and props.orientation != \'horizontal\' %} ui-{{ props.orientation }}{% endif %}\n      {%- if props.size and props.size != \'medium\' %} ui-{{ props.size }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- { style: props.style } | opuiAttributes }}>\n    {{- RadioInput(opui.merge(\n      rest,\n      { "aria-invalid": "true" if props.error else props["aria-invalid"] }\n    )) }}\n    {% if props.label or labelSlot -%}\n      <span class="{{ \'ui-sr-only\' if props.hideLabel else \'ui-label\' }}">{{ props.label }}\n        {{- labelSlot }}</span>\n    {%- endif %}\n    {% if props.endText or props.slots.endText != none -%}\n      <span class="ui-end-text">{{ props.endText }}{{ props.slots.endText | safe }}</span>\n    {%- endif -%}\n  </label>\n{%- endmacro %}\n',
+    '{% from "opui/RadioInput.njk" import RadioInput %}\n\n{% macro Radio(props = {}) %}\n  {%- set props = props | opuiProps("Radio") -%}\n  {%- set rest = props | opuiRest("Radio") -%}\n  {%- set labelSlot = (caller() if caller) | opuiTrim -%}\n  {{- opui.warnUnnamed(\n    "Radio",\n    opui.hasName(opui.merge(rest, { label: props.label }), caller is defined)\n  ) -}}\n  <label\n    class="ui-radio\n      {%- if props.card %} ui-card{% endif %}\n      {%- if props.spread %} ui-spread{% endif %}\n      {%- if props.card and props.variant and props.variant != \'outlined\' %} ui-{{ props.variant }}\n      {%- endif %}\n      {%- if props.orientation and props.orientation != \'horizontal\' %} ui-{{ props.orientation }}\n      {%- endif %}\n      {%- if props.size and props.size != \'medium\' %} ui-{{ props.size }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- { style: props.style } | opuiAttributes }}>\n    {{- RadioInput(opui.merge(\n      rest,\n      { "aria-invalid": "true" if props.error else props["aria-invalid"] }\n    )) }}\n    {% if props.label or labelSlot -%}\n      <span class="{{ \'ui-sr-only\' if props.hideLabel else \'ui-label\' }}">{{ props.label }}\n        {{- labelSlot }}</span>\n    {%- endif %}\n    {% if props.endText or props.slots.endText != none -%}\n      <span class="ui-end-text">{{ props.endText }}{{ props.slots.endText | safe }}</span>\n    {%- endif -%}\n  </label>\n{%- endmacro %}\n',
   "opui/RadioInput.njk":
     '{% macro RadioInput(props = {}) %}\n  {%- set props = props | opuiProps("RadioInput") -%}\n  {%- set rest = props | opuiRest("RadioInput") -%}\n  <input type="radio"{{ rest | opuiAttributes }}>\n{%- endmacro %}\n',
   "opui/Rating.njk":
-    '{% macro Rating(props = {}) %}\n  {%- set props = props | opuiProps("Rating") -%}\n  {%- set rest = props | opuiRest("Rating") -%}\n  {%- set clearLabel = props.clearLabel | default("No rating") -%}\n  {%- set max = props.max | default(5) -%}\n  {%- set starLabel = props.starLabel | default({ one: "{count} star", other: "{count} stars" }) -%}\n  {%- set rating = opui.ratingOf(max, props.value) -%}\n  {%- set invalid = "true" if props.error else props["aria-invalid"] -%}\n  {% if props.name %}<fieldset\n    {%- if props["aria-label"] != none %} aria-label="{{ props["aria-label"] }}"{% endif %}\n    class="ui-rating\n      {%- if props.size and props.size != \'medium\' %} ui-{{ props.size }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {%- if props.disabled %} disabled{% endif %}\n    {%- if props.lang != none %} lang="{{ props.lang }}"{% endif %}\n    {{- { style: props.style } | opuiAttributes }}\n    {{- rest | opuiAttributes }}>\n    <legend>{{ props.label }}</legend>{% if not props.required -%}\n      {% set checked = rating.current === 0 %}<input\n        {%- if props["aria-describedby"] != none %} aria-describedby="{{ props["aria-describedby"] }}"{% endif %}\n        {%- if invalid != none %} aria-invalid="{{ invalid }}"{% endif %}\n        {%- if clearLabel != none %} aria-label="{{ clearLabel }}"{% endif %}\n        {%- if checked %} checked{% endif %}\n        {%- if props.name != none %} name="{{ props.name }}"{% endif %}\n        type="radio"\n        value="0">\n    {%- endif %}{% for star in rating.stars -%}\n      {% set ariaLabel = opui.pluralLabel(starLabel, star, props.lang) %}{% set checkedValue = rating.current === star %}<input\n        {%- if props["aria-describedby"] != none %} aria-describedby="{{ props["aria-describedby"] }}"{% endif %}\n        {%- if invalid != none %} aria-invalid="{{ invalid }}"{% endif %}\n        {%- if ariaLabel != none %} aria-label="{{ ariaLabel }}"{% endif %}\n        {%- if checkedValue %} checked{% endif %}\n        {%- if props.name != none %} name="{{ props.name }}"{% endif %}\n        {%- if props.required %} required{% endif %}\n        type="radio"\n        {%- if star != none %} value="{{ star }}"{% endif %}>\n    {%- endfor -%}\n  </fieldset>{% else %}{% set ariaLabelValue = props["aria-label"] | default(props.label) %}<meter\n    {%- if props["aria-describedby"] != none %} aria-describedby="{{ props["aria-describedby"] }}"{% endif %}\n    {%- if ariaLabelValue != none %} aria-label="{{ ariaLabelValue }}"{% endif %}\n    class="ui-rating\n      {%- if props.size and props.size != \'medium\' %} ui-{{ props.size }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {%- if props.lang != none %} lang="{{ props.lang }}"{% endif %}\n    {%- if rating.max != none %} max="{{ rating.max }}"{% endif %}\n    {{- { style: opui.mergeStyle({ "--_max": undefined if rating.count === 5 else rating.count }, props.style) } | opuiAttributes }}\n    {%- if rating.value != none %} value="{{ rating.value }}"{% endif %}\n    {{- rest | opuiAttributes }}></meter>{% endif %}\n{%- endmacro %}\n',
+    '{% macro Rating(props = {}) %}\n  {%- set props = props | opuiProps("Rating") -%}\n  {%- set rest = props | opuiRest("Rating") -%}\n  {%- set clearLabel = props.clearLabel | default("No rating") -%}\n  {%- set max = props.max | default(5) -%}\n  {%- set starLabel = props.starLabel | default({ one: "{count} star", other: "{count} stars" }) -%}\n  {%- set rating = opui.ratingOf(max, props.value) -%}\n  {%- set invalid = "true" if props.error else props["aria-invalid"] -%}\n  {% if props.name %}<fieldset\n    {%- if props["aria-label"] != none %} aria-label="{{ props["aria-label"] }}"{% endif %}\n    class="ui-rating\n      {%- if props.size and props.size != \'medium\' %} ui-{{ props.size }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {%- if props.disabled %} disabled{% endif %}\n    {%- if props.lang != none %} lang="{{ props.lang }}"{% endif %}\n    {{- { style: props.style } | opuiAttributes }}\n    {{- rest | opuiAttributes }}>\n    <legend>{{ props.label }}</legend>{% if not props.required -%}\n      {% set checked = rating.current == 0 %}<input\n        {%- if props["aria-describedby"] != none %} aria-describedby="\n        {{- props["aria-describedby"] }}"{% endif %}\n        {%- if invalid != none %} aria-invalid="{{ invalid }}"{% endif %}\n        aria-label="{{ clearLabel }}"\n        {%- if checked %} checked{% endif %}\n        name="{{ props.name }}"\n        type="radio"\n        value="0">\n    {%- endif %}{% for star in rating.stars -%}\n      {% set ariaLabel = opui.pluralLabel(starLabel, star, props.lang) %}\n      {%- set checkedValue = rating.current === star %}<input\n        {%- if props["aria-describedby"] != none %} aria-describedby="\n        {{- props["aria-describedby"] }}"{% endif %}\n        {%- if invalid != none %} aria-invalid="{{ invalid }}"{% endif %}\n        {%- if ariaLabel != none %} aria-label="{{ ariaLabel }}"{% endif %}\n        {%- if checkedValue %} checked{% endif %}\n        name="{{ props.name }}"\n        {%- if props.required %} required{% endif %}\n        type="radio"\n        {%- if star != none %} value="{{ star }}"{% endif %}>\n    {%- endfor -%}\n  </fieldset>{% else %}{% set ariaLabelValue = props["aria-label"] | default(props.label) %}<meter\n    {%- if props["aria-describedby"] != none %} aria-describedby="{{ props["aria-describedby"] }}"\n    {%- endif %}\n    {%- if ariaLabelValue != none %} aria-label="{{ ariaLabelValue }}"{% endif %}\n    class="ui-rating\n      {%- if props.size and props.size != \'medium\' %} ui-{{ props.size }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {%- if props.lang != none %} lang="{{ props.lang }}"{% endif %}\n    {%- if rating.max != none %} max="{{ rating.max }}"{% endif %}\n    {{- { style: opui.mergeStyle(\n      { "--_max": undefined if rating.count == 5 else rating.count },\n      props.style\n    ) } | opuiAttributes }}\n    {%- if rating.value != none %} value="{{ rating.value }}"{% endif %}\n    {{- rest | opuiAttributes }}></meter>{% endif %}\n{%- endmacro %}\n',
   "opui/Reactions.njk":
     '{% from "opui/ToggleButton.njk" import ToggleButton %}\n{% from "opui/ToggleGroup.njk" import ToggleGroup %}\n\n{% macro Reactions(props = {}) %}\n  {%- set props = props | opuiProps("Reactions") -%}\n  {%- set rest = props | opuiRest("Reactions") -%}\n  {%- set items = props.items | default([]) -%}\n  {%- set used = opui.usedItem(items, props.quick) -%}\n  {%- set pills = opui.pillsOf(items, props.quick, used) -%}\n  {%- set classes = ["ui-reactions", props.class] | opuiClass -%}\n  <opui-reactions{{ opui.merge(\n    {\n      class: classes,\n      "quick-label": props.quick["aria-label"],\n      "quick-text": props.quick.label,\n      "quick-value": props.quick.value\n    },\n    opui.defined(rest)\n  ) | opuiAttributes("opui-reactions") }}>\n    {%- call ToggleGroup({\n      "aria-label": props["aria-label"],\n      "aria-labelledby": props["aria-labelledby"],\n      multiple: true,\n      name: props.name\n    }) %}\n      {% for item in pills %}\n        {%- set index = loop.index0 -%}\n        {% call ToggleButton({\n          "aria-label": item["aria-label"],\n          checked: true if item.checked else false,\n          class: [{ "ui-suggested": props.quick and not used and index == 0 }] | opuiClass,\n          value: item.value\n        }) %}<span aria-hidden="true">{{ item.label }}</span>{% endcall %}\n      {%- endfor %}\n    {% endcall %}\n    {{ caller() if caller }}\n    <span class="ui-sr-only" role="status"></span>\n  </opui-reactions>\n{%- endmacro %}\n',
   "opui/SelectAll.njk":
@@ -2153,17 +2242,17 @@ export const templates = {
   "opui/Stat.njk":
     '{% macro Stat(props = {}) %}\n  {%- set props = props | opuiProps("Stat") -%}\n  {%- set rest = props | opuiRest("Stat") -%}\n  <dl\n    class="ui-stat\n      {%- if props.size and props.size != \'medium\' %} ui-{{ props.size }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- rest | opuiAttributes }}>\n    <dt class="ui-label">{{ props.label }}{{ props.slots.label | safe }}</dt>\n    <dd class="ui-value">\n      {{- caller() if caller -}}\n    </dd>\n    {% if props.description or props.slots.description != none -%}\n      <dd class="ui-description">{{ props.description }}{{ props.slots.description | safe }}</dd>\n    {%- endif -%}\n  </dl>\n{%- endmacro %}\n',
   "opui/StepButton.njk":
-    '{% macro StepButton(props = {}) %}\n  {%- set props = props | opuiProps("StepButton") -%}\n  {%- set rest = props | opuiRest("StepButton") -%}\n  {%- set name = props.label | default("Decrease" if props.command == "--step-down" else "Increase") -%}\n  <opui-step-button{{ opui.defined(rest) | opuiAttributes("opui-step-button") }}>\n    <button\n      class="ui-button ui-round"\n      type="button"\n      {%- if props.for != none %} aria-controls="{{ props.for }}"{% endif %}\n      aria-label="{{ name }}"\n      {%- if props.command != none %} command="{{ props.command }}"{% endif %}\n      {%- if props.for != none %} commandfor="{{ props.for }}"{% endif %}>\n      {%- if caller is defined %}{{ caller() }}{% else %}\n      <svg\n        aria-hidden="true"\n        xmlns="http://www.w3.org/2000/svg"\n        width="24"\n        height="24"\n        viewBox="0 0 24 24"></svg>\n      {% endif -%}\n    </button>\n  </opui-step-button>\n{%- endmacro %}\n',
+    '{% macro StepButton(props = {}) %}\n  {%- set props = props | opuiProps("StepButton") -%}\n  {%- set rest = props | opuiRest("StepButton") -%}\n  {%- set name = props.label | default(\n    "Decrease" if props.command == "--step-down" else "Increase"\n  ) -%}\n  <opui-step-button{{ opui.defined(rest) | opuiAttributes("opui-step-button") }}>\n    <button\n      class="ui-button ui-round"\n      type="button"\n      {%- if props.for != none %} aria-controls="{{ props.for }}"{% endif %}\n      aria-label="{{ name }}"\n      {%- if props.command != none %} command="{{ props.command }}"{% endif %}\n      {%- if props.for != none %} commandfor="{{ props.for }}"{% endif %}>\n      {%- if caller is defined %}{{ caller() }}{% else %}\n      <svg\n        aria-hidden="true"\n        xmlns="http://www.w3.org/2000/svg"\n        width="24"\n        height="24"\n        viewBox="0 0 24 24"></svg>\n      {% endif -%}\n    </button>\n  </opui-step-button>\n{%- endmacro %}\n',
   "opui/Stepper.njk":
-    '{% from "opui/StepperItem.njk" import StepperItem %}\n\n{% macro Stepper(props = {}) %}\n  {%- set props = props | opuiProps("Stepper") -%}\n  {%- set rest = props | opuiRest("Stepper") -%}\n  <ol\n    class="ui-stepper\n      {%- if props.orientation and props.orientation != \'auto\' %} ui-{{ props.orientation }}{% endif %}\n      {%- if props.size and props.size != \'medium\' %} ui-{{ props.size }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- rest | opuiAttributes }}>\n    {%- for item in props.items %}\n      {%- set index = loop.index0 -%}\n      {{ StepperItem(opui.merge(\n        { completeLabel: props.completeLabel, errorLabel: props.errorLabel },\n        item,\n        {\n          current: item.current or index === props.current,\n          state: item.state if item.state != none else ("complete" if props.complete or props.current is defined and index < props.current else undefined)\n        }\n      )) }}\n    {%- endfor %}\n    {{ caller() if caller -}}\n  </ol>\n{%- endmacro %}\n',
+    '{% from "opui/StepperItem.njk" import StepperItem %}\n\n{% macro Stepper(props = {}) %}\n  {%- set props = props | opuiProps("Stepper") -%}\n  {%- set rest = props | opuiRest("Stepper") -%}\n  <ol\n    class="ui-stepper\n      {%- if props.orientation and props.orientation != \'auto\' %} ui-{{ props.orientation }}\n      {%- endif %}\n      {%- if props.size and props.size != \'medium\' %} ui-{{ props.size }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- rest | opuiAttributes }}>\n    {%- for item in props.items %}\n      {%- set index = loop.index0 -%}\n      {{ StepperItem(opui.merge(\n        { completeLabel: props.completeLabel, errorLabel: props.errorLabel },\n        item,\n        {\n          current: item.current or index == props.current,\n          state: item.state\n            if item.state != none\n            else (\n              "complete"\n                if props.complete or props.current is defined and index < props.current\n                else undefined\n            )\n        }\n      )) }}\n    {%- endfor %}\n    {{ caller() if caller -}}\n  </ol>\n{%- endmacro %}\n',
   "opui/StepperItem.njk":
-    '{% macro StepperItem(props = {}) %}\n  {%- set props = props | opuiProps("StepperItem") -%}\n  {%- set rest = props | opuiRest("StepperItem") -%}\n  {%- set completeLabel = props.completeLabel | default(", completed") -%}\n  {%- set errorLabel = props.errorLabel | default(", error") -%}\n  {%- set labelSlot = props.slots.label | opuiTrim -%}\n  {%- set stateLabel = errorLabel\n    if props.state == "error"\n    else (completeLabel if props.state == "complete" else none) -%}\n  {%- set ariaCurrent = props["aria-current"] | default(\'step\' if props.current else none) -%}\n  {%- set classes = [props.state and \'ui-state-\' ~ props.state, props.class] | opuiClass -%}\n  <li\n    {%- if ariaCurrent != none %} aria-current="{{ ariaCurrent }}"{% endif %}\n    {%- if classes %} class="{{ classes }}"{% endif %}\n    {{- rest | opuiAttributes }}>\n    {%- if props.slots.iconComplete != none -%}\n      <span aria-hidden="true" class="ui-icon-complete">{{ props.slots.iconComplete | safe }}</span>\n    {%- endif %}\n    {% if props.href and not props.current and props.state %}<a{% if props.href != none %} href="{{ props.href }}"{% endif %}>\n      {{- props.label }}{{ labelSlot }}{% if stateLabel %}<span class="ui-sr-only">\n        {{- stateLabel }}</span>{% endif %}</a>{% else %}{{ props.label }}{{ labelSlot }}\n    {%- if stateLabel %}<span class="ui-sr-only">{{ stateLabel }}</span>{% endif %}{% endif %}\n    {% if props.description or props.slots.description != none -%}\n      <span class="ui-description">{{ props.description }}\n        {{- props.slots.description | safe }}</span>\n    {%- endif -%}\n  </li>\n{%- endmacro %}\n',
+    '{% macro StepperItem(props = {}) %}\n  {%- set props = props | opuiProps("StepperItem") -%}\n  {%- set rest = props | opuiRest("StepperItem") -%}\n  {%- set completeLabel = props.completeLabel | default(", completed") -%}\n  {%- set errorLabel = props.errorLabel | default(", error") -%}\n  {%- set labelSlot = props.slots.label | opuiTrim -%}\n  {%- set stateLabel = errorLabel\n    if props.state == "error"\n    else (completeLabel if props.state == "complete" else none) -%}\n  {%- set ariaCurrent = props["aria-current"] | default(\'step\' if props.current else none) -%}\n  {%- set classes = [props.state and \'ui-state-\' ~ props.state, props.class] | opuiClass -%}\n  <li\n    {%- if ariaCurrent != none %} aria-current="{{ ariaCurrent }}"{% endif %}\n    {%- if classes %} class="{{ classes }}"{% endif %}\n    {{- rest | opuiAttributes }}>\n    {%- if props.slots.iconComplete != none -%}\n      <span aria-hidden="true" class="ui-icon-complete">{{ props.slots.iconComplete | safe }}</span>\n    {%- endif %}\n    {% if props.href and not props.current and props.state %}<a href="{{ props.href }}">\n      {{- props.label }}{{ labelSlot }}{% if stateLabel %}<span class="ui-sr-only">\n        {{- stateLabel }}</span>{% endif %}</a>{% else %}{{ props.label }}{{ labelSlot }}\n    {%- if stateLabel %}<span class="ui-sr-only">{{ stateLabel }}</span>{% endif %}{% endif %}\n    {% if props.description or props.slots.description != none -%}\n      <span class="ui-description">{{ props.description }}\n        {{- props.slots.description | safe }}</span>\n    {%- endif -%}\n  </li>\n{%- endmacro %}\n',
   "opui/Switch.njk":
-    '{% from "opui/SwitchInput.njk" import SwitchInput %}\n\n{% macro Switch(props = {}) %}\n  {%- set props = props | opuiProps("Switch") -%}\n  {%- set rest = props | opuiRest("Switch") -%}\n  {%- set labelSlot = (caller() if caller) | opuiTrim -%}\n  {{- opui.warnUnnamed("Switch", opui.hasName(opui.merge(rest, { label: props.label }), caller is defined)) -}}\n  <label\n    class="ui-switch\n      {%- if props.card %} ui-card{% endif %}\n      {%- if props.spread %} ui-spread{% endif %}\n      {%- if props.card and props.variant and props.variant != \'outlined\' %} ui-{{ props.variant }}{% endif %}\n      {%- if props.orientation and props.orientation != \'horizontal\' %} ui-{{ props.orientation }}{% endif %}\n      {%- if props.size and props.size != \'medium\' %} ui-{{ props.size }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- { style: props.style } | opuiAttributes }}>\n    {%- if props.slots.iconUnchecked != none -%}\n      <span class="ui-icon-unchecked" aria-hidden="true">\n        {{- props.slots.iconUnchecked | safe }}</span>\n    {%- endif %}\n    {% if props.slots.iconChecked != none -%}\n      <span class="ui-icon-checked" aria-hidden="true">{{ props.slots.iconChecked | safe }}</span>\n    {%- endif %}\n    {{ SwitchInput(opui.merge(\n      rest,\n      { "aria-invalid": "true" if props.error else props["aria-invalid"] }\n    )) }}\n    {% if props.label or labelSlot -%}\n      <span class="{{ \'ui-sr-only\' if props.hideLabel else \'ui-label\' }}">{{ props.label }}\n        {{- labelSlot }}</span>\n    {%- endif %}\n    {% if props.endText or props.slots.endText != none -%}\n      <span class="ui-end-text">{{ props.endText }}{{ props.slots.endText | safe }}</span>\n    {%- endif -%}\n  </label>\n{%- endmacro %}\n',
+    '{% from "opui/SwitchInput.njk" import SwitchInput %}\n\n{% macro Switch(props = {}) %}\n  {%- set props = props | opuiProps("Switch") -%}\n  {%- set rest = props | opuiRest("Switch") -%}\n  {%- set labelSlot = (caller() if caller) | opuiTrim -%}\n  {{- opui.warnUnnamed(\n    "Switch",\n    opui.hasName(opui.merge(rest, { label: props.label }), caller is defined)\n  ) -}}\n  <label\n    class="ui-switch\n      {%- if props.card %} ui-card{% endif %}\n      {%- if props.spread %} ui-spread{% endif %}\n      {%- if props.card and props.variant and props.variant != \'outlined\' %} ui-{{ props.variant }}\n      {%- endif %}\n      {%- if props.orientation and props.orientation != \'horizontal\' %} ui-{{ props.orientation }}\n      {%- endif %}\n      {%- if props.size and props.size != \'medium\' %} ui-{{ props.size }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- { style: props.style } | opuiAttributes }}>\n    {%- if props.slots.iconUnchecked != none -%}\n      <span class="ui-icon-unchecked" aria-hidden="true">\n        {{- props.slots.iconUnchecked | safe }}</span>\n    {%- endif %}\n    {% if props.slots.iconChecked != none -%}\n      <span class="ui-icon-checked" aria-hidden="true">{{ props.slots.iconChecked | safe }}</span>\n    {%- endif %}\n    {{ SwitchInput(opui.merge(\n      rest,\n      { "aria-invalid": "true" if props.error else props["aria-invalid"] }\n    )) }}\n    {% if props.label or labelSlot -%}\n      <span class="{{ \'ui-sr-only\' if props.hideLabel else \'ui-label\' }}">{{ props.label }}\n        {{- labelSlot }}</span>\n    {%- endif %}\n    {% if props.endText or props.slots.endText != none -%}\n      <span class="ui-end-text">{{ props.endText }}{{ props.slots.endText | safe }}</span>\n    {%- endif -%}\n  </label>\n{%- endmacro %}\n',
   "opui/SwitchInput.njk":
     '{% macro SwitchInput(props = {}) %}\n  {%- set props = props | opuiProps("SwitchInput") -%}\n  {%- set rest = props | opuiRest("SwitchInput") -%}\n  <input type="checkbox" role="switch"{{ rest | opuiAttributes }}>\n{%- endmacro %}\n',
   "opui/Table.njk":
-    '{% macro Table(props = {}) %}\n  {%- set props = props | opuiProps("Table") -%}\n  {%- set rest = props | opuiRest("Table") -%}\n  <table\n    class="ui-table\n      {%- if props.flush %} ui-flush{% endif %}\n      {%- if props.stickyHeader %} ui-sticky-header{% endif %}\n      {%- if props.density and props.density != \'normal\' %} ui-{{ props.density }}{% endif %}\n      {%- if props.overflow and props.overflow != \'wrap\' %} ui-overflow-{{ props.overflow }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </table>\n{%- endmacro %}\n',
+    '{% macro Table(props = {}) %}\n  {%- set props = props | opuiProps("Table") -%}\n  {%- set rest = props | opuiRest("Table") -%}\n  <table\n    class="ui-table\n      {%- if props.flush %} ui-flush{% endif %}\n      {%- if props.stickyHeader %} ui-sticky-header{% endif %}\n      {%- if props.density and props.density != \'normal\' %} ui-{{ props.density }}{% endif %}\n      {%- if props.overflow and props.overflow != \'wrap\' %} ui-overflow-{{ props.overflow }}\n      {%- endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </table>\n{%- endmacro %}\n',
   "opui/TableBody.njk":
     '{% macro TableBody(props = {}) %}\n  {%- set props = props | opuiProps("TableBody") -%}\n  {%- set rest = props | opuiRest("TableBody") -%}\n  <tbody{{ rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </tbody>\n{%- endmacro %}\n',
   "opui/TableCaption.njk":
@@ -2183,7 +2272,7 @@ export const templates = {
   "opui/TableRow.njk":
     '{% macro TableRow(props = {}) %}\n  {%- set props = props | opuiProps("TableRow") -%}\n  {%- set rest = props | opuiRest("TableRow") -%}\n  <tr{{ rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </tr>\n{%- endmacro %}\n',
   "opui/Tabs.njk":
-    '{% macro Tabs(props = {}) %}\n  {%- set props = props | opuiProps("Tabs") -%}\n  {%- set rest = props | opuiRest("Tabs") -%}\n  {%- set groupName = props.name or opui.id("tabs") -%}\n  {{- opui.warnUnnamedGroup("Tabs", rest) if props.role == "radiogroup" -}}\n  <div\n    class="ui-tabs\n      {%- if props.orientation == \'vertical\' %} ui-vertical{% endif %}\n      {%- if props.overflow and props.overflow != \'scroll\' %} ui-overflow-{{ props.overflow }}{% endif %}\n      {%- if props.variant and props.variant != \'tonal\' %} ui-{{ props.variant }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {%- if props.role != none %} role="{{ props.role }}"{% endif %}\n    {{- rest | opuiAttributes }}>\n    {{- opui.provide("Tabs", { groupName: groupName, value: props.value }, caller) -}}\n  </div>\n{%- endmacro %}\n',
+    '{% macro Tabs(props = {}) %}\n  {%- set props = props | opuiProps("Tabs") -%}\n  {%- set rest = props | opuiRest("Tabs") -%}\n  {%- set groupName = props.name or opui.id("tabs") -%}\n  {{- opui.warnUnnamedGroup("Tabs", rest) if props.role == "radiogroup" -}}\n  <div\n    class="ui-tabs\n      {%- if props.orientation == \'vertical\' %} ui-vertical{% endif %}\n      {%- if props.overflow and props.overflow != \'scroll\' %} ui-overflow-{{ props.overflow }}\n      {%- endif %}\n      {%- if props.variant and props.variant != \'tonal\' %} ui-{{ props.variant }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {%- if props.role != none %} role="{{ props.role }}"{% endif %}\n    {{- rest | opuiAttributes }}>\n    {{- opui.provide("Tabs", { groupName: groupName, value: props.value }, caller) -}}\n  </div>\n{%- endmacro %}\n',
   "opui/TabsItem.njk":
     '{% macro TabsItem(props = {}) %}\n  {%- set props = props | opuiProps("TabsItem") -%}\n  {%- set rest = props | opuiRest("TabsItem") -%}\n  {%- set parent = opui.context("Tabs") -%}\n  {%- set groupName = props.name or parent.groupName or opui.id("tabs") -%}\n  {%- set tabId = props.id or opui.id("tab") -%}\n  {%- set grouped = opui.isSelected(parent.value, props.value) -%}\n  {{- opui.warnGroupedChecked("TabsItem", grouped, props.checked, "Tabs") -}}\n  {%- set checked = grouped if grouped != none else props.checked -%}\n  <input\n    {%- if checked %} checked{% endif %}\n    class="ui-input\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    id="{{ tabId }}"\n    name="{{ groupName }}"\n    type="radio"\n    {%- if props.value != none %} value="{{ props.value }}"{% endif %}\n    {{- rest | opuiAttributes }}>\n  {{- opui.provide("Tabs", { groupName: groupName, tabId: tabId }, caller) }}\n{%- endmacro %}\n',
   "opui/TabsLabel.njk":
@@ -2193,13 +2282,13 @@ export const templates = {
   "opui/Timeline.njk":
     '{% from "opui/TimelineItem.njk" import TimelineItem %}\n\n{% macro Timeline(props = {}) %}\n  {%- set props = props | opuiProps("Timeline") -%}\n  {%- set rest = props | opuiRest("Timeline") -%}\n  <ol\n    class="ui-timeline\n      {%- if props.tracked %} ui-tracked{% endif %}\n      {%- if props.size and props.size != \'medium\' %} ui-{{ props.size }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- rest | opuiAttributes }}>\n    {%- for entry in props.items -%}\n      {% call TimelineItem(entry | opuiOmit(["description"])) %}\n        {% if entry.description %}<p>{{ entry.description }}</p>{% endif %}\n      {% endcall %}\n    {%- endfor %}\n    {{ caller() if caller -}}\n  </ol>\n{%- endmacro %}\n',
   "opui/TimelineItem.njk":
-    '{% macro TimelineItem(props = {}) %}\n  {%- set props = props | opuiProps("TimelineItem") -%}\n  {%- set rest = props | opuiRest("TimelineItem") -%}\n  {%- set headingLevel = props.headingLevel | default(3) -%}\n  {%- set heading = "h" ~ headingLevel -%}\n  {%- set ariaCurrent = props["aria-current"] | default(\'true\' if props.current === true else props.current or none) -%}\n  {%- set classes = [props.color and \'ui-\' ~ props.color, props.class] | opuiClass -%}\n  <li\n    {%- if ariaCurrent != none %} aria-current="{{ ariaCurrent }}"{% endif %}\n    {%- if classes %} class="{{ classes }}"{% endif %}\n    {{- rest | opuiAttributes }}>\n    {%- if props.slots.marker != none %}<span class="ui-marker">\n      {{- props.slots.marker | safe }}</span>{% endif %}\n    {% if props.time -%}\n      <time{% if props.datetime != none %} datetime="{{ props.datetime }}"{% endif %}>\n        {{- props.time }}</time>\n    {%- endif %}\n    {% if props.label or props.slots.label != none -%}\n      <{{ heading | opuiTag }}{{ { class: "ui-h6" } | opuiAttributes(heading) }}>{{ props.label }}\n        {{- props.slots.label | safe }}</{{ heading | opuiTag }}>\n    {%- endif %}\n    {{ caller() if caller -}}\n  </li>\n{%- endmacro %}\n',
+    '{% macro TimelineItem(props = {}) %}\n  {%- set props = props | opuiProps("TimelineItem") -%}\n  {%- set rest = props | opuiRest("TimelineItem") -%}\n  {%- set headingLevel = props.headingLevel | default(3) -%}\n  {%- set heading = "h" ~ headingLevel -%}\n  {%- set ariaCurrent = props["aria-current"] | default(\n    \'true\' if props.current === true else props.current or none\n  ) -%}\n  {%- set classes = [props.color and \'ui-\' ~ props.color, props.class] | opuiClass -%}\n  <li\n    {%- if ariaCurrent != none %} aria-current="{{ ariaCurrent }}"{% endif %}\n    {%- if classes %} class="{{ classes }}"{% endif %}\n    {{- rest | opuiAttributes }}>\n    {%- if props.slots.marker != none %}<span class="ui-marker">\n      {{- props.slots.marker | safe }}</span>{% endif %}\n    {% if props.time -%}\n      <time{% if props.datetime != none %} datetime="{{ props.datetime }}"{% endif %}>\n        {{- props.time }}</time>\n    {%- endif %}\n    {% if props.label or props.slots.label != none -%}\n      <{{ heading | opuiTag }}{{ { class: "ui-h6" } | opuiAttributes(heading) }}>{{ props.label }}\n        {{- props.slots.label | safe }}</{{ heading | opuiTag }}>\n    {%- endif %}\n    {{ caller() if caller -}}\n  </li>\n{%- endmacro %}\n',
   "opui/Toaster.njk":
     '{% macro Toaster(props = {}) %}\n  {%- set props = props | opuiProps("Toaster") -%}\n  {%- set rest = props | opuiRest("Toaster") -%}\n  {{- opui.warnMissingId("Toaster", props.id) -}}\n  {%- set classes = [\n    "ui-toaster",\n    props.side and props.side != "block-end" and "ui-" ~ props.side,\n    props.align and props.align != "end" and "ui-align-" ~ props.align,\n    props.class\n  ] | opuiClass -%}\n  <opui-toaster{{ opui.merge(\n    {\n      class: classes,\n      "close-label": props.closeLabel,\n      duration: props.duration,\n      id: props.id,\n      limit: props.limit\n    },\n    opui.defined(rest)\n  ) | opuiAttributes("opui-toaster") }}>\n    <ol popover="manual"></ol>\n    <div class="ui-sr-only" role="status"></div>\n    <div class="ui-sr-only" role="alert"></div>\n  </opui-toaster>\n{%- endmacro %}\n',
   "opui/ToggleButton.njk":
     '{% macro ToggleButton(props = {}) %}\n  {%- set props = props | opuiProps("ToggleButton") -%}\n  {%- set rest = props | opuiRest("ToggleButton") -%}\n  {%- set group = opui.context("ToggleGroup") -%}\n  {%- set finalName = props.name or group.groupName -%}\n  {%- set finalType = "radio"\n    if group.inputType === "radio"\n    else props.type | default("checkbox") -%}\n  {%- set grouped = opui.isSelected(group.value, props.value) -%}\n  {{- opui.warnGroupedChecked("ToggleButton", grouped, props.checked, "ToggleGroup") -}}\n  {%- set checked = grouped if grouped != none else props.checked -%}\n  <label\n    class="ui-toggle-button\n      {%- if props.size and props.size != \'medium\' %} ui-{{ props.size }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- { style: props.style } | opuiAttributes }}>\n    <input\n      {%- if checked %} checked{% endif %}\n      {%- if finalName != none %} name="{{ finalName }}"{% endif %}\n      type="{{ finalType }}"\n      {%- if props.value != none %} value="{{ props.value }}"{% endif %}\n      {{- rest | opuiAttributes }}>\n    {% if caller is defined %}{{ caller() }}{% else %}{{ props.label }}{% endif -%}\n  </label>\n{%- endmacro %}\n',
   "opui/ToggleGroup.njk":
-    '{% macro ToggleGroup(props = {}) %}\n  {%- set props = props | opuiProps("ToggleGroup") -%}\n  {%- set rest = props | opuiRest("ToggleGroup") -%}\n  {%- set groupName = props.name or opui.id("toggle-group") -%}\n  {%- set inputType = "checkbox" if props.multiple else "radio" -%}\n  {{- opui.warnUnnamedGroup("ToggleGroup", rest) -}}\n  {%- set role = props.role | default(\'group\' if props.multiple else \'radiogroup\') -%}\n  <div\n    class="ui-toggle-group\n      {%- if props.orientation == \'vertical\' %} ui-vertical{% endif %}\n      {%- if props.overflow and props.overflow != \'wrap\' %} ui-overflow-{{ props.overflow }}{% endif %}\n      {%- if props.size and props.size != \'medium\' %} ui-{{ props.size }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    role="{{ role }}"\n    {{- rest | opuiAttributes }}>\n    {{- opui.provide("ToggleGroup", { groupName: groupName, inputType: inputType, value: props.value }, caller) -}}\n  </div>\n{%- endmacro %}\n',
+    '{% macro ToggleGroup(props = {}) %}\n  {%- set props = props | opuiProps("ToggleGroup") -%}\n  {%- set rest = props | opuiRest("ToggleGroup") -%}\n  {%- set groupName = props.name or opui.id("toggle-group") -%}\n  {%- set inputType = "checkbox" if props.multiple else "radio" -%}\n  {{- opui.warnUnnamedGroup("ToggleGroup", rest) -}}\n  {%- set role = props.role | default(\'group\' if props.multiple else \'radiogroup\') -%}\n  <div\n    class="ui-toggle-group\n      {%- if props.orientation == \'vertical\' %} ui-vertical{% endif %}\n      {%- if props.overflow and props.overflow != \'wrap\' %} ui-overflow-{{ props.overflow }}\n      {%- endif %}\n      {%- if props.size and props.size != \'medium\' %} ui-{{ props.size }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    role="{{ role }}"\n    {{- rest | opuiAttributes }}>\n    {{- opui.provide(\n      "ToggleGroup",\n      { groupName: groupName, inputType: inputType, value: props.value },\n      caller\n    ) -}}\n  </div>\n{%- endmacro %}\n',
   "opui/Tooltip.njk":
     '{% from "opui/Anchor.njk" import Anchor %}\n\n{% macro Tooltip(props = {}) %}\n  {%- set props = props | opuiProps("Tooltip") -%}\n  {%- set rest = props | opuiRest("Tooltip") -%}\n  {{- opui.warnMissingId("Tooltip", props.id, "interestfor") -}}\n  {% call Anchor(opui.merge(\n    {\n      class: ["ui-tooltip", { "ui-arrow": props.arrow }, props.class] | opuiClass,\n      id: props.id,\n      positionArea: props.positionArea,\n      trigger: "hover"\n    },\n    rest\n  )) %}\n    {{ caller() if caller }}\n  {% endcall %}\n{%- endmacro %}\n',
 }

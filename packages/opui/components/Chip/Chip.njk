@@ -4,8 +4,7 @@
   {%- set variant = props.variant | default("tonal") -%}
   {%- set tag = "a"
     if opui.disabledLink(props.as, props.disabled)
-    else props.as
-    or ("a" if props.href else "div") -%}
+    else props.as or ("a" if props.href else "div") -%}
   {%- set classes = [
     "ui-chip",
     { "ui-dot": props.dot, "ui-multiline": props.multiline },

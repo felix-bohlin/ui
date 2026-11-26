@@ -4,10 +4,13 @@ import nunjucks from "nunjucks"
 import { afterAll, beforeAll, describe, expect, test, vi } from "vitest"
 import { createRenderer } from "../../scripts/build-examples.mjs"
 import { nunjucksExpression } from "../../scripts/component-nunjucks-expression.mjs"
+import { LIMIT } from "../../scripts/component-nunjucks-layout.mjs"
 import { readComponent } from "../../scripts/component-reader.mjs"
 import { formatCode } from "../../scripts/format.mjs"
+import { BOOLEAN_ATTRIBUTES as HTML_BOOLEAN_ATTRIBUTES } from "../../scripts/html-tokens.mjs"
 import {
   compileNunjucks,
+  compileNunjucksComponent,
   componentFiles,
   helperEntries,
   HELPERS,
@@ -16,7 +19,15 @@ import {
 } from "../../scripts/component-nunjucks.mjs"
 import eleventy from "../../packages/opui/nunjucks/eleventy"
 import { configure } from "../../packages/opui/nunjucks/index"
-import { templates as shipped } from "../../packages/opui/nunjucks/macros"
+import {
+  BOOLEAN_ATTRIBUTES,
+  BOOLEAN_WHEN_BOOLEAN,
+} from "../../packages/opui/nunjucks/attributes"
+import {
+  attributes,
+  templates as shipped,
+} from "../../packages/opui/nunjucks/macros"
+import { normalizeProps, restProps } from "../../packages/opui/nunjucks/props"
 import { slotProp } from "../../src/component-api/frameworks"
 import { createIdGenerator } from "../../src/utils/id"
 import { apis, casesOf, partCasesOf, type Case } from "./component-cases"
@@ -332,15 +343,12 @@ describe("props are text, and none counts as a prop not given", () => {
     ).toContain('for="email&quot; data-x=&quot;1"')
   })
 
-  test("none renders as a prop not given, except for a prop the component reads apart from undefined", () => {
+  test("none renders as a prop not given, for every prop, kept ones too", () => {
     expect(
       COMPILED.filter((name) => {
-        const { keepsNone, omit } = components[name]
         const source = `{% from "opui/${name}.njk" import ${name} %}{{ ${name}(props) }}`
         const nones = Object.fromEntries(
-          omit
-            .filter((prop) => !keepsNone.includes(prop))
-            .map((prop) => [prop, null]),
+          components[name].omit.map((prop) => [prop, null]),
         )
         return (
           normalize(renderNunjucks(source, { props: nones })) !==
@@ -369,6 +377,53 @@ describe("props are text, and none counts as a prop not given", () => {
       }
     }
     expect(different).toEqual([])
+  })
+})
+
+describe("the props boundary", () => {
+  const { SafeString } = nunjucks.runtime
+  const meta = {
+    depths: { items: Infinity, pair: 1 },
+    keepsNone: [],
+    props: ["items", "label", "pair"],
+    slots: ["start"],
+  }
+
+  test("a value of a cyclic type is made text once per object and keeps its cycle", () => {
+    const item: Record<string, unknown> = { label: new SafeString("Open") }
+    item.self = item
+    const { items } = normalizeProps({ items: [item] }, meta, "Sample") as {
+      items: Record<string, unknown>[]
+    }
+    expect(items[0].label).toBe("Open")
+    expect(items[0].self).toBe(items[0])
+  })
+
+  test("a value is made text only as deep as its type nests, and a key the type lacks only at the top", () => {
+    const deep = { inner: { label: new SafeString("Deep") } }
+    const pair = [new SafeString("a"), [new SafeString("b")]]
+    const props = normalizeProps(
+      { data: deep, extra: new SafeString("x"), pair },
+      meta,
+      "Sample",
+    )
+    expect(props.data).toBe(deep)
+    expect(props.extra).toBe("x")
+    expect(props.pair).toEqual(["a", pair[1]])
+  })
+
+  test("the rest of the props reads a missing dict as empty and refuses any other non-dict", () => {
+    expect(restProps(undefined, meta, "Sample", new Set())).toEqual({})
+    expect(() => restProps("x", meta, "Sample", new Set())).toThrow(
+      "[OPUI Sample] Pass the props as one dict",
+    )
+  })
+
+  test("configure refuses an Environment from another copy of nunjucks", () => {
+    const other = { loaders: [], opts: { autoescape: true } }
+    expect(() => configure(other as unknown as nunjucks.Environment)).toThrow(
+      "comes from another copy of nunjucks",
+    )
   })
 })
 
@@ -460,6 +515,30 @@ describe("opuiAttributes writes what Astro writes", () => {
       )
     }
   })
+
+  test("the attributes it writes as booleans are the ones Astro writes as booleans", () => {
+    const names = [
+      ...new Set([
+        ...BOOLEAN_ATTRIBUTES,
+        ...BOOLEAN_WHEN_BOOLEAN,
+        ...HTML_BOOLEAN_ATTRIBUTES,
+        ...attributes,
+      ]),
+    ].toSorted()
+    const booleansOf = (written: string) =>
+      names.filter((name) => new RegExp(` ${name}(?= |$)`).test(written))
+    const part = (value: unknown) =>
+      Object.fromEntries(names.map((name) => [name, value]))
+    expect(booleansOf(String(spreadAttributes(part("x"))))).toEqual(
+      [...BOOLEAN_ATTRIBUTES].toSorted(),
+    )
+    expect(booleansOf(String(spreadAttributes(part(true))))).toEqual(
+      [...BOOLEAN_ATTRIBUTES, ...BOOLEAN_WHEN_BOOLEAN].toSorted(),
+    )
+    expect(booleansOf(String(opuiAttributes(part("x"))))).toEqual(
+      booleansOf(String(spreadAttributes(part("x")))),
+    )
+  })
 })
 
 describe("the expression translator", () => {
@@ -467,9 +546,13 @@ describe("the expression translator", () => {
   const scope = {
     file: "Sample.astro",
     helpers: new Set(Object.keys(HELPERS)),
+    kinds: new Map([
+      ["index", new Set(["number"])],
+      ["size", new Set(["string"])],
+    ]),
     locals: new Set(LOCALS),
-    numbers: new Set(["index"]),
-    strings: new Set(["size"]),
+    members: new Map([["a", new Map([["b", new Set(["string"])]])]]),
+    nonNull: new Set(["index"]),
   }
   const EXPRESSIONS = [
     "!(a && b)",
@@ -482,6 +565,7 @@ describe("the expression translator", () => {
     "`${a}-${b}x`",
     "`ui-${a}`",
     "a !== 'x'",
+    "a?.b === 'q'",
     "a && !b || c",
     "a && b",
     "a ? b : c",
@@ -505,6 +589,8 @@ describe("the expression translator", () => {
     "null",
     "String(a)",
     "index === 0",
+    "index !== -1",
+    "index === size",
     "size !== 'medium'",
     "size === 'medium' && `ui-${size}`",
     "undefined",
@@ -572,6 +658,17 @@ describe("the expression translator", () => {
         message: expect.stringContaining(`Sample.astro uses ${what} in \``),
       }),
     )
+  })
+
+  test("writes === as == only where both sides have one kind and one of them can't be none", () => {
+    expect(nunjucksExpression("size === 'medium'", scope)).toBe(
+      'size == "medium"',
+    )
+    expect(nunjucksExpression("index !== -1", scope)).toBe("index != -1")
+    expect(nunjucksExpression("a?.b === 'q'", scope)).toBe('a.b == "q"')
+    expect(nunjucksExpression("a === 'x'", scope)).toBe('a === "x"')
+    expect(nunjucksExpression("index === size", scope)).toBe("index === size")
+    expect(nunjucksExpression("size === a?.b", scope)).toBe("size === a.b")
   })
 
   test("writes a ?? b as a | default(b) only where none can't reach a and b has no call to evaluate early", () => {
@@ -645,21 +742,25 @@ const SAMPLES = [
 describe("samples render what Astro renders", () => {
   test.each(SAMPLES)("$name", async ({ name, props, source, ...sample }) => {
     const body = "body" in sample ? sample.body : undefined
-    const macro = await compileNunjucks(source, SAMPLE_FILE)
+    const { meta, template } = await compileNunjucksComponent(
+      source,
+      SAMPLE_FILE,
+    )
     const env = createEnvironment(
-      { ...templates, "opui/Sample.njk": macro },
+      { ...templates, "opui/Sample.njk": template },
       { id: createIdGenerator() },
     )
+    const boundary = { ...meta, props: meta.omit }
     const shippedProps = env.getFilter("opuiProps")
     const shippedRest = env.getFilter("opuiRest")
     env.addFilter("opuiProps", (value: unknown, of: string) =>
-      of === "Sample" ? value : shippedProps(value, of),
-    )
-    env.addFilter("opuiRest", (value: Record<string, unknown>, of: string) =>
       of === "Sample"
-        ? Object.fromEntries(
-            Object.entries(value).filter(([key]) => !(key in props)),
-          )
+        ? normalizeProps(value, boundary, of)
+        : shippedProps(value, of),
+    )
+    env.addFilter("opuiRest", (value: unknown, of: string) =>
+      of === "Sample"
+        ? restProps(value, boundary, of, new Set(meta.attributes))
         : shippedRest(value, of),
     )
     const rendered = env.renderString(
@@ -870,6 +971,17 @@ describe("the macro library", () => {
         `{% from "opui/Button.njk" import Button %}{% call Button({ variant: "filled" }) %}Save{% endcall %}`,
       ),
     )
+  })
+
+  test(`every line of every template fits in ${LIMIT} columns`, () => {
+    const overlong = (template: string) =>
+      template.split("\n").filter((line) => line.length > LIMIT)
+    expect(overlong(`{{ a }}\n${"b".repeat(LIMIT + 1)}`)).toHaveLength(1)
+    expect(
+      Object.entries(templates).flatMap(([name, template]) =>
+        overlong(template).map((line) => `${name}: ${line}`),
+      ),
+    ).toEqual([])
   })
 
   test("an unknown prop or slot warns in development, and no contract case does", () => {

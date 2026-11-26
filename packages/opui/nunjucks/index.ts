@@ -1,10 +1,9 @@
 import nunjucks from "nunjucks"
 import { cx } from "../components/cx"
-import { WARNED_ONCE } from "../components/dev"
 import { trimEdges } from "../components/whitespace"
+import { BOOLEAN_ATTRIBUTES, BOOLEAN_WHEN_BOOLEAN } from "./attributes"
 import { attributes, components, helpers, templates } from "./macros"
-
-declare const process: { env: { NODE_ENV?: string } }
+import { normalizeProps, restProps, type PropsMeta } from "./props"
 
 type Environment = nunjucks.Environment
 
@@ -40,8 +39,6 @@ const ENTITIES: Record<string, string> = {
 
 const escape = (text: string) => text.replace(/[&"'<>]/g, (c) => ENTITIES[c])
 
-const BOOLEAN_ATTRIBUTES =
-  /^(?:allowfullscreen|async|autofocus|autoplay|checked|controls|default|defer|disabled|disablepictureinpicture|disableremoteplayback|formnovalidate|inert|loop|muted|nomodule|novalidate|open|playsinline|readonly|required|reversed|scoped|seamless|selected|itemscope)$/i
 const INVALID_NAME = /[\s"'>/=]/
 const ELEMENT_NAME = /^[a-zA-Z][\w\-.:\u00B7\u00C0-\u{EFFFF}]*/u
 
@@ -115,12 +112,9 @@ const attribute = (value: unknown, key: string, tagName: string) => {
     }
   }
   if (key === "className") return ` class="${attributeText(value)}"`
-  if (BOOLEAN_ATTRIBUTES.test(key)) {
-    return booleanAttribute(key, value, tagName)
-  }
   if (
-    (key === "popover" || key === "download" || key === "hidden") &&
-    typeof value === "boolean"
+    BOOLEAN_ATTRIBUTES.has(key.toLowerCase()) ||
+    (BOOLEAN_WHEN_BOOLEAN.has(key) && typeof value === "boolean")
   ) {
     return booleanAttribute(key, value, tagName)
   }
@@ -134,17 +128,6 @@ const attributesOf = (part: unknown, tagName: string) =>
         .map(([key, value]) => attribute(value, key, tagName))
         .join("")
     : ""
-
-const DEV =
-  typeof process === "undefined" || process.env.NODE_ENV !== "production"
-
-const warned = new Set<string>()
-
-const warnOnce = (message: string) => {
-  if (warned.has(message)) return
-  warned.add(message)
-  console.warn(`${message} ${WARNED_ONCE}`)
-}
 
 const textOf = (value: unknown): unknown => {
   if (value instanceof SafeString || typeof value === "string") return value
@@ -182,88 +165,10 @@ const knownOf = (name: Name) => {
   return names
 }
 
-const metaOf = (name: Name, filter: string) => {
+const metaOf = (name: Name, filter: string): PropsMeta => {
   const meta = components[name]
   if (!meta) throw new Error(`${filter} has no component named ${name}`)
   return meta
-}
-
-const isDict = (value: unknown): value is Record<string, unknown> => {
-  if (!value || typeof value !== "object") return false
-  const proto = Object.getPrototypeOf(value)
-  return proto === Object.prototype || proto === null
-}
-
-const text = (value: unknown): unknown => {
-  if (value instanceof SafeString) return String(value)
-  if (Array.isArray(value)) {
-    const items = value.map(text)
-    return items.some((item, index) => item !== value[index]) ? items : value
-  }
-  if (isDict(value)) {
-    const entries = Object.entries(value).map(
-      ([key, item]) => [key, text(item)] as const,
-    )
-    return entries.some(([key, item]) => item !== value[key])
-      ? Object.fromEntries(entries)
-      : value
-  }
-  return value
-}
-
-const propsOf = (value: unknown, name: Name) => {
-  if (value == null) return {}
-  if (typeof value !== "object" || Array.isArray(value)) {
-    if (DEV) {
-      throw new Error(
-        `[OPUI ${name}] Pass the props as one dict: ${name}({ ... }), with the default slot as the body of {% call ${name}({ ... }) %}.`,
-      )
-    }
-    return {}
-  }
-  const meta = metaOf(name, "opuiProps")
-  const declared = meta.props as string[]
-  const kept = meta.keepsNone as string[]
-  const given = value as Record<string, unknown>
-  let result: Record<string, unknown> | undefined
-  for (const [key, item] of Object.entries(given)) {
-    if (key === "slots") continue
-    const dropped =
-      item === null && declared.includes(key) && !kept.includes(key)
-    const next = dropped ? undefined : text(item)
-    if (next === item) continue
-    result ??= { ...given }
-    if (dropped) delete result[key]
-    else result[key] = next
-  }
-  return result ?? given
-}
-
-const rest = (props: Record<string, unknown>, name: Name) => {
-  const meta = metaOf(name, "opuiRest")
-  const slots = meta.slots as string[]
-  const omitted = meta.props as string[]
-  const result: Record<string, unknown> = {}
-  for (const [key, value] of Object.entries(props)) {
-    if (key === "slots") {
-      for (const slot of DEV ? Object.keys(value ?? {}) : []) {
-        if (!slots.includes(slot)) {
-          warnOnce(
-            `[OPUI ${name}] Unknown slot "${slot}": ${name} has no slot by that name, so nothing renders it.`,
-          )
-        }
-      }
-      continue
-    }
-    if (omitted.includes(key)) continue
-    if (DEV && !knownOf(name).has(key) && !/^(aria|data)-/.test(key)) {
-      warnOnce(
-        `[OPUI ${name}] Unknown prop "${key}": ${name} has no prop by that name and its element no attribute, so it renders as an attribute.`,
-      )
-    }
-    result[key] = value
-  }
-  return result
 }
 
 const FILTERS = {
@@ -274,8 +179,10 @@ const FILTERS = {
     Object.fromEntries(
       Object.entries(value ?? {}).filter(([name]) => !names.includes(name)),
     ),
-  opuiProps: propsOf,
-  opuiRest: rest,
+  opuiProps: (value: unknown, name: Name) =>
+    normalizeProps(value, metaOf(name, "opuiProps"), name),
+  opuiRest: (value: unknown, name: Name) =>
+    restProps(value, metaOf(name, "opuiRest"), name, knownOf(name)),
   opuiTag: elementName,
   opuiText: textOf,
   opuiTrim: (value: unknown) => {
@@ -336,6 +243,11 @@ export const configure = <Env extends Environment>(
   env: Env,
   options: Options = {},
 ) => {
+  if (!(env instanceof nunjucks.Environment)) {
+    throw new Error(
+      "The Environment passed to configure comes from another copy of nunjucks than opui-css/nunjucks loads, so the two can't tell each other's safe strings apart: install one copy of nunjucks, for example with pnpm dedupe or npm dedupe",
+    )
+  }
   const internals = env as Env & Internals
   const { autoescape, lstripBlocks, throwOnUndefined, trimBlocks } =
     internals.opts

@@ -6,7 +6,8 @@
   <div
     class="ui-tabs
       {%- if props.orientation == 'vertical' %} ui-vertical{% endif %}
-      {%- if props.overflow and props.overflow != 'scroll' %} ui-overflow-{{ props.overflow }}{% endif %}
+      {%- if props.overflow and props.overflow != 'scroll' %} ui-overflow-{{ props.overflow }}
+      {%- endif %}
       {%- if props.variant and props.variant != 'tonal' %} ui-{{ props.variant }}{% endif %}
       {%- if props.class %} {{ props.class }}{% endif %}"
     {%- if props.role != none %} role="{{ props.role }}"{% endif %}

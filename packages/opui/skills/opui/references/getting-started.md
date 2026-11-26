@@ -13,7 +13,7 @@ Add the CSS from the CDN, from npm or by copying the files, then write the class
 One file with the theme, the reset and every component.
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opui-css@next/dist/opui.css" />
 ```
 
 #### Write the classes
@@ -75,7 +75,7 @@ Use `dist/opui.no-compat.css` without the [browser fallbacks](https://opui.dev/h
 
 ### Install manually
 
-No build step needed. Download the package (`npm pack opui-css`, or browse it on [jsDelivr](https://cdn.jsdelivr.net/npm/opui-css@6/)) as `opui`, and import the files:
+No build step needed. Download the package (`npm pack opui-css@next`, or browse it on [jsDelivr](https://cdn.jsdelivr.net/npm/opui-css@next/)) as `opui`, and import the files:
 
 ```css
 @import "./opui/css/layers.css";
@@ -142,25 +142,25 @@ For a bundler that resolves CSS `@import`s, like Vite, on Node 26.10 or later.
 `pnpm`
 
 ```sh
-pnpm add opui-css
+pnpm add opui-css@next
 ```
 
 `npm`
 
 ```sh
-npm install opui-css
+npm install opui-css@next
 ```
 
 `yarn`
 
 ```sh
-yarn add opui-css
+yarn add opui-css@next
 ```
 
 `bun`
 
 ```sh
-bun add opui-css
+bun add opui-css@next
 ```
 
 #### Import the CSS
@@ -210,7 +210,7 @@ Without a bundler, add this import map to the `head`:
 
 ```html
 <script type="importmap">
-  { "imports": { "opui-css/": "https://cdn.jsdelivr.net/npm/opui-css@6/" } }
+  { "imports": { "opui-css/": "https://cdn.jsdelivr.net/npm/opui-css@next/" } }
 </script>
 ```
 
@@ -247,19 +247,19 @@ OPUI ships first-class Astro 7 components. Install the package, import what you 
 Needs Node 26.10 or later. Import the CSS once, where your app starts.
 
 ```sh
-pnpm add opui-css astro@7
+pnpm add opui-css@next astro@7
 ```
 
 ```sh
-npm install opui-css astro@7
+npm install opui-css@next astro@7
 ```
 
 ```sh
-yarn add opui-css astro@7
+yarn add opui-css@next astro@7
 ```
 
 ```sh
-bun add opui-css astro@7
+bun add opui-css@next astro@7
 ```
 
 ```astro
@@ -304,7 +304,7 @@ import "../styles/global.css"
 
 ### TypeScript
 
-`astro check` runs on TypeScript 6, not on 7. Keep `moduleResolution` set to `"bundler"`, as Astro's `tsconfig.json` presets do: with `"nodenext"`, the component props aren't checked.
+`astro check` needs `@astrojs/check` and runs on TypeScript 6, not on 7. Keep `moduleResolution` set to `"bundler"`, as Astro's `tsconfig.json` presets do: with `"nodenext"`, the component props aren't checked.
 
 ### How to use
 
@@ -334,7 +334,7 @@ export const onRequest = defineMiddleware((context, next) => {
 })
 ```
 
-Add `/// <reference types="opui-css/env.d.ts" />` to `env.d.ts` for the types.
+Add `/// <reference types="opui-css/env.d.ts" />` to `src/env.d.ts`, or create that file with the line, for the types.
 
 ### Next steps
 
@@ -361,19 +361,19 @@ OPUI ships every component as a Nunjucks 3 macro. Install the package, add the p
 Needs Node 26.10 or later. Configure Nunjucks once, and link the CSS in your layout.
 
 ```sh
-pnpm add opui-css nunjucks
+pnpm add opui-css@next @11ty/eleventy nunjucks
 ```
 
 ```sh
-npm install opui-css nunjucks
+npm install opui-css@next @11ty/eleventy nunjucks
 ```
 
 ```sh
-yarn add opui-css nunjucks
+yarn add opui-css@next @11ty/eleventy nunjucks
 ```
 
 ```sh
-bun add opui-css nunjucks
+bun add opui-css@next @11ty/eleventy nunjucks
 ```
 
 ```js
@@ -411,13 +411,14 @@ export default (eleventyConfig) => {
 
 ### Link only what you use
 
-Copy the CSS folders to your site:
+Copy the CSS folders and your own `css` folder to your site:
 
 ```js
 eleventyConfig.addPassthroughCopy({
   "node_modules/opui-css/core": "opui/core",
   "node_modules/opui-css/css": "opui/css",
 })
+eleventyConfig.addPassthroughCopy("css")
 ```
 
 List the files in a CSS file, and link it instead of `opui.css`:
@@ -460,7 +461,7 @@ Each macro takes one dict with the component's props. The default slot is the bo
 {% endcall %}
 ```
 
-Props are text, as in the other frameworks: a value marked `| safe` prints escaped, in attributes too, so markup goes in a slot. A prop set to `none` counts as not given, so its default applies.
+Props are text, as in the other frameworks: a value marked `| safe` prints escaped, in attributes too, so markup goes in a slot. A prop set to `none` renders as a prop not given, so its default applies.
 
 Keys the macro doesn't take go to its element as attributes. Import a macro on its own with `{% from "opui/Button.njk" import Button %}`, or all of them as `{% import "opui/index.njk" as ui %}`.
 
@@ -539,19 +540,19 @@ OPUI ships first-class React 19 components. Install the package, import what you
 #### Install and import the CSS
 
 ```sh
-pnpm add opui-css react@19 react-dom@19
+pnpm add opui-css@next react@19 react-dom@19
 ```
 
 ```sh
-npm install opui-css react@19 react-dom@19
+npm install opui-css@next react@19 react-dom@19
 ```
 
 ```sh
-yarn add opui-css react@19 react-dom@19
+yarn add opui-css@next react@19 react-dom@19
 ```
 
 ```sh
-bun add opui-css react@19 react-dom@19
+bun add opui-css@next react@19 react-dom@19
 ```
 
 ```tsx
@@ -584,7 +585,7 @@ import "./styles/main.css"
 
 ### Builds
 
-Vite 8, which SvelteKit and Nuxt build with, and Next 16 rewrite `light-dark()` for older browsers by default. The colors still follow the OS, and `.ui-light` or `.ui-dark` on `html` still works, but on a part of the page it stops switching after a build. Target browsers that have `light-dark()`:
+Next 16 and Vite 8 rewrite `light-dark()` for older browsers by default. The colors still follow the OS, and `.ui-light` or `.ui-dark` on `html` still works, but on a part of the page it stops switching after a build. Target browsers that have `light-dark()`:
 
 ```js
 experimental: {
@@ -743,19 +744,19 @@ OPUI ships first-class Solid 2 components. Install the package, import what you 
 #### Install and import the CSS
 
 ```sh
-pnpm add opui-css solid-js@2 @solidjs/web@2
+pnpm add opui-css@next solid-js@2 @solidjs/web@2
 ```
 
 ```sh
-npm install opui-css solid-js@2 @solidjs/web@2
+npm install opui-css@next solid-js@2 @solidjs/web@2
 ```
 
 ```sh
-yarn add opui-css solid-js@2 @solidjs/web@2
+yarn add opui-css@next solid-js@2 @solidjs/web@2
 ```
 
 ```sh
-bun add opui-css solid-js@2 @solidjs/web@2
+bun add opui-css@next solid-js@2 @solidjs/web@2
 ```
 
 #### Use a component
@@ -777,6 +778,10 @@ export default function App() {
 ### Builds
 
 The components ship as `.jsx` files with their types, which `@solidjs/vite-plugin` compiles with your Solid through the package's `solid` export condition, for server rendering too.
+
+Vite 8 rewrites `light-dark()` for older browsers by default. The colors still follow the OS, and `.ui-light` or `.ui-dark` on `html` still works, but on a part of the page it stops switching after a build. Target browsers that have `light-dark()`:
+
+Same code as in the HTML section.
 
 ### TypeScript
 
@@ -820,6 +825,12 @@ import { defineConfig } from "vite"
 export default defineConfig({
   plugins: [solid({ ssr: true, start: true })],
 })
+```
+
+With `start`, the plugin builds its entries from `src/App.tsx` instead of `index.html` and `src/index.tsx`, so import the CSS there:
+
+```ts
+import "opui-css/css/imports.css"
 ```
 
 A page with more than one root gives each its own `renderId` in `renderToString` and `hydrate`, so the ids the components generate differ between the roots. Roots hydrated in the same task each claim their server markup. A root hydrated in a later task renders again over its markup, so load the code of every root first and call `hydrate` for all of them in one loop.
@@ -929,19 +940,19 @@ OPUI ships first-class components for Svelte 5.57 and later. Install the package
 #### Install and import the CSS
 
 ```sh
-pnpm add opui-css svelte@5
+pnpm add opui-css@next svelte@5
 ```
 
 ```sh
-npm install opui-css svelte@5
+npm install opui-css@next svelte@5
 ```
 
 ```sh
-yarn add opui-css svelte@5
+yarn add opui-css@next svelte@5
 ```
 
 ```sh
-bun add opui-css svelte@5
+bun add opui-css@next svelte@5
 ```
 
 ```svelte
@@ -985,6 +996,10 @@ Same code as in the HTML section.
 ```
 
 ### Builds
+
+Vite 8, which SvelteKit builds with, rewrites `light-dark()` for older browsers by default. The colors still follow the OS, and `.ui-light` or `.ui-dark` on `html` still works, but on a part of the page it stops switching after a build. Target browsers that have `light-dark()`:
+
+Same code as in the HTML section.
 
 ### TypeScript
 
@@ -1149,19 +1164,19 @@ OPUI ships first-class components for Vue 3.5.2 and later. Install the package, 
 #### Install and import the CSS
 
 ```sh
-pnpm add opui-css vue@3
+pnpm add opui-css@next vue@3
 ```
 
 ```sh
-npm install opui-css vue@3
+npm install opui-css@next vue@3
 ```
 
 ```sh
-yarn add opui-css vue@3
+yarn add opui-css@next vue@3
 ```
 
 ```sh
-bun add opui-css vue@3
+bun add opui-css@next vue@3
 ```
 
 ```ts
@@ -1201,6 +1216,10 @@ import "./styles/main.css"
 ```
 
 ### Builds
+
+Vite 8, which Nuxt builds with, rewrites `light-dark()` for older browsers by default. The colors still follow the OS, and `.ui-light` or `.ui-dark` on `html` still works, but on a part of the page it stops switching after a build. Target browsers that have `light-dark()`:
+
+Same code as in the HTML section.
 
 ### TypeScript
 

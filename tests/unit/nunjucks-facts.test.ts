@@ -125,6 +125,28 @@ describe("the facts", () => {
     ).toEqual(["class", "id"])
   })
 
+  test("a comparison with a value reads null and not given alike, and a comparison with null or an order does not", async () => {
+    const facts = analyze(
+      await readComponent(
+        `---\nimport type { Props } from "./types.astro"\nconst { a, b, c, ...rest } = Astro.props\n---\n\n<div {...rest} data-a={a === "tablist" ? "x" : undefined} data-b={b === null ? "x" : undefined} data-c={c < 1 ? "x" : undefined} />\n`,
+        FILE,
+      ),
+    )
+    expect(facts.nullAgnostic("a")).toBe(true)
+    expect(facts.nullAgnostic("b")).toBe(false)
+    expect(facts.nullAgnostic("c")).toBe(false)
+  })
+
+  test("a value its default or its block makes non-null renders without a none guard", async () => {
+    const macro = await compileNunjucks(
+      `---\nimport type { Props } from "./types.astro"\nconst { id = "tabs", orientation = "horizontal", role, ...rest } = Astro.props\n---\n\n<div {...rest} aria-orientation={orientation} id={id}>{role && <span role={role} />}</div>\n`,
+      FILE,
+    )
+    expect(macro).toContain('aria-orientation="{{ orientation }}"')
+    expect(macro).toContain('{%- if id != none %} id="{{ id }}"{% endif %}')
+    expect(macro).toContain('<span role="{{ props.role }}">')
+  })
+
   test("a list a helper returns gives its items' fields their kinds", async () => {
     const macro = await compileNunjucks(
       `---\nimport type { Props } from "./types.astro"\nimport { pillsOf } from "./pills"\nconst { items, ...rest } = Astro.props\nconst pills = pillsOf(items)\n---\n\n<ul {...rest}>{pills.map((item) => <li>{item.label}{item.checked}</li>)}</ul>\n`,
@@ -180,6 +202,19 @@ describe("the layout", () => {
   test("text that ends in }} never takes a break after it", () => {
     const template = `  <p>${glue("x}}".repeat(40), "y".repeat(40), 2)}</p>`
     expect(String(layout(template))).toBe(template)
+  })
+
+  test("a long line breaks between tags first, then inside a tag at its operators or outermost brackets, and renders the same", () => {
+    const template = [
+      `  <p class="x{% if a and a != 'b' %} ui-${"y".repeat(60)}-{{ a }}{% endif %}">{% set list = [${Array.from({ length: 8 }, (_, index) => `"item-${index}"`).join(", ")}] %}{{ list | join(" ") }}</p>`,
+      `  {{- { title: (a ~ "${"z".repeat(50)}") if c else (b or "${"w".repeat(50)}"), lang: c } | opuiAttributes }}`,
+    ].join("\n")
+    const laid = String(layout(template))
+    expect(template.split("\n").some((line) => line.length > LIMIT)).toBe(true)
+    expect(laid.split("\n").filter((line) => line.length > LIMIT)).toEqual([])
+    expect(laid).toMatch(/\{%- set list = \[\n +"item-0",\n/)
+    expect(laid).toMatch(/\n +if c\n +else \(b or/)
+    expect(render(laid)).toBe(render(template))
   })
 
   test("a long tag expression wraps at its top-level operators", () => {

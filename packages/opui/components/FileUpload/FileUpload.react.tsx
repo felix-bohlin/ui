@@ -49,7 +49,7 @@ export default function FileUpload({
               className="ui-sr-only"
               disabled={disabled}
               id={inputId}
-              multiple={multiple}
+              multiple={multiple || undefined}
               type="file"
             />
             <span className="ui-button ui-outlined">{label}</span>

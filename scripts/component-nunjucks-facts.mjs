@@ -194,6 +194,21 @@ const isEmpty = (node) =>
   node.kind === ts.SyntaxKind.NullKeyword ||
   (ts.isIdentifier(node) && node.text === "undefined")
 
+const EQUALITY = new Set([
+  ts.SyntaxKind.EqualsEqualsEqualsToken,
+  ts.SyntaxKind.EqualsEqualsToken,
+  ts.SyntaxKind.ExclamationEqualsEqualsToken,
+  ts.SyntaxKind.ExclamationEqualsToken,
+])
+
+const isValue = (node) =>
+  ts.isStringLiteral(node) ||
+  ts.isNoSubstitutionTemplateLiteral(node) ||
+  ts.isNumericLiteral(node) ||
+  node.kind === ts.SyntaxKind.TrueKeyword ||
+  node.kind === ts.SyntaxKind.FalseKeyword ||
+  (ts.isPrefixUnaryExpression(node) && ts.isNumericLiteral(node.operand))
+
 const references = (use, name, check) => {
   const { root } = parse(use.code, use.kind === "statement")
   let every = true
@@ -261,6 +276,13 @@ const nullAgnostic = (node, use) => {
       ts.isBinaryExpression(parent) &&
       LOOSE.has(parent.operatorToken.kind) &&
       isEmpty(unwrap(parent.left === current ? parent.right : parent.left))
+    ) {
+      return true
+    }
+    if (
+      ts.isBinaryExpression(parent) &&
+      EQUALITY.has(parent.operatorToken.kind) &&
+      isValue(unwrap(parent.left === current ? parent.right : parent.left))
     ) {
       return true
     }

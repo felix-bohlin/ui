@@ -5,7 +5,8 @@
   {%- set rest = props | opuiRest("Stepper") -%}
   <ol
     class="ui-stepper
-      {%- if props.orientation and props.orientation != 'auto' %} ui-{{ props.orientation }}{% endif %}
+      {%- if props.orientation and props.orientation != 'auto' %} ui-{{ props.orientation }}
+      {%- endif %}
       {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}
       {%- if props.class %} {{ props.class }}{% endif %}"
     {{- rest | opuiAttributes }}>
@@ -15,8 +16,14 @@
         { completeLabel: props.completeLabel, errorLabel: props.errorLabel },
         item,
         {
-          current: item.current or index === props.current,
-          state: item.state if item.state != none else ("complete" if props.complete or props.current is defined and index < props.current else undefined)
+          current: item.current or index == props.current,
+          state: item.state
+            if item.state != none
+            else (
+              "complete"
+                if props.complete or props.current is defined and index < props.current
+                else undefined
+            )
         }
       )) }}
     {%- endfor %}

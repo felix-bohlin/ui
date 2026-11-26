@@ -2,7 +2,12 @@
   {%- set props = props | opuiProps("AnchorContent") -%}
   {%- set rest = props | opuiRest("AnchorContent") -%}
   {%- set anchor = opui.context("Anchor") -%}
-  {{- opui.warnReplacedAnchorAttributes(props.id, props.popover, anchor.floatingId, anchor.popover) -}}
+  {{- opui.warnReplacedAnchorAttributes(
+    props.id,
+    props.popover,
+    anchor.floatingId,
+    anchor.popover
+  ) -}}
   {%- set id = anchor.floatingId if anchor.floatingId != none else props.id -%}
   <span
     class="ui-floating

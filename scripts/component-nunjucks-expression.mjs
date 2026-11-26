@@ -1,12 +1,7 @@
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
-import { inResult } from "./component-nunjucks-facts.mjs"
-import {
-  containsKind,
-  sourceFileOf,
-  unsupported,
-  unwrap,
-} from "./component-shared.mjs"
+import { inResult, keyOf } from "./component-nunjucks-facts.mjs"
+import { sourceFileOf, unsupported, unwrap } from "./component-shared.mjs"
 
 export const COMPILER = "scripts/component-nunjucks.mjs"
 
@@ -177,6 +172,11 @@ export const nunjucksExpression = (code, scope) =>
   nunjucksValue(code, scope).text
 
 const translate = (root, scope, sourceFile) => {
+  let calls = 0
+  const invoked = (text) => {
+    calls += 1
+    return { level: LEVEL.primary, text }
+  }
   const refuse = (node, what) =>
     unsupported(
       "BC701",
@@ -219,8 +219,42 @@ const translate = (root, scope, sourceFile) => {
     }
     throw refuse(node, `the global ${name}`)
   }
-  const known = (node, names) =>
-    ts.isIdentifier(unwrap(node)) && !!names?.has(unwrap(node).text)
+  const KINDS = { number: new Set(["number"]), string: new Set(["string"]) }
+  const kindsOf = (node) => {
+    const inner = unwrap(node)
+    if (
+      ts.isStringLiteral(inner) ||
+      ts.isNoSubstitutionTemplateLiteral(inner) ||
+      ts.isTemplateExpression(inner)
+    ) {
+      return KINDS.string
+    }
+    if (
+      ts.isNumericLiteral(inner) ||
+      (ts.isPrefixUnaryExpression(inner) &&
+        inner.operator === ts.SyntaxKind.MinusToken &&
+        ts.isNumericLiteral(inner.operand))
+    ) {
+      return KINDS.number
+    }
+    if (ts.isIdentifier(inner)) return scope.kinds?.get(inner.text)
+    if (
+      ts.isPropertyAccessExpression(inner) &&
+      ts.isIdentifier(unwrap(inner.expression))
+    ) {
+      return scope.members
+        ?.get(unwrap(inner.expression).text)
+        ?.get(inner.name.text)
+    }
+    return undefined
+  }
+  const alike = (left, right) =>
+    Object.keys(KINDS).some((kind) =>
+      [left, right].every((side) => {
+        const kinds = kindsOf(side)
+        return !!kinds?.size && [...kinds].every((item) => item === kind)
+      }),
+    ) && [left, right].some((side) => isNonNull(side.getText(), scope))
   const comparison = (node, operator) => {
     const [subject, other] = isUndefined(node.right, scope)
       ? [node.left, node.right]
@@ -240,16 +274,7 @@ const translate = (root, scope, sourceFile) => {
         text: `${at(visit(value), LEVEL.compare)} is ${operator === "===" ? "" : "not "}null`,
       }
     }
-    const loose =
-      LOOSE.has(operator) &&
-      ((ts.isStringLiteral(unwrap(node.left)) &&
-        known(node.right, scope.strings)) ||
-        (ts.isStringLiteral(unwrap(node.right)) &&
-          known(node.left, scope.strings)) ||
-        (ts.isNumericLiteral(unwrap(node.left)) &&
-          known(node.right, scope.numbers)) ||
-        (ts.isNumericLiteral(unwrap(node.right)) &&
-          known(node.left, scope.numbers)))
+    const loose = LOOSE.has(operator) && alike(node.left, node.right)
     return {
       level: LEVEL.compare,
       text: `${at(visit(node.left), LEVEL.concat)} ${loose ? LOOSE.get(operator) : operator} ${at(visit(node.right), LEVEL.concat)}`,
@@ -268,7 +293,7 @@ const translate = (root, scope, sourceFile) => {
       if (!prefix || !ts.isStringLiteral(prefix)) {
         throw refuse(node, "an id prefix")
       }
-      const generated = primary(
+      const generated = invoked(
         `opui.id(${nunjucksString(prefix.text, scope.quote)})`,
       )
       const base = ids.id
@@ -284,7 +309,7 @@ const translate = (root, scope, sourceFile) => {
     if (ts.isIdentifier(callee)) {
       const name = callee.text
       if (scope.idPrefixes?.has(name) && node.arguments.length === 1) {
-        return primary(`opui.id(${args()})`)
+        return invoked(`opui.id(${args()})`)
       }
       if (!scope.locals?.has(name) && !scope.props?.has(name)) {
         if (name === "Boolean" && node.arguments.length === 1) {
@@ -297,10 +322,10 @@ const translate = (root, scope, sourceFile) => {
           return concat([visit(node.arguments[0]), string("")])
         }
       }
-      return primary(`${identifier(callee).text}(${args()})`)
+      return invoked(`${identifier(callee).text}(${args()})`)
     }
     if (ts.isPropertyAccessExpression(callee)) {
-      return primary(`${visit(callee).text}(${args()})`)
+      return invoked(`${visit(callee).text}(${args()})`)
     }
     throw refuse(node, "a call of a computed function")
   }
@@ -341,7 +366,7 @@ const translate = (root, scope, sourceFile) => {
       span.literal.text === "" &&
       head.endsWith("-")
     ) {
-      return primary(
+      return invoked(
         `opui.id(${nunjucksString(head.slice(0, -1), scope.quote)})`,
       )
     }
@@ -417,23 +442,25 @@ const translate = (root, scope, sourceFile) => {
         throw refuse(node, "?? after an expression that isn't a name")
       }
       const left = visit(node.left)
+      const before = calls
+      const right = visit(node.right)
       const name = unwrap(node.left)
       if (
+        calls === before &&
         ts.isIdentifier(name) &&
         !scope.renames?.has(name.text) &&
         !scope.locals?.has(name.text) &&
         scope.props?.has(name.text) &&
-        !scope.keepsNone?.has(name.text) &&
-        !containsKind(node.right, ts.isCallExpression)
+        !scope.keepsNone?.has(name.text)
       ) {
         return {
           level: LEVEL.filter,
-          text: `${at(left, LEVEL.filter)} | default(${visit(node.right).text})`,
+          text: `${at(left, LEVEL.filter)} | default(${right.text})`,
         }
       }
       return {
         level: LEVEL.if,
-        text: `${at(left, LEVEL.or)} if ${at(left, LEVEL.concat)} != none else ${at(visit(node.right), LEVEL.or)}`,
+        text: `${at(left, LEVEL.or)} if ${at(left, LEVEL.concat)} != none else ${at(right, LEVEL.or)}`,
       }
     }
     const compared = COMPARISONS.get(operator)
@@ -562,6 +589,12 @@ export const isNonNull = (code, scope) => {
       ts.isNoSubstitutionTemplateLiteral(inner) ||
       ts.isTemplateExpression(inner) ||
       ts.isNumericLiteral(inner)
+    ) {
+      return true
+    }
+    if (
+      (ts.isIdentifier(inner) || ts.isPropertyAccessExpression(inner)) &&
+      !!scope.facts?.has(keyOf(inner))
     ) {
       return true
     }

@@ -100,59 +100,204 @@ const fit = (line) => {
   return [visible(left), ...fit(right)]
 }
 
-const TAG = /^(\s*)(\{[%{]-?\s*)(set\s+\w+\s*=\s*)?([\s\S]*?)(\s*-?[%}]\})$/
+const CLOSERS = { "{#": "#}", "{%": "%}", "{{": "}}" }
 
-const splitPoints = (expression) => {
-  const points = []
-  let depth = 0
+const START = { element: false, quote: "", tag: "", value: "" }
+
+const scan = (line, state) => {
+  let { element, quote, tag, value } = state
+  const lead = /^\s*/.exec(line)[0].length
+  const boundaries = []
+  const regions = []
+  let regionStart = tag ? lead : 0
+  const boundary = (index, extra) =>
+    boundaries.push({
+      ...extra,
+      index,
+      opened: element && !state.element,
+      value: !!value,
+    })
+  for (let index = 0; index < line.length; index++) {
+    const char = line[index]
+    if (tag) {
+      if (quote) {
+        if (char === "\\") index++
+        else if (char === quote) quote = ""
+      } else if (tag !== "{#" && (char === '"' || char === "'")) {
+        quote = char
+      } else if (line.startsWith(CLOSERS[tag], index)) {
+        const end = /\s*-?$/.exec(line.slice(regionStart, index))
+        regions.push({ end: regionStart + end.index, start: regionStart })
+        const next = line[index + 2]
+        if (
+          tag !== "{#" &&
+          next &&
+          /\S/.test(next) &&
+          !/^\{[{%#]/.test(line.slice(index + 2))
+        ) {
+          boundary(index + 2, { closer: index, kind: "after" })
+        }
+        tag = ""
+        index++
+      }
+      continue
+    }
+    const opener = line.slice(index, index + 2)
+    if (Object.hasOwn(CLOSERS, opener)) {
+      if (opener !== "{#" && index > lead && /\S/.test(line[index - 1])) {
+        boundary(index, { kind: "before" })
+      }
+      tag = opener
+      regionStart = index + 2 + /^-?\s*/.exec(line.slice(index + 2))[0].length
+      index++
+    } else if (value) {
+      if (char === value) value = ""
+    } else if (element) {
+      if (char === '"' || char === "'") value = char
+      else if (char === ">") element = false
+    } else if (char === "<" && /[A-Za-z/{!]/.test(line[index + 1] ?? "")) {
+      element = true
+    }
+  }
+  if (tag) regions.push({ end: line.length, start: regionStart })
+  return { boundaries, regions, state: { element, quote, tag, value } }
+}
+
+const OPERATORS = [/^ (?:if|else) /, /^ or /, /^ and /]
+
+const structure = (text) => {
+  const operators = OPERATORS.map(() => [])
+  const groups = []
+  const open = []
   let quote = ""
-  for (let index = 0; index < expression.length; index++) {
-    const char = expression[index]
+  for (let index = 0; index < text.length; index++) {
+    const char = text[index]
     if (quote) {
       if (char === "\\") index++
       else if (char === quote) quote = ""
       continue
     }
+    const group = open.at(-1)
     if (char === '"' || char === "'") quote = char
-    else if ("([{".includes(char)) depth++
-    else if (")]}".includes(char)) depth--
-    else if (
-      depth === 0 &&
-      /^ (?:if|else|and|or) /.test(expression.slice(index))
-    ) {
-      points.push(index)
+    else if ("([{".includes(char)) {
+      open.push({ commas: [], depth: open.length, open: index, operators: 0 })
+    } else if (")]}".includes(char)) {
+      const closed = open.pop()
+      if (closed) groups.push({ ...closed, close: index })
+    } else if (char === "," && group) {
+      group.commas.push(index)
+    } else if (char === " ") {
+      const rank = OPERATORS.findIndex((pattern) =>
+        pattern.test(text.slice(index)),
+      )
+      if (rank < 0) continue
+      if (group) group.operators++
+      else operators[rank].push(index)
     }
   }
-  return points
+  return { groups, operators }
 }
 
-const wrap = (line) => {
-  if (line.length <= LIMIT) return [line]
-  const match = TAG.exec(line)
-  if (!match || match[1].length + match[2].length > LIMIT) return [line]
-  const [, lead, open, set = "", expression, close] = match
-  if (expression.includes("\n") || /[%}]\}/.test(expression)) return [line]
-  const points = splitPoints(expression)
-  if (!points.length) return [line]
-  const prefix = `${lead}${open}${set}`
-  const pieces = []
-  let start = 0
-  for (const point of points) {
-    pieces.push(expression.slice(start, point))
-    start = point + 1
-  }
-  pieces.push(expression.slice(start))
+const splitRegion = (line, { end, start }, lead) => {
+  const text = line.slice(start, end)
+  const { groups, operators } = structure(text)
   const inner = `${lead}  `
+  const points = operators.find((list) => list.length)
+  if (points) {
+    const cuts = [...points.map((point) => start + point), line.length]
+    return [
+      line.slice(0, cuts[0]),
+      ...cuts
+        .slice(0, -1)
+        .map((cut, index) => `${inner}${line.slice(cut + 1, cuts[index + 1])}`),
+    ]
+  }
+  const [group] = groups
+    .filter(
+      (item) =>
+        (item.commas.length || item.operators) &&
+        text.slice(item.open + 1, item.close).trim(),
+    )
+    .toSorted(
+      (a, b) => a.depth - b.depth || b.close - b.open - (a.close - a.open),
+    )
+  if (!group) return undefined
+  const items = [group.open, ...group.commas, group.close]
+    .slice(0, -1)
+    .map((cut, index, cuts) =>
+      text.slice(cut + 1, cuts[index + 1] ?? group.close).trim(),
+    )
   return [
-    `${prefix}${pieces[0]}`,
-    ...pieces.slice(1, -1).map((piece) => `${inner}${piece}`),
-    `${inner}${pieces.at(-1)}${close}`,
+    line.slice(0, start + group.open + 1),
+    ...items.map(
+      (item, index) => `${inner}${item}${index < items.length - 1 ? "," : ""}`,
+    ),
+    `${lead}${line.slice(start + group.close)}`,
   ]
 }
 
-export const layout = (text) =>
-  text
+const splitAt = (line, item, lead) => {
+  const indent = item.opened ? `${lead}  ` : lead
+  if (item.kind === "before") {
+    const rest = line.slice(item.index + 2)
+    return [
+      line.slice(0, item.index),
+      `${indent}${line.slice(item.index, item.index + 2)}${rest.startsWith("-") ? "" : "-"}${rest}`,
+    ]
+  }
+  const trimmed = line[item.closer - 1] === "-"
+  return [
+    `${line.slice(0, item.closer)}${trimmed ? "" : "-"}${line.slice(item.closer, item.index)}`,
+    `${indent}${line.slice(item.index)}`,
+  ]
+}
+
+const splitLine = (line, state) => {
+  const { boundaries, regions } = scan(line, state)
+  const lead = /^\s*/.exec(line)[0]
+  const shorter = (pieces) =>
+    pieces && pieces.every((piece) => piece.length < line.length)
+      ? pieces
+      : undefined
+  const fitting = (inValue) =>
+    boundaries
+      .filter((item) => item.value === inValue)
+      .map((item) => shorter(splitAt(line, item, lead)))
+      .findLast((pieces) => pieces && pieces[0].length <= LIMIT)
+  const regionSplits = regions
+    .toSorted((a, b) => b.end - b.start - (a.end - a.start))
+    .map((region) => shorter(splitRegion(line, region, lead)))
+  return (
+    fitting(false) ??
+    fitting(true) ??
+    boundaries
+      .map((item) => shorter(splitAt(line, item, lead)))
+      .find(Boolean) ??
+    regionSplits.find(Boolean)
+  )
+}
+
+const wrap = (line, state) => {
+  if (line.length <= LIMIT) return [line]
+  const pieces = splitLine(line, state)
+  if (!pieces) return [line]
+  let current = state
+  return pieces.flatMap((piece) => {
+    const lines = wrap(piece, current)
+    current = scan(piece, current).state
+    return lines
+  })
+}
+
+export const layout = (text) => {
+  let state = START
+  return text
     .split("\n")
     .flatMap((line) => fit(line))
-    .flatMap((line) => wrap(line))
+    .flatMap((line) => {
+      const lines = wrap(line, state)
+      state = scan(line, state).state
+      return lines
+    })
     .join("\n")
+}

@@ -8,11 +8,16 @@
   <div
     class="ui-toggle-group
       {%- if props.orientation == 'vertical' %} ui-vertical{% endif %}
-      {%- if props.overflow and props.overflow != 'wrap' %} ui-overflow-{{ props.overflow }}{% endif %}
+      {%- if props.overflow and props.overflow != 'wrap' %} ui-overflow-{{ props.overflow }}
+      {%- endif %}
       {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}
       {%- if props.class %} {{ props.class }}{% endif %}"
     role="{{ role }}"
     {{- rest | opuiAttributes }}>
-    {{- opui.provide("ToggleGroup", { groupName: groupName, inputType: inputType, value: props.value }, caller) -}}
+    {{- opui.provide(
+      "ToggleGroup",
+      { groupName: groupName, inputType: inputType, value: props.value },
+      caller
+    ) -}}
   </div>
 {%- endmacro %}

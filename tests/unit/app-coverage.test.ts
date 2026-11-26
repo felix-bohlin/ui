@@ -60,8 +60,8 @@ test("the check flags a component that no example imports", () => {
   expect(
     unrendered(
       [
-        '{% from "opui/Button.njk" import Button %}{% set Button = Button %}',
-        '{% from "opui/Card.njk" import Card %}{% set Card = Card %}',
+        '{% from "opui/Button.njk" import Button %}\n{% set Button = Button %}',
+        '{% from "opui/Card.njk" import Card %}\n{% set Card = Card %}',
       ].join("\n"),
       ['{% from "opui/index.njk" import\n  Button,\n  Divider\n%}'],
       "nunjucks",

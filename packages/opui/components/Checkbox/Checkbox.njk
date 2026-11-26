@@ -4,13 +4,18 @@
   {%- set props = props | opuiProps("Checkbox") -%}
   {%- set rest = props | opuiRest("Checkbox") -%}
   {%- set labelSlot = (caller() if caller) | opuiTrim -%}
-  {{- opui.warnUnnamed("Checkbox", opui.hasName(opui.merge(rest, { label: props.label }), caller is defined)) -}}
+  {{- opui.warnUnnamed(
+    "Checkbox",
+    opui.hasName(opui.merge(rest, { label: props.label }), caller is defined)
+  ) -}}
   <label
     class="ui-checkbox
       {%- if props.card %} ui-card{% endif %}
       {%- if props.spread %} ui-spread{% endif %}
-      {%- if props.card and props.variant and props.variant != 'outlined' %} ui-{{ props.variant }}{% endif %}
-      {%- if props.orientation and props.orientation != 'horizontal' %} ui-{{ props.orientation }}{% endif %}
+      {%- if props.card and props.variant and props.variant != 'outlined' %} ui-{{ props.variant }}
+      {%- endif %}
+      {%- if props.orientation and props.orientation != 'horizontal' %} ui-{{ props.orientation }}
+      {%- endif %}
       {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}
       {%- if props.class %} {{ props.class }}{% endif %}"
     {{- { style: props.style } | opuiAttributes }}>

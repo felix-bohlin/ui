@@ -51,7 +51,7 @@ export default function FileUpload(props: Props) {
               class="ui-sr-only"
               disabled={props.disabled}
               id={inputId()}
-              multiple={props.multiple}
+              multiple={props.multiple || undefined}
               type="file"
             />
             <span class="ui-button ui-outlined">{props.label}</span>

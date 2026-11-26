@@ -13,7 +13,8 @@
     props.variant and props.variant != "tonal" and "ui-" ~ props.variant,
     props.class
   ] | opuiClass -%}
-  <{{ root | opuiTag }}{{ opui.merge({ class: classes, id: rootId }, opui.defined(rest)) | opuiAttributes(root) }}>
+  <{{ root | opuiTag }}
+    {{- opui.merge({ class: classes, id: rootId }, opui.defined(rest)) | opuiAttributes(root) }}>
     {{- opui.provide("Callout", { severity: props.severity }, caller) }}{% if props.closeButton -%}
       {% call Button({
         "aria-label": closeLabel,

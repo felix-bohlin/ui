@@ -109,6 +109,11 @@ export const DIAGNOSTICS = {
     explain:
       "A component without a rest spread on several roots renders one root element, which the ports return and Vue's attributes fall through to. Wrap the template in one element.",
   },
+  BC211: {
+    title: "A boolean attribute Astro writes as text",
+    explain:
+      'Astro writes a value bound to an HTML boolean attribute it doesn\'t list, such as `multiple`, as text, so `multiple={false}` renders `multiple="false"` and the attribute is on. Bind `true`, a string, or a value that is `undefined` when off: `multiple={multiple || undefined}`, or a conditional with an `undefined` or `null` branch.',
+  },
   BC301: {
     title: "A name a port also declares",
     explain:

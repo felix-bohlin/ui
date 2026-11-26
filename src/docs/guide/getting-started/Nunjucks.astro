@@ -121,8 +121,8 @@ const env = configure(nunjucks.configure("views"))`}
     <p>
       Props are text, as in the other frameworks: a value marked
       <code>| safe</code> prints escaped, in attributes too, so markup goes in a
-      slot. A prop set to <code>none</code> counts as not given, so its default
-      applies.
+      slot. A prop set to <code>none</code> renders as a prop not given, so its
+      default applies.
     </p>
     <p>
       Keys the macro doesn't take go to its element as attributes. Import a

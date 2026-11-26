@@ -3,8 +3,7 @@
   {%- set rest = props | opuiRest("Button") -%}
   {%- set tag = "a"
     if opui.disabledLink(props.as, props.disabled)
-    else props.as
-    or ("a" if props.href else "button") -%}
+    else props.as or ("a" if props.href else "button") -%}
   {%- set classes = [
     "ui-button",
     { "ui-round": props.round },

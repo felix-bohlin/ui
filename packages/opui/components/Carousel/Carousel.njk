@@ -10,9 +10,20 @@
       {%- if props.stretch %} ui-stretch{% endif %}
       {%- if props.orientation == 'vertical' %} ui-vertical{% endif %}
       {%- if props.align and props.align != 'start' %} ui-align-{{ props.align }}{% endif %}
-      {%- if props.buttons and props.buttons != 'inside' %} ui-buttons-{{ props.buttons }}{% endif %}
+      {%- if props.buttons and props.buttons != 'inside' %} ui-buttons-{{ props.buttons }}
+      {%- endif %}
       {%- if props.class %} {{ props.class }}{% endif %}"
-    {{- { style: opui.mergeStyle({ "--_button-next-label": props.nextLabel and opui.cssString(props.nextLabel), "--_button-previous-label": props.previousLabel and opui.cssString(props.previousLabel), "--_items-per-view": props.itemsPerView, "--_marker-label": props.markerLabel and opui.counterLabel(props.markerLabel, 'ui-carousel-item'), "--_media-aspect-ratio": props.aspectRatio }, props.style) } | opuiAttributes }}
+    {{- { style: opui.mergeStyle(
+      {
+        "--_button-next-label": props.nextLabel and opui.cssString(props.nextLabel),
+        "--_button-previous-label": props.previousLabel and opui.cssString(props.previousLabel),
+        "--_items-per-view": props.itemsPerView,
+        "--_marker-label": props.markerLabel
+          and opui.counterLabel(props.markerLabel, 'ui-carousel-item'),
+        "--_media-aspect-ratio": props.aspectRatio
+      },
+      props.style
+    ) } | opuiAttributes }}
     role="{{ role }}"
     {{- rest | opuiAttributes }}>
     {{- caller() if caller -}}

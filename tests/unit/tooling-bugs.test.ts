@@ -44,7 +44,7 @@ describe("tooling bugs the generator and the components work around", () => {
     expect(
       await container.renderToString(BooleanSpread),
       fixed(
-        'attributeOf in scripts/example-html.mjs and normalizeAttribute in tests/unit/normalize.ts, which read a boolean attribute with the value "true" as the bare attribute',
+        'attributeOf in scripts/example-html.mjs and normalizeAttribute in tests/unit/normalize.ts, which read a boolean attribute with the value "true" as the bare attribute, and BC211 in scripts/component-reader.mjs, which refuses a value bound to such an attribute unless it is undefined when off',
       ),
     ).toContain('multiple="true"')
   })

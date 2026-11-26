@@ -267,44 +267,122 @@ const astroSource = () => {
 
 let astro
 
-const shapeOf = (checker, symbol, location) => {
-  const parts = members(checker.getTypeOfSymbolAtLocation(symbol, location))
-  const fields = new Map()
-  for (const list of parts.filter((type) => checker.isArrayType(type))) {
-    for (const item of members(checker.getTypeArguments(list)[0])) {
-      for (const field of checker.getPropertiesOfType(item)) {
-        fields.set(
-          field.name,
-          new Set([
-            ...(fields.get(field.name) ?? []),
-            ...kindsOf(checker, field, location),
-          ]),
-        )
-      }
+const OPEN = ts.TypeFlags.Any | ts.TypeFlags.Unknown
+
+const takesNull = (checker, type) => {
+  if (type.flags & (ts.TypeFlags.Null | OPEN)) return true
+  if (type.flags & ts.TypeFlags.TypeParameter) {
+    const constraint = checker.getBaseConstraintOfType(type)
+    return (
+      !constraint ||
+      members(constraint).some((part) => takesNull(checker, part))
+    )
+  }
+  return false
+}
+
+const isOwnProperty = (property) =>
+  !!property.declarations?.some(
+    (declaration) =>
+      !declaration.getSourceFile().fileName.includes("/node_modules/"),
+  )
+
+const depths = new WeakMap()
+
+const depthOf = (checker, type, location, open = new Set()) => {
+  if (type.flags & OPEN) return Infinity
+  if (type.flags & ts.TypeFlags.TypeParameter) {
+    const constraint = checker.getBaseConstraintOfType(type)
+    return constraint ? depthOf(checker, constraint, location, open) : Infinity
+  }
+  if (type.isUnion()) {
+    return Math.max(
+      0,
+      ...type.types.map((part) => depthOf(checker, part, location, open)),
+    )
+  }
+  if (!(type.flags & ts.TypeFlags.Object) && !type.isIntersection()) {
+    return 0
+  }
+  if (type.getCallSignatures().length) return 0
+  if (depths.has(type)) return depths.get(type)
+  if (open.has(type)) return Infinity
+  open.add(type)
+  const children =
+    checker.isArrayType(type) || checker.isTupleType(type)
+      ? checker.getTypeArguments(type)
+      : checker
+          .getPropertiesOfType(type)
+          .filter(isOwnProperty)
+          .map((property) =>
+            checker.getTypeOfSymbolAtLocation(property, location),
+          )
+  const depth =
+    1 +
+    Math.max(
+      0,
+      ...children.map((child) => depthOf(checker, child, location, open)),
+    )
+  open.delete(type)
+  depths.set(type, depth)
+  return depth
+}
+
+const unite = (maps) => {
+  const united = new Map()
+  for (const map of maps) {
+    for (const [name, kinds] of map) {
+      united.set(name, new Set([...(united.get(name) ?? []), ...kinds]))
     }
   }
+  return united
+}
+
+const fieldsOf = (checker, type, location) =>
+  unite(
+    members(type)
+      .filter(
+        (part) =>
+          (part.flags & ts.TypeFlags.Object || part.isIntersection()) &&
+          !checker.isArrayType(part) &&
+          !checker.isTupleType(part) &&
+          !part.getCallSignatures().length,
+      )
+      .map(
+        (part) =>
+          new Map(
+            checker
+              .getPropertiesOfType(part)
+              .map((field) => [field.name, kindsOf(checker, field, location)]),
+          ),
+      ),
+  )
+
+const shapeOf = (checker, symbol, location) => {
+  const type = checker.getTypeOfSymbolAtLocation(symbol, location)
+  const parts = members(type)
   return {
-    fields,
+    depth: depthOf(checker, type, location),
+    fields: unite(
+      parts
+        .filter((part) => checker.isArrayType(part))
+        .map((list) =>
+          fieldsOf(checker, checker.getTypeArguments(list)[0], location),
+        ),
+    ),
     kinds: kindsOf(checker, symbol, location),
-    nullable: parts.some((type) => type.flags & ts.TypeFlags.Null),
+    members: fieldsOf(checker, type, location),
+    nullable: parts.some((part) => takesNull(checker, part)),
   }
 }
 
 const merged = (known, shape) =>
   known
     ? {
-        fields: new Map(
-          [...new Set([...known.fields.keys(), ...shape.fields.keys()])].map(
-            (name) => [
-              name,
-              new Set([
-                ...(known.fields.get(name) ?? []),
-                ...(shape.fields.get(name) ?? []),
-              ]),
-            ],
-          ),
-        ),
+        depth: Math.max(known.depth, shape.depth),
+        fields: unite([known.fields, shape.fields]),
         kinds: new Set([...known.kinds, ...shape.kinds]),
+        members: unite([known.members, shape.members]),
         nullable: known.nullable || shape.nullable,
       }
     : shape
@@ -354,6 +432,21 @@ export const astroPropsOf = (folder, propsType) => {
     astro.cache.set(key, props)
   }
   return astro.cache.get(key)
+}
+
+const shapesFile = join(root, "src/component-examples/shapes.ts")
+
+export const shapesOfSource = (source) => {
+  const { checker, container, location } = typeProgram(
+    shapesFile,
+    source,
+    "Props",
+  )
+  return new Map(
+    checker
+      .getPropertiesOfType(container)
+      .map((symbol) => [symbol.name, shapeOf(checker, symbol, location)]),
+  )
 }
 
 const returnsFile = join(root, "src/component-examples/helper-returns.ts")

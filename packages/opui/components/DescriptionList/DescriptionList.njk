@@ -4,7 +4,8 @@
   <dl
     class="ui-description-list
       {%- if props.leader %} ui-leader-{{ props.leader }}{% endif %}
-      {%- if props.orientation and props.orientation != 'auto' %} ui-{{ props.orientation }}{% endif %}
+      {%- if props.orientation and props.orientation != 'auto' %} ui-{{ props.orientation }}
+      {%- endif %}
       {%- if props.class %} {{ props.class }}{% endif %}"
     {{- rest | opuiAttributes }}>
     {{- caller() if caller -}}

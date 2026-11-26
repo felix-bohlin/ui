@@ -1825,6 +1825,26 @@ describe("the ports of a sample", () => {
     )
   })
 
+  test("refuses a value bound to a boolean attribute Astro writes as text, unless it is undefined when off", async () => {
+    const bound = (tag: string, value: string) =>
+      compileComponent(
+        astro(`<${tag} {...rest} multiple={${value}} />`),
+        sampleFile(),
+      )
+    await expect(bound("input", 'className === "x"')).rejects.toMatchObject({
+      code: "BC211",
+      message: expect.stringContaining('multiple={className === "x"}'),
+    })
+    for (const value of [
+      'className === "x" || undefined',
+      'className === "x" ? true : undefined',
+      "true",
+    ]) {
+      await expect(bound("input", value)).resolves.toBeDefined()
+    }
+    await expect(bound("x-input", 'className === "x"')).resolves.toBeDefined()
+  })
+
   test("refuses a const with the `$` prefix for Svelte only", async () => {
     const result = await compileComponent(
       `---\nimport type { Props } from "./types.astro"\n\nconst { id, ...rest } = Astro.props\nconst $id = (part: string) => \`\${part}-\${id}\`\n---\n\n<div id={$id("root")} {...rest} />\n`,

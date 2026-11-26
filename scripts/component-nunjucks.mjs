@@ -4,6 +4,10 @@ import { join } from "node:path"
 import { fileURLToPath, pathToFileURL } from "node:url"
 import { parseArgs } from "node:util"
 import ts from "typescript"
+import {
+  BOOLEAN_ATTRIBUTES,
+  BOOLEAN_WHEN_BOOLEAN,
+} from "../packages/opui/nunjucks/attributes.ts"
 import { slotProp } from "../src/component-api/frameworks.ts"
 import { barrelExports } from "../src/utils/package-source.js"
 import {
@@ -139,41 +143,7 @@ const RESERVED = new Set([
   ...KEYWORDS,
 ])
 
-const BOOLEAN_ATTRIBUTES = new Set([
-  "allowfullscreen",
-  "async",
-  "autofocus",
-  "autoplay",
-  "checked",
-  "controls",
-  "default",
-  "defer",
-  "disabled",
-  "disablepictureinpicture",
-  "disableremoteplayback",
-  "formnovalidate",
-  "inert",
-  "itemscope",
-  "loop",
-  "muted",
-  "nomodule",
-  "novalidate",
-  "open",
-  "playsinline",
-  "readonly",
-  "required",
-  "reversed",
-  "scoped",
-  "seamless",
-  "selected",
-])
-
-const SERIALIZED_ATTRIBUTES = new Set([
-  "download",
-  "hidden",
-  "popover",
-  "style",
-])
+const SERIALIZED_ATTRIBUTES = new Set([...BOOLEAN_WHEN_BOOLEAN, "style"])
 
 const TEMPLATE_START = /\{(?=[{%#])/g
 
@@ -199,11 +169,6 @@ const lowerFirst = (name) => `${name[0].toLowerCase()}${name.slice(1)}`
 
 const camel = (name) =>
   name.replace(/[-:]+(\w)/g, (_, letter) => letter.toUpperCase())
-
-const STRING_KINDS = new Set(["string"])
-
-const only = (kinds, allowed) =>
-  !!kinds?.size && [...kinds].every((kind) => allowed.has(kind))
 
 export const toNunjucks = (component, { types = new Map() } = {}) => {
   const { file } = component
@@ -297,8 +262,12 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
     ),
     locals,
     markup: new Set(component.trimmedSlots.map(({ local }) => local)),
+    members: new Map(
+      component.props
+        .map((prop) => [prop.local, types.get(prop.prop)?.members])
+        .filter(([, members]) => members?.size),
+    ),
     nonNull: new Set(),
-    numbers: new Set(),
     props: new Map(
       component.props
         .filter((prop) => prop.default === undefined)
@@ -306,19 +275,21 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
     ),
     renames,
     returns,
-    strings: new Set(
-      component.props
-        .filter((prop) => only(types.get(prop.prop)?.kinds, STRING_KINDS))
-        .map((prop) => prop.local),
-    ),
   }
   for (const entry of component.derived) {
     if (isIdBase(entry)) continue
-    const fields = helperShape(
+    const shape = helperShape(
       sourceFileOf(`(${entry.code})`, "derived.ts").statements[0].expression,
       scope,
-    )?.fields
-    if (fields?.size) scope.fields.set(entry.name, fields)
+    )
+    if (shape?.fields.size) scope.fields.set(entry.name, shape.fields)
+    if (shape?.kinds.size) scope.kinds.set(entry.name, shape.kinds)
+    if (shape?.members.size) scope.members.set(entry.name, shape.members)
+  }
+  for (const { default: initial, local } of defaulted) {
+    if (!scope.keepsNone.has(local) && isNonNull(initial, scope)) {
+      scope.nonNull.add(local)
+    }
   }
   const derivedCode = ({ code, name }) => {
     const sourceFile = sourceFileOf(`(${code})`, "derived.ts")
@@ -932,25 +903,39 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
           ([name, key]) => outside(name) && !mentions(key, rebound),
         ),
       ),
-      itemFields: new Map([
-        ...[...(ctx.scope.itemFields ?? [])].filter(([name]) => outside(name)),
-        ...(binding.name && fieldKinds ? [[binding.name, fieldKinds]] : []),
-      ]),
       kinds: new Map([
         ...[...ctx.scope.kinds].filter(([name]) => outside(name)),
         ...(binding.fields ?? []).flatMap(({ key, local }) =>
           fieldKinds?.has(key) ? [[local, fieldKinds.get(key)]] : [],
         ),
+        ...(node.index ? [[node.index, new Set(["number"])]] : []),
       ]),
       locals: new Set([...ctx.scope.locals, item, ...names]),
       markup: new Set([...ctx.scope.markup].filter(outside)),
-      nonNull: new Set([...ctx.scope.nonNull].filter(outside)),
-      numbers: new Set([
-        ...[...ctx.scope.numbers].filter(outside),
+      members: new Map([
+        ...[...ctx.scope.members].filter(([name]) => outside(name)),
+        ...(binding.name && fieldKinds ? [[binding.name, fieldKinds]] : []),
+        ...(binding.rest && fieldKinds
+          ? [
+              [
+                binding.rest,
+                new Map(
+                  [...fieldKinds].filter(
+                    ([key]) =>
+                      !(binding.fields ?? []).some(
+                        (field) => field.key === key,
+                      ),
+                  ),
+                ),
+              ],
+            ]
+          : []),
+      ]),
+      nonNull: new Set([
+        ...[...ctx.scope.nonNull].filter(outside),
         ...(node.index ? [node.index] : []),
       ]),
       renames: loopRenames,
-      strings: new Set([...ctx.scope.strings].filter(outside)),
     }
     const setName = (name) => renamed.get(name) ?? name
     const sets = [
@@ -1085,18 +1070,14 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
               .statements[0].expression,
           )
         }
-        return !(
-          name === "undefined" ||
-          inner.numbers?.has(name) ||
-          inner.markup?.has(name)
-        )
+        return !(name === "undefined" || inner.markup?.has(name))
       }
       if (
         ts.isPropertyAccessExpression(item) &&
         ts.isIdentifier(item.expression) &&
-        inner.itemFields?.has(item.expression.text)
+        inner.members?.has(item.expression.text)
       ) {
-        const kinds = inner.itemFields
+        const kinds = inner.members
           .get(item.expression.text)
           .get(item.name.text)
         return !kinds || [...kinds].some((kind) => BOOLEAN_KINDS.has(kind))
@@ -1173,7 +1154,13 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
         const inner = {
           ...ctx,
           hoist: false,
-          scope: { ...ctx.scope, facts: under(ctx.scope.facts, node.test) },
+          scope: {
+            ...ctx.scope,
+            facts: under(
+              under(ctx.scope.facts, node.test),
+              expanded(node.test, ctx.scope),
+            ),
+          },
         }
         const test = expression(node.test, sink(ctx.scope))
         if (node.alternate) {
@@ -1241,7 +1228,7 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
   )
 }
 
-const compiled = async (source, file) => {
+export const compileNunjucksComponent = async (source, file) => {
   const parts = file.split("/")
   const name = parts.at(-1).replace(/\.astro$/, "")
   const folder = parts.at(-2)
@@ -1260,6 +1247,12 @@ const compiled = async (source, file) => {
     file,
     meta: {
       attributes: [...types.keys()].toSorted(),
+      depths: Object.fromEntries(
+        component.props
+          .map(({ prop }) => [prop, types.get(prop)?.depth ?? 0])
+          .filter(([, depth]) => depth > 0)
+          .toSorted(([a], [b]) => (a < b ? -1 : 1)),
+      ),
       keepsNone: keptNone(component, types)
         .map(({ prop }) => prop)
         .toSorted(),
@@ -1275,7 +1268,7 @@ const compiled = async (source, file) => {
 }
 
 export const compileNunjucks = async (source, file) =>
-  (await compiled(source, file)).template
+  (await compileNunjucksComponent(source, file)).template
 
 const barrelAliases = () =>
   Object.fromEntries(
@@ -1300,13 +1293,15 @@ export const nunjucksIndex = (names, aliases = barrelAliases()) =>
     .toSorted(([a], [b]) => (a < b ? -1 : 1))
     .map(
       ([name, source]) =>
-        `{% from "opui/${source}.njk" import ${source} %}{% set ${name} = ${source} %}\n`,
+        `{% from "opui/${source}.njk" import ${source} %}\n{% set ${name} = ${source} %}\n`,
     )
     .join("")
 
 export const nunjucksBuild = async (files) => {
   const results = await Promise.all(
-    files.map((file) => compiled(readFileSync(join(root, file), "utf8"), file)),
+    files.map((file) =>
+      compileNunjucksComponent(readFileSync(join(root, file), "utf8"), file),
+    ),
   )
   return {
     components: Object.fromEntries(
@@ -1366,7 +1361,13 @@ export const nunjucksModule = ({ components, templates }) => {
     .toSorted(([a], [b]) => (a < b ? -1 : 1))
     .map(
       ([name, meta]) =>
-        `  ${name}: { added: ${list(named(meta).filter((item) => !shared.includes(item)))}, folder: ${JSON.stringify(meta.folder)}, keepsNone: ${list(meta.keepsNone)}, props: ${list(meta.omit)}, removed: ${list(shared.filter((item) => !named(meta).includes(item)))}, slots: ${list(meta.slots)} },`,
+        `  ${name}: { added: ${list(named(meta).filter((item) => !shared.includes(item)))}, depths: { ${Object.entries(
+          meta.depths,
+        )
+          .map(([prop, depth]) => `${JSON.stringify(prop)}: ${depth}`)
+          .join(
+            ", ",
+          )} }, folder: ${JSON.stringify(meta.folder)}, keepsNone: ${list(meta.keepsNone)}, props: ${list(meta.omit)}, removed: ${list(shared.filter((item) => !named(meta).includes(item)))}, slots: ${list(meta.slots)} },`,
     )
   return [
     ...imports,

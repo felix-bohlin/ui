@@ -8,14 +8,15 @@
   {{- opui.warnMissingId("Drawer", props.id) -}}
   {%- set dataCloseOnNavigate = '' if props.closeOnNavigate else none -%}
   <dialog
-    {%- if closedby != none %} closedby="{{ closedby }}"{% endif %}
+    closedby="{{ closedby }}"
     class="ui-drawer
       {%- if backdrop == 'transparent' %} ui-backdrop-transparent{% endif %}
       {%- if props.scrollLock %} ui-scroll-lock{% endif %}
       {%- if side and side != 'inline-start' %} ui-{{ side }}{% endif %}
       {%- if props.class %} {{ props.class }}{% endif %}"
     {%- if labelledBy != none %} aria-labelledby="{{ labelledBy }}"{% endif %}
-    {%- if dataCloseOnNavigate != none %} data-close-on-navigate="{{ dataCloseOnNavigate }}"{% endif %}
+    {%- if dataCloseOnNavigate != none %} data-close-on-navigate="{{ dataCloseOnNavigate }}"
+    {%- endif %}
     {%- if props.id != none %} id="{{ props.id }}"{% endif %}
     {{- rest | opuiAttributes }}>
     {{- opui.provide("Drawer", { id: props.id, titleId: labelledBy }, caller) -}}

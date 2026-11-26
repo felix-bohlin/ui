@@ -19,7 +19,9 @@ A button for actions, like saving a form, with variants, colors, sizes and icons
 - `aria-label`: `string`. The accessible name, for a button without visible text. React, Solid and Svelte require it, or `aria-labelledby`, when there are no `children`.
 - `aria-labelledby`: `string`. The id of the element that names a button without visible text, instead of `aria-label`.
 - `as` (Astro, Nunjucks and Svelte): `"a" | "button"`, default `"button"`. The element to render. Defaults to `"a"` with `href`.
-- `as` (React, Solid and Vue): `"a" | "button" | ComponentType<any>`, default `"button"`. The element to render, or the link component of your router with `href`, such as Next's `Link`, Solid Router's `A` or Nuxt's `NuxtLink`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.
+- `as` (React): `"a" | "button" | ComponentType<any>`, default `"button"`. The element to render, or the link component of your router with `href`, such as Next's `Link`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.
+- `as` (Solid): `"a" | "button" | Component<any>`, default `"button"`. The element to render, or the link component of your router with `href`, such as Solid Router's `A`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.
+- `as` (Vue): `"a" | "button" | Component`, default `"button"`. The element to render, or the link component of your router with `href`, such as Nuxt's `NuxtLink`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.
 - `color`: `"critical"` (`.ui-critical`), `"primary"` (`.ui-primary`). Optional colors.
 - `disabled`: `boolean`. Disables the button. A link button drops its `href` and gets `role="link"` and `aria-disabled="true"`.
 - `href`: `string`. The link to use. Renders an `<a>`.

@@ -50,7 +50,7 @@ const descriptionId = computed(() =>
             class="ui-sr-only"
             :disabled="disabled"
             :id="inputId"
-            :multiple="multiple"
+            :multiple="multiple || undefined"
             type="file"
           />
           <span class="ui-button ui-outlined">{{ label }}</span>

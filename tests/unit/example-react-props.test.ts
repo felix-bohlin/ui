@@ -15,6 +15,7 @@ import {
   reactKinds,
   reactPropsOf,
   resolveReactProp,
+  shapesOfSource,
   typeDiagnostics,
 } from "../../scripts/example-react-props.mjs"
 
@@ -422,6 +423,65 @@ describe("the Astro prop types", () => {
     const tabs = astroPropsOf("Tabs", "Props")
     expect(tabs?.get("role")?.nullable).toBe(true)
     expect(tabs?.get("orientation")?.nullable).toBe(false)
+  })
+
+  test("a prop type gives how deep its values nest, its fields and whether it takes null", () => {
+    const shapes = shapesOfSource(
+      [
+        "type Tree = { children?: Tree[]; label: string }",
+        "export type Props<T, S extends string, N extends string | null> = {",
+        "  anything: any",
+        "  constrained: S",
+        "  generic: T",
+        "  items?: { label: string; meta: { count: number } }[]",
+        "  label?: string | null",
+        "  nullish: N",
+        "  open: unknown",
+        "  size: 'small' | 'large'",
+        "  style: { color: string; width: number }",
+        "  tree: Tree",
+        "}",
+      ].join("\n"),
+    )
+    const of = (key: "depth" | "nullable") =>
+      Object.fromEntries([...shapes].map(([name, shape]) => [name, shape[key]]))
+    expect(of("nullable")).toEqual({
+      anything: true,
+      constrained: false,
+      generic: true,
+      items: false,
+      label: true,
+      nullish: true,
+      open: true,
+      size: false,
+      style: false,
+      tree: false,
+    })
+    expect(of("depth")).toEqual({
+      anything: Infinity,
+      constrained: 0,
+      generic: Infinity,
+      items: 3,
+      label: 0,
+      nullish: 0,
+      open: Infinity,
+      size: 0,
+      style: 1,
+      tree: Infinity,
+    })
+    expect(shapes.get("items")?.fields).toEqual(
+      new Map([
+        ["label", new Set(["string"])],
+        ["meta", new Set(["other"])],
+      ]),
+    )
+    expect(shapes.get("items")?.members).toEqual(new Map())
+    expect(shapes.get("style")?.members).toEqual(
+      new Map([
+        ["color", new Set(["string"])],
+        ["width", new Set(["number"])],
+      ]),
+    )
   })
 
   test("a helper's return type gives its kinds and a list's item fields, and a generic list gives no fields", () => {

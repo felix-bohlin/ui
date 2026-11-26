@@ -3,7 +3,8 @@
   {%- set rest = props | opuiRest("Accordion") -%}
   <details
     class="ui-accordion
-      {%- if props.markerAnimation and props.markerAnimation != 'rotate' %} ui-marker-animation-{{ props.markerAnimation }}{% endif %}
+      {%- if props.markerAnimation and props.markerAnimation != 'rotate' %} ui-marker-animation-
+      {{- props.markerAnimation }}{% endif %}
       {%- if props.variant and props.variant != 'plain' %} ui-{{ props.variant }}{% endif %}
       {%- if props.class %} {{ props.class }}{% endif %}"
     {{- rest | opuiAttributes }}>

@@ -48,7 +48,7 @@
           class="ui-sr-only"
           {disabled}
           id={inputId}
-          {multiple}
+          multiple={multiple || undefined}
           type="file"
         />
         <span class="ui-button ui-outlined">{label}</span>

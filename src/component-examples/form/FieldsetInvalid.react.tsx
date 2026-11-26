@@ -13,11 +13,11 @@ export default function FieldsetInvalid() {
       <FieldDescription id="form-fieldset-invalid-1-description">
         Pick at least one.
       </FieldDescription>
-      <FieldGroup name="food">
-        <Checkbox error value="kibble">
+      <FieldGroup>
+        <Checkbox error name="food" value="kibble">
           Kibble
         </Checkbox>
-        <Checkbox error value="wet-food">
+        <Checkbox error name="food" value="wet-food">
           Wet food
         </Checkbox>
       </FieldGroup>

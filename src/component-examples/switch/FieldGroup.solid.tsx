@@ -6,10 +6,16 @@ export default function FieldGroupExample() {
     <Form>
       <Fieldset>
         <FieldLegend>Notifications</FieldLegend>
-        <FieldGroup name="switch-group">
-          <Switch value="email">Email</Switch>
-          <Switch value="push">Push</Switch>
-          <Switch value="sms">SMS</Switch>
+        <FieldGroup>
+          <Switch name="switch-group" value="email">
+            Email
+          </Switch>
+          <Switch name="switch-group" value="push">
+            Push
+          </Switch>
+          <Switch name="switch-group" value="sms">
+            SMS
+          </Switch>
         </FieldGroup>
       </Fieldset>
     </Form>

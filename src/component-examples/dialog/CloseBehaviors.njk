@@ -26,10 +26,10 @@
   {% call DialogContent() %}
     {% call Fieldset() %}
       {% call FieldLegend() %}Choose a closing behavior:{% endcall %}
-      {% call FieldGroup({ name: "closedby-demo" }) %}
-        {% call Radio({ checked: true, value: "any" }) %}any{% endcall %}
-        {% call Radio({ value: "closerequest" }) %}closerequest{% endcall %}
-        {% call Radio({ value: "none" }) %}none{% endcall %}
+      {% call FieldGroup() %}
+        {% call Radio({ checked: true, name: "closedby-demo", value: "any" }) %}any{% endcall %}
+        {% call Radio({ name: "closedby-demo", value: "closerequest" }) %}closerequest{% endcall %}
+        {% call Radio({ name: "closedby-demo", value: "none" }) %}none{% endcall %}
       {% endcall %}
     {% endcall %}
   {% endcall %}

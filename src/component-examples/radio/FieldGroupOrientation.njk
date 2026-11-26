@@ -9,13 +9,14 @@
 {% call Form() %}
   {% call Fieldset() %}
     {% call FieldLegend() %}Spot on stage{% endcall %}
-    {% call FieldGroup({
-      name: "radio-group-orientation",
-      orientation: "horizontal"
-    }) %}
-      {% call Radio({ checked: true, value: "front" }) %}Front{% endcall %}
-      {% call Radio({ value: "middle" }) %}Middle{% endcall %}
-      {% call Radio({ value: "amp" }) %}Behind the amp{% endcall %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
+      {% call Radio({
+        checked: true,
+        name: "radio-group-orientation",
+        value: "front"
+      }) %}Front{% endcall %}
+      {% call Radio({ name: "radio-group-orientation", value: "middle" }) %}Middle{% endcall %}
+      {% call Radio({ name: "radio-group-orientation", value: "amp" }) %}Behind the amp{% endcall %}
     {% endcall %}
   {% endcall %}
 {% endcall %}

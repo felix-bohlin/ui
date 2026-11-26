@@ -11,17 +11,25 @@
 <Form>
   <Fieldset disabled>
     <FieldLegend>Band practice</FieldLegend>
-    <FieldGroup name="radio-group-disabled" orientation="horizontal">
-      <Radio defaultChecked value="weekly">Weekly</Radio>
-      <Radio value="monthly">Monthly</Radio>
-      <Radio value="drummer">When the drummer shows up</Radio>
+    <FieldGroup orientation="horizontal">
+      <Radio defaultChecked name="radio-group-disabled" value="weekly"
+        >Weekly</Radio
+      >
+      <Radio name="radio-group-disabled" value="monthly">Monthly</Radio>
+      <Radio name="radio-group-disabled" value="drummer"
+        >When the drummer shows up</Radio
+      >
     </FieldGroup>
   </Fieldset>
   <Fieldset>
     <FieldLegend>Delivery</FieldLegend>
-    <FieldGroup name="radio-group-disabled-single" orientation="horizontal">
-      <Radio defaultChecked value="standard">Standard</Radio>
-      <Radio disabled value="same-day">Same day</Radio>
+    <FieldGroup orientation="horizontal">
+      <Radio defaultChecked name="radio-group-disabled-single" value="standard"
+        >Standard</Radio
+      >
+      <Radio disabled name="radio-group-disabled-single" value="same-day"
+        >Same day</Radio
+      >
     </FieldGroup>
   </Fieldset>
 </Form>

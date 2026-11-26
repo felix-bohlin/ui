@@ -9,13 +9,22 @@
 {% call Form() %}
   {% call Fieldset() %}
     {% call FieldLegend() %}Account type{% endcall %}
-    {% call FieldGroup({
-      name: "radio-group-required",
-      orientation: "horizontal"
-    }) %}
-      {% call Radio({ required: true, value: "bassist" }) %}Bassist{% endcall %}
-      {% call Radio({ required: true, value: "band" }) %}Band{% endcall %}
-      {% call Radio({ required: true, value: "shop" }) %}Bass shop{% endcall %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
+      {% call Radio({
+        name: "radio-group-required",
+        required: true,
+        value: "bassist"
+      }) %}Bassist{% endcall %}
+      {% call Radio({
+        name: "radio-group-required",
+        required: true,
+        value: "band"
+      }) %}Band{% endcall %}
+      {% call Radio({
+        name: "radio-group-required",
+        required: true,
+        value: "shop"
+      }) %}Bass shop{% endcall %}
     {% endcall %}
   {% endcall %}
 {% endcall %}

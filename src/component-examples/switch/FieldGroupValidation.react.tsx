@@ -5,17 +5,14 @@ export default function FieldGroupValidation() {
     <Form>
       <Fieldset aria-describedby="switch-field-group-validation-1-error">
         <FieldLegend>Security alerts</FieldLegend>
-        <FieldGroup
-          name="switch-field-group-validation"
-          orientation="horizontal"
-        >
-          <Switch error value="email">
+        <FieldGroup orientation="horizontal">
+          <Switch error name="switch-field-group-validation" value="email">
             Email
           </Switch>
-          <Switch error value="push">
+          <Switch error name="switch-field-group-validation" value="push">
             Push
           </Switch>
-          <Switch error value="sms">
+          <Switch error name="switch-field-group-validation" value="sms">
             SMS
           </Switch>
         </FieldGroup>

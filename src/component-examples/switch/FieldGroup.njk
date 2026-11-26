@@ -9,10 +9,10 @@
 {% call Form() %}
   {% call Fieldset() %}
     {% call FieldLegend() %}Notifications{% endcall %}
-    {% call FieldGroup({ name: "switch-group" }) %}
-      {% call Switch({ value: "email" }) %}Email{% endcall %}
-      {% call Switch({ value: "push" }) %}Push{% endcall %}
-      {% call Switch({ value: "sms" }) %}SMS{% endcall %}
+    {% call FieldGroup() %}
+      {% call Switch({ name: "switch-group", value: "email" }) %}Email{% endcall %}
+      {% call Switch({ name: "switch-group", value: "push" }) %}Push{% endcall %}
+      {% call Switch({ name: "switch-group", value: "sms" }) %}SMS{% endcall %}
     {% endcall %}
   {% endcall %}
 {% endcall %}

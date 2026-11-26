@@ -465,13 +465,25 @@ export default function NotificationSettings() {
             <CardContent>
               <FieldGroup
                 aria-labelledby="notification-settings-digest-heading"
-                name="notification-settings-digest"
                 orientation="horizontal"
                 role="radiogroup"
               >
-                <Radio label="Off" value="off" />
-                <Radio defaultChecked label="Daily" value="daily" />
-                <Radio label="Weekly" value="weekly" />
+                <Radio
+                  label="Off"
+                  name="notification-settings-digest"
+                  value="off"
+                />
+                <Radio
+                  defaultChecked
+                  label="Daily"
+                  name="notification-settings-digest"
+                  value="daily"
+                />
+                <Radio
+                  label="Weekly"
+                  name="notification-settings-digest"
+                  value="weekly"
+                />
               </FieldGroup>
             </CardContent>
           </Card>

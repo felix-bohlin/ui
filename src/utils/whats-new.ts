@@ -888,6 +888,9 @@ export const whatsNew = {
       ),
       html: `Breaking: <a href="#field-group-horizontal"><code>.ui-row</code> and <code>.ui-column</code></a> on a field group are <code>.ui-horizontal</code> and <code>.ui-vertical</code>.`,
     },
+    slots(
+      `Breaking: <a href="#field-group"><code>FieldGroup</code></a> no longer takes <code>name</code>. Set <code>name</code> on each <code>Checkbox</code>, <code>Radio</code> or <code>Switch</code> in the group.`,
+    ),
     `A <a href="#field-group-horizontal">horizontal</a> field group lines its fields up at their end and grows a text field, textarea, select or number field to share the row, so a field and its button sit on one line.`,
   ],
   layout: [

@@ -320,11 +320,11 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
       <legend>Status</legend>
       <div class="ui-field-group ui-horizontal">
         <label class="ui-checkbox">
-          <input type="checkbox" name="status" checked value="done" />
+          <input type="checkbox" checked name="status" value="done" />
           <span class="ui-label">Done</span>
         </label>
         <label class="ui-checkbox">
-          <input type="checkbox" name="status" checked value="in-progress" />
+          <input type="checkbox" checked name="status" value="in-progress" />
           <span class="ui-label">Rocking</span>
         </label>
         <label class="ui-checkbox">
@@ -454,10 +454,10 @@ const editIcon = `<svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"><
   <DrawerContent>
     <Fieldset>
       <FieldLegend>Status</FieldLegend>
-      <FieldGroup name="status" orientation="horizontal">
-        <Checkbox checked value="done">Done</Checkbox>
-        <Checkbox checked value="in-progress">Rocking</Checkbox>
-        <Checkbox value="open">Not yet</Checkbox>
+      <FieldGroup orientation="horizontal">
+        <Checkbox checked name="status" value="done">Done</Checkbox>
+        <Checkbox checked name="status" value="in-progress">Rocking</Checkbox>
+        <Checkbox name="status" value="open">Not yet</Checkbox>
       </FieldGroup>
     </Fieldset>
   </DrawerContent>
@@ -586,10 +586,10 @@ const editIcon = `<svg data-icon="edit" aria-hidden="true" viewBox="0 0 32 32"><
   {% call DrawerContent() %}
     {% call Fieldset() %}
       {% call FieldLegend() %}Status{% endcall %}
-      {% call FieldGroup({ name: "status", orientation: "horizontal" }) %}
-        {% call Checkbox({ checked: true, value: "done" }) %}Done{% endcall %}
-        {% call Checkbox({ checked: true, value: "in-progress" }) %}Rocking{% endcall %}
-        {% call Checkbox({ value: "open" }) %}Not yet{% endcall %}
+      {% call FieldGroup({ orientation: "horizontal" }) %}
+        {% call Checkbox({ checked: true, name: "status", value: "done" }) %}Done{% endcall %}
+        {% call Checkbox({ checked: true, name: "status", value: "in-progress" }) %}Rocking{% endcall %}
+        {% call Checkbox({ name: "status", value: "open" }) %}Not yet{% endcall %}
       {% endcall %}
     {% endcall %}
   {% endcall %}
@@ -720,14 +720,16 @@ export default function BasicsCode() {
         <DrawerContent>
           <Fieldset>
             <FieldLegend>Status</FieldLegend>
-            <FieldGroup name="status" orientation="horizontal">
-              <Checkbox defaultChecked value="done">
+            <FieldGroup orientation="horizontal">
+              <Checkbox defaultChecked name="status" value="done">
                 Done
               </Checkbox>
-              <Checkbox defaultChecked value="in-progress">
+              <Checkbox defaultChecked name="status" value="in-progress">
                 Rocking
               </Checkbox>
-              <Checkbox value="open">Not yet</Checkbox>
+              <Checkbox name="status" value="open">
+                Not yet
+              </Checkbox>
             </FieldGroup>
           </Fieldset>
         </DrawerContent>
@@ -858,14 +860,16 @@ export default function BasicsCode() {
         <DrawerContent>
           <Fieldset>
             <FieldLegend>Status</FieldLegend>
-            <FieldGroup name="status" orientation="horizontal">
-              <Checkbox defaultChecked value="done">
+            <FieldGroup orientation="horizontal">
+              <Checkbox defaultChecked name="status" value="done">
                 Done
               </Checkbox>
-              <Checkbox defaultChecked value="in-progress">
+              <Checkbox defaultChecked name="status" value="in-progress">
                 Rocking
               </Checkbox>
-              <Checkbox value="open">Not yet</Checkbox>
+              <Checkbox name="status" value="open">
+                Not yet
+              </Checkbox>
             </FieldGroup>
           </Fieldset>
         </DrawerContent>
@@ -984,10 +988,12 @@ export default function BasicsCode() {
   <DrawerContent>
     <Fieldset>
       <FieldLegend>Status</FieldLegend>
-      <FieldGroup name="status" orientation="horizontal">
-        <Checkbox defaultChecked value="done">Done</Checkbox>
-        <Checkbox defaultChecked value="in-progress">Rocking</Checkbox>
-        <Checkbox value="open">Not yet</Checkbox>
+      <FieldGroup orientation="horizontal">
+        <Checkbox defaultChecked name="status" value="done">Done</Checkbox>
+        <Checkbox defaultChecked name="status" value="in-progress"
+          >Rocking</Checkbox
+        >
+        <Checkbox name="status" value="open">Not yet</Checkbox>
       </FieldGroup>
     </Fieldset>
   </DrawerContent>
@@ -1105,10 +1111,10 @@ import {
     <DrawerContent>
       <Fieldset>
         <FieldLegend>Status</FieldLegend>
-        <FieldGroup name="status" orientation="horizontal">
-          <Checkbox checked value="done">Done</Checkbox>
-          <Checkbox checked value="in-progress">Rocking</Checkbox>
-          <Checkbox value="open">Not yet</Checkbox>
+        <FieldGroup orientation="horizontal">
+          <Checkbox checked name="status" value="done">Done</Checkbox>
+          <Checkbox checked name="status" value="in-progress">Rocking</Checkbox>
+          <Checkbox name="status" value="open">Not yet</Checkbox>
         </FieldGroup>
       </Fieldset>
     </DrawerContent>

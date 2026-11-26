@@ -12,9 +12,10 @@
 
 <Fieldset>
   <FieldLegend>Shipping</FieldLegend>
-  <FieldGroup name="radio-controlled">
+  <FieldGroup>
     <Radio
       checked={shipping === "standard"}
+      name="radio-controlled"
       onchange={() => (shipping = "standard")}
       value="standard"
     >
@@ -22,6 +23,7 @@
     </Radio>
     <Radio
       checked={shipping === "express"}
+      name="radio-controlled"
       onchange={() => (shipping = "express")}
       value="express"
     >
@@ -29,6 +31,7 @@
     </Radio>
     <Radio
       checked={shipping === "pickup"}
+      name="radio-controlled"
       onchange={() => (shipping = "pickup")}
       value="pickup"
     >

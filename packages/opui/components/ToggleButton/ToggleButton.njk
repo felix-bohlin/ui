@@ -1,8 +1,7 @@
 {% macro ToggleButton(props = {}) %}
   {%- set rest = props | opuiRest("ToggleButton") -%}
-  {%- set field = opui.context("FieldGroup") -%}
   {%- set group = opui.context("ToggleGroup") -%}
-  {%- set finalName = props.name or group.groupName or field.name -%}
+  {%- set finalName = props.name or group.groupName -%}
   {%- set finalType = "radio"
     if group.inputType === "radio"
     else (props.type if props.type != none else "checkbox") -%}

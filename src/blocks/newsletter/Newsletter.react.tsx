@@ -81,10 +81,7 @@ export default function Newsletter() {
               <FieldDescription>
                 Pick what you wanna hear about.
               </FieldDescription>
-              <FieldGroup
-                className="newsletter-topics"
-                name="newsletter-topics"
-              >
+              <FieldGroup className="newsletter-topics">
                 <Checkbox
                   aria-describedby="newsletter-topic-news-text"
                   defaultChecked
@@ -93,6 +90,7 @@ export default function Newsletter() {
                       Shiny new features and fixes
                     </span>
                   }
+                  name="newsletter-topics"
                   value="news"
                 >
                   Bassbook news
@@ -104,6 +102,7 @@ export default function Newsletter() {
                       Strings, amps and pedal hoarding
                     </span>
                   }
+                  name="newsletter-topics"
                   value="gear"
                 >
                   Gear Talk
@@ -116,6 +115,7 @@ export default function Newsletter() {
                       Grooves, slap tricks and drop D
                     </span>
                   }
+                  name="newsletter-topics"
                   value="tips"
                 >
                   Tabs &amp; tips
@@ -127,6 +127,7 @@ export default function Newsletter() {
                       Bassists just like you, venting
                     </span>
                   }
+                  name="newsletter-topics"
                   value="diaries"
                 >
                   Member diaries

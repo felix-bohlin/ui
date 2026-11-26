@@ -924,6 +924,18 @@ The header, content and footer rules, the backdrop and the closed state live in 
 + <div class="ui-field-group ui-horizontal">
 ```
 
+`FieldGroup` no longer takes `name`. Set `name` on each field in the group, as on a native `<input>`. The HTML is the same.
+
+```diff
+- <FieldGroup name="plan">
+-   <Radio value="basic">Basic</Radio>
+-   <Radio value="gold">Gold</Radio>
++ <FieldGroup>
++   <Radio name="plan" value="basic">Basic</Radio>
++   <Radio name="plan" value="gold">Gold</Radio>
+  </FieldGroup>
+```
+
 ## Icon button
 
 `IconButton` is removed. `Button` covers it: a button whose only child is an `svg` is square, `round` makes it a circle. The hover halo is gone: icon-only buttons get the button's hover background. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_size: 1.25rem`.

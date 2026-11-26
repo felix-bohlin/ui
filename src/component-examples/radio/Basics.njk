@@ -9,10 +9,10 @@
 {% call Form() %}
   {% call Fieldset() %}
     {% call FieldLegend() %}Payment method{% endcall %}
-    {% call FieldGroup({ name: "radio-group" }) %}
-      {% call Radio({ checked: true, value: "card" }) %}Card{% endcall %}
-      {% call Radio({ value: "paypal" }) %}PayPal{% endcall %}
-      {% call Radio({ value: "bank-transfer" }) %}Bank transfer{% endcall %}
+    {% call FieldGroup() %}
+      {% call Radio({ checked: true, name: "radio-group", value: "card" }) %}Card{% endcall %}
+      {% call Radio({ name: "radio-group", value: "paypal" }) %}PayPal{% endcall %}
+      {% call Radio({ name: "radio-group", value: "bank-transfer" }) %}Bank transfer{% endcall %}
     {% endcall %}
   {% endcall %}
 {% endcall %}

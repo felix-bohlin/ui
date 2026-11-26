@@ -52,10 +52,10 @@ title: Settings
     {% endcall %}
     {% call Fieldset() %}
       {% call FieldLegend() %}Who can see your posts{% endcall %}
-      {% call FieldGroup({ name: "visibility" }) %}
-        {% call Radio({ value: "everyone" }) %}Everyone{% endcall %}
-        {% call Radio({ checked: true, value: "friends" }) %}Friends{% endcall %}
-        {% call Radio({ value: "only-me" }) %}Only me{% endcall %}
+      {% call FieldGroup() %}
+        {% call Radio({ name: "visibility", value: "everyone" }) %}Everyone{% endcall %}
+        {% call Radio({ checked: true, name: "visibility", value: "friends" }) %}Friends{% endcall %}
+        {% call Radio({ name: "visibility", value: "only-me" }) %}Only me{% endcall %}
       {% endcall %}
     {% endcall %}
     {% call Fieldset() %}

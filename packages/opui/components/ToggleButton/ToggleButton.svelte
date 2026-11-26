@@ -1,7 +1,6 @@
 <script lang="ts">
   import { untrack } from "svelte"
   import { seedChecked } from "../svelte"
-  import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { getToggleGroupContext } from "../ToggleGroup/context.svelte"
   import { isSelected } from "../ToggleGroup/selection"
   import { DEV, warnGroupedChecked } from "../dev"
@@ -24,9 +23,8 @@
     ...rest
   }: Props = $props()
 
-  const field = getFieldGroupContext()
   const group = getToggleGroupContext()
-  const finalName = $derived(name || group?.groupName || field?.name)
+  const finalName = $derived(name || group?.groupName)
   const finalType = $derived(
     group?.inputType === "radio" ? "radio" : (type ?? "checkbox"),
   )

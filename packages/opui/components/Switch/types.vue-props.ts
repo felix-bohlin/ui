@@ -1,4 +1,4 @@
-import type { IntrinsicElementAttributes, Slot } from "vue"
+import type { Slot } from "vue"
 import type { DefaultSlots } from "../vue"
 import type {
   Props as BaseProps,
@@ -7,9 +7,7 @@ import type {
 
 export type Props = BaseProps
 
-export type SwitchInputProps = BaseSwitchInputProps & {
-  name?: IntrinsicElementAttributes["input"]["name"]
-}
+export type SwitchInputProps = BaseSwitchInputProps
 
 export type Slots = {
   "end-text"?: Slot

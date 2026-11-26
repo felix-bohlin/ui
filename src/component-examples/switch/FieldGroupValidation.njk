@@ -11,13 +11,22 @@
     "aria-describedby": "switch-field-group-validation-1-error"
   }) %}
     {% call FieldLegend() %}Security alerts{% endcall %}
-    {% call FieldGroup({
-      name: "switch-field-group-validation",
-      orientation: "horizontal"
-    }) %}
-      {% call Switch({ error: true, value: "email" }) %}Email{% endcall %}
-      {% call Switch({ error: true, value: "push" }) %}Push{% endcall %}
-      {% call Switch({ error: true, value: "sms" }) %}SMS{% endcall %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
+      {% call Switch({
+        error: true,
+        name: "switch-field-group-validation",
+        value: "email"
+      }) %}Email{% endcall %}
+      {% call Switch({
+        error: true,
+        name: "switch-field-group-validation",
+        value: "push"
+      }) %}Push{% endcall %}
+      {% call Switch({
+        error: true,
+        name: "switch-field-group-validation",
+        value: "sms"
+      }) %}SMS{% endcall %}
     {% endcall %}
     <span class="ui-end-text" id="switch-field-group-validation-1-error">Turn on at least one to continue.</span>
   {% endcall %}

@@ -11,13 +11,23 @@
     "aria-describedby": "radio-field-group-validation-1-error"
   }) %}
     {% call FieldLegend() %}Color{% endcall %}
-    {% call FieldGroup({
-      name: "radio-group-validation",
-      orientation: "horizontal"
-    }) %}
-      {% call Radio({ checked: true, error: true, value: "black" }) %}Black{% endcall %}
-      {% call Radio({ error: true, value: "white" }) %}White{% endcall %}
-      {% call Radio({ error: true, value: "red" }) %}Red{% endcall %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
+      {% call Radio({
+        checked: true,
+        error: true,
+        name: "radio-group-validation",
+        value: "black"
+      }) %}Black{% endcall %}
+      {% call Radio({
+        error: true,
+        name: "radio-group-validation",
+        value: "white"
+      }) %}White{% endcall %}
+      {% call Radio({
+        error: true,
+        name: "radio-group-validation",
+        value: "red"
+      }) %}Red{% endcall %}
     {% endcall %}
     <span class="ui-end-text" id="radio-field-group-validation-1-error">Black is sold out. Pick another color.</span>
   {% endcall %}

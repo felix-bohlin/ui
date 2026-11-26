@@ -32,9 +32,10 @@ export default function FieldGroupBinding() {
     <>
       <Fieldset>
         <FieldLegend>Notifications</FieldLegend>
-        <FieldGroup name="switch-binding">
+        <FieldGroup>
           <Switch
             checked={notifications().includes("email")}
+            name="switch-binding"
             onChange={toggle}
             value="email"
           >
@@ -42,6 +43,7 @@ export default function FieldGroupBinding() {
           </Switch>
           <Switch
             checked={notifications().includes("push")}
+            name="switch-binding"
             onChange={toggle}
             value="push"
           >
@@ -49,6 +51,7 @@ export default function FieldGroupBinding() {
           </Switch>
           <Switch
             checked={notifications().includes("sms")}
+            name="switch-binding"
             onChange={toggle}
             value="sms"
           >

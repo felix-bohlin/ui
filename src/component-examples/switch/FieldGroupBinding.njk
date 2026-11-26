@@ -8,10 +8,10 @@
 
 {% call Fieldset() %}
   {% call FieldLegend() %}Notifications{% endcall %}
-  {% call FieldGroup({ name: "switch-binding" }) %}
-    {% call Switch({ checked: true, value: "email" }) %}Email{% endcall %}
-    {% call Switch({ value: "push" }) %}Push{% endcall %}
-    {% call Switch({ value: "sms" }) %}SMS{% endcall %}
+  {% call FieldGroup() %}
+    {% call Switch({ checked: true, name: "switch-binding", value: "email" }) %}Email{% endcall %}
+    {% call Switch({ name: "switch-binding", value: "push" }) %}Push{% endcall %}
+    {% call Switch({ name: "switch-binding", value: "sms" }) %}SMS{% endcall %}
   {% endcall %}
 {% endcall %}
 <p class="switch-binding-text">Selected: email</p>

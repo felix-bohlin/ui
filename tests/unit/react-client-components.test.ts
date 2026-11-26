@@ -10,7 +10,7 @@ import {
 test("finds the client roots and the client parts of server roots", () => {
   expect(clientRoots).toContain("Menu")
   expect(clientRoots).not.toContain("Tooltip")
-  expect(clientParts).toEqual(["CheckboxInput", "RadioInput", "SwitchInput"])
+  expect(clientParts).toEqual(["CheckboxInput"])
   expect(isClientComponent("TabsItem")).toBe(true)
   expect(isClientComponent("Tooltip")).toBe(false)
 })

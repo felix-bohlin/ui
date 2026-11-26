@@ -8,10 +8,14 @@
 
 {% call Fieldset() %}
   {% call FieldLegend() %}Newsletter topics{% endcall %}
-  {% call FieldGroup({ name: "checkbox-binding" }) %}
-    {% call Checkbox({ checked: true, value: "updates" }) %}Bassbook news{% endcall %}
-    {% call Checkbox({ value: "events" }) %}Events{% endcall %}
-    {% call Checkbox({ value: "offers" }) %}Gear deals{% endcall %}
+  {% call FieldGroup() %}
+    {% call Checkbox({
+      checked: true,
+      name: "checkbox-binding",
+      value: "updates"
+    }) %}Bassbook news{% endcall %}
+    {% call Checkbox({ name: "checkbox-binding", value: "events" }) %}Events{% endcall %}
+    {% call Checkbox({ name: "checkbox-binding", value: "offers" }) %}Gear deals{% endcall %}
   {% endcall %}
 {% endcall %}
 <p class="checkbox-binding-text">Selected: updates</p>

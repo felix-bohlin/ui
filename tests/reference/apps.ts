@@ -8,7 +8,7 @@ type AppConfig = {
   build: string[]
   check: string[][]
   dev: string
-  framework: "astro" | "react" | "solid" | "svelte" | "vue"
+  framework: "astro" | "nunjucks" | "react" | "solid" | "svelte" | "vue"
   name: App
   publicDir: string
   start: string
@@ -23,6 +23,15 @@ export const ALL_APPS: AppConfig[] = [
     name: "astro",
     publicDir: "public",
     start: "node dist/server/entry.mjs",
+  },
+  {
+    build: ["eleventy"],
+    check: [["tsc", "--noEmit", "-p", "."]],
+    dev: "node server.js --watch",
+    framework: "nunjucks",
+    name: "eleventy",
+    publicDir: "public",
+    start: "node server.js",
   },
   {
     build: ["next", "build"],

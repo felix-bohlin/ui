@@ -1,0 +1,56 @@
+---
+layout: layout.njk
+title: Photos
+---
+{% from "opui/index.njk" import
+  Button,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader
+%}
+{% from "icon.njk" import icon with context %}
+{% set first = app.PHOTOS[0] %}
+<div class="app-screen" data-screen="photos">
+  <h1>Photos</h1>
+  <ul aria-label="Photos" class="app-photo-grid">
+    {% for photo in app.PHOTOS %}
+      <li>
+        <button
+          class="app-photo"
+          command="show-modal"
+          commandfor="photo-viewer"
+          data-photo="{{ loop.index0 }}"
+          type="button"
+        >
+          <img alt="{{ photo.alt }}" src="{{ photo.src }}" />
+        </button>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% call Dialog({
+  "aria-label": "Photo viewer",
+  class: "app-viewer",
+  closedby: "any",
+  "data-photos": app.viewerPhotos | dump,
+  id: "photo-viewer"
+}) %}
+  {% call DialogHeader({ closeButton: true }) %}
+    <p aria-live="polite" data-viewer-count>Photo 1 of {{ app.PHOTOS.length }}</p>
+  {% endcall %}
+  {% call DialogContent({ class: "app-viewer-body" }) %}
+    <img alt="{{ first.alt }}" src="{{ first.src }}" />
+    <p data-viewer-by>By {{ app.user(first.by).name }}</p>
+  {% endcall %}
+  {% call DialogFooter() %}
+    {% call Button({ "data-step": "-1", variant: "outlined" }) %}
+      {{ icon("previous") }}
+      <span class="ui-text">Previous</span>
+    {% endcall %}
+    {% call Button({ "data-step": "1", variant: "outlined" }) %}
+      <span class="ui-text">Next</span>
+      {{ icon("next") }}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

@@ -20,7 +20,8 @@ export class ReactionsElement extends Base {
         if (!input.matches?.(CHECKBOX) || !this.group?.contains(input)) return
         event.preventDefault()
         if (this.hasAttribute("data-hydrating")) return
-        this.#request(input.value, input.checked)
+        const { checked, value } = input
+        setTimeout(() => this.#request(value, checked))
       },
       { signal },
     )

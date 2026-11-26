@@ -481,11 +481,11 @@ const ELEMENTS: Scenario[] = [
       })
       await pill.click()
       await expect(quick).not.toBeChecked()
-      expect(
-        await page.evaluate(
-          () => (window as unknown as { asked: unknown }).asked,
-        ),
-      ).toEqual({ checked: true, value: "+1" })
+      await expect
+        .poll(() =>
+          page.evaluate(() => (window as unknown as { asked: unknown }).asked),
+        )
+        .toEqual({ checked: true, value: "+1" })
       await page.evaluate(() => {
         document.querySelector("opui-reactions")!.set("+1", {
           checked: true,
@@ -506,6 +506,30 @@ const ELEMENTS: Scenario[] = [
       await expect(pill).toHaveText("Up")
       await expect(pill).toHaveClass(/ui-unused/)
       await expect(page.getByRole("status")).toHaveText("Thumbs up removed")
+      const applyAtOnce = () =>
+        page.evaluate(() => {
+          const element = document.querySelector("opui-reactions")!
+          element.addEventListener(
+            "reaction",
+            (event) => {
+              const { checked, value } = (event as CustomEvent).detail
+              element.set(value, {
+                checked,
+                label: checked ? "Thumbs up, 1" : "Thumbs up",
+                text: checked ? "Up 1" : "Up",
+              })
+            },
+            { once: true },
+          )
+        })
+      await applyAtOnce()
+      await pill.click()
+      await expect(quick).toBeChecked()
+      await expect(pill).toHaveText("Up 1")
+      await applyAtOnce()
+      await pill.click()
+      await expect(quick).not.toBeChecked()
+      await expect(pill).toHaveText("Up")
     },
   },
   {
@@ -552,6 +576,20 @@ const ELEMENTS: Scenario[] = [
             .items.map((item) => item.parentElement!.textContent!.trim()),
         ),
       ).toEqual(["Email", "Push"])
+      await page.mouse.move(0, 0)
+      const setAll = (checked: boolean) =>
+        page.evaluate((checked) => {
+          for (const input of document.querySelector("opui-select-all")!
+            .items) {
+            input.checked = checked
+          }
+        }, checked)
+      await setAll(false)
+      await expect(all).toHaveJSProperty("checked", false)
+      await expect(all).toHaveJSProperty("indeterminate", false)
+      await setAll(true)
+      await expect(all).toHaveJSProperty("checked", true)
+      await expect(all).toHaveJSProperty("indeterminate", false)
     },
   },
   {

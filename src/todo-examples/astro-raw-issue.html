@@ -1,0 +1,213 @@
+<style>
+  .todo-draft {
+    display: grid;
+    gap: var(--size-2);
+    inline-size: 100%;
+    max-inline-size: 60rem;
+  }
+
+  .todo-draft-head {
+    align-items: center;
+    display: flex;
+    gap: var(--size-3);
+    justify-content: space-between;
+
+    h2 {
+      font-size: var(--font-size-2);
+      margin: 0;
+    }
+  }
+
+  .todo-draft-text {
+    background: var(--ui-surface-tonal);
+    border-radius: var(--ui-radius);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-0);
+    margin: 0;
+    overflow: auto;
+    padding: var(--size-3);
+    white-space: pre-wrap;
+  }
+</style>
+<p class="todo-note">
+  The bug report for Astro, field by field. Open a new issue at
+  <a
+    class="ui-link"
+    href="https://github.com/withastro/astro/issues/new/choose"
+    rel="noopener"
+    target="_blank"
+    >github.com/withastro/astro</a
+  >
+  with the Bug report form and paste each block below into the field it names.
+  For Link to Minimal Reproducible Example, start a StackBlitz from
+  <a
+    class="ui-link"
+    href="https://astro.new/minimal"
+    rel="noopener"
+    target="_blank"
+    >astro.new/minimal</a
+  >, add the page as <code>src/pages/index.astro</code> and the component as
+  <code>src/components/A.astro</code>, <code>B.astro</code> and
+  <code>C.astro</code> (any CSS file for the import), and paste its link.
+  <code>tests/unit/tooling-bugs.test.ts</code> fails once a release skips
+  <code>?raw</code> in <code>ensureModulesLoaded</code>, the cue to remove
+  <code>opui-raw-without-module-edge</code> from <code>astro.config.mjs</code>.
+</p>
+<section class="todo-draft">
+  <div class="todo-draft-head">
+    <h2 id="astro-title-label">Title</h2>
+    <button
+      class="ui-button ui-outlined ui-small"
+      type="button"
+      aria-describedby="astro-title-label"
+      data-copy="astro-title"
+    >
+      Copy
+    </button>
+  </div>
+  <pre class="todo-draft-text" id="astro-title">
+Dev: first request compiles every module behind `?raw` imports (`ensureModulesLoaded` follows the edge `collectCSSWithOrder` skips)</pre>
+</section>
+<section class="todo-draft">
+  <div class="todo-draft-head">
+    <h2 id="astro-info-label">Astro Info</h2>
+    <button
+      class="ui-button ui-outlined ui-small"
+      type="button"
+      aria-describedby="astro-info-label"
+      data-copy="astro-info"
+    >
+      Copy
+    </button>
+  </div>
+  <pre class="todo-draft-text" id="astro-info">
+Astro                    v7.3.6
+Node                     v26.10.0
+System                   Linux (x64)
+Package Manager          pnpm
+Output                   static
+Adapter                  none
+Integrations             @astrojs/react
+                         @astrojs/sitemap
+                         @astrojs/svelte
+                         @astrojs/vue
+
+Also read against the 7.4.5 source, the latest release: `ensureModulesLoaded` is unchanged.</pre>
+</section>
+<section class="todo-draft">
+  <div class="todo-draft-head">
+    <h2 id="astro-bug-label">Describe the Bug</h2>
+    <button
+      class="ui-button ui-outlined ui-small"
+      type="button"
+      aria-describedby="astro-bug-label"
+      data-copy="astro-bug"
+    >
+      Copy
+    </button>
+  </div>
+  <pre class="todo-draft-text" id="astro-bug">
+On the first request after `astro dev` starts, the CSS collector in `astro/dist/vite-plugin-css/index.js` calls `ensureModulesLoaded(env, mod)` on the page module. It walks `mod.importedModules` recursively and `fetchModule()`s every module it reaches that has no `transformResult` yet, dynamic imports included.
+
+Vite adds a module graph edge from `file.ext?raw` to `file.ext`, so `ensureModulesLoaded` follows a `?raw` import into the file itself, compiles it as a module, and then everything that file imports. `collectCSSWithOrder`, in the same file, already stops at `?raw`:
+
+```js
+} else if (id.endsWith("?raw")) {
+  return;
+}
+```
+
+`ensureModulesLoaded` has no such check, so a page that globs source files as text (a docs site showing component source, for example) compiles all of them as modules on its first request. On our docs site that is about 3,000 modules and 9 seconds for the first component page; the edge alone costs 2.8s on a page that only imports examples as `?raw` (11.5s without a workaround, 8.7s with it).
+
+Steps to reproduce:
+
+1. `src/components/A.astro`, `B.astro` and `C.astro`: any components (each can import something heavy to make the cost visible).
+2. `src/pages/index.astro` globs them as text (below).
+3. `astro dev`, open `/` and watch the server log (`DEBUG=vite:transform`): A, B and C are transformed as modules, although the page only uses their text.
+
+```astro
+---
+const sources = import.meta.glob("../components/*.astro", {
+  eager: true,
+  import: "default",
+  query: "?raw",
+})
+---
+
+&lt;pre&gt;{Object.keys(sources).join("\n")}&lt;/pre&gt;
+```
+
+Workaround: a `serve`-only Vite plugin with `enforce: "pre"` that loads `?raw` ids itself (`export default ${JSON.stringify(readFileSync(file, "utf-8"))}`), so Vite adds no edge to the file.</pre>
+</section>
+<section class="todo-draft">
+  <div class="todo-draft-head">
+    <h2 id="astro-expected-label">What&#39;s the expected result?</h2>
+    <button
+      class="ui-button ui-outlined ui-small"
+      type="button"
+      aria-describedby="astro-expected-label"
+      data-copy="astro-expected"
+    >
+      Copy
+    </button>
+  </div>
+  <pre class="todo-draft-text" id="astro-expected">
+`ensureModulesLoaded` skips `?raw` modules like `collectCSSWithOrder` does, so nothing behind a `?raw` import is compiled. A one-line fix in its loop:
+
+```js
+if (rawRE.test(imp.id)) continue;
+```
+
+(or `imp.id.endsWith("?raw")`, matching `collectCSSWithOrder`). With it, the repro compiles nothing behind the glob, and a page with 300 `?raw` examples goes from 2.0s to 0.6s on its first request.</pre>
+</section>
+<section class="todo-draft">
+  <div class="todo-draft-head">
+    <h2 id="astro-page-label">Repro: src/pages/index.astro</h2>
+    <button
+      class="ui-button ui-outlined ui-small"
+      type="button"
+      aria-describedby="astro-page-label"
+      data-copy="astro-page"
+    >
+      Copy
+    </button>
+  </div>
+  <pre class="todo-draft-text" id="astro-page">
+---
+const sources = import.meta.glob("../components/*.astro", {
+  eager: true,
+  import: "default",
+  query: "?raw",
+})
+---
+
+&lt;pre&gt;{Object.keys(sources).join("\n")}&lt;/pre&gt;</pre>
+</section>
+<section class="todo-draft">
+  <div class="todo-draft-head">
+    <h2 id="astro-component-label">Repro: src/components/A.astro (and B, C)</h2>
+    <button
+      class="ui-button ui-outlined ui-small"
+      type="button"
+      aria-describedby="astro-component-label"
+      data-copy="astro-component"
+    >
+      Copy
+    </button>
+  </div>
+  <pre class="todo-draft-text" id="astro-component">
+---
+import "../styles/heavy.css"
+---
+
+&lt;p&gt;A component whose source the page shows as text.&lt;/p&gt;</pre>
+</section>
+<script>
+  for (const button of document.querySelectorAll("[data-copy]")) {
+    button.addEventListener("click", async () => {
+      const text = document.getElementById(button.dataset.copy).textContent
+      await navigator.clipboard.writeText(text)
+      button.textContent = "Copied"
+    })
+  }
+</script>

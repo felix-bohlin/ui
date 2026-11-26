@@ -1,0 +1,22 @@
+import { NumberField } from "opui-css/react"
+
+export default function Validation() {
+  return (
+    <>
+      <NumberField
+        id="number-field-validation-1"
+        label="Seats"
+        min={1}
+        required
+      />
+      <NumberField
+        defaultValue={6}
+        endText="Only 4 left in stock."
+        error
+        id="number-field-validation-2"
+        label="Quantity"
+        min={1}
+      />
+    </>
+  )
+}

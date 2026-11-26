@@ -1,0 +1,45 @@
+---
+import {
+  Button,
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+} from "opui-css/astro"
+---
+
+<Fieldset>
+  <FieldLegend>Fruit</FieldLegend>
+  <FieldGroup name="checkbox-binding">
+    <Checkbox checked value="apples">Apples</Checkbox>
+    <Checkbox value="bananas">Bananas</Checkbox>
+    <Checkbox value="cherries">Cherries</Checkbox>
+  </FieldGroup>
+</Fieldset>
+<p class="checkbox-binding-text">Selected: apples</p>
+<Button class="checkbox-binding-reset">Reset</Button>
+
+<script>
+  const text = document.querySelector(".checkbox-binding-text")
+  const inputs = [
+    ...document.querySelectorAll<HTMLInputElement>('[name="checkbox-binding"]'),
+  ]
+
+  function update() {
+    if (!text) return
+    text.textContent = `Selected: ${
+      inputs
+        .filter((input) => input.checked)
+        .map((input) => input.value)
+        .join(", ") || "none"
+    }`
+  }
+
+  inputs.forEach((input) => input.addEventListener("change", update))
+  document
+    .querySelector(".checkbox-binding-reset")
+    ?.addEventListener("click", () => {
+      inputs.forEach((input) => (input.checked = input.defaultChecked))
+      update()
+    })
+</script>

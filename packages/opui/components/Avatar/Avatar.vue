@@ -1,24 +1,35 @@
 <script setup lang="ts">
-import type { Props, Slots } from "./types.d.vue"
+import { computed, type HTMLAttributes, useAttrs } from "vue"
+import { tagAttrs } from "../tag"
+import { defined } from "../attrs"
+import type { Props, Slots } from "./types.vue-props"
 
-const { alt, as, href, isGroup, src, variant } = defineProps<Props>()
+const { alt, as, disabled, href, shape, size, src, variant } =
+  defineProps<Props>()
 defineSlots<Slots>()
 
-const Tag = as || (href ? "a" : "div")
+defineOptions({
+  inheritAttrs: false,
+})
+
+const attrs = useAttrs() as HTMLAttributes
+
+const Tag = computed(() => as || (href ? "a" : "div"))
 </script>
 
 <template>
   <component
     :is="Tag"
     :class="[
-      { 'ui-avatar': !isGroup },
-      !isGroup && variant && `ui-${variant}`,
+      'ui-avatar',
+      shape && shape !== 'circle' && `ui-${shape}`,
+      size && size !== 'medium' && `ui-${size}`,
+      variant && variant !== 'filled' && `ui-${variant}`,
       $props.class,
     ]"
-    :href="href"
-    :role="isGroup ? 'group' : undefined"
+    v-bind="{ ...tagAttrs(Tag, disabled, href), ...defined(attrs) }"
   >
-    <img v-if="src" :src="src" :alt="alt" />
+    <img v-if="src" :src="src" :alt="alt ?? ''" />
     <slot v-else></slot>
   </component>
 </template>

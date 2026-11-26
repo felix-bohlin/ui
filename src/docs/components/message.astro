@@ -1,0 +1,181 @@
+---
+import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import DocLink from "../../components/DocLink.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import Usage from "./partials/Usage.astro"
+import {
+  Avatar as UIAvatar,
+  Message as UIMessage,
+  Messages as UIMessages,
+  ToggleButton as UIToggleButton,
+  ToggleGroup as UIToggleGroup,
+} from "opui-css/astro"
+
+import AvatarCSS from "@opui/css/components/avatar.css?raw"
+import MessageCSS from "@opui/css/components/message.css?raw"
+
+import messageApi from "../../component-api/message/api"
+import messagesApi from "../../component-api/messages/api"
+
+export const description =
+  "Chat bubbles that group by sender, with attachments, reactions and a typing indicator."
+
+export const keywords = ["chat", "chat bubble", "conversation"]
+---
+
+<Component
+  description={description}
+  slug="message"
+  heroAnatomy
+  apis={[
+    { title: "Messages API", api: messagesApi },
+    { title: "Message API", api: messageApi },
+  ]}
+  browserSupport={[
+    "color-mix",
+    "container-queries",
+    "container-style-queries",
+    "corner-shape",
+    "has",
+    "lh",
+  ]}
+  changelogPaths={[
+    { path: "packages/opui/components/Message", type: "component" },
+    { path: "src/docs/components/message.astro", type: "docs" },
+    { path: "src/component-examples/message", type: "docs" },
+    { path: "packages/opui/css/components/message.css", type: "css" },
+    { path: "src/component-api/message", type: "api" },
+    { path: "src/component-api/messages", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "message.css", code: MessageCSS, lang: "css" },
+    { title: "avatar.css", code: AvatarCSS, lang: "css", isDependency: true },
+  ]}
+  seeAlsoLinks={[
+    { name: "Avatar", href: "/components/avatar" },
+    { name: "Toggle", href: "/components/toggle" },
+  ]}
+>
+  <Fragment slot="title">Message</Fragment>
+  <Fragment slot="preamble">
+    Chat bubbles for a conversation. For a note from the app, use a
+    <DocLink href="/components/callout">Callout</DocLink>.
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UIMessages aria-label="Messages with Saga" style="inline-size: 22rem">
+        <UIMessage author="Saga" datetime="2026-10-08T14:31" time="14:31">
+          <UIAvatar aria-label="Saga Nyström" role="img" slot="start"
+            >SN</UIAvatar
+          >
+          <p>Here's the current draft.</p>
+          <Fragment slot="end">Read</Fragment>
+          <UIToggleGroup
+            aria-label="Reactions"
+            multiple
+            name="reaction"
+            slot="bottom"
+          >
+            <UIToggleButton aria-label="Thumbs up, 2" checked value="+1"
+              ><span aria-hidden="true">👍 2</span></UIToggleButton
+            >
+          </UIToggleGroup>
+        </UIMessage>
+      </UIMessages>
+    </Anatomy>
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">A conversation, like support chat or direct messages.</li>
+    <li slot="when">
+      A channel with several senders: <a href="#group-chat">group chat</a>.
+    </li>
+    <li slot="when-not">
+      A note from the app: use a
+      <DocLink href="/components/callout">Callout</DocLink>.
+    </li>
+    <li slot="when-not">
+      Comments on a post: use a <DocLink href="/components/list">List</DocLink>.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <p>
+      Mark your own messages with
+      <PropOrClass prop="outgoing" class=".ui-outgoing" />.
+    </p>
+    <AutoExample name="Basics" />
+  </section>
+
+  <section id="group-chat">
+    <h2>Group chat</h2>
+    <p>
+      Mark each change of sender with
+      <PropOrClass prop="newAuthor" class=".ui-new-author" />.
+    </p>
+    <AutoExample name="GroupChat" />
+  </section>
+
+  <section id="attachments">
+    <h2>Attachments</h2>
+    <p>
+      An outlined <DocLink href="/components/card">Card</DocLink> in the bubble.
+    </p>
+    <AutoExample name="Attachments" />
+  </section>
+
+  <section id="reactions">
+    <h2>Reactions</h2>
+    <p>
+      A <DocLink href="/components/toggle">Toggle group</DocLink> in
+      <PropOrClass prop="bottom" class=".ui-bottom" />. Saving them is up to
+      you.
+    </p>
+    <AutoExample name="Reactions" />
+  </section>
+
+  <section id="typing">
+    <h2>Typing indicator</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >Add <code>.ui-typing</code>, and <code>role="status"</code> with hidden
+        text on the bubble.</Fragment
+      >
+      <Fragment slot="components">Set <code>typing</code>.</Fragment>
+    </Conditional>
+    <AutoExample name="Typing" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Name the list with <code>aria-label</code>. Keep
+        <code>role="list"</code> for Safari.
+      </li>
+      <li>Put the time in a <code>&lt;time datetime&gt;</code>.</li>
+    </ul>
+  </Fragment>
+
+  <Fragment slot="under-the-hood">
+    <p>
+      <code>li.ui-message</code> is a grid with a <code>start</code> area for
+      the avatar, a <code>content</code> area for the bubble and a
+      <code>bottom</code> area under it, pulled up by a negative margin so the
+      reactions sit on the bubble's edge. A ring in the page's surface color
+      around each pill keeps it apart from the bubble. <code>.ui-outgoing</code>
+      swaps the columns and aligns the message to the end.
+    </p>
+    <p>
+      A run is found with <code>:has()</code>: a message followed by one on the
+      same side tightens its bottom corner on the avatar side and hides its
+      avatar, and a message after one on the same side tightens its top corner
+      and hides its author. <code>.ui-new-author</code> and any other
+      <code>li</code> break the chain.
+    </p>
+  </Fragment>
+</Component>

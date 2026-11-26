@@ -1,0 +1,9 @@
+---
+import type { TableColumnGroupProps as Props } from "./types.astro"
+
+const { ...rest } = Astro.props
+---
+
+<colgroup {...rest}>
+  <slot />
+</colgroup>

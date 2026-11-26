@@ -1,0 +1,75 @@
+<style>
+  .todo-marker-proportional > ol > li::marker {
+    font-variant-numeric: proportional-nums;
+  }
+
+  .todo-marker-content {
+    padding-inline-start: 4rem;
+  }
+
+  .todo-marker-content > li::marker {
+    content: "Step " counter(list-item) ": ";
+  }
+</style>
+
+<p class="todo-note">
+  Open this page in Safari. The Typography chip for <code>marker</code> shows
+  Safari as unsupported because the compat data marks Safari's
+  <code>::marker</code> as partial, with the note "Safari support is limited to
+  <code>color</code> and <code>font-size</code>". The one marker rule in
+  <code>typography.css</code> sets
+  <code>font-variant-numeric: tabular-nums</code> on the markers of a rich text
+  <code>ol</code>, and WebKit's list of properties that apply to
+  <code>::marker</code> (<code>PropertyAllowlist.cpp</code>) includes every font
+  property, <code>font-variant-numeric</code> among them. The left list is
+  today's rule, the right one turns it off; with digits of different widths (1
+  and 8 in most UI fonts), the left markers line up and the right ones don't.
+  The readouts give the computed value on the marker, and a third list tests
+  <code>content</code> on <code>::marker</code>, which the note also leaves out
+  and the library doesn't use.
+</p>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Today, <code>tabular-nums</code></p>
+    <div class="ui-rich-text">
+      <ol start="8">
+        <li>Install the package</li>
+        <li>Import the CSS</li>
+        <li>Add a theme</li>
+        <li>Ship it</li>
+        <li>Write the release notes</li>
+      </ol>
+    </div>
+    <output class="todo-measure" data-marker-readout></output>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">Rule turned off, <code>proportional-nums</code></p>
+    <div class="todo-marker-proportional ui-rich-text">
+      <ol start="8">
+        <li>Install the package</li>
+        <li>Import the CSS</li>
+        <li>Add a theme</li>
+        <li>Ship it</li>
+        <li>Write the release notes</li>
+      </ol>
+    </div>
+    <output class="todo-measure" data-marker-readout></output>
+  </section>
+</div>
+<p class="todo-label"><code>content</code> on <code>::marker</code></p>
+<ol class="todo-marker-content">
+  <li>Shows "Step 1:" where <code>content</code> applies to markers</li>
+</ol>
+<output class="todo-measure" id="todo-marker-content-readout"></output>
+
+<script>
+  {
+    for (const section of document.querySelectorAll(".todo-compare > *")) {
+      const item = section.querySelector("li")
+      section.querySelector("[data-marker-readout]").textContent =
+        `li::marker font-variant-numeric: ${getComputedStyle(item, "::marker").fontVariantNumeric}`
+    }
+    document.querySelector("#todo-marker-content-readout").textContent =
+      `li::marker content: ${getComputedStyle(document.querySelector(".todo-marker-content > li"), "::marker").content}`
+  }
+</script>

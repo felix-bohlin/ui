@@ -1,18 +1,46 @@
 <form class="ui-form">
   <fieldset class="ui-fieldset" disabled>
-    <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <legend>Billing cycle</legend>
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-radio">
-        <input name="radio-group-disabled" type="radio" value="1" checked />
-        <span class="ui-label">Radio 1</span>
+        <input
+          type="radio"
+          name="radio-group-disabled"
+          checked
+          value="monthly"
+        />
+        <span class="ui-label">Monthly</span>
       </label>
       <label class="ui-radio">
-        <input name="radio-group-disabled" type="radio" value="2" />
-        <span class="ui-label">Radio 2</span>
+        <input type="radio" name="radio-group-disabled" value="quarterly" />
+        <span class="ui-label">Quarterly</span>
       </label>
       <label class="ui-radio">
-        <input name="radio-group-disabled" type="radio" value="3" />
-        <span class="ui-label">Radio 3</span>
+        <input type="radio" name="radio-group-disabled" value="yearly" />
+        <span class="ui-label">Yearly</span>
+      </label>
+    </div>
+  </fieldset>
+  <fieldset class="ui-fieldset">
+    <legend>Delivery</legend>
+    <div class="ui-field-group ui-horizontal">
+      <label class="ui-radio">
+        <input
+          type="radio"
+          name="radio-group-disabled-single"
+          checked
+          value="standard"
+        />
+        <span class="ui-label">Standard</span>
+      </label>
+      <label class="ui-radio">
+        <input
+          type="radio"
+          name="radio-group-disabled-single"
+          disabled
+          value="same-day"
+        />
+        <span class="ui-label">Same day</span>
       </label>
     </div>
   </fieldset>

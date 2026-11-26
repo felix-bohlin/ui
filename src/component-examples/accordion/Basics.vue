@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import { Accordion } from "opui-css/vue"
+import { Accordion, AccordionContent, AccordionSummary } from "opui-css/vue"
 </script>
 
 <template>
   <Accordion>
-    <template #summary>Accordion</template>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo. Nam tempor euismod nisi ac ornare. Pellentesque id
-      sapien lacinia, venenatis est aliquam, dignissim elit. Suspendisse
-      potenti. Cras ut ante in libero tempus sodales sed quis dolor.
-    </p>
+    <AccordionSummary>What is included in the free plan?</AccordionSummary>
+    <AccordionContent>
+      <p>
+        Three projects, 2 GB of storage and email support. Upgrade at any time
+        to add more projects and invite your team.
+      </p>
+    </AccordionContent>
   </Accordion>
 </template>

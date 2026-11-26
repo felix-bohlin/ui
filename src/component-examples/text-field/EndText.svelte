@@ -1,0 +1,10 @@
+<script lang="ts">
+  import { TextField } from "opui-css/svelte"
+</script>
+
+<TextField
+  endText="We never share your email."
+  label="Email"
+  placeholder="name@example.com"
+  type="email"
+/>

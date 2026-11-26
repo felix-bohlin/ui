@@ -1,0 +1,131 @@
+<table class="ui-table" id="table-expandable-1">
+  <caption>
+    Orders
+  </caption>
+  <thead>
+    <tr>
+      <th>
+        <span class="ui-sr-only">Details</span>
+      </th>
+      <th>Order</th>
+      <th>Customer</th>
+      <th class="ui-numeric">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <button
+          class="ui-button ui-round ui-small table-expand"
+          type="button"
+          aria-controls="table-expandable-1-details"
+          aria-expanded="false"
+          aria-label="Details of order 1042"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M5.366 11.116a1.25 1.25 0 0 1 1.768 0L16 19.982l8.866-8.866a1.25 1.25 0 0 1 1.768 1.768l-9.75 9.75a1.25 1.25 0 0 1-1.768 0l-9.75-9.75a1.25 1.25 0 0 1 0-1.768"
+            ></path>
+          </svg>
+        </button>
+      </td>
+      <td>1042</td>
+      <td>Lena Ek</td>
+      <td class="ui-numeric">€84.00</td>
+    </tr>
+    <tr hidden id="table-expandable-1-details">
+      <td colspan="4">Two items, shipped to Göteborg on 3 March.</td>
+    </tr>
+    <tr>
+      <td>
+        <button
+          class="ui-button ui-round ui-small table-expand"
+          type="button"
+          aria-controls="table-expandable-2-details"
+          aria-expanded="false"
+          aria-label="Details of order 1043"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M5.366 11.116a1.25 1.25 0 0 1 1.768 0L16 19.982l8.866-8.866a1.25 1.25 0 0 1 1.768 1.768l-9.75 9.75a1.25 1.25 0 0 1-1.768 0l-9.75-9.75a1.25 1.25 0 0 1 0-1.768"
+            ></path>
+          </svg>
+        </button>
+      </td>
+      <td>1043</td>
+      <td>Tom Tanaka</td>
+      <td class="ui-numeric">€126.50</td>
+    </tr>
+    <tr hidden id="table-expandable-2-details">
+      <td colspan="4">
+        Three items, waiting for the last one to come in stock.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button
+          class="ui-button ui-round ui-small table-expand"
+          type="button"
+          aria-controls="table-expandable-3-details"
+          aria-expanded="false"
+          aria-label="Details of order 1044"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M5.366 11.116a1.25 1.25 0 0 1 1.768 0L16 19.982l8.866-8.866a1.25 1.25 0 0 1 1.768 1.768l-9.75 9.75a1.25 1.25 0 0 1-1.768 0l-9.75-9.75a1.25 1.25 0 0 1 0-1.768"
+            ></path>
+          </svg>
+        </button>
+      </td>
+      <td>1044</td>
+      <td>Elif Rahman</td>
+      <td class="ui-numeric">€39.90</td>
+    </tr>
+    <tr hidden id="table-expandable-3-details">
+      <td colspan="4">One item, delivered on 5 March.</td>
+    </tr>
+  </tbody>
+</table>
+
+<style>
+  .table-expand[aria-expanded="true"] > svg {
+    rotate: 180deg;
+  }
+</style>
+
+<script type="module">
+  document
+    .querySelectorAll("#table-expandable-1 .table-expand")
+    .forEach((button) => {
+      button.addEventListener("click", () => {
+        const row = document.getElementById(
+          button.getAttribute("aria-controls") ?? "",
+        )
+        if (!(row instanceof HTMLTableRowElement)) return
+        const expanded = button.getAttribute("aria-expanded") !== "true"
+        button.setAttribute("aria-expanded", String(expanded))
+        row.hidden = !expanded
+      })
+    })
+</script>

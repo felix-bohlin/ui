@@ -1,10 +1,12 @@
 export type Props = {
-  [key: string]: any
   severity?: "critical" | "info" | "neutral" | "success" | "warning"
-  variant?: "tonal" | "outlined"
+  variant?: "outlined" | "tonal"
 }
 
-export type Slots<S> = {
-  icon?: S
-  title?: S
-}
+export type CalloutActionsProps = {}
+
+export type CalloutContentProps = {}
+
+export type CalloutIconProps = {}
+
+export type Context = Pick<Props, "severity">

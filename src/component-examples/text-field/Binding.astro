@@ -1,0 +1,27 @@
+---
+import { Button, TextField } from "opui-css/astro"
+---
+
+<TextField label="Name" name="text-field-binding" value="Ada" />
+<p class="text-field-binding-text">Hello, Ada.</p>
+<Button class="text-field-binding-reset">Reset</Button>
+
+<script>
+  const text = document.querySelector(".text-field-binding-text")
+  const input = document.querySelector<HTMLInputElement>(
+    '[name="text-field-binding"]',
+  )
+
+  function update() {
+    if (!text || !input) return
+    text.textContent = `Hello, ${input.value || "stranger"}.`
+  }
+
+  input?.addEventListener("input", update)
+  document
+    .querySelector(".text-field-binding-reset")
+    ?.addEventListener("click", () => {
+      if (input) input.value = input.defaultValue
+      update()
+    })
+</script>

@@ -1,0 +1,25 @@
+<label class="ui-textarea">
+  <span class="ui-label">Code</span>
+  <span class="ui-field">
+    <textarea placeholder="console.log('Hello, world!')"></textarea>
+    <span class="ui-top">script.js</span>
+  </span>
+</label>
+
+<label class="ui-textarea">
+  <span class="ui-label">Comment</span>
+  <span class="ui-field">
+    <textarea maxlength="280" placeholder="Write a comment..."></textarea>
+    <span class="ui-bottom">Markdown supported</span>
+  </span>
+  <span class="ui-end-text">
+    <opui-character-count
+      aria-hidden="true"
+      class="ui-value"
+    ></opui-character-count>
+  </span>
+</label>
+
+<script type="module">
+  import "opui-css/elements/character-count.js"
+</script>

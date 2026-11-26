@@ -1,37 +1,47 @@
 <script setup lang="ts">
-import { computed } from "vue"
-import type { Props, Slots } from "./types.d.vue"
+import { computed, type HTMLAttributes, useAttrs } from "vue"
+import { tagAttrs } from "../tag"
+import { defined } from "../attrs"
+import type { Props, Slots } from "./types.vue-props"
 
 const {
   as,
+  disabled,
+  dot,
+  href,
   label,
   multiline,
+  severity,
   size,
   variant = "tonal",
-  href,
 } = defineProps<Props>()
 defineSlots<Slots>()
 
-const tag = computed(() => as || (href ? "a" : "div"))
+defineOptions({
+  inheritAttrs: false,
+})
+
+const attrs = useAttrs() as HTMLAttributes
+
+const Tag = computed(() => as || (href ? "a" : "div"))
 </script>
 
 <template>
   <component
-    :is="tag"
+    :is="Tag"
     :class="[
       'ui-chip',
-      {
-        'ui-multiline': multiline,
-      },
-      size && `ui-${size}`,
-      variant && `ui-${variant}`,
+      { 'ui-dot': dot, 'ui-multiline': multiline },
+      severity && `ui-${severity}`,
+      size && size !== 'medium' && `ui-${size}`,
+      variant !== 'tonal' && `ui-${variant}`,
       $props.class,
     ]"
-    :href="tag === 'a' ? href : undefined"
+    v-bind="{ ...tagAttrs(Tag, disabled, href), ...defined(attrs) }"
   >
-    <slot name="start"></slot>
-    <slot></slot>
-    <span v-if="label" class="ui-text">{{ label }}</span>
-    <slot name="end"></slot>
+    <slot name="start"></slot
+    ><span v-if="label || $slots.label" class="ui-text"
+      >{{ label }}<slot name="label"></slot></span
+    ><slot name="end"></slot>
   </component>
 </template>

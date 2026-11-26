@@ -1,43 +1,60 @@
 <script setup lang="ts">
+import { useInputAttrs } from "../vue"
+import { TrimmedSlot } from "../whitespace.vue"
 import RadioInput from "./RadioInput.vue"
-import type { RadioProps, Slots } from "./types.d.vue"
-import { useId } from "vue"
+import { hasName, warnUnnamed } from "../dev"
+import type { Props, Slots } from "./types.vue-props"
+
+const {
+  card,
+  endText,
+  error,
+  hideLabel,
+  label,
+  orientation,
+  size,
+  spread,
+  variant,
+} = defineProps<Props>()
+const slots = defineSlots<Slots>()
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const props = defineProps<RadioProps>()
-defineSlots<Slots>()
+const attrs = useInputAttrs()
+
 const modelValue = defineModel<string | number | boolean | undefined>({
   default: undefined,
 })
 
-const endTextId = useId()
+warnUnnamed("Radio", hasName({ ...attrs.value, label }, slots.default))
 </script>
 
 <template>
   <label
     :class="[
       'ui-radio',
-      props.size && `ui-${props.size}`,
-      {
-        'ui-stack': props.stack,
-      },
-      props.class,
+      { 'ui-card': card, 'ui-spread': spread },
+      card && variant && variant !== 'outlined' && `ui-${variant}`,
+      orientation && orientation !== 'horizontal' && `ui-${orientation}`,
+      size && size !== 'medium' && `ui-${size}`,
+      $props.class,
     ]"
-    :data-invalid="props.error ? '' : undefined"
+    :style="$attrs.style"
   >
     <RadioInput
-      v-bind="$attrs"
+      v-bind="attrs"
+      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
       v-model="modelValue"
-      :aria-describedby="$slots['end-text'] ? endTextId : undefined"
     />
-    <span :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"
-      ><slot></slot
+    <span
+      v-if="label || $slots.default"
+      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
+      >{{ label }}<TrimmedSlot :nodes="$slots.default?.()"
+    /></span>
+    <span v-if="endText || $slots['end-text']" class="ui-end-text"
+      >{{ endText }}<slot name="end-text"></slot
     ></span>
-    <span :id="endTextId" class="ui-end-text" v-if="$slots['end-text']">
-      <slot name="end-text"></slot>
-    </span>
   </label>
 </template>

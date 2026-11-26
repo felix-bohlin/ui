@@ -1,0 +1,177 @@
+<style>
+  .newsletter {
+    container-type: inline-size;
+
+    .newsletter-card {
+      padding: var(--ui-space-5);
+
+      @container (inline-size >= 56rem) {
+        padding: var(--ui-space-7);
+      }
+    }
+
+    .newsletter-issue .ui-text p:first-child {
+      font-weight: var(--ui-font-weight-medium);
+    }
+
+    .newsletter-form {
+      align-content: start;
+      gap: var(--ui-space-5);
+    }
+
+    .newsletter-topics {
+      grid-template-columns: minmax(0, 1fr);
+
+      @container (inline-size >= 40rem) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  }
+</style>
+
+<div class="newsletter ui-layout-container" style="--_max-inline-size: 64rem">
+  <div
+    class="ui-card ui-outlined ui-layout-columns newsletter-card"
+    style="--_columns: 1fr 1.2fr; --_gap: var(--ui-space-6)"
+  >
+    <div class="ui-layout-column ui-large">
+      <hgroup class="ui-hgroup">
+        <p>The Northwind Dispatch</p>
+        <h1 class="ui-h3">Product notes worth reading, every other Thursday</h1>
+        <p>
+          What we shipped, what we learned and how other teams use Northwind.
+          Join 12&nbsp;400 product people.
+        </p>
+      </hgroup>
+
+      <section aria-labelledby="newsletter-recent-heading">
+        <h2 class="ui-overline" id="newsletter-recent-heading">
+          Recent issues
+        </h2>
+        <ul class="ui-list ui-transparent ui-dense ui-flush newsletter-issue">
+          <li>
+            <a href="#newsletter-issue-48">
+              <div class="ui-text">
+                <p>#48 Planning with fewer meetings</p>
+                <p>Sep 24, 2026, 6 min read</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#newsletter-issue-47">
+              <div class="ui-text">
+                <p>#47 Inside our new search engine</p>
+                <p>Sep 10, 2026, 8 min read</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <form class="ui-form newsletter-form" action="#">
+      <div class="ui-field-group ui-horizontal">
+        <label class="ui-text-field">
+          <span class="ui-label">Email</span>
+          <span class="ui-field">
+            <input
+              autocomplete="email"
+              id="newsletter-email"
+              name="email"
+              placeholder="you@company.com"
+              required
+              type="email"
+            />
+          </span>
+        </label>
+        <button class="ui-button ui-filled" type="submit">Subscribe</button>
+      </div>
+
+      <fieldset class="ui-fieldset">
+        <legend>Topics</legend>
+        <p class="ui-description">Pick what you'd like to hear about.</p>
+        <div class="ui-field-group newsletter-topics">
+          <label class="ui-checkbox">
+            <input
+              aria-describedby="newsletter-topic-product-text"
+              checked
+              name="newsletter-topics"
+              type="checkbox"
+              value="product"
+            />
+            <span class="ui-label">Product updates</span>
+            <span class="ui-end-text" id="newsletter-topic-product-text"
+              >New features and release notes</span
+            >
+          </label>
+          <label class="ui-checkbox">
+            <input
+              aria-describedby="newsletter-topic-engineering-text"
+              name="newsletter-topics"
+              type="checkbox"
+              value="engineering"
+            />
+            <span class="ui-label">Engineering</span>
+            <span class="ui-end-text" id="newsletter-topic-engineering-text"
+              >Deep dives from our platform team</span
+            >
+          </label>
+          <label class="ui-checkbox">
+            <input
+              aria-describedby="newsletter-topic-design-text"
+              checked
+              name="newsletter-topics"
+              type="checkbox"
+              value="design"
+            />
+            <span class="ui-label">Design</span>
+            <span class="ui-end-text" id="newsletter-topic-design-text"
+              >Research, prototypes and craft</span
+            >
+          </label>
+          <label class="ui-checkbox">
+            <input
+              aria-describedby="newsletter-topic-stories-text"
+              name="newsletter-topics"
+              type="checkbox"
+              value="stories"
+            />
+            <span class="ui-label">Customer stories</span>
+            <span class="ui-end-text" id="newsletter-topic-stories-text"
+              >How teams like yours work</span
+            >
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="ui-fieldset">
+        <p class="ui-legend" id="newsletter-frequency-legend">Frequency</p>
+        <div
+          aria-labelledby="newsletter-frequency-legend"
+          class="ui-toggle-group ui-small"
+          role="radiogroup"
+        >
+          <label class="ui-toggle-button">
+            <input
+              checked
+              name="newsletter-frequency"
+              type="radio"
+              value="biweekly"
+            />
+            Every other week
+          </label>
+          <label class="ui-toggle-button">
+            <input name="newsletter-frequency" type="radio" value="monthly" />
+            Monthly digest
+          </label>
+        </div>
+      </div>
+
+      <p class="ui-caption">
+        We'll only use your email for this newsletter. Unsubscribe with one
+        click at any time. Read our
+        <a class="ui-link" href="#newsletter-privacy">privacy policy</a>.
+      </p>
+    </form>
+  </div>
+</div>

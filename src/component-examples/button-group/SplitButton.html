@@ -1,0 +1,47 @@
+<div class="ui-button-group ui-outlined" role="group">
+  <button class="ui-button" type="button">Save</button>
+  <button
+    class="ui-button"
+    type="button"
+    aria-label="More save options"
+    command="toggle-popover"
+    commandfor="button-group-split-button-1"
+  >
+    <svg
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+    >
+      <path
+        fill="currentColor"
+        d="M5.293 11.293a1 1 0 0 1 1.414 0L16 20.586l9.293-9.293a1 1 0 1 1 1.414 1.414l-10 10a1 1 0 0 1-1.414 0l-10-10a1 1 0 0 1 0-1.414"
+      ></path>
+    </svg>
+  </button>
+  <menu class="ui-menu ui-align-end" id="button-group-split-button-1" popover>
+    <li>
+      <button
+        type="button"
+        command="hide-popover"
+        commandfor="button-group-split-button-1"
+      >
+        <div class="ui-text">
+          <p>Save as draft</p>
+        </div>
+      </button>
+    </li>
+    <li>
+      <button
+        type="button"
+        command="hide-popover"
+        commandfor="button-group-split-button-1"
+      >
+        <div class="ui-text">
+          <p>Save and publish</p>
+        </div>
+      </button>
+    </li>
+  </menu>
+</div>

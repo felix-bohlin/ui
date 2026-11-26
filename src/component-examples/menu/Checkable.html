@@ -1,0 +1,77 @@
+<button
+  class="ui-button ui-outlined"
+  type="button"
+  command="toggle-popover"
+  commandfor="menu-checkable-1"
+>
+  View
+</button>
+<menu class="ui-menu" id="menu-checkable-1" popover>
+  <li>
+    <label class="ui-checkbox">
+      <div class="ui-text">
+        <p>Show hidden files</p>
+      </div>
+      <div class="ui-end">
+        <input type="checkbox" />
+      </div>
+    </label>
+  </li>
+  <li>
+    <label class="ui-checkbox">
+      <div class="ui-text">
+        <p>Show file extensions</p>
+      </div>
+      <div class="ui-end">
+        <input type="checkbox" checked />
+      </div>
+    </label>
+  </li>
+  <li class="ui-border-top ui-heading" id="menu-checkable-1-sort">Sort by</li>
+  <li>
+    <label class="ui-radio">
+      <div class="ui-text">
+        <p>Name</p>
+      </div>
+      <div class="ui-end">
+        <input
+          type="radio"
+          name="menu-checkable-1-sort"
+          aria-describedby="menu-checkable-1-sort"
+          checked
+          value="name"
+        />
+      </div>
+    </label>
+  </li>
+  <li>
+    <label class="ui-radio">
+      <div class="ui-text">
+        <p>Date modified</p>
+      </div>
+      <div class="ui-end">
+        <input
+          type="radio"
+          name="menu-checkable-1-sort"
+          aria-describedby="menu-checkable-1-sort"
+          value="date"
+        />
+      </div>
+    </label>
+  </li>
+  <li>
+    <label class="ui-radio">
+      <div class="ui-text">
+        <p>Size</p>
+      </div>
+      <div class="ui-end">
+        <input
+          type="radio"
+          name="menu-checkable-1-sort"
+          aria-describedby="menu-checkable-1-sort"
+          value="size"
+        />
+      </div>
+    </label>
+  </li>
+</menu>

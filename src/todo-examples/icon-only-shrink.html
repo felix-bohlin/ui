@@ -1,0 +1,173 @@
+<p class="todo-note">
+  Each row is 14rem wide, with three icon-only buttons and two labelled ones.
+  With <code>.ui-overflow-scroll</code> the icon-only buttons stay 40px squares
+  and the row scrolls. With <code>.ui-overflow-shrink</code> the group sets
+  <code>min-inline-size: 0</code> on every button, which beats the icon-only
+  button's own minimum width, so the icons give up their width to the labels
+  while keeping their 40px height: in Chromium they end up 2px wide in the
+  button group and about 30px in the toggle group.
+</p>
+<p class="todo-label">Button group, <code>.ui-overflow-scroll</code></p>
+<div class="todo-row">
+  <div
+    role="group"
+    aria-label="Formatting"
+    class="ui-button-group ui-outlined ui-overflow-scroll"
+    style="inline-size: 14rem"
+  >
+    <button type="button" class="ui-button" aria-label="Bold">
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M7 4h6a4 4 0 0 1 0 8H7zm0 8h7a4 4 0 0 1 0 8H7z" />
+      </svg>
+    </button>
+    <button type="button" class="ui-button" aria-label="Italic">
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M10 4h8v2h-3l-4 12h3v2H6v-2h3l4-12h-3z" />
+      </svg>
+    </button>
+    <button type="button" class="ui-button" aria-label="Underline">
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M6 3h2v8a4 4 0 0 0 8 0V3h2v8a6 6 0 0 1-12 0zM5 20h14v2H5z" />
+      </svg>
+    </button>
+    <button type="button" class="ui-button">Insert link</button>
+    <button type="button" class="ui-button">Clear formatting</button>
+  </div>
+</div>
+<p class="todo-label">Button group, <code>.ui-overflow-shrink</code></p>
+<div class="todo-row">
+  <div
+    role="group"
+    aria-label="Formatting"
+    class="ui-button-group ui-outlined ui-overflow-shrink"
+    style="inline-size: 14rem"
+  >
+    <button type="button" class="ui-button" aria-label="Bold">
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M7 4h6a4 4 0 0 1 0 8H7zm0 8h7a4 4 0 0 1 0 8H7z" />
+      </svg>
+    </button>
+    <button type="button" class="ui-button" aria-label="Italic">
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M10 4h8v2h-3l-4 12h3v2H6v-2h3l4-12h-3z" />
+      </svg>
+    </button>
+    <button type="button" class="ui-button" aria-label="Underline">
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M6 3h2v8a4 4 0 0 0 8 0V3h2v8a6 6 0 0 1-12 0zM5 20h14v2H5z" />
+      </svg>
+    </button>
+    <button type="button" class="ui-button">Insert link</button>
+    <button type="button" class="ui-button">Clear formatting</button>
+  </div>
+</div>
+<p class="todo-label">Toggle group, <code>.ui-overflow-scroll</code></p>
+<div class="todo-row">
+  <div
+    role="group"
+    aria-label="Formatting"
+    class="ui-toggle-group ui-overflow-scroll"
+    style="inline-size: 14rem"
+  >
+    <label class="ui-toggle-button">
+      <input
+        type="checkbox"
+        name="todo-shrink-scroll"
+        value="bold"
+        aria-label="Bold"
+      />
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M7 4h6a4 4 0 0 1 0 8H7zm0 8h7a4 4 0 0 1 0 8H7z" />
+      </svg>
+    </label>
+    <label class="ui-toggle-button">
+      <input
+        type="checkbox"
+        name="todo-shrink-scroll"
+        value="italic"
+        aria-label="Italic"
+      />
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M10 4h8v2h-3l-4 12h3v2H6v-2h3l4-12h-3z" />
+      </svg>
+    </label>
+    <label class="ui-toggle-button">
+      <input
+        type="checkbox"
+        name="todo-shrink-scroll"
+        value="underline"
+        aria-label="Underline"
+      />
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M6 3h2v8a4 4 0 0 0 8 0V3h2v8a6 6 0 0 1-12 0zM5 20h14v2H5z" />
+      </svg>
+    </label>
+    <label class="ui-toggle-button">
+      <input type="checkbox" name="todo-shrink-scroll" value="link" />
+      Link
+    </label>
+    <label class="ui-toggle-button">
+      <input
+        type="checkbox"
+        name="todo-shrink-scroll"
+        value="clear-formatting"
+      />
+      Clear formatting
+    </label>
+  </div>
+</div>
+<p class="todo-label">Toggle group, <code>.ui-overflow-shrink</code></p>
+<div class="todo-row">
+  <div
+    role="group"
+    aria-label="Formatting"
+    class="ui-toggle-group ui-overflow-shrink"
+    style="inline-size: 14rem"
+  >
+    <label class="ui-toggle-button">
+      <input
+        type="checkbox"
+        name="todo-shrink-shrink"
+        value="bold"
+        aria-label="Bold"
+      />
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M7 4h6a4 4 0 0 1 0 8H7zm0 8h7a4 4 0 0 1 0 8H7z" />
+      </svg>
+    </label>
+    <label class="ui-toggle-button">
+      <input
+        type="checkbox"
+        name="todo-shrink-shrink"
+        value="italic"
+        aria-label="Italic"
+      />
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M10 4h8v2h-3l-4 12h3v2H6v-2h3l4-12h-3z" />
+      </svg>
+    </label>
+    <label class="ui-toggle-button">
+      <input
+        type="checkbox"
+        name="todo-shrink-shrink"
+        value="underline"
+        aria-label="Underline"
+      />
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M6 3h2v8a4 4 0 0 0 8 0V3h2v8a6 6 0 0 1-12 0zM5 20h14v2H5z" />
+      </svg>
+    </label>
+    <label class="ui-toggle-button">
+      <input type="checkbox" name="todo-shrink-shrink" value="link" />
+      Link
+    </label>
+    <label class="ui-toggle-button">
+      <input
+        type="checkbox"
+        name="todo-shrink-shrink"
+        value="clear-formatting"
+      />
+      Clear formatting
+    </label>
+  </div>
+</div>

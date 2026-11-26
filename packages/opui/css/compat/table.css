@@ -1,0 +1,7 @@
+@layer components.compat {
+  @supports not (overflow-inline: auto) {
+    :where(.ui-table).ui-overflow-scroll {
+      overflow-x: auto;
+    }
+  }
+}

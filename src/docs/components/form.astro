@@ -1,58 +1,73 @@
 ---
 import Component from "../../layouts/Component.astro"
-import Example from "../../components/Example"
+import DocLink from "../../components/DocLink.astro"
+import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import FormCSS from "@opui/css/components/form.css?raw"
-
-import ExampleUsageAstroCode from "../../component-examples/form/Usage.astro?raw"
-import ExampleUsageVueCode from "../../component-examples/form/Usage.vue?raw"
-import ExampleUsageHTMLCode from "../../component-examples/form/Usage.html?raw"
-
-import ExampleAdaptiveOutputCode from "../../component-examples/form/AdaptiveOutput.astro?raw"
-import ExampleAdaptiveOutputVueCode from "../../component-examples/form/AdaptiveOutput.vue?raw"
-
-import ExampleKitchenSink from "../../component-examples/form/KitchenSink.astro"
-import ExampleKitchenSinkVue from "../../component-examples/form/KitchenSink.vue"
-import ExampleKitchenSinkCodeAstro from "../../component-examples/form/KitchenSink.astro?raw"
-import ExampleKitchenSinkCodeVue from "../../component-examples/form/KitchenSink.vue?raw"
-import ExampleKitchenSinkHTML from "../../component-examples/form/KitchenSink.html?raw"
-
-import ExampleKitchenSinkRow from "../../component-examples/form/KitchenSinkRow.astro"
-import ExampleKitchenSinkRowVue from "../../component-examples/form/KitchenSinkRow.vue"
-import ExampleKitchenSinkRowCodeAstro from "../../component-examples/form/KitchenSinkRow.astro?raw"
-import ExampleKitchenSinkRowCodeVue from "../../component-examples/form/KitchenSinkRow.vue?raw"
-import ExampleKitchenSinkRowHTML from "../../component-examples/form/KitchenSinkRow.html?raw"
 
 import fieldDescriptionApi from "../../component-api/field-description/api"
 import fieldGroupApi from "../../component-api/field-group/api"
 import fieldLegendApi from "../../component-api/field-legend/api"
-import fieldSetApi from "../../component-api/field-set/api"
+import fieldsetApi from "../../component-api/fieldset/api"
 import formApi from "../../component-api/form/api"
+import FormBuild from "../../components/UnderTheHood/FormBuild.astro"
 
-import { Switch as UISwitch } from "@opui/astro"
+import {
+  Button as UIButton,
+  FieldDescription as UIFieldDescription,
+  FieldGroup as UIFieldGroup,
+  FieldLegend as UIFieldLegend,
+  Fieldset as UIFieldset,
+  Form as UIForm,
+  Radio as UIRadio,
+  Switch as UISwitch,
+} from "opui-css/astro"
 import Conditional from "../../components/Conditional.astro"
-import { Code } from "astro-expressive-code/components"
-import { DescriptionList } from "@opui/astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+
+const [legendPart, descriptionPart, endTextPart] = fieldsetApi.parts
+
+const anatomyApi = {
+  ...formApi,
+  parts: [
+    {
+      code: "<fieldset>",
+      component: "Fieldset",
+      description: "Groups related fields.",
+      selector: ".ui-fieldset",
+    },
+    legendPart,
+    descriptionPart,
+    {
+      code: ".ui-field-group",
+      component: "FieldGroup",
+      description: "Lays out related fields.",
+      selector: ".ui-fieldset .ui-field-group",
+    },
+    endTextPart,
+  ],
+}
+
+export const keywords = ["fieldset", "input group", "label", "validation"]
 ---
 
 <Component
   slug="form"
-  browserSupport={["has"]}
-  installationTabs={[
-    { title: "form.css", code: FormCSS, lang: "css" },
-    { title: "button.css", seeAlso: true },
-    { title: "checkbox.css", seeAlso: true },
-    { title: "divider.css", seeAlso: true },
-    { title: "radio.css", seeAlso: true },
-    { title: "range.css", seeAlso: true },
-    { title: "select.css", seeAlso: true },
-    { title: "switch.css", seeAlso: true },
-    { title: "textarea.css", seeAlso: true },
-    { title: "text-field.css", seeAlso: true },
+  heroAnatomy
+  browserSupport={["has", "user-pseudos"]}
+  installationTabs={[{ title: "form.css", code: FormCSS, lang: "css" }]}
+  seeAlsoLinks={[
+    { name: "Button", href: "/components/button" },
+    { name: "Divider", href: "/components/divider" },
+    { name: "Range", href: "/components/range" },
+    { name: "Select", href: "/components/select" },
+    { name: "Text Field", href: "/components/text-field" },
+    { name: "Textarea", href: "/components/textarea" },
   ]}
   apis={[
     { title: "Form API", api: formApi },
-    { title: "Field set API", api: fieldSetApi },
+    { title: "Fieldset API", api: fieldsetApi },
     { title: "Field legend API", api: fieldLegendApi },
     { title: "Field description API", api: fieldDescriptionApi },
     { title: "Field group API", api: fieldGroupApi },
@@ -72,336 +87,170 @@ import { DescriptionList } from "@opui/astro"
   ]}
 >
   <Fragment slot="title">Form</Fragment>
-  <Fragment slot="preamble">A way to build structured forms.</Fragment>
+  <Fragment slot="preamble">Spacing and grouping for form fields.</Fragment>
 
-  <section>
-    <h2 id="usage">Usage</h2>
-    <Conditional>
-      <Code slot="astro" lang="astro" code={ExampleUsageAstroCode} />
-      <Code slot="vue" lang="vue" code={ExampleUsageVueCode} />
-      <Code slot="html" lang="html" code={ExampleUsageHTMLCode} />
-    </Conditional>
+  <Usage slot="usage">
+    <li slot="when">Spacing a form's fields, groups and buttons.</li>
+    <li slot="when">
+      Related fields under a heading: a <a href="#fieldset">fieldset</a>.
+    </li>
+    <li slot="when">
+      Checkboxes, radios or switches: a <a href="#field-group">field group</a>.
+    </li>
+    <li slot="when-not">
+      Content that isn't a form: use the
+      <DocLink href="/components/layout">Layout</DocLink> classes.
+    </li>
+    <li slot="when-not">
+      Grouping only for the look: use a field group without a fieldset.
+    </li>
+  </Usage>
 
-    <Conditional>
-      <Fragment slot="astro">
-        <h3 id="non-semantic-elements">Non-semantic elements</h3>
-        <p>
-          Sometimes you can't use semantic form elements like <code
-            >&lt;fieldset&gt;</code
-          > and <code>&lt;legend&gt;</code>. Use the <code>as</code> prop on <code
-            >FieldSet</code
-          > and <code>FieldLegend</code> to render non-semantic alternatives.
-        </p>
-        <Code lang="astro" code={ExampleAdaptiveOutputCode} />
-      </Fragment>
-      <Fragment slot="vue">
-        <h3 id="non-semantic-elements">Non-semantic elements</h3>
-        <p>
-          Sometimes you can't use semantic form elements like <code
-            >&lt;fieldset&gt;</code
-          > and <code>&lt;legend&gt;</code>. Use the <code>as</code> prop on <code
-            >FieldSet</code
-          > and <code>FieldLegend</code> to render non-semantic alternatives.
-        </p>
-        <Code lang="vue" code={ExampleAdaptiveOutputVueCode} />
-      </Fragment>
-      <Fragment slot="html">
-        <h3 id="non-semantic-elements">Non-semantic elements</h3>
-        <p>
-          Sometimes you can't use semantic form elements like <code
-            >&lt;fieldset&gt;</code
-          > and <code>&lt;legend&gt;</code>. Replace them with <code
-            >&lt;div role="group"&gt;</code
-          > paired with a <code>&lt;span class="ui-legend"&gt;</code> (or any heading)
-          to keep the visual treatment without the native semantics.
-        </p>
-      </Fragment>
-    </Conditional>
+  <section id="basics">
+    <h2>Basics</h2>
+    <AutoExample name="Basics" />
+  </section>
 
-    <section>
-      <h2 id="fieldset">Fieldset</h2>
-      <p>Used to show a relationship between form elements.</p>
-      <Conditional>
-        <DescriptionList bordered slot="astro">
-          <DescriptionList.Item>
-            <DescriptionList.Term><code>FieldLegend</code></DescriptionList.Term
-            >
-            <hr class="ui-dotted" />
-            <DescriptionList.Description>
-              to describe what it's about.
-            </DescriptionList.Description>
-          </DescriptionList.Item>
-          <DescriptionList.Item>
-            <DescriptionList.Term
-              ><code>FieldDescription</code>(optional)</DescriptionList.Term
-            >
-            <hr class="ui-dotted" />
-            <DescriptionList.Description>
-              to give extra context about the fieldset.
-            </DescriptionList.Description>
-          </DescriptionList.Item>
-          <DescriptionList.Item>
-            <DescriptionList.Term><code>FieldGroup</code></DescriptionList.Term>
-            <hr class="ui-dotted" />
-            <DescriptionList.Description>
-              groups related fields.
-            </DescriptionList.Description>
-          </DescriptionList.Item>
-        </DescriptionList>
-        <DescriptionList bordered slot="html">
-          <DescriptionList.Item>
-            <DescriptionList.Term
-              ><code>&lt;legend&gt;</code></DescriptionList.Term
-            >
-            <hr class="ui-dotted" />
-            <DescriptionList.Description>
-              to describe what it's about.
-            </DescriptionList.Description>
-          </DescriptionList.Item>
-          <DescriptionList.Item>
-            <DescriptionList.Term
-              ><code>.ui-field-description</code
-              >(optional)</DescriptionList.Term
-            >
-            <hr class="ui-dotted" />
-            <DescriptionList.Description>
-              to give extra context about the fieldset.
-            </DescriptionList.Description>
-          </DescriptionList.Item>
-          <DescriptionList.Item>
-            <DescriptionList.Term
-              ><code>.ui-field-group</code></DescriptionList.Term
-            >
-            <hr class="ui-dotted" />
-            <DescriptionList.Description>
-              groups related fields.
-            </DescriptionList.Description>
-          </DescriptionList.Item>
-        </DescriptionList>
-        <DescriptionList bordered slot="vue">
-          <DescriptionList.Item>
-            <DescriptionList.Term><code>FieldLegend</code></DescriptionList.Term
-            >
-            <hr class="ui-dotted" />
-            <DescriptionList.Description>
-              to describe what it's about.
-            </DescriptionList.Description>
-          </DescriptionList.Item>
-          <DescriptionList.Item>
-            <DescriptionList.Term
-              ><code>FieldDescription</code>(optional)</DescriptionList.Term
-            >
-            <hr class="ui-dotted" />
-            <DescriptionList.Description>
-              to give extra context about the fieldset.
-            </DescriptionList.Description>
-          </DescriptionList.Item>
-          <DescriptionList.Item>
-            <DescriptionList.Term><code>FieldGroup</code></DescriptionList.Term>
-            <hr class="ui-dotted" />
-            <DescriptionList.Description>
-              groups related fields.
-            </DescriptionList.Description>
-          </DescriptionList.Item>
-        </DescriptionList>
-      </Conditional>
-    </section>
-
+  <section id="fieldset">
+    <h2>Fieldset</h2>
+    <p>Label it with <PropOrClass prop="FieldLegend" class="<legend>" />.</p>
     <AutoExample name="FieldsetStacked" />
+  </section>
+
+  <section id="field-group">
+    <h2>Field group</h2>
+    <p>Wrap it in a fieldset to group the fields for screen readers.</p>
+    <AutoExample name="FieldGroup" />
+
+    <h3 id="field-group-horizontal">Horizontal</h3>
+    <p>
+      Use
+      <PropOrClass prop='orientation="horizontal"' class=".ui-horizontal" />.
+    </p>
+    <AutoExample name="FieldGroupHorizontal" row />
+    <AutoExample name="FieldGroupHorizontalFields" />
+  </section>
+
+  <section id="states">
+    <h2>States</h2>
+
+    <h3 id="fieldset-disabled">Disabled</h3>
+    <p>Disable the fieldset to disable every field in it.</p>
+    <AutoExample name="FieldsetDisabled" />
+
+    <h3 id="fieldset-invalid">Invalid</h3>
+    <p>Point <code>aria-describedby</code> on the fieldset at the error.</p>
+    <AutoExample name="FieldsetInvalid" />
+
+    <h3 id="error-summary">Error summary</h3>
+    <p>
+      A critical <DocLink href="/components/callout">Callout</DocLink> with
+      <code>tabindex="-1"</code>. Move focus to it after submit.
+    </p>
+    <AutoExample name="ErrorSummary" />
 
     <h3 id="fieldset-required">Required</h3>
     <AutoExample name="FieldsetRequired" />
-
-    <h3 id="fieldset-disabled">Disabled</h3>
-    <p>Turns out you can disable an entire fieldset.</p>
-    <AutoExample name="FieldsetDisabled" />
   </section>
 
-  <section>
-    <h2 id="field-legend">Field Legend</h2>
+  <section id="actions">
+    <h2>Actions</h2>
     <p>
-      Use <code>FieldLegend</code> (or <code>&lt;legend&gt;</code>) to describe
-      the fieldset.
+      Buttons line up in a row. Use
+      <PropOrClass prop='orientation="vertical"' class=".ui-vertical" /> to
+      stack them.
     </p>
-    <AutoExample name="FieldLegend" />
-  </section>
-
-  <section>
-    <h2 id="field-description">Field Description</h2>
-    <p>
-      Use <code>FieldDescription</code> (or <code>.ui-field-description</code>)
-      to give extra context about the fieldset.
-    </p>
-    <AutoExample name="FieldDescription" />
-  </section>
-
-  <section>
-    <h2 id="field-group">Field Group</h2>
-    <Conditional>
-      <p slot="astro">
-        Use <code>FieldGroup</code> to wrap related fields. It provides a shared
-        <code>name</code> to all nested inputs.
-      </p>
-      <p slot="html">
-        Use <code>.ui-field-group</code> to wrap related fields.
-      </p>
-      <p slot="vue">
-        Use <code>FieldGroup</code> to wrap related fields. It provides a shared
-        <code>name</code> to all nested inputs.
-      </p>
-    </Conditional>
-
-    <AutoExample name="FieldGroup" />
-
-    <section>
-      <h3 id="field-group-row">Row</h3>
-      <Conditional>
-        <p slot="astro">
-          Use the <code>direction="row"</code> prop to lay out fields horizontally.
-        </p>
-        <p slot="html">
-          Use the <code>.ui-row</code> class to lay out fields horizontally.
-        </p>
-        <p slot="vue">
-          Use the <code>direction="row"</code> prop to lay out fields horizontally.
-        </p>
-      </Conditional>
-
-      <AutoExample name="FieldGroupRow" row />
-    </section>
-  </section>
-
-  <section>
-    <h2 id="divider">Divider</h2>
-    <Conditional>
-      <p slot="astro">
-        Use the <code>Divider</code> component to create a visual break between sections
-        of your form.
-      </p>
-      <p slot="html">
-        Use a <code>&lt;hr /&gt;</code> to create a visual break between sections
-        of your form.
-      </p>
-      <p slot="vue">
-        Use the <code>Divider</code> component to create a visual break between sections
-        of your form.
-      </p>
-    </Conditional>
     <AutoExample name="Divider" />
+    <AutoExample name="ActionsColumn" />
   </section>
 
-  <section>
-    <h2 id="kitchen-sink">Kitchen Sink</h2>
-    <p>Everything all at once.</p>
-    <Example>
-      <Fragment slot="controls">
-        <UISwitch id="kitchen-sink-small-toggle"><code>small</code></UISwitch>
-        <UISwitch id="kitchen-sink-divider-toggle">
-          <Conditional>
-            <Fragment slot="astro">Show <code>&lt;Divider&gt;</code></Fragment>
-            <Fragment slot="html">Show <code>&lt;hr&gt;</code></Fragment>
-            <Fragment slot="vue">Show <code>&lt;Divider&gt;</code></Fragment>
-          </Conditional>
-        </UISwitch>
+  <section id="without-fieldset">
+    <h2>Without fieldset</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>as</code> on <code>Form</code>, <code>Fieldset</code> and
+        <code>FieldLegend</code>.
       </Fragment>
-      <Example.Preview slot="preview-astro" code={ExampleKitchenSink} />
-      <Example.Preview slot="preview-html" code={ExampleKitchenSinkHTML} />
-      <Example.Preview slot="preview-vue" code={ExampleKitchenSinkVue} />
-      <Example.Code slot="code-astro" code={ExampleKitchenSinkCodeAstro} />
-      <Example.Code slot="code-vue" code={ExampleKitchenSinkCodeVue} />
-    </Example>
+      <Fragment slot="html">
+        Use <code>.ui-fieldset</code> with <code>role="group"</code> and
+        <code>aria-labelledby</code>.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="AdaptiveOutput" />
+  </section>
 
-    <h3 id="kitchen-sink-horizontal">Row</h3>
-    <p>Everything all at once, but horizontally.</p>
-    <Example>
+  <section id="kitchen-sink">
+    <h2>Kitchen sink</h2>
+    <AutoExample name="KitchenSink">
       <Fragment slot="controls">
-        <UISwitch id="kitchen-sink-row-small-toggle"
-          ><code>small</code></UISwitch
+        <UISwitch
+          data-toggle-class="ui-small"
+          data-toggle-target=".ui-text-field, .ui-textarea, .ui-select, .ui-radio, .ui-checkbox, .ui-switch, .ui-button, .ui-range"
+          ><PropOrClass prop='size="small"' class=".ui-small"
+        /></UISwitch>
+        <UISwitch
+          data-toggle-class="ui-spread; ui-horizontal"
+          data-toggle-target=".ui-text-field, .ui-textarea, .ui-select, .ui-checkbox, .ui-switch, .ui-range; .ui-field-group:has(> .ui-radio)"
+          ><PropOrClass prop="spread" class=".ui-spread"
+        /></UISwitch>
+        <UISwitch
+          data-toggle-class="kitchen-sink-dividers"
+          data-toggle-target="#form-kitchen-sink-1"
         >
-        <UISwitch id="kitchen-sink-row-divider-toggle">
           <Conditional>
-            <Fragment slot="astro">Show <code>&lt;Divider&gt;</code></Fragment>
+            <Fragment slot="components"
+              >Show <code>&lt;Divider&gt;</code></Fragment
+            >
             <Fragment slot="html">Show <code>&lt;hr&gt;</code></Fragment>
-            <Fragment slot="vue">Show <code>&lt;Divider&gt;</code></Fragment>
           </Conditional>
         </UISwitch>
       </Fragment>
-      <Example.Preview slot="preview-astro" code={ExampleKitchenSinkRow} />
-      <Example.Preview slot="preview-html" code={ExampleKitchenSinkRowHTML} />
-      <Example.Preview slot="preview-vue" code={ExampleKitchenSinkRowVue} />
-      <Example.Code slot="code-astro" code={ExampleKitchenSinkRowCodeAstro} />
-      <Example.Code slot="code-vue" code={ExampleKitchenSinkRowCodeVue} />
-    </Example>
+    </AutoExample>
   </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>A fieldset is a group named by its legend.</li>
+    </ul>
+  </Fragment>
+
+  <FormBuild slot="under-the-hood" />
 
   <p slot="installation">
     This doesn't include all the styles for all form elements, just the
     scaffolding around them.
   </p>
+
+  <Fragment slot="anatomy">
+    <Anatomy api={anatomyApi}>
+      <UIForm style="inline-size: 18rem">
+        <UIFieldset>
+          <UIFieldLegend>Favorite pet</UIFieldLegend>
+          <UIFieldDescription>Pick one.</UIFieldDescription>
+          <UIFieldGroup name="form-anatomy">
+            <UIRadio value="cat" checked>Cat</UIRadio>
+            <UIRadio value="dog">Dog</UIRadio>
+          </UIFieldGroup>
+          <span class="ui-end-text">Supporting text</span>
+        </UIFieldset>
+        <UIFieldGroup>
+          <UIButton variant="filled">Save</UIButton>
+        </UIFieldGroup>
+      </UIForm>
+    </Anatomy>
+  </Fragment>
 </Component>
 
-<script>
-  function setupKitchenSinkControls() {
-    document
-      .querySelectorAll<HTMLElement>(".example-container")
-      .forEach((container) => {
-        const example = container.querySelector("[id^='kitchen-sink-example']")
-        if (!example) return
-        if (container.dataset.kitchenSinkSetup) return
-        container.dataset.kitchenSinkSetup = "true"
-
-        const isRow = example.id.includes("-row")
-        const smallToggle = container.querySelector<HTMLInputElement>(
-          isRow
-            ? "#kitchen-sink-row-small-toggle"
-            : "#kitchen-sink-small-toggle",
-        )
-        const dividerToggle = container.querySelector<HTMLInputElement>(
-          isRow
-            ? "#kitchen-sink-row-divider-toggle"
-            : "#kitchen-sink-divider-toggle",
-        )
-
-        const updateFields = () => {
-          if (smallToggle) {
-            example
-              .querySelectorAll(
-                ".ui-text-field, .ui-textarea, .ui-select, .ui-radio, .ui-checkbox, .ui-switch, .ui-button, .ui-range",
-              )
-              .forEach((field) => {
-                field.classList.toggle("ui-small", smallToggle.checked)
-              })
-          }
-
-          if (dividerToggle) {
-            example.querySelectorAll("hr.ui-divider").forEach((divider) => {
-              if (divider instanceof HTMLElement) {
-                divider.style.display = dividerToggle.checked ? "" : "none"
-              }
-            })
-          }
-        }
-
-        container.addEventListener("change", (event) => {
-          const input = event.target
-          if (!(input instanceof HTMLInputElement)) return
-          if (input !== smallToggle && input !== dividerToggle) return
-          updateFields()
-        })
-
-        updateFields()
-      })
+<style is:global>
+  /* This is here because the examples don't remove the hr, they just put display none. In real life though they wouldn't be there so it will look right at least. */
+  #form-kitchen-sink-1:not(.kitchen-sink-dividers) > hr.ui-divider {
+    display: none;
   }
 
-  setupKitchenSinkControls()
-  document.addEventListener("astro:after-swap", setupKitchenSinkControls)
-</script>
-
-<style is:global>
-  /* This is here becuase the examples don't remove the hr, they just put display none. In real life though they wouldn't be there so it will look right at least. */
   .ui-field-group {
     &:has(.ui-button):not(:has(*:not(.ui-button))) {
-      &:not(hr:not([style*="display: none"]) + &) {
+      &:not(hr + &),
+      #form-kitchen-sink-1:not(.kitchen-sink-dividers) > & {
         margin-block-start: var(--size-4);
       }
     }

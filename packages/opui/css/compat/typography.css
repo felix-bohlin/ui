@@ -1,0 +1,16 @@
+@layer components.compat {
+  @supports not (overflow-inline: auto) {
+    @scope (pre.ui-code-block, .ui-rich-text) to (.ui-not-rich-text) {
+      :where(:scope.ui-code-block),
+      pre {
+        overflow-x: auto;
+      }
+    }
+
+    @scope (.ui-rich-text) to (.ui-not-rich-text) {
+      table:not([class]) {
+        overflow-x: auto;
+      }
+    }
+  }
+}

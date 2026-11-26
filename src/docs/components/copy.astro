@@ -1,0 +1,124 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+
+import CopyCSS from "@opui/css/components/copy.css?raw"
+import CopyJS from "@opui/elements/copy.js?raw"
+
+import copyApi from "../../component-api/copy/api"
+
+export const description =
+  "A button that copies text or a field's value to the clipboard."
+
+export const keywords = ["clipboard", "copy to clipboard"]
+---
+
+<Component
+  description={description}
+  slug="copy"
+  browserSupport={[
+    "anchor-positioning",
+    "container-style-queries",
+    "dir-pseudo",
+    "display-animation",
+    "interest-invokers",
+    "invoker-commands",
+    "light-dark",
+    "overflow-clip",
+    "overlay",
+    "popover",
+    "popover-hint",
+    "relative-color",
+    "starting-style",
+    "transition-behavior",
+  ]}
+  apis={[{ title: "Copy API", api: copyApi }]}
+  changelogPaths={[
+    { path: "packages/opui/components/Copy/Copy.astro", type: "component" },
+    { path: "src/docs/components/copy.astro", type: "docs" },
+    { path: "src/component-examples/copy", type: "docs" },
+    { path: "packages/opui/css/components/copy.css", type: "css" },
+    { path: "packages/opui/elements/copy.js", type: "component" },
+    { path: "src/component-api/copy", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "copy.css", code: CopyCSS, lang: "css" },
+    { title: "copy.js", code: CopyJS, lang: "js" },
+  ]}
+>
+  <Fragment slot="title">Copy</Fragment>
+  <Fragment slot="preamble">
+    <p>
+      A <DocLink href="/components/button">Button</DocLink> that copies text or
+      a field's value.
+    </p>
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      A value people paste elsewhere, like an <a href="#basics">invite link</a>.
+    </li>
+    <li slot="when">
+      A command people run, like an <a href="#snippet">install command</a>.
+    </li>
+    <li slot="when-not">
+      Confirming something else: use a
+      <DocLink href="/components/toast">Toast</DocLink>.
+    </li>
+    <li slot="when-not">
+      Text people edit first: use a
+      <DocLink href="/components/textarea">Textarea</DocLink>.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Point a button at <code>Copy</code> with <code>commandfor</code> and
+        <code>command="--copy"</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Point a button at <code>opui-copy</code> with
+        <code>command="--copy"</code>, and import
+        <code>opui-css/elements/copy.js</code>.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Basics" row />
+  </section>
+
+  <section id="snippet">
+    <h2>Snippet</h2>
+    <p>
+      Add <code>data-copy-ignore</code> to leave an element out of the copied
+      text.
+    </p>
+    <AutoExample name="Snippet" row />
+  </section>
+
+  <section id="failed">
+    <h2>Failed copy</h2>
+    <p>
+      The text is selected so people can copy it themselves. Use
+      <PropOrClass prop="failedLabel" class="failed-label" /> to change the
+      words.
+    </p>
+  </section>
+
+  <section id="without-javascript">
+    <h2>Without JavaScript</h2>
+    <p>
+      Put the button inside the element or right after it, so it's hidden until
+      the script loads.
+    </p>
+  </section>
+
+  <Fragment slot="accessibility">
+    <KeyboardSupport />
+  </Fragment>
+</Component>

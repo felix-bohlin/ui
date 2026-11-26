@@ -1,0 +1,50 @@
+---
+import Document from "./Document.astro"
+import FrameworkPicker from "../components/FrameworkPicker.astro"
+import { Divider } from "opui-css/astro"
+import { blockGroups, blockHref } from "../utils/blocks"
+
+type Props = {
+  description?: string
+  overline?: string
+  showToc?: boolean
+  title?: string
+  wide?: boolean
+}
+
+const {
+  description,
+  overline = "Blocks",
+  showToc = false,
+  title,
+  wide,
+} = Astro.props
+
+const groups = [
+  { label: "Blocks", links: [{ href: "/blocks", label: "All blocks" }] },
+  ...blockGroups.map((group) => ({
+    label: group.label,
+    links: group.blocks.map((block) => ({
+      href: blockHref(block.slug),
+      label: block.name,
+    })),
+  })),
+]
+---
+
+<Document
+  description={description}
+  overline={overline}
+  showToc={showToc}
+  sidebarGroups={groups}
+  title={title}
+  wide={wide}
+>
+  <FrameworkPicker size="small" slot="sidebar" />
+
+  <Divider variant="tonal" slot="sidebar" />
+
+  <slot slot="title" name="title" />
+  <slot slot="preamble" name="preamble" />
+  <slot />
+</Document>

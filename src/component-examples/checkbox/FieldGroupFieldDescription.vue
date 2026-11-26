@@ -4,31 +4,38 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/vue"
 </script>
 
 <template>
   <Form>
-    <FieldSet>
-      <FieldLegend>Legend</FieldLegend>
-      <FieldDescription>Field description above fields</FieldDescription>
-      <FieldGroup direction="row" name="checkbox-group-field-description-1">
-        <Checkbox checked>Checkbox 1</Checkbox>
-        <Checkbox>Checkbox 2</Checkbox>
-        <Checkbox>Checkbox 3</Checkbox>
+    <Fieldset>
+      <FieldLegend>Notifications</FieldLegend>
+      <FieldDescription>How we reach you about your orders.</FieldDescription>
+      <FieldGroup
+        name="checkbox-group-field-description-1"
+        orientation="horizontal"
+      >
+        <Checkbox checked>Email</Checkbox>
+        <Checkbox>Push</Checkbox>
+        <Checkbox>SMS</Checkbox>
       </FieldGroup>
-    </FieldSet>
-
-    <FieldSet>
-      <FieldLegend>Legend</FieldLegend>
-      <FieldGroup direction="row" name="checkbox-group-field-description-2">
-        <Checkbox checked>Checkbox 1</Checkbox>
-        <Checkbox>Checkbox 2</Checkbox>
-        <Checkbox>Checkbox 3</Checkbox>
+    </Fieldset>
+    <Fieldset>
+      <FieldLegend>Newsletter topics</FieldLegend>
+      <FieldGroup
+        name="checkbox-group-field-description-2"
+        orientation="horizontal"
+      >
+        <Checkbox checked>Product updates</Checkbox>
+        <Checkbox>Events</Checkbox>
+        <Checkbox>Offers</Checkbox>
       </FieldGroup>
-      <FieldDescription>Field description below fields</FieldDescription>
-    </FieldSet>
+      <FieldDescription
+        >Change these at any time in your account.</FieldDescription
+      >
+    </Fieldset>
   </Form>
 </template>

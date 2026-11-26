@@ -1,0 +1,50 @@
+import { Callout, CalloutContent, CalloutIcon } from "opui-css/react"
+
+export default function Severities() {
+  return (
+    <>
+      <Callout severity="critical">
+        <CalloutIcon />
+        <CalloutContent>
+          Payment failed. Update your card to keep your subscription.
+        </CalloutContent>
+      </Callout>
+      <Callout severity="info">
+        <CalloutIcon />
+        <CalloutContent>Your trial ends in 7 days.</CalloutContent>
+      </Callout>
+      <Callout severity="neutral">
+        <CalloutContent>This project is archived and read-only.</CalloutContent>
+      </Callout>
+      <Callout severity="success">
+        <CalloutIcon />
+        <CalloutContent>Your changes were saved.</CalloutContent>
+      </Callout>
+      <Callout severity="warning">
+        <CalloutIcon />
+        <CalloutContent>Your storage is 90% full.</CalloutContent>
+      </Callout>
+      <Callout severity="critical" variant="outlined">
+        <CalloutIcon />
+        <CalloutContent>
+          Payment failed. Update your card to keep your subscription.
+        </CalloutContent>
+      </Callout>
+      <Callout severity="info" variant="outlined">
+        <CalloutIcon />
+        <CalloutContent>Your trial ends in 7 days.</CalloutContent>
+      </Callout>
+      <Callout severity="neutral" variant="outlined">
+        <CalloutContent>This project is archived and read-only.</CalloutContent>
+      </Callout>
+      <Callout severity="success" variant="outlined">
+        <CalloutIcon />
+        <CalloutContent>Your changes were saved.</CalloutContent>
+      </Callout>
+      <Callout severity="warning" variant="outlined">
+        <CalloutIcon />
+        <CalloutContent>Your storage is 90% full.</CalloutContent>
+      </Callout>
+    </>
+  )
+}

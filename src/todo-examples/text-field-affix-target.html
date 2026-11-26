@@ -1,0 +1,198 @@
+<style>
+  .todo-affix-fixed .ui-text-field {
+    --_affix-button-size: max(
+      24px,
+      var(--_size) - var(--ui-field-border-width) * 2 - var(--ui-space-1) * 2
+    );
+  }
+
+  .todo-affix-circle {
+    block-size: 24px;
+    border: 1px dashed oklch(0.6 0.2 25);
+    border-radius: 50%;
+    inline-size: 24px;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .todo-compare input {
+    outline: 1px dotted oklch(0.6 0.15 250);
+  }
+</style>
+
+<p class="todo-note">
+  A search field with a clear button in <code>.ui-end</code> in x-small, small
+  and the default size. The dashed red circle is the 24px circle that the
+  spacing exception of WCAG 2.5.8 centers on an undersized target, and the
+  dotted blue box is the input. Today the button is 18px in x-small and 22px in
+  small. The circle stays clear of the input box by a pixel or so, but the root
+  is a <code>label</code>, which activates the input from anywhere inside it, so
+  the label is a target that surrounds the button and every circle crosses it:
+  neither the 24px minimum nor the spacing exception holds. The right column
+  floors <code>--_affix-button-size</code> at 24px, which still fits inside the
+  26px and 30px between the borders of the two smaller fields.
+</p>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Today</p>
+    <label class="ui-text-field ui-x-small">
+      <span class="ui-label">Search, x-small</span>
+      <span class="ui-field">
+        <input type="search" value="Release notes" />
+        <span class="ui-end">
+          <button
+            aria-label="Clear search"
+            class="ui-button ui-round"
+            type="button"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24">
+              <path
+                fill="currentColor"
+                d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4"
+              />
+            </svg>
+          </button>
+        </span>
+      </span>
+    </label>
+    <label class="ui-text-field ui-small">
+      <span class="ui-label">Search, small</span>
+      <span class="ui-field">
+        <input type="search" value="Release notes" />
+        <span class="ui-end">
+          <button
+            aria-label="Clear search"
+            class="ui-button ui-round"
+            type="button"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24">
+              <path
+                fill="currentColor"
+                d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4"
+              />
+            </svg>
+          </button>
+        </span>
+      </span>
+    </label>
+    <label class="ui-text-field">
+      <span class="ui-label">Search, default</span>
+      <span class="ui-field">
+        <input type="search" value="Release notes" />
+        <span class="ui-end">
+          <button
+            aria-label="Clear search"
+            class="ui-button ui-round"
+            type="button"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24">
+              <path
+                fill="currentColor"
+                d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4"
+              />
+            </svg>
+          </button>
+        </span>
+      </span>
+    </label>
+    <output class="todo-measure" data-affix-readout></output>
+  </section>
+  <section class="todo-fixed todo-affix-fixed">
+    <p class="todo-label">With a 24px floor</p>
+    <label class="ui-text-field ui-x-small">
+      <span class="ui-label">Search, x-small</span>
+      <span class="ui-field">
+        <input type="search" value="Release notes" />
+        <span class="ui-end">
+          <button
+            aria-label="Clear search"
+            class="ui-button ui-round"
+            type="button"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24">
+              <path
+                fill="currentColor"
+                d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4"
+              />
+            </svg>
+          </button>
+        </span>
+      </span>
+    </label>
+    <label class="ui-text-field ui-small">
+      <span class="ui-label">Search, small</span>
+      <span class="ui-field">
+        <input type="search" value="Release notes" />
+        <span class="ui-end">
+          <button
+            aria-label="Clear search"
+            class="ui-button ui-round"
+            type="button"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24">
+              <path
+                fill="currentColor"
+                d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4"
+              />
+            </svg>
+          </button>
+        </span>
+      </span>
+    </label>
+    <label class="ui-text-field">
+      <span class="ui-label">Search, default</span>
+      <span class="ui-field">
+        <input type="search" value="Release notes" />
+        <span class="ui-end">
+          <button
+            aria-label="Clear search"
+            class="ui-button ui-round"
+            type="button"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24">
+              <path
+                fill="currentColor"
+                d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4"
+              />
+            </svg>
+          </button>
+        </span>
+      </span>
+    </label>
+    <output class="todo-measure" data-affix-readout></output>
+  </section>
+</div>
+
+<script>
+  {
+    const draw = () => {
+      for (const circle of document.querySelectorAll(".todo-affix-circle")) {
+        circle.remove()
+      }
+      for (const section of document.querySelectorAll(".todo-compare > *")) {
+        const lines = []
+        for (const field of section.querySelectorAll(".ui-text-field")) {
+          const button = field
+            .querySelector(".ui-end .ui-button")
+            .getBoundingClientRect()
+          const input = field.querySelector("input").getBoundingClientRect()
+          const centerX = button.left + button.width / 2
+          const centerY = button.top + button.height / 2
+          const circle = document.createElement("span")
+          circle.className = "todo-affix-circle"
+          circle.style.left = `${centerX - 12 + scrollX}px`
+          circle.style.top = `${centerY - 12 + scrollY}px`
+          document.body.append(circle)
+          const gap = button.left - input.right
+          lines.push(
+            `${field.querySelector(".ui-label").textContent.split(", ")[1]}: button ${button.width.toFixed(0)}x${button.height.toFixed(0)}px, ${gap.toFixed(0)}px from the input, circle ${12 - button.width / 2 < gap ? "clear of" : "over"} the input box, inside the label`,
+          )
+        }
+        section.querySelector("[data-affix-readout]").textContent =
+          lines.join("\n")
+      }
+    }
+    draw()
+    addEventListener("resize", draw)
+  }
+</script>

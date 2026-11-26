@@ -1,18 +1,17 @@
 ---
-import { List } from "@opui/astro"
-import { ListItem } from "@opui/astro"
+import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem headline="Headline">
+  <ListItem label="Headline">
     <Fragment slot="end">30kB</Fragment>
   </ListItem>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem description="Supporting text" label="Headline">
     <Fragment slot="end">99%</Fragment>
   </ListItem>
   <ListItem
-    headline="Headline"
     description="Supporting text that truly is quite long enough to fill up multiple lines."
+    label="Headline"
   >
     <Fragment slot="end">100+</Fragment>
   </ListItem>

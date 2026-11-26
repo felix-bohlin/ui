@@ -1,0 +1,12 @@
+---
+import { Stepper } from "opui-css/astro"
+
+const items = [
+  { description: "Name and email", label: "Account" },
+  { description: "Free or Pro", label: "Plan" },
+  { description: "Card or invoice", label: "Payment" },
+  { description: "Start building", label: "Done" },
+]
+---
+
+<Stepper aria-label="Sign-up steps" current={1} items={items} />

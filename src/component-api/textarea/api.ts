@@ -1,59 +1,135 @@
+import { passThrough } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
   component: "Textarea",
+  css: ["text-field", "textarea"],
+  keyboard: [
+    {
+      description:
+        "Moves focus to the next element, like in any field. It doesn't type a tab character.",
+      keys: ["Tab"],
+    },
+    {
+      description:
+        "Starts a new line. Unlike in a text field, it doesn't submit the form.",
+      keys: ["Enter"],
+    },
+  ],
   model: {
     description: "The textarea value.",
     prop: "value",
     type: "string",
   },
-  notes: {
-    astro:
-      "Textarea attributes (`cols`, `disabled`, `maxlength`, `minlength`, `name`, `placeholder`, `required`, `rows`, `value`) go to the `<textarea>`. Other attributes go to the root `<label>`.",
-    vue: "Attributes that aren't props, such as `placeholder` or `rows`, go to the `<textarea>`.",
-  },
+  notes: passThrough("textarea", "label", ["maxlength", "placeholder"], {
+    react: "Use `value` with `onChange`, or `defaultValue`.",
+  }),
   options: [
     {
       class: ".ui-auto-fit",
       default: "false",
-      description: "Changes height depending on its content.",
-      group: "Auto-fit",
+      description:
+        "Lets the width follow the content and allows resizing in both directions.",
+      group: "Auto fit",
       prop: "autoFit",
     },
     {
-      attribute: "[data-invalid]",
       default: "false",
-      description: "Shows error styles.",
+      description:
+        "Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count.",
+      group: "Character count",
+      htmlDescription:
+        'Add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, and import `opui-css/elements/character-count.js`.',
+      prop: "characterCount",
+    },
+    {
+      default: '"Characters left: {count}"',
+      description:
+        "The announcement near the limit, with `{count}` for the characters left. Pass it translated.",
+      htmlDescription:
+        "Set the announcement as the `label` attribute of `<opui-character-count>`, with `{count}` for the characters left.",
+      prop: "characterCountLabel",
+    },
+    {
+      default: "false",
+      description:
+        'Dims the field and blocks input. `aria-disabled="true"` looks the same, but keeps the field focusable, its text editable and its value in the form.',
+      group: "Disabled",
+      inherited: true,
+      part: "textarea",
+      prop: "disabled",
+      type: "boolean",
+      values: {
+        "aria-disabled": '[aria-disabled="true"]',
+        disabled: "[disabled]",
+      },
+    },
+    {
+      attribute: '[aria-invalid="true"]',
+      default: "false",
+      description: "Marks the control invalid and shows error styles.",
       group: "Validation",
+      part: "textarea",
       prop: "error",
     },
     {
-      class: ".ui-filled",
+      class: ".ui-sr-only",
       default: "false",
-      description: "The variant to use.",
-      group: "Variants",
-      prop: "filled",
+      description:
+        "Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.",
+      group: "Label",
+      part: ".ui-textarea > span",
+      prop: "hideLabel",
     },
     {
       description: "The id of the `<textarea>`.",
-      frameworks: ["astro", "vue"],
+      inherited: true,
       prop: "id",
       type: "string",
     },
     {
-      class: ".ui-small",
-      default: "false",
+      description:
+        "The name of the `<textarea>`. Inside a `FieldGroup`, the group's `name` applies.",
+      inherited: true,
+      prop: "name",
+      type: "string",
+    },
+    {
+      attribute: "[required]",
+      description:
+        "Adds a required mark after the label. The form won't submit while the field is empty.",
+      group: "Required",
+      inherited: true,
+      part: "textarea",
+      prop: "required",
+      type: "boolean",
+    },
+    {
+      default: '"medium"',
       description: "The size of the element.",
       group: "Sizes",
-      prop: "small",
+      prop: "size",
+      values: {
+        large: ".ui-large",
+        medium: null,
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       class: ".ui-spread",
       default: "false",
       description:
-        "Pushes the label and description to one side and the textarea to the other.",
-      group: "Layout",
+        "Pushes the label and start text to one side and the textarea to the other.",
+      group: "Spread",
       prop: "spread",
+    },
+    {
+      default: '"outlined"',
+      description: "The variant to use.",
+      group: "Variants",
+      prop: "variant",
+      values: { filled: ".ui-filled", outlined: null },
     },
   ],
   parts: [
@@ -64,10 +140,10 @@ export default {
       slots: ["label"],
     },
     {
-      description: "Description text displayed above the field.",
-      props: ["description"],
+      description: "Start text displayed above the field.",
+      props: ["startText"],
       selector: ".ui-start-text",
-      slots: ["description"],
+      slots: ["start-text"],
     },
     {
       description: "The boxed textarea area.",
@@ -76,14 +152,14 @@ export default {
     {
       description:
         "Content above the textarea, inside the border, with a divider.",
-      selector: ".ui-header",
-      slots: ["header"],
+      selector: ".ui-field > .ui-top",
+      slots: ["top"],
     },
     {
       description:
         "Content at the inline-start of the field, inside the border.",
-      selector: ".ui-prefix",
-      slots: ["prefix"],
+      selector: ".ui-field > .ui-start",
+      slots: ["start"],
     },
     {
       code: "<textarea>",
@@ -93,21 +169,27 @@ export default {
     },
     {
       description: "Content at the inline-end of the field, inside the border.",
-      selector: ".ui-suffix",
-      slots: ["suffix"],
+      selector: ".ui-field > .ui-end",
+      slots: ["end"],
     },
     {
       description:
         "Content below the textarea, inside the border, with a divider.",
-      selector: ".ui-footer",
-      slots: ["footer"],
+      selector: ".ui-field > .ui-bottom",
+      slots: ["bottom"],
     },
     {
       description: "Supporting text displayed below the field.",
-      legacy: { slots: ["supporting-text"] },
       props: ["endText"],
       selector: ".ui-end-text",
       slots: ["end-text"],
+    },
+    {
+      code: "<opui-character-count>",
+      description:
+        "The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left.",
+      props: ["characterCount", "characterCountLabel"],
+      selector: ".ui-end-text > .ui-value",
     },
   ],
   root: {

@@ -1,32 +1,25 @@
+import { passThrough } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
   component: "Progress",
-  notes: {
-    astro: "Other attributes also go to the `<progress>`.",
-    vue: "Attributes that aren't props also go to the `<progress>`.",
-  },
+  notes: passThrough("progress", "div", [
+    "aria-describedby",
+    "aria-label",
+    "id",
+  ]),
   options: [
-    {
-      description: "Whether the progress is busy. Passed to the `<progress>`.",
-      prop: "aria-busy",
-    },
-    {
-      description:
-        "The id of an element that describes the progress. Passed to the `<progress>`.",
-      prop: "aria-describedby",
-    },
-    {
-      description: "The accessible label. Passed to the `<progress>`.",
-      prop: "aria-label",
-    },
-    {
-      description: "The id of the `<progress>`.",
-      prop: "id",
-    },
     {
       description: "The maximum value.",
       prop: "max",
+    },
+    {
+      class: ".ui-round",
+      default: "false",
+      description:
+        "Draws the progress as a ring, `--ui-icon-size-large` wide, for a small space such as a button or a list item. Needs typed `attr()`; other browsers show the bar.",
+      group: "Shape",
+      prop: "round",
     },
     {
       attribute: "[value]",
@@ -34,15 +27,16 @@ export default {
       group: "Value",
       part: "progress",
       prop: "value",
+      type: "number | string",
     },
     {
+      default: '"tonal"',
       description: "The variant to use.",
       group: "Variants",
       prop: "variant",
       values: {
-        default: ".ui-default",
         filled: ".ui-filled",
-        tonal: ".ui-tonal",
+        tonal: null,
       },
     },
   ],
@@ -50,7 +44,7 @@ export default {
     {
       code: "<progress>",
       description: "The progress bar.",
-      props: ["value", "max"],
+      props: ["max", "value"],
       selector: ".ui-progress > progress",
     },
   ],

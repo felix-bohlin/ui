@@ -1,39 +1,34 @@
-<div class="example-row ui-spacious">
+<div class="example-row">
   <label class="ui-switch">
-    <input name="switch-validation" type="checkbox" role="switch" required />
+    <input type="checkbox" role="switch" name="switch-validation" required />
     <span class="ui-label">Default</span>
   </label>
-
-  <label class="ui-switch ui-stack">
-    <input name="switch-validation" type="checkbox" role="switch" required />
+  <label class="ui-switch ui-vertical">
+    <input type="checkbox" role="switch" name="switch-validation" required />
     <span class="ui-label">Stack</span>
   </label>
 </div>
 
-<div class="example-row ui-spacious">
-  <label class="ui-switch" data-invalid>
+<div class="example-row">
+  <label class="ui-switch">
     <input
-      name="switch-validation"
       type="checkbox"
       role="switch"
-      aria-describedby="switch-validation-end-text-1"
+      name="switch-validation"
+      checked
+      aria-invalid="true"
     />
     <span class="ui-label">Default</span>
-    <span class="ui-end-text" id="switch-validation-end-text-1"
-      >Supporting text</span
-    >
+    <span class="ui-end-text">Supporting text</span>
   </label>
-
-  <label class="ui-switch ui-stack" data-invalid>
+  <label class="ui-switch ui-vertical">
     <input
-      name="switch-validation"
       type="checkbox"
       role="switch"
-      aria-describedby="switch-validation-end-text-2"
+      name="switch-validation"
+      aria-invalid="true"
     />
     <span class="ui-label">Stack</span>
-    <span class="ui-end-text" id="switch-validation-end-text-2"
-      >Supporting text</span
-    >
+    <span class="ui-end-text">Supporting text</span>
   </label>
 </div>

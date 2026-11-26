@@ -1,32 +1,40 @@
-<form class="ui-form" id="kitchen-sink-example-html">
+<form class="ui-form" id="form-kitchen-sink-1">
   <fieldset class="ui-fieldset">
-    <legend>User Profile</legend>
-    <p class="ui-field-description">
-      Please provide your basic contact details.
-    </p>
-    <div class="ui-field-group" role="group">
+    <legend>User profile</legend>
+    <p class="ui-description">Please provide your basic contact details.</p>
+    <div class="ui-field-group">
       <label class="ui-text-field">
-        <span class="ui-label">Full Name</span>
+        <span class="ui-label">Full name</span>
         <span class="ui-field">
-          <input type="text" placeholder="Jane Doe" required />
+          <input
+            autocomplete="name"
+            placeholder="Jane Doe"
+            required
+            type="text"
+          />
         </span>
       </label>
       <label class="ui-text-field">
-        <span class="ui-label">Email Address</span>
+        <span class="ui-label">Email address</span>
         <span class="ui-field">
-          <input type="email" placeholder="jane@example.com" required />
+          <input
+            autocomplete="email"
+            placeholder="jane@example.com"
+            required
+            type="email"
+          />
         </span>
       </label>
       <label class="ui-select">
-        <span class="ui-label" id="kitchen-sink-role-label">Role</span>
+        <span class="ui-label" id="form-kitchen-sink-2-label">Role</span>
         <span class="ui-field">
-          <select aria-labelledby="kitchen-sink-role-label">
+          <select aria-labelledby="form-kitchen-sink-2-label">
             <button>
               <selectedcontent></selectedcontent>
             </button>
             <div class="ui-list">
-              <option value="dev">Developer</option>
               <option value="design">Designer</option>
+              <option value="dev">Developer</option>
               <option value="manager">Manager</option>
             </div>
           </select>
@@ -34,118 +42,97 @@
       </label>
     </div>
   </fieldset>
-
   <hr class="ui-divider" />
-
   <fieldset class="ui-fieldset">
     <legend>Notifications</legend>
-    <p class="ui-field-description">
-      Configure how you want to receive updates.
-    </p>
-    <div class="ui-field-group" role="group">
+    <p class="ui-description">Configure how you want to receive updates.</p>
+    <div class="ui-field-group">
       <label class="ui-switch">
         <input type="checkbox" role="switch" name="email_notifs" checked />
-        <span class="ui-label">Email Notifications</span>
+        <span class="ui-label">Email notifications</span>
       </label>
       <label class="ui-switch">
         <input type="checkbox" role="switch" name="sms_notifs" />
-        <span class="ui-label">SMS Notifications</span>
+        <span class="ui-label">SMS notifications</span>
       </label>
     </div>
   </fieldset>
-
   <hr class="ui-divider" />
-
   <fieldset class="ui-fieldset">
-    <legend>Theme Preference</legend>
-    <p class="ui-field-description">Select your preferred visual style.</p>
-    <div class="ui-field-group" role="group">
+    <legend>Theme preference</legend>
+    <p class="ui-description">Select your preferred visual style.</p>
+    <div class="ui-field-group">
       <label class="ui-radio">
-        <input type="radio" name="theme" value="light" checked />
-        <span class="ui-label">Light Theme</span>
+        <input type="radio" name="theme" checked value="light" />
+        <span class="ui-label">Light theme</span>
       </label>
       <label class="ui-radio">
         <input type="radio" name="theme" value="dark" />
-        <span class="ui-label">Dark Theme</span>
+        <span class="ui-label">Dark theme</span>
       </label>
       <label class="ui-radio">
         <input type="radio" name="theme" value="system" />
-        <span class="ui-label">System Default</span>
+        <span class="ui-label">System default</span>
       </label>
     </div>
   </fieldset>
-
   <hr class="ui-divider" />
-
   <fieldset class="ui-fieldset">
-    <legend>Experience Level</legend>
-    <p class="ui-field-description">
-      How many years of experience do you have?
-    </p>
-    <div class="ui-field-group" role="group">
+    <legend>Experience level</legend>
+    <p class="ui-description">How many years of experience do you have?</p>
+    <div class="ui-field-group">
       <label class="ui-range">
-        <span class="ui-label" id="kitchen-sink-experience-label"
-          >Professional Experience</span
+        <span class="ui-label" id="form-kitchen-sink-3-label"
+          >Professional experience</span
         >
-        <span class="ui-start-text" id="kitchen-sink-experience-start-text"
+        <span class="ui-start-text" id="form-kitchen-sink-3-start-text"
           >Drag the slider to match your total tenure.</span
         >
         <input
-          type="range"
-          aria-describedby="kitchen-sink-experience-start-text"
-          aria-labelledby="kitchen-sink-experience-label"
-          min="0"
+          aria-describedby="form-kitchen-sink-3-start-text"
+          aria-labelledby="form-kitchen-sink-3-label"
           max="20"
+          min="0"
           step="1"
+          type="range"
           value="5"
         />
       </label>
     </div>
   </fieldset>
-
   <hr class="ui-divider" />
-
   <fieldset class="ui-fieldset">
-    <legend>Additional Info</legend>
-    <p class="ui-field-description">Anything else we should know?</p>
-    <div class="ui-field-group" role="group">
+    <legend>Additional info</legend>
+    <p class="ui-description">Anything else we should know?</p>
+    <div class="ui-field-group">
       <label class="ui-textarea">
         <span class="ui-label">Biography</span>
         <span class="ui-field">
           <textarea
-            name="details"
             placeholder="Tell us about yourself..."
             rows="4"
+            name="biography"
           ></textarea>
         </span>
       </label>
     </div>
   </fieldset>
-
   <hr class="ui-divider" />
-
   <fieldset class="ui-fieldset">
     <legend>Legal</legend>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-checkbox">
-        <input
-          aria-describedby="kitchen-sink-terms-1-end-text"
-          type="checkbox"
-          name="terms"
-          required
-        />
+        <input type="checkbox" name="terms" required />
         <span class="ui-label">I agree to the terms and conditions</span>
-        <span class="ui-end-text" id="kitchen-sink-terms-1-end-text"
-          >Support this text</span
+        <span class="ui-end-text"
+          >You can withdraw your consent at any time.</span
         >
       </label>
     </div>
   </fieldset>
-
   <hr class="ui-divider" />
-
-  <div class="ui-field-group" role="group">
+  <div class="ui-field-group">
     <button class="ui-button ui-filled" type="submit">Send</button>
-    <button class="ui-button">Cancel</button>
+    <button class="ui-button" type="button">Cancel</button>
   </div>
 </form>

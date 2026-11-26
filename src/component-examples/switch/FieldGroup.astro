@@ -1,18 +1,14 @@
 ---
-import { Switch } from "@opui/astro"
-import { FieldSet } from "@opui/astro"
-import { FieldLegend } from "@opui/astro"
-import { FieldGroup } from "@opui/astro"
-import { Form } from "@opui/astro"
+import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/astro"
 ---
 
-<Form as="div">
-  <FieldSet>
-    <FieldLegend>Legend</FieldLegend>
+<Form>
+  <Fieldset>
+    <FieldLegend>Notifications</FieldLegend>
     <FieldGroup name="switch-group">
-      <Switch>Switch 1</Switch>
-      <Switch>Switch 2</Switch>
-      <Switch>Switch 3</Switch>
+      <Switch value="email">Email</Switch>
+      <Switch value="push">Push</Switch>
+      <Switch value="sms">SMS</Switch>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>

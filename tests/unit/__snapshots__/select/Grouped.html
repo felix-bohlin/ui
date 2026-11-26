@@ -1,14 +1,23 @@
 <label class="ui-select">
-  <span class="ui-label" id="id-1">Grouped</span>
+  <span class="ui-label" id="id-1">Car</span>
   <span class="ui-field">
     <select aria-labelledby="id-1">
-      <option value>Select car</option>
-      Swedish cars
-      <option>Volvo</option>
-      <option>SAAB</option>
-      French cars
-      <option>Renault</option>
-      <option>Citroën</option>
+      <button>
+        <selectedcontent></selectedcontent>
+      </button>
+      <div class="ui-list">
+        <option value>Select car</option>
+        <div role="group">
+          <label class="ui-text">French cars</label>
+          <option>Citroën</option>
+          <option>Renault</option>
+        </div>
+        <div role="group">
+          <label class="ui-text">Swedish cars</label>
+          <option>Saab</option>
+          <option>Volvo</option>
+        </div>
+      </div>
     </select>
   </span>
 </label>

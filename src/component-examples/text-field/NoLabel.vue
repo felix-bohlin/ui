@@ -1,7 +1,7 @@
+<script setup lang="ts">
+import { TextField } from "opui-css/vue"
+</script>
+
 <template>
-  <div class="ui-text-field">
-    <span class="ui-field">
-      <input type="text" placeholder="Placeholder" />
-    </span>
-  </div>
+  <TextField aria-label="Search" placeholder="Search" />
 </template>

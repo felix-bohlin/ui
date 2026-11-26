@@ -1,0 +1,101 @@
+<style>
+  .todo-draft {
+    display: grid;
+    gap: var(--size-2);
+    inline-size: 100%;
+    max-inline-size: 60rem;
+  }
+
+  .todo-draft-head {
+    align-items: center;
+    display: flex;
+    gap: var(--size-3);
+    justify-content: space-between;
+
+    h2 {
+      font-size: var(--font-size-2);
+      margin: 0;
+    }
+  }
+
+  .todo-draft-text {
+    background: var(--ui-surface-tonal);
+    border-radius: var(--ui-radius);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-0);
+    margin: 0;
+    overflow: auto;
+    padding: var(--size-3);
+    white-space: pre-wrap;
+  }
+</style>
+<p class="todo-note">
+  The comment for Vue. The warning is already reported, so this goes on
+  <a
+    class="ui-link"
+    href="https://github.com/vuejs/core/issues/13608"
+    rel="noopener"
+    target="_blank"
+    >vuejs/core#13608</a
+  >
+  instead of a new issue, with a thumbs up on
+  <a
+    class="ui-link"
+    href="https://github.com/vuejs/core/pull/13720"
+    rel="noopener"
+    target="_blank"
+    >vuejs/core#13720</a
+  >, the open pull request that widens <code>onlyValidChildren.select</code>.
+  Related: vuejs/core#13778 and vuejs/core#13158 ask for customizable select
+  support, vuejs/core#13616 is another open fix, and vuejs/core#14975 closed
+  without a merge. Checked against Vue 3.5.45, the latest release.
+</p>
+<section class="todo-draft">
+  <div class="todo-draft-head">
+    <h2 id="vue-comment-label">Comment on vuejs/core#13608</h2>
+    <button
+      class="ui-button ui-outlined ui-small"
+      type="button"
+      aria-describedby="vue-comment-label"
+      data-copy="vue-comment"
+    >
+      Copy
+    </button>
+  </div>
+  <pre class="todo-draft-text" id="vue-comment">
+Still seeing this in 3.5.45. A component library that ships a customizable select (`appearance: base-select`) gets two warnings in every `vite dev` and `nuxi dev` session, also on pages that never render the Select, because the compiler checks the component's template when it compiles it:
+
+```
+[Vue warn]: &lt;button&gt; cannot be child of &lt;select&gt;, according to HTML specifications. This can cause hydration errors or potentially disrupt future functionality.
+[Vue warn]: &lt;div&gt; cannot be child of &lt;select&gt;, according to HTML specifications. This can cause hydration errors or potentially disrupt future functionality.
+```
+
+Minimal template:
+
+```vue
+&lt;template&gt;
+  &lt;select&gt;
+    &lt;button&gt;
+      &lt;selectedcontent&gt;&lt;/selectedcontent&gt;
+    &lt;/button&gt;
+    &lt;div class="list"&gt;
+      &lt;option value="a"&gt;A&lt;/option&gt;
+      &lt;option value="b"&gt;B&lt;/option&gt;
+    &lt;/div&gt;
+  &lt;/select&gt;
+&lt;/template&gt;
+```
+
+The HTML spec now allows this content model (https://html.spec.whatwg.org/multipage/form-elements.html#the-select-element: an optional leading `button`, then `option`, `optgroup`, `hr` and `div`, plus script-supporting elements), and the relaxed HTML parser that ships with the customizable select keeps the `button` and the `div` inside the `select`, so there is no hydration mismatch in the browsers that render it. Production builds don't warn.
+
+#13720 updates `onlyValidChildren.select` to that content model; it would remove both warnings here. Is anything blocking it?</pre>
+</section>
+<script>
+  for (const button of document.querySelectorAll("[data-copy]")) {
+    button.addEventListener("click", async () => {
+      const text = document.getElementById(button.dataset.copy).textContent
+      await navigator.clipboard.writeText(text)
+      button.textContent = "Copied"
+    })
+  }
+</script>

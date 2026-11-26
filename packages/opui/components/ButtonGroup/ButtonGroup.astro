@@ -7,6 +7,7 @@ const {
   class: className,
   color,
   orientation,
+  overflow,
   size,
   variant,
   ...rest
@@ -16,10 +17,13 @@ const {
 <div
   class:list={[
     "ui-button-group",
+    {
+      "ui-vertical": orientation === "vertical",
+    },
     color && `ui-${color}`,
-    size && `ui-${size}`,
-    variant && `ui-${variant}`,
-    orientation && `ui-${orientation}`,
+    overflow && overflow !== "wrap" && `ui-overflow-${overflow}`,
+    size && size !== "medium" && `ui-${size}`,
+    variant && variant !== "transparent" && `ui-${variant}`,
     className,
   ]}
   role="group"

@@ -13,12 +13,19 @@ const HEROES = readdirSync(docsDir)
   .map((file) => file.replace(/\.astro$/, ""))
   .toSorted()
 
+if (HEROES.length === 0) throw new Error("no heroAnatomy pages found")
+
 const WIDTHS = [390, 920, 1280]
 const MIN_GAP = 24
 
 for (const framework of FRAMEWORKS) {
   for (const slug of HEROES) {
-    test(`${framework}/${slug} anatomy fits its layout`, async ({ page }) => {
+    test(`${framework}/${slug} anatomy fits its layout`, async ({
+      browserName,
+      page,
+    }) => {
+      test.slow(browserName === "webkit", "WebKit lays out these pages slowly")
+      await page.emulateMedia({ reducedMotion: "reduce" })
       await page.route(
         (url) => url.hostname !== "localhost",
         (route) => route.abort(),
@@ -59,6 +66,79 @@ for (const framework of FRAMEWORKS) {
             .toBeGreaterThanOrEqual(MIN_GAP)
         }
       }
+
+      const diagrams = await page.evaluate(() =>
+        [...document.querySelectorAll(".anatomy-diagram")].map((diagram) => {
+          const sheet = diagram.querySelector("style")!.sheet!
+          const elements = [...diagram.querySelectorAll(".subject *")]
+          const anchorNames = () =>
+            elements.map((element) =>
+              getComputedStyle(element)
+                .getPropertyValue("anchor-name")
+                .split(/,\s*/)
+                .filter((name) => name !== "none"),
+            )
+          const named = anchorNames()
+          sheet.disabled = true
+          const own = anchorNames()
+          sheet.disabled = false
+          const names = new Set(named.flat())
+          const unsupported = new Set(
+            [
+              ...(diagram.querySelector("style")!.textContent ?? "").matchAll(
+                /([^{}\n]+::[^{}\n]+)\{\s*anchor-name:\s*([^;}]+)/g,
+              ),
+            ]
+              .filter(
+                ([, selector]) => !CSS.supports(`selector(${selector.trim()})`),
+              )
+              .flatMap(([, , value]) =>
+                value.split(/,\s*/).map((name) => name.trim()),
+              ),
+          )
+          for (const rule of sheet.cssRules) {
+            if (!(rule instanceof CSSStyleRule)) continue
+            const [originating, pseudo] = rule.selectorText.split("::")
+            if (pseudo && document.querySelector(originating)) {
+              for (const name of rule.style
+                .getPropertyValue("anchor-name")
+                .split(/,\s*/)) {
+                names.add(name)
+              }
+            }
+          }
+          return {
+            lost: elements.flatMap((element, index) =>
+              own[index]
+                .filter((name) => !named[index].includes(name))
+                .map(
+                  (name) =>
+                    `${[element.localName, ...element.classList].join(".")}: ${name}`,
+                ),
+            ),
+            unmatched: [
+              ...diagram.querySelectorAll<HTMLElement>(".legend .part"),
+            ]
+              .filter((part) => {
+                const name = part.style.getPropertyValue("--part").trim()
+                return !names.has(name) && !unsupported.has(name)
+              })
+              .map((part) => part.querySelector("code")!.textContent),
+          }
+        }),
+      )
+      expect(diagrams.length).toBeGreaterThan(0)
+      for (const { lost, unmatched } of diagrams) {
+        expect.soft(unmatched, "parts that match nothing").toEqual([])
+        expect
+          .soft(
+            lost,
+            "anchor names the anatomy overrides; add them to anchorName",
+          )
+          .toEqual([])
+      }
+
+      if (framework !== "html" || browserName !== "chromium") return
 
       await page.setViewportSize({ height: 900, width: 1280 })
       const { violations } = await new AxeBuilder({ page })

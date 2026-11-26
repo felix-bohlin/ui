@@ -1,0 +1,7 @@
+@layer components.compat {
+  @supports not (overflow-inline: auto) {
+    :where(.ui-toggle-group).ui-overflow-scroll {
+      overflow-x: auto;
+    }
+  }
+}

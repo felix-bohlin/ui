@@ -1,0 +1,92 @@
+---
+import Code from "./Code.astro"
+import type { Tab } from "./Installation.astro"
+import { FRAMEWORKS } from "../utils/framework"
+import { Select, Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
+
+type Props = {
+  sourceTabs: Tab[]
+  tabs: Tab[]
+}
+
+const { sourceTabs, tabs: allTabs } = Astro.props
+
+const framework = Astro.locals.framework
+const frameworkLabel = FRAMEWORKS.find((f) => f.id === framework)?.label
+
+const sourceNames = new Set(
+  sourceTabs.map((tab) => tab.title.slice(tab.title.lastIndexOf("/") + 1)),
+)
+const styleFiles = allTabs.filter(
+  (tab) => tab.title.endsWith(".css") || !sourceNames.has(tab.title),
+)
+
+const groups = [
+  { files: styleFiles, title: "CSS" },
+  ...(sourceTabs.length > 0
+    ? [{ files: sourceTabs, title: frameworkLabel ?? "Source" }]
+    : []),
+]
+---
+
+<slot />
+
+<div class="code-group ui-card ui-outlined ui-not-rich-text">
+  <Tabs variant="line" class="code-tabs">
+    {groups.map((group, groupIndex) => <TabsItem checked={groupIndex === 0}>
+      <TabsLabel>{group.title}</TabsLabel>
+      <TabsPanel>
+        {group.files.length > 1 && <div class="file-bar">
+          <Select
+            aria-label={`${group.title} file`}
+            class="file-picker"
+            size="small"
+          >
+            {group.files.map((file, index) => <option value={index}>
+              {file.title}
+            </option>)}
+          </Select>
+        </div>}
+        {group.files.map((file, index) => <div class="file" hidden={index > 0}>
+          <Code code={file.code} lang={file.lang} />
+        </div>)}
+      </TabsPanel>
+    </TabsItem>)}
+  </Tabs>
+</div>
+
+<style>
+  .code-group {
+    gap: 0;
+    margin-block: var(--size-4);
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .file-bar {
+    align-items: center;
+    border-block-end: 1px solid var(--ui-border-color);
+    display: flex;
+    gap: var(--ui-space-2);
+    padding: var(--ui-space-2) var(--ui-space-3);
+  }
+
+  .file-picker {
+    min-inline-size: 0;
+  }
+</style>
+
+<script>
+  document.addEventListener("change", (event) => {
+    const select = (event.target as Element).closest<HTMLSelectElement>(
+      ".file-picker select",
+    )
+    const panel = select?.closest(".ui-panel")
+    if (!select || !panel) return
+    panel
+      .querySelectorAll<HTMLElement>(":scope > .file")
+      .forEach((file, index) => {
+        file.hidden = index !== Number(select.value)
+      })
+  })
+</script>

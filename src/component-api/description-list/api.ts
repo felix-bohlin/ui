@@ -6,36 +6,43 @@ export default {
     {
       class: ".ui-bordered",
       default: "false",
-      description: "Adds a border between the term and the description.",
-      group: "Bordered",
+      description: "Adds a line between the term and the description.",
+      group: "Borders",
       prop: "bordered",
-      values: { dotted: ".ui-bordered.ui-dotted" },
+    },
+    {
+      class: ".ui-dotted",
+      default: "false",
+      description: "Makes the `bordered` line dotted.",
+      group: "Dotted",
+      htmlDescription: "Makes the `.ui-bordered` line dotted.",
+      prop: "dotted",
+    },
+    {
+      default: '"auto"',
+      description:
+        "The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.",
+      group: "Orientation",
+      prop: "orientation",
+      values: { auto: null, horizontal: ".ui-horizontal" },
     },
   ],
   parts: [
     {
-      component: {
-        astro: "DescriptionList.Item",
-        vue: "DescriptionListItem",
-      },
+      component: "DescriptionListItem",
+      code: "<div>",
       description: "Groups a term with its description.",
-      selector: ".ui-item",
+      selector: "dl.ui-description-list > div",
     },
     {
       code: "<dt>",
-      component: {
-        astro: "DescriptionList.Term",
-        vue: "DescriptionListTerm",
-      },
+      component: "DescriptionListTerm",
       description: "The term.",
       selector: "dt",
     },
     {
       code: "<dd>",
-      component: {
-        astro: "DescriptionList.Description",
-        vue: "Description",
-      },
+      component: "DescriptionListDescription",
       description: "The description.",
       selector: "dd",
     },

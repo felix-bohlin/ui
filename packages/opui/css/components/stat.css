@@ -1,0 +1,41 @@
+@layer components.root {
+  :where(.ui-stat) {
+    --_value-font-size: var(--ui-font-size-h4);
+
+    display: grid;
+    gap: var(--ui-space-1);
+    margin: 0;
+
+    & > :where(dt, dd) {
+      margin: 0;
+    }
+
+    & > .ui-label {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-caption);
+      line-height: var(--ui-line-height);
+    }
+
+    & > .ui-value {
+      color: var(--ui-text-strong);
+      font-size: var(--_value-font-size);
+      font-variant-numeric: tabular-nums;
+      font-weight: var(--ui-font-weight-bold);
+      line-height: var(--ui-line-height-tight);
+    }
+
+    & > .ui-description {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-caption);
+      line-height: var(--ui-line-height);
+    }
+
+    &.ui-small {
+      --_value-font-size: var(--ui-font-size-large);
+    }
+
+    &.ui-large {
+      --_value-font-size: var(--ui-font-size-h3);
+    }
+  }
+}

@@ -1,0 +1,14 @@
+---
+import { Button, Toaster } from "opui-css/astro"
+---
+
+<Button id="toast-script-1-button" variant="filled">Save changes</Button>
+<Toaster id="toast-script-1" />
+
+<script>
+  import { toast } from "opui-css/elements/toaster.js"
+
+  document
+    .getElementById("toast-script-1-button")
+    ?.addEventListener("click", () => toast.success("Changes saved"))
+</script>

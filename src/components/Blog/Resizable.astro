@@ -1,0 +1,130 @@
+---
+import { Range } from "opui-css/astro"
+import DragHandle from "./DragHandle.astro"
+
+type Props = {
+  label: string
+  min?: number
+}
+
+const { label, min = 160 } = Astro.props
+const max = 960
+---
+
+<div class="resizable" style={`--_min: ${min}px`}>
+  <div class="resizable-frame">
+    <slot />
+    <span aria-hidden="true" class="resizable-width"></span>
+    <DragHandle />
+  </div>
+  <Range
+    class="resizable-range"
+    label={label}
+    max={max}
+    min={min}
+    step={10}
+    value={max}
+    valueSuffix="px"
+  />
+</div>
+
+<style>
+  .resizable {
+    --_chrome: calc(2 * (var(--ui-space-4) + var(--ui-border-width-thick)));
+
+    container-type: inline-size;
+    display: grid;
+    gap: var(--ui-space-5);
+    inline-size: 100%;
+    padding-block: var(--ui-space-3);
+  }
+
+  .resizable-frame {
+    border: var(--ui-border-width-thick) dashed var(--ui-border-color);
+    border-radius: var(--ui-radius);
+    box-sizing: content-box;
+    display: grid;
+    gap: var(--ui-space-4);
+    inline-size: clamp(
+      var(--_min),
+      var(--_size, 100cqi),
+      calc(100cqi - var(--_chrome))
+    );
+    padding: var(--ui-space-4);
+    position: relative;
+  }
+
+  .resizable-width {
+    background-color: var(--ui-surface);
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-caption);
+    font-variant-numeric: tabular-nums;
+    inset-block-start: 0;
+    inset-inline-end: var(--ui-space-3);
+    line-height: 1;
+    padding-inline: var(--ui-space-1);
+    position: absolute;
+    translate: 0 -50%;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  @media (scripting: none) {
+    .resizable :global(.resizable-range) {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  import { drag, fromInlineStart } from "./drag"
+
+  document.querySelectorAll<HTMLElement>(".resizable").forEach((resizable) => {
+    const frame = resizable.querySelector<HTMLElement>(".resizable-frame")
+    const handle = resizable.querySelector<HTMLElement>(".drag-handle")
+    const width = resizable.querySelector(".resizable-width")
+    const input = resizable.querySelector<HTMLInputElement>(
+      ".resizable-range input[type=range]",
+    )
+    if (!frame || !handle || !input) return
+
+    const chrome = () => {
+      const style = getComputedStyle(frame)
+      return [
+        style.borderInlineStartWidth,
+        style.borderInlineEndWidth,
+        style.paddingInlineStart,
+        style.paddingInlineEnd,
+      ].reduce((sum, value) => sum + Number.parseFloat(value), 0)
+    }
+
+    const render = () => {
+      resizable.style.setProperty("--_size", `${input.value}px`)
+      if (width) width.textContent = `${input.value}px`
+    }
+
+    const set = (px: number) => {
+      input.value = String(px)
+      input.dispatchEvent(new Event("input", { bubbles: true }))
+    }
+
+    let available = 0
+    const fit = () => {
+      const next = Math.floor(resizable.clientWidth - chrome())
+      if (next === available) return
+      const full = Number(input.max) - Number(input.value) < Number(input.step)
+      available = next
+      input.max = String(available)
+      set(full ? available : Number(input.value))
+    }
+
+    drag(handle, {
+      move: (event) => set(fromInlineStart(frame, event) - chrome()),
+      root: resizable,
+    })
+    input.addEventListener("input", render)
+    new ResizeObserver(fit).observe(resizable)
+  })
+</script>

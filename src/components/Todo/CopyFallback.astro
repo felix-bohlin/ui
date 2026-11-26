@@ -1,0 +1,54 @@
+---
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  Textarea,
+} from "opui-css/astro"
+
+type Props = {
+  label: string
+}
+
+const { label } = Astro.props
+---
+
+<Dialog data-copy-fallback id="copy-fallback">
+  <DialogHeader>
+    <DialogTitle>{`Copy ${label.toLowerCase()}`}</DialogTitle>
+  </DialogHeader>
+  <DialogContent>
+    <p>
+      This browser blocked copying. The text is selected: press and hold it,
+      then copy.
+    </p>
+    <Textarea class="copy-fallback-field" readonly rows={8}>
+      <span class="ui-sr-only" slot="label">{label}</span>
+    </Textarea>
+  </DialogContent>
+  <DialogFooter>
+    <Button commandfor="copy-fallback" command="close">Close</Button>
+    <Button data-copy-again variant="filled">Copy</Button>
+  </DialogFooter>
+</Dialog>
+
+<script>
+  import { copySelection } from "../../utils/storage"
+
+  const dialog = document.querySelector<HTMLDialogElement>(
+    "[data-copy-fallback]",
+  )!
+
+  dialog.querySelector("[data-copy-again]")!.addEventListener("click", () => {
+    if (copySelection(dialog.querySelector("textarea")!)) dialog.close()
+  })
+</script>
+
+<style>
+  :global(.copy-fallback-field) {
+    inline-size: 100%;
+  }
+</style>

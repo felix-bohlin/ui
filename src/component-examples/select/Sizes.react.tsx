@@ -1,0 +1,28 @@
+import { Select } from "opui-css/react"
+
+export default function Sizes() {
+  return (
+    <>
+      <Select label="X-small" size="x-small">
+        <option>Apple</option>
+        <option>Banana</option>
+        <option>Cherry</option>
+      </Select>
+      <Select label="Small" size="small">
+        <option>Apple</option>
+        <option>Banana</option>
+        <option>Cherry</option>
+      </Select>
+      <Select label="Medium">
+        <option>Apple</option>
+        <option>Banana</option>
+        <option>Cherry</option>
+      </Select>
+      <Select label="Large" size="large">
+        <option>Apple</option>
+        <option>Banana</option>
+        <option>Cherry</option>
+      </Select>
+    </>
+  )
+}

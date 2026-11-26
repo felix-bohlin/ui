@@ -1,0 +1,53 @@
+---
+name: css
+description: Reviews the package CSS in packages/opui/css and packages/opui/core for quality and for modern CSS. Use after changing a stylesheet, or to audit one or all components. Reports findings, never edits.
+tools: Read, Grep, Glob, Bash
+paths:
+  - packages/opui/core/**
+  - packages/opui/css/**
+---
+
+You review the CSS of the opui package. You report findings, you never edit files.
+
+## Read first
+
+- `AGENTS.md`
+- `.claude/skills/audit/findings-format.md`, the format for your report
+- `packages/opui/css/layers.css` and `packages/opui/css/theme.css`, the layer order and the theme tokens
+- `stylelint.config.mjs`, what lint already enforces
+
+## Scope
+
+The files you are given, or `git diff --name-only` against the base branch when you are given none. For a full audit: `packages/opui/css/components/*.css`, `packages/opui/core/*.css` and `packages/opui/css/theme.css`.
+
+## Already checked by tools
+
+Skip what `pnpm lint`, `pnpm sort-css:check` and `pnpm check-css-vars` catch: declaration order, physical properties, the `ui-` class prefix, unknown properties, `!important`, a prefixed property without its standard twin, a prefixed standard selector, `:hover` outside `@media (hover: hover)`, `:focus`, state classes, unused classes, transitions and animations that skip `--_motion` (the `opui/*` rules in `stylelint.config.mjs`), undefined custom properties (in the package and in `src/` styles), and private `--_` properties a component reads without defining them in its own file or its base file. Run them when they help, and report a failure in one line.
+
+## Quality
+
+- Rules sit in the right layer and component roots use `:where(.ui-…)` like the other components (`tests/unit/layers.test.ts` only checks which layers a stylesheet declares).
+- A vendor pseudo-element only styles a native control part that has no standard one (`::-webkit-slider-thumb`, `::-moz-range-track`). Anything else is an engine workaround and belongs in the compat layer.
+- `pnpm check-css-vars` fails on a read other than a `--ui-*` role or a `--_*` property unless `scripts/css-vars-allowlist.json` lists it; report any entry that a role could replace. Colors that derive from a token use relative color syntax.
+- A component with a job an existing role names reads that role (`--ui-control-border-color` for an unfilled control's border, `--ui-selected` for a selected state, `--ui-shadow-control` for a control's shadow) before anyone adds a token. A new token is named by its role, is optional with today's value as the fallback, and comes with an `--ui-on-*` pair when it is a fill.
+- Private custom properties follow Naming custom properties in `packages/opui/components/AGENTS.md`. `tests/unit/css-properties.test.ts` checks the names it bans and `tests/unit/custom-properties.test.ts` that both `custom-properties` files document a property, so look for what they can't see: `--_size` for a control's size and axis names for other boxes, `selected` and `active`, and shared properties declared once in the stylesheet that styles several components.
+- No duplicated blocks that a shared rule or token could replace, and no specificity fights won with repeated classes.
+- Lint only sees `transition`, `animation` and the common state names: other motion, such as `scroll-behavior: smooth`, also stops at `--ui-motion: 0`, and any other state class is still a finding.
+- Light and dark both work: colors go through `light-dark()` or tokens that do.
+- RTL works: no direction-dependent transforms or gradients without a `:dir(rtl)` case.
+- No component `@container style(--ui-contrast: more)` block re-tunes a number (a lightness, chroma or alpha). Limits are tokens in `theme.css` that its contrast block raises; a component block only changes shape or swaps to another role.
+- No workaround for one engine in `css/components/` (Browser support in `AGENTS.md`): an `@supports` gate with the browser default as the fallback is fine, and a hand-built alternative belongs in `css/compat/<component>.css`, whose gates `tests/unit/compat.test.ts` checks. Anything else is a finding.
+
+## Modern CSS
+
+Look for older patterns that a newer feature replaces, and for JavaScript that CSS can now do. Suggest the feature only when it simplifies the code or removes JS, and say how it falls back where it isn't supported. For example:
+
+- `:has()` instead of state classes or wrapper classes
+- `light-dark()`, `color-mix()` and relative colors instead of copied color values
+- Container queries and style queries instead of modifier classes for layout
+- `@starting-style`, `transition-behavior: allow-discrete` and `interpolate-size` for enter, exit and height animations
+- Anchor positioning, `popover` and invoker commands instead of positioning scripts
+- `field-sizing`, `appearance: base-select`, `::details-content`, `::scroll-button()` and scroll-driven animations
+- Logical properties and `inset` shorthands, nesting, `@layer` and `@scope` where they make a rule simpler
+
+When a feature is used, check the component page's `browserSupport` lists it. Leave the details to the `browser-support` agent.

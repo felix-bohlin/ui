@@ -1,32 +1,43 @@
 <form class="ui-form">
-  <fieldset class="ui-fieldset" data-invalid>
-    <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+  <fieldset
+    class="ui-fieldset"
+    aria-describedby="switch-field-group-validation-1-error"
+  >
+    <legend>Security alerts</legend>
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-switch">
         <input
-          name="switch-field-group-validation"
           type="checkbox"
           role="switch"
+          name="switch-field-group-validation"
+          value="email"
+          aria-invalid="true"
         />
-        <span class="ui-label">Switch 1</span>
+        <span class="ui-label">Email</span>
       </label>
       <label class="ui-switch">
         <input
-          name="switch-field-group-validation"
           type="checkbox"
           role="switch"
+          name="switch-field-group-validation"
+          value="push"
+          aria-invalid="true"
         />
-        <span class="ui-label">Switch 2</span>
+        <span class="ui-label">Push</span>
       </label>
       <label class="ui-switch">
         <input
-          name="switch-field-group-validation"
           type="checkbox"
           role="switch"
+          name="switch-field-group-validation"
+          value="sms"
+          aria-invalid="true"
         />
-        <span class="ui-label">Switch 3</span>
+        <span class="ui-label">SMS</span>
       </label>
     </div>
-    <span class="ui-end-text">Something went wrong!</span>
+    <span class="ui-end-text" id="switch-field-group-validation-1-error"
+      >Turn on at least one to continue.</span
+    >
   </fieldset>
 </form>

@@ -7,6 +7,8 @@ import {
 } from "../../scripts/build-examples.mjs"
 import { checkAttributeOrder } from "../../scripts/check-components.mjs"
 import {
+  astroPropsOf,
+  exportedTypes,
   reactAttributeName,
   reactBareAttribute,
   reactKinds,
@@ -388,5 +390,30 @@ describe("the React form of an attribute", () => {
     expect(reactBareAttribute("title", new Set(["string"]))).toBe('title=""')
     expect(reactBareAttribute("cols", new Set(["number"]))).toBe(undefined)
     expect(reactBareAttribute("nope", new Set())).toBe(undefined)
+  })
+})
+
+describe("the Astro prop types", () => {
+  test("every exported type alias and re-export is read, and a generic one needs defaults", () => {
+    expect(
+      exportedTypes(
+        [
+          'import type * as Base from "./types"',
+          "export type Props = Base.Props",
+          'export type { ItemProps, Other as RenamedProps } from "./types"',
+          "export type ListProps<T> = { items: T[] }",
+          "export type ValueProps<T = string> = { value: T }",
+          "type LocalProps = Base.Props",
+        ].join("\n"),
+      ),
+    ).toEqual(["Props", "ItemProps", "RenamedProps", "ValueProps"])
+  })
+
+  test("a list prop gives the kinds of its items' fields, and a missing type gives nothing", () => {
+    const items = astroPropsOf("Menu", "Props")?.get("items")
+    expect(items?.kinds).toEqual(new Set(["other"]))
+    expect(items?.fields.get("label")).toEqual(new Set(["string"]))
+    expect(items?.fields.get("disabled")).toEqual(new Set(["boolean"]))
+    expect(astroPropsOf("Menu", "Missing")).toBeUndefined()
   })
 })

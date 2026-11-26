@@ -512,6 +512,8 @@ Unless `NODE_ENV` is `production`, a key that is no prop and no attribute of the
 [OPUI Button] Unknown prop "lable": Button has no prop by that name and its element no attribute, so it renders as an attribute.
 ```
 
+A macro called with anything but one dict, such as `Button("Save")`, throws there instead.
+
 ### Next steps
 
 #### [AI assistants](https://opui.dev/nunjucks/llms.txt)

@@ -150,7 +150,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 ```html
 <table class="ui-table">
   <caption>
-    Low End Theory members
+    Bassists Anonymous members
   </caption>
   <thead>
     <tr>
@@ -199,7 +199,7 @@ import {
 ---
 
 <Table>
-  <TableCaption>Low End Theory members</TableCaption>
+  <TableCaption>Bassists Anonymous members</TableCaption>
   <TableHead>
     <TableRow>
       <TableHeaderCell>Name</TableHeaderCell>
@@ -245,7 +245,7 @@ import {
 %}
 
 {% call Table() %}
-  {% call TableCaption() %}Low End Theory members{% endcall %}
+  {% call TableCaption() %}Bassists Anonymous members{% endcall %}
   {% call TableHead() %}
     {% call TableRow() %}
       {% call TableHeaderCell() %}Name{% endcall %}
@@ -295,7 +295,7 @@ import {
 export default function Normal() {
   return (
     <Table>
-      <TableCaption>Low End Theory members</TableCaption>
+      <TableCaption>Bassists Anonymous members</TableCaption>
       <TableHead>
         <TableRow>
           <TableHeaderCell>Name</TableHeaderCell>
@@ -346,7 +346,7 @@ import {
 export default function Normal() {
   return (
     <Table>
-      <TableCaption>Low End Theory members</TableCaption>
+      <TableCaption>Bassists Anonymous members</TableCaption>
       <TableHead>
         <TableRow>
           <TableHeaderCell>Name</TableHeaderCell>
@@ -396,7 +396,7 @@ export default function Normal() {
 </script>
 
 <Table>
-  <TableCaption>Low End Theory members</TableCaption>
+  <TableCaption>Bassists Anonymous members</TableCaption>
   <TableHead>
     <TableRow>
       <TableHeaderCell>Name</TableHeaderCell>
@@ -445,7 +445,7 @@ import {
 
 <template>
   <Table>
-    <TableCaption>Low End Theory members</TableCaption>
+    <TableCaption>Bassists Anonymous members</TableCaption>
     <TableHead>
       <TableRow>
         <TableHeaderCell>Name</TableHeaderCell>

@@ -1,6 +1,6 @@
 import { readdirSync, readFileSync } from "node:fs"
 import { readdir } from "node:fs/promises"
-import { join, relative } from "node:path"
+import { join } from "node:path"
 import { fileURLToPath, pathToFileURL } from "node:url"
 import { parseArgs } from "node:util"
 import ts from "typescript"
@@ -25,7 +25,9 @@ import {
   analyze,
   expand,
   isPure,
+  itemWarning,
   keyOf,
+  mentions,
   under,
 } from "./component-nunjucks-facts.mjs"
 import { readComponent } from "./component-reader.mjs"
@@ -74,7 +76,9 @@ export const helperModules = () =>
     )
     .toSorted()
 
-const helperEntries = (modules) => {
+export const RUNTIME_NAMES = ["context", "id", "ids", "merge", "provide"]
+
+export const helperEntries = (modules) => {
   const entries = modules.flatMap(({ file, module }) =>
     Object.entries(module)
       .filter(
@@ -88,6 +92,12 @@ const helperEntries = (modules) => {
   if (repeated) {
     throw new Error(
       `${COMPILER} finds two helpers named ${repeated} in packages/opui/components/`,
+    )
+  }
+  const shadowed = names.find((name) => RUNTIME_NAMES.includes(name))
+  if (shadowed) {
+    throw new Error(
+      `${COMPILER} can't register the helper ${shadowed}: the opui global defines its own ${shadowed}, so rename the helper`,
     )
   }
   return entries.toSorted((a, b) => (a.name < b.name ? -1 : 1))
@@ -105,8 +115,6 @@ const HELPER_ENTRIES = helperEntries(
 export const HELPERS = Object.fromEntries(
   HELPER_ENTRIES.map(({ name, value }) => [name, value]),
 )
-
-export const RUNTIME_NAMES = ["context", "id", "ids", "merge", "provide"]
 
 const RESERVED = new Set([
   "caller",
@@ -237,23 +245,34 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
   }
   const used = new Set()
   const scope = {
+    derived: new Map(
+      component.derived
+        .filter((entry) => !isIdBase(entry))
+        .map(({ code, name }) => [name, code]),
+    ),
+    facts: new Set(),
+    fields: new Map(
+      component.props
+        .map((prop) => [prop.local, types.get(prop.prop)?.fields])
+        .filter(([, fields]) => fields?.size),
+    ),
     file,
+    guarded: new Map(),
     helpers: new Set(Object.keys(HELPERS)),
     idBases: new Set(idsName ? [idsName] : []),
     idPrefixes: new Set(component.idPrefixes),
     imports: new Set(importedNames(component.imports)),
+    kinds: new Map(
+      component.props.map((prop) => [prop.local, types.get(prop.prop)?.kinds]),
+    ),
     locals,
+    markup: new Set(component.trimmedSlots.map(({ local }) => local)),
     nonNull: new Set(),
     numbers: new Set(),
     props: new Map(
       component.props
         .filter((prop) => prop.default === undefined)
         .map((prop) => [prop.local, prop.prop]),
-    ),
-    facts: new Set(),
-    guarded: new Map(),
-    kinds: new Map(
-      component.props.map((prop) => [prop.local, types.get(prop.prop)?.kinds]),
     ),
     renames,
     strings: new Set(
@@ -327,7 +346,9 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
       ["attribute", "test", "text"].includes(site.kind) &&
       !component.variableTags?.includes(entry.name) &&
       isPure(code, impure) &&
-      ![...identifiersIn(code)].some((name) => site.loops.has(name)) &&
+      ![entry.name, ...identifiersIn(code)].some((name) =>
+        site.loops.has(name),
+      ) &&
       (site.kind === "test" || isClean(expand(code, { facts: site.facts })))
     ) {
       inline.set(entry.name, code)
@@ -393,15 +414,9 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
           ? [derivedLines.get(entry.name)]
           : [],
     ),
-    ...component.warnings.map((code) => nunjucksStatement(code, scope)),
-    ...(component.item
-      ? [
-          nunjucksStatement(
-            `warnGroupedChecked(${JSON.stringify(component.name)}, ${component.item.grouped}, ${component.item.checked ?? "undefined"}, ${JSON.stringify(component.item.group)})`,
-            scope,
-          ),
-        ]
-      : []),
+    ...[...component.warnings, itemWarning(component)]
+      .filter(Boolean)
+      .map((code) => nunjucksStatement(code, scope)),
     ...(component.provide && !provideInline
       ? [
           `{% set ${provided} = ${dict(
@@ -415,32 +430,34 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
   const isLiteral = (code) =>
     /^(?:"[^"\\]*"|'[^'\\]*'|\d+(?:\.\d+)?)$/.test(code.trim())
   const quoted = (inner) => ({ ...inner, quote: "'" })
+  const attributeOutput = (code, shown, inner) =>
+    [...identifiersIn(code)].some((name) => inner.markup?.has(name))
+      ? `{{ ${at(shown, LEVEL.filter)} | forceescape }}`
+      : `{{ ${shown.text} }}`
   const templateOutput = (node, inner, sourceFile, covered) => {
     if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) {
       return attributeValue(node.text)
     }
     if (!ts.isTemplateExpression(node)) return undefined
-    const spans = node.templateSpans.map((span) =>
-      expression(span.expression.getText(sourceFile), inner),
+    const codes = node.templateSpans.map((span) =>
+      span.expression.getText(sourceFile),
     )
+    const spans = codes.map((code) => value(code, inner))
     if (
       spans.every(
         (span, index) =>
-          covered.includes(span) ||
-          nonNull(
-            node.templateSpans[index].expression.getText(sourceFile),
-            inner,
-          ),
+          covered.includes(span.text) || nonNull(codes[index], inner),
       )
     ) {
       return `${attributeValue(node.head.text)}${node.templateSpans
         .map(
           (span, index) =>
-            `{{ ${spans[index]} }}${attributeValue(span.literal.text)}`,
+            `${attributeOutput(codes[index], spans[index], inner)}${attributeValue(span.literal.text)}`,
         )
         .join("")}`
     }
-    return `{{ ${expression(node.getText(sourceFile), inner)} }}`
+    const code = node.getText(sourceFile)
+    return attributeOutput(code, value(code, inner), inner)
   }
   const classTokens = (code, outer, multiline) => {
     const inner = quoted(outer)
@@ -527,7 +544,10 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
       }
       const shown = value(element.getText(sourceFile), inner)
       if (!isSimple(shown)) return undefined
-      entries.push({ output: `{{ ${shown.text} }}`, test: shown })
+      entries.push({
+        output: attributeOutput(element.getText(sourceFile), shown, inner),
+        test: shown,
+      })
     }
     if (!entries.length || entries[0].test) {
       if (entries.length !== 1) return undefined
@@ -618,12 +638,13 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
         sets.push(`{% set ${name} = ${shown.text} %}`)
         shown = { level: LEVEL.primary, text: name }
       }
+      const output = attributeOutput(code, shown, inner)
       tokens.push(
         BOOLEAN_ATTRIBUTES.has(item.name)
           ? `{% if ${shown.text} %} ${item.name}{% endif %}`
           : certain
-            ? ` ${item.name}="{{ ${shown.text} }}"`
-            : `{% if ${shown.text} != none %} ${item.name}="{{ ${shown.text} }}"{% endif %}`,
+            ? ` ${item.name}="${output}"`
+            : `{% if ${shown.text} != none %} ${item.name}="${output}"{% endif %}`,
       )
     }
     return tokens
@@ -672,20 +693,31 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
         entries.push([item.name, expression(item.code, inner)])
       } else {
         flush()
-        const spread = expression(item.code, inner)
-        const chosen =
+        const spread = value(item.code, inner)
+        const test =
           item.condition === undefined
+            ? undefined
+            : at(value(item.condition, inner), LEVEL.or)
+        const chosen =
+          test === undefined
             ? spread
-            : item.negated
-              ? `{} if ${at(value(item.condition, inner), LEVEL.or)} else ${spread}`
-              : `${spread} if ${at(value(item.condition, inner), LEVEL.or)} else {}`
-        parts.push(item.defined ? `opui.defined(${chosen})` : chosen)
+            : {
+                level: LEVEL.if,
+                text: item.negated
+                  ? `{} if ${test} else ${at(spread, LEVEL.or)}`
+                  : `${at(spread, LEVEL.or)} if ${test} else {}`,
+              }
+        parts.push(
+          item.defined
+            ? { level: LEVEL.primary, text: `opui.defined(${chosen.text})` }
+            : chosen,
+        )
       }
     }
     flush()
     const written = (part, at) =>
-      typeof part === "string"
-        ? part
+      !Array.isArray(part)
+        ? part.text
         : layoutList(
             "{",
             part.map(
@@ -696,46 +728,85 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
             at,
             " ",
           )
-    if (parts.length === 0) return "{}"
-    if (
-      parts.length === 1 &&
-      (typeof parts[0] !== "string" || !/ if /.test(parts[0]))
-    ) {
-      return written(parts[0], depth)
+    if (parts.length === 0) return { level: LEVEL.primary, text: "{}" }
+    const [part] = parts
+    if (parts.length === 1 && (Array.isArray(part) || part.level > LEVEL.if)) {
+      return Array.isArray(part)
+        ? { level: LEVEL.primary, text: written(part, depth) }
+        : part
     }
-    return layoutList(
-      "opui.merge(",
-      parts.map((part) => written(part, depth + 1)),
-      ")",
-      depth,
-    )
+    return {
+      level: LEVEL.primary,
+      text: layoutList(
+        "opui.merge(",
+        parts.map((item) => written(item, depth + 1)),
+        ")",
+        depth,
+      ),
+    }
   }
   const slotNode = (node, ctx) => {
+    if (component.provide?.slot === node.name) {
+      if (node.name !== "default") {
+        throw unsupported(
+          "BC703",
+          file,
+          `a context provided around the slot ${node.name}`,
+          "provide the context around the default slot",
+          COMPILER,
+        )
+      }
+      if (node.fallback.length) {
+        throw unsupported(
+          "BC703",
+          file,
+          "a context provided around a default slot with fallback content",
+          "move the fallback out of the provided slot",
+          COMPILER,
+        )
+      }
+      return `{{ opui.provide(${nunjucksString(contextKey(component.provide.context))}, ${provided}, caller) }}`
+    }
     const trimmed = component.trimmedSlots.find(
       (item) => item.slot === node.name,
     )
     if (node.trimmed && trimmed) return `{{ ${trimmed.local} }}`
     if (node.name === "default") {
-      if (component.provide?.slot === "default") {
-        return `{{ opui.provide(${nunjucksString(contextKey(component.provide.context))}, ${provided}, caller) }}`
-      }
       return node.fallback.length
         ? `{% if caller is defined %}{{ caller() }}{% else %}${emit(node.fallback, { ...ctx, hoist: false })}{% endif %}`
         : "{{ caller() if caller }}"
-    }
-    if (component.provide?.slot === node.name) {
-      throw unsupported(
-        "BC703",
-        file,
-        `a context provided around the slot ${node.name}`,
-        "provide the context around the default slot",
-        COMPILER,
-      )
     }
     const read = slotRead(node.name)
     return node.fallback.length
       ? `{% if ${slotPresent(node.name).text} %}{{ ${read} | safe }}{% else %}${emit(node.fallback, { ...ctx, hoist: false })}{% endif %}`
       : `{{ ${read} | safe }}`
+  }
+  const loopPlans = new Map()
+  const loopPlan = (node, ctx, item, setNames) => {
+    if (!loopPlans.has(node)) {
+      const visible = new Set([
+        ...ctx.scope.locals,
+        ...named.values(),
+        ...[...ctx.scope.renames.values()].map(({ text }) => text),
+      ])
+      const renamed = new Map()
+      for (const name of setNames) {
+        const lower = lowerFirst(name)
+        const wanted =
+          name !== lower &&
+          component.variableTags?.includes(name) &&
+          !taken.has(lower)
+            ? lower
+            : name
+        const chosen = visible.has(wanted)
+          ? fresh(`${item}${name[0].toUpperCase()}${name.slice(1)}`)
+          : wanted
+        taken.add(chosen)
+        if (chosen !== name) renamed.set(name, chosen)
+      }
+      loopPlans.set(node, { renamed })
+    }
+    return loopPlans.get(node)
   }
   const loopNode = (node, ctx) => {
     const binding = itemBinding(node.item)
@@ -775,17 +846,15 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
     const omitted = `${item} | opuiOmit([${(binding.fields ?? [])
       .map(({ key }) => nunjucksString(key))
       .join(", ")}])`
+    const indexUsed = !!node.index && references(node.index) > 0
+    const { renamed } = loopPlan(node, ctx, item, [
+      ...(binding.rest && !restOnce ? [binding.rest] : []),
+      ...(indexUsed ? [node.index] : []),
+      ...node.consts.map(({ name }) => name),
+    ])
     const loopRenames = new Map(ctx.scope.renames)
-    for (const { name } of node.consts) {
-      const lower = lowerFirst(name)
-      if (
-        name !== lower &&
-        component.variableTags?.includes(name) &&
-        !taken.has(lower)
-      ) {
-        loopRenames.set(name, { level: LEVEL.primary, text: lower })
-        taken.add(lower)
-      }
+    for (const [name, text] of renamed) {
+      loopRenames.set(name, { level: LEVEL.primary, text })
     }
     if (!binding.name) {
       for (const { key, local } of binding.fields) {
@@ -798,24 +867,61 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
         loopRenames.set(binding.rest, { level: LEVEL.filter, text: omitted })
       }
     }
-    const indexUsed = !!node.index && references(node.index) > 0
+    const rebound = new Set([
+      ...names,
+      ...(binding.fields ?? []).map(({ local }) => local),
+      ...(binding.rest ? [binding.rest] : []),
+    ])
+    const outside = (name) => !rebound.has(name)
+    const listed = unwrap(
+      sourceFileOf(`(${node.list})`, "list.ts").statements[0].expression,
+    )
+    const fieldKinds = ts.isIdentifier(listed)
+      ? ctx.scope.fields.get(listed.text)
+      : undefined
     const inner = {
       ...ctx.scope,
+      derived: new Map(
+        [...ctx.scope.derived].filter(([name]) => outside(name)),
+      ),
+      facts: new Set(
+        [...ctx.scope.facts].filter((key) => !mentions(key, rebound)),
+      ),
+      fields: new Map([...ctx.scope.fields].filter(([name]) => outside(name))),
+      guarded: new Map(
+        [...ctx.scope.guarded].filter(
+          ([name, key]) => outside(name) && !mentions(key, rebound),
+        ),
+      ),
+      itemFields: new Map([
+        ...[...(ctx.scope.itemFields ?? [])].filter(([name]) => outside(name)),
+        ...(binding.name && fieldKinds ? [[binding.name, fieldKinds]] : []),
+      ]),
+      kinds: new Map([
+        ...[...ctx.scope.kinds].filter(([name]) => outside(name)),
+        ...(binding.fields ?? []).flatMap(({ key, local }) =>
+          fieldKinds?.has(key) ? [[local, fieldKinds.get(key)]] : [],
+        ),
+      ]),
       locals: new Set([...ctx.scope.locals, item, ...names]),
-      renames: loopRenames,
+      markup: new Set([...ctx.scope.markup].filter(outside)),
+      nonNull: new Set([...ctx.scope.nonNull].filter(outside)),
       numbers: new Set([
-        ...ctx.scope.numbers,
+        ...[...ctx.scope.numbers].filter(outside),
         ...(node.index ? [node.index] : []),
       ]),
+      renames: loopRenames,
+      strings: new Set([...ctx.scope.strings].filter(outside)),
     }
+    const setName = (name) => renamed.get(name) ?? name
     const sets = [
       ...(binding.rest && !restOnce
-        ? [`{% set ${binding.rest} = ${omitted} %}`]
+        ? [`{% set ${setName(binding.rest)} = ${omitted} %}`]
         : []),
-      ...(indexUsed ? [`{% set ${node.index} = loop.index0 %}`] : []),
+      ...(indexUsed ? [`{% set ${setName(node.index)} = loop.index0 %}`] : []),
       ...node.consts.map(
         ({ code, name }) =>
-          `{% set ${loopRenames.get(name)?.text ?? name} = ${expression(code, inner)} %}`,
+          `{% set ${setName(name)} = ${expression(code, inner)} %}`,
       ),
     ]
     return block(
@@ -831,15 +937,17 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
     )
   }
   const componentNode = (node, ctx) => {
-    const named = node.children.find(
-      (item) =>
-        item.type === "element" &&
-        item.attributes.some(
-          (attribute) =>
-            attribute.kind === "static" && attribute.name === "slot",
-        ),
-    )
-    if (named) {
+    const slotted = (nodes) =>
+      nodes.some((item) =>
+        item.type === "element"
+          ? item.attributes.some((attribute) => attribute.name === "slot")
+          : item.type === "if"
+            ? slotted(item.consequent) || slotted(item.alternate ?? [])
+            : item.type === "each"
+              ? slotted(item.children)
+              : item.type === "slot" && slotted(item.fallback),
+      )
+    if (slotted(node.children)) {
       throw unsupported(
         "BC704",
         file,
@@ -849,7 +957,7 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
       )
     }
     used.add(node.tag)
-    const props = mergedProps(node, ctx.scope, ctx.depth)
+    const { text: props } = mergedProps(node, ctx.scope, ctx.depth)
     if (node.children.length === 0) return `{{ ${node.tag}(${props}) }}`
     return block(
       `{% call ${node.tag}(${props}) %}`,
@@ -873,9 +981,9 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
         const tagName = node.variable
           ? expression(node.tag, ctx.scope)
           : nunjucksString(node.tag)
-        return props === "{}"
+        return props.text === "{}"
           ? []
-          : [`{{ ${props} | opuiAttributes(${tagName}) }}`]
+          : [`{{ ${at(props, LEVEL.filter)} | opuiAttributes(${tagName}) }}`]
       }
       return attributeTokens(node, ctx.scope, sets, multiline)
     }
@@ -929,8 +1037,30 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
     const visit = (node) => {
       const item = unwrap(node)
       if (ts.isIdentifier(item)) {
-        const kinds = inner.kinds?.get(item.text)
-        return !!kinds && [...kinds].some((kind) => BOOLEAN_KINDS.has(kind))
+        const name = item.text
+        const kinds = inner.kinds?.get(name)
+        if (kinds) return [...kinds].some((kind) => BOOLEAN_KINDS.has(kind))
+        if (inner.derived?.has(name)) {
+          return visit(
+            sourceFileOf(`(${inner.derived.get(name)})`, "derived.ts")
+              .statements[0].expression,
+          )
+        }
+        return !(
+          name === "undefined" ||
+          inner.numbers?.has(name) ||
+          inner.markup?.has(name)
+        )
+      }
+      if (
+        ts.isPropertyAccessExpression(item) &&
+        ts.isIdentifier(item.expression) &&
+        inner.itemFields?.has(item.expression.text)
+      ) {
+        const kinds = inner.itemFields
+          .get(item.expression.text)
+          .get(item.name.text)
+        return !kinds || [...kinds].some((kind) => BOOLEAN_KINDS.has(kind))
       }
       if (
         ts.isArrayLiteralExpression(item) ||
@@ -951,17 +1081,27 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
           return visit(item.left) || visit(item.right)
         }
         return ![
-          ts.SyntaxKind.PlusToken,
-          ts.SyntaxKind.MinusToken,
           ts.SyntaxKind.AsteriskToken,
-          ts.SyntaxKind.SlashToken,
+          ts.SyntaxKind.MinusToken,
           ts.SyntaxKind.PercentToken,
+          ts.SyntaxKind.PlusToken,
+          ts.SyntaxKind.SlashToken,
         ].includes(operator)
       }
       if (ts.isConditionalExpression(item)) {
         return visit(item.whenTrue) || visit(item.whenFalse)
       }
-      return false
+      if (ts.isCallExpression(item)) {
+        const callee = unwrap(item.expression)
+        return !(
+          (ts.isIdentifier(callee) && callee.text === "String") ||
+          isNonNull(item.getText(), inner)
+        )
+      }
+      return (
+        ts.isPropertyAccessExpression(item) ||
+        ts.isElementAccessExpression(item)
+      )
     }
     return visit(sourceFileOf(`(${code})`, "text.ts").statements[0].expression)
   }
@@ -1063,7 +1203,16 @@ const compiled = async (source, file) => {
   const name = parts.at(-1).replace(/\.astro$/, "")
   const folder = parts.at(-2)
   const component = await readComponent(source, file)
-  const types = astroPropsOf(folder, component.propsType) ?? new Map()
+  const types = astroPropsOf(folder, component.propsType)
+  if (!types) {
+    throw unsupported(
+      "BC706",
+      file,
+      `the props type ${component.propsType}`,
+      `export ${component.propsType} from ${folder}/types.astro.ts`,
+      COMPILER,
+    )
+  }
   return {
     file,
     meta: {
@@ -1210,8 +1359,9 @@ export const nunjucksOutputs = async (files) => {
 
 export const componentFiles = async () =>
   (await readdir(componentsDir, { recursive: true }))
+    .map((file) => file.split("\\").join("/"))
     .filter((file) => /^[A-Z][^/]*\/[A-Z][^/]*\.astro$/.test(file))
-    .map((file) => relative(root, join(componentsDir, file)))
+    .map((file) => `packages/opui/components/${file}`)
     .toSorted()
 
 export const nunjucksCensus = async () => {

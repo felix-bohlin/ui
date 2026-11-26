@@ -222,7 +222,7 @@ export const DIAGNOSTICS = {
   BC703: {
     title: "A context provided around a named slot in Nunjucks",
     explain:
-      "A named slot reaches a Nunjucks macro as content captured with `{% set %}`, which renders before the macro runs, so a context the macro provides can't reach it. Only the default slot, the macro's `caller()`, renders inside the macro. Provide the context around the default slot.",
+      "A named slot reaches a Nunjucks macro as content captured with `{% set %}`, which renders before the macro runs, so a context the macro provides can't reach it. Only the default slot, the macro's `caller()`, renders inside the macro, and the prototype provides the context around that call alone, so a fallback for the provided default slot is refused too. Provide the context around the default slot, and move its fallback out of the provided slot.",
   },
   BC704: {
     title: "A named slot passed to an inner component in Nunjucks",
@@ -233,6 +233,11 @@ export const DIAGNOSTICS = {
     title: "A name Nunjucks or the Nunjucks compiler reserves",
     explain:
       "A Nunjucks macro reads its props from `props`, its default slot from `caller`, the helpers from `opui` and the loop state from `loop`, and the compiler names its own values with a `__` prefix, so a local or prop with one of those names or a Nunjucks keyword (`and`, `else`, `false`, `if`, `in`, `is`, `none`, `not`, `null`, `or`, `true`) can't be written. Rename the local.",
+  },
+  BC706: {
+    title: "A props type the Nunjucks prototype can't read",
+    explain:
+      "The Nunjucks prototype reads the kinds of a component's props from the type its `.astro` file imports from `./types.astro`, through the TypeScript checker (`astroPropsOf` in `scripts/example-react-props.mjs`). It decides with them where a value prints through `| opuiText` and compares with `==`, and `opuiRest` warns with them about unknown props. Export the imported type from the folder's `types.astro.ts`, as a type alias or a re-export.",
   },
 }
 

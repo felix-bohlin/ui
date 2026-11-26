@@ -216,6 +216,23 @@ export const reactBareAttribute = (name, kinds) =>
 
 const astroFile = join(root, "src/component-examples/astro-props.ts")
 
+export const exportedTypes = (source) =>
+  ts
+    .createSourceFile("types.astro.ts", source, ts.ScriptTarget.Latest)
+    .statements.flatMap((statement) =>
+      ts.isTypeAliasDeclaration(statement) &&
+      statement.modifiers?.some(
+        (modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword,
+      ) &&
+      !statement.typeParameters?.some((parameter) => !parameter.default)
+        ? [statement.name.text]
+        : ts.isExportDeclaration(statement) &&
+            statement.exportClause &&
+            ts.isNamedExports(statement.exportClause)
+          ? statement.exportClause.elements.map((element) => element.name.text)
+          : [],
+    )
+
 const astroSource = () => {
   const componentsDir = join(root, "packages/opui/components")
   const entries = readdirSync(componentsDir, { withFileTypes: true })
@@ -232,9 +249,7 @@ const astroSource = () => {
       } catch {
         return []
       }
-      return [...source.matchAll(/^export type (\w*Props)\b/gm)].map(
-        ([, name]) => ({ folder, name }),
-      )
+      return exportedTypes(source).map((name) => ({ folder, name }))
     })
   return [
     ...[...new Set(entries.map(({ folder }) => folder))].map(
@@ -279,21 +294,28 @@ export const astroPropsOf = (folder, propsType) => {
       for (const member of parts) {
         for (const property of checker.getPropertiesOfType(member)) {
           const known = props.get(property.name)
-          const optional =
-            !!(property.flags & ts.SymbolFlags.Optional) ||
-            parts.some(
-              (other) => !checker.getPropertyOfType(other, property.name),
-            )
-          const nullable = members(
+          const fields = new Map(known?.fields)
+          for (const list of members(
             checker.getTypeOfSymbolAtLocation(property, location),
-          ).some((type) => type.flags & ts.TypeFlags.Null)
+          ).filter((type) => checker.isArrayType(type))) {
+            for (const item of members(checker.getTypeArguments(list)[0])) {
+              for (const field of checker.getPropertiesOfType(item)) {
+                fields.set(
+                  field.name,
+                  new Set([
+                    ...(fields.get(field.name) ?? []),
+                    ...kindsOf(checker, field, location),
+                  ]),
+                )
+              }
+            }
+          }
           props.set(property.name, {
+            fields,
             kinds: new Set([
               ...(known?.kinds ?? []),
               ...kindsOf(checker, property, location),
             ]),
-            nullable: (known?.nullable ?? false) || nullable,
-            optional: (known?.optional ?? false) || optional,
           })
         }
       }

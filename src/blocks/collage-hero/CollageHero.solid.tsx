@@ -10,11 +10,11 @@ export default function CollageHero() {
       >
         <div
           class="collage-inner ui-layout-columns"
-          style="--_columns: 1fr 1.1fr; --_gap: var(--ui-space-8)"
+          style="--_columns: 1fr 1.1fr; --_gap: var(--ui-space-12)"
         >
           <div
             class="collage-copy ui-layout-column"
-            style="--_gap: var(--ui-space-5)"
+            style="--_gap: var(--ui-space-6)"
           >
             <p class="ui-overline">Bassbook Retreats</p>
             <h1 class="collage-title">Practice somewhere worth the drive</h1>
@@ -34,7 +34,7 @@ export default function CollageHero() {
                 How it works
               </Button>
             </div>
-            <dl class="ui-layout-row" style="--_gap: var(--ui-space-6)">
+            <dl class="ui-layout-row" style="--_gap: var(--ui-space-7)">
               <div>
                 <dt class="ui-caption">Cabins</dt>
                 <dd class="ui-h4">38</dd>
@@ -102,7 +102,7 @@ export default function CollageHero() {
 
           .collage {
             display: grid;
-            gap: var(--ui-space-4);
+            gap: var(--ui-space-5);
             grid-template-columns: repeat(6, minmax(0, 1fr));
             grid-template-rows: repeat(6, clamp(3rem, 7cqi, 4.5rem));
             position: relative;

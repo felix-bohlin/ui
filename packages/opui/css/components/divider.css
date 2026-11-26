@@ -34,7 +34,7 @@
       color: var(--ui-text);
       display: flex;
       font-size: var(--ui-font-size-caption);
-      gap: var(--ui-space-3);
+      gap: var(--ui-space-4);
       text-box: trim-both cap alphabetic;
 
       &::before,
@@ -44,7 +44,7 @@
           var(--_divider-border-color);
         content: "";
         flex: 1;
-        min-inline-size: var(--ui-space-4);
+        min-inline-size: var(--ui-space-5);
       }
     }
 

@@ -40,19 +40,19 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 - `--_columns`: The `grid-template-columns` of `.ui-layout-columns` from its breakpoint on, such as `3fr 2fr` or `15rem 1fr`. Defaults to `1fr 1fr`.
 - `--_divider-border-color`: Color of the lines `.ui-bordered` draws between the children. Defaults to `--ui-border-color`.
-- `--_gap`: Space between the children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid`, `.ui-layout-columns` and `.ui-layout-media`. Defaults to `--ui-space-3`, set by the size classes.
+- `--_gap`: Space between the children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid`, `.ui-layout-columns` and `.ui-layout-media`. Defaults to `--ui-space-4`, set by the size classes.
 - `--_justify-content`: How `.ui-layout-row` distributes its children along the row, such as `space-evenly`. `.ui-align-center`, `.ui-align-end` and `.ui-spread` set it.
 - `--_max-columns`: Most columns `.ui-layout-grid` makes, such as `3`. Defaults to `infinity`, as many as fit at `--_min-inline-size`.
 - `--_max-inline-size`: Maximum width of `.ui-layout-container`.
 - `--_min-inline-size`: Narrowest column of `.ui-layout-grid`. Columns are added while they fit at this width.
-- `--_padding-inline`: Inline padding of `.ui-layout-container`. Defaults to `--ui-space-4`.
-- `--_sticky-inset`: Distance from the top at which a `.ui-sticky` column of `.ui-layout-columns` sticks. Defaults to `--ui-space-4`.
+- `--_padding-inline`: Inline padding of `.ui-layout-container`. Defaults to `--ui-space-5`.
+- `--_sticky-inset`: Distance from the top at which a `.ui-sticky` column of `.ui-layout-columns` sticks. Defaults to `--ui-space-5`.
 
 Outputs: `--_auto-repeat`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4` and `--ui-space-5`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4`, `--ui-space-5` and `--ui-space-6`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

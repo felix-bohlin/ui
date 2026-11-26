@@ -796,7 +796,7 @@ describe("the source layout", () => {
 
   test("reads a style attribute as its declarations, however it is laid out", async () => {
     const declarations =
-      "display: grid; gap: var(--ui-space-4); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr))"
+      "display: grid; gap: var(--ui-space-5); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr))"
     const oneLine = astro(`<div style="${declarations}"></div>`)
     const lines = astro(
       `<div style="\n    ${declarations.replaceAll("; ", ";\n    ")};\n  "></div>`,

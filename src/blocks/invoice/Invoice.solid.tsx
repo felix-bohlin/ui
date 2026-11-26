@@ -338,11 +338,11 @@ export default function Invoice() {
             padding: var(--ui-space-2);
 
             @container (inline-size >= 40rem) {
-              padding: var(--ui-space-5);
+              padding: var(--ui-space-6);
             }
 
             > .ui-content {
-              gap: var(--ui-space-6);
+              gap: var(--ui-space-7);
             }
           }
 

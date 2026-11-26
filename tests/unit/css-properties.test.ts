@@ -285,3 +285,39 @@ test("a sample the state ending rule must flag: a length after the state", () =>
     stateEndingProblem({ name: "--ui-button-hover", value: "shade" }),
   ).toBeUndefined()
 })
+
+const spaceStepProblem = (name: string, value: string) => {
+  const step = Number(name.replace(/^--ui-space-/, "").replace("-", "."))
+  const rem = value.match(/^calc\(([\d.]+)rem \* var\(--ui-space-scale\)\)$/)
+  if (!rem)
+    return `${name} is ${value}: write calc(<rem> * var(--ui-space-scale))`
+  return Number(rem[1]) * 4 === step
+    ? undefined
+    : `${name} is ${rem[1]}rem: a step's number is its size in quarter rems (--ui-space-${String(Number(rem[1]) * 4).replace(".", "-")}), so a step can be added without renaming another`
+}
+
+test("each space step is named by its size in quarter rems", () => {
+  const steps = themeTokens().filter((token) =>
+    /^--ui-space-\d+(-\d+)?$/.test(token.name),
+  )
+  expect(steps.length).toBeGreaterThan(5)
+  expect(
+    steps
+      .map((token) => spaceStepProblem(token.name, token.value.trim()))
+      .filter(Boolean),
+  ).toEqual([])
+})
+
+test("samples the space step rule must flag and must keep", () => {
+  expect(
+    spaceStepProblem("--ui-space-3", "calc(1rem * var(--ui-space-scale))"),
+  ).toContain("(--ui-space-4)")
+  expect(spaceStepProblem("--ui-space-4", "1rem")).toContain("write calc(")
+  expect(
+    [
+      ["--ui-space-3", "calc(0.75rem * var(--ui-space-scale))"],
+      ["--ui-space-0-5", "calc(0.125rem * var(--ui-space-scale))"],
+      ["--ui-space-12", "calc(3rem * var(--ui-space-scale))"],
+    ].map(([name, value]) => spaceStepProblem(name, value)),
+  ).toEqual([undefined, undefined, undefined])
+})

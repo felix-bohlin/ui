@@ -583,7 +583,7 @@ export default function KanbanBoard() {
         .kanban-board {
           .kanban-columns {
             display: grid;
-            gap: var(--ui-space-3);
+            gap: var(--ui-space-4);
             grid-auto-columns: minmax(17rem, 1fr);
             grid-auto-flow: column;
             overflow-x: auto;

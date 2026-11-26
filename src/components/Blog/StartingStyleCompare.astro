@@ -54,13 +54,13 @@ const columns = [
     --_duration: calc(var(--_seconds) * var(--ui-motion));
 
     display: grid;
-    gap: var(--ui-space-4);
+    gap: var(--ui-space-5);
     inline-size: 100%;
   }
 
   .starting-style-compare-columns {
     display: grid;
-    gap: var(--ui-space-4) var(--ui-space-5);
+    gap: var(--ui-space-5) var(--ui-space-6);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
   }
 
@@ -108,7 +108,7 @@ const columns = [
     inline-size: min(16rem, 75%);
     inset-block: 0;
     inset-inline-start: 0;
-    padding: var(--ui-space-3);
+    padding: var(--ui-space-4);
     position: absolute;
     transition:
       display var(--_duration) allow-discrete,
@@ -152,7 +152,7 @@ const columns = [
     align-items: end;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--ui-space-3) var(--ui-space-5);
+    gap: var(--ui-space-4) var(--ui-space-6);
 
     & :global(.ui-field) {
       flex: 1 1 12rem;

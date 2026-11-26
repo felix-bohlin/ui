@@ -208,7 +208,7 @@ export default function MusicPlayer() {
           .mp-now {
             .ui-content {
               display: grid;
-              gap: var(--ui-space-5);
+              gap: var(--ui-space-6);
             }
           }
 
@@ -275,7 +275,7 @@ export default function MusicPlayer() {
           .mp-lyrics {
             display: grid;
             font-size: var(--ui-font-size-large);
-            gap: var(--ui-space-3);
+            gap: var(--ui-space-4);
 
             .mp-lyric-current {
               color: var(--ui-primary-text);

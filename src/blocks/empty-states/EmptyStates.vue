@@ -240,9 +240,9 @@ import {
     align-content: center;
     block-size: 100%;
     display: grid;
-    gap: var(--ui-space-4);
+    gap: var(--ui-space-5);
     justify-items: center;
-    padding-block: var(--ui-space-7);
+    padding-block: var(--ui-space-8);
     text-align: center;
   }
 

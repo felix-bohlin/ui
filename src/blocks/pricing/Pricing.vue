@@ -299,13 +299,13 @@ import {
 
     .ui-content {
       display: grid;
-      gap: var(--ui-space-4);
+      gap: var(--ui-space-5);
     }
   }
 
   .pricing-badge {
-    inset-block-start: var(--ui-space-3);
-    inset-inline-end: var(--ui-space-3);
+    inset-block-start: var(--ui-space-4);
+    inset-inline-end: var(--ui-space-4);
     position: absolute;
   }
 

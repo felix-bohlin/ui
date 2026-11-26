@@ -16,7 +16,7 @@
     --_accent-tonal: var(--ui-surface-tonal);
     --_actions-shift: min(
       var(--_padding-inline) + var(--_border-width),
-      var(--ui-card-padding, var(--ui-space-3)) -
+      var(--ui-card-padding, var(--ui-space-4)) -
         max(
           var(--ui-focus-ring-offset) + var(--ui-focus-ring-width),
           var(--ui-space-1)

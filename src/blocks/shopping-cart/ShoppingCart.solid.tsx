@@ -331,14 +331,14 @@ export default function ShoppingCart() {
           }
 
           .cart-item {
-            column-gap: var(--ui-space-3);
+            column-gap: var(--ui-space-4);
             display: grid;
             grid-template-areas:
               "thumb info"
               "thumb buy";
             grid-template-columns: auto minmax(0, 1fr);
-            padding: var(--ui-space-3);
-            row-gap: var(--ui-space-3);
+            padding: var(--ui-space-4);
+            row-gap: var(--ui-space-4);
 
             @container (inline-size >= 40rem) {
               grid-template-areas: "thumb info buy";
@@ -370,7 +370,7 @@ export default function ShoppingCart() {
           .cart-buy {
             align-items: center;
             display: flex;
-            gap: var(--ui-space-3);
+            gap: var(--ui-space-4);
             grid-area: buy;
             justify-content: space-between;
 
@@ -394,7 +394,7 @@ export default function ShoppingCart() {
           .cart-summary {
             .ui-content {
               display: grid;
-              gap: var(--ui-space-4);
+              gap: var(--ui-space-5);
             }
           }
 

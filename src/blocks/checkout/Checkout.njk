@@ -46,7 +46,7 @@
 
   <div
     class="ui-layout-columns"
-    style="--_columns: 3fr 2fr; --_gap: var(--ui-space-6)"
+    style="--_columns: 3fr 2fr; --_gap: var(--ui-space-7)"
   >
     {% call Form({ action: "#" }) %}
       {% call Fieldset() %}
@@ -219,7 +219,7 @@
         {% call FieldLegend() %}Payment{% endcall %}
         {% call Tabs({
           name: "checkout-payment",
-          style: "--_panel-gap: var(--ui-space-4)"
+          style: "--_panel-gap: var(--ui-space-5)"
         }) %}
           {% call TabsItem({
             checked: true,

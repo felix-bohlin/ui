@@ -264,7 +264,7 @@ export default function Leaderboard() {
           .lb-podium {
             align-items: end;
             display: grid;
-            gap: var(--ui-space-3);
+            gap: var(--ui-space-4);
             grid-template-columns: repeat(3, minmax(0, 1fr));
             list-style-type: none;
             padding: 0;
@@ -287,7 +287,7 @@ export default function Leaderboard() {
               font-size: var(--ui-font-size-800);
               font-weight: var(--ui-font-weight-bold);
               inline-size: 100%;
-              padding-block-start: var(--ui-space-3);
+              padding-block-start: var(--ui-space-4);
             }
 
             .lb-first {

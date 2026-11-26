@@ -12,16 +12,16 @@ Lists meant to be used stand-alone or as part of Select elements
     --_check-image: var(--ui-icon-check);
     --_description-text-color: var(--ui-text-subtle);
     --_divider-border-color: var(--ui-border-color);
-    --_divider-gap: var(--ui-space-3);
+    --_divider-gap: var(--ui-space-4);
     --_hover-bg-color: oklch(
       from var(--ui-primary) l c h / var(--ui-state-hover-alpha-accent)
     );
     --_item-duration: calc(var(--ui-duration-fast) * var(--_motion));
     --_item-ease: var(--ui-ease);
-    --_item-gap: var(--ui-space-3);
+    --_item-gap: var(--ui-space-4);
     --_item-padding-inline: var(
       --ui-list-item-padding-inline,
-      var(--ui-space-3)
+      var(--ui-space-4)
     );
     --_radius: var(--ui-radius);
     --_selected-bg-color: var(
@@ -330,7 +330,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
       /* Video */
       &:has(video) {
-        padding-block: calc(var(--ui-space-2) * 1.5);
+        padding-block: var(--ui-space-3);
         padding-inline: 0 var(--_item-padding-inline);
       }
 

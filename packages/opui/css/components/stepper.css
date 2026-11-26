@@ -12,7 +12,7 @@
     --_marker-border-width: var(--ui-border-width-large);
     --_marker-complete-image: var(--ui-icon-check);
     --_marker-error-image: var(--ui-icon-invalid);
-    --_marker-size: var(--ui-space-6);
+    --_marker-size: var(--ui-space-7);
     --_on-accent: var(--ui-on-selected-strong);
     --_orientation: auto;
 
@@ -82,7 +82,7 @@
         border-radius: var(--ui-radius-round);
         content: "";
         grid-area: 1 / 3;
-        min-inline-size: var(--ui-space-4);
+        min-inline-size: var(--ui-space-5);
         transition: background-color var(--_duration) var(--_ease);
       }
 
@@ -173,7 +173,7 @@
 
     /* Size */
     &.ui-small {
-      --_marker-size: var(--ui-space-5);
+      --_marker-size: var(--ui-space-6);
 
       font-size: var(--ui-font-size-caption);
     }
@@ -192,7 +192,7 @@
         flex-basis: 100%;
         grid-template-columns: auto 1fr;
         min-inline-size: 0;
-        padding-block-end: var(--ui-space-4);
+        padding-block-end: var(--ui-space-5);
 
         &:last-child {
           padding-block-end: 0;

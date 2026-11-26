@@ -376,7 +376,7 @@ const topicId = Astro.locals.$id("blog-topic")
 <style>
   .blog-browse {
     display: grid;
-    gap: var(--ui-space-4);
+    gap: var(--ui-space-5);
   }
 
   .blog-toolbar {
@@ -414,11 +414,11 @@ const topicId = Astro.locals.$id("blog-topic")
     border-radius: var(--ui-radius);
     box-shadow: var(--ui-shadow-overlay);
     color: inherit;
-    gap: var(--ui-space-4);
+    gap: var(--ui-space-5);
     inset: auto;
     margin: var(--ui-space-1) 0 0;
-    max-inline-size: calc(100vi - 2 * var(--ui-space-4));
-    padding: var(--ui-space-4);
+    max-inline-size: calc(100vi - 2 * var(--ui-space-5));
+    padding: var(--ui-space-5);
     position-area: block-end span-inline-end;
     position-try-fallbacks: flip-block, flip-inline;
 
@@ -519,9 +519,9 @@ const topicId = Astro.locals.$id("blog-topic")
   .blog-release-content {
     align-content: center;
     display: grid;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
     justify-items: center;
-    padding: var(--ui-space-8) var(--ui-space-5);
+    padding: var(--ui-space-12) var(--ui-space-6);
     text-align: center;
 
     & h2 {
@@ -548,7 +548,7 @@ const topicId = Astro.locals.$id("blog-topic")
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--ui-space-2) var(--ui-space-4);
+    gap: var(--ui-space-2) var(--ui-space-5);
     justify-content: center;
     margin-block-start: var(--ui-space-2);
   }
@@ -556,10 +556,10 @@ const topicId = Astro.locals.$id("blog-topic")
   .blog-builds {
     align-items: center;
     display: grid;
-    gap: var(--ui-space-4);
+    gap: var(--ui-space-5);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
-    margin-block: var(--ui-space-4) var(--ui-space-6);
-    padding: var(--ui-space-4);
+    margin-block: var(--ui-space-5) var(--ui-space-7);
+    padding: var(--ui-space-5);
     position: relative;
 
     & > .ui-content {
@@ -620,7 +620,7 @@ const topicId = Astro.locals.$id("blog-topic")
       gap: var(--ui-space-2);
       justify-items: center;
       min-block-size: 5.5rem;
-      padding: var(--ui-space-3) var(--ui-space-1) var(--ui-space-2);
+      padding: var(--ui-space-4) var(--ui-space-1) var(--ui-space-2);
     }
   }
 
@@ -668,9 +668,9 @@ const topicId = Astro.locals.$id("blog-topic")
 
   .blog-row {
     display: grid;
-    gap: var(--ui-space-3) var(--ui-space-6);
+    gap: var(--ui-space-4) var(--ui-space-7);
     grid-template-areas: "component" "text";
-    padding-block: var(--ui-space-5);
+    padding-block: var(--ui-space-6);
     position: relative;
 
     & > :global(.blog-preview) {
@@ -754,7 +754,7 @@ const topicId = Astro.locals.$id("blog-topic")
 
   .blog-row-text {
     display: grid;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
     grid-area: text;
   }
 
@@ -762,7 +762,7 @@ const topicId = Astro.locals.$id("blog-topic")
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--ui-space-2) var(--ui-space-4);
+    gap: var(--ui-space-2) var(--ui-space-5);
   }
 
   .blog-chips {
@@ -778,7 +778,7 @@ const topicId = Astro.locals.$id("blog-topic")
     & > section {
       display: grid;
       gap: var(--ui-space-2);
-      margin-block-start: var(--ui-space-6);
+      margin-block-start: var(--ui-space-7);
     }
 
     & h3 {
@@ -857,7 +857,7 @@ const topicId = Astro.locals.$id("blog-topic")
     display: flex;
     flex-wrap: wrap;
     font-size: var(--ui-font-size-caption);
-    gap: var(--ui-space-1) var(--ui-space-4);
+    gap: var(--ui-space-1) var(--ui-space-5);
     line-height: 1.3;
     margin: 0;
 

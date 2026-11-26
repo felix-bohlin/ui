@@ -15,7 +15,7 @@
 <article
   aria-labelledby="article-title"
   class="article ui-layout-container ui-layout-column"
-  style="--_gap: var(--ui-space-6); --_max-inline-size: 68rem"
+  style="--_gap: var(--ui-space-7); --_max-inline-size: 68rem"
 >
   <nav aria-label="Breadcrumb" class="article-breadcrumb ui-caption">
     <ol class="ui-layout-row ui-gap-small">
@@ -55,7 +55,7 @@
   </figure>
   <div
     class="ui-layout-columns ui-breakpoint-small"
-    style="--_columns: 13rem 1fr; --_gap: var(--ui-space-8)"
+    style="--_columns: 13rem 1fr; --_gap: var(--ui-space-12)"
   >
     <nav aria-labelledby="article-toc-heading" class="article-toc ui-sticky">
       <h2 class="ui-overline" id="article-toc-heading">On this page</h2>
@@ -268,7 +268,7 @@
         ol {
           border-inline-start: var(--ui-border-width) solid
             var(--ui-border-color);
-          padding-inline-start: var(--ui-space-4);
+          padding-inline-start: var(--ui-space-5);
         }
       }
 

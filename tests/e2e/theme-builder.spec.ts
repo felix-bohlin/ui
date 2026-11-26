@@ -452,7 +452,7 @@ test("the All tokens room resolves every token and takes a value", async ({
   await expect(
     page.locator('[data-token="--ui-primary"] [data-dark] [data-text]'),
   ).toContainText("oklch(")
-  const field = page.locator('input[name="token-ui-space-7"]')
+  const field = page.locator('input[name="token-ui-space-8"]')
   await field.fill("9rem")
   await field.dispatchEvent("change")
   await expect(changes(page)).toHaveText("1 change")
@@ -460,12 +460,12 @@ test("the All tokens room resolves every token and takes a value", async ({
   await field.fill("url(evil)")
   await field.dispatchEvent("change")
   await expect(toast(page)).toContainText(
-    "is not a value --ui-space-7 can take",
+    "is not a value --ui-space-8 can take",
   )
   await expect(field).toHaveValue("9rem")
-  await page.locator('input[name="builder-search"]').fill("space-7")
+  await page.locator('input[name="builder-search"]').fill("space-8")
   await expect(page.locator("[data-search-summary]")).toHaveText(
-    '1 setting matches "space-7".',
+    '1 setting matches "space-8".',
   )
   await expect(page.locator("[data-token]:visible")).toHaveCount(1)
 })

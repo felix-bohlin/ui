@@ -48,7 +48,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-large`, `--ui-font-size-large`, `--ui-font-weight-bold`, `--ui-space-1`, `--ui-space-3`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-large`, `--ui-font-size-large`, `--ui-font-weight-bold`, `--ui-space-1`, `--ui-space-4`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

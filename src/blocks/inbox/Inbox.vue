@@ -535,7 +535,7 @@ import {
   .inbox-folders {
     border-inline-end: var(--ui-border-width) solid var(--ui-border-color);
     display: none;
-    padding: var(--ui-space-3) var(--ui-space-2);
+    padding: var(--ui-space-4) var(--ui-space-2);
 
     @container (inline-size >= 72rem) {
       display: block;
@@ -548,7 +548,7 @@ import {
   }
 
   .inbox-label-heading {
-    padding: var(--ui-space-3) var(--ui-space-3) 0;
+    padding: var(--ui-space-4) var(--ui-space-4) 0;
   }
 
   .inbox-list {
@@ -561,7 +561,7 @@ import {
   }
 
   .inbox-list-header {
-    padding: var(--ui-space-3) var(--ui-space-3) var(--ui-space-1);
+    padding: var(--ui-space-4) var(--ui-space-4) var(--ui-space-1);
   }
 
   .inbox-messages {
@@ -599,10 +599,10 @@ import {
   }
 
   .inbox-reader {
-    padding: var(--ui-space-4);
+    padding: var(--ui-space-5);
 
     @container (inline-size >= 56rem) {
-      padding: var(--ui-space-5);
+      padding: var(--ui-space-6);
     }
   }
 

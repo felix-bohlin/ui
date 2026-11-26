@@ -22,13 +22,13 @@ export default function BassistProfile() {
     <>
       <div
         className="bassist-profile ui-layout-container ui-layout-column"
-        style={{ "--_gap": "var(--ui-space-6)", "--_max-inline-size": "64rem" }}
+        style={{ "--_gap": "var(--ui-space-7)", "--_max-inline-size": "64rem" }}
       >
         <div aria-hidden="true" className="bp-cover"></div>
         <div className="bp-header ui-layout-row ui-spread">
           <div
             className="bp-identity ui-layout-row"
-            style={{ "--_gap": "var(--ui-space-4)" }}
+            style={{ "--_gap": "var(--ui-space-5)" }}
           >
             <Avatar
               className="bp-avatar"
@@ -52,11 +52,11 @@ export default function BassistProfile() {
         </div>
         <div
           className="ui-layout-columns"
-          style={{ "--_columns": "2fr 3fr", "--_gap": "var(--ui-space-6)" }}
+          style={{ "--_columns": "2fr 3fr", "--_gap": "var(--ui-space-7)" }}
         >
           <div
             className="ui-layout-column"
-            style={{ "--_gap": "var(--ui-space-6)" }}
+            style={{ "--_gap": "var(--ui-space-7)" }}
           >
             <p>
               Fretless on Sundays, five-string the rest of the week. I play in
@@ -64,7 +64,7 @@ export default function BassistProfile() {
             </p>
             <dl
               className="bp-stats ui-layout-row"
-              style={{ "--_gap": "var(--ui-space-6)" }}
+              style={{ "--_gap": "var(--ui-space-7)" }}
             >
               <div>
                 <dt>Followers</dt>
@@ -134,7 +134,7 @@ export default function BassistProfile() {
               <TabsPanel>
                 <div
                   className="ui-layout-column"
-                  style={{ "--_gap": "var(--ui-space-4)" }}
+                  style={{ "--_gap": "var(--ui-space-5)" }}
                 >
                   <Card as="article" className="bp-post" variant="outlined">
                     <CardContent>
@@ -283,7 +283,7 @@ export default function BassistProfile() {
 
           .bp-header {
             align-items: end;
-            padding-inline: var(--ui-space-5);
+            padding-inline: var(--ui-space-6);
           }
 
           .bp-identity {
@@ -295,7 +295,7 @@ export default function BassistProfile() {
 
             border: var(--ui-border-width-large) solid var(--ui-surface);
             box-shadow: var(--ui-shadow-elevated);
-            margin-block-start: calc(-1 * var(--ui-space-8));
+            margin-block-start: calc(-1 * var(--ui-space-12));
           }
 
           .bp-name {
@@ -328,14 +328,14 @@ export default function BassistProfile() {
 
           .bp-post .ui-content {
             display: grid;
-            gap: var(--ui-space-4);
+            gap: var(--ui-space-5);
           }
 
           .bp-attachment {
             align-items: center;
             background-color: var(--ui-surface-tonal);
             border-radius: var(--ui-radius);
-            padding: var(--ui-space-3);
+            padding: var(--ui-space-4);
           }
 
           .bp-attachment-art {

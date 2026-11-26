@@ -10,15 +10,15 @@
     --_ease: var(--ui-ease);
     --_elevated-bg-color: var(--ui-surface-raised);
     --_elevated-shadow: var(--ui-shadow-elevated);
-    --_gap: var(--ui-space-3);
+    --_gap: var(--ui-space-4);
     --_media-inline-size: 40%;
     --_orientation: auto;
     --_outlined-border-color: var(--ui-border-color);
-    --_padding: var(--ui-card-padding, var(--ui-space-3));
+    --_padding: var(--ui-card-padding, var(--ui-space-4));
     --_shadow: none;
     --_surface-bg-color: var(--ui-surface);
     --_tonal-bg-color: var(--ui-surface-tonal);
-    --ui-divider-gap: var(--ui-space-3);
+    --ui-divider-gap: var(--ui-space-4);
 
     background-color: var(--_bg-color);
     background-image: var(--_bg-image);
@@ -47,7 +47,7 @@
     }
 
     &:where(.ui-card).ui-spacious {
-      --_padding: var(--ui-space-5);
+      --_padding: var(--ui-space-6);
     }
 
     /* Variants */
@@ -333,7 +333,7 @@
       ) {
       align-content: start;
       display: grid;
-      gap: var(--ui-space-3);
+      gap: var(--ui-space-4);
       grid-template-columns: minmax(0, 1fr);
 
       & > .ui-divider {
@@ -439,7 +439,7 @@
       &::after {
         block-size: var(--ui-space-2);
         box-shadow: var(--_scroll-shadow);
-        clip-path: inset(100% 0 calc(-1 * var(--ui-space-6)));
+        clip-path: inset(100% 0 calc(-1 * var(--ui-space-7)));
         content: "";
         inset-inline: anchor(var(--_content-anchor) inside);
         opacity: 0;

@@ -374,7 +374,7 @@
       }
 
       .chat-sidebar-header {
-        padding: var(--ui-space-4) var(--ui-space-3) var(--ui-space-2);
+        padding: var(--ui-space-5) var(--ui-space-4) var(--ui-space-2);
       }
 
       .chat-unread {
@@ -384,7 +384,7 @@
         font-size: var(--ui-font-size-caption);
         font-weight: var(--ui-font-weight-semibold);
         line-height: 1;
-        min-inline-size: var(--ui-space-5);
+        min-inline-size: var(--ui-space-6);
         padding: var(--ui-space-1) var(--ui-space-2);
         text-align: center;
       }
@@ -397,7 +397,7 @@
 
       .chat-thread-header {
         border-block-end: var(--ui-border-width) solid var(--ui-border-color);
-        padding: var(--ui-space-3);
+        padding: var(--ui-space-4);
 
         hgroup {
           flex: 1;
@@ -412,16 +412,16 @@
       }
 
       .chat-message-list {
-        padding: var(--ui-space-4) var(--ui-space-3);
+        padding: var(--ui-space-5) var(--ui-space-4);
 
         @container (inline-size >= 40rem) {
-          padding-inline: var(--ui-space-5);
+          padding-inline: var(--ui-space-6);
         }
       }
 
       .chat-composer {
         border-block-start: var(--ui-border-width) solid var(--ui-border-color);
-        padding: var(--ui-space-3);
+        padding: var(--ui-space-4);
       }
     }
   }

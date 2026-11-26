@@ -4,7 +4,7 @@
 
 <div
   class="year-in-review ui-layout-container ui-layout-column"
-  style="--_gap: var(--ui-space-6); --_max-inline-size: 64rem"
+  style="--_gap: var(--ui-space-7); --_max-inline-size: 64rem"
 >
   <div class="ui-layout-row ui-spread">
     <hgroup class="ui-hgroup">
@@ -118,7 +118,7 @@
 
       .yr-grid {
         display: grid;
-        gap: var(--ui-space-4);
+        gap: var(--ui-space-5);
         grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
         list-style-type: none;
         margin: 0;
@@ -142,9 +142,9 @@
         border-radius: var(--ui-radius-large);
         color: var(--ui-text);
         display: grid;
-        gap: var(--ui-space-4);
+        gap: var(--ui-space-5);
         min-block-size: 15rem;
-        padding: var(--ui-space-6);
+        padding: var(--ui-space-7);
       }
 
       .yr-wide {
@@ -181,7 +181,7 @@
       .yr-songs {
         counter-reset: yr-song;
         display: grid;
-        gap: var(--ui-space-3);
+        gap: var(--ui-space-4);
         list-style-type: none;
         margin: 0;
         padding: 0;
@@ -189,7 +189,7 @@
         li {
           counter-increment: yr-song;
           display: grid;
-          gap: var(--ui-space-1) var(--ui-space-3);
+          gap: var(--ui-space-1) var(--ui-space-4);
           grid-template-columns: 1.5rem minmax(0, 1fr) auto;
 
           &::before {
@@ -210,7 +210,7 @@
 
       .yr-strings {
         display: grid;
-        gap: var(--ui-space-3);
+        gap: var(--ui-space-4);
         list-style-type: none;
         margin: 0;
         padding: 0;
@@ -218,7 +218,7 @@
         li {
           align-items: center;
           display: grid;
-          gap: var(--ui-space-3);
+          gap: var(--ui-space-4);
           grid-template-columns: 1.5rem minmax(0, 1fr);
         }
 

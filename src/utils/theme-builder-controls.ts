@@ -1074,7 +1074,7 @@ export const GROUPS: ControlGroup[] = [
       },
       {
         display: "unit",
-        fallback: "var(--ui-space-3)",
+        fallback: "var(--ui-space-4)",
         id: "card-padding",
         kind: "range",
         label: "Card padding",
@@ -1087,7 +1087,7 @@ export const GROUPS: ControlGroup[] = [
       },
       {
         display: "unit",
-        fallback: "var(--ui-space-3)",
+        fallback: "var(--ui-space-4)",
         id: "list-padding",
         kind: "range",
         label: "List item padding",

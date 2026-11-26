@@ -254,7 +254,7 @@ import {
   container-type: inline-size;
 
   .gt-ticket {
-    --_notch: var(--ui-space-4);
+    --_notch: var(--ui-space-5);
 
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
@@ -269,8 +269,8 @@ import {
       transparent 60%
     );
     display: grid;
-    gap: var(--ui-space-5);
-    padding: var(--ui-space-6);
+    gap: var(--ui-space-6);
+    padding: var(--ui-space-7);
   }
 
   .gt-title {
@@ -283,7 +283,7 @@ import {
 
   .gt-details {
     display: grid;
-    gap: var(--ui-space-4) var(--ui-space-6);
+    gap: var(--ui-space-5) var(--ui-space-7);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
     margin: 0;
     max-inline-size: 30rem;
@@ -307,9 +307,9 @@ import {
     border-inline-start: var(--ui-border-width-large) dashed
       var(--ui-border-color);
     display: grid;
-    gap: var(--ui-space-4);
+    gap: var(--ui-space-5);
     justify-items: center;
-    padding: var(--ui-space-6);
+    padding: var(--ui-space-7);
     position: relative;
     text-align: center;
 

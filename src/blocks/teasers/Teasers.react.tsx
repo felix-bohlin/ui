@@ -5,7 +5,10 @@ export default function Teasers() {
     <>
       <div
         className="teasers ui-layout-container ui-layout-column"
-        style={{ "--_gap": "var(--ui-space-8)", "--_max-inline-size": "68rem" }}
+        style={{
+          "--_gap": "var(--ui-space-12)",
+          "--_max-inline-size": "68rem",
+        }}
       >
         <hgroup className="ui-hgroup teasers-intro">
           <p className="ui-overline">From the tour van</p>
@@ -15,7 +18,7 @@ export default function Teasers() {
         <article
           aria-labelledby="teasers-fjord"
           className="teaser ui-layout-columns"
-          style={{ "--_columns": "1fr 1fr", "--_gap": "var(--ui-space-8)" }}
+          style={{ "--_columns": "1fr 1fr", "--_gap": "var(--ui-space-12)" }}
         >
           <div
             aria-hidden="true"
@@ -53,7 +56,7 @@ export default function Teasers() {
         <article
           aria-labelledby="teasers-lighthouse"
           className="teaser teaser-reverse ui-layout-columns"
-          style={{ "--_columns": "1fr 1fr", "--_gap": "var(--ui-space-8)" }}
+          style={{ "--_columns": "1fr 1fr", "--_gap": "var(--ui-space-12)" }}
         >
           <div
             aria-hidden="true"
@@ -91,7 +94,7 @@ export default function Teasers() {
         <article
           aria-labelledby="teasers-camp"
           className="teaser ui-layout-columns"
-          style={{ "--_columns": "1fr 1fr", "--_gap": "var(--ui-space-8)" }}
+          style={{ "--_columns": "1fr 1fr", "--_gap": "var(--ui-space-12)" }}
         >
           <div
             aria-hidden="true"

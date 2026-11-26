@@ -81,7 +81,7 @@ const sizeId = Astro.locals.$id("appearance-compare-size")
 <style>
   .appearance-compare {
     display: grid;
-    gap: var(--ui-space-5);
+    gap: var(--ui-space-6);
     inline-size: 100%;
 
     &[data-kind="checkbox"] {
@@ -97,7 +97,7 @@ const sizeId = Astro.locals.$id("appearance-compare-size")
 
   .appearance-compare-columns {
     display: grid;
-    gap: var(--ui-space-4) var(--ui-space-5);
+    gap: var(--ui-space-5) var(--ui-space-6);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
   }
 
@@ -105,7 +105,7 @@ const sizeId = Astro.locals.$id("appearance-compare-size")
     align-content: start;
     border: 0;
     display: grid;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
     margin: 0;
     min-inline-size: 0;
     padding: 0;
@@ -129,7 +129,7 @@ const sizeId = Astro.locals.$id("appearance-compare-size")
     flex-wrap: wrap;
     font-size: var(--ui-font-size-small);
     gap: var(--ui-space-2);
-    margin: 0 0 var(--ui-space-3);
+    margin: 0 0 var(--ui-space-4);
     padding: 0;
 
     & code {
@@ -140,7 +140,7 @@ const sizeId = Astro.locals.$id("appearance-compare-size")
 
   .appearance-compare-states {
     display: grid;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
   }
 
   .appearance-compare :global(.ui-start-text code) {

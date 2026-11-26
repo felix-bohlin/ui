@@ -222,19 +222,19 @@ export default function Recipe() {
 
             .ui-content {
               display: grid;
-              gap: var(--ui-space-5);
+              gap: var(--ui-space-6);
             }
           }
 
           .recipe-steps {
             counter-reset: recipe-step;
             display: grid;
-            gap: var(--ui-space-5);
+            gap: var(--ui-space-6);
             list-style-type: none;
             padding: 0;
 
             li {
-              column-gap: var(--ui-space-4);
+              column-gap: var(--ui-space-5);
               counter-increment: recipe-step;
               display: grid;
               grid-template-columns: auto minmax(0, 1fr);

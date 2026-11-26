@@ -16,14 +16,14 @@ export default function AlbumLaunch() {
           className="al-inner ui-layout-container ui-layout-columns"
           style={{
             "--_columns": "1fr 1.2fr",
-            "--_gap": "var(--ui-space-8)",
+            "--_gap": "var(--ui-space-12)",
             "--_max-inline-size": "64rem",
           }}
         >
           <div aria-hidden="true" className="al-art"></div>
           <div
             className="ui-layout-column"
-            style={{ "--_gap": "var(--ui-space-5)" }}
+            style={{ "--_gap": "var(--ui-space-6)" }}
           >
             <hgroup className="ui-hgroup">
               <p className="ui-overline">The Flatwounds, new album</p>
@@ -151,10 +151,10 @@ export default function AlbumLaunch() {
             );
           border-radius: var(--ui-radius-large);
           container-type: inline-size;
-          padding: var(--ui-space-8) var(--ui-space-6);
+          padding: var(--ui-space-12) var(--ui-space-7);
 
           @container (inline-size >= 48rem) {
-            padding: var(--ui-space-8);
+            padding: var(--ui-space-12);
           }
 
           .al-inner {
@@ -203,7 +203,7 @@ export default function AlbumLaunch() {
 
           .al-countdown {
             display: grid;
-            gap: var(--ui-space-3);
+            gap: var(--ui-space-4);
             grid-template-columns: repeat(4, minmax(0, 1fr));
             margin: 0;
             max-inline-size: 28rem;
@@ -213,7 +213,7 @@ export default function AlbumLaunch() {
               border: var(--ui-border-width) solid oklch(1 0 0 / 14%);
               border-radius: var(--ui-radius);
               display: grid;
-              padding: var(--ui-space-3) var(--ui-space-2);
+              padding: var(--ui-space-4) var(--ui-space-2);
               text-align: center;
             }
 

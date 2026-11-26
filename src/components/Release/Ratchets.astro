@@ -170,13 +170,13 @@ const gear = `M ${point(root, 0)} ${Array.from(
 <style is:global>
   .ratchets {
     display: grid;
-    gap: var(--ui-space-4);
-    margin-block: var(--ui-space-5);
+    gap: var(--ui-space-5);
+    margin-block: var(--ui-space-6);
   }
 
   .ratchets-tiles {
     display: grid;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
     list-style: none;
     margin: 0;
@@ -188,7 +188,7 @@ const gear = `M ${point(root, 0)} ${Array.from(
     background-color: var(--ui-surface);
     border: var(--ui-border-width) solid var(--ui-border-color);
     border-radius: var(--ui-radius-large);
-    column-gap: var(--ui-space-3);
+    column-gap: var(--ui-space-4);
     display: grid;
     font-family: var(--ui-font-body);
     grid-template-areas:
@@ -198,7 +198,7 @@ const gear = `M ${point(root, 0)} ${Array.from(
       "file file";
     grid-template-columns: 4.5rem minmax(0, 1fr);
     min-inline-size: 0;
-    padding: var(--ui-space-3);
+    padding: var(--ui-space-4);
     row-gap: var(--ui-space-1);
     view-timeline: --ratchets-tile block;
   }

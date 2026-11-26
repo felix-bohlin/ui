@@ -78,11 +78,11 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_block-size`: Height of `.ui-block-start` and `.ui-block-end` drawers. Defaults to 80% of the viewport, at most `650px`.
 - `--_border-color`: Color of the `.ui-header` and `.ui-footer` dividers, and of the inner edge unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-border-color-on-raised`.
 - `--_border-width`: Width of the inner edge border and the `.ui-header` and `.ui-footer` dividers.
-- `--_content-padding`: Padding of `.ui-content`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
+- `--_content-padding`: Padding of `.ui-content`. `--ui-card-padding`, or `--ui-space-4` when a theme leaves it unset.
 - `--_edge-border-color`: Color of the inner edge border. `--ui-border-color-raised` when a theme sets it, otherwise `--_border-color`.
-- `--_footer-padding`: Padding of `.ui-footer`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
+- `--_footer-padding`: Padding of `.ui-footer`. `--ui-card-padding`, or `--ui-space-4` when a theme leaves it unset.
 - `--_handle-border-color`: Color of the grab handle a drawer at the block start or end shows on a touch screen. `--ui-border-color` on the drawer's surface.
-- `--_header-padding`: Padding of `.ui-header`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
+- `--_header-padding`: Padding of `.ui-header`. `--ui-card-padding`, or `--ui-space-4` when a theme leaves it unset.
 - `--_inline-size`: Width of drawers that open from the inline start or end.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_shadow`: The shadow. Defaults to `--ui-shadow-overlay`.
@@ -101,11 +101,11 @@ Outputs: `--_closed-translate`, `--_direction`, `--_duration` and `--_ease`.
 - `--_elevated-bg-color`: Background of `.ui-elevated`. Defaults to `--ui-surface-raised`.
 - `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.
 - `--_footer-gap`: Gap between the items in a dialog's or drawer's `.ui-footer` and between the buttons in its `.ui-actions`. Defaults to `--ui-space-2`.
-- `--_gap`: Gap between the parts. `--ui-space-3`, or `--ui-space-2` in `.ui-dense`. The part after an image subtracts it from its padding.
+- `--_gap`: Gap between the parts. `--ui-space-4`, or `--ui-space-2` in `.ui-dense`. The part after an image subtracts it from its padding.
 - `--_media-inline-size`: Width of the image when it sits at the start of the card, and the start margin of the parts next to it. Defaults to `40%` of the card.
 - `--_motion`: Motion multiplier for the card link border transition, the focus ring animation and the accordion transitions. `0` turns them off.
 - `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`.
-- `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset. In an accordion it sets `--_padding-inline`, `--_summary-padding-block` and the block end of `--_content-padding-block`.
+- `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-4` when a theme leaves it unset. In an accordion it sets `--_padding-inline`, `--_summary-padding-block` and the block end of `--_content-padding-block`.
 - `--_scroll-shadow`: Shadow at the edges of a dialog's or drawer's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
 - `--_surface-bg-color`: Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`.
 - `--_title-font-size`: Font size of a dialog's or drawer's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
@@ -115,7 +115,7 @@ Outputs: `--_bg-color`, `--_bg-image`, `--_border-color`, `--_border-width`, `--
 
 ## Theme tokens
 
-The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-large`, `--ui-card-padding`, `--ui-duration`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-icon-close`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-rhythm-step`, `--ui-safe-area-inset-block-end`, `--ui-safe-area-inset-block-start`, `--ui-safe-area-inset-inline-end`, `--ui-safe-area-inset-inline-start`, `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-6`, `--ui-space-7`, `--ui-surface`, `--ui-surface-raised`, `--ui-surface-raised-image`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-large`, `--ui-card-padding`, `--ui-duration`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-icon-close`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-rhythm-step`, `--ui-safe-area-inset-block-end`, `--ui-safe-area-inset-block-start`, `--ui-safe-area-inset-inline-end`, `--ui-safe-area-inset-inline-start`, `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4`, `--ui-space-6`, `--ui-space-7`, `--ui-space-8`, `--ui-surface`, `--ui-surface-raised`, `--ui-surface-raised-image`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

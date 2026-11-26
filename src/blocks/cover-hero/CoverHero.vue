@@ -8,7 +8,7 @@ import { Button } from "opui-css/vue"
     <div class="cover-scrim"></div>
     <div
       class="cover-content ui-dark ui-layout-column"
-      style="--_gap: var(--ui-space-5)"
+      style="--_gap: var(--ui-space-6)"
     >
       <p class="ui-overline">Bassbook Road Trip, summer 2027</p>
       <h1 class="cover-title">Twelve coast towns. One van. All the bass.</h1>
@@ -25,7 +25,7 @@ import { Button } from "opui-css/vue"
           See the route
         </Button>
       </div>
-      <ul class="ui-layout-row cover-facts" style="--_gap: var(--ui-space-5)">
+      <ul class="ui-layout-row cover-facts" style="--_gap: var(--ui-space-6)">
         <li><strong>14</strong> days</li>
         <li><strong>12</strong> gigs</li>
         <li><strong>4</strong> bands</li>
@@ -91,10 +91,10 @@ import { Button } from "opui-css/vue"
     align-items: start;
     background-color: transparent;
     justify-content: end;
-    padding: var(--ui-space-8) var(--ui-space-6);
+    padding: var(--ui-space-12) var(--ui-space-7);
 
     @container (inline-size >= 48rem) {
-      padding: var(--ui-space-8);
+      padding: var(--ui-space-12);
     }
   }
 

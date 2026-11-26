@@ -101,7 +101,7 @@ const steps = [
 .drawer > .content::after {
   block-size: var(--ui-space-2);
   box-shadow: var(--ui-shadow-scroll);
-  clip-path: inset(100% 0 calc(-1 * var(--ui-space-6)));
+  clip-path: inset(100% 0 calc(-1 * var(--ui-space-7)));
   content: "";
   inset-inline: anchor(--content inside);
   opacity: 0;
@@ -297,7 +297,7 @@ const close = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width=
   .row {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
     justify-content: center;
   }
 
@@ -308,7 +308,7 @@ const close = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width=
         var(--ui-border-color-on-raised);
       display: flex;
       justify-content: space-between;
-      padding: var(--ui-space-3);
+      padding: var(--ui-space-4);
     }
 
     & h3 {
@@ -318,8 +318,8 @@ const close = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width=
 
     & .content {
       display: grid;
-      gap: var(--ui-space-4);
-      padding: var(--ui-space-4);
+      gap: var(--ui-space-5);
+      padding: var(--ui-space-5);
     }
 
     & p {
@@ -344,9 +344,9 @@ const close = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width=
       border-block-start: var(--ui-border-width, 1px) solid
         var(--ui-border-color-on-raised);
       display: flex;
-      gap: var(--ui-space-3);
+      gap: var(--ui-space-4);
       justify-content: end;
-      padding: var(--ui-space-3);
+      padding: var(--ui-space-4);
     }
   }
 </style>

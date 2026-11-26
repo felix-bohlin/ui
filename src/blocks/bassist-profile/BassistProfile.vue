@@ -22,11 +22,11 @@ import {
 <template>
   <div
     class="bassist-profile ui-layout-container ui-layout-column"
-    style="--_gap: var(--ui-space-6); --_max-inline-size: 64rem"
+    style="--_gap: var(--ui-space-7); --_max-inline-size: 64rem"
   >
     <div aria-hidden="true" class="bp-cover"></div>
     <div class="bp-header ui-layout-row ui-spread">
-      <div class="bp-identity ui-layout-row" style="--_gap: var(--ui-space-4)">
+      <div class="bp-identity ui-layout-row" style="--_gap: var(--ui-space-5)">
         <Avatar
           class="bp-avatar"
           label="Kinga Headstock"
@@ -47,14 +47,14 @@ import {
     </div>
     <div
       class="ui-layout-columns"
-      style="--_columns: 2fr 3fr; --_gap: var(--ui-space-6)"
+      style="--_columns: 2fr 3fr; --_gap: var(--ui-space-7)"
     >
-      <div class="ui-layout-column" style="--_gap: var(--ui-space-6)">
+      <div class="ui-layout-column" style="--_gap: var(--ui-space-7)">
         <p>
           Fretless on Sundays, five-string the rest of the week. I play in The
           Flatwounds and teach anyone who asks nicely.
         </p>
-        <dl class="bp-stats ui-layout-row" style="--_gap: var(--ui-space-6)">
+        <dl class="bp-stats ui-layout-row" style="--_gap: var(--ui-space-7)">
           <div>
             <dt>Followers</dt>
             <dd>2 413</dd>
@@ -111,7 +111,7 @@ import {
         <TabsItem checked id="bassist-profile-tab-wall">
           <TabsLabel>Wall</TabsLabel>
           <TabsPanel>
-            <div class="ui-layout-column" style="--_gap: var(--ui-space-4)">
+            <div class="ui-layout-column" style="--_gap: var(--ui-space-5)">
               <Card as="article" class="bp-post" variant="outlined">
                 <CardContent>
                   <div class="ui-layout-media ui-gap-small">
@@ -252,7 +252,7 @@ import {
 
   .bp-header {
     align-items: end;
-    padding-inline: var(--ui-space-5);
+    padding-inline: var(--ui-space-6);
   }
 
   .bp-identity {
@@ -264,7 +264,7 @@ import {
 
     border: var(--ui-border-width-large) solid var(--ui-surface);
     box-shadow: var(--ui-shadow-elevated);
-    margin-block-start: calc(-1 * var(--ui-space-8));
+    margin-block-start: calc(-1 * var(--ui-space-12));
   }
 
   .bp-name {
@@ -297,14 +297,14 @@ import {
 
   .bp-post .ui-content {
     display: grid;
-    gap: var(--ui-space-4);
+    gap: var(--ui-space-5);
   }
 
   .bp-attachment {
     align-items: center;
     background-color: var(--ui-surface-tonal);
     border-radius: var(--ui-radius);
-    padding: var(--ui-space-3);
+    padding: var(--ui-space-4);
   }
 
   .bp-attachment-art {

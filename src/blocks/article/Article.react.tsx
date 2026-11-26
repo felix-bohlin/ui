@@ -16,7 +16,7 @@ export default function Article() {
       <article
         aria-labelledby="article-title"
         className="article ui-layout-container ui-layout-column"
-        style={{ "--_gap": "var(--ui-space-6)", "--_max-inline-size": "68rem" }}
+        style={{ "--_gap": "var(--ui-space-7)", "--_max-inline-size": "68rem" }}
       >
         <nav aria-label="Breadcrumb" className="article-breadcrumb ui-caption">
           <ol className="ui-layout-row ui-gap-small">
@@ -73,7 +73,7 @@ export default function Article() {
         </figure>
         <div
           className="ui-layout-columns ui-breakpoint-small"
-          style={{ "--_columns": "13rem 1fr", "--_gap": "var(--ui-space-8)" }}
+          style={{ "--_columns": "13rem 1fr", "--_gap": "var(--ui-space-12)" }}
         >
           <nav
             aria-labelledby="article-toc-heading"
@@ -302,7 +302,7 @@ export default function Article() {
 
             ol {
               border-inline-start: var(--ui-border-width) solid var(--ui-border-color);
-              padding-inline-start: var(--ui-space-4);
+              padding-inline-start: var(--ui-space-5);
             }
           }
 

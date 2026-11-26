@@ -5,12 +5,15 @@ export default function CallToAction() {
     <>
       <div
         className="call-to-action ui-layout-container ui-layout-column"
-        style={{ "--_gap": "var(--ui-space-8)", "--_max-inline-size": "64rem" }}
+        style={{
+          "--_gap": "var(--ui-space-12)",
+          "--_max-inline-size": "64rem",
+        }}
       >
         <section
           aria-labelledby="call-to-action-banner-heading"
           className="cta-banner ui-layout-column ui-align-center"
-          style={{ "--_gap": "var(--ui-space-5)" }}
+          style={{ "--_gap": "var(--ui-space-6)" }}
         >
           <h2 id="call-to-action-banner-heading">
             Your next band is one post away
@@ -26,7 +29,7 @@ export default function CallToAction() {
         <section
           aria-labelledby="call-to-action-split-heading"
           className="cta-split ui-layout-columns"
-          style={{ "--_columns": "1fr 1fr", "--_gap": "var(--ui-space-6)" }}
+          style={{ "--_columns": "1fr 1fr", "--_gap": "var(--ui-space-7)" }}
         >
           <hgroup className="ui-hgroup">
             <h2 className="ui-h4" id="call-to-action-split-heading">
@@ -74,11 +77,11 @@ export default function CallToAction() {
               );
             border-radius: var(--ui-radius);
             color: var(--ui-on-primary);
-            padding: var(--ui-space-8) var(--ui-space-6);
+            padding: var(--ui-space-12) var(--ui-space-7);
             text-align: center;
 
             @container (inline-size >= 48rem) {
-              padding-inline: var(--ui-space-8);
+              padding-inline: var(--ui-space-12);
             }
 
             h2 {
@@ -106,7 +109,7 @@ export default function CallToAction() {
             align-items: center;
             border: var(--ui-border-width) solid var(--ui-border-color);
             border-radius: var(--ui-radius);
-            padding: var(--ui-space-6);
+            padding: var(--ui-space-7);
           }
 
           .cta-form {

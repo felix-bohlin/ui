@@ -51,7 +51,7 @@ Outputs: `--_duration`, `--_ease` and `--_ease-move`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width`, `--ui-duration`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-font-size-small`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-inverse`, `--ui-radius-small`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4` and `--ui-surface-inverse`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-duration`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-font-size-small`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-inverse`, `--ui-radius-small`, `--ui-space-1`, `--ui-space-2`, `--ui-space-5` and `--ui-surface-inverse`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

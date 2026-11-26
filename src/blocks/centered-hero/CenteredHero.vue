@@ -6,7 +6,7 @@ import { Avatar, AvatarGroup, Button, Chip } from "opui-css/vue"
   <div class="centered-hero">
     <div
       class="ch-inner ui-layout-container ui-layout-column ui-align-center"
-      style="--_gap: var(--ui-space-6); --_max-inline-size: 56rem"
+      style="--_gap: var(--ui-space-7); --_max-inline-size: 56rem"
     >
       <Chip
         href="#centered-hero-tour"
@@ -45,7 +45,7 @@ import { Avatar, AvatarGroup, Button, Chip } from "opui-css/vue"
         </h2>
         <ul
           class="ui-layout-row ui-align-center ch-bands"
-          style="--_gap: var(--ui-space-6)"
+          style="--_gap: var(--ui-space-7)"
         >
           <li>The Flatwounds</li>
           <li>Sub Club</li>
@@ -61,7 +61,7 @@ import { Avatar, AvatarGroup, Button, Chip } from "opui-css/vue"
 .centered-hero {
   container-type: inline-size;
   isolation: isolate;
-  padding-block: var(--ui-space-8);
+  padding-block: var(--ui-space-12);
   position: relative;
   text-align: center;
 

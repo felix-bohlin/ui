@@ -30,8 +30,8 @@
       flex-direction: column;
       gap: var(--ui-space-2);
       justify-content: center;
-      padding-block: var(--ui-space-5);
-      padding-inline: var(--ui-space-4);
+      padding-block: var(--ui-space-6);
+      padding-inline: var(--ui-space-5);
       position: relative;
       text-align: center;
       transition:
@@ -310,7 +310,7 @@
             font-size: var(--ui-font-size-small);
             max-inline-size: var(--_description-max-inline-size);
             padding-block: var(--ui-space-2);
-            padding-inline: var(--ui-space-3);
+            padding-inline: var(--ui-space-4);
 
             @supports (position-area: block-end) {
               inset: auto;

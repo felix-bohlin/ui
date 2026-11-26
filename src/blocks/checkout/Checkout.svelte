@@ -46,7 +46,7 @@
   />
   <div
     class="ui-layout-columns"
-    style="--_columns: 3fr 2fr; --_gap: var(--ui-space-6)"
+    style="--_columns: 3fr 2fr; --_gap: var(--ui-space-7)"
   >
     <Form action="#">
       <Fieldset>
@@ -217,7 +217,7 @@
       </Fieldset>
       <Fieldset>
         <FieldLegend>Payment</FieldLegend>
-        <Tabs name="checkout-payment" style="--_panel-gap: var(--ui-space-4)">
+        <Tabs name="checkout-payment" style="--_panel-gap: var(--ui-space-5)">
           <TabsItem defaultChecked id="checkout-pay-card" value="card">
             <TabsLabel>Card</TabsLabel>
             <TabsPanel>

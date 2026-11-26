@@ -42,7 +42,7 @@ export default {
   },
   "--_content-padding": {
     description:
-      "Padding of `.ui-content`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.",
+      "Padding of `.ui-content`. `--ui-card-padding`, or `--ui-space-4` when a theme leaves it unset.",
     kind: "input",
   },
   "--_direction": {
@@ -66,7 +66,7 @@ export default {
   },
   "--_footer-padding": {
     description:
-      "Padding of `.ui-footer`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.",
+      "Padding of `.ui-footer`. `--ui-card-padding`, or `--ui-space-4` when a theme leaves it unset.",
     kind: "input",
   },
   "--_handle-border-color": {
@@ -76,7 +76,7 @@ export default {
   },
   "--_header-padding": {
     description:
-      "Padding of `.ui-header`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.",
+      "Padding of `.ui-header`. `--ui-card-padding`, or `--ui-space-4` when a theme leaves it unset.",
     kind: "input",
   },
   "--_inline-size": {

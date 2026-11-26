@@ -25,7 +25,7 @@ export default function SignUp() {
       >
         <div
           className="ui-layout-columns sign-up-layout"
-          style={{ "--_columns": "7fr 5fr", "--_gap": "var(--ui-space-6)" }}
+          style={{ "--_columns": "7fr 5fr", "--_gap": "var(--ui-space-7)" }}
         >
           <Card density="spacious" variant="outlined">
             <hgroup>
@@ -297,7 +297,7 @@ export default function SignUp() {
           }
 
           .sign-up-plans .ui-end {
-            gap: var(--ui-space-3);
+            gap: var(--ui-space-4);
           }
 
           .sign-up-price {

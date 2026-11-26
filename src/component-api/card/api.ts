@@ -27,7 +27,7 @@ export default {
     {
       default: '"normal"',
       description:
-        "How much room the parts get. `spacious` pads them with `--ui-space-5` for a card that stands alone, such as a sign-in form, `dense` with `--ui-space-2` for a small stat.",
+        "How much room the parts get. `spacious` pads them with `--ui-space-6` for a card that stands alone, such as a sign-in form, `dense` with `--ui-space-2` for a small stat.",
       group: "Density",
       prop: "density",
       values: {

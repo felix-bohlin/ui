@@ -499,11 +499,11 @@ export default function SalesDashboard() {
 
           .sales-target-line {
             border-block-start: var(--ui-border-width-large) dashed var(--ui-text);
-            inline-size: var(--ui-space-3);
+            inline-size: var(--ui-space-4);
           }
 
           .sales-chart-card .ui-content {
-            padding-block-end: var(--ui-space-6);
+            padding-block-end: var(--ui-space-7);
           }
 
           .sales-chart {

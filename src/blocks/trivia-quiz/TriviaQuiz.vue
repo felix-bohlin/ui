@@ -17,7 +17,7 @@ import {
 <template>
   <div
     class="trivia-quiz ui-layout-container ui-layout-column"
-    style="--_gap: var(--ui-space-5); --_max-inline-size: 48rem"
+    style="--_gap: var(--ui-space-6); --_max-inline-size: 48rem"
   >
     <div class="ui-layout-row ui-spread">
       <hgroup class="ui-hgroup">
@@ -132,7 +132,7 @@ import {
 
   .tq-card .ui-content {
     display: grid;
-    gap: var(--ui-space-5);
+    gap: var(--ui-space-6);
   }
 
   .tq-question {
@@ -140,7 +140,7 @@ import {
     font-size: var(--ui-font-size-700);
     font-weight: var(--ui-font-weight-bold);
     line-height: var(--ui-line-height-tight);
-    margin-block-end: var(--ui-space-5);
+    margin-block-end: var(--ui-space-6);
     padding: 0;
     text-wrap: balance;
   }
@@ -148,7 +148,7 @@ import {
   .tq-options {
     border: 0;
     display: grid;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
     margin: 0;
     padding: 0;
@@ -159,8 +159,8 @@ import {
       border-radius: var(--ui-radius);
       cursor: pointer;
       display: flex;
-      gap: var(--ui-space-3);
-      padding: var(--ui-space-4);
+      gap: var(--ui-space-4);
+      padding: var(--ui-space-5);
       position: relative;
       transition: border-color var(--ui-duration-fast) var(--ui-ease);
 

@@ -88,7 +88,7 @@ Unlayered CSS beats every [layer](https://opui.dev/html/guide/concepts.md#cascad
 
 @layer overrides {
   .ui-badge {
-    --_indicator-size: var(--ui-space-5);
+    --_indicator-size: var(--ui-space-6);
   }
 }
 ```

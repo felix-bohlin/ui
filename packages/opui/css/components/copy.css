@@ -22,7 +22,7 @@
       --_offset: var(--ui-space-1);
       --_radius: var(--ui-button-radius, var(--ui-radius));
       --_shown-clip-path: inset(
-        -100vmax -100vmax -100vmax calc(-1 * var(--ui-space-4))
+        -100vmax -100vmax -100vmax calc(-1 * var(--ui-space-5))
       );
       --_text-color: light-dark(
         var(--_accent),
@@ -68,7 +68,7 @@
       &:dir(rtl) {
         --_hidden-clip-path: inset(-100vmax 100% -100vmax -100vmax);
         --_shown-clip-path: inset(
-          -100vmax calc(-1 * var(--ui-space-4)) -100vmax -100vmax
+          -100vmax calc(-1 * var(--ui-space-5)) -100vmax -100vmax
         );
       }
 

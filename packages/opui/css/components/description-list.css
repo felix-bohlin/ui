@@ -49,7 +49,7 @@
         color: var(--ui-text-strong);
         font-size: var(--ui-font-size-large);
         font-weight: var(--ui-font-weight-bold);
-        padding-block-start: var(--ui-space-3);
+        padding-block-start: var(--ui-space-4);
 
         dd {
           color: inherit;
@@ -86,7 +86,7 @@
         justify-content: normal;
 
         & + div {
-          margin-block-start: var(--ui-space-3);
+          margin-block-start: var(--ui-space-4);
         }
 
         dd {

@@ -51,7 +51,7 @@ export default {
   },
   "--_padding": {
     description:
-      "Padding of `.ui-card`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset, and `--ui-space-2` in `.ui-small` and `.ui-x-small`.",
+      "Padding of `.ui-card`. `--ui-card-padding`, or `--ui-space-4` when a theme leaves it unset, and `--ui-space-2` in `.ui-small` and `.ui-x-small`.",
     kind: "input",
   },
   "--_rest-border-width": {

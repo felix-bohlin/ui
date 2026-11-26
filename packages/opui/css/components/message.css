@@ -86,7 +86,7 @@
       min-inline-size: 0;
       overflow-wrap: anywhere;
       padding-block: var(--ui-space-2);
-      padding-inline: var(--ui-space-3);
+      padding-inline: var(--ui-space-4);
       position: relative;
 
       @supports (corner-shape: squircle) {
@@ -247,7 +247,7 @@
 
     :where(.ui-message:not(.ui-outgoing)) + &.ui-outgoing,
     :where(.ui-message.ui-outgoing) + &:not(.ui-outgoing) {
-      margin-block-start: var(--ui-space-3);
+      margin-block-start: var(--ui-space-4);
     }
 
     &.ui-typing > .ui-content::before {
@@ -266,7 +266,7 @@
       block-size: 1lh;
       color: var(--ui-text-subtle);
       content: "";
-      inline-size: var(--ui-space-7);
+      inline-size: var(--ui-space-8);
     }
 
     &.ui-typing > .ui-content:dir(rtl)::before {

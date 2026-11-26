@@ -84,7 +84,7 @@ import {
     <Tabs
       class="team-tabs"
       name="team-members-tabs"
-      style="--_panel-gap: var(--ui-space-3)"
+      style="--_panel-gap: var(--ui-space-4)"
     >
       <TabsItem checked id="team-members-tab-members">
         <TabsLabel>Members (6)</TabsLabel>
@@ -528,7 +528,7 @@ import {
   .team-invite {
     align-items: end;
     display: grid;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
     grid-template-columns: minmax(0, 1fr);
 
     @container (inline-size >= 40rem) {

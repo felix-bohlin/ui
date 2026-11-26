@@ -20,7 +20,7 @@ export default function Hero() {
       >
         <div
           className="ui-layout-columns hero-inner"
-          style={{ "--_columns": "1fr 1.1fr", "--_gap": "var(--ui-space-8)" }}
+          style={{ "--_columns": "1fr 1.1fr", "--_gap": "var(--ui-space-12)" }}
         >
           <div className="ui-layout-column ui-gap-large hero-copy">
             <Chip
@@ -191,10 +191,10 @@ export default function Hero() {
               oklch(from var(--ui-primary) l c calc(h + 60) / 15%)
             );
             border-radius: var(--ui-radius);
-            padding: var(--ui-space-4);
+            padding: var(--ui-space-5);
 
             @container (inline-size >= 40rem) {
-              padding: var(--ui-space-6);
+              padding: var(--ui-space-7);
             }
           }
 
@@ -204,7 +204,7 @@ export default function Hero() {
 
           .hero-toolbar {
             border-block-end: var(--ui-border-width) solid var(--ui-border-color);
-            padding: var(--ui-space-2) var(--ui-space-3);
+            padding: var(--ui-space-2) var(--ui-space-4);
 
             .ui-swatch {
               --_swatch-bg-color: var(--ui-border-color);
@@ -216,7 +216,7 @@ export default function Hero() {
           }
 
           .hero-screen {
-            padding: var(--ui-space-3);
+            padding: var(--ui-space-4);
 
             strong {
               font-size: var(--ui-font-size-400);

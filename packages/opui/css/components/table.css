@@ -11,7 +11,7 @@
     border-radius: var(--_radius);
     border-spacing: 0;
     inline-size: 100%;
-    margin-block: var(--ui-space-3);
+    margin-block: var(--ui-space-4);
     margin-inline: 0;
     overflow: clip;
     overflow-clip-margin: calc(
@@ -189,7 +189,7 @@
       @container scroll-state(stuck: block-start) {
         & > thead th {
           box-shadow: var(--_scroll-shadow);
-          clip-path: inset(0 0 calc(-1 * var(--ui-space-6)));
+          clip-path: inset(0 0 calc(-1 * var(--ui-space-7)));
         }
       }
     }
@@ -198,11 +198,11 @@
     &.ui-spacious {
       th,
       td {
-        padding: var(--ui-space-3);
+        padding: var(--ui-space-4);
       }
 
       caption {
-        margin-inline-start: var(--ui-space-3);
+        margin-inline-start: var(--ui-space-4);
       }
     }
 

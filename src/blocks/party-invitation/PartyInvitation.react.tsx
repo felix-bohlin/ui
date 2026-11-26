@@ -194,9 +194,9 @@ export default function PartyInvitation() {
 
             .ui-content {
               display: grid;
-              gap: var(--ui-space-6);
+              gap: var(--ui-space-7);
               justify-items: center;
-              padding-block-end: var(--ui-space-8);
+              padding-block-end: var(--ui-space-12);
             }
           }
 
@@ -248,12 +248,12 @@ export default function PartyInvitation() {
           .pi-details {
             border-block: var(--ui-border-width) solid var(--ui-border-color);
             display: grid;
-            gap: var(--ui-space-4) var(--ui-space-6);
+            gap: var(--ui-space-5) var(--ui-space-7);
             grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
             inline-size: 100%;
             margin: 0;
             max-inline-size: 26rem;
-            padding-block: var(--ui-space-5);
+            padding-block: var(--ui-space-6);
 
             dt {
               color: var(--ui-text-subtle);

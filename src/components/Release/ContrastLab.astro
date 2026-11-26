@@ -180,8 +180,8 @@ const promised = Math.max(...pairs.map(({ needs }) => needs))
   .contrast-lab {
     container-type: inline-size;
     display: grid;
-    gap: var(--ui-space-4);
-    margin-block: var(--ui-space-5);
+    gap: var(--ui-space-5);
+    margin-block: var(--ui-space-6);
 
     & p {
       margin: 0;
@@ -195,7 +195,7 @@ const promised = Math.max(...pairs.map(({ needs }) => needs))
   .contrast-lab-lab {
     align-items: center;
     display: grid;
-    gap: var(--ui-space-4) var(--ui-space-6);
+    gap: var(--ui-space-5) var(--ui-space-7);
 
     @container (min-width: 40rem) {
       grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
@@ -250,7 +250,7 @@ const promised = Math.max(...pairs.map(({ needs }) => needs))
     align-items: baseline;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--ui-space-2) var(--ui-space-4);
+    gap: var(--ui-space-2) var(--ui-space-5);
   }
 
   .contrast-lab-value {

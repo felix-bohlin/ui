@@ -91,7 +91,7 @@ export default function TeamMembers() {
         <Tabs
           className="team-tabs"
           name="team-members-tabs"
-          style={{ "--_panel-gap": "var(--ui-space-3)" }}
+          style={{ "--_panel-gap": "var(--ui-space-4)" }}
         >
           <TabsItem defaultChecked id="team-members-tab-members">
             <TabsLabel>Members (6)</TabsLabel>
@@ -557,7 +557,7 @@ export default function TeamMembers() {
           .team-invite {
             align-items: end;
             display: grid;
-            gap: var(--ui-space-3);
+            gap: var(--ui-space-4);
             grid-template-columns: minmax(0, 1fr);
 
             @container (inline-size >= 40rem) {

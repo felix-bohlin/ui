@@ -27,8 +27,8 @@ const { roles } = Astro.props
   .role-swatches {
     container-type: inline-size;
     display: grid;
-    gap: var(--ui-space-3);
-    margin-block: var(--ui-space-5);
+    gap: var(--ui-space-4);
+    margin-block: var(--ui-space-6);
   }
 
   ul {
@@ -41,17 +41,17 @@ const { roles } = Astro.props
 
   li {
     align-items: center;
-    column-gap: var(--ui-space-3);
+    column-gap: var(--ui-space-4);
     display: grid;
     grid-template-columns: auto minmax(12rem, auto) 1fr;
   }
 
   .swatch {
-    block-size: var(--ui-space-5);
+    block-size: var(--ui-space-6);
     border: var(--ui-border-width) solid currentColor;
     border-radius: var(--ui-radius-small);
     forced-color-adjust: none;
-    inline-size: var(--ui-space-7);
+    inline-size: var(--ui-space-8);
   }
 
   code {

@@ -22,13 +22,13 @@ export default function Contact() {
         className="contact ui-layout-container ui-layout-columns"
         style={{
           "--_columns": "2fr 3fr",
-          "--_gap": "var(--ui-space-8)",
+          "--_gap": "var(--ui-space-12)",
           "--_max-inline-size": "64rem",
         }}
       >
         <div
           className="contact-intro ui-layout-column"
-          style={{ "--_gap": "var(--ui-space-6)" }}
+          style={{ "--_gap": "var(--ui-space-7)" }}
         >
           <hgroup className="ui-hgroup">
             <p className="ui-overline">Contact</p>

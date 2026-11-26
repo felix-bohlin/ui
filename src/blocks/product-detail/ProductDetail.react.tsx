@@ -49,7 +49,7 @@ export default function ProductDetail() {
         </nav>
         <div
           className="ui-layout-columns"
-          style={{ "--_gap": "var(--ui-space-6)" }}
+          style={{ "--_gap": "var(--ui-space-7)" }}
         >
           <div className="ui-sticky pd-gallery">
             <Carousel aria-label="Product images" markers tabIndex={0}>
@@ -366,11 +366,11 @@ export default function ProductDetail() {
           }
 
           .pd-form {
-            gap: var(--ui-space-5);
+            gap: var(--ui-space-6);
           }
 
           .pd-details ul {
-            padding-inline-start: var(--ui-space-4);
+            padding-inline-start: var(--ui-space-5);
           }
         }
       `}</style>

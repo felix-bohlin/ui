@@ -242,8 +242,8 @@
   :where(.ui-blockquote) {
     border-inline-start: calc(var(--ui-border-width-large) * 1.5) solid
       currentColor;
-    padding-block: var(--ui-space-3);
-    padding-inline: var(--ui-space-4);
+    padding-block: var(--ui-space-4);
+    padding-inline: var(--ui-space-5);
 
     & > :first-child {
       margin-block-start: 0;
@@ -255,7 +255,7 @@
 
     footer {
       color: var(--ui-text);
-      margin-block-start: var(--ui-space-3);
+      margin-block-start: var(--ui-space-4);
     }
   }
 
@@ -269,8 +269,8 @@
       font-family: var(--ui-font-code);
       max-inline-size: 100%;
       overflow-inline: auto;
-      padding-block: var(--ui-space-3);
-      padding-inline: var(--ui-space-4);
+      padding-block: var(--ui-space-4);
+      padding-inline: var(--ui-space-5);
       white-space: pre;
 
       @media print {
@@ -363,8 +363,8 @@
         currentColor;
       font-size: inherit;
       line-height: inherit;
-      padding-block: var(--ui-space-3);
-      padding-inline: var(--ui-space-4);
+      padding-block: var(--ui-space-4);
+      padding-inline: var(--ui-space-5);
 
       & > :first-child {
         margin-block-start: 0;

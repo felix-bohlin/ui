@@ -1,9 +1,9 @@
 @layer components.root {
   :where(.ui-timeline) {
-    --_dot-size: var(--ui-space-3);
-    --_gap: var(--ui-space-3);
-    --_icon-marker-size: var(--ui-space-5);
-    --_item-gap: var(--ui-space-5);
+    --_dot-size: var(--ui-space-4);
+    --_gap: var(--ui-space-4);
+    --_icon-marker-size: var(--ui-space-6);
+    --_item-gap: var(--ui-space-6);
     --_line-border-color: var(--ui-border-color);
     --_line-border-width: var(--ui-border-width-large);
 
@@ -166,8 +166,8 @@
     &.ui-small {
       --_dot-size: var(--ui-space-2);
       --_gap: var(--ui-space-2);
-      --_icon-marker-size: var(--ui-space-4);
-      --_item-gap: var(--ui-space-3);
+      --_icon-marker-size: var(--ui-space-5);
+      --_item-gap: var(--ui-space-4);
     }
 
     @container (inline-size < 24rem) {

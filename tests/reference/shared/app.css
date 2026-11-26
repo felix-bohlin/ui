@@ -6,7 +6,7 @@
     display: flex;
     gap: var(--ui-space-2);
     inset-block-start: 0;
-    padding: var(--ui-space-2) var(--ui-space-3);
+    padding: var(--ui-space-2) var(--ui-space-4);
     position: sticky;
     z-index: 1;
   }
@@ -36,7 +36,7 @@
   .app-main {
     margin-inline: auto;
     max-inline-size: 48rem;
-    padding: var(--ui-space-4) var(--ui-space-3);
+    padding: var(--ui-space-5) var(--ui-space-4);
   }
 
   .app-main:focus {
@@ -45,13 +45,13 @@
 
   .app-screen {
     display: grid;
-    gap: var(--ui-space-4);
+    gap: var(--ui-space-5);
   }
 
   .app-posts,
   .app-photo-grid {
     display: grid;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -118,7 +118,7 @@
 
   .app-chat {
     display: grid;
-    gap: var(--ui-space-4);
+    gap: var(--ui-space-5);
   }
 
   @media (width >= 48rem) {
@@ -131,12 +131,12 @@
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
   }
 
   .app-stats {
     display: flex;
-    gap: var(--ui-space-5);
+    gap: var(--ui-space-6);
   }
 
   .app-profile-photos {

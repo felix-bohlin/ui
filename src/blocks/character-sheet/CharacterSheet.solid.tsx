@@ -327,14 +327,14 @@ export default function CharacterSheet() {
             border: var(--ui-border-width) solid var(--ui-border-color);
             border-radius: var(--ui-radius-large);
             display: grid;
-            gap: var(--ui-space-5);
+            gap: var(--ui-space-6);
             grid-template-columns: auto minmax(0, 1fr);
-            padding: var(--ui-space-6);
+            padding: var(--ui-space-7);
 
             @container (inline-size < 30rem) {
               align-items: start;
               grid-template-columns: minmax(0, 1fr);
-              padding: var(--ui-space-5);
+              padding: var(--ui-space-6);
             }
           }
 
@@ -346,14 +346,14 @@ export default function CharacterSheet() {
 
           .cs-vitals {
             display: grid;
-            gap: var(--ui-space-3);
+            gap: var(--ui-space-4);
             grid-column: 1 / -1;
             grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
           }
 
           .cs-attributes {
             display: grid;
-            gap: var(--ui-space-4);
+            gap: var(--ui-space-5);
             list-style-type: none;
             padding: 0;
 

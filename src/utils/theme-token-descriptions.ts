@@ -66,7 +66,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-button-size-x-small":
     "`Button` and `ControlGroup` height with `.ui-x-small`.",
   "--ui-card-padding":
-    "Padding of `Card`, `Dialog`, `Drawer` and `Accordion` content, headers, footers and actions, and of `Checkbox`, `Radio` and `Switch` cards. When unset, `--ui-space-3`. Card and accordion actions set it to their own inline padding, which caps how far a text button at either end pulls itself out.",
+    "Padding of `Card`, `Dialog`, `Drawer` and `Accordion` content, headers, footers and actions, and of `Checkbox`, `Radio` and `Switch` cards. When unset, `--ui-space-4`. Card and accordion actions set it to their own inline padding, which caps how far a text button at either end pulls itself out.",
   "--ui-chip-radius":
     "Corner radius for `Chip`. When unset, chips follow `--ui-radius`.",
   "--ui-chip-size": "Default `Chip` height.",
@@ -131,7 +131,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-dialog-radius":
     "Corner radius for `Dialog`. When unset, dialogs follow `--ui-radius`.",
   "--ui-divider-gap":
-    "Block margin around a `Divider`, times `--ui-space-scale`. Cards, callouts, dialogs and drawers set it to `--ui-space-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it.",
+    "Block margin around a `Divider`, times `--ui-space-scale`. Cards, callouts, dialogs and drawers set it to `--ui-space-4`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it.",
   "--ui-duration": "Default transition duration. Multiplied by `--ui-motion`.",
   "--ui-duration-fast": "Transition duration for hover and press feedback.",
   "--ui-duration-slow":
@@ -168,7 +168,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-field-padding-inline":
     "Horizontal padding inside a `Field` around a text input, select or textarea. When unset, `--ui-space-2`. `.ui-large` reads `--ui-field-padding-inline-large`.",
   "--ui-field-padding-inline-large":
-    "Horizontal padding inside a `Field` with `.ui-large`, around a text input, select or textarea. When unset, `--ui-space-3`.",
+    "Horizontal padding inside a `Field` with `.ui-large`, around a text input, select or textarea. When unset, `--ui-space-4`.",
   "--ui-field-placeholder-text-color":
     "Color of placeholder text in fields. When unset, `--ui-text-subtle`.",
   "--ui-field-radius":
@@ -328,7 +328,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-link-visited-text-color":
     "Text and underline color of a visited `.ui-link` and of visited links in `.ui-rich-text`. Hover and focus keep their own color. When unset, visited links look like the others.",
   "--ui-list-item-padding-inline":
-    "Horizontal padding of `List` and `Menu` items, headings and select options. When unset, `--ui-space-3`.",
+    "Horizontal padding of `List` and `Menu` items, headings and select options. When unset, `--ui-space-4`.",
   "--ui-menu-radius":
     "Corner radius for `Menu` and the select picker. When unset, menus follow `--ui-radius` and the picker `--ui-field-radius`, like its field.",
   "--ui-motion":
@@ -450,14 +450,24 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Shadow of the selected tab in default and `.ui-filled` `Tabs`. `.ui-line` and `.ui-outlined` have none. One layer of `--ui-shadow-color`.",
   "--ui-shadow-surface":
     "Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane.",
-  "--ui-space-1": "Spacing step 1: `0.25rem` times `--ui-space-scale`.",
-  "--ui-space-2": "Spacing step 2: `0.5rem` times `--ui-space-scale`.",
-  "--ui-space-3": "Spacing step 3: `1rem` times `--ui-space-scale`.",
-  "--ui-space-4": "Spacing step 4: `1.25rem` times `--ui-space-scale`.",
-  "--ui-space-5": "Spacing step 5: `1.5rem` times `--ui-space-scale`.",
-  "--ui-space-6": "Spacing step 6: `1.75rem` times `--ui-space-scale`.",
-  "--ui-space-7": "Spacing step 7: `2rem` times `--ui-space-scale`.",
-  "--ui-space-8": "Spacing step 8: `3rem` times `--ui-space-scale`.",
+  "--ui-space-1":
+    "Spacing step 1, 0.25rem times `--ui-space-scale`: a step's number is its size in quarter rems.",
+  "--ui-space-12":
+    "Spacing step 12, 3rem times `--ui-space-scale`: a step's number is its size in quarter rems.",
+  "--ui-space-2":
+    "Spacing step 2, 0.5rem times `--ui-space-scale`: a step's number is its size in quarter rems.",
+  "--ui-space-3":
+    "Spacing step 3, 0.75rem times `--ui-space-scale`: a step's number is its size in quarter rems.",
+  "--ui-space-4":
+    "Spacing step 4, 1rem times `--ui-space-scale`: a step's number is its size in quarter rems.",
+  "--ui-space-5":
+    "Spacing step 5, 1.25rem times `--ui-space-scale`: a step's number is its size in quarter rems.",
+  "--ui-space-6":
+    "Spacing step 6, 1.5rem times `--ui-space-scale`: a step's number is its size in quarter rems.",
+  "--ui-space-7":
+    "Spacing step 7, 1.75rem times `--ui-space-scale`: a step's number is its size in quarter rems.",
+  "--ui-space-8":
+    "Spacing step 8, 2rem times `--ui-space-scale`: a step's number is its size in quarter rems.",
   "--ui-space-scale":
     "Multiplier for the `--ui-space-*` scale, the gaps, padding and margins of containers such as cards, dialogs, forms and tables, and the padding and gaps of rich text. Controls follow `--ui-density` instead. See [Spacing](/guide/theming#spacing).",
   "--ui-state-active-alpha-accent":

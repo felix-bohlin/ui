@@ -207,7 +207,7 @@ export default function Testimonials() {
           }
 
           .testimonials-list {
-            column-gap: var(--ui-space-4);
+            column-gap: var(--ui-space-5);
             columns: 1;
             list-style-type: none;
             padding: 0;
@@ -222,12 +222,12 @@ export default function Testimonials() {
 
             li {
               break-inside: avoid;
-              padding-block-end: var(--ui-space-4);
+              padding-block-end: var(--ui-space-5);
             }
 
             figure {
               display: grid;
-              gap: var(--ui-space-3);
+              gap: var(--ui-space-4);
               place-items: normal;
             }
           }

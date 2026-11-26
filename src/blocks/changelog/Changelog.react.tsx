@@ -43,7 +43,7 @@ export default function Changelog() {
             </Button>
           </div>
         </div>
-        <Timeline style={{ "--_item-gap": "var(--ui-space-8)" }}>
+        <Timeline style={{ "--_item-gap": "var(--ui-space-12)" }}>
           <TimelineItem current datetime="2026-10-01" time="Oct 1, 2026">
             <div className="ui-layout-column">
               <div className="ui-layout-row ui-gap-small">
@@ -205,7 +205,7 @@ export default function Changelog() {
             display: grid;
             gap: var(--ui-space-1);
             list-style-type: disc;
-            padding-inline-start: var(--ui-space-5);
+            padding-inline-start: var(--ui-space-6);
           }
 
           .changelog-more {

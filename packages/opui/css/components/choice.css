@@ -225,7 +225,7 @@
     /* Spread layout */
     &.ui-spread {
       align-items: start;
-      column-gap: var(--ui-space-4);
+      column-gap: var(--ui-space-5);
       grid-auto-flow: unset;
       grid-template-columns: 1fr auto;
       inline-size: 100%;
@@ -269,7 +269,7 @@
     /* Card */
     &.ui-card {
       --_hover-bg-color: var(--ui-surface-tonal-hover);
-      --_padding: var(--ui-card-padding, var(--ui-space-3));
+      --_padding: var(--ui-card-padding, var(--ui-space-4));
       --_selected-bg-color: oklch(
         from var(--_accent) l c h / var(--ui-state-selected-alpha-accent)
       );
@@ -281,7 +281,7 @@
       row-gap: 0;
 
       &:not(.ui-spread) {
-        column-gap: var(--ui-space-3);
+        column-gap: var(--ui-space-4);
         grid-template-columns: auto 1fr;
       }
 

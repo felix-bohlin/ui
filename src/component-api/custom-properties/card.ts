@@ -66,7 +66,7 @@ export default {
   },
   "--_gap": {
     description:
-      "Gap between the parts. `--ui-space-3`, or `--ui-space-2` in `.ui-dense`. The part after an image subtracts it from its padding.",
+      "Gap between the parts. `--ui-space-4`, or `--ui-space-2` in `.ui-dense`. The part after an image subtracts it from its padding.",
     kind: "input",
   },
   "--_media-inline-size": {
@@ -91,7 +91,7 @@ export default {
   },
   "--_padding": {
     description:
-      "Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset. In an accordion it sets `--_padding-inline`, `--_summary-padding-block` and the block end of `--_content-padding-block`.",
+      "Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-4` when a theme leaves it unset. In an accordion it sets `--_padding-inline`, `--_summary-padding-block` and the block end of `--_content-padding-block`.",
     kind: "input",
   },
   "--_scroll-shadow": {

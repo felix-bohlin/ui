@@ -23,7 +23,7 @@ export default function Newsletter() {
       >
         <Card
           className="ui-layout-columns newsletter-card"
-          style={{ "--_columns": "1fr 1.2fr", "--_gap": "var(--ui-space-6)" }}
+          style={{ "--_columns": "1fr 1.2fr", "--_gap": "var(--ui-space-7)" }}
           variant="outlined"
         >
           <div className="ui-layout-column ui-gap-large">
@@ -163,10 +163,10 @@ export default function Newsletter() {
           container-type: inline-size;
 
           .newsletter-card {
-            padding: var(--ui-space-5);
+            padding: var(--ui-space-6);
 
             @container (inline-size >= 56rem) {
-              padding: var(--ui-space-7);
+              padding: var(--ui-space-8);
             }
           }
 
@@ -176,7 +176,7 @@ export default function Newsletter() {
 
           .newsletter-form {
             align-content: start;
-            gap: var(--ui-space-5);
+            gap: var(--ui-space-6);
           }
 
           .newsletter-topics {

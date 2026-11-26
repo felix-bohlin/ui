@@ -14,17 +14,17 @@ export default function SiteFooter() {
         <div
           className="ui-layout-container ui-layout-column"
           style={{
-            "--_gap": "var(--ui-space-8)",
+            "--_gap": "var(--ui-space-12)",
             "--_max-inline-size": "72rem",
           }}
         >
           <div
             className="ui-layout-columns"
-            style={{ "--_columns": "2fr 3fr", "--_gap": "var(--ui-space-8)" }}
+            style={{ "--_columns": "2fr 3fr", "--_gap": "var(--ui-space-12)" }}
           >
             <div
               className="ui-layout-column"
-              style={{ "--_gap": "var(--ui-space-4)" }}
+              style={{ "--_gap": "var(--ui-space-5)" }}
             >
               <a
                 className="sf-brand ui-layout-row ui-gap-small"
@@ -176,7 +176,7 @@ export default function SiteFooter() {
         .site-footer {
           background-color: var(--ui-surface-tonal);
           container-type: inline-size;
-          padding-block: var(--ui-space-8) var(--ui-space-6);
+          padding-block: var(--ui-space-12) var(--ui-space-7);
 
           .sf-brand {
             align-items: center;
@@ -188,7 +188,7 @@ export default function SiteFooter() {
 
           .sf-links {
             h2 {
-              margin-block-end: var(--ui-space-3);
+              margin-block-end: var(--ui-space-4);
             }
 
             a {

@@ -245,7 +245,7 @@ export default function ErrorPage() {
       </div>
       <style>{`
         .error-page {
-          padding-block: var(--ui-space-6);
+          padding-block: var(--ui-space-7);
 
           .error-page-code {
             color: var(--ui-primary-text);

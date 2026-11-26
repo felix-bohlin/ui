@@ -445,7 +445,7 @@ export default function AppShell() {
 
           .shell-header {
             border-block-end: var(--ui-border-width) solid var(--ui-border-color);
-            padding: var(--ui-space-2) var(--ui-space-3);
+            padding: var(--ui-space-2) var(--ui-space-4);
           }
 
           .shell-menu-button {
@@ -485,11 +485,11 @@ export default function AppShell() {
           }
 
           .shell-nav-label {
-            padding: var(--ui-space-3) var(--ui-space-3) 0;
+            padding: var(--ui-space-4) var(--ui-space-4) 0;
           }
 
           main {
-            padding: var(--ui-space-5) var(--ui-space-4);
+            padding: var(--ui-space-6) var(--ui-space-5);
           }
         }
       `}</style>

@@ -22,7 +22,7 @@ export default function Faq() {
           className="ui-layout-columns faq-inner"
           style={{
             "--_columns": "2fr 3fr",
-            "--_gap": "var(--ui-space-6) var(--ui-space-8)",
+            "--_gap": "var(--ui-space-7) var(--ui-space-12)",
           }}
         >
           <hgroup className="ui-hgroup">

@@ -7,7 +7,7 @@ export default function Setlist() {
         className="setlist ui-layout-container ui-layout-columns"
         style={{
           "--_columns": "3fr 2fr",
-          "--_gap": "var(--ui-space-8)",
+          "--_gap": "var(--ui-space-12)",
           "--_max-inline-size": "64rem",
         }}
       >
@@ -98,7 +98,7 @@ export default function Setlist() {
         </article>
         <div
           className="ui-layout-column"
-          style={{ "--_gap": "var(--ui-space-6)" }}
+          style={{ "--_gap": "var(--ui-space-7)" }}
         >
           <Card
             aria-labelledby="setlist-summary-heading"
@@ -172,16 +172,16 @@ export default function Setlist() {
             background-color: oklch(0.97 0.025 90);
             background-image: linear-gradient(
               to right,
-              transparent calc(var(--ui-space-6) - 2px),
-              oklch(from var(--ui-critical) l c h / 35%) calc(var(--ui-space-6) - 2px)
-                var(--ui-space-6),
-              transparent var(--ui-space-6)
+              transparent calc(var(--ui-space-7) - 2px),
+              oklch(from var(--ui-critical) l c h / 35%) calc(var(--ui-space-7) - 2px)
+                var(--ui-space-7),
+              transparent var(--ui-space-7)
             );
             border-radius: var(--ui-radius-small);
             box-shadow: var(--ui-shadow-elevated);
             color: var(--ui-text-strong);
-            padding: var(--ui-space-8) var(--ui-space-6) var(--ui-space-6)
-              var(--ui-space-8);
+            padding: var(--ui-space-12) var(--ui-space-7) var(--ui-space-7)
+              var(--ui-space-12);
             position: relative;
             rotate: -0.6deg;
 
@@ -224,7 +224,7 @@ export default function Setlist() {
 
           .sl-song {
             align-items: baseline;
-            column-gap: var(--ui-space-3);
+            column-gap: var(--ui-space-4);
             counter-increment: sl-song;
             display: grid;
             grid-template-columns: 1.75rem minmax(0, 1fr) auto;
@@ -251,7 +251,7 @@ export default function Setlist() {
           .sl-meta {
             color: var(--ui-text-subtle);
             display: flex;
-            gap: var(--ui-space-3);
+            gap: var(--ui-space-4);
           }
 
           .sl-key {
@@ -269,8 +269,8 @@ export default function Setlist() {
               var(--ui-text-subtle);
             font-weight: var(--ui-font-weight-bold);
             letter-spacing: var(--ui-letter-spacing-caps);
-            margin-block: var(--ui-space-4) var(--ui-space-2);
-            padding-block-start: var(--ui-space-3);
+            margin-block: var(--ui-space-5) var(--ui-space-2);
+            padding-block-start: var(--ui-space-4);
             text-transform: uppercase;
           }
 

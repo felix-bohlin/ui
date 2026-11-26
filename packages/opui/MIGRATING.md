@@ -192,7 +192,7 @@ The default palette is blue (hue `222.8`) in both color schemes, and the primary
 
 `kbd`, `mark`, `var`, `Tooltip`, `Checkbox`, file inputs outside a `Field` and rounded `Avatar` never get rounder than `--ui-radius` (a file input in a `Field` follows `--ui-field-radius` like other fields).
 
-Component padding, gaps and margins read `--ui-space-1` to `--ui-space-8` instead of the Open Props `--size-*` steps. The steps resolve on `html`, so overriding `--size-*` on a part of the page no longer changes the components in it. Set `--ui-space-scale` on `html` to change the spacing everywhere, or a component's `--_` property to change one.
+Component padding, gaps and margins read `--ui-space-1` to `--ui-space-12` instead of the Open Props `--size-*` steps. The steps resolve on `html`, so overriding `--size-*` on a part of the page no longer changes the components in it. Set `--ui-space-scale` on `html` to change the spacing everywhere, or a component's `--_` property to change one.
 
 A select's picker and `Drawer` use `--ui-shadow-overlay` (`--shadow-3`, was `--shadow-2`), and elevated `Accordion` uses `--ui-shadow-elevated`, the elevated `Card` shadow.
 
@@ -877,11 +877,11 @@ In Astro and Vue, a drawer that opens from the inline start no longer renders `.
 + .ui-drawer:not(.ui-block-end, .ui-block-start, .ui-inline-end) { --_inline-size: 20rem; }
 ```
 
-The header, content and footer rules, the backdrop and the closed state live in `card.css`, shared with `Dialog`. If you import single files, import `card.css` too. The footer spaces its items by `--ui-space-2`, like `Dialog`, instead of `--ui-space-3`.
+The header, content and footer rules, the backdrop and the closed state live in `card.css`, shared with `Dialog`. If you import single files, import `card.css` too. The footer spaces its items by `--ui-space-2`, like `Dialog`, instead of `--ui-space-4`.
 
 ```diff
 - .ui-drawer { }
-+ .ui-drawer { --_footer-gap: var(--ui-space-3); }
++ .ui-drawer { --_footer-gap: var(--ui-space-4); }
 ```
 
 ## Field group and fieldset

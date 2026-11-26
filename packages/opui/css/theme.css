@@ -94,8 +94,8 @@
 
     /* Spacing - gaps, padding and margins inside and between components. */
     --ui-space-scale: 1;
-    /* --ui-card-padding: var(--ui-space-3); */
-    /* --ui-list-item-padding-inline: var(--ui-space-3); */
+    /* --ui-card-padding: var(--ui-space-4); */
+    /* --ui-list-item-padding-inline: var(--ui-space-4); */
 
     /* Control sizes - shared scale for fields and buttons so they line up. */
     --ui-density: 1;
@@ -108,7 +108,7 @@
     /* --ui-field-radius: var(--ui-radius); */
     /* --ui-field-bg-color: var(--ui-surface); */
     /* --ui-field-padding-inline: var(--ui-space-2); */
-    /* --ui-field-padding-inline-large: var(--ui-space-3); */
+    /* --ui-field-padding-inline-large: var(--ui-space-4); */
     /* --ui-field-placeholder-text-color: var(--ui-text-subtle); */
     /* --ui-field-shadow: var(--ui-shadow-control); */
     --ui-field-border-width: 1px;
@@ -350,12 +350,13 @@
     /* Spacing - gaps, padding and margins inside and between components. */
     --ui-space-1: calc(0.25rem * var(--ui-space-scale));
     --ui-space-2: calc(0.5rem * var(--ui-space-scale));
-    --ui-space-3: calc(1rem * var(--ui-space-scale));
-    --ui-space-4: calc(1.25rem * var(--ui-space-scale));
-    --ui-space-5: calc(1.5rem * var(--ui-space-scale));
-    --ui-space-6: calc(1.75rem * var(--ui-space-scale));
-    --ui-space-7: calc(2rem * var(--ui-space-scale));
-    --ui-space-8: calc(3rem * var(--ui-space-scale));
+    --ui-space-3: calc(0.75rem * var(--ui-space-scale));
+    --ui-space-4: calc(1rem * var(--ui-space-scale));
+    --ui-space-5: calc(1.25rem * var(--ui-space-scale));
+    --ui-space-6: calc(1.5rem * var(--ui-space-scale));
+    --ui-space-7: calc(1.75rem * var(--ui-space-scale));
+    --ui-space-8: calc(2rem * var(--ui-space-scale));
+    --ui-space-12: calc(3rem * var(--ui-space-scale));
 
     /* Controls */
     /* --ui-control-accent: var(--ui-primary); */

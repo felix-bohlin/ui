@@ -126,7 +126,7 @@
     :where(.ui-field-container > input[type="range"]) {
       --_padding: max(
         var(--ui-space-2),
-        var(--_thumb-size) / 2 + var(--ui-space-2) - var(--ui-space-4) / 2
+        var(--_thumb-size) / 2 + var(--ui-space-2) - var(--ui-space-5) / 2
       );
       --_thumb-bg-color: var(--_accent);
       --_thumb-border-width: 3px;
@@ -153,14 +153,14 @@
       animation-timing-function: linear;
       appearance: none;
       background: transparent;
-      block-size: var(--ui-space-4);
+      block-size: var(--ui-space-5);
       box-sizing: content-box;
       display: block;
       grid-area: auto;
       inline-size: 100%;
       margin: calc(var(--_padding) * -1);
       outline-offset: calc(
-        max(0px, (var(--_thumb-size) - var(--ui-space-4)) / 2) +
+        max(0px, (var(--_thumb-size) - var(--ui-space-5)) / 2) +
           var(--ui-focus-ring-offset) - var(--_padding)
       );
       overflow: hidden;

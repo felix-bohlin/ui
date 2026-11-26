@@ -521,7 +521,7 @@ import {
   .data-table-bulk {
     border: var(--ui-border-width) solid var(--ui-border-color);
     border-radius: var(--ui-radius);
-    padding: var(--ui-space-2) var(--ui-space-3);
+    padding: var(--ui-space-2) var(--ui-space-4);
 
     p {
       font-weight: var(--ui-font-weight-semibold);

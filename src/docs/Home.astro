@@ -594,15 +594,13 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
       container-type: inline-size;
 
       @media (width < 900px) {
-        @container (width >= 32rem) {
-          .ui-hgroup {
-            margin-inline: auto;
-          }
+        .ui-hgroup {
+          margin-inline: auto;
+        }
 
-          .hero-ctas,
-          .framework-support {
-            justify-content: center;
-          }
+        .hero-ctas,
+        .framework-support {
+          justify-content: center;
         }
       }
     }

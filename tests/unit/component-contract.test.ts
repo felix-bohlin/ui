@@ -14,7 +14,10 @@ import { parseHtml } from "../../scripts/html-tokens.mjs"
 import { tagAttrs } from "../../packages/opui/components/tag"
 import { slotProp } from "../../src/component-api/frameworks"
 import { typedAttributes } from "../../src/utils/component-source"
-import { exampleExtension } from "../../src/utils/framework"
+import {
+  exampleExtension,
+  isHydratedFramework,
+} from "../../src/utils/framework"
 import { createIdGenerator } from "../../src/utils/id"
 import {
   apis,
@@ -31,6 +34,7 @@ import {
   contentOf,
   reactNodes,
   render as renderers,
+  renderNunjucks,
   renderSolid,
   type SolidComponent,
   vueNodes,
@@ -375,6 +379,28 @@ const render: Record<Framework, (entry: Case) => Promise<string | undefined>> =
         props: { props },
       })
     },
+    nunjucks: async ({ component, props, slots }) => {
+      if (!fixtureOf(component, slots)) return undefined
+      const content = contentOf(component)
+      const named = slots.filter((slot) => slot !== "default")
+      const call = slots.includes("default")
+        ? `{% call ${component}(props) %}{{ content | safe }}{% endcall %}`
+        : `{{ ${component}(props) }}`
+      return renderNunjucks(
+        `{% from "opui/${component}.njk" import ${component} %}${call}`,
+        {
+          content,
+          props: named.length
+            ? {
+                ...props,
+                slots: Object.fromEntries(
+                  named.map((slot) => [slotProp(slot), content]),
+                ),
+              }
+            : props,
+        },
+      )
+    },
     react: async (entry) => {
       const load = loaderOf(reactComponents, entry.component, "react")
       if (!load) return undefined
@@ -489,7 +515,7 @@ const CALLER_CLASS_RULE =
 const BEFORE_SPREAD_RULE =
   "Astro prints an attribute an element writes before {...rest} and then the caller's, and the browser keeps the first, while React, Svelte and Vue render the caller's: where the caller may replace the value, destructure the attribute and fall back with ?? (role={role ?? \"list\"}); where the component's value must stay, leave the attribute out of the types, so no caller passes it, as CheckboxInput does for type"
 
-describe("every component renders the same in Astro, React, Solid, Svelte and Vue", () => {
+describe("every component renders the same in Astro, Nunjucks, React, Solid, Svelte and Vue", () => {
   test("covers the components with a matrix of props and slots", () => {
     expect(
       new Set(CASES.map(({ component }) => component)).size,
@@ -547,7 +573,9 @@ describe("every component renders the same in Astro, React, Solid, Svelte and Vu
         )
         .toBeDefined()
       if (rendered === undefined) continue
-      const known = KNOWN_ATTRIBUTES[entry.component]
+      const known = isHydratedFramework(framework)
+        ? KNOWN_ATTRIBUTES[entry.component]
+        : undefined
       if (known && (known.when?.(entry.props) ?? true)) {
         expect
           .soft(

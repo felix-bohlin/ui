@@ -3,7 +3,7 @@
 Tabs that switch between panels of related content, built on radio inputs.
 
 - CSS: `opui-css/css/components/tabs.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/tabs.md), [Astro](https://opui.dev/astro/components/tabs.md), [React](https://opui.dev/react/components/tabs.md), [Solid](https://opui.dev/solid/components/tabs.md), [Svelte](https://opui.dev/svelte/components/tabs.md), [Vue](https://opui.dev/vue/components/tabs.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/tabs.md), [Astro](https://opui.dev/astro/components/tabs.md), [Nunjucks](https://opui.dev/nunjucks/components/tabs.md), [React](https://opui.dev/react/components/tabs.md), [Solid](https://opui.dev/solid/components/tabs.md), [Svelte](https://opui.dev/svelte/components/tabs.md), [Vue](https://opui.dev/vue/components/tabs.md).
 
 ## Tabs
 
@@ -22,19 +22,19 @@ Tabs that switch between panels of related content, built on radio inputs.
 - `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them.
 - `overflow`: `"scroll"` (default), `"wrap"` (`.ui-overflow-wrap`). What the tabs do when they don't fit. `scroll` keeps them on one row and scrolls it sideways, and `wrap` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column.
 - `role`: `string`, `[role="radiogroup"]`. Makes tabs without panels a radio group, which `aria-label` names. Tabs with panels take no role: the root holds the panels, and a radio group holds only radios.
-- `value` (Astro, React and Solid): `string`. The `value` of the selected tab. The item whose `value` matches is checked, and the items' own `checked` is ignored.
+- `value` (Astro, Nunjucks, React and Solid): `string`. The `value` of the selected tab. The item whose `value` matches is checked, and the items' own `checked` is ignored.
 - `variant`: `"filled"` (`.ui-filled`), `"line"` (`.ui-line`), `"outlined"` (`.ui-outlined`), `"tonal"` (default). The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.
 
 ### Slots
 
 - `default`: The tab items.
 
-Model: `value` (`string`), the `value` of the selected tab. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
+Model: `value` (`string`), the `value` of the selected tab. Astro, Nunjucks, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
 - HTML: Each tab is three elements, in this order: `input.ui-input[type="radio"]`, `label.ui-label` and `.ui-panel`.
-- Astro: `value` selects the item whose `value` matches on the server. After that the selection lives in the inputs: read it from the form, or listen for `change` in a script.
+- Astro and Nunjucks: `value` selects the item whose `value` matches on the server. After that the selection lives in the inputs: read it from the form, or listen for `change` in a script.
 - React and Solid: Use `value` with `onValueChange`, or `defaultValue`. Without them the items keep their own state, and `onValueChange` still reports changes.
 - Svelte: Bind `value` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state. A `value` passed without `bind:` is a starting value: the tabs keep the selection themselves until you pass another.
 - Vue: Bind `v-model` to control the selection: each item binds its radio with `v-model`, like a set of native radios. Without it, the items keep their own state.
@@ -71,7 +71,7 @@ Model: `value` (`string`), the `value` of the selected tab. Astro, React and Sol
 
 ### Props and modifiers
 
-- `for` (Astro, HTML, Solid, Svelte and Vue): `string`, `[for]`. The id of the input it labels. Set by the item.
+- `for` (Astro, HTML, Nunjucks, Solid, Svelte and Vue): `string`, `[for]`. The id of the input it labels. Set by the item.
 - `htmlFor` (React): `string`. The id of the input it labels, as `htmlFor` like on the element. Set by the item.
 
 ### Slots
@@ -165,6 +165,31 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
     <TabsPanel>Manage your notifications.</TabsPanel>
   </TabsItem>
 </Tabs>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Tabs, TabsItem, TabsLabel, TabsPanel %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Tabs, TabsItem, TabsLabel, TabsPanel %}
+
+{% call Tabs({ name: "basic-tabs" }) %}
+  {% call TabsItem({ checked: true }) %}
+    {% call TabsLabel() %}Profile{% endcall %}
+    {% call TabsPanel() %}Profile settings and information.{% endcall %}
+  {% endcall %}
+  {% call TabsItem() %}
+    {% call TabsLabel() %}Settings{% endcall %}
+    {% call TabsPanel() %}General account settings.{% endcall %}
+  {% endcall %}
+  {% call TabsItem() %}
+    {% call TabsLabel() %}Notifications{% endcall %}
+    {% call TabsPanel() %}Manage your notifications.{% endcall %}
+  {% endcall %}
+{% endcall %}
 ```
 
 ## React

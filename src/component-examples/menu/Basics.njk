@@ -1,0 +1,23 @@
+{% from "opui/index.njk" import Button, Menu %}
+
+{% call Button({
+  command: "toggle-popover",
+  commandfor: "menu-basics-1",
+  variant: "outlined"
+}) %}
+  Options
+{% endcall %}
+{{ Menu({
+  id: "menu-basics-1",
+  items: [
+    { label: "Edit", shortcut: "Ctrl+E" },
+    { label: "Duplicate", shortcut: "Ctrl+D" },
+    { disabled: true, label: "Archive" },
+    { href: "/guide/getting-started/", label: "Help" },
+    { borderTop: true, color: "critical", label: "Delete" }
+  ]
+}) }}
+
+<script type="module">
+  import "opui-css/elements/menu.js"
+</script>

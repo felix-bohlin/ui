@@ -1,0 +1,35 @@
+{% from "opui/index.njk" import Field, StepButton %}
+
+{% set start %}{{ StepButton({ command: "--step-down", for: "number-field-validation-1" }) }}{% endset %}
+{% set end %}{{ StepButton({ command: "--step-up", for: "number-field-validation-1" }) }}{% endset %}
+{% call Field({
+  autoFit: true,
+  for: "number-field-validation-1",
+  label: "Bandmates",
+  slots: { end: end, start: start }
+}) %}
+  <input id="number-field-validation-1" min="1" required type="number" />
+{% endcall %}
+{% set start %}{{ StepButton({ command: "--step-down", for: "number-field-validation-2" }) }}{% endset %}
+{% set end %}{{ StepButton({ command: "--step-up", for: "number-field-validation-2" }) }}{% endset %}
+{% call Field({
+  autoFit: true,
+  endText: "Only 4 left in stock.",
+  for: "number-field-validation-2",
+  label: "Quantity",
+  slots: { end: end, start: start }
+}) %}
+  <input
+    aria-describedby="number-field-validation-2-end-text"
+    aria-invalid="true"
+    id="number-field-validation-2"
+    max="4"
+    min="1"
+    type="number"
+    value="6"
+  />
+{% endcall %}
+
+<script type="module">
+  import "opui-css/elements/step-button.js"
+</script>

@@ -3,7 +3,7 @@
 A single-line text input in a Field: input types, numbers as text, a password toggle and suggestions.
 
 - CSS: `opui-css/css/components/field.css` and `opui-css/css/components/button.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/text-field.md), [Astro](https://opui.dev/astro/components/text-field.md), [React](https://opui.dev/react/components/text-field.md), [Solid](https://opui.dev/solid/components/text-field.md), [Svelte](https://opui.dev/svelte/components/text-field.md), [Vue](https://opui.dev/vue/components/text-field.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/text-field.md), [Astro](https://opui.dev/astro/components/text-field.md), [Nunjucks](https://opui.dev/nunjucks/components/text-field.md), [React](https://opui.dev/react/components/text-field.md), [Solid](https://opui.dev/solid/components/text-field.md), [Svelte](https://opui.dev/svelte/components/text-field.md), [Vue](https://opui.dev/vue/components/text-field.md).
 
 ## PasswordToggle
 
@@ -13,7 +13,7 @@ A single-line text input in a Field: input types, numbers as text, a password to
 
 ### Props and modifiers
 
-- `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of the password input, as its button's `commandfor`.
+- `for` (Astro, Nunjucks, Solid, Svelte and Vue): `string`. The `id` of the password input, as its button's `commandfor`.
 - `htmlFor` (React): `string`. The `id` of the password input, as its button's `commandfor`.
 - `label`: `string`, `aria-label`, default `"Show password"`. The accessible name of the toggle. Pass it translated.
 
@@ -33,6 +33,7 @@ A single-line text input in a Field: input types, numbers as text, a password to
 
 - HTML: Put `<opui-password-toggle>` in `.ui-end`, around a `.ui-button.ui-round` with `aria-pressed="false"`, `command="--toggle-password"` and `commandfor` naming the input, and import `opui-css/elements/password-toggle.js`.
 - Astro, Solid, Svelte and Vue: Put it in `end`, next to a `type="password"` input. It loads `opui-css/elements/password-toggle.js`. Attributes that aren't props, `class` and `style` go to the `<opui-password-toggle>`, not the button.
+- Nunjucks: Put it in `slots.end`, next to a `type="password"` input, and load `opui-css/elements/password-toggle.js` on the page. Attributes that aren't props, `class` and `style` go to the `<opui-password-toggle>`, not the button.
 - React: Put it in `end`, next to a `type="password"` input. It loads `opui-css/elements/password-toggle.js`. Attributes that aren't props, `className` and `style` go to the `<opui-password-toggle>`, not the button.
 
 ## Component properties
@@ -128,6 +129,27 @@ import { Field } from "opui-css/astro"
     type="email"
   />
 </Field>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Field, PasswordToggle %}`
+
+- `PasswordToggle` named slots: `slots.iconChecked` and `slots.iconUnchecked`. Pass a string, or markup captured with `{% set %}`.
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Field %}
+
+{% call Field({ for: "text-field-basics-1", label: "Email" }) %}
+  <input
+    autocomplete="email"
+    id="text-field-basics-1"
+    name="email"
+    type="email"
+  />
+{% endcall %}
 ```
 
 ## React

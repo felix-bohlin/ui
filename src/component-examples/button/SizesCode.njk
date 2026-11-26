@@ -1,0 +1,28 @@
+{% from "opui/index.njk" import Button %}
+
+{% call Button({ size: "x-small" }) %}X-small{% endcall %}
+{% call Button({ size: "small" }) %}Small{% endcall %}
+{% call Button() %}Medium{% endcall %}
+{% call Button({ size: "large" }) %}Large{% endcall %}
+
+{% call Button({ size: "x-small", variant: "filled" }) %}X-small{% endcall %}
+{% call Button({ size: "small", variant: "filled" }) %}Small{% endcall %}
+{% call Button({ variant: "filled" }) %}Medium{% endcall %}
+{% call Button({ size: "large", variant: "filled" }) %}Large{% endcall %}
+
+{% call Button({ size: "x-small", variant: "outlined" }) %}
+  <span class="ui-text">X-small</span>
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+{% call Button({ size: "small", variant: "outlined" }) %}
+  <span class="ui-text">Small</span>
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+{% call Button({ variant: "outlined" }) %}
+  <span class="ui-text">Medium</span>
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+{% call Button({ size: "large", variant: "outlined" }) %}
+  <span class="ui-text">Large</span>
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}

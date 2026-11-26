@@ -5,6 +5,7 @@ export default {
   css: ["layout"],
   notes: {
     astro: "Add the classes to elements in your templates.",
+    nunjucks: "Add the classes to elements in your templates.",
     react: "Add the classes to elements in your markup.",
     solid: "Add the classes to elements in your markup.",
     svelte: "Add the classes to elements in your markup.",

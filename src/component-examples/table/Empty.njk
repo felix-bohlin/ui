@@ -1,0 +1,31 @@
+{% from "opui/index.njk" import
+  Button,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow
+%}
+
+{% call Table() %}
+  {% call TableCaption() %}Low End Theory members in Reykjavík{% endcall %}
+  {% call TableHead() %}
+    {% call TableRow() %}
+      {% call TableHeaderCell() %}Name{% endcall %}
+      {% call TableHeaderCell() %}Specialty{% endcall %}
+      {% call TableHeaderCell({ numeric: true }) %}Basses{% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call TableBody() %}
+    {% call TableRow() %}
+      {% call TableCell({ colspan: "3" }) %}
+        <div class="ui-align-center ui-layout-column ui-gap-small">
+          <p>No members in Reykjavík yet, bummer.</p>
+          {% call Button({ size: "small", variant: "outlined" }) %}Show all cities{% endcall %}
+        </div>
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

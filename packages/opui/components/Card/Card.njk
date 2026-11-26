@@ -1,0 +1,15 @@
+{% macro Card(props = {}) %}
+  {%- set rest = props | opuiRest("Card") -%}
+  {%- set tag = props.as | default("div") -%}
+  {%- set classes = [
+    "ui-card",
+    props.color and "ui-" ~ props.color,
+    props.density and props.density != "normal" and "ui-" ~ props.density,
+    props.orientation and props.orientation != "auto" and "ui-" ~ props.orientation,
+    props.variant and props.variant != "plain" and "ui-" ~ props.variant,
+    props.class
+  ] | opuiClass -%}
+  <{{ tag | opuiTag }}{{ opui.merge({ class: classes }, rest) | opuiAttributes(tag) }}>
+    {{- caller() if caller -}}
+  </{{ tag | opuiTag }}>
+{%- endmacro %}

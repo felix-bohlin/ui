@@ -3,7 +3,7 @@
 A bar on the native meter element, for a value in a known range, like disk usage or a poll option's share.
 
 - CSS: `opui-css/css/components/meter.css` and `opui-css/css/components/progress.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/meter.md), [Astro](https://opui.dev/astro/components/meter.md), [React](https://opui.dev/react/components/meter.md), [Solid](https://opui.dev/solid/components/meter.md), [Svelte](https://opui.dev/svelte/components/meter.md), [Vue](https://opui.dev/vue/components/meter.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/meter.md), [Astro](https://opui.dev/astro/components/meter.md), [Nunjucks](https://opui.dev/nunjucks/components/meter.md), [React](https://opui.dev/react/components/meter.md), [Solid](https://opui.dev/solid/components/meter.md), [Svelte](https://opui.dev/svelte/components/meter.md), [Vue](https://opui.dev/vue/components/meter.md).
 
 ## Meter
 
@@ -22,7 +22,7 @@ A bar on the native meter element, for a value in a known range, like disk usage
 ### Notes
 
 - HTML: Add `.ui-meter` to a `<meter>`. `value`, `min`, `max`, `low`, `high` and `optimum` are its native attributes.
-- Astro, React, Solid, Svelte and Vue: `value`, `min`, `max`, `low`, `high` and `optimum` are the native attributes of the `<meter>`, which gets every extra attribute.
+- Astro, Nunjucks, React, Solid, Svelte and Vue: `value`, `min`, `max`, `low`, `high` and `optimum` are the native attributes of the `<meter>`, which gets every extra attribute.
 
 ## Component properties
 
@@ -67,6 +67,18 @@ import { Meter } from "opui-css/astro"
 ---
 
 <Meter aria-label="Storage used" max="128" value="96">96 of 128 GB</Meter>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Meter %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Meter %}
+
+{% call Meter({ "aria-label": "Storage used", max: "128", value: "96" }) %}96 of 128 GB{% endcall %}
 ```
 
 ## React

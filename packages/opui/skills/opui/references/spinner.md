@@ -3,7 +3,7 @@
 A spinner on any element with aria-busy="true", for content that is loading.
 
 - CSS: `opui-css/css/components/spinner.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/spinner.md), [Astro](https://opui.dev/astro/components/spinner.md), [React](https://opui.dev/react/components/spinner.md), [Solid](https://opui.dev/solid/components/spinner.md), [Svelte](https://opui.dev/svelte/components/spinner.md), [Vue](https://opui.dev/vue/components/spinner.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/spinner.md), [Astro](https://opui.dev/astro/components/spinner.md), [Nunjucks](https://opui.dev/nunjucks/components/spinner.md), [React](https://opui.dev/react/components/spinner.md), [Solid](https://opui.dev/solid/components/spinner.md), [Svelte](https://opui.dev/svelte/components/spinner.md), [Vue](https://opui.dev/vue/components/spinner.md).
 
 ## Spinner (CSS only)
 
@@ -46,6 +46,16 @@ There is no Astro component. Use the classes in your markup.
 ### Example: Basics
 
 ```astro
+<div aria-busy="true">Loading…</div>
+```
+
+## Nunjucks
+
+There is no Nunjucks component. Use the classes in your markup.
+
+### Example: Basics
+
+```njk
 <div aria-busy="true">Loading…</div>
 ```
 

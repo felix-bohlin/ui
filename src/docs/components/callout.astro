@@ -150,6 +150,13 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
         <code>close-icon</code> slot. Listen for the <code>dismiss</code> event
         in a client script.
       </Fragment>
+      <Fragment slot="nunjucks">
+        Set <code>closeButton</code> for a close button that hides the callout,
+        named by <code>closeLabel</code>, with its icon in
+        <code>slots.closeIcon</code>, and load
+        <code>opui-css/elements/callout.js</code> on the page. Listen for the
+        <code>dismiss</code> event in a client script.
+      </Fragment>
       <Fragment slot="html">
         Use <code>opui-callout</code> with a close button that has
         <code>command="--dismiss"</code>, and import

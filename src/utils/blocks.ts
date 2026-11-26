@@ -3,7 +3,7 @@ import { SOLID_PRAGMA } from "../../scripts/component-shared.mjs"
 import { exampleExtension, FRAMEWORK_IDS, type FrameworkId } from "./framework"
 
 const sources = import.meta.glob<string>(
-  "../blocks/*/*.{astro,html,react.tsx,solid.tsx,svelte,vue}",
+  "../blocks/*/*.{astro,html,njk,react.tsx,solid.tsx,svelte,vue}",
   {
     eager: true,
     import: "default",

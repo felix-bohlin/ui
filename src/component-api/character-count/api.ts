@@ -19,6 +19,8 @@ export default {
   notes: {
     default:
       "Put it in the `end-text` slot. It loads `opui-css/elements/character-count.js`.",
+    nunjucks:
+      "Put it in `slots.endText`, and load `opui-css/elements/character-count.js` on the page.",
     react:
       "Put it in `endText`. It loads `opui-css/elements/character-count.js`.",
     solid:

@@ -1,0 +1,13 @@
+{% from "opui/index.njk" import Button, Toaster %}
+
+{% call Button({
+  command: "--toast",
+  commandfor: "toast-duration-1",
+  "data-toast": "Export started. You'll get an email when the file is ready.",
+  variant: "filled"
+}) %}Export report{% endcall %}
+{{ Toaster({ duration: 10000, id: "toast-duration-1" }) }}
+
+<script type="module">
+  import "opui-css/elements/toaster.js"
+</script>

@@ -1,0 +1,5 @@
+{% from "opui/index.njk" import Field %}
+
+{% call Field({ for: "field-hidden-label-1", hideLabel: true, label: "Search" }) %}
+  <input id="field-hidden-label-1" placeholder="Search" type="search" />
+{% endcall %}

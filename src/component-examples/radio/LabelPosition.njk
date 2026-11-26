@@ -1,0 +1,8 @@
+{% from "opui/index.njk" import Radio %}
+
+{% call Radio({ checked: true, name: "radio-label-position", value: "standard" }) %}Standard delivery{% endcall %}
+{% call Radio({
+  name: "radio-label-position",
+  orientation: "vertical",
+  value: "express"
+}) %}Express delivery{% endcall %}

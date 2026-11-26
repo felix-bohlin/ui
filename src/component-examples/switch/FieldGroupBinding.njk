@@ -1,0 +1,41 @@
+{% from "opui/index.njk" import
+  Button,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Switch
+%}
+
+{% call Fieldset() %}
+  {% call FieldLegend() %}Notifications{% endcall %}
+  {% call FieldGroup({ name: "switch-binding" }) %}
+    {% call Switch({ checked: true, value: "email" }) %}Email{% endcall %}
+    {% call Switch({ value: "push" }) %}Push{% endcall %}
+    {% call Switch({ value: "sms" }) %}SMS{% endcall %}
+  {% endcall %}
+{% endcall %}
+<p class="switch-binding-text">Selected: email</p>
+{% call Button({ class: "switch-binding-reset" }) %}Reset{% endcall %}
+
+<script type="module">
+  const text = document.querySelector(".switch-binding-text")
+  const inputs = [...document.querySelectorAll('[name="switch-binding"]')]
+
+  function update() {
+    if (!text) return
+    text.textContent = `Selected: ${
+      inputs
+        .filter((input) => input.checked)
+        .map((input) => input.value)
+        .join(", ") || "none"
+    }`
+  }
+
+  inputs.forEach((input) => input.addEventListener("change", update))
+  document
+    .querySelector(".switch-binding-reset")
+    ?.addEventListener("click", () => {
+      inputs.forEach((input) => (input.checked = input.defaultChecked))
+      update()
+    })
+</script>

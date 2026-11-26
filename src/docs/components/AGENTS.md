@@ -101,7 +101,7 @@ The `Component` layout renders a page in this order. Only the default slot is or
 1. `title` and `preamble`. Not every page needs a preamble. Use it for a short description, and name the close sibling when there is one (Chip vs Button, Dialog vs Drawer, Menu vs Select, Switch vs Checkbox vs Toggle, Tabs vs Toggle group), linked both ways with `<DocLink>`. The full guidance goes in the `usage` slot.
 2. Browser support chips (`browserSupport`).
 3. The `anatomy` slot, when `heroAnatomy` is set.
-4. On the Astro, React, Solid, Svelte and Vue pages, Installation (`installationTabs` and the `installation` slot), with a Command tab (the install command and the import line) and a Manual tab (the CSS files), then the `usage` slot, as "Usage" (see 5.7). Usage comes before the examples, so readers know they're on the right page before they read how to set it up, and starts collapsed, so the examples stay close to the top.
+4. On the Astro, Nunjucks, React, Solid, Svelte and Vue pages, Installation (`installationTabs` and the `installation` slot), with a Command tab (the install command and the import line) and a Manual tab (the CSS files), then the `usage` slot, as "Usage" (see 5.7). Usage comes before the examples, so readers know they're on the right page before they read how to set it up, and starts collapsed, so the examples stay close to the top.
 5. The default slot, in this order. Skip what doesn't apply:
    1. Basics: the plain component, usually under `<section id="basics"><h2>Basics</h2>`.
    2. Variants, colors and severities.
@@ -214,7 +214,7 @@ Place logic in a `<script>` tag.
 
 Use `<Conditional>` to display different text or HTML content for different frameworks. This is ideal for descriptions or instructions that only apply to a specific framework (e.g., explaining an `aria-label` attribute for HTML vs. a `label` prop for Astro).
 
-- **Slots**: Named after the framework ids defined in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Today: `html`, `astro`, `react`, `solid`, `svelte`, `vue`. `components` holds the text Astro, React, Solid, Svelte and Vue share, and is never shown on HTML pages.
+- **Slots**: Named after the framework ids defined in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Today: `html`, `astro`, `nunjucks`, `react`, `solid`, `svelte`, `vue`. `components` holds the text Astro, Nunjucks, React, Solid, Svelte and Vue share, and is never shown on HTML pages. A Nunjucks page without a `nunjucks` slot shows the `astro` one, since both render on the server and leave the rest to a client script.
 - **Props**: `as` (optional), the wrapper tag: `span` (the default) for inline text, `p` for a paragraph of text, `div` around block content, which `tests/unit/docs-pages.test.ts` requires.
 - **Resolution**: Server-rendered. The component reads `Astro.locals.framework` (driven by URL routing) and emits only one slot: the active framework's, then `components` on every framework except HTML, then the default framework's (`html`).
 - **One copy per wording**: Write the shared text once in `components` and the HTML text in `html`. Give a framework its own slot only where its text must differ, such as a `bind:group` note for Svelte, `v-model` for Vue, `className` or `children` for React, or a slot, prop or snippet that each framework names differently.

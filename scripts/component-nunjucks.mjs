@@ -1,10 +1,11 @@
-import { readFileSync } from "node:fs"
+import { readdirSync, readFileSync } from "node:fs"
 import { readdir } from "node:fs/promises"
 import { join } from "node:path"
-import { fileURLToPath } from "node:url"
+import { fileURLToPath, pathToFileURL } from "node:url"
 import { parseArgs } from "node:util"
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
+import { barrelExports } from "../src/utils/package-source.js"
 import {
   at,
   COMPILER,
@@ -52,7 +53,68 @@ import {
   trimmedTag,
 } from "./component-nunjucks-layout.mjs"
 import { VOID_ELEMENTS } from "./html-tokens.mjs"
-import { HELPERS } from "./nunjucks-runtime.mjs"
+
+const componentsDir = join(root, "packages/opui/components")
+
+const UNREGISTERED = new Set([
+  "checkedValues",
+  "createId",
+  "createIds",
+  "resetWarnings",
+  "selectionOf",
+])
+
+export const helperModules = () =>
+  readdirSync(componentsDir, { recursive: true })
+    .map((file) => file.split("\\").join("/"))
+    .filter(
+      (file) =>
+        /(^|\/)[a-z][\w-]*\.ts$/.test(file) &&
+        !/(^|\/)(context|types)\b/.test(file) &&
+        !/(^|\/)(react|solid|svelte|vue)\.ts$/.test(file) &&
+        !/\.(react|solid|svelte|vue)\.ts$/.test(file),
+    )
+    .toSorted()
+
+export const RUNTIME_NAMES = ["context", "id", "ids", "merge", "provide"]
+
+export const helperEntries = (modules) => {
+  const entries = modules.flatMap(({ file, module }) =>
+    Object.entries(module)
+      .filter(
+        ([name, value]) =>
+          typeof value === "function" && !UNREGISTERED.has(name),
+      )
+      .map(([name, value]) => ({ file, name, value })),
+  )
+  const names = entries.map(({ name }) => name)
+  const repeated = names.find((name, index) => names.indexOf(name) !== index)
+  if (repeated) {
+    throw new Error(
+      `${COMPILER} finds two helpers named ${repeated} in packages/opui/components/`,
+    )
+  }
+  const shadowed = names.find((name) => RUNTIME_NAMES.includes(name))
+  if (shadowed) {
+    throw new Error(
+      `${COMPILER} can't register the helper ${shadowed}: the opui global defines its own ${shadowed}, so rename the helper`,
+    )
+  }
+  return entries.toSorted((a, b) => (a.name < b.name ? -1 : 1))
+}
+
+const HELPER_ENTRIES = helperEntries(
+  await Promise.all(
+    helperModules().map(async (file) => ({
+      file,
+      module: await import(pathToFileURL(join(componentsDir, file)).href),
+    })),
+  ),
+)
+
+export const HELPERS = Object.fromEntries(
+  HELPER_ENTRIES.map(({ name, value }) => [name, value]),
+)
 
 const RESERVED = new Set([
   "caller",
@@ -341,10 +403,10 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
       ({ context, name }) =>
         `{% set ${name} = opui.context(${nunjucksString(contextKey(context))}) %}`,
     ),
-    ...component.trimmedSlots.map(
-      ({ local, slot }) =>
-        `{% set ${local} = ${slot === "default" ? "(caller() if caller)" : slotRead(slot)} | opuiTrim %}`,
-    ),
+    ...component.trimmedSlots.map(({ local, slot }) => {
+      const read = slot === "default" ? "(caller() if caller)" : slotRead(slot)
+      return `{% set ${local} = ${read} | opuiTrim %}`
+    }),
     ...component.derived.flatMap((entry) =>
       isIdBase(entry)
         ? [idsLine(entry)]
@@ -890,7 +952,7 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
         "BC704",
         file,
         `a named slot passed to ${node.tag}`,
-        "pass the content in the inner component's default slot, or teach the prototype to capture it into props.slots",
+        "pass the content in the inner component's default slot, or teach the compiler to capture it into props.slots",
         COMPILER,
       )
     }
@@ -949,17 +1011,26 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
       if (VOID_ELEMENTS.has(node.tag)) return `${open}>`
       if (node.foreign) return `${open}/>`
     }
+    const preserved = ctx.preserved || PRESERVED_TAGS.has(node.tag)
     const children = node.external
       ? ""
-      : emit(
-          node.children,
-          {
-            ...inner,
-            preserved: ctx.preserved || PRESERVED_TAGS.has(node.tag),
-          },
-          true,
+      : edgesTrimmed(
+          emit(node.children, { ...inner, preserved }, true),
+          preserved ? [] : node.children,
         )
     return `${glue(`${open}>`, children, inner.depth)}</${tag}>`
+  }
+  const isLine = (node) =>
+    node?.type === "text" && node.value === "\n" && !node.inline
+  const edgesTrimmed = (children, nodes) => {
+    let text = children
+    if (isLine(nodes[0])) {
+      text = text.replace(/^(\n *\{[{%])(?!-)/, "$1-")
+    }
+    if (isLine(nodes.at(-1))) {
+      text = text.replace(/(?<!-)([}%]\}\n *)$/, "-$1")
+    }
+    return text
   }
   const BOOLEAN_KINDS = new Set(["any", "boolean", "other"])
   const mayPrintOddly = (code, inner) => {
@@ -1143,6 +1214,7 @@ const compiled = async (source, file) => {
     )
   }
   return {
+    file,
     meta: {
       attributes: [...types.keys()].toSorted(),
       omit: component.props.map((prop) => prop.prop).toSorted(),
@@ -1159,12 +1231,30 @@ const compiled = async (source, file) => {
 export const compileNunjucks = async (source, file) =>
   (await compiled(source, file)).template
 
-export const nunjucksIndex = (names) =>
-  names
-    .toSorted()
+const barrelAliases = () =>
+  Object.fromEntries(
+    barrelExports(
+      readFileSync(join(root, "packages/opui/astro/index.ts"), "utf8"),
+    )
+      .map(({ from, name }) => [
+        name,
+        from
+          .split("/")
+          .at(-1)
+          .replace(/\.astro$/, ""),
+      ])
+      .filter(([name, source]) => name !== source),
+  )
+
+export const nunjucksIndex = (names, aliases = barrelAliases()) =>
+  [
+    ...names.map((name) => [name, name]),
+    ...Object.entries(aliases).filter(([, source]) => names.includes(source)),
+  ]
+    .toSorted(([a], [b]) => (a < b ? -1 : 1))
     .map(
-      (name) =>
-        `{% from "opui/${name}.njk" import ${name} %}{% set ${name} = ${name} %}\n`,
+      ([name, source]) =>
+        `{% from "opui/${source}.njk" import ${source} %}{% set ${name} = ${source} %}\n`,
     )
     .join("")
 
@@ -1174,7 +1264,10 @@ export const nunjucksBuild = async (files) => {
   )
   return {
     components: Object.fromEntries(
-      results.map(({ meta, name }) => [name, meta]),
+      results.map(({ file, meta, name }) => [
+        name,
+        { ...meta, folder: file.split("/").at(-2) },
+      ]),
     ),
     templates: {
       ...Object.fromEntries(
@@ -1185,13 +1278,90 @@ export const nunjucksBuild = async (files) => {
   }
 }
 
-const COMPONENTS = "packages/opui/components"
+const usedHelpers = (templates) => {
+  const names = new Set(
+    Object.values(templates).flatMap((template) =>
+      [...template.matchAll(/\bopui\.(\w+)\(/g)].map(([, name]) => name),
+    ),
+  )
+  return HELPER_ENTRIES.filter(({ name }) => names.has(name))
+}
+
+const byName = (a, b) => a.localeCompare(b, "en")
+
+const list = (items) =>
+  `[${items.map((item) => JSON.stringify(item)).join(", ")}]`
+
+export const nunjucksModule = ({ components, templates }) => {
+  const metas = Object.values(components)
+  const counts = new Map()
+  for (const { attributes } of metas) {
+    for (const name of attributes) counts.set(name, (counts.get(name) ?? 0) + 1)
+  }
+  const named = (meta) =>
+    meta.attributes.filter((name) => !/^(aria|data)-/.test(name))
+  const shared = [...counts]
+    .filter(
+      ([name, count]) =>
+        count >= metas.length / 2 && !/^(aria|data)-/.test(name),
+    )
+    .map(([name]) => name)
+    .toSorted(byName)
+  const helpers = usedHelpers(templates)
+  const modules = [...new Set(helpers.map(({ file }) => file))].toSorted(byName)
+  const imports = modules.map(
+    (file) =>
+      `import { ${helpers
+        .filter((helper) => helper.file === file)
+        .map(({ name }) => name)
+        .join(", ")} } from "../components/${file.replace(/\.ts$/, "")}"`,
+  )
+  const entries = Object.entries(components)
+    .toSorted(([a], [b]) => (a < b ? -1 : 1))
+    .map(
+      ([name, meta]) =>
+        `  ${name}: { added: ${list(named(meta).filter((item) => !shared.includes(item)))}, folder: ${JSON.stringify(meta.folder)}, props: ${list(meta.omit)}, removed: ${list(shared.filter((item) => !named(meta).includes(item)))}, slots: ${list(meta.slots)} },`,
+    )
+  return [
+    ...imports,
+    "",
+    `export const attributes = ${list(shared)}`,
+    "",
+    `export const components = {\n${entries.join("\n")}\n}`,
+    "",
+    `export const helpers = { ${helpers.map(({ name }) => name).join(", ")} }`,
+    "",
+    `export const templates = {\n${Object.keys(templates)
+      .toSorted(byName)
+      .map(
+        (name) =>
+          `  ${JSON.stringify(name)}: ${JSON.stringify(templates[name])},`,
+      )
+      .join("\n")}\n}`,
+    "",
+  ].join("\n")
+}
+
+export const NUNJUCKS_DIR = "packages/opui/nunjucks"
+
+export const nunjucksOutputs = async (files) => {
+  const build = await nunjucksBuild(files)
+  const outputs = new Map(
+    Object.entries(build.components).map(([name, { folder }]) => [
+      `packages/opui/components/${folder}/${name}.njk`,
+      build.templates[`opui/${name}.njk`],
+    ]),
+  )
+  outputs.set(`${NUNJUCKS_DIR}/index.njk`, build.templates["opui/index.njk"])
+  outputs.set(`${NUNJUCKS_DIR}/macros.ts`, nunjucksModule(build))
+  return outputs
+}
 
 export const componentFiles = async () =>
-  (await readdir(join(root, COMPONENTS), { recursive: true }))
+  (await readdir(componentsDir, { recursive: true }))
     .map((file) => file.split("\\").join("/"))
     .filter((file) => /^[A-Z][^/]*\/[A-Z][^/]*\.astro$/.test(file))
-    .map((file) => `${COMPONENTS}/${file}`)
+    .map((file) => `packages/opui/components/${file}`)
     .toSorted()
 
 export const nunjucksCensus = async () => {

@@ -3,7 +3,7 @@
 A compact label or control for filters, tags and choices.
 
 - CSS: `opui-css/css/components/chip.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/chip.md), [Astro](https://opui.dev/astro/components/chip.md), [React](https://opui.dev/react/components/chip.md), [Solid](https://opui.dev/solid/components/chip.md), [Svelte](https://opui.dev/svelte/components/chip.md), [Vue](https://opui.dev/vue/components/chip.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/chip.md), [Astro](https://opui.dev/astro/components/chip.md), [Nunjucks](https://opui.dev/nunjucks/components/chip.md), [React](https://opui.dev/react/components/chip.md), [Solid](https://opui.dev/solid/components/chip.md), [Svelte](https://opui.dev/svelte/components/chip.md), [Vue](https://opui.dev/vue/components/chip.md).
 
 ## Chip
 
@@ -16,7 +16,7 @@ A compact label or control for filters, tags and choices.
 
 ### Props and modifiers
 
-- `as` (Astro and Svelte): `"a" | "button" | "div" | "span"`, default `"div"`. The element to render. Defaults to `"a"` with `href`. Use `"span"` inside a `<label>` or `<button>`, like a count in a tab.
+- `as` (Astro, Nunjucks and Svelte): `"a" | "button" | "div" | "span"`, default `"div"`. The element to render. Defaults to `"a"` with `href`. Use `"span"` inside a `<label>` or `<button>`, like a count in a tab.
 - `as` (React, Solid and Vue): `"a" | "button" | "div" | "span" | ComponentType<any>`, default `"div"`. The element to render, or the link component of your router with `href`, such as Next's `Link`, Solid Router's `A` or Nuxt's `NuxtLink`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead. Use `"span"` inside a `<label>` or `<button>`, like a count in a tab.
 - `disabled`: `boolean`. Disables a button chip. A link chip drops its `href` and gets `role="link"` and `aria-disabled="true"` instead.
 - `dot`: `boolean`, `.ui-dot`. Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it.
@@ -77,6 +77,21 @@ import { Chip } from "opui-css/astro"
 
 <Chip label="Tonal" variant="tonal" />
 <Chip label="Outlined" variant="outlined" />
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Chip %}`
+
+- `Chip` named slots: `slots.end`, `slots.label` and `slots.start`. Pass a string, or markup captured with `{% set %}`.
+
+### Example: Variants
+
+```njk
+{% from "opui/index.njk" import Chip %}
+
+{{ Chip({ label: "Tonal", variant: "tonal" }) }}
+{{ Chip({ label: "Outlined", variant: "outlined" }) }}
 ```
 
 ## React

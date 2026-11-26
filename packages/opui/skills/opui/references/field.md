@@ -3,7 +3,7 @@
 The label, hints and box around a form control you write: an input, a select or a textarea.
 
 - CSS: `opui-css/css/components/field.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/field.md), [Astro](https://opui.dev/astro/components/field.md), [React](https://opui.dev/react/components/field.md), [Solid](https://opui.dev/solid/components/field.md), [Svelte](https://opui.dev/svelte/components/field.md), [Vue](https://opui.dev/vue/components/field.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/field.md), [Astro](https://opui.dev/astro/components/field.md), [Nunjucks](https://opui.dev/nunjucks/components/field.md), [React](https://opui.dev/react/components/field.md), [Solid](https://opui.dev/solid/components/field.md), [Svelte](https://opui.dev/svelte/components/field.md), [Vue](https://opui.dev/vue/components/field.md).
 
 ## Field
 
@@ -25,7 +25,7 @@ The label, hints and box around a form control you write: an input, a select or 
 - `autoFit`: `boolean`, `.ui-auto-fit`. Fits the width to the content, from `25ch` (`4ch` with step buttons), and lets a textarea resize sideways.
 - `dense`: `boolean`, `.ui-dense`. Tighter select options.
 - `dropZone`: `boolean`, `.ui-drop-zone`. Makes a `type="file"` input a tall, dashed drop zone.
-- `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of your control, which the label points at and the part ids start with: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`.
+- `for` (Astro, Nunjucks, Solid, Svelte and Vue): `string`. The `id` of your control, which the label points at and the part ids start with: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`.
 - `hideLabel`: `boolean`, `.ui-field > label.ui-sr-only`. Visually hides the label but keeps its name.
 - `htmlFor` (React): `string`. The `id` of your control, which the label points at and the part ids start with: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `htmlFor="x"`.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
@@ -40,7 +40,7 @@ The label, hints and box around a form control you write: an input, a select or 
 ### Notes
 
 - HTML: Point the `<label class="ui-label" for>` at the control's `id`, and the control's `aria-describedby` at `.ui-start-text`, `.ui-top`, `.ui-start`, `.ui-end`, `.ui-bottom` and `.ui-end-text` in that order, leaving out a part that only holds buttons, an output or hidden content, and keep the list in step with parts that come and go, like an error end text. `npx opui-css check` checks the HTML files. Write `.ui-top` and `.ui-start` before the control, and `.ui-end` and `.ui-bottom` after it.
-- Astro, Solid, Svelte and Vue: Write your control inside, with its `id` set to `for`, and point its `aria-describedby` at the parts with something to read, `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"` in that order. Leave out a part that only holds buttons, an output or hidden content, and keep the list in step with parts that come and go, like an error end text. `checkHtml` from `opui-css/check` checks the rendered page. Other attributes go to the `.ui-field` root, so set `aria-describedby` and `aria-invalid` on your control.
+- Astro, Nunjucks, Solid, Svelte and Vue: Write your control inside, with its `id` set to `for`, and point its `aria-describedby` at the parts with something to read, `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"` in that order. Leave out a part that only holds buttons, an output or hidden content, and keep the list in step with parts that come and go, like an error end text. `checkHtml` from `opui-css/check` checks the rendered page. Other attributes go to the `.ui-field` root, so set `aria-describedby` and `aria-invalid` on your control.
 - React: Write your control inside, with its `id` set to `htmlFor`, and point its `aria-describedby` at the parts with something to read, `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `htmlFor="x"` in that order. Leave out a part that only holds buttons, an output or hidden content, and keep the list in step with parts that come and go, like an error end text. `checkHtml` from `opui-css/check` checks the rendered page. Other attributes go to the `.ui-field` root, so set `aria-describedby` and `aria-invalid` on your control.
 
 ## CharacterCount
@@ -62,6 +62,7 @@ The label, hints and box around a form control you write: an input, a select or 
 
 - HTML: Add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, with the announcement in `label`, and import `opui-css/elements/character-count.js`.
 - Astro and Vue: Put it in the `end-text` slot. It loads `opui-css/elements/character-count.js`.
+- Nunjucks: Put it in `slots.endText`, and load `opui-css/elements/character-count.js` on the page.
 - React and Solid: Put it in `endText`. It loads `opui-css/elements/character-count.js`.
 - Svelte: Put it in the `endText` snippet. It loads `opui-css/elements/character-count.js`.
 
@@ -237,6 +238,64 @@ const id = "field-ids-1"
   <StepButton command="--step-down" for={id} slot="start" />
   <StepButton command="--step-up" for={id} slot="end" />
 </Field>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import CharacterCount, Field %}`
+
+- `Field` named slots: `slots.bottom`, `slots.end`, `slots.endText`, `slots.label`, `slots.start`, `slots.startText` and `slots.top`. Pass a string, or markup captured with `{% set %}`.
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Field, SelectButton %}
+
+{% call Field({ for: "field-basics-1", label: "Band name" }) %}
+  <input id="field-basics-1" name="band" />
+{% endcall %}
+{% call Field({ for: "field-basics-2", label: "Instrument" }) %}
+  <select id="field-basics-2" name="instrument">
+    {{ SelectButton() }}
+    <option value="">Pick an instrument</option>
+    <option>Bass</option>
+    <option>Drums</option>
+    <option>Guitar</option>
+  </select>
+{% endcall %}
+{% call Field({ for: "field-basics-3", label: "Influences" }) %}
+  <textarea id="field-basics-3" name="influences"></textarea>
+{% endcall %}
+```
+
+### Example: Ids
+
+```njk
+{% from "opui/index.njk" import Field, StepButton %}
+{% set id = "field-ids-1" %}
+
+{% set start %}{{ StepButton({ command: "--step-down", for: id }) }}{% endset %}
+{% set end %}{{ StepButton({ command: "--step-up", for: id }) }}{% endset %}
+{% call Field({
+  autoFit: true,
+  endText: "Up to 10 per order.",
+  for: id,
+  label: "Quantity",
+  slots: { end: end, start: start }
+}) %}
+  <input
+    aria-describedby="{{ id }}-end-text"
+    id="{{ id }}"
+    max="10"
+    min="1"
+    type="number"
+    value="1"
+  />
+{% endcall %}
+
+<script type="module">
+  import "opui-css/elements/step-button.js"
+</script>
 ```
 
 ## React

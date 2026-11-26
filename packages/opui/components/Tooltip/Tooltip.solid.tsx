@@ -1,14 +1,15 @@
 /** @jsxImportSource @solidjs/web */
 import { omit, untrack } from "solid-js"
 import Anchor from "../Anchor/Anchor.solid"
-import { warnMissingId } from "../dev"
+import { DEV, warnMissingId } from "../dev"
 import type { Props } from "./types.solid"
 
 export default function Tooltip(props: Props) {
   const rest = omit(props, "arrow", "class", "id", "positionArea", "children")
-  untrack(() => {
-    warnMissingId("Tooltip", props.id, "interestfor")
-  })
+  if (DEV)
+    untrack(() => {
+      warnMissingId("Tooltip", props.id, "interestfor")
+    })
 
   return (
     <Anchor

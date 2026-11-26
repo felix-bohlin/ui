@@ -1,0 +1,26 @@
+{% from "opui/index.njk" import List, ListItem %}
+
+{% call List() %}
+  {% set start %}<video controls muted>
+    <source
+      src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+      type="video/mp4"
+    />
+  </video>{% endset %}
+  {{ ListItem({
+    description: "Uploaded by Lou Headstock",
+    label: "Slap tutorial",
+    slots: { end: "1:30", start: start }
+  }) }}
+  {% set start %}<video controls muted>
+    <source
+      src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+      type="video/mp4"
+    />
+  </video>{% endset %}
+  {{ ListItem({
+    description: "Uploaded by Percy Groove",
+    label: "Drop D in 45 seconds",
+    slots: { end: "0:45", start: start }
+  }) }}
+{% endcall %}

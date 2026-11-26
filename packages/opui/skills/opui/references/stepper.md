@@ -3,7 +3,7 @@
 A list of steps that shows where someone is in a flow, like a checkout.
 
 - CSS: `opui-css/css/components/stepper.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/stepper.md), [Astro](https://opui.dev/astro/components/stepper.md), [React](https://opui.dev/react/components/stepper.md), [Solid](https://opui.dev/solid/components/stepper.md), [Svelte](https://opui.dev/svelte/components/stepper.md), [Vue](https://opui.dev/vue/components/stepper.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/stepper.md), [Astro](https://opui.dev/astro/components/stepper.md), [Nunjucks](https://opui.dev/nunjucks/components/stepper.md), [React](https://opui.dev/react/components/stepper.md), [Solid](https://opui.dev/solid/components/stepper.md), [Svelte](https://opui.dev/svelte/components/stepper.md), [Vue](https://opui.dev/vue/components/stepper.md).
 
 ## Stepper
 
@@ -117,6 +117,26 @@ const items = [
 ---
 
 <Stepper aria-label="Checkout steps" current={2} items={items} />
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Stepper, StepperItem %}`
+
+- `StepperItem` named slots: `slots.description`, `slots.iconComplete` and `slots.label`. Pass a string, or markup captured with `{% set %}`.
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Stepper %}
+{% set items = [
+  { href: "#", label: "Cart" },
+  { href: "#", label: "Shipping" },
+  { href: "#", label: "Payment" },
+  { href: "#", label: "Review" }
+] %}
+
+{{ Stepper({ "aria-label": "Checkout steps", current: 2, items: items }) }}
 ```
 
 ## React

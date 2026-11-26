@@ -1,0 +1,10 @@
+{% macro SwitchInput(props = {}) %}
+  {%- set rest = props | opuiRest("SwitchInput") -%}
+  {%- set field = opui.context("FieldGroup") -%}
+  {%- set name = props.name if props.name != none else field.name -%}
+  <input
+    type="checkbox"
+    role="switch"
+    {%- if name != none %} name="{{ name }}"{% endif %}
+    {{- rest | opuiAttributes }}>
+{%- endmacro %}

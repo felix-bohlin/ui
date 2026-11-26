@@ -469,16 +469,16 @@ describe("the ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\nimport { autoLabelledBy, createIds } from "../id"\nimport { warnMissingId } from "../dev"\n\nconst { class: className, id: idProp, ...rest } = Astro.props\n\nconst titleId = createIds(Astro.locals, "sample", idProp)("title")\nconst labelledBy = autoLabelledBy(rest, titleId)\nif (!labelledBy) {\n  warnMissingId("Sample", idProp)\n}\n---\n\n<section\n  aria-labelledby={labelledBy}\n  class:list={["ui-sample", className]}\n  id={idProp}\n  {...rest}\n>\n  <slot />\n</section>\n',
     )
     expect(ports["react.tsx"]).toBe(
-      'import { useId } from "react"\nimport { defined } from "../attrs"\nimport { cx } from "../cx"\nimport { autoLabelledBy } from "../id"\nimport { warnMissingId } from "../dev"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  id: idProp,\n  children,\n  ...rest\n}: Props) {\n  const uid = useId()\n  const titleId = `${idProp || `sample-${uid}`}-title`\n  const labelledBy = autoLabelledBy(rest, titleId)\n  if (!labelledBy) {\n    warnMissingId("Sample", idProp)\n  }\n\n  return (\n    <section\n      aria-labelledby={labelledBy}\n      className={cx(["ui-sample", className])}\n      id={idProp}\n      {...defined(rest)}\n    >\n      {children}\n    </section>\n  )\n}\n',
+      'import { useId } from "react"\nimport { defined } from "../attrs"\nimport { cx } from "../cx"\nimport { autoLabelledBy } from "../id"\nimport { DEV, warnMissingId } from "../dev"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  id: idProp,\n  children,\n  ...rest\n}: Props) {\n  const uid = useId()\n  const titleId = `${idProp || `sample-${uid}`}-title`\n  const labelledBy = autoLabelledBy(rest, titleId)\n  if (DEV && !labelledBy) {\n    warnMissingId("Sample", idProp)\n  }\n\n  return (\n    <section\n      aria-labelledby={labelledBy}\n      className={cx(["ui-sample", className])}\n      id={idProp}\n      {...defined(rest)}\n    >\n      {children}\n    </section>\n  )\n}\n',
     )
     expect(ports.svelte).toContain(
-      '  const uid = $props.id()\n  const titleId = $derived(`${idProp || `sample-${uid}`}-title`)\n  const labelledBy = $derived(autoLabelledBy(rest, titleId))\n  untrack(() => {\n    if (!labelledBy) {\n      warnMissingId("Sample", idProp)\n    }\n  })\n',
+      '  const uid = $props.id()\n  const titleId = $derived(`${idProp || `sample-${uid}`}-title`)\n  const labelledBy = $derived(autoLabelledBy(rest, titleId))\n  if (DEV)\n    untrack(() => {\n      if (!labelledBy) {\n        warnMissingId("Sample", idProp)\n      }\n    })\n',
     )
     expect(ports.vue).toBe(
-      '<script setup lang="ts">\nimport { computed, useId } from "vue"\nimport { useRestAttrs } from "../vue"\nimport { autoLabelledBy } from "../id"\nimport { warnMissingId } from "../dev"\nimport { defined } from "../attrs"\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { id: idProp } = defineProps<Props>()\ndefineSlots<Slots>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useRestAttrs()\n\nconst uid = useId()\n\nconst titleId = computed(() => `${idProp || `sample-${uid}`}-title`)\n\nconst labelledBy = computed(() => autoLabelledBy(attrs.value, titleId.value))\n\nif (!labelledBy.value) {\n  warnMissingId("Sample", idProp)\n}\n</script>\n\n<template>\n  <section\n    :aria-labelledby="labelledBy"\n    :class="[\'ui-sample\', $attrs.class]"\n    :id="idProp"\n    v-bind="defined(attrs)"\n  >\n    <slot></slot>\n  </section>\n</template>\n',
+      '<script setup lang="ts">\nimport { computed, useId } from "vue"\nimport { useRestAttrs } from "../vue"\nimport { autoLabelledBy } from "../id"\nimport { DEV, warnMissingId } from "../dev"\nimport { defined } from "../attrs"\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { id: idProp } = defineProps<Props>()\ndefineSlots<Slots>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useRestAttrs()\n\nconst uid = useId()\n\nconst titleId = computed(() => `${idProp || `sample-${uid}`}-title`)\n\nconst labelledBy = computed(() => autoLabelledBy(attrs.value, titleId.value))\n\nif (DEV && !labelledBy.value) {\n  warnMissingId("Sample", idProp)\n}\n</script>\n\n<template>\n  <section\n    :aria-labelledby="labelledBy"\n    :class="[\'ui-sample\', $attrs.class]"\n    :id="idProp"\n    v-bind="defined(attrs)"\n  >\n    <slot></slot>\n  </section>\n</template>\n',
     )
     expect(ports["solid.tsx"]).toContain(
-      '  const uid = createUniqueId()\n  const titleId = () => `${props.id || `sample-${uid}`}-title`\n  const labelledBy = () => autoLabelledBy(rest, titleId())\n  untrack(() => {\n    if (!labelledBy()) {\n      warnMissingId("Sample", props.id)\n    }\n  })\n',
+      '  const uid = createUniqueId()\n  const titleId = () => `${props.id || `sample-${uid}`}-title`\n  const labelledBy = () => autoLabelledBy(rest, titleId())\n  if (DEV)\n    untrack(() => {\n      if (!labelledBy()) {\n        warnMissingId("Sample", props.id)\n      }\n    })\n',
     )
   })
 
@@ -1124,7 +1124,7 @@ describe("the ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\nimport Button from "../Button/Button.astro"\nimport { hasName, warnUnnamed } from "../dev"\n\nconst { class: className, items, label, ...rest } = Astro.props\n\nconst title = "Close"\nwarnUnnamed("Sample", hasName({ ...rest, label }, Astro.slots.has("default")))\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Button aria-invalid={label ? "true" : rest["aria-invalid"]} title={label ? title : undefined}>Close</Button>\n  {items.map((item) => {\n    const closes = !item\n    return <Button command={closes ? "hide-popover" : undefined} title={closes ? label : undefined}>{item}</Button>\n  })}\n  <slot />\n</div>\n',
     )
     expect(ports["solid.tsx"]).toBe(
-      '/** @jsxImportSource @solidjs/web */\nimport { children, For, omit, untrack } from "solid-js"\nimport { filled } from "../attrs"\nimport Button from "../Button/Button.solid"\nimport { hasName, warnUnnamed } from "../dev"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "items", "label", "children")\n  const resolvedChildren = children(() => props.children)\n  const title = "Close"\n  untrack(() => {\n    warnUnnamed("Sample", hasName(props, filled(resolvedChildren())))\n  })\n  const invalid = () => (props.label ? "true" : rest["aria-invalid"])\n  const buttonTitle = () => (props.label ? title : undefined)\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      <Button aria-invalid={invalid()} title={buttonTitle()}>\n        Close\n      </Button>{" "}\n      <For each={props.items} keyed={false}>\n        {(item) => {\n          const closes = () => !item()\n          const command = () => (closes() ? "hide-popover" : undefined)\n          const itemTitle = () => (closes() ? props.label : undefined)\n          return (\n            <Button command={command()} title={itemTitle()}>\n              {item()}\n            </Button>\n          )\n        }}\n      </For>{" "}\n      {resolvedChildren()}\n    </div>\n  )\n}\n',
+      '/** @jsxImportSource @solidjs/web */\nimport { children, For, omit, untrack } from "solid-js"\nimport { filled } from "../attrs"\nimport Button from "../Button/Button.solid"\nimport { DEV, hasName, warnUnnamed } from "../dev"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "items", "label", "children")\n  const resolvedChildren = children(() => props.children)\n  const title = "Close"\n  if (DEV)\n    untrack(() => {\n      warnUnnamed("Sample", hasName(props, filled(resolvedChildren())))\n    })\n  const invalid = () => (props.label ? "true" : rest["aria-invalid"])\n  const buttonTitle = () => (props.label ? title : undefined)\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      <Button aria-invalid={invalid()} title={buttonTitle()}>\n        Close\n      </Button>{" "}\n      <For each={props.items} keyed={false}>\n        {(item) => {\n          const closes = () => !item()\n          const command = () => (closes() ? "hide-popover" : undefined)\n          const itemTitle = () => (closes() ? props.label : undefined)\n          return (\n            <Button command={command()} title={itemTitle()}>\n              {item()}\n            </Button>\n          )\n        }}\n      </For>{" "}\n      {resolvedChildren()}\n    </div>\n  )\n}\n',
     )
   })
 
@@ -1574,7 +1574,7 @@ describe("the ports of a sample", () => {
     )
     const react = outputs.get(sampleFile().replace(".astro", ".react.tsx"))
     expect(react).toContain(
-      '  warnGroupedChecked("Sample", grouped, checked ?? defaultChecked, "Tabs")\n',
+      '  if (DEV)\n    warnGroupedChecked("Sample", grouped, checked ?? defaultChecked, "Tabs")\n',
     )
     expect(react).toContain(
       '    <>\n      <input\n        checked={grouped ?? checked}\n        defaultChecked={\n          grouped !== undefined\n            ? undefined\n            : checked === undefined\n              ? (isSelected(parent?.defaultValue, value) ?? defaultChecked)\n              : defaultChecked\n        }\n        className={cx(["ui-sample", className])}\n        type="radio"\n        value={value}\n        {...defined(rest)}\n        ref={ref}\n        onChange={(event) => {\n          parent?.change?.(event.currentTarget)\n          onChange?.(event)\n        }}\n      />\n      {children}\n    </>\n',
@@ -1612,7 +1612,7 @@ describe("the ports of a sample", () => {
       '    "checked",\n    "class",\n    "defaultChecked",\n    "onChange",\n    "ref",\n    "value",\n    "children",\n  )\n  const parent = useTabsContext()\n  const grouped = () => isSelected(parent?.value, props.value)\n',
     )
     expect(solid).toContain(
-      '      props.checked ?? props.defaultChecked,\n      "Tabs",\n',
+      '        props.checked ?? props.defaultChecked,\n        "Tabs",\n',
     )
     expect(solid).toContain('import { callHandler, control } from "../solid"\n')
     expect(solid).toContain(
@@ -1743,7 +1743,7 @@ describe("the ports of a sample", () => {
       "const model = defineModel<boolean | undefined>({\n  default: undefined,\n})",
     )
     expect(vue).toContain(
-      'warnGroupedChecked(\n    "Sample",\n    grouped.value,\n    checked ?? model.value,\n    "ToggleGroup",\n  )',
+      'if (DEV)\n  watchEffect(() =>\n    warnGroupedChecked(\n      "Sample",\n      grouped.value,\n      checked ?? model.value,\n      "ToggleGroup",\n    ),\n  )',
     )
     expect(vue).toContain(
       "const target = computed({\n  get: () => (group?.bound ? group.value : model.value),\n  set: (next) => {\n    if (group?.bound) group.value = next as typeof group.value\n    else model.value = next as typeof model.value\n  },\n})",
@@ -2727,8 +2727,8 @@ describe("the compiled components", () => {
   test("the source formatted at printWidth 40 and 200 compiles to the same files", async () => {
     const sources = [
       ...new Set(
-        [...all.outputs.keys()].map((file) =>
-          astroSourceOf(file, () => true, {})!,
+        [...all.outputs.keys()].flatMap(
+          (file) => astroSourceOf(file, () => true, {}) ?? [],
         ),
       ),
     ]

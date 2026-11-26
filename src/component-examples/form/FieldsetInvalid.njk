@@ -1,0 +1,19 @@
+{% from "opui/index.njk" import
+  Checkbox,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  Fieldset
+%}
+
+{% call Fieldset({
+  "aria-describedby": "form-fieldset-invalid-1-description form-fieldset-invalid-1-error"
+}) %}
+  {% call FieldLegend() %}Pet food{% endcall %}
+  {% call FieldDescription({ id: "form-fieldset-invalid-1-description" }) %}Pick at least one.{% endcall %}
+  {% call FieldGroup({ name: "food" }) %}
+    {% call Checkbox({ error: true, value: "kibble" }) %}Kibble{% endcall %}
+    {% call Checkbox({ error: true, value: "wet-food" }) %}Wet food{% endcall %}
+  {% endcall %}
+  <span class="ui-end-text" id="form-fieldset-invalid-1-error">Choose at least one food.</span>
+{% endcall %}

@@ -374,11 +374,11 @@ export const toSolid = (component) => {
     ),
     ...warnings.map(
       (code) =>
-        `untrack(() => {\n${rewriteStatement(code, options).replace(SPREAD_OF_PROPS, "props")}\n})`,
+        `if (DEV) untrack(() => {\n${rewriteStatement(code, options).replace(SPREAD_OF_PROPS, "props")}\n})`,
     ),
     ...(item
       ? [
-          `untrack(() =>\n${groupWarning(
+          `if (DEV) untrack(() =>\n${groupWarning(
             component,
             item,
             `${rewrite(item.checked ?? "undefined")} ?? props.defaultChecked`,
@@ -828,6 +828,7 @@ export const toSolid = (component) => {
     }),
     ...importLinesOf(used, ["../solid", "solid-js"]),
     ...[
+      ...(warnings.length || item ? [["../dev", "DEV"]] : []),
       ...(item ? [["../dev", "warnGroupedChecked"]] : []),
       ...(usesCx ? [["../cx", "cx"]] : []),
     ].reduce(

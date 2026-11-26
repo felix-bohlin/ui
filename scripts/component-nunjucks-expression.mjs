@@ -208,7 +208,7 @@ const translate = (root, scope, sourceFile) => {
         "BC702",
         scope.file,
         `the helper ${name}`,
-        "export it from a module in packages/opui/components/ that scripts/nunjucks-runtime.mjs finds",
+        "export it from a module in packages/opui/components/ that scripts/component-nunjucks.mjs finds",
         COMPILER,
       )
     }

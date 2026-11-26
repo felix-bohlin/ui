@@ -1,0 +1,7 @@
+{% from "opui/index.njk" import List, ListItem %}
+
+{% call List({ bordered: true }) %}
+  {{ ListItem({ label: "Bassbook Gold" }) }}
+  {{ ListItem({ label: "Notifications" }) }}
+  {{ ListItem({ label: "Security" }) }}
+{% endcall %}

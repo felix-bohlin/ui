@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import "../../elements/toaster.js"
-import { warnMissingId } from "../dev"
+import { DEV, warnMissingId } from "../dev"
 import type { Props } from "./types.vue-props"
 
 const { align, closeLabel, duration, id, limit, side } = defineProps<Props>()
 
-warnMissingId("Toaster", id)
+if (DEV) warnMissingId("Toaster", id)
 </script>
 
 <template>

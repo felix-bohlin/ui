@@ -3,7 +3,7 @@
 A dropdown for picking one value from a list in a form.
 
 - CSS: `opui-css/css/components/field.css`, `opui-css/css/components/select.css` and `opui-css/css/components/list.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/select.md), [Astro](https://opui.dev/astro/components/select.md), [React](https://opui.dev/react/components/select.md), [Solid](https://opui.dev/solid/components/select.md), [Svelte](https://opui.dev/svelte/components/select.md), [Vue](https://opui.dev/vue/components/select.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/select.md), [Astro](https://opui.dev/astro/components/select.md), [Nunjucks](https://opui.dev/nunjucks/components/select.md), [React](https://opui.dev/react/components/select.md), [Solid](https://opui.dev/solid/components/select.md), [Svelte](https://opui.dev/svelte/components/select.md), [Vue](https://opui.dev/vue/components/select.md).
 
 ## SelectButton
 
@@ -14,7 +14,7 @@ A dropdown for picking one value from a list in a form.
 ### Notes
 
 - HTML: Put `<button><selectedcontent></selectedcontent></button>` first in the `<select>`, before the options.
-- Astro, React, Solid, Svelte and Vue: Put it first in your `<select>`. The browser copies the selected option into `<selectedcontent>`, icon and description included. Browsers without customizable select leave it out.
+- Astro, Nunjucks, React, Solid, Svelte and Vue: Put it first in your `<select>`. The browser copies the selected option into `<selectedcontent>`, icon and description included. Browsers without customizable select leave it out.
 
 ## Component properties
 
@@ -119,6 +119,26 @@ import { Field, SelectButton } from "opui-css/astro"
     <option value="se">Sweden</option>
   </select>
 </Field>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Field, SelectButton %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Field, SelectButton %}
+
+{% call Field({ for: "select-basics-1", label: "Country" }) %}
+  <select id="select-basics-1" name="country">
+    {{ SelectButton() }}
+    <option value="dk">Denmark</option>
+    <option value="fi">Finland</option>
+    <option value="no">Norway</option>
+    <option value="se">Sweden</option>
+  </select>
+{% endcall %}
 ```
 
 ## React

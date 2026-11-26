@@ -8,6 +8,7 @@ import {
 import { FRAMEWORKS, type FrameworkId } from "../../utils/framework"
 import { SOLID_PRAGMA } from "../../../scripts/component-shared.mjs"
 import { renderSolid } from "../Example/render-solid"
+import { nunjucksRenderer } from "../../utils/nunjucks"
 
 const id = "shells"
 const slug = "card"
@@ -29,6 +30,10 @@ const jsSources = import.meta.glob<string>(
 )
 const elementSources = import.meta.glob<string>(
   "../../../packages/opui/elements/*.js",
+  { eager: true, import: "default", query: "?raw" },
+)
+const nunjucksSources = import.meta.glob<string>(
+  "../../../packages/opui/components/**/*.njk",
   { eager: true, import: "default", query: "?raw" },
 )
 const reactSources = import.meta.glob<string>(
@@ -58,6 +63,7 @@ const layers = [
   { core: true, label: "Component CSS", sources: cssSources },
   { core: true, label: "Custom elements", sources: elementSources },
   { core: true, label: "Init helpers", sources: jsSources },
+  { core: false, label: "Nunjucks macros", sources: nunjucksSources },
   { core: false, label: "React components", sources: reactSources },
   { core: false, label: "Solid components", sources: solidSources },
   { core: false, label: "Svelte components", sources: svelteSources },
@@ -100,7 +106,7 @@ const parts: Record<string, string> = {
 }
 
 const PART_TOKEN =
-  /(<\/?)?\b(CardActions|CardContent|CardHeader|Card|Button|ui-card-link|ui-actions|ui-button|ui-card|ui-content|ui-header|ui-outlined|outlined)\b/g
+  /(<\/?|\{% call |\{\{ )?\b(CardActions|CardContent|CardHeader|Card|Button|ui-card-link|ui-actions|ui-button|ui-card|ui-content|ui-header|ui-outlined|outlined)\b|\{% endcall %\}/g
 
 const escape = (text: string) =>
   text.replace(/[&<>]/g, (char) => `&#${char.charCodeAt(0)};`)
@@ -108,13 +114,21 @@ const escape = (text: string) =>
 const markParts = (code: string) => {
   const opened: Record<string, number> = {}
   const stacks: Record<string, number[]> = {}
+  const calls: string[] = []
   let html = ""
   let last = 0
   for (const match of code.matchAll(PART_TOKEN)) {
+    if (match[0] === "{% endcall %}") {
+      const part = calls.pop()!
+      html += `${escape(code.slice(last, match.index))}{% <mark class="shells-part" style="--shells-part: ${id}-${part}-${stacks[part]?.pop() ?? 0}-close">endcall</mark> %}`
+      last = match.index + match[0].length
+      continue
+    }
     const [, prefix = "", token] = match
     const part = parts[token]
-    const isTag = prefix.startsWith("<")
-    const isImport = !isTag && /^[A-Z]/.test(token)
+    const isTag = prefix !== "" && prefix !== "</"
+    if (prefix === "{% call ") calls.push(part)
+    const isImport = !isTag && prefix !== "</" && /^[A-Z]/.test(token)
     let occurrence: string
     if (prefix === "</") {
       occurrence = `${stacks[part]?.pop() ?? 0}-close`
@@ -143,22 +157,26 @@ const source = (framework: FrameworkId) => {
 const displayLabel = (framework: FrameworkId, label: string) =>
   framework === "html" ? "No framework" : label
 
+const renderNunjucks = nunjucksRenderer(Astro.locals.$id)
+
 const renders = FRAMEWORKS.map(({ id: framework, label }) => ({
   Component:
-    framework === "html" || framework === "solid"
+    framework === "html" || framework === "nunjucks" || framework === "solid"
       ? undefined
       : exampleModules[examplePath(slug, name, framework)]?.default,
   framework,
   html:
     framework === "html"
       ? source("html")
-      : framework === "solid"
-        ? renderSolid(
-            exampleModules[examplePath(slug, name, framework)]
-              ?.default as never,
-            `${id}-`,
-          )
-        : undefined,
+      : framework === "nunjucks"
+        ? renderNunjucks(source("nunjucks"))
+        : framework === "solid"
+          ? renderSolid(
+              exampleModules[examplePath(slug, name, framework)]
+                ?.default as never,
+              `${id}-`,
+            )
+          : undefined,
   label: displayLabel(framework, label),
   marked: markParts(source(framework)),
 }))

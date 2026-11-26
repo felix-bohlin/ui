@@ -1,0 +1,92 @@
+{% from "opui/Button.njk" import Button %}
+{% from "opui/Progress.njk" import Progress %}
+
+{% macro FileUpload(props = {}) %}
+  {%- set rest = props | opuiRest("FileUpload") -%}
+  {%- set progressLabel = props.progressLabel | default("Uploading {label}") -%}
+  {%- set removeLabel = props.removeLabel | default("Remove {label}") -%}
+  {%- set ids = opui.ids("file-upload", props.id) -%}
+  {%- set inputId = ids() -%}
+  {%- set descriptionId = ids("description") if props.description else none -%}
+  {%- set classes = ["ui-file-upload", props.class] | opuiClass -%}
+  <opui-file-upload{{ opui.merge({ class: classes }, opui.defined(rest)) | opuiAttributes("opui-file-upload") }}>
+    <div class="ui-content">
+      <div class="ui-field-container">
+        <label class="ui-label">
+          <input
+            {%- if props.accept != none %} accept="{{ props.accept }}"{% endif %}
+            {%- if descriptionId != none %} aria-describedby="{{ descriptionId }}"{% endif %}
+            class="ui-sr-only"
+            {%- if props.disabled %} disabled{% endif %}
+            id="{{ inputId }}"
+            {%- if props.multiple != none %} multiple="{{ props.multiple }}"{% endif %}
+            type="file">
+          <span class="ui-button ui-outlined">{{ props.label }}</span>
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"></svg>
+        </label>
+        {% if props.description -%}
+          <span class="ui-description" id="{{ descriptionId }}">{{ props.description }}</span>
+        {%- endif -%}
+      </div>
+      {% if props.items and props.items.length > 0 -%}
+        <ul class="ui-list">
+          {%- for item in props.items %}
+            {%- set index = loop.index0 -%}
+            <li{% if item.state === 'error' %} class="ui-state-error"{% endif %}>
+              <div class="ui-start">
+                {%- if item.preview -%}
+                  <img
+                    alt=""
+                    {%- if item.preview != none %} src="{{ item.preview }}"{% endif %}>
+                {%- endif %}{% if item.state === "error" and item.description -%}
+                  <button
+                    aria-labelledby="{{ inputId ~ '-label-' ~ index ~ ' ' ~ inputId ~ '-description-' ~ index }}"
+                    popovertarget="{{ inputId ~ '-description-' ~ index }}"
+                    type="button"></button>
+                {%- endif -%}
+              </div>
+              <div class="ui-text">
+                <p dir="auto" id="{{ inputId ~ '-label-' ~ index }}">{{ item.label }}</p>
+                {%- if item.state === "queued" or item.state === "uploading" -%}
+                  {{ Progress({
+                    "aria-label": progressLabel.replace("{label}", item.label),
+                    value: (item.progress if item.progress != none else 0) if item.state === "uploading" else undefined
+                  }) }}
+                {%- endif %}{% if item.description -%}
+                  <p
+                    class="ui-description"
+                    id="{{ inputId ~ '-description-' ~ index }}"
+                    {{- { popover: 'auto' if item.state === 'error' else none } | opuiAttributes }}>
+                    {{- item.description }}</p>
+                {%- endif -%}
+              </div>
+              <div class="ui-end">
+                {%- call Button({
+                  "aria-label": removeLabel.replace("{label}", item.label),
+                  command: "--remove",
+                  commandfor: inputId,
+                  round: true,
+                  size: "small",
+                  value: item.value
+                }) -%}
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="32"
+                    height="32"
+                    viewBox="0 0 32 32"></svg>
+                {%- endcall -%}
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+    <span class="ui-sr-only" role="status">{{ props.status }}</span>
+  </opui-file-upload>
+{%- endmacro %}

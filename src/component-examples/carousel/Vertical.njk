@@ -1,0 +1,17 @@
+{% from "opui/index.njk" import Card, Carousel %}
+{% set slides = [1, 2, 3, 4, 5] %}
+
+{% call Carousel({
+  "aria-label": "Destinations",
+  itemsPerView: 2,
+  markers: true,
+  orientation: "vertical",
+  stretch: true,
+  style: "--_block-size: 16rem"
+}) %}
+  {% for slide in slides -%}
+    <li>
+      {{ Card({ variant: "tonal" }) }}
+    </li>
+  {%- endfor %}
+{% endcall %}

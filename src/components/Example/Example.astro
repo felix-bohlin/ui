@@ -1,5 +1,6 @@
 ---
 import {
+  codeLanguage,
   FRAMEWORKS,
   DEFAULT_FRAMEWORK,
   type FrameworkId,
@@ -136,6 +137,8 @@ const outputContent = previewHtml && codeLangId !== "html" ? previewHtml : ""
 const showOutput = !!outputContent
 const hasCode = !!codeContent
 
+const codeLang = codeLanguage(codeLangId)
+
 const codeLangLabel =
   FRAMEWORKS.find((f) => f.id === codeLangId)?.label ?? codeLangId.toUpperCase()
 
@@ -247,14 +250,7 @@ const outputId = `${groupName}-output`
             </TabsLabel>
             <TabsPanel data-panel="source">
               <div class="ui-panel">
-                <Code
-                  code={codeContent}
-                  lang={
-                    codeLangId === "react" || codeLangId === "solid"
-                      ? "tsx"
-                      : codeLangId
-                  }
-                />
+                <Code code={codeContent} lang={codeLang} />
               </div>
             </TabsPanel>
           </TabsItem>
@@ -269,14 +265,7 @@ const outputId = `${groupName}-output`
           </TabsItem>
         </Tabs>
       ) : (
-        <Code
-          code={codeContent}
-          lang={
-            codeLangId === "react" || codeLangId === "solid"
-              ? "tsx"
-              : codeLangId
-          }
-        />
+        <Code code={codeContent} lang={codeLang} />
       )}
     </template>
   </div>}

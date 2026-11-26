@@ -1,0 +1,35 @@
+{% from "opui/index.njk" import Carousel %}
+{% set photos = [
+  {
+    alt: "A deep blue fjord between steep mountains",
+    height: 450,
+    id: 1015,
+    width: 800
+  },
+  { alt: "A lighthouse on a rocky shore", height: 800, id: 1043, width: 600 },
+  {
+    alt: "Yellow tents in a snowy mountain camp",
+    height: 450,
+    id: 1036,
+    width: 800
+  },
+  { alt: "A tall pine forest in the fog", height: 800, id: 1044, width: 600 }
+] %}
+
+{% call Carousel({
+  "aria-label": "Photos",
+  markers: true,
+  style: "--_media-fit: contain"
+}) %}
+  {% for photo in photos -%}
+    <li>
+      <img
+        alt="{{ photo.alt }}"
+        height="{{ photo.height }}"
+        loading="lazy"
+        src="https://picsum.photos/id/{{ photo.id }}/{{ photo.width }}/{{ photo.height }}"
+        width="{{ photo.width }}"
+      />
+    </li>
+  {%- endfor %}
+{% endcall %}

@@ -1,0 +1,4 @@
+{% from "opui/index.njk" import Switch %}
+
+{% call Switch({ name: "switch-label-position" }) %}Daily digest{% endcall %}
+{% call Switch({ name: "switch-label-position", orientation: "vertical" }) %}Mentions{% endcall %}

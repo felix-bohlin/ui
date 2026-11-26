@@ -1,0 +1,15 @@
+{% macro CalloutIcon(props = {}) %}
+  {%- set rest = props | opuiRest("CalloutIcon") -%}
+  {%- set callout = opui.context("Callout") -%}
+  {%- set severity = callout.severity -%}
+  {% if severity and severity !== "neutral" -%}
+    <svg
+      aria-hidden="true"
+      {%- if props.class %} class="{{ props.class }}"{% endif %}
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      {{- rest | opuiAttributes }}></svg>
+  {%- endif %}
+{%- endmacro %}

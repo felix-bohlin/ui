@@ -2,7 +2,7 @@
 
 import { cx } from "../cx"
 import { useDrawerContext } from "./context.react"
-import { warnReplacedId } from "../dev"
+import { DEV, warnReplacedId } from "../dev"
 import type { DrawerTitleProps as Props } from "./types.react"
 
 export default function DrawerTitle({
@@ -12,7 +12,7 @@ export default function DrawerTitle({
   ...rest
 }: Props) {
   const drawer = useDrawerContext()
-  warnReplacedId("DrawerTitle", "Drawer", id, drawer?.titleId)
+  if (DEV) warnReplacedId("DrawerTitle", "Drawer", id, drawer?.titleId)
 
   return (
     <h2 className={cx([className])} id={drawer?.titleId ?? id} {...rest}>

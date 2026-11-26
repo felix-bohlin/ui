@@ -1,3 +1,4 @@
+import nunjucks from "nunjucks"
 import { describe, expect, test } from "vitest"
 import { nunjucksExpression } from "../../scripts/component-nunjucks-expression.mjs"
 import {
@@ -17,7 +18,7 @@ import {
 } from "../../scripts/component-nunjucks-layout.mjs"
 import { compileNunjucks } from "../../scripts/component-nunjucks.mjs"
 import { readComponent } from "../../scripts/component-reader.mjs"
-import { createEnvironment } from "../../scripts/nunjucks-runtime.mjs"
+import { configure } from "../../packages/opui/nunjucks/index"
 
 const key = (code: string) => keyOfCode(code)
 
@@ -116,7 +117,7 @@ describe("the facts", () => {
     expect(macro).toContain(`id="{{ props.label ~ '-id' }}"`)
     expect(macro).not.toContain("labelId")
     expect(macro).toContain("{%- set twice = props.label or ")
-    expect(macro).toContain("{{ Inner({ value: passed }) }}")
+    expect(macro).toContain("{{ Inner({ value: passed }) -}}")
   })
 
   test("undefined becomes none only where null and undefined give the same result", () => {
@@ -137,7 +138,7 @@ describe("the facts", () => {
 })
 
 describe("the layout", () => {
-  const env = createEnvironment({})
+  const env = configure(new nunjucks.Environment(null, { autoescape: true }))
   const render = (template: string) =>
     env.renderString(template, { a: "A", b: "", c: "C" })
 

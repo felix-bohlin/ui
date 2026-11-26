@@ -3,7 +3,7 @@
 An on and off switch for a setting that applies right away.
 
 - CSS: `opui-css/css/components/switch.css`, `opui-css/css/components/choice.css`, `opui-css/css/components/form.css` and `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/switch.md), [Astro](https://opui.dev/astro/components/switch.md), [React](https://opui.dev/react/components/switch.md), [Solid](https://opui.dev/solid/components/switch.md), [Svelte](https://opui.dev/svelte/components/switch.md), [Vue](https://opui.dev/vue/components/switch.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/switch.md), [Astro](https://opui.dev/astro/components/switch.md), [Nunjucks](https://opui.dev/nunjucks/components/switch.md), [React](https://opui.dev/react/components/switch.md), [Solid](https://opui.dev/solid/components/switch.md), [Svelte](https://opui.dev/svelte/components/switch.md), [Vue](https://opui.dev/vue/components/switch.md).
 - The docs page also documents `FieldGroup`, see `form.md`.
 
 ## Switch
@@ -32,12 +32,12 @@ An on and off switch for a setting that applies right away.
 - `value`: `string`. The value of the `<input>`, submitted with the form when it's checked.
 - `variant`: `"elevated"` (`.ui-elevated`), `"outlined"` (default), `"tonal"` (`.ui-tonal`). The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.
 
-Model: `checked` (`boolean | (string | number)[]`), the checked state, or the checked values of a group. Astro, React and Solid `checked`, Svelte `bind:checked`, `bind:group`, Vue `v-model`.
+Model: `checked` (`boolean | (string | number)[]`), the checked state, or the checked values of a group. Astro, Nunjucks, React and Solid `checked`, Svelte `bind:checked`, `bind:group`, Vue `v-model`.
 
 ### Notes
 
 - HTML: The input needs `type="checkbox"` and `role="switch"`.
-- Astro and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.
+- Astro, Nunjucks and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.
 - React: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`. Use `checked` with `onChange`, or `defaultChecked`.
 - Solid: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`. `checked` sets the state and follows it when it changes, and `onChange` reports changes.
 - Svelte: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`.
@@ -52,11 +52,11 @@ Model: `checked` (`boolean | (string | number)[]`), the checked state, or the ch
 
 - `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
 
-Model: `checked` (`boolean | (string | number)[]`), the checked state, or the checked values of a group. Astro, React and Solid `checked`, Svelte `bind:checked`, `bind:group`, Vue `v-model`.
+Model: `checked` (`boolean | (string | number)[]`), the checked state, or the checked values of a group. Astro, Nunjucks, React and Solid `checked`, Svelte `bind:checked`, `bind:group`, Vue `v-model`.
 
 ### Notes
 
-- Astro, React, Solid, Svelte and Vue: The switch `<input>` without the label, for a custom layout such as the end of a list item. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
+- Astro, Nunjucks, React, Solid, Svelte and Vue: The switch `<input>` without the label, for a custom layout such as the end of a list item. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
 
 ## Component properties
 
@@ -181,6 +181,39 @@ import { Switch } from "opui-css/astro"
 <Switch disabled hideLabel name="switch-basics" value="airplane-mode"
   >Airplane mode</Switch
 >
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Switch, SwitchInput %}`
+
+- `Switch` named slots: `slots.endText`, `slots.iconChecked` and `slots.iconUnchecked`. Pass a string, or markup captured with `{% set %}`.
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Switch %}
+
+{% call Switch({
+  checked: true,
+  hideLabel: true,
+  name: "switch-basics",
+  value: "wifi"
+}) %}Wi-Fi{% endcall %}
+{% call Switch({ hideLabel: true, name: "switch-basics", value: "bluetooth" }) %}Bluetooth{% endcall %}
+{% call Switch({
+  checked: true,
+  disabled: true,
+  hideLabel: true,
+  name: "switch-basics",
+  value: "location"
+}) %}Location{% endcall %}
+{% call Switch({
+  disabled: true,
+  hideLabel: true,
+  name: "switch-basics",
+  value: "airplane-mode"
+}) %}Airplane mode{% endcall %}
 ```
 
 ## React

@@ -8,6 +8,11 @@ import { parse, transform } from "@astrojs/compiler"
 import { parseFragment } from "parse5"
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
+import {
+  nunjucksKey,
+  nunjucksString,
+  nunjucksValue,
+} from "./component-nunjucks-expression.mjs"
 import { SOLID_PRAGMA } from "./component-shared.mjs"
 import { splitTopLevel } from "./example-display.mjs"
 import {
@@ -1109,6 +1114,353 @@ const markupTarget = (framework, roles) => {
   return emit
 }
 
+const NUNJUCKS_WIDTH = 80
+
+const TEMPLATE_START = /\{(?=[{%#])/g
+
+const nunjucksText = (value) => value.replace(TEMPLATE_START, '{{ "{" }}')
+
+const NUNJUCKS_BOOLEANS = new Set([
+  "checked",
+  "disabled",
+  "hidden",
+  "inert",
+  "multiple",
+  "open",
+  "readonly",
+  "required",
+  "selected",
+])
+
+const spaces = (depth) => "  ".repeat(Math.max(depth, 0))
+
+const columnOf = (text) => text.length - text.lastIndexOf("\n") - 1
+
+const fits = (prefix, text) =>
+  !text.includes("\n") && columnOf(prefix) + text.length <= NUNJUCKS_WIDTH
+
+const nunjucksLiteral = (value, prefix, depth) => {
+  if (typeof value === "string") return nunjucksString(value)
+  if (typeof value === "number" || typeof value === "boolean") {
+    return String(value)
+  }
+  if (value === null) return "none"
+  const array = Array.isArray(value)
+  const entries = array
+    ? value.map((item) => [undefined, item])
+    : Object.entries(value)
+  if (entries.length === 0) return array ? "[]" : "{}"
+  const [open, close] = array ? ["[", "]"] : ["{ ", " }"]
+  const entry = ([key, item], at, level) => {
+    const head = key === undefined ? "" : `${nunjucksKey(key)}: `
+    return `${head}${nunjucksLiteral(item, `${at}${head}`, level)}`
+  }
+  const flat = `${open}${entries.map((item) => entry(item, "", depth)).join(", ")}${close}`
+  if (fits(prefix, flat)) return flat
+  const inner = spaces(depth + 1)
+  return `${open.trim()}\n${entries
+    .map((item) => `${inner}${entry(item, inner, depth + 1)}`)
+    .join(",\n")}\n${spaces(depth)}${close.trim()}`
+}
+
+const nunjucksDict = (entries, prefix, depth) => {
+  if (entries.length === 0) return ""
+  const flat = `{ ${entries.map(([key, value]) => `${nunjucksKey(key)}: ${value}`).join(", ")} }`
+  if (
+    fits(prefix, flat) &&
+    !entries.some(([, value]) => value.includes("\n"))
+  ) {
+    return flat
+  }
+  const inner = spaces(depth + 1)
+  return `{\n${entries
+    .map(([key, value]) => `${inner}${nunjucksKey(key)}: ${value}`)
+    .join(",\n")}\n${spaces(depth)}}`
+}
+
+const singular = (name) =>
+  name.endsWith("ies")
+    ? `${name.slice(0, -3)}y`
+    : name.endsWith("s") && name.length > 1
+      ? name.slice(0, -1)
+      : `${name}Item`
+
+const toNunjucksExample = (example, file, modules) => {
+  const consts = new Map(example.consts.map((item) => [item.name, item]))
+  const literalOf = (code) => {
+    const node = parseExpression(code, file)
+    const value = literalValue(node)
+    return value === NOT_LITERAL ? undefined : { value }
+  }
+  const expression = (code, scope) => {
+    try {
+      return nunjucksValue(code, { file, ...scope })
+    } catch (error) {
+      throw unsupported(
+        file,
+        `the expression {${code}}`,
+        "Nunjucks",
+        error.message,
+      )
+    }
+  }
+  const attribute = (item, scope) => {
+    if (item.kind === "boolean") return { text: item.name }
+    if (item.kind === "string") {
+      return {
+        text: nunjucksText(markupAttribute(item.name, item.value, false)),
+      }
+    }
+    const literal = literalOf(item.value)
+    if (literal) {
+      const { value } = literal
+      if (value === true) return { text: item.name }
+      if (value === false || value === null) return undefined
+      if (typeof value === "string" || typeof value === "number") {
+        return {
+          text: nunjucksText(markupAttribute(item.name, String(value), false)),
+        }
+      }
+      throw unsupported(
+        file,
+        `the attribute ${item.name}={${item.value}}`,
+        "Nunjucks",
+      )
+    }
+    const node = parseExpression(item.value, file)
+    if (ts.isTemplateExpression(node)) {
+      const parts = [
+        attributeText(node.head.text),
+        ...node.templateSpans.flatMap((span) => [
+          `{{ ${expression(span.expression.getText(), scope).text} }}`,
+          attributeText(span.literal.text),
+        ]),
+      ]
+      return { text: `${item.name}="${parts.join("")}"` }
+    }
+    const value = expression(item.value, scope).text
+    if (NUNJUCKS_BOOLEANS.has(item.name)) {
+      return { condition: value, text: item.name }
+    }
+    return { text: `${item.name}="{{ ${value} }}"` }
+  }
+  const propValue = (item, scope, prefix, depth) => {
+    if (item.kind === "boolean") return "true"
+    if (item.kind === "string") return nunjucksString(item.value)
+    const literal = literalOf(item.value)
+    if (literal) return nunjucksLiteral(literal.value, prefix, depth)
+    return expression(item.value, scope).text
+  }
+  const isBlank = (node) => node?.type === "text" && !node.value.trim()
+  const print = (nodes, out, context) => {
+    nodes.forEach((node, index) => {
+      if (node.type === "text") {
+        if (context.raw) {
+          out.text += nunjucksText(node.value)
+          return
+        }
+        const last = index === nodes.length - 1
+        out.text += nunjucksText(node.value).replace(
+          /[\t\n\f\r ]*\n[\t\n\f\r ]*/g,
+          (run, offset, whole) =>
+            `${BLANK_LINE.test(run) ? "\n\n" : "\n"}${spaces(
+              last && offset + run.length === whole.length
+                ? context.depth - 1
+                : context.depth,
+            )}`,
+        )
+        return
+      }
+      if (node.type === "comment") {
+        out.text += `<!--${node.value}-->`
+        return
+      }
+      if (node.type === "expression") {
+        out.text += `{{ ${expression(node.code, context.scope).text} }}`
+        return
+      }
+      if (node.type === "html") {
+        const item = example.markup.get(node.name)
+        if (item.shared) out.text += `{{ ${node.name} | safe }}`
+        else print(item.tree, out, context)
+        return
+      }
+      if (node.type === "map") {
+        const taken = new Set([...consts.keys(), ...context.scope.locals])
+        const destructured = node.params.startsWith("{")
+        const name = destructured
+          ? ([singular(node.array), "entry"].find((item) => !taken.has(item)) ??
+            `${singular(node.array)}${taken.size}`)
+          : node.params
+        const renames = new Map(context.scope.renames)
+        if (destructured) {
+          for (const pair of node.params.slice(1, -1).split(",")) {
+            const [key, local = key] = pair
+              .split(":")
+              .map((part) => part.trim())
+            renames.set(local, { level: 0, text: `${name}.${key}` })
+          }
+        }
+        const scope = {
+          locals: new Set([
+            ...context.scope.locals,
+            ...(destructured ? [] : [name]),
+          ]),
+          renames,
+        }
+        out.text += `{% for ${name} in ${node.array} -%}\n${spaces(context.depth + 1)}`
+        print([node.child], out, {
+          ...context,
+          depth: context.depth + 1,
+          scope,
+        })
+        out.text += `\n${spaces(context.depth)}{%- endfor %}`
+        return
+      }
+      if (node.component) {
+        component(node, out, context)
+        return
+      }
+      element(node, out, context)
+    })
+  }
+  const element = (node, out, context) => {
+    const attributes = node.attributes
+      .map((item) => attribute(item, context.scope))
+      .filter(Boolean)
+    const piece = ({ condition, text }, before) =>
+      condition
+        ? `{% if ${condition} %}${before}${text}{% endif %}`
+        : `${before}${text}`
+    const flat = attributes.map((item) => piece(item, " ")).join("")
+    const end = VOID_ELEMENTS.has(node.name) ? " />" : ">"
+    if (fits(out.text, `<${node.name}${flat}${end}`)) {
+      out.text += `<${node.name}${flat}${end}`
+    } else {
+      const inner = spaces(context.depth + 1)
+      out.text += `<${node.name}${attributes
+        .map((item) => `\n${inner}${piece(item, "")}`)
+        .join("")}\n${spaces(context.depth)}${end.trim()}`
+    }
+    if (VOID_ELEMENTS.has(node.name)) return
+    print(node.children, out, {
+      ...context,
+      depth: context.depth + 1,
+      raw: context.raw || RAW_TEXT.has(node.name),
+    })
+    out.text += `</${node.name}>`
+  }
+  const slotValue = (child, depth, context) => {
+    const content =
+      child.type === "fragment"
+        ? child.children
+        : [{ ...child, slot: undefined }]
+    if (
+      content.every((item) => item.type === "text") &&
+      !content.some((item) => item.value.includes("\n"))
+    ) {
+      return {
+        text: nunjucksString(content.map((item) => item.value).join("")),
+      }
+    }
+    const out = { text: "" }
+    print(content, out, {
+      ...context,
+      depth: isBlank(content[0]) ? depth + 1 : depth,
+    })
+    return { markup: out.text }
+  }
+  const component = (node, out, context) => {
+    const slotted = node.children.filter((child) => child.slot)
+    const children = []
+    for (const child of node.children) {
+      if (!child.slot) children.push(child)
+      else if (isBlank(children.at(-1))) children.pop()
+    }
+    const sets = []
+    const slots = slotted
+      .map((child) => {
+        const name = slotProp(child.slot)
+        const value = slotValue(child, context.depth, context)
+        if (value.text) return [name, value.text]
+        sets.push(`{% set ${name} %}${value.markup}{% endset %}`)
+        return [name, name]
+      })
+      .toSorted(([a], [b]) => byAttributeName(a, b))
+    for (const set of sets) {
+      out.text += `${set}\n${spaces(context.depth)}`
+    }
+    const props = node.attributes.map((item) => [item.name, item])
+    const prefix = (head) => `${out.text}${head}`
+    const call = children.length > 0 && !children.every(isBlank)
+    const head = call ? `{% call ${node.name}(` : `{{ ${node.name}(`
+    const entries = props.map(([name, item]) => [
+      name,
+      propValue(
+        item,
+        context.scope,
+        `${prefix(head)}${nunjucksKey(name)}: `,
+        context.depth + 1,
+      ),
+    ])
+    if (slots.length > 0) {
+      entries.push([
+        "slots",
+        nunjucksDict(slots, prefix(`${head}slots: `), context.depth + 1),
+      ])
+    }
+    entries.sort(([a], [b]) => byAttributeName(a, b))
+    const dict = nunjucksDict(entries, prefix(head), context.depth)
+    if (!call) {
+      out.text += `${head}${dict}) }}`
+      return
+    }
+    out.text += `${head}${dict}) %}`
+    print(children, out, { ...context, depth: context.depth + 1 })
+    out.text += "{% endcall %}"
+  }
+  const names = usedComponents(example)
+  const imports = `{% from "opui/index.njk" import ${names.join(", ")} %}`
+  const header = [
+    ...(names.length > 0
+      ? [
+          imports.length <= NUNJUCKS_WIDTH
+            ? imports
+            : `{% from "opui/index.njk" import\n${names.map((name) => `  ${name}`).join(",\n")}\n%}`,
+        ]
+      : []),
+    ...example.consts.map(({ items, name }) => {
+      const head = `{% set ${name} = `
+      return `${head}${nunjucksLiteral(items, head, 0)} %}`
+    }),
+    ...[...example.markup.values()]
+      .filter((item) => item.shared)
+      .map((item) => {
+        const out = { text: `{% set ${item.name} %}` }
+        print(item.tree, out, {
+          depth: isBlank(item.tree[0]) ? 1 : 0,
+          scope: { locals: new Set(), renames: new Map() },
+        })
+        return `${out.text}{% endset %}`
+      }),
+  ]
+  const out = { text: "" }
+  print(example.tree, out, {
+    depth: 0,
+    scope: { locals: new Set(consts.keys()), renames: new Map() },
+  })
+  return `${[
+    header.join("\n"),
+    out.text,
+    ...example.styles.map((css) => `<style>\n${indent(css, 2)}\n</style>`),
+    ...modules.map(
+      (code) => `<script type="module">\n${indent(code, 2)}\n</script>`,
+    ),
+  ]
+    .filter(Boolean)
+    .join("\n\n")}\n`
+}
+
 const SVG_TEXT_CONTENT = new Set(["text", "textPath", "tspan"])
 
 const mixedSvgText = (nodes) =>
@@ -1618,13 +1970,31 @@ export const convertExample = async (
   source,
   framework,
   file,
-  { read, roles } = {},
+  { read, rendered, roles } = {},
 ) => {
   const name = file
     .split("/")
     .at(-1)
     .replace(/\.astro$/, "")
   const example = { ...(await parseExample(source, file, { read })), roles }
+  if (framework === "nunjucks") {
+    if (rendered === undefined) {
+      throw new Error(
+        `${file}: the Nunjucks file needs the Astro render for its element scripts`,
+      )
+    }
+    const { markup } = renderedMarkup(rendered, example, file)
+    const modules = await scriptModules(markup, example)
+    return toNunjucksExample(
+      example,
+      file,
+      await Promise.all(
+        modules.map(async (code) =>
+          (await formatStably(code, file.replace(/\.astro$/, ".js"))).trim(),
+        ),
+      ),
+    )
+  }
   if (example.scripts.length > 0) {
     throw unsupported(
       file,
@@ -1846,23 +2216,30 @@ const stripTypes = (code) => {
   }
 }
 
-/** @param {string} rendered @param {string} source @param {string} file @param {{ read?: Awaited<ReturnType<typeof readExample>> }} [options] */
-export const htmlFromRender = async (rendered, source, file, { read } = {}) => {
-  const example = read ?? (await readExample(source, file))
-  const { markup, nodes } = cleanRender(
-    assignExampleIds(rendered, exampleKeyOf(file), idBaseOf(file)),
-    { css: example.styles, file },
-  )
+const renderedMarkup = (rendered, example, file) =>
+  cleanRender(assignExampleIds(rendered, exampleKeyOf(file), idBaseOf(file)), {
+    css: example.styles,
+    file,
+  })
+
+const scriptModules = async (markup, example) => {
   const imported = new Set(
     example.scripts.flatMap((script) => importsOf(script).modules),
   )
   const imports = scriptImports(markup, await elementTags()).filter(
     (line) => !imported.has(/"([^"]+)"/.exec(line)?.[1]),
   )
-  const modules = [
+  return [
     imports.join("\n"),
     ...example.scripts.map((script) => stripTypes(script).trim()),
   ].filter(Boolean)
+}
+
+/** @param {string} rendered @param {string} source @param {string} file @param {{ read?: Awaited<ReturnType<typeof readExample>> }} [options] */
+export const htmlFromRender = async (rendered, source, file, { read } = {}) => {
+  const example = read ?? (await readExample(source, file))
+  const { markup, nodes } = renderedMarkup(rendered, example, file)
+  const modules = await scriptModules(markup, example)
   const parts = [
     markup,
     ...example.styles.map((css) => `<style>\n${indent(css, 2)}\n</style>`),
@@ -2037,6 +2414,7 @@ export const generate = async ({
               target,
               await convertExample(source, framework, astroFile, {
                 read,
+                rendered,
                 roles,
               }),
             )

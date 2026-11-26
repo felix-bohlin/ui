@@ -12,6 +12,7 @@ import AstroLogo from "../components/AstroLogo.astro"
 import ComponentCard from "../components/ComponentShowcase/ComponentCard.astro"
 import ComponentShowcase from "../components/ComponentShowcase/ComponentShowcase.astro"
 import Html5Logo from "../components/Html5Logo.astro"
+import NunjucksLogo from "../components/NunjucksLogo.astro"
 import ReactLogo from "../components/ReactLogo.astro"
 import Scenery from "../components/Scenery.astro"
 import SolidLogo from "../components/SolidLogo.astro"
@@ -39,6 +40,7 @@ const builderHref = link("/theme-builder")
 const FRAMEWORK_BRANDING: Record<FrameworkId, { Logo: typeof AstroLogo }> = {
   astro: { Logo: AstroLogo },
   html: { Logo: Html5Logo },
+  nunjucks: { Logo: NunjucksLogo },
   react: { Logo: ReactLogo },
   solid: { Logo: SolidLogo },
   svelte: { Logo: SvelteLogo },
@@ -97,7 +99,10 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
               ><span class="vi-on"><ViLockup panel={false} /></span>
             </h1>
 
-            <p class="hero-description">{description}</p>
+            <p class="hero-description">
+              <span class="vi-off">{description}</span
+              ><span class="vi-on">Welcome to modern HTML &amp; CSS</span>
+            </p>
           </hgroup>
 
           <div class="hero-ctas">
@@ -577,16 +582,32 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
     :global(html[data-example-theme="vice-city"]) & {
       color: var(--ui-primary-text);
-      font-size: var(--font-size-1);
+      font-size: min(var(--font-size-1), 100cqi / 21.4);
       font-weight: var(--ui-font-weight-bold);
       letter-spacing: 0.14em;
       text-transform: uppercase;
     }
   }
 
+  .hero-copy {
+    :global(html[data-example-theme="vice-city"]) & {
+      container-type: inline-size;
+    }
+  }
+
+  .hero-copy .ui-hgroup {
+    :global(html[data-example-theme="vice-city"]) & {
+      inline-size: fit-content;
+
+      .ui-h1 {
+        container-type: inline-size;
+      }
+    }
+  }
+
   .hero-copy :global(.vi-lockup) {
     display: grid;
-    font-size: clamp(8rem, 24vw, 15rem);
+    font-size: calc(100cqi / 1.61);
     inline-size: fit-content;
   }
 

@@ -1,0 +1,6 @@
+---
+layout: layout.njk
+title: Chat
+---
+{% from "chat-screen.njk" import chatScreen with context %}
+{{ chatScreen(app.conversation(none)) }}

@@ -5,7 +5,7 @@ import { computed, provide, reactive } from "vue"
 import { useRestAttrs } from "../vue"
 import { DrawerKey } from "./context.vue"
 import { autoLabelledBy } from "../id"
-import { warnMissingId } from "../dev"
+import { DEV, warnMissingId } from "../dev"
 import { defined } from "../attrs"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -27,7 +27,7 @@ const attrs = useRestAttrs()
 
 const labelledBy = computed(() => autoLabelledBy(attrs.value, `${id}-title`))
 
-warnMissingId("Drawer", id)
+if (DEV) warnMissingId("Drawer", id)
 
 provide(DrawerKey, reactive({ id: computed(() => id), titleId: labelledBy }))
 </script>

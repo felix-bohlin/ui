@@ -5,7 +5,7 @@ import "../../elements/drawer-swipe.js"
 import { defined } from "../attrs"
 import { DrawerContext } from "./context.solid"
 import { autoLabelledBy } from "../id"
-import { warnMissingId } from "../dev"
+import { DEV, warnMissingId } from "../dev"
 import type { Props } from "./types.solid"
 
 export default function Drawer(props: Props) {
@@ -25,9 +25,10 @@ export default function Drawer(props: Props) {
   const closedby = () => (props.closedby === undefined ? "any" : props.closedby)
   const side = () => (props.side === undefined ? "inline-start" : props.side)
   const labelledBy = () => autoLabelledBy(rest, `${props.id}-title`)
-  untrack(() => {
-    warnMissingId("Drawer", props.id)
-  })
+  if (DEV)
+    untrack(() => {
+      warnMissingId("Drawer", props.id)
+    })
 
   return (
     <DrawerContext

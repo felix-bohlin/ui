@@ -3,7 +3,7 @@
 A drop zone around a file input that lists the files your app is uploading, with a preview, progress, a message and a remove button for each.
 
 - CSS: `opui-css/css/components/file-upload.css`, `opui-css/css/components/button.css`, `opui-css/css/components/list.css` and `opui-css/css/components/progress.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/file-upload.md), [Astro](https://opui.dev/astro/components/file-upload.md), [React](https://opui.dev/react/components/file-upload.md), [Solid](https://opui.dev/solid/components/file-upload.md), [Svelte](https://opui.dev/svelte/components/file-upload.md), [Vue](https://opui.dev/vue/components/file-upload.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/file-upload.md), [Astro](https://opui.dev/astro/components/file-upload.md), [Nunjucks](https://opui.dev/nunjucks/components/file-upload.md), [React](https://opui.dev/react/components/file-upload.md), [Solid](https://opui.dev/solid/components/file-upload.md), [Svelte](https://opui.dev/svelte/components/file-upload.md), [Vue](https://opui.dev/vue/components/file-upload.md).
 
 ## FileUpload
 
@@ -52,6 +52,7 @@ A drop zone around a file input that lists the files your app is uploading, with
 
 - HTML: Import `opui-css/elements/file-upload.js`, and render the rows yourself from the `select` and `remove` events: one `<li>` per file in a `<ul class="ui-list">` after the `.ui-field-container`, with the preview in `.ui-start`, the name, a `.ui-progress` and the message in `.ui-text`, and the remove button in `.ui-end` with `command="--remove"`, `commandfor` set to the input's id and the file's id as its `value`. A failed file's message has `popover` and an `id`, and a `<button type="button" popovertarget>` in `.ui-start` opens it in the compact row.
 - Astro: The component loads `opui-css/elements/file-upload.js`. The component uploads nothing and keeps no files: start the upload from the `select` event, and pass each file's state back in `items`. Attributes that aren't props go to the `<opui-file-upload>`, and `id` names the file input.
+- Nunjucks: The macro renders the element without its script, so load `opui-css/elements/file-upload.js` on the page. The component uploads nothing and keeps no files: start the upload from the `select` event, and pass each file's state back in `items`. Attributes that aren't props go to the `<opui-file-upload>`, and `id` names the file input.
 - React: The component loads `opui-css/elements/file-upload.js` once it mounts, unless the page imports it first. The component uploads nothing and keeps no files: start the upload from the `select` event, and pass each file's state back in `items`. Attributes that aren't props go to the `<opui-file-upload>`, and `id` names the file input.
 - Solid, Svelte and Vue: The component imports `opui-css/elements/file-upload.js`, so the element runs as soon as the component's code loads. The component uploads nothing and keeps no files: start the upload from the `select` event, and pass each file's state back in `items`. Attributes that aren't props go to the `<opui-file-upload>`, and `id` names the file input.
 
@@ -188,6 +189,27 @@ import { FileUpload } from "opui-css/astro"
   label="Choose photos"
   multiple
 />
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import FileUpload %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import FileUpload %}
+
+{{ FileUpload({
+  accept: "image/*",
+  description: "Or drop them here. PNG or JPG.",
+  label: "Choose photos",
+  multiple: true
+}) }}
+
+<script type="module">
+  import "opui-css/elements/file-upload.js"
+</script>
 ```
 
 ## React

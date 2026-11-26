@@ -1,5 +1,6 @@
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import { ssr } from "@solidjs/web"
+import nunjucks from "nunjucks"
 import { createElement, type ComponentType, type ReactNode } from "react"
 import { renderToString as renderReact } from "react-dom/server"
 import { createRawSnippet, type Component as SvelteComponent } from "svelte"
@@ -9,7 +10,9 @@ import { renderToString as renderVue } from "vue/server-renderer"
 import { REACT_ATTRIBUTE_NAMES } from "../../scripts/example-react-props.mjs"
 import { parseHtml } from "../../scripts/html-tokens.mjs"
 import { slotProp } from "../../src/component-api/frameworks"
+import { configure } from "../../packages/opui/nunjucks/index"
 import { renderSolid as renderSolidRoot } from "../../src/components/Example/render-solid"
+import { createIdGenerator } from "../../src/utils/id"
 import { TEXT } from "./case-table"
 
 type Node = ReturnType<typeof parseHtml>[number]
@@ -113,6 +116,17 @@ const slotProps = (slots: Slots, value: (html: string) => unknown) =>
 
 let container: AstroContainer | undefined
 
+let environment: nunjucks.Environment | undefined
+
+export const renderNunjucks = (
+  source: string,
+  context: object = {},
+  id: (prefix: string) => string = createIdGenerator(),
+) => {
+  environment ??= new nunjucks.Environment(null, { autoescape: true })
+  return configure(environment, { id }).renderString(source, context)
+}
+
 export const renderSolid = <P extends Props>(
   Component: SolidComponent<P>,
   props = {} as P,
@@ -131,6 +145,31 @@ export const render = {
     return container.renderToString(
       component as Parameters<AstroContainer["renderToString"]>[0],
       { locals, props, slots },
+    )
+  },
+  nunjucks: async (
+    component: unknown,
+    props: Props = {},
+    slots: Slots = {},
+    locals?: { $id?: (prefix: string) => string },
+  ) => {
+    const name =
+      /\{%-? macro (\w+)\(/.exec(component as string)?.[1] ??
+      (component as string)
+    const { default: content, ...named } = slots
+    const call =
+      content === undefined
+        ? `{{ ${name}(props) }}`
+        : `{% call ${name}(props) %}{{ content | safe }}{% endcall %}`
+    return renderNunjucks(
+      `{% from "opui/${name}.njk" import ${name} %}${call}`,
+      {
+        content,
+        props: Object.keys(named).length
+          ? { ...props, slots: slotProps(named, (html) => html) }
+          : props,
+      },
+      locals?.$id,
     )
   },
   react: async (component: unknown, props: Props = {}, slots: Slots = {}) =>

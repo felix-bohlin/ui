@@ -26,6 +26,8 @@ type Interaction = (context: {
   root: Locator
 }) => Promise<void>
 
+const SCRIPTED = PACKAGE_FRAMEWORK_IDS.filter((id) => id !== "nunjucks")
+
 const interaction = (
   component: string,
   name: string,
@@ -1725,7 +1727,7 @@ interaction(
     await page.evaluate(() => history.pushState({}, "", "elsewhere/"))
     await expect(menu).toBeHidden()
   },
-  PACKAGE_FRAMEWORK_IDS,
+  SCRIPTED,
 )
 
 interaction(
@@ -1758,7 +1760,7 @@ interaction(
     })
     await expect(menu).toBeHidden()
   },
-  PACKAGE_FRAMEWORK_IDS,
+  SCRIPTED,
 )
 
 interaction(

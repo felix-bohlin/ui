@@ -1,7 +1,7 @@
 /** @jsxImportSource @solidjs/web */
 import { children, omit, untrack } from "solid-js"
 import { filled } from "../attrs"
-import { warnControlAttributes } from "../dev"
+import { DEV, warnControlAttributes } from "../dev"
 import type { Props } from "./types.solid"
 
 export default function Field(props: Props) {
@@ -44,9 +44,10 @@ export default function Field(props: Props) {
   const startTextId = () =>
     hasStartText() ? `${props.for}-start-text` : undefined
   const endTextId = () => (hasEndText() ? `${props.for}-end-text` : undefined)
-  untrack(() => {
-    warnControlAttributes("Field", rest)
-  })
+  if (DEV)
+    untrack(() => {
+      warnControlAttributes("Field", rest)
+    })
 
   return (
     <div

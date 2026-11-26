@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue"
 import { useRestAttrs } from "../vue"
-import { warnUnnamedControl } from "../dev"
+import { DEV, warnUnnamedControl } from "../dev"
 import { disabledLink, tagAttrs } from "../tag"
 import { defined } from "../attrs"
 import type { Props, Slots } from "./types.vue-props"
@@ -20,7 +20,11 @@ const Tag = computed(() =>
   disabledLink(as, disabled) ? "a" : as || (href ? "a" : "div"),
 )
 
-warnUnnamedControl("Avatar", as === "button" || href, { ...attrs.value, label })
+if (DEV)
+  warnUnnamedControl("Avatar", as === "button" || href, {
+    ...attrs.value,
+    label,
+  })
 </script>
 
 <template>

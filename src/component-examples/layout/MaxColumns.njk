@@ -1,0 +1,16 @@
+{% from "opui/index.njk" import Card, CardContent %}
+
+<div
+  class="ui-layout-grid"
+  style="--_max-columns: 2; --_min-inline-size: 10rem"
+>
+  {% call Card({ variant: "outlined" }) %}
+    {% call CardContent() %}Tab backups{% endcall %}
+  {% endcall %}
+  {% call Card({ variant: "outlined" }) %}
+    {% call CardContent() %}HD slap videos{% endcall %}
+  {% endcall %}
+  {% call Card({ variant: "outlined" }) %}
+    {% call CardContent() %}Glitter profiles{% endcall %}
+  {% endcall %}
+</div>

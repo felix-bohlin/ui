@@ -1,0 +1,29 @@
+{% from "opui/index.njk" import Card, CardHeader, Carousel %}
+{% set places = ["Kyoto", "Lima", "Lisbon"] %}
+
+<div
+  style="display: grid; gap: var(--ui-space-4); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr))"
+>
+  <div>
+    {% call Carousel({
+      "aria-label": "Destinations",
+      buttons: "outside",
+      markers: true
+    }) %}
+      {% for title in places -%}
+        <li>
+          {% call Card({ variant: "tonal" }) %}
+            {% call CardHeader() %}
+              <p>Destination</p>
+              <h3>{{ title }}</h3>
+            {% endcall %}
+          {% endcall %}
+        </li>
+      {%- endfor %}
+    {% endcall %}
+  </div>
+  <hgroup>
+    <h3>Spring trips</h3>
+    <p>Three cities, two weeks, one carry-on.</p>
+  </hgroup>
+</div>

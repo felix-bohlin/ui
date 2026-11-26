@@ -1,0 +1,15 @@
+{% macro FieldLegend(props = {}) %}
+  {%- set rest = props | opuiRest("FieldLegend") -%}
+  {%- set tag = props.as | default("legend") -%}
+  {%- set fieldset = opui.context("Fieldset") -%}
+  {%- set isLegend = tag == "legend" -%}
+  {{- opui.warnReplacedId("FieldLegend", "Fieldset", props.id, fieldset.legendId) -}}
+  {%- set classes = [{ "ui-legend": not isLegend }, props.class] | opuiClass -%}
+  <{{ tag | opuiTag }}{{ opui.merge(
+    { class: classes },
+    rest,
+    { id: fieldset.legendId if fieldset.legendId != none else props.id }
+  ) | opuiAttributes(tag) }}>
+    {{- caller() if caller -}}
+  </{{ tag | opuiTag }}>
+{%- endmacro %}

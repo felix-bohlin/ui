@@ -1,0 +1,37 @@
+{% from "opui/index.njk" import
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow
+%}
+
+{% call Table({ density: "dense" }) %}
+  {% call TableCaption() %}Low End Theory members{% endcall %}
+  {% call TableHead() %}
+    {% call TableRow() %}
+      {% call TableHeaderCell() %}Name{% endcall %}
+      {% call TableHeaderCell() %}Specialty{% endcall %}
+      {% call TableHeaderCell() %}Location{% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call TableBody() %}
+    {% call TableRow() %}
+      {% call TableCell() %}Lou Headstock{% endcall %}
+      {% call TableCell() %}Flatwound collector{% endcall %}
+      {% call TableCell() %}Göteborg{% endcall %}
+    {% endcall %}
+    {% call TableRow() %}
+      {% call TableCell() %}Percy Groove{% endcall %}
+      {% call TableCell() %}Slap enthusiast{% endcall %}
+      {% call TableCell() %}Lisbon{% endcall %}
+    {% endcall %}
+    {% call TableRow() %}
+      {% call TableCell() %}Ines Hertz{% endcall %}
+      {% call TableCell() %}Low B whisperer{% endcall %}
+      {% call TableCell() %}Berlin{% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

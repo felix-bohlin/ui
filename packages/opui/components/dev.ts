@@ -1,6 +1,6 @@
 declare const process: { env: { NODE_ENV?: string } }
 
-const DEV =
+export const DEV =
   (import.meta as { env?: { DEV?: boolean } }).env?.DEV ??
   (typeof process !== "undefined" && process.env.NODE_ENV !== "production")
 

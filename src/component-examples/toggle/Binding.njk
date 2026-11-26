@@ -1,0 +1,49 @@
+{% from "opui/index.njk" import Button, ToggleButton, ToggleGroup %}
+
+{% call ToggleGroup({
+  "aria-label": "View",
+  name: "calendar-view",
+  value: "week"
+}) %}
+  {% call ToggleButton({ value: "day" }) %}Day{% endcall %}
+  {% call ToggleButton({ value: "week" }) %}Week{% endcall %}
+  {% call ToggleButton({ value: "month" }) %}Month{% endcall %}
+{% endcall %}
+{% call ToggleGroup({
+  "aria-label": "Text format",
+  multiple: true,
+  name: "text-format",
+  value: ["bold"]
+}) %}
+  {% call ToggleButton({ value: "bold" }) %}Bold{% endcall %}
+  {% call ToggleButton({ value: "italic" }) %}Italic{% endcall %}
+  {% call ToggleButton({ value: "underline" }) %}Underline{% endcall %}
+{% endcall %}
+<p class="toggle-binding-text">View: week. Format: bold.</p>
+{% call Button({ class: "toggle-binding-reset" }) %}Reset{% endcall %}
+
+<script type="module">
+  const text = document.querySelector(".toggle-binding-text")
+  const inputs = [
+    ...document.querySelectorAll('[name="calendar-view"], [name="text-format"]'),
+  ]
+  const checked = (name) =>
+    inputs
+      .filter((input) => input.name === name && input.checked)
+      .map((input) => input.value)
+
+  const update = () => {
+    if (!text) return
+    text.textContent = `View: ${checked("calendar-view")[0]}. Format: ${
+      checked("text-format").join(", ") || "none"
+    }.`
+  }
+
+  inputs.forEach((input) => input.addEventListener("change", update))
+  document
+    .querySelector(".toggle-binding-reset")
+    ?.addEventListener("click", () => {
+      inputs.forEach((input) => (input.checked = input.defaultChecked))
+      update()
+    })
+</script>

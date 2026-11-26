@@ -1,0 +1,54 @@
+{% from "opui/index.njk" import
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Chip
+%}
+
+<ul
+  role="list"
+  class="ui-layout-grid ui-stretch"
+  style="--_min-inline-size: 12rem"
+>
+  <li>
+    {% call Card({ variant: "outlined" }) %}
+      {% call CardHeader() %}
+        <h3>Basic</h3>
+        <p>For one lonely bassist</p>
+      {% endcall %}
+      {% call CardContent() %}€0 per month{% endcall %}
+      {% call CardActions() %}
+        {% call Button() %}Choose Basic{% endcall %}
+      {% endcall %}
+    {% endcall %}
+  </li>
+  <li>
+    {% call Card({ color: "primary", variant: "outlined" }) %}
+      {% call CardHeader({ as: "div" }) %}
+        <hgroup>
+          <h3>Gold</h3>
+          <p>Up to 20 bandmates</p>
+        </hgroup>
+        {{ Chip({ label: "Popular", size: "small" }) }}
+      {% endcall %}
+      {% call CardContent() %}€12 per bandmate per month{% endcall %}
+      {% call CardActions() %}
+        {% call Button({ variant: "filled" }) %}Choose Gold{% endcall %}
+      {% endcall %}
+    {% endcall %}
+  </li>
+  <li>
+    {% call Card({ variant: "outlined" }) %}
+      {% call CardHeader() %}
+        <h3>Platinum</h3>
+        <p>For big bands and brass sections</p>
+      {% endcall %}
+      {% call CardContent() %}€24 per bandmate per month{% endcall %}
+      {% call CardActions() %}
+        {% call Button() %}Choose Platinum{% endcall %}
+      {% endcall %}
+    {% endcall %}
+  </li>
+</ul>

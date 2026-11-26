@@ -9,6 +9,6 @@
       {%- if props.class %} {{ props.class }}{% endif %}"
     {%- if props.closedby != none %} closedby="{{ props.closedby }}"{% endif %}
     {{- rest | opuiAttributes }}>
-    {{ opui.provide("Dialog", dialog, caller) }}
+    {{- opui.provide("Dialog", dialog, caller) -}}
   </dialog>
 {%- endmacro %}

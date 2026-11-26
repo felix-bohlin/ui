@@ -1,0 +1,21 @@
+{% from "opui/index.njk" import
+  DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm
+%}
+
+{% call DescriptionList({ leader: "solid", orientation: "horizontal" }) %}
+  {% call DescriptionListItem() %}
+    {% call DescriptionListTerm() %}Subtotal{% endcall %}
+    {% call DescriptionListDescription() %}€166.00{% endcall %}
+  {% endcall %}
+  {% call DescriptionListItem() %}
+    {% call DescriptionListTerm() %}Shipping{% endcall %}
+    {% call DescriptionListDescription() %}€4.90{% endcall %}
+  {% endcall %}
+  {% call DescriptionListItem({ total: true }) %}
+    {% call DescriptionListTerm() %}Total{% endcall %}
+    {% call DescriptionListDescription() %}€170.90{% endcall %}
+  {% endcall %}
+{% endcall %}

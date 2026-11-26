@@ -3,7 +3,7 @@
 A line between content, plain or with a label at the start, middle or end.
 
 - CSS: `opui-css/css/components/divider.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/divider.md), [Astro](https://opui.dev/astro/components/divider.md), [React](https://opui.dev/react/components/divider.md), [Solid](https://opui.dev/solid/components/divider.md), [Svelte](https://opui.dev/svelte/components/divider.md), [Vue](https://opui.dev/vue/components/divider.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/divider.md), [Astro](https://opui.dev/astro/components/divider.md), [Nunjucks](https://opui.dev/nunjucks/components/divider.md), [React](https://opui.dev/react/components/divider.md), [Solid](https://opui.dev/solid/components/divider.md), [Svelte](https://opui.dev/svelte/components/divider.md), [Vue](https://opui.dev/vue/components/divider.md).
 
 ## Divider
 
@@ -56,6 +56,20 @@ import { Divider } from "opui-css/astro"
 
 Email me when someone mentions me in a comment.
 <Divider />
+Send me a summary of my jam sessions every Monday.
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Divider %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Divider %}
+
+Email me when someone mentions me in a comment.
+{{ Divider() }}
 Send me a summary of my jam sessions every Monday.
 ```
 

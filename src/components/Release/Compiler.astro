@@ -3,9 +3,9 @@ import { readdirSync, readFileSync } from "node:fs"
 import {
   EXAMPLE_EXTENSIONS,
   FRAMEWORKS,
-  HYDRATED_FRAMEWORK_IDS,
   PACKAGE_FRAMEWORK_IDS,
 } from "../../utils/framework"
+import NunjucksLogo from "../NunjucksLogo.astro"
 import ReactLogo from "../ReactLogo.astro"
 import SolidLogo from "../SolidLogo.astro"
 import SvelteLogo from "../SvelteLogo.astro"
@@ -18,6 +18,7 @@ const componentsDir = "packages/opui/components"
 
 const sources = {
   astro: readFileSync(`${componentsDir}/${folder}/${name}.astro`, "utf8"),
+  nunjucks: readFileSync(`${componentsDir}/${folder}/${name}.njk`, "utf8"),
   react: readFileSync(`${componentsDir}/${folder}/${name}.react.tsx`, "utf8"),
   solid: readFileSync(`${componentsDir}/${folder}/${name}.solid.tsx`, "utf8"),
   svelte: readFileSync(`${componentsDir}/${folder}/${name}.svelte`, "utf8"),
@@ -66,6 +67,9 @@ const rows: {
   {
     cells: {
       astro: { code: find("astro", /const \{[^}]*\} = Astro\.props/)[0] },
+      nunjucks: {
+        code: find("nunjucks", /\{% macro \w+\(props = \{\}\) %\}/)[0],
+      },
       react: { code: `function ${reactProps[1]}({ ${list(reactProps[2])} })` },
       solid: { code: `function ${solidProps[1]}(props)` },
       svelte: { code: `let { ${list(svelteProps[1])} } = $props()` },
@@ -76,6 +80,10 @@ const rows: {
   {
     cells: {
       astro: { ...has("astro", "class:list={["), code: "class:list={[…]}" },
+      nunjucks: {
+        ...has("nunjucks", 'class="ui-actions'),
+        code: 'class="ui-actions{% if … %}…{% endif %}"',
+      },
       react: {
         ...has("react", "className={cx(["),
         code: "className={cx([…])}",
@@ -89,6 +97,7 @@ const rows: {
   {
     cells: {
       astro: has("astro", "{...rest}"),
+      nunjucks: has("nunjucks", "rest | opuiAttributes"),
       react: has("react", "{...rest}"),
       solid: has("solid", "{...rest}"),
       svelte: has("svelte", "{...rest}"),
@@ -99,6 +108,7 @@ const rows: {
   {
     cells: {
       astro: has("astro", "<slot />"),
+      nunjucks: has("nunjucks", "caller()"),
       react: has("react", "{children}"),
       solid: has("solid", "{props.children}"),
       svelte: has("svelte", "{@render children?.()}"),
@@ -110,6 +120,7 @@ const rows: {
 
 const logos = {
   astro: undefined,
+  nunjucks: NunjucksLogo,
   react: ReactLogo,
   solid: SolidLogo,
   svelte: SvelteLogo,
@@ -130,7 +141,9 @@ const frameworks = PACKAGE_FRAMEWORK_IDS.map((framework) => ({
   label: labelOf(framework),
 }))
 
-const targets = joined(HYDRATED_FRAMEWORK_IDS.map(labelOf))
+const COMPILED_IDS = PACKAGE_FRAMEWORK_IDS.filter((id) => id !== "astro")
+
+const targets = joined(COMPILED_IDS.map(labelOf))
 
 const stages = [
   {
@@ -144,7 +157,7 @@ const stages = [
     title: "Model",
   },
   {
-    detail: `${targets}, and a type file for each`,
+    detail: `${targets}, and a type file for each but Nunjucks`,
     title: "Emit",
   },
   {
@@ -163,7 +176,7 @@ const examples = readdirSync("src/component-examples", {
 }).filter((file) => typeof file === "string" && file.endsWith(".astro")).length
 
 const PORTS = Object.fromEntries(
-  HYDRATED_FRAMEWORK_IDS.map((framework) => [
+  COMPILED_IDS.map((framework) => [
     `.${EXAMPLE_EXTENSIONS[framework]}`,
     labelOf(framework),
   ]),

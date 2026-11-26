@@ -3,7 +3,7 @@
 A window over the page for a question or a short task, modal or not.
 
 - CSS: `opui-css/css/components/dialog.css` and `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/dialog.md), [Astro](https://opui.dev/astro/components/dialog.md), [React](https://opui.dev/react/components/dialog.md), [Solid](https://opui.dev/solid/components/dialog.md), [Svelte](https://opui.dev/svelte/components/dialog.md), [Vue](https://opui.dev/vue/components/dialog.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/dialog.md), [Astro](https://opui.dev/astro/components/dialog.md), [Nunjucks](https://opui.dev/nunjucks/components/dialog.md), [React](https://opui.dev/react/components/dialog.md), [Solid](https://opui.dev/solid/components/dialog.md), [Svelte](https://opui.dev/svelte/components/dialog.md), [Vue](https://opui.dev/vue/components/dialog.md).
 
 ## Dialog
 
@@ -26,7 +26,7 @@ A window over the page for a question or a short task, modal or not.
 ### Notes
 
 - HTML: Add `.ui-elevated` to the root for the raised surface.
-- Astro, React, Solid, Svelte and Vue: Attributes that aren't props go to the `<dialog>`, like `id`, which also starts the generated title id: `x-title` for `id="x"`. Without `aria-label` or `aria-labelledby`, the `DialogTitle` names the dialog. A dialog without a `DialogTitle` needs an `aria-label`. An `id` on `DialogTitle` only applies when the dialog has `aria-label` or `aria-labelledby`.
+- Astro, Nunjucks, React, Solid, Svelte and Vue: Attributes that aren't props go to the `<dialog>`, like `id`, which also starts the generated title id: `x-title` for `id="x"`. Without `aria-label` or `aria-labelledby`, the `DialogTitle` names the dialog. A dialog without a `DialogTitle` needs an `aria-label`. An `id` on `DialogTitle` only applies when the dialog has `aria-label` or `aria-labelledby`.
 
 ## DialogHeader
 
@@ -202,6 +202,55 @@ import {
     </Button>
   </DialogFooter>
 </Dialog>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle %}`
+
+- `DialogHeader` named slots: `slots.closeIcon`. Pass a string, or markup captured with `{% set %}`.
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import
+  Button,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle
+%}
+
+{% call Button({
+  command: "show-modal",
+  commandfor: "dialog-basics-1",
+  variant: "outlined"
+}) %}
+  Open dialog
+{% endcall %}
+
+{% call Dialog({ id: "dialog-basics-1" }) %}
+  {% call DialogHeader({ closeButton: true, closeLabel: "Close" }) %}
+    {% call DialogTitle() %}Newsletter{% endcall %}
+    <p>Sent by the product team.</p>
+  {% endcall %}
+  {% call DialogContent() %}
+    <p>
+      Get a short email when we ship something new. No more than once a month.
+    </p>
+  {% endcall %}
+  {% call DialogFooter() %}
+    {% call Button({ command: "close", commandfor: "dialog-basics-1" }) %} Not now {% endcall %}
+    {% call Button({
+      command: "close",
+      commandfor: "dialog-basics-1",
+      variant: "filled"
+    }) %}
+      Subscribe
+    {% endcall %}
+  {% endcall %}
+{% endcall %}
 ```
 
 ## React

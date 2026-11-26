@@ -1,0 +1,16 @@
+{% from "opui/index.njk" import List, ListItem %}
+
+{% call List() %}
+  {{ ListItem({ label: "Account" }) }}
+  {{ ListItem({ label: "Bassbook Gold" }) }}
+{% endcall %}
+
+{% call List({ variant: "tonal" }) %}
+  {{ ListItem({ label: "Language" }) }}
+  {{ ListItem({ label: "Notifications" }) }}
+{% endcall %}
+
+{% call List({ variant: "transparent" }) %}
+  {{ ListItem({ label: "Accessibility" }) }}
+  {{ ListItem({ label: "Privacy" }) }}
+{% endcall %}

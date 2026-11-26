@@ -3,6 +3,7 @@ import { Button } from "opui-css/astro"
 
 const { framework, link } = Astro.locals
 const html = framework === "html"
+const macros = framework === "nunjucks"
 
 const mapping = html
   ? [
@@ -10,27 +11,43 @@ const mapping = html
       { code: ".ui-filled", note: "Variant" },
       { code: ".ui-primary", note: "Color" },
     ]
-  : [
-      { code: "<Button>", note: ".ui-button" },
-      { code: 'color="primary"', note: ".ui-primary" },
-      { code: 'variant="filled"', note: ".ui-filled" },
-    ]
+  : macros
+    ? [
+        { code: "Button()", note: ".ui-button" },
+        { code: 'color: "primary"', note: ".ui-primary" },
+        { code: 'variant: "filled"', note: ".ui-filled" },
+      ]
+    : [
+        { code: "<Button>", note: ".ui-button" },
+        { code: 'color="primary"', note: ".ui-primary" },
+        { code: 'variant="filled"', note: ".ui-filled" },
+      ]
 
 const steps = Array.from({ length: 16 }, (_, index) => index + 1)
 ---
 
 <div class="quick-start" role="list">
   <div role="listitem">
-    <h3>{html ? "Add the CSS" : "Install and import the CSS"}</h3>
+    <h3>
+      {html
+        ? "Add the CSS"
+        : macros
+          ? "Install and add the plugin"
+          : "Install and import the CSS"}
+    </h3>
     <p>
       {html
         ? "One file with the theme, the reset and every component."
-        : "Needs Node 26.10 or later. Import the CSS once, where your app starts."}
+        : macros
+          ? "Needs Node 26.10 or later. Configure Nunjucks once, and link the CSS in your layout."
+          : "Needs Node 26.10 or later. Import the CSS once, where your app starts."}
     </p>
     <slot name="install" />
   </div>
   <div role="listitem">
-    <h3>{html ? "Write the classes" : "Use a component"}</h3>
+    <h3>
+      {html ? "Write the classes" : macros ? "Call a macro" : "Use a component"}
+    </h3>
     <p>
       {html
         ? "A class on a native element. Options are classes too."

@@ -1,0 +1,11 @@
+{% from "opui/index.njk" import FileUpload %}
+
+{{ FileUpload({
+  description: "Uploads open again on Monday.",
+  disabled: true,
+  label: "Choose photos"
+}) }}
+
+<script type="module">
+  import "opui-css/elements/file-upload.js"
+</script>

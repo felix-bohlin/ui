@@ -1,0 +1,11 @@
+{% from "opui/index.njk" import FieldDescription, FieldLegend, Fieldset, Form %}
+
+{% call Form({ as: "div" }) %}
+  {% call Fieldset({
+    "aria-describedby": "form-adaptive-output-1-description",
+    as: "div"
+  }) %}
+    {% call FieldLegend({ as: "p" }) %}Delivery{% endcall %}
+    {% call FieldDescription({ id: "form-adaptive-output-1-description" }) %}Choose how your order gets to you.{% endcall %}
+  {% endcall %}
+{% endcall %}

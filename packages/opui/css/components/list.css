@@ -181,7 +181,7 @@ Lists meant to be used stand-alone or as part of Select elements
     & > :where(li, option),
     & > :where([role="group"], optgroup) > :where(label, legend, option) {
       align-items: center;
-      background-color: var(--_bg-color);
+      background-color: transparent;
       display: flex;
       font-size: var(--ui-font-size-small);
       gap: var(--_item-gap);
@@ -259,7 +259,7 @@ Lists meant to be used stand-alone or as part of Select elements
       & > button,
       & > label {
         align-items: center;
-        background-color: var(--_bg-color);
+        background-color: transparent;
         color: inherit;
         cursor: pointer;
         display: flex;
@@ -308,7 +308,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
         @media (hover: hover) {
           &:hover {
-            background-color: var(--_bg-color);
+            background-color: transparent;
           }
         }
       }

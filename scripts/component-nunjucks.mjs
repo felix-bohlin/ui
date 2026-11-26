@@ -184,12 +184,26 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
     }
     return name
   }
+  const analysis = analyze(component)
   const defaulted = component.props.filter((prop) => prop.default !== undefined)
+  const aliased = component.props.filter(
+    (prop) =>
+      prop.default === undefined &&
+      nunjucksName(prop.prop).startsWith("[") &&
+      analysis.count(prop.local) > 1 &&
+      analysis
+        .sitesOf(prop.local)
+        .every(
+          ({ code, kind }) =>
+            kind === "attribute" && code.trim() === prop.local,
+        ),
+  )
   const idsName = component.idBases[0]?.[0]
   const isIdBase = ({ name }) => !!idsName && name === "base"
   const locals = new Set(
     [
       component.rest,
+      ...aliased.map((prop) => prop.local),
       ...defaulted.map((prop) => prop.local),
       ...component.reads.map((read) => read.name),
       ...component.trimmedSlots.map((slot) => slot.local),
@@ -223,7 +237,6 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
     return named.get(item)
   }
   const used = new Set()
-  const analysis = analyze(component)
   const returns = returnsOf()
   const helperShape = (node, inner) => {
     const call = unwrap(node)
@@ -243,11 +256,6 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
         .map(({ code, name }) => [name, code]),
     ),
     facts: new Set(),
-    fields: new Map(
-      component.props
-        .map((prop) => [prop.local, types.get(prop.prop)?.fields])
-        .filter(([, fields]) => fields?.size),
-    ),
     file,
     guarded: new Map(),
     helpers: new Set(Object.keys(HELPERS)),
@@ -260,8 +268,18 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
     kinds: new Map(
       component.props.map((prop) => [prop.local, types.get(prop.prop)?.kinds]),
     ),
+    lists: new Map(
+      component.props
+        .map((prop) => [prop.local, types.get(prop.prop)?.list])
+        .filter(([, list]) => list?.items.size),
+    ),
     locals,
     markup: new Set(component.trimmedSlots.map(({ local }) => local)),
+    memberLists: new Map(
+      component.props
+        .map((prop) => [prop.local, types.get(prop.prop)?.lists])
+        .filter(([, lists]) => lists?.size),
+    ),
     members: new Map(
       component.props
         .map((prop) => [prop.local, types.get(prop.prop)?.members])
@@ -270,7 +288,7 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
     nonNull: new Set(),
     props: new Map(
       component.props
-        .filter((prop) => prop.default === undefined)
+        .filter((prop) => prop.default === undefined && !aliased.includes(prop))
         .map((prop) => [prop.local, prop.prop]),
     ),
     renames,
@@ -282,8 +300,9 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
       sourceFileOf(`(${entry.code})`, "derived.ts").statements[0].expression,
       scope,
     )
-    if (shape?.fields.size) scope.fields.set(entry.name, shape.fields)
     if (shape?.kinds.size) scope.kinds.set(entry.name, shape.kinds)
+    if (shape?.list.items.size) scope.lists.set(entry.name, shape.list)
+    if (shape?.lists.size) scope.memberLists.set(entry.name, shape.lists)
     if (shape?.members.size) scope.members.set(entry.name, shape.members)
   }
   for (const { default: initial, local } of defaulted) {
@@ -405,6 +424,10 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
           `{% set ${component.rest} = props | opuiRest(${nunjucksString(component.name)}) %}`,
         ]
       : []),
+    ...aliased.map(
+      ({ local, prop }) =>
+        `{% set ${localName(local)} = props${nunjucksName(prop)} %}`,
+    ),
     ...defaulted.map(
       ({ default: initial, local, prop }) =>
         `{% set ${localName(local)} = props${nunjucksName(prop)} | default(${value(initial).text}) %}`,
@@ -886,9 +909,15 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
     const listed = unwrap(
       sourceFileOf(`(${node.list})`, "list.ts").statements[0].expression,
     )
-    const fieldKinds = ts.isIdentifier(listed)
-      ? ctx.scope.fields.get(listed.text)
-      : helperShape(listed, ctx.scope)?.fields
+    const list = ts.isIdentifier(listed)
+      ? ctx.scope.lists.get(listed.text)
+      : ts.isPropertyAccessExpression(listed) &&
+          ts.isIdentifier(unwrap(listed.expression))
+        ? ctx.scope.memberLists
+            .get(unwrap(listed.expression).text)
+            ?.get(listed.name.text)
+        : helperShape(listed, ctx.scope)?.list
+    const fieldKinds = list?.fields.size ? list.fields : undefined
     const inner = {
       ...ctx.scope,
       derived: new Map(
@@ -897,7 +926,6 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
       facts: new Set(
         [...ctx.scope.facts].filter((key) => !mentions(key, rebound)),
       ),
-      fields: new Map([...ctx.scope.fields].filter(([name]) => outside(name))),
       guarded: new Map(
         [...ctx.scope.guarded].filter(
           ([name, key]) => outside(name) && !mentions(key, rebound),
@@ -908,10 +936,17 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
         ...(binding.fields ?? []).flatMap(({ key, local }) =>
           fieldKinds?.has(key) ? [[local, fieldKinds.get(key)]] : [],
         ),
+        ...(binding.name && list?.items.size
+          ? [[binding.name, list.items]]
+          : []),
         ...(node.index ? [[node.index, new Set(["number"])]] : []),
       ]),
+      lists: new Map([...ctx.scope.lists].filter(([name]) => outside(name))),
       locals: new Set([...ctx.scope.locals, item, ...names]),
       markup: new Set([...ctx.scope.markup].filter(outside)),
+      memberLists: new Map(
+        [...ctx.scope.memberLists].filter(([name]) => outside(name)),
+      ),
       members: new Map([
         ...[...ctx.scope.members].filter(([name]) => outside(name)),
         ...(binding.name && fieldKinds ? [[binding.name, fieldKinds]] : []),
@@ -933,6 +968,7 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
       ]),
       nonNull: new Set([
         ...[...ctx.scope.nonNull].filter(outside),
+        ...(binding.name && list?.defined ? [binding.name] : []),
         ...(node.index ? [node.index] : []),
       ]),
       renames: loopRenames,

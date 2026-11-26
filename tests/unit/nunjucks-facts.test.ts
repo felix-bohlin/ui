@@ -147,6 +147,27 @@ describe("the facts", () => {
     expect(macro).toContain('<span role="{{ props.role }}">')
   })
 
+  test("a list field of a helper's result gives its items their kind, and items that can't be none need no guard", async () => {
+    const macro = await compileNunjucks(
+      `---\nimport type { Props } from "./types.astro"\nimport { ratingOf } from "./rating"\nconst { max, value, ...rest } = Astro.props\nconst rating = ratingOf(max, value)\n---\n\n<ul {...rest}>{rating.stars.map((star) => <li data-checked={rating.current === star} data-star={star} />)}</ul>\n`,
+      "packages/opui/components/Rating/Sample.astro",
+    )
+    expect(macro).toContain("rating.current == star")
+    expect(macro).toContain('data-star="{{ star }}"')
+  })
+
+  test("a prop with a name Nunjucks reads in brackets gets one local where several attributes print it as is", async () => {
+    const source = (second: string) =>
+      `---\nimport type { Props } from "./types.astro"\nconst { "aria-describedby": describedBy, ...rest } = Astro.props\n---\n\n<div {...rest}><input aria-describedby={describedBy} /><input aria-describedby={${second}} /></div>\n`
+    const shared = await compileNunjucks(source("describedBy"), FILE)
+    expect(shared).toContain(
+      '{%- set describedBy = props["aria-describedby"] -%}',
+    )
+    expect(shared).not.toContain('{{ props["aria-describedby"] }}')
+    const mixed = await compileNunjucks(source('describedBy ?? "x"'), FILE)
+    expect(mixed).not.toContain("{%- set describedBy")
+  })
+
   test("a list a helper returns gives its items' fields their kinds", async () => {
     const macro = await compileNunjucks(
       `---\nimport type { Props } from "./types.astro"\nimport { pillsOf } from "./pills"\nconst { items, ...rest } = Astro.props\nconst pills = pillsOf(items)\n---\n\n<ul {...rest}>{pills.map((item) => <li>{item.label}{item.checked}</li>)}</ul>\n`,
@@ -214,6 +235,15 @@ describe("the layout", () => {
     expect(laid.split("\n").filter((line) => line.length > LIMIT)).toEqual([])
     expect(laid).toMatch(/\{%- set list = \[\n +"item-0",\n/)
     expect(laid).toMatch(/\n +if c\n +else \(b or/)
+    expect(render(laid)).toBe(render(template))
+  })
+
+  test("a long line keeps an attribute value whole when another break fits", () => {
+    const template = `  <input title="{{ a }}"${' data-x="1"'.repeat(6)}{% if c %} hidden{% endif %}${' data-y="2"'.repeat(3)}>`
+    const laid = String(layout(template))
+    expect(template.length).toBeGreaterThan(LIMIT)
+    expect(laid).toContain('title="{{ a }}"')
+    expect(laid.split("\n")[1].trimStart()).toMatch(/^\{%- if c %\}/)
     expect(render(laid)).toBe(render(template))
   })
 

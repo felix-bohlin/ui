@@ -110,11 +110,13 @@ const scan = (line, state) => {
   const boundaries = []
   const regions = []
   let regionStart = tag ? lead : 0
+  let valueHere = false
   const boundary = (index, extra) =>
     boundaries.push({
       ...extra,
       index,
       opened: element && !state.element,
+      splits: !!value && valueHere && extra.output,
       value: !!value,
     })
   for (let index = 0; index < line.length; index++) {
@@ -135,7 +137,11 @@ const scan = (line, state) => {
           /\S/.test(next) &&
           !/^\{[{%#]/.test(line.slice(index + 2))
         ) {
-          boundary(index + 2, { closer: index, kind: "after" })
+          boundary(index + 2, {
+            closer: index,
+            kind: "after",
+            output: tag === "{{",
+          })
         }
         tag = ""
         index++
@@ -145,7 +151,7 @@ const scan = (line, state) => {
     const opener = line.slice(index, index + 2)
     if (Object.hasOwn(CLOSERS, opener)) {
       if (opener !== "{#" && index > lead && /\S/.test(line[index - 1])) {
-        boundary(index, { kind: "before" })
+        boundary(index, { kind: "before", output: opener === "{{" })
       }
       tag = opener
       regionStart = index + 2 + /^-?\s*/.exec(line.slice(index + 2))[0].length
@@ -153,8 +159,10 @@ const scan = (line, state) => {
     } else if (value) {
       if (char === value) value = ""
     } else if (element) {
-      if (char === '"' || char === "'") value = char
-      else if (char === ">") element = false
+      if (char === '"' || char === "'") {
+        value = char
+        valueHere = true
+      } else if (char === ">") element = false
     } else if (char === "<" && /[A-Za-z/{!]/.test(line[index + 1] ?? "")) {
       element = true
     }
@@ -259,21 +267,22 @@ const splitLine = (line, state) => {
     pieces && pieces.every((piece) => piece.length < line.length)
       ? pieces
       : undefined
-  const fitting = (inValue) =>
-    boundaries
-      .filter((item) => item.value === inValue)
-      .map((item) => shorter(splitAt(line, item, lead)))
-      .findLast((pieces) => pieces && pieces[0].length <= LIMIT)
-  const regionSplits = regions
-    .toSorted((a, b) => b.end - b.start - (a.end - a.start))
-    .map((region) => shorter(splitRegion(line, region, lead)))
+  const splits = (items) =>
+    items.map((item) => shorter(splitAt(line, item, lead)))
+  const fitting = (items) =>
+    splits(items).findLast((pieces) => pieces && pieces[0].length <= LIMIT)
+  const safe = boundaries.filter((item) => !item.splits)
+  const inValue = boundaries.filter((item) => item.splits)
   return (
-    fitting(false) ??
-    fitting(true) ??
-    boundaries
-      .map((item) => shorter(splitAt(line, item, lead)))
+    fitting(safe.filter((item) => !item.value)) ??
+    fitting(safe.filter((item) => item.value)) ??
+    splits(safe).find(Boolean) ??
+    regions
+      .toSorted((a, b) => b.end - b.start - (a.end - a.start))
+      .map((region) => shorter(splitRegion(line, region, lead)))
       .find(Boolean) ??
-    regionSplits.find(Boolean)
+    fitting(inValue) ??
+    splits(inValue).find(Boolean)
   )
 }
 

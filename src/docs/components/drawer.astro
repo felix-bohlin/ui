@@ -144,6 +144,10 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         <code>commandfor</code> opens the drawer without a ref, and its click
         handler can update your state at the same time.
       </Fragment>
+      <Fragment slot="astro">
+        A <code>Button</code> with <code>command="show-modal"</code> and
+        <code>commandfor</code> opens the drawer with no script.
+      </Fragment>
     </Conditional>
     <Conditional as="p">
       <Fragment slot="react">
@@ -264,6 +268,12 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         <code>Drawer</code>, in a <code>&lt;dialog&gt;</code> of your own or in
         an island on an Astro page, can't find the drawer to close: set
         <code>commandfor</code> to its <code>id</code>.
+      </Fragment>
+      <Fragment slot="astro">
+        The button closes the <code>Drawer</code> it is in. A header outside a
+        <code>Drawer</code>, in a <code>&lt;dialog&gt;</code> of your own, can't
+        find the drawer to close: set <code>commandfor</code> to its
+        <code>id</code>.
       </Fragment>
       <Fragment slot="html">
         Point its <code>commandfor</code> at the drawer's <code>id</code>.

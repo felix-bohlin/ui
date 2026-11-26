@@ -4,7 +4,7 @@
   "type": "module",
   "dependencies": {
     "@astrojs/node": "^11.1.14",
-    "astro": "^7.4.5",
+    "astro": "^7.4.13",
     "reference-shared": "workspace:*"
   },
   "devDependencies": {

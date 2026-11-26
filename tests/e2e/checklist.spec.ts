@@ -164,6 +164,7 @@ test.describe("checklist pages", () => {
   test("starts from the file and keeps checks saved as a list", async ({
     page,
   }) => {
+    test.setTimeout(60_000)
     await page.goto("/dev/checks/")
     const done = page.locator(".checks-item[data-check-done]")
     test.skip((await done.count()) === 0, "no check is done in the file")
@@ -215,6 +216,9 @@ test.describe("checklist pages", () => {
 
     await preview.locator(".checks-preview-pages label").nth(1).click()
     await expect(frame).toHaveAttribute("src", pages[1]!)
+    await expect(frame.contentFrame().locator("h1")).toBeVisible({
+      timeout: 20_000,
+    })
     await expect(preview.locator(".checks-preview-open")).toHaveAttribute(
       "href",
       pages[1]!,

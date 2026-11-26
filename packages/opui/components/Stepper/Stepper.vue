@@ -35,8 +35,7 @@ defineSlots<Slots>()
           ? 'complete'
           : undefined)
       "
-    />{{
-      " "
+    />{{ " "
     }}<slot></slot>
   </ol>
 </template>

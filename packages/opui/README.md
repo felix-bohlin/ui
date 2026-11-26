@@ -47,7 +47,7 @@ import { Button, Card } from "opui-css/astro"
 Add the Eleventy plugin, or pass your environment to `configure` from `opui-css/nunjucks`, and link the CSS in your layout:
 
 ```js
-// eleventy.config.js
+// eleventy.config.mjs
 import opui from "opui-css/nunjucks/eleventy"
 
 export default (eleventyConfig) => {
@@ -157,7 +157,7 @@ The compiled React, Svelte and Vue files are ES modules for ES2022, and Node can
 
 #### One component at a time
 
-`opui-css/components/Dialog/DialogTitle.react`, `opui-css/components/Dialog/DialogTitle.solid`, `opui-css/components/Dialog/DialogTitle.svelte` and `opui-css/components/Dialog/DialogTitle.vue` import one component or part. They resolve to the same files and types as `opui-css/react`, `opui-css/solid`, `opui-css/svelte` and `opui-css/vue`, so a part imported on its own and its container imported from the entry point share one module and one context. Everything else in `opui-css/components/*`, the `.astro` files and the type files such as `types` and `types.astro`, is the source.
+`opui-css/components/Dialog/DialogTitle.react`, `opui-css/components/Dialog/DialogTitle.solid`, `opui-css/components/Dialog/DialogTitle.svelte` and `opui-css/components/Dialog/DialogTitle.vue` import one component or part as the default export (`import DialogTitle from "opui-css/components/Dialog/DialogTitle.react"`). They resolve to the same files and types as `opui-css/react`, `opui-css/solid`, `opui-css/svelte` and `opui-css/vue`, so a part imported on its own and its container imported from the entry point share one module and one context. Everything else in `opui-css/components/*`, the `.astro` files and the type files such as `types` and `types.astro`, is the source.
 
 #### TypeScript
 

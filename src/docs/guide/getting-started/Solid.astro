@@ -148,6 +148,16 @@ export default defineConfig({
       lang="ts"
     />
     <p>
+      With <code>start</code>, the plugin builds its entries from
+      <code>src/App.tsx</code> instead of <code>index.html</code> and
+      <code>src/index.tsx</code>, so import the CSS there:
+    </p>
+    <Code
+      code={`// src/App.tsx
+import "opui-css/css/imports.css"`}
+      lang="ts"
+    />
+    <p>
       A page with more than one root gives each its own <code>renderId</code> in
       <code>renderToString</code> and <code>hydrate</code>, so the ids the
       components generate differ between the roots. Roots hydrated in the same

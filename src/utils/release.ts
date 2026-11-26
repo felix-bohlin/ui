@@ -28,3 +28,6 @@ export const unreleased = isUnreleased(
   publishedVersion,
   readFileSync("packages/opui/CHANGELOG.md", "utf8"),
 )
+
+export const npmTag =
+  prerelease && unreleased ? "next" : releaseVersion.split(".")[0]

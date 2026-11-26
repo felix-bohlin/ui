@@ -23,9 +23,9 @@ export const keywords = ["eleventy", "install", "macro", "npm", "setup", "ssr"]
     <h2>Quick start</h2>
     <QuickStart>
       <Fragment slot="install">
-        <InstallCommand packages="nunjucks" />
+        <InstallCommand packages="@11ty/eleventy nunjucks" />
         <Code
-          code={`// eleventy.config.js
+          code={`// eleventy.config.mjs
 import opui from "opui-css/nunjucks/eleventy"
 
 export default (eleventyConfig) => {
@@ -59,13 +59,16 @@ export default (eleventyConfig) => {
 
   <section id="css">
     <h2>Link only what you use</h2>
-    <p>Copy the CSS folders to your site:</p>
+    <p>
+      Copy the CSS folders and your own <code>css</code> folder to your site:
+    </p>
     <Code
-      code={`// eleventy.config.js
+      code={`// eleventy.config.mjs
 eleventyConfig.addPassthroughCopy({
   "node_modules/opui-css/core": "opui/core",
   "node_modules/opui-css/css": "opui/css",
-})`}
+})
+eleventyConfig.addPassthroughCopy("css")`}
       lang="js"
     />
     <p>
@@ -141,7 +144,7 @@ const env = configure(nunjucks.configure("views"))`}
     <ScriptTable />
     <p>Without a bundler, copy the scripts to your site:</p>
     <Code
-      code={`// eleventy.config.js
+      code={`// eleventy.config.mjs
 eleventyConfig.addPassthroughCopy({
   "node_modules/opui-css/css/js": "opui/css/js",
   "node_modules/opui-css/elements": "opui/elements",

@@ -80,8 +80,10 @@ jobs:
         run: |
           git lfs pull --include "tests/e2e/__screenshots__/**"
           cp -R tests/e2e/__screenshots__ "$RUNNER_TEMP/baselines"
+      - run: pnpm test:e2e:build
       - run: rm -rf tests/e2e/__screenshots__ && pnpm test:e2e:update $(grep -l toHaveScreenshot tests/e2e/*.spec.ts)
         env:
+          E2E_PREBUILT: "1"
           HOME: /root
       - name: Put back the baselines that pass against their new image
         run: node scripts/baseline-changes.mjs restore "$RUNNER_TEMP/baselines"

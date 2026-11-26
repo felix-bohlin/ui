@@ -43,8 +43,22 @@ export default {
     {
       default: '"button"',
       description:
-        'The element to render, or the link component of your router with `href`, such as Next\'s `Link`, Solid Router\'s `A` or Nuxt\'s `NuxtLink`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.',
-      frameworks: ["react", "solid", "vue"],
+        'The element to render, or the link component of your router with `href`, such as Next\'s `Link`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.',
+      frameworks: ["react"],
+      prop: "as",
+    },
+    {
+      default: '"button"',
+      description:
+        'The element to render, or the link component of your router with `href`, such as Solid Router\'s `A`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.',
+      frameworks: ["solid"],
+      prop: "as",
+    },
+    {
+      default: '"button"',
+      description:
+        'The element to render, or the link component of your router with `href`, such as Nuxt\'s `NuxtLink`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.',
+      frameworks: ["vue"],
       prop: "as",
     },
     {

@@ -7,6 +7,13 @@ type Props = {
 }
 
 const { tools } = Astro.props
+const metaFramework = (
+  { svelte: "SvelteKit", vue: "Nuxt" } as Record<string, string | undefined>
+)[Astro.locals.framework]
+const vite = metaFramework
+  ? `Vite 8, which ${metaFramework} builds with,`
+  : "Vite 8"
+const rewriters = tools.map((tool) => (tool === "next" ? "Next 16" : vite))
 
 const SECTION = "### Builds that rewrite `light-dark()`"
 const start = readme.indexOf(SECTION)
@@ -25,11 +32,12 @@ if (start === -1 || missing.length > 0) {
 ---
 
 <p>
-  Vite 8, which SvelteKit and Nuxt build with, and Next 16 rewrite
-  <code>light-dark()</code> for older browsers by default. The colors still
-  follow the OS, and <code>.ui-light</code> or <code>.ui-dark</code> on
-  <code>html</code> still works, but on a part of the page it stops switching
-  after a build. Target browsers that have <code>light-dark()</code>:
+  {rewriters.join(" and ")}
+  {rewriters.length > 1 ? "rewrite" : "rewrites"} <code>light-dark()</code> for
+  older browsers by default. The colors still follow the OS, and
+  <code>.ui-light</code> or <code>.ui-dark</code> on <code>html</code> still
+  works, but on a part of the page it stops switching after a build. Target
+  browsers that have <code>light-dark()</code>:
 </p>
 {tools.map((tool) => (
   <Code code={blocks.get(tool)!} lang="js" />

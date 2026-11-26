@@ -3,14 +3,14 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "next": "^16.4.5",
+    "next": "^16.4.6",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "reference-shared": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^26.6.6",
-    "@types/react": "^19.3.0",
+    "@types/node": "^26.6.10",
+    "@types/react": "^19.3.2",
     "@types/react-dom": "^19.3.0",
     "typescript": "^6.0.3"
   }

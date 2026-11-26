@@ -46,7 +46,7 @@ A drop zone around a file input that lists the files your app is uploading, with
 - `<opui-file-upload>`, defined by `opui-css/elements/file-upload.js`:
   - `input`: The `<input type="file">` inside, or `null`. Read-only.
   - `remove` event: Fires when a remove button is pressed, with its `value` in `event.detail.value`. It bubbles. Once the row is gone, focus moves to the next row's remove button, or else the previous one, or else the input.
-  - `select` event: Fires after a pick or a drop, with the new files in `event.detail.files`: the ones the input's `accept` allows, and only the first without `multiple`. It bubbles, and the input is cleared afterwards.
+  - `select` event: Fires after a pick or a drop, with the new files in `event.detail.files`: the ones the input's `accept` allows, and only the first without `multiple`. It bubbles. The input is already empty by then, so the same file can be picked again: read the files from `event.detail.files`.
 
 ### Notes
 

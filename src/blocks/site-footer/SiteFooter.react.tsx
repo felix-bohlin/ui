@@ -59,7 +59,7 @@ export default function SiteFooter() {
                       autoComplete="email"
                       id="site-footer-email"
                       name="email"
-                      placeholder="you@lowend.example"
+                      placeholder="you@bassmail.example"
                       required
                       type="email"
                     />

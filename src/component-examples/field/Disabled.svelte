@@ -3,7 +3,7 @@
 </script>
 
 <Field for="field-disabled-1" label="Band name">
-  <input disabled id="field-disabled-1" name="band" value="The Low Ends" />
+  <input disabled id="field-disabled-1" name="band" value="Slap Like Now" />
 </Field>
 <Field for="field-disabled-2" label="Instrument">
   <select disabled id="field-disabled-2" name="instrument">

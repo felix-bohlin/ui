@@ -87,7 +87,7 @@ export default function Setlist() {
             style={{ counterReset: "sl-song 6" }}
           >
             <li className="sl-song">
-              <Checkbox name="setlist-song-7">Low End Theory, Part 2</Checkbox>
+              <Checkbox name="setlist-song-7">Mixed Too Low, Part 2</Checkbox>
               <span className="sl-meta ui-caption ui-tabular-nums">
                 <span className="sl-key">E</span>
                 <span>104 BPM</span>

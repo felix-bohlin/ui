@@ -82,7 +82,7 @@ export default function Setlist() {
             style="counter-reset: sl-song 6"
           >
             <li class="sl-song">
-              <Checkbox name="setlist-song-7">Low End Theory, Part 2</Checkbox>
+              <Checkbox name="setlist-song-7">Mixed Too Low, Part 2</Checkbox>
               <span class="sl-meta ui-caption ui-tabular-nums">
                 <span class="sl-key">E</span>
                 <span>104 BPM</span>

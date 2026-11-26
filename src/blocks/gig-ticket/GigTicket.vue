@@ -76,7 +76,9 @@ import {
       <div class="gt-main">
         <hgroup class="ui-hgroup">
           <p class="ui-overline">Bassbook presents</p>
-          <h2 class="gt-title" id="gig-ticket-title">Low End Festival 2027</h2>
+          <h2 class="gt-title" id="gig-ticket-title">
+            Bassquake Festival 2027
+          </h2>
           <p>The Flatwounds, Drop D Dynasty and Sub Club</p>
         </hgroup>
         <dl class="gt-details">
@@ -228,7 +230,7 @@ import {
               autocomplete="email"
               id="gig-ticket-friend-email"
               name="friend-email"
-              placeholder="friend@lowend.example"
+              placeholder="friend@bassmail.example"
               required
               type="email"
             />

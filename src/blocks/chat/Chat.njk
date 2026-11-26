@@ -77,12 +77,12 @@
           label: "Stella Nut",
           slots: { end: "14:32", start: start }
         }) }}
-        {% set start %}{% call Avatar({ "aria-label": "Low End Theory", role: "img" }) %}LE{% endcall %}{% endset %}
-        {% set label %}<strong>Low End Theory</strong>{% endset %}
+        {% set start %}{% call Avatar({ "aria-label": "Bassists Anonymous", role: "img" }) %}BA{% endcall %}{% endset %}
+        {% set label %}<strong>Bassists Anonymous</strong>{% endset %}
         {% set end %}<span class="chat-unread">3 <span class="ui-sr-only">unread</span></span>{% endset %}
         {{ ListItem({
           description: "Holly: Rate my new 5-string!! 😍",
-          href: "#chat-low-end-theory",
+          href: "#chat-bassists-anonymous",
           slots: { end: end, label: label, start: start }
         }) }}
         {% set start %}{% call Avatar({ "aria-label": "Percy Groove", role: "img" }) %}PG{% endcall %}{% endset %}
@@ -99,11 +99,11 @@
           label: "Ines Hertz",
           slots: { end: "Mon", start: start }
         }) }}
-        {% set start %}{% call Avatar({ "aria-label": "Ignored Bassists Anonymous", role: "img" }) %}IB{% endcall %}{% endset %}
+        {% set start %}{% call Avatar({ "aria-label": "Mixed Too Low", role: "img" }) %}MT{% endcall %}{% endset %}
         {{ ListItem({
           description: "Lou: My singer called me \"the tall guitarist\" again",
-          href: "#chat-ignored-bassists",
-          label: "Ignored Bassists Anonymous",
+          href: "#chat-mixed-too-low",
+          label: "Mixed Too Low",
           slots: { end: "Sun", start: start }
         }) }}
       {% endcall %}
@@ -352,8 +352,8 @@
       }) }}
       {% set end %}<span class="chat-unread">3 <span class="ui-sr-only">unread</span></span>{% endset %}
       {{ ListItem({
-        href: "#chat-low-end-theory",
-        label: "Low End Theory",
+        href: "#chat-bassists-anonymous",
+        label: "Bassists Anonymous",
         slots: { end: end }
       }) }}
       {{ ListItem({
@@ -367,8 +367,8 @@
         slots: { end: "Mon" }
       }) }}
       {{ ListItem({
-        href: "#chat-ignored-bassists",
-        label: "Ignored Bassists Anonymous",
+        href: "#chat-mixed-too-low",
+        label: "Mixed Too Low",
         slots: { end: "Sun" }
       }) }}
     {% endcall %}

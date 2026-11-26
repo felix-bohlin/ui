@@ -461,10 +461,13 @@ test("a diff code block copies without its removed lines", async ({ page }) => {
     .join("\n")
     .trim()
 
-  await block.locator(".code-copy").click()
-  await expect
-    .poll(() => page.evaluate(() => document.documentElement.dataset.copied))
-    .toBe(kept)
+  await expect(block.locator("opui-copy:defined")).toBeAttached()
+  await expect(async () => {
+    await block.locator(".code-copy").click()
+    expect(
+      await page.evaluate(() => document.documentElement.dataset.copied),
+    ).toBe(kept)
+  }).toPass()
   await expect(block.locator(".ui-floating[popover]")).toHaveText("Copied")
 })
 

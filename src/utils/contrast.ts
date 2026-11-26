@@ -224,7 +224,7 @@ const resolveColors = (
     root,
     sets.flatMap(({ colors, unset = [] }) =>
       modes.map(({ contrast, scheme }) => ({
-        className: `ui-${scheme}${contrast === "more" ? " ui-contrast-more" : ""}${unset.length > 0 ? " ui-palette" : ""}`,
+        className: `ui-${scheme}${contrast === "more" ? " ui-contrast-more" : ""}${unset.length > 0 ? " ui-scope" : ""}`,
         colors: colors.map(
           (color) => `color(from ${color} srgb r g b / alpha)`,
         ),

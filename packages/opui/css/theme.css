@@ -260,7 +260,7 @@
   }
 
   /* Derived tokens. Formulas of the knobs, computed again on every scope element. */
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     /* Borders */
     --ui-radius-large: calc(var(--ui-radius) * 1.5);
     --ui-radius-small: min(5px, var(--ui-radius));
@@ -769,7 +769,7 @@
     .ui-critical,
     .ui-info,
     .ui-neutral,
-    .ui-palette,
+    .ui-scope,
     .ui-success,
     .ui-warning
   ) {

@@ -299,7 +299,7 @@ test("pasting a color, a theme.css or an image sets the theme", async ({
     "Nothing to use there. Paste a color, a theme.css or an image.",
   )
   await paste.fill(`@layer theme.custom {
-    :where(html, .ui-palette, .ui-contrast-more) {
+    :where(html, .ui-scope, .ui-contrast-more) {
       --ui-radius: 1rem;
       --ui-density: 0.875;
     }

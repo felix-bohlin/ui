@@ -24,7 +24,7 @@ describe("customCss", () => {
   test("writes sorted tokens to every scope in the theme.custom layer", () => {
     expect(customCss({ "--ui-radius": "1rem", "--ui-density": "0.9" }))
       .toBe(`@layer theme.custom {
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-density: 0.9;
     --ui-radius: 1rem;
   }
@@ -39,7 +39,7 @@ describe("customCss", () => {
     })
     expect(css).toContain("@media (prefers-contrast: more)")
     expect(css).toContain(
-      ":where(.ui-contrast-more, .ui-contrast-more .ui-palette) {\n    --ui-text-subtle: revert-layer;\n  }",
+      ":where(.ui-contrast-more, .ui-contrast-more .ui-scope) {\n    --ui-text-subtle: revert-layer;\n  }",
     )
     expect(css.match(/--ui-radius/g)).toHaveLength(1)
   })

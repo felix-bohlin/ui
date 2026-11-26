@@ -129,13 +129,13 @@ test("every theme says which tokens follow --ui-palette-source", () => {
 })
 
 for (const [theme, tokens] of Object.entries(RECOLORED)) {
-  test(`the ${theme} theme follows --ui-palette-source in a .ui-palette scope`, async ({
+  test(`the ${theme} theme follows --ui-palette-source in a .ui-scope scope`, async ({
     page,
   }) => {
     await openFixture(page, "html", STRESS_TESTS[0]!, `?theme=${theme}`)
     const colors = await page.evaluate((names) => {
       const scope = document.createElement("div")
-      scope.className = "ui-palette"
+      scope.className = "ui-scope"
       scope.style.setProperty("--ui-palette-source", "oklch(0.6 0.15 30)")
       document.body.append(scope)
       const resolve = (host: Element, name: string) => {

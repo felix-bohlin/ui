@@ -1622,7 +1622,7 @@ export const libraryDefaults = (css: string) => {
   const defaults: ThemeTokens = {}
   for (const selector of [
     ":where(html)",
-    ":where(html, .ui-palette, .ui-contrast-more)",
+    ":where(html, .ui-scope, .ui-contrast-more)",
   ]) {
     for (const [, token, value] of block(css, selector).matchAll(
       /^\s*(--ui-[\w-]+):\s*([^;]+);/gm,

@@ -269,7 +269,7 @@ export const themeTokenSections = (): ThemeSection[] =>
   [
     ...parseThemeTokens(),
     {
-      note: "The 16 steps `core/palette.css` derives from `--ui-palette-source` on `:root`, `.ui-palette` and every severity scope, and the grays at their lightness. Components read the palette roles, not the steps.",
+      note: "The 16 steps `core/palette.css` derives from `--ui-palette-source` on `:root`, `.ui-scope` and every severity scope, and the grays at their lightness. Components read the palette roles, not the steps.",
       title: "Palette steps",
       tokens: paletteSteps().map(({ name, value }) => ({ name, value })),
     },

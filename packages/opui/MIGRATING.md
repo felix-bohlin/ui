@@ -137,17 +137,17 @@ These tokens also have a new name, so adding the prefix isn't enough:
 
 ```css
 @layer theme.custom {
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-focus-ring-color: var(--ui-primary);
   }
 }
 ```
 
-A theme pins a role by setting it, and the scope classes `.ui-palette` and `.ui-contrast-more` derive every role again from the knobs. Set pinned roles on `:where(html, .ui-palette, .ui-contrast-more)` so the scopes keep them; knobs such as `--ui-radius` or `--ui-palette-hue` can stay on `html`. More contrast tightens knobs and no longer replaces a pinned role, so a theme that wants its primary darkened under `prefers-contrast: more` sets `--ui-primary-source` instead of `--ui-primary`, and a theme that wants another pinned role back under more contrast sets it to `revert-layer` there (see Contrast in the theming guide). The example themes do that and leave `--ui-on-primary` and `--ui-primary-text` to derive from it (brutalist pins `--ui-primary-text` to its text color for black links):
+A theme pins a role by setting it, and the scope classes `.ui-scope` and `.ui-contrast-more` derive every role again from the knobs. Set pinned roles on `:where(html, .ui-scope, .ui-contrast-more)` so the scopes keep them; knobs such as `--ui-radius` or `--ui-palette-hue` can stay on `html`. More contrast tightens knobs and no longer replaces a pinned role, so a theme that wants its primary darkened under `prefers-contrast: more` sets `--ui-primary-source` instead of `--ui-primary`, and a theme that wants another pinned role back under more contrast sets it to `revert-layer` there (see Contrast in the theming guide). The example themes do that and leave `--ui-on-primary` and `--ui-primary-text` to derive from it (brutalist pins `--ui-primary-text` to its text color for black links):
 
 ```css
 @layer theme.custom {
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-primary-source: oklch(0.578 0.228 260);
   }
 }
@@ -161,7 +161,7 @@ The default palette is blue (hue `222.8`) in both color schemes, and the primary
     --ui-palette-hue: 145;
   }
 
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-primary-source: light-dark(var(--ui-color-9), var(--ui-color-6));
   }
 
@@ -196,7 +196,7 @@ Component padding, gaps and margins read `--ui-space-1` to `--ui-space-12` inste
 
 A select's picker and `Drawer` use `--ui-shadow-overlay` (`--shadow-3`, was `--shadow-2`), and elevated `Accordion` uses `--ui-shadow-elevated`, the elevated `Card` shadow.
 
-`--ui-primary` is derived from `--ui-primary-source` (`oklch(0.499 0.191 222.8)` in light mode and `--ui-color-6` in dark mode), and `--ui-on-primary` is derived from `--ui-primary` with relative color. If you set your own `--ui-primary` on `html` (or on `.ui-palette`), its text color follows it; elsewhere, add `.ui-palette` or set `--ui-on-primary` too.
+`--ui-primary` is derived from `--ui-primary-source` (`oklch(0.499 0.191 222.8)` in light mode and `--ui-color-6` in dark mode), and `--ui-on-primary` is derived from `--ui-primary` with relative color. If you set your own `--ui-primary` on `html` (or on `.ui-scope`), its text color follows it; elsewhere, add `.ui-scope` or set `--ui-on-primary` too.
 
 `palette.css` no longer registers `--color-*`, `--gray-*`, `--palette-source` and `--palette-hue` with `@property`, so they can't be animated as colors anymore.
 
@@ -287,7 +287,7 @@ Dark mode shadows are darker: every shadow role (`--ui-shadow-elevated`, `--ui-s
 
 ```css
 @layer theme.custom {
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-shadow-color: light-dark(
       oklch(0.28 0.055 290 / 2%),
       oklch(0 0 0 / 30%)
@@ -299,7 +299,7 @@ Dark mode shadows are darker: every shadow role (`--ui-shadow-elevated`, `--ui-s
 
 The Open Props bundle no longer sets the dark values of `--shadow-color` and `--shadow-strength`. If your own CSS reads `--shadow-1` to `--shadow-6` and should darken in dark mode, set those two yourself under `.ui-dark` and the OS dark preference. The bundle no longer contains Open Props' `@custom-media` definitions (`--OSdark`, `--md-n-above` and so on); import `open-props/media` if your PostCSS setup used them.
 
-Components read roles, not palette steps or Open Props values, and the roles are computed on `html`. Overriding a step such as `--ui-gray-4` or an Open Props value such as `--size-3` on a part of the page no longer changes the components there. Override the role, or add `.ui-palette` so the part derives its roles again from its own palette:
+Components read roles, not palette steps or Open Props values, and the roles are computed on `html`. Overriding a step such as `--ui-gray-4` or an Open Props value such as `--size-3` on a part of the page no longer changes the components there. Override the role, or add `.ui-scope` so the part derives its roles again from its own palette:
 
 ```diff
 - .sidebar { --gray-4: oklch(0.928 0.006 265); }

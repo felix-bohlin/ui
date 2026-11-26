@@ -54,7 +54,7 @@ Or set `--ui-palette-source` to any color. Recolor a severity scope through its 
 
 A scope class re-themes an element and everything inside it:
 
-- `.ui-palette`: re-derives every token from the knobs it sets.
+- `.ui-scope`: re-derives every token from the knobs it sets.
 - `.ui-critical` and the other severities: swap the palette for the intent color.
 - `.ui-light` and `.ui-dark`: force a color scheme, except in print, which is always light. Builds that rewrite `light-dark()` only follow them on `html`, see the [README](https://github.com/felix-bohlin/ui/blob/main/packages/opui/README.md#builds-that-rewrite-light-dark).
 
@@ -127,7 +127,7 @@ Headings follow the body font until you set one.
 Pin a size role, or replace the scale:
 
 ```css
-:where(html, .ui-palette, .ui-contrast-more) {
+:where(html, .ui-scope, .ui-contrast-more) {
   /* Pin one role */
   --ui-font-size-caption: 0.8125rem;
 }
@@ -160,7 +160,7 @@ Headings grow with the viewport. Move the window, reuse the ramp, or pin a headi
   --ui-space-scale: calc(0.875 + 0.125 * var(--ui-fluid-progress));
 }
 
-:where(html, .ui-palette, .ui-contrast-more) {
+:where(html, .ui-scope, .ui-contrast-more) {
   /* Or pin a heading */
   --ui-font-size-h1: var(--ui-font-size-800);
 }
@@ -177,7 +177,7 @@ Headings grow with the viewport. Move the window, reuse the ramp, or pin a headi
 - `--ui-shadow-color`: every shadow's base color.
 
 ```css
-:where(html, .ui-palette, .ui-contrast-more) {
+:where(html, .ui-scope, .ui-contrast-more) {
   --ui-shadow-color: light-dark(oklch(0.28 0.055 290 / 2%), oklch(0 0 0 / 30%));
   --ui-shadow-elevated: none;
 }
@@ -262,20 +262,20 @@ A role a theme pins stays pinned in every contrast mode. Hand it back with `reve
 
 ```css
 @layer theme.custom {
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-border-color: oklch(0.95 0 0);
   }
 
   @media (prefers-contrast: more) {
     :where(
       html:not(.ui-contrast-normal),
-      html:not(.ui-contrast-normal) .ui-palette
+      html:not(.ui-contrast-normal) .ui-scope
     ) {
       --ui-border-color: revert-layer;
     }
   }
 
-  :where(.ui-contrast-more, .ui-contrast-more .ui-palette) {
+  :where(.ui-contrast-more, .ui-contrast-more .ui-scope) {
     --ui-border-color: revert-layer;
   }
 }

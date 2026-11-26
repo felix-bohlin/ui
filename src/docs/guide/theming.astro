@@ -102,7 +102,7 @@ export const keywords = [
     <p>A scope class re-themes an element and everything inside it:</p>
     <Example centered row>
       <section
-        class="ui-palette scope-demo"
+        class="ui-scope scope-demo"
         style="
           --ui-palette-hue: 30;
           --ui-palette-source: oklch(
@@ -111,7 +111,7 @@ export const keywords = [
           --ui-primary-source: light-dark(var(--ui-color-9), var(--ui-color-6));
         "
       >
-        <p class="ui-caption">.ui-palette with --ui-palette-hue: 30</p>
+        <p class="ui-caption">.ui-scope with --ui-palette-hue: 30</p>
         <button class="ui-button ui-filled ui-primary" type="button">
           Primary
         </button>
@@ -140,7 +140,7 @@ export const keywords = [
     </Example>
     <ul>
       <li>
-        <code>.ui-palette</code>: re-derives every token from the knobs it sets.
+        <code>.ui-scope</code>: re-derives every token from the knobs it sets.
       </li>
       <li>
         <code>.ui-critical</code> and the other severities: swap the palette for
@@ -235,7 +235,7 @@ export const keywords = [
     />
     <p>Pin a size role, or replace the scale:</p>
     <Code
-      code={`:where(html, .ui-palette, .ui-contrast-more) {
+      code={`:where(html, .ui-scope, .ui-contrast-more) {
   /* Pin one role */
   --ui-font-size-caption: 0.8125rem;
 }
@@ -269,7 +269,7 @@ export const keywords = [
   --ui-space-scale: calc(0.875 + 0.125 * var(--ui-fluid-progress));
 }
 
-:where(html, .ui-palette, .ui-contrast-more) {
+:where(html, .ui-scope, .ui-contrast-more) {
   /* Or pin a heading */
   --ui-font-size-h1: var(--ui-font-size-800);
 }`}
@@ -295,7 +295,7 @@ export const keywords = [
       <li><code>--ui-shadow-color</code>: every shadow's base color.</li>
     </ul>
     <Code
-      code={`:where(html, .ui-palette, .ui-contrast-more) {
+      code={`:where(html, .ui-scope, .ui-contrast-more) {
   --ui-shadow-color: light-dark(oklch(0.28 0.055 290 / 2%), oklch(0 0 0 / 30%));
   --ui-shadow-elevated: none;
 }`}
@@ -427,20 +427,20 @@ export const keywords = [
     </p>
     <Code
       code={`@layer theme.custom {
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-border-color: oklch(0.95 0 0);
   }
 
   @media (prefers-contrast: more) {
     :where(
       html:not(.ui-contrast-normal),
-      html:not(.ui-contrast-normal) .ui-palette
+      html:not(.ui-contrast-normal) .ui-scope
     ) {
       --ui-border-color: revert-layer;
     }
   }
 
-  :where(.ui-contrast-more, .ui-contrast-more .ui-palette) {
+  :where(.ui-contrast-more, .ui-contrast-more .ui-scope) {
     --ui-border-color: revert-layer;
   }
 }`}

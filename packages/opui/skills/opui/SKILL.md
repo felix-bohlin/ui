@@ -40,7 +40,7 @@ Never override a component's outputs (`--_bg-color`, `--_text-color`, `--_border
 | To change                          | Set                                                                                                                                             |
 | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | Main color                         | `--ui-palette-hue` and `--ui-palette-chroma`, or `--ui-palette-source` with any color                                                           |
-| Main color in one part of the page | `.ui-palette` and `--ui-palette-hue` on that element                                                                                            |
+| Main color in one part of the page | `.ui-scope` and `--ui-palette-hue` on that element                                                                                              |
 | Corners                            | `--ui-radius` (buttons and fields follow it)                                                                                                    |
 | Fonts                              | `--ui-font-body`, `--ui-font-heading`, `--ui-font-code`                                                                                         |
 | Control height                     | `--ui-density`                                                                                                                                  |

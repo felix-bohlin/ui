@@ -23,7 +23,7 @@ describe("parsePaste", () => {
   test("reads the tokens of a theme.css and keeps unsafe ones out", () => {
     const paste = parsePaste(`
       @layer theme.custom {
-        :where(html, .ui-palette, .ui-contrast-more) {
+        :where(html, .ui-scope, .ui-contrast-more) {
           --ui-radius: 1rem;
           --ui-font-body: "DM Sans", sans-serif;
           --ui-shadow-elevated: url(evil);

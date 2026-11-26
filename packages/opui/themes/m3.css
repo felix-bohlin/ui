@@ -2,7 +2,7 @@
 @layer theme.palette, theme.base, theme.custom, theme.severity;
 
 @layer theme.custom {
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-backdrop-bg-color: oklch(0 0 0 / 0.32);
     --ui-backdrop-blur: 0px;
     --ui-border-color: light-dark(
@@ -166,7 +166,7 @@
   @media (prefers-contrast: more) {
     :where(
       html:not(.ui-contrast-normal),
-      html:not(.ui-contrast-normal) .ui-palette
+      html:not(.ui-contrast-normal) .ui-scope
     ) {
       --ui-border-color: revert-layer;
       --ui-field-border-color: revert-layer;
@@ -175,7 +175,7 @@
     }
   }
 
-  :where(.ui-contrast-more, .ui-contrast-more .ui-palette) {
+  :where(.ui-contrast-more, .ui-contrast-more .ui-scope) {
     --ui-border-color: revert-layer;
     --ui-field-border-color: revert-layer;
     --ui-focus-ring-color: revert-layer;

@@ -18,7 +18,7 @@ Set the [knobs, roles and component tokens](https://opui.dev/html/guide/concepts
 }
 ```
 
-The [Theme builder](https://opui.dev/theme-builder.md) writes one for you. Put pinned roles, like `--ui-primary`, on `:where(html, .ui-palette, .ui-contrast-more)`.
+The [Theme builder](https://opui.dev/theme-builder.md) writes one for you. Put pinned roles, like `--ui-primary`, on `:where(html, .ui-scope, .ui-contrast-more)`.
 
 ### Example themes
 
@@ -36,7 +36,7 @@ Tokens only, no component CSS. They name their fonts but don't load them. Each b
 @import "opui-css/themes/brutalist.css";
 ```
 
-The bootstrap, brutalist, govuk, m3 and vice-city themes derive their primary color and their tinted surfaces, text and borders from `--ui-palette-source`, so setting it recolors them, on the page or in a [`.ui-palette`](https://opui.dev/html/guide/theming.md#scopes) scope. The shadcn theme stays black, white and gray. The gray ramp keeps `--ui-gray-hue`, so set it too:
+The bootstrap, brutalist, govuk, m3 and vice-city themes derive their primary color and their tinted surfaces, text and borders from `--ui-palette-source`, so setting it recolors them, on the page or in a [`.ui-scope`](https://opui.dev/html/guide/theming.md#scopes) scope. The shadcn theme stays black, white and gray. The gray ramp keeps `--ui-gray-hue`, so set it too:
 
 ```css
 :where(html) {

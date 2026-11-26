@@ -227,7 +227,7 @@ export const iconStylesheet = (set) =>
     LAYERS,
     "",
     "@layer theme.custom {",
-    "  :where(html, .ui-palette, .ui-contrast-more) {",
+    "  :where(html, .ui-scope, .ui-contrast-more) {",
     ...ICON_ROLES.map(
       (role) => `    --ui-icon-${role}: ${iconUrl(set.icons[role])};`,
     ),

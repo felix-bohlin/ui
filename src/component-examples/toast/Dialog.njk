@@ -1,0 +1,42 @@
+{% from "opui/index.njk" import
+  Button,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  Toaster
+%}
+
+{% call Button({
+  command: "show-modal",
+  commandfor: "toast-dialog-1",
+  variant: "outlined"
+}) %}
+  Edit profile
+{% endcall %}
+
+{% call Dialog({ id: "toast-dialog-1" }) %}
+  {% call DialogHeader({ closeButton: true }) %}
+    {% call DialogTitle() %}Profile{% endcall %}
+  {% endcall %}
+  {% call DialogContent() %}
+    <p>Your name and photo are shown next to your posts.</p>
+  {% endcall %}
+  {% call DialogFooter() %}
+    {% call Button({
+      command: "--toast",
+      commandfor: "toast-dialog-1-toaster",
+      "data-toast": "Profile saved",
+      "data-toast-severity": "success",
+      variant: "filled"
+    }) %}
+      Save
+    {% endcall %}
+  {% endcall %}
+  {{ Toaster({ id: "toast-dialog-1-toaster" }) }}
+{% endcall %}
+
+<script type="module">
+  import "opui-css/elements/toaster.js"
+</script>

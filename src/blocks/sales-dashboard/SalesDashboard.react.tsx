@@ -20,7 +20,7 @@ export default function SalesDashboard() {
   return (
     <>
       <div
-        className="sales-dashboard ui-layout-container ui-layout-column ui-large"
+        className="sales-dashboard ui-layout-container ui-layout-column ui-gap-large"
         style={{ "--_max-inline-size": "80rem" }}
       >
         <div className="ui-layout-row ui-spread">
@@ -28,7 +28,7 @@ export default function SalesDashboard() {
             <p>Bassbook Shop, updated 8 October, 14:05</p>
             <h1 className="ui-h3">Merch sales</h1>
           </hgroup>
-          <div className="ui-layout-row ui-small sales-actions">
+          <div className="ui-layout-row ui-gap-small sales-actions">
             <Field
               htmlFor="sales-dashboard-sales-dashboard-period"
               label="Period"
@@ -137,7 +137,7 @@ export default function SalesDashboard() {
           </li>
         </ul>
         <div
-          className="ui-layout-columns ui-large"
+          className="ui-layout-columns ui-gap-large"
           style={{ "--_columns": "2fr 1fr" }}
         >
           <Card
@@ -154,10 +154,10 @@ export default function SalesDashboard() {
             </hgroup>
             <CardContent>
               <ul aria-hidden="true" className="ui-layout-row ui-caption">
-                <li className="ui-layout-row ui-x-small">
+                <li className="ui-layout-row ui-gap-x-small">
                   <span className="ui-swatch sales-revenue"></span>Revenue
                 </li>
-                <li className="ui-layout-row ui-x-small">
+                <li className="ui-layout-row ui-gap-x-small">
                   <span className="sales-target-line"></span>Target
                 </li>
               </ul>
@@ -280,9 +280,9 @@ export default function SalesDashboard() {
             </hgroup>
             <CardContent>
               <ul className="ui-layout-column">
-                <li className="ui-layout-column ui-x-small">
+                <li className="ui-layout-column ui-gap-x-small">
                   <div
-                    className="ui-layout-row ui-small ui-tabular-nums sales-target"
+                    className="ui-layout-row ui-gap-small ui-tabular-nums sales-target"
                     id="sales-dashboard-target-shop"
                   >
                     <span>Online shop</span>
@@ -294,9 +294,9 @@ export default function SalesDashboard() {
                     value={248}
                   />
                 </li>
-                <li className="ui-layout-column ui-x-small">
+                <li className="ui-layout-column ui-gap-x-small">
                   <div
-                    className="ui-layout-row ui-small ui-tabular-nums sales-target"
+                    className="ui-layout-row ui-gap-small ui-tabular-nums sales-target"
                     id="sales-dashboard-target-gigs"
                   >
                     <span>Merch table at gigs</span>
@@ -308,9 +308,9 @@ export default function SalesDashboard() {
                     value={112}
                   />
                 </li>
-                <li className="ui-layout-column ui-x-small">
+                <li className="ui-layout-column ui-gap-x-small">
                   <div
-                    className="ui-layout-row ui-small ui-tabular-nums sales-target"
+                    className="ui-layout-row ui-gap-small ui-tabular-nums sales-target"
                     id="sales-dashboard-target-bass-shops"
                   >
                     <span>Bass shops</span>
@@ -322,9 +322,9 @@ export default function SalesDashboard() {
                     value={64}
                   />
                 </li>
-                <li className="ui-layout-column ui-x-small">
+                <li className="ui-layout-column ui-gap-x-small">
                   <div
-                    className="ui-layout-row ui-small ui-tabular-nums sales-target"
+                    className="ui-layout-row ui-gap-small ui-tabular-nums sales-target"
                     id="sales-dashboard-target-bundles"
                   >
                     <span>Band bundles</span>
@@ -498,7 +498,7 @@ export default function SalesDashboard() {
           }
 
           .sales-target-line {
-            border-block-start: var(--ui-border-width-thick) dashed var(--ui-text);
+            border-block-start: var(--ui-border-width-large) dashed var(--ui-text);
             inline-size: var(--ui-space-3);
           }
 
@@ -519,7 +519,7 @@ export default function SalesDashboard() {
             position: relative;
 
             &::before {
-              border-block-start: var(--ui-border-width-thick) dashed var(--ui-text);
+              border-block-start: var(--ui-border-width-large) dashed var(--ui-text);
               content: "";
               inset-block-end: var(--target);
               inset-inline: 0;

@@ -1,0 +1,79 @@
+{% from "opui/index.njk" import
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow
+%}
+
+<div
+  role="region"
+  aria-label="Gear orders"
+  tabindex="0"
+  style="max-block-size: 15rem; overflow: auto; scroll-padding-block-start: 2.5rem"
+>
+  {% call Table({ stickyHeader: true }) %}
+    {% call TableCaption() %}Gear orders{% endcall %}
+    {% call TableHead() %}
+      {% call TableRow() %}
+        {% call TableHeaderCell() %}Order{% endcall %}
+        {% call TableHeaderCell() %}Bassist{% endcall %}
+        {% call TableHeaderCell({ numeric: true }) %}Amount{% endcall %}
+      {% endcall %}
+    {% endcall %}
+    {% call TableBody() %}
+      {% call TableRow() %}
+        {% call TableCell() %}BB-1000{% endcall %}
+        {% call TableCell() %}Holly Humbucker{% endcall %}
+        {% call TableCell({ numeric: true }) %}€1,240.00{% endcall %}
+      {% endcall %}
+      {% call TableRow() %}
+        {% call TableCell() %}BB-1001{% endcall %}
+        {% call TableCell() %}Percy Groove{% endcall %}
+        {% call TableCell({ numeric: true }) %}€86.50{% endcall %}
+      {% endcall %}
+      {% call TableRow() %}
+        {% call TableCell() %}BB-1002{% endcall %}
+        {% call TableCell() %}Rory Rootnote{% endcall %}
+        {% call TableCell({ numeric: true }) %}€412.90{% endcall %}
+      {% endcall %}
+      {% call TableRow() %}
+        {% call TableCell() %}BB-1003{% endcall %}
+        {% call TableCell() %}Stella Nut{% endcall %}
+        {% call TableCell({ numeric: true }) %}€2,075.00{% endcall %}
+      {% endcall %}
+      {% call TableRow() %}
+        {% call TableCell() %}BB-1004{% endcall %}
+        {% call TableCell() %}Ines Hertz{% endcall %}
+        {% call TableCell({ numeric: true }) %}€318.40{% endcall %}
+      {% endcall %}
+      {% call TableRow() %}
+        {% call TableCell() %}BB-1005{% endcall %}
+        {% call TableCell() %}Lou Headstock{% endcall %}
+        {% call TableCell({ numeric: true }) %}€59.99{% endcall %}
+      {% endcall %}
+      {% call TableRow() %}
+        {% call TableCell() %}BB-1006{% endcall %}
+        {% call TableCell() %}Kenny Wah{% endcall %}
+        {% call TableCell({ numeric: true }) %}€764.15{% endcall %}
+      {% endcall %}
+      {% call TableRow() %}
+        {% call TableCell() %}BB-1007{% endcall %}
+        {% call TableCell() %}Frankie Octaver{% endcall %}
+        {% call TableCell({ numeric: true }) %}€1,532.80{% endcall %}
+      {% endcall %}
+      {% call TableRow() %}
+        {% call TableCell() %}BB-1008{% endcall %}
+        {% call TableCell() %}Danny Muffler{% endcall %}
+        {% call TableCell({ numeric: true }) %}€205.00{% endcall %}
+      {% endcall %}
+      {% call TableRow() %}
+        {% call TableCell() %}BB-1009{% endcall %}
+        {% call TableCell() %}Ruby Headroom{% endcall %}
+        {% call TableCell({ numeric: true }) %}€948.60{% endcall %}
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+</div>

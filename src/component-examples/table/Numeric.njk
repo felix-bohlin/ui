@@ -1,0 +1,37 @@
+{% from "opui/index.njk" import
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow
+%}
+
+{% call Table() %}
+  {% call TableCaption() %}Gear orders{% endcall %}
+  {% call TableHead() %}
+    {% call TableRow() %}
+      {% call TableHeaderCell() %}Order{% endcall %}
+      {% call TableHeaderCell({ numeric: true }) %}Items{% endcall %}
+      {% call TableHeaderCell({ numeric: true }) %}Amount{% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call TableBody() %}
+    {% call TableRow() %}
+      {% call TableCell() %}BB-1041{% endcall %}
+      {% call TableCell({ numeric: true }) %}3{% endcall %}
+      {% call TableCell({ numeric: true }) %}1,240.00{% endcall %}
+    {% endcall %}
+    {% call TableRow() %}
+      {% call TableCell() %}BB-1042{% endcall %}
+      {% call TableCell({ numeric: true }) %}12{% endcall %}
+      {% call TableCell({ numeric: true }) %}86.50{% endcall %}
+    {% endcall %}
+    {% call TableRow() %}
+      {% call TableCell() %}BB-1043{% endcall %}
+      {% call TableCell({ numeric: true }) %}1{% endcall %}
+      {% call TableCell({ numeric: true }) %}11,900.00{% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

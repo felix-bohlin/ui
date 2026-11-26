@@ -1,0 +1,13 @@
+{% from "opui/index.njk" import Button, ControlGroup %}
+
+<nav aria-label="Pagination">
+  {% call ControlGroup({ size: "small", variant: "outlined" }) %}
+    {% call Button({ disabled: true, href: "#pagination" }) %}Previous{% endcall %}
+    {% call Button({ "aria-current": "page", href: "#pagination" }) %}1{% endcall %}
+    {% call Button({ href: "#pagination" }) %}2{% endcall %}
+    {% call Button({ href: "#pagination" }) %}3{% endcall %}
+    {% call Button({ href: "#pagination" }) %}4{% endcall %}
+    {% call Button({ href: "#pagination" }) %}5{% endcall %}
+    {% call Button({ href: "#pagination" }) %}Next{% endcall %}
+  {% endcall %}
+</nav>

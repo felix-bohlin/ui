@@ -1,0 +1,21 @@
+{% from "opui/index.njk" import
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+  Switch
+%}
+
+{% call Form() %}
+  {% call Fieldset() %}
+    {% call FieldLegend() %}Admin security{% endcall %}
+    {% call FieldGroup({
+      name: "switch-group-required",
+      orientation: "horizontal"
+    }) %}
+      {% call Switch({ required: true, value: "two-step-login" }) %}Two-step login{% endcall %}
+      {% call Switch({ required: true, value: "login-alerts" }) %}Login alerts{% endcall %}
+      {% call Switch({ required: true, value: "auto-lock" }) %}Auto-lock{% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

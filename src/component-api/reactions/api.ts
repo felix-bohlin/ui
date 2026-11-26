@@ -21,7 +21,7 @@ export default {
         },
         {
           description:
-            "Removes the pill of `value`, and moves focus to the next pill, the previous one or the first button after the pills when the removed pill had it. The pill of the `quick-value` reaction stays, unchecked and `.ui-unused`, with the `quick-label` and `quick-text` attributes as its name and text, and keeps focus.",
+            "Removes the pill of `value`, and moves focus to the next pill, the previous one or the first button after the pills when the removed pill had it. The pill of the `quick-value` reaction stays, unchecked and `.ui-suggested`, with the `quick-label` and `quick-text` attributes as its name and text, and keeps focus.",
           kind: "method",
           name: "delete(value)",
         },
@@ -38,7 +38,7 @@ export default {
         },
         {
           description:
-            "Updates the pill of `value` with `{ checked, label, text }`, the accessible name in `label` and the emoji and count in `text`, or adds one at the end, and the `quick-value` reaction first. It removes `.ui-unused` from the pill.",
+            "Updates the pill of `value` with `{ checked, label, text }`, the accessible name in `label` and the emoji and count in `text`, or adds one at the end, and the `quick-value` reaction first. It removes `.ui-suggested` from the pill.",
           kind: "method",
           name: "set(value, reaction)",
         },
@@ -122,13 +122,13 @@ export default {
       prop: "quickValue",
     },
     {
-      class: ".ui-unused",
+      class: ".ui-suggested",
       description:
-        "The pill of the quick reaction while nobody has used it: a dashed border.",
+        "The pill of the quick reaction while nobody has picked it, which suggests it: a dashed border.",
       frameworks: ["html"],
-      group: "Unused",
+      group: "Suggested",
       part: ".ui-toggle-button",
-      prop: "unused",
+      prop: "suggested",
     },
   ],
   page: "message",

@@ -1,0 +1,14 @@
+{% from "opui/index.njk" import CheckboxInput, List, ListItem %}
+
+{% call List() %}
+  {% set end %}{{ CheckboxInput() }}{% endset %}
+  {{ ListItem({
+    choice: "checkbox",
+    slots: { end: end, label: "Email notifications" }
+  }) }}
+  {% set end %}{{ CheckboxInput() }}{% endset %}
+  {{ ListItem({
+    choice: "checkbox",
+    slots: { end: end, label: "Push notifications" }
+  }) }}
+{% endcall %}

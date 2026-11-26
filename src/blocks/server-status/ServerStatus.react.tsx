@@ -30,7 +30,7 @@ export default function ServerStatus() {
   return (
     <>
       <div
-        className="server-status ui-layout-container ui-layout-column ui-large"
+        className="server-status ui-layout-container ui-layout-column ui-gap-large"
         style={{ "--_max-inline-size": "64rem" }}
       >
         <div className="ui-layout-row ui-spread">
@@ -62,7 +62,7 @@ export default function ServerStatus() {
           </CalloutContent>
         </Callout>
         <div
-          className="ui-layout-columns ui-large"
+          className="ui-layout-columns ui-gap-large"
           style={{ "--_columns": "3fr 2fr" }}
         >
           <Card
@@ -345,7 +345,7 @@ export default function ServerStatus() {
         </Card>
         <section
           aria-labelledby="server-status-incidents-heading"
-          className="ui-layout-column ui-small"
+          className="ui-layout-column ui-gap-small"
         >
           <h2 className="ui-h5" id="server-status-incidents-heading">
             Incidents
@@ -533,7 +533,7 @@ export default function ServerStatus() {
           .status-history {
             block-size: 2rem;
             display: grid;
-            gap: var(--ui-border-width-thick);
+            gap: var(--ui-border-width-large);
             grid-auto-columns: minmax(0, 1fr);
             grid-auto-flow: column;
 

@@ -1,5 +1,6 @@
 /** @jsxImportSource @solidjs/web */
 import { children, omit } from "solid-js"
+import { filled } from "../attrs"
 import type { Props } from "./types.solid"
 
 export default function Stat(props: Props) {
@@ -17,7 +18,7 @@ export default function Stat(props: Props) {
     >
       <dt class="ui-label">{props.label}</dt>
       <dd class="ui-value">{props.children}</dd>
-      {resolvedDescription() && (
+      {filled(resolvedDescription()) && (
         <dd class="ui-description">{resolvedDescription()}</dd>
       )}
     </dl>

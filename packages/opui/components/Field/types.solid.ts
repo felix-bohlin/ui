@@ -3,9 +3,6 @@ import type { ComponentProps, JSX } from "@solidjs/web"
 
 type Without<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never
 
-export type Props = Without<
-  Base.Props,
-  "bottom" | "end" | "endText" | "label" | "start" | "startText" | "top"
-> &
+export type Props = Without<Base.Props, "endText" | "label" | "startText"> &
   Base.Slots<JSX.Element> &
   ComponentProps<"div">

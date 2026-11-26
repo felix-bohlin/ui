@@ -1,0 +1,17 @@
+{% from "opui/index.njk" import
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Radio
+%}
+
+{% call Fieldset({ "aria-describedby": "form-fieldset-stacked-1-description" }) %}
+  {% call FieldLegend() %}Favorite pet{% endcall %}
+  {% call FieldDescription({ id: "form-fieldset-stacked-1-description" }) %}Please select your favorite type of pet.{% endcall %}
+  {% call FieldGroup({ name: "pet" }) %}
+    {% call Radio({ value: "cat" }) %}Cat{% endcall %}
+    {% call Radio({ value: "dog" }) %}Dog{% endcall %}
+    {% call Radio({ value: "hamster" }) %}Hamster{% endcall %}
+  {% endcall %}
+{% endcall %}

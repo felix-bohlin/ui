@@ -24,7 +24,7 @@ export default function DataTable() {
   return (
     <>
       <div
-        class="data-table ui-layout-container ui-layout-column ui-large"
+        class="data-table ui-layout-container ui-layout-column ui-gap-large"
         style="--_max-inline-size: 80rem"
       >
         <div class="ui-layout-row ui-spread">
@@ -33,7 +33,7 @@ export default function DataTable() {
             <h1 class="ui-h3">Members</h1>
             <p>128 bassists, 94 of them on a paid plan. Woohoo!</p>
           </hgroup>
-          <div class="ui-layout-row ui-small">
+          <div class="ui-layout-row ui-gap-small">
             <Button type="button" variant="outlined">
               <svg
                 data-icon="download"
@@ -118,9 +118,9 @@ export default function DataTable() {
             </Field>
           </FieldGroup>
         </search>
-        <div class="ui-layout-row ui-small ui-spread data-table-bulk">
+        <div class="ui-layout-row ui-gap-small ui-spread data-table-bulk">
           <p>2 members selected</p>
-          <div class="ui-layout-row ui-x-small">
+          <div class="ui-layout-row ui-gap-x-small">
             <Button size="small" type="button">
               Send a poke
             </Button>
@@ -178,7 +178,7 @@ export default function DataTable() {
                     />
                   </TableCell>
                   <TableCell data-sort-value="Holly Humbucker">
-                    <div class="ui-layout-media ui-small">
+                    <div class="ui-layout-media ui-gap-small">
                       <Avatar aria-hidden="true">HH</Avatar>
                       <div>
                         <p class="data-table-person">Holly Humbucker</p>
@@ -246,7 +246,7 @@ export default function DataTable() {
                     />
                   </TableCell>
                   <TableCell data-sort-value="Ines Hertz">
-                    <div class="ui-layout-media ui-small">
+                    <div class="ui-layout-media ui-gap-small">
                       <Avatar aria-hidden="true">IH</Avatar>
                       <div>
                         <p class="data-table-person">Ines Hertz</p>
@@ -315,7 +315,7 @@ export default function DataTable() {
                     />
                   </TableCell>
                   <TableCell data-sort-value="Lou Headstock">
-                    <div class="ui-layout-media ui-small">
+                    <div class="ui-layout-media ui-gap-small">
                       <Avatar aria-hidden="true">LH</Avatar>
                       <div>
                         <p class="data-table-person">Lou Headstock</p>
@@ -381,7 +381,7 @@ export default function DataTable() {
                     />
                   </TableCell>
                   <TableCell data-sort-value="Percy Groove">
-                    <div class="ui-layout-media ui-small">
+                    <div class="ui-layout-media ui-gap-small">
                       <Avatar aria-hidden="true">PG</Avatar>
                       <div>
                         <p class="data-table-person">Percy Groove</p>
@@ -449,7 +449,7 @@ export default function DataTable() {
                     />
                   </TableCell>
                   <TableCell data-sort-value="Rory Rootnote">
-                    <div class="ui-layout-media ui-small">
+                    <div class="ui-layout-media ui-gap-small">
                       <Avatar aria-hidden="true">RR</Avatar>
                       <div>
                         <p class="data-table-person">Rory Rootnote</p>

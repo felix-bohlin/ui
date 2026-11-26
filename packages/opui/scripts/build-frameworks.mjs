@@ -28,7 +28,9 @@ const require = createRequire(import.meta.url)
 
 export const FRAMEWORKS = HYDRATED_FRAMEWORK_IDS
 
-const OUTPUTS = ["components", ...FRAMEWORKS]
+export const SERVER_ENTRIES = ["nunjucks/eleventy.ts", "nunjucks/index.ts"]
+
+const OUTPUTS = ["components", "nunjucks", ...FRAMEWORKS]
 
 const SPECIFIER =
   /(\bfrom\s*|\bimport\s*\(\s*|\bimport\s+)(["'])(\.{1,2}\/[^"']*)\2/g
@@ -359,7 +361,13 @@ const buildVue = (root, dist, files) => {
     }
   }
   const config = join(tmpdir(), `opui-vue-${process.pid}.json`)
-  writeFileSync(config, JSON.stringify(typeConfig(root, dist, "vue/index.ts")))
+  writeFileSync(
+    config,
+    JSON.stringify({
+      ...typeConfig(root, dist, "vue/index.ts"),
+      vueCompilerOptions: { inferComponentDollarEl: true },
+    }),
+  )
   try {
     execFileSync(
       process.execPath,
@@ -400,6 +408,14 @@ const buildSvelte = async (root, dist, files) => {
   } finally {
     rmSync(config, { force: true })
   }
+}
+
+const buildNunjucks = (root, dist) => {
+  const program = ts.createProgram(
+    SERVER_ENTRIES.map((entry) => join(root, entry)),
+    { ...compilerOptions(root, dist), jsx: undefined },
+  )
+  report([...ts.getPreEmitDiagnostics(program), ...program.emit().diagnostics])
 }
 
 const buildSolid = (root, dist, files) => {
@@ -469,6 +485,7 @@ export const buildFrameworks = async (root = resolve(here, "..")) => {
   buildSolid(root, dist, files.solid)
   await buildSvelte(root, dist, files.svelte)
   buildVue(root, dist, files.vue)
+  buildNunjucks(root, dist)
   for (const framework of FRAMEWORKS) {
     keepAugmentations(root, dist, files[framework])
   }

@@ -1,7 +1,8 @@
 /** @jsxImportSource @solidjs/web */
 import { children, omit, untrack } from "solid-js"
+import { filled } from "../attrs"
 import CheckboxInput from "./CheckboxInput.solid"
-import { hasName, warnUnnamed } from "../dev"
+import { DEV, hasName, warnUnnamed } from "../dev"
 import type { Props } from "./types.solid"
 
 export default function Checkbox(props: Props) {
@@ -23,9 +24,10 @@ export default function Checkbox(props: Props) {
   )
   const resolvedChildren = children(() => props.children)
   const resolvedEndText = children(() => props.endText)
-  untrack(() => {
-    warnUnnamed("Checkbox", hasName(props, resolvedChildren()))
-  })
+  if (DEV)
+    untrack(() => {
+      warnUnnamed("Checkbox", hasName(props, filled(resolvedChildren())))
+    })
   const invalid = () => (props.error ? "true" : props["aria-invalid"])
 
   return (
@@ -52,7 +54,7 @@ export default function Checkbox(props: Props) {
           {resolvedChildren()}
         </span>
       )}
-      {resolvedEndText() && (
+      {filled(resolvedEndText()) && (
         <span class="ui-end-text">{resolvedEndText()}</span>
       )}
     </label>

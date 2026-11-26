@@ -1,0 +1,26 @@
+{% from "opui/index.njk" import OneTimeCode %}
+
+{% call OneTimeCode({ for: "one-time-code-length-1", label: "PIN" }) %}
+  <input
+    autocomplete="one-time-code"
+    id="one-time-code-length-1"
+    inputmode="numeric"
+    maxlength="4"
+    name="pin"
+    pattern="[0-9]{4}"
+  />
+{% endcall %}
+{% call OneTimeCode({
+  for: "one-time-code-length-2",
+  grouped: true,
+  label: "Backup code"
+}) %}
+  <input
+    autocomplete="one-time-code"
+    id="one-time-code-length-2"
+    inputmode="numeric"
+    maxlength="8"
+    name="backup-code"
+    pattern="[0-9]{8}"
+  />
+{% endcall %}

@@ -68,7 +68,7 @@ Read the compiled file next to the closest sibling of its kind (`Checkbox` for a
 - Destructured `defineProps` with defaults (Vue 3.5), `useId`, typed `InjectionKey`s and a `reactive()` provide.
 - No `computed` or function the template and script never read. `inheritAttrs: false` only with an explicit `v-bind` of the attrs.
 - `<component :is>` only for a variable tag, `is="opui-…"` for a custom element.
-- A class list of one entry is the entry (`:class="hideLabel ? 'ui-sr-only' : 'ui-label'"`, `classAttrs($props.class)` where it can come out empty); several are the `:class="[...]"` array.
+- A class list of one entry is the entry (`:class="hideLabel ? 'ui-sr-only' : 'ui-label'"`, `classAttrs($attrs.class)` where it can come out empty, and no entry for the caller's class on a root that inherits the attributes, which Vue adds); several are the `:class="[...]"` array.
 - `:key` on the element with `v-for`, the loop's index.
 
 **Every framework**

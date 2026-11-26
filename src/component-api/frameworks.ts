@@ -19,6 +19,7 @@ export const slotProp = (name: string) =>
 
 export const components = (note: string) => ({
   astro: note,
+  nunjucks: note,
   react: note,
   solid: note,
   svelte: note,
@@ -30,6 +31,7 @@ export const elementNotes = (file: string, note: string) => {
   const imported = `The component imports ${module}, so the element runs as soon as the component's code loads. ${note}`
   return {
     astro: `The component loads ${module}. ${note}`,
+    nunjucks: `The macro renders the element without its script, so load ${module} on the page. ${note}`,
     react: `The component loads ${module} once it mounts, unless the page imports it first. ${note}`,
     solid: imported,
     svelte: imported,
@@ -41,6 +43,13 @@ export const frameworks: Record<ComponentFramework, Syntax> = {
   astro: {
     component: (source) => `${source}.astro`,
     slot: (name) => `slot="${name}"`,
+    slotsAreProps: false,
+    types: "types.astro.ts",
+  },
+  nunjucks: {
+    component: (source) => `${source}.njk`,
+    slot: (name) =>
+      name === "default" ? "caller()" : `slots.${slotProp(name)}`,
     slotsAreProps: false,
     types: "types.astro.ts",
   },

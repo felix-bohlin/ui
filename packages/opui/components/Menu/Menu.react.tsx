@@ -3,10 +3,10 @@
 import { useMemo } from "react"
 import "../../elements/close-on-navigate.js"
 import "../../elements/menu.js"
-import { defined } from "../attrs"
+import { defined, filled } from "../attrs"
 import { cx } from "../cx"
 import { MenuContext, useMenuContext } from "./context.react"
-import { warnMissingId } from "../dev"
+import { DEV, warnMissingId } from "../dev"
 import { disabledLink, tagAttrs } from "../tag"
 import type { Props } from "./types.react"
 import type { Context } from "./types"
@@ -27,7 +27,7 @@ export default function Menu({
 }: Props) {
   const parent = useMenuContext()
   const rootId = parent?.rootId ?? id
-  warnMissingId("Menu", id)
+  if (DEV) warnMissingId("Menu", id)
   const context = useMemo<Context>(() => ({ rootId }), [rootId])
 
   return (
@@ -95,7 +95,7 @@ export default function Menu({
                       <kbd>{shortcut}</kbd>
                     </div>
                   )}
-                  {iconChecked && (
+                  {filled(iconChecked) && (
                     <span aria-hidden="true" className="ui-icon-checked">
                       {iconChecked}
                     </span>

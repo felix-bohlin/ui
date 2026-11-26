@@ -185,7 +185,7 @@ export default function Chat() {
                   />
                 </p>
               </hgroup>
-              <div className="ui-layout-row ui-x-small">
+              <div className="ui-layout-row ui-gap-x-small">
                 <Button
                   aria-label="Start call"
                   round
@@ -296,7 +296,7 @@ export default function Chat() {
               >
                 <p>Totally! Here it is:</p>
                 <Card variant="outlined">
-                  <CardContent className="ui-layout-media ui-small">
+                  <CardContent className="ui-layout-media ui-gap-small">
                     <svg
                       data-icon="document"
                       aria-hidden="true"

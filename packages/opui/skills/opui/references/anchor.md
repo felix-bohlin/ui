@@ -3,7 +3,7 @@
 Floating content placed next to an element with CSS anchor positioning.
 
 - CSS: `opui-css/css/components/anchor.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/anchor.md), [Astro](https://opui.dev/astro/components/anchor.md), [React](https://opui.dev/react/components/anchor.md), [Solid](https://opui.dev/solid/components/anchor.md), [Svelte](https://opui.dev/svelte/components/anchor.md), [Vue](https://opui.dev/vue/components/anchor.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/anchor.md), [Astro](https://opui.dev/astro/components/anchor.md), [Nunjucks](https://opui.dev/nunjucks/components/anchor.md), [React](https://opui.dev/react/components/anchor.md), [Solid](https://opui.dev/solid/components/anchor.md), [Svelte](https://opui.dev/svelte/components/anchor.md), [Vue](https://opui.dev/vue/components/anchor.md).
 
 ## Anchor
 
@@ -90,6 +90,41 @@ import {
 </Anchor>
 
 <style is:global>
+  .coach-mark {
+    font-size: var(--ui-font-size-body);
+    margin-inline-start: var(--ui-space-2);
+    max-inline-size: 220px;
+  }
+</style>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Anchor, AnchorContent %}`
+
+### Example: Always visible
+
+```njk
+{% from "opui/index.njk" import
+  Anchor,
+  AnchorContent,
+  Button,
+  Card,
+  CardContent
+%}
+
+{% call Anchor({ positionArea: "inline-end" }) %}
+  {% call Button({ variant: "outlined" }) %}Export{% endcall %}
+  {% call AnchorContent() %}
+    {% call Card({ class: "coach-mark", variant: "tonal" }) %}
+      {% call CardContent() %}
+        <strong>New</strong> Export to PDF and CSV from the same menu.
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}
+
+<style>
   .coach-mark {
     font-size: var(--ui-font-size-body);
     margin-inline-start: var(--ui-space-2);

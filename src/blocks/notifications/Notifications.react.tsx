@@ -23,9 +23,9 @@ export default function Notifications() {
       >
         <Card variant="outlined">
           <CardContent>
-            <div className="ui-layout-row ui-small ui-spread">
+            <div className="ui-layout-row ui-gap-small ui-spread">
               <h1 className="ui-h4">Notifications</h1>
-              <div className="ui-layout-row ui-x-small">
+              <div className="ui-layout-row ui-gap-x-small">
                 <Button size="small" type="button">
                   <svg
                     data-icon="check-all"
@@ -72,10 +72,10 @@ export default function Notifications() {
               <TabsItem defaultChecked id="notifications-tab-all">
                 <TabsLabel>All</TabsLabel>
                 <TabsPanel>
-                  <div className="ui-layout-column ui-large notifications-feed">
+                  <div className="ui-layout-column ui-gap-large notifications-feed">
                     <section
                       aria-labelledby="notifications-today"
-                      className="ui-layout-column ui-small"
+                      className="ui-layout-column ui-gap-small"
                     >
                       <h2 className="ui-overline" id="notifications-today">
                         Today
@@ -102,7 +102,7 @@ export default function Notifications() {
                             @rory is it true you can play a whole set on 3
                             strings? asking for a guitarist
                           </p>
-                          <div className="ui-layout-row ui-small notifications-actions">
+                          <div className="ui-layout-row ui-gap-small notifications-actions">
                             <Button size="small" type="button" variant="tonal">
                               Reply
                             </Button>
@@ -129,7 +129,7 @@ export default function Notifications() {
                             </Badge>
                           }
                         >
-                          <div className="ui-layout-row ui-small notifications-actions">
+                          <div className="ui-layout-row ui-gap-small notifications-actions">
                             <Button size="small" type="button" variant="filled">
                               Accept
                             </Button>
@@ -163,7 +163,7 @@ export default function Notifications() {
                     </section>
                     <section
                       aria-labelledby="notifications-yesterday"
-                      className="ui-layout-column ui-small"
+                      className="ui-layout-column ui-gap-small"
                     >
                       <h2 className="ui-overline" id="notifications-yesterday">
                         Yesterday
@@ -206,7 +206,7 @@ export default function Notifications() {
                     </section>
                     <section
                       aria-labelledby="notifications-earlier"
-                      className="ui-layout-column ui-small"
+                      className="ui-layout-column ui-gap-small"
                     >
                       <h2 className="ui-overline" id="notifications-earlier">
                         Monday 5 October
@@ -229,7 +229,7 @@ export default function Notifications() {
                             </Avatar>
                           }
                         >
-                          <div className="ui-layout-row ui-small notifications-actions">
+                          <div className="ui-layout-row ui-gap-small notifications-actions">
                             <Button
                               href="#notifications-gold"
                               size="small"
@@ -247,7 +247,7 @@ export default function Notifications() {
               <TabsItem id="notifications-tab-mentions">
                 <TabsLabel>Mentions</TabsLabel>
                 <TabsPanel>
-                  <div className="ui-layout-column ui-large notifications-feed">
+                  <div className="ui-layout-column ui-gap-large notifications-feed">
                     <List flush variant="transparent">
                       <ListItem
                         className="notifications-unread"
@@ -295,7 +295,7 @@ export default function Notifications() {
               <TabsItem id="notifications-tab-archived">
                 <TabsLabel>Archived</TabsLabel>
                 <TabsPanel>
-                  <div className="ui-layout-column ui-small ui-align-center notifications-empty">
+                  <div className="ui-layout-column ui-gap-small ui-align-center notifications-empty">
                     <svg
                       data-icon="inbox"
                       aria-hidden="true"

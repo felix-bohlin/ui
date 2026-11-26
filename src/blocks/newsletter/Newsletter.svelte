@@ -22,7 +22,7 @@
     style="--_columns: 1fr 1.2fr; --_gap: var(--ui-space-6)"
     variant="outlined"
   >
-    <div class="ui-layout-column ui-large">
+    <div class="ui-layout-column ui-gap-large">
       <hgroup class="ui-hgroup">
         <p>The Bassbook Low-Down</p>
         <h1 class="ui-h3">Bass news worth reading, every other Thursday</h1>

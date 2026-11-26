@@ -17,7 +17,7 @@
 </script>
 
 <div
-  class="analytics-dashboard ui-layout-container ui-layout-column ui-large"
+  class="analytics-dashboard ui-layout-container ui-layout-column ui-gap-large"
   style="--_max-inline-size: 80rem"
 >
   <div class="ui-layout-row ui-spread">
@@ -25,7 +25,7 @@
       <p>bassbook.example/rory</p>
       <h1 class="ui-h3">Your profile stats</h1>
     </hgroup>
-    <div class="ui-layout-row ui-small">
+    <div class="ui-layout-row ui-gap-small">
       <ToggleGroup
         aria-label="Date range"
         name="analytics-range"
@@ -103,7 +103,7 @@
       </Card>
     </li>
   </ul>
-  <div class="ui-layout-columns ui-large" style="--_columns: 2fr 1fr">
+  <div class="ui-layout-columns ui-gap-large" style="--_columns: 2fr 1fr">
     <Card
       aria-labelledby="analytics-dashboard-visitors-heading"
       as="section"
@@ -190,7 +190,7 @@
       </hgroup>
       <CardContent>
         <ul class="ui-layout-column">
-          <li class="ui-layout-column ui-x-small">
+          <li class="ui-layout-column ui-gap-x-small">
             <span
               class="ui-layout-row ui-spread"
               id="analytics-dashboard-source-friends"
@@ -202,7 +202,7 @@
               value={46}
             />
           </li>
-          <li class="ui-layout-column ui-x-small">
+          <li class="ui-layout-column ui-gap-x-small">
             <span
               class="ui-layout-row ui-spread"
               id="analytics-dashboard-source-bassists-anonymous"
@@ -214,7 +214,7 @@
               value={28}
             />
           </li>
-          <li class="ui-layout-column ui-x-small">
+          <li class="ui-layout-column ui-gap-x-small">
             <span
               class="ui-layout-row ui-spread"
               id="analytics-dashboard-source-gear"
@@ -226,7 +226,7 @@
               value={17}
             />
           </li>
-          <li class="ui-layout-column ui-x-small">
+          <li class="ui-layout-column ui-gap-x-small">
             <span
               class="ui-layout-row ui-spread"
               id="analytics-dashboard-source-band"

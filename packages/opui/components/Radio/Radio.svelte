@@ -2,7 +2,7 @@
   import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import RadioInput from "./RadioInput.svelte"
-  import { hasName, warnUnnamed } from "../dev"
+  import { DEV, hasName, warnUnnamed } from "../dev"
   import type { Props } from "./types.svelte"
 
   let {
@@ -25,7 +25,8 @@
     ...rest
   }: Props = $props()
 
-  untrack(() => warnUnnamed("Radio", hasName({ ...rest, label }, children)))
+  if (DEV)
+    untrack(() => warnUnnamed("Radio", hasName({ ...rest, label }, children)))
 </script>
 
 <label

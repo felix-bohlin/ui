@@ -10,7 +10,7 @@ defineSlots<MessageListSlots>()
 
 <template>
   <ol
-    :class="['ui-message-list', { 'ui-direct': direct }, $props.class]"
+    :class="['ui-message-list', { 'ui-direct': direct }]"
     :role="role ?? 'list'"
   >
     <slot></slot>

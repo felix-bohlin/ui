@@ -26,6 +26,8 @@ type Interaction = (context: {
   root: Locator
 }) => Promise<void>
 
+const SCRIPTED = PACKAGE_FRAMEWORK_IDS.filter((id) => id !== "nunjucks")
+
 const interaction = (
   component: string,
   name: string,
@@ -1725,7 +1727,7 @@ interaction(
     await page.evaluate(() => history.pushState({}, "", "elsewhere/"))
     await expect(menu).toBeHidden()
   },
-  PACKAGE_FRAMEWORK_IDS,
+  SCRIPTED,
 )
 
 interaction(
@@ -1758,7 +1760,7 @@ interaction(
     })
     await expect(menu).toBeHidden()
   },
-  PACKAGE_FRAMEWORK_IDS,
+  SCRIPTED,
 )
 
 interaction(
@@ -2231,14 +2233,14 @@ interaction(
     })
 
     await expect(pills).toHaveCount(1)
-    await expect(pills).toHaveClass(/ui-unused/)
+    await expect(pills).toHaveClass(/ui-suggested/)
     await expect(pills).toHaveText("👍")
     await expect(quick).not.toBeChecked()
     expect(await computed(pills, "border-top-style")).toBe("dashed")
 
     const usedPills = used.locator(".ui-toggle-button")
     await expect(usedPills).toHaveText(["👍 3", "🎉 1"])
-    await expect(usedPills.first()).not.toHaveClass(/ui-unused/)
+    await expect(usedPills.first()).not.toHaveClass(/ui-suggested/)
     await expect(
       used.getByRole("checkbox", { name: "Thumbs up, 3" }),
     ).toBeChecked()
@@ -2254,7 +2256,7 @@ interaction(
 
     await pills.click()
     await expect(quick).not.toBeChecked()
-    await expect(pills).toHaveClass(/ui-unused/)
+    await expect(pills).toHaveClass(/ui-suggested/)
     expect(await requests()).toEqual([{ checked: true, value: "+1" }])
 
     await page.emulateMedia({ forcedColors: "active" })
@@ -2281,7 +2283,7 @@ interaction(
       text: "👍 1",
     })
     await expect(pills).toHaveCount(1)
-    await expect(pills).not.toHaveClass(/ui-unused/)
+    await expect(pills).not.toHaveClass(/ui-suggested/)
     await expect(pills).toHaveText("👍 1")
     await expect(quick).toBeChecked()
     await expect(quick).toHaveAccessibleName("Thumbs up, 1")
@@ -2297,7 +2299,7 @@ interaction(
 
     await callReactions(first, "delete", "+1")
     await expect(pills).toHaveText(["👍", "❤️ 1"])
-    await expect(pills.first()).toHaveClass(/ui-unused/)
+    await expect(pills.first()).toHaveClass(/ui-suggested/)
     await expect(quick).not.toBeChecked()
     await expect(quick).toHaveAccessibleName("Thumbs up")
     await expect(quick).toBeFocused()
@@ -2313,7 +2315,7 @@ interaction(
     await callReactions(second, "delete", "+1")
     const last = second.locator(".ui-toggle-button")
     await expect(last).toHaveText("👍")
-    await expect(last).toHaveClass(/ui-unused/)
+    await expect(last).toHaveClass(/ui-suggested/)
     await second.evaluate((element) =>
       element.querySelector(".ui-toggle-button")?.remove(),
     )

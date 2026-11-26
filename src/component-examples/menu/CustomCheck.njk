@@ -1,0 +1,88 @@
+{% from "opui/index.njk" import Button, ListItem, Menu %}
+
+{% call Button({
+  command: "toggle-popover",
+  commandfor: "menu-custom-check-1",
+  variant: "outlined"
+}) %}
+  Theme
+{% endcall %}
+{% set iconChecked %}<svg
+  data-icon="check-circle"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10"></circle>
+  <path d="m9 12 2 2 4-4"></path>
+</svg>{% endset %}
+{{ Menu({
+  id: "menu-custom-check-1",
+  items: [
+    { label: "Light" },
+    { "aria-current": "true", label: "Dark" },
+    { label: "System" }
+  ],
+  slots: { iconChecked: iconChecked }
+}) }}
+
+{% call Button({
+  command: "toggle-popover",
+  commandfor: "menu-custom-check-2",
+  variant: "outlined"
+}) %}
+  Sort by
+{% endcall %}
+{% call Menu({ id: "menu-custom-check-2" }) %}
+  {% set iconChecked %}<svg
+    data-icon="check-circle"
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <circle cx="12" cy="12" r="10"></circle>
+    <path d="m9 12 2 2 4-4"></path>
+  </svg>{% endset %}
+  {{ ListItem({
+    "aria-current": "true",
+    as: "button",
+    command: "hide-popover",
+    commandfor: "menu-custom-check-2",
+    label: "Name",
+    slots: { iconChecked: iconChecked }
+  }) }}
+  {% set iconChecked %}<svg
+    data-icon="check-circle"
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <circle cx="12" cy="12" r="10"></circle>
+    <path d="m9 12 2 2 4-4"></path>
+  </svg>{% endset %}
+  {{ ListItem({
+    as: "button",
+    command: "hide-popover",
+    commandfor: "menu-custom-check-2",
+    label: "Date modified",
+    slots: { iconChecked: iconChecked }
+  }) }}
+{% endcall %}

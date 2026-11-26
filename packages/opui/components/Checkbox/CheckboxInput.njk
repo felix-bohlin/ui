@@ -1,0 +1,11 @@
+{% macro CheckboxInput(props = {}) %}
+  {%- set rest = props | opuiRest("CheckboxInput") -%}
+  {%- set field = opui.context("FieldGroup") -%}
+  {%- set dataIndeterminate = '' if props.indeterminate else none -%}
+  {%- set name = props.name if props.name != none else field.name -%}
+  <input
+    type="checkbox"
+    {%- if dataIndeterminate != none %} data-indeterminate="{{ dataIndeterminate }}"{% endif %}
+    {%- if name != none %} name="{{ name }}"{% endif %}
+    {{- rest | opuiAttributes }}>
+{%- endmacro %}

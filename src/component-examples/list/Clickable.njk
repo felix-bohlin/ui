@@ -1,0 +1,18 @@
+{% from "opui/index.njk" import CheckboxInput, List, ListItem %}
+
+{% call List() %}
+  {{ ListItem({ as: "button", disabled: true, label: "Empty trash" }) }}
+  {{ ListItem({ as: "button", label: "New folder" }) }}
+  {{ ListItem({ href: "#clickable-list-item", label: "Recent files" }) }}
+  {{ ListItem({
+    disabled: true,
+    href: "#clickable-list-item",
+    label: "Shared drives"
+  }) }}
+  {% set end %}{{ CheckboxInput() }}{% endset %}
+  {{ ListItem({
+    choice: "checkbox",
+    label: "Show hidden files",
+    slots: { end: end }
+  }) }}
+{% endcall %}

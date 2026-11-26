@@ -3,7 +3,7 @@
 </script>
 
 <div
-  class="blog-list ui-layout-container ui-layout-column ui-large"
+  class="blog-list ui-layout-container ui-layout-column ui-gap-large"
   style="--_max-inline-size: 76rem"
 >
   <div class="ui-layout-row ui-spread blog-header">
@@ -15,7 +15,7 @@
       </p>
     </hgroup>
     <nav aria-label="Categories">
-      <ul class="ui-layout-row ui-small">
+      <ul class="ui-layout-row ui-gap-small">
         <li>
           <Chip aria-current="page" href="#blog-list-all" label="All posts" />
         </li>
@@ -67,7 +67,7 @@
           times louder. Here's what's new and how we built it.
         </p>
       </hgroup>
-      <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
+      <ul class="ui-layout-row ui-gap-x-small blog-tags" aria-label="Tags">
         <li><Chip label="Bassbook news" size="small" /></li>
         <li><Chip label="Release" size="small" /></li>
       </ul>
@@ -84,7 +84,7 @@
   </Card>
   <section class="ui-layout-column" aria-labelledby="blog-list-latest-heading">
     <h2 class="ui-h4" id="blog-list-latest-heading">Latest posts</h2>
-    <ul class="ui-layout-grid ui-large" style="--_min-inline-size: 20rem">
+    <ul class="ui-layout-grid ui-gap-large" style="--_min-inline-size: 20rem">
       <li>
         <Card as="article" variant="outlined">
           <div
@@ -105,7 +105,10 @@
             </p>
           </hgroup>
           <CardContent class="blog-meta">
-            <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
+            <ul
+              class="ui-layout-row ui-gap-x-small blog-tags"
+              aria-label="Tags"
+            >
               <li><Chip label="Gear Talk" size="small" /></li>
               <li><Chip label="Pedals" size="small" /></li>
             </ul>
@@ -141,7 +144,10 @@
             </p>
           </hgroup>
           <CardContent class="blog-meta">
-            <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
+            <ul
+              class="ui-layout-row ui-gap-x-small blog-tags"
+              aria-label="Tags"
+            >
               <li><Chip label="Guides" size="small" /></li>
               <li><Chip label="Jamming" size="small" /></li>
             </ul>
@@ -177,7 +183,10 @@
             </p>
           </hgroup>
           <CardContent class="blog-meta">
-            <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
+            <ul
+              class="ui-layout-row ui-gap-x-small blog-tags"
+              aria-label="Tags"
+            >
               <li><Chip label="Member diaries" size="small" /></li>
             </ul>
             <div class="ui-layout-media">
@@ -211,7 +220,10 @@
             </p>
           </hgroup>
           <CardContent class="blog-meta">
-            <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
+            <ul
+              class="ui-layout-row ui-gap-x-small blog-tags"
+              aria-label="Tags"
+            >
               <li><Chip label="Member diaries" size="small" /></li>
             </ul>
             <div class="ui-layout-media">
@@ -246,7 +258,10 @@
             </p>
           </hgroup>
           <CardContent class="blog-meta">
-            <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
+            <ul
+              class="ui-layout-row ui-gap-x-small blog-tags"
+              aria-label="Tags"
+            >
               <li><Chip label="Tabs & tips" size="small" /></li>
               <li><Chip label="Technique" size="small" /></li>
             </ul>
@@ -282,7 +297,10 @@
             </p>
           </hgroup>
           <CardContent class="blog-meta">
-            <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
+            <ul
+              class="ui-layout-row ui-gap-x-small blog-tags"
+              aria-label="Tags"
+            >
               <li><Chip label="Dear diary" size="small" /></li>
             </ul>
             <div class="ui-layout-media">

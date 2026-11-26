@@ -60,6 +60,7 @@ tests/reference/apps/*/.next/
 tests/reference/apps/*/.nuxt/
 tests/reference/apps/*/.output/
 tests/reference/apps/*/.svelte-kit/
+tests/reference/apps/*/_site/
 tests/reference/apps/*/build/
 tests/reference/apps/*/next-env.d.ts
 tests/reference/apps/*/public/photos/

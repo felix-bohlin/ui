@@ -82,7 +82,7 @@ export const casesOf = (api: ComponentApi): Case[] => {
   return [
     { ...base, name: "nothing", props: {}, slots: [] },
     { ...base, name: "every slot", props: {}, slots },
-    { ...base, name: 'class="Text"', props: { class: TEXT }, slots },
+    { ...base, name: 'class="class"', props: { class: "class" }, slots },
     ...shared.flatMap(([name, type]) =>
       valuesOf(type).map((value) => ({
         ...base,
@@ -112,7 +112,7 @@ export const partCasesOf = (api: ComponentApi, apis: ComponentApi[]): Case[] =>
       return [
         { ...base, name: "nothing", props: {}, slots: [] },
         { ...base, name: "every slot", props: {}, slots },
-        { ...base, name: 'class="Text"', props: { class: TEXT }, slots },
+        { ...base, name: 'class="class"', props: { class: "class" }, slots },
       ]
     })
 

@@ -1,0 +1,6 @@
+{% from "opui/index.njk" import Chip %}
+
+{{ Chip({ as: "button", disabled: true, label: "Tonal", variant: "tonal" }) }}
+{{ Chip({ as: "button", disabled: true, label: "Outlined", variant: "outlined" }) }}
+{{ Chip({ disabled: true, href: "#", label: "Tonal link" }) }}
+{{ Chip({ class: "ui-disabled", label: "Archived" }) }}

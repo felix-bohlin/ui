@@ -1,0 +1,36 @@
+{% from "opui/index.njk" import Button, ControlGroup %}
+
+<div class="ui-layout-column ui-gap-large">
+  {% call ControlGroup({
+    "aria-label": "Message actions",
+    style: "max-inline-size: 18rem",
+    variant: "outlined"
+  }) %}
+    {% call Button() %}Archive{% endcall %}
+    {% call Button() %}Move to folder{% endcall %}
+    {% call Button() %}Mark as unread{% endcall %}
+    {% call Button() %}Delete{% endcall %}
+  {% endcall %}
+  {% call ControlGroup({
+    "aria-label": "Message actions",
+    overflow: "scroll",
+    style: "max-inline-size: 18rem",
+    variant: "outlined"
+  }) %}
+    {% call Button() %}Archive{% endcall %}
+    {% call Button() %}Move to folder{% endcall %}
+    {% call Button() %}Mark as unread{% endcall %}
+    {% call Button() %}Delete{% endcall %}
+  {% endcall %}
+  {% call ControlGroup({
+    "aria-label": "Message actions",
+    overflow: "shrink",
+    style: "max-inline-size: 18rem",
+    variant: "outlined"
+  }) %}
+    {% call Button() %}Archive{% endcall %}
+    {% call Button() %}Move to folder{% endcall %}
+    {% call Button() %}Mark as unread{% endcall %}
+    {% call Button() %}Delete{% endcall %}
+  {% endcall %}
+</div>

@@ -3,7 +3,7 @@
 An image, initials or icon that stands for a person or an entity.
 
 - CSS: `opui-css/css/components/avatar.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/avatar.md), [Astro](https://opui.dev/astro/components/avatar.md), [React](https://opui.dev/react/components/avatar.md), [Solid](https://opui.dev/solid/components/avatar.md), [Svelte](https://opui.dev/svelte/components/avatar.md), [Vue](https://opui.dev/vue/components/avatar.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/avatar.md), [Astro](https://opui.dev/astro/components/avatar.md), [Nunjucks](https://opui.dev/nunjucks/components/avatar.md), [React](https://opui.dev/react/components/avatar.md), [Solid](https://opui.dev/solid/components/avatar.md), [Svelte](https://opui.dev/svelte/components/avatar.md), [Vue](https://opui.dev/vue/components/avatar.md).
 
 ## Avatar
 
@@ -16,7 +16,7 @@ An image, initials or icon that stands for a person or an entity.
 
 - `aria-label`: `string`. The accessible name of a link or button avatar, instead of `label`. The Astro, React, Solid and Svelte types require one of `label`, `aria-label` and `aria-labelledby` on a link or button. In Vue it passes through as an attribute.
 - `aria-labelledby`: `string`. The id of the element that names a link or button avatar, instead of `label`.
-- `as` (Astro and Svelte): `"a" | "button" | "div"`, default `"div"`. The element to render. Defaults to `"a"` with `href`.
+- `as` (Astro, Nunjucks and Svelte): `"a" | "button" | "div"`, default `"div"`. The element to render. Defaults to `"a"` with `href`.
 - `as` (React, Solid and Vue): `"a" | "button" | "div" | ComponentType<any>`, default `"div"`. The element to render, or the link component of your router with `href`, such as Next's `Link`, Solid Router's `A` or Nuxt's `NuxtLink`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.
 - `disabled`: `boolean`. Disables a button avatar. A link avatar drops its `href` and gets `role="link"` and `aria-disabled="true"` instead.
 - `href`: `string`. The link to use. Renders an `<a>`.
@@ -71,7 +71,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-control-size`, `--ui-control-size-large`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-font-size-caption`, `--ui-font-size-large`, `--ui-font-size-small`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-on-tint`, `--ui-palette-tint`, `--ui-primary`, `--ui-primary-tonal`, `--ui-radius-round`, `--ui-radius-small`, `--ui-space-2`, `--ui-surface` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-large`, `--ui-control-size`, `--ui-control-size-large`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-font-size-caption`, `--ui-font-size-large`, `--ui-font-size-small`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-on-tint`, `--ui-palette-tint`, `--ui-primary`, `--ui-primary-tonal`, `--ui-radius-round`, `--ui-radius-small`, `--ui-space-2`, `--ui-surface` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -107,6 +107,22 @@ import { Avatar } from "opui-css/astro"
 <Avatar label="Holly Humbucker" src="/photos/holly-humbucker.png" />
 
 <Avatar label="Percy Groove" src="/photos/percy-groove.png" />
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Avatar, AvatarGroup %}`
+
+### Example: Image
+
+```njk
+{% from "opui/index.njk" import Avatar %}
+
+{{ Avatar({ label: "Lou Headstock", src: "/photos/lou-headstock.png" }) }}
+
+{{ Avatar({ label: "Holly Humbucker", src: "/photos/holly-humbucker.png" }) }}
+
+{{ Avatar({ label: "Percy Groove", src: "/photos/percy-groove.png" }) }}
 ```
 
 ## React

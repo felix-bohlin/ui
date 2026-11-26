@@ -7,15 +7,13 @@ export const control = (
 ) => {
   let element: Element | undefined
   const initial = untrack(read)
-  createRenderEffect(
-    read,
-    (checked, previous) => {
-      if (element && checked !== undefined && checked !== previous) {
-        setProperty(element, "checked", checked)
-      }
-    },
-    { defer: true },
-  )
+  let last = initial
+  createRenderEffect(read, (checked) => {
+    if (element && checked !== undefined && checked !== last) {
+      setProperty(element, "checked", checked)
+    }
+    last = checked
+  })
   return {
     ref: (node: Element) => {
       if (!element) {

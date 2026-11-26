@@ -29,7 +29,7 @@
   } from "opui-css/svelte"
 </script>
 
-<div class="checkout ui-layout-container ui-layout-column ui-large">
+<div class="checkout ui-layout-container ui-layout-column ui-gap-large">
   <hgroup class="ui-hgroup">
     <p>Bassbook Shop</p>
     <h1 class="ui-h3">Checkout</h1>
@@ -304,7 +304,7 @@
         >
           Pay €154.30
         </Button>
-        <p class="ui-layout-row ui-x-small ui-align-center ui-caption">
+        <p class="ui-layout-row ui-gap-x-small ui-align-center ui-caption">
           <svg
             data-icon="lock"
             aria-hidden="true"
@@ -396,7 +396,7 @@
           </Field>
           <Button type="button">Apply</Button>
         </ControlGroup>
-        <DescriptionList border="solid" orientation="horizontal">
+        <DescriptionList leader="solid" orientation="horizontal">
           <DescriptionListItem>
             <DescriptionListTerm>Subtotal</DescriptionListTerm>
             <DescriptionListDescription>€166.00</DescriptionListDescription>

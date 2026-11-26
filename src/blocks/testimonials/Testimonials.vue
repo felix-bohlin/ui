@@ -4,7 +4,7 @@ import { Avatar, Card, CardContent, Rating } from "opui-css/vue"
 
 <template>
   <section
-    class="testimonials ui-layout-container ui-layout-column ui-large"
+    class="testimonials ui-layout-container ui-layout-column ui-gap-large"
     aria-labelledby="testimonials-heading"
   >
     <div

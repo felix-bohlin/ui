@@ -3,7 +3,7 @@
 Text styles: classes on single elements, or .ui-rich-text around content.
 
 - CSS: `opui-css/css/components/typography.css` and `opui-css/css/components/link.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/typography.md), [Astro](https://opui.dev/astro/components/typography.md), [React](https://opui.dev/react/components/typography.md), [Solid](https://opui.dev/solid/components/typography.md), [Svelte](https://opui.dev/svelte/components/typography.md), [Vue](https://opui.dev/vue/components/typography.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/typography.md), [Astro](https://opui.dev/astro/components/typography.md), [Nunjucks](https://opui.dev/nunjucks/components/typography.md), [React](https://opui.dev/react/components/typography.md), [Solid](https://opui.dev/solid/components/typography.md), [Svelte](https://opui.dev/svelte/components/typography.md), [Vue](https://opui.dev/vue/components/typography.md).
 
 ## Typography (CSS only)
 
@@ -31,7 +31,7 @@ Text styles: classes on single elements, or .ui-rich-text around content.
 
 ### Notes
 
-- Astro and Vue: Add the classes to elements in your templates.
+- Astro, Nunjucks and Vue: Add the classes to elements in your templates.
 - React, Solid and Svelte: Add the classes to elements in your markup.
 
 ## Component properties
@@ -57,7 +57,7 @@ Outputs: `--_duration`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-code-bg-color`, `--ui-code-block-bg-color`, `--ui-code-block-text-color`, `--ui-color-scheme`, `--ui-contrast`, `--ui-critical-text`, `--ui-duration`, `--ui-ease`, `--ui-focus-border-width`, `--ui-focus-highlight`, `--ui-focus-ring-width`, `--ui-font-body`, `--ui-font-code`, `--ui-font-heading`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h1`, `--ui-font-size-h2`, `--ui-font-size-h3`, `--ui-font-size-h4`, `--ui-font-size-h5`, `--ui-font-size-h6`, `--ui-font-size-large`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-medium`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-info`, `--ui-letter-spacing-caps`, `--ui-letter-spacing-display`, `--ui-letter-spacing-heading`, `--ui-line-height`, `--ui-link-focus`, `--ui-link-font-weight`, `--ui-link-visited-text-color`, `--ui-motion`, `--ui-on-focus-highlight`, `--ui-on-inverse`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary-text`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-rhythm-step`, `--ui-rich-text-flow-gap`, `--ui-rich-text-heading-margin-block-end`, `--ui-rich-text-heading-margin-block-start`, `--ui-rich-text-line-height`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-success-text`, `--ui-surface-inverse`, `--ui-text`, `--ui-text-strong`, `--ui-text-subtle`, `--ui-underline-offset`, `--ui-underline-offset-small` and `--ui-underline-thickness-hover`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-large`, `--ui-code-bg-color`, `--ui-code-block-bg-color`, `--ui-code-block-text-color`, `--ui-color-scheme`, `--ui-contrast`, `--ui-critical-text`, `--ui-duration`, `--ui-ease`, `--ui-focus-border-width`, `--ui-focus-highlight`, `--ui-focus-ring-width`, `--ui-font-body`, `--ui-font-code`, `--ui-font-heading`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h1`, `--ui-font-size-h2`, `--ui-font-size-h3`, `--ui-font-size-h4`, `--ui-font-size-h5`, `--ui-font-size-h6`, `--ui-font-size-large`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-medium`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-info`, `--ui-letter-spacing-caps`, `--ui-letter-spacing-display`, `--ui-letter-spacing-heading`, `--ui-line-height`, `--ui-link-focus`, `--ui-link-font-weight`, `--ui-link-visited-text-color`, `--ui-motion`, `--ui-on-focus-highlight`, `--ui-on-inverse`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary-text`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-rhythm-step`, `--ui-rich-text-flow-gap`, `--ui-rich-text-heading-margin-block-end`, `--ui-rich-text-heading-margin-block-start`, `--ui-rich-text-line-height`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-success-text`, `--ui-surface-inverse`, `--ui-text`, `--ui-text-strong`, `--ui-text-subtle`, `--ui-underline-hover-thickness`, `--ui-underline-offset` and `--ui-underline-offset-small`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -84,6 +84,26 @@ There is no Astro component. Use the classes in your markup.
 ### Example: Variants
 
 ```astro
+<h1 class="ui-h1">Heading 1</h1>
+<h2 class="ui-h2">Heading 2</h2>
+<h3 class="ui-h3">Heading 3</h3>
+<h4 class="ui-h4">Heading 4</h4>
+<h5 class="ui-h5">Heading 5</h5>
+<h6 class="ui-h6">Heading 6</h6>
+<p class="ui-p ui-large">Body Large</p>
+<p class="ui-p">Body</p>
+<p class="ui-p ui-small">Body Small</p>
+<p class="ui-overline">Overline</p>
+<p class="ui-caption">Caption</p>
+```
+
+## Nunjucks
+
+There is no Nunjucks component. Use the classes in your markup.
+
+### Example: Variants
+
+```njk
 <h1 class="ui-h1">Heading 1</h1>
 <h2 class="ui-h2">Heading 2</h2>
 <h3 class="ui-h3">Heading 3</h3>

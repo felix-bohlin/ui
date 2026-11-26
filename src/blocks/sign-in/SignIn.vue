@@ -19,7 +19,10 @@ import {
         <p>Heyyy, welcome back! Your wall missed you.</p>
       </hgroup>
       <CardContent>
-        <div class="ui-layout-grid ui-small" style="--_min-inline-size: 9rem">
+        <div
+          class="ui-layout-grid ui-gap-small"
+          style="--_min-inline-size: 9rem"
+        >
           <Button type="button" variant="outlined">
             <svg
               aria-hidden="true"
@@ -71,7 +74,7 @@ import {
                 type="password"
               />
             </Field>
-            <div class="ui-layout-row ui-small ui-spread">
+            <div class="ui-layout-row ui-gap-small ui-spread">
               <Checkbox name="remember">Remember me &lt;3</Checkbox>
               <a class="ui-link" href="#forgot-password">Forgot password?</a>
             </div>

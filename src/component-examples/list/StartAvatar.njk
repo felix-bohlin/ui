@@ -1,0 +1,12 @@
+{% from "opui/index.njk" import Avatar, List, ListItem %}
+
+{% call List() %}
+  {% set start %}{% call Avatar() %}IH{% endcall %}{% endset %}
+  {{ ListItem({ label: "Ines Hertz", slots: { start: start } }) }}
+  {% set start %}{{ Avatar({ src: "/photos/lou-headstock.png" }) }}{% endset %}
+  {{ ListItem({
+    description: "Fretless enthusiast",
+    label: "Lou Headstock",
+    slots: { start: start }
+  }) }}
+{% endcall %}

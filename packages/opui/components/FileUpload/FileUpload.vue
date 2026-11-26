@@ -35,7 +35,7 @@ const descriptionId = computed(() =>
 <template>
   <component
     is="opui-file-upload"
-    :class="['ui-file-upload', $props.class]"
+    class="ui-file-upload"
     @remove="emit('remove', $event)"
     @select="emit('select', $event)"
     data-hydrating=""
@@ -70,7 +70,7 @@ const descriptionId = computed(() =>
         <li
           v-for="(item, index) in items"
           :key="index"
-          v-bind="classAttrs([{ 'ui-error': item.state === 'error' }])"
+          v-bind="classAttrs([{ 'ui-state-error': item.state === 'error' }])"
         >
           <div class="ui-start">
             <img v-if="item.preview" alt="" :src="item.preview" /><button

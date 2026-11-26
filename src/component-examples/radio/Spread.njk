@@ -1,0 +1,41 @@
+{% from "opui/index.njk" import
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+  Radio
+%}
+
+{% call Form() %}
+  {% call Fieldset() %}
+    {% call FieldLegend() %}Delivery{% endcall %}
+    {% call FieldGroup({ name: "radio-spread" }) %}
+      {% call Radio({
+        checked: true,
+        slots: { endText: "Arrives in 3 to 5 days." },
+        spread: true,
+        value: "standard"
+      }) %}
+        Standard
+        
+      {% endcall %}
+      {% call Radio({
+        slots: { endText: "Arrives tomorrow." },
+        spread: true,
+        value: "express"
+      }) %}
+        Express
+        
+      {% endcall %}
+      {% call Radio({
+        disabled: true,
+        slots: { endText: "Not available in your area." },
+        spread: true,
+        value: "pickup"
+      }) %}
+        Pickup
+        
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

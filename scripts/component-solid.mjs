@@ -12,7 +12,12 @@ import {
   slotOrder,
   withImport,
 } from "./component-emit.mjs"
-import { componentFunction, jsxEmitter, tagNamer } from "./component-jsx.mjs"
+import {
+  attrsImport,
+  componentFunction,
+  jsxEmitter,
+  tagNamer,
+} from "./component-jsx.mjs"
 import {
   helpersCalled,
   importLinesOf,
@@ -248,7 +253,7 @@ export const toSolid = (component) => {
     hoisted: [],
     ids: component.ids,
     rename,
-    slotHas: (name) => propAccess(slotProp(name)),
+    slotHas: (name) => `filled(${propAccess(slotProp(name))})`,
   }
   const rewrite = (code, scope = options) => rewriteExpression(code, scope)
   const taken = new Set([
@@ -369,11 +374,11 @@ export const toSolid = (component) => {
     ),
     ...warnings.map(
       (code) =>
-        `untrack(() => {\n${rewriteStatement(code, options).replace(SPREAD_OF_PROPS, "props")}\n})`,
+        `if (DEV) untrack(() => {\n${rewriteStatement(code, options).replace(SPREAD_OF_PROPS, "props")}\n})`,
     ),
     ...(item
       ? [
-          `untrack(() =>\n${groupWarning(
+          `if (DEV) untrack(() =>\n${groupWarning(
             component,
             item,
             `${rewrite(item.checked ?? "undefined")} ?? props.defaultChecked`,
@@ -440,6 +445,7 @@ export const toSolid = (component) => {
         entry.code === rest &&
         (node.variable ||
           entry.condition !== undefined ||
+          (!!entry.cast && !node.component && !node.custom) ||
           (!node.component &&
             !node.custom &&
             !!element &&
@@ -580,7 +586,8 @@ export const toSolid = (component) => {
       rename: inner,
       shadowed: [...(scope.shadowed ?? []), ...shadowed],
     }
-    eachScope.slotHas = (name) => slotRead(slotProp(name), eachScope)
+    eachScope.slotHas = (name) =>
+      `filled(${slotRead(slotProp(name), eachScope)})`
     const consts = node.consts.map(({ code, name }) => {
       const local = loopTags.has(name) ? loopTag(name) : name
       const value = rewrite(code, eachScope)
@@ -808,7 +815,10 @@ export const toSolid = (component) => {
       ? [`import { ${[...new Set(solidValues)].join(", ")} } from "solid-js"`]
       : []),
     ...scriptImports(component),
-    ...(usesDefined ? [`import { defined } from "../attrs"`] : []),
+    ...attrsImport(
+      usesDefined,
+      [resolvedBody, resolvedReturn].flat().join("\n"),
+    ),
     ...components
       .map((entry) => componentImport(entry, ".solid"))
       .toSorted(byName),
@@ -818,6 +828,7 @@ export const toSolid = (component) => {
     }),
     ...importLinesOf(used, ["../solid", "solid-js"]),
     ...[
+      ...(warnings.length || item ? [["../dev", "DEV"]] : []),
       ...(item ? [["../dev", "warnGroupedChecked"]] : []),
       ...(usesCx ? [["../cx", "cx"]] : []),
     ].reduce(

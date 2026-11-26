@@ -1,0 +1,16 @@
+{% macro Stat(props = {}) %}
+  {%- set rest = props | opuiRest("Stat") -%}
+  <dl
+    class="ui-stat
+      {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    <dt class="ui-label">{{ props.label }}{{ props.slots.label | safe }}</dt>
+    <dd class="ui-value">
+      {{- caller() if caller -}}
+    </dd>
+    {% if props.description or props.slots.description != none -%}
+      <dd class="ui-description">{{ props.description }}{{ props.slots.description | safe }}</dd>
+    {%- endif -%}
+  </dl>
+{%- endmacro %}

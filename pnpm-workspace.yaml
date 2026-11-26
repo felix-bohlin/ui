@@ -12,9 +12,11 @@ shellEmulator: true
 
 catalog:
   "@solidjs/web": ^2.0.0
+  "@types/nunjucks": ^3.2.6
   "@types/react": ^19.3.0
   "@types/react-dom": ^19.3.0
   astro: ^7.4.5
+  nunjucks: ^3.2.4
   open-props: ^1.7.23
   react: ^19.3.1
   react-dom: ^19.3.1

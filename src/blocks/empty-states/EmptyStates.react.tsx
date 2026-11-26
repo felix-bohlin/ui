@@ -12,7 +12,7 @@ export default function EmptyStates() {
   return (
     <>
       <div
-        className="empty-states ui-layout-container ui-layout-column ui-large"
+        className="empty-states ui-layout-container ui-layout-column ui-gap-large"
         style={{ "--_max-inline-size": "64rem" }}
       >
         <hgroup className="ui-hgroup empty-states-header">
@@ -23,7 +23,7 @@ export default function EmptyStates() {
           </p>
         </hgroup>
         <div
-          className="ui-layout-grid ui-large"
+          className="ui-layout-grid ui-gap-large"
           style={{ "--_max-columns": "2", "--_min-inline-size": "19rem" }}
         >
           <Card
@@ -53,7 +53,7 @@ export default function EmptyStates() {
                 </h2>
                 <p>Upload your first bass line and make the windows rattle.</p>
               </hgroup>
-              <div className="ui-layout-row ui-small ui-align-center">
+              <div className="ui-layout-row ui-gap-small ui-align-center">
                 <Button type="button" variant="filled">
                   <svg
                     data-icon="add"
@@ -135,7 +135,7 @@ export default function EmptyStates() {
                 </h2>
                 <p>Whoops! Check the spelling, or try one of these instead.</p>
               </hgroup>
-              <div className="ui-layout-row ui-small ui-align-center">
+              <div className="ui-layout-row ui-gap-small ui-align-center">
                 <Chip
                   href="#empty-states-flatwound"
                   label="flatwound strings"
@@ -182,7 +182,7 @@ export default function EmptyStates() {
                 </h2>
                 <p>No new scribbles since 09:12. Enjoy the quiet, for once.</p>
               </hgroup>
-              <div className="ui-layout-row ui-small ui-align-center">
+              <div className="ui-layout-row ui-gap-small ui-align-center">
                 <Button href="#empty-states-archive" variant="outlined">
                   Old scribbles
                 </Button>
@@ -221,7 +221,7 @@ export default function EmptyStates() {
                   Ask a band admin to let you in. Yes, there's a gig. Surprise!
                 </p>
               </hgroup>
-              <div className="ui-layout-row ui-small ui-align-center">
+              <div className="ui-layout-row ui-gap-small ui-align-center">
                 <AvatarGroup aria-label="Band admins">
                   <Avatar aria-label="Holly Humbucker" role="img">
                     HH
@@ -235,7 +235,7 @@ export default function EmptyStates() {
                 </AvatarGroup>
                 <span>3 band admins</span>
               </div>
-              <div className="ui-layout-row ui-small ui-align-center">
+              <div className="ui-layout-row ui-gap-small ui-align-center">
                 <Button type="button" variant="filled">
                   Request access
                 </Button>

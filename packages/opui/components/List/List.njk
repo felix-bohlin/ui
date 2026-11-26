@@ -1,0 +1,16 @@
+{% macro List(props = {}) %}
+  {%- set rest = props | opuiRest("List") -%}
+  {%- set tag = props.as | default("ul") -%}
+  {%- set classes = [
+    "ui-list",
+    { "ui-bordered": props.bordered, "ui-dense": props.dense, "ui-flush": props.flush },
+    props.variant and props.variant != "filled" and "ui-" ~ props.variant,
+    props.class
+  ] | opuiClass -%}
+  <{{ tag | opuiTag }}{{ opui.merge(
+    { class: classes, role: props.role if props.role != none else "list" },
+    opui.defined(rest)
+  ) | opuiAttributes(tag) }}>
+    {{- caller() if caller -}}
+  </{{ tag | opuiTag }}>
+{%- endmacro %}

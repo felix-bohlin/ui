@@ -1,6 +1,6 @@
 ---
 import type { AstroInstance } from "astro"
-import { componentHasFramework, FRAMEWORK_IDS } from "../../../utils/framework"
+import { FRAMEWORK_IDS } from "../../../utils/framework"
 
 export const components = Object.fromEntries(
   Object.entries(
@@ -17,7 +17,6 @@ export const getStaticPaths = () =>
   FRAMEWORK_IDS.flatMap((framework) =>
     Object.keys(components)
       .toSorted()
-      .filter((slug) => componentHasFramework(framework, slug))
       .map((component) => ({ params: { component, framework } })),
   )
 

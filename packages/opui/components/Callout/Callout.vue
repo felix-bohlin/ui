@@ -34,7 +34,6 @@ provide(CalloutKey, reactive({ severity: computed(() => severity) }))
       'ui-callout',
       severity && `ui-${severity}`,
       variant && variant !== 'tonal' && `ui-${variant}`,
-      $props.class,
     ]"
     :id="rootId"
     @dismiss="emit('dismiss', $event)"

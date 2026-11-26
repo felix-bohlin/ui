@@ -1,0 +1,21 @@
+{% from "opui/index.njk" import
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form
+%}
+
+{% call Form() %}
+  {% call Fieldset() %}
+    {% call FieldLegend() %}Agreements{% endcall %}
+    {% call FieldGroup({
+      name: "checkbox-group-required",
+      orientation: "horizontal"
+    }) %}
+      {% call Checkbox({ required: true }) %}Terms of service{% endcall %}
+      {% call Checkbox({ required: true }) %}Privacy policy{% endcall %}
+      {% call Checkbox({ required: true }) %}Data processing{% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

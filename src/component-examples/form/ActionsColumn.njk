@@ -1,0 +1,6 @@
+{% from "opui/index.njk" import Button, FieldGroup %}
+
+{% call FieldGroup({ orientation: "vertical" }) %}
+  {% call Button() %}Save draft{% endcall %}
+  {% call Button({ variant: "filled" }) %}Publish{% endcall %}
+{% endcall %}

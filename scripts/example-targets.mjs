@@ -1,7 +1,6 @@
 import { readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import {
-  componentHasFramework,
   exampleExtension,
   extensionPattern,
   FRAMEWORK_IDS,
@@ -36,9 +35,7 @@ export const readHandWritten = () =>
 /** @returns {(keyof typeof TARGETS)[]} */
 export const generatedTargets = (key, handWritten) =>
   Object.keys(TARGETS).filter(
-    (framework) =>
-      componentHasFramework(framework, key.split("/")[0]) &&
-      !(`${key}${TARGETS[framework]}` in handWritten),
+    (framework) => !(`${key}${TARGETS[framework]}` in handWritten),
   )
 
 export const handWrittenProblems = (handWritten, exists) => {

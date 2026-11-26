@@ -3,7 +3,7 @@
   import { seedChecked } from "../svelte"
   import { getTabsContext, setTabsContext } from "./context.svelte"
   import { isSelected } from "../ToggleGroup/selection"
-  import { warnGroupedChecked } from "../dev"
+  import { DEV, warnGroupedChecked } from "../dev"
   import { defined } from "../attrs"
   import type { TabsItemProps as Props } from "./types.svelte"
 
@@ -26,9 +26,15 @@
   const groupName = $derived(name || parent?.groupName || `tabs-${uid}`)
   const tabId = $derived(id || `tab-${uid}`)
   const grouped = $derived(isSelected(parent?.value, value))
-  untrack(() =>
-    warnGroupedChecked("TabsItem", grouped, checked ?? defaultChecked, "Tabs"),
-  )
+  if (DEV)
+    untrack(() =>
+      warnGroupedChecked(
+        "TabsItem",
+        grouped,
+        checked ?? defaultChecked,
+        "Tabs",
+      ),
+    )
   const isChecked = () => grouped ?? checked ?? !!defaultChecked
   const initialChecked = untrack(isChecked)
   const change = (input: HTMLInputElement) => {

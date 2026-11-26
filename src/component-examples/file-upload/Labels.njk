@@ -1,0 +1,24 @@
+{% from "opui/index.njk" import FileUpload %}
+
+{{ FileUpload({
+  accept: "image/*",
+  description: "Eller släpp dem här. PNG eller JPG.",
+  items: [
+    {
+      label: "lou-headstock.png",
+      preview: "/photos/lou-headstock.png",
+      progress: 0.3,
+      state: "uploading",
+      value: "lou"
+    }
+  ],
+  label: "Välj foton",
+  lang: "sv",
+  multiple: true,
+  progressLabel: "Laddar upp {label}",
+  removeLabel: "Ta bort {label} från listan"
+}) }}
+
+<script type="module">
+  import "opui-css/elements/file-upload.js"
+</script>

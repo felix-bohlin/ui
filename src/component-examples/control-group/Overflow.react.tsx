@@ -2,7 +2,7 @@ import { Button, ControlGroup } from "opui-css/react"
 
 export default function Overflow() {
   return (
-    <div className="ui-layout-column ui-large">
+    <div className="ui-layout-column ui-gap-large">
       <ControlGroup
         aria-label="Message actions"
         style={{ maxInlineSize: "18rem" }}

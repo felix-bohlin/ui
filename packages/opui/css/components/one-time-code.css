@@ -10,7 +10,7 @@
     --_box-start: calc(var(--_cell-size) * 0.125);
     --_cell-size: min(var(--_max-cell-size), 100cqi / (var(--_length) - 0.25));
     --_dash-bg-color: var(--ui-text-subtle);
-    --_dash-block-size: var(--ui-border-width-thick);
+    --_dash-block-size: var(--ui-border-width-large);
     --_dash-image: none;
     --_font-size: var(--ui-font-size-large);
     --_length: 6;

@@ -1,0 +1,66 @@
+{% from "opui/index.njk" import
+  Button,
+  Field,
+  List,
+  ListItem,
+  Message,
+  MessageList
+%}
+{% from "user-avatar.njk" import userAvatar %}
+
+{% macro chatScreen(open) %}
+  <div class="app-screen" data-screen="chat">
+    <h1>Chat</h1>
+    <div class="app-chat">
+      <nav aria-label="Conversations">
+        {% call List({ variant: "transparent" }) %}
+          {% for item in app.conversations() %}
+            {% set start %}{{ userAvatar(item.user, "small") }}{% endset %}
+            {{ ListItem({
+              "aria-current": "page" if item.with == open.with else none,
+              description: item.unread ~ " unread" if item.unread else none,
+              href: "/chat?with=" ~ item.with,
+              label: item.user.name,
+              slots: { start: start }
+            }) }}
+          {% endfor %}
+        {% endcall %}
+      </nav>
+      <section aria-labelledby="chat-title" class="app-screen" data-with="{{ open.with }}">
+        <h2 id="chat-title">{{ open.user.name }}</h2>
+        {% call MessageList({ "aria-label": "Messages with " ~ open.user.name, direct: true }) %}
+          {% for line in open.lines %}
+            {% if line.kind == "divider" %}
+              <li class="ui-divider">{{ line.label }}</li>
+            {% else %}
+              {% set author = app.user(line.from) %}
+              {% set start %}{{ userAvatar(author, "small") if line.from != app.ME }}{% endset %}
+              {% call Message({
+                author: author.name,
+                datetime: line.datetime,
+                outgoing: line.from == app.ME,
+                slots: { start: start } if line.from != app.ME else {},
+                time: line.time
+              }) %}
+                <p data-text>{{ line.text }}</p>
+              {% endcall %}
+            {% endif %}
+          {% endfor %}
+        {% endcall %}
+        <template data-outgoing>
+          {% call Message({ author: app.me().name, outgoing: true, time: "0:00" }) %}
+            <p data-text></p>
+          {% endcall %}
+        </template>
+        <form aria-label="Send a message" class="ui-layout-column">
+          {% call Field({ for: "chat-message", hideLabel: true, label: "Message" }) %}
+            <textarea id="chat-message" name="text" required></textarea>
+          {% endcall %}
+          <div>
+            {% call Button({ type: "submit", variant: "filled" }) %}Send{% endcall %}
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+{% endmacro %}

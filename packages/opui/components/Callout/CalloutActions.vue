@@ -9,7 +9,7 @@ defineSlots<CalloutActionsSlots>()
 </script>
 
 <template>
-  <div :class="['ui-actions', $props.class]">
+  <div class="ui-actions">
     <slot></slot>
   </div>
 </template>

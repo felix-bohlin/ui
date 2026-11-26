@@ -18,7 +18,11 @@ for (const component of FIXTURES) {
       const example = examples.nth(index)
       const name = await example.getAttribute("data-example")
       await expect.soft(example).toHaveScreenshot(`${component}/${name}.png`, {
-        mask: [example.locator("img"), example.locator("video")],
+        mask: [
+          example.locator("iframe"),
+          example.locator("img"),
+          example.locator("video"),
+        ],
       })
     }
   })
@@ -32,7 +36,11 @@ for (const block of BLOCKS) {
       await openFixture(page, "html", block)
       const preview = page.locator(".block-preview")
       await expect.soft(preview).toHaveScreenshot(`${block}/${width}.png`, {
-        mask: [preview.locator("img"), preview.locator("video")],
+        mask: [
+          preview.locator("iframe"),
+          preview.locator("img"),
+          preview.locator("video"),
+        ],
       })
     })
   }

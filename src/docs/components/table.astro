@@ -208,6 +208,11 @@ export const keywords = ["data table", "grid", "rows", "sort"]
         Wrap the table in <code>opui-sortable-table</code> and import
         <code>opui-css/elements/sortable-table.js</code>.
       </Fragment>
+      <Fragment slot="nunjucks">
+        Wrap the table in <code>SortableTable</code>, set <code>sortable</code>
+        on the headers, and load
+        <code>opui-css/elements/sortable-table.js</code> on the page.
+      </Fragment>
     </Conditional>
     <p>Give formatted numbers and dates a <code>data-sort-value</code>.</p>
     <AutoExample name="Sortable" />

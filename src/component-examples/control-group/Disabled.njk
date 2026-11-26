@@ -1,0 +1,17 @@
+{% from "opui/index.njk" import Button, ControlGroup %}
+
+{% call ControlGroup({ "aria-label": "Message actions", variant: "filled" }) %}
+  {% call Button() %}Archive{% endcall %}
+  {% call Button({ disabled: true }) %}Move{% endcall %}
+  {% call Button() %}Delete{% endcall %}
+{% endcall %}
+
+{% call ControlGroup({
+  "aria-label": "Message actions",
+  color: "primary",
+  variant: "filled"
+}) %}
+  {% call Button() %}Archive{% endcall %}
+  {% call Button({ disabled: true }) %}Move{% endcall %}
+  {% call Button() %}Delete{% endcall %}
+{% endcall %}

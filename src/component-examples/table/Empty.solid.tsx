@@ -24,7 +24,7 @@ export default function Empty() {
       <TableBody>
         <TableRow>
           <TableCell colspan="3">
-            <div class="ui-align-center ui-layout-column ui-small">
+            <div class="ui-align-center ui-layout-column ui-gap-small">
               <p>No members in Reykjavík yet, bummer.</p>
               <Button size="small" variant="outlined">
                 Show all cities

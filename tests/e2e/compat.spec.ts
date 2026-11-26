@@ -2,11 +2,12 @@ import { expect, test } from "@playwright/test"
 import { openFixture } from "./fixtures"
 
 const APPLIES: Record<string, string[]> = {
-  chromium: [],
+  chromium: ["not (position-visibility: anchor-visible)"],
   firefox: [
     "not (appearance: base-select)",
     "not (corner-shape: squircle)",
     "not (inline-size: if(else: 0px))",
+    "not (position-visibility: anchor-visible)",
     "not (row-rule: none)",
     "not selector(: interest-source)",
   ],

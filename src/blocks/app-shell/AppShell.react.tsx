@@ -20,7 +20,7 @@ export default function AppShell() {
   return (
     <>
       <div className="app-shell">
-        <header className="shell-header ui-layout-row ui-small">
+        <header className="shell-header ui-layout-row ui-gap-small">
           <Button
             aria-label="Open navigation"
             className="shell-menu-button"
@@ -45,7 +45,7 @@ export default function AppShell() {
             </svg>
           </Button>
           <a
-            className="shell-brand ui-layout-row ui-small"
+            className="shell-brand ui-layout-row ui-gap-small"
             href="#app-shell-home"
           >
             <svg
@@ -269,7 +269,7 @@ export default function AppShell() {
               />
             </List>
           </nav>
-          <main className="ui-layout-column ui-large">
+          <main className="ui-layout-column ui-gap-large">
             <div className="ui-layout-row ui-spread">
               <hgroup className="ui-hgroup">
                 <p>Wednesday, 8 October</p>
@@ -334,7 +334,7 @@ export default function AppShell() {
               </li>
             </ul>
             <div
-              className="ui-layout-columns ui-large ui-breakpoint-large"
+              className="ui-layout-columns ui-gap-large ui-breakpoint-large"
               style={{ "--_columns": "3fr 2fr" }}
             >
               <Card

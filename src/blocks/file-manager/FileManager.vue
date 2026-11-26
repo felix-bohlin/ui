@@ -18,13 +18,13 @@ import {
 
 <template>
   <div
-    class="file-manager ui-layout-container ui-layout-column ui-large"
+    class="file-manager ui-layout-container ui-layout-column ui-gap-large"
     style="--_max-inline-size: 80rem"
   >
     <div class="ui-layout-row ui-spread">
-      <div class="ui-layout-column ui-x-small">
+      <div class="ui-layout-column ui-gap-x-small">
         <nav aria-label="Breadcrumb" class="files-breadcrumb">
-          <ol class="ui-layout-row ui-x-small">
+          <ol class="ui-layout-row ui-gap-x-small">
             <li><a class="ui-link" href="#file-manager-root">My stuff</a></li>
             <li>
               {{ " "
@@ -35,7 +35,7 @@ import {
         </nav>
         <h1 class="ui-h3">Gig pics</h1>
       </div>
-      <div class="ui-layout-row ui-small">
+      <div class="ui-layout-row ui-gap-small">
         <Button size="small" type="button" variant="outlined">
           <svg
             data-icon="folder-add"
@@ -68,7 +68,7 @@ import {
         </Button>
       </div>
     </div>
-    <div class="ui-layout-columns ui-large" style="--_columns: 1fr 2fr">
+    <div class="ui-layout-columns ui-gap-large" style="--_columns: 1fr 2fr">
       <Card
         aria-labelledby="file-manager-storage-heading"
         as="section"
@@ -88,20 +88,22 @@ import {
             max="50"
             value="18.4"
           />
-          <ul class="ui-layout-column ui-small ui-tabular-nums files-breakdown">
-            <li class="ui-layout-row ui-small">
+          <ul
+            class="ui-layout-column ui-gap-small ui-tabular-nums files-breakdown"
+          >
+            <li class="ui-layout-row ui-gap-small">
               <span class="ui-swatch ui-info"></span>
               <span>Tabs</span><span>0.3 GB</span>
             </li>
-            <li class="ui-layout-row ui-small">
+            <li class="ui-layout-row ui-gap-small">
               <span class="ui-swatch ui-success"></span>
               <span>Photos</span><span>9.6 GB</span>
             </li>
-            <li class="ui-layout-row ui-small">
+            <li class="ui-layout-row ui-gap-small">
               <span class="ui-swatch ui-warning"></span>
               <span>Videos</span><span>7.2 GB</span>
             </li>
-            <li class="ui-layout-row ui-small">
+            <li class="ui-layout-row ui-gap-small">
               <span class="ui-swatch ui-neutral"></span>
               <span>Other</span><span>1.3 GB</span>
             </li>
@@ -293,7 +295,7 @@ import {
               </TableCell>
               <TableCell>
                 <div
-                  class="ui-layout-media ui-small files-name"
+                  class="ui-layout-media ui-gap-small files-name"
                   style="--file: var(--ui-critical)"
                 >
                   <svg
@@ -350,7 +352,7 @@ import {
               </TableCell>
               <TableCell>
                 <div
-                  class="ui-layout-media ui-small files-name"
+                  class="ui-layout-media ui-gap-small files-name"
                   style="--file: var(--ui-success)"
                 >
                   <svg
@@ -407,7 +409,7 @@ import {
               </TableCell>
               <TableCell>
                 <div
-                  class="ui-layout-media ui-small files-name"
+                  class="ui-layout-media ui-gap-small files-name"
                   style="--file: var(--ui-info)"
                 >
                   <svg
@@ -464,7 +466,7 @@ import {
               </TableCell>
               <TableCell>
                 <div
-                  class="ui-layout-media ui-small files-name"
+                  class="ui-layout-media ui-gap-small files-name"
                   style="--file: var(--ui-warning)"
                 >
                   <svg
@@ -521,7 +523,7 @@ import {
               </TableCell>
               <TableCell>
                 <div
-                  class="ui-layout-media ui-small files-name"
+                  class="ui-layout-media ui-gap-small files-name"
                   style="--file: var(--ui-info)"
                 >
                   <svg

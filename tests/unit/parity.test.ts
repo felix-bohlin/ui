@@ -15,7 +15,7 @@ import {
 } from "../../src/utils/framework"
 import { createIdGenerator, exampleIdBase } from "../../src/utils/id"
 import { idsOf, normalize } from "./normalize"
-import { render, type SolidComponent } from "./renderers"
+import { render, renderNunjucks, type SolidComponent } from "./renderers"
 
 const RECORD = !!process.env.PARITY_RECORD
 
@@ -23,6 +23,10 @@ const astroModules = import.meta.glob<AstroInstance>([
   "../../src/blocks/**/*.astro",
   "../../src/component-examples/**/*.astro",
 ])
+const nunjucksModules = import.meta.glob<string>(
+  ["../../src/blocks/**/*.njk", "../../src/component-examples/**/*.njk"],
+  { import: "default", query: "?raw" },
+)
 const reactModules = import.meta.glob<{ default: ComponentType }>([
   "../../src/blocks/**/*.react.tsx",
   "../../src/component-examples/**/*.react.tsx",
@@ -41,8 +45,8 @@ const vueModules = import.meta.glob<{ default: VueComponent }>([
 ])
 const exampleSources = import.meta.glob<string>(
   [
-    "../../src/blocks/**/*.{astro,html,react.tsx,solid.tsx,svelte,vue}",
-    "../../src/component-examples/**/*.{astro,html,react.tsx,solid.tsx,svelte,vue}",
+    "../../src/blocks/**/*.{astro,html,njk,react.tsx,solid.tsx,svelte,vue}",
+    "../../src/component-examples/**/*.{astro,html,njk,react.tsx,solid.tsx,svelte,vue}",
   ],
   { eager: true, import: "default", query: "?raw" },
 )
@@ -64,6 +68,7 @@ const KNOWN_DIFFERENCES: Record<string, string> = {}
 const REFERENCES: Record<Framework, Framework[]> = {
   astro: ["html"],
   html: [],
+  nunjucks: ["astro", "html"],
   react: ["astro", "html"],
   solid: ["astro", "html"],
   svelte: ["astro", "html"],
@@ -73,6 +78,7 @@ const REFERENCES: Record<Framework, Framework[]> = {
 type Loaded = {
   astro: AstroInstance
   html: string
+  nunjucks: string
   react: { default: ComponentType }
   solid: { default: SolidComponent }
   svelte: { default: SvelteComponent }
@@ -112,6 +118,7 @@ const register = <F extends Framework>(
 }
 register("astro", astroModules)
 register("html", htmlSources)
+register("nunjucks", nunjucksModules)
 register("react", reactModules)
 register("solid", solidModules)
 register("svelte", svelteModules)
@@ -137,6 +144,7 @@ const renderers: {
       },
     ),
   html: async (loaded) => loaded,
+  nunjucks: async (loaded) => renderNunjucks(loaded),
   react: async (loaded, key) => {
     const spy = vi.spyOn(console, "error").mockImplementation(() => {})
     try {
@@ -156,7 +164,7 @@ const renderers: {
   vue: (loaded) => render.vue(loaded.default),
 }
 
-const SNAPSHOT_FILE = /\.(?:html|(?:react|solid|svelte|vue)\.diff)$/
+const SNAPSHOT_FILE = /\.(?:html|(?:nunjucks|react|solid|svelte|vue)\.diff)$/
 
 const orphanSnapshots = (files: string[], keys: Set<string>) =>
   files.filter((file) => !keys.has(file.replace(SNAPSHOT_FILE, "")))
@@ -224,7 +232,7 @@ const exampleCss = (example: Example) => {
   return styles.get(example.key)!
 }
 
-const COMMENTED: Framework[] = ["astro", "html"]
+const COMMENTED: Framework[] = ["astro", "html", "nunjucks"]
 
 const cache = new Map<string, Promise<string>>()
 const markup = (

@@ -5,7 +5,7 @@
     --_icon-marker-size: var(--ui-space-5);
     --_item-gap: var(--ui-space-5);
     --_line-border-color: var(--ui-border-color);
-    --_line-border-width: var(--ui-border-width-thick);
+    --_line-border-width: var(--ui-border-width-large);
 
     container-type: inline-size;
     display: grid;

@@ -29,7 +29,7 @@ export default function AccountSettings() {
   return (
     <>
       <div
-        class="account-settings ui-layout-container ui-layout-column ui-large"
+        class="account-settings ui-layout-container ui-layout-column ui-gap-large"
         style="--_max-inline-size: 48rem"
       >
         <hgroup class="ui-hgroup">
@@ -57,7 +57,7 @@ export default function AccountSettings() {
                     >
                       PG
                     </Avatar>
-                    <div class="ui-layout-row ui-small">
+                    <div class="ui-layout-row ui-gap-small">
                       <Button size="small" type="button" variant="outlined">
                         Upload new pic
                       </Button>

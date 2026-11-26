@@ -1,0 +1,41 @@
+{% from "opui/index.njk" import Avatar, Message, MessageList %}
+
+<div aria-label="Chat with Stella" role="log">
+  {% call MessageList({ "aria-label": "Messages with Stella" }) %}
+    {% set start %}{% call Avatar() %}SN{% endcall %}{% endset %}
+    {% call Message({
+      author: "Stella",
+      datetime: "2026-10-08T14:02",
+      slots: { start: start },
+      time: "14:02"
+    }) %}
+      <p>Heyyy! Did your band notice you changed strings yet?</p>
+    {% endcall %}
+    {% set start %}{% call Avatar() %}SN{% endcall %}{% endset %}
+    {% call Message({
+      author: "Stella",
+      datetime: "2026-10-08T14:03",
+      slots: { start: start },
+      time: "14:03"
+    }) %}
+      <p>Flatwounds, right? So rad.</p>
+    {% endcall %}
+    {% call Message({
+      author: "You",
+      datetime: "2026-10-08T14:18",
+      outgoing: true,
+      time: "14:18"
+    }) %}
+      <p>Nope, not even the drummer. Bummer, but WE know.</p>
+    {% endcall %}
+    {% call Message({
+      author: "You",
+      datetime: "2026-10-08T14:19",
+      outgoing: true,
+      slots: { end: "Read" },
+      time: "14:19"
+    }) %}
+      <p>Can you send me the tab for your slap break?</p>
+    {% endcall %}
+  {% endcall %}
+</div>

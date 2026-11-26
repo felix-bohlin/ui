@@ -2,11 +2,17 @@ const KEY = Symbol.for("opui-close-on-navigate")
 
 const DRAWER = "dialog.ui-drawer[data-close-on-navigate][open]"
 
-const keepsPage = ({ destination, hashChange, navigationType }) =>
-  destination.sameDocument &&
-  !hashChange &&
-  navigationType !== "traverse" &&
-  new URL(destination.url).pathname === location.pathname
+const keepsPage = ({
+  destination,
+  downloadRequest,
+  hashChange,
+  navigationType,
+}) =>
+  downloadRequest != null ||
+  (destination.sameDocument &&
+    !hashChange &&
+    navigationType !== "traverse" &&
+    new URL(destination.url).pathname === location.pathname)
 
 const close = (event) => {
   if (keepsPage(event)) return
@@ -18,9 +24,21 @@ const close = (event) => {
   }
 }
 
+const TARGETS_HERE = ["", "_parent", "_self", "_top"]
+
+const opensElsewhere = (event, link) =>
+  event.button !== 0 ||
+  event.altKey ||
+  event.ctrlKey ||
+  event.metaKey ||
+  event.shiftKey ||
+  link.hasAttribute("download") ||
+  !TARGETS_HERE.includes(link.target.toLowerCase())
+
 const closeDrawer = (event) => {
   const link = event.target.closest?.("a[href]:not([data-keep-open])")
-  link?.closest(DRAWER)?.close()
+  if (!link || opensElsewhere(event, link)) return
+  link.closest(DRAWER)?.close()
 }
 
 const { document, navigation } = globalThis

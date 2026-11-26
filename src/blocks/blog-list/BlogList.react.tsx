@@ -4,7 +4,7 @@ export default function BlogList() {
   return (
     <>
       <div
-        className="blog-list ui-layout-container ui-layout-column ui-large"
+        className="blog-list ui-layout-container ui-layout-column ui-gap-large"
         style={{ "--_max-inline-size": "76rem" }}
       >
         <div className="ui-layout-row ui-spread blog-header">
@@ -17,7 +17,7 @@ export default function BlogList() {
             </p>
           </hgroup>
           <nav aria-label="Categories">
-            <ul className="ui-layout-row ui-small">
+            <ul className="ui-layout-row ui-gap-small">
               <li>
                 <Chip
                   aria-current="page"
@@ -82,7 +82,7 @@ export default function BlogList() {
               </p>
             </hgroup>
             <ul
-              className="ui-layout-row ui-x-small blog-tags"
+              className="ui-layout-row ui-gap-x-small blog-tags"
               aria-label="Tags"
             >
               <li>
@@ -111,7 +111,7 @@ export default function BlogList() {
             Latest posts
           </h2>
           <ul
-            className="ui-layout-grid ui-large"
+            className="ui-layout-grid ui-gap-large"
             style={{ "--_min-inline-size": "20rem" }}
           >
             <li>
@@ -135,7 +135,7 @@ export default function BlogList() {
                 </hgroup>
                 <CardContent className="blog-meta">
                   <ul
-                    className="ui-layout-row ui-x-small blog-tags"
+                    className="ui-layout-row ui-gap-x-small blog-tags"
                     aria-label="Tags"
                   >
                     <li>
@@ -179,7 +179,7 @@ export default function BlogList() {
                 </hgroup>
                 <CardContent className="blog-meta">
                   <ul
-                    className="ui-layout-row ui-x-small blog-tags"
+                    className="ui-layout-row ui-gap-x-small blog-tags"
                     aria-label="Tags"
                   >
                     <li>
@@ -223,7 +223,7 @@ export default function BlogList() {
                 </hgroup>
                 <CardContent className="blog-meta">
                   <ul
-                    className="ui-layout-row ui-x-small blog-tags"
+                    className="ui-layout-row ui-gap-x-small blog-tags"
                     aria-label="Tags"
                   >
                     <li>
@@ -264,7 +264,7 @@ export default function BlogList() {
                 </hgroup>
                 <CardContent className="blog-meta">
                   <ul
-                    className="ui-layout-row ui-x-small blog-tags"
+                    className="ui-layout-row ui-gap-x-small blog-tags"
                     aria-label="Tags"
                   >
                     <li>
@@ -305,7 +305,7 @@ export default function BlogList() {
                 </hgroup>
                 <CardContent className="blog-meta">
                   <ul
-                    className="ui-layout-row ui-x-small blog-tags"
+                    className="ui-layout-row ui-gap-x-small blog-tags"
                     aria-label="Tags"
                   >
                     <li>
@@ -349,7 +349,7 @@ export default function BlogList() {
                 </hgroup>
                 <CardContent className="blog-meta">
                   <ul
-                    className="ui-layout-row ui-x-small blog-tags"
+                    className="ui-layout-row ui-gap-x-small blog-tags"
                     aria-label="Tags"
                   >
                     <li>

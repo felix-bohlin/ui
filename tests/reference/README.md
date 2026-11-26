@@ -1,10 +1,10 @@
 # Reference app
 
-One small app, a group page with a feed, chat, photos, profiles and settings, written by hand in Astro, SvelteKit, Next (React), Nuxt (Vue) and Solid 2. It's front end only: the data is in `shared/data.ts`, and `shared/fake-api.ts` serves it with a delay. A single Playwright suite in `spec/` runs against every app.
+One small app, a group page with a feed, chat, photos, profiles and settings, written by hand in Astro, Eleventy (Nunjucks), SvelteKit, Next (React), Nuxt (Vue) and Solid 2. It's front end only: the data is in `shared/data.ts`, and `shared/fake-api.ts` serves it with a delay. A single Playwright suite in `spec/` runs against every app.
 
 The examples in `tests/apps` render one component at a time. This app tests how the components compose: forms inside dialogs, avatars as links, menus that submit forms, drawers that close on client navigation, a second theme at runtime and phone layouts. Each port is written by hand in its framework's own idiom, and the shared code holds data only, no components.
 
-Solid is plain Solid 2 through `@solidjs/vite-plugin` with `start`, not SolidStart.
+Solid is plain Solid 2 through `@solidjs/vite-plugin` with `start`, not SolidStart. Eleventy builds a static site with the `opui-css/nunjucks/eleventy` plugin, and esbuild bundles its scripts and CSS.
 
 ## Running it
 
@@ -24,7 +24,7 @@ This runs `spec/` against the built apps. It takes the same `OPUI_REFERENCE_APPS
 pnpm reference dev sveltekit
 ```
 
-This starts one app's dev server. Without an app, it starts all five and an index page at <http://localhost:4500> that links each screen in every framework. The dev servers use the tarball unpacked by `prepare`, so run that first, and again after a change to `packages/opui`.
+This starts one app's dev server. Without an app, it starts all six and an index page at <http://localhost:4500> that links each screen in every framework. The dev servers use the tarball unpacked by `prepare`, so run that first, and again after a change to `packages/opui`.
 
 | App       | Port |
 | --------- | ---- |
@@ -34,6 +34,7 @@ This starts one app's dev server. Without an app, it starts all five and an inde
 | Next      | 4503 |
 | Nuxt      | 4504 |
 | Solid     | 4505 |
+| Eleventy  | 4506 |
 
 ## Adding a screen or a feature
 
@@ -69,7 +70,7 @@ Icons are inline `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke
   - a theme button (`aria-label="Theme"`) opening a `Menu` (`id="theme-menu"`, `align="end"`) with two button items, `Default` and `Sunset`. Picking one sets `data-theme` on `<html>` (`default` or `sunset`), saves it in `localStorage` under `reference-theme` and closes the menu. A saved theme is applied by an inline script in `<head>`, before the first paint.
   - an `Avatar` link to `/u/sam` with `label="Your profile"` and the initials `SR`, since Sam has no photo.
 - `<main class="app-main" id="main" tabindex="-1">` holds the screen, whose root element is `<div class="app-screen" data-screen="<id>">`.
-- Navigation between screens is client-side in every app (Astro uses `ClientRouter`).
+- Navigation between screens is client-side in every app (Astro uses `ClientRouter`, Eleventy the Navigation API).
 
 ### Feed (`/`, `data-screen="feed"`)
 

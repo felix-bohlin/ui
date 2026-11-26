@@ -23,10 +23,10 @@ import {
 
 <template>
   <div
-    class="invoice ui-layout-container ui-layout-column ui-large"
+    class="invoice ui-layout-container ui-layout-column ui-gap-large"
     style="--_max-inline-size: 58rem"
   >
-    <div class="ui-layout-row ui-small ui-spread invoice-toolbar">
+    <div class="ui-layout-row ui-gap-small ui-spread invoice-toolbar">
       <Button href="#invoice-all" size="small"
         ><svg
           data-icon="chevron-left"
@@ -42,7 +42,7 @@ import {
           ></path></svg
         ><span class="ui-text">All invoices</span></Button
       >
-      <div class="ui-layout-row ui-small">
+      <div class="ui-layout-row ui-gap-small">
         <Button size="small" type="button" variant="outlined">
           <svg
             data-icon="print"
@@ -98,7 +98,7 @@ import {
     >
       <CardContent>
         <div class="ui-layout-row ui-spread invoice-head">
-          <div class="ui-layout-row ui-small invoice-brand">
+          <div class="ui-layout-row ui-gap-small invoice-brand">
             <svg
               data-icon="layers"
               aria-hidden="true"
@@ -114,7 +114,7 @@ import {
             </svg>
             Bassbook
           </div>
-          <div class="ui-layout-column ui-small invoice-title">
+          <div class="ui-layout-column ui-gap-small invoice-title">
             <hgroup>
               <h1 class="ui-h3" id="invoice-heading">Invoice BB-2026-0418</h1>
               <p>Issued 8 October 2026</p>
@@ -129,7 +129,7 @@ import {
           </div>
         </div>
         <div
-          class="ui-layout-grid ui-large ui-stretch invoice-parties"
+          class="ui-layout-grid ui-gap-large ui-stretch invoice-parties"
           style="--_min-inline-size: 12rem"
         >
           <section aria-labelledby="invoice-from">
@@ -225,8 +225,8 @@ import {
           </TableBody>
         </Table>
         <DescriptionList
-          border="solid"
           class="invoice-totals"
+          leader="solid"
           orientation="horizontal"
         >
           <DescriptionListItem>
@@ -245,14 +245,14 @@ import {
         <Divider />
         <section
           aria-labelledby="invoice-payment-heading"
-          class="ui-layout-columns ui-large ui-breakpoint-small"
+          class="ui-layout-columns ui-gap-large ui-breakpoint-small"
           style="--_columns: 3fr 2fr"
         >
           <div>
             <h2 class="ui-overline invoice-label" id="invoice-payment-heading">
               Payment details
             </h2>
-            <DescriptionList border="solid">
+            <DescriptionList leader="solid">
               <DescriptionListItem>
                 <DescriptionListTerm>Bankgiro</DescriptionListTerm>
                 <DescriptionListDescription

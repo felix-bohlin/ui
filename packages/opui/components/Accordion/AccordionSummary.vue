@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { classAttrs } from "../cx"
 import type {
   AccordionSummaryProps as Props,
   AccordionSummarySlots,
@@ -10,7 +9,7 @@ defineSlots<AccordionSummarySlots>()
 </script>
 
 <template>
-  <summary v-bind="classAttrs($props.class)">
+  <summary>
     <slot></slot>{{ " " }}<slot v-if="$slots.marker" name="marker"></slot>
     <svg
       v-else

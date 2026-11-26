@@ -4,8 +4,8 @@ import { Button, Card, CardContent } from "opui-css/solid"
 export default function Composition() {
   return (
     <div class="ui-layout-container" style="--_max-inline-size: 40rem">
-      <div class="ui-layout-column ui-large">
-        <div class="ui-layout-column ui-x-small">
+      <div class="ui-layout-column ui-gap-large">
+        <div class="ui-layout-column ui-gap-x-small">
           <h3 class="ui-h4">Band</h3>
           <p>Invite bandmates to jam on this setlist.</p>
         </div>

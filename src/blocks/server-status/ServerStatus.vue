@@ -30,7 +30,7 @@ import {
 
 <template>
   <div
-    class="server-status ui-layout-container ui-layout-column ui-large"
+    class="server-status ui-layout-container ui-layout-column ui-gap-large"
     style="--_max-inline-size: 64rem"
   >
     <div class="ui-layout-row ui-spread">
@@ -61,7 +61,7 @@ import {
         </p>
       </CalloutContent>
     </Callout>
-    <div class="ui-layout-columns ui-large" style="--_columns: 3fr 2fr">
+    <div class="ui-layout-columns ui-gap-large" style="--_columns: 3fr 2fr">
       <Card
         aria-labelledby="server-status-services-heading"
         as="section"
@@ -289,7 +289,7 @@ import {
     </Card>
     <section
       aria-labelledby="server-status-incidents-heading"
-      class="ui-layout-column ui-small"
+      class="ui-layout-column ui-gap-small"
     >
       <h2 class="ui-h5" id="server-status-incidents-heading">Incidents</h2>
       <div class="ui-layout-column status-incidents">
@@ -474,7 +474,7 @@ import {
   .status-history {
     block-size: 2rem;
     display: grid;
-    gap: var(--ui-border-width-thick);
+    gap: var(--ui-border-width-large);
     grid-auto-columns: minmax(0, 1fr);
     grid-auto-flow: column;
 

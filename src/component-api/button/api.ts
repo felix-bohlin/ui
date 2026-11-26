@@ -37,7 +37,7 @@ export default {
     {
       default: '"button"',
       description: 'The element to render. Defaults to `"a"` with `href`.',
-      frameworks: ["astro", "svelte"],
+      frameworks: ["astro", "nunjucks", "svelte"],
       prop: "as",
     },
     {

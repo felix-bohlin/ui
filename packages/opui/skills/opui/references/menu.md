@@ -3,7 +3,7 @@
 A popover list of actions or links.
 
 - CSS: `opui-css/css/components/list.css` and `opui-css/css/components/menu.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/menu.md), [Astro](https://opui.dev/astro/components/menu.md), [React](https://opui.dev/react/components/menu.md), [Solid](https://opui.dev/solid/components/menu.md), [Svelte](https://opui.dev/svelte/components/menu.md), [Vue](https://opui.dev/vue/components/menu.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/menu.md), [Astro](https://opui.dev/astro/components/menu.md), [Nunjucks](https://opui.dev/nunjucks/components/menu.md), [React](https://opui.dev/react/components/menu.md), [Solid](https://opui.dev/solid/components/menu.md), [Svelte](https://opui.dev/svelte/components/menu.md), [Vue](https://opui.dev/vue/components/menu.md).
 
 ## Menu
 
@@ -24,7 +24,7 @@ A popover list of actions or links.
 - `bordered`: `boolean`, `.ui-bordered`. Adds a border between the items.
 - `dense`: `boolean`, `.ui-dense`. Packs the items tighter.
 - `id`: `string`. The id of the menu, which the trigger's `commandfor` points at. Required.
-- `items` (Astro, HTML and Svelte): `MenuItem[]`. The items, as `{ borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `borderTop` adds a border above the item, `color: "critical"` marks a destructive one, a disabled link has no `href`, and `keepOpen` keeps the menu open on click. Other keys go to the item's `<a>` or `<button>`, like `type: "submit"` with `form` for an item that submits a form.
+- `items` (Astro, HTML, Nunjucks and Svelte): `MenuItem[]`. The items, as `{ borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `borderTop` adds a border above the item, `color: "critical"` marks a destructive one, a disabled link has no `href`, and `keepOpen` keeps the menu open on click. Other keys go to the item's `<a>` or `<button>`, like `type: "submit"` with `form` for an item that submits a form.
 - `items` (React, Solid and Vue): `MenuItem[]`. The items, as `{ as, borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `as` takes the link component of your router for a link item, such as Next's `Link`, Solid Router's `A` or Nuxt's `NuxtLink`, which gets the `href`. `borderTop` adds a border above the item, `color: "critical"` marks a destructive one, a disabled link has no `href`, also with `as`, and `keepOpen` keeps the menu open on click. Other keys go to the item's `<a>`, `<button>` or link component, like `type: "submit"` with `form` for an item that submits a form.
 - Items (HTML): `borderTop` (`li.ui-border-top`), `close` (`li > button[command="hide-popover"]`), `critical` (`li.ui-critical`), `disabled` (`li > button[disabled], li > a[aria-disabled="true"]`), `keepOpen` (`li > [data-keep-open]`). The item states. `close` closes the whole menu on click, also from a submenu, and only plain button items take it. A link, and a submit or reset button, closes it through `opui-css/elements/menu.js` unless it has `keepOpen`. A disabled link has no `href`.
 - `orientation`: `"horizontal"` (`.ui-horizontal`), `"vertical"` (default). The orientation of the element. `horizontal` lays the items out in a row, for short labels such as emoji.
@@ -40,6 +40,7 @@ A popover list of actions or links.
 
 - HTML: Items are built like `List` items: icons in `.ui-start`, the text in `.ui-text` and shortcuts in `.ui-end`. Open the menu with a button that has `commandfor` set to the menu id and `command="toggle-popover"`. Import `opui-css/elements/close-on-navigate.js` to close open menus when the page navigates, also with a client router, and `opui-css/elements/menu.js` to close them on a click on a link, or on a submit or reset button.
 - Astro and Vue: Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `target` or `data-*`. Open menus close when the page navigates, also with a client router, through `opui-css/elements/close-on-navigate.js`, which the component loads. A link item, and an item that submits or resets a form, closes the menu on click through `opui-css/elements/menu.js`, which the component loads too.
+- Nunjucks: Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `target` or `data-*`. The macro renders no script: load `opui-css/elements/close-on-navigate.js` on the page to close open menus when it navigates, also with a client router, and `opui-css/elements/menu.js` to close them on a click on a link item, or on an item that submits or resets a form.
 - React and Solid: Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onClick`, `target` or `data-*`. Open menus close when the page navigates, also with a client router, through `opui-css/elements/close-on-navigate.js`, which the component loads. A link item, and an item that submits or resets a form, closes the menu on click through `opui-css/elements/menu.js`, which the component loads too.
 - Svelte: Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onclick`, `target` or `data-*`. Open menus close when the page navigates, also with a client router, through `opui-css/elements/close-on-navigate.js`, which the component loads. A link item, and an item that submits or resets a form, closes the menu on click through `opui-css/elements/menu.js`, which the component loads too.
 
@@ -62,7 +63,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_radius`: The corner radius of a `.ui-list`. Defaults to `--ui-radius`, and `0` when the list is a direct child of a `Card`, `Accordion` or `Dialog`, which round and clip it themselves.
 - `--_selected-bg-color`: Background of selected and current items and options. `--ui-selected` when the theme sets it, otherwise `--ui-primary` at `--ui-state-selected-alpha-accent`, stronger than `--_hover-bg-color`. With more contrast it is `--_hover-bg-color`, so the text keeps 7:1, and the bar marks the row.
 - `--_selected-indicator-bg-color`: Color of the bar on the start edge of selected and current items and options, which marks them without relying on the fill. Defaults to `--ui-selected-strong`.
-- `--_selected-indicator-size`: Width of the bar on selected and current items. Defaults to `--ui-border-width-thick`.
+- `--_selected-indicator-size`: Width of the bar on selected and current items. Defaults to `--ui-border-width-large`.
 - `--_start-image-size`: Width of a square image in `.ui-start`.
 - `--_start-size`: Maximum size of leading and trailing icons, and the indent of `.ui-inset` items. Smaller in `.ui-dense`.
 - `--_start-video-size`: Height of a video in `.ui-start`, which keeps a 16:9 ratio.
@@ -72,6 +73,7 @@ Outputs: `--_font-size`, `--_icon-size`, `--_item-duration`, `--_selected-indica
 ### menu.css
 
 - `--_bg-color`: The background. Defaults to `--ui-surface-elevated`.
+- `--_bg-image`: The image over the background, such as a gradient. Defaults to `--ui-surface-elevated-image`, `none` unless a theme sets it.
 - `--_border-color`: The edge color. `--ui-border-color-raised` when a theme sets it, otherwise `--ui-border-color-on-raised`.
 - `--_border-width`: The border width. Defaults to `--ui-border-width`.
 - `--_divider-border-color`: Color of the item separators. Defaults to `--ui-border-color-on-raised`.
@@ -88,7 +90,7 @@ Outputs: `--_duration`, `--_ease`, `--_ease-move`, `--_fit-max-block-size`, `--_
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-choice-size-small`, `--ui-control-size`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-duration-fast`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-field-border-color-on-filled`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-inset`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-icon-check`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-line-height`, `--ui-list-item-padding-inline`, `--ui-menu-radius`, `--ui-motion`, `--ui-on-selected`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary`, `--ui-radius`, `--ui-radius-small`, `--ui-selected`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-hover-alpha-accent`, `--ui-state-selected-alpha-accent`, `--ui-surface-elevated`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-switch-thumb-size-small`, `--ui-switch-track-block-size-small`, `--ui-switch-track-inline-size-small`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-large`, `--ui-choice-size-small`, `--ui-control-size`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-duration-fast`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-field-border-color-on-filled`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-inset`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-icon-check`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-line-height`, `--ui-list-item-padding-inline`, `--ui-menu-radius`, `--ui-motion`, `--ui-on-selected`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary`, `--ui-radius`, `--ui-radius-small`, `--ui-selected`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-hover-alpha-accent`, `--ui-state-selected-alpha-accent`, `--ui-surface-elevated`, `--ui-surface-elevated-image`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-switch-thumb-size-small`, `--ui-switch-track-block-size-small`, `--ui-switch-track-inline-size-small`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -178,6 +180,40 @@ import { Button, Menu } from "opui-css/astro"
     { borderTop: true, color: "critical", label: "Delete" },
   ]}
 />
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Menu %}`
+
+- `Menu` named slots: `slots.iconChecked`. Pass a string, or markup captured with `{% set %}`.
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Button, Menu %}
+
+{% call Button({
+  command: "toggle-popover",
+  commandfor: "menu-basics-1",
+  variant: "outlined"
+}) %}
+  Options
+{% endcall %}
+{{ Menu({
+  id: "menu-basics-1",
+  items: [
+    { label: "Edit", shortcut: "Ctrl+E" },
+    { label: "Duplicate", shortcut: "Ctrl+D" },
+    { disabled: true, label: "Archive" },
+    { href: "/guide/getting-started/", label: "Help" },
+    { borderTop: true, color: "critical", label: "Delete" }
+  ]
+}) }}
+
+<script type="module">
+  import "opui-css/elements/menu.js"
+</script>
 ```
 
 ## React

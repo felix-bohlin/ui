@@ -1,0 +1,35 @@
+{% from "opui/index.njk" import Switch %}
+
+<div class="example-row">
+  {% call Switch({ name: "switch-validation", required: true }) %}Two-step login{% endcall %}
+  {% call Switch({
+    name: "switch-validation",
+    orientation: "vertical",
+    required: true
+  }) %}Usage reports{% endcall %}
+</div>
+
+<div class="example-row">
+  {% call Switch({
+    checked: true,
+    error: true,
+    name: "switch-validation",
+    slots: {
+      endText: "Your organization keeps profiles private. Turn it off."
+    }
+  }) %}
+    Public profile
+    
+  {% endcall %}
+  {% call Switch({
+    error: true,
+    name: "switch-validation",
+    orientation: "vertical",
+    slots: {
+      endText: "Sync needs cloud backup. Turn it on to continue."
+    }
+  }) %}
+    Cloud backup
+    
+  {% endcall %}
+</div>

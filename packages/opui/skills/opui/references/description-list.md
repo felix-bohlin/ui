@@ -3,7 +3,7 @@
 A list of terms and their values, like order details or totals.
 
 - CSS: `opui-css/css/components/description-list.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/description-list.md), [Astro](https://opui.dev/astro/components/description-list.md), [React](https://opui.dev/react/components/description-list.md), [Solid](https://opui.dev/solid/components/description-list.md), [Svelte](https://opui.dev/svelte/components/description-list.md), [Vue](https://opui.dev/vue/components/description-list.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/description-list.md), [Astro](https://opui.dev/astro/components/description-list.md), [Nunjucks](https://opui.dev/nunjucks/components/description-list.md), [React](https://opui.dev/react/components/description-list.md), [Solid](https://opui.dev/solid/components/description-list.md), [Svelte](https://opui.dev/svelte/components/description-list.md), [Vue](https://opui.dev/vue/components/description-list.md).
 
 ## DescriptionList
 
@@ -16,7 +16,7 @@ A list of terms and their values, like order details or totals.
 
 ### Props and modifiers
 
-- `border`: `"dotted"` (`.ui-border-dotted`), `"solid"` (`.ui-border-solid`). The style of the line between the term and the description. Without it, there's no line.
+- `leader`: `"dotted"` (`.ui-leader-dotted`), `"solid"` (`.ui-leader-solid`). The style of the leader, the line between the term and the description. Without it, there's no line.
 - `orientation`: `"auto"` (default), `"horizontal"` (`.ui-horizontal`). The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.
 
 ### Slots
@@ -43,12 +43,12 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### description-list.css
 
-- `--_border-style`: Style of the line between term and description. `.ui-border-dotted` makes it dotted.
-- `--_border-width`: Width of the line between term and description. Defaults to `--ui-border-width`, and `--ui-border-width-thick` in `.ui-border-dotted`.
+- `--_border-style`: Style of the leader, the line between term and description. `.ui-leader-dotted` makes it dotted.
+- `--_border-width`: Width of the leader. Defaults to `--ui-border-width`, and `--ui-border-width-large` in `.ui-leader-dotted`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-font-size-large`, `--ui-font-weight-bold`, `--ui-space-1`, `--ui-space-3`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-large`, `--ui-font-size-large`, `--ui-font-weight-bold`, `--ui-space-1`, `--ui-space-3`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -101,6 +101,36 @@ import {
     <DescriptionListDescription>Shipped</DescriptionListDescription>
   </DescriptionListItem>
 </DescriptionList>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import DescriptionList, DescriptionListDescription, DescriptionListItem, DescriptionListTerm %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import
+  DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm
+%}
+
+{% call DescriptionList() %}
+  {% call DescriptionListItem() %}
+    {% call DescriptionListTerm() %}Order number{% endcall %}
+    {% call DescriptionListDescription() %}10482{% endcall %}
+  {% endcall %}
+  {% call DescriptionListItem() %}
+    {% call DescriptionListTerm() %}Placed on{% endcall %}
+    {% call DescriptionListDescription() %}Oct 8, 2026{% endcall %}
+  {% endcall %}
+  {% call DescriptionListItem() %}
+    {% call DescriptionListTerm() %}Status{% endcall %}
+    {% call DescriptionListDescription() %}Shipped{% endcall %}
+  {% endcall %}
+{% endcall %}
 ```
 
 ## React

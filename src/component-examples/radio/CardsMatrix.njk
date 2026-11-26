@@ -1,0 +1,77 @@
+{% from "opui/index.njk" import
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+  Radio
+%}
+
+{% call Form() %}
+  {% call Fieldset() %}
+    {% call FieldLegend() %}Plan{% endcall %}
+    {% call FieldGroup({ name: "radio-cards-end", orientation: "horizontal" }) %}
+      {% call Radio({
+        card: true,
+        checked: true,
+        slots: { endText: "€0 per month, forever" },
+        spread: true,
+        value: "basic"
+      }) %}
+        Basic
+        
+      {% endcall %}
+      {% call Radio({
+        card: true,
+        slots: { endText: "€3 per month, shiny badge included" },
+        spread: true,
+        value: "gold",
+        variant: "elevated"
+      }) %}
+        Gold
+        
+      {% endcall %}
+      {% call Radio({
+        card: true,
+        slots: { endText: "€5 per month, extra sparkly" },
+        spread: true,
+        value: "platinum",
+        variant: "tonal"
+      }) %}
+        Platinum
+        
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call Fieldset() %}
+    {% call FieldLegend() %}Billing{% endcall %}
+    {% call FieldGroup({ name: "radio-cards-start", orientation: "horizontal" }) %}
+      {% call Radio({
+        card: true,
+        checked: true,
+        slots: { endText: "Cancel any time, no hard feelings." },
+        value: "monthly"
+      }) %}
+        Monthly
+        
+      {% endcall %}
+      {% call Radio({
+        card: true,
+        slots: { endText: "Two months free, woohoo." },
+        value: "yearly",
+        variant: "elevated"
+      }) %}
+        Yearly
+        
+      {% endcall %}
+      {% call Radio({
+        card: true,
+        slots: { endText: "Pay in coins after your next gig." },
+        value: "gig-money",
+        variant: "tonal"
+      }) %}
+        Gig money
+        
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

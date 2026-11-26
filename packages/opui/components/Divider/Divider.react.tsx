@@ -1,3 +1,4 @@
+import { filled } from "../attrs"
 import { cx } from "../cx"
 import type { Props } from "./types.react"
 
@@ -9,7 +10,7 @@ export default function Divider({
   children,
   ...rest
 }: Props) {
-  return children ? (
+  return filled(children) ? (
     <div
       className={cx([
         "ui-divider",

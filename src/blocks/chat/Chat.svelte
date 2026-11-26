@@ -162,7 +162,7 @@
             />
           </p>
         </hgroup>
-        <div class="ui-layout-row ui-x-small">
+        <div class="ui-layout-row ui-gap-x-small">
           <Button aria-label="Start call" round size="small" type="button"
             ><svg
               data-icon="phone"
@@ -245,7 +245,7 @@
           {/snippet}
           <p>Totally! Here it is:</p>
           <Card variant="outlined">
-            <CardContent class="ui-layout-media ui-small">
+            <CardContent class="ui-layout-media ui-gap-small">
               <svg
                 data-icon="document"
                 aria-hidden="true"

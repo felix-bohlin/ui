@@ -1,0 +1,30 @@
+{% from "opui/Anchor.njk" import Anchor %}
+{% from "opui/AnchorContent.njk" import AnchorContent %}
+
+{% macro Badge(props = {}) %}
+  {%- set rest = props | opuiRest("Badge") -%}
+  {%- set indicatorSlot = props.slots.indicator | opuiTrim -%}
+  {%- set hidden = props.dot or props.hideLabel -%}
+  {% call Anchor(opui.merge(
+    {
+      class: [
+        "ui-badge",
+        { "ui-dot": props.dot, "ui-invisible": props.invisible },
+        props.color and "ui-" ~ props.color,
+        props.corner and props.corner != "start-end" and "ui-" ~ props.corner,
+        props.class
+      ] | opuiClass
+    },
+    rest
+  )) %}
+    {{ caller() if caller }}
+    {% call AnchorContent({}) %}
+      <span class="ui-indicator">{% if hidden -%}
+          {% if not props.dot and indicatorSlot %}<span aria-hidden="true">
+            {{- indicatorSlot }}</span>{% endif %}{% if props.label %}<span class="ui-sr-only">
+            {{- props.label }}</span>{% endif %}
+        {%- endif %}{{ none if hidden else props.label }}
+        {%- if not hidden %}{{ indicatorSlot }}{% endif %}</span>
+    {% endcall %}
+  {% endcall %}
+{%- endmacro %}

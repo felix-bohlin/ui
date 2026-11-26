@@ -1,16 +1,9 @@
 <script setup lang="ts">
-import {
-  computed,
-  inject,
-  provide,
-  reactive,
-  useAttrs,
-  useId,
-  watchEffect,
-} from "vue"
+import { computed, inject, provide, reactive, useId, watchEffect } from "vue"
+import { useRestAttrs } from "../vue"
 import { TabsKey } from "./context.vue"
 import { isSelected } from "../ToggleGroup/selection"
-import { warnGroupedChecked } from "../dev"
+import { DEV, warnGroupedChecked } from "../dev"
 import { defined } from "../attrs"
 import type { TabsItemProps as Props, Slots } from "./types.vue-props"
 
@@ -21,7 +14,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs()
+const attrs = useRestAttrs()
 
 const parent = inject(TabsKey, undefined)
 
@@ -33,9 +26,10 @@ const tabId = computed(() => id || `tab-${uid}`)
 
 const grouped = computed(() => isSelected(parent?.value, value))
 
-watchEffect(() =>
-  warnGroupedChecked("TabsItem", grouped.value, checked, "Tabs"),
-)
+if (DEV)
+  watchEffect(() =>
+    warnGroupedChecked("TabsItem", grouped.value, checked, "Tabs"),
+  )
 
 const target = computed({
   get: () => parent?.value,
@@ -50,7 +44,7 @@ provide(TabsKey, reactive({ groupName, tabId }))
 <template>
   <input
     v-if="parent?.bound"
-    :class="['ui-input', $props.class]"
+    :class="['ui-input', $attrs.class]"
     :id="tabId"
     :name="groupName"
     type="radio"
@@ -60,7 +54,7 @@ provide(TabsKey, reactive({ groupName, tabId }))
   />
   <input
     v-else
-    :class="['ui-input', $props.class]"
+    :class="['ui-input', $attrs.class]"
     :id="tabId"
     :name="groupName"
     type="radio"

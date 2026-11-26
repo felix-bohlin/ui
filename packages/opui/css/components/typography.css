@@ -240,7 +240,7 @@
 
   /* Blockquote */
   :where(.ui-blockquote) {
-    border-inline-start: calc(var(--ui-border-width-thick) * 1.5) solid
+    border-inline-start: calc(var(--ui-border-width-large) * 1.5) solid
       currentColor;
     padding-block: var(--ui-space-3);
     padding-inline: var(--ui-space-4);
@@ -359,7 +359,7 @@
 
     /* Blockquote */
     blockquote {
-      border-inline-start: calc(var(--ui-border-width-thick) * 1.5) solid
+      border-inline-start: calc(var(--ui-border-width-large) * 1.5) solid
         currentColor;
       font-size: inherit;
       line-height: inherit;
@@ -715,13 +715,13 @@
       }
 
       thead th {
-        border-block-end-width: var(--ui-border-width-thick);
+        border-block-end-width: var(--ui-border-width-large);
         vertical-align: bottom;
       }
 
       tfoot :where(th, td) {
         border-block-end: none;
-        border-block-start: var(--ui-border-width-thick) solid
+        border-block-start: var(--ui-border-width-large) solid
           var(--ui-border-color);
       }
     }

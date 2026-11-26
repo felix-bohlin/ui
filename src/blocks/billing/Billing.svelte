@@ -23,14 +23,14 @@
 </script>
 
 <div
-  class="billing ui-layout-container ui-layout-column ui-large"
+  class="billing ui-layout-container ui-layout-column ui-gap-large"
   style="--_max-inline-size: 64rem"
 >
   <hgroup class="ui-hgroup">
     <p>Slap Like Now band account</p>
     <h1 class="ui-h3">Billing</h1>
   </hgroup>
-  <div class="ui-layout-columns ui-large" style="--_columns: 3fr 2fr">
+  <div class="ui-layout-columns ui-gap-large" style="--_columns: 3fr 2fr">
     <Card
       aria-labelledby="billing-plan-heading"
       as="section"
@@ -46,7 +46,7 @@
             >per month, 4 members × €3</span
           >
         </p>
-        <div class="ui-layout-row ui-small">
+        <div class="ui-layout-row ui-gap-small">
           <Chip as="span" label="Billed monthly" size="small" />
           <Chip as="span" size="small">
             {#snippet label()}Renews <time datetime="2026-11-01"
@@ -74,7 +74,7 @@
       </hgroup>
       <CardContent>
         <ul class="ui-layout-column">
-          <li class="ui-layout-column ui-x-small">
+          <li class="ui-layout-column ui-gap-x-small">
             <span
               class="ui-layout-row ui-spread ui-tabular-nums"
               id="billing-usage-seats"
@@ -82,7 +82,7 @@
             >
             <Progress aria-labelledby="billing-usage-seats" max={5} value={4} />
           </li>
-          <li class="ui-layout-column ui-x-small">
+          <li class="ui-layout-column ui-gap-x-small">
             <span
               class="ui-layout-row ui-spread ui-tabular-nums"
               id="billing-usage-recordings"
@@ -94,7 +94,7 @@
               value={14.2}
             />
           </li>
-          <li class="ui-layout-column ui-x-small">
+          <li class="ui-layout-column ui-gap-x-small">
             <span
               class="ui-layout-row ui-spread ui-tabular-nums"
               id="billing-usage-songs"

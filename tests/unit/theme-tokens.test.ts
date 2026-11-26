@@ -287,6 +287,8 @@ describe("theme tokens", () => {
       "--ui-icon-success",
       "--ui-icon-warning",
       "--ui-link-focus",
+      "--ui-surface-elevated-image",
+      "--ui-surface-image",
     ])
   })
 

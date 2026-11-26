@@ -1,5 +1,8 @@
 import { test } from "@playwright/test"
 
+export const FIREFOX_DOWNLOAD_NAVIGATE =
+  "Firefox fires a second navigate event for a link with download, without the downloadRequest the first one carries, though the page doesn't navigate"
+
 export const FIREFOX_SELF_RTL =
   "Firefox places a popover with self- position-area keywords toward the wrong inline side in a right-to-left part of a left-to-right page"
 
@@ -29,6 +32,7 @@ export const WEBKIT_TOP_LAYER_ANCHOR =
 
 export const ENGINE_BUGS = {
   firefox: [
+    FIREFOX_DOWNLOAD_NAVIGATE,
     FIREFOX_SELF_RTL,
     FIREFOX_STALE_FALLBACK_OPACITY,
     FIREFOX_STICKY_ANCHOR_SCROLL,
@@ -43,7 +47,7 @@ export const ENGINE_BUGS = {
   ],
 } as const
 
-export type Engine = keyof typeof ENGINE_BUGS
+type Engine = keyof typeof ENGINE_BUGS
 
 export type EngineBug = (typeof ENGINE_BUGS)[Engine][number]
 

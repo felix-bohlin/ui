@@ -30,7 +30,7 @@ import {
 export default function Checkout() {
   return (
     <>
-      <div className="checkout ui-layout-container ui-layout-column ui-large">
+      <div className="checkout ui-layout-container ui-layout-column ui-gap-large">
         <hgroup className="ui-hgroup">
           <p>Bassbook Shop</p>
           <h1 className="ui-h3">Checkout</h1>
@@ -330,7 +330,7 @@ export default function Checkout() {
               >
                 Pay €154.30
               </Button>
-              <p className="ui-layout-row ui-x-small ui-align-center ui-caption">
+              <p className="ui-layout-row ui-gap-x-small ui-align-center ui-caption">
                 <svg
                   data-icon="lock"
                   aria-hidden="true"
@@ -427,7 +427,7 @@ export default function Checkout() {
                 </Field>
                 <Button type="button">Apply</Button>
               </ControlGroup>
-              <DescriptionList border="solid" orientation="horizontal">
+              <DescriptionList leader="solid" orientation="horizontal">
                 <DescriptionListItem>
                   <DescriptionListTerm>Subtotal</DescriptionListTerm>
                   <DescriptionListDescription>

@@ -12,7 +12,7 @@ const emit = defineEmits<Emits>()
   <component
     is="opui-sortable-table"
     :ascending-label="ascendingLabel"
-    :class="['ui-sortable-table', $props.class]"
+    class="ui-sortable-table"
     :descending-label="descendingLabel"
     @sort="emit('sort', $event)"
     data-hydrating=""

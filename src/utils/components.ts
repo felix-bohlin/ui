@@ -1,4 +1,4 @@
-import { componentHasFramework, hrefFor, type FrameworkId } from "./framework"
+import { hrefFor, type FrameworkId } from "./framework"
 import { componentName as nameOf, pageTitle } from "./names"
 
 const docSources = import.meta.glob<string>("../docs/components/*.astro", {
@@ -45,17 +45,11 @@ export const dependentsOf = (slug: string) =>
     dependenciesOf(component.slug).includes(slug),
   )
 
-export function componentsFor(framework: FrameworkId) {
-  return components.filter((component) =>
-    componentHasFramework(framework, component.slug),
-  )
-}
-
 const FOUNDATIONS = ["layout", "typography"]
 
 const isFoundation = (slug: string) => FOUNDATIONS.includes(slug)
 
-export const baseOf = (slug: string) =>
+const baseOf = (slug: string) =>
   docSources[`../docs/components/${slug}.astro`]?.match(
     /^\s+base="([\w-]+)"$/m,
   )?.[1]
@@ -67,8 +61,8 @@ const bases = [
 const familyOf = (slug: string) =>
   baseOf(slug) ?? (bases.includes(slug) ? slug : undefined)
 
-export function componentGroupsFor(framework: FrameworkId) {
-  const all = componentsFor(framework)
+export function componentGroupsFor() {
+  const all = components
   return [
     {
       label: "Components",

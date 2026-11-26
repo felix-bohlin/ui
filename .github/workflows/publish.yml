@@ -45,9 +45,26 @@ jobs:
       - run: pnpm check
       - run: node scripts/release.mjs publish
 
-  published:
+  on-npm:
     if: startsWith(github.ref, 'refs/tags/')
     needs: publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions: {}
+    steps:
+      - name: Wait until npm serves the version
+        env:
+          VERSION: ${{ github.ref_name }}
+        run: |
+          until npm pack "opui-css@$VERSION" --prefer-online --pack-destination "$RUNNER_TEMP" > /dev/null 2>&1; do
+            echo "npm doesn't serve opui-css@$VERSION yet, trying again in 30 seconds"
+            sleep 30
+          done
+          echo "npm serves opui-css@$VERSION"
+
+  published:
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: on-npm
     permissions:
       contents: read
     uses: ./.github/workflows/apps.yml
@@ -56,7 +73,7 @@ jobs:
 
   published-reference:
     if: startsWith(github.ref, 'refs/tags/')
-    needs: publish
+    needs: on-npm
     permissions:
       contents: read
     uses: ./.github/workflows/reference.yml

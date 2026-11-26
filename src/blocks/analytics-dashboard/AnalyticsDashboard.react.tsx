@@ -18,7 +18,7 @@ export default function AnalyticsDashboard() {
   return (
     <>
       <div
-        className="analytics-dashboard ui-layout-container ui-layout-column ui-large"
+        className="analytics-dashboard ui-layout-container ui-layout-column ui-gap-large"
         style={{ "--_max-inline-size": "80rem" }}
       >
         <div className="ui-layout-row ui-spread">
@@ -26,7 +26,7 @@ export default function AnalyticsDashboard() {
             <p>bassbook.example/rory</p>
             <h1 className="ui-h3">Your profile stats</h1>
           </hgroup>
-          <div className="ui-layout-row ui-small">
+          <div className="ui-layout-row ui-gap-small">
             <ToggleGroup
               aria-label="Date range"
               defaultValue="7"
@@ -129,7 +129,7 @@ export default function AnalyticsDashboard() {
           </li>
         </ul>
         <div
-          className="ui-layout-columns ui-large"
+          className="ui-layout-columns ui-gap-large"
           style={{ "--_columns": "2fr 1fr" }}
         >
           <Card
@@ -232,7 +232,7 @@ export default function AnalyticsDashboard() {
             </hgroup>
             <CardContent>
               <ul className="ui-layout-column">
-                <li className="ui-layout-column ui-x-small">
+                <li className="ui-layout-column ui-gap-x-small">
                   <span
                     className="ui-layout-row ui-spread"
                     id="analytics-dashboard-source-friends"
@@ -246,7 +246,7 @@ export default function AnalyticsDashboard() {
                     value={46}
                   />
                 </li>
-                <li className="ui-layout-column ui-x-small">
+                <li className="ui-layout-column ui-gap-x-small">
                   <span
                     className="ui-layout-row ui-spread"
                     id="analytics-dashboard-source-bassists-anonymous"
@@ -260,7 +260,7 @@ export default function AnalyticsDashboard() {
                     value={28}
                   />
                 </li>
-                <li className="ui-layout-column ui-x-small">
+                <li className="ui-layout-column ui-gap-x-small">
                   <span
                     className="ui-layout-row ui-spread"
                     id="analytics-dashboard-source-gear"
@@ -274,7 +274,7 @@ export default function AnalyticsDashboard() {
                     value={17}
                   />
                 </li>
-                <li className="ui-layout-column ui-x-small">
+                <li className="ui-layout-column ui-gap-x-small">
                   <span
                     className="ui-layout-row ui-spread"
                     id="analytics-dashboard-source-band"

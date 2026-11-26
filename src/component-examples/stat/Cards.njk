@@ -1,0 +1,35 @@
+{% from "opui/index.njk" import Card, CardContent, Stat %}
+
+<ul
+  role="list"
+  class="ui-layout-grid ui-stretch"
+  style="--_min-inline-size: 11rem"
+>
+  <li>
+    {% call Card({ variant: "outlined" }) %}
+      {% call CardContent() %}
+        {% call Stat({ description: "3 marked as urgent", label: "Open tasks" }) %}12{% endcall %}
+      {% endcall %}
+    {% endcall %}
+  </li>
+  <li>
+    {% call Card({ variant: "outlined" }) %}
+      {% call CardContent() %}
+        {% call Stat({
+          description: "Next one on Friday",
+          label: "Due this week"
+        }) %}5{% endcall %}
+      {% endcall %}
+    {% endcall %}
+  </li>
+  <li>
+    {% call Card({ variant: "outlined" }) %}
+      {% call CardContent() %}
+        {% call Stat({
+          description: "Up from 29 last month",
+          label: "Completed"
+        }) %}38{% endcall %}
+      {% endcall %}
+    {% endcall %}
+  </li>
+</ul>

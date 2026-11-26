@@ -24,7 +24,7 @@ export default function Billing() {
   return (
     <>
       <div
-        className="billing ui-layout-container ui-layout-column ui-large"
+        className="billing ui-layout-container ui-layout-column ui-gap-large"
         style={{ "--_max-inline-size": "64rem" }}
       >
         <hgroup className="ui-hgroup">
@@ -32,7 +32,7 @@ export default function Billing() {
           <h1 className="ui-h3">Billing</h1>
         </hgroup>
         <div
-          className="ui-layout-columns ui-large"
+          className="ui-layout-columns ui-gap-large"
           style={{ "--_columns": "3fr 2fr" }}
         >
           <Card
@@ -51,7 +51,7 @@ export default function Billing() {
                 <strong className="ui-tabular-nums">€12</strong>
                 <span>per month, 4 members × €3</span>
               </p>
-              <div className="ui-layout-row ui-small">
+              <div className="ui-layout-row ui-gap-small">
                 <Chip as="span" label="Billed monthly" size="small" />
                 <Chip
                   as="span"
@@ -86,7 +86,7 @@ export default function Billing() {
             </hgroup>
             <CardContent>
               <ul className="ui-layout-column">
-                <li className="ui-layout-column ui-x-small">
+                <li className="ui-layout-column ui-gap-x-small">
                   <span
                     className="ui-layout-row ui-spread ui-tabular-nums"
                     id="billing-usage-seats"
@@ -100,7 +100,7 @@ export default function Billing() {
                     value={4}
                   />
                 </li>
-                <li className="ui-layout-column ui-x-small">
+                <li className="ui-layout-column ui-gap-x-small">
                   <span
                     className="ui-layout-row ui-spread ui-tabular-nums"
                     id="billing-usage-recordings"
@@ -114,7 +114,7 @@ export default function Billing() {
                     value={14.2}
                   />
                 </li>
-                <li className="ui-layout-column ui-x-small">
+                <li className="ui-layout-column ui-gap-x-small">
                   <span
                     className="ui-layout-row ui-spread ui-tabular-nums"
                     id="billing-usage-songs"

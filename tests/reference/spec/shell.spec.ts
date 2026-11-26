@@ -2,6 +2,7 @@ import { NOTIFICATIONS } from "../shared/data.ts"
 import { SCREENS } from "../shared/screens.ts"
 import {
   PHONE_DEVICE,
+  axeViolations,
   clientNavigationMarker,
   expect,
   expectNoAxeViolations,
@@ -9,7 +10,7 @@ import {
   screen,
   test,
 } from "./fixtures.ts"
-import { KNOWN } from "./known.ts"
+import { ANCHORS_VISIBLE, KNOWN } from "./known.ts"
 
 for (const { id, label, path } of SCREENS) {
   test(`${label} renders in the shell and passes axe`, async ({ page }) => {
@@ -220,4 +221,17 @@ test.describe("on a phone", () => {
       ).toBe(true)
     })
   }
+})
+
+test(`known: ${ANCHORS_VISIBLE.reason}`, async ({ page }) => {
+  const messages: string[] = []
+  page.on("console", (message) => messages.push(message.text()))
+  await open(page, "/")
+  await axeViolations(page)
+  const takesSingular = await page.evaluate(() =>
+    CSS.supports("position-visibility", "anchor-visible"),
+  )
+  await expect
+    .poll(() => messages.some((text) => ANCHORS_VISIBLE.message.test(text)))
+    .toBe(takesSingular)
 })

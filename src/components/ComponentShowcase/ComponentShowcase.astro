@@ -8,6 +8,8 @@ import {
   Avatar,
   AvatarGroup,
   Badge,
+  Breadcrumb,
+  BreadcrumbItem,
   Button,
   Callout,
   CalloutContent,
@@ -163,6 +165,14 @@ const emailId = Astro.locals.$id("component-showcase-email")
 
     <Fragment slot="badge">
       <Badge aria-hidden="true" label="3">Inbox</Badge>
+    </Fragment>
+
+    <Fragment slot="breadcrumb">
+      <Breadcrumb aria-hidden="true" aria-label="Breadcrumb" inert size="small">
+        <BreadcrumbItem href="#" label="Groups" />
+        <BreadcrumbItem href="#" label="Low End Society" />
+        <BreadcrumbItem current label="Jam night" />
+      </Breadcrumb>
     </Fragment>
 
     <Fragment slot="button">

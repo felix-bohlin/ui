@@ -41,7 +41,9 @@ export const keywords = ["progress steps", "wizard"]
   <Fragment slot="title">Stepper</Fragment>
   <Fragment slot="preamble">
     Where someone is in a flow of steps. For dated events, use a
-    <DocLink href="/components/timeline">Timeline</DocLink>.
+    <DocLink href="/components/timeline">Timeline</DocLink>, and for where a
+    page sits in a hierarchy, a
+    <DocLink href="/components/breadcrumb">Breadcrumb</DocLink>.
   </Fragment>
 
   <Usage slot="usage">
@@ -55,6 +57,10 @@ export const keywords = ["progress steps", "wizard"]
     </li>
     <li slot="when-not">
       Tasks in any order: use a <DocLink href="/components/list">List</DocLink>.
+    </li>
+    <li slot="when-not">
+      Where a page sits in a hierarchy: use a
+      <DocLink href="/components/breadcrumb">Breadcrumb</DocLink>.
     </li>
   </Usage>
 

@@ -8,6 +8,8 @@ export { default as AnchorContent } from "../components/Anchor/AnchorContent.sol
 export { default as Avatar } from "../components/Avatar/Avatar.solid"
 export { default as AvatarGroup } from "../components/Avatar/AvatarGroup.solid"
 export { default as Badge } from "../components/Badge/Badge.solid"
+export { default as Breadcrumb } from "../components/Breadcrumb/Breadcrumb.solid"
+export { default as BreadcrumbItem } from "../components/Breadcrumb/BreadcrumbItem.solid"
 export { default as Button } from "../components/Button/Button.solid"
 export { default as Callout } from "../components/Callout/Callout.solid"
 export { default as CalloutActions } from "../components/Callout/CalloutActions.solid"
@@ -106,6 +108,10 @@ export type {
   Props as AvatarProps,
 } from "../components/Avatar/types.solid"
 export type { Props as BadgeProps } from "../components/Badge/types.solid"
+export type {
+  BreadcrumbItemProps,
+  Props as BreadcrumbProps,
+} from "../components/Breadcrumb/types.solid"
 export type { Props as ButtonProps } from "../components/Button/types.solid"
 export type {
   CalloutActionsProps,

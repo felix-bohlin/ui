@@ -1,0 +1,221 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import Usage from "./partials/Usage.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import { Breadcrumb as UIBreadcrumb } from "opui-css/astro"
+
+import BreadcrumbCSS from "@opui/css/components/breadcrumb.css?raw"
+
+import breadcrumbItemApi from "../../component-api/breadcrumb-item/api"
+import breadcrumbApi from "../../component-api/breadcrumb/api"
+
+export const description =
+  "Shows where the page sits in a hierarchy, with a link to each level above it."
+
+export const keywords = ["crumbs", "navigation path", "trail"]
+---
+
+<Component
+  description={description}
+  slug="breadcrumb"
+  heroAnatomy
+  apis={[
+    { title: "Breadcrumb API", api: breadcrumbApi },
+    { title: "Breadcrumb item API", api: breadcrumbItemApi },
+  ]}
+  browserSupport={[
+    "alt-text-generated-content",
+    "dir-pseudo",
+    "has",
+    "logical-properties",
+    "scrollbar-width",
+  ]}
+  installationTabs={[
+    { title: "breadcrumb.css", code: BreadcrumbCSS, lang: "css" },
+  ]}
+>
+  <Fragment slot="title">Breadcrumb</Fragment>
+  <Fragment slot="preamble">
+    Where the page sits in a hierarchy, with a link to each level above it. For
+    the steps of a flow, use a
+    <DocLink href="/components/stepper">Stepper</DocLink>.
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      A hierarchy of three or more levels, like shop categories or folders.
+    </li>
+    <li slot="when">
+      A page people reach from search, where the levels above give context.
+    </li>
+    <li slot="when-not">
+      Steps of a flow: use a
+      <DocLink href="/components/stepper">Stepper</DocLink>.
+    </li>
+    <li slot="when-not">
+      Switching between pages on one level: use
+      <DocLink href="/components/tabs">Tabs</DocLink>.
+    </li>
+    <li slot="when-not">
+      One level above the page: use a
+      <DocLink href="/components/typography#link">link</DocLink> back.
+    </li>
+  </Usage>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UIBreadcrumb
+        aria-label="Breadcrumb"
+        items={[
+          { href: "#basics", label: "Groups" },
+          { href: "#basics", label: "Low End Society" },
+          { label: "Friday jam night" },
+        ]}
+      >
+        <svg
+          slot="separator"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m9 18 6-6-6-6"></path>
+        </svg>
+      </UIBreadcrumb>
+    </Anatomy>
+  </Fragment>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Set <code>current</code> on the level of the page.</Fragment
+      >
+      <Fragment slot="html"
+        >Mark the level of the page with <code>aria-current="page"</code
+        >.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Basics" />
+  </section>
+
+  <section id="sizes">
+    <h2>Sizes</h2>
+    <p>
+      Use <PropOrClass prop='size="small"' class=".ui-small" /> above a heading
+      or in a toolbar.
+    </p>
+
+    <AutoExample name="Sizes" />
+  </section>
+
+  <section id="separator">
+    <h2>Separator</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Set <code>--_separator</code> to another string, or put an icon in the
+        <code>separator</code> slot of <code>Breadcrumb</code>, for its
+        <code>items</code>, or of each <code>BreadcrumbItem</code>.</Fragment
+      >
+      <Fragment slot="html"
+        >Set <code>--_separator</code> to another string, or put an icon in a
+        <code>.ui-separator</code> at the start of each <code>li</code> after
+        the first.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Separator" />
+  </section>
+
+  <section id="current-link">
+    <h2>Current page as a link</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Give the current level an <code>href</code> when following it is
+        useful, like back to the top of a long page.</Fragment
+      >
+      <Fragment slot="html"
+        >Put <code>aria-current="page"</code> on the link when following it is
+        useful, like back to the top of a long page.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="CurrentLink" />
+  </section>
+
+  <section id="overflow">
+    <h2>Overflow</h2>
+    <p>
+      A long trail wraps. Use
+      <PropOrClass prop='overflow="scroll"' class=".ui-overflow-scroll" /> to
+      scroll it in one row, or
+      <PropOrClass prop='overflow="shrink"' class=".ui-overflow-shrink" /> to
+      truncate every level but the first and the current one.
+    </p>
+
+    <AutoExample name="Overflow" />
+  </section>
+
+  <section id="items">
+    <h2>Items</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >The markup the <code>items</code> prop renders.</Fragment
+      >
+      <Fragment slot="components"
+        >Pass <code>items</code> to render the trail from data. The last level
+        is the current page.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Items" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Name the landmark with <code>aria-label</code>, like "Breadcrumb", in
+        the page's language.
+      </li>
+      <li>
+        Screen readers skip the separators: the drawn one has empty alternative
+        text, and a <code>.ui-separator</code> is <code>aria-hidden</code>.
+      </li>
+      <li>
+        A current page without a link is no tab stop, and
+        <code>aria-current="page"</code> names it as the current page.
+      </li>
+    </ul>
+    <KeyboardSupport />
+  </Fragment>
+
+  <Fragment slot="under-the-hood">
+    <p>
+      <code>nav.ui-breadcrumb &gt; ol</code> is a wrapping flex row, and each
+      <code>li</code> after the first draws <code>--_separator</code> in
+      <code>::before</code> with <code>content: var(--_separator) / ""</code>,
+      so the separator has empty alternative text. An <code>li</code> with a
+      <code>.ui-separator</code> child turns <code>::before</code> off with
+      <code>li:has(&gt; .ui-separator)</code>, and the first one hides its
+      <code>.ui-separator</code>.
+    </p>
+    <p>
+      <code>.ui-overflow-shrink</code> keeps one row and lets every
+      <code>li</code> but the first and the one with
+      <code>[aria-current="page"]</code> shrink, with
+      <code>text-overflow: ellipsis</code> on its text.
+    </p>
+  </Fragment>
+</Component>

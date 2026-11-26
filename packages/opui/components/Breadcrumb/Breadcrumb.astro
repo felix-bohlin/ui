@@ -1,0 +1,40 @@
+---
+import type { Props } from "./types.astro"
+import { cx } from "../cx"
+
+export const title = "Breadcrumb"
+
+const { class: className, items, overflow, size, ...rest } = Astro.props
+
+const lastIndex = items ? items.length - 1 : -1
+---
+
+<nav
+  class:list={[
+    "ui-breadcrumb",
+    overflow && overflow !== "wrap" && `ui-overflow-${overflow}`,
+    size && size !== "medium" && `ui-${size}`,
+    className,
+  ]}
+  {...rest}
+>
+  <ol>
+    {items?.map(({ current, href, label }, index) => {
+      const ItemTag = href ? "a" : "span"
+      return <li>
+        {index > 0 && Astro.slots.has("separator") && <span
+          aria-hidden="true"
+          class="ui-separator"
+          ><slot name="separator"
+        /></span>}
+        <ItemTag
+          aria-current={(current ?? index === lastIndex) ? "page" : undefined}
+          class={cx([href && "ui-link"])}
+          href={href}
+          >{label}</ItemTag
+        >
+      </li>
+    })}
+    <slot />
+  </ol>
+</nav>

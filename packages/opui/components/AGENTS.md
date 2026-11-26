@@ -594,6 +594,7 @@ The components without a block, and why:
 - `DescriptionList`, `Divider`, `Form`, `Layout`: the browser forces their lines and colors itself. The `DescriptionList` leaders and total line and the `Divider` line are real borders and the `Layout` `.ui-bordered` lines are column and row rules, all forced to `CanvasText`. The invalid end text of a `Form` fieldset loses its color, while the invalid controls inside keep their dashed border.
 - `Badge`, `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
 - `Toaster`: every toast is a `Callout`, and `callout.css` has the block for its border and its severity and close icons.
+- `Breadcrumb`: text and links only. The current page differs by weight and by having no underline, and a separator is text or an icon in `currentColor`.
 - `Link`: text and underlines, forced to `LinkText` and `CanvasText`.
 - `Stat`: text only, no boundary or state.
 - `Textarea`, the textarea of a `.ui-field`: `textarea.css` only sizes the control; `field.css` has the block.

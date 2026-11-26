@@ -214,6 +214,63 @@
     "url": "/html/components/badge/#corners"
   },
   {
+    "id": "component-breadcrumb-html",
+    "title": "Breadcrumb",
+    "description": "Shows where the page sits in a hierarchy, with a link to each level above it.",
+    "keywords": "crumbs navigation path trail",
+    "category": "Component",
+    "url": "/html/components/breadcrumb/"
+  },
+  {
+    "id": "component-breadcrumb-html-basics",
+    "title": "Basics",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/html/components/breadcrumb/#basics"
+  },
+  {
+    "id": "component-breadcrumb-html-sizes",
+    "title": "Sizes",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/html/components/breadcrumb/#sizes"
+  },
+  {
+    "id": "component-breadcrumb-html-separator",
+    "title": "Separator",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/html/components/breadcrumb/#separator"
+  },
+  {
+    "id": "component-breadcrumb-html-current-link",
+    "title": "Current page as a link",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/html/components/breadcrumb/#current-link"
+  },
+  {
+    "id": "component-breadcrumb-html-overflow",
+    "title": "Overflow",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/html/components/breadcrumb/#overflow"
+  },
+  {
+    "id": "component-breadcrumb-html-items",
+    "title": "Items",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/html/components/breadcrumb/#items"
+  },
+  {
+    "id": "component-breadcrumb-html-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/html/components/breadcrumb/#keyboard-support"
+  },
+  {
     "id": "component-button-html",
     "title": "Button",
     "description": "A button for actions, like saving a form, with variants, colors, sizes and icons.",
@@ -4626,6 +4683,22 @@
     "api": ".ui-badge Container element. The element the badge is anchored to. .ui-badge > :first-child The indicator, inside `.ui-floating`. Holds `label`, the visible text with `hideLabel`, or only screen reader text with `dot`. .ui-indicator .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Colors Optional colors. .ui-end-end .ui-end-start .ui-start-start Position The corner the indicator sits on. .ui-dot Dot Renders the indicator as a dot. `label` stays as screen reader text, and the `indicator` slot isn't shown. .ui-sr-only Label Hides `label` visually, for the whole sentence screen readers read, such as \"5 unread messages\". The `indicator` slot then holds the visible text and is hidden from screen readers. .ui-invisible Invisible Hides the indicator.",
     "category": "API",
     "url": "/html/api/#badge"
+  },
+  {
+    "id": "api-breadcrumb-item-html",
+    "title": "Breadcrumb item API",
+    "description": "Reference for Breadcrumb item HTML component.",
+    "api": "li A level. Replaces the drawn separator before the level. Hidden from screen readers. .ui-separator The level, as a link with `.ui-link`, or a `span`. a, span:not(.ui-separator) [aria-current=\"page\"] Current Marks the current page, in the text color and without an underline.",
+    "category": "API",
+    "url": "/html/api/#breadcrumb-item"
+  },
+  {
+    "id": "api-breadcrumb-html",
+    "title": "Breadcrumb API",
+    "description": "Reference for Breadcrumb HTML component.",
+    "api": "nav.ui-breadcrumb The navigation landmark. The list of levels. ol A level, with the separator before it. li Replaces the drawn separator of the levels in `items`. Hidden from screen readers. .ui-separator [aria-label] Label The accessible name of the landmark. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. .ui-overflow-scroll .ui-overflow-shrink Overflow What a trail too long for its row does: wrap onto more rows, scroll inline, or truncate every level but the first and the current one. .ui-small Sizes The size of the element.",
+    "category": "API",
+    "url": "/html/api/#breadcrumb"
   },
   {
     "id": "api-button-html",

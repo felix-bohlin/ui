@@ -1,0 +1,33 @@
+{% macro Breadcrumb(props = {}) %}
+  {%- set props = props | opuiProps("Breadcrumb") -%}
+  {%- set rest = props | opuiRest("Breadcrumb") -%}
+  {%- set lastIndex = props.items.length - 1 if props.items else -1 -%}
+  <nav
+    class="ui-breadcrumb
+      {%- if props.overflow and props.overflow != 'wrap' %} ui-overflow-{{ props.overflow }}
+      {%- endif %}
+      {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    <ol>
+      {%- for item in props.items %}
+        {%- set index = loop.index0 -%}
+        {%- set itemTag = "a" if item.href else "span" -%}
+        <li>
+          {%- if index > 0 and props.slots.separator != none -%}
+            <span aria-hidden="true" class="ui-separator">
+              {{- props.slots.separator | safe -}}
+            </span>
+          {%- endif %}<{{ itemTag | opuiTag }}{{ {
+            "aria-current": "page"
+              if (item.current if item.current != none else index === lastIndex)
+              else none,
+            class: [item.href and "ui-link"] | opuiClass,
+            href: item.href
+          } | opuiAttributes(itemTag) }}>{{ item.label }}</{{ itemTag | opuiTag }}>
+        </li>
+      {%- endfor %}
+      {{ caller() if caller -}}
+    </ol>
+  </nav>
+{%- endmacro %}

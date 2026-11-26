@@ -214,6 +214,63 @@
     "url": "/nunjucks/components/badge/#corners"
   },
   {
+    "id": "component-breadcrumb-nunjucks",
+    "title": "Breadcrumb",
+    "description": "Shows where the page sits in a hierarchy, with a link to each level above it.",
+    "keywords": "crumbs navigation path trail",
+    "category": "Component",
+    "url": "/nunjucks/components/breadcrumb/"
+  },
+  {
+    "id": "component-breadcrumb-nunjucks-basics",
+    "title": "Basics",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/nunjucks/components/breadcrumb/#basics"
+  },
+  {
+    "id": "component-breadcrumb-nunjucks-sizes",
+    "title": "Sizes",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/nunjucks/components/breadcrumb/#sizes"
+  },
+  {
+    "id": "component-breadcrumb-nunjucks-separator",
+    "title": "Separator",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/nunjucks/components/breadcrumb/#separator"
+  },
+  {
+    "id": "component-breadcrumb-nunjucks-current-link",
+    "title": "Current page as a link",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/nunjucks/components/breadcrumb/#current-link"
+  },
+  {
+    "id": "component-breadcrumb-nunjucks-overflow",
+    "title": "Overflow",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/nunjucks/components/breadcrumb/#overflow"
+  },
+  {
+    "id": "component-breadcrumb-nunjucks-items",
+    "title": "Items",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/nunjucks/components/breadcrumb/#items"
+  },
+  {
+    "id": "component-breadcrumb-nunjucks-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/nunjucks/components/breadcrumb/#keyboard-support"
+  },
+  {
     "id": "component-button-nunjucks",
     "title": "Button",
     "description": "A button for actions, like saving a form, with variants, colors, sizes and icons.",
@@ -4626,6 +4683,22 @@
     "api": "Badge Container element. The element the badge is anchored to. default The indicator, inside `.ui-floating`. Holds `label`, the visible text with `hideLabel`, or only screen reader text with `dot`. label indicator color Optional colors. corner The corner the indicator sits on. dot Renders the indicator as a dot. `label` stays as screen reader text, and the `indicator` slot isn't shown. hideLabel Hides `label` visually, for the whole sentence screen readers read, such as \"5 unread messages\". The `indicator` slot then holds the visible text and is hidden from screen readers. invisible Hides the indicator. label The indicator text, such as a count. With `hideLabel` or `dot`, only screen readers get it.",
     "category": "API",
     "url": "/nunjucks/api/#badge"
+  },
+  {
+    "id": "api-breadcrumb-item-nunjucks",
+    "title": "Breadcrumb item API",
+    "description": "Reference for Breadcrumb item Nunjucks component.",
+    "api": "BreadcrumbItem A level. Replaces the drawn separator before the level. Hidden from screen readers. separator The level, as a link with `.ui-link`, or a `span`. current href label current Marks the current page, in the text color and without an underline. href Renders the level as a link. Without it, a `span`. label The name of the level, before the default slot.",
+    "category": "API",
+    "url": "/nunjucks/api/#breadcrumb-item"
+  },
+  {
+    "id": "api-breadcrumb-nunjucks",
+    "title": "Breadcrumb API",
+    "description": "Reference for Breadcrumb Nunjucks component.",
+    "api": "Breadcrumb The navigation landmark. The list of levels. A level, with the separator before it. items Replaces the drawn separator of the levels in `items`. Hidden from screen readers. separator aria-label The accessible name of the landmark. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. aria-labelledby The id of the element that names the landmark, instead of `aria-label`. items The levels, as `{ current, href, label }` objects, before the default slot. The last one is the current page unless it sets `current: false`. A level without `href` renders a `span`. overflow What a trail too long for its row does: wrap onto more rows, scroll inline, or truncate every level but the first and the current one. size The size of the element.",
+    "category": "API",
+    "url": "/nunjucks/api/#breadcrumb"
   },
   {
     "id": "api-button-nunjucks",

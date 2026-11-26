@@ -1,0 +1,13 @@
+---
+pagination:
+  data: site.examples
+  size: 1
+  alias: entry
+permalink: "/{{ entry.slug }}.html"
+layout: layout.njk
+eleventyComputed:
+  title: "{{ entry.slug }}"
+---
+{% for name in entry.names %}
+<div data-example="{{ entry.slug }}/{{ name }}">{% include "examples/" ~ entry.slug ~ "/" ~ name ~ ".njk" %}</div>
+{% endfor %}

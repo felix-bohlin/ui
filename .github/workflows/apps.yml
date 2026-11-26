@@ -41,7 +41,7 @@ jobs:
           fi
           changed=$(git diff --name-only "$base" HEAD)
           printf '%s\n' "$changed"
-          if printf '%s\n' "$changed" | grep -qE '^(\.github/workflows/(apps|ci)\.yml|packages/opui/|src/component-examples/|src/utils/example-variants\.ts|tests/apps/)'; then
+          if printf '%s\n' "$changed" | grep -qE '^(\.github/workflows/(apps|ci)\.yml|packages/opui/|src/blocks/|src/component-examples/|src/utils/example-variants\.ts|tests/apps/)'; then
             echo "run=true" >> "$GITHUB_OUTPUT"
           else
             echo "::notice::Nothing the app tests render changed, so they're skipped"

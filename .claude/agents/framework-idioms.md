@@ -25,7 +25,7 @@ The components you are given, or the ones touched by `git diff --name-only` agai
 
 - `pnpm check-ports` fails on a compiled file that differs from what the compiler writes, and `pnpm check-components` checks props types, `...rest`, `$bindable` and `defineModel` lists, class order, `"use client"` and context files, a list without a key in a React, Svelte or Vue file (JSX from `.map()` without `key`, `{#each}` without `(key)`, `v-for` without `:key`), and in a Solid file the pragma, the `omit()` keys, a slot read twice outside a `<For>`, JSX built with `.map()`, `dynamic()` on a string literal and a ternary, `&&`, `||` or `??` passed to a component.
 - `tests/unit/component-contract.test.ts` and `tests/unit/parity.test.ts` compare the rendered markup with Astro's.
-- `pnpm test:apps` (`tests/apps/apps.spec.ts`) runs every example in Next.js, Nuxt, SvelteKit, the Vite starters and React's StrictMode, with changes made before hydration, elements loaded before React, a restored page and a form reset. Behavior that only shows at runtime belongs there: name the scenario that would catch it instead of guessing from the code.
+- `pnpm test:apps` (`tests/apps/apps.spec.ts`) runs every example in Eleventy, Next.js, Nuxt, SvelteKit, the Vite starters and React's StrictMode, with changes made before hydration, elements loaded before React, a restored page and a form reset. Behavior that only shows at runtime belongs there: name the scenario that would catch it instead of guessing from the code.
 
 ## Check
 

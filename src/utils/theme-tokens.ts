@@ -17,7 +17,7 @@ type ThemeSection = {
 }
 
 const HEADER = /^\s*\/\*\s*([^-.\s][^.]*?)(?:\s+-\s+(.*?))?\s*\*\/\s*$/
-const DECLARATION = /^(\s*)(--[\w-]+):\s*(.*)$/
+const DECLARATION = /^(\s*)(--(?!_)[\w-]+):\s*(.*)$/
 const OPTIONAL = /^\s*\/\*\s*(--[\w-]+):\s*(.*?);?\s*\*\/\s*$/
 const CONTRAST_SCOPE =
   /prefers-contrast:\s*more|:where\(\.ui-contrast-more\)|--ui-contrast:\s*more/

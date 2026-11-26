@@ -11,9 +11,6 @@ const SURFACES = [
   "--ui-surface-tonal",
 ]
 
-const accentFill = (intent: string) =>
-  `oklch(from var(${intent}) min(l, var(--ui-accent-fill-max-lightness)) c h)`
-
 export const THEME_EXCEPTIONS: Record<
   string,
   Partial<Record<"dark" | "light", Record<string, string>>>
@@ -92,9 +89,12 @@ export const themeTokenPromises: Record<string, TokenPromise> = {
   },
   "--ui-neutral-text": { against: SURFACES, ratio: 4.5 },
   "--ui-on-fill": {
-    against: ["--ui-critical", "--ui-info", "--ui-neutral", "--ui-success"].map(
-      accentFill,
-    ),
+    against: [
+      "--ui-critical-fill",
+      "--ui-info-fill",
+      "--ui-neutral-fill",
+      "--ui-success-fill",
+    ],
     ratio: 4.5,
   },
   "--ui-on-focus-highlight": { against: ["--ui-focus-highlight"], ratio: 4.5 },

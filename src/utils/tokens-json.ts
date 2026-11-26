@@ -4,7 +4,7 @@ import { sectionKey, themeTokenSections, tokenTier } from "./theme-tokens"
 
 const TYPES: [RegExp, string][] = [
   [
-    /-(alpha-accent|alpha-dark|alpha-light|chroma|hue|hue-rotate-by|lightness|opacity|scale|strength|strength-dark|strength-light)$|^--ui-(density|fluid-progress|motion)$|line-height/,
+    /-(alpha-accent|alpha-dark|alpha-light|chroma(-dark|-light)?|hue|hue-rotate-by|lightness(-dark|-light)?|opacity|scale|strength|strength-dark|strength-light)$|^--ui-(density|fluid-progress|motion)$|line-height/,
     "number",
   ],
   [/^--ui-font-(body|code|heading)$/, "fontFamily"],

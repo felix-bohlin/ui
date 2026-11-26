@@ -411,13 +411,15 @@ describe("theme tokens", () => {
 
   test("tokens.json holds native values where the CSS allows and the CSS beside them", () => {
     const json = tokensJson()
-    expect(json.contrast["ui-text-max-lightness"]).toMatchObject({
-      $type: "number",
-      $value: 0.41,
-    })
+    expect(json.contrast["ui-control-accent-min-lightness-dark"]).toMatchObject(
+      {
+        $type: "number",
+        $value: 0.8,
+      },
+    )
     expect(
-      json.contrast["ui-text-max-lightness"].$extensions.opui,
-    ).toMatchObject({ css: "0.41", modes: { "more-contrast": "0.3" } })
+      json.contrast["ui-control-accent-min-lightness-dark"].$extensions.opui,
+    ).toMatchObject({ css: "0.8", modes: { "more-contrast": "0.9" } })
     expect(json.borders["ui-border-width"]).toMatchObject({
       $type: "dimension",
       $value: { unit: "px", value: 1 },

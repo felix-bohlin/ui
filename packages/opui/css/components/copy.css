@@ -27,8 +27,9 @@
       --_text-color: light-dark(
         var(--_accent),
         oklch(
-          from var(--_accent) max(l, var(--ui-text-min-lightness))
-            min(c, var(--ui-text-max-chroma)) h
+          from var(--_accent)
+            max(l, var(--ui-control-accent-min-lightness-dark))
+            min(c, var(--ui-control-accent-max-chroma-dark)) h
         )
       );
 

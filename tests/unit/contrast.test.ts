@@ -111,11 +111,21 @@ describe("promisePairs", () => {
   })
 
   test("keeps raw color expressions as the background", () => {
+    const raw = "oklch(from var(--ui-critical) min(l, 0.48) c h)"
+    expect(
+      promisePairs({ "--ui-on-fill": { against: [raw], ratio: 4.5 } }).map(
+        (pair) => pair.bg,
+      ),
+    ).toEqual([raw])
     expect(
       pairs
         .filter((pair) => pair.token === "--ui-on-fill")
         .map((pair) => pair.bg),
-    ).toEqual(themeTokenPromises["--ui-on-fill"].against)
+    ).toEqual(
+      themeTokenPromises["--ui-on-fill"].against.map(
+        (token) => `var(${token})`,
+      ),
+    )
   })
 
   test("every color in a pair has a plain label", () => {

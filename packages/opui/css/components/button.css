@@ -9,8 +9,8 @@
     --_accent-text: light-dark(
       var(--_accent),
       oklch(
-        from var(--_accent) max(l, var(--ui-text-min-lightness))
-          min(c, var(--ui-text-max-chroma)) h
+        from var(--_accent) max(l, var(--ui-control-accent-min-lightness-dark))
+          min(c, var(--ui-control-accent-max-chroma-dark)) h
       )
     );
     --_accent-tonal: var(--ui-surface-tonal);
@@ -190,9 +190,7 @@
     &.ui-critical,
     :where(.ui-control-group.ui-critical) > & {
       --_accent: var(--ui-critical);
-      --_accent-filled: oklch(
-        from var(--ui-critical) min(l, var(--ui-accent-fill-max-lightness)) c h
-      );
+      --_accent-filled: var(--ui-critical-fill);
       --_accent-text: var(--ui-critical-text);
       --_on-accent: var(--ui-on-fill);
       --_on-accent-filled: var(--_on-accent);

@@ -411,6 +411,17 @@ export const keywords = [
       on <DocLink href="/guide/theme-tokens#contrast">Theme tokens</DocLink>.
     </p>
     <p>
+      The roles are derived within lightness and chroma limits that
+      <code>theme.css</code> keeps private, as <code>--_ui-*</code> properties
+      that can change in any release. To keep an exact brand color, pin the
+      role, such as <code>--ui-primary-text</code> or
+      <code>--ui-critical-fill</code>. The one limit a theme sets is for the
+      accents its hooks supply:
+      <code>--ui-control-accent-min-lightness-dark</code> and
+      <code>--ui-control-accent-max-chroma-dark</code> keep a dark accent
+      readable as text in dark mode.
+    </p>
+    <p>
       A role a theme pins stays pinned in every contrast mode. Hand it back with
       <code>revert-layer</code>:
     </p>

@@ -3,7 +3,6 @@
 
 @layer theme.custom {
   :where(html, .ui-palette, .ui-contrast-more) {
-    --ui-accent-fill-max-lightness: 0.56;
     --ui-backdrop-blur: 0px;
     --ui-border-color: light-dark(oklch(0.851 0 0), oklch(0.404 0 0));
     --ui-border-color-on-filled: var(--ui-border-color);
@@ -100,7 +99,57 @@
     --ui-switch-thumb-bg-color: var(--ui-field-border-color);
     --ui-switch-track-bg-color: var(--ui-surface);
     --ui-text: var(--ui-text-strong);
-    --ui-text-max-lightness: 0.56;
+    --ui-critical-text: light-dark(
+      oklch(from var(--ui-critical) min(l, 0.56) c h),
+      oklch(
+        from var(--ui-critical)
+          max(l, var(--ui-control-accent-min-lightness-dark))
+          min(c, var(--ui-control-accent-max-chroma-dark)) h
+      )
+    );
+    --ui-info-text: light-dark(
+      oklch(from var(--ui-info) min(l, 0.56) c h),
+      oklch(
+        from var(--ui-info) max(l, var(--ui-control-accent-min-lightness-dark))
+          min(c, var(--ui-control-accent-max-chroma-dark)) h
+      )
+    );
+    --ui-invalid-text: light-dark(
+      oklch(from var(--ui-invalid) min(l, 0.56) c h),
+      oklch(
+        from var(--ui-invalid)
+          max(l, var(--ui-control-accent-min-lightness-dark))
+          min(c, var(--ui-control-accent-max-chroma-dark)) h
+      )
+    );
+    --ui-neutral-text: light-dark(
+      oklch(from var(--ui-neutral) min(l, 0.56) c h),
+      oklch(
+        from var(--ui-neutral)
+          max(l, var(--ui-control-accent-min-lightness-dark))
+          min(c, var(--ui-control-accent-max-chroma-dark)) h
+      )
+    );
+    --ui-success-text: light-dark(
+      oklch(from var(--ui-success) min(l, 0.56) c h),
+      oklch(
+        from var(--ui-success)
+          max(l, var(--ui-control-accent-min-lightness-dark))
+          min(c, var(--ui-control-accent-max-chroma-dark)) h
+      )
+    );
+    --ui-warning-text: light-dark(
+      oklch(from var(--ui-warning) min(l, 0.56) c h),
+      oklch(
+        from var(--ui-warning)
+          max(l, var(--ui-control-accent-min-lightness-dark))
+          min(c, var(--ui-control-accent-max-chroma-dark)) h
+      )
+    );
+    --ui-critical-fill: oklch(from var(--ui-critical) min(l, 0.56) c h);
+    --ui-info-fill: oklch(from var(--ui-info) min(l, 0.56) c h);
+    --ui-neutral-fill: oklch(from var(--ui-neutral) min(l, 0.56) c h);
+    --ui-success-fill: oklch(from var(--ui-success) min(l, 0.56) c h);
     --ui-text-strong: light-dark(oklch(0.153 0 0), oklch(1 0 0));
     --ui-text-subtle: light-dark(oklch(0.404 0 0), oklch(0.851 0 0));
     --ui-underline-offset: 0.1578em;
@@ -113,23 +162,39 @@
       html:not(.ui-contrast-normal),
       html:not(.ui-contrast-normal) .ui-palette
     ) {
-      --ui-accent-fill-max-lightness: revert-layer;
       --ui-border-color: revert-layer;
       --ui-focus-border-color: revert-layer;
       --ui-focus-ring-color: revert-layer;
       --ui-link-visited-text-color: revert-layer;
       --ui-primary-text: revert-layer;
-      --ui-text-max-lightness: revert-layer;
+      --ui-critical-text: revert-layer;
+      --ui-info-text: revert-layer;
+      --ui-invalid-text: revert-layer;
+      --ui-neutral-text: revert-layer;
+      --ui-success-text: revert-layer;
+      --ui-warning-text: revert-layer;
+      --ui-critical-fill: revert-layer;
+      --ui-info-fill: revert-layer;
+      --ui-neutral-fill: revert-layer;
+      --ui-success-fill: revert-layer;
     }
   }
 
   :where(.ui-contrast-more, .ui-contrast-more .ui-palette) {
-    --ui-accent-fill-max-lightness: revert-layer;
     --ui-border-color: revert-layer;
     --ui-focus-border-color: revert-layer;
     --ui-focus-ring-color: revert-layer;
     --ui-link-visited-text-color: revert-layer;
     --ui-primary-text: revert-layer;
-    --ui-text-max-lightness: revert-layer;
+    --ui-critical-text: revert-layer;
+    --ui-info-text: revert-layer;
+    --ui-invalid-text: revert-layer;
+    --ui-neutral-text: revert-layer;
+    --ui-success-text: revert-layer;
+    --ui-warning-text: revert-layer;
+    --ui-critical-fill: revert-layer;
+    --ui-info-fill: revert-layer;
+    --ui-neutral-fill: revert-layer;
+    --ui-success-fill: revert-layer;
   }
 }

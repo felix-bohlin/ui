@@ -66,26 +66,27 @@
 
     /* Colors */
     &:is(.ui-critical, .ui-info, .ui-neutral, .ui-success) {
-      --_bg-color: oklch(
-        from var(--_accent) min(l, var(--ui-accent-fill-max-lightness)) c h
-      );
       --_text-color: var(--ui-on-fill);
     }
 
     &.ui-critical {
       --_accent: var(--ui-critical);
+      --_bg-color: var(--ui-critical-fill);
     }
 
     &.ui-info {
       --_accent: var(--ui-info);
+      --_bg-color: var(--ui-info-fill);
     }
 
     &.ui-neutral {
       --_accent: var(--ui-neutral);
+      --_bg-color: var(--ui-neutral-fill);
     }
 
     &.ui-success {
       --_accent: var(--ui-success);
+      --_bg-color: var(--ui-success-fill);
     }
 
     &.ui-warning {

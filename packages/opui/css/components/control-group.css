@@ -110,9 +110,7 @@
 
     /* button.css > --_accent */
     &.ui-filled.ui-critical {
-      --_divider-accent: oklch(
-        from var(--ui-critical) min(l, var(--ui-accent-fill-max-lightness)) c h
-      );
+      --_divider-accent: var(--ui-critical-fill);
     }
 
     &.ui-filled.ui-primary {

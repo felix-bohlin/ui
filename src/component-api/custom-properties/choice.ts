@@ -37,7 +37,7 @@ export default {
   },
   "--_mark-bg-color": {
     description:
-      "Color of the check, the indeterminate dash and the radio dot when `--ui-choice-checked` is `mark`: `--_accent` in light mode, and in dark mode `--_accent` lifted to at least `--ui-text-min-lightness` with its chroma capped at `--ui-text-max-chroma`, so it reads on the surface. Set on `input`.",
+      "Color of the check, the indeterminate dash and the radio dot when `--ui-choice-checked` is `mark`: `--_accent` in light mode, and in dark mode `--_accent` lifted to at least `--ui-control-accent-min-lightness-dark` with its chroma capped at `--ui-control-accent-max-chroma-dark`, so it reads on the surface. Set on `input`.",
     kind: "output",
   },
   "--_motion": {

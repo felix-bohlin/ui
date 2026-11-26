@@ -53,7 +53,7 @@ const tokenProblem = (name: string, known: Set<string>) => {
   }
   const fills = [`--ui-${family}${fill}`, `--ui-${family}surface-${fill}`]
   if (!fills.some((token) => known.has(token))) {
-    return `an --ui-on-{fill} token needs ${fills.join(" or ")} to sit on. The one exception is ${ON_FILL_EXCEPTION}, the text on every intent fill kept within --ui-accent-fill-max-lightness, which has no token of its own because each intent is one`
+    return `an --ui-on-{fill} token needs ${fills.join(" or ")} to sit on. The one exception is ${ON_FILL_EXCEPTION}, the text on every intent fill (--ui-critical-fill, --ui-info-fill, --ui-neutral-fill and --ui-success-fill), which has no token of its own because it sits on four`
   }
 }
 
@@ -320,4 +320,36 @@ test("samples the space step rule must flag and must keep", () => {
       ["--ui-space-12", "calc(3rem * var(--ui-space-scale))"],
     ].map(([name, value]) => spaceStepProblem(name, value)),
   ).toEqual([undefined, undefined, undefined])
+})
+
+const ACCENT_GUARDS = [
+  "--ui-control-accent-max-chroma-dark",
+  "--ui-control-accent-min-lightness-dark",
+]
+
+const limitProblem = (name: string) =>
+  name.startsWith("--ui-") &&
+  /-(max|min)-(chroma|lightness)(-dark|-light)?$/.test(name) &&
+  !ACCENT_GUARDS.includes(name)
+    ? `${name} is a limit of the contrast engine: name it --_ui-${name.slice("--ui-".length)}, private to theme.css, and give components a role that holds the limited color`
+    : undefined
+
+test("the contrast engine's limits are private, but for the two accent guards", () => {
+  const names = themeTokens().map((token) => token.name)
+  expect(names).toEqual(expect.arrayContaining(ACCENT_GUARDS))
+  expect(names.map(limitProblem).filter(Boolean)).toEqual([])
+})
+
+test("samples the limit rule must flag and must keep", () => {
+  expect(limitProblem("--ui-text-max-lightness")).toContain(
+    "--_ui-text-max-lightness",
+  )
+  expect(limitProblem("--ui-primary-min-lightness-dark")).toBeDefined()
+  expect(
+    [
+      ...ACCENT_GUARDS,
+      "--_ui-text-max-lightness",
+      "--ui-fluid-max-inline-size",
+    ].map(limitProblem),
+  ).toEqual([undefined, undefined, undefined, undefined])
 })

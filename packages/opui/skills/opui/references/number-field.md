@@ -3,7 +3,7 @@
 A number input in a Field with step buttons that step the value down and up, for amounts like a quantity.
 
 - CSS: `opui-css/css/components/step-button.css`, `opui-css/css/components/field.css` and `opui-css/css/components/button.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/number-field.md), [Astro](https://opui.dev/astro/components/number-field.md), [React](https://opui.dev/react/components/number-field.md), [Solid](https://opui.dev/solid/components/number-field.md), [Svelte](https://opui.dev/svelte/components/number-field.md), [Vue](https://opui.dev/vue/components/number-field.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/number-field.md), [Astro](https://opui.dev/astro/components/number-field.md), [Nunjucks](https://opui.dev/nunjucks/components/number-field.md), [React](https://opui.dev/react/components/number-field.md), [Solid](https://opui.dev/solid/components/number-field.md), [Svelte](https://opui.dev/svelte/components/number-field.md), [Vue](https://opui.dev/vue/components/number-field.md).
 
 ## StepButton
 
@@ -14,7 +14,7 @@ A number input in a Field with step buttons that step the value down and up, for
 ### Props and modifiers
 
 - `command`: `"--step-down" | "--step-up"`. Which way the button steps: `--step-down` or `--step-up`.
-- `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of the number input, as its button's `commandfor` and `aria-controls`.
+- `for` (Astro, Nunjucks, Solid, Svelte and Vue): `string`. The `id` of the number input, as its button's `commandfor` and `aria-controls`.
 - `htmlFor` (React): `string`. The `id` of the number input, as its button's `commandfor` and `aria-controls`.
 - `label`: `string`, `aria-label`, default `"Decrease" or "Increase"`. The accessible name of the button, by `command`. Pass it translated.
 
@@ -32,6 +32,7 @@ A number input in a Field with step buttons that step the value down and up, for
 
 - HTML: Put `<opui-step-button>` in `.ui-start` and `.ui-end`, around a `.ui-button.ui-round` with `command="--step-down"` or `command="--step-up"`, `commandfor` and `aria-controls` naming the input and an `aria-label`, and import `opui-css/elements/step-button.js`. Without it, the input keeps its own spin buttons.
 - Astro, Solid, Svelte and Vue: Put one with `command="--step-down"` in `start` and one with `command="--step-up"` in `end`, next to an `<input type="number">`. It loads `opui-css/elements/step-button.js`. Attributes that aren't props, `class` and `style` go to the `<opui-step-button>`, not the button.
+- Nunjucks: Put one with `command="--step-down"` in `slots.start` and one with `command="--step-up"` in `slots.end`, next to an `<input type="number">`, and load `opui-css/elements/step-button.js` on the page. Attributes that aren't props, `class` and `style` go to the `<opui-step-button>`, not the button.
 - React: Put one with `command="--step-down"` in `start` and one with `command="--step-up"` in `end`, next to an `<input type="number">`. It loads `opui-css/elements/step-button.js`. Attributes that aren't props, `className` and `style` go to the `<opui-step-button>`, not the button.
 
 ## Component properties
@@ -165,6 +166,31 @@ import { Field, StepButton } from "opui-css/astro"
   <StepButton command="--step-down" for="number-field-basics-1" slot="start" />
   <StepButton command="--step-up" for="number-field-basics-1" slot="end" />
 </Field>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Field, StepButton %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Field, StepButton %}
+
+{% set start %}{{ StepButton({ command: "--step-down", for: "number-field-basics-1" }) }}{% endset %}
+{% set end %}{{ StepButton({ command: "--step-up", for: "number-field-basics-1" }) }}{% endset %}
+{% call Field({
+  autoFit: true,
+  for: "number-field-basics-1",
+  label: "Quantity",
+  slots: { end: end, start: start }
+}) %}
+  <input id="number-field-basics-1" max="10" min="1" type="number" value="1" />
+{% endcall %}
+
+<script type="module">
+  import "opui-css/elements/step-button.js"
+</script>
 ```
 
 ## React

@@ -3,7 +3,7 @@
 A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill.
 
 - CSS: `opui-css/css/components/field.css` and `opui-css/css/components/one-time-code.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/one-time-code.md), [Astro](https://opui.dev/astro/components/one-time-code.md), [React](https://opui.dev/react/components/one-time-code.md), [Solid](https://opui.dev/solid/components/one-time-code.md), [Svelte](https://opui.dev/svelte/components/one-time-code.md), [Vue](https://opui.dev/vue/components/one-time-code.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/one-time-code.md), [Astro](https://opui.dev/astro/components/one-time-code.md), [Nunjucks](https://opui.dev/nunjucks/components/one-time-code.md), [React](https://opui.dev/react/components/one-time-code.md), [Solid](https://opui.dev/solid/components/one-time-code.md), [Svelte](https://opui.dev/svelte/components/one-time-code.md), [Vue](https://opui.dev/vue/components/one-time-code.md).
 
 ## OneTimeCode
 
@@ -17,7 +17,7 @@ A one-time password (OTP) field: one input drawn as a box per character, with pa
 
 ### Props and modifiers
 
-- `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of your `<input>`. The label points at it, and the end text gets an id that starts with it: `x-end-text` for `for="x"`. Point the input's `aria-describedby` at it.
+- `for` (Astro, Nunjucks, Solid, Svelte and Vue): `string`. The `id` of your `<input>`. The label points at it, and the end text gets an id that starts with it: `x-end-text` for `for="x"`. Point the input's `aria-describedby` at it.
 - `grouped`: `boolean`, `.ui-grouped`. Draws a dash between the two halves of the code. Use it with an even `maxlength`.
 - `hideLabel`: `boolean`, `.ui-one-time-code > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The input keeps it as its accessible name.
 - `htmlFor` (React): `string`. The `id` of your `<input>`, as `htmlFor` like on the element. The label points at it, and the end text gets an id that starts with it: `x-end-text` for `htmlFor="x"`. Point the input's `aria-describedby` at it.
@@ -30,7 +30,7 @@ A one-time password (OTP) field: one input drawn as a box per character, with pa
 ### Notes
 
 - HTML: Use one `<input>` with `autocomplete="one-time-code"`, `maxlength` and a matching `pattern`, such as `[0-9]{6}`, plus `inputmode="numeric"` for digits.
-- Astro, Solid, Svelte and Vue: Write the `<input>` inside, with its `id` set to `for`, `autocomplete="one-time-code"`, a `maxlength` from 4 to 8, which sets the number of boxes, and a matching `pattern`: `inputmode="numeric"` and `[0-9]{6}` for digits, or `autocapitalize="characters"`, `spellcheck="false"` and `[A-Za-z0-9]{6}` for letters and digits. Bind it like any input. Other attributes go to the `.ui-one-time-code` root.
+- Astro, Nunjucks, Solid, Svelte and Vue: Write the `<input>` inside, with its `id` set to `for`, `autocomplete="one-time-code"`, a `maxlength` from 4 to 8, which sets the number of boxes, and a matching `pattern`: `inputmode="numeric"` and `[0-9]{6}` for digits, or `autocapitalize="characters"`, `spellcheck="false"` and `[A-Za-z0-9]{6}` for letters and digits. Bind it like any input. Other attributes go to the `.ui-one-time-code` root.
 - React: Write the `<input>` inside, with its `id` set to `htmlFor`, `autoComplete="one-time-code"`, a `maxLength` from 4 to 8, which sets the number of boxes, and a matching `pattern`: `inputMode="numeric"` and `[0-9]{6}` for digits, or `autoCapitalize="characters"`, `spellCheck={false}` and `[A-Za-z0-9]{6}` for letters and digits. Give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-one-time-code` root.
 
 ## Component properties
@@ -130,6 +130,35 @@ import { OneTimeCode } from "opui-css/astro"
     required
   />
 </OneTimeCode>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import OneTimeCode %}`
+
+- `OneTimeCode` named slots: `slots.endText` and `slots.label`. Pass a string, or markup captured with `{% set %}`.
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import OneTimeCode %}
+
+{% call OneTimeCode({
+  endText: "The code expires in 10 minutes.",
+  for: "one-time-code-basics-1",
+  label: "Verification code"
+}) %}
+  <input
+    aria-describedby="one-time-code-basics-1-end-text"
+    autocomplete="one-time-code"
+    id="one-time-code-basics-1"
+    inputmode="numeric"
+    maxlength="6"
+    name="code"
+    pattern="[0-9]{6}"
+    required
+  />
+{% endcall %}
 ```
 
 ## React

@@ -3,7 +3,7 @@
 Classes for the space between components, in columns, rows and grids.
 
 - CSS: `opui-css/css/components/layout.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/layout.md), [Astro](https://opui.dev/astro/components/layout.md), [React](https://opui.dev/react/components/layout.md), [Solid](https://opui.dev/solid/components/layout.md), [Svelte](https://opui.dev/svelte/components/layout.md), [Vue](https://opui.dev/vue/components/layout.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/layout.md), [Astro](https://opui.dev/astro/components/layout.md), [Nunjucks](https://opui.dev/nunjucks/components/layout.md), [React](https://opui.dev/react/components/layout.md), [Solid](https://opui.dev/solid/components/layout.md), [Svelte](https://opui.dev/svelte/components/layout.md), [Vue](https://opui.dev/vue/components/layout.md).
 
 ## Layout (CSS only)
 
@@ -29,7 +29,7 @@ Classes for the space between components, in columns, rows and grids.
 
 ### Notes
 
-- Astro and Vue: Add the classes to elements in your templates.
+- Astro, Nunjucks and Vue: Add the classes to elements in your templates.
 - React, Solid and Svelte: Add the classes to elements in your markup.
 
 ## Component properties
@@ -93,6 +93,28 @@ import { Card, CardContent } from "opui-css/astro"
   <Card variant="outlined">
     <CardContent>Post the gig photos (bassist in focus)</CardContent>
   </Card>
+</div>
+```
+
+## Nunjucks
+
+There is no Nunjucks component. Use the classes in your markup.
+
+### Example: Column
+
+```njk
+{% from "opui/index.njk" import Card, CardContent %}
+
+<div class="ui-layout-column">
+  {% call Card({ variant: "outlined" }) %}
+    {% call CardContent() %}Restring the 5-string{% endcall %}
+  {% endcall %}
+  {% call Card({ variant: "outlined" }) %}
+    {% call CardContent() %}Learn the new bassline before the drummer does{% endcall %}
+  {% endcall %}
+  {% call Card({ variant: "outlined" }) %}
+    {% call CardContent() %}Post the gig photos (bassist in focus){% endcall %}
+  {% endcall %}
 </div>
 ```
 

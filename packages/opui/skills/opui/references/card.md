@@ -3,7 +3,7 @@
 A surface for related content and actions.
 
 - CSS: `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/card.md), [Astro](https://opui.dev/astro/components/card.md), [React](https://opui.dev/react/components/card.md), [Solid](https://opui.dev/solid/components/card.md), [Svelte](https://opui.dev/svelte/components/card.md), [Vue](https://opui.dev/vue/components/card.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/card.md), [Astro](https://opui.dev/astro/components/card.md), [Nunjucks](https://opui.dev/nunjucks/components/card.md), [React](https://opui.dev/react/components/card.md), [Solid](https://opui.dev/solid/components/card.md), [Svelte](https://opui.dev/svelte/components/card.md), [Vue](https://opui.dev/vue/components/card.md).
 
 ## Card
 
@@ -144,6 +144,36 @@ import { Card, CardContent } from "opui-css/astro"
 <Card variant="transparent">
   <CardContent>Transparent</CardContent>
 </Card>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Card, CardActions, CardContent, CardHeader %}`
+
+### Example: Variants
+
+```njk
+{% from "opui/index.njk" import Card, CardContent %}
+
+{% call Card() %}
+  {% call CardContent() %}Plain{% endcall %}
+{% endcall %}
+
+{% call Card({ variant: "elevated" }) %}
+  {% call CardContent() %}Elevated{% endcall %}
+{% endcall %}
+
+{% call Card({ variant: "outlined" }) %}
+  {% call CardContent() %}Outlined{% endcall %}
+{% endcall %}
+
+{% call Card({ variant: "tonal" }) %}
+  {% call CardContent() %}Tonal{% endcall %}
+{% endcall %}
+
+{% call Card({ variant: "transparent" }) %}
+  {% call CardContent() %}Transparent{% endcall %}
+{% endcall %}
 ```
 
 ## React

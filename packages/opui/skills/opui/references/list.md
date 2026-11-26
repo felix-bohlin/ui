@@ -3,7 +3,7 @@
 Rows of similar items, like contacts, files or settings, with icons, controls and links.
 
 - CSS: `opui-css/css/components/list.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/list.md), [Astro](https://opui.dev/astro/components/list.md), [React](https://opui.dev/react/components/list.md), [Solid](https://opui.dev/solid/components/list.md), [Svelte](https://opui.dev/svelte/components/list.md), [Vue](https://opui.dev/vue/components/list.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/list.md), [Astro](https://opui.dev/astro/components/list.md), [Nunjucks](https://opui.dev/nunjucks/components/list.md), [React](https://opui.dev/react/components/list.md), [Solid](https://opui.dev/solid/components/list.md), [Svelte](https://opui.dev/svelte/components/list.md), [Vue](https://opui.dev/vue/components/list.md).
 
 ## List
 
@@ -40,13 +40,13 @@ Rows of similar items, like contacts, files or settings, with icons, controls an
 
 ### Props and modifiers
 
-- `as` (Astro and Svelte): `"a" | "button"`. The element to render inside the `<li>`: `"a"` or `"button"`. Defaults to `"a"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type="button"`.
+- `as` (Astro, Nunjucks and Svelte): `"a" | "button"`. The element to render inside the `<li>`: `"a"` or `"button"`. Defaults to `"a"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type="button"`.
 - `as` (React, Solid and Vue): `"a" | "button" | ComponentType<any>`. The element to render inside the `<li>`: `"a"`, `"button"` or the link component of your router with `href`, such as Next's `Link`, Solid Router's `A` or Nuxt's `NuxtLink`, which gets the `href`. Defaults to `"a"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type="button"`, and a disabled link component renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.
 - `borderTop`: `boolean`, `.ui-border-top`. Adds a border above the item.
 - `choice`: `"checkbox"` (`label.ui-checkbox`), `"radio"` (`label.ui-radio`), `"switch"` (`label.ui-switch`). Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.
 - `color`: `"critical"` (`.ui-critical`). Optional colors. `critical` marks a destructive item in a [Menu](/components/menu).
 - `disabled`: `boolean`. Disables a button item. A link item drops its `href` and gets `role="link"` and `aria-disabled="true"` instead.
-- `for` (Astro, Solid, Svelte and Vue): `string`. The `for` attribute of the `<label>` when `choice` is set.
+- `for` (Astro, Nunjucks, Solid, Svelte and Vue): `string`. The `for` attribute of the `<label>` when `choice` is set.
 - `href`: `string`. The link to use. Renders an `<a>` inside the `<li>`.
 - `htmlFor` (React): `string`. The `for` attribute of the `<label>` when `choice` is set, as `htmlFor` like on the element.
 - `inset`: `boolean`, `.ui-inset`. Aligns the text with items that have start content.
@@ -60,7 +60,7 @@ Rows of similar items, like contacts, files or settings, with icons, controls an
 ### Notes
 
 - HTML: To make the item interactive, wrap the content in an `<a>`, `<button>` or `<label>`.
-- Astro, Solid, Svelte and Vue: With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`, and `type` to the `<button>`. Without them, and with `choice`, they go to the `<li>`. `class` always goes to the `<li>`.
+- Astro, Nunjucks, Solid, Svelte and Vue: With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`, and `type` to the `<button>`. Without them, and with `choice`, they go to the `<li>`. `class` always goes to the `<li>`.
 - React: With `as` or `href`, attributes that aren't props go to the `<a>` or `<button>`, like `aria-current`, `target` or `style`, and `type` to the `<button>`. Without them, and with `choice`, they go to the `<li>`. `className` always goes to the `<li>`.
 
 ## Component properties
@@ -145,6 +145,27 @@ import { List, ListItem } from "opui-css/astro"
     <Fragment slot="end">100+</Fragment>
   </ListItem>
 </List>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import List, ListItem %}`
+
+- `ListItem` named slots: `slots.description`, `slots.end`, `slots.iconChecked`, `slots.label`, `slots.start` and `slots.submenu`. Pass a string, or markup captured with `{% set %}`.
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import List, ListItem %}
+
+{% call List() %}
+  {{ ListItem({ label: "Gig poster.pdf" }) }}
+  {{ ListItem({
+    description: "Our logo in every color, with the bass drawn way bigger than the drum kit, at last.",
+    label: "Band logo pack.pdf"
+  }) }}
+  {{ ListItem({ label: "Photos", slots: { end: "100+" } }) }}
+{% endcall %}
 ```
 
 ## React

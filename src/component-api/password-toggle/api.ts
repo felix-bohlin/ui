@@ -29,6 +29,8 @@ export default {
   notes: {
     default:
       'Put it in `end`, next to a `type="password"` input. It loads `opui-css/elements/password-toggle.js`. Attributes that aren\'t props, `class` and `style` go to the `<opui-password-toggle>`, not the button.',
+    nunjucks:
+      'Put it in `slots.end`, next to a `type="password"` input, and load `opui-css/elements/password-toggle.js` on the page. Attributes that aren\'t props, `class` and `style` go to the `<opui-password-toggle>`, not the button.',
     react:
       'Put it in `end`, next to a `type="password"` input. It loads `opui-css/elements/password-toggle.js`. Attributes that aren\'t props, `className` and `style` go to the `<opui-password-toggle>`, not the button.',
     html: 'Put `<opui-password-toggle>` in `.ui-end`, around a `.ui-button.ui-round` with `aria-pressed="false"`, `command="--toggle-password"` and `commandfor` naming the input, and import `opui-css/elements/password-toggle.js`.',

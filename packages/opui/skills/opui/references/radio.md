@@ -3,7 +3,7 @@
 Radio buttons for picking one option from a few, with sizes, cards and an invalid state.
 
 - CSS: `opui-css/css/components/radio.css`, `opui-css/css/components/choice.css`, `opui-css/css/components/form.css` and `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/radio.md), [Astro](https://opui.dev/astro/components/radio.md), [React](https://opui.dev/react/components/radio.md), [Solid](https://opui.dev/solid/components/radio.md), [Svelte](https://opui.dev/svelte/components/radio.md), [Vue](https://opui.dev/vue/components/radio.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/radio.md), [Astro](https://opui.dev/astro/components/radio.md), [Nunjucks](https://opui.dev/nunjucks/components/radio.md), [React](https://opui.dev/react/components/radio.md), [Solid](https://opui.dev/solid/components/radio.md), [Svelte](https://opui.dev/svelte/components/radio.md), [Vue](https://opui.dev/vue/components/radio.md).
 - The docs page also documents `FieldGroup`, see `form.md`.
 
 ## Radio
@@ -30,11 +30,11 @@ Radio buttons for picking one option from a few, with sizes, cards and an invali
 - `value`: `string | number | boolean`. The value of the `<input>`, submitted with the form when it's checked.
 - `variant`: `"elevated"` (`.ui-elevated`), `"outlined"` (default), `"tonal"` (`.ui-tonal`). The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.
 
-Model: `value` (`string | number | boolean`), the selected value of the group. Astro, React and Solid `value`, Svelte `bind:group`, Vue `v-model`.
+Model: `value` (`string | number | boolean`), the selected value of the group. Astro, Nunjucks, React and Solid `value`, Svelte `bind:group`, Vue `v-model`.
 
 ### Notes
 
-- Astro and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.
+- Astro, Nunjucks and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.
 - React: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`. Use `checked` with `onChange` on each radio, or `defaultChecked`.
 - Solid: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`. `checked` sets each radio's state and follows it when it changes, and `onChange` reports changes.
 - Svelte: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`.
@@ -49,11 +49,11 @@ Model: `value` (`string | number | boolean`), the selected value of the group. A
 
 - `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
 
-Model: `value` (`string | number | boolean`), the selected value of the group. Astro, React and Solid `value`, Svelte `bind:group`, Vue `v-model`.
+Model: `value` (`string | number | boolean`), the selected value of the group. Astro, Nunjucks, React and Solid `value`, Svelte `bind:group`, Vue `v-model`.
 
 ### Notes
 
-- Astro, React, Solid, Svelte and Vue: The radio `<input>` without the label, for a custom layout inside a `label.ui-radio`, such as the end of a `ListItem` with `choice="radio"`. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
+- Astro, Nunjucks, React, Solid, Svelte and Vue: The radio `<input>` without the label, for a custom layout inside a `label.ui-radio`, such as the end of a `ListItem` with `choice="radio"`. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
 
 ## Component properties
 
@@ -158,6 +158,35 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
     </FieldGroup>
   </Fieldset>
 </Form>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Radio, RadioInput %}`
+
+- `Radio` named slots: `slots.endText`. Pass a string, or markup captured with `{% set %}`.
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+  Radio
+%}
+
+{% call Form() %}
+  {% call Fieldset() %}
+    {% call FieldLegend() %}Payment method{% endcall %}
+    {% call FieldGroup({ name: "radio-group" }) %}
+      {% call Radio({ checked: true, value: "card" }) %}Card{% endcall %}
+      {% call Radio({ value: "paypal" }) %}PayPal{% endcall %}
+      {% call Radio({ value: "bank-transfer" }) %}Bank transfer{% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}
 ```
 
 ## React

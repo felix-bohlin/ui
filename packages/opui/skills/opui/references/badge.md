@@ -3,7 +3,7 @@
 A small count or status dot on the corner of another element.
 
 - CSS: `opui-css/css/components/badge.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/badge.md), [Astro](https://opui.dev/astro/components/badge.md), [React](https://opui.dev/react/components/badge.md), [Solid](https://opui.dev/solid/components/badge.md), [Svelte](https://opui.dev/svelte/components/badge.md), [Vue](https://opui.dev/vue/components/badge.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/badge.md), [Astro](https://opui.dev/astro/components/badge.md), [Nunjucks](https://opui.dev/nunjucks/components/badge.md), [React](https://opui.dev/react/components/badge.md), [Solid](https://opui.dev/solid/components/badge.md), [Svelte](https://opui.dev/svelte/components/badge.md), [Vue](https://opui.dev/vue/components/badge.md).
 
 ## Badge
 
@@ -100,6 +100,30 @@ import { Badge } from "opui-css/astro"
 <Badge dot label="New messages">
   <svg data-icon="mail" aria-hidden="true" viewBox="0 0 32 32"></svg>
 </Badge>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Badge %}`
+
+- `Badge` named slots: `slots.indicator`. Pass a string, or markup captured with `{% set %}`.
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Badge %}
+
+{% call Badge({
+  hideLabel: true,
+  label: "5 unread messages",
+  slots: { indicator: "5" }
+}) %}
+  <svg data-icon="mail" aria-hidden="true" viewBox="0 0 32 32"></svg>
+{% endcall %}
+
+{% call Badge({ dot: true, label: "New messages" }) %}
+  <svg data-icon="mail" aria-hidden="true" viewBox="0 0 32 32"></svg>
+{% endcall %}
 ```
 
 ## React

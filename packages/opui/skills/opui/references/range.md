@@ -3,7 +3,7 @@
 A slider for picking a number by moving a thumb along a track.
 
 - CSS: `opui-css/css/components/range.css` and `opui-css/css/components/field.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/range.md), [Astro](https://opui.dev/astro/components/range.md), [React](https://opui.dev/react/components/range.md), [Solid](https://opui.dev/solid/components/range.md), [Svelte](https://opui.dev/svelte/components/range.md), [Vue](https://opui.dev/vue/components/range.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/range.md), [Astro](https://opui.dev/astro/components/range.md), [Nunjucks](https://opui.dev/nunjucks/components/range.md), [React](https://opui.dev/react/components/range.md), [Solid](https://opui.dev/solid/components/range.md), [Svelte](https://opui.dev/svelte/components/range.md), [Vue](https://opui.dev/vue/components/range.md).
 
 ## Range (CSS only)
 
@@ -16,7 +16,7 @@ A slider for picking a number by moving a thumb along a track.
 ### Notes
 
 - HTML: Put the `<input type="range">` in `.ui-field-container`, with a `<datalist>` after it for labels. Show the value yourself, and set `aria-valuetext` when the number alone doesn't say it.
-- Astro, Solid, Svelte and Vue: Write an `<input type="range">` in a `Field`, with its `id` set to `for`. Show the value yourself, and set `aria-valuetext` when the number alone doesn't say it.
+- Astro, Nunjucks, Solid, Svelte and Vue: Write an `<input type="range">` in a `Field`, with its `id` set to `for`. Show the value yourself, and set `aria-valuetext` when the number alone doesn't say it.
 - React: Write an `<input type="range">` in a `Field`, with its `id` set to `htmlFor`. Show the value yourself, and set `aria-valuetext` when the number alone doesn't say it.
 
 ## Component properties
@@ -88,6 +88,20 @@ import { Field } from "opui-css/astro"
 <Field for="range-basics-1" label="Volume">
   <input id="range-basics-1" type="range" />
 </Field>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Field %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Field %}
+
+{% call Field({ for: "range-basics-1", label: "Volume" }) %}
+  <input id="range-basics-1" type="range" />
+{% endcall %}
 ```
 
 ## React

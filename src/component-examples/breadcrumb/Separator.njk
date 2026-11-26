@@ -1,13 +1,12 @@
 {% from "opui/index.njk" import Breadcrumb %}
-{% set items = [
-  { href: "#", label: "Marketplace" },
-  { href: "#", label: "Basses" },
-  { label: "Short scale" }
-] %}
 
 {{ Breadcrumb({
-  "aria-label": "Breadcrumb",
-  items: items,
+  "aria-label": "Short-scale breadcrumb",
+  items: [
+    { href: "#", label: "Marketplace" },
+    { href: "#", label: "Basses" },
+    { label: "Short scale" }
+  ],
   style: "--_separator: \"›\""
 }) }}
 {% set separator %}<svg
@@ -26,7 +25,11 @@
   <path d="m9 18 6-6-6-6"></path>
 </svg>{% endset %}
 {{ Breadcrumb({
-  "aria-label": "Breadcrumb",
-  items: items,
+  "aria-label": "Combo amp breadcrumb",
+  items: [
+    { href: "#", label: "Marketplace" },
+    { href: "#", label: "Amps" },
+    { label: "Combos" }
+  ],
   slots: { separator: separator }
 }) }}

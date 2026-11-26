@@ -1,20 +1,25 @@
 <script setup lang="ts">
 import { Breadcrumb } from "opui-css/vue"
-
-const items = [
-  { href: "#", label: "Marketplace" },
-  { href: "#", label: "Basses" },
-  { label: "Short scale" },
-]
 </script>
 
 <template>
   <Breadcrumb
-    aria-label="Breadcrumb"
-    :items="items"
+    aria-label="Short-scale breadcrumb"
+    :items="[
+      { href: '#', label: 'Marketplace' },
+      { href: '#', label: 'Basses' },
+      { label: 'Short scale' },
+    ]"
     style="--_separator: &quot;›&quot;"
   />
-  <Breadcrumb aria-label="Breadcrumb" :items="items">
+  <Breadcrumb
+    aria-label="Combo amp breadcrumb"
+    :items="[
+      { href: '#', label: 'Marketplace' },
+      { href: '#', label: 'Amps' },
+      { label: 'Combos' },
+    ]"
+  >
     <template #separator>
       <svg
         data-icon="chevron-right"

@@ -9,5 +9,5 @@ const items = [
 ]
 
 export default function Items() {
-  return <Breadcrumb aria-label="Breadcrumb" items={items} />
+  return <Breadcrumb aria-label="Event breadcrumb" items={items} />
 }

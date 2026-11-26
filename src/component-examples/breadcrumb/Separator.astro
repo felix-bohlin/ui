@@ -1,15 +1,24 @@
 ---
 import { Breadcrumb } from "opui-css/astro"
-
-const items = [
-  { href: "#", label: "Marketplace" },
-  { href: "#", label: "Basses" },
-  { label: "Short scale" },
-]
 ---
 
-<Breadcrumb aria-label="Breadcrumb" items={items} style='--_separator: "›"' />
-<Breadcrumb aria-label="Breadcrumb" items={items}>
+<Breadcrumb
+  aria-label="Short-scale breadcrumb"
+  items={[
+    { href: "#", label: "Marketplace" },
+    { href: "#", label: "Basses" },
+    { label: "Short scale" },
+  ]}
+  style='--_separator: "›"'
+/>
+<Breadcrumb
+  aria-label="Combo amp breadcrumb"
+  items={[
+    { href: "#", label: "Marketplace" },
+    { href: "#", label: "Amps" },
+    { label: "Combos" },
+  ]}
+>
   <svg
     data-icon="chevron-right"
     slot="separator"

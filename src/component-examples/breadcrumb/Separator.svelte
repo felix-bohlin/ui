@@ -1,15 +1,24 @@
 <script lang="ts">
   import { Breadcrumb } from "opui-css/svelte"
+</script>
 
-  const items = [
+<Breadcrumb
+  aria-label="Short-scale breadcrumb"
+  items={[
     { href: "#", label: "Marketplace" },
     { href: "#", label: "Basses" },
     { label: "Short scale" },
-  ]
-</script>
-
-<Breadcrumb aria-label="Breadcrumb" {items} style={'--_separator: "›"'} />
-<Breadcrumb aria-label="Breadcrumb" {items}>
+  ]}
+  style={'--_separator: "›"'}
+/>
+<Breadcrumb
+  aria-label="Combo amp breadcrumb"
+  items={[
+    { href: "#", label: "Marketplace" },
+    { href: "#", label: "Amps" },
+    { label: "Combos" },
+  ]}
+>
   {#snippet separator()}
     <svg
       data-icon="chevron-right"

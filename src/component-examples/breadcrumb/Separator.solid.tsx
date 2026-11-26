@@ -1,23 +1,25 @@
 /** @jsxImportSource @solidjs/web */
 import { Breadcrumb } from "opui-css/solid"
 
-const items = [
-  { href: "#", label: "Marketplace" },
-  { href: "#", label: "Basses" },
-  { label: "Short scale" },
-]
-
 export default function Separator() {
   return (
     <>
       <Breadcrumb
-        aria-label="Breadcrumb"
-        items={items}
+        aria-label="Short-scale breadcrumb"
+        items={[
+          { href: "#", label: "Marketplace" },
+          { href: "#", label: "Basses" },
+          { label: "Short scale" },
+        ]}
         style='--_separator: "›"'
       />
       <Breadcrumb
-        aria-label="Breadcrumb"
-        items={items}
+        aria-label="Combo amp breadcrumb"
+        items={[
+          { href: "#", label: "Marketplace" },
+          { href: "#", label: "Amps" },
+          { label: "Combos" },
+        ]}
         separator={
           <svg
             data-icon="chevron-right"

@@ -10,5 +10,5 @@ const items = [
 </script>
 
 <template>
-  <Breadcrumb aria-label="Breadcrumb" :items="items" />
+  <Breadcrumb aria-label="Event breadcrumb" :items="items" />
 </template>

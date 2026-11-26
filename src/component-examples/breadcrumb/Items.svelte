@@ -9,4 +9,4 @@
   ]
 </script>
 
-<Breadcrumb aria-label="Breadcrumb" {items} />
+<Breadcrumb aria-label="Event breadcrumb" {items} />

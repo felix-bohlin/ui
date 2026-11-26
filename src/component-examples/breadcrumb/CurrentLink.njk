@@ -1,6 +1,6 @@
 {% from "opui/index.njk" import Breadcrumb, BreadcrumbItem %}
 
-{% call Breadcrumb({ "aria-label": "Breadcrumb" }) %}
+{% call Breadcrumb({ "aria-label": "Profile breadcrumb" }) %}
   {{ BreadcrumbItem({ href: "#", label: "Members" }) }}
   {{ BreadcrumbItem({ href: "#", label: "Nina Okafor" }) }}
   {{ BreadcrumbItem({ current: true, href: "#", label: "Gear" }) }}

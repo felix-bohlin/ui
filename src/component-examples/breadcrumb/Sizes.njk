@@ -1,12 +1,12 @@
 {% from "opui/index.njk" import Breadcrumb, BreadcrumbItem %}
 
-{% call Breadcrumb({ "aria-label": "Breadcrumb", size: "medium" }) %}
+{% call Breadcrumb({ "aria-label": "Photo breadcrumb", size: "medium" }) %}
   {{ BreadcrumbItem({ href: "#", label: "My stuff" }) }}
   {{ BreadcrumbItem({ href: "#", label: "Photo albums" }) }}
   {{ BreadcrumbItem({ current: true, label: "Gig pics" }) }}
 {% endcall %}
-{% call Breadcrumb({ "aria-label": "Breadcrumb", size: "small" }) %}
+{% call Breadcrumb({ "aria-label": "Set list breadcrumb", size: "small" }) %}
   {{ BreadcrumbItem({ href: "#", label: "My stuff" }) }}
-  {{ BreadcrumbItem({ href: "#", label: "Photo albums" }) }}
-  {{ BreadcrumbItem({ current: true, label: "Gig pics" }) }}
+  {{ BreadcrumbItem({ href: "#", label: "Set lists" }) }}
+  {{ BreadcrumbItem({ current: true, label: "Summer tour" }) }}
 {% endcall %}

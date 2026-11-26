@@ -52,7 +52,7 @@
     /* Disabled */
     &:has(:disabled, input[aria-disabled="true"]) {
       cursor: not-allowed;
-      opacity: var(--ui-disabled-opacity);
+      opacity: var(--ui-state-disabled-opacity);
 
       input {
         cursor: not-allowed;

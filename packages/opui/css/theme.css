@@ -142,7 +142,7 @@
     --ui-ease-exit: cubic-bezier(0.4, 0, 1, 1);
     /* --ui-ease-move: linear(0, 0.066, 0.218, 0.4, 0.578, 0.731, 0.852, 0.94, 0.998, 1.031, 1.047, 1.05, 1.046, 1.038, 1.029, 1.02, 1.012, 1.007, 1.002, 1, 1); */
     --ui-motion: 1;
-    /* --ui-press-scale: 0.97; */
+    /* --ui-state-active-scale: 0.97; */
 
     /* Contrast */
     --ui-contrast: normal;
@@ -160,8 +160,8 @@
     --ui-palette-border-min-lightness: 0;
     --ui-palette-text-max-lightness: 1;
     --ui-palette-text-min-lightness: 0.8;
-    --ui-palette-tint-max-lightness: 1;
-    --ui-palette-tint-min-lightness: 0;
+    --ui-palette-tonal-max-lightness: 1;
+    --ui-palette-tonal-min-lightness: 0;
     --ui-primary-max-lightness: 1;
     --ui-primary-min-lightness: 0;
     --ui-text-disabled-strength: 50%;
@@ -172,7 +172,7 @@
     --ui-text-strength-light: 87%;
 
     /* State */
-    --ui-disabled-opacity: 0.64;
+    --ui-state-disabled-opacity: 0.64;
     /* --ui-selected: var(--ui-primary); */
     /* --ui-on-selected: var(--ui-on-primary); */
     --ui-state-active-alpha-accent: 25%;
@@ -406,7 +406,7 @@
     --ui-field-border-color-on-raised: color-mix(
       in oklch,
       var(--ui-text-strong) var(--ui-field-border-strength),
-      var(--ui-surface-elevated)
+      var(--ui-surface-raised)
     );
 
     /* Divider */
@@ -589,7 +589,7 @@
 
     /* Surfaces */
     --ui-surface: light-dark(var(--ui-gray-1), var(--ui-gray-13));
-    --ui-surface-elevated: light-dark(var(--ui-gray-1), var(--ui-gray-12));
+    --ui-surface-raised: light-dark(var(--ui-gray-1), var(--ui-gray-12));
     --ui-surface-filled: light-dark(var(--ui-gray-4), var(--ui-gray-15));
     --ui-surface-inverse: light-dark(var(--ui-gray-15), var(--ui-gray-2));
     --ui-surface-tonal: light-dark(var(--ui-gray-3), var(--ui-gray-12));
@@ -598,7 +598,7 @@
       oklch(from var(--ui-surface-tonal) calc(l * 1.1) c h)
     );
     /* --ui-surface-image: none; */
-    /* --ui-surface-elevated-image: none; */
+    /* --ui-surface-raised-image: none; */
 
     /* Borders */
     --ui-border-color: light-dark(
@@ -621,12 +621,12 @@
       color-mix(
         in oklch,
         var(--ui-text-strong) var(--ui-border-strength-light),
-        var(--ui-surface-elevated)
+        var(--ui-surface-raised)
       ),
       color-mix(
         in oklch,
         var(--ui-text-strong) var(--ui-border-strength-dark),
-        var(--ui-surface-elevated)
+        var(--ui-surface-raised)
       )
     );
     /* --ui-border-color-raised: var(--ui-border-color); */
@@ -689,8 +689,8 @@
       --ui-palette-border-min-lightness: 0.66;
       --ui-palette-text-max-lightness: 0.35;
       --ui-palette-text-min-lightness: 0.93;
-      --ui-palette-tint-max-lightness: 0.35;
-      --ui-palette-tint-min-lightness: 0.84;
+      --ui-palette-tonal-max-lightness: 0.35;
+      --ui-palette-tonal-min-lightness: 0.84;
       --ui-primary-max-lightness: 0.35;
       --ui-primary-min-lightness: 0.93;
       --ui-state-active-alpha-dark: 20%;
@@ -721,8 +721,8 @@
     --ui-palette-border-min-lightness: 0.66;
     --ui-palette-text-max-lightness: 0.35;
     --ui-palette-text-min-lightness: 0.93;
-    --ui-palette-tint-max-lightness: 0.35;
-    --ui-palette-tint-min-lightness: 0.84;
+    --ui-palette-tonal-max-lightness: 0.35;
+    --ui-palette-tonal-min-lightness: 0.84;
     --ui-primary-max-lightness: 0.35;
     --ui-primary-min-lightness: 0.93;
     --ui-state-active-alpha-dark: 20%;
@@ -773,16 +773,17 @@
           min(c, var(--ui-accent-max-chroma)) h
       )
     );
-    --ui-palette-tint: light-dark(
+    --ui-palette-tonal: light-dark(
       oklch(
-        from var(--ui-color-6) max(l, var(--ui-palette-tint-min-lightness)) c h
+        from var(--ui-color-6) max(l, var(--ui-palette-tonal-min-lightness)) c h
       ),
       oklch(
-        from var(--ui-color-11) min(l, var(--ui-palette-tint-max-lightness)) c h
+        from var(--ui-color-11) min(l, var(--ui-palette-tonal-max-lightness)) c
+          h
       )
     );
-    --ui-palette-on-tint: var(--ui-text-strong);
-    --ui-palette-tint-subtle: light-dark(
+    --ui-palette-on-tonal: var(--ui-text-strong);
+    --ui-palette-tonal-subtle: light-dark(
       oklch(from var(--ui-color-3) l c h / 60%),
       oklch(from var(--ui-color-6) l c h / 5%)
     );

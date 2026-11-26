@@ -67,7 +67,7 @@
     }
 
     &:active:not(:has(input:is(:disabled, [aria-disabled="true"]))) {
-      scale: var(--ui-press-scale, none);
+      scale: var(--ui-state-active-scale, none);
     }
 
     &:has(input:focus-visible) {
@@ -85,7 +85,7 @@
       cursor: not-allowed;
 
       &:has(input:checked) {
-        opacity: var(--ui-disabled-opacity);
+        opacity: var(--ui-state-disabled-opacity);
       }
 
       &:not(:has(input:checked)) {

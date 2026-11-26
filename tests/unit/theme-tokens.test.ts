@@ -287,8 +287,8 @@ describe("theme tokens", () => {
       "--ui-icon-success",
       "--ui-icon-warning",
       "--ui-link-focus",
-      "--ui-surface-elevated-image",
       "--ui-surface-image",
+      "--ui-surface-raised-image",
     ])
   })
 
@@ -495,7 +495,7 @@ describe("component css variables", () => {
     const names = cssVarRows(button).map((row) => row.name)
     expect(names).toContain("--ui-button-radius")
     expect(names).toContain("--ui-button-size")
-    expect(names).toContain("--ui-disabled-opacity")
+    expect(names).toContain("--ui-state-disabled-opacity")
     expect(names).toEqual(names.toSorted())
   })
 })

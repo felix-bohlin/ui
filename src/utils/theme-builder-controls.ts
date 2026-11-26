@@ -425,7 +425,7 @@ export const GROUPS: ControlGroup[] = [
       color(
         "surface-elevated",
         "Raised surface",
-        "--ui-surface-elevated",
+        "--ui-surface-raised",
         "fine",
         { hint: "Cards, menus and dialogs" },
       ),
@@ -484,7 +484,7 @@ export const GROUPS: ControlGroup[] = [
           },
           {
             label: "Raised",
-            tokens: { "--ui-track-bg-color": "var(--ui-surface-elevated)" },
+            tokens: { "--ui-track-bg-color": "var(--ui-surface-raised)" },
             value: "raised",
           },
         ],
@@ -1292,7 +1292,7 @@ export const GROUPS: ControlGroup[] = [
         options: [
           {
             label: "Calm",
-            tokens: revert("--ui-ease-move", "--ui-press-scale"),
+            tokens: revert("--ui-ease-move", "--ui-state-active-scale"),
             value: "calm",
           },
           {
@@ -1300,7 +1300,7 @@ export const GROUPS: ControlGroup[] = [
             tokens: {
               "--ui-ease-move":
                 "linear(0, 0.066, 0.218, 0.4, 0.578, 0.731, 0.852, 0.94, 0.998, 1.031, 1.047, 1.05, 1.046, 1.038, 1.029, 1.02, 1.012, 1.007, 1.002, 1, 1)",
-              "--ui-press-scale": "0.97",
+              "--ui-state-active-scale": "0.97",
             },
             value: "lively",
           },
@@ -1509,7 +1509,7 @@ export const GROUPS: ControlGroup[] = [
         min: 0.4,
         step: 0.01,
         tier: "fine",
-        token: "--ui-disabled-opacity",
+        token: "--ui-state-disabled-opacity",
         unit: "",
       },
       {
@@ -1538,7 +1538,7 @@ export const GROUPS: ControlGroup[] = [
           },
           {
             label: "Raised",
-            tokens: { "--ui-field-bg-color": "var(--ui-surface-elevated)" },
+            tokens: { "--ui-field-bg-color": "var(--ui-surface-raised)" },
             value: "raised",
           },
         ],

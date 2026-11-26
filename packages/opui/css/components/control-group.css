@@ -6,7 +6,7 @@
     --_divider-disabled-border-color: color-mix(
       in oklch,
       var(--_divider-enabled-border-color)
-        calc(var(--ui-disabled-opacity) * 100%),
+        calc(var(--ui-state-disabled-opacity) * 100%),
       transparent
     );
     --_divider-enabled-border-color: var(
@@ -101,11 +101,11 @@
     }
 
     &.ui-critical {
-      --_divider-accent: var(--ui-palette-tint);
+      --_divider-accent: var(--ui-palette-tonal);
     }
 
     &.ui-primary {
-      --_divider-accent: var(--ui-primary-tonal, var(--ui-palette-tint));
+      --_divider-accent: var(--ui-primary-tonal, var(--ui-palette-tonal));
     }
 
     /* button.css > --_accent */

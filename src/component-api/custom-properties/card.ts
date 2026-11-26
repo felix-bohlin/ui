@@ -22,7 +22,7 @@ export default {
   },
   "--_bg-image": {
     description:
-      "The image over the background. `none`, or `--ui-surface-elevated-image` in `.ui-elevated` when a theme sets it.",
+      "The image over the background. `none`, or `--ui-surface-raised-image` in `.ui-elevated` when a theme sets it.",
     kind: "output",
   },
   "--_border-color": {
@@ -51,7 +51,7 @@ export default {
   },
   "--_elevated-bg-color": {
     description:
-      "Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.",
+      "Background of `.ui-elevated`. Defaults to `--ui-surface-raised`.",
     kind: "input",
   },
   "--_elevated-shadow": {

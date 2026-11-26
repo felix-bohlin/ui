@@ -49,11 +49,11 @@
       oklch(from var(--ui-palette-source) 0.975 0.012 calc(h - 5)),
       oklch(from var(--ui-palette-source) 0.2 0.035 calc(h - 47))
     );
-    --ui-surface-elevated: light-dark(
+    --ui-surface-raised: light-dark(
       oklch(1 0 0),
       oklch(from var(--ui-palette-source) 0.255 0.045 calc(h - 43))
     );
-    --ui-surface-elevated-image: linear-gradient(
+    --ui-surface-raised-image: linear-gradient(
       in oklab,
       light-dark(
         oklch(from var(--ui-palette-source) 0.955 0.03 calc(h + 5)),
@@ -116,7 +116,7 @@
     ) {
       --ui-border-color: revert-layer;
       --ui-focus-ring-color: revert-layer;
-      --ui-surface-elevated-image: revert-layer;
+      --ui-surface-raised-image: revert-layer;
       --ui-surface-image: revert-layer;
       --ui-text-subtle: revert-layer;
     }
@@ -125,7 +125,7 @@
   :where(.ui-contrast-more, .ui-contrast-more .ui-palette) {
     --ui-border-color: revert-layer;
     --ui-focus-ring-color: revert-layer;
-    --ui-surface-elevated-image: revert-layer;
+    --ui-surface-raised-image: revert-layer;
     --ui-surface-image: revert-layer;
     --ui-text-subtle: revert-layer;
   }

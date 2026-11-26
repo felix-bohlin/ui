@@ -130,7 +130,6 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Multiplier for the control sizes: `--ui-control-size*`, `--ui-chip-size*`, `--ui-choice-size*` and the `Switch` thumb and track sizes. `0.875` is compact, `1.125` is comfortable. See [Density](/guide/theming#density).",
   "--ui-dialog-radius":
     "Corner radius for `Dialog`. When unset, dialogs follow `--ui-radius`.",
-  "--ui-disabled-opacity": "Opacity applied to disabled controls.",
   "--ui-divider-gap":
     "Block margin around a `Divider`, times `--ui-space-scale`. Cards, callouts, dialogs and drawers set it to `--ui-space-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it.",
   "--ui-duration": "Default transition duration. Multiplied by `--ui-motion`.",
@@ -372,7 +371,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-palette-hue-rotate-by":
     "Hue drift per palette step in degrees: each step rotates one more time than the last, so `1` spreads 15° across the ramp. `.ui-critical`, `.ui-info`, `.ui-success` and `.ui-warning` use `1` for livelier tints; `.ui-neutral` and the brand palette `0`.",
   "--ui-palette-on-strong": "Text color on `--ui-palette-strong`.",
-  "--ui-palette-on-tint": "Text color on `--ui-palette-tint`.",
+  "--ui-palette-on-tonal": "Text color on `--ui-palette-tonal`.",
   "--ui-palette-source":
     "The source color the palette is derived from. A theme leaves it unset, and `palette.css` builds it from `--ui-palette-hue` and `--ui-palette-chroma`: `oklch(58% 0.105 222.8)` by default. Set it to replace those two knobs. Any color works: the palette keeps its oklch hue, scales its chroma and sets the lightness per step. See [Palette](/guide/theming#palette).",
   "--ui-palette-strong":
@@ -383,16 +382,14 @@ export const themeTokenDescriptions: Record<string, string> = {
     "The highest OKLCH lightness of `--ui-palette-text` in light mode. `1`, and `0.35` with more contrast.",
   "--ui-palette-text-min-lightness":
     "The lowest OKLCH lightness of `--ui-palette-text` in dark mode, so it keeps 4.5:1 on every surface. `0.8` like `--ui-text-min-lightness`, and `0.93` with more contrast.",
-  "--ui-palette-tint":
+  "--ui-palette-tonal":
     "The tonal fill of the current palette: primary and critical tonal buttons when `--ui-primary-tonal` is unset. Stronger with more contrast. Re-derived inside every severity scope.",
-  "--ui-palette-tint-max-lightness":
-    "The highest OKLCH lightness of `--ui-palette-tint` in dark mode. `1`, and `0.35` with more contrast.",
-  "--ui-palette-tint-min-lightness":
-    "The lowest OKLCH lightness of `--ui-palette-tint` in light mode. `0`, and `0.84` with more contrast.",
-  "--ui-palette-tint-subtle":
+  "--ui-palette-tonal-max-lightness":
+    "The highest OKLCH lightness of `--ui-palette-tonal` in dark mode. `1`, and `0.35` with more contrast.",
+  "--ui-palette-tonal-min-lightness":
+    "The lowest OKLCH lightness of `--ui-palette-tonal` in light mode. `0`, and `0.84` with more contrast.",
+  "--ui-palette-tonal-subtle":
     "A faint fill of the current palette: tonal severity `Callout`s. Tonal severity `Chip`s read it. Re-derived inside every severity scope.",
-  "--ui-press-scale":
-    "Scale of `Button`, `ToggleButton` and button and link `Chip`s while pressed, over `--ui-duration` with `--ui-ease-move`. Unset, so pressing doesn't scale; `0.97` gives a light press. Buttons in a `ControlGroup` and toggles in a `ToggleGroup` never scale.",
   "--ui-primary":
     "Brand color for primary actions and accents. Derived from `--ui-primary-source` within `--ui-primary-max-lightness` and `--ui-primary-min-lightness`. Set `--ui-primary-source` to keep more contrast working, or this token to pin the color.",
   "--ui-primary-max-lightness":
@@ -404,7 +401,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-primary-text":
     "Primary as a text color: links, rich text links, `Callout` link hover, `Button` and `ControlGroup` with `.ui-primary` and no variant or `.ui-outlined`. Defaults to `--ui-primary` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, and is derived again from the more-contrast primary. Set it when the primary needs another shade for text.",
   "--ui-primary-tonal":
-    "Background of `Button` and `ControlGroup` with `.ui-primary` and `.ui-tonal`, and of a tonal `Avatar`. When unset, they use `--ui-palette-tint`. Material's `primary-container` and shadcn's `secondary` go here.",
+    "Background of `Button` and `ControlGroup` with `.ui-primary` and `.ui-tonal`, and of a tonal `Avatar`. When unset, they use `--ui-palette-tonal`. Material's `primary-container` and shadcn's `secondary` go here.",
   "--ui-radius":
     "Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.",
   "--ui-radius-large":
@@ -469,6 +466,9 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Alpha of the pressed state layer on neutral buttons in dark mode. `30%`, and `20%` with more contrast so the text keeps 7:1.",
   "--ui-state-active-alpha-light":
     "Alpha of the pressed state layer on neutral buttons in light mode.",
+  "--ui-state-active-scale":
+    "Scale of `Button`, `ToggleButton` and button and link `Chip`s while pressed, over `--ui-duration` with `--ui-ease-move`. Unset, so pressing doesn't scale; `0.97` gives a light press. Buttons in a `ControlGroup` and toggles in a `ToggleGroup` never scale.",
+  "--ui-state-disabled-opacity": "Opacity applied to disabled controls.",
   "--ui-state-hover-alpha-accent":
     "Alpha of the hover state layer on primary and critical buttons (on every filled and tonal button with `--ui-button-hover: layer`), hovered `List` rows and critical `Menu` items.",
   "--ui-state-hover-alpha-dark":
@@ -481,16 +481,16 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-success-text":
     "Success as a text color, for success text outside an `.ui-success` scope, and `ins` and `.ui-ins` text. `--ui-success` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
   "--ui-surface": "Page and card background.",
-  "--ui-surface-elevated":
-    "Background of elevated cards and accordions, dialogs, drawers, menus and native select options.",
-  "--ui-surface-elevated-image":
-    "An image, such as a gradient, painted over `--ui-surface-elevated` on elevated cards and accordions, dialogs, drawers, menus and the select picker. `none` when unset. Contrast checks measure text against `--ui-surface-elevated`, so keep the image close to it.",
   "--ui-surface-filled":
     "Background of filled areas: lists, `.ui-filled` progress and range tracks, table headers and footers, and hovered table rows.",
   "--ui-surface-image":
     "An image, such as a gradient, painted over `--ui-surface` on the page (`html`). `none` when unset. It spans the whole page and scrolls with it, so give gradient stops a length to keep a glow at the top. Contrast checks measure text against `--ui-surface`, so keep the image close to it.",
   "--ui-surface-inverse":
     "Background of `Tooltip`, the `Carousel` buttons and `kbd`, `var`, `.ui-kbd` and `.ui-var`, inverted against the page.",
+  "--ui-surface-raised":
+    "Background of elevated cards and accordions, dialogs, drawers, menus and native select options.",
+  "--ui-surface-raised-image":
+    "An image, such as a gradient, painted over `--ui-surface-raised` on elevated cards and accordions, dialogs, drawers, menus and the select picker. `none` when unset. Contrast checks measure text against `--ui-surface-raised`, so keep the image close to it.",
   "--ui-surface-tonal": "Background of tonal variants.",
   "--ui-surface-tonal-hover":
     "Hover fill of a `--ui-surface-tonal` surface: clickable `Chip`s, a filled `Field` and tonal `Button`s with `--ui-button-hover: shade-all`. Derived from `--ui-surface-tonal`, darker in light mode and lighter in dark mode.",

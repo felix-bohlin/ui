@@ -16,7 +16,7 @@
       }
 
       :where(option, optgroup) {
-        background-color: var(--ui-surface-elevated);
+        background-color: var(--ui-surface-raised);
         color: var(--ui-text-strong);
       }
 

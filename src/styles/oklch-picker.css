@@ -44,7 +44,7 @@
   --oklch-l: 0.5;
   --oklch-thumb: 1.25rem;
 
-  background-color: var(--ui-surface-elevated);
+  background-color: var(--ui-surface-raised);
   border: var(--ui-border-width) solid
     var(--ui-border-color-raised, var(--ui-border-color-on-raised));
   border-radius: var(--ui-menu-radius, var(--ui-radius));

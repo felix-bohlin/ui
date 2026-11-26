@@ -8,7 +8,7 @@
     --_border-width: 0;
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease);
-    --_elevated-bg-color: var(--ui-surface-elevated);
+    --_elevated-bg-color: var(--ui-surface-raised);
     --_elevated-shadow: var(--ui-shadow-elevated);
     --_gap: var(--ui-space-3);
     --_media-inline-size: 40%;
@@ -69,7 +69,7 @@
 
     &.ui-elevated {
       --_bg-color: var(--_elevated-bg-color);
-      --_bg-image: var(--ui-surface-elevated-image, none);
+      --_bg-image: var(--ui-surface-raised-image, none);
       --_border-color: var(--ui-border-color-raised, var(--_surface-bg-color));
       --_border-width: var(--ui-border-width);
       --_shadow: var(--_elevated-shadow);

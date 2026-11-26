@@ -13,7 +13,7 @@ const iconSets = Object.keys(ICON_LIBRARIES).toSorted()
 const surfaceRoles = [
   { name: "--ui-surface", note: "The page" },
   {
-    name: "--ui-surface-elevated",
+    name: "--ui-surface-raised",
     note: "Elevated cards and accordions, dialogs, drawers, menus",
   },
   { name: "--ui-surface-tonal", note: "Tonal variants" },
@@ -326,13 +326,13 @@ export const keywords = [
     <h3 id="motion-personality">Springy movement</h3>
     <p>
       Off by default. Set <code>--ui-ease-move</code> and
-      <code>--ui-press-scale</code> to turn them on.
+      <code>--ui-state-active-scale</code> to turn them on.
     </p>
     <Code
       code={`:where(html) {
   --ui-ease-move: linear(0, 0.066, 0.218, 0.4, 0.578, 0.731, 0.852, 0.94, 0.998,
     1.031, 1.047, 1.05, 1.046, 1.038, 1.029, 1.02, 1.012, 1.007, 1.002, 1, 1);
-  --ui-press-scale: 0.97;
+  --ui-state-active-scale: 0.97;
 }`}
       lang="css"
     />

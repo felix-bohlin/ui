@@ -30,7 +30,7 @@
     --ui-choice-size-small: 1.5rem;
     --ui-choice-size-x-small: 1.25rem;
     --ui-critical: oklch(0.558 0.186 25.6);
-    --ui-disabled-opacity: 0.5;
+    --ui-state-disabled-opacity: 0.5;
     --ui-field-border-color: light-dark(oklch(0.153 0 0), oklch(1 0 0));
     --ui-field-border-color-on-filled: var(--ui-field-border-color);
     --ui-field-border-color-on-raised: var(--ui-field-border-color);
@@ -90,7 +90,7 @@
     --ui-space-scale: 1.25;
     --ui-success: oklch(0.514 0.11 161);
     --ui-surface: light-dark(oklch(1 0 0), oklch(0.153 0 0));
-    --ui-surface-elevated: light-dark(oklch(1 0 0), oklch(0.2 0 0));
+    --ui-surface-raised: light-dark(oklch(1 0 0), oklch(0.2 0 0));
     --ui-surface-filled: light-dark(
       oklch(from var(--ui-palette-source) 0.977 0.006 calc(h - 10.1)),
       oklch(from var(--ui-palette-source) 0.22 0.02 calc(h - 4.9))

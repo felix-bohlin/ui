@@ -31,7 +31,7 @@
 .review-toolbar {
   align-items: center;
   backdrop-filter: blur(8px);
-  background-color: oklch(from var(--ui-surface-elevated) l c h / 85%);
+  background-color: oklch(from var(--ui-surface-raised) l c h / 85%);
   border: var(--ui-border-width) solid var(--ui-border-color);
   border-radius: var(--ui-radius-large);
   box-shadow: var(--shadow-2);
@@ -182,7 +182,7 @@
   }
 
   &[data-open] {
-    background-color: var(--ui-surface-elevated);
+    background-color: var(--ui-surface-raised);
   }
 }
 
@@ -358,7 +358,7 @@
 .review-dock {
   align-items: center;
   backdrop-filter: blur(8px);
-  background-color: oklch(from var(--ui-surface-elevated) l c h / 90%);
+  background-color: oklch(from var(--ui-surface-raised) l c h / 90%);
   border: var(--ui-border-width) solid var(--ui-border-color);
   border-radius: var(--ui-radius-round);
   box-shadow: var(--shadow-4);

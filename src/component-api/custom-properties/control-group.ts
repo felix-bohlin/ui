@@ -18,7 +18,7 @@ export default {
   },
   "--_divider-disabled-border-color": {
     description:
-      "`--_divider-enabled-border-color` at `--ui-disabled-opacity`, the line in a group whose buttons are all disabled.",
+      "`--_divider-enabled-border-color` at `--ui-state-disabled-opacity`, the line in a group whose buttons are all disabled.",
     kind: "output",
   },
   "--_divider-enabled-border-color": {

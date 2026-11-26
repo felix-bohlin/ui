@@ -6,8 +6,8 @@ type TokenPromise = {
 
 const SURFACES = [
   "--ui-surface",
-  "--ui-surface-elevated",
   "--ui-surface-filled",
+  "--ui-surface-raised",
   "--ui-surface-tonal",
 ]
 
@@ -103,7 +103,7 @@ export const themeTokenPromises: Record<string, TokenPromise> = {
   "--ui-on-selected-strong": { against: ["--ui-selected-strong"], ratio: 4.5 },
   "--ui-on-warning": { against: ["--ui-warning"], ratio: 4.5 },
   "--ui-palette-on-strong": { against: ["--ui-palette-strong"], ratio: 4.5 },
-  "--ui-palette-on-tint": { against: ["--ui-palette-tint"], ratio: 4.5 },
+  "--ui-palette-on-tonal": { against: ["--ui-palette-tonal"], ratio: 4.5 },
   "--ui-palette-text": { against: SURFACES, ratio: 4.5 },
   "--ui-primary-text": { against: SURFACES, ratio: 4.5 },
   "--ui-selected-strong": { against: ["--ui-surface"], ratio: 3 },

@@ -170,8 +170,8 @@
     &.ui-primary,
     /* Color inherited from Control Group. */
     :where(.ui-control-group.ui-critical, .ui-control-group.ui-primary) > & {
-      --_accent-tonal: var(--ui-palette-tint);
-      --_on-accent-tonal: var(--ui-palette-on-tint);
+      --_accent-tonal: var(--ui-palette-tonal);
+      --_on-accent-tonal: var(--ui-palette-on-tonal);
       --_transparent-active-bg-color: oklch(
         from var(--_accent) l c h / var(--ui-state-active-alpha-accent)
       );
@@ -203,10 +203,13 @@
       --_accent: var(--ui-primary);
       --_accent-filled: var(--_accent);
       --_accent-text: var(--ui-primary-text);
-      --_accent-tonal: var(--ui-primary-tonal, var(--ui-palette-tint));
+      --_accent-tonal: var(--ui-primary-tonal, var(--ui-palette-tonal));
       --_on-accent: var(--ui-on-primary);
       --_on-accent-filled: var(--_on-accent);
-      --_on-accent-tonal: var(--ui-on-primary-tonal, var(--ui-palette-on-tint));
+      --_on-accent-tonal: var(
+        --ui-on-primary-tonal,
+        var(--ui-palette-on-tonal)
+      );
     }
 
     /* Hover & Active */
@@ -232,7 +235,7 @@
       }
 
       &:where(:active) {
-        scale: var(--ui-press-scale, none);
+        scale: var(--ui-state-active-scale, none);
       }
     }
 
@@ -502,7 +505,7 @@
         .ui-tonal,
         :where(.ui-control-group.ui-filled, .ui-control-group.ui-tonal) > *
       ) {
-        opacity: var(--ui-disabled-opacity);
+        opacity: var(--ui-state-disabled-opacity);
       }
 
       &:not(

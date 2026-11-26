@@ -49,7 +49,7 @@
       user-select: none;
 
       & > :where(legend, .ui-legend, .ui-description, .ui-end-text) {
-        opacity: var(--ui-disabled-opacity);
+        opacity: var(--ui-state-disabled-opacity);
       }
 
       button,

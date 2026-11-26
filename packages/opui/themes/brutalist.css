@@ -30,9 +30,9 @@
     --ui-choice-on-accent: var(--ui-on-primary);
     --ui-choice-ripple-bg-color: transparent;
     --ui-choice-size: calc(16px * var(--ui-density));
-    --ui-disabled-opacity: 0.5;
+    --ui-state-disabled-opacity: 0.5;
     --ui-duration-fast: 0.15s;
-    --ui-field-bg-color: var(--ui-surface-elevated);
+    --ui-field-bg-color: var(--ui-surface-raised);
     --ui-field-border-color: var(--ui-border-color);
     --ui-field-border-color-on-filled: var(--ui-border-color);
     --ui-field-border-width: 2px;
@@ -76,7 +76,7 @@
       oklch(from var(--ui-palette-source) 0.92 0.019 calc(h + 6.5)),
       oklch(from var(--ui-palette-source) 0.283 0.019 calc(h + 16.5))
     );
-    --ui-surface-elevated: light-dark(oklch(1 0 0), oklch(0.248 0 0));
+    --ui-surface-raised: light-dark(oklch(1 0 0), oklch(0.248 0 0));
     --ui-surface-filled: light-dark(oklch(1 0 0), oklch(0.248 0 0));
     --ui-surface-inverse: var(--ui-primary);
     --ui-surface-tonal: light-dark(
@@ -87,7 +87,7 @@
     --ui-target-min-size: 0px;
     --ui-text: light-dark(oklch(0 0 0), oklch(0.925 0 0));
     --ui-text-strong: var(--ui-text);
-    --ui-track-bg-color: var(--ui-surface-elevated);
+    --ui-track-bg-color: var(--ui-surface-raised);
     --ui-underline-hover-thickness: auto;
     --ui-icon-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
     --ui-icon-clear: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M4.929 4.929 19.07 19.071'/%3E%3C/svg%3E");

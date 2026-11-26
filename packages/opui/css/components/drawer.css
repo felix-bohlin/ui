@@ -1,8 +1,8 @@
 @layer components.root {
   :where(dialog.ui-drawer) {
     --_motion: var(--ui-motion);
-    --_bg-color: var(--ui-surface-elevated);
-    --_bg-image: var(--ui-surface-elevated-image, none);
+    --_bg-color: var(--ui-surface-raised);
+    --_bg-image: var(--ui-surface-raised-image, none);
     --_block-size: min(80dvb, 650px);
     --_border-color: var(--ui-border-color);
     --_border-width: var(--ui-border-width);

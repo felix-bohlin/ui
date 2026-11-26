@@ -12,12 +12,12 @@ export default {
     kind: "input",
   },
   "--_bg-color": {
-    description: "The background. Defaults to `--ui-surface-elevated`.",
+    description: "The background. Defaults to `--ui-surface-raised`.",
     kind: "input",
   },
   "--_bg-image": {
     description:
-      "The image over the background, such as a gradient. Defaults to `--ui-surface-elevated-image`, `none` unless a theme sets it.",
+      "The image over the background, such as a gradient. Defaults to `--ui-surface-raised-image`, `none` unless a theme sets it.",
     kind: "input",
   },
   "--_block-size": {

@@ -105,7 +105,7 @@
       oklch(from var(--ui-palette-source) 0.984 0.013 calc(h + 28)),
       oklch(from var(--ui-palette-source) 0.187 0.012 calc(h + 6))
     );
-    --ui-surface-elevated: light-dark(
+    --ui-surface-raised: light-dark(
       oklch(from var(--ui-palette-source) 0.967 0.012 calc(h + 19)),
       oklch(from var(--ui-palette-source) 0.227 0.01 calc(h + 10))
     );

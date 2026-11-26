@@ -81,7 +81,7 @@ for (const theme of THEMES) {
         for (const token of [
           "--ui-color-9",
           "--ui-palette-accent",
-          "--ui-palette-tint-subtle",
+          "--ui-palette-tonal-subtle",
         ]) {
           const color = `var(${token}, transparent)`
           const child = await resolveColor(

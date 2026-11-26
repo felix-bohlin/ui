@@ -53,7 +53,7 @@
     &.ui-neutral,
     &.ui-success,
     &.ui-warning {
-      --_bg-color: var(--ui-palette-tint-subtle);
+      --_bg-color: var(--ui-palette-tonal-subtle);
       --_border-color: var(--ui-palette-border);
       --_icon-text-color: var(--ui-palette-accent);
       --_outlined-border-color: var(--ui-palette-accent);

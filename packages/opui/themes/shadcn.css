@@ -34,7 +34,7 @@
     );
     --ui-density: 0.9;
     --ui-dialog-radius: 0.625rem;
-    --ui-disabled-opacity: 0.5;
+    --ui-state-disabled-opacity: 0.5;
     --ui-duration-slow: 0.2s;
     --ui-field-border-color: light-dark(oklch(0.922 0 0), oklch(1 0 0 / 0.15));
     --ui-field-border-color-on-filled: var(--ui-field-border-color);
@@ -89,7 +89,7 @@
     --ui-state-hover-alpha-light: 4%;
     --ui-state-selected-alpha-accent: 8%;
     --ui-surface: light-dark(oklch(1 0 0), oklch(0.145 0 0));
-    --ui-surface-elevated: light-dark(oklch(1 0 0), oklch(0.205 0 0));
+    --ui-surface-raised: light-dark(oklch(1 0 0), oklch(0.205 0 0));
     --ui-surface-filled: light-dark(oklch(1 0 0), oklch(0.205 0 0));
     --ui-surface-inverse: var(--ui-primary);
     --ui-surface-tonal: light-dark(oklch(0.97 0 0), oklch(0.269 0 0));

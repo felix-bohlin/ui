@@ -170,7 +170,7 @@ test("tokens never end in -contrast, and every --ui-on-{fill} has a fill to sit 
 test("the token rules catch -contrast and an on-color without a fill", () => {
   const known = new Set([
     "--ui-brand",
-    "--ui-palette-tint",
+    "--ui-palette-tonal",
     "--ui-surface-inverse",
   ])
   expect(
@@ -180,7 +180,7 @@ test("the token rules catch -contrast and an on-color without a fill", () => {
       "--ui-on-brand",
       "--ui-on-fill",
       "--ui-on-inverse",
-      "--ui-palette-on-tint",
+      "--ui-palette-on-tonal",
     ].map((name) => tokenProblem(name, known)),
   ).toEqual([undefined, undefined, undefined, undefined, undefined, undefined])
   expect(
@@ -192,6 +192,71 @@ test("the token rules catch -contrast and an on-color without a fill", () => {
     expect.stringContaining("never -contrast"),
     expect.stringContaining("needs --ui-tonal or --ui-surface-tonal"),
   ])
+})
+
+const vocabularyProblem = (name: string) => {
+  if (!name.startsWith("--ui-")) return undefined
+  const words = name.slice("--ui-".length).split("-")
+  if (words.includes("elevated") && name !== "--ui-shadow-elevated") {
+    return "elevated only names the variant (--ui-shadow-elevated): a surface above the page is raised"
+  }
+  const synonym = words.find((word) =>
+    ["hovered", "press", "pressed", "tint"].includes(word),
+  )
+  if (synonym) {
+    return `${synonym} is a synonym: one word per concept, so tonal, not tint; active, not press or pressed; hover, not hovered`
+  }
+  if (
+    words.some((word) =>
+      ["active", "disabled", "hover", "selected"].includes(word),
+    ) &&
+    /-(alpha-[a-z]+|opacity|scale)$/.test(name) &&
+    !name.startsWith("--ui-state-")
+  ) {
+    return "a knob that tunes a state across components lives under --ui-state-, and a role takes its state as a suffix"
+  }
+  return undefined
+}
+
+test("tokens use one word per concept", () => {
+  const checked = [...new Set([...names, ...tokens])]
+  expect(
+    checked.filter((name) => name.startsWith("--ui-state-")).length,
+  ).toBeGreaterThan(5)
+  expect(
+    checked
+      .map((name) => [name, vocabularyProblem(name)])
+      .filter(([, message]) => message)
+      .map(([name, message]) => `${name}: ${message}`)
+      .toSorted(),
+  ).toEqual([])
+})
+
+test("samples the vocabulary rule must flag and must keep", () => {
+  expect(
+    [
+      "--ui-surface-elevated",
+      "--ui-palette-tint",
+      "--ui-press-scale",
+      "--ui-button-pressed-bg-color",
+      "--ui-disabled-opacity",
+      "--ui-hover-alpha-light",
+    ].map((name) => vocabularyProblem(name) === undefined),
+  ).toEqual([false, false, false, false, false, false])
+  expect(
+    [
+      "--ui-shadow-elevated",
+      "--ui-surface-raised",
+      "--ui-palette-tonal",
+      "--ui-state-active-scale",
+      "--ui-state-disabled-opacity",
+      "--ui-text-disabled",
+      "--ui-text-disabled-strength",
+      "--ui-surface-tonal-hover",
+      "--ui-underline-hover-thickness",
+      "--_elevated-shadow",
+    ].map(vocabularyProblem),
+  ).toEqual(Array(10).fill(undefined))
 })
 
 const STATE_ENDING = /-(checked|focus|hover)$/

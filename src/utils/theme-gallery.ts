@@ -85,7 +85,7 @@ export const GALLERY: GalleryEntry[] = [
           "light-dark(oklch(0.55 0.18 340 / 12%), oklch(0.05 0.04 300 / 60%))",
         "--ui-surface":
           "light-dark(oklch(0.97 0.015 330), oklch(0.21 0.035 290))",
-        "--ui-surface-elevated":
+        "--ui-surface-raised":
           "light-dark(oklch(1 0 0), oklch(0.26 0.045 292))",
         "--ui-surface-tonal":
           "light-dark(oklch(0.93 0.035 330), oklch(0.32 0.06 300))",

@@ -268,7 +268,7 @@ export const whatsNew = {
     ),
     `<a href="#keyboard">Keyboard hints</a> use <code>--ui-line-height-tight</code> (1.25), shared with card captions and tooltips.`,
     `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of <code>--border-size-1</code>.`,
-    `Themes can shrink a button while it's pressed with <a href="#api"><code>--ui-press-scale</code></a>, eased by <code>--ui-ease-move</code>. Buttons in a group never scale.`,
+    `Themes can shrink a button while it's pressed with <a href="#api"><code>--ui-state-active-scale</code></a>, eased by <code>--ui-ease-move</code>. Buttons in a group never scale.`,
     `Buttons only show <a href="#variants">hover styles</a> on devices that can hover, so they no longer stick after a tap.`,
   ],
   callout: [
@@ -547,7 +547,7 @@ export const whatsNew = {
     `Corners are <a href="#api"><code>--ui-radius</code></a> (8px) instead of Open Props <code>--radius-2</code> (5px).`,
     `<a href="#button">Button</a> and <a href="#link">link</a> chips only show hover styles on devices that can hover, so they no longer stick after a tap.`,
     `<a href="#button">Button and link chips</a> fade their hover and <a href="#pressed">pressed</a> colors, like buttons.`,
-    `Themes can shrink a button or link chip while it's pressed with <a href="#api"><code>--ui-press-scale</code></a>.`,
+    `Themes can shrink a button or link chip while it's pressed with <a href="#api"><code>--ui-state-active-scale</code></a>.`,
   ],
   "control-group": [
     {
@@ -793,7 +793,7 @@ export const whatsNew = {
     `The drawer shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with menus and select pickers. Padding reads the <code>--ui-space-*</code> scale.`,
     `Content padding is <code>--ui-space-3</code>, like the header and the footer (<a href="#basics">Basics</a>).`,
     `The scroll shadow reads <a href="#api"><code>--ui-shadow-scroll</code></a>.`,
-    `The panel sits on <a href="#api"><code>--ui-surface-elevated</code></a>, like Dialog and Menu.`,
+    `The panel sits on <a href="#api"><code>--ui-surface-raised</code></a>, like Dialog and Menu.`,
     components(
       `<code>DrawerTitle</code> warns in development when the drawer's generated id replaces its own <code>id</code>. Pass <code>aria-labelledby</code> on the <code>Drawer</code> to keep it (<a href="#api">API</a>).`,
     ),
@@ -1223,7 +1223,7 @@ export const whatsNew = {
       html: `Breaking: the root is <code>&lt;div class="ui-field"&gt;</code>, shared with every field, and the options go in the <a href="#select"><code>&lt;select&gt;</code></a> after its <code>&lt;button&gt;</code>, without <code>.ui-list</code>.`,
     },
     `The <a href="#preselected">selected option</a> gets a check at the end, from <code>--ui-icon-check</code>, and reads <code>--ui-selected</code> and <code>--ui-on-selected</code> when a theme sets them.`,
-    `The <a href="#select">picker</a> is <code>--ui-surface-elevated</code> with the raised edge and <code>--ui-shadow-overlay</code>, like menus.`,
+    `The <a href="#select">picker</a> is <code>--ui-surface-raised</code> with the raised edge and <code>--ui-shadow-overlay</code>, like menus.`,
     `Helper text reads <a href="#api"><code>--ui-text-subtle</code></a>, options <code>--ui-list-item-padding-inline</code>.`,
     `<a href="#optgroup"><code>&lt;optgroup&gt;</code></a> groups take a <code>&lt;legend&gt;</code> heading, and <a href="#option-groups">group labels</a> a shade of the picker's surface and <code>--ui-text</code>.`,
     `The <a href="#select">arrow</a> is a chevron that flips when the picker opens.`,
@@ -1560,7 +1560,7 @@ export const whatsNew = {
     `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
     `<code>ToggleGroup</code> styles sit in the <code>components.extended</code> layer, like <code>ControlGroup</code> (<a href="#toggle-group">Toggle group</a>).`,
     `<a href="#toggle-button">Toggle buttons</a> fade their hover and selected colors, like buttons, also in a <a href="#toggle-group">group</a>.`,
-    `Themes can shrink a <a href="#toggle-button">toggle button</a> while it's pressed with <code>--ui-press-scale</code>, except in a group.`,
+    `Themes can shrink a <a href="#toggle-button">toggle button</a> while it's pressed with <code>--ui-state-active-scale</code>, except in a group.`,
   ],
   tooltip: [
     {

@@ -63,7 +63,7 @@
       }
 
       &:active {
-        scale: var(--ui-press-scale, none);
+        scale: var(--ui-state-active-scale, none);
       }
     }
 
@@ -71,7 +71,7 @@
       --_dot-bg-color: var(--ui-palette-accent);
 
       &:where(:not(.ui-outlined)) {
-        --_bg-color: var(--ui-palette-tint-subtle);
+        --_bg-color: var(--ui-palette-tonal-subtle);
         --_border-color: var(--ui-palette-border);
         --_text-color: var(--ui-palette-strong);
 
@@ -172,7 +172,7 @@
       cursor: not-allowed;
 
       &:not(.ui-outlined) {
-        opacity: var(--ui-disabled-opacity);
+        opacity: var(--ui-state-disabled-opacity);
       }
 
       &.ui-outlined {
@@ -191,7 +191,7 @@
       --_text-color: var(--ui-text-strong);
 
       cursor: auto;
-      opacity: var(--ui-disabled-opacity);
+      opacity: var(--ui-state-disabled-opacity);
 
       @container style(--ui-contrast: more) {
         --_text-color: var(--ui-text);
@@ -225,7 +225,7 @@
       }
 
       &:is(:disabled, [aria-disabled="true"]) {
-        opacity: var(--ui-disabled-opacity);
+        opacity: var(--ui-state-disabled-opacity);
       }
 
       @media (forced-colors: active) {

@@ -30,7 +30,7 @@
     --ui-critical: oklch(0.592 0.202 21.2);
     --ui-density: 0.95;
     --ui-dialog-radius: 0.5rem;
-    --ui-disabled-opacity: 0.65;
+    --ui-state-disabled-opacity: 0.65;
     --ui-field-border-color: light-dark(
       oklch(0.91 0.007 248),
       oklch(0.428 0.015 248)
@@ -82,7 +82,7 @@
     --ui-shadow-selected: none;
     --ui-success: oklch(0.552 0.1234 157);
     --ui-surface: light-dark(oklch(1 0 0), oklch(0.262 0.01 248));
-    --ui-surface-elevated: light-dark(oklch(1 0 0), oklch(0.306 0.011 248));
+    --ui-surface-raised: light-dark(oklch(1 0 0), oklch(0.306 0.011 248));
     --ui-surface-filled: light-dark(
       oklch(0.942 0.005 248),
       oklch(0.345 0.013 248)
@@ -120,7 +120,7 @@
       oklch(0.73 0.123 15)
     );
     --ui-palette-text: light-dark(oklch(0.312 0.098 19), oklch(0.73 0.123 15));
-    --ui-palette-tint-subtle: light-dark(
+    --ui-palette-tonal-subtle: light-dark(
       oklch(0.907 0.037 12),
       oklch(0.207 0.055 18)
     );
@@ -140,7 +140,7 @@
       oklch(0.401 0.0695 216),
       oklch(0.846 0.1074 213)
     );
-    --ui-palette-tint-subtle: light-dark(
+    --ui-palette-tonal-subtle: light-dark(
       oklch(0.943 0.04 212),
       oklch(0.256 0.043 216)
     );
@@ -160,7 +160,7 @@
       oklch(0.302 0.008 240),
       oklch(0.742 0.009 248)
     );
-    --ui-palette-tint-subtle: light-dark(
+    --ui-palette-tonal-subtle: light-dark(
       oklch(0.916 0.003 265),
       oklch(0.204 0.004 265)
     );
@@ -180,7 +180,7 @@
       oklch(0.297 0.06 159),
       oklch(0.726 0.082 163)
     );
-    --ui-palette-tint-subtle: light-dark(
+    --ui-palette-tonal-subtle: light-dark(
       oklch(0.91 0.027 167),
       oklch(0.2 0.035 162)
     );
@@ -200,7 +200,7 @@
       oklch(0.435 0.0876 87),
       oklch(0.898 0.1366 91)
     );
-    --ui-palette-tint-subtle: light-dark(
+    --ui-palette-tonal-subtle: light-dark(
       oklch(0.964 0.051 93),
       oklch(0.28 0.056 91)
     );
@@ -234,7 +234,7 @@
       --ui-palette-border: revert-layer;
       --ui-palette-strong: revert-layer;
       --ui-palette-text: revert-layer;
-      --ui-palette-tint-subtle: revert-layer;
+      --ui-palette-tonal-subtle: revert-layer;
     }
   }
 
@@ -244,6 +244,6 @@
     --ui-palette-border: revert-layer;
     --ui-palette-strong: revert-layer;
     --ui-palette-text: revert-layer;
-    --ui-palette-tint-subtle: revert-layer;
+    --ui-palette-tonal-subtle: revert-layer;
   }
 }

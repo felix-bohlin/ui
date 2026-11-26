@@ -15,7 +15,7 @@ A theme sets [knobs and roles](https://opui.dev/html/guide/concepts.md#token-tie
 3. Roles
 
    - `--ui-primary` Filled buttons, links, checked controls
-   - `--ui-palette-tint` Tonal fills
+   - `--ui-palette-tonal` Tonal fills
    - `--ui-palette-text` Tinted text
    - `--ui-palette-border` Tinted borders
 
@@ -61,7 +61,7 @@ A scope class re-themes an element and everything inside it:
 ## Surfaces
 
 - `--ui-surface` The page
-- `--ui-surface-elevated` Elevated cards and accordions, dialogs, drawers, menus
+- `--ui-surface-raised` Elevated cards and accordions, dialogs, drawers, menus
 - `--ui-surface-tonal` Tonal variants
 - `--ui-surface-filled` Lists, tracks, table headers
 - `--ui-surface-inverse` Tooltips
@@ -211,13 +211,13 @@ Use `--_motion` on one component:
 
 ### Springy movement
 
-Off by default. Set `--ui-ease-move` and `--ui-press-scale` to turn them on.
+Off by default. Set `--ui-ease-move` and `--ui-state-active-scale` to turn them on.
 
 ```css
 :where(html) {
   --ui-ease-move: linear(0, 0.066, 0.218, 0.4, 0.578, 0.731, 0.852, 0.94, 0.998,
     1.031, 1.047, 1.05, 1.046, 1.038, 1.029, 1.02, 1.012, 1.007, 1.002, 1, 1);
-  --ui-press-scale: 0.97;
+  --ui-state-active-scale: 0.97;
 }
 ```
 

@@ -4735,7 +4735,7 @@
     "id": "api-description-list-solid",
     "title": "Description list API",
     "description": "Reference for Description list Solid component.",
-    "api": "DescriptionList Container element. Groups a term with its description. The term. The description. leader The style of the leader, the line between the term and the description. Without it, there's no line. orientation The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.",
+    "api": "DescriptionList Container element. Groups a term with its description. The term. The description. leader The style of the leader, the line between the term and the description. Without it, there's no line. orientation The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width, and `vertical` always stacks them.",
     "category": "API",
     "url": "/solid/api/#description-list"
   },

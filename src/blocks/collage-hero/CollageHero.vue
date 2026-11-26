@@ -1,5 +1,14 @@
 <script setup lang="ts">
-import { Button, Card, CardContent, Stat } from "opui-css/vue"
+import {
+  Button,
+  Card,
+  CardContent,
+  DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm,
+  Stat,
+} from "opui-css/vue"
 </script>
 
 <template>
@@ -29,20 +38,34 @@ import { Button, Card, CardContent, Stat } from "opui-css/vue"
             How it works
           </Button>
         </div>
-        <dl class="ui-layout-row" style="--_gap: var(--ui-space-7)">
-          <div>
-            <dt class="ui-caption">Cabins</dt>
-            <dd class="ui-h4">38</dd>
-          </div>
-          <div>
-            <dt class="ui-caption">Bands hosted</dt>
-            <dd class="ui-h4">1 240</dd>
-          </div>
-          <div>
-            <dt class="ui-caption">Noise complaints</dt>
-            <dd class="ui-h4">0</dd>
-          </div>
-        </dl>
+        <DescriptionList
+          class="ui-layout-row"
+          orientation="vertical"
+          style="--_gap: var(--ui-space-7)"
+        >
+          <DescriptionListItem>
+            <DescriptionListTerm class="ui-caption">Cabins</DescriptionListTerm>
+            <DescriptionListDescription class="ui-h4"
+              >38</DescriptionListDescription
+            >
+          </DescriptionListItem>
+          <DescriptionListItem>
+            <DescriptionListTerm class="ui-caption"
+              >Bands hosted</DescriptionListTerm
+            >
+            <DescriptionListDescription class="ui-h4"
+              >1 240</DescriptionListDescription
+            >
+          </DescriptionListItem>
+          <DescriptionListItem>
+            <DescriptionListTerm class="ui-caption"
+              >Noise complaints</DescriptionListTerm
+            >
+            <DescriptionListDescription class="ui-h4"
+              >0</DescriptionListDescription
+            >
+          </DescriptionListItem>
+        </DescriptionList>
       </div>
       <div class="collage">
         <div

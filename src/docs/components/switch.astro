@@ -1,5 +1,6 @@
 ---
 import FieldGroupNotes from "./partials/FieldGroupNotes.astro"
+import VueTrueValueCallout from "./partials/VueTrueValueCallout.astro"
 import LabelAlignment from "./partials/LabelAlignment.astro"
 import Component from "../../layouts/Component.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
@@ -100,6 +101,7 @@ export const keywords = ["on off", "toggle"]
   <section id="basics">
     <h2>Basics</h2>
     <AutoExample name="Basics" row />
+    <VueTrueValueCallout component="Switch" />
   </section>
 
   <section id="sizes">

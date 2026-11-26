@@ -17,7 +17,7 @@ A list of terms and their values, like order details or totals.
 ### Props and modifiers
 
 - `leader`: `"dotted"` (`.ui-leader-dotted`), `"solid"` (`.ui-leader-solid`). The style of the leader, the line between the term and the description. Without it, there's no line.
-- `orientation`: `"auto"` (default), `"horizontal"` (`.ui-horizontal`). The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.
+- `orientation`: `"auto"` (default), `"horizontal"` (`.ui-horizontal`), `"vertical"` (`.ui-vertical`). The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width, and `vertical` always stacks them.
 
 ### Slots
 

@@ -617,8 +617,8 @@ export const whatsNew = {
       vue: `Breaking: <code>Description</code> is now <a href="#api"><code>DescriptionListDescription</code></a>, like Astro.`,
     },
     {
-      default: `<a href="#orientation">Orientation</a>: <code>orientation="horizontal"</code> keeps terms and descriptions side by side at any width.`,
-      html: `<a href="#orientation">Orientation</a>: <code>.ui-horizontal</code> keeps terms and descriptions side by side at any width.`,
+      default: `<a href="#orientation">Orientation</a>: <code>orientation="horizontal"</code> keeps terms and descriptions side by side at any width, and <code>orientation="vertical"</code> always stacks them, in columns with <code>.ui-layout-grid</code>.`,
+      html: `<a href="#orientation">Orientation</a>: <code>.ui-horizontal</code> keeps terms and descriptions side by side at any width, and <code>.ui-vertical</code> always stacks them, in columns with <code>.ui-layout-grid</code>.`,
     },
     {
       ...slots(

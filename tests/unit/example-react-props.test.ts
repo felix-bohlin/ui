@@ -414,8 +414,8 @@ describe("the Astro prop types", () => {
   test("a list prop gives the kinds of its items' fields, and a missing type gives nothing", () => {
     const items = astroPropsOf("Menu", "Props")?.get("items")
     expect(items?.kinds).toEqual(new Set(["other"]))
-    expect(items?.fields.get("label")).toEqual(new Set(["string"]))
-    expect(items?.fields.get("disabled")).toEqual(new Set(["boolean"]))
+    expect(items?.list.fields.get("label")).toEqual(new Set(["string"]))
+    expect(items?.list.fields.get("disabled")).toEqual(new Set(["boolean"]))
     expect(astroPropsOf("Menu", "Missing")).toBeUndefined()
   })
 
@@ -425,7 +425,7 @@ describe("the Astro prop types", () => {
     expect(tabs?.get("orientation")?.nullable).toBe(false)
   })
 
-  test("a prop type gives how deep its values nest, its fields and whether it takes null", () => {
+  test("a prop type gives how deep its values nest, its fields, its lists and whether it takes null", () => {
     const shapes = shapesOfSource(
       [
         "type Tree = { children?: Tree[]; label: string }",
@@ -433,6 +433,7 @@ describe("the Astro prop types", () => {
         "  anything: any",
         "  constrained: S",
         "  generic: T",
+        "  group: { ids: string[]; stars: (number | undefined)[] }",
         "  items?: { label: string; meta: { count: number } }[]",
         "  label?: string | null",
         "  nullish: N",
@@ -449,6 +450,7 @@ describe("the Astro prop types", () => {
       anything: true,
       constrained: false,
       generic: true,
+      group: false,
       items: false,
       label: true,
       nullish: true,
@@ -461,6 +463,7 @@ describe("the Astro prop types", () => {
       anything: Infinity,
       constrained: 0,
       generic: Infinity,
+      group: 2,
       items: 3,
       label: 0,
       nullish: 0,
@@ -469,13 +472,27 @@ describe("the Astro prop types", () => {
       style: 1,
       tree: Infinity,
     })
-    expect(shapes.get("items")?.fields).toEqual(
-      new Map([
+    expect(shapes.get("items")?.list).toEqual({
+      defined: true,
+      fields: new Map([
         ["label", new Set(["string"])],
         ["meta", new Set(["other"])],
       ]),
-    )
+      items: new Set(["other"]),
+    })
     expect(shapes.get("items")?.members).toEqual(new Map())
+    expect(shapes.get("group")?.lists).toEqual(
+      new Map([
+        [
+          "ids",
+          { defined: true, fields: new Map(), items: new Set(["string"]) },
+        ],
+        [
+          "stars",
+          { defined: false, fields: new Map(), items: new Set(["number"]) },
+        ],
+      ]),
+    )
     expect(shapes.get("style")?.members).toEqual(
       new Map([
         ["color", new Set(["string"])],
@@ -491,13 +508,13 @@ describe("the Astro prop types", () => {
       { file: "group.ts", name: "toggleInGroup" },
     ])
     expect(returns.get("pillsOf")?.kinds).toEqual(new Set(["other"]))
-    expect(returns.get("pillsOf")?.fields.get("label")).toEqual(
+    expect(returns.get("pillsOf")?.list.fields.get("label")).toEqual(
       new Set(["string"]),
     )
-    expect(returns.get("pillsOf")?.fields.get("checked")).toEqual(
+    expect(returns.get("pillsOf")?.list.fields.get("checked")).toEqual(
       new Set(["boolean"]),
     )
     expect(returns.get("defined")?.kinds).toEqual(new Set(["other"]))
-    expect(returns.get("toggleInGroup")?.fields).toEqual(new Map())
+    expect(returns.get("toggleInGroup")?.list.fields).toEqual(new Map())
   })
 })

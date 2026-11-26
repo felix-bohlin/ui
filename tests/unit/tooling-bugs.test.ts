@@ -128,6 +128,34 @@ describe("tooling bugs the generator and the components work around", () => {
     ).toBe("Hint")
   })
 
+  test("Vue's server renderer checks a v-model checkbox whose model holds its false-value", async () => {
+    const { code } = compileTemplate({
+      compilerOptions: { mode: "function" },
+      filename: "Box.vue",
+      id: "box",
+      source:
+        '<input type="checkbox" v-bind="attrs" v-model="model" true-value="yes" false-value="no">',
+      ssr: true,
+      ssrCssVars: [],
+    })
+    const modules: Record<string, unknown> = {
+      vue: await import("vue"),
+      "vue/server-renderer": await import("vue/server-renderer"),
+    }
+    const ssrRender = new Function("require", code)((id: string) => modules[id])
+    const { createSSRApp } = await import("vue")
+    const { renderToString } = await import("vue/server-renderer")
+    const html = await renderToString(
+      createSSRApp({ data: () => ({ attrs: {}, model: "no" }), ssrRender }),
+    )
+    expect(
+      html,
+      fixed(
+        "the Vue callout in src/docs/components/partials/VueTrueValueCallout.astro and its uses on the Checkbox, Switch and Toggle pages, which warn that a true-value model renders checked on the server (vuejs/core#15973)",
+      ),
+    ).toContain(" checked")
+  })
+
   test("Astro's dev CSS collector compiles the files behind ?raw imports", () => {
     const source = readFileSync(
       createRequire(

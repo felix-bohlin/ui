@@ -440,7 +440,9 @@ for (const framework of FRAMEWORK_IDS) {
       )
       .toBe(shown)
     if (framework === "html") expect(shown).not.toContain("import ")
-    else expect(shown).toContain(`from "opui-css/${framework}"`)
+    else if (framework === "nunjucks") {
+      expect(shown).toContain('{% from "opui/index.njk" import Button %}')
+    } else expect(shown).toContain(`from "opui-css/${framework}"`)
   })
 }
 

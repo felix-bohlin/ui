@@ -13,11 +13,12 @@ import DocLink from "../../../components/DocLink.astro"
 import ScriptTable from "../../../components/ScriptTable.astro"
 import CssFiles from "./partials/CssFiles.astro"
 import InstallCommand from "./partials/InstallCommand.astro"
+import { npmTag } from "../../../utils/release"
 import NextSteps from "./partials/NextSteps.astro"
 import PickAndChoose from "./partials/PickAndChoose.astro"
 import QuickStart from "./partials/QuickStart.astro"
 
-const cdn = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css" />`
+const cdn = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opui-css@${npmTag}/dist/opui.css" />`
 
 const installs = [
   {
@@ -97,12 +98,12 @@ export const keywords = ["cdn", "install", "npm", "setup"]
   <section id="manual-setup">
     <h2>Install manually</h2>
     <p>
-      No build step needed. Download the package (<code>npm pack opui-css</code
-      >, or browse it on
+      No build step needed. Download the package
+      (<code>{`npm pack opui-css@${npmTag}`}</code>, or browse it on
       <a
         class="ui-link"
         target="_blank"
-        href="https://cdn.jsdelivr.net/npm/opui-css@6/"
+        href={`https://cdn.jsdelivr.net/npm/opui-css@${npmTag}/`}
         >jsDelivr</a
       >) as <code>opui</code>, and import the files:
     </p>
@@ -202,7 +203,7 @@ export const keywords = ["cdn", "install", "npm", "setup"]
     <p>Without a bundler, add this import map to the <code>head</code>:</p>
     <Code
       code={`<script type="importmap">
-  { "imports": { "opui-css/": "https://cdn.jsdelivr.net/npm/opui-css@6/" } }
+  { "imports": { "opui-css/": "https://cdn.jsdelivr.net/npm/opui-css@${npmTag}/" } }
 </script>`}
       lang="html"
     />

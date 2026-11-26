@@ -7,6 +7,7 @@ import Example from "../../components/Example/index"
 import LayerStack from "../../components/LayerStack.astro"
 import ScriptTable from "../../components/ScriptTable.astro"
 import TokenTiers from "../../components/TokenTiers.astro"
+import { npmTag } from "../../utils/release"
 
 export const keywords = [
   "architecture",
@@ -386,8 +387,8 @@ export const keywords = [
         {
           title: "CDN",
           code: `<script type="module">
-  import "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/checkbox.js"
-  import "https://cdn.jsdelivr.net/npm/opui-css@6/elements/step-button.js"
+  import "https://cdn.jsdelivr.net/npm/opui-css@${npmTag}/css/js/checkbox.js"
+  import "https://cdn.jsdelivr.net/npm/opui-css@${npmTag}/elements/step-button.js"
 </script>`,
           lang: "html",
         },

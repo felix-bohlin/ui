@@ -3,6 +3,8 @@ import {
   Accordion,
   AccordionContent,
   AccordionSummary,
+  Breadcrumb,
+  BreadcrumbItem,
   Button,
   Card,
   Carousel,
@@ -26,28 +28,12 @@ export default function ProductDetail() {
   return (
     <>
       <div class="product-detail ui-layout-container ui-layout-column ui-gap-large">
-        <nav aria-label="Breadcrumb" class="pd-breadcrumb">
-          <ol class="ui-layout-row ui-gap-small">
-            <li>
-              <a class="ui-link" href="#product-detail-shop">
-                Shop
-              </a>
-            </li>
-            <li>
-              <a class="ui-link" href="#product-detail-gear">
-                Gear
-              </a>
-            </li>
-            <li>
-              <a class="ui-link" href="#product-detail-gig-bags">
-                Gig bags
-              </a>
-            </li>
-            <li>
-              <span aria-current="page">Comfy Cloud Gig Bag</span>
-            </li>
-          </ol>
-        </nav>
+        <Breadcrumb aria-label="Breadcrumb">
+          <BreadcrumbItem href="#product-detail-shop" label="Shop" />
+          <BreadcrumbItem href="#product-detail-gear" label="Gear" />
+          <BreadcrumbItem href="#product-detail-gig-bags" label="Gig bags" />
+          <BreadcrumbItem current label="Comfy Cloud Gig Bag" />
+        </Breadcrumb>
         <div class="ui-layout-columns" style="--_gap: var(--ui-space-6)">
           <div class="ui-sticky pd-gallery">
             <Carousel aria-label="Product images" markers tabindex="0">
@@ -317,11 +303,6 @@ export default function ProductDetail() {
       </div>
       <style>{`
         .product-detail {
-          .pd-breadcrumb li + li::before {
-            content: "/";
-            margin-inline-end: var(--ui-space-2);
-          }
-
           .pd-gallery {
             position: relative;
           }

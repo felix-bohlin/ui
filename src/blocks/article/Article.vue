@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {
   Avatar,
+  Breadcrumb,
+  BreadcrumbItem,
   Button,
   Callout,
   CalloutContent,
@@ -18,13 +20,11 @@ import {
     class="article ui-layout-container ui-layout-column"
     style="--_gap: var(--ui-space-6); --_max-inline-size: 68rem"
   >
-    <nav aria-label="Breadcrumb" class="article-breadcrumb ui-caption">
-      <ol class="ui-layout-row ui-gap-small">
-        <li><a class="ui-link" href="#article-magazine">Magazine</a></li>
-        <li><a class="ui-link" href="#article-gear">Gear Talk</a></li>
-        <li><span aria-current="page">Flatwounds or roundwounds?</span></li>
-      </ol>
-    </nav>
+    <Breadcrumb aria-label="Breadcrumb" size="small">
+      <BreadcrumbItem href="#article-magazine" label="Magazine" />
+      <BreadcrumbItem href="#article-gear" label="Gear Talk" />
+      <BreadcrumbItem current label="Flatwounds or roundwounds?" />
+    </Breadcrumb>
     <header class="article-header ui-layout-column">
       <Chip as="span" label="Gear Talk" size="small" />
       <h1 class="article-title" id="article-title">
@@ -178,11 +178,6 @@ import {
 <style>
 .article {
   container-type: inline-size;
-
-  .article-breadcrumb li + li::before {
-    content: "/";
-    margin-inline-end: var(--ui-space-2);
-  }
 
   .article-header {
     align-items: start;

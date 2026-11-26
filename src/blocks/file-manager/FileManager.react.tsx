@@ -1,4 +1,6 @@
 import {
+  Breadcrumb,
+  BreadcrumbItem,
   Button,
   Card,
   CardActions,
@@ -23,24 +25,14 @@ export default function FileManager() {
       >
         <div className="ui-layout-row ui-spread">
           <div className="ui-layout-column ui-gap-x-small">
-            <nav aria-label="Breadcrumb" className="files-breadcrumb">
-              <ol className="ui-layout-row ui-gap-x-small">
-                <li>
-                  <a className="ui-link" href="#file-manager-root">
-                    My stuff
-                  </a>
-                </li>
-                <li>
-                  {" "}
-                  <a className="ui-link" href="#file-manager-albums">
-                    Photo albums
-                  </a>
-                </li>
-                <li>
-                  <span aria-current="page">Gig pics</span>
-                </li>
-              </ol>
-            </nav>
+            <Breadcrumb aria-label="Breadcrumb" size="small">
+              <BreadcrumbItem href="#file-manager-root" label="My stuff" />
+              <BreadcrumbItem
+                href="#file-manager-albums"
+                label="Photo albums"
+              />
+              <BreadcrumbItem current label="Gig pics" />
+            </Breadcrumb>
             <h1 className="ui-h3">Gig pics</h1>
           </div>
           <div className="ui-layout-row ui-gap-small">
@@ -623,16 +615,6 @@ export default function FileManager() {
       <style>{`
         .file-manager {
           container-type: inline-size;
-
-          .files-breadcrumb ol {
-            font-size: var(--ui-font-size-caption);
-
-            li + li::before {
-              color: var(--ui-text);
-              content: "/";
-              margin-inline-end: var(--ui-space-1);
-            }
-          }
 
           .files-breakdown li > span:last-child {
             margin-inline-start: auto;

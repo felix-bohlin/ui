@@ -20,8 +20,7 @@ defineSlots<Slots>()
       v-bind="item"
     >
       <p v-if="description">{{ description }}</p> </TimelineItem
-    >{{
-      " "
+    >{{ " "
     }}<slot></slot>
   </ol>
 </template>

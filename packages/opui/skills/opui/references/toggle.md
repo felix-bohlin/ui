@@ -50,7 +50,7 @@ Model: `value` (`string | string[]`), the value of the checked button, or the va
 - `disabled`: `boolean`, `input[aria-disabled="true"]`, `input[disabled]`. Dims the button and skips it with Tab and the arrow keys. `aria-disabled="true"` looks the same, but keeps the button focusable and its value in the form, and doesn't stop the change, so block it with a script.
 - `id`: `string`. The id of the `<input>`.
 - `label`: `string`. The button text when there is no child content.
-- `name`: `string`. The name of the input. Falls back to the `ToggleGroup`'s name, then to a `FieldGroup`'s.
+- `name`: `string`. The name of the input. Falls back to the `ToggleGroup`'s name.
 - `required`: `boolean`. The form won't submit until it's checked. A `ToggleGroup` without `multiple` needs it on one button only.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
 - `type`: `"checkbox"` (`input[type="checkbox"]`, default), `"radio"` (`input[type="radio"]`). The input type. `radio` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio.

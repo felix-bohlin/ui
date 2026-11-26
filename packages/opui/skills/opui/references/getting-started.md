@@ -641,7 +641,7 @@ A choice the user makes before the page hydrates stays on screen. The form contr
 
 - **70** of 72 need no hydration
 - **2** hydrate for `indeterminate`
-- **44** are Server Components
+- **47** are Server Components
 
 | Component | Client | Server | Server Component | Needs hydration |
 | --- | --- | --- | --- | --- |
@@ -675,7 +675,7 @@ A choice the user makes before the page hydrates stays on screen. The form contr
 | [`DrawerHeader`](https://opui.dev/react/components/drawer.md) | Yes | Yes | No | - |
 | [`Field`](https://opui.dev/react/components/field.md) | Yes | Yes | Yes | - |
 | [`FieldDescription`](https://opui.dev/react/components/form.md) | Yes | Yes | Yes | - |
-| [`FieldGroup`](https://opui.dev/react/components/form.md) | Yes | Yes | No | - |
+| [`FieldGroup`](https://opui.dev/react/components/form.md) | Yes | Yes | Yes | - |
 | [`FieldLegend`](https://opui.dev/react/components/form.md) | Yes | Yes | No | - |
 | [`Fieldset`](https://opui.dev/react/components/form.md) | Yes | Yes | No | - |
 | [`FileUpload`](https://opui.dev/react/components/file-upload.md) | Yes | Yes | No | - |
@@ -690,7 +690,7 @@ A choice the user makes before the page hydrates stays on screen. The form contr
 | [`PasswordToggle`](https://opui.dev/react/components/text-field.md) | Yes | Yes | No | - |
 | [`Progress`](https://opui.dev/react/components/progress.md) | Yes | Yes | Yes | - |
 | [`Radio`](https://opui.dev/react/components/radio.md) | Yes | Yes | Yes | - |
-| [`RadioInput`](https://opui.dev/react/components/radio.md) | Yes | Yes | No | - |
+| [`RadioInput`](https://opui.dev/react/components/radio.md) | Yes | Yes | Yes | - |
 | [`Rating`](https://opui.dev/react/components/rating.md) | Yes | Yes | No | - |
 | [`Reactions`](https://opui.dev/react/components/message.md) | Yes | Yes | No | - |
 | [`SelectAll`](https://opui.dev/react/components/checkbox.md) | Yes | Yes | No | - |
@@ -701,7 +701,7 @@ A choice the user makes before the page hydrates stays on screen. The form contr
 | [`Stepper`](https://opui.dev/react/components/stepper.md) | Yes | Yes | Yes | - |
 | [`StepperItem`](https://opui.dev/react/components/stepper.md) | Yes | Yes | Yes | - |
 | [`Switch`](https://opui.dev/react/components/switch.md) | Yes | Yes | Yes | - |
-| [`SwitchInput`](https://opui.dev/react/components/switch.md) | Yes | Yes | No | - |
+| [`SwitchInput`](https://opui.dev/react/components/switch.md) | Yes | Yes | Yes | - |
 | [`Table`](https://opui.dev/react/components/table.md) | Yes | Yes | Yes | - |
 | [`TableCell`](https://opui.dev/react/components/table.md) | Yes | Yes | Yes | - |
 | [`TableColumn`](https://opui.dev/react/components/table.md) | Yes | Yes | Yes | - |

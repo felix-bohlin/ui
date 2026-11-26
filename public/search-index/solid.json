@@ -4687,7 +4687,7 @@
     "id": "api-checkbox-input-solid",
     "title": "Checkbox input API",
     "description": "Reference for Checkbox input Solid component.",
-    "api": "CheckboxInput The checkbox input, without a label. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. indeterminate Shows a partially checked state. Sets the `indeterminate` property on the `<input>`.",
+    "api": "CheckboxInput The checkbox input, without a label. name The name of the `<input>`. indeterminate Shows a partially checked state. Sets the `indeterminate` property on the `<input>`.",
     "category": "API",
     "url": "/solid/api/#checkbox-input"
   },
@@ -4695,7 +4695,7 @@
     "id": "api-checkbox-solid",
     "title": "Checkbox API",
     "description": "Reference for Checkbox Solid component.",
-    "api": "Checkbox Container element. The checkbox input. The label. label default Supporting text displayed below the label. endText end-text card Renders the checkbox as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. disabled Dims the checkbox and shows a not-allowed cursor. `aria-disabled=\"true\"` looks the same, but keeps the checkbox focusable and its value in the form, and doesn't stop the change, so block it with a script. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. id The id of the `<input>`. indeterminate Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. orientation The orientation of the element. `vertical` stacks the label under the input. required Adds a required mark after the label. The form won't submit until it's checked. size The size of the element. spread Pushes the label and the input to opposite ends. value The value of the `<input>`, submitted with the form when it's checked. variant The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
+    "api": "Checkbox Container element. The checkbox input. The label. label default Supporting text displayed below the label. endText end-text card Renders the checkbox as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. disabled Dims the checkbox and shows a not-allowed cursor. `aria-disabled=\"true\"` looks the same, but keeps the checkbox focusable and its value in the form, and doesn't stop the change, so block it with a script. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. id The id of the `<input>`. indeterminate Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. name The name of the `<input>`. orientation The orientation of the element. `vertical` stacks the label under the input. required Adds a required mark after the label. The form won't submit until it's checked. size The size of the element. spread Pushes the label and the input to opposite ends. value The value of the `<input>`, submitted with the form when it's checked. variant The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
     "category": "API",
     "url": "/solid/api/#checkbox"
   },
@@ -4807,7 +4807,7 @@
     "id": "api-field-group-solid",
     "title": "Field group API",
     "description": "Reference for Field group Solid component.",
-    "api": "FieldGroup Container element. name Sets `name` on the OPUI fields inside that don't set their own. A text field's input is your own, so name it there. orientation The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row.",
+    "api": "FieldGroup Container element. orientation The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row.",
     "category": "API",
     "url": "/solid/api/#field-group"
   },
@@ -4935,7 +4935,7 @@
     "id": "api-radio-input-solid",
     "title": "Radio input API",
     "description": "Reference for Radio input Solid component.",
-    "api": "RadioInput The radio input, without a label. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
+    "api": "RadioInput The radio input, without a label. name The name of the `<input>`. Radios with the same `name` are one group, in which one can be checked.",
     "category": "API",
     "url": "/solid/api/#radio-input"
   },
@@ -4943,7 +4943,7 @@
     "id": "api-radio-solid",
     "title": "Radio API",
     "description": "Reference for Radio Solid component.",
-    "api": "Radio Container element. The radio input. The label. label default Supporting text displayed below the label. endText end-text card Renders the radio as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. disabled Dims the radio and shows a not-allowed cursor. `aria-disabled=\"true\"` looks the same, but keeps the radio focusable and its value in the form, and doesn't stop the change, so block it with a script. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. id The id of the `<input>`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. orientation The orientation of the element. `vertical` stacks the label under the input. required The form won't submit until one radio in the group is checked. The legend of the enclosing fieldset shows the required mark. size The size of the element. spread Pushes the label and the input to opposite ends. value The value of the `<input>`, submitted with the form when it's checked. variant The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
+    "api": "Radio Container element. The radio input. The label. label default Supporting text displayed below the label. endText end-text card Renders the radio as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. disabled Dims the radio and shows a not-allowed cursor. `aria-disabled=\"true\"` looks the same, but keeps the radio focusable and its value in the form, and doesn't stop the change, so block it with a script. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. id The id of the `<input>`. name The name of the `<input>`. Radios with the same `name` are one group, in which one can be checked. orientation The orientation of the element. `vertical` stacks the label under the input. required The form won't submit until one radio in the group is checked. The legend of the enclosing fieldset shows the required mark. size The size of the element. spread Pushes the label and the input to opposite ends. value The value of the `<input>`, submitted with the form when it's checked. variant The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
     "category": "API",
     "url": "/solid/api/#radio"
   },
@@ -5039,7 +5039,7 @@
     "id": "api-switch-input-solid",
     "title": "Switch input API",
     "description": "Reference for Switch input Solid component.",
-    "api": "SwitchInput The switch input, without a label. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
+    "api": "SwitchInput The switch input, without a label. name The name of the `<input>`.",
     "category": "API",
     "url": "/solid/api/#switch-input"
   },
@@ -5047,7 +5047,7 @@
     "id": "api-switch-solid",
     "title": "Switch API",
     "description": "Reference for Switch Solid component.",
-    "api": "Switch Container element. The switch input. An optional icon on the track, shown while unchecked. icon-unchecked An optional icon on the track, shown while checked. icon-checked The label. label default Supporting text displayed below the label. endText end-text card Renders the switch as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. disabled Dims the switch and shows a not-allowed cursor. `aria-disabled=\"true\"` looks the same, but keeps the switch focusable and its value in the form, and doesn't stop the change, so block it with a script. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. id The id of the `<input>`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. orientation The orientation of the element. `vertical` stacks the label under the switch. required Adds a required mark after the label. The form won't submit until it's on. size The size of the element. spread Pushes the label and the switch to opposite ends. value The value of the `<input>`, submitted with the form when it's checked. variant The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
+    "api": "Switch Container element. The switch input. An optional icon on the track, shown while unchecked. icon-unchecked An optional icon on the track, shown while checked. icon-checked The label. label default Supporting text displayed below the label. endText end-text card Renders the switch as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. disabled Dims the switch and shows a not-allowed cursor. `aria-disabled=\"true\"` looks the same, but keeps the switch focusable and its value in the form, and doesn't stop the change, so block it with a script. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. id The id of the `<input>`. name The name of the `<input>`. orientation The orientation of the element. `vertical` stacks the label under the switch. required Adds a required mark after the label. The form won't submit until it's on. size The size of the element. spread Pushes the label and the switch to opposite ends. value The value of the `<input>`, submitted with the form when it's checked. variant The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
     "category": "API",
     "url": "/solid/api/#switch"
   },
@@ -5159,7 +5159,7 @@
     "id": "api-toggle-button-solid",
     "title": "Toggle button API",
     "description": "Reference for Toggle button Solid component.",
-    "api": "ToggleButton Container element. A visually hidden checkbox or radio input. checked Selects the button. disabled Dims the button and skips it with Tab and the arrow keys. `aria-disabled=\"true\"` looks the same, but keeps the button focusable and its value in the form, and doesn't stop the change, so block it with a script. id The id of the `<input>`. label The button text when there is no child content. name The name of the input. Falls back to the `ToggleGroup`'s name, then to a `FieldGroup`'s. required The form won't submit until it's checked. A `ToggleGroup` without `multiple` needs it on one button only. size The size of the element. type The input type. `radio` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio. value The value of the input.",
+    "api": "ToggleButton Container element. A visually hidden checkbox or radio input. checked Selects the button. disabled Dims the button and skips it with Tab and the arrow keys. `aria-disabled=\"true\"` looks the same, but keeps the button focusable and its value in the form, and doesn't stop the change, so block it with a script. id The id of the `<input>`. label The button text when there is no child content. name The name of the input. Falls back to the `ToggleGroup`'s name. required The form won't submit until it's checked. A `ToggleGroup` without `multiple` needs it on one button only. size The size of the element. type The input type. `radio` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio. value The value of the input.",
     "category": "API",
     "url": "/solid/api/#toggle-button"
   },

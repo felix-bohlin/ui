@@ -12,4 +12,13 @@
       }
     }
   }
+
+  /* Firefox and older Chromium only take anchors-visible, which newer
+     Chromium deprecates and warns about even here, where the rule never
+     applies. Remove once Firefox takes anchor-visible. */
+  @supports not (position-visibility: anchor-visible) {
+    :where(.ui-anchor, .ui-tooltip) > .ui-floating[popover] {
+      position-visibility: anchors-visible;
+    }
+  }
 }

@@ -6,6 +6,7 @@ import {
   expand,
   isPure,
   keyOfCode,
+  mentions,
   under,
 } from "../../scripts/component-nunjucks-facts.mjs"
 import {
@@ -86,6 +87,28 @@ describe("the facts", () => {
     expect(facts.testOnly("twice")).toBe(false)
     expect(facts.nullAgnostic("labelId")).toBe(true)
     expect(facts.nullAgnostic("passed")).toBe(false)
+  })
+
+  test("mentions finds a name in a key, and not a longer name or a string", () => {
+    expect(mentions(key("a && b.c"), new Set(["b"]))).toBe(true)
+    expect(mentions(key("labelId && x"), new Set(["label"]))).toBe(false)
+    expect(mentions(key('x === "I:label"'), new Set(["label"]))).toBe(false)
+  })
+
+  test("analyze counts the reads of a variable tag and of the group item's warning", async () => {
+    const sample = await readComponent(
+      `---\nimport type { Props } from "./types.astro"\nconst { href, ...rest } = Astro.props\nconst Tag = href ? "a" : "span"\n---\n\n<Tag {...rest} href={href} />\n`,
+      FILE,
+    )
+    expect(analyze(sample).count("Tag")).toBe(1)
+    const item = {
+      derived: [],
+      item: { checked: "checked", group: "Tabs", grouped: "grouped" },
+      name: "TabsItem",
+      tree: [],
+      warnings: [],
+    }
+    expect(analyze(item).count("grouped")).toBe(1)
   })
 
   test("the emitter inlines a value read once and drops the guard its block makes redundant", async () => {

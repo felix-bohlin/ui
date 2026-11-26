@@ -32,7 +32,9 @@ export const helperModules = () =>
     )
     .toSorted()
 
-const helpersOf = (modules) => {
+const BUILT_INS = new Set(["context", "id", "ids", "merge", "provide"])
+
+export const helpersOf = (modules) => {
   const entries = modules.flatMap((module) =>
     Object.entries(module).filter(
       ([name, value]) => typeof value === "function" && !UNREGISTERED.has(name),
@@ -43,6 +45,12 @@ const helpersOf = (modules) => {
   if (repeated) {
     throw new Error(
       `scripts/nunjucks-runtime.mjs registers two helpers named ${repeated}`,
+    )
+  }
+  const shadowed = names.find((name) => BUILT_INS.has(name))
+  if (shadowed) {
+    throw new Error(
+      `scripts/nunjucks-runtime.mjs can't register the helper ${shadowed}: the opui global defines its own ${shadowed}, so rename the helper`,
     )
   }
   return Object.fromEntries(entries.toSorted(([a], [b]) => (a < b ? -1 : 1)))
@@ -184,6 +192,15 @@ const textOf = (value) => {
 }
 
 export const restOf = (components) => (props, name) => {
+  if (
+    DEV &&
+    props != null &&
+    (typeof props !== "object" || Array.isArray(props))
+  ) {
+    throw new Error(
+      `[OPUI ${name}] Pass the props as one dict: ${name}({ ... }), with the default slot as the body of {% call ${name}({ ... }) %}.`,
+    )
+  }
   const meta = components[name]
   if (!meta) {
     throw new Error(

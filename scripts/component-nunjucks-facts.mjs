@@ -60,6 +60,16 @@ export const conditionsOf = (code) => {
 
 export const under = (facts, code) => new Set([...facts, ...conditionsOf(code)])
 
+export const mentions = (key, names) => {
+  const tokens = new Set(key.replace(/"(?:[^"\\]|\\.)*"/g, '""').split(/[(),]/))
+  return [...names].some((name) => tokens.has(`I:${name}`))
+}
+
+export const itemWarning = ({ item, name }) =>
+  item
+    ? `warnGroupedChecked(${JSON.stringify(name)}, ${item.grouped}, ${item.checked ?? "undefined"}, ${JSON.stringify(item.group)})`
+    : undefined
+
 export const expand = (
   code,
   { facts = new Set(), inline = new Map() } = {},
@@ -133,6 +143,9 @@ export const usesOf = (component) => {
       } else if (node.type === "slot") {
         walk(node.fallback, facts, loops)
       } else if (node.type === "element") {
+        if (node.variable) {
+          uses.push({ code: node.tag, facts, kind: "tag", loops })
+        }
         for (const item of node.attributes) {
           const kind = node.component
             ? "component"
@@ -154,7 +167,9 @@ export const usesOf = (component) => {
   return [
     ...uses,
     ...component.derived.map(({ code }) => ({ code, kind: "derived" })),
-    ...component.warnings.map((code) => ({ code, kind: "statement" })),
+    ...[...component.warnings, itemWarning(component)]
+      .filter(Boolean)
+      .map((code) => ({ code, kind: "statement" })),
     ...(component.provide?.value ?? []).map(({ code }) => ({
       code,
       kind: "provide",

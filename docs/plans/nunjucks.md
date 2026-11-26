@@ -70,6 +70,7 @@ What `configure` registers:
 - Generated ids come from one counter per environment that is never reset, so they never repeat, even when pages render at the same time. Their numbers depend on render order, so a site that needs stable ids passes `id` or `name`. `configure(env, { id })` takes another generator. A component's id is only made when it is used, as Astro does.
 - The parent-to-child context is a stack around the parent's `caller()`. It is safe when renders overlap because Nunjucks renders a macro and its body in one synchronous call. An async filter inside a `{% call %}` body crashes Nunjucks 3.2.4 itself, so this can't break.
 - With `NODE_ENV` other than `production`, a key that is neither a prop of the component nor an attribute of its element warns once: `[OPUI Button] Unknown prop "lable": ...`. So does an unknown slot name. This stands in for the type checking the other frameworks get.
+- In development, a macro called with anything but one dict, such as `Button("Save")`, throws `[OPUI Button] Pass the props as one dict`.
 - `class` is a string, as in the component types.
 
 ## Decisions
@@ -77,15 +78,17 @@ What `configure` registers:
 - **Native templates over a JavaScript renderer.** The user chose readable, forkable Nunjucks over thin macros calling JavaScript. The cost is a translator that refuses what Nunjucks can't express (BC701 to BC705 in `scripts/component-diagnostics.mjs`). The Rating and Reactions logic moved into helpers (`Rating/rating.ts`, `Reactions/pills.ts`) for that reason.
 - **Component names, not prefixes.** A prefix would add a second name for every component to the docs, examples and API tables; the index gives namespacing without one. Easiest to enforce: one test checks every name and the index.
 - **The compiler knows, it doesn't guess.**
-  - Prop types come from the TypeScript checker (`astroPropsOf`).
+  - Prop types come from the TypeScript checker (`astroPropsOf`), with the kinds of a list prop's item fields. A props type it can't read is refused (BC706), never guessed.
   - A guard or `undefined` is dropped only where a fact proves it changes nothing: a condition the block makes true, a value that can't be null, or a result that treats null and undefined alike.
   - Required props are not treated as present, since the contract cases render components with nothing passed and Astro then prints `undefined-start` or drops the attribute.
 - **`disabledLink` stays.** A shared `tagOf()` helper for the tag expression of Avatar, Button, Chip, ListItem and Menu was tried and dropped: React's `static-components` lint rule treats a component returned by a helper call during render as one created there, so the compiled React ports failed lint. In Nunjucks (and Astro) the branch is dead, since `as` can only be a tag name there.
 
 ## Limits
 
-- A named slot passed to an inner component (BC704) and a context provided around a named slot (BC703) are refused. No component needs either today. A named slot is captured before the macro runs, so a context can't reach it.
-- Text expressions print `false` and lists as Nunjucks does, except where the types or the expression show a boolean, list or object; there the macro uses `| opuiText`.
+- A named slot passed to an inner component (BC704, also under a condition or a loop), a context provided around a named slot or around a default slot with a fallback (BC703) are refused. No component needs either today. A named slot is captured before the macro runs, so a context can't reach it.
+- A text expression prints through `| opuiText` unless the prop types, a list prop's item fields or the expression show that it prints as Astro prints it (a string or a number). A value the compiler can't type, like a field of a list a helper builds (Reactions), takes the filter.
+- Nunjucks writes a `{% set %}` inside `{% for %}` to the enclosing frame, so a loop const, index or rest that reuses an outer name is renamed (`itemLabel`), and inside the loop the compiler forgets what it knew of the names the loop binds.
+- A value marked `| safe` keeps its Nunjucks meaning in an attribute the macro writes itself (`title="{{ props.title }}"`), while `opuiAttributes`, which writes the rest props, escapes every value as Astro does. A trimmed slot the macro writes into an attribute goes through `| forceescape`, as Astro escapes it.
 - Some lines stay over 100 characters: a class entry such as `{%- if a and b != 'x' %} ui-x-{{ a }}{% endif %}`, and expressions nested in parentheses. The layout only breaks where whitespace is free.
 - The whitespace inside Field's `.ui-top` and `.ui-bottom` spans is the formatting newline `scripts/component-layout.mjs` writes in a flex container, proven not to render; `.ui-start` and `.ui-end` aren't flex, so they stay glued.
 - `grouped ?? checked` stays `grouped if grouped != none else checked` rather than `grouped | default(checked)`. They're only equal if `grouped` is never null, which needs the type of a derived local.

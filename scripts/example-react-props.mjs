@@ -116,9 +116,8 @@ const load = (framework = "react") => {
 
 const members = (type) => (type.isUnion() ? type.types : [type])
 
-const kindsOf = (checker, symbol, location) => {
+const kindsOfParts = (checker, all) => {
   const kinds = new Set()
-  const all = members(checker.getTypeOfSymbolAtLocation(symbol, location))
   const allowsTrue = all.some(
     (member) =>
       member.flags & ts.TypeFlags.BooleanLike &&
@@ -136,6 +135,12 @@ const kindsOf = (checker, symbol, location) => {
   }
   return kinds
 }
+
+const kindsOf = (checker, symbol, location) =>
+  kindsOfParts(
+    checker,
+    members(checker.getTypeOfSymbolAtLocation(symbol, location)),
+  )
 
 const propsOfType = (checker, type, location) => {
   const props = new Map()
@@ -269,17 +274,21 @@ let astro
 
 const OPEN = ts.TypeFlags.Any | ts.TypeFlags.Unknown
 
-const takesNull = (checker, type) => {
-  if (type.flags & (ts.TypeFlags.Null | OPEN)) return true
+const NONE = ts.TypeFlags.Null | ts.TypeFlags.Undefined | ts.TypeFlags.Void
+
+const takes = (checker, type, flags) => {
+  if (type.flags & (flags | OPEN)) return true
   if (type.flags & ts.TypeFlags.TypeParameter) {
     const constraint = checker.getBaseConstraintOfType(type)
     return (
       !constraint ||
-      members(constraint).some((part) => takesNull(checker, part))
+      members(constraint).some((part) => takes(checker, part, flags))
     )
   }
   return false
 }
+
+const takesNull = (checker, type) => takes(checker, type, ts.TypeFlags.Null)
 
 const isOwnProperty = (property) =>
   !!property.declarations?.some(
@@ -338,41 +347,87 @@ const unite = (maps) => {
   return united
 }
 
+const objectParts = (checker, type) =>
+  members(type).filter(
+    (part) =>
+      (part.flags & ts.TypeFlags.Object || part.isIntersection()) &&
+      !checker.isArrayType(part) &&
+      !checker.isTupleType(part) &&
+      !part.getCallSignatures().length,
+  )
+
 const fieldsOf = (checker, type, location) =>
   unite(
-    members(type)
-      .filter(
-        (part) =>
-          (part.flags & ts.TypeFlags.Object || part.isIntersection()) &&
-          !checker.isArrayType(part) &&
-          !checker.isTupleType(part) &&
-          !part.getCallSignatures().length,
+    objectParts(checker, type).map(
+      (part) =>
+        new Map(
+          checker
+            .getPropertiesOfType(part)
+            .map((field) => [field.name, kindsOf(checker, field, location)]),
+        ),
+    ),
+  )
+
+const listOf = (checker, type, location) => {
+  const items = members(type)
+    .filter((part) => checker.isArrayType(part))
+    .flatMap((list) => members(checker.getTypeArguments(list)[0]))
+  return {
+    defined:
+      items.length > 0 && !items.some((item) => takes(checker, item, NONE)),
+    fields: unite(items.map((item) => fieldsOf(checker, item, location))),
+    items: kindsOfParts(checker, items),
+  }
+}
+
+const unitedList = (known, list) => ({
+  defined: known.defined && list.defined,
+  fields: unite([known.fields, list.fields]),
+  items: new Set([...known.items, ...list.items]),
+})
+
+const uniteLists = (maps) => {
+  const united = new Map()
+  for (const map of maps) {
+    for (const [name, list] of map) {
+      united.set(
+        name,
+        united.has(name) ? unitedList(united.get(name), list) : list,
       )
-      .map(
-        (part) =>
-          new Map(
-            checker
-              .getPropertiesOfType(part)
-              .map((field) => [field.name, kindsOf(checker, field, location)]),
-          ),
-      ),
+    }
+  }
+  return united
+}
+
+const listsOf = (checker, type, location) =>
+  uniteLists(
+    objectParts(checker, type).map(
+      (part) =>
+        new Map(
+          checker
+            .getPropertiesOfType(part)
+            .map((field) => [
+              field.name,
+              listOf(
+                checker,
+                checker.getTypeOfSymbolAtLocation(field, location),
+                location,
+              ),
+            ])
+            .filter(([, list]) => list.items.size),
+        ),
+    ),
   )
 
 const shapeOf = (checker, symbol, location) => {
   const type = checker.getTypeOfSymbolAtLocation(symbol, location)
-  const parts = members(type)
   return {
     depth: depthOf(checker, type, location),
-    fields: unite(
-      parts
-        .filter((part) => checker.isArrayType(part))
-        .map((list) =>
-          fieldsOf(checker, checker.getTypeArguments(list)[0], location),
-        ),
-    ),
     kinds: kindsOf(checker, symbol, location),
+    list: listOf(checker, type, location),
+    lists: listsOf(checker, type, location),
     members: fieldsOf(checker, type, location),
-    nullable: parts.some((part) => takesNull(checker, part)),
+    nullable: members(type).some((part) => takesNull(checker, part)),
   }
 }
 
@@ -380,8 +435,9 @@ const merged = (known, shape) =>
   known
     ? {
         depth: Math.max(known.depth, shape.depth),
-        fields: unite([known.fields, shape.fields]),
         kinds: new Set([...known.kinds, ...shape.kinds]),
+        list: unitedList(known.list, shape.list),
+        lists: uniteLists([known.lists, shape.lists]),
         members: unite([known.members, shape.members]),
         nullable: known.nullable || shape.nullable,
       }

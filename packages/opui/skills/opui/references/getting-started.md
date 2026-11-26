@@ -226,7 +226,7 @@ Without a bundler, add this import map to the `head`:
 
 #### [Components](https://opui.dev/html/components.md)
 
-44 components, each with HTML examples and its API.
+45 components, each with HTML examples and its API.
 
 #### [Concepts](https://opui.dev/html/guide/concepts.md)
 
@@ -344,7 +344,7 @@ Add `/// <reference types="opui-css/env.d.ts" />` to `src/env.d.ts`, or create t
 
 #### [Components](https://opui.dev/astro/components.md)
 
-44 components, each with Astro examples and its API.
+45 components, each with Astro examples and its API.
 
 #### [Concepts](https://opui.dev/astro/guide/concepts.md)
 
@@ -525,7 +525,7 @@ A macro called with anything but one dict, such as `Button("Save")`, throws ther
 
 #### [Components](https://opui.dev/nunjucks/components.md)
 
-44 components, each with Nunjucks examples and its API.
+45 components, each with Nunjucks examples and its API.
 
 #### [Concepts](https://opui.dev/nunjucks/guide/concepts.md)
 
@@ -642,9 +642,9 @@ Every component renders full HTML on the server. Components with state or effect
 
 A choice the user makes before the page hydrates stays on screen. The form controls pass `value`, `checked`, their defaults and `onChange` to the native input, and `Rating`, `Tabs` and `ToggleGroup` render their inputs like native radios, so they work like plain React inputs: React doesn't call `onChange` or `onValueChange` for that choice, and a controlled value misses it. A form that reads its values on submit gets it.
 
-- **70** of 72 need no hydration
+- **72** of 74 need no hydration
 - **2** hydrate for `indeterminate`
-- **47** are Server Components
+- **49** are Server Components
 
 | Component | Client | Server | Server Component | Needs hydration |
 | --- | --- | --- | --- | --- |
@@ -655,6 +655,8 @@ A choice the user makes before the page hydrates stays on screen. The form contr
 | [`Avatar`](https://opui.dev/react/components/avatar.md) | Yes | Yes | Yes | - |
 | [`AvatarGroup`](https://opui.dev/react/components/avatar.md) | Yes | Yes | Yes | - |
 | [`Badge`](https://opui.dev/react/components/badge.md) | Yes | Yes | Yes | - |
+| [`Breadcrumb`](https://opui.dev/react/components/breadcrumb.md) | Yes | Yes | Yes | - |
+| [`BreadcrumbItem`](https://opui.dev/react/components/breadcrumb.md) | Yes | Yes | Yes | - |
 | [`Button`](https://opui.dev/react/components/button.md) | Yes | Yes | Yes | - |
 | [`Callout`](https://opui.dev/react/components/callout.md) | Yes | Yes | No | - |
 | [`Card`](https://opui.dev/react/components/card.md) | Yes | Yes | Yes | - |
@@ -729,7 +731,7 @@ A choice the user makes before the page hydrates stays on screen. The form contr
 
 #### [Components](https://opui.dev/react/components.md)
 
-44 components, each with React examples and its API.
+45 components, each with React examples and its API.
 
 #### [Concepts](https://opui.dev/react/guide/concepts.md)
 
@@ -839,7 +841,7 @@ The props in the last column need hydration.
 
 A choice the user makes before the page hydrates stays on screen, as on a plain Solid input: Solid doesn't call `onChange` or `onValueChange` for it, and a controlled value misses it. A form that reads its values on submit gets it.
 
-- **70** of 72 need no hydration
+- **72** of 74 need no hydration
 - **2** hydrate for `indeterminate`
 
 | Component | Client | Server | Needs hydration |
@@ -851,6 +853,8 @@ A choice the user makes before the page hydrates stays on screen, as on a plain 
 | [`Avatar`](https://opui.dev/solid/components/avatar.md) | Yes | Yes | - |
 | [`AvatarGroup`](https://opui.dev/solid/components/avatar.md) | Yes | Yes | - |
 | [`Badge`](https://opui.dev/solid/components/badge.md) | Yes | Yes | - |
+| [`Breadcrumb`](https://opui.dev/solid/components/breadcrumb.md) | Yes | Yes | - |
+| [`BreadcrumbItem`](https://opui.dev/solid/components/breadcrumb.md) | Yes | Yes | - |
 | [`Button`](https://opui.dev/solid/components/button.md) | Yes | Yes | - |
 | [`Callout`](https://opui.dev/solid/components/callout.md) | Yes | Yes | - |
 | [`Card`](https://opui.dev/solid/components/card.md) | Yes | Yes | - |
@@ -925,7 +929,7 @@ A choice the user makes before the page hydrates stays on screen, as on a plain 
 
 #### [Components](https://opui.dev/solid/components.md)
 
-44 components, each with Solid examples and its API.
+45 components, each with Solid examples and its API.
 
 #### [Concepts](https://opui.dev/solid/guide/concepts.md)
 
@@ -1063,7 +1067,7 @@ Every component spreads its other props on its root element, attachments too, so
 
 Every component renders full HTML on the server. The props in the last column need hydration.
 
-- **62** of 72 need no hydration
+- **64** of 74 need no hydration
 - **10** hydrate for `bind:checked`, `bind:group`, `bind:value`, `indeterminate`
 
 | Component | Client | Server | Needs hydration |
@@ -1075,6 +1079,8 @@ Every component renders full HTML on the server. The props in the last column ne
 | [`Avatar`](https://opui.dev/svelte/components/avatar.md) | Yes | Yes | - |
 | [`AvatarGroup`](https://opui.dev/svelte/components/avatar.md) | Yes | Yes | - |
 | [`Badge`](https://opui.dev/svelte/components/badge.md) | Yes | Yes | - |
+| [`Breadcrumb`](https://opui.dev/svelte/components/breadcrumb.md) | Yes | Yes | - |
+| [`BreadcrumbItem`](https://opui.dev/svelte/components/breadcrumb.md) | Yes | Yes | - |
 | [`Button`](https://opui.dev/svelte/components/button.md) | Yes | Yes | - |
 | [`Callout`](https://opui.dev/svelte/components/callout.md) | Yes | Yes | - |
 | [`Card`](https://opui.dev/svelte/components/card.md) | Yes | Yes | - |
@@ -1149,7 +1155,7 @@ Every component renders full HTML on the server. The props in the last column ne
 
 #### [Components](https://opui.dev/svelte/components.md)
 
-44 components, each with Svelte examples and its API.
+45 components, each with Svelte examples and its API.
 
 #### [Concepts](https://opui.dev/svelte/guide/concepts.md)
 
@@ -1251,7 +1257,7 @@ const dialog = useTemplateRef("dialog")
 
 ### Server rendering
 
-- **62** of 72 need no hydration
+- **64** of 74 need no hydration
 - **10** hydrate for `indeterminate`, `v-model`
 
 | Component | Client | Server | Needs hydration |
@@ -1263,6 +1269,8 @@ const dialog = useTemplateRef("dialog")
 | [`Avatar`](https://opui.dev/vue/components/avatar.md) | Yes | Yes | - |
 | [`AvatarGroup`](https://opui.dev/vue/components/avatar.md) | Yes | Yes | - |
 | [`Badge`](https://opui.dev/vue/components/badge.md) | Yes | Yes | - |
+| [`Breadcrumb`](https://opui.dev/vue/components/breadcrumb.md) | Yes | Yes | - |
+| [`BreadcrumbItem`](https://opui.dev/vue/components/breadcrumb.md) | Yes | Yes | - |
 | [`Button`](https://opui.dev/vue/components/button.md) | Yes | Yes | - |
 | [`Callout`](https://opui.dev/vue/components/callout.md) | Yes | Yes | - |
 | [`Card`](https://opui.dev/vue/components/card.md) | Yes | Yes | - |
@@ -1337,7 +1345,7 @@ const dialog = useTemplateRef("dialog")
 
 #### [Components](https://opui.dev/vue/components.md)
 
-44 components, each with Vue examples and its API.
+45 components, each with Vue examples and its API.
 
 #### [Concepts](https://opui.dev/vue/guide/concepts.md)
 

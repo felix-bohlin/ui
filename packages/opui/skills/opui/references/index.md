@@ -10,6 +10,7 @@ Each component reference covers HTML, Astro, Nunjucks, React, Solid, Svelte and 
 | Anchor | `anchor.md` | Floating content placed next to an element with CSS anchor positioning. |
 | Avatar | `avatar.md` | An image, initials or icon that stands for a person or an entity. |
 | Badge | `badge.md` | A small count or status dot on the corner of another element. |
+| Breadcrumb | `breadcrumb.md` | Shows where the page sits in a hierarchy, with a link to each level above it. |
 | Button | `button.md` | A button for actions, like saving a form, with variants, colors, sizes and icons. |
 | Callout | `callout.md` | A message in the flow of the page, without interrupting the task. |
 | Card | `card.md` | A surface for related content and actions. |
@@ -60,6 +61,7 @@ Components documented on another component's page:
 | AccordionSummary | `accordion.md` |
 | AnchorContent | `anchor.md` |
 | AvatarGroup | `avatar.md` |
+| BreadcrumbItem | `breadcrumb.md` |
 | CalloutActions | `callout.md` |
 | CalloutContent | `callout.md` |
 | CalloutIcon | `callout.md` |

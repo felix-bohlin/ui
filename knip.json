@@ -31,14 +31,14 @@
       ],
       "ignoreDependencies": ["open-props"]
     },
+    "tests/package/fixtures/nunjucks": {
+      "eleventy": false,
+      "entry": ["eleventy.config.js", "src/**"],
+      "ignoreDependencies": ["@11ty/eleventy"]
+    },
     "tests/package/fixtures/*": {
       "entry": ["src/**"],
-      "ignoreDependencies": [
-        "@11ty/eleventy",
-        "@astrojs/check",
-        "svelte-check",
-        "vue-tsc"
-      ]
+      "ignoreDependencies": ["@astrojs/check", "svelte-check", "vue-tsc"]
     }
   }
 }

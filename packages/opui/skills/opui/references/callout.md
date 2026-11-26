@@ -71,7 +71,7 @@ Outputs: `--_bg-color`, `--_border-color`, `--_icon-image`, `--_icon-text-color`
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-raised`, `--ui-font-size-body`, `--ui-font-size-small`, `--ui-font-weight-semibold`, `--ui-icon-close`, `--ui-icon-critical`, `--ui-icon-info`, `--ui-icon-size`, `--ui-icon-success`, `--ui-icon-warning`, `--ui-motion`, `--ui-palette-accent`, `--ui-palette-border`, `--ui-palette-strong`, `--ui-palette-tonal-subtle`, `--ui-primary-text`, `--ui-radius`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4`, `--ui-surface`, `--ui-surface-tonal` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-duration`, `--ui-ease`, `--ui-font-size-body`, `--ui-font-size-small`, `--ui-font-weight-semibold`, `--ui-icon-close`, `--ui-icon-critical`, `--ui-icon-info`, `--ui-icon-size`, `--ui-icon-success`, `--ui-icon-warning`, `--ui-motion`, `--ui-palette-accent`, `--ui-palette-border`, `--ui-palette-strong`, `--ui-palette-tonal-subtle`, `--ui-primary-text`, `--ui-radius`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4`, `--ui-surface`, `--ui-surface-tonal` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

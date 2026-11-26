@@ -287,7 +287,7 @@ export const themeTokens = () =>
     (token) => tokenTier(token.name) !== "input",
   )
 
-export const SCALE_KNOBS = ["--ui-density", "--ui-space-scale"]
+const SCALE_KNOBS = ["--ui-density", "--ui-space-scale"]
 
 export const scaledTokens = (tokens = themeTokens()) => {
   const scaled = new Map<string, string>()

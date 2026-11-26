@@ -40,7 +40,7 @@ Outputs: `--_accent`, `--_bg-color`, `--_direction`, `--_duration`, `--_inset-bl
 
 ## Theme tokens
 
-The stylesheets read `--_ui-accent-fill-max-lightness`, `--ui-border-width-large`, `--ui-critical`, `--ui-duration`, `--ui-ease-enter`, `--ui-font-size-caption`, `--ui-font-weight-medium`, `--ui-info`, `--ui-motion`, `--ui-neutral`, `--ui-on-fill`, `--ui-on-primary`, `--ui-on-warning`, `--ui-primary`, `--ui-radius-round`, `--ui-space-1`, `--ui-space-2`, `--ui-space-5`, `--ui-success`, `--ui-surface` and `--ui-warning`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width-large`, `--ui-critical`, `--ui-critical-fill`, `--ui-duration`, `--ui-ease-enter`, `--ui-font-size-caption`, `--ui-font-weight-medium`, `--ui-info`, `--ui-info-fill`, `--ui-motion`, `--ui-neutral`, `--ui-neutral-fill`, `--ui-on-fill`, `--ui-on-primary`, `--ui-on-warning`, `--ui-primary`, `--ui-radius-round`, `--ui-space-1`, `--ui-space-2`, `--ui-space-5`, `--ui-success`, `--ui-success-fill`, `--ui-surface` and `--ui-warning`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

@@ -76,9 +76,9 @@ Outputs: `--_font-size`, `--_icon-size`, `--_item-duration`, `--_selected-indica
 
 - `--_bg-color`: The background. Defaults to `--ui-surface-raised`.
 - `--_bg-image`: The image over the background, such as a gradient. Defaults to `--ui-surface-raised-image`, `none` unless a theme sets it.
-- `--_border-color`: The edge color. `--ui-border-color-raised` when a theme sets it, otherwise `--ui-border-color-on-raised`.
+- `--_border-color`: The edge color. `--ui-border-color-raised` when a theme sets it, otherwise `--ui-border-color`.
 - `--_border-width`: The border width. Defaults to `--ui-border-width`.
-- `--_divider-border-color`: Color of the item separators. Defaults to `--ui-border-color-on-raised`.
+- `--_divider-border-color`: Color of the item separators. Defaults to `--ui-border-color`.
 - `--_max-block-size`: Maximum height.
 - `--_min-block-size`: Height a popover menu keeps when space is tight, unless its content is shorter. Needs `calc-size()`.
 - `--_min-inline-size`: Minimum width. A popover menu is also at least as wide as its invoker.
@@ -92,7 +92,7 @@ Outputs: `--_duration`, `--_ease`, `--_ease-move`, `--_fit-max-block-size`, `--_
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-large`, `--ui-choice-size-small`, `--ui-control-size`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-state-disabled-opacity`, `--ui-duration-fast`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-field-border-color-on-filled`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-inset`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-icon-check`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-line-height`, `--ui-list-item-padding-inline`, `--ui-menu-radius`, `--ui-motion`, `--ui-on-selected`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary`, `--ui-radius`, `--ui-radius-small`, `--ui-selected`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4`, `--ui-state-hover-alpha-accent`, `--ui-state-selected-alpha-accent`, `--ui-surface-raised`, `--ui-surface-raised-image`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-switch-thumb-size-small`, `--ui-switch-track-block-size-small`, `--ui-switch-track-inline-size-small`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-large`, `--ui-choice-size-small`, `--ui-control-size`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-duration-fast`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-focus-ring-inset`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-icon-check`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-line-height`, `--ui-list-item-padding-inline`, `--ui-menu-radius`, `--ui-motion`, `--ui-on-selected`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary`, `--ui-radius`, `--ui-radius-small`, `--ui-selected`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-state-disabled-opacity`, `--ui-state-hover-alpha-accent`, `--ui-state-selected-alpha-accent`, `--ui-surface-filled`, `--ui-surface-raised`, `--ui-surface-raised-image`, `--ui-surface-tonal`, `--ui-switch-thumb-size-small`, `--ui-switch-track-block-size-small`, `--ui-switch-track-inline-size-small`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

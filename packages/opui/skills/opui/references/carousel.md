@@ -78,7 +78,7 @@ Outputs: `--_block-room`, `--_button-border-color`, `--_button-disabled-border-c
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width`, `--ui-button-size-small`, `--ui-control-border-color-filled`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-icon-next`, `--ui-motion`, `--ui-radius`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4`, `--ui-space-6`, `--ui-space-12`, `--ui-surface-inverse`, `--ui-target-min-size` and `--ui-text`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-button-size-small`, `--ui-control-border-color-filled`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-icon-next`, `--ui-motion`, `--ui-radius`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-12`, `--ui-space-2`, `--ui-space-4`, `--ui-space-6`, `--ui-surface-inverse`, `--ui-target-min-size` and `--ui-text`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

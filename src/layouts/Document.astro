@@ -355,6 +355,43 @@ const descText =
     #main-heading {
       margin-block-end: var(--size-8);
       max-inline-size: var(--_content-text);
+
+      @media screen {
+        @supports (background-clip: text) {
+          --_from: light-dark(
+            oklch(from var(--primary) 0.47 0.16 calc(h + 110)),
+            oklch(from var(--primary) 0.8 0.13 calc(h + 150))
+          );
+          --_to: light-dark(
+            oklch(from var(--primary) 0.47 0.16 h),
+            oklch(from var(--primary) 0.8 0.13 h)
+          );
+
+          background-clip: text;
+          background-image: linear-gradient(
+            to bottom in oklch decreasing hue,
+            var(--_from),
+            var(--_to)
+          );
+          background-position: 0 0;
+          background-size: 100% 300%;
+
+          &,
+          & > * {
+            color: transparent;
+          }
+
+          @media (prefers-reduced-motion: no-preference) {
+            @supports (animation-timeline: scroll()) {
+              animation-fill-mode: both;
+              animation-name: main-heading-gradient;
+              animation-range: 0 15rem;
+              animation-timeline: scroll(root);
+              animation-timing-function: linear;
+            }
+          }
+        }
+      }
     }
 
     #main-content {
@@ -426,6 +463,12 @@ const descText =
         inset-block-start: calc(var(--size-10) + var(--size-8));
         max-block-size: calc(100dvb - var(--size-10) - var(--size-8));
       }
+    }
+  }
+
+  @keyframes main-heading-gradient {
+    to {
+      background-position: 0 100%;
     }
   }
 

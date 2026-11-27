@@ -1,4 +1,10 @@
 import { expect, test, type Page } from "@playwright/test"
+import {
+  derivedExpectations,
+  expectation,
+  expectations,
+  expectStill,
+} from "../expectations"
 import { normalize } from "../unit/normalize"
 import {
   COMPONENTS,
@@ -9,112 +15,21 @@ import {
   pageErrors,
 } from "./fixtures"
 
-type Late = {
-  attribute: string
-  examples: string[]
-  on: string
-  reason: string
-}
+const DERIVED = await derivedExpectations()
 
-const LATE: Partial<Record<Framework, Late[]>> = {
-  react: [
-    {
-      attribute: "data-hydrating",
-      examples: [
-        "callout/Dismissible",
-        "file-upload/Basics",
-        "file-upload/Compact",
-        "file-upload/Controlled",
-        "file-upload/Disabled",
-        "file-upload/Errors",
-        "file-upload/Items",
-        "file-upload/Labels",
-        "message/QuickReaction",
-        "message/Reactions",
-        "table/Sortable",
-        "table/SortableData",
-      ],
-      on: "opui-callout, opui-file-upload, opui-reactions, opui-sortable-table",
-      reason:
-        "useHydrated takes it off once the listeners are attached, so the element stops ignoring clicks",
-    },
-  ],
-  solid: [
-    {
-      attribute: "data-hydrating",
-      examples: [
-        "callout/Dismissible",
-        "file-upload/Basics",
-        "file-upload/Compact",
-        "file-upload/Controlled",
-        "file-upload/Disabled",
-        "file-upload/Errors",
-        "file-upload/Items",
-        "file-upload/Labels",
-        "message/QuickReaction",
-        "message/Reactions",
-        "table/Sortable",
-        "table/SortableData",
-      ],
-      on: "opui-callout, opui-file-upload, opui-reactions, opui-sortable-table",
-      reason:
-        "hydrated, in the root's ref, takes it off as the spread attaches the listeners, so the element stops ignoring clicks",
-    },
-  ],
-  svelte: [
-    {
-      attribute: "data-hydrating",
-      examples: [
-        "callout/Dismissible",
-        "file-upload/Basics",
-        "file-upload/Compact",
-        "file-upload/Controlled",
-        "file-upload/Disabled",
-        "file-upload/Errors",
-        "file-upload/Items",
-        "file-upload/Labels",
-        "message/QuickReaction",
-        "message/Reactions",
-        "table/Sortable",
-        "table/SortableData",
-      ],
-      on: "opui-callout, opui-file-upload, opui-reactions, opui-sortable-table",
-      reason:
-        "the hydrated attachment takes it off once the component has mounted, so the element stops ignoring clicks",
-    },
-  ],
-  vue: [
-    {
-      attribute: "data-hydrating",
-      examples: [
-        "callout/Dismissible",
-        "file-upload/Basics",
-        "file-upload/Compact",
-        "file-upload/Controlled",
-        "file-upload/Disabled",
-        "file-upload/Errors",
-        "file-upload/Items",
-        "file-upload/Labels",
-        "message/QuickReaction",
-        "message/Reactions",
-        "table/Sortable",
-        "table/SortableData",
-      ],
-      on: "opui-callout, opui-file-upload, opui-reactions, opui-sortable-table",
-      reason:
-        "v-hydrated takes it off once the root has mounted, so the element stops ignoring clicks",
-    },
-  ],
-}
+const lateOf = (framework: Framework) =>
+  expectations({ check: "hydration-late", framework }, DERIVED).map(
+    ({ aspect, example, on = [] }) => ({
+      attribute: String(aspect),
+      examples: typeof example === "string" ? [example] : [...(example ?? [])],
+      on: on.join(", "),
+    }),
+  )
 
-const PROBES: Partial<Record<Framework, Record<string, string>>> = {
-  svelte: {
-    select:
-      "Svelte builds one select it never inserts, to test whether the browser keeps elements inside an option",
-  },
-}
-
-const KNOWN: Partial<Record<Framework, Record<string, string>>> = {}
+const probesOf = (framework: Framework) =>
+  expectations({ check: "hydration-probe", framework }).map(({ aspect }) =>
+    String(aspect),
+  )
 
 type Captured = {
   attributesOf: (element: Element) => string[]
@@ -260,11 +175,7 @@ const captureOnMount = (page: Page, framework: Framework) =>
         )
       })
     },
-    [
-      framework,
-      LATE[framework] ?? [],
-      Object.keys(PROBES[framework] ?? {}),
-    ] as const,
+    [framework, lateOf(framework), probesOf(framework)] as const,
   )
 
 const hydrationProblems = (page: Page, framework: Framework, id: string) =>
@@ -376,23 +287,22 @@ for (const framework of HYDRATED) {
           claimed,
           `${id} server elements or markers ${framework} claimed`,
         ).toBeGreaterThan(0)
-        for (const { attribute, examples, reason } of LATE[framework] ?? []) {
-          if (!examples.includes(id)) continue
-          expect
-            .soft(
-              late,
-              `${id} no longer changes ${attribute} after hydration (${reason}): remove it from LATE`,
-            )
-            .toContain(attribute)
+        for (const entry of expectations(
+          { check: "hydration-late", example: id, framework },
+          DERIVED,
+        )) {
+          const aspect = String(entry.aspect)
+          expectStill(expect, late.includes(aspect), entry, {
+            aspect,
+            check: "hydration-late",
+            example: id,
+            framework,
+          })
         }
-        const known = KNOWN[framework]?.[id]
+        const where = { check: "hydration", example: id, framework } as const
+        const known = expectation(where)
         if (known) {
-          expect
-            .soft(
-              problems,
-              `${id} now hydrates without a change (${known}): remove it from KNOWN`,
-            )
-            .not.toEqual([])
+          expectStill(expect, problems.length > 0, known, where)
           continue
         }
         expect.soft(problems, `${id} server elements`).toEqual([])

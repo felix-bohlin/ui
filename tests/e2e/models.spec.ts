@@ -1,18 +1,12 @@
 import { expect, test } from "@playwright/test"
 import { FRAMEWORKS, isHydratedFramework } from "../../src/utils/framework"
+import { expectation } from "../expectations"
 import { instantScrolling, pageErrors } from "./fixtures"
-
-const ONE_WAY: Partial<Record<string, string>> = {
-  solid:
-    "Solid writes a checked prop only when it changes, so a choice the parent doesn't store stays on screen, as on a native input",
-  svelte:
-    "a value passed without bind: is a starting value: the group keeps the selection itself until the parent passes another",
-  vue: "a model-value passed without a listener is a starting value: the group keeps the selection itself until the parent passes another",
-}
 
 for (const { id, label } of FRAMEWORKS) {
   if (!isHydratedFramework(id)) continue
-  const refuses = !ONE_WAY[id]
+  const oneWay = expectation({ check: "models", framework: id })
+  const refuses = !oneWay
   const explain = (...reasons: (string | undefined)[]) =>
     test
       .info()
@@ -148,7 +142,7 @@ for (const { id, label } of FRAMEWORKS) {
     test(`a group with a one-way value ${refuses ? "puts the selection back" : "keeps the selection"} when the change isn't stored`, async ({
       page,
     }) => {
-      explain(ONE_WAY[id])
+      explain(oneWay?.reason)
       const errors = pageErrors(page)
       await page.getByText("Billing", { exact: true }).click()
       await expect(page.getByRole("radio", { name: "Profile" })).toBeChecked({

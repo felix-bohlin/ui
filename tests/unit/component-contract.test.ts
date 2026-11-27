@@ -14,11 +14,14 @@ import { parseHtml } from "../../scripts/html-tokens.mjs"
 import { tagAttrs } from "../../packages/opui/components/tag"
 import { slotProp } from "../../src/component-api/frameworks"
 import { typedAttributes } from "../../src/utils/component-source"
-import {
-  exampleExtension,
-  isHydratedFramework,
-} from "../../src/utils/framework"
+import { exampleExtension } from "../../src/utils/framework"
 import { createIdGenerator } from "../../src/utils/id"
+import {
+  derivedExpectations,
+  expectation,
+  expectations,
+  expectStill,
+} from "../expectations"
 import {
   apis,
   type Case,
@@ -59,38 +62,11 @@ const vueComponents = import.meta.glob<VueComponent>(
 
 const PRELOAD = /<link rel="preload" as="image"[^>]*\/>/g
 
-const KNOWN_DIFFERENCES: Record<string, string> = {}
+const DERIVED = await derivedExpectations()
 
-const KNOWN_ATTRIBUTES: Record<
-  string,
-  {
-    attribute: string
-    reason: string
-    when?: (props: Record<string, unknown>) => boolean
-  }
-> = {
-  Callout: {
-    attribute: "data-hydrating",
-    reason:
-      "the element ignores the close button until the framework has hydrated the callout and attached its dismiss handler",
-    when: ({ closeButton }) => Boolean(closeButton),
-  },
-  FileUpload: {
-    attribute: "data-hydrating",
-    reason:
-      "the element holds picked files back and ignores the remove buttons until the framework has hydrated the root and attached its select and remove handlers",
-  },
-  Reactions: {
-    attribute: "data-hydrating",
-    reason:
-      "the element asks for nothing on a click until the framework has hydrated the reactions and attached its reaction handler",
-  },
-  SortableTable: {
-    attribute: "data-hydrating",
-    reason:
-      "the element ignores header clicks until the framework has hydrated the table and attached its sort handler",
-  },
-}
+const rootTagOf = (markup: string) =>
+  parseHtml(markup).find(({ type }: { type: string }) => type === "element")
+    ?.tag
 
 const withoutAttribute = (markup: string, attribute: string) =>
   markup.replace(new RegExp(`\\s${attribute}(?:="[^"]*")?(?=[\\s>])`), "")
@@ -573,21 +549,30 @@ describe("every component renders the same in Astro, Nunjucks, React, Solid, Sve
         )
         .toBeDefined()
       if (rendered === undefined) continue
-      const known =
-        isHydratedFramework(framework) && framework !== "solid"
-          ? KNOWN_ATTRIBUTES[entry.component]
-          : undefined
-      if (known && (known.when?.(entry.props) ?? true)) {
-        expect
-          .soft(
-            withoutAttribute(rendered, known.attribute) !== rendered,
-            `${entry.component} ${framework} is in KNOWN_ATTRIBUTES with ${known.attribute} (${known.reason}) but no longer renders it; delete it`,
-          )
-          .toBe(true)
+      const attributes = expectations(
+        { check: "contract-attribute", component: entry.component, framework },
+        DERIVED,
+      )
+      const root = rootTagOf(expected)
+      for (const known of attributes) {
+        if (!root || !known.on?.includes(root)) continue
+        const attribute = String(known.aspect)
+        expectStill(
+          expect,
+          withoutAttribute(rendered, attribute) !== rendered,
+          known,
+          {
+            aspect: attribute,
+            check: "contract-attribute",
+            component: entry.component,
+            framework,
+          },
+        )
       }
-      const actual = known
-        ? withoutAttribute(rendered, known.attribute)
-        : rendered
+      const actual = attributes.reduce(
+        (markup, known) => withoutAttribute(markup, String(known.aspect)),
+        rendered,
+      )
       const callerClass = entry.props.class
       if (typeof callerClass === "string") {
         expect
@@ -603,14 +588,15 @@ describe("every component renders the same in Astro, Nunjucks, React, Solid, Sve
           `${entry.component} with ${entry.name}: ${framework} renders an empty attribute, which the parity check drops; bind the class and style only when they aren't empty (classAttrs() and styleAttrs() in Vue)`,
         )
         .toBeUndefined()
-      const key = `${entry.component} ${entry.name} ${framework}`
-      if (key in KNOWN_DIFFERENCES) {
-        expect
-          .soft(
-            normalize(actual) === reference,
-            `${key} is in KNOWN_DIFFERENCES (${KNOWN_DIFFERENCES[key]}) but no longer differs; delete it`,
-          )
-          .toBe(false)
+      const where = {
+        aspect: entry.name,
+        check: "contract",
+        component: entry.component,
+        framework,
+      } as const
+      const difference = expectation(where)
+      if (difference) {
+        expectStill(expect, normalize(actual) !== reference, difference, where)
         continue
       }
       expect

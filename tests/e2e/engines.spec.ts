@@ -14,7 +14,7 @@ import {
   WEBKIT_TOP_LAYER_ANCHOR,
   failsIn,
   type EngineBug,
-} from "./engine-bugs"
+} from "../expectations"
 import { instantScrolling } from "./fixtures"
 
 const reproduced = new Set<EngineBug>()
@@ -57,7 +57,7 @@ test("every engine bug has a repro", () => {
     Object.values(ENGINE_BUGS)
       .flat()
       .filter((bug) => !reproduced.has(bug)),
-    "every reason in engine-bugs.ts needs a plain-HTML repro here, in a repro() block titled with it",
+    "every engine bug in tests/expectations.ts needs a plain-HTML repro here, in a repro() block titled with it",
   ).toEqual([])
 })
 

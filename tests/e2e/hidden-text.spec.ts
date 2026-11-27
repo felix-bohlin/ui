@@ -1,18 +1,6 @@
 import { expect, test } from "@playwright/test"
+import { expectations } from "../expectations"
 import { COMPONENTS, openFixture } from "./fixtures"
-
-const KNOWN = [
-  {
-    reason:
-      "the root is display: contents, so it has no box to hold its status text",
-    selector: ":is(opui-copy, opui-sortable-table, opui-toaster) > .ui-sr-only",
-  },
-  {
-    reason:
-      "a positioned Button would paint over the border of its neighbor in a ControlGroup",
-    selector: ".ui-button > .ui-sr-only",
-  },
-]
 
 for (const component of COMPONENTS) {
   test(`${component}: visually hidden text has its containing block inside the example`, async ({
@@ -59,12 +47,14 @@ for (const component of COMPONENTS) {
               )
           },
         ),
-      KNOWN.map(({ selector }) => selector),
+      expectations({ check: "hidden-text" }).map(({ aspect }) =>
+        String(aspect),
+      ),
     )
 
     expect(
       escaped,
-      "position the component around this text, or list it in KNOWN with the reason",
+      "position the component around this text, or list its selector in tests/expectations.ts with the reason",
     ).toEqual([])
   })
 }

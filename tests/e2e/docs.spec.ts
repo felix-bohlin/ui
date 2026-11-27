@@ -2,7 +2,7 @@ import { readdirSync } from "node:fs"
 import { expect, test } from "@playwright/test"
 import type { Locator, Page } from "@playwright/test"
 import { FRAMEWORK_IDS, PACKAGE_FRAMEWORK_IDS } from "../../src/utils/framework"
-import { FIREFOX_STICKY_ANCHOR_SCROLL, failsIn } from "./engine-bugs"
+import { FIREFOX_STICKY_ANCHOR_SCROLL, failsIn } from "../expectations"
 import {
   computed,
   instantScrolling,

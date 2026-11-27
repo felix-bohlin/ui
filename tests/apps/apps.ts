@@ -201,26 +201,6 @@ export const APPS = selected
 
 export const appDir = (app: App) => path.join(appsDir, app.dir ?? app.name)
 
-export const ANCHORS_VISIBLE = {
-  apps: ["eleventy"],
-  message: /`position-visibility: anchors-visible` value has been deprecated/,
-  reason:
-    "A Chromium that takes anchor-visible warns about the anchors-visible fallback in css/compat/anchor.css and copy.css when a page links them unbundled, as the Nunjucks getting-started page does, until Firefox takes anchor-visible and the fallback goes",
-}
-
-export const KNOWN_CONSOLE: {
-  apps: string[]
-  message: RegExp
-  reason: string
-}[] = [ANCHORS_VISIBLE]
-
-export const KNOWN_PROBLEMS: {
-  app: string
-  message: string
-  reason: string
-  slug: string
-}[] = []
-
 const examplesDir = path.join(root, "src/component-examples")
 const nativeDir = path.join(appsDir, "native")
 

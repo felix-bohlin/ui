@@ -1,5 +1,6 @@
 import { readdirSync, readFileSync } from "node:fs"
 import { expect, test, type Page } from "@playwright/test"
+import { expectation, expectStill } from "../expectations"
 import { COMPONENTS, FRAMEWORKS, openFixture, type Framework } from "./fixtures"
 
 const examplesDir = new URL("../../src/component-examples/", import.meta.url)
@@ -15,8 +16,6 @@ const WITH_CONTROLS = COMPONENTS.filter((component) =>
       ),
     ),
 )
-
-const KNOWN_DIFFERENCES: Record<string, string> = {}
 
 const readStates = (page: Page) =>
   page.evaluate(() => {
@@ -71,7 +70,6 @@ for (const component of WITH_CONTROLS) {
   }) => {
     test.setTimeout(120_000)
     const astro = await states(page, "astro", component)
-    const known: string[] = []
     for (const framework of FRAMEWORKS.filter((name) => name !== "astro")) {
       const actual = await states(page, framework, component)
       for (const [name, expected] of Object.entries(astro.hydrated)) {
@@ -80,8 +78,14 @@ for (const component of WITH_CONTROLS) {
         const same =
           actual.hydrated[name] === expected &&
           actual.reset[name] === astro.reset[name]
-        if (key in KNOWN_DIFFERENCES) {
-          if (same) known.push(key)
+        const where = {
+          check: "example-state",
+          example: name,
+          framework,
+        } as const
+        const known = expectation(where)
+        if (known) {
+          expectStill(expect, !same, known, where)
           continue
         }
         expect
@@ -98,9 +102,5 @@ for (const component of WITH_CONTROLS) {
           .toBe(astro.reset[name])
       }
     }
-    expect(
-      known,
-      "these KNOWN_DIFFERENCES no longer differ: delete them",
-    ).toEqual([])
   })
 }

@@ -19,7 +19,7 @@ Practical implication: **author each page once with all framework slots populate
 A page documents what these files hold:
 
 - **Component source**, `packages/opui/components/[Name]/[Name].astro`: the props and their defaults, the default HTML structure and class names, and the parts (`CardHeader`, `AccordionSummary`) of a container or the slots (`label`, `end-text`) of a form control.
-- **CSS**, `packages/opui/css/components/[name].css`: the modifier classes (`.ui-filled`, `.ui-outlined`, `.ui-small`), the modern CSS features that go in `browserSupport`, and the part classes (the `parts` in `api.ts`, which drive the `anatomy` diagram).
+- **CSS**, `packages/opui/css/components/[name].css`: the modifier classes (`.ui-filled`, `.ui-outlined`, `.ui-small`), the modern CSS features the Browser support chips count, and the part classes (the `parts` in `api.ts`, which drive the `anatomy` diagram).
 - **API metadata**, `src/component-api/[name]/api.ts`. When it doesn't exist, create it from those props, parts and slots, following [src/component-api/AGENTS.md](../../component-api/AGENTS.md). Props and slots are read from the component source, so `pnpm test` and the build fail when `api.ts` and the source disagree.
 - **Dependencies**: the pages of the controls a `Field` holds (number field, range, select, text field, textarea) depend on `field.css`, the Field's stylesheet, and the control's own stylesheet (`range.css`, `select.css`, `step-button.css`, `textarea.css`), field groups (`Checkbox`, `Radio`, `Switch` inside `Fieldset`/`FieldGroup`) on `form.css`, and popover-based components (`Menu`, a select in a `Field`) usually on `list.css`.
 - **A similar page**, such as `src/docs/components/accordion.astro`, for UI and content parity.
@@ -32,7 +32,8 @@ A page documents what these files hold:
   - `Basics.astro`, `Basics.html`, `Basics.react.tsx`, `Basics.solid.tsx`, `Basics.svelte` and `Basics.vue`, one per framework in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Write the `.astro` file: `pnpm build-examples` ([scripts/build-examples.mjs](../../../scripts/build-examples.mjs)) writes the others from it, `pnpm build` runs it first, and `pnpm check-examples` (part of `pnpm check:fast`) fails on a stale file. A file written by hand is listed with its reason in [scripts/hand-written-examples.json](../../../scripts/hand-written-examples.json), such as the React, Svelte and Vue files of an example with a client `<script>`. An example takes at most scripts without attributes or imports and `<style is:global>` blocks at its top level, and no comment directly inside a component, which the Astro compiler drops. Every example has a file for each framework its component ships: `pnpm check-components` fails when one is missing, except for the examples in `FRAMEWORK_AGNOSTIC_EXAMPLES` and the HTML file of a `*Code` override, and the parity test compares them.
   - `Variants.astro`, `Variants.html`, `Variants.react.tsx`, `Variants.svelte`, `Variants.vue`, etc.
 - **Partials**: `src/docs/components/partials/[Name].astro` holds prose that several pages share, such as `ValidationNotes` and `LabelAlignment`. Give a partial props for the words that differ per page, and write it once with `<PropOrClass>` and `<Conditional>`. `Usage` and `KeyboardSupport` render the sections every component page shares (see 5.7 and 5.8).
-- **Checks**: `pnpm check-components` checks the example files (names, React default exports and `"use client"`, outer wrappers, and that a page shows each one through `<AutoExample>` or an import). `tests/unit/docs-pages.test.ts` checks the pages (links, section headings, examples in sections, the anatomy slot, `isDependency`, callouts and `<Conditional>` tags), `tests/unit/parity.test.ts` that decorative SVGs are hidden, and `tests/unit/default-icons.test.ts` that a page names each icon token an empty `svg` shows, through the `DefaultIcon` partial.
+- **Page data**, `src/component-api/pages.ts`: the page's entry, which the catalog reads (see 4.1).
+- **Checks**: `pnpm check-components` checks the example files (names, React default exports and `"use client"`, outer wrappers, and that a page shows each one through `<AutoExample>` or an import). `tests/unit/docs-pages.test.ts` checks the pages (links, section headings, examples in sections, the anatomy slot, callouts, `<Conditional>` tags and the examples the agent skill shows), `tests/unit/catalog.test.ts` the page data, `tests/unit/parity.test.ts` that decorative SVGs are hidden, and `tests/unit/default-icons.test.ts` that a page names each icon token an empty `svg` shows, through the `DefaultIcon` partial.
 - **Code files**: If a code snippet needs to differ from the rendered preview (e.g., to hide documentation-specific scripts or wrappers), add a file with a `Code` suffix, such as `SizesCode.astro`, which `pnpm build-examples` turns into the other formats like any example. `<AutoExample>` shows it in the code tab instead of the preview's source.
 
 ## 3. Implementation Pattern: Externalized Examples
@@ -41,25 +42,16 @@ Inline HTML/Astro code examples live in `src/component-examples/`. The active fr
 
 ### 3.1 Basic Page Template
 
-Every component module lives under `src/docs/components/` and uses the `Component` layout. The standard pattern uses `<AutoExample>` and the layout's auto-API resolver - both keyed off the page's `slug` - so adding a new section or framework is a filesystem operation, not an import-list edit:
+Every component module lives under `src/docs/components/` and uses the `Component` layout. The standard pattern uses `<AutoExample>` and the layout's catalog lookups, all keyed off the page's slug, its file name, so adding a new section or framework is a filesystem operation, not an import-list edit. Give the page an entry in `src/component-api/pages.ts` (see 4.1):
 
 ```astro
 ---
 import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
-
-import ComponentCSS from "@opui/css/components/component.css?raw"
 ---
 
-<Component
-  slug="component"
-  browserSupport={["feature-id"]}
-  installationTabs={[
-    { title: "component.css", code: ComponentCSS, lang: "css" },
-  ]}
->
-  <Fragment slot="title">Component Name</Fragment>
+<Component>
   <Fragment slot="preamble">
     Brief description. See also:
     <DocLink href="/components/related" class="ui-link">Related</DocLink>.
@@ -75,8 +67,8 @@ import ComponentCSS from "@opui/css/components/component.css?raw"
 What the conventions handle automatically:
 
 - **`<AutoExample name="Basics">`** globs `src/component-examples/<slug>/Basics.{astro,html,react.tsx,svelte,vue}` for every framework registered in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Drop a file in the right folder and the section picks it up. A page that ships for a framework fails to build when an example has no file for it, unless the example is listed in `FRAMEWORK_AGNOSTIC_EXAMPLES` (same file): those have only the `.html` file, and every framework page shows it. Typography's `Default` is one, since rich text from a CMS arrives as an HTML string.
-- **API tables** come from `src/component-api/<slug>/api.ts`, passed as `apis={[{ title: "Button API", api: buttonApi }]}`.
-- The layout sets `Astro.locals.componentSlug = slug`, which `<AutoExample>` reads - so each example only repeats `name`, never the slug.
+- **The title, API tables, Browser support, Installation and the sidebar group** come from the catalog (`src/component-api/catalog.ts`), which reads the page's entry in `src/component-api/pages.ts` and the `api.ts` files whose `page` is the slug.
+- The layout sets `Astro.locals.componentSlug` to the slug, which `<AutoExample>` reads - so each example only repeats `name`, never the slug.
 
 CSS imports use the `@opui/css/...` package alias. UI-component imports use the package, as readers do (e.g. `import { Button } from "opui-css/astro"`). Avoid hand-rolled relative paths into the package.
 
@@ -99,9 +91,9 @@ The manual form:
 The `Component` layout renders a page in this order. Only the default slot is ordered by the page itself; the rest is placed by the layout, wherever the slot sits in the source.
 
 1. `title` and `preamble`. Not every page needs a preamble. Use it for a short description, and name the close sibling when there is one (Chip vs Button, Dialog vs Drawer, Menu vs Select, Switch vs Checkbox vs Toggle, Tabs vs Toggle group), linked both ways with `<DocLink>`. The full guidance goes in the `usage` slot.
-2. Browser support chips (`browserSupport`).
+2. Browser support chips (`featuresOf` in the catalog).
 3. The `anatomy` slot, when `heroAnatomy` is set.
-4. On the Astro, Nunjucks, React, Solid, Svelte and Vue pages, Installation (`installationTabs` and the `installation` slot), with a Command tab (the install command and the import line) and a Manual tab (the CSS files), then the `usage` slot, as "Usage" (see 5.7). Usage comes before the examples, so readers know they're on the right page before they read how to set it up, and starts collapsed, so the examples stay close to the top.
+4. On the Astro, Nunjucks, React, Solid, Svelte and Vue pages, Installation (the catalog's `installOf` and `importsOf`, and the `installation` slot), with a Command tab (the install command and the import line) and a Manual tab (the CSS files), then the `usage` slot, as "Usage" (see 5.7). Usage comes before the examples, so readers know they're on the right page before they read how to set it up, and starts collapsed, so the examples stay close to the top.
 5. The default slot, in this order. Skip what doesn't apply:
    1. Basics: the plain component, usually under `<section id="basics"><h2>Basics</h2>`.
    2. Variants, colors and severities.
@@ -112,32 +104,43 @@ The `Component` layout renders a page in this order. Only the default slot is or
    7. Composition and special cases: groups, advanced examples, related notes.
 6. The `accessibility` slot, as "Accessibility", with the Keyboard support table last (see 5.8).
 7. The `anatomy` slot as "Anatomy", when `heroAnatomy` isn't set.
-8. The API tables (`apis`).
+8. The API tables (the catalog's `shownApisOf`).
 9. The `under-the-hood` slot, as "Under the hood".
-10. Browser support, Installation on the HTML pages (`installationTabs` and the `installation` slot), Used in blocks (the blocks in `src/blocks/` whose markup has the root class of an `api.ts` on the page), See also (`seeAlsoLinks`) and Changelog (the What's new callout with the notes from `src/utils/whats-new.ts`, then a "Migrating from 5.x" callout with the notes that start with `Breaking:`, collapsed after five and linked to the matching section of the migration guide, then the `changelogPaths` commits).
+10. Browser support, Installation on the HTML pages (the catalog's `installOf` and the `installation` slot), Used in blocks (the blocks in `src/blocks/` whose markup has the root class of an `api.ts` on the page), See also (`seeAlsoLinks`) and Changelog (the What's new callout with the notes from `src/utils/whats-new.ts`, then a "Migrating from 5.x" callout with the notes that start with `Breaking:`, collapsed after five and linked to the matching section of the migration guide, then the `changelogPaths` commits).
 
 ## 4. Layout Props & Slots
 
 The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.astro)) provides the following inputs:
 
-### 4.1 Props
+### 4.1 Page data
 
-- `apis`: (Optional) An array of `{ title, api }` objects, where `api` is the default export of a `src/component-api/<slug>/api.ts`. Use several entries when a page documents more than one component (e.g. Tabs and its `TabsItem`). It also takes a framework-keyed object of hand-written `.astro` tables, such as `{ html: HtmlTable }`.
-- `base`: (Optional) The slug of the page whose component this page's control goes in, such as `field` on the Text field page. Its components join the page's own in the Installation import line and in the agent skill reference, and the sidebar lists the page under that page's group, such as Fields.
-- `browserSupport`: (Optional) Array of feature IDs (e.g., `["has", "light-dark"]`). List the modern features the component's own CSS relies on, the ones a reader would check before adopting it. The chips of every page also count `SHARED_FEATURES` in [src/utils/browser-support.ts](../../utils/browser-support.ts), the features of the theme and the core sheets that the browser support guide lists under Shared features, so the versions show the true minimum: `cascade-layers`, `nesting` and `oklab` stay out of the list, and `color-mix`, `light-dark` and `relative-color` are listed where the component's own CSS uses them. Leave out the library-wide basics every stylesheet shares, even when an Under the hood step tags them in its `features`: logical margins, insets and sizes (`logical-properties` stands for `overflow-block` and `overflow-inline`, which pages list), `:focus-visible` (`focus-visible`), `forced-colors`, masks (`masks`), `overscroll-behavior`, `appearance`, `aspect-ratio`, `::backdrop` (`backdrop`), the individual transform properties (`individual-transforms`) and the viewport unit variants (`viewport-unit-variants`), and long-settled features such as `:not()`, `clip-path`, `grid`, `flexbox-gap`, `isolation`, `object-fit`, `min-max-clamp` and `sticky-positioning`. Widely available features that still date a component, such as `container-queries`, `overflow-clip` and `scroll-snap`, stay listed. `pnpm check-browser-support` fails on an unknown or unsorted id, on an id it has no detector for, and on a missing or unused one among the features it detects (`patterns` in `packages/opui/scripts/features.mjs` and `HTML_FEATURES` in the script), and `node scripts/check-browser-support.mjs --write` rewrites the lists it reports.
+Each page has an entry in `src/component-api/pages.ts`, keyed by its slug, the file name. The catalog (`src/component-api/catalog.ts`) reads it in the site and in the Node scripts, so the sidebar, the layout, the search index, the agent skill and the checks agree, and no module reads it back from the page source.
+
+- `title`: (Required) The page heading, and the name the sidebar, the search index, the API index and the agent skill use.
+- `apis`: (Optional) The `api.ts` folders in the order the page shows their tables, such as `["control-group", "button"]`. List one of another page to show its table too, as Checkbox does with `field-group`. The page's own `api.ts` files not listed follow, by folder. Each table is titled by its component's name, such as "Accordion summary API".
+- `base`: (Optional) The slug of the page whose component this page's control goes in, such as `field` on the Text field page. Its component joins the page's own in the Installation import line and in the agent skill reference, and the sidebar lists the page under that page's group, such as Fields.
+- `examples`: (Optional) The examples the agent skill reference shows. Defaults to `["Basics"]`. Each must be an `<AutoExample>` on the page.
+- `features`: (Optional) The exceptions to the computed Browser support: `core` adds ids the page gets from the core sheets, `ignore` drops ids its stylesheets use that the page doesn't rely on.
+- `fallbacks`: (Optional) `{ [id]: sentence }`, rendered under the chips in Browser support: for each id of the page some browser lacks, what the component does without it. Read it off the component CSS, `packages/opui/css/compat/` and the features data, check it in the browser when you can, and say it plainly: what still works and what's missing ("Without `overlay`, the page can cover the menu while it fades out."), never more than the CSS does. Backticks and `[label](/path)` links are formatted by `formatInline`. `pnpm check-browser-support` checks which ids need one.
+- `uses`: (Optional) The `api.ts` folders of other pages whose components and elements the page's examples use without showing their tables, such as `character-count` on the Textarea page. Their components join the import line and their elements the installed files.
+
+Browser support shows `featuresOf(slug)` from the catalog: the modern features the component's own CSS relies on, the ones a reader would check before adopting it. It finds them in the stylesheets of the page's `api.ts` files, in the rules its HTML examples and `api.ts` classes can match, with the patterns in `packages/opui/scripts/features.mjs`, and in the HTML of its examples (`HTML_FEATURES` in `src/component-api/browser-features.mjs`), then applies the page's `features` exceptions. The chips of every page also count `SHARED_FEATURES` in [src/utils/browser-support.ts](../../utils/browser-support.ts), the features of the theme and the core sheets that the browser support guide lists under Shared features, so the versions show the true minimum: `cascade-layers`, `nesting` and `oklab` have no pattern, and `color-mix`, `light-dark` and `relative-color` count where the component's own CSS uses them. The patterns leave out the library-wide basics every stylesheet shares, even when an Under the hood step tags them in its `features`: logical margins, insets and sizes (`logical-properties` stands for `overflow-block` and `overflow-inline`, which pages list), `:focus-visible` (`focus-visible`), `forced-colors`, masks (`masks`), `overscroll-behavior`, `appearance`, `aspect-ratio`, `::backdrop` (`backdrop`), the individual transform properties (`individual-transforms`) and the viewport unit variants (`viewport-unit-variants`), and long-settled features such as `:not()`, `clip-path`, `grid`, `flexbox-gap`, `isolation`, `object-fit`, `min-max-clamp` and `sticky-positioning`. Widely available features that still date a component, such as `container-queries`, `overflow-clip` and `scroll-snap`, have patterns. `pnpm check-browser-support` checks the ids and the exceptions.
+
+Installation lists the stylesheets of the `api.ts` files the page shows and the elements of its own and the ones it `uses`: the stylesheet named after its first component, its other stylesheets, each followed by its element, its other elements, and then the stylesheets another page owns, under Dependencies. A page owns the stylesheet named after it or after one of its source folders. The import line names the page's components, the parts on its page and the components it `uses` that the framework exports, and its `base` page's component.
+
+### 4.2 Props
+
 - `changelogPaths`: (Optional) Array of `{ path, type }` entries the per-component changelog follows on top of the files the page owns. The layout already follows those (`filesOf` in [src/component-api/catalog.ts](../../component-api/catalog.ts)): the page, its examples, its `api.ts` folders, its component folders and elements, and the stylesheets named after the page or one of its components. Add only what that leaves out, such as a component of another page or the paths the page had before a rename.
-- `fallbacks`: (Optional) `{ [id]: sentence }`, rendered under the chips in Browser support: for each `browserSupport` id some browser lacks, what the component does without it. Read it off the component CSS, `packages/opui/css/compat/` and the features data, check it in the browser when you can, and say it plainly: what still works and what's missing ("Without `overlay`, the page can cover the menu while it fades out."), never more than the CSS does. Backticks and `[label](/path)` links are formatted by `formatInline`. `pnpm check-browser-support` checks which ids need one.
 - `heroAnatomy`: (Optional) Renders the `anatomy` slot at the top of the page, above the content, instead of in its own section.
-- `installationTabs`: (Optional) Array of `{ title, code, lang, isDependency }` objects. `isDependency` marks a CSS file that has its own component page.
+- `installationSnippets`: (Optional) Array of `{ title, code, lang }` objects, extra Installation files after the catalog's, such as the theme tokens snippet on the Callout page.
 - `overline`: (Optional) Sidebar/breadcrumb overline. Defaults to `"Components"`.
 - `seeAlsoLinks`: (Optional) Array of `{ name, href }` entries rendered in a "See also" section.
 - `showToc`: (Optional) Shows the table of contents. Defaults to `true`.
-- `slug`: (Required for auto examples, API tables and anatomy) The component slug, such as `text-field`. `<AutoExample>`, the auto-resolved `api.ts` and `<Anatomy>` all key off it. Defaults to the last URL segment.
 - `description`, `image`: (Optional) Page meta. `description` defaults to the `preamble` text.
 
-### 4.2 Slots
+### 4.3 Slots
 
-- `title`: (Required) The page heading.
+- `title`: (Optional) The page heading, on a page without page data, such as the components index. A component page takes its `title` from `src/component-api/pages.ts`.
 - `preamble`: (Optional) Introductory text.
 - `default`: Main documentation content.
 - `anatomy`: (Optional) An `<Anatomy>` diagram of the component's parts (see 5.4).
@@ -157,15 +160,7 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 
 ### 5.2 API Documentation
 
-Don't hardcode API tables. Describe the component once in `src/component-api/<slug>/api.ts` ([src/component-api/AGENTS.md](../../component-api/AGENTS.md)) and pass it to the layout:
-
-```astro
----
-import buttonApi from "../../component-api/button/api"
----
-
-<Component slug="button" apis={[{ title: "Button API", api: buttonApi }]} />
-```
+Don't hardcode API tables. Describe the component once in `src/component-api/<slug>/api.ts` ([src/component-api/AGENTS.md](../../component-api/AGENTS.md)). The layout shows the tables of every `api.ts` whose `page` is the slug, in the order of `apis` in the page's entry in `src/component-api/pages.ts`.
 
 - One `api.ts` renders the props, slots and parts tables for every framework, the HTML modifiers table, and the `<Anatomy>` diagram.
 - Keep descriptions short. Use backticks for classes, props and selectors; they are formatted by `formatInline`.
@@ -300,7 +295,7 @@ Every component page fills the `usage` slot with the `Usage` partial ([partials/
   - **Validation**: Cross-check that highlighted lines in Astro correspond to the same functionality in HTML.
   - **Accuracy**: Use `cat -n path/to/file` in the terminal to verify indices.
 - **Path Resolution**: Inside `src/component-examples/`, import UI components from `opui-css/<framework>`, the path readers copy, never from `@opui/...` (`pnpm check-components` fails on it) or a relative path into the package.
-- **API prop vs. Hardcoding**: Always use the `apis` prop on `<Component />` instead of hardcoding an API table in the default slot. This ensures consistent positioning and styling.
+- **API data vs. Hardcoding**: Always let the layout render the API tables from the catalog instead of hardcoding an API table in the default slot. This ensures consistent positioning and styling.
 - **Internal Links in Prose**: Use canonical paths (e.g. `/components/text-field#file`) and let the docs site resolve them per request. Two primitives:
   - **`<DocLink href="...">`** - drop-in replacement for `<a>` in shared docs content. SSR-resolves the href to the active framework variant (`/html/components/...`, `/astro/components/...`) at build time.
   - **`Astro.locals.link("/path")`** - same resolution as a function. Use it for `href` props on components that render their own anchor (e.g. `Button`, `Chip`, `ComponentCard`): `<Button href={link("/components/button")}>`.

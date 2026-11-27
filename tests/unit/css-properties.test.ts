@@ -207,8 +207,11 @@ const vocabularyProblem = (name: string) => {
   ) {
     return "name a weight by the role it styles (--ui-font-weight-label), so a theme that sets it can't make a name lie"
   }
-  if (name === "--ui-line-height") {
-    return "no bare line height: name the text it sets (--ui-line-height-body for page text, --ui-line-height-control for controls)"
+  if (
+    /^--ui-line-height(-|$)/.test(name) &&
+    !/^--ui-line-height-(body|compact|tight)$/.test(name)
+  ) {
+    return "the line heights are --ui-line-height-tight, -compact and -body, by how much room the text gets: a theme sets one of the three, and a part that needs its own gets a component token (--ui-field-helper-line-height)"
   }
   if (/^--ui-font-(body|code|heading)$/.test(name)) {
     return "a font family is --ui-font-family-*, so it doesn't read like --ui-font-size-*"
@@ -260,9 +263,10 @@ test("samples the vocabulary rule must flag and must keep", () => {
       "--ui-hover-alpha-light",
       "--ui-font-weight-bold",
       "--ui-line-height",
+      "--ui-line-height-control",
       "--ui-font-body",
     ].map((name) => vocabularyProblem(name) === undefined),
-  ).toEqual(Array(9).fill(false))
+  ).toEqual(Array(10).fill(false))
   expect(
     [
       "--ui-shadow-elevated",
@@ -277,9 +281,11 @@ test("samples the vocabulary rule must flag and must keep", () => {
       "--_elevated-shadow",
       "--ui-font-weight-label",
       "--ui-line-height-body",
+      "--ui-line-height-compact",
+      "--ui-field-helper-line-height",
       "--ui-font-family-body",
     ].map(vocabularyProblem),
-  ).toEqual(Array(13).fill(undefined))
+  ).toEqual(Array(15).fill(undefined))
 })
 
 const STATE_ENDING = /-(checked|focus|hover)$/

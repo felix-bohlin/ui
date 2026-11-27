@@ -309,9 +309,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-line-height-body":
     "Line height of the page text set on `html`, and of `Tabs` labels.",
   "--ui-line-height-compact":
-    "Line height of short text that isn't page prose: captions, the lead paragraph, `List` text, the `Stat` label and description and the `Stepper` description. Page text uses `--ui-line-height-body`.",
-  "--ui-line-height-control":
-    "Line height of interface text: labels, helpers, choice labels and field hints.",
+    "Line height of short text that isn't page prose: `Checkbox`, `Radio` and `Switch` labels, field start and end text, form descriptions, captions, the lead paragraph, `List` text, the `Stat` label and description and the `Stepper` description. Page text uses `--ui-line-height-body`.",
   "--ui-line-height-tight":
     "Line height of single-line controls and dense text: field inputs, dense `Table` cells, the `Stat` value, `Tooltip`, `Card` captions and keyboard hints in buttons.",
   "--ui-link-focus":

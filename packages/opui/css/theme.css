@@ -76,8 +76,7 @@
     --ui-letter-spacing-heading: -0.01em;
 
     --ui-line-height-tight: 1.25;
-    --ui-line-height-control: 1.5;
-    --ui-line-height-compact: 1.6;
+    --ui-line-height-compact: 1.5;
     --ui-line-height-body: 1.75;
     /* --ui-rich-text-line-height: var(--ui-line-height-body); */
 
@@ -391,7 +390,7 @@
     /* Field / input */
     --ui-field-helper-text-color: var(--ui-text-subtle);
     --ui-field-helper-font-size: var(--ui-font-size-caption);
-    --ui-field-helper-line-height: var(--ui-line-height-control);
+    --ui-field-helper-line-height: var(--ui-line-height-compact);
     --ui-field-label-text-color: var(--ui-text-strong);
     --ui-field-label-font-size: var(--ui-font-size-small);
     --ui-field-label-font-weight: var(--ui-font-weight-label);

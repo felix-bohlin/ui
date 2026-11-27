@@ -28,7 +28,7 @@
     & > :where(.ui-description) {
       color: var(--ui-text);
       font-size: var(--ui-font-size-small);
-      line-height: var(--ui-line-height-control);
+      line-height: var(--ui-line-height-compact);
       margin: 0;
 
       &:has(+ *) {

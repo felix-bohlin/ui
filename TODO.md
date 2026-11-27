@@ -5668,6 +5668,12 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Summary: The Theme builder works on a phone, but a few parts are cramped or need a sideways swipe.
   - Recommended: Fix. The lock buttons and hints are one declaration each, and the contrast table needs a layout for narrow drawers.
   - Fix: found on iPhone 13, Pixel 7 and 320x640 in Chromium, light and dark; every control is reachable and tappable, nothing overflows the page, and download and share work. Give `.builder-lock` `align-self: stretch`, give `.builder-control-hint` the caption size, and on narrow drawers stack each contrast row's four values under its name or move the Go to setting button under the group name.
+- [ ] (1) Field: a field label has no line height of its own and inherits `--ui-line-height-body` (1.75, 24.5px at its 14px), while `Checkbox`, `Radio` and `Switch` labels and the field's own start and end text read `--ui-line-height-compact` (1.5, 21px), so a wrapped field label is looser than a wrapped choice label next to it, as in the Long content section of `/dev/tests/forms/` (`packages/opui/css/components/field.css:498-505`, `packages/opui/css/components/choice.css:26`, `packages/opui/css/theme.css:392-397`)
+  - Summary: Field labels inherit the page line height, 1.75, while choice labels and the field's helper text use 1.5.
+  - Recommended: Fix with option A. A label is short interface text, like the choice labels, and a token keeps it a theme's choice.
+  - Options:
+    - A (recommended): add `--ui-field-label-line-height`, `var(--ui-line-height-compact)` by default like `--ui-field-helper-line-height`, and read it on the field label and the legend of a field group.
+    - B: keep the inherited body line height, so a label set in a field reads like the text around the form.
 - [ ] (2) Tokens: there is no Figma kit. Peers build one from their tokens: Primer generates Figma variables from its token files, Material has Theme Builder, and Carbon, Spectrum and Nord ship kits. `tokens.json` is the starting point, but its values are CSS expressions (`var()`, `light-dark()`, relative colors), so a kit needs them resolved per mode first (`packages/opui/tokens.json`, `src/utils/tokens-json.ts`)
   - Summary: There is no Figma kit, and tokens.json holds CSS expressions that a kit would need resolved per mode first.
   - Recommended: Fix with option A. A resolved-tokens export is a small script over the existing `tokens.json` and is what every Figma variables importer needs.

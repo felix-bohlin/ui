@@ -950,6 +950,7 @@ export const whatsNew = {
       ),
     },
     `<a href="#dense">Dense</a> rows keep the default inline padding, so they line up with card content.`,
+    `<a href="#text">Row text</a> has a line height of <code>--ui-line-height-compact</code> (1.5) instead of 1.6, like checkbox, radio and switch labels.`,
     `Only direct children are styled as rows, so nested lists inside a row stay normal lists (<a href="#under-the-hood">Under the hood</a>).`,
     {
       ...slots(
@@ -1619,6 +1620,7 @@ export const whatsNew = {
     `<a href="#rich-text-showcase">Rich text</a> headings, <code>pre</code> and <code>small</code> scale with the surrounding font size, and so does <a href="#inline-text-elements"><code>.ui-small</code></a>.`,
     `Rich text <code>var</code> is monospace, like <a href="#inline-text-elements"><code>.ui-var</code></a>.`,
     `<a href="#link">Links</a> are documented, and get a thicker underline on hover.`,
+    `<a href="#variants">Captions</a> have a line height of <code>--ui-line-height-compact</code> (1.5) instead of 1.6.`,
     `Headings read <a href="#api"><code>--ui-font-family-heading</code></a>, and code, <code>kbd</code>, <code>samp</code> and <code>.ui-var</code> read <code>--ui-font-family-code</code>. Rich text padding and gaps read the <code>--ui-space-*</code> scale; its margins come from the flow space.`,
     `<a href="#link">Links</a> read <code>--ui-primary-text</code>, which keeps 4.5:1 on every surface, in a List too.`,
     `<a href="#link">Links</a> and <a href="#inline-text-elements">underlined text</a> read <code>--ui-underline-offset</code>, <code>--ui-underline-offset-small</code> and <code>--ui-underline-hover-thickness</code>.`,

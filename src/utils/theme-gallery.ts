@@ -126,7 +126,7 @@ export const GALLERY: GalleryEntry[] = [
           'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
         "--ui-gray-chroma": "0.012",
         "--ui-gray-hue": "70",
-        "--ui-line-height-compact": "1.6",
+        "--ui-line-height-compact": "1.5",
         "--ui-line-height-body": "1.75",
         "--ui-palette-source": "oklch(0.5 0.1 60)",
         "--ui-primary-source":

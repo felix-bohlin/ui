@@ -892,7 +892,7 @@ export const GROUPS: ControlGroup[] = [
           {
             label: "Default",
             tokens: {
-              "--ui-line-height-compact": "1.6",
+              "--ui-line-height-compact": "1.5",
               "--ui-line-height-body": "1.75",
             },
             value: "default",

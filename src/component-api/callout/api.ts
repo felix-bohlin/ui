@@ -70,6 +70,13 @@ export default {
     },
     {
       description:
+        "Paints the callout in the current palette, with no meaning and no icon. Put the callout or a parent in a `.ui-scope` with `--ui-palette-hue` to pick the color. A `severity` wins over it.",
+      group: "Colors",
+      prop: "color",
+      values: { accent: ".ui-accent" },
+    },
+    {
+      description:
         "The id of the callout. With `closeButton`, the close button points at it with `commandfor`, so the component generates one when it's left out.",
       inherited: true,
       prop: "id",

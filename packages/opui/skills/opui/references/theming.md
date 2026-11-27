@@ -58,6 +58,19 @@ A scope class re-themes an element and everything inside it:
 - `.ui-critical` and the other severities: swap the palette for the intent color.
 - `.ui-light` and `.ui-dark`: force a color scheme, except in print, which is always light. Builds that rewrite `light-dark()` only follow them on `html`, see the [README](https://github.com/felix-bohlin/ui/blob/main/packages/opui/README.md#builds-that-rewrite-light-dark).
 
+## Any color
+
+The theme names its colors by job: the primary and the intents critical, info, success, warning and neutral. For any other color, give that part of the page a palette of its own. `.ui-scope` with `--ui-palette-hue` derives the 16 palette steps and the palette shades from that hue, within the same contrast limits as the page palette:
+
+```html
+<div class="ui-scope" style="--ui-palette-hue: 300">
+  <span class="ui-chip ui-accent"><span class="ui-text">Funk</span></span>
+  <button class="ui-button ui-filled ui-primary" type="button">Purple</button>
+</div>
+```
+
+Set `--ui-palette-source` instead to start from an exact color, such as a brand color: the palette keeps its hue and chroma and sets the lightness of each step. Primary buttons and buttons without an intent, avatars, links, and checked checkboxes, radios, switches and toggle buttons follow the palette. Chips, callouts and badges follow it with `color="accent"` (`.ui-accent`).
+
 ## Surfaces
 
 - `--ui-surface` The page

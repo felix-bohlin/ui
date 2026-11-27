@@ -13,6 +13,7 @@ export default function Callout(props: Props) {
     "class",
     "closeButton",
     "closeLabel",
+    "color",
     "id",
     "ref",
     "severity",
@@ -33,6 +34,7 @@ export default function Callout(props: Props) {
       <Root
         class={[
           "ui-callout",
+          props.color && `ui-${props.color}`,
           props.severity && `ui-${props.severity}`,
           props.variant && props.variant !== "tonal" && `ui-${props.variant}`,
           props.class,

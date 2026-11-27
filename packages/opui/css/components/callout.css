@@ -36,6 +36,7 @@
       break-inside: avoid;
     }
 
+    &.ui-accent,
     &.ui-critical,
     &.ui-info,
     &.ui-neutral,

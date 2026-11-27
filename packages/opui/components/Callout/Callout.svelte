@@ -9,6 +9,7 @@
     class: className,
     closeButton,
     closeLabel = "Close",
+    color,
     id,
     ondismiss,
     severity,
@@ -35,6 +36,7 @@
   this={Root}
   class={[
     "ui-callout",
+    color && `ui-${color}`,
     severity && `ui-${severity}`,
     variant && variant !== "tonal" && `ui-${variant}`,
     className,

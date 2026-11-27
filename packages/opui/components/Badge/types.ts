@@ -1,5 +1,5 @@
 export type Props = {
-  color?: "critical" | "info" | "neutral" | "success" | "warning"
+  color?: "accent" | "critical" | "info" | "neutral" | "success" | "warning"
   corner?: "start-start" | "start-end" | "end-start" | "end-end"
   invisible?: boolean
 } & (

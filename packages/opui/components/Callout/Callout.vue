@@ -9,6 +9,7 @@ import type { Props, Emits, Slots } from "./types.vue-props"
 const {
   closeButton,
   closeLabel = "Close",
+  color,
   id,
   severity,
   variant,
@@ -32,6 +33,7 @@ provide(CalloutKey, reactive({ severity: computed(() => severity) }))
     :is="Root"
     :class="[
       'ui-callout',
+      color && `ui-${color}`,
       severity && `ui-${severity}`,
       variant && variant !== 'tonal' && `ui-${variant}`,
     ]"

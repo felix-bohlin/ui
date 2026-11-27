@@ -3,6 +3,10 @@ import { Badge } from "opui-css/vue"
 </script>
 
 <template>
+  <Badge color="accent" hideLabel label="5 unread messages">
+    <svg aria-hidden="true"><!-- --></svg>
+    <template #indicator>5</template>
+  </Badge>
   <Badge color="critical" hideLabel label="5 unread messages">
     <svg aria-hidden="true"><!-- --></svg>
     <template #indicator>5</template>

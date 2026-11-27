@@ -7,6 +7,7 @@ import type { Props, Slots } from "./types.vue-props"
 
 const {
   as,
+  color,
   disabled,
   dot,
   href,
@@ -35,6 +36,7 @@ const Tag = computed(() =>
     :class="[
       'ui-chip',
       { 'ui-dot': dot, 'ui-multiline': multiline },
+      color && `ui-${color}`,
       severity && `ui-${severity}`,
       size && size !== 'medium' && `ui-${size}`,
       variant !== 'tonal' && `ui-${variant}`,

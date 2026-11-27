@@ -3,6 +3,9 @@ import { Badge } from "opui-css/react"
 export default function ColorsCode() {
   return (
     <>
+      <Badge color="accent" hideLabel indicator="5" label="5 unread messages">
+        <svg aria-hidden="true">{/* */}</svg>
+      </Badge>
       <Badge color="critical" hideLabel indicator="5" label="5 unread messages">
         <svg aria-hidden="true">{/* */}</svg>
       </Badge>

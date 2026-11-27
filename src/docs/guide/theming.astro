@@ -160,6 +160,90 @@ export const keywords = [
     </ul>
   </section>
 
+  <section id="any-color">
+    <h2>Any color</h2>
+    <p>
+      The theme names its colors by job: the primary and the intents critical,
+      info, success, warning and neutral. For any other color, give that part of
+      the page a palette of its own. <code>.ui-scope</code> with
+      <code>--ui-palette-hue</code> derives the 16 palette steps and the palette
+      shades from that hue, within the same contrast limits as the page palette:
+    </p>
+    <Example centered row>
+      <section
+        class="ui-scope scope-demo any-color-demo"
+        style="--ui-palette-hue: 300"
+      >
+        <p class="ui-caption">--ui-palette-hue: 300</p>
+        <span class="ui-avatar"><span>Pu</span></span>
+        <span class="ui-chip ui-accent"><span class="ui-text">Funk</span></span>
+        <button class="ui-button ui-filled ui-primary" type="button">
+          Purple
+        </button>
+        <button class="ui-button ui-tonal ui-primary" type="button">
+          Purple tonal
+        </button>
+        <label class="ui-checkbox">
+          <input checked type="checkbox" />
+          <span class="ui-text">Selected</span>
+        </label>
+      </section>
+      <section
+        class="ui-scope scope-demo any-color-demo"
+        style="--ui-palette-hue: 190"
+      >
+        <p class="ui-caption">--ui-palette-hue: 190</p>
+        <span class="ui-avatar"><span>Te</span></span>
+        <span class="ui-chip ui-accent"
+          ><span class="ui-text">Fretless</span></span
+        >
+        <button class="ui-button ui-filled ui-primary" type="button">
+          Teal
+        </button>
+        <button class="ui-button ui-tonal ui-primary" type="button">
+          Teal tonal
+        </button>
+        <label class="ui-checkbox">
+          <input checked type="checkbox" />
+          <span class="ui-text">Selected</span>
+        </label>
+      </section>
+      <section
+        class="ui-scope scope-demo any-color-demo"
+        style="--ui-palette-hue: 45"
+      >
+        <p class="ui-caption">--ui-palette-hue: 45</p>
+        <span class="ui-avatar"><span>Or</span></span>
+        <span class="ui-chip ui-accent"><span class="ui-text">Slap</span></span>
+        <button class="ui-button ui-filled ui-primary" type="button">
+          Orange
+        </button>
+        <button class="ui-button ui-tonal ui-primary" type="button">
+          Orange tonal
+        </button>
+        <label class="ui-checkbox">
+          <input checked type="checkbox" />
+          <span class="ui-text">Selected</span>
+        </label>
+      </section>
+    </Example>
+    <Code
+      code={`<div class="ui-scope" style="--ui-palette-hue: 300">
+  <span class="ui-chip ui-accent"><span class="ui-text">Funk</span></span>
+  <button class="ui-button ui-filled ui-primary" type="button">Purple</button>
+</div>`}
+      lang="html"
+    />
+    <p>
+      Set <code>--ui-palette-source</code> instead to start from an exact color,
+      such as a brand color: the palette keeps its hue and chroma and sets the
+      lightness of each step. Primary buttons and buttons without an intent,
+      avatars, links, and checked checkboxes, radios, switches and toggle
+      buttons follow the palette. Chips, callouts and badges follow it with
+      <code>color="accent"</code> (<code>.ui-accent</code>).
+    </p>
+  </section>
+
   <section id="surfaces">
     <h2>Surfaces</h2>
     <RoleSwatches roles={surfaceRoles} />
@@ -571,6 +655,10 @@ export const keywords = [
     .ui-caption {
       margin: 0;
     }
+  }
+
+  .any-color-demo {
+    justify-items: start;
   }
 
   .contrast-demo {

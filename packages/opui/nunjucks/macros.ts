@@ -370,7 +370,15 @@ export const components = {
     depths: {},
     folder: "Callout",
     keepsNone: ["class", "id"],
-    props: ["class", "closeButton", "closeLabel", "id", "severity", "variant"],
+    props: [
+      "class",
+      "closeButton",
+      "closeLabel",
+      "color",
+      "id",
+      "severity",
+      "variant",
+    ],
     removed: [],
     slots: ["closeIcon"],
   },
@@ -919,6 +927,7 @@ export const components = {
     props: [
       "as",
       "class",
+      "color",
       "disabled",
       "dot",
       "href",
@@ -2156,7 +2165,7 @@ export const templates = {
   "opui/Button.njk":
     '{% macro Button(props = {}) %}\n  {%- set props = props | opuiProps("Button") -%}\n  {%- set rest = props | opuiRest("Button") -%}\n  {%- set tag = "a"\n    if opui.disabledLink(props.as, props.disabled)\n    else props.as or ("a" if props.href else "button") -%}\n  {%- set classes = [\n    "ui-button",\n    { "ui-round": props.round },\n    props.color and "ui-" ~ props.color,\n    props.size and props.size != "medium" and "ui-" ~ props.size,\n    props.variant and props.variant != "transparent" and "ui-" ~ props.variant,\n    props.class\n  ] | opuiClass -%}\n  <{{ tag | opuiTag }}{{ opui.merge(\n    { class: classes },\n    opui.tagAttrs(tag, props.disabled, props.href),\n    opui.defined(rest)\n  ) | opuiAttributes(tag) }}>\n    {{- caller() if caller -}}\n  </{{ tag | opuiTag }}>\n{%- endmacro %}\n',
   "opui/Callout.njk":
-    '{% from "opui/Button.njk" import Button %}\n\n{% macro Callout(props = {}) %}\n  {%- set props = props | opuiProps("Callout") -%}\n  {%- set rest = props | opuiRest("Callout") -%}\n  {%- set closeLabel = props.closeLabel | default("Close") -%}\n  {%- set ids = opui.ids("callout", props.id) -%}\n  {%- set root = "opui-callout" if props.closeButton else "div" -%}\n  {%- set rootId = ids() if props.closeButton else props.id -%}\n  {%- set classes = [\n    "ui-callout",\n    props.severity and "ui-" ~ props.severity,\n    props.variant and props.variant != "tonal" and "ui-" ~ props.variant,\n    props.class\n  ] | opuiClass -%}\n  <{{ root | opuiTag }}\n    {{- opui.merge({ class: classes, id: rootId }, opui.defined(rest)) | opuiAttributes(root) }}>\n    {{- opui.provide("Callout", { severity: props.severity }, caller) }}{% if props.closeButton -%}\n      {% call Button({\n        "aria-label": closeLabel,\n        command: "--dismiss",\n        commandfor: rootId,\n        round: true,\n        size: "small"\n      }) -%}\n        {% if props.slots.closeIcon != none %}{{ props.slots.closeIcon | safe }}{% else %}<svg\n          aria-hidden="true"\n          xmlns="http://www.w3.org/2000/svg"\n          width="32"\n          height="32"\n          viewBox="0 0 32 32"></svg>{% endif %}\n      {%- endcall %}\n    {%- endif -%}\n  </{{ root | opuiTag }}>\n{%- endmacro %}\n',
+    '{% from "opui/Button.njk" import Button %}\n\n{% macro Callout(props = {}) %}\n  {%- set props = props | opuiProps("Callout") -%}\n  {%- set rest = props | opuiRest("Callout") -%}\n  {%- set closeLabel = props.closeLabel | default("Close") -%}\n  {%- set ids = opui.ids("callout", props.id) -%}\n  {%- set root = "opui-callout" if props.closeButton else "div" -%}\n  {%- set rootId = ids() if props.closeButton else props.id -%}\n  {%- set classes = [\n    "ui-callout",\n    props.color and "ui-" ~ props.color,\n    props.severity and "ui-" ~ props.severity,\n    props.variant and props.variant != "tonal" and "ui-" ~ props.variant,\n    props.class\n  ] | opuiClass -%}\n  <{{ root | opuiTag }}\n    {{- opui.merge({ class: classes, id: rootId }, opui.defined(rest)) | opuiAttributes(root) }}>\n    {{- opui.provide("Callout", { severity: props.severity }, caller) }}{% if props.closeButton -%}\n      {% call Button({\n        "aria-label": closeLabel,\n        command: "--dismiss",\n        commandfor: rootId,\n        round: true,\n        size: "small"\n      }) -%}\n        {% if props.slots.closeIcon != none %}{{ props.slots.closeIcon | safe }}{% else %}<svg\n          aria-hidden="true"\n          xmlns="http://www.w3.org/2000/svg"\n          width="32"\n          height="32"\n          viewBox="0 0 32 32"></svg>{% endif %}\n      {%- endcall %}\n    {%- endif -%}\n  </{{ root | opuiTag }}>\n{%- endmacro %}\n',
   "opui/CalloutActions.njk":
     '{% macro CalloutActions(props = {}) %}\n  {%- set props = props | opuiProps("CalloutActions") -%}\n  {%- set rest = props | opuiRest("CalloutActions") -%}\n  <div\n    class="ui-actions\n      {%- if props.class %} {{ props.class }}{% endif %}"\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </div>\n{%- endmacro %}\n',
   "opui/CalloutContent.njk":
@@ -2180,7 +2189,7 @@ export const templates = {
   "opui/CheckboxInput.njk":
     '{% macro CheckboxInput(props = {}) %}\n  {%- set props = props | opuiProps("CheckboxInput") -%}\n  {%- set rest = props | opuiRest("CheckboxInput") -%}\n  {%- set dataIndeterminate = \'\' if props.indeterminate else none -%}\n  <input\n    type="checkbox"\n    {%- if dataIndeterminate != none %} data-indeterminate="{{ dataIndeterminate }}"{% endif %}\n    {{- rest | opuiAttributes }}>\n{%- endmacro %}\n',
   "opui/Chip.njk":
-    '{% macro Chip(props = {}) %}\n  {%- set props = props | opuiProps("Chip") -%}\n  {%- set rest = props | opuiRest("Chip") -%}\n  {%- set variant = props.variant | default("tonal") -%}\n  {%- set tag = "a"\n    if opui.disabledLink(props.as, props.disabled)\n    else props.as or ("a" if props.href else "div") -%}\n  {%- set classes = [\n    "ui-chip",\n    { "ui-dot": props.dot, "ui-multiline": props.multiline },\n    props.severity and "ui-" ~ props.severity,\n    props.size and props.size != "medium" and "ui-" ~ props.size,\n    variant != "tonal" and "ui-" ~ variant,\n    props.class\n  ] | opuiClass -%}\n  <{{ tag | opuiTag }}{{ opui.merge(\n    { class: classes },\n    opui.tagAttrs(tag, props.disabled, props.href),\n    opui.defined(rest)\n  ) | opuiAttributes(tag) }}>\n    {{- props.slots.start | safe }}{% if props.label or props.slots.label != none -%}\n      <span class="ui-text">{{ props.label }}{{ props.slots.label | safe }}</span>\n    {%- endif %}{{ props.slots.end | safe -}}\n  </{{ tag | opuiTag }}>\n{%- endmacro %}\n',
+    '{% macro Chip(props = {}) %}\n  {%- set props = props | opuiProps("Chip") -%}\n  {%- set rest = props | opuiRest("Chip") -%}\n  {%- set variant = props.variant | default("tonal") -%}\n  {%- set tag = "a"\n    if opui.disabledLink(props.as, props.disabled)\n    else props.as or ("a" if props.href else "div") -%}\n  {%- set classes = [\n    "ui-chip",\n    { "ui-dot": props.dot, "ui-multiline": props.multiline },\n    props.color and "ui-" ~ props.color,\n    props.severity and "ui-" ~ props.severity,\n    props.size and props.size != "medium" and "ui-" ~ props.size,\n    variant != "tonal" and "ui-" ~ variant,\n    props.class\n  ] | opuiClass -%}\n  <{{ tag | opuiTag }}{{ opui.merge(\n    { class: classes },\n    opui.tagAttrs(tag, props.disabled, props.href),\n    opui.defined(rest)\n  ) | opuiAttributes(tag) }}>\n    {{- props.slots.start | safe }}{% if props.label or props.slots.label != none -%}\n      <span class="ui-text">{{ props.label }}{{ props.slots.label | safe }}</span>\n    {%- endif %}{{ props.slots.end | safe -}}\n  </{{ tag | opuiTag }}>\n{%- endmacro %}\n',
   "opui/ControlGroup.njk":
     "{% macro ControlGroup(props = {}) %}\n  {%- set props = props | opuiProps(\"ControlGroup\") -%}\n  {%- set rest = props | opuiRest(\"ControlGroup\") -%}\n  {%- set role = props.role | default('group') -%}\n  <div\n    class=\"ui-control-group\n      {%- if props.orientation == 'vertical' %} ui-vertical{% endif %}\n      {%- if props.color %} ui-{{ props.color }}{% endif %}\n      {%- if props.overflow and props.overflow != 'wrap' %} ui-overflow-{{ props.overflow }}\n      {%- endif %}\n      {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}\n      {%- if props.variant and props.variant != 'transparent' %} ui-{{ props.variant }}{% endif %}\n      {%- if props.class %} {{ props.class }}{% endif %}\"\n    role=\"{{ role }}\"\n    {{- rest | opuiAttributes }}>\n    {{- caller() if caller -}}\n  </div>\n{%- endmacro %}\n",
   "opui/Copy.njk":

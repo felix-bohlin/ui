@@ -14,6 +14,7 @@ const {
   class: className,
   closeButton,
   closeLabel = "Close",
+  color,
   id,
   severity,
   variant,
@@ -32,6 +33,7 @@ const html = await calloutContext.provide({ severity }, () =>
 <Root
   class={cx([
     "ui-callout",
+    color && `ui-${color}`,
     severity && `ui-${severity}`,
     variant && variant !== "tonal" && `ui-${variant}`,
     className,

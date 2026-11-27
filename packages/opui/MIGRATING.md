@@ -92,13 +92,13 @@ Every theme token has a `--ui-` prefix, like the classes: `--primary` is `--ui-p
 
 ```diff
 - .sidebar { --primary: var(--green); }
-+ .sidebar { --ui-primary: var(--ui-green); }
++ .sidebar { --ui-primary: var(--ui-success); }
 ```
 
 To add the prefix in one pass, search your CSS and markup for each of these regular expressions and replace every match with `--ui-$1`. They match the 5.x theme and palette tokens and leave the Open Props tokens, the tokens in the table below and names that already have the prefix alone. They work in VS Code's search and in `perl -pi -e 's/…/--ui-$1/g'`:
 
 ```text
---(blue|critical|green|info|neutral|orange|primary|red|success|warning)(?![\w-])
+--(critical|info|neutral|primary|success|warning)(?![\w-])
 --((?:color|gray)-(?:1[0-6]|[1-9]))(?![\w-])
 --((?:gray|palette)-(?:chroma|hue)|palette-(?:hue-rotate-by|source))(?![\w-])
 --((?:border|field-border)-(?:color|width)|color-scheme|surface-(?:filled|tonal))(?![\w-])
@@ -110,16 +110,22 @@ These tokens also have a new name, so adding the prefix isn't enough:
 
 | v5                        | v6                                                        |
 | ------------------------- | --------------------------------------------------------- |
+| `--blue`                  | `--ui-info`                                               |
 | `--border-radius`         | `--ui-radius`                                             |
 | `--button-border-radius`  | `--ui-button-radius` (unset, falls back to `--ui-radius`) |
 | `--field-border-radius`   | `--ui-field-radius` (unset, falls back to `--ui-radius`)  |
+| `--green`                 | `--ui-success`                                            |
+| `--orange`                | `--ui-warning`                                            |
 | `--primary-contrast`      | `--ui-on-primary`                                         |
+| `--red`                   | `--ui-critical`                                           |
 | `--surface-default`       | `--ui-surface`                                            |
 | `--surface-elevated`      | `--ui-surface-raised`                                     |
 | `--text-muted`            | `--ui-text`                                               |
 | `--text-muted-contrast`   | removed, use `--ui-on-inverse` on `--ui-surface-inverse`  |
 | `--text-primary`          | `--ui-text-strong`                                        |
 | `--text-primary-contrast` | `--ui-on-inverse`                                         |
+
+`--blue`, `--green`, `--orange` and `--red` only gave the intents their colors, so each maps to its intent. For a color of your own, give that part of the page a palette with `.ui-scope` and `--ui-palette-hue`, see [Any color](https://opui.dev/html/guide/theming/#any-color).
 
 `--ui-on-*` is the text and icon color on a fill, so `--ui-on-primary` goes on `--ui-primary` and `--ui-on-inverse` on `--ui-surface-inverse`. `--primary-dark` and `--primary-light` are gone. Derive a shade from the primary instead, such as `oklch(from var(--ui-primary) calc(l * 0.75) c h)`.
 
@@ -283,7 +289,7 @@ Local tokens (`--_*`) follow one scheme: `--_accent` for the accent color, `--_t
 | Tooltip                     | `--_tooltip-bg`, `--_tooltip-color`               | `--_bg-color`, `--_text-color`                                                                                                                                                                                                        |
 | Tooltip                     | `--_tooltip-offset`                               | `--_offset`                                                                                                                                                                                                                           |
 
-`--ui-info` and `--ui-blue` use hue 240, the same blue as the `.ui-info` palette, so info badges and callouts match. If you relied on the old cyan-ish blue (hue 210), set `--ui-blue` in your theme.
+`--ui-info` uses hue 240, the same blue as the `.ui-info` palette, so info badges and callouts match. If you relied on the old cyan-ish blue (hue 210), set `--ui-info` in your theme.
 
 Dark mode shadows are darker: every shadow token (`--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-selected`) builds its layers from `--ui-shadow-color`, `light-dark(oklch(0.268 0.003 265 / 1%), oklch(0.11 0.01 259 / 20%))`, so it darkens under `.ui-dark`, also on a part of the page, and the OS dark preference. 5.x cards picked a lighter and a darker Open Props shadow per scheme (`--_shadow-light` and `--_shadow-dark`, in the table above); now one `--ui-shadow-elevated` serves both schemes, so set `--ui-shadow-color` to change the color in each scheme, or `--ui-shadow-elevated` to replace the shadow:
 

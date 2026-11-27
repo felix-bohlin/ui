@@ -261,7 +261,7 @@
 
         .lb-third {
           --_height: 5rem;
-          --_place: var(--ui-orange);
+          --_place: oklch(0.66 0.2 75);
 
           order: 3;
         }

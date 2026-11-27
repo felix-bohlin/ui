@@ -371,6 +371,13 @@
     "url": "/html/components/callout/#severities"
   },
   {
+    "id": "component-callout-html-accent",
+    "title": "Accent",
+    "page": "Callout",
+    "category": "Component",
+    "url": "/html/components/callout/#accent"
+  },
+  {
     "id": "component-callout-html-icon",
     "title": "Icon",
     "page": "Callout",
@@ -744,6 +751,13 @@
     "page": "Chip",
     "category": "Component",
     "url": "/html/components/chip/#severities"
+  },
+  {
+    "id": "component-chip-html-accent",
+    "title": "Accent",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/html/components/chip/#accent"
   },
   {
     "id": "component-chip-html-sizes",
@@ -3722,6 +3736,13 @@
     "url": "/html/guide/theming/#scopes"
   },
   {
+    "id": "guide-theming-html-any-color",
+    "title": "Any color",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/html/guide/theming/#any-color"
+  },
+  {
     "id": "guide-theming-html-surfaces",
     "title": "Surfaces",
     "page": "Theming",
@@ -4687,7 +4708,7 @@
     "id": "api-badge-html",
     "title": "Badge API",
     "description": "Reference for Badge HTML component.",
-    "api": ".ui-badge Container element. The element the badge is anchored to. .ui-badge > :first-child The indicator, inside `.ui-floating`. Holds `label`, the visible text with `hideLabel`, or only screen reader text with `dot`. .ui-indicator .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Colors Optional colors. .ui-end-end .ui-end-start .ui-start-start Position The corner the indicator sits on. .ui-dot Dot Renders the indicator as a dot. `label` stays as screen reader text, and the `indicator` slot isn't shown. .ui-sr-only Label Hides `label` visually, for the whole sentence screen readers read, such as \"5 unread messages\". The `indicator` slot then holds the visible text and is hidden from screen readers. .ui-invisible Invisible Hides the indicator.",
+    "api": ".ui-badge Container element. The element the badge is anchored to. .ui-badge > :first-child The indicator, inside `.ui-floating`. Holds `label`, the visible text with `hideLabel`, or only screen reader text with `dot`. .ui-indicator .ui-accent .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Colors Optional colors. `accent` fills the badge with the current palette: put the badge or a parent in a `.ui-scope` with `--ui-palette-hue` to pick the color. .ui-end-end .ui-end-start .ui-start-start Position The corner the indicator sits on. .ui-dot Dot Renders the indicator as a dot. `label` stays as screen reader text, and the `indicator` slot isn't shown. .ui-sr-only Label Hides `label` visually, for the whole sentence screen readers read, such as \"5 unread messages\". The `indicator` slot then holds the visible text and is hidden from screen readers. .ui-invisible Invisible Hides the indicator.",
     "category": "API",
     "url": "/html/api/#badge"
   },
@@ -4719,7 +4740,7 @@
     "id": "api-callout-html",
     "title": "Callout API",
     "description": "Reference for Callout HTML component.",
-    "api": ".ui-callout Container element, a `<div>`. With `closeButton`, the `<opui-callout>` custom element, which a button with `commandfor` and `command=\"--dismiss\"` dismisses. An optional icon before the content. Outside HTML, `CalloutIcon` renders the default one for critical, info, success and warning. .ui-callout > svg The content, with an optional heading first. .ui-content A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. .ui-callout > .ui-button A row of buttons under the content. .ui-actions .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Severities The severity. Sets the color, and outside HTML the icon `CalloutIcon` renders. .ui-outlined Variants The variant to use. dismiss Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout. dismiss() Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
+    "api": ".ui-callout Container element, a `<div>`. With `closeButton`, the `<opui-callout>` custom element, which a button with `commandfor` and `command=\"--dismiss\"` dismisses. An optional icon before the content. Outside HTML, `CalloutIcon` renders the default one for critical, info, success and warning. .ui-callout > svg The content, with an optional heading first. .ui-content A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. .ui-callout > .ui-button A row of buttons under the content. .ui-actions .ui-accent Colors Paints the callout in the current palette, with no meaning and no icon. Put the callout or a parent in a `.ui-scope` with `--ui-palette-hue` to pick the color. A `severity` wins over it. .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Severities The severity. Sets the color, and outside HTML the icon `CalloutIcon` renders. .ui-outlined Variants The variant to use. dismiss Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout. dismiss() Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
     "category": "API",
     "url": "/html/api/#callout"
   },
@@ -4783,7 +4804,7 @@
     "id": "api-chip-html",
     "title": "Chip API",
     "description": "Reference for Chip HTML component.",
-    "api": ".ui-chip Container element. Can be a `<div>`, `<span>`, `<a>` or `<button>`. Optional content at the start, such as an icon. .ui-chip > svg:first-child The label, text or rich content. .ui-chip > .ui-text Optional content at the end, such as an icon. .ui-chip > svg:last-child .ui-dot Dot Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it. .ui-multiline Layout Lets the label wrap to multiple lines. [aria-pressed=\"true\"] Pressed Fills a pressed button chip with `--ui-selected`, or `--ui-primary`, for a filter or a choice. .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Severities The severity of a status chip. It tints a tonal chip, and colors and shapes its dot, the only mark on an outlined one. .ui-large .ui-small .ui-x-small Sizes The size of the element. button[disabled] a[aria-disabled=\"true\"] .ui-disabled State Disables a button chip. A link chip, which can't take `disabled`, drops its `href` and takes `role=\"link\"` and `aria-disabled=\"true\"` instead. A static chip can't be disabled; `.ui-disabled` gives it an inactive look without announcing a state. .ui-outlined Variants The variant to use.",
+    "api": ".ui-chip Container element. Can be a `<div>`, `<span>`, `<a>` or `<button>`. Optional content at the start, such as an icon. .ui-chip > svg:first-child The label, text or rich content. .ui-chip > .ui-text Optional content at the end, such as an icon. .ui-chip > svg:last-child .ui-accent Colors Paints the chip in the current palette, with no meaning or dot shape. Put the chip or a parent in a `.ui-scope` with `--ui-palette-hue` to pick the color. A `severity` wins over it. .ui-dot Dot Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it. .ui-multiline Layout Lets the label wrap to multiple lines. [aria-pressed=\"true\"] Pressed Fills a pressed button chip with `--ui-selected`, or `--ui-primary`, for a filter or a choice. .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Severities The severity of a status chip. It tints a tonal chip, and colors and shapes its dot, the only mark on an outlined one. .ui-large .ui-small .ui-x-small Sizes The size of the element. button[disabled] a[aria-disabled=\"true\"] .ui-disabled State Disables a button chip. A link chip, which can't take `disabled`, drops its `href` and takes `role=\"link\"` and `aria-disabled=\"true\"` instead. A static chip can't be disabled; `.ui-disabled` gives it an inactive look without announcing a state. .ui-outlined Variants The variant to use.",
     "category": "API",
     "url": "/html/api/#chip"
   },

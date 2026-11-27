@@ -30,7 +30,15 @@ const vocabulary: Record<string, { group: string; values: string[] }> = {
   align: { group: "Alignment", values: ["center", "end", "start"] },
   color: {
     group: "Colors",
-    values: ["critical", "info", "neutral", "primary", "success", "warning"],
+    values: [
+      "accent",
+      "critical",
+      "info",
+      "neutral",
+      "primary",
+      "success",
+      "warning",
+    ],
   },
   corner: {
     group: "Position",

@@ -95,7 +95,7 @@ describe("promisePairs", () => {
         0,
       ),
     )
-    expect(pairs).toHaveLength(67)
+    expect(pairs).toHaveLength(68)
   })
 
   test("reads the fallback when the token is optional", () => {

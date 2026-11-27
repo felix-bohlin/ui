@@ -37,6 +37,7 @@ import {
 import { valuesIn } from "./component-analysis.mjs"
 import { readComponent } from "./component-reader.mjs"
 import {
+  elementsIn,
   identifiersIn,
   itemBinding,
   PRESERVED_TAGS,
@@ -235,7 +236,6 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
     if (!named.has(item)) named.set(item, fresh(...names))
     return named.get(item)
   }
-  const used = new Set()
   const returns = returnsOf()
   const helperShape = (node, inner) => {
     const call = unwrap(node)
@@ -1012,7 +1012,6 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
         COMPILER,
       )
     }
-    used.add(node.tag)
     const { text: props } = mergedProps(node, ctx.scope, ctx.depth)
     if (node.children.length === 0) return `{{ ${node.tag}(${props}) }}`
     return block(
@@ -1231,8 +1230,13 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
     preserved: false,
     scope,
   })
+  const called = new Set(
+    elementsIn(component.tree)
+      .filter((node) => node.component)
+      .map((node) => node.tag),
+  )
   const imports = component.components
-    .filter((inner) => used.has(inner.local))
+    .filter((inner) => called.has(inner.local))
     .map(
       (inner) =>
         `{% from "opui/${inner.name}.njk" import ${inner.name}${inner.local === inner.name ? "" : ` as ${inner.local}`} %}\n`,

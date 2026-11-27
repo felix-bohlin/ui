@@ -95,11 +95,6 @@ export const filtersSpread = (node, item, component) =>
     ? filtersRest(node, item, component)
     : item.defined === true)
 
-export const chosenSpreadCode = (item, spread, condition) =>
-  item.negated
-    ? `${condition} ? {} : ${spread}`
-    : `${condition} ? ${spread} : {}`
-
 const slotChecked = (node) => {
   const callee = ts.isCallExpression(node) && node.expression
   const owner =

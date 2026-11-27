@@ -14,11 +14,10 @@ import {
   toTypes,
   TYPE_FILES,
 } from "../../scripts/build-components.mjs"
+import { needsOf } from "../../scripts/component-fragment.mjs"
 import {
   bindingFor,
   bindingOf,
-  helpersCalled,
-  importLinesOf,
   MODEL_KINDS,
 } from "../../scripts/component-models.mjs"
 import {
@@ -1057,6 +1056,9 @@ describe("the ports of a sample", () => {
       refused.refused.get(sampleFile().replace(".astro", ".solid.tsx"))
         ?.message,
     ).toContain("which Solid reads through an accessor")
+    expect(
+      refused.outputs.get(sampleFile().replace(".astro", ".vue")),
+    ).toContain(`<li v-for="({ label = 'x' }, index) in items" :key="index">`)
   })
 
   test("Solid resolves the slots of a component that provides a context under the provider, and writes a getter inline when nothing else reads its accessor", async () => {
@@ -1416,7 +1418,6 @@ describe("the ports of a sample", () => {
       },
     )
     const svelte = outputs.get(sampleFile().replace(".astro", ".svelte"))
-    expect(svelte).toContain('import { toggleInGroup } from "../group"')
     expect(svelte).toContain(
       "  let {\n    checked = $bindable(),\n    defaultChecked,\n    group = $bindable(),\n    name,\n    value,\n    ...rest\n  }: Props = $props()\n\n  const initialChecked = untrack(() =>\n    group !== undefined && value !== undefined\n      ? group.includes(value)\n      : checked,\n  )\n  const relay = (input: HTMLInputElement) => {\n    checked = input.checked\n    if (value !== undefined) {\n      group = toggleInGroup(group ?? [], value, input.checked)\n    }\n  }\n",
     )
@@ -1517,7 +1518,6 @@ describe("the ports of a sample", () => {
     expect(solid).toContain(
       "  const change = (input: HTMLInputElement) => {\n    props.onValueChange?.(input.value)\n  }\n",
     )
-    expect(solid).not.toContain('from "../solid"')
     expect(solid).toContain(
       "        get value() {\n          return props.value\n        },\n",
     )
@@ -1554,7 +1554,6 @@ describe("the ports of a sample", () => {
     expect(svelte).toContain(
       '    warnGroupedChecked("Sample", grouped, checked ?? defaultChecked, "Tabs"),\n',
     )
-    expect(svelte).toContain('  import { relayChecked } from "../svelte"\n')
     expect(svelte).toContain(
       "  const isChecked = () => grouped ?? checked\n  const initialChecked = untrack(() => isChecked() ?? !!defaultChecked)\n  const change = (input: HTMLInputElement) => {\n    if (value !== undefined) parent?.change?.(input)\n  }\n",
     )
@@ -1564,7 +1563,6 @@ describe("the ports of a sample", () => {
     expect(svelte).not.toMatch(/\schecked=\{/)
     expect(svelte).toContain("  {...defined(rest)}\n/>{@render children?.()}\n")
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
-    expect(vue).not.toContain("useBound")
     expect(vue).toContain(
       "const { checked = undefined, value } = defineProps<Props>()",
     )
@@ -1671,7 +1669,6 @@ describe("the ports of a sample", () => {
     expect(vue).toContain(
       "const model = defineModel<Model>()\n\nconst bound = useBound()\n\nprovide(SampleKey, reactive({ bound, value: model }))",
     )
-    expect(vue).not.toContain("selectionOf")
     expect(outputs.get(sampleFile().replace(".astro", ".react.tsx"))).toContain(
       "      if (multiple) onValueChange?.(checkedValues(input, value))\n      else onValueChange?.(input.value)\n    },\n    [multiple, onValueChange, value],\n",
     )
@@ -1698,7 +1695,6 @@ describe("the ports of a sample", () => {
     )
     const svelte = outputs.get(sampleFile().replace(".astro", ".svelte"))
     expect(svelte).toContain("    checked = $bindable(),\n")
-    expect(svelte).not.toContain("toggleInGroup")
     expect(svelte).toContain(
       "  const change = (input: HTMLInputElement) => {\n    if (grouped === undefined) checked = input.checked\n    if (value !== undefined) group?.change?.(input)\n  }\n",
     )
@@ -2658,7 +2654,6 @@ describe("model kinds", () => {
     "context",
     "declares",
     "generic",
-    "helpers",
     "props",
     "refusal",
     "rename",
@@ -2673,21 +2668,24 @@ describe("model kinds", () => {
 
   type Node = { tag: string }
 
+  type Part = string | { code: string; imports: Import[] }
+
+  type Import = { module: string; name: string }
+
   type Shape = {
     attributes: (
       node: Node,
       writer: typeof port,
     ) => {
-      bound?: { attributes: string[]; condition: string }
-      checked?: string[]
-      end: string[]
+      bound?: { attributes: Part[]; condition: string }
+      checked?: Part[]
+      end: Part[]
       rename: [string, string][]
-      rest: string[]
+      rest: Part[]
     }
-    context: { code?: string; key: string; text?: string }[]
+    context: { code?: string; key: string; text?: Part }[]
     declares: string[]
     generic?: { parameter: string; props: string; type: string }
-    helpers: { always: [string, string][]; called: Record<string, string> }
     props: {
       added: string[]
       bound: { prop: string; type: string }[]
@@ -2698,8 +2696,8 @@ describe("model kinds", () => {
     refusal?: Error
     rename: [string, string][]
     script: (rewrite: (code: string) => string) => {
-      after: string[]
-      before: string[]
+      after: Part[]
+      before: Part[]
     }
   }
 
@@ -2710,6 +2708,15 @@ describe("model kinds", () => {
     >
 
   const contractOf = (shape: Shape, tree: Node[]) => {
+    const parts = elementsIn(tree).flatMap((node: Node) => {
+      const added = shape.attributes(node, port)
+      return [
+        ...(added.bound?.attributes ?? []),
+        ...(added.checked ?? []),
+        ...added.end,
+        ...added.rest,
+      ]
+    })
     const attributes = elementsIn(tree).flatMap((node: Node) => {
       const added = shape.attributes(node, port)
       const parts = [
@@ -2735,14 +2742,20 @@ describe("model kinds", () => {
         text === undefined ? key : `${key} as written`,
       ),
       declares: shape.declares,
-      helpers: [
-        ...shape.helpers.always.map(
-          ([module, name]) => `${name} from ${module}`,
+      imports: [
+        ...new Set(
+          (
+            needsOf([
+              ...parts,
+              ...shape.context.flatMap(({ text }) =>
+                text === undefined ? [] : [text],
+              ),
+              ...before,
+              ...after,
+            ]).imports as Import[]
+          ).map(({ module, name }) => `${name} from ${module}`),
         ),
-        ...Object.entries(shape.helpers.called).map(
-          ([name, module]) => `${name}() from ${module}`,
-        ),
-      ],
+      ].toSorted((a, b) => a.localeCompare(b, "en")),
       rename: shape.rename.map(([from]) => from),
       script: [
         ...(before.length ? [`${before.length} before`] : []),
@@ -2767,17 +2780,17 @@ describe("model kinds", () => {
       solid: {
         attributes: ["<input> rest 2"],
         declares: ["checkedControl"],
-        helpers: ["control() from ../solid"],
+        imports: ["control from ../solid"],
         props: { added: ["checked", "ref"] },
         script: ["1 before"],
       },
       svelte: {
         attributes: ["<input> end 3"],
         declares: ["initialChecked", "relay"],
-        helpers: [
-          "relayChecked() from ../svelte",
-          "toggleInGroup() from ../group",
-          "untrack() from svelte",
+        imports: [
+          "relayChecked from ../svelte",
+          "toggleInGroup from ../group",
+          "untrack from svelte",
         ],
         props: {
           added: ["defaultChecked", "value"],
@@ -2788,7 +2801,7 @@ describe("model kinds", () => {
       vue: {
         attributes: ["<input> bound if bound"],
         declares: ["bound", "modelValue"],
-        helpers: ["useBound() from ../vue"],
+        imports: ["useBound from ../vue"],
         script: ["2 before"],
       },
     },
@@ -2796,18 +2809,17 @@ describe("model kinds", () => {
       sample: "ToggleButton/ToggleButton",
       react: {
         attributes: ["<input> checked 2, end 2"],
-        helpers: ["DEV from ../dev", "warnGroupedChecked from ../dev"],
+        imports: ["DEV from ../dev", "warnGroupedChecked from ../dev"],
         props: { added: ["defaultChecked", "onChange", "ref"] },
         script: ["1 after"],
       },
       solid: {
         attributes: ["<input> checked 1, end 2"],
-        helpers: [
+        imports: [
+          "callHandler from ../solid",
           "DEV from ../dev",
+          "untrack from solid-js",
           "warnGroupedChecked from ../dev",
-          "callHandler() from ../solid",
-          "control() from ../solid",
-          "untrack() from solid-js",
         ],
         props: { added: ["defaultChecked", "onChange", "ref"] },
         script: ["1 after"],
@@ -2815,11 +2827,11 @@ describe("model kinds", () => {
       svelte: {
         attributes: ["<input> checked 2"],
         declares: ["change", "initialChecked", "isChecked"],
-        helpers: [
+        imports: [
           "DEV from ../dev",
+          "relayChecked from ../svelte",
+          "untrack from svelte",
           "warnGroupedChecked from ../dev",
-          "relayChecked() from ../svelte",
-          "untrack() from svelte",
         ],
         props: { added: ["defaultChecked"], bound: ["checked"] },
         script: ["4 after"],
@@ -2829,11 +2841,12 @@ describe("model kinds", () => {
           "<input> bound if group?.bound || bound, checked 0, rename checked",
         ],
         declares: ["bound", "model", "target"],
-        helpers: [
+        imports: [
+          "computed from vue",
           "DEV from ../dev",
+          "useBound from ../vue",
           "warnGroupedChecked from ../dev",
-          "useBound() from ../vue",
-          "watchEffect() from vue",
+          "watchEffect from vue",
         ],
         props: { unset: ["checked"] },
         script: ["2 before", "2 after"],
@@ -2850,7 +2863,7 @@ describe("model kinds", () => {
       vue: {
         attributes: ["<CheckboxInput> bound if bound"],
         declares: ["bound", "model"],
-        helpers: ["useBound() from ../vue"],
+        imports: ["useBound from ../vue"],
         script: ["2 before"],
       },
     },
@@ -2859,10 +2872,7 @@ describe("model kinds", () => {
       react: {
         context: ["change", "defaultValue", "groupName", "inputType", "value"],
         declares: ["change"],
-        helpers: [
-          "checkedValues() from ./selection",
-          "useCallback() from react",
-        ],
+        imports: ["checkedValues from ./selection", "useCallback from react"],
         props: {
           added: ["defaultValue", "onValueChange"],
           initial: ["value as defaultValue"],
@@ -2872,7 +2882,7 @@ describe("model kinds", () => {
       solid: {
         context: ["change", "defaultValue", "groupName", "inputType", "value"],
         declares: ["change"],
-        helpers: ["checkedValues() from ./selection"],
+        imports: ["checkedValues from ./selection"],
         props: {
           added: ["defaultValue", "onValueChange"],
           initial: ["value as defaultValue"],
@@ -2881,7 +2891,7 @@ describe("model kinds", () => {
       },
       svelte: {
         context: ["change as written", "groupName", "inputType", "value"],
-        helpers: ["selectionOf() from ./selection"],
+        imports: ["selectionOf from ./selection"],
         props: { bound: ["value"] },
       },
       vue: {
@@ -2893,7 +2903,7 @@ describe("model kinds", () => {
         ],
         declares: ["bound", "model"],
         generic: "Multiple extends boolean = false",
-        helpers: ["useBound() from ../vue"],
+        imports: ["useBound from ../vue"],
         props: {
           added: ["multiple"],
           dropped: ["value"],
@@ -2907,19 +2917,18 @@ describe("model kinds", () => {
       react: {
         attributes: ["<input> checked 2, end 2"],
         context: ["groupName", "tabId"],
-        helpers: ["DEV from ../dev", "warnGroupedChecked from ../dev"],
+        imports: ["DEV from ../dev", "warnGroupedChecked from ../dev"],
         props: { added: ["defaultChecked", "onChange", "ref"] },
         script: ["1 after"],
       },
       solid: {
         attributes: ["<input> checked 1, end 2"],
         context: ["groupName", "tabId"],
-        helpers: [
+        imports: [
+          "callHandler from ../solid",
           "DEV from ../dev",
+          "untrack from solid-js",
           "warnGroupedChecked from ../dev",
-          "callHandler() from ../solid",
-          "control() from ../solid",
-          "untrack() from solid-js",
         ],
         props: { added: ["defaultChecked", "onChange", "ref"] },
         script: ["1 after"],
@@ -2928,11 +2937,11 @@ describe("model kinds", () => {
         attributes: ["<input> checked 2"],
         context: ["groupName", "tabId"],
         declares: ["change", "initialChecked", "isChecked"],
-        helpers: [
+        imports: [
           "DEV from ../dev",
+          "relayChecked from ../svelte",
+          "untrack from svelte",
           "warnGroupedChecked from ../dev",
-          "relayChecked() from ../svelte",
-          "untrack() from svelte",
         ],
         props: { added: ["defaultChecked"] },
         script: ["4 after"],
@@ -2941,10 +2950,11 @@ describe("model kinds", () => {
         attributes: ["<input> bound if parent?.bound, checked 0"],
         context: ["groupName", "tabId"],
         declares: ["target"],
-        helpers: [
+        imports: [
+          "computed from vue",
           "DEV from ../dev",
           "warnGroupedChecked from ../dev",
-          "watchEffect() from vue",
+          "watchEffect from vue",
         ],
         props: { unset: ["checked"] },
         script: ["2 after"],
@@ -2957,14 +2967,14 @@ describe("model kinds", () => {
       solid: {
         attributes: ["<input> rest 2"],
         declares: ["checkedControl"],
-        helpers: ["control() from ../solid"],
+        imports: ["control from ../solid"],
         props: { added: ["checked", "ref"] },
         script: ["1 before"],
       },
       svelte: {
         attributes: ["<input> end 3"],
         declares: ["initialChecked", "relay"],
-        helpers: ["relayChecked() from ../svelte", "untrack() from svelte"],
+        imports: ["relayChecked from ../svelte", "untrack from svelte"],
         props: {
           added: ["checked", "defaultChecked", "value"],
           bound: ["group"],
@@ -2974,7 +2984,7 @@ describe("model kinds", () => {
       vue: {
         attributes: ["<input> bound if bound"],
         declares: ["bound", "modelValue"],
-        helpers: ["useBound() from ../vue"],
+        imports: ["useBound from ../vue"],
         script: ["2 before"],
       },
     },
@@ -2990,7 +3000,6 @@ describe("model kinds", () => {
       },
       solid: {
         attributes: ["<input> checked 3", "<input> checked 3"],
-        helpers: ["control() from ../solid"],
         props: {
           added: ["defaultValue", "onValueChange"],
           initial: ["value as defaultValue"],
@@ -2999,7 +3008,7 @@ describe("model kinds", () => {
       },
       svelte: {
         attributes: ["<input> checked 0, end 2", "<input> checked 0, end 2"],
-        helpers: ["relayChecked() from ../svelte", "untrack() from svelte"],
+        imports: ["relayChecked from ../svelte", "untrack from svelte"],
         props: { bound: ["value"] },
       },
       vue: {
@@ -3008,7 +3017,7 @@ describe("model kinds", () => {
           "<input> bound if bound, checked 0",
         ],
         declares: ["bound", "model", "modelValue"],
-        helpers: ["useBound() from ../vue"],
+        imports: ["computed from vue", "useBound from ../vue"],
         rename: ["value"],
         script: ["3 before"],
       },
@@ -3041,10 +3050,6 @@ describe("model kinds", () => {
           "initial",
           "unset",
         ])
-        expect(Object.keys(shape.helpers).toSorted()).toEqual([
-          "always",
-          "called",
-        ])
         expect(Object.keys(shape.script(port.rewrite)).toSorted()).toEqual([
           "after",
           "before",
@@ -3071,6 +3076,51 @@ describe("model kinds", () => {
       ).toEqual(expected)
     },
   )
+
+  test("a model kind's code imports what it calls, so a group imports the helper that reads an array value only when the value can be one", () => {
+    const groupOf = (type: string) =>
+      MODEL_KINDS.group({
+        file: "packages/opui/components/Sample/Sample.astro",
+        model: {
+          local: "value",
+          prop: "value",
+          read: type.includes("[]")
+            ? "selectionOf(input, multiple, value)"
+            : "input.value",
+          type,
+        },
+        provide: { value: [] },
+      }) as unknown as Record<
+        "react" | "solid" | "svelte",
+        {
+          context: { text?: Part }[]
+          script: () => { before: Part[] }
+        }
+      >
+    const importsIn = (parts: Part[]) =>
+      (needsOf(parts).imports as Import[]).map(
+        ({ module, name }) => `${name} from ${module}`,
+      )
+    const texts = (context: { text?: Part }[]) =>
+      context.flatMap(({ text }) => (text === undefined ? [] : [text]))
+    const single = groupOf("string")
+    expect(importsIn(single.react.script().before)).toEqual([
+      "useCallback from react",
+    ])
+    expect(importsIn(single.solid.script().before)).toEqual([])
+    expect(importsIn(texts(single.svelte.context))).toEqual([])
+    const multiple = groupOf("string | string[]")
+    expect(importsIn(multiple.react.script().before)).toEqual([
+      "checkedValues from ../ToggleGroup/selection",
+      "useCallback from react",
+    ])
+    expect(importsIn(multiple.solid.script().before)).toEqual([
+      "checkedValues from ../ToggleGroup/selection",
+    ])
+    expect(importsIn(texts(multiple.svelte.context))).toEqual([
+      "selectionOf from ../ToggleGroup/selection",
+    ])
+  })
 
   test("a model kind without an entry for every framework refuses every port", () => {
     const kinds = MODEL_KINDS as Record<string, unknown>
@@ -3120,20 +3170,6 @@ describe("the compiled components", () => {
     all = await generate()
     unledgered = await generate({ handWritten: {} })
   }, 300_000)
-
-  test("a model kind's helper is imported when the code calls it, from its module", () => {
-    const used = helpersCalled(
-      "const checkedControl = control(read)\nitemCheckedControl(x)\nprops.untrack(y)\nrelayChecked(input)",
-      { control: "../solid", relayChecked: "../svelte", untrack: "solid-js" },
-    )
-    expect(used).toEqual([
-      { module: "../solid", name: "control" },
-      { module: "../svelte", name: "relayChecked" },
-    ])
-    expect(importLinesOf(used, ["../svelte"])).toEqual([
-      'import { control } from "../solid"',
-    ])
-  })
 
   const read = (file: string) =>
     existsSync(file) ? readFileSync(file, "utf8") : undefined

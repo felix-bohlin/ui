@@ -1,31 +1,35 @@
 import { VOID_ELEMENTS } from "./html-tokens.mjs"
 import { slotProp } from "../src/component-api/frameworks.ts"
 import {
+  chosenSpreadCode,
   componentImport,
-  contextImports,
+  contextLines,
+  contextModule,
+  contextModules,
   edgeTrimmed,
   eventRoots,
   hydratingRoots,
   propsImport,
-  rewriteExpression,
-  rewriteStatement,
+  rewriteFragment,
+  rewriteStatementFragment,
   scriptImports,
   slotOrder,
   truthyNames,
-  withImport,
 } from "./component-emit.mjs"
 import {
-  bindingFor,
-  helpersCalled,
-  helpersOf,
-  importLinesOf,
-  isCheckedAttribute,
-} from "./component-models.mjs"
+  asFragment,
+  code,
+  importsOf,
+  join,
+  named,
+  typed,
+  uses,
+} from "./component-fragment.mjs"
+import { bindingFor, isCheckedAttribute } from "./component-models.mjs"
 import { markupAttribute } from "./example-encoders.mjs"
 import { eventProp } from "./component-types.mjs"
 import {
   byName,
-  chosenSpreadCode,
   classMayBeEmpty,
   filtersSpread,
   onlyClass,
@@ -33,6 +37,16 @@ import {
   propKey,
   unsupported,
 } from "./component-shared.mjs"
+
+const CONTENT = named("../content.svelte", "content")
+
+const DEFINED = named("../attrs", "defined")
+
+const DEV = named("../dev", "DEV")
+
+const ELEMENTS = typed("svelte/elements", "SvelteHTMLElements")
+
+const UNTRACK = named("svelte", "untrack")
 
 export const toSvelte = (component) => {
   const {
@@ -71,7 +85,7 @@ export const toSvelte = (component) => {
       "rename the const in the Astro file",
     )
   }
-  const rewrite = (code) => rewriteExpression(code, options)
+  const rewrite = (source) => rewriteFragment(source, options)
   const bindableProps = model.props.bound.map(({ prop }) => prop)
   const listened = eventRoots(component)
   const handlers = (component.events ?? []).map((event) =>
@@ -99,16 +113,11 @@ export const toSvelte = (component) => {
         : `${prop === local ? prop : `${propKey(prop)}: ${local}`}${fallback ? ` = ${fallback}` : ""}`,
     )
   const slotEntries = slotOrder(slots).map((slot) => slotProp(slot))
-  let usesElements = false
-  let usesContent = false
-  let usesClassAttrs = false
-  let usesDefined = false
   const attribute = (node, item) => {
     if (item.kind === "class") {
-      const code = rewriteExpression(onlyClass(item.code) ?? item.code, options)
-      if (!classMayBeEmpty(item.code)) return `class={${code}}`
-      usesClassAttrs = true
-      return `{...classAttrs(${code})}`
+      const value = rewrite(onlyClass(item.code) ?? item.code)
+      if (!classMayBeEmpty(item.code)) return code`class={${value}}`
+      return uses(code`{...classAttrs(${value})}`, named("../cx", "classAttrs"))
     }
     if (item.kind === "spread") {
       const cast =
@@ -117,50 +126,59 @@ export const toSvelte = (component) => {
         !node.component &&
         !node.custom &&
         ((element && node.tag !== element) || !!item.cast)
-      if (cast) usesElements = true
       const filtered = filtersSpread(node, item, component)
-      if (filtered) usesDefined = true
-      const code = filtered
-        ? `defined(${item.code === rest ? rest : rewriteExpression(item.code, options)})`
+      const value = filtered
+        ? uses(
+            code`defined(${item.code === rest ? rest : rewrite(item.code)})`,
+            DEFINED,
+          )
         : rest
       const spread = cast
-        ? `${code} as SvelteHTMLElements[${JSON.stringify(node.tag)}]`
+        ? uses(
+            code`${value} as SvelteHTMLElements[${JSON.stringify(node.tag)}]`,
+            ELEMENTS,
+          )
         : filtered
-          ? code
-          : rewriteExpression(item.code, options)
+          ? value
+          : rewrite(item.code)
       if (item.condition !== undefined) {
         const plain = !node.variable && !node.component && !node.custom
-        if (plain) usesElements = true
         const chosen = chosenSpreadCode(
           item,
           plain
-            ? `(${rest} as SvelteHTMLElements[${JSON.stringify(node.tag)}])`
+            ? uses(
+                `(${rest} as SvelteHTMLElements[${JSON.stringify(node.tag)}])`,
+                ELEMENTS,
+              )
             : `(${rest} as object)`,
-          rewriteExpression(item.condition, options),
+          rewrite(item.condition),
         )
-        return filtered ? `{...defined(${chosen})}` : `{...(${chosen})}`
+        return filtered
+          ? uses(code`{...defined(${chosen})}`, DEFINED)
+          : code`{...(${chosen})}`
       }
-      return `{...${spread}}`
+      return code`{...${spread}}`
     }
     if (item.kind === "static") {
       return markupAttribute(item.name, item.value, true)
     }
     if (item.kind === "boolean") return item.name
-    return `${item.name}={${rewriteExpression(item.code, options)}}`
+    return code`${item.name}={${rewrite(item.code)}}`
   }
   const body = (nodes, scope, head = "") => {
     const inner = scope.preserved ? undefined : edgeTrimmed(nodes)
+    const first = code`${head}`
     return inner
-      ? `\n${head && `${head}\n`}${emit(inner, scope)}\n`
-      : `${head}${emit(nodes, scope)}`
+      ? code`\n${first.code && code`${first}\n`}${emit(inner, scope)}\n`
+      : code`${first}${emit(nodes, scope)}`
   }
   const guarded = (scope, test) => ({
     ...scope,
     guards: new Set([...scope.guards, ...truthyNames(test)]),
   })
   const emit = (nodes, scope) =>
-    nodes
-      .map((node) => {
+    join(
+      nodes.map((node) => {
         if (node.type === "text") {
           return node.value === " " ? '{" "}' : node.value
         }
@@ -174,9 +192,9 @@ export const toSvelte = (component) => {
                 sibling.type === "slot" && sibling.name === string.slot,
             )
               ? ""
-              : ((usesContent = true), `{@render content(${string.prop})}`)
+              : uses(`{@render content(${string.prop})}`, CONTENT)
           }
-          return `{${rewriteExpression(node.code, options)}}`
+          return code`{${rewrite(node.code)}}`
         }
         if (node.type === "slot") {
           const name = slotProp(node.name)
@@ -184,30 +202,30 @@ export const toSvelte = (component) => {
             stringSlots.some(({ slot }) => slot === node.name) ||
             component.stringTypedSlots.includes(name)
           ) {
-            usesContent = true
-            return `{@render content(${name})}`
+            return uses(`{@render content(${name})}`, CONTENT)
           }
           if (node.fallback.length === 0) {
             return scope.guards.has(name)
               ? `{@render ${name}()}`
               : `{@render ${name}?.()}`
           }
-          return `{#if ${name}}\n{@render ${name}()}\n{:else}${body(node.fallback, scope)}{/if}`
+          return code`{#if ${name}}\n{@render ${name}()}\n{:else}${body(node.fallback, scope)}{/if}`
         }
         if (node.type === "if") {
-          const test = rewriteExpression(node.test, options)
-          const consequent = body(node.consequent, guarded(scope, test))
-          if (!node.alternate) return `{#if ${test}}${consequent}{/if}`
-          return `{#if ${test}}${consequent}{:else}${body(node.alternate, scope)}{/if}`
+          const test = rewrite(node.test)
+          const consequent = body(node.consequent, guarded(scope, test.code))
+          if (!node.alternate) return code`{#if ${test}}${consequent}{/if}`
+          return code`{#if ${test}}${consequent}{:else}${body(node.alternate, scope)}{/if}`
         }
         if (node.type === "each") {
-          const consts = node.consts
-            .map(
-              ({ code, name }) =>
-                `{@const ${name} = ${rewriteExpression(code, options)}}`,
-            )
-            .join("\n")
-          return `{#each ${node.list} as ${node.item}${node.index ? `, ${node.index}` : ""} (${node.index})}${body(node.children, scope, consts)}{/each}`
+          const consts = join(
+            node.consts.map(
+              ({ code: source, name }) =>
+                code`{@const ${name} = ${rewrite(source)}}`,
+            ),
+            "\n",
+          )
+          return code`{#each ${node.list} as ${node.item}${node.index ? `, ${node.index}` : ""} (${node.index})}${body(node.children, scope, consts)}{/each}`
         }
         const modelAttributes = model.attributes(node, { rewrite })
         const spreadAt = node.attributes.findIndex(
@@ -220,37 +238,40 @@ export const toSvelte = (component) => {
               ...(hydrating.has(node)
                 ? [
                     hydrating.get(node)
-                      ? `data-hydrating={${rewriteExpression(hydrating.get(node), options)}.includes("-") ? "" : undefined}`
+                      ? code`data-hydrating={${rewrite(hydrating.get(node))}.includes("-") ? "" : undefined}`
                       : 'data-hydrating=""',
-                    "{@attach hydrated}",
+                    uses("{@attach hydrated}", named("../svelte", "hydrated")),
                   ]
                 : []),
             ]
           : []
-        const attributes = [
-          ...node.attributes.flatMap((item, index) => [
-            ...(index === spreadAt ? modelAttributes.rest : []),
-            ...(index === restAt ? listeners : []),
-            ...(modelAttributes.checked && isCheckedAttribute(item)
-              ? modelAttributes.checked
-              : [attribute(node, item)]),
-          ]),
-          ...(spreadAt === -1 ? modelAttributes.rest : []),
-          ...(restAt === -1 ? listeners : []),
-          ...modelAttributes.end,
-        ].join(" ")
+        const attributes = join(
+          [
+            ...node.attributes.flatMap((item, index) => [
+              ...(index === spreadAt ? modelAttributes.rest : []),
+              ...(index === restAt ? listeners : []),
+              ...(modelAttributes.checked && isCheckedAttribute(item)
+                ? modelAttributes.checked
+                : [attribute(node, item)]),
+            ]),
+            ...(spreadAt === -1 ? modelAttributes.rest : []),
+            ...(restAt === -1 ? listeners : []),
+            ...modelAttributes.end,
+          ],
+          " ",
+        )
         const tag = node.variable ? "svelte:element" : node.tag
-        const open = `<${tag}${node.variable ? ` this={${node.tag}}` : ""}${attributes ? ` ${attributes}` : ""}`
+        const open = code`<${tag}${node.variable ? ` this={${node.tag}}` : ""}${attributes.code ? code` ${attributes}` : ""}`
         const progress =
           node.tag === "progress"
             ? node.attributes.find(
                 (item) => item.kind === "expression" && item.name === "value",
               )
             : undefined
-        const keyed = (element) =>
+        const keyed = (written) =>
           progress
-            ? `{#key ${rewriteExpression(progress.code, options)} == null}\n${element}\n{/key}`
-            : element
+            ? code`{#key ${rewrite(progress.code)} == null}\n${written}\n{/key}`
+            : written
         if (
           node.children.length === 0 &&
           (node.component ||
@@ -258,92 +279,86 @@ export const toSvelte = (component) => {
             node.foreign ||
             VOID_ELEMENTS.has(node.tag))
         ) {
-          return keyed(`${open} />`)
+          return keyed(code`${open} />`)
         }
         return keyed(
-          `${open}>${body(node.children, {
+          code`${open}>${body(node.children, {
             ...scope,
             preserved: scope.preserved || PRESERVED_TAGS.has(node.tag),
           })}</${tag}>`,
         )
-      })
-      .join("")
+      }),
+    )
   const markup = emit(tree, { guards: new Set(), preserved: false })
-  const destructured = [
-    ...entries,
-    ...(slotEntries.length ? ["", "// Snippets", ...slotEntries] : []),
-    ...(rest ? [`...${rest}`] : []),
+  const lines = [
+    ...entries.map((entry) => `    ${entry},`),
+    ...(slotEntries.length
+      ? ["", "    // Snippets", ...slotEntries.map((entry) => `    ${entry},`)]
+      : []),
+    ...(rest ? [`    ...${rest}`] : []),
   ]
-  const lines = destructured.map((line) =>
-    line === ""
-      ? ""
-      : line.startsWith("//") || line.startsWith("...")
-        ? `    ${line}`
-        : `    ${line},`,
-  )
   const modelScript = model.script(rewrite)
   const script = [
-    ...reads.map(
-      ({ context, name }) => `const ${name} = get${context.name}Context()`,
+    ...reads.map(({ context, name }) =>
+      uses(
+        `const ${name} = get${context.name}Context()`,
+        named(contextModule(context, "svelte"), `get${context.name}Context`),
+      ),
     ),
     ...(uid ? ["const uid = $props.id()"] : []),
     ...modelScript.before,
-    ...derived.map(({ code, fn, name }) =>
+    ...derived.map(({ code: source, fn, name }) =>
       fn
-        ? `const ${name} = ${rewriteExpression(code, options)}`
-        : `const ${name} = $derived(${rewriteExpression(code, options)})`,
+        ? code`const ${name} = ${rewrite(source)}`
+        : code`const ${name} = $derived(${rewrite(source)})`,
     ),
-    ...warnings.map(({ code }) =>
-      /^if\b/.test(code)
-        ? `if (DEV) untrack(() => {\n${rewriteStatement(code, options)}\n})`
-        : `if (DEV) untrack(() => ${rewriteExpression(code, options)})`,
+    ...warnings.map(({ code: source }) =>
+      uses(
+        /^if\b/.test(source)
+          ? code`if (DEV) untrack(() => {\n${rewriteStatementFragment(source, options)}\n})`
+          : code`if (DEV) untrack(() => ${rewrite(source)})`,
+        DEV,
+        UNTRACK,
+      ),
     ),
     ...modelScript.after,
     ...(provide
       ? [
-          `set${provide.context.name}Context({\n${model.context
-            .map(
-              ({ code, key, text }) =>
-                text ??
-                `get ${key}() {\nreturn ${rewriteExpression(code, options)}\n},`,
-            )
-            .join("\n")}\n})`,
+          uses(
+            code`set${provide.context.name}Context({\n${join(
+              model.context.map(
+                ({ code: source, key, text }) =>
+                  text ?? code`get ${key}() {\nreturn ${rewrite(source)}\n},`,
+              ),
+              "\n",
+            )}\n})`,
+            named(
+              contextModule(provide.context, "svelte"),
+              `set${provide.context.name}Context`,
+            ),
+          ),
         ]
       : []),
-  ]
-  const used = helpersCalled(
-    [...script, markup].join("\n"),
-    helpersOf(model, { untrack: "svelte" }),
-  )
+  ].map(asFragment)
+  const needed = importsOf([...script, markup])
   const importLines = [
     ...scriptImports(component),
-    ...importLinesOf(
-      used.filter(({ module }) => module === "svelte"),
-      [],
-    ),
-    ...(usesContent ? [`import { content } from "../content.svelte"`] : []),
-    ...importLinesOf(used, ["svelte"]),
-    ...(hydrating.size ? [`import { hydrated } from "../svelte"`] : []),
+    ...needed.line("svelte"),
+    ...needed.line("../content.svelte"),
+    ...needed.rest([
+      "../attrs",
+      "../cx",
+      "../dev",
+      "svelte/elements",
+      ...contextModules(component, "svelte"),
+    ]),
     ...components
       .map((entry) => componentImport(entry, ".svelte"))
       .toSorted(byName),
-    ...contextImports(component, "svelte", {
-      provide: (name) => `set${name}Context`,
-      read: (name) => `get${name}Context`,
-    }),
-    ...[
-      ...(usesDefined ? [["../attrs", "defined"]] : []),
-      ...(warnings.length ? [["../dev", "DEV"]] : []),
-      ...model.helpers.always,
-      ...(usesClassAttrs ? [["../cx", "classAttrs"]] : []),
-    ].reduce(
-      (lines, [module, name]) => withImport(lines, module, name),
-      imports,
-    ),
+    ...contextLines(component, "svelte", needed),
+    ...needed.merged(imports, ["../attrs", "../dev", "../cx"]),
     propsImport(propsType, "types.svelte"),
-    ...(usesElements
-      ? [`import type { SvelteHTMLElements } from "svelte/elements"`]
-      : []),
+    ...needed.line("svelte/elements"),
   ]
-  return `<script lang="ts">\n${importLines.map((line) => `  ${line}`).join("\n")}\n\n  let {\n${lines.join("\n")}\n  }: Props = $props()\n${script.length ? `\n${script.map((line) => `  ${line}`).join("\n")}\n` : ""}</script>\n\n${markup}\n`
+  return `<script lang="ts">\n${importLines.map((line) => `  ${line}`).join("\n")}\n\n  let {\n${lines.join("\n")}\n  }: Props = $props()\n${script.length ? `\n${script.map((line) => `  ${line.code}`).join("\n")}\n` : ""}</script>\n\n${markup.code}\n`
 }

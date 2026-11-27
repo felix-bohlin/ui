@@ -2,6 +2,15 @@ import { readFile } from "node:fs/promises"
 import { join } from "node:path"
 import { FRAMEWORKS, HYDRATED_FRAMEWORK_IDS } from "../src/utils/framework.js"
 import { devOnly, groupWarning, selectionImport } from "./component-emit.mjs"
+import {
+  code,
+  declaration,
+  declaredIn,
+  fragment,
+  named,
+  reads,
+  uses,
+} from "./component-fragment.mjs"
 import { loadApis, readComponent } from "./component-reader.mjs"
 import {
   byName,
@@ -16,20 +25,31 @@ export const isCheckedAttribute = (entry) =>
 
 const arrayValue = (model) => unionMembers(model.type).some(isArrayType)
 
+const CALL_HANDLER = named("../solid", "callHandler")
+const COMPUTED = named("vue", "computed")
+const CONTROL = named("../solid", "control")
+const DEV = named("../dev", "DEV")
+const RELAY_CHECKED = named("../svelte", "relayChecked")
+const SOLID_UNTRACK = named("solid-js", "untrack")
+const SVELTE_UNTRACK = named("svelte", "untrack")
+const USE_BOUND = named("../vue", "useBound")
+const WATCH_EFFECT = named("vue", "watchEffect")
+
 const optionalModel = (model, name) =>
-  `const ${name} = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`
+  declaration(
+    name,
+    `const ${name} = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`,
+  )
 
-const report = (model, callback, multiple, selected) =>
-  arrayValue(model)
-    ? `if (${multiple}) ${callback}?.(checkedValues(input, ${selected}))\n  else ${callback}?.(input.value)`
-    : `${callback}?.(${model.read})`
+const report = (component, callback, multiple, selected) =>
+  arrayValue(component.model)
+    ? uses(
+        `if (${multiple}) ${callback}?.(checkedValues(input, ${selected}))\n  else ${callback}?.(input.value)`,
+        named(selectionImport(component), "checkedValues"),
+      )
+    : fragment(`${callback}?.(${component.model.read})`)
 
-const BOUND = "const bound = useBound()"
-
-const DEV_WARNING = [
-  ["../dev", "DEV"],
-  ["../dev", "warnGroupedChecked"],
-]
+const BOUND = declaration("bound", uses("const bound = useBound()", USE_BOUND))
 
 const NOTHING = {}
 
@@ -40,33 +60,30 @@ const solidControl = (model) => ({
     node === model.element
       ? {
           rest: [
-            "{...checkedControl.server}",
-            "ref={[props.ref, checkedControl.ref]}",
+            reads("{...checkedControl.server}", "checkedControl"),
+            reads("ref={[props.ref, checkedControl.ref]}", "checkedControl"),
           ],
         }
       : {},
-  declares: ["checkedControl"],
-  helpers: { called: { control: "../solid" } },
   props: { added: ["checked", "ref"] },
   script: () => ({
-    before: ["const checkedControl = control(() => props.checked)"],
+    before: [
+      declaration(
+        "checkedControl",
+        uses("const checkedControl = control(() => props.checked)", CONTROL),
+      ),
+    ],
   }),
 })
 
 const vueModel = (model, attributes, name) => ({
   attributes: (node) =>
     node === model.element ? { bound: { attributes, condition: "bound" } } : {},
-  declares: ["bound", name],
-  helpers: { called: { useBound: "../vue" } },
   script: () => ({ before: [optionalModel(model, name), BOUND] }),
 })
 
-const svelteRelay = (model, { added, attributes, helpers, script }) => ({
+const svelteRelay = (model, { added, attributes, script }) => ({
   attributes: (node) => (node === model.element ? { end: attributes } : {}),
-  declares: ["initialChecked", "relay"],
-  helpers: {
-    called: { relayChecked: "../svelte", ...helpers, untrack: "svelte" },
-  },
   props: { added, bound: model.bindables },
   script: () => ({ before: script }),
 })
@@ -77,14 +94,28 @@ const checked = ({ model }) => ({
   svelte: svelteRelay(model, {
     added: ["defaultChecked", "value"],
     attributes: [
-      "{@attach relayChecked(\n  relay,\n  () => checked,\n  () =>\n    group === undefined || value === undefined\n      ? undefined\n      : group.includes(value),\n)}",
+      uses(
+        "{@attach relayChecked(\n  relay,\n  () => checked,\n  () =>\n    group === undefined || value === undefined\n      ? undefined\n      : group.includes(value),\n)}",
+        RELAY_CHECKED,
+      ),
       "defaultChecked={defaultChecked ?? initialChecked}",
       "{value}",
     ],
-    helpers: { toggleInGroup: "../group" },
     script: [
-      "const initialChecked = untrack(() =>\n  group !== undefined && value !== undefined\n    ? group.includes(value)\n    : checked,\n)",
-      "const relay = (input: HTMLInputElement) => {\n  checked = input.checked\n  if (value !== undefined) {\n    group = toggleInGroup(group ?? [], value, input.checked)\n  }\n}",
+      declaration(
+        "initialChecked",
+        uses(
+          "const initialChecked = untrack(() =>\n  group !== undefined && value !== undefined\n    ? group.includes(value)\n    : checked,\n)",
+          SVELTE_UNTRACK,
+        ),
+      ),
+      declaration(
+        "relay",
+        uses(
+          "const relay = (input: HTMLInputElement) => {\n  checked = input.checked\n  if (value !== undefined) {\n    group = toggleInGroup(group ?? [], value, input.checked)\n  }\n}",
+          named("../group", "toggleInGroup"),
+        ),
+      ),
     ],
   }),
   vue: vueModel(model, ['v-model="modelValue"'], "modelValue"),
@@ -96,14 +127,25 @@ const radio = ({ model }) => ({
   svelte: svelteRelay(model, {
     added: ["checked", "defaultChecked", "value"],
     attributes: [
-      "{@attach relayChecked(\n  relay,\n  () => checked ?? undefined,\n  () => (group === undefined ? undefined : group === (value ?? true)),\n)}",
+      uses(
+        "{@attach relayChecked(\n  relay,\n  () => checked ?? undefined,\n  () => (group === undefined ? undefined : group === (value ?? true)),\n)}",
+        RELAY_CHECKED,
+      ),
       "defaultChecked={defaultChecked ?? initialChecked}",
       "{value}",
     ],
-    helpers: {},
     script: [
-      "const initialChecked = untrack(() =>\n  group !== undefined ? group === (value ?? true) : checked,\n)",
-      "const relay = (input: HTMLInputElement) => {\n  if (input.checked) group = value ?? true\n  else if (group === (value ?? true)) group = undefined\n}",
+      declaration(
+        "initialChecked",
+        uses(
+          "const initialChecked = untrack(() =>\n  group !== undefined ? group === (value ?? true) : checked,\n)",
+          SVELTE_UNTRACK,
+        ),
+      ),
+      declaration(
+        "relay",
+        "const relay = (input: HTMLInputElement) => {\n  if (input.checked) group = value ?? true\n  else if (group === (value ?? true)) group = undefined\n}",
+      ),
     ],
   }),
   vue: vueModel(
@@ -143,17 +185,16 @@ const group = (component) => {
         { code: "defaultValue", key: "defaultValue" },
         ...provided,
       ],
-      declares: ["change"],
-      helpers: {
-        called: {
-          checkedValues: selectionImport(component),
-          useCallback: "react",
-        },
-      },
       props: controlled(model),
       script: () => ({
         before: [
-          `const change = useCallback(\n  (input: HTMLInputElement) => {\n  ${report(model, "onValueChange", "multiple", model.local)}\n},\n  [${generic ? `multiple, onValueChange, ${model.local}` : "onValueChange"}],\n)`,
+          declaration(
+            "change",
+            uses(
+              code`const change = useCallback(\n  (input: HTMLInputElement) => {\n  ${report(component, "onValueChange", "multiple", model.local)}\n},\n  [${generic ? `multiple, onValueChange, ${model.local}` : "onValueChange"}],\n)`,
+              named("react", "useCallback"),
+            ),
+          ),
         ],
       }),
     },
@@ -163,12 +204,13 @@ const group = (component) => {
         { code: "props.defaultValue", key: "defaultValue" },
         ...provided,
       ],
-      declares: ["change"],
-      helpers: { called: { checkedValues: selectionImport(component) } },
       props: controlled(model),
       script: () => ({
         before: [
-          `const change = (input: HTMLInputElement) => {\n  ${report(model, "props.onValueChange", "props.multiple", `props.${model.prop}`)}\n}`,
+          declaration(
+            "change",
+            code`const change = (input: HTMLInputElement) => {\n  ${report(component, "props.onValueChange", "props.multiple", `props.${model.prop}`)}\n}`,
+          ),
         ],
       }),
     },
@@ -176,11 +218,15 @@ const group = (component) => {
       context: [
         {
           key: "change",
-          text: `change(input) {\nif (input.checked${generic ? ' || input.type === "checkbox"' : ""}) ${model.prop} = ${model.read}\nelse if (${model.prop} === input.value) ${model.prop} = undefined\n},`,
+          text: uses(
+            `change(input) {\nif (input.checked${generic ? ' || input.type === "checkbox"' : ""}) ${model.prop} = ${model.read}\nelse if (${model.prop} === input.value) ${model.prop} = undefined\n},`,
+            ...(generic
+              ? [named(selectionImport(component), "selectionOf")]
+              : []),
+          ),
         },
         ...provided,
       ],
-      helpers: { called: { selectionOf: selectionImport(component) } },
       props: { bound: model.bindables },
     },
     vue: {
@@ -192,7 +238,6 @@ const group = (component) => {
             : entry,
         ),
       ],
-      declares: ["bound", "model"],
       generic: generic
         ? {
             parameter: "Multiple extends boolean = false",
@@ -200,7 +245,6 @@ const group = (component) => {
             type: `type Model = Multiple extends true ? ${members.filter(isArrayType).join(" | ")} : ${members.filter((member) => !isArrayType(member)).join(" | ")}`,
           }
         : undefined,
-      helpers: { called: { useBound: "../vue" } },
       props: {
         added: generic ? ["multiple"] : [],
         dropped: [model.prop],
@@ -208,7 +252,10 @@ const group = (component) => {
       },
       script: () => ({
         before: [
-          `const model = defineModel<${generic ? "Model" : model.type}>()`,
+          declaration(
+            "model",
+            `const model = defineModel<${generic ? "Model" : model.type}>()`,
+          ),
           BOUND,
         ],
       }),
@@ -233,9 +280,9 @@ const radioGroup = ({ model }) => {
         return radio
           ? {
               checked: [
-                `checked={${model.local} !== undefined ? ${radio.checked} : undefined}`,
-                `defaultChecked={${model.local} !== undefined ? undefined : ${radio.checked}}`,
-                `onChange={() => onValueChange?.(${radio.value})}`,
+                code`checked={${model.local} !== undefined ? ${radio.checked} : undefined}`,
+                code`defaultChecked={${model.local} !== undefined ? undefined : ${radio.checked}}`,
+                code`onChange={() => onValueChange?.(${radio.value})}`,
               ],
             }
           : {}
@@ -248,18 +295,17 @@ const radioGroup = ({ model }) => {
         const radio = radioOf(node, port)
         if (!radio) return {}
         const control = port.control(
-          `() => props.${model.prop} === undefined ? undefined : ${radio.checked}`,
-          `props.${model.prop} === undefined ? ${radio.checked} : undefined`,
+          code`() => props.${model.prop} === undefined ? undefined : ${radio.checked}`,
+          code`props.${model.prop} === undefined ? ${radio.checked} : undefined`,
         )
         return {
           checked: [
-            `{...${control}.server}`,
-            `onChange={() => props.onValueChange?.(${radio.value})}`,
-            `ref={${control}.ref}`,
+            code`{...${control}.server}`,
+            code`onChange={() => props.onValueChange?.(${radio.value})}`,
+            code`ref={${control}.ref}`,
           ],
         }
       },
-      helpers: { called: { control: "../solid" } },
       props: controlled(model),
       rename: [[model.local, `props.${model.prop} ?? props.defaultValue`]],
     },
@@ -270,13 +316,18 @@ const radioGroup = ({ model }) => {
           ? {
               checked: [],
               end: [
-                `defaultChecked={untrack(() => ${radio.checked})}`,
-                `{@attach relayChecked(\n  (input) => {\n    if (input.checked) ${model.local} = ${radio.value}\n    else if (${radio.checked}) ${model.local} = undefined\n  },\n  () => (${model.local} === undefined ? undefined : ${radio.checked}),\n)}`,
+                uses(
+                  code`defaultChecked={untrack(() => ${radio.checked})}`,
+                  SVELTE_UNTRACK,
+                ),
+                uses(
+                  code`{@attach relayChecked(\n  (input) => {\n    if (input.checked) ${model.local} = ${radio.value}\n    else if (${radio.checked}) ${model.local} = undefined\n  },\n  () => (${model.local} === undefined ? undefined : ${radio.checked}),\n)}`,
+                  RELAY_CHECKED,
+                ),
               ],
             }
           : {}
       },
-      helpers: { called: { relayChecked: "../svelte", untrack: "svelte" } },
       props: { bound: [{ prop: model.prop, type: model.type }] },
     },
     vue: {
@@ -290,14 +341,25 @@ const radioGroup = ({ model }) => {
               checked: [],
             }
           : {},
-      declares: ["bound", "model", "modelValue"],
-      helpers: { called: { useBound: "../vue" } },
-      rename: [[model.local, "model.value"]],
+      rename: [[model.local, "model.value", "model"]],
       script: () => ({
         before: [
-          `const modelValue = defineModel<${model.type}>()`,
+          declaration(
+            "modelValue",
+            `const modelValue = defineModel<${model.type}>()`,
+          ),
           BOUND,
-          `const model = computed(() => modelValue.value ?? ${model.local})`,
+          declaration(
+            "model",
+            uses(
+              reads(
+                `const model = computed(() => modelValue.value ?? ${model.local})`,
+                "modelValue",
+                model.local,
+              ),
+              COMPUTED,
+            ),
+          ),
         ],
       }),
     },
@@ -307,7 +369,7 @@ const radioGroup = ({ model }) => {
 const groupItem = (component, model) => {
   const { item } = component
   const change = (call) =>
-    `onChange={(event) => {\n  ${item.parent}?.change?.(event.currentTarget)\n  ${call}\n}}`
+    code`onChange={(event) => {\n  ${item.parent}?.change?.(event.currentTarget)\n  ${call}\n}}`
   const target = model
     ? `const target = computed({\n  get: () => (${item.parent}?.bound ? ${item.parent}.value : model.value),\n  set: (next) => {\n    if (${item.parent}?.bound) ${item.parent}.value = next as typeof ${item.parent}.value\n    else model.value = next as typeof model.value\n  },\n})`
     : `const target = computed({\n  get: () => ${item.parent}?.value,\n  set: (next) => {\n    if (${item.parent}) ${item.parent}.value = next\n  },\n})`
@@ -319,12 +381,13 @@ const groupItem = (component, model) => {
         return {
           checked: [
             port.attribute(checkedOf(node)),
-            `defaultChecked={${item.grouped} !== undefined ? undefined : ${item.checked ? `${item.checked} === undefined ? (${defaultGrouped} ?? defaultChecked) : defaultChecked` : `(${defaultGrouped} ?? defaultChecked)`}}`,
+            item.checked
+              ? code`defaultChecked={${item.grouped} !== undefined ? undefined : ${item.checked} === undefined ? (${defaultGrouped} ?? defaultChecked) : defaultChecked}`
+              : code`defaultChecked={${item.grouped} !== undefined ? undefined : (${defaultGrouped} ?? defaultChecked)}`,
           ],
           end: ["ref={ref}", change("onChange?.(event)")],
         }
       },
-      helpers: { always: DEV_WARNING },
       props: { added: ["defaultChecked", "onChange", "ref"] },
       script: () => ({
         after: [
@@ -342,34 +405,30 @@ const groupItem = (component, model) => {
       attributes: (node, port) => {
         if (node !== item.input) return {}
         const control = port.control(
-          `() => ${port.rewrite(checkedOf(node).code)}`,
-          `${port.rewrite(item.defaultGrouped)} ?? props.defaultChecked`,
+          code`() => ${port.rewrite(checkedOf(node).code)}`,
+          code`${port.rewrite(item.defaultGrouped)} ?? props.defaultChecked`,
         )
         return {
-          checked: [`{...${control}.server}`],
+          checked: [code`{...${control}.server}`],
           end: [
-            `ref={[props.ref, ${control}.ref]}`,
-            change("callHandler(props.onChange, event)"),
+            code`ref={[props.ref, ${control}.ref]}`,
+            change(uses("callHandler(props.onChange, event)", CALL_HANDLER)),
           ],
         }
-      },
-      helpers: {
-        always: DEV_WARNING,
-        called: {
-          callHandler: "../solid",
-          control: "../solid",
-          untrack: "solid-js",
-        },
       },
       props: { added: ["defaultChecked", "onChange", "ref"] },
       script: (rewrite) => ({
         after: [
-          `if (DEV) untrack(() =>\n${groupWarning(
-            component,
-            item,
-            `${rewrite(item.checked ?? "undefined")} ?? props.defaultChecked`,
-            rewrite(item.grouped),
-          )}\n)`,
+          uses(
+            code`if (DEV) untrack(() =>\n${groupWarning(
+              component,
+              item,
+              code`${rewrite(item.checked ?? "undefined")} ?? props.defaultChecked`,
+              rewrite(item.grouped),
+            )}\n)`,
+            DEV,
+            SOLID_UNTRACK,
+          ),
         ],
       }),
     },
@@ -378,37 +437,51 @@ const groupItem = (component, model) => {
         node === item.input
           ? {
               checked: [
-                "{@attach relayChecked(change, isChecked)}",
+                uses(
+                  "{@attach relayChecked(change, isChecked)}",
+                  RELAY_CHECKED,
+                ),
                 `defaultChecked={${item.grouped} === undefined ? (defaultChecked ?? initialChecked) : initialChecked}`,
               ],
             }
           : {},
-      declares: ["change", "initialChecked", "isChecked"],
-      helpers: {
-        always: DEV_WARNING,
-        called: { relayChecked: "../svelte", untrack: "svelte" },
-      },
       props: {
         added: ["defaultChecked"],
         bound: model ? model.bindables : [],
       },
       script: (rewrite) => ({
         after: [
-          `if (DEV) untrack(() => ${groupWarning(component, item, `${item.checked ?? "undefined"} ?? defaultChecked`)})`,
-          `const isChecked = () => ${rewrite(item.checkedCode)}`,
-          "const initialChecked = untrack(() => isChecked() ?? !!defaultChecked)",
-          `const change = (input: HTMLInputElement) => {\n${[
-            ...(model
-              ? [
-                  `if (${item.grouped} === undefined) ${model.prop} = input.checked`,
-                ]
-              : []),
-            item.value
-              ? `if (${item.value} !== undefined) ${item.parent}?.change?.(input)`
-              : `${item.parent}?.change?.(input)`,
-          ]
-            .map((line) => `  ${line}\n`)
-            .join("")}}`,
+          uses(
+            code`if (DEV) untrack(() => ${groupWarning(component, item, `${item.checked ?? "undefined"} ?? defaultChecked`)})`,
+            DEV,
+            SVELTE_UNTRACK,
+          ),
+          declaration(
+            "isChecked",
+            code`const isChecked = () => ${rewrite(item.checkedCode)}`,
+          ),
+          declaration(
+            "initialChecked",
+            uses(
+              "const initialChecked = untrack(() => isChecked() ?? !!defaultChecked)",
+              SVELTE_UNTRACK,
+            ),
+          ),
+          declaration(
+            "change",
+            `const change = (input: HTMLInputElement) => {\n${[
+              ...(model
+                ? [
+                    `if (${item.grouped} === undefined) ${model.prop} = input.checked`,
+                  ]
+                : []),
+              item.value
+                ? `if (${item.value} !== undefined) ${item.parent}?.change?.(input)`
+                : `${item.parent}?.change?.(input)`,
+            ]
+              .map((line) => `  ${line}\n`)
+              .join("")}}`,
+          ),
         ],
       }),
     },
@@ -429,26 +502,22 @@ const groupItem = (component, model) => {
                   : [],
             }
           : {},
-      declares: model ? ["bound", "model", "target"] : ["target"],
-      helpers: {
-        always: DEV_WARNING,
-        called: {
-          ...(model ? { useBound: "../vue" } : {}),
-          watchEffect: "vue",
-        },
-      },
       props: { unset: item.checked ? ["checked"] : [] },
       script: () => ({
         after: [
-          `if (DEV) watchEffect(() =>\n  ${groupWarning(
-            component,
-            item,
-            model && item.checked
-              ? `${item.checked} ?? model.value`
-              : (item.checked ?? "undefined"),
-            `${item.grouped}.value`,
-          )},\n)`,
-          target,
+          uses(
+            code`if (DEV) watchEffect(() =>\n  ${groupWarning(
+              component,
+              item,
+              model && item.checked
+                ? `${item.checked} ?? model.value`
+                : (item.checked ?? "undefined"),
+              reads(`${item.grouped}.value`, item.grouped),
+            )},\n)`,
+            DEV,
+            WATCH_EFFECT,
+          ),
+          declaration("target", uses(target, COMPUTED)),
         ],
         before: model ? [optionalModel(model, "model"), BOUND] : [],
       }),
@@ -474,31 +543,38 @@ export const MODEL_KINDS = {
   radioGroup,
 }
 
-const shapeOf = (parts, context, refusal) => ({
-  attributes: (node, port) => ({
-    bound: undefined,
-    checked: undefined,
-    end: [],
-    rename: [],
-    rest: [],
-    ...parts.attributes?.(node, port),
-  }),
-  context: parts.context ?? context,
-  declares: parts.declares ?? [],
-  generic: parts.generic,
-  helpers: { always: [], called: {}, ...parts.helpers },
-  props: {
-    added: [],
-    bound: [],
-    dropped: [],
-    initial: [],
-    unset: [],
-    ...parts.props,
-  },
-  refusal,
-  rename: parts.rename ?? [],
-  script: (rewrite) => ({ after: [], before: [], ...parts.script?.(rewrite) }),
-})
+const shapeOf = (parts, context, refusal) => {
+  const script = (rewrite) => ({
+    after: [],
+    before: [],
+    ...parts.script?.(rewrite),
+  })
+  const { after, before } = script((text) => text)
+  return {
+    attributes: (node, port) => ({
+      bound: undefined,
+      checked: undefined,
+      end: [],
+      rename: [],
+      rest: [],
+      ...parts.attributes?.(node, port),
+    }),
+    context: parts.context ?? context,
+    declares: declaredIn([...before, ...after]).toSorted(byName),
+    generic: parts.generic,
+    props: {
+      added: [],
+      bound: [],
+      dropped: [],
+      initial: [],
+      unset: [],
+      ...parts.props,
+    },
+    refusal,
+    rename: parts.rename ?? [],
+    script,
+  }
+}
 
 const kindOf = ({ item, model }) =>
   model ? model.kind : item ? "item" : "none"
@@ -554,29 +630,6 @@ export const bindingFor = (component, framework) => {
   }
   return binding
 }
-
-export const helpersOf = (binding, own = {}) =>
-  Object.fromEntries(
-    Object.entries({ ...own, ...binding.helpers.called }).toSorted(([a], [b]) =>
-      byName(a, b),
-    ),
-  )
-
-export const helpersCalled = (code, helpers) =>
-  Object.entries(helpers)
-    .filter(([name]) => new RegExp(`(?<![\\w$.])${name}\\(`).test(code))
-    .map(([name, module]) => ({ module, name }))
-
-export const namesFrom = (used, module) =>
-  used.filter((entry) => entry.module === module).map(({ name }) => name)
-
-export const importLinesOf = (used, except) =>
-  [...new Set(used.map(({ module }) => module))]
-    .filter((module) => !except.includes(module))
-    .map(
-      (module) =>
-        `import { ${namesFrom(used, module).join(", ")} } from "${module}"`,
-    )
 
 let bound
 

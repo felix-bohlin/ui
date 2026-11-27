@@ -8,33 +8,35 @@ import {
 } from "./example-react-props.mjs"
 import {
   componentImport,
-  contextImports,
+  contextLines,
+  contextModule,
   devOnly,
   eventRoots,
   hydratingRoots,
   objectCode,
   propsImport,
-  rewriteExpression,
-  rewriteStatement,
+  rewriteFragment,
+  rewriteStatementFragment,
   scriptImports,
   slotOrder,
   styleOption,
-  withImport,
+  chosenSpreadCode,
 } from "./component-emit.mjs"
-import { attrsImport, componentFunction, jsxEmitter } from "./component-jsx.mjs"
 import {
-  bindingFor,
-  helpersCalled,
-  helpersOf,
-  importLinesOf,
-  isCheckedAttribute,
-  namesFrom,
-} from "./component-models.mjs"
+  code,
+  declaration,
+  declaredIn,
+  importsOf,
+  named,
+  typed,
+  uses,
+} from "./component-fragment.mjs"
+import { componentFunction, jsxEmitter } from "./component-jsx.mjs"
+import { bindingFor, isCheckedAttribute } from "./component-models.mjs"
 import { jsxAttribute } from "./example-encoders.mjs"
 import { eventProp } from "./component-types.mjs"
 import {
   byName,
-  chosenSpreadCode,
   classText,
   filtersSpread,
   isIdentifierName,
@@ -42,29 +44,11 @@ import {
   unsupported,
 } from "./component-shared.mjs"
 
-const declaredNames = (code) => {
-  const [declaration] = sourceFileOf(code, "component.tsx").statements
-  const names = new Set()
-  const bind = (name) => {
-    if (ts.isIdentifier(name)) names.add(name.text)
-    else {
-      name.elements.forEach(
-        (element) => ts.isBindingElement(element) && bind(element.name),
-      )
-    }
-  }
-  declaration.parameters.forEach((parameter) => bind(parameter.name))
-  declaration.body.statements.forEach((statement) => {
-    if (ts.isVariableStatement(statement)) {
-      statement.declarationList.declarations.forEach((entry) =>
-        bind(entry.name),
-      )
-    }
-  })
-  return names
-}
+const DEFINED = named("../attrs", "defined")
 
-const dependenciesOf = (code, locals) => {
+const FILLED = named("../attrs", "filled")
+
+const dependenciesOf = (text, locals) => {
   const found = new Set()
   const visit = (node) => {
     if (
@@ -90,7 +74,7 @@ const dependenciesOf = (code, locals) => {
     }
     ts.forEachChild(node, visit)
   }
-  visit(sourceFileOf(`(${code})`, "expression.tsx"))
+  visit(sourceFileOf(`(${text})`, "expression.tsx"))
   return [...found].toSorted(byName)
 }
 
@@ -113,6 +97,9 @@ export const toReact = (component) => {
     warnings,
   } = component
   const model = bindingFor(component, "react")
+  const contextTypes = provide
+    ? `${provide.context.folder ? `../${provide.context.folder}` : "."}/types`
+    : undefined
   const props = component.props.filter(
     ({ local }) => !stringSlots.some((entry) => entry.local === local),
   )
@@ -168,7 +155,7 @@ export const toReact = (component) => {
   const options = {
     rename,
     ids: component.ids,
-    slotHas: (name) => `filled(${slotProp(name)})`,
+    slotHas: (name) => uses(`filled(${slotProp(name)})`, FILLED),
     style: styleOption(component, "style ?? {}"),
   }
   const entries = props.map((entry) => {
@@ -189,7 +176,7 @@ export const toReact = (component) => {
   })
   const slotEntries = slotOrder(slots).map((slot) => slotProp(slot))
   const { multiRoot } = component
-  const rewrite = (code) => rewriteExpression(code, options)
+  const rewrite = (source) => rewriteFragment(source, options)
   const script = model.script(rewrite)
   const extraEntries = [
     ...model.props.added,
@@ -208,84 +195,119 @@ export const toReact = (component) => {
     ...slotEntries,
     ...(rest ? [`...${rest}`] : []),
   ]
+  const destructuredNames = [
+    ...[...entries, ...extraEntries].map(({ key }) => key),
+    ...slotEntries,
+    ...(rest ? [rest] : []),
+  ]
   const body = [
-    ...reads.map(
-      ({ context, name }) => `const ${name} = use${context.name}Context()`,
+    ...reads.map(({ context, name }) =>
+      declaration(
+        name,
+        uses(
+          `const ${name} = use${context.name}Context()`,
+          named(contextModule(context, "react"), `use${context.name}Context`),
+        ),
+      ),
     ),
-    ...(uid ? ["const uid = useId()"] : []),
+    ...(uid
+      ? [
+          declaration(
+            "uid",
+            uses("const uid = useId()", named("react", "useId")),
+          ),
+        ]
+      : []),
     ...script.before,
-    ...tagProps.map(
-      ({ local, prop, default: fallback }) =>
+    ...tagProps.map(({ local, prop, default: fallback }) =>
+      declaration(
+        local,
         `const ${local} = ${fallback ? `${prop} || ${fallback}` : prop}`,
+      ),
     ),
-    ...derived.map(
-      ({ code, name }) => `const ${name} = ${rewriteExpression(code, options)}`,
+    ...derived.map(({ code: source, name }) =>
+      declaration(name, code`const ${name} = ${rewrite(source)}`),
     ),
-    ...warnings.map(({ code }) => devOnly(rewriteStatement(code, options))),
+    ...warnings.map(({ code: source }) =>
+      devOnly(rewriteStatementFragment(source, options)),
+    ),
     ...script.after,
     ...(events.length
       ? [
-          `const rootRef = ${hydrating.size ? "useHydrated(" : ""}${events.reduce(
-            (ref, event, index) =>
-              `useListener(${ref}, ${JSON.stringify(event)}, ${handlers[index]})`,
-            "ref",
-          )}${hydrating.size ? ")" : ""}`,
+          declaration(
+            "rootRef",
+            uses(
+              `const rootRef = ${hydrating.size ? "useHydrated(" : ""}${events.reduce(
+                (ref, event, index) =>
+                  `useListener(${ref}, ${JSON.stringify(event)}, ${handlers[index]})`,
+                "ref",
+              )}${hydrating.size ? ")" : ""}`,
+              ...(hydrating.size ? [named("../react", "useHydrated")] : []),
+              named("../react", "useListener"),
+            ),
+          ),
         ]
       : []),
   ]
-  let usesCx = false
-  let usesDefined = false
-  const reactTypes = new Set()
   const hoisted = new Map()
-  const filteredRest = (code) => {
-    if (!provide) return `{...defined(${code})}`
-    if (!hoisted.has(code)) {
+  const filteredRest = (spread) => {
+    if (!provide) return uses(code`{...defined(${spread})}`, DEFINED)
+    if (!hoisted.has(spread.code)) {
       const name = ["attrs", "restAttrs", "definedAttrs"]
         .map((base) => (hoisted.size ? `${base}${hoisted.size + 1}` : base))
         .find((base) => !taken.has(base))
-      hoisted.set(code, name)
+      hoisted.set(spread.code, { name, spread })
     }
-    return `{...${hoisted.get(code)}}`
+    return code`{...${hoisted.get(spread.code).name}}`
   }
   const restType = (node, item) => {
     if (node.variable) {
-      reactTypes.add("HTMLAttributes")
-      return "HTMLAttributes<HTMLElement>"
+      return uses(
+        "HTMLAttributes<HTMLElement>",
+        typed("react", "HTMLAttributes"),
+      )
     }
     if (item.cast && !node.component && !node.custom) {
-      reactTypes.add("ComponentProps")
-      return `ComponentProps<${JSON.stringify(item.cast)}>`
+      return uses(
+        `ComponentProps<${JSON.stringify(item.cast)}>`,
+        typed("react", "ComponentProps"),
+      )
     }
     return "object"
   }
   const attribute = (node, item) => {
     if (item.kind === "class") {
       const text = classText(item.code)
-      if (text) return `className={${rewriteExpression(text, options)}}`
-      usesCx = true
-      return `className={cx(${rewriteExpression(item.code, options)})}`
+      if (text) return code`className={${rewrite(text)}}`
+      return uses(
+        code`className={cx(${rewrite(item.code)})}`,
+        named("../cx", "cx"),
+      )
     }
     if (item.kind === "spread") {
       const filtered = filtersSpread(node, item, component)
-      if (filtered) usesDefined = true
       if (item.condition !== undefined) {
         const chosen = chosenSpreadCode(
           item,
-          `(${item.code} as ${restType(node, item)})`,
-          rewriteExpression(item.condition, options),
+          code`(${item.code} as ${restType(node, item)})`,
+          rewrite(item.condition),
         )
-        return filtered ? `{...defined(${chosen})}` : `{...(${chosen})}`
+        return filtered
+          ? uses(code`{...defined(${chosen})}`, DEFINED)
+          : code`{...(${chosen})}`
       }
       if (
         item.code === rest &&
         (node.variable || (item.cast && !node.component && !node.custom))
       ) {
-        const cast = `${item.code} as ${restType(node, item)}`
-        return filtered ? filteredRest(cast) : `{...(${cast})}`
+        const cast = code`${item.code} as ${restType(node, item)}`
+        return filtered ? filteredRest(cast) : code`{...(${cast})}`
       }
-      const code = rewriteExpression(item.code, options)
-      if (filtered && item.code === rest) return filteredRest(code)
-      return filtered ? `{...defined(${code})}` : `{...${code}}`
+      const spread = rewrite(item.code)
+      if (filtered && item.code === rest) return filteredRest(spread)
+      return filtered
+        ? uses(code`{...defined(${spread})}`, DEFINED)
+        : code`{...${spread}}`
     }
     const name = node.component
       ? item.name
@@ -301,7 +323,7 @@ export const toReact = (component) => {
           : reactKinds(reactPropsOf(node.tag, false) ?? new Map(), name)
       return reactBareAttribute(name, kinds) ?? name
     }
-    return `${name}={${rewriteExpression(item.code, options)}}`
+    return code`${name}={${rewrite(item.code)}}`
   }
   const keys = new Map()
   const elementAttributes = (node) => {
@@ -344,26 +366,21 @@ export const toReact = (component) => {
       keys.set(node.row, node.index)
       return {
         consts: node.consts.map(
-          ({ code, name }) =>
-            `const ${name} = ${rewriteExpression(code, options)}`,
+          ({ code: source, name }) => code`const ${name} = ${rewrite(source)}`,
         ),
         list: node.list,
         parameters: `${node.item}${node.index ? `, ${node.index}` : ""}`,
       }
     },
-    rewrite: (code) => rewriteExpression(code, options),
+    rewrite,
     slotCode: (name) => name,
     stringSlots,
   })
   const [rootNode] = tree
   const rendered = render(tree)
-  const contextCode = provide
-    ? rewriteExpression(objectCode(model.context), options)
-    : undefined
+  const contextCode = provide ? rewrite(objectCode(model.context)) : undefined
   const locals = provide
-    ? declaredNames(
-        `function f({ ${destructured.join(", ")} }) {\n${body.join("\n")}\n}`,
-      )
+    ? new Set([...destructuredNames, ...declaredIn(body)])
     : undefined
   const contextName = ["context", "contextValue", "providedContext"].find(
     (name) => !locals?.has(name),
@@ -380,7 +397,7 @@ export const toReact = (component) => {
         "rename the prop, const or import in the Astro file",
       )
     }
-    const dependencies = dependenciesOf(contextCode, locals)
+    const dependencies = dependenciesOf(contextCode.code, locals)
     if (dependencies.includes(rest)) {
       throw unsupported(
         "BC405",
@@ -401,60 +418,48 @@ export const toReact = (component) => {
       )
     }
     body.push(
-      ...[...hoisted].map(([code, name]) => `const ${name} = defined(${code})`),
-      `const ${contextName} = useMemo<Context>(\n  () => (${contextCode}),\n  [${dependencies.join(", ")}],\n)`,
+      ...[...hoisted.values()].map(({ name, spread }) =>
+        declaration(
+          name,
+          uses(code`const ${name} = defined(${spread})`, DEFINED),
+        ),
+      ),
+      declaration(
+        contextName,
+        uses(
+          code`const ${contextName} = useMemo<Context>(\n  () => (${contextCode}),\n  [${dependencies.join(", ")}],\n)`,
+          named("react", "useMemo"),
+          typed(contextTypes, "Context"),
+        ),
+      ),
     )
   }
   const returned = provide
-    ? `<${provide.context.name}Context value={${contextName}}>${rootNode.type === "if" ? `{${rendered}}` : rendered}</${provide.context.name}Context>`
+    ? uses(
+        code`<${provide.context.name}Context value={${contextName}}>${rootNode.type === "if" ? code`{${rendered}}` : rendered}</${provide.context.name}Context>`,
+        named(
+          contextModule(provide.context, "react"),
+          `${provide.context.name}Context`,
+        ),
+      )
     : multiRoot
-      ? `<>${rendered}</>`
+      ? code`<>${rendered}</>`
       : rendered
-  const used = helpersCalled([...body, returned].join("\n"), helpersOf(model))
-  const reactValues = [
-    ...(uid ? ["useId"] : []),
-    ...(provide ? ["useMemo"] : []),
-    ...namesFrom(used, "react"),
-    ...[...reactTypes].map((name) => `type ${name}`),
-  ].toSorted((a, b) => byName(a.replace(/^type /, ""), b.replace(/^type /, "")))
-  const reactHelpers = [
-    ...(hydrating.size ? ["useHydrated"] : []),
-    ...(events.length ? ["useListener"] : []),
-  ].toSorted(byName)
-  const reactImport = reactValues.length
-    ? reactValues.every((name) => name.startsWith("type "))
-      ? `import type { ${reactValues.map((name) => name.slice(5)).join(", ")} } from "react"`
-      : `import { ${reactValues.join(", ")} } from "react"`
-    : undefined
+  const needed = importsOf([...body, returned])
   const importLines = [
-    ...(reactImport ? [reactImport] : []),
+    ...needed.line("react"),
     ...scriptImports(component),
-    ...attrsImport(usesDefined, [...body, returned].join("\n")),
-    ...(usesCx ? [`import { cx } from "../cx"`] : []),
-    ...(reactHelpers.length
-      ? [`import { ${reactHelpers.join(", ")} } from "../react"`]
-      : []),
+    ...needed.line("../attrs"),
+    ...needed.line("../cx"),
+    ...needed.line("../react"),
     ...components
       .map((entry) => componentImport(entry, ".react"))
       .toSorted(byName),
-    ...contextImports(component, "react", {
-      provide: (name) => `${name}Context`,
-      read: (name) => `use${name}Context`,
-    }),
-    ...importLinesOf(used, ["react"]),
-    ...[
-      ...(warnings.length ? [["../dev", "DEV"]] : []),
-      ...model.helpers.always,
-    ].reduce(
-      (lines, [module, name]) => withImport(lines, module, name),
-      imports,
-    ),
+    ...contextLines(component, "react", needed),
+    ...needed.rest(["../dev", contextTypes]),
+    ...needed.merged(imports, ["../dev"]),
     propsImport(propsType, "types.react"),
-    ...(provide
-      ? [
-          `import type { Context } from "${provide.context.folder ? `../${provide.context.folder}` : "."}/types"`,
-        ]
-      : []),
+    ...needed.line(contextTypes),
   ]
   const client =
     reads.length > 0 ||
@@ -462,5 +467,10 @@ export const toReact = (component) => {
     scripts.length > 0 ||
     events.length > 0 ||
     model.props.added.length > 0
-  return `${client ? '"use client"\n\n' : ""}${importLines.join("\n")}\n\n${componentFunction(component.name, `{ ${destructured.join(", ")} }: Props`, body, returned)}`
+  return `${client ? '"use client"\n\n' : ""}${importLines.join("\n")}\n\n${componentFunction(
+    component.name,
+    `{ ${destructured.join(", ")} }: Props`,
+    body.map((line) => line.code),
+    returned.code,
+  )}`
 }

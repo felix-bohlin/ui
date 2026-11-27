@@ -1,5 +1,13 @@
 import ts from "typescript"
 import {
+  asFragment,
+  code,
+  fragment,
+  named,
+  needsOf,
+  uses,
+} from "./component-fragment.mjs"
+import {
   byName,
   isBlank,
   isIdentifierName,
@@ -67,10 +75,39 @@ const templateOf = (head, spans) =>
     ),
   )
 
-const generatedId = (prefix) =>
-  templateOf(`${prefix}-`, [[ts.factory.createIdentifier("uid"), ""]])
+const UID = fragment("uid", { declarations: ["uid"] })
+
+const generatedId = (prefix, uid) => templateOf(`${prefix}-`, [[uid, ""]])
+
+const ownName = (property) =>
+  ts.isShorthandPropertyAssignment(property)
+    ? property.name.text
+    : ts.isPropertyAssignment(property) &&
+        ts.isIdentifier(property.name) &&
+        ts.isIdentifier(property.initializer) &&
+        property.initializer.text === property.name.text
+      ? property.name.text
+      : undefined
+
+const isWholeProps = (node, whole, rename) => {
+  const [first, ...others] = node.properties
+  return (
+    whole !== undefined &&
+    first !== undefined &&
+    ts.isSpreadAssignment(first) &&
+    ts.isIdentifier(first.expression) &&
+    first.expression.text === whole.rest &&
+    others.length > 0 &&
+    others.every((property) => {
+      const name = ownName(property)
+      return name !== undefined && rename.has(name) && whole.props(name)
+    })
+  )
+}
 
 const NO_IDS = { bases: new Map(), prefixes: new Set() }
+
+const NO_NAMES = new Set()
 
 const grouped = (node) =>
   ts.isBinaryExpression(node) || ts.isConditionalExpression(node)
@@ -81,28 +118,55 @@ const transformer =
   (
     sourceFile,
     {
+      declared = NO_NAMES,
       ids = NO_IDS,
       quote = '"',
       rename = new Map(),
       slotHas = (name) => name,
       style,
+      wholeProps,
     } = {},
+    tracked = new Map(),
   ) =>
   (context) =>
   (node) => {
+    const renamed = (name, read) => {
+      const value = rename.get(name)
+      return typeof value === "function" ? value(read) : value
+    }
+    const substituted = (part) => {
+      const replacement = asFragment(part)
+      const cached = expressionOf(replacement.code, quote)
+      const expression =
+        tracked.has(cached) && tracked.get(cached) !== replacement
+          ? parseExpression(replacement.code, quote)
+          : cached
+      tracked.set(expression, replacement)
+      return expression
+    }
     const scoped = (names) => {
       const inner = new Map(rename)
       names.forEach((name) => inner.delete(name))
-      return transformer(sourceFile, {
-        ids,
-        quote,
-        rename: inner,
-        slotHas,
-        style,
-      })(context)
+      return transformer(
+        sourceFile,
+        {
+          declared: new Set(
+            [...declared].filter((name) => !names.includes(name)),
+          ),
+          ids,
+          quote,
+          rename: inner,
+          slotHas,
+          style,
+          wholeProps,
+        },
+        tracked,
+      )(context)
     }
     const visit = (child) => {
-      const shadowed = shadowedBy(child).filter((name) => rename.has(name))
+      const shadowed = shadowedBy(child).filter(
+        (name) => rename.has(name) || declared.has(name),
+      )
       if (shadowed.length > 0) {
         return ts.visitEachChild(child, scoped(shadowed), context)
       }
@@ -111,11 +175,16 @@ const transformer =
       if (ts.isCallExpression(child) && ts.isIdentifier(child.expression)) {
         const base = ids.bases.get(child.expression.text)
         if (base && (!part || named !== undefined)) {
-          const value = expressionOf(rename.get(base) ?? base, quote)
+          const value = substituted(
+            renamed(base, child) ??
+              (declared.has(base)
+                ? fragment(base, { declarations: [base] })
+                : base),
+          )
           return part ? templateOf("", [[value, `-${named}`]]) : value
         }
         if (ids.prefixes.has(child.expression.text) && named !== undefined) {
-          return generatedId(named)
+          return generatedId(named, substituted(UID))
         }
       }
       if (
@@ -127,7 +196,7 @@ const transformer =
         named !== undefined
       ) {
         const [, prefix, id] = child.expression.arguments
-        const fallback = generatedId(prefix.text)
+        const fallback = generatedId(prefix.text, substituted(UID))
         const base = id
           ? ts.factory.createBinaryExpression(
               grouped(ts.visitNode(id, visit)),
@@ -143,7 +212,7 @@ const transformer =
       ) {
         return ts.factory.createPropertyAssignment(
           child.name.text,
-          expressionOf(rename.get(child.name.text), quote),
+          substituted(renamed(child.name.text, child.name)),
         )
       }
       if (
@@ -152,13 +221,13 @@ const transformer =
         child.arguments.length === 1 &&
         ts.isStringLiteral(child.arguments[0])
       ) {
-        return expressionOf(slotHas(child.arguments[0].text), quote)
+        return substituted(slotHas(child.arguments[0].text))
       }
       if (
         ts.isPropertyAccessExpression(child) &&
         child.getText(sourceFile) === "Astro.locals"
       ) {
-        return ts.factory.createIdentifier("uid")
+        return substituted(UID)
       }
       if (
         style &&
@@ -174,9 +243,8 @@ const transformer =
           expressionOf(style.code, quote),
         ])
       }
-      if (
+      const read =
         ts.isIdentifier(child) &&
-        rename.has(child.text) &&
         !(
           ts.isPropertyAccessExpression(child.parent) &&
           child.parent.name === child
@@ -188,8 +256,12 @@ const transformer =
           ts.isBindingElement(child.parent) &&
           child.parent.propertyName === child
         )
-      ) {
-        return expressionOf(rename.get(child.text), quote)
+      if (read && rename.has(child.text)) {
+        return substituted(renamed(child.text, child))
+      }
+      if (read && declared.has(child.text)) {
+        tracked.set(child, fragment(child.text, { declarations: [child.text] }))
+        return child
       }
       if (ts.isStringLiteral(child) && quote === "'") {
         return ts.factory.createStringLiteral(child.text, true)
@@ -228,6 +300,12 @@ const transformer =
           ? left
           : ts.factory.createBinaryExpression(left, child.operatorToken, right)
       }
+      if (
+        ts.isObjectLiteralExpression(child) &&
+        isWholeProps(child, wholeProps, rename)
+      ) {
+        return ts.factory.createIdentifier("props")
+      }
       if (ts.isObjectLiteralExpression(child)) {
         return ts.factory.createObjectLiteralExpression(
           child.properties.map((property) => ts.visitNode(property, visit)),
@@ -245,34 +323,63 @@ const transformer =
     return ts.visitNode(node, visit)
   }
 
-const transformed = (sourceFile, options) =>
-  ts.transform(sourceFile, [transformer(sourceFile, options)]).transformed[0]
+const transformed = (sourceFile, options) => {
+  const tracked = new Map()
+  const [result] = ts.transform(sourceFile, [
+    transformer(sourceFile, options, tracked),
+  ]).transformed
+  const parts = []
+  const collect = (node) => {
+    if (tracked.has(node)) parts.push(tracked.get(node))
+    else ts.forEachChild(node, collect)
+  }
+  collect(result)
+  return { needs: needsOf(parts), result }
+}
 
-export const rewriteExpression = (code, options) => {
+export const rewriteFragment = (code, options) => {
   const sourceFile = sourceFileOf(`(${code})`, "expression.ts")
-  const [statement] = transformed(sourceFile, options).statements
-  const text = printer.printNode(
-    ts.EmitHint.Expression,
-    statement.expression,
-    sourceFile,
+  const { needs, result } = transformed(sourceFile, options)
+  const [statement] = result.statements
+  return fragment(
+    printer.printNode(
+      ts.EmitHint.Expression,
+      ts.isParenthesizedExpression(statement.expression)
+        ? statement.expression.expression
+        : statement.expression,
+      sourceFile,
+    ),
+    needs,
   )
-  return text.replace(/^\((.*)\)$/s, "$1")
 }
 
-export const rewriteStatement = (code, options) => {
+export const rewriteExpression = (code, options) =>
+  rewriteFragment(code, options).code
+
+export const rewriteStatementFragment = (code, options) => {
   const sourceFile = sourceFileOf(code, "statement.ts")
-  return transformed(sourceFile, options)
-    .statements.map((statement) =>
-      printer.printNode(ts.EmitHint.Unspecified, statement, sourceFile),
-    )
-    .join("\n")
+  const { needs, result } = transformed(sourceFile, options)
+  return fragment(
+    result.statements
+      .map((statement) =>
+        printer.printNode(ts.EmitHint.Unspecified, statement, sourceFile),
+      )
+      .join("\n"),
+    needs,
+  )
 }
+
+export const rewriteStatement = (code, options) =>
+  rewriteStatementFragment(code, options).code
 
 const DEV = ts.factory.createIdentifier("DEV")
 
-export const devOnly = (code) => {
-  const sourceFile = sourceFileOf(code, "warning.ts")
-  return sourceFile.statements
+const DEV_IMPORT = named("../dev", "DEV")
+
+export const devOnly = (part) => {
+  const warning = asFragment(part)
+  const sourceFile = sourceFileOf(warning.code, "warning.ts")
+  const text = sourceFile.statements
     .map((statement) =>
       printer.printNode(
         ts.EmitHint.Unspecified,
@@ -288,11 +395,17 @@ export const devOnly = (code) => {
       ),
     )
     .join("\n")
+  return uses(fragment(text, needsOf([warning])), DEV_IMPORT)
 }
 
-export const styleOption = (component, code) => {
+export const chosenSpreadCode = (item, spread, condition) =>
+  item.negated
+    ? code`${condition} ? {} : ${spread}`
+    : code`${condition} ? ${spread} : {}`
+
+export const styleOption = (component, text) => {
   const style = component.props.find(({ prop }) => prop === "style")
-  return style ? { code, local: style.local } : undefined
+  return style ? { code: text, local: style.local } : undefined
 }
 
 const PRINTED = sourceFileOf("", "printed.ts")
@@ -305,57 +418,39 @@ const propertyName = (key, quote) =>
     ? ts.factory.createIdentifier(key)
     : ts.factory.createStringLiteral(key, quote === "'")
 
-export const objectCode = (entries, { quote = '"', shorthand = true } = {}) =>
+const objectProperties = (entries, { quote = '"', shorthand = true } = {}) =>
+  entries.map((entry) =>
+    entry.spread !== undefined
+      ? ts.factory.createSpreadAssignment(expressionOf(entry.spread, quote))
+      : shorthand && entry.code === entry.key
+        ? ts.factory.createShorthandPropertyAssignment(entry.key)
+        : ts.factory.createPropertyAssignment(
+            propertyName(entry.key, quote),
+            expressionOf(entry.code, quote),
+          ),
+  )
+
+export const objectCode = (entries, options) =>
   printed(
     ts.factory.createObjectLiteralExpression(
-      entries.map((entry) =>
-        entry.spread !== undefined
-          ? ts.factory.createSpreadAssignment(expressionOf(entry.spread, quote))
-          : shorthand && entry.code === entry.key
-            ? ts.factory.createShorthandPropertyAssignment(entry.key)
-            : ts.factory.createPropertyAssignment(
-                propertyName(entry.key, quote),
-                expressionOf(entry.code, quote),
-              ),
-      ),
+      objectProperties(entries, options),
       false,
     ),
   )
 
-export const contextImports = (component, file, namesOf) =>
-  component.contexts.flatMap((context) => {
-    const names = [
-      ...new Set([
-        ...(component.provide?.context === context
-          ? [namesOf.provide(context.name)]
-          : []),
-        ...(component.reads.some((read) => read.context === context)
-          ? [namesOf.read(context.name)]
-          : []),
-      ]),
-    ].toSorted(byName)
-    if (names.length === 0) return []
-    return [
-      `import { ${names.join(", ")} } from "${context.folder ? `../${context.folder}` : "."}/context.${file}"`,
-    ]
-  })
+export const objectMembers = (entries, options) =>
+  objectProperties(entries, options).map((property) =>
+    printer.printNode(ts.EmitHint.Unspecified, property, PRINTED),
+  )
 
-const namedImport = (line) => {
-  const [statement] = sourceFileOf(line, "import.ts").statements
-  return statement &&
-    ts.isImportDeclaration(statement) &&
-    !statement.importClause?.isTypeOnly &&
-    !statement.importClause?.name &&
-    statement.importClause?.namedBindings &&
-    ts.isNamedImports(statement.importClause.namedBindings)
-    ? {
-        module: statement.moduleSpecifier.text,
-        names: statement.importClause.namedBindings.elements.map((element) =>
-          element.getText(),
-        ),
-      }
-    : undefined
-}
+export const contextModule = (context, file) =>
+  `${context.folder ? `../${context.folder}` : "."}/context.${file}`
+
+export const contextModules = (component, file) =>
+  component.contexts.map((context) => contextModule(context, file))
+
+export const contextLines = (component, file, imports) =>
+  contextModules(component, file).flatMap((module) => imports.line(module))
 
 export const importedNames = (lines) =>
   lines.flatMap((line) => {
@@ -372,31 +467,29 @@ export const importedNames = (lines) =>
     ]
   })
 
-export const withImport = (lines, module, name) => {
-  const imports = lines.map(namedImport)
-  const index = imports.findIndex((entry) => entry?.module === module)
-  if (index === -1) return [...lines, `import { ${name} } from "${module}"`]
-  const names = [...new Set([...imports[index].names, name])].toSorted(byName)
-  return lines.with(index, `import { ${names.join(", ")} } from "${module}"`)
-}
-
 export const groupWarning = (
   component,
   item,
   checked,
   grouped = item.grouped,
 ) =>
-  printed(
-    ts.factory.createCallExpression(
-      ts.factory.createIdentifier("warnGroupedChecked"),
-      undefined,
-      [
-        ts.factory.createStringLiteral(component.name),
-        expressionOf(grouped),
-        expressionOf(checked),
-        ts.factory.createStringLiteral(item.group),
-      ],
+  uses(
+    fragment(
+      printed(
+        ts.factory.createCallExpression(
+          ts.factory.createIdentifier("warnGroupedChecked"),
+          undefined,
+          [
+            ts.factory.createStringLiteral(component.name),
+            expressionOf(asFragment(grouped).code),
+            expressionOf(asFragment(checked).code),
+            ts.factory.createStringLiteral(item.group),
+          ],
+        ),
+      ),
+      needsOf([grouped, checked]),
     ),
+    named("../dev", "warnGroupedChecked"),
   )
 
 const helperImport = (component, folder, module) =>

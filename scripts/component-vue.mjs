@@ -1,3 +1,4 @@
+import ts from "typescript"
 import {
   reactKinds,
   reactPropsOf,
@@ -5,8 +6,11 @@ import {
 } from "./example-react-props.mjs"
 import { VOID_ELEMENTS } from "./html-tokens.mjs"
 import {
+  chosenSpreadCode,
   componentImport,
-  contextImports,
+  contextLines,
+  contextModule,
+  contextModules,
   devOnly,
   edgeTrimmed,
   eventRoots,
@@ -14,26 +18,33 @@ import {
   indent,
   isLoose,
   objectCode,
+  objectMembers,
   propsImport,
-  rewriteExpression,
-  rewriteStatement,
+  rewriteFragment,
+  rewriteStatementFragment,
   scriptImports,
   styleOption,
-  withImport,
 } from "./component-emit.mjs"
 import {
-  bindingFor,
-  helpersCalled,
-  helpersOf,
-  isCheckedAttribute,
-  namesFrom,
-} from "./component-models.mjs"
+  asFragment,
+  code,
+  declaration,
+  fragment,
+  importsOf,
+  join,
+  named,
+  needed,
+  needsOf,
+  reads,
+  typed,
+  uses,
+} from "./component-fragment.mjs"
+import { bindingFor, isCheckedAttribute } from "./component-models.mjs"
 import { markupAttribute } from "./example-encoders.mjs"
 import { emitsTypeOf } from "./component-types.mjs"
 import { allValues, scriptValues, valuesIn } from "./component-analysis.mjs"
 import {
   byName,
-  chosenSpreadCode,
   classMayBeEmpty,
   elementsIn,
   filtersRest,
@@ -41,7 +52,9 @@ import {
   itemBinding,
   onlyClass,
   PRESERVED_TAGS,
+  printer,
   propKey,
+  sourceFileOf,
   staticClass,
   unsupported,
   withoutClassEntry,
@@ -52,88 +65,117 @@ const vueSlot = (name) => (name.includes("-") ? `['${name}']` : `.${name}`)
 const declaredProp = (name) =>
   name.replace(/-(\w)/g, (_, letter) => letter.toUpperCase())
 
-const ATTRIBUTE = /[^\s="]+(?:="[^"]*")?/g
+const COMPUTED = named("vue", "computed")
 
-const withoutUnused = (lines, markup, declarations) => {
-  const unused = declarations.find(
-    ({ line, name }) =>
-      lines.includes(line) &&
-      ![markup, ...lines.filter((other) => other !== line)].some((text) =>
-        new RegExp(`(?<![\\w$.])${name.replaceAll("$", "\\$")}(?![\\w$])`).test(
-          text,
-        ),
-      ),
+const DEFINED = named("../attrs", "defined")
+
+const HTML_ATTRIBUTES = typed("vue", "HTMLAttributes")
+
+const requoted = (node) =>
+  ts.isStringLiteral(node)
+    ? ts.factory.createStringLiteral(node.text, true)
+    : ts.visitEachChild(node, requoted, ts.nullTransformationContext)
+
+const templateItem = (item) => {
+  if (!item.includes('"')) return item
+  const sourceFile = sourceFileOf(`(${item}) => 0`, "item.ts")
+  const [parameter] = sourceFile.statements[0].expression.parameters
+  return printer.printNode(
+    ts.EmitHint.Unspecified,
+    requoted(parameter.name),
+    sourceFile,
   )
-  return unused
-    ? withoutUnused(
-        lines.filter((line) => line !== unused.line),
-        markup,
-        declarations,
-      )
-    : lines
 }
-const CLASS_BINDING = /^:class="(.*)"$/s
-const STYLE_BINDING = /^:style="(.*)"$/s
-const OBJECT_BINDING = /^v-bind="(.*)"$/s
+
+const isMember = (read) =>
+  (ts.isPropertyAccessExpression(read.parent) ||
+    ts.isElementAccessExpression(read.parent)) &&
+  read.parent.expression === read &&
+  !read.parent.questionDotToken
+
+const isEntriesArgument = (read) =>
+  ts.isCallExpression(read.parent) &&
+  read.parent.arguments.length === 1 &&
+  read.parent.arguments[0] === read &&
+  ts.isPropertyAccessExpression(read.parent.expression) &&
+  ts.isIdentifier(read.parent.expression.expression) &&
+  read.parent.expression.expression.text === "Object" &&
+  read.parent.expression.name.text === "entries"
+
+const binding = (attribute, value, members) => ({
+  ...code`${attribute}="${value}"`,
+  attribute,
+  members,
+  value: asFragment(value),
+})
 
 const emptyBindings = (attributes) =>
-  attributes.flatMap((entry, at) => {
-    const classCode = CLASS_BINDING.exec(entry)?.[1]
-    if (classCode !== undefined) {
-      return classMayBeEmpty(classCode)
-        ? [{ at, code: `classAttrs(${classCode})`, helper: "classAttrs" }]
-        : []
-    }
-    const styleCode = STYLE_BINDING.exec(entry)?.[1]
-    return styleCode === undefined
-      ? []
-      : [{ at, code: `styleAttrs(${styleCode})`, helper: "styleAttrs" }]
-  })
+  attributes.flatMap((entry, at) =>
+    entry.attribute === ":class" && classMayBeEmpty(entry.value.code)
+      ? [
+          {
+            at,
+            value: uses(
+              code`classAttrs(${entry.value})`,
+              named("../cx", "classAttrs"),
+            ),
+          },
+        ]
+      : entry.attribute === ":style"
+        ? [
+            {
+              at,
+              styled: true,
+              value: uses(
+                code`styleAttrs(${entry.value})`,
+                named("../style", "styleAttrs"),
+              ),
+            },
+          ]
+        : [],
+  )
 
 const omitEmptyAttributes = (attributes, file) => {
   const omitted = emptyBindings(attributes)
-  if (omitted.length === 0) return { attributes, helpers: [] }
-  const bound = attributes.filter((entry) => OBJECT_BINDING.test(entry))
-  if (bound.length > 1) {
+  if (omitted.length === 0) return attributes
+  const objects = attributes.filter((entry) => entry.attribute === "v-bind")
+  if (objects.length > 1) {
     throw unsupported(
       "BC501",
       file,
-      `a class list or style that can be empty next to ${bound.length} v-bind objects`,
+      `a class list or style that can be empty next to ${objects.length} v-bind objects`,
     )
   }
-  const codes = omitted.map(({ code }) => code)
-  const helpers = omitted.map(({ helper }) => helper)
-  const spread = bound.length ? OBJECT_BINDING.exec(bound[0])[1].trim() : ""
-  const entries = /^\{[\s\S]*\}$/.test(spread)
-    ? spread.slice(1, -1).trim().replace(/,$/, "")
-    : `...${spread}`
-  const place = bound.length ? attributes.indexOf(bound[0]) : omitted[0].at
-  const merged = [
-    ...omitted,
-    {
-      at: place,
-      code: spread,
-    },
-  ]
-    .toSorted((a, b) => a.at - b.at)
-    .map(({ code }) => code)
-  const object = !bound.length
-    ? codes.length === 1
-      ? `v-bind="${codes[0]}"`
-      : `v-bind="{ ${codes.map((code) => `...${code}`).join(", ")} }"`
-    : helpers.includes("styleAttrs")
-      ? `v-bind="mergeProps(${merged.join(", ")})"`
-      : `v-bind="{ ${entries}, ${codes.map((code) => `...${code}`).join(", ")} }"`
+  const [object] = objects
+  const values = omitted.map(({ value }) => value)
+  const spreads = join(
+    values.map((value) => code`...${value}`),
+    ", ",
+  )
+  const place = object ? attributes.indexOf(object) : omitted[0].at
+  const value = !object
+    ? values.length === 1
+      ? values[0]
+      : code`{ ${spreads} }`
+    : omitted.some(({ styled }) => styled)
+      ? uses(
+          code`mergeProps(${join(
+            [...omitted, { at: place, value: object.value }]
+              .toSorted((a, b) => a.at - b.at)
+              .map((entry) => entry.value),
+            ", ",
+          )})`,
+          named("vue", "mergeProps"),
+        )
+      : code`{ ${
+          object.members
+            ? fragment(object.members.join(", "), needsOf([object.value]))
+            : code`...${object.value}`
+        }, ${spreads} }`
   const dropped = new Set(omitted.map(({ at }) => at))
-  return {
-    attributes: attributes
-      .map((entry, index) => (index === place ? object : entry))
-      .filter((_, index) => index === place || !dropped.has(index)),
-    helpers: [
-      ...helpers,
-      ...(bound.length && helpers.includes("styleAttrs") ? ["mergeProps"] : []),
-    ],
-  }
+  return attributes
+    .map((entry, index) => (index === place ? binding("v-bind", value) : entry))
+    .filter((_, index) => index === place || !dropped.has(index))
 }
 
 export const toVue = (component) => {
@@ -144,7 +186,7 @@ export const toVue = (component) => {
     props,
     propsType,
     provide,
-    reads,
+    reads: contextReads,
     rest,
     restOnRoot,
     rootElements,
@@ -158,11 +200,13 @@ export const toVue = (component) => {
   const model = bindingFor(component, "vue")
   const values = allValues(component)
   const used = new Set([
-    ...values.flatMap(({ reads }) => [...reads.names.keys()]),
+    ...values.flatMap(({ reads: valueReads }) => [...valueReads.names.keys()]),
     ...variableTags,
   ])
   const usedInScript = new Set(
-    scriptValues(component).flatMap(({ reads }) => [...reads.names.keys()]),
+    scriptValues(component).flatMap(({ reads: valueReads }) => [
+      ...valueReads.names.keys(),
+    ]),
   )
   const attrsOnInner = !restOnRoot
   const { chosenRest, multiRoot } = component
@@ -172,9 +216,14 @@ export const toVue = (component) => {
     ({ local, prop }) => prop.includes("-") && used.has(local),
   )
   const restUsed =
-    values.some(({ code, reads }) => code !== rest && reads.rest) ||
-    attributeProps.length > 0
-  if (attrsOnInner && values.some(({ code }) => /\bmergeStyle\(/.test(code))) {
+    values.some(
+      ({ code: source, reads: valueReads }) =>
+        source !== rest && valueReads.rest,
+    ) || attributeProps.length > 0
+  if (
+    attrsOnInner &&
+    values.some(({ code: source }) => /\bmergeStyle\(/.test(source))
+  ) {
     throw unsupported(
       "BC502",
       component.file,
@@ -197,24 +246,6 @@ export const toVue = (component) => {
       "Vue doesn't track slots, so a provided value can't follow one: provide a prop instead",
     )
   }
-  const rename = new Map([
-    ...props.flatMap(({ local, prop }) =>
-      prop === "class"
-        ? [[local, "$attrs.class"]]
-        : prop === "style"
-          ? [[local, "$attrs.style"]]
-          : prop.includes("-")
-            ? [[local, `attrs['${prop}']`]]
-            : [],
-    ),
-    ...(restUsed ? [[rest, "attrs"]] : []),
-    ...trimmedSlots.map(({ local, slot }) => [local, `$slots${vueSlot(slot)}`]),
-    ...[...getters].map((name) => [name, `${name}()`]),
-    ...model.rename.map(([local, code]) => [
-      local,
-      code.replace(/\.value$/, ""),
-    ]),
-  ])
   const computedConsts = derived.filter(
     ({ fn, name }) => !fn && !getters.has(name),
   )
@@ -270,6 +301,30 @@ export const toVue = (component) => {
     definedRoot ||
     componentRoot
   )
+  const plainAttrs =
+    inheritsAttrs &&
+    (allAttrs || explicitAttrs || restUsed || definedRoot || classInScript)
+  const untypedAttrs = plainAttrs && !explicitAttrs
+  const attrsRead = (text, typedRead) =>
+    untypedAttrs && typedRead ? uses(text, HTML_ATTRIBUTES) : text
+  const rename = new Map([
+    ...props.flatMap(({ local, prop }) =>
+      prop === "class"
+        ? [[local, "$attrs.class"]]
+        : prop === "style"
+          ? [[local, "$attrs.style"]]
+          : prop.includes("-")
+            ? [[local, attrsRead(`attrs['${prop}']`, true)]]
+            : [],
+    ),
+    ...(restUsed ? [[rest, (read) => attrsRead("attrs", isMember(read))]] : []),
+    ...trimmedSlots.map(({ local, slot }) => [local, `$slots${vueSlot(slot)}`]),
+    ...[...getters].map((name) => [name, reads(`${name}()`, name)]),
+    ...model.rename.map(([local, source, template = source]) => [
+      local,
+      template,
+    ]),
+  ])
   if (classInScript && !inheritsAttrs) {
     throw unsupported(
       "BC504",
@@ -278,11 +333,11 @@ export const toVue = (component) => {
       "read it in the template",
     )
   }
-  const callerClass = (node, { code, reads: classReads }) => {
+  const callerClass = (node, { code: source, reads: classReads }) => {
     if (!classProp || !inheritsAttrs || !rootElements.includes(node)) {
-      return code
+      return source
     }
-    const { code: kept, dropped } = withoutClassEntry(code, classProp.local)
+    const { code: kept, dropped } = withoutClassEntry(source, classProp.local)
     if (!dropped && classReads.names.has(classProp.local)) {
       throw unsupported(
         "BC504",
@@ -295,7 +350,12 @@ export const toVue = (component) => {
   }
   const scriptRename = new Map([
     ...rename,
-    ...(classInScript ? [[classProp.local, "attrs.class"]] : []),
+    ...(inheritsAttrs && restUsed
+      ? [[rest, (read) => attrsRead("attrs", !isEntriesArgument(read))]]
+      : []),
+    ...(classInScript
+      ? [[classProp.local, attrsRead("attrs.class", true)]]
+      : []),
     ...(!inheritsAttrs && restUsed ? [[rest, "attrs.value"]] : []),
     ...(!inheritsAttrs
       ? attributeProps.map(({ local, prop }) => [
@@ -303,11 +363,13 @@ export const toVue = (component) => {
           `attrs.value['${prop}']`,
         ])
       : []),
-    ...computedConsts.map(({ name }) => [name, `${name}.value`]),
+    ...computedConsts.map(({ name }) => [name, reads(`${name}.value`, name)]),
     ...trimmedSlots.map(({ local, slot }) => [local, `slots${vueSlot(slot)}`]),
     ...model.rename,
   ])
+  const declared = new Set(derived.map(({ name }) => name))
   const template = {
+    declared,
     quote: "'",
     rename,
     ids: component.ids,
@@ -315,10 +377,19 @@ export const toVue = (component) => {
     style: styleOption(component, "{}"),
   }
   const script = {
+    declared,
     rename: scriptRename,
     ids: component.ids,
     slotHas: (name) => `slots${vueSlot(name)}`,
     style: styleOption(component, "{}"),
+  }
+  const nameIn = (scope, name) => {
+    const value = scope.rename.get(name)
+    return value === undefined
+      ? scope.declared.has(name)
+        ? reads(name, name)
+        : name
+      : value
   }
   const { generic } = model
   const forwarded = (component.baseProps ?? [])
@@ -338,7 +409,7 @@ export const toVue = (component) => {
       resolveReactProp(attributes, prop) ?? prop,
     ).has("boolean")
   }
-  const declared = [
+  const declaredProps = [
     ...forwarded.map((key) => ({ prop: key, text: key })),
     ...props
       .filter(
@@ -365,36 +436,41 @@ export const toVue = (component) => {
     .toSorted((a, b) => byName(a.prop, b.prop))
     .map(({ text }) => text)
   const slotsInScript = scriptValues(component).some(
-    ({ reads }) => reads.slots.length > 0,
+    ({ reads: valueReads }) => valueReads.slots.length > 0,
   )
-  let usesTrimmedSlot = false
-  const attributeHelpers = new Set()
-  let usesDefined = false
-  const filteredSpread = (node, item, code) => {
-    if (!filtersRest(node, item, component, declaredProp)) return code
-    usesDefined = true
-    return `defined(${code})`
-  }
-  const definedSpread = (item, code) => {
-    if (item.defined !== true) return code
-    usesDefined = true
-    return `defined(${code})`
-  }
+  const rewrite = (source, scope) => rewriteFragment(source, scope)
+  const filteredSpread = (node, item, spread) =>
+    filtersRest(node, item, component, declaredProp)
+      ? uses(code`defined(${spread})`, DEFINED)
+      : spread
+  const definedSpread = (item, spread) =>
+    item.defined === true ? uses(code`defined(${spread})`, DEFINED) : spread
   const attribute = (node, item, scope) => {
     if (item.kind === "class") {
-      const code = callerClass(node, item)
-      if (code === undefined) return ""
-      const text = code === item.code ? undefined : staticClass(code)
-      return text === undefined
-        ? `:class="${rewriteExpression(onlyClass(code) ?? code, scope)}"`
-        : markupAttribute("class", text, false, '"')
+      const source = callerClass(node, item)
+      if (source === undefined) return []
+      const text = source === item.code ? undefined : staticClass(source)
+      return [
+        text === undefined
+          ? binding(":class", rewrite(onlyClass(source) ?? source, scope))
+          : markupAttribute("class", text, false, '"'),
+      ]
     }
     if (item.kind === "spread") {
       if (item.code === rest && item.condition !== undefined) {
-        return `v-bind="${filteredSpread(node, item, chosenSpreadCode(item, "attrs", rewriteExpression(item.condition, scope)))}"`
+        return [
+          binding(
+            "v-bind",
+            filteredSpread(
+              node,
+              item,
+              chosenSpreadCode(item, "attrs", rewrite(item.condition, scope)),
+            ),
+          ),
+        ]
       }
       if (item.code === rest) {
-        const bound = forwarded.map((key) => `:${key}="${key}"`)
+        const forwardedProps = forwarded.map((key) => binding(`:${key}`, key))
         const object =
           rootElements.includes(node) && !explicitAttrs
             ? filteredAttrs
@@ -406,16 +482,18 @@ export const toVue = (component) => {
                   : undefined
             : "attrs"
         return [
-          ...(object ? [`v-bind="${filteredSpread(node, item, object)}"`] : []),
-          ...bound,
-        ].join(" ")
+          ...(object
+            ? [binding("v-bind", filteredSpread(node, item, object))]
+            : []),
+          ...forwardedProps,
+        ]
       }
-      return `v-bind="${definedSpread(item, rewriteExpression(item.code, scope))}"`
+      return [binding("v-bind", definedSpread(item, rewrite(item.code, scope)))]
     }
     if (item.kind === "static") {
-      return markupAttribute(item.name, item.value, false, '"')
+      return [markupAttribute(item.name, item.value, false, '"')]
     }
-    if (item.kind === "boolean") return item.name
+    if (item.kind === "boolean") return [item.name]
     if (rootElements.includes(node) && inheritsAttrs && item.reads.rest) {
       throw unsupported(
         "BC503",
@@ -424,67 +502,71 @@ export const toVue = (component) => {
         "Vue merges the attributes that fall through after it, so the caller's value wins: destructure the prop in the Astro file",
       )
     }
-    return `:${item.name}="${rewriteExpression(item.code, scope)}"`
+    return [binding(`:${item.name}`, rewrite(item.code, scope))]
   }
   const directive = (nodes, name, test, scope) => {
     const significant = nodes.filter((node) => !isBlank(node))
-    const clause = test === undefined ? name : `${name}="${test}"`
+    const clause = test === undefined ? name : code`${name}="${test}"`
     if (significant.length === 1 && significant[0].type !== "if") {
       return emitOne(significant[0], clause, scope)
     }
-    return `<template ${clause}>${body(nodes, scope)}</template>`
+    return code`<template ${clause}>${body(nodes, scope)}</template>`
   }
   const emitOne = (node, clause, scope) => {
     if (node.type === "text") {
       return node.value === " " || node.inline ? '{{ " " }}' : node.value
     }
     if (node.type === "expression") {
-      const code = rewriteExpression(node.code, scope)
+      const value = rewrite(node.code, scope)
       return clause
-        ? `<template ${clause}>{{ ${code} }}</template>`
-        : `{{ ${code} }}`
+        ? code`<template ${clause}>{{ ${value} }}</template>`
+        : code`{{ ${value} }}`
     }
     if (node.type === "slot") {
-      const slotClause = clause ? ` ${clause}` : ""
+      const slotClause = clause ? code` ${clause}` : ""
       if (node.trimmed) {
-        usesTrimmedSlot = true
-        return `<TrimmedSlot${slotClause} :nodes="$slots${vueSlot(node.name)}?.()" />`
+        return uses(
+          code`<TrimmedSlot${slotClause} :nodes="$slots${vueSlot(node.name)}?.()" />`,
+          named("../whitespace.vue", "TrimmedSlot"),
+        )
       }
       const name = node.name === "default" ? "" : ` name="${node.name}"`
-      if (node.fallback.length === 0) return `<slot${slotClause}${name}></slot>`
-      const pair = `<slot v-if="$slots${vueSlot(node.name)}"${name}></slot>\n${directive(node.fallback, "v-else", undefined, scope)}`
-      return clause ? `<template ${clause}>${pair}</template>` : pair
+      if (node.fallback.length === 0) {
+        return code`<slot${slotClause}${name}></slot>`
+      }
+      const pair = code`<slot v-if="$slots${vueSlot(node.name)}"${name}></slot>\n${directive(node.fallback, "v-else", undefined, scope)}`
+      return clause ? code`<template ${clause}>${pair}</template>` : pair
     }
     if (node.type === "if") {
-      const test = rewriteExpression(node.test, scope)
+      const test = rewrite(node.test, scope)
       const consequent = directive(node.consequent, "v-if", test, scope)
       if (!node.alternate) return consequent
-      return `${consequent}\n${directive(node.alternate, "v-else", undefined, scope)}`
+      return code`${consequent}\n${directive(node.alternate, "v-else", undefined, scope)}`
     }
     if (node.type === "each") {
       const rows = rowsOf(node, scope)
-      const declared = new Set([...(scope.declared ?? []), ...node.declares])
+      const declares = new Set([...(scope.declares ?? []), ...node.declares])
       const inner = rows
-        ? { ...scope, declared }
+        ? { ...scope, declares }
         : {
             ...scope,
-            declared,
+            declares,
             rename: new Map([
               ...scope.rename,
-              ...node.consts.map(({ code, name }) => [
+              ...node.consts.map(({ code: source, name }) => [
                 name,
-                rewriteExpression(code, scope),
+                rewrite(source, scope),
               ]),
             ]),
           }
       const root = node.children.find((child) => !isBlank(child))
-      const item = rows?.item ?? node.item
-      const list = rows?.name ?? rewriteExpression(node.list, scope)
-      const loop = `v-for="${node.index ? `(${item}, ${node.index})` : item} in ${list}" :key="${node.index}"`
+      const item = rows?.item ?? templateItem(node.item)
+      const list = rows ? rows.name : rewrite(node.list, scope)
+      const loop = code`v-for="${node.index ? `(${item}, ${node.index})` : item} in ${list}" :key="${node.index}"`
       return emitOne(root, loop, inner)
     }
     const modelAttributes = model.attributes(node, {
-      rewrite: (code) => rewriteExpression(code, scope),
+      rewrite: (source) => rewrite(source, scope),
     })
     const ownChecked = modelAttributes.checked
       ? node.attributes.find(isCheckedAttribute)
@@ -515,26 +597,42 @@ export const toVue = (component) => {
                     : chosenSpreadCode(
                         item,
                         "attrs",
-                        rewriteExpression(item.condition, scope),
+                        rewrite(item.condition, scope),
                       ),
                 )
-              : definedSpread(item, rewriteExpression(item.code, scope)),
+              : definedSpread(item, rewrite(item.code, scope)),
         }
       }
       if (item.kind === "static") {
         return {
-          code: rewriteExpression(JSON.stringify(item.value), scope),
+          code: rewrite(JSON.stringify(item.value), scope),
           key: item.name,
         }
       }
       if (item.kind === "boolean") return { code: "true", key: item.name }
       if (item.kind === "expression") {
-        return { code: rewriteExpression(item.code, scope), key: item.name }
+        return { code: rewrite(item.code, scope), key: item.name }
       }
       throw unsupported(
         "BC501",
         component.file,
         `a class list between two spreads on <${node.tag}>`,
+      )
+    }
+    const objectBinding = (entries) => {
+      const printable = entries.map((entry) =>
+        entry.spread === undefined
+          ? { code: asFragment(entry.code).code, key: entry.key }
+          : { spread: asFragment(entry.spread).code },
+      )
+      const options = { quote: "'", shorthand: false }
+      return binding(
+        "v-bind",
+        fragment(
+          objectCode(printable, options),
+          needsOf(entries.map((entry) => entry.spread ?? entry.code)),
+        ),
+        objectMembers(printable, options),
       )
     }
     const bound =
@@ -543,10 +641,9 @@ export const toVue = (component) => {
             ...ownAttributes.slice(0, first),
             {
               kind: "bound",
-              text: `v-bind="${objectCode(
+              text: objectBinding(
                 ownAttributes.slice(first, last + 1).map(merged),
-                { quote: "'", shorthand: false },
-              )}"`,
+              ),
             },
             ...ownAttributes.slice(last + 1),
           ]
@@ -558,35 +655,40 @@ export const toVue = (component) => {
         }
       : scope
     const own = ownChecked && {
-      code: rewriteExpression(ownChecked.code, bindScope),
+      code: rewrite(ownChecked.code, bindScope),
       name: "checked",
     }
     const withOwn = (listed, entry) => {
       if (entry === undefined) return listed
-      usesDefined = true
-      const own = `defined({ ${entry.name === entry.code ? entry.name : `${entry.name}: ${entry.code}`} })`
-      const at = listed.findIndex((entry) => OBJECT_BINDING.test(entry))
-      if (at === -1) return [...listed, `v-bind="${own}"`]
-      const spread = OBJECT_BINDING.exec(listed[at])[1]
-      return listed.map((entry, index) =>
-        index === at ? `v-bind="{ ...${own}, ...${spread} }"` : entry,
+      const ownSpread = uses(
+        code`defined({ ${entry.name === entry.code.code ? entry.name : code`${entry.name}: ${entry.code}`} })`,
+        DEFINED,
+      )
+      const at = listed.findIndex((item) => item.attribute === "v-bind")
+      if (at === -1) return [...listed, binding("v-bind", ownSpread)]
+      const { value } = listed[at]
+      return listed.map((item, index) =>
+        index === at
+          ? binding("v-bind", code`{ ...${ownSpread}, ...${value} }`, [
+              `...${ownSpread.code}`,
+              `...${value.code}`,
+            ])
+          : item,
       )
     }
     const restAt = bound.findIndex(
       (entry) => entry.kind === "spread" && entry.code === rest,
     )
-    const listedFor = (first, extra, checked) =>
+    const listedFor = (opening, extra, checked) =>
       withOwn(
         [
-          ...(first ? [first] : []),
-          ...bound
-            .flatMap((entry, index) => [
-              ...(index === restAt ? modelAttributes.rest : []),
-              entry.kind === "bound"
-                ? entry.text
-                : attribute(node, entry, bindScope),
-            ])
-            .filter(Boolean),
+          ...(opening ? [opening] : []),
+          ...bound.flatMap((entry, index) => [
+            ...(index === restAt ? modelAttributes.rest : []),
+            ...(entry.kind === "bound"
+              ? [entry.text]
+              : attribute(node, entry, bindScope)),
+          ]),
           ...(restAt === -1 ? modelAttributes.rest : []),
           ...extra,
           ...modelAttributes.end,
@@ -596,9 +698,9 @@ export const toVue = (component) => {
           ...(hydrating.has(node)
             ? [
                 hydrating.get(node)
-                  ? `:data-hydrating="${scope.rename.get(hydrating.get(node)) ?? hydrating.get(node)}.includes('-') ? '' : undefined"`
+                  ? code`:data-hydrating="${nameIn(scope, hydrating.get(node))}.includes('-') ? '' : undefined"`
                   : 'data-hydrating=""',
-                "v-hydrated",
+                uses("v-hydrated", named("../vue", "vHydrated")),
               ]
             : []),
           ...((rootElements.includes(node) ||
@@ -608,22 +710,22 @@ export const toVue = (component) => {
               ))) &&
           !inheritsAttrs &&
           !node.attributes.some((entry) => entry.kind === "class")
-            ? [':class="$attrs.class"']
+            ? [binding(":class", "$attrs.class")]
             : []),
-        ].flatMap((entry) => entry.match(ATTRIBUTE) ?? []),
+        ]
+          .map(asFragment)
+          .filter((entry) => entry.code !== ""),
         checked,
       )
     const render = (listed) => {
-      const omitted = omitEmptyAttributes(listed, component.file)
-      for (const helper of omitted.helpers) attributeHelpers.add(helper)
-      const attributes = omitted.attributes.join(" ")
+      const attributes = join(omitEmptyAttributes(listed, component.file), " ")
       const tag = node.variable || node.custom ? "component" : node.tag
       const is = node.variable
-        ? ` :is="${scope.rename.get(node.tag) ?? node.tag}"`
+        ? code` :is="${nameIn(scope, node.tag)}"`
         : node.custom
           ? ` is="${node.tag}"`
           : ""
-      const open = `<${tag}${is}${attributes ? ` ${attributes}` : ""}`
+      const open = code`<${tag}${is}${attributes.code ? code` ${attributes}` : ""}`
       if (
         node.children.length === 0 &&
         (node.component ||
@@ -631,47 +733,47 @@ export const toVue = (component) => {
           node.foreign ||
           VOID_ELEMENTS.has(node.tag))
       ) {
-        return `${open} />`
+        return code`${open} />`
       }
-      return `${open}>${body(node.children, {
+      return code`${open}>${body(node.children, {
         ...scope,
         preserved: scope.preserved || PRESERVED_TAGS.has(node.tag),
       })}</${tag}>`
     }
     const pair = modelAttributes.bound
     if (!pair) return render(listedFor(clause, []))
-    const both = `${render(
+    const both = code`${render(
       listedFor(`v-if="${pair.condition}"`, pair.attributes),
     )}\n${render(listedFor("v-else", [], own))}`
-    return clause ? `<template ${clause}>${both}</template>` : both
+    return clause ? code`<template ${clause}>${both}</template>` : both
   }
   const emit = (nodes, scope) =>
-    nodes
-      .map((node, index) =>
+    join(
+      nodes.map((node, index) =>
         emitOne(node, undefined, {
           ...scope,
           hugged: [nodes[index - 1], nodes[index + 1]].some(
             (sibling) => sibling && !isLoose(sibling),
           ),
         }),
-      )
-      .join("")
+      ),
+    )
   const rowLists = []
   const rowsOf = (node, scope) => {
     const loopValues = [...node.consts, ...valuesIn(node.children)]
     const tags = elementsIn(node.children)
       .filter((element) => element.variable)
       .map((element) => element.tag)
-    const reads = (name) =>
+    const readsOf = (name) =>
       loopValues.reduce(
         (total, value) => total + (value.reads.names.get(name) ?? 0),
         tags.filter((tag) => tag === name).length,
       )
-    if (!node.consts.some(({ name }) => reads(name) > 1)) return undefined
+    if (!node.consts.some(({ name }) => readsOf(name) > 1)) return undefined
     const inTemplate = [node, ...node.consts].some(
       (value) =>
         value.readsSlot ||
-        value.reads.loop.some((name) => scope.declared?.has(name)),
+        value.reads.loop.some((name) => scope.declares?.has(name)),
     )
     if (inTemplate) return undefined
     const binding = itemBinding(node.item)
@@ -683,7 +785,7 @@ export const toVue = (component) => {
         "take the item as one name, or as an object pattern of plain names",
       )
     }
-    const declared = new Set([
+    const declares = new Set([
       ...(binding.name ? [binding.name] : []),
       ...binding.fields.map(({ local }) => local),
       ...(binding.rest ? [binding.rest] : []),
@@ -691,7 +793,7 @@ export const toVue = (component) => {
       node.index,
     ])
     const free = (bases) => {
-      const found = bases.find((base) => !used.has(base) && !declared.has(base))
+      const found = bases.find((base) => !used.has(base) && !declares.has(base))
       if (!found) {
         throw unsupported(
           "BC301",
@@ -724,8 +826,9 @@ export const toVue = (component) => {
     const parameter = binding.name ?? key
     const rowScope = {
       ...script,
+      declared: new Set([...declared].filter((local) => !declares.has(local))),
       rename: new Map(
-        [...script.rename].filter(([local]) => !declared.has(local)),
+        [...script.rename].filter(([local]) => !declares.has(local)),
       ),
     }
     const usesIndex = node.consts.some(({ reads: constReads }) =>
@@ -736,21 +839,27 @@ export const toVue = (component) => {
       binding.name && binding.name !== key ? `${key}: ${binding.name}` : key,
     ].toSorted(byName)
     rowLists.push(
-      `const ${name} = computed(() =>\n  ${rewriteExpression(node.list, script)}${node.optional ? "?." : "."}map((${parameter}${usesIndex ? `, ${node.index}` : ""}) => {\n${[
-        ...(pattern ? [`const ${pattern} = ${parameter}`] : []),
-        ...node.consts.map(
-          ({ code, name: local }) =>
-            `const ${local} = ${rewriteExpression(code, rowScope)}`,
+      declaration(
+        name,
+        uses(
+          code`const ${name} = computed(() =>\n  ${rewrite(node.list, script)}${node.optional ? "?." : "."}map((${parameter}${usesIndex ? `, ${node.index}` : ""}) => {\n${join(
+            [
+              ...(pattern ? [`const ${pattern} = ${parameter}`] : []),
+              ...node.consts.map(
+                ({ code: source, name: local }) =>
+                  code`const ${local} = ${rewrite(source, rowScope)}`,
+              ),
+              `return { ${entries.join(", ")} }`,
+            ].map((line) => code`    ${line}\n`),
+          )}  }),\n)`,
+          COMPUTED,
         ),
-        `return { ${entries.join(", ")} }`,
-      ]
-        .map((line) => `    ${line}\n`)
-        .join("")}  }),\n)`,
+      ),
     )
     return {
       item: `{ ${[
         ...node.consts.map(({ name: local }) => local),
-        `${key}: ${node.item}`,
+        `${key}: ${templateItem(node.item)}`,
       ]
         .toSorted(byName)
         .join(", ")} }`,
@@ -762,7 +871,7 @@ export const toVue = (component) => {
       scope.preserved || scope.hugged
         ? undefined
         : edgeTrimmed(nodes, { interpolated: false })
-    return inner ? `\n${emit(inner, scope)}\n` : emit(nodes, scope)
+    return inner ? code`\n${emit(inner, scope)}\n` : emit(nodes, scope)
   }
   const markup = emit(tree, template)
   const slotsType =
@@ -773,129 +882,127 @@ export const toVue = (component) => {
   const emitsType = emitsTypeOf(propsType)
   const provided = provide
     ? model.context.map(
-        ({ code, key, text }) =>
+        ({ code: source, key, text }) =>
           text ??
-          (derivedNames.has(code)
-            ? code === key
-              ? key
-              : `${key}: ${code}`
-            : `${key}: computed(() => ${rewriteExpression(code, script)})`),
+          (derivedNames.has(source)
+            ? reads(source === key ? key : `${key}: ${source}`, source)
+            : uses(
+                code`${key}: computed(() => ${rewrite(source, script)})`,
+                COMPUTED,
+              )),
       )
     : undefined
   const vueProps = generic ? `Props & ${generic.props}` : "Props"
   const propsLine = `${generic ? `${generic.type}\n\n` : ""}${
-    declared.length
-      ? `const { ${declared.join(", ")} } = defineProps<${vueProps}>()`
+    declaredProps.length
+      ? `const { ${declaredProps.join(", ")} } = defineProps<${vueProps}>()`
       : `defineProps<${vueProps}>()`
   }`
   const slotsLine = slotsInScript
     ? `const slots = defineSlots<${slotsType}>()`
     : `defineSlots<${slotsType}>()`
-  const declarations = derived.map(({ code, fn, name }) => ({
-    line: fn
-      ? `const ${name} = ${rewriteExpression(code, script)}`
-      : getters.has(name)
-        ? `const ${name} = () => ${rewriteExpression(code, script)}`
-        : `const ${name} = computed(() => ${rewriteExpression(code, script)})`,
-    name,
-  }))
-  const modelScript = model.script((code) => rewriteExpression(code, script))
+  const declarations = derived.map(({ code: source, fn, name }) =>
+    declaration(
+      name,
+      fn
+        ? code`const ${name} = ${rewrite(source, script)}`
+        : getters.has(name)
+          ? code`const ${name} = () => ${rewrite(source, script)}`
+          : uses(
+              code`const ${name} = computed(() => ${rewrite(source, script)})`,
+              COMPUTED,
+            ),
+    ),
+  )
+  const modelScript = model.script((source) => rewrite(source, script))
   const statements = [
     ...(filteredAttrs
       ? [
-          `const restAttrs = computed(() => {\n  const { ${attributeProps.map(({ local, prop }) => `${JSON.stringify(prop)}: _${local}, `).join("")}...rest } = attrs.value\n  return rest\n})`,
+          uses(
+            `const restAttrs = computed(() => {\n  const { ${attributeProps.map(({ local, prop }) => `${JSON.stringify(prop)}: _${local}, `).join("")}...rest } = attrs.value\n  return rest\n})`,
+            COMPUTED,
+          ),
         ]
       : []),
     ...modelScript.before,
-    ...reads.map(
-      ({ context, name }) =>
+    ...contextReads.map(({ context, name }) =>
+      uses(
         `const ${name} = inject(${context.name}Key, undefined)`,
+        named("vue", "inject"),
+        named(contextModule(context, "vue"), `${context.name}Key`),
+      ),
     ),
-    ...(uid ? ["const uid = useId()"] : []),
-    ...declarations.map(({ line }) => line),
+    ...(uid ? [uses("const uid = useId()", named("vue", "useId"))] : []),
+    ...declarations,
     ...rowLists,
-    ...warnings.map(({ code }) => devOnly(rewriteStatement(code, script))),
+    ...warnings.map(({ code: source }) =>
+      devOnly(rewriteStatementFragment(source, script)),
+    ),
     ...modelScript.after,
     ...(provide
       ? [
-          `provide(${provide.context.name}Key, reactive({ ${provided.join(", ")} }))`,
+          uses(
+            code`provide(${provide.context.name}Key, reactive({ ${join(provided, ", ")} }))`,
+            named("vue", "provide"),
+            named("vue", "reactive"),
+            named(
+              contextModule(provide.context, "vue"),
+              `${provide.context.name}Key`,
+            ),
+          ),
         ]
       : []),
-  ]
-  const called = helpersCalled(
-    withoutUnused(statements, markup, declarations).join("\n"),
-    helpersOf(model),
+  ].map(asFragment)
+  const kept = new Set(
+    needed(
+      [markup, ...statements.filter((line) => !declarations.includes(line))],
+      declarations,
+    ),
   )
-  const vueHelpers = [
-    ...(computedAttrs
-      ? ["useInputAttrs"]
-      : inheritsAttrs
-        ? []
-        : ["useRestAttrs"]),
-    ...namesFrom(called, "../vue"),
-    ...(hydrating.size ? ["vHydrated"] : []),
-  ].toSorted(byName)
-  const plainAttrs =
-    inheritsAttrs &&
-    (allAttrs || explicitAttrs || restUsed || definedRoot || classInScript)
-  const typedAttrs =
-    plainAttrs &&
-    !explicitAttrs &&
-    (/(?<![$\w.])attrs[.[]/.test(markup) ||
-      withoutUnused(statements, markup, declarations).some((code) =>
-        /(?<![$\w.])attrs(?![$\w])/.test(
-          code.replaceAll("Object.entries(attrs)", ""),
-        ),
-      ))
-  const vueImports = [
-    ...(withoutUnused(statements, markup, declarations).some((code) =>
-      /(?<![$\w.])computed\(/.test(code),
-    )
-      ? ["computed"]
-      : []),
-    ...(reads.length ? ["inject"] : []),
-    ...(provide ? ["provide", "reactive"] : []),
-    ...(explicitAttrs
-      ? ["type IntrinsicElementAttributes"]
-      : typedAttrs
-        ? ["type HTMLAttributes", "useAttrs"]
+  const keptStatements = statements.filter(
+    (line) => !declarations.includes(line) || kept.has(line),
+  )
+  const attrsLine = computedAttrs
+    ? uses("const attrs = useInputAttrs()", named("../vue", "useInputAttrs"))
+    : explicitAttrs
+      ? uses(
+          `const attrs = useRestAttrs<IntrinsicElementAttributes[${JSON.stringify(pairedRoot.tag)}]>()`,
+          named("../vue", "useRestAttrs"),
+          typed("vue", "IntrinsicElementAttributes"),
+        )
+      : !inheritsAttrs
+        ? uses("const attrs = useRestAttrs()", named("../vue", "useRestAttrs"))
         : plainAttrs
-          ? ["useAttrs"]
-          : []),
-    ...(attributeHelpers.has("mergeProps") ? ["mergeProps"] : []),
-    ...namesFrom(called, "vue"),
-    ...(uid ? ["useId"] : []),
-  ].toSorted((a, b) => byName(a.replace(/^type /, ""), b.replace(/^type /, "")))
+          ? importsOf([markup, ...keptStatements]).has(
+              HTML_ATTRIBUTES.module,
+              HTML_ATTRIBUTES.name,
+            )
+            ? uses(
+                "const attrs = useAttrs() as HTMLAttributes",
+                named("vue", "useAttrs"),
+                HTML_ATTRIBUTES,
+              )
+            : uses("const attrs = useAttrs()", named("vue", "useAttrs"))
+          : undefined
+  const setupLines = [...(attrsLine ? [attrsLine] : []), ...keptStatements]
+  const imported = importsOf([markup, ...setupLines])
   const importLines = [
     ...scriptImports(component),
-    ...(vueImports.length
-      ? [`import { ${vueImports.join(", ")} } from "vue"`]
-      : []),
-    ...(vueHelpers.length
-      ? [`import { ${vueHelpers.join(", ")} } from "../vue"`]
-      : []),
-    ...(usesTrimmedSlot
-      ? [`import { TrimmedSlot } from "../whitespace.vue"`]
-      : []),
+    ...imported.line("vue", { typeOnly: false }),
+    ...imported.line("../vue"),
+    ...imported.line("../whitespace.vue"),
+    ...imported.rest([
+      "../attrs",
+      "../cx",
+      "../dev",
+      "../style",
+      ...contextModules(component, "vue"),
+    ]),
     ...components
       .map((entry) => componentImport(entry, ".vue"))
       .toSorted(byName),
-    ...contextImports(component, "vue", {
-      provide: (name) => `${name}Key`,
-      read: (name) => `${name}Key`,
-    }),
-    ...[
-      ...(usesDefined ? [["../attrs", "defined"]] : []),
-      ...(warnings.length ? [["../dev", "DEV"]] : []),
-      ...model.helpers.always,
-      ...(attributeHelpers.has("classAttrs") ? [["../cx", "classAttrs"]] : []),
-      ...(attributeHelpers.has("styleAttrs")
-        ? [["../style", "styleAttrs"]]
-        : []),
-    ].reduce(
-      (lines, [module, name]) => withImport(lines, module, name),
-      imports,
-    ),
+    ...contextLines(component, "vue", imported),
+    ...imported.merged(imports, ["../attrs", "../dev", "../cx", "../style"]),
     propsImport(propsType, "types.vue-props", [
       ...(events.length ? [emitsType] : []),
       ...(slots.length ? [slotsType] : []),
@@ -909,21 +1016,7 @@ export const toVue = (component) => {
       ...(events.length ? [`const emit = defineEmits<${emitsType}>()`] : []),
     ].join("\n"),
     ...(inheritsAttrs ? [] : ["defineOptions({\n  inheritAttrs: false,\n})"]),
-    ...(computedAttrs
-      ? ["const attrs = useInputAttrs()"]
-      : explicitAttrs
-        ? [
-            `const attrs = useRestAttrs<IntrinsicElementAttributes[${JSON.stringify(pairedRoot.tag)}]>()`,
-          ]
-        : !inheritsAttrs
-          ? ["const attrs = useRestAttrs()"]
-          : typedAttrs
-            ? ["const attrs = useAttrs() as HTMLAttributes"]
-            : plainAttrs
-              ? ["const attrs = useAttrs()"]
-              : []),
-    ...statements,
+    ...setupLines.map((line) => line.code),
   ]
-  const kept = withoutUnused(setup, markup, declarations)
-  return `<script setup lang="ts"${generic ? ` generic="${generic.parameter}"` : ""}>\n${kept.join("\n\n")}\n</script>\n\n<template>\n${indent(markup, 2)}\n</template>\n`
+  return `<script setup lang="ts"${generic ? ` generic="${generic.parameter}"` : ""}>\n${setup.join("\n\n")}\n</script>\n\n<template>\n${indent(markup.code, 2)}\n</template>\n`
 }

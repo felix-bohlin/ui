@@ -1,13 +1,7 @@
 import { boxesOf, renderedText, splitTopLevel } from "./example-display.mjs"
 import { attributeText, htmlText } from "./example-encoders.mjs"
+import { BLANK_LINE_MARKER, isWhitespaceMark } from "./example-whitespace.mjs"
 import { BOOLEAN_ATTRIBUTES, parseHtml, VOID_ELEMENTS } from "./html-tokens.mjs"
-
-export const BLANK_LINE_MARKER = "opui-blank-line"
-
-export const WHITESPACE_MARK = "opui-ws:"
-
-const isMark = (node) =>
-  node.type === "comment" && node.value.startsWith(WHITESPACE_MARK)
 
 const HTML_NAMESPACE = "http://www.w3.org/1999/xhtml"
 
@@ -48,7 +42,7 @@ const isAstroScript = (node) =>
 const withoutAstroParts = (nodes, file) =>
   mergeText(
     nodes.flatMap((node, index) => {
-      if (isMark(node)) return []
+      if (isWhitespaceMark(node)) return []
       if (
         node.type === "text" &&
         WHITESPACE.test(node.value) &&
@@ -281,28 +275,4 @@ export const meaningChange = (before, after) => {
   return `${before[at] ?? "the end"} became ${after[at] ?? "the end"}, after ${before
     .slice(Math.max(0, at - 3), at)
     .join(" ")}`
-}
-
-/** @param {string} html @param {string[]} [css] */
-export const whitespaceRoles = (html, css = []) => {
-  const nodes = parseHtml(html)
-  const rendered = renderedText(nodes, { css })
-  const roles = new Map()
-  const visit = (children) =>
-    children.forEach((node, index) => {
-      if (node.type === "element") visit(node.children)
-      if (!isMark(node)) return
-      const offset = Number(node.value.slice(WHITESPACE_MARK.length))
-      const next = children[index + 1]
-      const space =
-        next?.type === "text" &&
-        /^[\t\n\f\r ]/.test(next.value) &&
-        !!rendered.get(next)?.text.startsWith(" ")
-      roles.set(
-        offset,
-        roles.get(offset) === "space" || space ? "space" : "drop",
-      )
-    })
-  visit(nodes)
-  return roles
 }

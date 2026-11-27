@@ -2,8 +2,11 @@ import { parseFragment } from "parse5"
 import { parse as parseSvelte } from "svelte/compiler"
 import ts from "typescript"
 import { compileTemplate, parse as parseVue } from "vue/compiler-sfc"
-import { describe, expect, test } from "vitest"
-import { convertExample, parseExample } from "../../scripts/build-examples.mjs"
+import { afterAll, beforeAll, describe, expect, test } from "vitest"
+import {
+  compileExample,
+  createRenderer,
+} from "../../scripts/build-examples.mjs"
 import {
   attributeText,
   decodeAttribute,
@@ -108,8 +111,22 @@ const sampleFile = "src/component-examples/sample/Example.astro"
 
 const astro = (body: string) => `---\n---\n\n${body}\n`
 
-const convert = async (body: string, framework: string) =>
-  convertExample(astro(body), framework, sampleFile)
+let renderer: Awaited<ReturnType<typeof createRenderer>>
+
+beforeAll(async () => {
+  renderer = await createRenderer()
+}, 60_000)
+
+afterAll(() => renderer?.close())
+
+const compile = async (source: string, targets: string[]) => {
+  const { outputs, problems } = await compileExample(source, sampleFile, {
+    renderer,
+    targets,
+  })
+  if (problems.length > 0) throw new Error(problems.join("\n"))
+  return outputs
+}
 
 const evaluateReact = (code: string) => {
   const { outputText } = ts.transpileModule(code, {
@@ -344,16 +361,19 @@ describe("fuzzed values round-trip through the target parsers", () => {
 
 describe("a value goes through every target", { timeout: 15_000 }, () => {
   test.each(VALUES)("keeps the attribute value %j", async (value) => {
-    const body = `<p title="${attributeText(value)}">Hi</p>`
-    const { tree } = await parseExample(astro(body), sampleFile)
-    expect(tree[0].attributes[0].value).toBe(value)
-
-    expect(evaluateReact(await convert(body, "react")).props.title).toBe(value)
-    expect(svelteAttribute(await convert(body, "svelte"), "title")).toBe(value)
+    const outputs = await compile(
+      astro(`<p title="${attributeText(value)}">Hi</p>`),
+      ["html", "react", "svelte", "vue"],
+    )
+    const [html] = parseFragment(outputs.get("html")).childNodes as unknown as {
+      attrs: { value: string }[]
+    }[]
+    expect(html.attrs[0].value).toBe(value)
+    expect(evaluateReact(outputs.get("react")).props.title).toBe(value)
+    expect(svelteAttribute(outputs.get("svelte"), "title")).toBe(value)
     expect(
-      vueElement(await convert(body, "vue")).props.find(
-        (prop) => prop.name === "title",
-      )?.value?.content ?? "",
+      vueElement(outputs.get("vue")).props.find((prop) => prop.name === "title")
+        ?.value?.content ?? "",
     ).toBe(value)
   })
 
@@ -365,25 +385,23 @@ describe("a value goes through every target", { timeout: 15_000 }, () => {
         !JSON.stringify(value).includes("\\"),
     ),
   )("keeps the text of the string literal {%j}", async (value) => {
-    const body = `<p>{${JSON.stringify(value)}}</p>`
-    expect(evaluateReact(await convert(body, "react")).children.join("")).toBe(
-      value,
-    )
-    const svelte = svelteElement(await convert(body, "svelte"))
+    const outputs = await compile(astro(`<p>{${JSON.stringify(value)}}</p>`), [
+      "react",
+      "svelte",
+      "vue",
+    ])
+    expect(evaluateReact(outputs.get("react")).children.join("")).toBe(value)
+    const svelte = svelteElement(outputs.get("svelte"))
     expect(
       svelte.fragment.nodes.map((node: { data: string }) => node.data).join(""),
     ).toBe(value)
-    expect(vueElement(await convert(body, "vue")).children[0].content).toBe(
-      value,
-    )
+    expect(vueElement(outputs.get("vue")).children[0].content).toBe(value)
   })
 
   test('the string literal {"<br>"} stays text in Svelte and Vue, not an element', async () => {
-    const body = '<p>{"<br>"}</p>'
-    expect(
-      svelteElement(await convert(body, "svelte")).fragment.nodes,
-    ).toHaveLength(1)
-    expect(vueElement(await convert(body, "vue")).children).toHaveLength(1)
+    const outputs = await compile(astro('<p>{"<br>"}</p>'), ["svelte", "vue"])
+    expect(svelteElement(outputs.get("svelte")).fragment.nodes).toHaveLength(1)
+    expect(vueElement(outputs.get("vue")).children).toHaveLength(1)
   })
 
   test.each([
@@ -392,23 +410,23 @@ describe("a value goes through every target", { timeout: 15_000 }, () => {
     "/* `${x}` and \\ */\np {\n  color: red;\n}",
     'p::after {\n  content: "\\\\";\n}',
   ])("keeps the CSS %j in a <style>", async (css) => {
-    const body = `<p>Hi</p>\n<style is:global>\n${css}\n</style>`
-    const { styles } = await parseExample(astro(body), sampleFile)
-    expect(styles).toEqual([css])
-
-    const style = evaluateReact(await convert(body, "react")).children.find(
+    const outputs = await compile(
+      astro(`<p>Hi</p>\n<style is:global>\n${css}\n</style>`),
+      ["react", "svelte", "vue"],
+    )
+    const style = evaluateReact(outputs.get("react")).children.find(
       (child) => (child as { tag?: string }).tag === "style",
     ) as { children: string[] }
     expect(style.children.join("").replace(/\s+/g, "")).toBe(
       css.replace(/\s+/g, ""),
     )
 
-    const svelte = parseSvelte(await convert(body, "svelte"), { modern: true })
+    const svelte = parseSvelte(outputs.get("svelte"), { modern: true })
     expect(svelte.css!.content.styles.replace(/\s+/g, "")).toContain(
       css.replace(/\s+/g, ""),
     )
     expect(
-      parseVue(await convert(body, "vue")).descriptor.styles[0].content.trim(),
+      parseVue(outputs.get("vue")).descriptor.styles[0].content.trim(),
     ).toBe(css)
   })
 })
@@ -416,18 +434,16 @@ describe("a value goes through every target", { timeout: 15_000 }, () => {
 describe("what a set:html string may contain", () => {
   test.each(["{x}", "}"])("rejects the string %j", async (markup) => {
     const source = `---\nimport { Button } from "opui-css/astro"\nconst icon = \`<b>${markup}</b>\`\n---\n\n<Button><Fragment set:html={icon} /></Button>\n`
-    await expect(parseExample(source, sampleFile)).rejects.toThrow(
-      "with a string that contains { or }",
-    )
+    await expect(
+      compile(source, ["nunjucks", "react", "solid", "svelte", "vue"]),
+    ).rejects.toThrow("with a string that contains { or }")
   })
 })
 
 describe("a select's selected option", () => {
-  const select = (option: string) =>
-    convertExample(
-      `<select name="pick">${option}</select>\n`,
+  const select = async (option: string) =>
+    (await compile(`<select name="pick">${option}</select>\n`, ["react"])).get(
       "react",
-      sampleFile,
     )
 
   test("keeps a value with double quotes in single quotes", async () => {

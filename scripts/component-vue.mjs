@@ -10,7 +10,6 @@ import {
   devOnly,
   edgeTrimmed,
   eventRoots,
-  groupWarning,
   hydratingRoots,
   indent,
   isLoose,
@@ -23,9 +22,10 @@ import {
   withImport,
 } from "./component-emit.mjs"
 import {
+  bindingFor,
   helpersCalled,
-  MODEL_KINDS,
-  modelHelpers,
+  helpersOf,
+  isCheckedAttribute,
   namesFrom,
 } from "./component-models.mjs"
 import { markupAttribute } from "./example-encoders.mjs"
@@ -37,14 +37,12 @@ import {
   classMayBeEmpty,
   elementsIn,
   filtersRest,
-  isArrayType,
   isBlank,
   itemBinding,
   onlyClass,
   PRESERVED_TAGS,
   propKey,
   staticClass,
-  unionMembers,
   unsupported,
   withoutClassEntry,
 } from "./component-shared.mjs"
@@ -157,6 +155,7 @@ export const toVue = (component) => {
     variableTags,
     warnings,
   } = component
+  const model = bindingFor(component, "vue")
   const values = allValues(component)
   const used = new Set([
     ...values.flatMap(({ reads }) => [...reads.names.keys()]),
@@ -184,9 +183,6 @@ export const toVue = (component) => {
   }
   const classProp = props.find(({ prop }) => prop === "class")
   const classInScript = classProp && usedInScript.has(classProp.local)
-  const modelRename = MODEL_KINDS[component.model?.kind]?.vue?.rename?.(
-    component.model,
-  )
   const getters = new Set(
     derived
       .filter(({ fn, readsSlot }) => !fn && readsSlot)
@@ -214,15 +210,15 @@ export const toVue = (component) => {
     ...(restUsed ? [[rest, "attrs"]] : []),
     ...trimmedSlots.map(({ local, slot }) => [local, `$slots${vueSlot(slot)}`]),
     ...[...getters].map((name) => [name, `${name}()`]),
-    ...(modelRename?.template ?? []),
+    ...model.rename.map(([local, code]) => [
+      local,
+      code.replace(/\.value$/, ""),
+    ]),
   ])
   const computedConsts = derived.filter(
     ({ fn, name }) => !fn && !getters.has(name),
   )
   const derivedNames = new Set(computedConsts.map(({ name }) => name))
-  if (component.model?.refusal) throw component.model.refusal
-  const { model } = component
-  const kind = MODEL_KINDS[model?.kind]?.vue
   const events = component.events ?? []
   const listened = eventRoots(component)
   const hydrating = hydratingRoots(component, listened)
@@ -234,7 +230,14 @@ export const toVue = (component) => {
       "rename the prop or const in the Astro file",
     )
   }
-  const explicitAttrs = kind?.explicitAttrs === true
+  const pairedRoot = rootElements.find(
+    (node) =>
+      !node.component &&
+      !node.custom &&
+      !node.variable &&
+      model.attributes(node, {}).bound !== undefined,
+  )
+  const explicitAttrs = pairedRoot !== undefined
   const filteredAttrs =
     restOnRoot && attributeProps.length > 0 && !explicitAttrs
   const definedRoot =
@@ -302,7 +305,7 @@ export const toVue = (component) => {
       : []),
     ...computedConsts.map(({ name }) => [name, `${name}.value`]),
     ...trimmedSlots.map(({ local, slot }) => [local, `slots${vueSlot(slot)}`]),
-    ...(modelRename?.script ?? []),
+    ...model.rename,
   ])
   const template = {
     quote: "'",
@@ -317,14 +320,13 @@ export const toVue = (component) => {
     slotHas: (name) => `slots${vueSlot(name)}`,
     style: styleOption(component, "{}"),
   }
-  const generic = kind?.generic?.(model) === true
-  const { item } = component
+  const { generic } = model
   const forwarded = (component.baseProps ?? [])
     .filter(
       (key) =>
         key !== "class" &&
         key !== "style" &&
-        key !== model?.prop &&
+        key !== component.model?.prop &&
         !props.some((entry) => entry.prop === key),
     )
     .toSorted(byName)
@@ -344,17 +346,17 @@ export const toVue = (component) => {
           prop !== "class" &&
           prop !== "style" &&
           !prop.includes("-") &&
-          !kind?.undeclared?.(model, prop) &&
+          !model.props.dropped.includes(prop) &&
           (used.has(local) ||
-            prop === model?.prop ||
-            (generic && prop === "multiple")),
+            prop === component.model?.prop ||
+            model.props.added.includes(prop)),
       )
       .map(({ default: fallback, local, prop }) => ({
         prop,
         text: `${local === prop ? prop : `${propKey(prop)}: ${local}`}${
           fallback
             ? ` = ${fallback}`
-            : (item && local === item.checked) || castsToFalse(prop)
+            : model.props.unset.includes(prop) || castsToFalse(prop)
               ? " = undefined"
               : ""
         }`,
@@ -481,12 +483,13 @@ export const toVue = (component) => {
       const loop = `v-for="${node.index ? `(${item}, ${node.index})` : item} in ${list}" :key="${node.index}"`
       return emitOne(root, loop, inner)
     }
-    const itemChecked = node.item
-      ? node.attributes.find(
-          (item) => item.kind === "expression" && item.name === "checked",
-        )
+    const modelAttributes = model.attributes(node, {
+      rewrite: (code) => rewriteExpression(code, scope),
+    })
+    const ownChecked = modelAttributes.checked
+      ? node.attributes.find(isCheckedAttribute)
       : undefined
-    const ownAttributes = node.attributes.filter((item) => item !== itemChecked)
+    const ownAttributes = node.attributes.filter((item) => item !== ownChecked)
     const spreads = ownAttributes.filter(
       (item) =>
         item.kind === "spread" &&
@@ -548,51 +551,16 @@ export const toVue = (component) => {
             ...ownAttributes.slice(last + 1),
           ]
         : ownAttributes
-    const checkedRename = node.item
-      ? kind?.checkedRename?.(component.item)
-      : undefined
-    const bindScope = checkedRename
-      ? { ...scope, rename: new Map([...scope.rename, checkedRename]) }
+    const bindScope = modelAttributes.rename.length
+      ? {
+          ...scope,
+          rename: new Map([...scope.rename, ...modelAttributes.rename]),
+        }
       : scope
-    const pair =
-      node.model && kind?.boundAttributes
-        ? {
-            bound: kind.boundAttributes(model),
-            condition: "bound",
-            drop: () => false,
-            unbound: [],
-          }
-        : node.groupRadio !== undefined && kind?.boundAttributes
-          ? {
-              bound: kind.boundAttributes(model),
-              condition: "bound",
-              drop: (entry) => entry.name === "checked",
-              own: {
-                code: rewriteExpression(
-                  node.attributes.find(
-                    (entry) =>
-                      entry.kind === "expression" && entry.name === "checked",
-                  ).code,
-                  scope,
-                ),
-                name: "checked",
-              },
-              unbound: [],
-            }
-          : itemChecked
-            ? {
-                bound: ['v-model="target"'],
-                condition: kind?.ownModel
-                  ? `${component.item.parent}?.bound || bound`
-                  : `${component.item.parent}?.bound`,
-                drop: () => false,
-                own: {
-                  code: rewriteExpression(itemChecked.code, bindScope),
-                  name: "checked",
-                },
-                unbound: [],
-              }
-            : undefined
+    const own = ownChecked && {
+      code: rewriteExpression(ownChecked.code, bindScope),
+      name: "checked",
+    }
     const withOwn = (listed, entry) => {
       if (entry === undefined) return listed
       usesDefined = true
@@ -604,19 +572,24 @@ export const toVue = (component) => {
         index === at ? `v-bind="{ ...${own}, ...${spread} }"` : entry,
       )
     }
-    const listedFor = (first, extra, drop, own) =>
+    const restAt = bound.findIndex(
+      (entry) => entry.kind === "spread" && entry.code === rest,
+    )
+    const listedFor = (first, extra, checked) =>
       withOwn(
         [
           ...(first ? [first] : []),
           ...bound
-            .filter((entry) => !drop(entry))
-            .map((entry) =>
+            .flatMap((entry, index) => [
+              ...(index === restAt ? modelAttributes.rest : []),
               entry.kind === "bound"
                 ? entry.text
                 : attribute(node, entry, bindScope),
-            )
+            ])
             .filter(Boolean),
+          ...(restAt === -1 ? modelAttributes.rest : []),
           ...extra,
+          ...modelAttributes.end,
           ...(listened.includes(node)
             ? events.map((event) => `@${event}="emit('${event}', $event)"`)
             : []),
@@ -638,7 +611,7 @@ export const toVue = (component) => {
             ? [':class="$attrs.class"']
             : []),
         ].flatMap((entry) => entry.match(ATTRIBUTE) ?? []),
-        own,
+        checked,
       )
     const render = (listed) => {
       const omitted = omitEmptyAttributes(listed, component.file)
@@ -665,17 +638,11 @@ export const toVue = (component) => {
         preserved: scope.preserved || PRESERVED_TAGS.has(node.tag),
       })}</${tag}>`
     }
-    if (!pair) return render(listedFor(clause, [], () => false))
+    const pair = modelAttributes.bound
+    if (!pair) return render(listedFor(clause, []))
     const both = `${render(
-      listedFor(`v-if="${pair.condition}"`, pair.bound, pair.drop),
-    )}\n${render(
-      listedFor(
-        "v-else",
-        pair.unbound,
-        (entry) => pair.own?.name === "checked" && entry.name === "checked",
-        pair.own,
-      ),
-    )}`
+      listedFor(`v-if="${pair.condition}"`, pair.attributes),
+    )}\n${render(listedFor("v-else", [], own))}`
     return clause ? `<template ${clause}>${both}</template>` : both
   }
   const emit = (nodes, scope) =>
@@ -805,28 +772,18 @@ export const toVue = (component) => {
       : "Slots"
   const emitsType = emitsTypeOf(propsType)
   const provided = provide
-    ? [
-        ...(kind?.providedFirst?.() ?? []),
-        ...provide.value.map(
-          ({ code, key }) =>
-            kind?.providedEntry?.(model, key) ??
-            (derivedNames.has(code)
-              ? code === key
-                ? key
-                : `${key}: ${code}`
-              : `${key}: computed(() => ${rewriteExpression(code, script)})`),
-        ),
-      ]
+    ? model.context.map(
+        ({ code, key, text }) =>
+          text ??
+          (derivedNames.has(code)
+            ? code === key
+              ? key
+              : `${key}: ${code}`
+            : `${key}: computed(() => ${rewriteExpression(code, script)})`),
+      )
     : undefined
-  const vueProps = generic ? "Props & { multiple?: Multiple }" : "Props"
-  const modelType = generic
-    ? `type Model = Multiple extends true ? ${unionMembers(model.type)
-        .filter(isArrayType)
-        .join(" | ")} : ${unionMembers(model.type)
-        .filter((member) => !isArrayType(member))
-        .join(" | ")}`
-    : undefined
-  const propsLine = `${modelType ? `${modelType}\n\n` : ""}${
+  const vueProps = generic ? `Props & ${generic.props}` : "Props"
+  const propsLine = `${generic ? `${generic.type}\n\n` : ""}${
     declared.length
       ? `const { ${declared.join(", ")} } = defineProps<${vueProps}>()`
       : `defineProps<${vueProps}>()`
@@ -842,13 +799,14 @@ export const toVue = (component) => {
         : `const ${name} = computed(() => ${rewriteExpression(code, script)})`,
     name,
   }))
+  const modelScript = model.script((code) => rewriteExpression(code, script))
   const statements = [
     ...(filteredAttrs
       ? [
           `const restAttrs = computed(() => {\n  const { ${attributeProps.map(({ local, prop }) => `${JSON.stringify(prop)}: _${local}, `).join("")}...rest } = attrs.value\n  return rest\n})`,
         ]
       : []),
-    ...(kind?.setup?.(model, generic) ?? []),
+    ...modelScript.before,
     ...reads.map(
       ({ context, name }) =>
         `const ${name} = inject(${context.name}Key, undefined)`,
@@ -857,33 +815,24 @@ export const toVue = (component) => {
     ...declarations.map(({ line }) => line),
     ...rowLists,
     ...warnings.map(({ code }) => devOnly(rewriteStatement(code, script))),
-    ...(item
-      ? [
-          `if (DEV) watchEffect(() =>\n  ${groupWarning(component, item, kind?.warningChecked?.(item) ?? item.checked ?? "undefined", `${item.grouped}.value`)},\n)`,
-          kind?.ownModel
-            ? `const target = computed({\n  get: () => (${item.parent}?.bound ? ${item.parent}.value : model.value),\n  set: (next) => {\n    if (${item.parent}?.bound) ${item.parent}.value = next as typeof ${item.parent}.value\n    else model.value = next as typeof model.value\n  },\n})`
-            : `const target = computed({\n  get: () => ${item.parent}?.value,\n  set: (next) => {\n    if (${item.parent}) ${item.parent}.value = next\n  },\n})`,
-        ]
-      : []),
+    ...modelScript.after,
     ...(provide
       ? [
           `provide(${provide.context.name}Key, reactive({ ${provided.join(", ")} }))`,
         ]
       : []),
   ]
+  const called = helpersCalled(
+    withoutUnused(statements, markup, declarations).join("\n"),
+    helpersOf(model),
+  )
   const vueHelpers = [
     ...(computedAttrs
       ? ["useInputAttrs"]
       : inheritsAttrs
         ? []
         : ["useRestAttrs"]),
-    ...namesFrom(
-      helpersCalled(
-        withoutUnused(statements, markup, declarations).join("\n"),
-        modelHelpers("vue", component),
-      ),
-      "../vue",
-    ),
+    ...namesFrom(called, "../vue"),
     ...(hydrating.size ? ["vHydrated"] : []),
   ].toSorted(byName)
   const plainAttrs =
@@ -914,7 +863,7 @@ export const toVue = (component) => {
           ? ["useAttrs"]
           : []),
     ...(attributeHelpers.has("mergeProps") ? ["mergeProps"] : []),
-    ...(item ? ["watchEffect"] : []),
+    ...namesFrom(called, "vue"),
     ...(uid ? ["useId"] : []),
   ].toSorted((a, b) => byName(a.replace(/^type /, ""), b.replace(/^type /, "")))
   const importLines = [
@@ -937,8 +886,8 @@ export const toVue = (component) => {
     }),
     ...[
       ...(usesDefined ? [["../attrs", "defined"]] : []),
-      ...(warnings.length || item ? [["../dev", "DEV"]] : []),
-      ...(item ? [["../dev", "warnGroupedChecked"]] : []),
+      ...(warnings.length ? [["../dev", "DEV"]] : []),
+      ...model.helpers.always,
       ...(attributeHelpers.has("classAttrs") ? [["../cx", "classAttrs"]] : []),
       ...(attributeHelpers.has("styleAttrs")
         ? [["../style", "styleAttrs"]]
@@ -964,7 +913,7 @@ export const toVue = (component) => {
       ? ["const attrs = useInputAttrs()"]
       : explicitAttrs
         ? [
-            `const attrs = useRestAttrs<IntrinsicElementAttributes[${JSON.stringify(model.element.tag)}]>()`,
+            `const attrs = useRestAttrs<IntrinsicElementAttributes[${JSON.stringify(pairedRoot.tag)}]>()`,
           ]
         : !inheritsAttrs
           ? ["const attrs = useRestAttrs()"]
@@ -976,5 +925,5 @@ export const toVue = (component) => {
     ...statements,
   ]
   const kept = withoutUnused(setup, markup, declarations)
-  return `<script setup lang="ts"${generic ? ' generic="Multiple extends boolean = false"' : ""}>\n${kept.join("\n\n")}\n</script>\n\n<template>\n${indent(markup, 2)}\n</template>\n`
+  return `<script setup lang="ts"${generic ? ` generic="${generic.parameter}"` : ""}>\n${kept.join("\n\n")}\n</script>\n\n<template>\n${indent(markup, 2)}\n</template>\n`
 }

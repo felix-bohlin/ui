@@ -11,7 +11,6 @@ import {
   contextImports,
   devOnly,
   eventRoots,
-  groupWarning,
   hydratingRoots,
   objectCode,
   propsImport,
@@ -24,10 +23,11 @@ import {
 } from "./component-emit.mjs"
 import { attrsImport, componentFunction, jsxEmitter } from "./component-jsx.mjs"
 import {
+  bindingFor,
   helpersCalled,
+  helpersOf,
   importLinesOf,
-  MODEL_KINDS,
-  modelHelpers,
+  isCheckedAttribute,
   namesFrom,
 } from "./component-models.mjs"
 import { jsxAttribute } from "./example-encoders.mjs"
@@ -112,8 +112,7 @@ export const toReact = (component) => {
     variableTags,
     warnings,
   } = component
-  if (component.model?.everywhere) throw component.model.refusal
-  const kind = MODEL_KINDS[component.model?.kind]?.react
+  const model = bindingFor(component, "react")
   const props = component.props.filter(
     ({ local }) => !stringSlots.some((entry) => entry.local === local),
   )
@@ -159,7 +158,7 @@ export const toReact = (component) => {
       .map((entry) => [entry.local, reactPropOf(entry)]),
   )
   const rename = new Map([
-    ...(kind?.rename?.(component.model) ?? []),
+    ...model.rename,
     ...props
       .filter(({ prop }) => prop === "class")
       .map(({ local }) => [local, "className"]),
@@ -189,17 +188,18 @@ export const toReact = (component) => {
     }
   })
   const slotEntries = slotOrder(slots).map((slot) => slotProp(slot))
-  const { item, model, multiRoot } = component
-  const defaultGrouped = item
-    ? rewriteExpression(item.defaultGrouped, options)
-    : undefined
+  const { multiRoot } = component
+  const rewrite = (code) => rewriteExpression(code, options)
+  const script = model.script(rewrite)
   const extraEntries = [
-    ...(kind?.entries?.() ?? []),
-    ...(item ? ["defaultChecked", "onChange"] : []),
-    ...(events.length ? handlers : []),
-    ...(events.length || item ? ["ref"] : []),
+    ...model.props.added,
+    ...(events.length ? [...handlers, "ref"] : []),
   ]
-    .filter((key) => !entries.some((entry) => entry.key === key))
+    .filter(
+      (key, index, keys) =>
+        keys.indexOf(key) === index &&
+        !entries.some((entry) => entry.key === key),
+    )
     .map((key) => ({ key, text: key }))
   const destructured = [
     ...[...entries, ...extraEntries]
@@ -213,7 +213,7 @@ export const toReact = (component) => {
       ({ context, name }) => `const ${name} = use${context.name}Context()`,
     ),
     ...(uid ? ["const uid = useId()"] : []),
-    ...(kind?.body?.(model) ?? []),
+    ...script.before,
     ...tagProps.map(
       ({ local, prop, default: fallback }) =>
         `const ${local} = ${fallback ? `${prop} || ${fallback}` : prop}`,
@@ -222,17 +222,7 @@ export const toReact = (component) => {
       ({ code, name }) => `const ${name} = ${rewriteExpression(code, options)}`,
     ),
     ...warnings.map(({ code }) => devOnly(rewriteStatement(code, options))),
-    ...(item
-      ? [
-          devOnly(
-            groupWarning(
-              component,
-              item,
-              `${item.checked ?? "undefined"} ?? defaultChecked`,
-            ),
-          ),
-        ]
-      : []),
+    ...script.after,
     ...(events.length
       ? [
           `const rootRef = ${hydrating.size ? "useHydrated(" : ""}${events.reduce(
@@ -315,12 +305,15 @@ export const toReact = (component) => {
   }
   const keys = new Map()
   const elementAttributes = (node) => {
+    const modelAttributes = model.attributes(node, {
+      attribute: (entry) => attribute(node, entry),
+      rewrite,
+    })
+    const spreadAt = node.attributes.findIndex(
+      (entry) => entry.kind === "spread" && entry.code === rest,
+    )
     const listens = listened.includes(node)
-    const restAt = listens
-      ? node.attributes.findIndex(
-          (entry) => entry.kind === "spread" && entry.code === rest,
-        )
-      : -1
+    const restAt = listens ? spreadAt : -1
     const rootRef = [
       ...(hydrating.has(node) ? [hydrating.get(node)] : []),
       "ref={rootRef}",
@@ -328,28 +321,14 @@ export const toReact = (component) => {
     return [
       ...(keys.has(node) ? [`key={${keys.get(node)}}`] : []),
       ...node.attributes.flatMap((entry, index) => [
+        ...(index === spreadAt ? modelAttributes.rest : []),
         ...(index === restAt ? rootRef : []),
-        ...(node.groupRadio !== undefined &&
-        entry.kind === "expression" &&
-        entry.name === "checked"
-          ? kind.radioAttributes(
-              model,
-              rewriteExpression(node.groupRadio, options),
-              rewriteExpression(entry.code, options),
-            )
+        ...(modelAttributes.checked && isCheckedAttribute(entry)
+          ? modelAttributes.checked
           : [attribute(node, entry)]),
-        ...(node.item && entry.kind === "expression" && entry.name === "checked"
-          ? [
-              `defaultChecked={${item.grouped} !== undefined ? undefined : ${item.checked ? `${item.checked} === undefined ? (${defaultGrouped} ?? defaultChecked) : defaultChecked` : `(${defaultGrouped} ?? defaultChecked)`}}`,
-            ]
-          : []),
       ]),
-      ...(node.item
-        ? [
-            "ref={ref}",
-            `onChange={(event) => {\n  ${item.parent}?.change?.(event.currentTarget)\n  onChange?.(event)\n}}`,
-          ]
-        : []),
+      ...(spreadAt === -1 ? modelAttributes.rest : []),
+      ...modelAttributes.end,
       ...(node.external
         ? [
             'dangerouslySetInnerHTML={{ __html: "" }}',
@@ -378,10 +357,8 @@ export const toReact = (component) => {
   })
   const [rootNode] = tree
   const rendered = render(tree)
-  const providedValue =
-    kind?.provided && provide ? kind.provided(model, provide) : provide?.value
   const contextCode = provide
-    ? rewriteExpression(objectCode(providedValue), options)
+    ? rewriteExpression(objectCode(model.context), options)
     : undefined
   const locals = provide
     ? declaredNames(
@@ -433,10 +410,7 @@ export const toReact = (component) => {
     : multiRoot
       ? `<>${rendered}</>`
       : rendered
-  const used = helpersCalled(
-    [...body, returned].join("\n"),
-    modelHelpers("react", component),
-  )
+  const used = helpersCalled([...body, returned].join("\n"), helpersOf(model))
   const reactValues = [
     ...(uid ? ["useId"] : []),
     ...(provide ? ["useMemo"] : []),
@@ -469,9 +443,12 @@ export const toReact = (component) => {
     }),
     ...importLinesOf(used, ["react"]),
     ...[
-      ...(warnings.length || item ? ["DEV"] : []),
-      ...(item ? ["warnGroupedChecked"] : []),
-    ].reduce((lines, name) => withImport(lines, "../dev", name), imports),
+      ...(warnings.length ? [["../dev", "DEV"]] : []),
+      ...model.helpers.always,
+    ].reduce(
+      (lines, [module, name]) => withImport(lines, module, name),
+      imports,
+    ),
     propsImport(propsType, "types.react"),
     ...(provide
       ? [
@@ -484,6 +461,6 @@ export const toReact = (component) => {
     provide ||
     scripts.length > 0 ||
     events.length > 0 ||
-    kind?.client === true
+    model.props.added.length > 0
   return `${client ? '"use client"\n\n' : ""}${importLines.join("\n")}\n\n${componentFunction(component.name, `{ ${destructured.join(", ")} }: Props`, body, returned)}`
 }

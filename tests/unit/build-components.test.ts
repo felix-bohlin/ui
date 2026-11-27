@@ -6,6 +6,7 @@ import {
   generate,
   handWrittenProblems,
   loadApis,
+  namedComponent,
   PORTS,
   readComponent,
   readHandWritten,
@@ -14,89 +15,20 @@ import {
   TYPE_FILES,
 } from "../../scripts/build-components.mjs"
 import {
+  bindingFor,
+  bindingOf,
   helpersCalled,
   importLinesOf,
   MODEL_KINDS,
 } from "../../scripts/component-models.mjs"
 import {
   classMayBeEmpty,
+  elementsIn,
   isArrayType,
   unionMembers,
 } from "../../scripts/component-shared.mjs"
 import { formatCode } from "../../scripts/format.mjs"
-
-type Kinds = Record<string, Record<string, Record<string, unknown>>>
-
-const recordHookReads = (kinds: Kinds) => {
-  const reads = new Map<string, Set<string>>()
-  const originals = Object.entries(kinds).flatMap(([kind, frameworks]) =>
-    Object.entries(frameworks).map(([framework, hooks]) => {
-      const entry = `${kind}.${framework}`
-      reads.set(entry, new Set())
-      frameworks[framework] = new Proxy(hooks, {
-        get: (target, key, receiver) => {
-          if (typeof key === "string") reads.get(entry)!.add(key)
-          return Reflect.get(target, key, receiver)
-        },
-      })
-      return () => {
-        frameworks[framework] = hooks
-      }
-    }),
-  )
-  return {
-    reads,
-    restore: () => {
-      for (const restore of originals) restore()
-    },
-  }
-}
-
-const GENERIC_READS: Record<string, string> = {
-  entries:
-    "the type emitter asks the kind of every framework whether it takes defaultValue and onValueChange",
-}
-
-const hookProblems = (
-  kinds: Kinds,
-  reads: Map<string, Set<string>>,
-  generic: Record<string, string> = {},
-) => {
-  const defined = new Map<string, Set<string>>()
-  for (const frameworks of Object.values(kinds)) {
-    for (const [framework, hooks] of Object.entries(frameworks)) {
-      defined.set(
-        framework,
-        new Set([...(defined.get(framework) ?? []), ...Object.keys(hooks)]),
-      )
-    }
-  }
-  const unread = Object.entries(kinds).flatMap(([kind, frameworks]) =>
-    Object.entries(frameworks).flatMap(([framework, hooks]) =>
-      Object.keys(hooks)
-        .filter((key) => !reads.get(`${kind}.${framework}`)?.has(key))
-        .map(
-          (key) =>
-            `MODEL_KINDS.${kind}.${framework}.${key} is never read: remove it`,
-        ),
-    ),
-  )
-  const undefinedReads = [...reads].flatMap(([entry, keys]) => {
-    const framework = entry.split(".")[1]!
-    return [...keys]
-      .filter((key) => !(key in generic) && !defined.get(framework)?.has(key))
-      .map(
-        (key) =>
-          `the ${framework} emitter reads ${key}, which no model kind defines: remove the read`,
-      )
-  })
-  const staleGeneric = Object.keys(generic)
-    .filter((key) => ![...defined.values()].some((keys) => keys.has(key)))
-    .map((key) => `${key} is a generic read no model kind defines: remove it`)
-  return [
-    ...new Set([...unread, ...undefinedReads, ...staleGeneric]),
-  ].toSorted()
-}
+import { HYDRATED_FRAMEWORK_IDS } from "../../src/utils/framework"
 
 const sampleFile = (name = "Sample") =>
   `packages/opui/components/Sample/${name}.astro`
@@ -120,6 +52,7 @@ const typesOf = (
     Object.entries(components).map(
       ([name, { props = [], slots = [], ...facts }]) => ({
         ...facts,
+        file: sampleFile(name),
         name,
         props: props.map((prop) => ({ local: prop, prop })),
         slots,
@@ -1811,6 +1744,77 @@ describe("the ports of a sample", () => {
 
   test.each([
     [
+      "a checked model",
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\nconst bound = 1\nconst checkedControl = 2\nconst relay = 3\n---\n\n<label class:list={["ui-sample", className]} data-bound={bound} data-control={checkedControl} data-relay={relay}>\n  <input {...rest} type="checkbox" />\n</label>\n',
+      modelApi("checked", "input"),
+      {
+        solid:
+          "the name `checkedControl`, which the Solid port also declares for its checked model",
+        svelte:
+          "the name `relay`, which the Svelte port also declares for its checked model",
+        vue: "the name `bound`, which the Vue port also declares for its checked model",
+      },
+    ],
+    [
+      "a group",
+      '---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, value, ...rest } = Astro.props\nconst change = "change"\n\nconst html = await sampleContext.provide({ value }, () =>\n  Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", className]} data-on={change} {...rest}>\n  <Fragment set:html={html} />\n</div>\n',
+      {
+        component: "Sample",
+        model: { description: "", prop: "value", type: "string" },
+        options: [],
+        parts: [],
+      },
+      {
+        react:
+          "the name `change`, which the React port also declares for its value model",
+        solid:
+          "the name `change`, which the Solid port also declares for its value model",
+      },
+    ],
+  ])(
+    "every port refuses a name the model kind of %s declares there, and only that port",
+    async (_, source, api, messages) => {
+      const { refused } = await compileComponent(source, sampleFile(), {
+        api,
+      })
+      const ports = Object.entries(PORTS)
+      expect(
+        Object.fromEntries(
+          ports.flatMap(([framework, extension]) => {
+            const error = refused.get(sampleFile().replace(".astro", extension))
+            return error
+              ? [[framework, error.message.split(", which scripts")[0]]]
+              : []
+          }),
+        ),
+      ).toEqual(
+        Object.fromEntries(
+          Object.entries(messages).map(([framework, message]) => [
+            framework,
+            `${sampleFile()} uses ${message}`,
+          ]),
+        ),
+      )
+    },
+  )
+
+  test("a model refusal refuses every port, React too", async () => {
+    await expect(
+      compileComponent(
+        '---\nimport type { Props } from "./types.astro"\n\nconst { checked, ...rest } = Astro.props\n---\n\n<input data-on={checked} type="checkbox" {...rest} />\n',
+        sampleFile(),
+        { api: modelApi("checked", "input") },
+      ),
+    ).rejects.toMatchObject({
+      code: "BC401",
+      message: expect.stringContaining(
+        "the checked model of Sample, whose prop checked is read by the component",
+      ),
+    })
+  })
+
+  test.each([
+    [
       "<div>\n  <slot />\n</div>\n<p>Two</p>",
       "a template that isn't one element",
     ],
@@ -2648,28 +2652,474 @@ describe("toTypes", () => {
   })
 })
 
+describe("model kinds", () => {
+  const SHAPE = [
+    "attributes",
+    "context",
+    "declares",
+    "generic",
+    "helpers",
+    "props",
+    "refusal",
+    "rename",
+    "script",
+  ]
+
+  const port = {
+    attribute: (entry: { name: string }) => `${entry.name}={}`,
+    control: () => "control",
+    rewrite: (code: string) => code,
+  }
+
+  type Node = { tag: string }
+
+  type Shape = {
+    attributes: (
+      node: Node,
+      writer: typeof port,
+    ) => {
+      bound?: { attributes: string[]; condition: string }
+      checked?: string[]
+      end: string[]
+      rename: [string, string][]
+      rest: string[]
+    }
+    context: { code?: string; key: string; text?: string }[]
+    declares: string[]
+    generic?: { parameter: string; props: string; type: string }
+    helpers: { always: [string, string][]; called: Record<string, string> }
+    props: {
+      added: string[]
+      bound: { prop: string; type: string }[]
+      dropped: string[]
+      initial: [string, string][]
+      unset: string[]
+    }
+    refusal?: Error
+    rename: [string, string][]
+    script: (rewrite: (code: string) => string) => {
+      after: string[]
+      before: string[]
+    }
+  }
+
+  const bindingIn = (component: unknown) =>
+    bindingOf(component) as { kind: string } & Record<
+      (typeof HYDRATED_FRAMEWORK_IDS)[number],
+      Shape
+    >
+
+  const contractOf = (shape: Shape, tree: Node[]) => {
+    const attributes = elementsIn(tree).flatMap((node: Node) => {
+      const added = shape.attributes(node, port)
+      const parts = [
+        ...(added.bound ? [`bound if ${added.bound.condition}`] : []),
+        ...(added.checked ? [`checked ${added.checked.length}`] : []),
+        ...(added.end.length ? [`end ${added.end.length}`] : []),
+        ...(added.rename.length
+          ? [`rename ${added.rename.map(([from]) => from).join(" ")}`]
+          : []),
+        ...(added.rest.length ? [`rest ${added.rest.length}`] : []),
+      ]
+      return parts.length ? [`<${node.tag}> ${parts.join(", ")}`] : []
+    })
+    const { after, before } = shape.script(port.rewrite)
+    const props = Object.entries({
+      ...shape.props,
+      bound: shape.props.bound.map(({ prop }) => prop),
+      initial: shape.props.initial.map(([from, to]) => `${from} as ${to}`),
+    }).filter(([, values]) => values.length > 0)
+    const contract = {
+      attributes,
+      context: shape.context.map(({ key, text }) =>
+        text === undefined ? key : `${key} as written`,
+      ),
+      declares: shape.declares,
+      helpers: [
+        ...shape.helpers.always.map(
+          ([module, name]) => `${name} from ${module}`,
+        ),
+        ...Object.entries(shape.helpers.called).map(
+          ([name, module]) => `${name}() from ${module}`,
+        ),
+      ],
+      rename: shape.rename.map(([from]) => from),
+      script: [
+        ...(before.length ? [`${before.length} before`] : []),
+        ...(after.length ? [`${after.length} after`] : []),
+      ],
+    }
+    return {
+      ...Object.fromEntries(
+        Object.entries(contract).filter(([, values]) => values.length > 0),
+      ),
+      ...(shape.generic ? { generic: shape.generic.parameter } : {}),
+      ...(props.length ? { props: Object.fromEntries(props) } : {}),
+    }
+  }
+
+  const NOTHING = { react: {}, solid: {}, svelte: {}, vue: {} }
+
+  const CONTRACTS = {
+    checked: {
+      sample: "Checkbox/CheckboxInput",
+      react: {},
+      solid: {
+        attributes: ["<input> rest 2"],
+        declares: ["checkedControl"],
+        helpers: ["control() from ../solid"],
+        props: { added: ["checked", "ref"] },
+        script: ["1 before"],
+      },
+      svelte: {
+        attributes: ["<input> end 3"],
+        declares: ["initialChecked", "relay"],
+        helpers: [
+          "relayChecked() from ../svelte",
+          "toggleInGroup() from ../group",
+          "untrack() from svelte",
+        ],
+        props: {
+          added: ["defaultChecked", "value"],
+          bound: ["checked", "group"],
+        },
+        script: ["2 before"],
+      },
+      vue: {
+        attributes: ["<input> bound if bound"],
+        declares: ["bound", "modelValue"],
+        helpers: ["useBound() from ../vue"],
+        script: ["2 before"],
+      },
+    },
+    checkedItem: {
+      sample: "ToggleButton/ToggleButton",
+      react: {
+        attributes: ["<input> checked 2, end 2"],
+        helpers: ["DEV from ../dev", "warnGroupedChecked from ../dev"],
+        props: { added: ["defaultChecked", "onChange", "ref"] },
+        script: ["1 after"],
+      },
+      solid: {
+        attributes: ["<input> checked 1, end 2"],
+        helpers: [
+          "DEV from ../dev",
+          "warnGroupedChecked from ../dev",
+          "callHandler() from ../solid",
+          "control() from ../solid",
+          "untrack() from solid-js",
+        ],
+        props: { added: ["defaultChecked", "onChange", "ref"] },
+        script: ["1 after"],
+      },
+      svelte: {
+        attributes: ["<input> checked 2"],
+        declares: ["change", "initialChecked", "isChecked"],
+        helpers: [
+          "DEV from ../dev",
+          "warnGroupedChecked from ../dev",
+          "relayChecked() from ../svelte",
+          "untrack() from svelte",
+        ],
+        props: { added: ["defaultChecked"], bound: ["checked"] },
+        script: ["4 after"],
+      },
+      vue: {
+        attributes: [
+          "<input> bound if group?.bound || bound, checked 0, rename checked",
+        ],
+        declares: ["bound", "model", "target"],
+        helpers: [
+          "DEV from ../dev",
+          "warnGroupedChecked from ../dev",
+          "useBound() from ../vue",
+          "watchEffect() from vue",
+        ],
+        props: { unset: ["checked"] },
+        script: ["2 before", "2 after"],
+      },
+    },
+    forward: {
+      sample: "Checkbox/Checkbox",
+      react: {},
+      solid: {},
+      svelte: {
+        attributes: ["<CheckboxInput> end 2"],
+        props: { bound: ["checked", "group"] },
+      },
+      vue: {
+        attributes: ["<CheckboxInput> bound if bound"],
+        declares: ["bound", "model"],
+        helpers: ["useBound() from ../vue"],
+        script: ["2 before"],
+      },
+    },
+    group: {
+      sample: "ToggleGroup/ToggleGroup",
+      react: {
+        context: ["change", "defaultValue", "groupName", "inputType", "value"],
+        declares: ["change"],
+        helpers: [
+          "checkedValues() from ./selection",
+          "useCallback() from react",
+        ],
+        props: {
+          added: ["defaultValue", "onValueChange"],
+          initial: ["value as defaultValue"],
+        },
+        script: ["1 before"],
+      },
+      solid: {
+        context: ["change", "defaultValue", "groupName", "inputType", "value"],
+        declares: ["change"],
+        helpers: ["checkedValues() from ./selection"],
+        props: {
+          added: ["defaultValue", "onValueChange"],
+          initial: ["value as defaultValue"],
+        },
+        script: ["1 before"],
+      },
+      svelte: {
+        context: ["change as written", "groupName", "inputType", "value"],
+        helpers: ["selectionOf() from ./selection"],
+        props: { bound: ["value"] },
+      },
+      vue: {
+        context: [
+          "bound as written",
+          "groupName",
+          "inputType",
+          "value as written",
+        ],
+        declares: ["bound", "model"],
+        generic: "Multiple extends boolean = false",
+        helpers: ["useBound() from ../vue"],
+        props: {
+          added: ["multiple"],
+          dropped: ["value"],
+          initial: ["value as modelValue"],
+        },
+        script: ["2 before"],
+      },
+    },
+    item: {
+      sample: "Tabs/TabsItem",
+      react: {
+        attributes: ["<input> checked 2, end 2"],
+        context: ["groupName", "tabId"],
+        helpers: ["DEV from ../dev", "warnGroupedChecked from ../dev"],
+        props: { added: ["defaultChecked", "onChange", "ref"] },
+        script: ["1 after"],
+      },
+      solid: {
+        attributes: ["<input> checked 1, end 2"],
+        context: ["groupName", "tabId"],
+        helpers: [
+          "DEV from ../dev",
+          "warnGroupedChecked from ../dev",
+          "callHandler() from ../solid",
+          "control() from ../solid",
+          "untrack() from solid-js",
+        ],
+        props: { added: ["defaultChecked", "onChange", "ref"] },
+        script: ["1 after"],
+      },
+      svelte: {
+        attributes: ["<input> checked 2"],
+        context: ["groupName", "tabId"],
+        declares: ["change", "initialChecked", "isChecked"],
+        helpers: [
+          "DEV from ../dev",
+          "warnGroupedChecked from ../dev",
+          "relayChecked() from ../svelte",
+          "untrack() from svelte",
+        ],
+        props: { added: ["defaultChecked"] },
+        script: ["4 after"],
+      },
+      vue: {
+        attributes: ["<input> bound if parent?.bound, checked 0"],
+        context: ["groupName", "tabId"],
+        declares: ["target"],
+        helpers: [
+          "DEV from ../dev",
+          "warnGroupedChecked from ../dev",
+          "watchEffect() from vue",
+        ],
+        props: { unset: ["checked"] },
+        script: ["2 after"],
+      },
+    },
+    none: { sample: "Card/Card", ...NOTHING },
+    radio: {
+      sample: "Radio/RadioInput",
+      react: {},
+      solid: {
+        attributes: ["<input> rest 2"],
+        declares: ["checkedControl"],
+        helpers: ["control() from ../solid"],
+        props: { added: ["checked", "ref"] },
+        script: ["1 before"],
+      },
+      svelte: {
+        attributes: ["<input> end 3"],
+        declares: ["initialChecked", "relay"],
+        helpers: ["relayChecked() from ../svelte", "untrack() from svelte"],
+        props: {
+          added: ["checked", "defaultChecked", "value"],
+          bound: ["group"],
+        },
+        script: ["2 before"],
+      },
+      vue: {
+        attributes: ["<input> bound if bound"],
+        declares: ["bound", "modelValue"],
+        helpers: ["useBound() from ../vue"],
+        script: ["2 before"],
+      },
+    },
+    radioGroup: {
+      sample: "Rating/Rating",
+      react: {
+        attributes: ["<input> checked 3", "<input> checked 3"],
+        props: {
+          added: ["defaultValue", "onValueChange"],
+          initial: ["value as defaultValue"],
+        },
+        rename: ["value"],
+      },
+      solid: {
+        attributes: ["<input> checked 3", "<input> checked 3"],
+        helpers: ["control() from ../solid"],
+        props: {
+          added: ["defaultValue", "onValueChange"],
+          initial: ["value as defaultValue"],
+        },
+        rename: ["value"],
+      },
+      svelte: {
+        attributes: ["<input> checked 0, end 2", "<input> checked 0, end 2"],
+        helpers: ["relayChecked() from ../svelte", "untrack() from svelte"],
+        props: { bound: ["value"] },
+      },
+      vue: {
+        attributes: [
+          "<input> bound if bound, checked 0",
+          "<input> bound if bound, checked 0",
+        ],
+        declares: ["bound", "model", "modelValue"],
+        helpers: ["useBound() from ../vue"],
+        rename: ["value"],
+        script: ["3 before"],
+      },
+    },
+  }
+
+  beforeAll(async () => {
+    await loadApis()
+  })
+
+  test("every model kind has a contract, with a component that has the kind", () => {
+    expect(Object.keys(CONTRACTS)).toEqual(Object.keys(MODEL_KINDS))
+  })
+
+  test.each(Object.keys(CONTRACTS))(
+    "the %s kind gives every framework the fixed shape and adds what its contract lists",
+    async (kind) => {
+      const { sample, ...expected } = CONTRACTS[kind as keyof typeof CONTRACTS]
+      const file = `packages/opui/components/${sample}.astro`
+      const component = await namedComponent(readFileSync(file, "utf8"), file)
+      const binding = bindingIn(component)
+      expect(binding.kind).toBe(kind)
+      for (const framework of HYDRATED_FRAMEWORK_IDS) {
+        const shape = binding[framework]
+        expect(Object.keys(shape).toSorted()).toEqual(SHAPE)
+        expect(Object.keys(shape.props).toSorted()).toEqual([
+          "added",
+          "bound",
+          "dropped",
+          "initial",
+          "unset",
+        ])
+        expect(Object.keys(shape.helpers).toSorted()).toEqual([
+          "always",
+          "called",
+        ])
+        expect(Object.keys(shape.script(port.rewrite)).toSorted()).toEqual([
+          "after",
+          "before",
+        ])
+        for (const node of elementsIn(component.tree)) {
+          expect(Object.keys(shape.attributes(node, port)).toSorted()).toEqual([
+            "bound",
+            "checked",
+            "end",
+            "rename",
+            "rest",
+          ])
+        }
+        expect(shape.refusal).toBeUndefined()
+        expect(bindingFor(component, framework)).toBeDefined()
+      }
+      expect(
+        Object.fromEntries(
+          HYDRATED_FRAMEWORK_IDS.map((framework) => [
+            framework,
+            contractOf(binding[framework], component.tree),
+          ]),
+        ),
+      ).toEqual(expected)
+    },
+  )
+
+  test("a model kind without an entry for every framework refuses every port", () => {
+    const kinds = MODEL_KINDS as Record<string, unknown>
+    kinds.partial = () => ({ react: {}, solid: {}, svelte: {} })
+    try {
+      for (const [kind, reason] of [
+        ["partial", "the partial model kind, which has no vue entry"],
+        ["unknown", "the unknown model kind, which has no entry"],
+      ]) {
+        const component = {
+          declared: new Set(),
+          file: sampleFile(),
+          model: { kind, prop: "value" },
+        }
+        for (const framework of HYDRATED_FRAMEWORK_IDS) {
+          expect(() => bindingFor(component, framework)).toThrow(reason)
+        }
+      }
+    } finally {
+      delete kinds.partial
+    }
+  })
+
+  test("a refused model refuses every port and adds nothing to the types", () => {
+    const refusal = new Error("refused")
+    const binding = bindingIn({ file: sampleFile(), model: { refusal } })
+    for (const framework of HYDRATED_FRAMEWORK_IDS) {
+      expect(binding[framework].refusal).toBe(refusal)
+      expect(binding[framework].props.added).toEqual([])
+      expect(binding[framework].props.bound).toEqual([])
+      expect(() =>
+        bindingFor(
+          { declared: new Set(), file: sampleFile(), model: { refusal } },
+          framework,
+        ),
+      ).toThrow("refused")
+    }
+  })
+})
+
 describe("the compiled components", () => {
   let all: Awaited<ReturnType<typeof generate>>
   let unledgered: Awaited<ReturnType<typeof generate>>
-  let hookReads: Map<string, Set<string>>
   const handWritten = readHandWritten()
 
   beforeAll(async () => {
-    const recorder = recordHookReads(MODEL_KINDS as Kinds)
-    try {
-      all = await generate()
-    } finally {
-      recorder.restore()
-    }
-    hookReads = recorder.reads
+    all = await generate()
     unledgered = await generate({ handWritten: {} })
   }, 300_000)
-
-  test("every model kind hook is read when the components compile, and every hook read is defined", () => {
-    expect(
-      hookProblems(MODEL_KINDS as Kinds, hookReads, GENERIC_READS),
-    ).toEqual([])
-  })
 
   test("a model kind's helper is imported when the code calls it, from its module", () => {
     const used = helpersCalled(
@@ -2682,27 +3132,6 @@ describe("the compiled components", () => {
     ])
     expect(importLinesOf(used, ["../svelte"])).toEqual([
       'import { control } from "../solid"',
-    ])
-  })
-
-  test("hookProblems reports a hook nothing reads and a read nothing defines", () => {
-    const kinds: Kinds = {
-      a: { vue: { read: () => [], unread: () => [] } },
-      b: { react: { shared: () => [] }, vue: { read: () => [] } },
-    }
-    const { reads, restore } = recordHookReads(kinds)
-    for (const kind of ["a", "b"]) {
-      const hooks = kinds[kind]!.vue!
-      void hooks.read
-      void hooks.missing
-      void hooks.shared
-    }
-    void kinds.b!.react!.shared
-    restore()
-    expect(hookProblems(kinds, reads, { gone: "", shared: "" })).toEqual([
-      "MODEL_KINDS.a.vue.unread is never read: remove it",
-      "gone is a generic read no model kind defines: remove it",
-      "the vue emitter reads missing, which no model kind defines: remove the read",
     ])
   })
 

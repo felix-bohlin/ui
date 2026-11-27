@@ -5,7 +5,6 @@ import {
   contextImports,
   edgeTrimmed,
   eventRoots,
-  groupWarning,
   hydratingRoots,
   propsImport,
   rewriteExpression,
@@ -16,10 +15,11 @@ import {
   withImport,
 } from "./component-emit.mjs"
 import {
+  bindingFor,
   helpersCalled,
+  helpersOf,
   importLinesOf,
-  MODEL_KINDS,
-  modelHelpers,
+  isCheckedAttribute,
 } from "./component-models.mjs"
 import { markupAttribute } from "./example-encoders.mjs"
 import { eventProp } from "./component-types.mjs"
@@ -51,9 +51,7 @@ export const toSvelte = (component) => {
     uid,
     warnings,
   } = component
-  if (component.model?.refusal) throw component.model.refusal
-  const { model } = component
-  const kind = MODEL_KINDS[model?.kind]?.svelte
+  const model = bindingFor(component, "svelte")
   const options = {
     rename: new Map(
       trimmedSlots.map(({ local, slot }) => [local, slotProp(slot)]),
@@ -73,17 +71,14 @@ export const toSvelte = (component) => {
       "rename the const in the Astro file",
     )
   }
-  const bindableProps = kind ? kind.bindables(model) : []
+  const rewrite = (code) => rewriteExpression(code, options)
+  const bindableProps = model.props.bound.map(({ prop }) => prop)
   const listened = eventRoots(component)
   const handlers = (component.events ?? []).map((event) =>
     eventProp("svelte", event),
   )
   const hydrating = hydratingRoots(component, listened)
-  const plainProps = [
-    ...(kind?.plainProps?.(model) ?? []),
-    ...(component.item ? ["defaultChecked"] : []),
-    ...handlers,
-  ]
+  const plainProps = [...model.props.added, ...handlers]
   const added = [...bindableProps, ...plainProps]
     .filter((prop) => !props.some((entry) => entry.prop === prop))
     .map((prop) => ({ local: prop, prop }))
@@ -103,7 +98,6 @@ export const toSvelte = (component) => {
         ? `${prop} = $bindable(${fallback ?? ""})`
         : `${prop === local ? prop : `${propKey(prop)}: ${local}`}${fallback ? ` = ${fallback}` : ""}`,
     )
-  const modelAttributes = kind?.attributes?.(model) ?? []
   const slotEntries = slotOrder(slots).map((slot) => slotProp(slot))
   let usesElements = false
   let usesContent = false
@@ -152,9 +146,6 @@ export const toSvelte = (component) => {
       return markupAttribute(item.name, item.value, true)
     }
     if (item.kind === "boolean") return item.name
-    if (node.item && item.name === "checked") {
-      return `{@attach relayChecked(change, isChecked)} defaultChecked={${component.item.grouped} === undefined ? (defaultChecked ?? initialChecked) : initialChecked}`
-    }
     return `${item.name}={${rewriteExpression(item.code, options)}}`
   }
   const body = (nodes, scope, head = "") => {
@@ -218,15 +209,11 @@ export const toSvelte = (component) => {
             .join("\n")
           return `{#each ${node.list} as ${node.item}${node.index ? `, ${node.index}` : ""} (${node.index})}${body(node.children, scope, consts)}{/each}`
         }
-        const groupChecked =
-          node.groupRadio !== undefined && kind?.modelsGroupRadio
-            ? node.attributes.find((item) => item.name === "checked")
-            : undefined
-        const restAt = listened.includes(node)
-          ? node.attributes.findIndex(
-              (item) => item.kind === "spread" && item.code === rest,
-            )
-          : -1
+        const modelAttributes = model.attributes(node, { rewrite })
+        const spreadAt = node.attributes.findIndex(
+          (item) => item.kind === "spread" && item.code === rest,
+        )
+        const restAt = listened.includes(node) ? spreadAt : -1
         const listeners = listened.includes(node)
           ? [
               ...handlers.map((handler) => `{${handler}}`),
@@ -241,21 +228,16 @@ export const toSvelte = (component) => {
             ]
           : []
         const attributes = [
-          ...node.attributes
-            .filter((item) => item !== groupChecked)
-            .flatMap((item) => [
-              ...(item === node.attributes[restAt] ? listeners : []),
-              attribute(node, item),
-            ]),
+          ...node.attributes.flatMap((item, index) => [
+            ...(index === spreadAt ? modelAttributes.rest : []),
+            ...(index === restAt ? listeners : []),
+            ...(modelAttributes.checked && isCheckedAttribute(item)
+              ? modelAttributes.checked
+              : [attribute(node, item)]),
+          ]),
+          ...(spreadAt === -1 ? modelAttributes.rest : []),
           ...(restAt === -1 ? listeners : []),
-          ...(node.model ? modelAttributes : []),
-          ...(node.groupRadio !== undefined
-            ? kind.radioAttributes(
-                model,
-                rewriteExpression(node.groupRadio, options),
-                groupChecked && rewriteExpression(groupChecked.code, options),
-              )
-            : []),
+          ...modelAttributes.end,
         ].join(" ")
         const tag = node.variable ? "svelte:element" : node.tag
         const open = `<${tag}${node.variable ? ` this={${node.tag}}` : ""}${attributes ? ` ${attributes}` : ""}`
@@ -299,12 +281,13 @@ export const toSvelte = (component) => {
         ? `    ${line}`
         : `    ${line},`,
   )
+  const modelScript = model.script(rewrite)
   const script = [
     ...reads.map(
       ({ context, name }) => `const ${name} = get${context.name}Context()`,
     ),
     ...(uid ? ["const uid = $props.id()"] : []),
-    ...(kind?.script?.(model) ?? []),
+    ...modelScript.before,
     ...derived.map(({ code, fn, name }) =>
       fn
         ? `const ${name} = ${rewriteExpression(code, options)}`
@@ -315,36 +298,22 @@ export const toSvelte = (component) => {
         ? `if (DEV) untrack(() => {\n${rewriteStatement(code, options)}\n})`
         : `if (DEV) untrack(() => ${rewriteExpression(code, options)})`,
     ),
-    ...(component.item
-      ? [
-          `if (DEV) untrack(() => ${groupWarning(component, component.item, `${component.item.checked ?? "undefined"} ?? defaultChecked`)})`,
-          `const isChecked = () => ${rewriteExpression(component.item.checkedCode, options)}`,
-          "const initialChecked = untrack(() => isChecked() ?? !!defaultChecked)",
-          `const change = (input: HTMLInputElement) => {\n${[
-            ...(kind?.change?.(model, component.item) ?? []),
-            component.item.value
-              ? `if (${component.item.value} !== undefined) ${component.item.parent}?.change?.(input)`
-              : `${component.item.parent}?.change?.(input)`,
-          ]
-            .map((line) => `  ${line}\n`)
-            .join("")}}`,
-        ]
-      : []),
+    ...modelScript.after,
     ...(provide
       ? [
-          `set${provide.context.name}Context({\n${[
-            ...(kind?.context?.(model) ?? []),
-            ...provide.value.map(
-              ({ code, key }) =>
+          `set${provide.context.name}Context({\n${model.context
+            .map(
+              ({ code, key, text }) =>
+                text ??
                 `get ${key}() {\nreturn ${rewriteExpression(code, options)}\n},`,
-            ),
-          ].join("\n")}\n})`,
+            )
+            .join("\n")}\n})`,
         ]
       : []),
   ]
   const used = helpersCalled(
     [...script, markup].join("\n"),
-    modelHelpers("svelte", component),
+    helpersOf(model, { untrack: "svelte" }),
   )
   const importLines = [
     ...scriptImports(component),
@@ -364,8 +333,8 @@ export const toSvelte = (component) => {
     }),
     ...[
       ...(usesDefined ? [["../attrs", "defined"]] : []),
-      ...(warnings.length || component.item ? [["../dev", "DEV"]] : []),
-      ...(component.item ? [["../dev", "warnGroupedChecked"]] : []),
+      ...(warnings.length ? [["../dev", "DEV"]] : []),
+      ...model.helpers.always,
       ...(usesClassAttrs ? [["../cx", "classAttrs"]] : []),
     ].reduce(
       (lines, [module, name]) => withImport(lines, module, name),

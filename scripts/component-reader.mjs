@@ -1113,7 +1113,7 @@ export const readComponent = async (source, file, api) => {
       : frontmatter.warnings,
     chosenRest: chosenRest.length > 0,
     ids,
-    model: modelOf(frontmatter, roots, api, file, file.split("/").at(-2)),
+    model: modelOf(frontmatter, roots, api, file, file.split("/").at(-2), item),
     multiRoot,
     restOnRoot: (rootElements ?? []).some((node) =>
       spreads(node, frontmatter.rest),
@@ -1257,7 +1257,6 @@ const itemOf = (file, frontmatter, tree, folder) => {
       ),
   )
   if (inputs.length !== 1) return undefined
-  inputs[0].item = true
   return {
     checked: frontmatter.props.find(({ prop }) => prop === "checked")?.local,
     checkedCode: inputs[0].attributes.find(
@@ -1266,6 +1265,7 @@ const itemOf = (file, frontmatter, tree, folder) => {
     defaultGrouped: groupDefaultOf(file, grouped, read.name),
     group: read.context.folder ?? folder,
     grouped: grouped.name,
+    input: inputs[0],
     parent: read.name,
     value: frontmatter.props.find(({ prop }) => prop === "value")?.local,
   }
@@ -1306,10 +1306,10 @@ const radioGroupOf = (tree, frontmatter, declared) => {
         : undefined
   })
   if (values.includes(undefined)) return undefined
-  radios.forEach((radio, index) => {
-    radio.groupRadio = values[index]
-  })
-  return { local: prop.local }
+  return {
+    local: prop.local,
+    radios: new Map(radios.map((radio, index) => [radio, values[index]])),
+  }
 }
 
 const staticAttribute = (node, name) =>
@@ -1361,7 +1361,7 @@ const matchesSelector = (entry, compounds) => {
     : !!entry.parent && matchesCompound(entry.parent, ancestors[0])
 }
 
-const modelOf = (frontmatter, tree, api, file, folder) => {
+const modelOf = (frontmatter, tree, api, file, folder, item) => {
   const declared = api?.model
   if (!declared) return undefined
   const describe = (what) => ({
@@ -1369,10 +1369,9 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
       "BC401",
       file,
       `the ${declared.prop} model of ${api.component}, ${what}`,
-      "write the behavior by hand, or extend the model kinds in scripts/build-components.mjs",
+      "write the behavior by hand, or extend the model kinds in scripts/component-models.mjs",
     ),
   })
-  const unbound = (what) => ({ ...describe(what), everywhere: true })
   const bindables = declared.frameworks?.svelte ?? [
     { prop: declared.prop, type: declared.type },
   ]
@@ -1380,28 +1379,17 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
     const shared = frontmatter.provide.value.some(
       ({ code, key }) => key === declared.prop && code === declared.prop,
     )
-    if (!shared) {
-      return {
-        ...describe("which its context doesn't share"),
-        everywhere: true,
-      }
-    }
+    if (!shared) return describe("which its context doesn't share")
     const prop = frontmatter.props.find((entry) => entry.prop === declared.prop)
     if (!prop || prop.local !== declared.prop) {
-      return {
-        ...describe("whose prop the destructuring doesn't keep by name"),
-        everywhere: true,
-      }
+      return describe("whose prop the destructuring doesn't keep by name")
     }
     const multiple = unionMembers(declared.type).some(isArrayType)
     if (
       multiple &&
       !frontmatter.props.some(({ prop }) => prop === "multiple")
     ) {
-      return {
-        ...describe("whose array value needs a multiple prop"),
-        everywhere: true,
-      }
+      return describe("whose array value needs a multiple prop")
     }
     return {
       bindables,
@@ -1415,7 +1403,7 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
     }
   }
   const part = api.parts.find((entry) => entry.model) ?? api.root
-  if (!part) return unbound("which no part in api.ts is marked as")
+  if (!part) return describe("which no part in api.ts is marked as")
   const compounds = part.selector
     .split(">")
     .map((compound) => compound.trim())
@@ -1431,6 +1419,7 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
         kind: "radioGroup",
         local: group.local,
         prop: declared.prop,
+        radios: group.radios,
         type: declared.type,
       }
     }
@@ -1442,13 +1431,12 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
         )?.model,
     )
     if (children.length !== 1) {
-      return unbound(`whose part ${part.selector} matches no element`)
+      return describe(`whose part ${part.selector} matches no element`)
     }
     const [element] = children
     if (!spreads(element, frontmatter.rest)) {
-      return unbound(`whose component doesn't spread ${frontmatter.rest}`)
+      return describe(`whose component doesn't spread ${frontmatter.rest}`)
     }
-    element.model = true
     return {
       bindables,
       element,
@@ -1458,12 +1446,12 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
     }
   }
   if (matches.length !== 1) {
-    return unbound(
+    return describe(
       `whose part ${part.selector} matches ${matches.length} elements`,
     )
   }
   const element = matches[0].node
-  if (element.item && declared.prop === "checked") {
+  if (element === item?.input && declared.prop === "checked") {
     return {
       bindables,
       element,
@@ -1486,7 +1474,6 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
         `the value model of ${api.component} on its own <${element.tag}>`,
         "a component no longer binds the value of its own control: the user writes the <input>, <select> or <textarea> in a Field. Remove the model from api.ts and the control from the component",
       ),
-      everywhere: true,
     }
   }
   const kind =
@@ -1497,15 +1484,15 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
       : declared.prop === "value" && element.tag === "input" && type === "radio"
         ? "radio"
         : undefined
-  if (!kind) return unbound("which isn't a checked or radio model of a control")
+  if (!kind)
+    return describe("which isn't a checked or radio model of a control")
   if (!spreads(element, frontmatter.rest)) {
-    return unbound(`whose element doesn't spread ${frontmatter.rest}`)
+    return describe(`whose element doesn't spread ${frontmatter.rest}`)
   }
   const prop = frontmatter.props.find((entry) => entry.prop === declared.prop)
   if (prop) {
     return describe(`whose prop ${prop.local} is read by the component`)
   }
-  element.model = true
   return {
     bindables,
     element,

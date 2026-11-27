@@ -3,7 +3,6 @@ import { slotProp } from "../src/component-api/frameworks.ts"
 import {
   componentImport,
   contextImports,
-  groupWarning,
   hydratingRoots,
   propsImport,
   rewriteExpression,
@@ -19,10 +18,11 @@ import {
   tagNamer,
 } from "./component-jsx.mjs"
 import {
+  bindingFor,
   helpersCalled,
+  helpersOf,
   importLinesOf,
-  MODEL_KINDS,
-  modelHelpers,
+  isCheckedAttribute,
   namesFrom,
 } from "./component-models.mjs"
 import { jsxAttribute } from "./example-encoders.mjs"
@@ -138,8 +138,6 @@ export const toSolid = (component) => {
     derived,
     element,
     imports,
-    item,
-    model,
     multiRoot,
     propsType,
     provide,
@@ -153,17 +151,8 @@ export const toSolid = (component) => {
     variableTags,
     warnings,
   } = component
-  if (model?.refusal) throw model.refusal
+  const model = bindingFor(component, "solid")
   const hydrating = hydratingRoots(component)
-  const kind = MODEL_KINDS[model?.kind]?.solid
-  if (model?.kind && !kind) {
-    throw unsupported(
-      "BC402",
-      component.file,
-      `the ${model.kind} model in Solid`,
-      "add a solid entry to MODEL_KINDS in scripts/component-models.mjs",
-    )
-  }
   const props = component.props.filter(
     ({ local }) => !stringSlots.some((entry) => entry.local === local),
   )
@@ -214,7 +203,7 @@ export const toSolid = (component) => {
       local,
       propAccess(slotProp(slot)),
     ]),
-    ...(kind?.rename?.(model) ?? []),
+    ...model.rename,
   ])
   const options = {
     hoisted: [],
@@ -224,15 +213,7 @@ export const toSolid = (component) => {
   }
   const rewrite = (code, scope = options) => rewriteExpression(code, scope)
   const taken = component.declared
-  const local = (kind?.locals?.(model) ?? []).find((name) => taken.has(name))
-  if (local) {
-    throw unsupported(
-      "BC301",
-      component.file,
-      `the name \`${local}\`, which the Solid port also declares for its ${model.prop} model`,
-      "rename the prop or const in the Astro file",
-    )
-  }
+  const script = model.script(rewrite)
   const narrowed = (name, code, names) => {
     const once = [...names]
       .filter(([read, count]) => count > 1 && rename.get(read)?.endsWith("()"))
@@ -288,9 +269,7 @@ export const toSolid = (component) => {
   const omitted = [
     ...[
       ...props.map(({ prop }) => prop),
-      ...(kind?.entries?.() ?? []),
-      ...(kind?.omits?.(model) ?? []),
-      ...(item ? ["defaultChecked", "onChange", "ref"] : []),
+      ...model.props.added,
       ...(hydrating.size ? ["ref"] : []),
     ]
       .filter((key, index, keys) => keys.indexOf(key) === index)
@@ -307,7 +286,7 @@ export const toSolid = (component) => {
       ({ context, name }) => `const ${name} = use${context.name}Context()`,
     ),
     ...(uid ? ["const uid = createUniqueId()"] : []),
-    ...(kind?.body?.(model, rewrite) ?? []),
+    ...script.before,
     ...defaulted.map(
       ({ default: fallback, local, prop }) =>
         `const ${local} = () =>\n  ${propAccess(prop)} === undefined ? (${fallback}) : ${propAccess(prop)}`,
@@ -339,16 +318,7 @@ export const toSolid = (component) => {
       ({ code }) =>
         `if (DEV) untrack(() => {\n${rewriteStatement(code, options).replace(SPREAD_OF_PROPS, "props")}\n})`,
     ),
-    ...(item
-      ? [
-          `if (DEV) untrack(() =>\n${groupWarning(
-            component,
-            item,
-            `${rewrite(item.checked ?? "undefined")} ?? props.defaultChecked`,
-            rewrite(item.grouped),
-          )}\n)`,
-        ]
-      : []),
+    ...script.after,
   ]
   const hoistedNames = new Set()
   const freeName = (scope, bases, used = []) => {
@@ -584,20 +554,11 @@ export const toSolid = (component) => {
       const restAt = node.attributes.findIndex(
         (entry) => entry.kind === "spread" && entry.code === rest,
       )
-      const modelAttributes = node.model
-        ? (kind?.attributes?.(model) ?? [])
-        : []
-      const checks = (entry) =>
-        entry.kind === "expression" && entry.name === "checked"
+      const modelAttributes = model.attributes(node, {
+        control: (read, initial) => controlOf(read, initial, scope),
+        rewrite: (code) => rewrite(code, scope),
+      })
       const loopTag = node.variable && scope.loopTags?.get(node.tag)
-      const checked = node.item && node.attributes.find(checks)
-      const itemControl =
-        checked &&
-        controlOf(
-          `() => ${rewrite(checked.code, scope)}`,
-          `${rewrite(item.defaultGrouped, scope)} ?? props.defaultChecked`,
-          scope,
-        )
       const guard = hydrating.has(node)
         ? [
             `{...hydrating(${hydrating.get(node) ? `${rewrite(hydrating.get(node), scope)}.includes("-")` : ""})}`,
@@ -607,30 +568,13 @@ export const toSolid = (component) => {
       return [
         ...(loopTag ? [`component={${loopTag}}`] : []),
         ...node.attributes.flatMap((entry, index) => [
-          ...(index === restAt ? [...modelAttributes, ...guard] : []),
-          ...(node.groupRadio !== undefined && checks(entry)
-            ? kind.radioAttributes(
-                model,
-                rewrite(node.groupRadio, scope),
-                controlOf(
-                  `() => ${kind.radioChecked(model, rewrite(entry.code, scope))}`,
-                  kind.radioDefault(model, rewrite(entry.code, scope)),
-                  scope,
-                ),
-              )
-            : node.item && checks(entry)
-              ? [`{...${itemControl}.server}`]
-              : [attribute(node, entry, scope)]),
+          ...(index === restAt ? [...modelAttributes.rest, ...guard] : []),
+          ...(modelAttributes.checked && isCheckedAttribute(entry)
+            ? modelAttributes.checked
+            : [attribute(node, entry, scope)]),
         ]),
-        ...(restAt === -1 ? [...modelAttributes, ...guard] : []),
-        ...(node.item
-          ? [
-              itemControl
-                ? `ref={[props.ref, ${itemControl}.ref]}`
-                : "ref={props.ref}",
-              `onChange={(event) => {\n  ${item.parent}?.change?.(event.currentTarget)\n  callHandler(props.onChange, event)\n}}`,
-            ]
-          : []),
+        ...(restAt === -1 ? [...modelAttributes.rest, ...guard] : []),
+        ...modelAttributes.end,
       ]
     },
     each,
@@ -654,11 +598,13 @@ export const toSolid = (component) => {
   const [rootNode] = tree
   const rendered = render(tree, options)
   body.push(...options.hoisted.map(({ line }) => line))
-  const providedValue =
-    kind?.provided && provide ? kind.provided(model, provide) : provide?.value
+  const providedValue = model.context
   const inlined = new Map(
-    (providedValue ?? []).flatMap(({ code }) => {
-      const source = derived.find(({ name }) => name === code.trim())
+    providedValue.flatMap(({ code }) => {
+      const source =
+        code === undefined
+          ? undefined
+          : derived.find(({ name }) => name === code.trim())
       if (!source || !accessors.has(source.name)) return []
       const line = accessorCode(source)
       const read = new RegExp(`(?<![\\w$.])${source.name}\\(`)
@@ -679,7 +625,8 @@ export const toSolid = (component) => {
   inlined.forEach(({ line }) => body.splice(body.indexOf(line), 1))
   const getters = (entries) =>
     `{ ${entries
-      .map(({ code, key }) => {
+      .map(({ code, key, text }) => {
+        if (text !== undefined) return text
         const own = inlined.get(code.trim())
         if (own) {
           return `get ${key}() { ${[...own.parts.locals, `return ${own.parts.value}`].join("\n")} }`
@@ -759,7 +706,7 @@ export const toSolid = (component) => {
   const resolvedReturn = scoped ? scoped.returned : resolveSlots(returned)
   const used = helpersCalled(
     [...resolvedBody, resolvedReturn].join("\n"),
-    modelHelpers("solid", component),
+    helpersOf(model, { untrack: "solid-js" }),
   )
   const solidValues = [
     ...(usesFor ? ["For"] : []),
@@ -771,7 +718,6 @@ export const toSolid = (component) => {
   ].toSorted(byName)
   const solidHelpers = [
     ...namesFrom(used, "../solid"),
-    ...(item ? ["callHandler"] : []),
     ...(hydrating.size ? ["hydrated", "hydrating"] : []),
   ].toSorted(byName)
   const webValues = [
@@ -799,8 +745,8 @@ export const toSolid = (component) => {
     }),
     ...importLinesOf(used, ["../solid", "solid-js"]),
     ...[
-      ...(warnings.length || item ? [["../dev", "DEV"]] : []),
-      ...(item ? [["../dev", "warnGroupedChecked"]] : []),
+      ...(warnings.length ? [["../dev", "DEV"]] : []),
+      ...model.helpers.always,
       ...(usesCx ? [["../cx", "cx"]] : []),
     ].reduce(
       (lines, [module, name]) => withImport(lines, module, name),

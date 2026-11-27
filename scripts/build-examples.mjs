@@ -13,6 +13,7 @@ import {
   nunjucksString,
   nunjucksValue,
 } from "./component-nunjucks-expression.mjs"
+import { boundComponents } from "./component-models.mjs"
 import { SOLID_PRAGMA } from "./component-shared.mjs"
 import { splitTopLevel } from "./example-display.mjs"
 import {
@@ -71,8 +72,6 @@ export const REACT_FIXED_VALUE_TYPES = [
   "reset",
   "submit",
 ]
-
-export const REACT_DEFAULT_VALUE = ["Rating", "Tabs", "ToggleGroup"]
 
 const NUMERIC_ATTRIBUTES = [
   "colspan",
@@ -862,9 +861,17 @@ const openTag = (name, attributes) =>
 
 const VUE_UNKNOWN_TAGS = new Set(["search"])
 
-export const VUE_MODEL_VALUE = ["Tabs", "ToggleGroup"]
+const startingProps = (models, framework, node) =>
+  new Map(
+    node.component
+      ? (models.get(node.name)?.[framework].props.initial ?? [])
+      : [],
+  )
 
-const markupTarget = (framework, textParts) => {
+const kebabCase = (name) =>
+  name.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)
+
+const markupTarget = (framework, textParts, models) => {
   const vue = framework === "vue"
   const isBlankText = (node) => node.type === "text" && !node.value.trim()
   const markupText = (node, index, nodes) => {
@@ -972,15 +979,24 @@ const markupTarget = (framework, textParts) => {
         }
       : node
   }
-  const vueModel = (node) =>
-    vue && node.component && VUE_MODEL_VALUE.includes(node.name)
+  const starting = (node) => {
+    const renamed = startingProps(models, framework, node)
+    return renamed.size
       ? {
           ...node,
           attributes: node.attributes.map((item) =>
-            item.name === "value" ? { ...item, name: "model-value" } : item,
+            renamed.has(item.name)
+              ? {
+                  ...item,
+                  name: vue
+                    ? kebabCase(renamed.get(item.name))
+                    : renamed.get(item.name),
+                }
+              : item,
           ),
         }
       : node
+  }
   const attributeValue = (child) =>
     child.name === "input" &&
     !child.component &&
@@ -1002,7 +1018,7 @@ const markupTarget = (framework, textParts) => {
         : child
   const element = (node, html) => {
     const attributes = markupAttributes(
-      vueModel(svelteDefaults(node)),
+      starting(svelteDefaults(node)),
       expression,
       !vue,
     )
@@ -1385,8 +1401,8 @@ const mixedSvgText = (nodes) =>
         mixedSvgText(node.children)),
   )
 
-const toSvelte = (example, textParts) => {
-  const emit = markupTarget("svelte", textParts)
+const toSvelte = (example, textParts, models) => {
+  const emit = markupTarget("svelte", textParts, models)
   const snippets = [...example.markup.values()]
     .filter((item) => item.shared)
     .map(
@@ -1403,8 +1419,8 @@ const toSvelte = (example, textParts) => {
   return `${script ? `<script lang="ts">\n${script}\n</script>\n\n` : ""}${snippets}${emit(example.tree, example.markup)}${styles}\n`
 }
 
-const toVue = (example, textParts) => {
-  const emit = markupTarget("vue", textParts)
+const toVue = (example, textParts, models) => {
+  const emit = markupTarget("vue", textParts, models)
   const script = [importLine(example, "vue"), ...declarations(example)]
     .filter(Boolean)
     .join("\n\n")
@@ -1484,7 +1500,7 @@ const stringProp = (name, value) =>
 const valueIsState = (node, context) => {
   const attribute = (name) => node.attributes.find((item) => item.name === name)
   if (attribute("readonly")) return false
-  if (node.component) return REACT_DEFAULT_VALUE.includes(node.name)
+  if (node.component) return false
   if (node.name === "textarea") return true
   if (node.name !== "input") return false
   const type = attribute("type")
@@ -1501,7 +1517,12 @@ const valueIsState = (node, context) => {
 const reactFormState = (node, table, context) => {
   const attribute = (name) => node.attributes.find((item) => item.name === name)
   const where = `<${node.name}>`
-  const state = { children: node.children, extra: [], valueIsState: false }
+  const state = {
+    children: node.children,
+    extra: [],
+    initial: startingProps(context.models, "react", node),
+    valueIsState: false,
+  }
   const selected = optionsOf(node.children).filter((option) =>
     option.attributes.some((item) => item.name === "selected"),
   )
@@ -1777,9 +1798,10 @@ const JSX_DIALECTS = {
     propName: (item, table, state) =>
       item.name === "checked" && table.has("defaultChecked")
         ? "defaultChecked"
-        : item.name === "value" && state.valueIsState
-          ? "defaultValue"
-          : resolveReactProp(table, item.name),
+        : (state.initial.get(item.name) ??
+          (item.name === "value" && state.valueIsState
+            ? "defaultValue"
+            : resolveReactProp(table, item.name))),
     propsOf: reactPropsOf,
     sharedMarkup: (code) => `(${code})`,
     sharedRead: (name) => name,
@@ -1790,6 +1812,7 @@ const JSX_DIALECTS = {
     formState: (node, _, context) => ({
       children: node.children,
       extra: [],
+      initial: startingProps(context.models, "solid", node),
       valueIsState: valueIsState(node, context),
     }),
     framework: "Solid",
@@ -1799,13 +1822,15 @@ const JSX_DIALECTS = {
     propName: (item, table, state) =>
       item.name === "checked" && table.has("defaultChecked")
         ? "defaultChecked"
-        : item.name === "value" &&
-            state.valueIsState &&
-            table.has("defaultValue")
-          ? "defaultValue"
-          : table.has(item.name) || item.name.startsWith("data-")
-            ? item.name
-            : undefined,
+        : table.has(state.initial.get(item.name))
+          ? state.initial.get(item.name)
+          : item.name === "value" &&
+              state.valueIsState &&
+              table.has("defaultValue")
+            ? "defaultValue"
+            : table.has(item.name) || item.name.startsWith("data-")
+              ? item.name
+              : undefined,
     propsOf: (tag, component) => propsOf("solid", tag, component),
     sharedMarkup: (code) => `() => (${code})`,
     sharedRead: (name) => `${name}()`,
@@ -1814,12 +1839,13 @@ const JSX_DIALECTS = {
   },
 }
 
-const toJsx = (framework, example, textParts, name, file) => {
+const toJsx = (framework, example, textParts, name, file, models) => {
   const dialect = JSX_DIALECTS[framework]
   const context = {
     dialect,
     file,
     markup: example.markup,
+    models,
     textParts,
   }
   const components = usedComponents(example)
@@ -1878,10 +1904,11 @@ const toFramework = async (framework, example, textParts, file, modules) => {
     .at(-1)
     .replace(/\.astro$/, "")
   const target = file.replace(/\.astro$/, TARGETS[framework])
+  const models = await boundComponents()
   if (framework in JSX_DIALECTS) {
     return jsxStyleIndent(
       await formatStably(
-        toJsx(framework, example, textParts, name, file),
+        toJsx(framework, example, textParts, name, file, models),
         target,
       ),
     )
@@ -1895,12 +1922,12 @@ const toFramework = async (framework, example, textParts, file, modules) => {
     )
   }
   if (framework === "svelte") {
-    return formatStably(toSvelte(example, textParts), target)
+    return formatStably(toSvelte(example, textParts, models), target)
   }
   if (framework !== "vue") {
     throw unsupported(file, `the framework ${framework}`, framework)
   }
-  return formatStably(toVue(example, textParts), target)
+  return formatStably(toVue(example, textParts, models), target)
 }
 
 export const runtimeImports = (code, file) => {

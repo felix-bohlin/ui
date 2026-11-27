@@ -117,7 +117,7 @@ export const DIAGNOSTICS = {
   BC301: {
     title: "A name a port also declares",
     explain:
-      "A prop, const or import has the name a port declares for itself: `emit` in Vue, the event or model locals in React and Solid, the added props in Svelte, or a value Solid reads once into a local. Rename the prop or const in the Astro file.",
+      "A prop, const or import has the name a port declares for itself: `emit` in Vue, the event locals in React, the names a model kind declares in any port (`declares` in scripts/component-models.mjs), the added props in Svelte, or a value Solid reads once into a local. Rename the prop or const in the Astro file.",
   },
   BC302: {
     title: "A const whose $ prefix Svelte reserves",
@@ -127,12 +127,12 @@ export const DIAGNOSTICS = {
   BC401: {
     title: "A model the compiler can't bind",
     explain:
-      "The `model` in the component's `api.ts` names a value the ports bind (`v-model`, `bind:`, a controlled prop), and the Astro file renders it in a way the model kind can't follow. Write the behavior by hand and list the files in scripts/hand-written-components.json, or extend the model kinds in scripts/component-models.mjs.",
+      "The `model` in the component's `api.ts` names a value the ports bind (`v-model`, `bind:`, a controlled prop), and the Astro file renders it in a way the model kind can't follow, so every port refuses it. Write the behavior by hand and list the files in scripts/hand-written-components.json, or extend the model kinds in scripts/component-models.mjs.",
   },
   BC402: {
-    title: "A model kind without a Solid form",
+    title: "A model kind without an entry for every framework",
     explain:
-      "The model kind has no `solid` entry in `MODEL_KINDS`. Add one in scripts/component-models.mjs.",
+      "The model kind the reader names has no function in `MODEL_KINDS`, or its function leaves out a framework, so every port refuses the component instead of one of them binding nothing. Give the kind an entry for React, Solid, Svelte and Vue in scripts/component-models.mjs, `NOTHING` where it adds nothing.",
   },
   BC403: {
     title: "A provided value that reads a slot",

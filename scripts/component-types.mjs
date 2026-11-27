@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from "node:fs"
 import { join } from "node:path"
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
-import { MODEL_KINDS } from "./component-models.mjs"
+import { bindingOf } from "./component-models.mjs"
 import {
   REACT_ATTRIBUTE_NAMES,
   propsOf,
@@ -413,6 +413,7 @@ export const toTypes = (types, components) => {
     const model = componentNamed(name)?.model
     return model?.refusal ? undefined : model
   }
+  const bindingNamed = (name) => bindingOf(componentNamed(name) ?? {})
   const source = types.astro
   const baseImport = source?.statements.find(
     (statement) =>
@@ -582,17 +583,15 @@ export const toTypes = (types, components) => {
       const strings = isProps ? stringSlotKeys(name) : []
       const tag = isProps ? componentNamed(component)?.customTag : undefined
       const known = keysOf(types, name)
-      const kind = MODEL_KINDS[model?.kind]
-      const extras =
-        framework === "svelte" && kind?.svelte?.typedBindables
-          ? model.bindables
-              .filter(
-                ({ prop }) =>
-                  !known.includes(prop) && !declaresProperty(type, prop),
-              )
-              .toSorted((a, b) => byName(a.prop, b.prop))
-          : []
-      const callbacks = !!kind?.[framework]?.entries
+      const bound = isProps ? bindingNamed(component)[framework].props : {}
+      const extras = (bound.bound ?? [])
+        .filter(
+          ({ prop }) => !known.includes(prop) && !declaresProperty(type, prop),
+        )
+        .toSorted((a, b) => byName(a.prop, b.prop))
+      const callbacks = ["defaultValue", "onValueChange"].every((prop) =>
+        bound.added?.includes(prop),
+      )
       const events = isProps ? eventsOf(types, name) : []
       const omit = [
         ...(slots && !slots.includes("default") ? ["children"] : []),
@@ -626,7 +625,7 @@ export const toTypes = (types, components) => {
         )
       }
       const tied = []
-      if (callbacks && kind[framework].tiedCallbacks) {
+      if (callbacks) {
         const visit = (node) => {
           if (ts.isTypeLiteralNode(node)) {
             const member = node.members.find(
@@ -848,13 +847,11 @@ export const toTypes = (types, components) => {
     )
   }
   const vueMembers = (alias) => {
-    const model = modelOf(componentOf(alias.name))
-    const undeclared = MODEL_KINDS[model?.kind]?.vue?.undeclared
+    const { dropped } = bindingNamed(componentOf(alias.name)).vue.props
     const modelOnly = (node) =>
-      !!undeclared &&
       ts.isTypeLiteralNode(node) &&
       node.members.length > 0 &&
-      node.members.every((member) => undeclared(model, member.name.getText()))
+      node.members.every((member) => dropped.includes(member.name.getText()))
     const kept = []
     for (const part of members(alias.node.type)) {
       if (ts.isTypeLiteralNode(part) && hasElement(part)) {
@@ -918,7 +915,7 @@ export const toTypes = (types, components) => {
   const extrasOf = ({ name, node }) => {
     const component = componentOf(name)
     const known = keysOf(types, name)
-    const modelled = modelOf(component)
+    const { dropped } = bindingNamed(component).vue.props
     const extras = (componentNamed(component)?.props ?? [])
       .map(({ prop }) => prop)
       .filter(
@@ -929,7 +926,7 @@ export const toTypes = (types, components) => {
           prop !== "as" &&
           !known.includes(prop) &&
           !declaresProperty(node.type, prop) &&
-          !MODEL_KINDS[modelled?.kind]?.vue?.undeclared?.(modelled, prop),
+          !dropped.includes(prop),
       )
       .toSorted(byName)
     const elements = elementsOf(node.type)

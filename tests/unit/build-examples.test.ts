@@ -1,4 +1,4 @@
-import { globSync, readFileSync } from "node:fs"
+import { readFileSync } from "node:fs"
 import { stripTypeScriptTypes } from "node:module"
 import { compile as compileSvelte } from "svelte/compiler"
 import { afterAll, beforeAll, describe, expect, test } from "vitest"
@@ -11,9 +11,8 @@ import {
   readExample,
   runtimeImports,
   scriptImports,
-  REACT_DEFAULT_VALUE,
-  VUE_MODEL_VALUE,
 } from "../../scripts/build-examples.mjs"
+import { boundComponents } from "../../scripts/component-models.mjs"
 import { typeDiagnostics } from "../../scripts/example-react-props.mjs"
 import { formatCode } from "../../scripts/format.mjs"
 import {
@@ -24,7 +23,6 @@ import {
   staleProblems,
   TARGETS,
 } from "../../scripts/example-targets.mjs"
-import type { ComponentApi } from "../../src/component-api/types"
 import { HYDRATED_FRAMEWORK_IDS } from "../../src/utils/framework"
 
 const EXAMPLES = "../../src/component-examples/"
@@ -34,10 +32,6 @@ const sources = import.meta.glob<string>(
   { eager: true, import: "default", query: "?raw" },
 )
 const blocks = import.meta.glob("../../src/blocks/*/*.astro")
-const apis = import.meta.glob<ComponentApi>(
-  "../../src/component-api/*/api.ts",
-  { eager: true, import: "default" },
-)
 
 const keys = Object.keys(sources)
   .filter((path) => path.endsWith(".astro"))
@@ -932,36 +926,6 @@ describe("HTML", () => {
   })
 })
 
-test("REACT_DEFAULT_VALUE lists the components that hold their value as state", () => {
-  const state = Object.values(apis)
-    .filter(
-      (api) =>
-        api.model?.prop === "value" &&
-        !api.model.frameworks?.svelte?.some((model) => model.prop === "group"),
-    )
-    .map((api) => api.component)
-    .toSorted()
-  expect(REACT_DEFAULT_VALUE).toEqual(state)
-})
-
-test("VUE_MODEL_VALUE lists the components whose Vue file holds the value in a model no element binds", () => {
-  const held = Object.values(apis)
-    .filter(
-      (api) =>
-        api.model?.prop === "value" &&
-        globSync(`packages/opui/components/*/${api.component}.vue`)
-          .map((file) => readFileSync(file, "utf8"))
-          .some(
-            (source) =>
-              /^const model = defineModel/m.test(source) &&
-              !source.includes('v-model="model"'),
-          ),
-    )
-    .map((api) => api.component)
-    .toSorted()
-  expect(VUE_MODEL_VALUE).toEqual(held)
-})
-
 test("Vue takes the value of a group as model-value, and <search> through <component>", async () => {
   const source =
     '---\nimport { ToggleButton, ToggleGroup } from "opui-css/astro"\n---\n\n<search>\n  <ToggleGroup name="range" value="7">\n    <ToggleButton label="7 days" value="7" />\n  </ToggleGroup>\n</search>\n'
@@ -973,6 +937,46 @@ test("Vue takes the value of a group as model-value, and <search> through <compo
   const svelte = outputs.get("svelte")
   expect(svelte).toContain("<search>")
   expect(svelte).toContain('<ToggleGroup name="range" value="7">')
+})
+
+test("an example asks a component's model what its starting value becomes in each framework", async () => {
+  const bound = await boundComponents()
+  expect(
+    [...bound].flatMap(([name, binding]) =>
+      HYDRATED_FRAMEWORK_IDS.flatMap((framework) =>
+        binding[framework].props.initial.map(
+          ([from, to]: [string, string]) =>
+            `${name} in ${framework}: ${from} as ${to}`,
+        ),
+      ),
+    ),
+  ).toEqual([
+    "Rating in react: value as defaultValue",
+    "Rating in solid: value as defaultValue",
+    "Tabs in react: value as defaultValue",
+    "Tabs in solid: value as defaultValue",
+    "Tabs in vue: value as modelValue",
+    "ToggleGroup in react: value as defaultValue",
+    "ToggleGroup in solid: value as defaultValue",
+    "ToggleGroup in vue: value as modelValue",
+  ])
+  const outputs = await compile(
+    '---\nimport { Rating, ToggleButton, ToggleGroup } from "opui-css/astro"\n---\n\n<Rating label="Score" value="4" />\n<ToggleGroup name="range" value="7">\n  <ToggleButton label="7 days" value="7" />\n</ToggleGroup>\n',
+    ["react", "solid", "svelte", "vue"],
+  )
+  expect(outputs.get("react")).toContain(
+    '<ToggleGroup defaultValue="7" name="range">',
+  )
+  expect(outputs.get("solid")).toContain(
+    '<ToggleGroup defaultValue="7" name="range">',
+  )
+  expect(outputs.get("svelte")).toContain(
+    '<Rating label="Score" value="4" />\n<ToggleGroup name="range" value="7">',
+  )
+  expect(outputs.get("vue")).toContain('<Rating label="Score" value="4" />')
+  expect(outputs.get("vue")).toContain(
+    '<ToggleGroup name="range" model-value="7">',
+  )
 })
 
 describe("generated examples", () => {

@@ -390,22 +390,20 @@ const { headings, html: content } = addHeadingAnchors(
       @media screen {
         @supports (background-clip: text) {
           --_from: light-dark(
-            oklch(from var(--ui-primary) 0.47 0.16 calc(h + 110)),
-            oklch(from var(--ui-primary) 0.8 0.13 calc(h + 150))
+            oklch(0.47 0.16 calc(350 - 80 * var(--_heading-scroll))),
+            oklch(0.82 0.12 calc(350 - 80 * var(--_heading-scroll)))
           );
           --_to: light-dark(
-            oklch(from var(--ui-primary) 0.47 0.16 h),
-            oklch(from var(--ui-primary) 0.8 0.13 h)
+            oklch(0.47 0.16 calc(380 - 130 * var(--_heading-scroll))),
+            oklch(0.82 0.12 calc(410 - 160 * var(--_heading-scroll)))
           );
 
           background-clip: text;
           background-image: linear-gradient(
-            to bottom in oklch decreasing hue,
+            to bottom in oklch,
             var(--_from),
             var(--_to)
           );
-          background-position: 0 0;
-          background-size: 100% 300%;
 
           &,
           & > * {
@@ -553,9 +551,15 @@ const { headings, html: content } = addHeadingAnchors(
     }
   }
 
+  @property --_heading-scroll {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 0;
+  }
+
   @keyframes main-heading-gradient {
     to {
-      background-position: 0 100%;
+      --_heading-scroll: 1;
     }
   }
 

@@ -12,6 +12,7 @@ Shows where the page sits in a hierarchy, with a link to each level above it.
 - `nav.ui-breadcrumb` (root): The navigation landmark.
 - `<ol>`: The list of levels.
 - `<li>` (`BreadcrumbItem`, prop `items`): A level, with the separator before it.
+- `<li>` (prop `menuLabel`): With `overflow="menu"`, the second item: a `Button` that opens a `Menu` of the levels between the first and the parent. Shown when there are more than three levels.
 - `<span class="ui-separator">` (slot `separator`): Replaces the drawn separator of the levels in `items`. Hidden from screen readers.
 
 ### Props and modifiers
@@ -19,7 +20,8 @@ Shows where the page sits in a hierarchy, with a link to each level above it.
 - `aria-label`: `string`, `[aria-label]`. The accessible name of the landmark. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.
 - `aria-labelledby`: `string`. The id of the element that names the landmark, instead of `aria-label`.
 - `items`: `BreadcrumbItemData[]`. The levels, as `{ current, href, label }` objects, before the default slot. The last one is the current page unless it sets `current: false`. A level without `href` renders a `span`.
-- `overflow`: `"scroll"` (`.ui-overflow-scroll`), `"shrink"` (`.ui-overflow-shrink`), `"wrap"` (default). What a trail too long for its row does: wrap onto more rows, scroll inline, or truncate every level but the first and the current one.
+- `menuLabel`: `string`. The accessible name of the button that opens the collapsed levels, in the page's language. Required with `items` and `overflow="menu"`.
+- `overflow`: `"menu"` (`.ui-overflow-menu`), `"scroll"` (`.ui-overflow-scroll`), `"shrink"` (`.ui-overflow-shrink`), `"wrap"` (default). What a trail too long for its row does: wrap onto more rows, collapse the levels between the first and the parent into a menu, scroll inline, or truncate every level but the first and the current one.
 - `size`: `"medium"` (default), `"small"` (`.ui-small`). The size of the element.
 
 ### Slots
@@ -36,11 +38,11 @@ Shows where the page sits in a hierarchy, with a link to each level above it.
 
 - `li` (root): A level.
 - `<span class="ui-separator">` (slot `separator`): Replaces the drawn separator before the level. Hidden from screen readers.
-- `<a>` (prop `current`, prop `href`, prop `label`): The level, as a link with `.ui-link`, or a `span`.
+- `<a>` (prop `current`, prop `href`, prop `label`): The level, as a link in the subtle text color that underlines on hover and focus, or a `span`.
 
 ### Props and modifiers
 
-- `current`: `boolean`, `[aria-current="page"]`. Marks the current page, in the text color and without an underline.
+- `current`: `boolean`, `[aria-current="page"]`. Marks the current page, in the strong text color at medium weight.
 - `href`: `string`. Renders the level as a link. Without it, a `span`.
 - `label`: `string`. The name of the level, before the default slot.
 
@@ -54,15 +56,23 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### breadcrumb.css
 
+- `--_current-font-weight`: Font weight of the current page. Defaults to `--ui-font-weight-emphasis`.
 - `--_current-text-color`: Color of the current page. Defaults to `--ui-text-strong`.
+- `--_ease`: Easing of the link color transition. Defaults to `--ui-ease`.
 - `--_font-size`: Font size of the trail. `--ui-font-size-body`, `--ui-font-size-caption` with `.ui-small`.
+- `--_font-weight`: Font weight of the levels above the current page. Defaults to `--ui-font-weight-body`.
 - `--_gap`: Space on each side of a separator. `--ui-space-2`, `--ui-space-1` with `.ui-small`.
+- `--_hover-text-color`: Color of a link on hover and keyboard focus, when it also gets its underline. Defaults to `--ui-text-strong`.
+- `--_motion`: Motion multiplier for the link color transition. `0` turns it off.
 - `--_separator`: The separator between two levels, as a string. Defaults to `"/"`. Screen readers skip it.
 - `--_separator-text-color`: Color of the separators, drawn or slotted. Defaults to `--ui-text-subtle`.
+- `--_text-color`: Color of the levels above the current page, and of the button of `.ui-overflow-menu`. Defaults to `--ui-text-subtle`.
+
+Outputs: `--_duration`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-focus-ring-offset`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-weight-medium`, `--ui-icon-size-small`, `--ui-space-1`, `--ui-space-2`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-duration`, `--ui-ease`, `--ui-focus-ring-offset`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-weight-body`, `--ui-font-weight-emphasis`, `--ui-icon-size-small`, `--ui-motion`, `--ui-space-1`, `--ui-space-2`, `--ui-text-strong`, `--ui-text-subtle` and `--ui-underline-offset`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -72,10 +82,10 @@ The stylesheets read `--ui-focus-ring-offset`, `--ui-focus-ring-width`, `--ui-fo
 <nav class="ui-breadcrumb" aria-label="Breadcrumb">
   <ol>
     <li>
-      <a class="ui-link" href="#">Groups</a>
+      <a href="#">Groups</a>
     </li>
     <li>
-      <a class="ui-link" href="#">Low End Society</a>
+      <a href="#">Low End Society</a>
     </li>
     <li>
       <span aria-current="page">Friday jam night</span>

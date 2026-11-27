@@ -257,6 +257,13 @@
     "url": "/html/components/breadcrumb/#overflow"
   },
   {
+    "id": "component-breadcrumb-html-overflow-menu",
+    "title": "Collapsed levels in a menu",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/html/components/breadcrumb/#overflow-menu"
+  },
+  {
     "id": "component-breadcrumb-html-items",
     "title": "Items",
     "page": "Breadcrumb",
@@ -4688,7 +4695,7 @@
     "id": "api-breadcrumb-item-html",
     "title": "Breadcrumb item API",
     "description": "Reference for Breadcrumb item HTML component.",
-    "api": "li A level. Replaces the drawn separator before the level. Hidden from screen readers. .ui-separator The level, as a link with `.ui-link`, or a `span`. a, span:not(.ui-separator) [aria-current=\"page\"] Current Marks the current page, in the text color and without an underline.",
+    "api": "li A level. Replaces the drawn separator before the level. Hidden from screen readers. .ui-separator The level, as a link in the subtle text color that underlines on hover and focus, or a `span`. a, span:not(.ui-separator) [aria-current=\"page\"] Current Marks the current page, in the strong text color at medium weight.",
     "category": "API",
     "url": "/html/api/#breadcrumb-item"
   },
@@ -4696,7 +4703,7 @@
     "id": "api-breadcrumb-html",
     "title": "Breadcrumb API",
     "description": "Reference for Breadcrumb HTML component.",
-    "api": "nav.ui-breadcrumb The navigation landmark. The list of levels. ol A level, with the separator before it. li Replaces the drawn separator of the levels in `items`. Hidden from screen readers. .ui-separator [aria-label] Label The accessible name of the landmark. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. .ui-overflow-scroll .ui-overflow-shrink Overflow What a trail too long for its row does: wrap onto more rows, scroll inline, or truncate every level but the first and the current one. .ui-small Sizes The size of the element.",
+    "api": "nav.ui-breadcrumb The navigation landmark. The list of levels. ol A level, with the separator before it. li With `overflow=\"menu\"`, the second item: a `Button` that opens a `Menu` of the levels between the first and the parent. Shown when there are more than three levels. li:has(> .ui-menu) Replaces the drawn separator of the levels in `items`. Hidden from screen readers. .ui-separator [aria-label] Label The accessible name of the landmark. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. .ui-overflow-menu .ui-overflow-scroll .ui-overflow-shrink Overflow What a trail too long for its row does: wrap onto more rows, collapse the levels between the first and the parent into a menu, scroll inline, or truncate every level but the first and the current one. .ui-small Sizes The size of the element.",
     "category": "API",
     "url": "/html/api/#breadcrumb"
   },

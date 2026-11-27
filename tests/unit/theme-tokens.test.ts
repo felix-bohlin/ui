@@ -91,7 +91,6 @@ describe("theme tokens", () => {
       "Color scheme",
       "Palette",
       "Palette shades",
-      "Named colors (no severity meaning)",
       "Intent tokens",
       "Primary",
       "Text",
@@ -443,12 +442,7 @@ describe("theme tokens", () => {
 
   test("tokens.json groups have fixed keys, not slugs of the theme.css comments", () => {
     expect(Object.keys(tokensJson())).toEqual(
-      expect.arrayContaining([
-        "field",
-        "intent",
-        "local-tokens",
-        "named-colors",
-      ]),
+      expect.arrayContaining(["field", "intent", "local-tokens"]),
     )
     expect(() => sectionKey("Field and input")).toThrow(
       'The theme.css section "Field and input" has no key',

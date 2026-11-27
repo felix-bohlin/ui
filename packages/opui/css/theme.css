@@ -446,23 +446,11 @@
     );
     /* --ui-switch-track-bg-color: light-dark(var(--ui-gray-3), var(--ui-gray-8)); */
 
-    /* Named colors (no severity meaning) - use when you literally want a green/red/etc. dot */
-    --ui-blue: light-dark(
-      oklch(min(0.53, var(--_ui-accent-max-lightness)) 0.2 240),
-      oklch(0.53 0.2 240)
-    );
-    --ui-green: light-dark(
-      oklch(min(0.53, var(--_ui-accent-max-lightness)) 0.2 145),
-      oklch(0.53 0.2 145)
-    );
-    --ui-orange: oklch(0.66 0.2 75);
-    --ui-red: light-dark(
+    /* Intent tokens */
+    --ui-critical: light-dark(
       oklch(min(0.53, var(--_ui-accent-max-lightness)) 0.2 25),
       oklch(0.53 0.2 25)
     );
-
-    /* Intent tokens */
-    --ui-critical: var(--ui-red);
     --ui-critical-text: light-dark(
       oklch(from var(--ui-critical) min(l, var(--_ui-text-max-lightness)) c h),
       oklch(
@@ -470,7 +458,10 @@
           min(c, var(--_ui-text-max-chroma)) h
       )
     );
-    --ui-info: var(--ui-blue);
+    --ui-info: light-dark(
+      oklch(min(0.53, var(--_ui-accent-max-lightness)) 0.2 240),
+      oklch(0.53 0.2 240)
+    );
     --ui-info-text: light-dark(
       oklch(from var(--ui-info) min(l, var(--_ui-text-max-lightness)) c h),
       oklch(
@@ -506,7 +497,10 @@
           min(c, var(--_ui-text-max-chroma)) h
       )
     );
-    --ui-success: var(--ui-green);
+    --ui-success: light-dark(
+      oklch(min(0.53, var(--_ui-accent-max-lightness)) 0.2 145),
+      oklch(0.53 0.2 145)
+    );
     --ui-success-text: light-dark(
       oklch(from var(--ui-success) min(l, var(--_ui-text-max-lightness)) c h),
       oklch(
@@ -514,7 +508,7 @@
           min(c, var(--_ui-text-max-chroma)) h
       )
     );
-    --ui-warning: var(--ui-orange);
+    --ui-warning: oklch(0.66 0.2 75);
     /* White on fills below 0.182 relative luminance (xyz y), near-black on lighter ones, so either side keeps 4.5:1 */
     --ui-on-warning: color(
       from var(--ui-warning) xyz-d65

@@ -3722,6 +3722,13 @@
     "url": "/nunjucks/guide/theming/#scopes"
   },
   {
+    "id": "guide-theming-nunjucks-any-color",
+    "title": "Any color",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/nunjucks/guide/theming/#any-color"
+  },
+  {
     "id": "guide-theming-nunjucks-surfaces",
     "title": "Surfaces",
     "page": "Theming",

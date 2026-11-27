@@ -3722,6 +3722,13 @@
     "url": "/svelte/guide/theming/#scopes"
   },
   {
+    "id": "guide-theming-svelte-any-color",
+    "title": "Any color",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming/#any-color"
+  },
+  {
     "id": "guide-theming-svelte-surfaces",
     "title": "Surfaces",
     "page": "Theming",

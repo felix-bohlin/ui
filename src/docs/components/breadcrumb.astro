@@ -43,8 +43,7 @@ export const keywords = ["crumbs", "navigation path", "trail"]
 >
   <Fragment slot="title">Breadcrumb</Fragment>
   <Fragment slot="preamble">
-    Where the page sits in a hierarchy, with a link to each level above it. For
-    the steps of a flow, use a
+    Where the page sits in a hierarchy. For the steps of a flow, use a
     <DocLink href="/components/stepper">Stepper</DocLink>.
   </Fragment>
 
@@ -52,20 +51,13 @@ export const keywords = ["crumbs", "navigation path", "trail"]
     <li slot="when">
       A hierarchy of three or more levels, like shop categories or folders.
     </li>
-    <li slot="when">
-      A page people reach from search, where the levels above give context.
-    </li>
+    <li slot="when">A page people reach from search.</li>
     <li slot="when-not">
       Steps of a flow: use a
       <DocLink href="/components/stepper">Stepper</DocLink>.
     </li>
     <li slot="when-not">
-      Switching between pages on one level: use
-      <DocLink href="/components/tabs">Tabs</DocLink>.
-    </li>
-    <li slot="when-not">
-      One level above the page: use a
-      <DocLink href="/components/typography#link">link</DocLink> back.
+      Pages on one level: use <DocLink href="/components/tabs">Tabs</DocLink>.
     </li>
   </Usage>
 
@@ -119,8 +111,8 @@ export const keywords = ["crumbs", "navigation path", "trail"]
   <section id="sizes">
     <h2>Sizes</h2>
     <p>
-      Use <PropOrClass prop='size="small"' class=".ui-small" /> above a heading
-      or in a toolbar.
+      Use <PropOrClass prop='size="small"' class=".ui-small" /> for tight
+      spaces.
     </p>
 
     <AutoExample name="Sizes" />
@@ -131,13 +123,11 @@ export const keywords = ["crumbs", "navigation path", "trail"]
     <Conditional as="p">
       <Fragment slot="components"
         >Set <code>--_separator</code> to another string, or put an icon in the
-        <code>separator</code> slot of <code>Breadcrumb</code>, for its
-        <code>items</code>, or of each <code>BreadcrumbItem</code>.</Fragment
+        <code>separator</code> slot.</Fragment
       >
       <Fragment slot="html"
         >Set <code>--_separator</code> to another string, or put an icon in a
-        <code>.ui-separator</code> at the start of each <code>li</code> after
-        the first.</Fragment
+        <code>.ui-separator</code> in each <code>li</code>.</Fragment
       >
     </Conditional>
 
@@ -148,12 +138,10 @@ export const keywords = ["crumbs", "navigation path", "trail"]
     <h2>Current page as a link</h2>
     <Conditional as="p">
       <Fragment slot="components"
-        >Give the current level an <code>href</code> when following it is
-        useful, like back to the top of a long page.</Fragment
+        >Give the current level an <code>href</code>.</Fragment
       >
       <Fragment slot="html"
-        >Put <code>aria-current="page"</code> on the link when following it is
-        useful, like back to the top of a long page.</Fragment
+        >Put <code>aria-current="page"</code> on a link.</Fragment
       >
     </Conditional>
 
@@ -162,34 +150,29 @@ export const keywords = ["crumbs", "navigation path", "trail"]
 
   <section id="overflow">
     <h2>Overflow</h2>
-    <p>
-      A long trail wraps. Use
-      <PropOrClass prop='overflow="scroll"' class=".ui-overflow-scroll" /> to
-      scroll it in one row,
-      <PropOrClass prop='overflow="shrink"' class=".ui-overflow-shrink" /> to
-      truncate every level but the first and the current one, or
-      <PropOrClass prop='overflow="menu"' class=".ui-overflow-menu" /> to
-      collapse the middle levels into a menu.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Wraps by default. Use <code>overflow</code> to change it.</Fragment
+      >
+      <Fragment slot="html"
+        >Wraps by default. Use <code>.ui-overflow-scroll</code>,
+        <code>.ui-overflow-shrink</code> or <code>.ui-overflow-menu</code> to
+        change it.</Fragment
+      >
+    </Conditional>
 
     <AutoExample name="Overflow" />
 
     <h3 id="overflow-menu">Collapsed levels in a menu</h3>
     <Conditional as="p">
       <Fragment slot="components"
-        >With <code>items</code>, use <code>overflow="menu"</code> to keep the
-        first level, the parent and the current page in view and collapse the
-        levels between them into a menu behind a <code>…</code> button. Name the
-        button with <code>menuLabel</code>, in the page's language. A trail of
-        three levels or fewer looks the same as without it.</Fragment
+        >Use <code>overflow="menu"</code> with <code>items</code>, and name the
+        button with <code>menuLabel</code>. It shows with more than three
+        levels.</Fragment
       >
       <Fragment slot="html"
-        >Use <code>.ui-overflow-menu</code> to keep the first level, the parent
-        and the current page in view and hide the levels between them. Put an
-        <code>li</code> second in the list with a <code>.ui-button</code> that
-        opens a <code>.ui-menu</code> of the hidden levels, and name the button
-        with <code>aria-label</code>. The item shows when there are more than
-        three levels, so a short trail looks the same as without it.</Fragment
+        >Put an <code>li</code> with a button and a <code>.ui-menu</code> second
+        in the list. It shows with more than three levels.</Fragment
       >
     </Conditional>
 
@@ -197,15 +180,10 @@ export const keywords = ["crumbs", "navigation path", "trail"]
 
     <Conditional as="p">
       <Fragment slot="components"
-        >With <code>BreadcrumbItem</code> parts, keep every level and write the
-        menu item yourself as the second child: an <code>li</code> with a
-        <code>Button</code> that opens a <code>Menu</code> of the levels between
-        the first and the parent. <code>.ui-overflow-menu</code> hides those
-        levels and shows the item when there are more than three.</Fragment
+        >With <code>BreadcrumbItem</code> parts, write the menu item as the
+        second child.</Fragment
       >
-      <Fragment slot="html"
-        >The same markup, written by hand with its own menu id.</Fragment
-      >
+      <Fragment slot="html">With its own menu id.</Fragment>
     </Conditional>
 
     <AutoExample name="OverflowMenuParts" />
@@ -218,8 +196,7 @@ export const keywords = ["crumbs", "navigation path", "trail"]
         >The markup the <code>items</code> prop renders.</Fragment
       >
       <Fragment slot="components"
-        >Pass <code>items</code> to render the trail from data. The last level
-        is the current page.</Fragment
+        >Use <code>items</code>. The last level is the current page.</Fragment
       >
     </Conditional>
 
@@ -228,24 +205,11 @@ export const keywords = ["crumbs", "navigation path", "trail"]
 
   <Fragment slot="accessibility">
     <ul>
+      <li>Name the landmark with <code>aria-label</code>.</li>
+      <li>Screen readers skip the separators.</li>
       <li>
-        Name the landmark with <code>aria-label</code>, like "Breadcrumb", in
-        the page's language.
-      </li>
-      <li>
-        Screen readers skip the separators: the drawn one has empty alternative
-        text, and a <code>.ui-separator</code> is <code>aria-hidden</code>.
-      </li>
-      <li>
-        A current page without a link is no tab stop, and
-        <code>aria-current="page"</code> names it as the current page.
-      </li>
-      <li>
-        The <code>…</code> button of
-        <PropOrClass prop='overflow="menu"' class=".ui-overflow-menu" /> has no
-        visible text, so give it a name like "More levels", with
-        <PropOrClass prop="menuLabel" class="aria-label" />. The hidden levels
-        leave the accessibility tree and are read in the menu instead.
+        Name the <code>…</code> button with
+        <PropOrClass prop="menuLabel" class="aria-label" />.
       </li>
     </ul>
     <KeyboardSupport />
@@ -253,27 +217,16 @@ export const keywords = ["crumbs", "navigation path", "trail"]
 
   <Fragment slot="under-the-hood">
     <p>
-      <code>nav.ui-breadcrumb &gt; ol</code> is a wrapping flex row, and each
+      <code>nav.ui-breadcrumb &gt; ol</code> is a wrapping flex row. Each
       <code>li</code> after the first draws <code>--_separator</code> in
-      <code>::before</code> with <code>content: var(--_separator) / ""</code>,
-      so the separator has empty alternative text. An <code>li</code> with a
-      <code>.ui-separator</code> child turns <code>::before</code> off with
-      <code>li:has(&gt; .ui-separator)</code>, and the first one hides its
+      <code>::before</code> with empty alternative text, unless it has a
       <code>.ui-separator</code>.
     </p>
     <p>
-      <code>.ui-overflow-shrink</code> keeps one row and lets every
-      <code>li</code> but the first and the one with
-      <code>[aria-current="page"]</code> shrink, with
-      <code>text-overflow: ellipsis</code> on its text.
-    </p>
-    <p>
-      <code>.ui-overflow-menu</code> finds the item that holds the menu with
-      <code>li:has(&gt; .ui-menu)</code>. When the list has one, it hides every
-      other <code>li</code> but the first and the last two with
-      <code>:nth-last-child(n + 3)</code>, and it hides the menu item itself
-      until it has three levels after it, with
-      <code>:not(:nth-last-child(n + 4))</code>.
+      <code>.ui-overflow-menu</code> finds the menu item with
+      <code>li:has(&gt; .ui-menu)</code>, hides every other <code>li</code> but
+      the first and the last two with <code>:nth-last-child(n + 3)</code>, and
+      shows the menu item only with three levels after it.
     </p>
   </Fragment>
 </Component>

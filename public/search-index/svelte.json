@@ -4695,7 +4695,7 @@
     "id": "api-breadcrumb-item-svelte",
     "title": "Breadcrumb item API",
     "description": "Reference for Breadcrumb item Svelte component.",
-    "api": "BreadcrumbItem A level. Replaces the drawn separator before the level. Hidden from screen readers. separator The level, as a link in the subtle text color that underlines on hover and focus, or a `span`. current href label current Marks the current page, in the strong text color at medium weight. href Renders the level as a link. Without it, a `span`. label The name of the level, before the default slot.",
+    "api": "BreadcrumbItem A level. Replaces the drawn separator before the level. separator The level, a link or a `span`. current href label current Marks the current page. href Renders the level as a link. Without it, a `span`. label The name of the level, before the default slot.",
     "category": "API",
     "url": "/svelte/api/#breadcrumb-item"
   },
@@ -4703,7 +4703,7 @@
     "id": "api-breadcrumb-svelte",
     "title": "Breadcrumb API",
     "description": "Reference for Breadcrumb Svelte component.",
-    "api": "Breadcrumb The navigation landmark. The list of levels. A level, with the separator before it. items With `overflow=\"menu\"`, the second item: a `Button` that opens a `Menu` of the levels between the first and the parent. Shown when there are more than three levels. menuLabel Replaces the drawn separator of the levels in `items`. Hidden from screen readers. separator aria-label The accessible name of the landmark. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. aria-labelledby The id of the element that names the landmark, instead of `aria-label`. items The levels, as `{ current, href, label }` objects, before the default slot. The last one is the current page unless it sets `current: false`. A level without `href` renders a `span`. menuLabel The accessible name of the button that opens the collapsed levels, in the page's language. Required with `items` and `overflow=\"menu\"`. overflow What a trail too long for its row does: wrap onto more rows, collapse the levels between the first and the parent into a menu, scroll inline, or truncate every level but the first and the current one. size The size of the element.",
+    "api": "Breadcrumb The navigation landmark. The list of levels. A level, with the separator before it. items With `overflow=\"menu\"`, the `…` button and its menu. menuLabel Replaces the drawn separator of the levels in `items`. separator aria-label Accessible name of the landmark. aria-labelledby The id of the element that names the landmark. items The levels, as `{ current, href, label }` objects. The last one is current unless it sets `current: false`. menuLabel Accessible name of the `…` button. Required with `items` and `overflow=\"menu\"`. overflow What a trail too long for its row does. size The size of the element.",
     "category": "API",
     "url": "/svelte/api/#breadcrumb"
   },

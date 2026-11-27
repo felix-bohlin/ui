@@ -12,16 +12,16 @@ Shows where the page sits in a hierarchy, with a link to each level above it.
 - `nav.ui-breadcrumb` (root): The navigation landmark.
 - `<ol>`: The list of levels.
 - `<li>` (`BreadcrumbItem`, prop `items`): A level, with the separator before it.
-- `<li>` (prop `menuLabel`): With `overflow="menu"`, the second item: a `Button` that opens a `Menu` of the levels between the first and the parent. Shown when there are more than three levels.
-- `<span class="ui-separator">` (slot `separator`): Replaces the drawn separator of the levels in `items`. Hidden from screen readers.
+- `<li>` (prop `menuLabel`): With `overflow="menu"`, the `…` button and its menu.
+- `<span class="ui-separator">` (slot `separator`): Replaces the drawn separator of the levels in `items`.
 
 ### Props and modifiers
 
-- `aria-label`: `string`, `[aria-label]`. The accessible name of the landmark. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.
-- `aria-labelledby`: `string`. The id of the element that names the landmark, instead of `aria-label`.
-- `items`: `BreadcrumbItemData[]`. The levels, as `{ current, href, label }` objects, before the default slot. The last one is the current page unless it sets `current: false`. A level without `href` renders a `span`.
-- `menuLabel`: `string`. The accessible name of the button that opens the collapsed levels, in the page's language. Required with `items` and `overflow="menu"`.
-- `overflow`: `"menu"` (`.ui-overflow-menu`), `"scroll"` (`.ui-overflow-scroll`), `"shrink"` (`.ui-overflow-shrink`), `"wrap"` (default). What a trail too long for its row does: wrap onto more rows, collapse the levels between the first and the parent into a menu, scroll inline, or truncate every level but the first and the current one.
+- `aria-label`: `string`, `[aria-label]`. Accessible name of the landmark.
+- `aria-labelledby`: `string`. The id of the element that names the landmark.
+- `items`: `BreadcrumbItemData[]`. The levels, as `{ current, href, label }` objects. The last one is current unless it sets `current: false`.
+- `menuLabel`: `string`. Accessible name of the `…` button. Required with `items` and `overflow="menu"`.
+- `overflow`: `"menu"` (`.ui-overflow-menu`), `"scroll"` (`.ui-overflow-scroll`), `"shrink"` (`.ui-overflow-shrink`), `"wrap"` (default). What a trail too long for its row does.
 - `size`: `"medium"` (default), `"small"` (`.ui-small`). The size of the element.
 
 ### Slots
@@ -37,12 +37,12 @@ Shows where the page sits in a hierarchy, with a link to each level above it.
 ### Parts
 
 - `li` (root): A level.
-- `<span class="ui-separator">` (slot `separator`): Replaces the drawn separator before the level. Hidden from screen readers.
-- `<a>` (prop `current`, prop `href`, prop `label`): The level, as a link in the subtle text color that underlines on hover and focus, or a `span`.
+- `<span class="ui-separator">` (slot `separator`): Replaces the drawn separator before the level.
+- `<a>` (prop `current`, prop `href`, prop `label`): The level, a link or a `span`.
 
 ### Props and modifiers
 
-- `current`: `boolean`, `[aria-current="page"]`. Marks the current page, in the strong text color at medium weight.
+- `current`: `boolean`, `[aria-current="page"]`. Marks the current page.
 - `href`: `string`. Renders the level as a link. Without it, a `span`.
 - `label`: `string`. The name of the level, before the default slot.
 

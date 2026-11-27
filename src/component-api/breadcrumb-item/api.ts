@@ -6,8 +6,7 @@ export default {
     {
       attribute: '[aria-current="page"]',
       default: "false",
-      description:
-        "Marks the current page, in the strong text color at medium weight.",
+      description: "Marks the current page.",
       group: "Current",
       prop: "current",
     },
@@ -26,15 +25,13 @@ export default {
   parts: [
     {
       code: '<span class="ui-separator">',
-      description:
-        "Replaces the drawn separator before the level. Hidden from screen readers.",
+      description: "Replaces the drawn separator before the level.",
       selector: ".ui-separator",
       slots: ["separator"],
     },
     {
       code: "<a>",
-      description:
-        "The level, as a link in the subtle text color that underlines on hover and focus, or a `span`.",
+      description: "The level, a link or a `span`.",
       props: ["current", "href", "label"],
       selector: "a, span:not(.ui-separator)",
     },

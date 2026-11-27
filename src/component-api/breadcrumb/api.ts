@@ -4,25 +4,23 @@ export default {
   component: "Breadcrumb",
   keyboard: [
     {
-      description:
-        'Moves focus to the next link. A current page without `href` is no stop. With `overflow="menu"`, the `…` button is a stop, and from it Tab moves into its open menu.',
+      description: "Moves focus to the next link or the `…` button.",
       keys: ["Tab"],
     },
     {
-      description: "Moves focus to the previous link.",
+      description: "Moves focus to the previous link or the `…` button.",
       keys: ["Shift + Tab"],
     },
     {
-      description:
-        "Follows the focused link. On the `…` button, opens or closes the menu of collapsed levels.",
+      description: "Follows the link, or opens the menu from the `…` button.",
       keys: ["Enter"],
     },
     {
-      description: "On the `…` button, works like Enter.",
+      description: "Opens the menu from the `…` button.",
       keys: ["Space"],
     },
     {
-      description: "Closes the open menu and returns focus to the `…` button.",
+      description: "Closes the menu.",
       keys: ["Esc"],
     },
   ],
@@ -32,36 +30,33 @@ export default {
   options: [
     {
       attribute: "[aria-label]",
-      description:
-        "The accessible name of the landmark. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.",
+      description: "Accessible name of the landmark.",
       group: "Label",
       inherited: true,
       prop: "aria-label",
       type: "string",
     },
     {
-      description:
-        "The id of the element that names the landmark, instead of `aria-label`.",
+      description: "The id of the element that names the landmark.",
       inherited: true,
       prop: "aria-labelledby",
       type: "string",
     },
     {
       description:
-        "The levels, as `{ current, href, label }` objects, before the default slot. The last one is the current page unless it sets `current: false`. A level without `href` renders a `span`.",
+        "The levels, as `{ current, href, label }` objects. The last one is current unless it sets `current: false`.",
       group: "Items",
       prop: "items",
     },
     {
       description:
-        'The accessible name of the button that opens the collapsed levels, in the page\'s language. Required with `items` and `overflow="menu"`.',
+        'Accessible name of the `…` button. Required with `items` and `overflow="menu"`.',
       group: "Menu label",
       prop: "menuLabel",
     },
     {
       default: '"wrap"',
-      description:
-        "What a trail too long for its row does: wrap onto more rows, collapse the levels between the first and the parent into a menu, scroll inline, or truncate every level but the first and the current one.",
+      description: "What a trail too long for its row does.",
       group: "Overflow",
       prop: "overflow",
       values: {
@@ -94,15 +89,13 @@ export default {
     },
     {
       code: "<li>",
-      description:
-        'With `overflow="menu"`, the second item: a `Button` that opens a `Menu` of the levels between the first and the parent. Shown when there are more than three levels.',
+      description: 'With `overflow="menu"`, the `…` button and its menu.',
       props: ["menuLabel"],
       selector: "li:has(> .ui-menu)",
     },
     {
       code: '<span class="ui-separator">',
-      description:
-        "Replaces the drawn separator of the levels in `items`. Hidden from screen readers.",
+      description: "Replaces the drawn separator of the levels in `items`.",
       selector: ".ui-separator",
       slots: ["separator"],
     },

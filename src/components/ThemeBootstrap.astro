@@ -4,7 +4,7 @@ import { EXAMPLE_THEMES } from "../utils/example-themes"
 import {
   FONT_TOKENS,
   LAYERS,
-  PRESETS_WITHOUT_COLOR_SHIFT,
+  PRESETS_WITHOUT_COLOR_SCROLL,
   THEME_KEY,
   THEME_SESSION_GAP,
   THEME_SESSION_KEY,
@@ -47,7 +47,7 @@ const webFonts = Object.fromEntries(
     FONT_TOKENS,
     LAYERS,
     overrides,
-    PRESETS_WITHOUT_COLOR_SHIFT,
+    PRESETS_WITHOUT_COLOR_SCROLL,
     THEME_KEY,
     THEME_SESSION_GAP,
     THEME_SESSION_KEY,
@@ -89,7 +89,7 @@ const webFonts = Object.fromEntries(
         }
       }
     }
-    return `oklch(from ${color} l c calc(h + var(--site-color-shift)))`
+    return `oklch(from ${color} l c calc(h + var(--site-color-scroll)))`
   }
 
   window.themeUtils = {
@@ -105,63 +105,63 @@ const webFonts = Object.fromEntries(
         return null
       }
     },
-    getStoredColorShift() {
+    getStoredColorScroll() {
       try {
-        return localStorage.getItem(VIEW_KEYS.colorShift)
+        return localStorage.getItem(VIEW_KEYS.colorScroll)
       } catch {
         return null
       }
     },
-    colorShiftEnabled() {
+    colorScrollEnabled() {
       if (overrides) return false
-      const stored = window.themeUtils.getStoredColorShift()
+      const stored = window.themeUtils.getStoredColorScroll()
       if (stored) return stored === "on"
       return (
         !navigator.webdriver &&
         !reducedMotion.matches &&
-        !PRESETS_WITHOUT_COLOR_SHIFT.includes(
+        !PRESETS_WITHOUT_COLOR_SCROLL.includes(
           document.documentElement.dataset.exampleTheme,
         )
       )
     },
-    applyColorShift() {
-      const shift = style("opui-color-shift")
-      shift.textContent = ""
-      if (!window.themeUtils.colorShiftEnabled()) {
-        shift.remove()
+    applyColorScroll() {
+      const colorScroll = style("opui-color-scroll")
+      colorScroll.textContent = ""
+      if (!window.themeUtils.colorScrollEnabled()) {
+        colorScroll.remove()
         return
       }
       const computed = getComputedStyle(document.documentElement)
       const source = computed.getPropertyValue("--ui-palette-source").trim()
       const primary = computed.getPropertyValue("--ui-primary-source").trim()
       if (!source || !primary) {
-        window.addEventListener("load", window.themeUtils.applyColorShift, {
+        window.addEventListener("load", window.themeUtils.applyColorScroll, {
           once: true,
         })
         return
       }
       if (/[;{}<]/.test(source + primary)) return
-      shift.textContent = `@property --site-color-shift { syntax: "<number>"; inherits: true; initial-value: 0; }
-@keyframes site-color-shift { to { --site-color-shift: 360; } }
+      colorScroll.textContent = `@property --site-color-scroll { syntax: "<number>"; inherits: true; initial-value: 0; }
+@keyframes site-color-scroll { to { --site-color-scroll: 360; } }
 @supports (animation-timeline: scroll()) {
   :root {
     --ui-palette-source: ${turned(source)};
     --ui-primary-source: ${turned(primary)};
-    animation: site-color-shift linear both;
+    animation: site-color-scroll linear both;
     animation-timeline: scroll(root block);
   }
 }`
-      if (!shift.isConnected) {
+      if (!colorScroll.isConnected) {
         const presetStyle = document.getElementById("opui-example-theme")
-        if (presetStyle) presetStyle.before(shift)
-        else document.head.append(shift)
+        if (presetStyle) presetStyle.before(colorScroll)
+        else document.head.append(colorScroll)
       }
     },
-    setColorShift(on) {
+    setColorScroll(on) {
       try {
-        localStorage.setItem(VIEW_KEYS.colorShift, on ? "on" : "off")
+        localStorage.setItem(VIEW_KEYS.colorScroll, on ? "on" : "off")
       } catch {}
-      window.themeUtils.applyColorShift()
+      window.themeUtils.applyColorScroll()
     },
     getStoredTheme() {
       try {
@@ -236,7 +236,7 @@ const webFonts = Object.fromEntries(
           }
         }
       }
-      window.themeUtils.applyColorShift()
+      window.themeUtils.applyColorScroll()
     },
     applyStoredTheme() {
       const theme = window.themeUtils.readTheme()
@@ -312,8 +312,8 @@ const webFonts = Object.fromEntries(
     })
 
   reducedMotion.addEventListener("change", () => {
-    if (!window.themeUtils.getStoredColorShift())
-      window.themeUtils.applyColorShift()
+    if (!window.themeUtils.getStoredColorScroll())
+      window.themeUtils.applyColorScroll()
   })
 
   window.addEventListener("storage", (event) => {
@@ -321,8 +321,8 @@ const webFonts = Object.fromEntries(
       window.themeUtils.applyStoredTheme()
     }
     if (event.key === null || event.key === VIEW_KEYS.mode) applyMode()
-    if (event.key === null || event.key === VIEW_KEYS.colorShift) {
-      window.themeUtils.applyColorShift()
+    if (event.key === null || event.key === VIEW_KEYS.colorScroll) {
+      window.themeUtils.applyColorScroll()
     }
     if (event.key === null || event.key === VIEW_KEYS.contrast) {
       window.themeUtils.applyContrast(

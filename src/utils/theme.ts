@@ -14,10 +14,10 @@ export const THEME_SESSION_KEY = "opui-theme-session"
 
 export const THEME_SESSION_GAP = 30 * 60 * 1000
 
-export const PRESETS_WITHOUT_COLOR_SHIFT = ["vice-city"]
+export const PRESETS_WITHOUT_COLOR_SCROLL = ["vice-city"]
 
 export const VIEW_KEYS = {
-  colorShift: "color-shift",
+  colorScroll: "color-scroll",
   contrast: "contrast",
   mode: "theme",
 } as const

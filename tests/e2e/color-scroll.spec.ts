@@ -10,10 +10,10 @@ const asVisitor = (page: Page) =>
 
 const seed = (
   page: Page,
-  stored: { colorShift?: string; preset?: string | null },
+  stored: { colorScroll?: string; preset?: string | null },
 ) =>
   page.addInitScript(
-    ({ colorShift, preset }) => {
+    ({ colorScroll, preset }) => {
       if (sessionStorage.getItem("seeded")) return
       sessionStorage.setItem("seeded", "true")
       localStorage.setItem("opui-theme-session", String(Date.now()))
@@ -21,9 +21,9 @@ const seed = (
         "opui-theme",
         JSON.stringify({ css: "", preset, tokens: {} }),
       )
-      if (colorShift) localStorage.setItem("color-shift", colorShift)
+      if (colorScroll) localStorage.setItem("color-scroll", colorScroll)
     },
-    { colorShift: stored.colorShift ?? null, preset: stored.preset ?? null },
+    { colorScroll: stored.colorScroll ?? null, preset: stored.preset ?? null },
   )
 
 const visit = async (page: Page) => {
@@ -111,13 +111,13 @@ test.describe("a visitor", () => {
     expect(middle.critical, "status colors keep their hue").toBe(top.critical)
   })
 
-  test("turns color shift off in the theme drawer and keeps the choice", async ({
+  test("turns color scroll off in the theme drawer and keeps the choice", async ({
     page,
   }) => {
     await seed(page, {})
     await visit(page)
     const drawer = await openDrawer(page)
-    const toggle = drawer.getByRole("switch", { name: "Color shift" })
+    const toggle = drawer.getByRole("switch", { name: "Color scroll" })
 
     if (!(await hasScrollTimelines(page))) {
       await expect(toggle).toHaveCount(0)
@@ -132,12 +132,12 @@ test.describe("a visitor", () => {
 
     await page.reload()
     expect(await turnAtMiddle(page)).toBe(0)
-    expect(await page.evaluate(() => localStorage.getItem("color-shift"))).toBe(
-      "off",
-    )
+    expect(
+      await page.evaluate(() => localStorage.getItem("color-scroll")),
+    ).toBe("off")
   })
 
-  test("who prefers reduced motion starts without color shift and can turn it on", async ({
+  test("who prefers reduced motion starts without color scroll and can turn it on", async ({
     page,
   }) => {
     await page.emulateMedia({ reducedMotion: "reduce" })
@@ -147,7 +147,7 @@ test.describe("a visitor", () => {
 
     await scrollTo(page, 0)
     const drawer = await openDrawer(page)
-    const toggle = drawer.getByRole("switch", { name: "Color shift" })
+    const toggle = drawer.getByRole("switch", { name: "Color scroll" })
     if (!(await hasScrollTimelines(page))) return
 
     await expect(toggle).not.toBeChecked()
@@ -156,7 +156,7 @@ test.describe("a visitor", () => {
     expect(await turnAtMiddle(page)).toBeCloseTo(180, -1)
   })
 
-  test("on the Vice City theme starts without color shift and can turn it on", async ({
+  test("on the Vice City theme starts without color scroll and can turn it on", async ({
     page,
   }) => {
     await seed(page, { preset: "vice-city" })
@@ -165,7 +165,7 @@ test.describe("a visitor", () => {
 
     await scrollTo(page, 0)
     const drawer = await openDrawer(page)
-    const toggle = drawer.getByRole("switch", { name: "Color shift" })
+    const toggle = drawer.getByRole("switch", { name: "Color scroll" })
     if (!(await hasScrollTimelines(page))) return
 
     await expect(toggle).not.toBeChecked()
@@ -174,13 +174,13 @@ test.describe("a visitor", () => {
     expect(await turnAtMiddle(page)).toBeCloseTo(180, -1)
   })
 
-  test("who starts from Vice City in the drawer sees color shift turn off", async ({
+  test("who starts from Vice City in the drawer sees color scroll turn off", async ({
     page,
   }) => {
     await seed(page, {})
     await visit(page)
     const drawer = await openDrawer(page)
-    const toggle = drawer.getByRole("switch", { name: "Color shift" })
+    const toggle = drawer.getByRole("switch", { name: "Color scroll" })
     if (!(await hasScrollTimelines(page))) return
 
     await expect(toggle).toBeChecked()
@@ -191,7 +191,7 @@ test.describe("a visitor", () => {
   })
 })
 
-test("an automated browser starts without color shift so screenshots stay put", async ({
+test("an automated browser starts without color scroll so screenshots stay put", async ({
   page,
 }) => {
   await visit(page)
@@ -201,7 +201,7 @@ test("an automated browser starts without color shift so screenshots stay put", 
 test("a stored choice wins over the automated browser default", async ({
   page,
 }) => {
-  await seed(page, { colorShift: "on" })
+  await seed(page, { colorScroll: "on" })
   await visit(page)
   expect(await turnAtMiddle(page)).toBeCloseTo(
     (await hasScrollTimelines(page)) ? 180 : 0,

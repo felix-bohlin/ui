@@ -81,7 +81,7 @@ const packageFiles = Object.fromEntries(
       [
         "../../packages/opui/components/**/*.{astro,svelte,ts,tsx,vue}",
         "../../packages/opui/css/js/*.js",
-        "../../packages/opui/elements/*.js",
+        "../../packages/opui/elements/**/*.js",
       ],
       { eager: true, import: "default", query: "?raw" },
     ),

@@ -57,6 +57,27 @@ const offline = (page: Page) =>
           : route.abort(),
   )
 
+const ELEMENTS = "/opui-elements/"
+
+const loadElement = async (page: Page, file: string) => {
+  await page.route(
+    (url) => url.hostname === "localhost" && url.pathname.startsWith(ELEMENTS),
+    (route) =>
+      route.fulfill({
+        body: readFileSync(
+          path.join(
+            import.meta.dirname,
+            "../../packages/opui/elements",
+            new URL(route.request().url()).pathname.slice(ELEMENTS.length),
+          ),
+          "utf8",
+        ),
+        contentType: "text/javascript",
+      }),
+  )
+  await page.addScriptTag({ type: "module", url: `${ELEMENTS}${file}` })
+}
+
 const knownProblems = (name: string, slug: string) =>
   KNOWN_PROBLEMS.filter((known) => known.app === name && known.slug === slug)
 
@@ -464,16 +485,7 @@ test("a sortable table clicked before the app hydrates it waits for the sort han
   const table = page.locator('[data-example="table/Sortable"]')
   const header = (name: string) => table.getByRole("columnheader", { name })
   await header("Planet").waitFor()
-  await page.addScriptTag({
-    content: readFileSync(
-      path.join(
-        import.meta.dirname,
-        "../../packages/opui/elements/sortable-table.js",
-      ),
-      "utf8",
-    ),
-    type: "module",
-  })
+  await loadElement(page, "sortable-table.js")
   await expect(table.locator("opui-sortable-table:defined")).toHaveCount(1)
   await table.getByRole("button", { name: "Moons" }).click()
   await expect(header("Moons")).not.toHaveAttribute("aria-sort")
@@ -521,13 +533,7 @@ test("a callout dismissed before the app hydrates it waits for the dismiss handl
   )
   const close = callout.getByRole("button", { name: "Dismiss" })
   await callout.waitFor()
-  await page.addScriptTag({
-    content: readFileSync(
-      path.join(import.meta.dirname, "../../packages/opui/elements/callout.js"),
-      "utf8",
-    ),
-    type: "module",
-  })
+  await loadElement(page, "callout.js")
   await expect(
     page.locator('[data-example="callout/Dismissible"] opui-callout:defined'),
   ).toHaveCount(1)

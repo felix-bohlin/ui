@@ -40,6 +40,49 @@ const ANIMATION_SHORTHAND = /(?<![\w-])animation\s*:([^;{}]+)/g
 const VAR_CALL = /var\([^()]*(?:\([^()]*\)[^()]*)*\)/g
 const TIMELINE = /\b(?:scroll|view)\(|(?:^|[\s,])--[\w-]/
 
+const SPECIFIER =
+  /(?:\bfrom\s*|\bimport\s*\(\s*|\bimport\s+)(["'])(\.{1,2}\/[^"']*)\1/g
+
+const URL_LIKE = /^(?:\.{0,2}\/|[a-z][\w+.-]*:)/i
+
+const mapped = (imports, url, base) => {
+  let prefix
+  for (const [key, value] of Object.entries(imports ?? {})) {
+    const from = URL_LIKE.test(key) ? new URL(key, base).href : key
+    if (from === url) return new URL(value, base).href
+    if (
+      from.endsWith("/") &&
+      url.startsWith(from) &&
+      from.length > (prefix?.[0].length ?? 0)
+    ) {
+      prefix = [from, value]
+    }
+  }
+  return (
+    prefix &&
+    new URL(url.slice(prefix[0].length), new URL(prefix[1], base)).href
+  )
+}
+
+const resolveImport = (map, base, specifier, referrer) => {
+  const url = URL_LIKE.test(specifier)
+    ? new URL(specifier, referrer).href
+    : specifier
+  for (const [scope, imports] of Object.entries(map.scopes ?? {}).toSorted(
+    ([a], [b]) => b.length - a.length,
+  )) {
+    const from = new URL(scope, base).href
+    if (
+      from === referrer ||
+      (from.endsWith("/") && referrer.startsWith(from))
+    ) {
+      const found = mapped(imports, url, base)
+      if (found) return found
+    }
+  }
+  return mapped(map.imports, url, base) ?? url
+}
+
 const timelineShorthands = (css) =>
   [...css.replace(/\/\*[\s\S]*?\*\//g, "").matchAll(ANIMATION_SHORTHAND)]
     .filter(([, value]) => TIMELINE.test(value.replace(VAR_CALL, "")))
@@ -61,6 +104,7 @@ export const distProblems = ({
   const pages = new Map()
   for (const file of files.filter((file) => file.endsWith(".html"))) {
     const ids = []
+    const importMaps = []
     const links = []
     const standardSite = {}
     const styles = []
@@ -72,6 +116,11 @@ export const distProblems = ({
       if (id) ids.push(id)
       if (node.tagName === "style") {
         styles.push(node.childNodes.map((child) => child.value ?? "").join(""))
+      }
+      if (node.tagName === "script" && attr(node, "type") === "importmap") {
+        importMaps.push(
+          node.childNodes.map((child) => child.value ?? "").join(""),
+        )
       }
       if (node.tagName === "a" && attr(node, "href") !== undefined) {
         links.push({ href: attr(node, "href"), inExample })
@@ -109,6 +158,7 @@ export const distProblems = ({
     visit(parse(readFileSync(file, "utf-8")))
     pages.set(urlPath(file), {
       ids: new Set(ids),
+      importMaps,
       links,
       noindex,
       redirect,
@@ -169,6 +219,53 @@ export const distProblems = ({
     for (const id of page.all) {
       if (seen.has(id)) problem(`id "${id}" is used more than once`, path)
       seen.add(id)
+    }
+  }
+
+  const importMaps = new Map()
+  for (const [path, page] of pages) {
+    for (const text of page.importMaps) {
+      if (!importMaps.has(text)) importMaps.set(text, path)
+    }
+  }
+  for (const [text, from] of importMaps) {
+    const base = new URL(from, site)
+    let map
+    try {
+      map = JSON.parse(text)
+    } catch {
+      problem("the import map isn't JSON", from)
+      continue
+    }
+    const modules = [
+      map.imports ?? {},
+      ...Object.values(map.scopes ?? {}),
+    ].flatMap((imports) =>
+      Object.values(imports)
+        .map((value) => new URL(value, base))
+        .filter((url) => url.origin === site.origin),
+    )
+    const served = new Set(modules.map((url) => url.href))
+    for (const url of served) {
+      const path = new URL(url).pathname
+      if (!isFile(path)) {
+        problem(`${path} is in the import map but does not exist`, from)
+        continue
+      }
+      const code = readFileSync(join(dist, decodeURIComponent(path)), "utf-8")
+      for (const [, , specifier] of code.matchAll(SPECIFIER)) {
+        const loaded = new URL(resolveImport(map, base, specifier, url))
+        if (
+          loaded.origin === site.origin &&
+          !served.has(loaded.href) &&
+          !isFile(loaded.pathname)
+        ) {
+          problem(
+            `${path} imports "${specifier}", which loads ${loaded.pathname}, which does not exist: src/utils/import-map.ts scopes each module it serves to map its relative imports to the files the build emits`,
+            from,
+          )
+        }
+      }
     }
   }
 

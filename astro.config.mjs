@@ -104,7 +104,7 @@ export default defineConfig({
   vite: {
     build: {
       assetsInlineLimit: (file) =>
-        /\.woff2?$|\/packages\/opui\/(css\/js|elements)\/[^/]+\.js$/.test(file)
+        /\.woff2?$|\/packages\/opui\/(css\/js|elements)\/.+\.js$/.test(file)
           ? false
           : undefined,
       dynamicImportVarsOptions: {

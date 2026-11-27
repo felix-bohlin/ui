@@ -4,9 +4,6 @@ import Usage from "./partials/Usage.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Code from "../../components/Code.astro"
 import DocLink from "../../components/DocLink.astro"
-import LayoutCSS from "@opui/css/components/layout.css?raw"
-
-import layoutApi from "../../component-api/layout/api"
 
 export const description =
   "Classes for the space between components, in columns, rows and grids."
@@ -14,18 +11,7 @@ export const description =
 export const keywords = ["columns", "container", "grid", "stack"]
 ---
 
-<Component
-  description={description}
-  slug="layout"
-  browserSupport={["container-queries", "gap-decorations"]}
-  fallbacks={{
-    "gap-decorations":
-      "Without gap decorations, a bordered layout keeps its gaps but draws no lines in them.",
-  }}
-  apis={[{ title: "Layout API", api: layoutApi }]}
-  installationTabs={[{ title: "layout.css", code: LayoutCSS, lang: "css" }]}
->
-  <Fragment slot="title">Layout</Fragment>
+<Component description={description}>
   <Fragment slot="preamble">
     Classes for the space between components. Put them on wrappers. Gaps follow
     the

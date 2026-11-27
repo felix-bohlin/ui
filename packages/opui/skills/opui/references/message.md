@@ -130,7 +130,7 @@ Outputs: `--_border-color`, `--_divider-gap`, `--_font-size`, `--_selected-bg-co
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size-x-small`, `--ui-contrast`, `--ui-control-size-small`, `--ui-duration`, `--ui-ease`, `--ui-focus-border-color`, `--ui-font-size-caption`, `--ui-font-weight-label`, `--ui-motion`, `--ui-on-primary`, `--ui-on-selected`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-selected`, `--ui-selected-strong`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4`, `--ui-space-8`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-large`, `--ui-button-size-x-small`, `--ui-contrast`, `--ui-control-size`, `--ui-control-size-large`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-duration`, `--ui-ease`, `--ui-focus-border-color`, `--ui-font-size-caption`, `--ui-font-size-large`, `--ui-font-size-small`, `--ui-font-weight-label`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-motion`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-on-selected`, `--ui-palette-on-tonal`, `--ui-palette-tonal`, `--ui-primary`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-selected`, `--ui-selected-strong`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4`, `--ui-space-8`, `--ui-state-disabled-opacity`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

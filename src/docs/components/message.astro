@@ -16,15 +16,6 @@ import {
   Reactions as UIReactions,
 } from "opui-css/astro"
 
-import AvatarCSS from "@opui/css/components/avatar.css?raw"
-import MessageCSS from "@opui/css/components/message.css?raw"
-import ReactionsCSS from "@opui/css/components/reactions.css?raw"
-import ReactionsJS from "@opui/elements/reactions.js?raw"
-
-import messageApi from "../../component-api/message/api"
-import messageListApi from "../../component-api/message-list/api"
-import reactionsApi from "../../component-api/reactions/api"
-
 const saveDom = `document.addEventListener("reaction", async (event) => {
   const reactions = event.target
   const { checked, value } = event.detail
@@ -165,34 +156,7 @@ export const keywords = ["chat", "chat bubble", "conversation"]
 
 <Component
   description={description}
-  slug="message"
   heroAnatomy
-  apis={[
-    { title: "Message list API", api: messageListApi },
-    { title: "Message API", api: messageApi },
-    { title: "Reactions API", api: reactionsApi },
-  ]}
-  browserSupport={[
-    "color-mix",
-    "container-queries",
-    "container-style-queries",
-    "corner-shape",
-    "dir-pseudo",
-    "has",
-    "invoker-commands",
-    "lh",
-    "popover",
-  ]}
-  fallbacks={{
-    "corner-shape":
-      "Without `corner-shape`, the bubbles keep plain rounded corners.",
-  }}
-  installationTabs={[
-    { title: "message.css", code: MessageCSS, lang: "css" },
-    { title: "reactions.css", code: ReactionsCSS, lang: "css" },
-    { title: "reactions.js", code: ReactionsJS, lang: "js" },
-    { title: "avatar.css", code: AvatarCSS, lang: "css", isDependency: true },
-  ]}
   seeAlsoLinks={[
     { name: "Avatar", href: "/components/avatar" },
     { name: "Card", href: "/components/card" },
@@ -200,7 +164,6 @@ export const keywords = ["chat", "chat bubble", "conversation"]
     { name: "Toggle", href: "/components/toggle" },
   ]}
 >
-  <Fragment slot="title">Message</Fragment>
   <Fragment slot="preamble">
     Chat bubbles for a conversation. For a note from the app, use a
     <DocLink href="/components/callout">Callout</DocLink>.

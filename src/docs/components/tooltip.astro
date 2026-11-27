@@ -13,10 +13,6 @@ import {
   TooltipContent as UITooltipContent,
 } from "opui-css/astro"
 
-import AnchorCSS from "@opui/css/components/anchor.css?raw"
-import TooltipCSS from "@opui/css/components/tooltip.css?raw"
-
-import tooltipApi from "../../component-api/tooltip/api"
 import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
 
 export const description =
@@ -25,45 +21,7 @@ export const description =
 export const keywords = ["hint", "hover", "title", "toggletip"]
 ---
 
-<Component
-  description={description}
-  slug="tooltip"
-  heroAnatomy
-  apis={[{ title: "Tooltip API", api: tooltipApi }]}
-  browserSupport={[
-    "anchor-positioning",
-    "calc-size",
-    "container-style-queries",
-    "display-animation",
-    "interest-invokers",
-    "invoker-commands",
-    "overlay",
-    "popover",
-    "popover-hint",
-    "starting-style",
-    "text-wrap-pretty",
-    "transition-behavior",
-  ]}
-  fallbacks={{
-    "calc-size":
-      "Without `calc-size()`, a long tooltip near the edge of the window can wrap into a narrow column.",
-    "display-animation":
-      "Without display animation, the tooltip disappears at once instead of fading out.",
-    "interest-invokers":
-      "Without interest invokers, the compat layer shows the tooltip while its trigger is hovered or has keyboard focus, and Esc doesn't hide it. Content later on the page can cover it.",
-    overlay:
-      "Without `overlay`, the page can cover a tooltip while it fades out.",
-    "popover-hint":
-      'Without `popover="hint"`, a toggletip is a manual popover, so Esc and a click outside leave it open.',
-    "text-wrap-pretty":
-      "Without `text-wrap: pretty`, the last line of a tooltip can hold a single word.",
-  }}
-  installationTabs={[
-    { title: "tooltip.css", code: TooltipCSS, lang: "css" },
-    { title: "anchor.css", code: AnchorCSS, lang: "css", isDependency: true },
-  ]}
->
-  <Fragment slot="title">Tooltip</Fragment>
+<Component description={description} heroAnatomy>
   <Fragment slot="preamble">
     <p>
       A short hint on hover and focus, like the name of an icon button. For

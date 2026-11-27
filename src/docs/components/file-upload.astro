@@ -8,58 +8,13 @@ import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 
-import ButtonCSS from "@opui/css/components/button.css?raw"
-import FileUploadCSS from "@opui/css/components/file-upload.css?raw"
-import ListCSS from "@opui/css/components/list.css?raw"
-import ProgressCSS from "@opui/css/components/progress.css?raw"
-import FileUploadJS from "@opui/elements/file-upload.js?raw"
-
-import fileUploadApi from "../../component-api/file-upload/api"
-
 export const description =
   "A drop zone around a file input that lists the files your app is uploading, with a preview, progress, a message and a remove button for each."
 
 export const keywords = ["attachment", "drop zone", "dropzone", "photos"]
 ---
 
-<Component
-  description={description}
-  slug="file-upload"
-  browserSupport={[
-    "anchor-positioning",
-    "attr",
-    "color-mix",
-    "container-queries",
-    "container-style-queries",
-    "dir-pseudo",
-    "has",
-    "invoker-commands",
-    "lh",
-    "light-dark",
-    "logical-properties",
-    "overflow-clip",
-    "popover",
-    "relative-color",
-    "state",
-  ]}
-  fallbacks={{
-    attr: "Without typed `attr()` nothing changes: only a round `Progress` reads it, and a file's progress is a bar.",
-  }}
-  apis={[{ title: "File upload API", api: fileUploadApi }]}
-  installationTabs={[
-    { title: "file-upload.css", code: FileUploadCSS, lang: "css" },
-    { title: "file-upload.js", code: FileUploadJS, lang: "js" },
-    { title: "button.css", code: ButtonCSS, lang: "css", isDependency: true },
-    { title: "list.css", code: ListCSS, lang: "css", isDependency: true },
-    {
-      title: "progress.css",
-      code: ProgressCSS,
-      lang: "css",
-      isDependency: true,
-    },
-  ]}
->
-  <Fragment slot="title">File upload</Fragment>
+<Component description={description}>
   <Fragment slot="preamble">
     A drop zone that lists the files your app uploads. For one file that posts
     with a form, use the

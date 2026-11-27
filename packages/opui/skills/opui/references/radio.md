@@ -2,7 +2,7 @@
 
 Radio buttons for picking one option from a few, with sizes, cards and an invalid state.
 
-- CSS: `opui-css/css/components/radio.css`, `opui-css/css/components/choice.css`, `opui-css/css/components/form.css` and `opui-css/css/components/card.css`.
+- CSS: `opui-css/css/components/radio.css`, `opui-css/css/components/choice.css`, `opui-css/css/components/card.css` and `opui-css/css/components/form.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/radio.md), [Astro](https://opui.dev/astro/components/radio.md), [Nunjucks](https://opui.dev/nunjucks/components/radio.md), [React](https://opui.dev/react/components/radio.md), [Solid](https://opui.dev/solid/components/radio.md), [Svelte](https://opui.dev/svelte/components/radio.md), [Vue](https://opui.dev/vue/components/radio.md).
 - The docs page also documents `FieldGroup`, see `form.md`.
 
@@ -80,10 +80,6 @@ Outputs: `--_border-color` and `--_dot-radius`.
 
 Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration`, `--_mark-bg-color`, `--_rest-border-width`, `--_ripple-scale` and `--_shadow`.
 
-### form.css
-
-- `--_field-min-inline-size`: Width a field in a horizontal `.ui-field-group` wraps at. Fields grow from it to share the row.
-
 ### card.css
 
 - `--_actions-padding-inline`: Inline padding of `.ui-actions`. Defaults to `--_padding`. The actions pass it on as `--ui-card-padding`, so a text button at either end keeps its focus ring inside the card.
@@ -104,6 +100,10 @@ Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration`, `--
 - `--_tonal-bg-color`: Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.
 
 Outputs: `--_bg-color`, `--_bg-image`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration`, `--_orientation` and `--_shadow`.
+
+### form.css
+
+- `--_field-min-inline-size`: Width a field in a horizontal `.ui-field-group` wraps at. Fields grow from it to share the row.
 
 ## Theme tokens
 

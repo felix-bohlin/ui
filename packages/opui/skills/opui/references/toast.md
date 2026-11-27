@@ -2,7 +2,7 @@
 
 Short messages that confirm an action and dismiss themselves.
 
-- CSS: `opui-css/css/components/toaster.css`, `opui-css/css/components/callout.css` and `opui-css/css/components/button.css`.
+- CSS: `opui-css/css/components/toaster.css`, `opui-css/css/components/button.css` and `opui-css/css/components/callout.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/toast.md), [Astro](https://opui.dev/astro/components/toast.md), [Nunjucks](https://opui.dev/nunjucks/components/toast.md), [React](https://opui.dev/react/components/toast.md), [Solid](https://opui.dev/solid/components/toast.md), [Svelte](https://opui.dev/svelte/components/toast.md), [Vue](https://opui.dev/vue/components/toast.md).
 
 ## Toaster
@@ -59,27 +59,6 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 Outputs: `--_duration` and `--_shadow`.
 
-### callout.css
-
-- `--_content-gap`: Space between the children of `.ui-content`.
-- `--_font-size`: Font size of `.ui-content`.
-- `--_gap`: Gap between a direct child `svg` and `.ui-content`.
-- `--_icon-size`: Width of the icon column when there's a direct child `svg`.
-- `--_link-ease`: Easing of the link color transition. Defaults to `--ui-ease`.
-- `--_link-hover-text-color`: Link color on hover and focus. Defaults to `--ui-primary-text`, not used in `.ui-outlined`.
-- `--_motion`: Motion multiplier for the link color transition. `0` turns it off.
-- `--_outlined-bg-color`: Background of `.ui-outlined`. Defaults to `--ui-surface`.
-- `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`, set by the severity classes.
-- `--_outlined-icon-text-color`: Icon color of `.ui-outlined`. Set by the severity classes.
-- `--_outlined-text-color`: Text color of `.ui-outlined`. Set by the severity classes.
-- `--_padding`: The padding.
-- `--_radius`: The corner radius. Defaults to `--ui-radius`.
-- `--_shadow`: The shadow. Defaults to `--ui-shadow-surface`.
-- `--_surface-bg-color`: The opaque background under the tint. Defaults to `--ui-surface`.
-- `--_title-font-size`: Font size of headings in `.ui-content`.
-
-Outputs: `--_bg-color`, `--_border-color`, `--_icon-image`, `--_icon-text-color`, `--_link-duration` and `--_text-color`.
-
 ### button.css
 
 - `--_accent`: The accent color. Fills, borders, text, hover and active states are derived from it. Defaults to `--ui-button-accent` when a theme sets it. `.ui-primary` and `.ui-critical` set it.
@@ -102,6 +81,27 @@ Outputs: `--_bg-color`, `--_border-color`, `--_icon-image`, `--_icon-text-color`
 - `--_start-start-radius`: The radius of the start-start corner. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the button joins the control before it.
 
 Outputs: `--_accent-text`, `--_actions-shift`, `--_bg-color`, `--_border-color`, `--_duration`, `--_filled-active-bg-color`, `--_filled-hover-bg-color`, `--_outlined-active-bg-color`, `--_outlined-active-border-color`, `--_outlined-active-text-color`, `--_outlined-hover-bg-color`, `--_outlined-hover-border-color`, `--_outlined-hover-text-color`, `--_selected-bg-color`, `--_selected-text-color`, `--_shadow`, `--_text-color`, `--_tonal-active-bg-color`, `--_tonal-active-text-color`, `--_tonal-hover-bg-color`, `--_tonal-hover-text-color`, `--_tonal-selected-bg-color`, `--_transparent-active-bg-color` and `--_transparent-hover-bg-color`.
+
+### callout.css
+
+- `--_content-gap`: Space between the children of `.ui-content`.
+- `--_font-size`: Font size of `.ui-content`.
+- `--_gap`: Gap between a direct child `svg` and `.ui-content`.
+- `--_icon-size`: Width of the icon column when there's a direct child `svg`.
+- `--_link-ease`: Easing of the link color transition. Defaults to `--ui-ease`.
+- `--_link-hover-text-color`: Link color on hover and focus. Defaults to `--ui-primary-text`, not used in `.ui-outlined`.
+- `--_motion`: Motion multiplier for the link color transition. `0` turns it off.
+- `--_outlined-bg-color`: Background of `.ui-outlined`. Defaults to `--ui-surface`.
+- `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`, set by the severity classes.
+- `--_outlined-icon-text-color`: Icon color of `.ui-outlined`. Set by the severity classes.
+- `--_outlined-text-color`: Text color of `.ui-outlined`. Set by the severity classes.
+- `--_padding`: The padding.
+- `--_radius`: The corner radius. Defaults to `--ui-radius`.
+- `--_shadow`: The shadow. Defaults to `--ui-shadow-surface`.
+- `--_surface-bg-color`: The opaque background under the tint. Defaults to `--ui-surface`.
+- `--_title-font-size`: Font size of headings in `.ui-content`.
+
+Outputs: `--_bg-color`, `--_border-color`, `--_icon-image`, `--_icon-text-color`, `--_link-duration` and `--_text-color`.
 
 ## Theme tokens
 

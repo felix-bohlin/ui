@@ -8,14 +8,6 @@ import Anatomy from "../../components/Anatomy.astro"
 import { Radio as UIRadio } from "opui-css/astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
-import RadioCSS from "@opui/css/components/radio.css?raw"
-import ChoiceCSS from "@opui/css/components/choice.css?raw"
-import CardCSS from "@opui/css/components/card.css?raw"
-import FormCSS from "@opui/css/components/form.css?raw"
-
-import fieldGroupApi from "../../component-api/field-group/api"
-import radioApi from "../../component-api/radio/api"
-import radioInputApi from "../../component-api/radio-input/api"
 
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
@@ -28,22 +20,7 @@ export const description =
 
 <Component
   description={description}
-  slug="radio"
-  browserSupport={[
-    "container-style-queries",
-    "has",
-    "lh",
-    "light-dark",
-    "relative-color",
-    "round-mod-rem",
-    "user-pseudos",
-  ]}
   heroAnatomy
-  apis={[
-    { title: "Radio API", api: radioApi },
-    { title: "Radio input API", api: radioInputApi },
-    { title: "Field group API", api: fieldGroupApi },
-  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/FieldGroup/FieldGroup.astro",
@@ -51,14 +28,7 @@ export const description =
     },
     { path: "src/component-api/field-group", type: "api" },
   ]}
-  installationTabs={[
-    { title: "radio.css", code: RadioCSS, lang: "css" },
-    { title: "choice.css", code: ChoiceCSS, lang: "css" },
-    { title: "form.css", code: FormCSS, lang: "css", isDependency: true },
-    { title: "card.css", code: CardCSS, lang: "css", isDependency: true },
-  ]}
 >
-  <Fragment slot="title">Radio</Fragment>
   <Fragment slot="preamble">
     One choice out of a few in a form, like a shipping speed. For a view or mode
     in a toolbar, use a

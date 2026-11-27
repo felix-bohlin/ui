@@ -14,15 +14,13 @@ import {
   type FrameworkId,
 } from "../utils/framework"
 
-export type FrameworkApis = Partial<
-  Record<FrameworkId, AstroInstance["default"]>
->
+type FrameworkApis = Partial<Record<FrameworkId, AstroInstance["default"]>>
 
 type ApiEntry =
   | FrameworkApis
   | { api: ComponentApi; id?: string; title?: string }
 
-export type Apis = ApiEntry | ApiEntry[]
+type Apis = ApiEntry | ApiEntry[]
 
 type Props = {
   apis?: Apis

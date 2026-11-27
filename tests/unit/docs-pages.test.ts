@@ -1,8 +1,8 @@
 import { readdirSync, readFileSync } from "node:fs"
 import { parse } from "@astrojs/compiler"
 import type { Node } from "@astrojs/compiler/types"
-import ts from "typescript"
 import { expect, test } from "vitest"
+import { catalog } from "../../src/component-api/catalog.glob"
 import { FRAMEWORK_IDS } from "../../src/utils/framework"
 
 const BLOCK = new Set([
@@ -62,13 +62,10 @@ const FRAMEWORK_SLOTS = new Set<string>(["components", ...FRAMEWORK_IDS])
 const WRAPPED_SLOTS = new Set([
   "accessibility",
   "anatomy",
+  "installation",
   "under-the-hood",
   "usage",
 ])
-
-const PAGES = readdirSync("src/docs/components")
-  .filter((file) => file.endsWith(".astro"))
-  .map((file) => file.replace(/\.astro$/, ""))
 
 const files = readdirSync("src/docs", { recursive: true })
   .map(String)
@@ -225,9 +222,7 @@ rules.sections = (node, ancestors, file) => {
         (!!parent &&
           "name" in parent &&
           parent.name === "Component" &&
-          (WRAPPED_SLOTS.has(slot) ||
-            (slot === "installation" &&
-              !!attribute(parent, "installationTabs"))))
+          WRAPPED_SLOTS.has(slot))
       )
     }).length
   const [first] = content(node)
@@ -311,58 +306,6 @@ test("the anatomy slot holds only an Astro <Anatomy>", () => {
   ).toEqual([])
 })
 
-const installationTabs = (value: string) =>
-  ts
-    .createSourceFile("tabs.ts", `(${value})`, ts.ScriptTarget.Latest)
-    .statements.flatMap((statement) => {
-      const found: ts.ObjectLiteralExpression[] = []
-      const visit = (node: ts.Node) => {
-        if (ts.isObjectLiteralExpression(node)) found.push(node)
-        else ts.forEachChild(node, visit)
-      }
-      visit(statement)
-      return found
-    })
-    .map((tab) => {
-      const value = (key: string) =>
-        tab.properties.find(
-          (property): property is ts.PropertyAssignment =>
-            ts.isPropertyAssignment(property) &&
-            ts.isIdentifier(property.name) &&
-            property.name.text === key,
-        )?.initializer
-      const title = value("title")
-      return {
-        dependency: value("isDependency")?.kind === ts.SyntaxKind.TrueKeyword,
-        title: title && ts.isStringLiteral(title) ? title.text : undefined,
-      }
-    })
-
-rules.installationTabs = (node, _, file) => {
-  if (!("name" in node) || node.name !== "Component") return
-  const page = file.match(/^src\/docs\/components\/([\w-]+)\.astro$/)?.[1]
-  const tabs = attribute(node, "installationTabs")
-  if (!page || tabs?.kind !== "expression") return
-  const slug = quoted(node, "slug") ?? page
-  const problems = installationTabs(tabs.value).flatMap(
-    ({ dependency, title }) => {
-      const target = title?.replace(/\.css$/, "")
-      const own = !!target && target !== slug && PAGES.includes(target)
-      if (own && !dependency) return [`${title} without isDependency`]
-      if (!own && dependency) return [`${title} with isDependency`]
-      return []
-    },
-  )
-  return problems.length ? problems.join(", ") : undefined
-}
-
-test("installationTabs mark the CSS that has its own page with isDependency", () => {
-  expect(
-    find(rules.installationTabs),
-    "set isDependency on a CSS file that has its own page, so Installation links it under Dependencies and that page lists this one under Used by, and only there",
-  ).toEqual([])
-})
-
 rules.callouts = (node, ancestors) =>
   "name" in node &&
   node.name === "UICallout" &&
@@ -423,11 +366,6 @@ const SAMPLES = [
     '<DocLink href="/components/button/">Button</DocLink>',
   ],
   [
-    "installationTabs",
-    '<Component installationTabs={[{ title: "button.css", code: "" }]}></Component>',
-    '<Component installationTabs={[{ title: "button.css", code: "", isDependency: true }]}></Component>',
-  ],
-  [
     "sections",
     '<Component><section><h2 id="sizes">Sizes</h2></section></Component>',
     '<Component><section id="sizes"><h2>Sizes</h2></section></Component>',
@@ -443,4 +381,42 @@ test("every rule has a sample", () => {
   expect(Object.keys(rules).toSorted()).toEqual(
     SAMPLES.map(([rule]) => rule).toSorted(),
   )
+})
+
+const autoExamples = (ast: Node) => {
+  const names: string[] = []
+  const walk = (node: Node) => {
+    const name =
+      "name" in node && node.name === "AutoExample"
+        ? quoted(node, "name")
+        : undefined
+    if (name) names.push(name)
+    if ("children" in node) node.children.forEach(walk)
+  }
+  walk(ast)
+  return names
+}
+
+const unshownExamples = (ast: Node, listed: string[]) =>
+  listed.filter((name) => !autoExamples(ast).includes(name))
+
+test("the agent skill shows examples the page shows", async () => {
+  const { ast } = await parse(
+    '<Component><section id="basics"><h2>Basics</h2><AutoExample name="Basics" /></section></Component>',
+  )
+  expect(unshownExamples(ast, ["Basics", "Ids"])).toEqual(["Ids"])
+  expect(
+    pages
+      .filter(({ file }) => onComponentPage(file))
+      .flatMap(({ ast, file }) => {
+        const slug = file
+          .split("/")
+          .at(-1)!
+          .replace(/\.astro$/, "")
+        return unshownExamples(ast, catalog.examplesOf(slug)).map(
+          (name) => `${slug}: ${name}`,
+        )
+      }),
+    "list in examples in src/component-api/pages.ts only examples the page shows in an <AutoExample>",
+  ).toEqual([])
 })

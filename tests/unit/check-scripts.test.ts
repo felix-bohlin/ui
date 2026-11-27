@@ -12,14 +12,10 @@ import stylelint from "stylelint"
 import { describe, expect, onTestFinished, test } from "vitest"
 import { featureIds, patterns } from "../../packages/opui/scripts/features.mjs"
 import {
+  exceptionProblems,
   fallbackProblems,
-  fallbacksOf,
-  htmlFeatureIds,
   lackingIds,
-  pageProblems,
   unusedSharedFeatures,
-  usedFeatureIds,
-  withBrowserSupport,
 } from "../../scripts/check-browser-support.mjs"
 import { findProblems } from "../../scripts/check-characters.mjs"
 import { problems } from "../../scripts/check-commits.mjs"
@@ -77,6 +73,10 @@ import { localBaselines } from "../../scripts/check-screenshot-authors.mjs"
 import { releasedApi } from "../../scripts/released-api.mjs"
 import { sortSource } from "../../scripts/sort-css.mjs"
 import logicalShorthands from "../../scripts/stylelint-logical-shorthands.mjs"
+import {
+  htmlFeatureIds,
+  usedFeatureIds,
+} from "../../src/component-api/browser-features.mjs"
 import { SHARED_FEATURES } from "../../src/utils/browser-support"
 
 const EM_DASH = String.fromCodePoint(0x2014)
@@ -264,52 +264,21 @@ describe("check-browser-support", () => {
     ).toEqual([])
   })
 
-  test("reports missing, unused and undetected ids, widely available ones and the ones a page gets from the core sheets included", () => {
+  test("reports a core id the page already uses and an ignored id it doesn't use", () => {
     expect(
-      pageProblems({
-        available: new Set(["light-dark", "scrollbar-gutter"]),
-        ids: ["light-dark", "popover", "scroll-snap", "zoom"],
-        used: new Set(["has", "scroll-snap", "starting-style"]),
+      exceptionProblems({
+        core: ["overflow-clip", "scrollbar-gutter"],
+        detected: ["has", "overflow-clip", "popover"],
+        ignore: ["marker", "popover"],
       }),
-    ).toEqual({
-      missing: ["has", "scrollbar-gutter", "starting-style"],
-      undetected: ["zoom"],
-      unused: ["popover"],
-    })
+    ).toEqual({ core: ["overflow-clip"], ignore: ["marker"] })
     expect(
-      pageProblems({
-        available: new Set(),
-        ids: ["popover"],
-        ignored: ["starting-style"],
-        used: new Set(["has", "popover", "starting-style"]),
+      exceptionProblems({
+        core: ["scrollbar-gutter"],
+        detected: ["has", "popover"],
+        ignore: ["popover"],
       }),
-    ).toEqual({ missing: ["has"], undetected: [], unused: [] })
-  })
-
-  test("reads a page's fallbacks, with quoted and bare ids", async () => {
-    expect(
-      await fallbacksOf(`---
-import Component from "../../layouts/Component.astro"
----
-
-<Component
-  slug="a"
-  browserSupport={["overlay", "popover-hint"]}
-  fallbacks={{
-    overlay: "Without \`overlay\`, the page can cover it {at once}.",
-    "popover-hint": 'Without \`popover="hint"\`, it stays open.',
-  }}
->
-  <p>Text</p>
-</Component>
-`),
-    ).toEqual({
-      overlay: "Without `overlay`, the page can cover it {at once}.",
-      "popover-hint": 'Without `popover="hint"`, it stays open.',
-    })
-    expect(
-      await fallbacksOf('<Component slug="a" browserSupport={["has"]} />'),
-    ).toEqual({})
+    ).toEqual({ core: [], ignore: [] })
   })
 
   test("asks for a fallback sentence for each id some browser lacks, and for no other", () => {
@@ -326,18 +295,6 @@ import Component from "../../layouts/Component.astro"
         lacking: ["overlay"],
       }),
     ).toEqual({ missing: [], unneeded: [] })
-  })
-
-  test("--write replaces a page's list, or adds one after its slug", () => {
-    expect(
-      withBrowserSupport(
-        '<Component\n  slug="a"\n  browserSupport={[\n    "has",\n  ]}\n>',
-        ["has", "scope"],
-      ),
-    ).toBe('<Component\n  slug="a"\n  browserSupport={["has", "scope"]}\n>')
-    expect(withBrowserSupport('<Component\n  slug="a"\n>', ["has"])).toBe(
-      '<Component\n  slug="a"\n  browserSupport={["has"]}\n>',
-    )
   })
 })
 

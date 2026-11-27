@@ -15,15 +15,10 @@ import {
 
 import AutoExample from "../../components/AutoExample.astro"
 
-import AccordionCSS from "@opui/css/components/accordion.css?raw"
-import CardCSS from "@opui/css/components/card.css?raw"
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 import AccordionBuild from "../../components/UnderTheHood/AccordionBuild.astro"
 
-import accordionApi from "../../component-api/accordion/api"
-import accordionActionsApi from "../../component-api/accordion-actions/api"
-import accordionSummaryApi from "../../component-api/accordion-summary/api"
 export const description =
   "A summary that opens to show more content, on its own or in a group."
 
@@ -36,43 +31,7 @@ export const keywords = [
 ]
 ---
 
-<Component
-  description={description}
-  slug="accordion"
-  heroAnatomy
-  apis={[
-    { title: "Accordion API", api: accordionApi },
-    { title: "Accordion summary API", api: accordionSummaryApi },
-    { title: "Accordion actions API", api: accordionActionsApi },
-  ]}
-  browserSupport={[
-    "details-content",
-    "details-name",
-    "dir-pseudo",
-    "display-animation",
-    "has",
-    "interpolate-size",
-    "logical-properties",
-    "overflow-clip",
-    "transition-behavior",
-  ]}
-  fallbacks={{
-    "display-animation":
-      "Without display animation, the content hides at once when the accordion closes.",
-    "interpolate-size":
-      "Without `interpolate-size`, the content doesn't slide: it fades in at full height and hides at once.",
-  }}
-  installationTabs={[
-    { title: "accordion.css", code: AccordionCSS, lang: "css" },
-    {
-      title: "card.css",
-      code: CardCSS,
-      lang: "css",
-      isDependency: true,
-    },
-  ]}
->
-  <Fragment slot="title">Accordion</Fragment>
+<Component description={description} heroAnatomy>
   <Fragment slot="preamble">
     Content most readers skip, like FAQ answers, behind a summary they open. For
     views of the same content, use

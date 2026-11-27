@@ -24,44 +24,13 @@ import {
   TabsPanel as UITabsPanel,
 } from "opui-css/astro"
 
-import TabsCSS from "@opui/css/components/tabs.css?raw"
-
-import tabsItemApi from "../../component-api/tabs-item/api"
-import tabsLabelApi from "../../component-api/tabs-label/api"
-import tabsPanelApi from "../../component-api/tabs-panel/api"
-import tabsApi from "../../component-api/tabs/api"
-
 export const description =
   "Tabs that switch between panels of related content, built on radio inputs."
 
 export const keywords = ["tab panel", "tablist"]
 ---
 
-<Component
-  description={description}
-  slug="tabs"
-  heroAnatomy
-  apis={[
-    { title: "Tabs API", api: tabsApi },
-    { title: "Tabs item API", api: tabsItemApi },
-    { title: "Tabs label API", api: tabsLabelApi },
-    { title: "Tabs panel API", api: tabsPanelApi },
-  ]}
-  browserSupport={[
-    "anchor-positioning",
-    "container-queries",
-    "has",
-    "lh",
-    "light-dark",
-    "logical-properties",
-    "nth-child-of",
-    "relative-color",
-    "sibling-count",
-  ]}
-  installationTabs={[{ title: "tabs.css", code: TabsCSS, lang: "css" }]}
->
-  <Fragment slot="title">Tabs</Fragment>
-
+<Component description={description} heroAnatomy>
   <Fragment slot="anatomy">
     <Anatomy>
       <UITabs name="tabs-anatomy" style="inline-size: 18rem">

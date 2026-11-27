@@ -1,5 +1,5 @@
+import { catalog } from "../component-api/catalog.glob"
 import { hrefFor, type FrameworkId } from "./framework"
-import { componentName as nameOf, pageTitle } from "./names"
 
 const docSources = import.meta.glob<string>("../docs/components/*.astro", {
   eager: true,
@@ -7,20 +7,9 @@ const docSources = import.meta.glob<string>("../docs/components/*.astro", {
   query: "?raw",
 })
 
-const slugs = new Set<string>()
-const titles = new Map<string, string>()
+export const componentName = catalog.nameOf
 
-for (const [path, source] of Object.entries(docSources)) {
-  const slug = path.split("/").pop()?.replace(".astro", "") || ""
-  if (!slug) continue
-  slugs.add(slug)
-  const title = pageTitle(source)
-  if (title) titles.set(slug, title)
-}
-
-export const componentName = (slug: string) => nameOf(slug, titles)
-
-export const components = Array.from(slugs)
+export const components = catalog.pages
   .map((slug) => ({
     name: componentName(slug),
     slug,
@@ -33,33 +22,9 @@ export const componentsWithSlot = (slot: string) =>
     docSources[`../docs/components/${slug}.astro`]?.includes(`slot="${slot}"`),
   )
 
-export const dependenciesOf = (slug: string) =>
-  [
-    ...(docSources[`../docs/components/${slug}.astro`]?.matchAll(
-      /\{[^{}]*\bisDependency: true[^{}]*\}/g,
-    ) ?? []),
-  ].flatMap(([tab]) => tab.match(/title: "([\w-]+)\.css"/)?.[1] ?? [])
-
-export const dependentsOf = (slug: string) =>
-  components.filter((component) =>
-    dependenciesOf(component.slug).includes(slug),
-  )
-
 const FOUNDATIONS = ["layout", "typography"]
 
 const isFoundation = (slug: string) => FOUNDATIONS.includes(slug)
-
-const baseOf = (slug: string) =>
-  docSources[`../docs/components/${slug}.astro`]?.match(
-    /^\s+base="([\w-]+)"$/m,
-  )?.[1]
-
-const bases = [
-  ...new Set([...slugs].flatMap((slug) => baseOf(slug) ?? [])),
-].toSorted()
-
-const familyOf = (slug: string) =>
-  baseOf(slug) ?? (bases.includes(slug) ? slug : undefined)
 
 export function componentGroupsFor() {
   const all = components
@@ -68,13 +33,13 @@ export function componentGroupsFor() {
       label: "Components",
       components: all.filter(
         (component) =>
-          !isFoundation(component.slug) && !familyOf(component.slug),
+          !isFoundation(component.slug) && !catalog.familyOf(component.slug),
       ),
     },
-    ...bases.map((base) => ({
+    ...catalog.families.map((base) => ({
       label: `${componentName(base)}s`,
       components: all
-        .filter((component) => familyOf(component.slug) === base)
+        .filter((component) => catalog.familyOf(component.slug) === base)
         .toSorted((a, b) => Number(b.slug === base) - Number(a.slug === base)),
     })),
     {

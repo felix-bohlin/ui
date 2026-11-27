@@ -9,17 +9,6 @@ import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import { Checkbox as UICheckbox } from "opui-css/astro"
-import CheckboxCSS from "@opui/css/components/checkbox.css?raw"
-import ChoiceCSS from "@opui/css/components/choice.css?raw"
-import CardCSS from "@opui/css/components/card.css?raw"
-import FormCSS from "@opui/css/components/form.css?raw"
-import SelectAllCSS from "@opui/css/components/select-all.css?raw"
-import SelectAllJS from "@opui/elements/select-all.js?raw"
-
-import checkboxApi from "../../component-api/checkbox/api"
-import checkboxInputApi from "../../component-api/checkbox-input/api"
-import fieldGroupApi from "../../component-api/field-group/api"
-import selectAllApi from "../../component-api/select-all/api"
 
 import Conditional from "../../components/Conditional.astro"
 import ValidationNotes from "./partials/ValidationNotes.astro"
@@ -34,23 +23,7 @@ export const keywords = ["check", "tick"]
 
 <Component
   description={description}
-  slug="checkbox"
   heroAnatomy
-  browserSupport={[
-    "alt-text-generated-content",
-    "container-style-queries",
-    "has",
-    "lh",
-    "light-dark",
-    "relative-color",
-    "user-pseudos",
-  ]}
-  apis={[
-    { title: "Checkbox API", api: checkboxApi },
-    { title: "Checkbox input API", api: checkboxInputApi },
-    { title: "Field group API", api: fieldGroupApi },
-    { title: "Select all API", api: selectAllApi },
-  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/FieldGroup/FieldGroup.astro",
@@ -58,16 +31,7 @@ export const keywords = ["check", "tick"]
     },
     { path: "src/component-api/field-group", type: "api" },
   ]}
-  installationTabs={[
-    { title: "checkbox.css", code: CheckboxCSS, lang: "css" },
-    { title: "choice.css", code: ChoiceCSS, lang: "css" },
-    { title: "form.css", code: FormCSS, lang: "css", isDependency: true },
-    { title: "card.css", code: CardCSS, lang: "css", isDependency: true },
-    { title: "select-all.css", code: SelectAllCSS, lang: "css" },
-    { title: "select-all.js", code: SelectAllJS, lang: "js" },
-  ]}
 >
-  <Fragment slot="title">Checkbox</Fragment>
   <Fragment slot="preamble">
     Choices submitted with a form. For a setting that applies right away, use a
     <DocLink href="/components/switch">Switch</DocLink>.

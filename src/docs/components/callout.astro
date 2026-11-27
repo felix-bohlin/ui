@@ -14,10 +14,6 @@ import {
 } from "opui-css/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
-import CalloutCSS from "@opui/css/components/callout.css?raw"
-import CalloutJS from "@opui/elements/callout.js?raw"
-
-import calloutApi from "../../component-api/callout/api"
 
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
@@ -58,17 +54,11 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
 
 <Component
   description={description}
-  slug="callout"
   heroAnatomy
-  apis={[{ title: "Callout API", api: calloutApi }]}
-  browserSupport={["has", "invoker-commands"]}
-  installationTabs={[
-    { title: "callout.css", code: CalloutCSS, lang: "css" },
-    { title: "callout.js", code: CalloutJS, lang: "js" },
+  installationSnippets={[
     { title: "theme tokens (snippet)", code: ThemeCSS, lang: "css" },
   ]}
 >
-  <Fragment slot="title">Callout</Fragment>
   <Fragment slot="preamble">
     A message in the flow of the page, without interrupting the task. For a
     confirmation that goes away on its own, use a

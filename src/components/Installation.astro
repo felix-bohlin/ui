@@ -1,7 +1,8 @@
 ---
 import Code from "./Code.astro"
+import { catalog } from "../component-api/catalog.glob"
 import { compatCss } from "../utils/compat"
-import { components, dependentsOf } from "../utils/components"
+import { componentName } from "../utils/components"
 import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
 import InstallationFiles from "./InstallationFiles.astro"
 import InstallCommand from "../docs/guide/getting-started/partials/InstallCommand.astro"
@@ -15,12 +16,12 @@ export type Tab = {
 
 type Props = {
   imports?: { names: string[]; package: string }
-  slug?: string
+  slug: string
+  snippets?: Tab[]
   sourceTabs?: Tab[]
-  tabs: Tab[]
 }
 
-const { imports, slug, sourceTabs = [], tabs } = Astro.props
+const { imports, slug, snippets = [], sourceTabs = [] } = Astro.props
 
 const { framework, link } = Astro.locals
 const macros = framework === "nunjucks"
@@ -37,14 +38,34 @@ const importCode =
       : `import {\n${imports.names.map((name) => `  ${name},`).join("\n")}\n} from "${imports.package}"`
     : importLine
 
-const pageFor = (tab: Tab) =>
-  components.find((c) => c.slug === tab.title.replace(/\.css$/, ""))
+const files = import.meta.glob<string>(
+  [
+    "../../packages/opui/css/components/*.css",
+    "../../packages/opui/elements/*.js",
+  ],
+  { eager: true, import: "default", query: "?raw" },
+)
 
-const dependencies = tabs
-  .filter((tab) => tab.isDependency)
-  .map(pageFor)
-  .filter((c) => c !== undefined)
-  .toSorted((a, b) => a.name.localeCompare(b.name))
+const tabs = [
+  ...catalog.installOf(slug).map(({ dependency, file, type }) => ({
+    code: files[
+      type === "css"
+        ? `../../packages/opui/css/components/${file}`
+        : `../../packages/opui/elements/${file}`
+    ],
+    isDependency: dependency,
+    lang: type,
+    title: file,
+  })),
+  ...snippets,
+]
+
+const pageLink = (page: string) => ({
+  href: `/components/${page}`,
+  name: componentName(page),
+})
+
+const dependencies = catalog.dependenciesOf(slug).map(pageLink)
 
 const allTabs = [
   ...tabs,
@@ -62,7 +83,7 @@ const allTabs = [
   ),
 ]
 
-const usedBy = slug ? dependentsOf(slug) : []
+const usedBy = catalog.dependentsOf(slug).map(pageLink)
 ---
 
 <section id="installation">

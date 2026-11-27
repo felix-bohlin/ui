@@ -54,6 +54,16 @@ export type CustomProperties = Record<
   { description: string; kind: "input" | "output" }
 >
 
+export type DocsPage = {
+  apis?: string[]
+  base?: string
+  examples?: string[]
+  fallbacks?: Record<string, string>
+  features?: { core?: string[]; ignore?: string[] }
+  title: string
+  uses?: string[]
+}
+
 export type ComponentApi = {
   component: string
   css?: string[]

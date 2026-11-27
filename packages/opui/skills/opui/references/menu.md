@@ -2,7 +2,7 @@
 
 A popover list of actions or links.
 
-- CSS: `opui-css/css/components/list.css` and `opui-css/css/components/menu.css`.
+- CSS: `opui-css/css/components/menu.css` and `opui-css/css/components/list.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/menu.md), [Astro](https://opui.dev/astro/components/menu.md), [Nunjucks](https://opui.dev/nunjucks/components/menu.md), [React](https://opui.dev/react/components/menu.md), [Solid](https://opui.dev/solid/components/menu.md), [Svelte](https://opui.dev/svelte/components/menu.md), [Vue](https://opui.dev/vue/components/menu.md).
 
 ## Menu
@@ -50,6 +50,24 @@ A popover list of actions or links.
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 
+### menu.css
+
+- `--_bg-color`: The background. Defaults to `--ui-surface-raised`.
+- `--_bg-image`: The image over the background, such as a gradient. Defaults to `--ui-surface-raised-image`, `none` unless a theme sets it.
+- `--_border-color`: The edge color. `--ui-border-color-raised` when a theme sets it, otherwise `--ui-border-color`.
+- `--_border-width`: The border width. Defaults to `--ui-border-width`.
+- `--_divider-border-color`: Color of the item separators. Defaults to `--ui-border-color`.
+- `--_max-block-size`: Maximum height.
+- `--_min-block-size`: Height a popover menu keeps when space is tight, unless its content is shorter. Needs `calc-size()`.
+- `--_min-inline-size`: Minimum width. A popover menu is also at least as wide as its invoker.
+- `--_motion`: Motion multiplier for the transitions. `0` turns them off.
+- `--_offset`: Gap between a popover menu and its invoker.
+- `--_radius`: The corner radius. Defaults to `--ui-menu-radius`, or `--ui-radius` when the theme doesn't set it.
+- `--_scroll-shadow`: The shadow at an edge of a scrolling menu with more beyond it. Defaults to `--ui-shadow-scroll`.
+- `--_shadow`: The shadow. Defaults to `--ui-shadow-overlay`.
+
+Outputs: `--_duration`, `--_ease`, `--_ease-move`, `--_fit-max-block-size`, `--_hover-bg-color`, `--_margin-block`, `--_margin-inline`, `--_position-area`, `--_selected-shadow`, `--_side` and `--_span`.
+
 ### list.css
 
 - `--_bg-color`: Background of the list and its items. Defaults to `--ui-surface-filled`, `.ui-transparent` and `.ui-tonal` set it.
@@ -71,24 +89,6 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_start-video-size`: Height of a video in `.ui-start`, which keeps a 16:9 ratio.
 
 Outputs: `--_font-size`, `--_icon-size`, `--_item-duration`, `--_selected-indicator-offset`, `--_selected-shadow` and `--_size`.
-
-### menu.css
-
-- `--_bg-color`: The background. Defaults to `--ui-surface-raised`.
-- `--_bg-image`: The image over the background, such as a gradient. Defaults to `--ui-surface-raised-image`, `none` unless a theme sets it.
-- `--_border-color`: The edge color. `--ui-border-color-raised` when a theme sets it, otherwise `--ui-border-color`.
-- `--_border-width`: The border width. Defaults to `--ui-border-width`.
-- `--_divider-border-color`: Color of the item separators. Defaults to `--ui-border-color`.
-- `--_max-block-size`: Maximum height.
-- `--_min-block-size`: Height a popover menu keeps when space is tight, unless its content is shorter. Needs `calc-size()`.
-- `--_min-inline-size`: Minimum width. A popover menu is also at least as wide as its invoker.
-- `--_motion`: Motion multiplier for the transitions. `0` turns them off.
-- `--_offset`: Gap between a popover menu and its invoker.
-- `--_radius`: The corner radius. Defaults to `--ui-menu-radius`, or `--ui-radius` when the theme doesn't set it.
-- `--_scroll-shadow`: The shadow at an edge of a scrolling menu with more beyond it. Defaults to `--ui-shadow-scroll`.
-- `--_shadow`: The shadow. Defaults to `--ui-shadow-overlay`.
-
-Outputs: `--_duration`, `--_ease`, `--_ease-move`, `--_fit-max-block-size`, `--_hover-bg-color`, `--_margin-block`, `--_margin-inline`, `--_position-area`, `--_selected-shadow`, `--_side` and `--_span`.
 
 ## Theme tokens
 

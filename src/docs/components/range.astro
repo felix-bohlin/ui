@@ -8,55 +8,18 @@ import { Field as UIField } from "opui-css/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
 
-import FieldCSS from "@opui/css/components/field.css?raw"
-import RangeCSS from "@opui/css/components/range.css?raw"
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 import ValidationNotes from "./partials/ValidationNotes.astro"
 import RangeBuild from "../../components/UnderTheHood/RangeBuild.astro"
 
-import rangeApi from "../../component-api/range/api"
 export const description =
   "A slider for picking a number by moving a thumb along a track."
 
 export const keywords = ["slider"]
 ---
 
-<Component
-  description={description}
-  base="field"
-  slug="range"
-  heroAnatomy
-  apis={[{ title: "Range API", api: rangeApi }]}
-  browserSupport={[
-    "alt-text-generated-content",
-    "container-style-queries",
-    "datalist",
-    "dir-pseudo",
-    "has",
-    "lh",
-    "light-dark",
-    "reading-flow",
-    "registered-custom-properties",
-    "relative-color",
-    "scroll-driven-animations",
-    "user-pseudos",
-  ]}
-  fallbacks={{
-    "reading-flow":
-      "Without `reading-flow`, Tab and screen readers follow the markup, so write any top and start parts before the range.",
-  }}
-  installationTabs={[
-    { title: "range.css", code: RangeCSS, lang: "css" },
-    {
-      title: "field.css",
-      code: FieldCSS,
-      lang: "css",
-      isDependency: true,
-    },
-  ]}
->
-  <Fragment slot="title">Range</Fragment>
+<Component description={description} heroAnatomy>
   <Fragment slot="preamble">
     A value where the rough position matters, like volume. For an exact amount,
     like a quantity, use a

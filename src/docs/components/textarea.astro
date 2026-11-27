@@ -4,11 +4,6 @@ import DocLink from "../../components/DocLink.astro"
 import Usage from "./partials/Usage.astro"
 import AutoExample from "../../components/AutoExample.astro"
 
-import FieldCSS from "@opui/css/components/field.css?raw"
-import TextareaCSS from "@opui/css/components/textarea.css?raw"
-import CharacterCountJS from "@opui/elements/character-count.js?raw"
-
-import textareaApi from "../../component-api/textarea/api"
 import TextareaBuild from "../../components/UnderTheHood/TextareaBuild.astro"
 
 export const description =
@@ -19,42 +14,12 @@ export const keywords = ["multiline", "text area"]
 
 <Component
   description={description}
-  base="field"
-  slug="textarea"
-  browserSupport={[
-    "alt-text-generated-content",
-    "attr",
-    "container-queries",
-    "field-sizing",
-    "has",
-    "lh",
-    "reading-flow",
-    "registered-custom-properties",
-    "user-pseudos",
-  ]}
-  fallbacks={{
-    attr: "Without typed `attr()`, a textarea is at least three lines tall, whatever `rows` says.",
-    "reading-flow":
-      "Without `reading-flow`, Tab and screen readers follow the markup, so write the top and start parts before the control.",
-  }}
-  apis={[{ title: "Textarea API", api: textareaApi }]}
   changelogPaths={[
     { path: "packages/opui/css/components/field.css", type: "css" },
     { path: "packages/opui/css/components/text-field.css", type: "css" },
     { path: "src/component-api/character-count", type: "api" },
   ]}
-  installationTabs={[
-    {
-      title: "field.css",
-      code: FieldCSS,
-      lang: "css",
-      isDependency: true,
-    },
-    { title: "textarea.css", code: TextareaCSS, lang: "css" },
-    { title: "character-count.js", code: CharacterCountJS, lang: "js" },
-  ]}
 >
-  <Fragment slot="title">Textarea</Fragment>
   <Fragment slot="preamble">
     Text over several lines, like a comment. For a single line, use a
     <DocLink href="/components/text-field">Text field</DocLink>.

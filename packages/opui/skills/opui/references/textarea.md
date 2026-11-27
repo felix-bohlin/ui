@@ -2,7 +2,7 @@
 
 A multi-line text input in a Field that grows with its text, with a character count.
 
-- CSS: `opui-css/css/components/field.css` and `opui-css/css/components/textarea.css`.
+- CSS: `opui-css/css/components/textarea.css` and `opui-css/css/components/field.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/textarea.md), [Astro](https://opui.dev/astro/components/textarea.md), [Nunjucks](https://opui.dev/nunjucks/components/textarea.md), [React](https://opui.dev/react/components/textarea.md), [Solid](https://opui.dev/solid/components/textarea.md), [Svelte](https://opui.dev/svelte/components/textarea.md), [Vue](https://opui.dev/vue/components/textarea.md).
 
 ## Textarea (CSS only)
@@ -21,6 +21,10 @@ A multi-line text input in a Field that grows with its text, with a character co
 ## Component properties
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
+
+### textarea.css
+
+- `--_max-block-size`: Maximum height of the `textarea`. Defaults to `20lh`.
 
 ### field.css
 
@@ -44,10 +48,6 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_start-start-radius`: Start-start corner radius of `.ui-field-container`. Defaults to `--_radius`, `0` against the previous control in a `ControlGroup`.
 
 Outputs: `--_affix-block-size`, `--_affix-button-size`, `--_affix-padding-block`, `--_affix-text-color`, `--_arrow-padding`, `--_bg-color`, `--_border-color`, `--_duration`, `--_field-padding-block-fit`, `--_file-button-inset` and `--_helper-text-color`.
-
-### textarea.css
-
-- `--_max-block-size`: Maximum height of the `textarea`. Defaults to `20lh`.
 
 ## Theme tokens
 

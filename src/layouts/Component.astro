@@ -4,13 +4,11 @@ import { componentGroupsFor, componentHrefFor } from "../utils/components"
 import FrameworkPicker from "../components/FrameworkPicker.astro"
 import BrowserSupport from "../components/BrowserSupport.astro"
 import BrowserSupportChips from "../components/BrowserSupportChips.astro"
-import ComponentAPI, { type Apis } from "../components/ComponentAPI.astro"
-import type { AstroInstance } from "astro"
+import ComponentAPI from "../components/ComponentAPI.astro"
 import ComponentProperties from "../components/ComponentProperties.astro"
 import HydrationChip from "../components/HydrationChip.astro"
 import { kebab } from "../component-api/catalog"
 import { catalog } from "../component-api/catalog.glob"
-import type { ComponentApi } from "../component-api/types"
 import Installation, { type Tab } from "../components/Installation.astro"
 import Pagination from "../components/Pagination.astro"
 import BlockCard from "../components/BlockCard.astro"
@@ -28,11 +26,7 @@ import {
   List,
   ListItem,
 } from "opui-css/astro"
-import {
-  componentImports,
-  componentSources,
-  packageFor,
-} from "../utils/component-imports"
+import { componentSources, packageFor } from "../utils/component-imports"
 import {
   checkClasses,
   checkExports,
@@ -55,31 +49,21 @@ type Props = {
   description?: string
   image?: string
   overline?: string
-  browserSupport?: string[]
-  slug?: string
-  base?: string
-  apis?: Apis
   changelogPaths?: ChangelogPathEntry[]
-  fallbacks?: Record<string, string>
   heroAnatomy?: boolean
-  installationTabs?: Tab[]
+  installationSnippets?: Tab[]
   seeAlsoLinks?: { name: string; href: string }[]
   showToc?: boolean
   wide?: boolean
 }
 
 const {
-  apis: apisProp,
-  base,
-  browserSupport,
   changelogPaths,
-  fallbacks,
   heroAnatomy,
-  installationTabs,
+  installationSnippets,
   seeAlsoLinks,
   overline = "Components",
   showToc = true,
-  slug: slugProp,
   description,
   image,
   wide,
@@ -95,44 +79,29 @@ const urlSlug = Astro.url.pathname
   .filter(Boolean)
   .pop()
 
-const currentSlug = slugProp ?? urlSlug
+const currentSlug = urlSlug
 Astro.locals.componentSlug = currentSlug
 
-const apiModules = import.meta.glob<AstroInstance>(
-  "../component-api/**/*.astro",
-  { eager: true },
-)
+const allApis = catalog.apis.map(({ api }) => api)
 
-const apiData = import.meta.glob<ComponentApi>("../component-api/*/api.ts", {
-  eager: true,
-  import: "default",
-})
+reportProblems([...checkClasses(allApis), ...checkExports(allApis)])
 
-reportProblems([
-  ...checkClasses(Object.values(apiData)),
-  ...checkExports(Object.values(apiData)),
-])
+const docsPage = !!currentSlug && catalog.pages.includes(currentSlug)
 
-const autoApis = ((): Apis | null => {
-  if (!currentSlug) return null
-  const api = apiData[`../component-api/${currentSlug}/api.ts`]
-  if (api) return [{ api }]
-  const entries = FRAMEWORKS.map((f) => {
-    const mod = apiModules[`../component-api/${currentSlug}/${f.label}.astro`]
-    return [f.id, mod?.default] as const
-  }).filter(([, mod]) => mod != null)
-  return entries.length > 0 ? Object.fromEntries(entries) : null
-})()
+const shownApis = docsPage
+  ? catalog.shownApisOf(currentSlug).map(({ api, title }) => ({ api, title }))
+  : []
+const apis = shownApis.length > 0 ? shownApis : null
 
-const apis = apisProp ?? autoApis
+const browserSupport = docsPage ? catalog.featuresOf(currentSlug) : undefined
+const fallbacks = docsPage ? catalog.fallbacksOf(currentSlug) : undefined
 
 const hydrationFramework = isHydratedFramework(currentFramework)
   ? currentFramework
   : undefined
 const hydrationApis = hydrationFramework
-  ? [apis ?? []]
-      .flat()
-      .flatMap((entry) => ("api" in entry ? [entry.api] : []))
+  ? shownApis
+      .map(({ api }) => api)
       .filter((api) => shipped(api, hydrationFramework))
   : []
 
@@ -177,7 +146,7 @@ const changelog = currentSlug
 const imports =
   currentSlug && currentFramework !== "html"
     ? {
-        names: componentImports(currentFramework, currentSlug, base),
+        names: catalog.importsOf(currentSlug, currentFramework),
         package: packageFor(currentFramework),
       }
     : undefined
@@ -245,7 +214,11 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
 
   <Divider variant="tonal" slot="sidebar" />
 
-  <slot name="title" slot="title" />
+  {docsPage ? (
+    <Fragment slot="title">{catalog.nameOf(currentSlug!)}</Fragment>
+  ) : (
+    <slot name="title" slot="title" />
+  )}
   <slot name="preamble" slot="preamble" />
 
   {(browserSupport || hydrationApis.length > 0) && <BrowserSupportChips
@@ -265,12 +238,12 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
   </section>}
 
   {imports &&
-    (installationTabs ? (
+    (docsPage ? (
       <Installation
         imports={imports}
-        slug={currentSlug}
+        slug={currentSlug!}
+        snippets={installationSnippets}
         sourceTabs={sourceTabs}
-        tabs={installationTabs}
       >
         <slot name="installation" />
       </Installation>
@@ -318,12 +291,12 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
   )}
 
   {!imports &&
-    (installationTabs ? (
+    (docsPage ? (
       <Installation
         imports={imports}
-        slug={currentSlug}
+        slug={currentSlug!}
+        snippets={installationSnippets}
         sourceTabs={sourceTabs}
-        tabs={installationTabs}
       >
         <slot name="installation" />
       </Installation>

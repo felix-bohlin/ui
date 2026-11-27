@@ -4,7 +4,8 @@ import {
   customPropertyRows,
   pageStylesheets,
 } from "../component-api/custom-properties"
-import { components, dependenciesOf } from "../utils/components"
+import { catalog } from "../component-api/catalog.glob"
+import { componentName } from "../utils/components"
 import { formatInline } from "../utils/format-inline"
 import DocLink from "./DocLink.astro"
 import DocsTable from "./DocsTable.astro"
@@ -16,11 +17,20 @@ type Props = {
 const { slug } = Astro.props
 const { link } = Astro.locals
 
-const dependencies = dependenciesOf(slug)
+const dependencies = catalog
+  .installOf(slug)
+  .filter(({ dependency }) => dependency)
+  .map(({ name }) => name)
+const ownerLink = (stylesheet: string) => {
+  const owner = catalog.ownerOf(stylesheet)
+  return owner
+    ? { href: `/components/${owner}`, name: componentName(owner) }
+    : undefined
+}
 const stylesheets = pageStylesheets(slug)
   .map((stylesheet) => ({
     dependency: dependencies.includes(stylesheet)
-      ? components.find((component) => component.slug === stylesheet)
+      ? ownerLink(stylesheet)
       : undefined,
     rows: customPropertyRows(stylesheet),
     stylesheet,

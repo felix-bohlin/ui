@@ -9,11 +9,6 @@ import Usage from "./partials/Usage.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 import { OneTimeCode as UIOneTimeCode } from "opui-css/astro"
 
-import FieldCSS from "@opui/css/components/field.css?raw"
-import OneTimeCodeCSS from "@opui/css/components/one-time-code.css?raw"
-
-import oneTimeCodeApi from "../../component-api/one-time-code/api"
-
 export const description =
   "A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill."
 
@@ -42,41 +37,12 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
 
 <Component
   description={description}
-  slug="one-time-code"
   heroAnatomy
-  apis={[{ title: "One-time code API", api: oneTimeCodeApi }]}
-  browserSupport={[
-    "alt-text-generated-content",
-    "container-queries",
-    "field-sizing",
-    "has",
-    "lh",
-    "overflow-clip",
-    "reading-flow",
-    "registered-custom-properties",
-    "relative-color",
-    "round-mod-rem",
-    "user-pseudos",
-  ]}
-  fallbacks={{
-    "reading-flow":
-      "Without `reading-flow` nothing changes: a one-time code has no parts before its input.",
-  }}
   changelogPaths={[
     { path: "packages/opui/css/components/field.css", type: "css" },
     { path: "packages/opui/css/components/text-field.css", type: "css" },
   ]}
-  installationTabs={[
-    {
-      title: "field.css",
-      code: FieldCSS,
-      lang: "css",
-      isDependency: true,
-    },
-    { title: "one-time-code.css", code: OneTimeCodeCSS, lang: "css" },
-  ]}
 >
-  <Fragment slot="title">One-time code</Fragment>
   <Fragment slot="preamble">
     One-time passwords, verification codes and PINs. Built on
     <DocLink href="/components/field" class="ui-link">Field</DocLink>.

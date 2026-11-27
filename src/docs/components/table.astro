@@ -19,15 +19,6 @@ import {
   TableRow as UITableRow,
 } from "opui-css/astro"
 
-import SortableTableCSS from "@opui/css/components/sortable-table.css?raw"
-import TableCSS from "@opui/css/components/table.css?raw"
-import SortableTableJS from "@opui/elements/sortable-table.js?raw"
-import sortableTableApi from "../../component-api/sortable-table/api"
-import tableApi from "../../component-api/table/api"
-import tableCellApi from "../../component-api/table-cell/api"
-import tableColumnApi from "../../component-api/table-column/api"
-import tableColumnGroupApi from "../../component-api/table-column-group/api"
-import tableHeaderCellApi from "../../component-api/table-header-cell/api"
 import TableBuild from "../../components/UnderTheHood/TableBuild.astro"
 
 export const description =
@@ -36,36 +27,7 @@ export const description =
 export const keywords = ["data table", "grid", "rows", "sort"]
 ---
 
-<Component
-  description={description}
-  slug="table"
-  heroAnatomy
-  apis={[
-    { title: "Table API", api: tableApi },
-    { title: "Table header cell API", api: tableHeaderCellApi },
-    { title: "Table cell API", api: tableCellApi },
-    { title: "Table column group API", api: tableColumnGroupApi },
-    { title: "Table column API", api: tableColumnApi },
-    { title: "Sortable table API", api: sortableTableApi },
-  ]}
-  installationTabs={[
-    { title: "table.css", code: TableCSS, lang: "css" },
-    { title: "sortable-table.css", code: SortableTableCSS, lang: "css" },
-    { title: "sortable-table.js", code: SortableTableJS, lang: "js" },
-  ]}
-  browserSupport={[
-    "container-scroll-state-queries",
-    "has",
-    "logical-properties",
-    "overflow-clip",
-    "relative-color",
-  ]}
-  fallbacks={{
-    "container-scroll-state-queries":
-      "Without scroll-state queries, a sticky header gets no shadow once it's stuck.",
-  }}
->
-  <Fragment slot="title">Table</Fragment>
+<Component description={description} heroAnatomy>
   <Fragment slot="preamble">
     Data people scan and compare, like invoices. For labels with single values,
     use a <DocLink href="/components/description-list">Description list</DocLink

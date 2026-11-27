@@ -3,27 +3,14 @@ import Component from "../../layouts/Component.astro"
 import Usage from "./partials/Usage.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
-import SpinnerCSS from "@opui/css/components/spinner.css?raw"
 import SpinnerBuild from "../../components/UnderTheHood/SpinnerBuild.astro"
-
-import spinnerApi from "../../component-api/spinner/api"
 
 export const keywords = ["busy", "loader", "loading"]
 export const description =
   'A spinner on any element with aria-busy="true", for content that is loading.'
 ---
 
-<Component
-  description={description}
-  slug="spinner"
-  browserSupport={["if"]}
-  fallbacks={{
-    if: "Without `if()`, the compat layer still draws the spinner at full strength with more contrast.",
-  }}
-  apis={[{ title: "Spinner API", api: spinnerApi }]}
-  installationTabs={[{ title: "spinner.css", code: SpinnerCSS, lang: "css" }]}
->
-  <Fragment slot="title">Spinner</Fragment>
+<Component description={description}>
   <Fragment slot="preamble">
     A short wait, shown on any element with <code>aria-busy="true"</code>. For a
     task with a known length, use a

@@ -9,24 +9,13 @@ import Anatomy from "../../components/Anatomy.astro"
 import { Stat as UIStat } from "opui-css/astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 
-import StatCSS from "@opui/css/components/stat.css?raw"
-
-import statApi from "../../component-api/stat/api"
 export const description =
   "A number with its label and its change, like revenue on a dashboard."
 
 export const keywords = ["kpi", "metric", "number"]
 ---
 
-<Component
-  browserSupport={[]}
-  description={description}
-  slug="stat"
-  heroAnatomy
-  apis={[{ title: "Stat API", api: statApi }]}
-  installationTabs={[{ title: "stat.css", code: StatCSS, lang: "css" }]}
->
-  <Fragment slot="title">Stat</Fragment>
+<Component description={description} heroAnatomy>
   <Fragment slot="preamble">
     One number with its label and change. For terms and values, use a
     <DocLink href="/components/description-list">Description list</DocLink>.

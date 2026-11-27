@@ -50,4 +50,4 @@ Look for older patterns that a newer feature replaces, and for JavaScript that C
 - `field-sizing`, `appearance: base-select`, `::details-content`, `::scroll-button()` and scroll-driven animations
 - Logical properties and `inset` shorthands, nesting, `@layer` and `@scope` where they make a rule simpler
 
-When a feature is used, check the component page's `browserSupport` lists it. Leave the details to the `browser-support` agent.
+When a feature is used, check that a pattern in `packages/opui/scripts/features.mjs` detects it, so the component page's browser support chips count it. Leave the details to the `browser-support` agent.

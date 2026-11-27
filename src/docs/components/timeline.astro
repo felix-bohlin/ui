@@ -11,10 +11,7 @@ import {
   TimelineItem as UITimelineItem,
 } from "opui-css/astro"
 
-import TimelineCSS from "@opui/css/components/timeline.css?raw"
-
 import timelineItemApi from "../../component-api/timeline-item/api"
-import timelineApi from "../../component-api/timeline/api"
 
 export const description =
   "A list of dated events with markers and a connecting line."
@@ -22,24 +19,7 @@ export const description =
 export const keywords = ["activity", "feed", "history"]
 ---
 
-<Component
-  description={description}
-  slug="timeline"
-  heroAnatomy
-  apis={[
-    { title: "Timeline API", api: timelineApi },
-    { title: "Timeline item API", api: timelineItemApi },
-  ]}
-  browserSupport={[
-    "container-queries",
-    "has",
-    "lh",
-    "relative-color",
-    "subgrid",
-  ]}
-  installationTabs={[{ title: "timeline.css", code: TimelineCSS, lang: "css" }]}
->
-  <Fragment slot="title">Timeline</Fragment>
+<Component description={description} heroAnatomy>
   <Fragment slot="preamble">
     Dated events in order. For the steps of a flow, use a
     <DocLink href="/components/stepper">Stepper</DocLink>.

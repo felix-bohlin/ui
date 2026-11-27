@@ -6,13 +6,9 @@ import AutoExample from "../../components/AutoExample.astro"
 import DocLink from "../../components/DocLink.astro"
 import { Avatar as UIAvatar } from "opui-css/astro"
 
-import AvatarCSS from "@opui/css/components/avatar.css?raw"
-
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 
-import avatarApi from "../../component-api/avatar/api"
-import avatarGroupApi from "../../component-api/avatar-group/api"
 import AvatarBuild from "../../components/UnderTheHood/AvatarBuild.astro"
 export const description =
   "An image, initials or icon that stands for a person or an entity."
@@ -20,22 +16,7 @@ export const description =
 export const keywords = ["initials", "photo", "profile picture", "user"]
 ---
 
-<Component
-  description={description}
-  slug="avatar"
-  heroAnatomy
-  apis={[
-    { title: "Avatar API", api: avatarApi },
-    { title: "Avatar group API", api: avatarGroupApi },
-  ]}
-  browserSupport={["corner-shape", "has", "overflow-clip"]}
-  fallbacks={{
-    "corner-shape":
-      "Without `corner-shape`, the compat layer draws a squircle avatar as a rounded square with corners at 27% of its size.",
-  }}
-  installationTabs={[{ title: "avatar.css", code: AvatarCSS, lang: "css" }]}
->
-  <Fragment slot="title">Avatar</Fragment>
+<Component description={description} heroAnatomy>
   <Fragment slot="preamble">
     Who did something, like a comment's author, as an image, initials or an
     icon. For a count or status, add a

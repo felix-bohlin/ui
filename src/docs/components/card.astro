@@ -15,32 +15,15 @@ import {
 
 import AutoExample from "../../components/AutoExample.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
-import CardCSS from "@opui/css/components/card.css?raw"
 import Conditional from "../../components/Conditional.astro"
 import CardBuild from "../../components/UnderTheHood/CardBuild.astro"
-
-import cardApi from "../../component-api/card/api"
-import cardActionsApi from "../../component-api/card-actions/api"
-import cardHeaderApi from "../../component-api/card-header/api"
 
 export const description = "A surface for related content and actions."
 
 export const keywords = ["panel", "surface", "tile"]
 ---
 
-<Component
-  description={description}
-  slug="card"
-  heroAnatomy
-  apis={[
-    { title: "Card API", api: cardApi },
-    { title: "Card header API", api: cardHeaderApi },
-    { title: "Card actions API", api: cardActionsApi },
-  ]}
-  browserSupport={["container-queries", "container-style-queries", "has"]}
-  installationTabs={[{ title: "card.css", code: CardCSS, lang: "css" }]}
->
-  <Fragment slot="title">Card</Fragment>
+<Component description={description} heroAnatomy>
   <Fragment slot="preamble">
     A surface for related content and actions.
   </Fragment>

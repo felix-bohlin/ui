@@ -17,14 +17,6 @@ import {
 } from "opui-css/astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
-import SwitchCSS from "@opui/css/components/switch.css?raw"
-import ChoiceCSS from "@opui/css/components/choice.css?raw"
-import CardCSS from "@opui/css/components/card.css?raw"
-import FormCSS from "@opui/css/components/form.css?raw"
-
-import fieldGroupApi from "../../component-api/field-group/api"
-import switchApi from "../../component-api/switch/api"
-import switchInputApi from "../../component-api/switch-input/api"
 
 import Conditional from "../../components/Conditional.astro"
 import ValidationNotes from "./partials/ValidationNotes.astro"
@@ -39,22 +31,7 @@ export const keywords = ["on off", "toggle"]
 
 <Component
   description={description}
-  slug="switch"
-  browserSupport={[
-    "alt-text-generated-content",
-    "has",
-    "lh",
-    "light-dark",
-    "relative-color",
-    "round-mod-rem",
-    "user-pseudos",
-  ]}
   heroAnatomy
-  apis={[
-    { title: "Switch API", api: switchApi },
-    { title: "Switch input API", api: switchInputApi },
-    { title: "Field group API", api: fieldGroupApi },
-  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/FieldGroup/FieldGroup.astro",
@@ -62,14 +39,7 @@ export const keywords = ["on off", "toggle"]
     },
     { path: "src/component-api/field-group", type: "api" },
   ]}
-  installationTabs={[
-    { title: "switch.css", code: SwitchCSS, lang: "css" },
-    { title: "choice.css", code: ChoiceCSS, lang: "css" },
-    { title: "form.css", code: FormCSS, lang: "css", isDependency: true },
-    { title: "card.css", code: CardCSS, lang: "css", isDependency: true },
-  ]}
 >
-  <Fragment slot="title">Switch</Fragment>
   <Fragment slot="preamble">
     A setting that applies right away. For choices submitted with a form, use a
     <DocLink href="/components/checkbox">Checkbox</DocLink>.

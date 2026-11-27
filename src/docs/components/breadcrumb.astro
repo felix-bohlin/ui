@@ -9,39 +9,13 @@ import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 import { Breadcrumb as UIBreadcrumb } from "opui-css/astro"
 
-import BreadcrumbCSS from "@opui/css/components/breadcrumb.css?raw"
-
-import breadcrumbItemApi from "../../component-api/breadcrumb-item/api"
-import breadcrumbApi from "../../component-api/breadcrumb/api"
-
 export const description =
   "Shows where the page sits in a hierarchy, with a link to each level above it."
 
 export const keywords = ["crumbs", "navigation path", "trail"]
 ---
 
-<Component
-  description={description}
-  slug="breadcrumb"
-  heroAnatomy
-  apis={[
-    { title: "Breadcrumb API", api: breadcrumbApi },
-    { title: "Breadcrumb item API", api: breadcrumbItemApi },
-  ]}
-  browserSupport={[
-    "alt-text-generated-content",
-    "dir-pseudo",
-    "has",
-    "invoker-commands",
-    "logical-properties",
-    "popover",
-    "scrollbar-width",
-  ]}
-  installationTabs={[
-    { title: "breadcrumb.css", code: BreadcrumbCSS, lang: "css" },
-  ]}
->
-  <Fragment slot="title">Breadcrumb</Fragment>
+<Component description={description} heroAnatomy>
   <Fragment slot="preamble">
     Where the page sits in a hierarchy. For the steps of a flow, use a
     <DocLink href="/components/stepper">Stepper</DocLink>.

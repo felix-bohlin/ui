@@ -10,12 +10,9 @@ import {
   ToggleGroup as UIToggleGroup,
 } from "opui-css/astro"
 import AutoExample from "../../components/AutoExample.astro"
-import ToggleGroupCSS from "@opui/css/components/toggle-group.css?raw"
-import ToggleButtonCSS from "@opui/css/components/toggle-button.css?raw"
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 
-import toggleButtonApi from "../../component-api/toggle-button/api"
 import toggleGroupApi from "../../component-api/toggle-group/api"
 import ToggleBuild from "../../components/UnderTheHood/ToggleBuild.astro"
 export const description =
@@ -24,40 +21,7 @@ export const description =
 export const keywords = ["pressed", "toggle button"]
 ---
 
-<Component
-  description={description}
-  slug="toggle"
-  heroAnatomy
-  apis={[
-    { title: "Toggle group API", api: toggleGroupApi },
-    { title: "Toggle button API", api: toggleButtonApi },
-  ]}
-  browserSupport={[
-    "gap-decorations",
-    "has",
-    "lh",
-    "light-dark",
-    "logical-properties",
-    "relative-color",
-  ]}
-  fallbacks={{
-    "gap-decorations":
-      "Without gap decorations, the compat layer draws the lines in a group with shadows on each button's start and top edges.",
-  }}
-  installationTabs={[
-    {
-      title: "toggle-group.css",
-      code: ToggleGroupCSS,
-      lang: "css",
-    },
-    {
-      title: "toggle-button.css",
-      code: ToggleButtonCSS,
-      lang: "css",
-    },
-  ]}
->
-  <Fragment slot="title">Toggle</Fragment>
+<Component description={description} heroAnatomy>
   <Fragment slot="preamble">
     Buttons that toggle on and off, for toolbar options and views. For panels of
     content, use <DocLink href="/components/tabs">Tabs</DocLink>, and for a

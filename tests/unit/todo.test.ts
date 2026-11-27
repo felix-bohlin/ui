@@ -1,6 +1,7 @@
 import { execFileSync } from "node:child_process"
-import { existsSync, readdirSync, readFileSync, statSync } from "node:fs"
+import { existsSync, readFileSync, statSync } from "node:fs"
 import { describe, expect, test } from "vitest"
+import { pages } from "../../src/component-api/pages"
 import {
   carryOver,
   fixOptions,
@@ -792,14 +793,7 @@ describe("TODO.md", () => {
         /^export \{ default as (\w+) \}/gm,
       ),
     ].map(([, name]) => name),
-    ...readdirSync("src/docs/components")
-      .filter((file) => file.endsWith(".astro"))
-      .flatMap(
-        (file) =>
-          readFileSync(`src/docs/components/${file}`, "utf8").match(
-            /<Fragment\s+slot="title"\s*>(.*?)<\/Fragment\s*>/s,
-          )?.[1] ?? [],
-      ),
+    ...Object.values(pages).map(({ title }) => title),
   ])
 
   const unnamed = ({ component }: Item) =>

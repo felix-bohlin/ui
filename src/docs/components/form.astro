@@ -4,11 +4,7 @@ import DocLink from "../../components/DocLink.astro"
 import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
-import FormCSS from "@opui/css/components/form.css?raw"
 
-import fieldDescriptionApi from "../../component-api/field-description/api"
-import fieldGroupApi from "../../component-api/field-group/api"
-import fieldLegendApi from "../../component-api/field-legend/api"
 import fieldsetApi from "../../component-api/fieldset/api"
 import formApi from "../../component-api/form/api"
 import FormBuild from "../../components/UnderTheHood/FormBuild.astro"
@@ -57,10 +53,7 @@ export const keywords = ["fieldset", "input group", "label", "validation"]
 
 <Component
   description={description}
-  slug="form"
   heroAnatomy
-  browserSupport={["alt-text-generated-content", "has", "user-pseudos"]}
-  installationTabs={[{ title: "form.css", code: FormCSS, lang: "css" }]}
   seeAlsoLinks={[
     { name: "Button", href: "/components/button" },
     { name: "Divider", href: "/components/divider" },
@@ -71,15 +64,7 @@ export const keywords = ["fieldset", "input group", "label", "validation"]
     { name: "Text field", href: "/components/text-field" },
     { name: "Textarea", href: "/components/textarea" },
   ]}
-  apis={[
-    { title: "Form API", api: formApi },
-    { title: "Fieldset API", api: fieldsetApi },
-    { title: "Field legend API", api: fieldLegendApi },
-    { title: "Field description API", api: fieldDescriptionApi },
-    { title: "Field group API", api: fieldGroupApi },
-  ]}
 >
-  <Fragment slot="title">Form</Fragment>
   <Fragment slot="preamble">Spacing and grouping for form fields.</Fragment>
 
   <Usage slot="usage">

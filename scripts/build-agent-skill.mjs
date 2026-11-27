@@ -12,9 +12,7 @@ const DIST = path.resolve(ROOT, "dist")
 const REFERENCES = path.resolve(ROOT, "packages/opui/skills/opui/references")
 const COMPONENT_API = path.resolve(ROOT, "src/component-api")
 const COMPONENTS = path.resolve(ROOT, "packages/opui/components")
-const DOCS = path.resolve(ROOT, "src/docs/components")
 const EXAMPLES = path.resolve(ROOT, "src/component-examples")
-const STYLESHEETS = path.resolve(ROOT, "packages/opui/css/components")
 const TOKENS = path.resolve(ROOT, "packages/opui/tokens.json")
 
 process.chdir(ROOT)
@@ -54,7 +52,7 @@ registerHooks({
 const { default: config } = await import("../astro.config.mjs")
 const { parseHtml } = await import("../src/integrations/html-to-markdown.mjs")
 const { hrefRewriter, pageFrom } = await import("../src/integrations/llms.mjs")
-const { kebab, stylesheetsOf } = await import("../src/component-api/catalog.ts")
+const { kebab } = await import("../src/component-api/catalog.ts")
 const { cssVarRows, hydrationRows } =
   await import("../src/component-api/rows.ts")
 const { frameworks, slotProp } =
@@ -97,55 +95,15 @@ async function readCustomProperties(stylesheet) {
     .toSorted((a, b) => a.name.localeCompare(b.name, "en"))
 }
 
-function readComponents(llmsTxt) {
-  return Array.from(
-    fs
-      .readFileSync(llmsTxt, "utf-8")
-      .matchAll(/^- \[(.+?)\]\(.*\/components\/([^/]+)\.md\)(?:: (.*))?$/gm),
-    ([, title, slug, description = ""]) => ({ description, slug, title }),
-  ).toSorted((a, b) => a.title.localeCompare(b.title, "en"))
-}
-
-function readDocsPage(slug) {
-  const source = fs.readFileSync(path.join(DOCS, `${slug}.astro`), "utf-8")
-  const imports = new Map(
+function readDescriptions(llmsTxt) {
+  return new Map(
     Array.from(
-      source.matchAll(
-        /^import (\w+) from "\.\.\/\.\.\/component-api\/([\w-]+)\/api"/gm,
-      ),
-      ([, name, folder]) => [name, folder],
+      fs
+        .readFileSync(llmsTxt, "utf-8")
+        .matchAll(/^- \[.+?\]\(.*\/components\/([^/]+)\.md\)(?:: (.*))?$/gm),
+      ([, slug, description = ""]) => [slug, description],
     ),
   )
-  const apiOrder = Array.from(
-    source.match(/apis=\{\[([\s\S]*?)\]\}/)?.[1].matchAll(/api: (\w+)/g) ?? [],
-    ([, name]) => imports.get(name),
-  ).filter(Boolean)
-  const stylesheets = Array.from(
-    source
-      .match(/installationTabs=\{\[([\s\S]*?)\]\}/)?.[1]
-      .matchAll(/title: "([\w-]+)\.css"/g) ?? [],
-    ([, name]) => name,
-  )
-  const base = source.match(/^\s+base="([\w-]+)"$/m)?.[1]
-  const shown = Array.from(
-    source.matchAll(/<AutoExample\s+name="(\w+)"/g),
-    ([, name]) => name,
-  )
-  const listed = source
-    .match(/^export const skillExamples = \[([^\]]*)\]/m)?.[1]
-    .match(/\w+/g)
-  const missing = listed?.filter((name) => !shown.includes(name)) ?? []
-  if (missing.length > 0) {
-    throw new Error(
-      `${slug}: skillExamples names ${list(missing)}, which the page shows in no <AutoExample>`,
-    )
-  }
-  return {
-    apiOrder,
-    base,
-    examples: listed ?? shown.slice(0, 1),
-    stylesheets,
-  }
 }
 
 const PARAGRAPH_START = /^(\s*)<p>/
@@ -192,9 +150,6 @@ function exampleSource(slug, name, framework) {
 }
 
 function exampleLines(framework, slug, examples) {
-  if (examples.length === 0) {
-    throw new Error(`${slug}: the docs page has no <AutoExample>`)
-  }
   return examples.flatMap((example) => {
     const source = exampleSource(slug, example, framework)
     if (!source) {
@@ -474,35 +429,7 @@ function isClientComponent(api) {
   )
 }
 
-function exportsOf(framework) {
-  return new Set(
-    barrelExports(
-      fs.readFileSync(
-        path.resolve(
-          ROOT,
-          "packages/opui",
-          framework === "nunjucks" ? "astro" : framework,
-          "index.ts",
-        ),
-        "utf-8",
-      ),
-    ).map(({ name }) => name),
-  )
-}
-
-function frameworkSection(framework, apis, slug, examples, baseApis) {
-  const exported = exportsOf(framework)
-  const names = [
-    ...new Set([
-      ...baseApis.map(({ api }) => api.component),
-      ...apis.flatMap(({ api }) => [
-        api.component,
-        ...api.parts.flatMap((part) => part.component ?? []),
-      ]),
-    ]),
-  ]
-    .filter((name) => exported.has(name))
-    .toSorted()
+function frameworkSection(framework, apis, slug, examples, names) {
   const lines = [`## ${labelOf(framework)}`, ""]
   if (names.length === 0) {
     lines.push(
@@ -622,45 +549,18 @@ const stripSections = (markdown) =>
     .join("")
     .trimEnd()
 
-const exampleImports = (slug) => {
-  const dir = path.join(EXAMPLES, slug)
-  const files = fs.existsSync(dir)
-    ? fs.readdirSync(dir).filter((file) => file.endsWith(".astro"))
-    : []
-  return new Set(
-    files.flatMap((file) =>
-      [
-        ...fs
-          .readFileSync(path.join(dir, file), "utf-8")
-          .matchAll(/import\s*\{([^}]*)\}\s*from\s*"opui-css\/astro"/g),
-      ].flatMap(([, names]) => names.split(",").map((name) => name.trim())),
-    ),
-  )
-}
-
-async function componentReference(component, apis, docs) {
+async function componentReference(component, catalog) {
   const { slug } = component
   const pageFrameworks = FRAMEWORKS
   const frameworkIds = pageFrameworks.map((f) => f.id)
-  const own = apis.filter((entry) => entry.page === slug)
-  const order = (entry) => {
-    const index = docs.apiOrder.indexOf(entry.folder)
-    return index === -1 ? Infinity : index
-  }
-  const ordered = own.toSorted(
-    (a, b) =>
-      order(a) - order(b) ||
-      a.api.component.localeCompare(b.api.component, "en"),
-  )
-  const elsewhere = docs.apiOrder
-    .map((folder) => apis.find((entry) => entry.folder === folder))
-    .filter((entry) => entry && entry.page !== slug)
-  const stylesheets =
-    docs.stylesheets.length > 0
-      ? docs.stylesheets
-      : [...new Set(own.flatMap(({ api }) => stylesheetsOf(api)))].filter(
-          (name) => fs.existsSync(path.join(STYLESHEETS, `${name}.css`)),
-        )
+  const shown = catalog.shownApisOf(slug)
+  const ordered = shown.filter((entry) => entry.page === slug)
+  const elsewhere = shown.filter((entry) => entry.page !== slug)
+  const stylesheets = catalog
+    .installOf(slug)
+    .filter(({ type }) => type === "css")
+    .map(({ name }) => name)
+  const examples = catalog.examplesOf(slug)
   const tokens = cssVarRows(...ordered.map(({ api }) => api)).map((row) =>
     code(row.name),
   )
@@ -688,18 +588,13 @@ async function componentReference(component, apis, docs) {
       : []),
     ...pageFrameworks.map((f) =>
       f.id === "html"
-        ? ["## HTML", ...exampleLines("html", slug, docs.examples)].join("\n")
+        ? ["## HTML", ...exampleLines("html", slug, examples)].join("\n")
         : frameworkSection(
             f.id,
             ordered,
             slug,
-            docs.examples,
-            apis.filter(
-              (entry) =>
-                docs.base &&
-                entry.page === docs.base &&
-                exampleImports(slug).has(entry.api.component),
-            ),
+            examples,
+            catalog.importsOf(slug, f.id),
           ),
     ),
   ]
@@ -795,14 +690,21 @@ async function buildSkill() {
   fs.rmSync(REFERENCES, { force: true, recursive: true })
   fs.mkdirSync(REFERENCES, { recursive: true })
 
-  const { apis } = await loadCatalog()
-  const components = readComponents(llmsTxt)
+  const catalog = await loadCatalog()
+  const { apis } = catalog
+  const descriptions = readDescriptions(llmsTxt)
+  const components = catalog.pages
+    .map((slug) => ({
+      description: descriptions.get(slug) ?? "",
+      slug,
+      title: catalog.nameOf(slug),
+    }))
+    .toSorted((a, b) => a.title.localeCompare(b.title, "en"))
 
   for (const component of components) {
-    const docs = readDocsPage(component.slug)
     fs.writeFileSync(
       path.join(REFERENCES, `${component.slug}.md`),
-      await componentReference(component, apis, docs),
+      await componentReference(component, catalog),
     )
   }
 

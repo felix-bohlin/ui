@@ -9,52 +9,13 @@ import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 import MenuBuild from "../../components/UnderTheHood/MenuBuild.astro"
 import { ListItem as UIListItem, Menu as UIMenu } from "opui-css/astro"
-import ListCSS from "@opui/css/components/list.css?raw"
-import MenuCSS from "@opui/css/components/menu.css?raw"
-
-import menuApi from "../../component-api/menu/api"
 
 export const description = "A popover list of actions or links."
 
 export const keywords = ["actions", "context menu", "dropdown", "popover"]
 ---
 
-<Component
-  description={description}
-  slug="menu"
-  heroAnatomy
-  browserSupport={[
-    "anchor-positioning",
-    "calc-size",
-    "container-scroll-state-queries",
-    "dir-pseudo",
-    "display-animation",
-    "has",
-    "invoker-commands",
-    "logical-properties",
-    "overlay",
-    "popover",
-    "relative-color",
-    "starting-style",
-    "transition-behavior",
-  ]}
-  fallbacks={{
-    "calc-size":
-      "Without `calc-size()`, a menu that doesn't fit on its side of the trigger flips to the other side, instead of shrinking to the space it has.",
-    "container-scroll-state-queries":
-      "Without scroll-state queries, a long menu scrolls without the shadows that mark more items above or below.",
-    "display-animation":
-      "Without display animation, the menu disappears at once instead of fading out.",
-    overlay:
-      "Without `overlay`, the page can cover the menu while it fades out.",
-  }}
-  apis={[{ title: "Menu API", api: menuApi }]}
-  installationTabs={[
-    { title: "list.css", code: ListCSS, lang: "css", isDependency: true },
-    { title: "menu.css", code: MenuCSS, lang: "css" },
-  ]}
->
-  <Fragment slot="title">Menu</Fragment>
+<Component description={description} heroAnatomy>
   <Fragment slot="preamble">
     A popover <DocLink href="/components/list">List</DocLink> of actions and
     links. To pick a value, use a

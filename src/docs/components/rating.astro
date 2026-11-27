@@ -9,35 +9,13 @@ import Usage from "./partials/Usage.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 import { Rating as UIRating } from "opui-css/astro"
 
-import RatingCSS from "@opui/css/components/rating.css?raw"
-
-import ratingApi from "../../component-api/rating/api"
-
 export const description =
   "A star rating: a meter that shows a score, or radios that collect one."
 
 export const keywords = ["review", "score", "stars"]
 ---
 
-<Component
-  description={description}
-  slug="rating"
-  heroAnatomy
-  apis={[{ title: "Rating API", api: ratingApi }]}
-  browserSupport={[
-    "alt-text-generated-content",
-    "attr",
-    "dir-pseudo",
-    "has",
-    "relative-color",
-    "user-pseudos",
-  ]}
-  fallbacks={{
-    attr: "Without typed `attr()`, a read-only rating is as many stars wide as `--_max`, which the components set from `max`, and draws its empty stars solid instead of as outlines.",
-  }}
-  installationTabs={[{ title: "rating.css", code: RatingCSS, lang: "css" }]}
->
-  <Fragment slot="title">Rating</Fragment>
+<Component description={description} heroAnatomy>
   <Fragment slot="preamble">
     A star rating. For a plain choice, use a
     <DocLink href="/components/radio">Radio</DocLink>.

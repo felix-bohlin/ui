@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Message",
+  css: ["avatar", "message"],
   keyboard: [
     {
       description:

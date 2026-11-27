@@ -9,12 +9,8 @@ import BlockLink from "../../components/BlockLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import { Button as UIButton } from "opui-css/astro"
 
-import ButtonCSS from "@opui/css/components/button.css?raw"
-
 import Conditional from "../../components/Conditional.astro"
 import ButtonBuild from "../../components/UnderTheHood/ButtonBuild.astro"
-
-import buttonApi from "../../component-api/button/api"
 
 export const description =
   "A button for actions, like saving a form, with variants, colors, sizes and icons."
@@ -22,23 +18,7 @@ export const description =
 export const keywords = ["btn", "cta", "icon button", "submit"]
 ---
 
-<Component
-  description={description}
-  slug="button"
-  heroAnatomy
-  apis={[{ title: "Button API", api: buttonApi }]}
-  browserSupport={[
-    "color-mix",
-    "container-style-queries",
-    "has",
-    "lh",
-    "light-dark",
-    "popover",
-    "relative-color",
-  ]}
-  installationTabs={[{ title: "button.css", code: ButtonCSS, lang: "css" }]}
->
-  <Fragment slot="title">Button</Fragment>
+<Component description={description} heroAnatomy>
   <Fragment slot="preamble">
     Actions, like saving a form. For filters and tags, use a
     <DocLink href="/components/chip">Chip</DocLink>.

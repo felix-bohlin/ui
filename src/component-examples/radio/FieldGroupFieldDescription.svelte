@@ -17,20 +17,26 @@
     <FieldDescription id="radio-field-group-field-description-1-description"
       >We only contact you about your order.</FieldDescription
     >
-    <FieldGroup name="radio-group-field-description-1" orientation="horizontal">
-      <Radio defaultChecked value="email">Email</Radio>
-      <Radio value="phone">Phone</Radio>
-      <Radio value="sms">SMS</Radio>
+    <FieldGroup orientation="horizontal">
+      <Radio defaultChecked name="radio-group-field-description-1" value="email"
+        >Email</Radio
+      >
+      <Radio name="radio-group-field-description-1" value="phone">Phone</Radio>
+      <Radio name="radio-group-field-description-1" value="sms">SMS</Radio>
     </FieldGroup>
   </Fieldset>
   <Fieldset
     aria-describedby="radio-field-group-field-description-2-description"
   >
     <FieldLegend>Theme</FieldLegend>
-    <FieldGroup name="radio-group-field-description-2" orientation="horizontal">
-      <Radio defaultChecked value="system">System</Radio>
-      <Radio value="light">Light</Radio>
-      <Radio value="dark">Dark</Radio>
+    <FieldGroup orientation="horizontal">
+      <Radio
+        defaultChecked
+        name="radio-group-field-description-2"
+        value="system">System</Radio
+      >
+      <Radio name="radio-group-field-description-2" value="light">Light</Radio>
+      <Radio name="radio-group-field-description-2" value="dark">Dark</Radio>
     </FieldGroup>
     <FieldDescription id="radio-field-group-field-description-2-description"
       >System follows your device setting.</FieldDescription

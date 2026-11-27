@@ -1,7 +1,7 @@
 <script lang="ts">
   import { untrack } from "svelte"
   import { getAnchorContext } from "./context.svelte"
-  import { warnReplacedAnchorAttributes } from "../dev"
+  import { DEV, warnReplacedAnchorAttributes } from "../dev"
   import type { AnchorContentProps as Props } from "./types.svelte"
 
   let {
@@ -15,14 +15,15 @@
   }: Props = $props()
 
   const anchor = getAnchorContext()
-  untrack(() =>
-    warnReplacedAnchorAttributes(
-      id,
-      popover,
-      anchor?.floatingId,
-      anchor?.popover,
-    ),
-  )
+  if (DEV)
+    untrack(() =>
+      warnReplacedAnchorAttributes(
+        id,
+        popover,
+        anchor?.floatingId,
+        anchor?.popover,
+      ),
+    )
 </script>
 
 <span

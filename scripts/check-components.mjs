@@ -6,7 +6,6 @@ import { parse as parseAstro } from "@astrojs/compiler"
 import ts from "typescript"
 import { parse as parseVue } from "vue/compiler-sfc"
 import {
-  componentHasFramework,
   exampleExtension,
   extensionPattern,
   FRAMEWORK_AGNOSTIC_EXAMPLES,
@@ -24,8 +23,12 @@ const componentsDir = join(root, "packages/opui/components")
 const examplesDir = join(root, "src/component-examples")
 const docsDir = join(root, "src/docs/components")
 
+const SOURCE_FRAMEWORK_IDS = PACKAGE_FRAMEWORK_IDS.filter(
+  (framework) => framework !== "nunjucks",
+)
+
 const COMPONENT_FILES = Object.fromEntries(
-  PACKAGE_FRAMEWORK_IDS.map((framework) => [
+  SOURCE_FRAMEWORK_IDS.map((framework) => [
     framework,
     `.${exampleExtension(framework)}`,
   ]),
@@ -128,7 +131,7 @@ const CONTEXT_IMPORTS = {
 const TYPE_FILES = [...Object.values(TYPES_FILES), "types.ts"]
 
 const BARRELS = Object.fromEntries(
-  PACKAGE_FRAMEWORK_IDS.map((framework) => [framework, `.${framework}`]),
+  SOURCE_FRAMEWORK_IDS.map((framework) => [framework, `.${framework}`]),
 )
 
 const EXAMPLE_IMPORT = new RegExp(
@@ -321,6 +324,18 @@ const classTokens = (lists) =>
         .join(" "),
     )
     .filter((tokens) => tokens !== "className")
+    .join("\n")
+
+export const vueClassOrder = (tokens) =>
+  tokens
+    .split("\n")
+    .map((line) =>
+      line
+        .split(" ")
+        .filter((token) => token && token !== "className")
+        .join(" "),
+    )
+    .filter((line) => line.includes(" "))
     .join("\n")
 
 const clientProblems = (source, used, uses) => {
@@ -1404,7 +1419,7 @@ const main = async () => {
         const lists = classLists(
           extension === ".vue"
             ? withoutBoundBranches(source).replace(
-                /\$?props\.class\b/g,
+                /\$attrs\.class\b/g,
                 "className",
               )
             : extension === ".solid.tsx"
@@ -1429,9 +1444,10 @@ const main = async () => {
     for (const name of astro) {
       for (const [extension] of CLASS_LISTS.slice(1)) {
         const file = `${name}${extension}`
+        const order = extension === ".vue" ? vueClassOrder : (text) => text
         if (
           tokens.has(file) &&
-          tokens.get(file) !== tokens.get(`${name}.astro`)
+          order(tokens.get(file)) !== order(tokens.get(`${name}.astro`))
         ) {
           report(
             join(dir, file),
@@ -1546,11 +1562,7 @@ const main = async () => {
       }
       for (const framework of FRAMEWORK_IDS) {
         const file = `${name}.${exampleExtension(framework)}`
-        if (
-          componentHasFramework(framework, slug) &&
-          !(code && framework === "html") &&
-          !files.includes(file)
-        ) {
+        if (!(code && framework === "html") && !files.includes(file)) {
           report(join(dir, file), "is missing")
         }
       }

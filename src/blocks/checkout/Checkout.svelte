@@ -29,7 +29,7 @@
   } from "opui-css/svelte"
 </script>
 
-<div class="checkout ui-layout-container ui-layout-column ui-large">
+<div class="checkout ui-layout-container ui-layout-column ui-gap-large">
   <hgroup class="ui-hgroup">
     <p>Bassbook Shop</p>
     <h1 class="ui-h3">Checkout</h1>
@@ -46,7 +46,7 @@
   />
   <div
     class="ui-layout-columns"
-    style="--_columns: 3fr 2fr; --_gap: var(--ui-space-6)"
+    style="--_columns: 3fr 2fr; --_gap: var(--ui-space-7)"
   >
     <Form action="#">
       <Fieldset>
@@ -60,7 +60,7 @@
               placeholder="you@example.com"
               required
               type="email"
-              value="ines.hertz@example.com"
+              value="mohini.hertz@example.com"
             />
           </Field>
           <Checkbox defaultChecked id="checkout-news" name="news">
@@ -79,7 +79,7 @@
                 name="first-name"
                 required
                 type="text"
-                value="Ines"
+                value="Mohini"
               />
             </Field>
             <Field for="checkout-last-name" label="Last name">
@@ -217,7 +217,7 @@
       </Fieldset>
       <Fieldset>
         <FieldLegend>Payment</FieldLegend>
-        <Tabs name="checkout-payment" style="--_panel-gap: var(--ui-space-4)">
+        <Tabs name="checkout-payment" style="--_panel-gap: var(--ui-space-5)">
           <TabsItem defaultChecked id="checkout-pay-card" value="card">
             <TabsLabel>Card</TabsLabel>
             <TabsPanel>
@@ -280,7 +280,7 @@
             <TabsPanel>
               <p>
                 Pay within 30 days of delivery. We'll email the invoice to
-                ines.hertz@example.com once your gear ships.
+                mohini.hertz@example.com once your gear ships.
               </p>
             </TabsPanel>
           </TabsItem>
@@ -304,7 +304,7 @@
         >
           Pay €154.30
         </Button>
-        <p class="ui-layout-row ui-x-small ui-align-center ui-caption">
+        <p class="ui-layout-row ui-gap-x-small ui-align-center ui-caption">
           <svg
             data-icon="lock"
             aria-hidden="true"
@@ -391,18 +391,18 @@
               id="checkout-discount"
               name="discount"
               type="text"
-              value="LOWEND10"
+              value="BASS10"
             />
           </Field>
           <Button type="button">Apply</Button>
         </ControlGroup>
-        <DescriptionList border="solid" orientation="horizontal">
+        <DescriptionList leader="solid" orientation="horizontal">
           <DescriptionListItem>
             <DescriptionListTerm>Subtotal</DescriptionListTerm>
             <DescriptionListDescription>€166.00</DescriptionListDescription>
           </DescriptionListItem>
           <DescriptionListItem>
-            <DescriptionListTerm>Discount (LOWEND10)</DescriptionListTerm>
+            <DescriptionListTerm>Discount (BASS10)</DescriptionListTerm>
             <DescriptionListDescription>−€16.60</DescriptionListDescription>
           </DescriptionListItem>
           <DescriptionListItem>
@@ -456,7 +456,7 @@
       }
 
       .checkout-price {
-        font-weight: var(--ui-font-weight-semibold);
+        font-weight: var(--ui-font-weight-label);
       }
 
       .checkout-submit {

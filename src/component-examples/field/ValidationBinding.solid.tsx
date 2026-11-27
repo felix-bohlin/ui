@@ -3,7 +3,7 @@ import { createSignal } from "solid-js"
 import { Field } from "opui-css/solid"
 
 export default function ValidationBinding() {
-  const [username, setUsername] = createSignal("holly")
+  const [username, setUsername] = createSignal("scott")
   const invalid = () => /[^a-z0-9]/i.test(username())
 
   return (

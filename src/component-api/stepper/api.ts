@@ -42,7 +42,7 @@ export default {
     },
     {
       description:
-        "The steps, as `{ complete, completeLabel, current, description, error, errorLabel, href, label }` objects.",
+        "The steps, as `{ completeLabel, current, description, errorLabel, href, label, state }` objects. A step's own `state` wins over the `complete` the stepper and `current` give it.",
       group: "Items",
       prop: "items",
     },

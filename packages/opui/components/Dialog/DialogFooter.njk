@@ -1,0 +1,11 @@
+{% macro DialogFooter(props = {}) %}
+  {%- set props = props | opuiProps("DialogFooter") -%}
+  {%- set rest = props | opuiRest("DialogFooter") -%}
+  <div
+    class="ui-footer
+      {%- if props.align and props.align != 'end' %} ui-align-{{ props.align }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </div>
+{%- endmacro %}

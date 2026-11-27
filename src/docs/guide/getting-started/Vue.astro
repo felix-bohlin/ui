@@ -100,6 +100,36 @@ import "./styles/main.css"`}
     </p>
   </section>
 
+  <section id="element">
+    <h2>Reaching the element</h2>
+    <p>
+      A template ref on a component is the component, and its <code>$el</code>
+      is the root element, typed for it: a <code>Dialog</code>'s
+      <code>$el</code> is an <code>HTMLDialogElement</code>. Most of the time
+      you need none: a <code>Button</code> with
+      <code>command="show-modal"</code> and <code>commandfor</code> opens a
+      dialog by its <code>id</code>, and its click handler can set your state at
+      the same time. When a script opens it, such as after a check, reach the
+      element:
+    </p>
+    <Code
+      code={`<script setup lang="ts">
+import { useTemplateRef } from "vue"
+import { Button, Dialog, DialogContent } from "opui-css/vue"
+
+const dialog = useTemplateRef("dialog")
+</script>
+
+<template>
+  <Button @click="dialog?.$el.showModal()">Delete</Button>
+  <Dialog ref="dialog" aria-label="Delete the file?" id="confirm">
+    <DialogContent>The file goes to the bin for 30 days.</DialogContent>
+  </Dialog>
+</template>`}
+      lang="vue"
+    />
+  </section>
+
   <section id="ssr">
     <h2>Server rendering</h2>
     <p>

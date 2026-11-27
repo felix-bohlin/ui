@@ -1,7 +1,7 @@
 /** @jsxImportSource @solidjs/web */
 import { dynamic } from "@solidjs/web"
 import { children, omit, Show } from "solid-js"
-import { defined } from "../attrs"
+import { defined, filled } from "../attrs"
 import { disabledLink, tagAttrs } from "../tag"
 import { cx } from "../cx"
 import type { Props } from "./types.solid"
@@ -44,8 +44,8 @@ export default function ListItem(props: Props) {
         : (props.as ?? (props.href ? "a" : undefined))
   const Tag = dynamic(tag)
   const restOnItem = () => hasControl() || !tag()
-  const hasLabel = () => !!resolvedLabel()
-  const hasDescription = () => !!resolvedDescription()
+  const hasLabel = () => filled(resolvedLabel())
+  const hasDescription = () => filled(resolvedDescription())
   const tagFor = () => (hasControl() ? props.for : undefined)
 
   return (
@@ -61,7 +61,9 @@ export default function ListItem(props: Props) {
         when={tag()}
         fallback={
           <>
-            {resolvedStart() && <div class="ui-start">{resolvedStart()}</div>}
+            {filled(resolvedStart()) && (
+              <div class="ui-start">{resolvedStart()}</div>
+            )}
             {hasLabel() || hasDescription() ? (
               <div class="ui-text">
                 {hasLabel() && <p>{resolvedLabel()}</p>}
@@ -71,8 +73,8 @@ export default function ListItem(props: Props) {
             ) : (
               resolvedChildren()
             )}
-            {resolvedEnd() && <div class="ui-end">{resolvedEnd()}</div>}
-            {resolvedIconChecked() && (
+            {filled(resolvedEnd()) && <div class="ui-end">{resolvedEnd()}</div>}
+            {filled(resolvedIconChecked()) && (
               <span aria-hidden="true" class="ui-icon-checked">
                 {resolvedIconChecked()}
               </span>
@@ -89,7 +91,9 @@ export default function ListItem(props: Props) {
               : tagAttrs(shownTag(), props.disabled, props.href))}
             {...defined(restOnItem() ? {} : (rest as object))}
           >
-            {resolvedStart() && <div class="ui-start">{resolvedStart()}</div>}
+            {filled(resolvedStart()) && (
+              <div class="ui-start">{resolvedStart()}</div>
+            )}
             {hasLabel() || hasDescription() ? (
               <div class="ui-text">
                 {hasLabel() && <p>{resolvedLabel()}</p>}
@@ -99,8 +103,8 @@ export default function ListItem(props: Props) {
             ) : (
               resolvedChildren()
             )}
-            {resolvedEnd() && <div class="ui-end">{resolvedEnd()}</div>}
-            {resolvedIconChecked() && (
+            {filled(resolvedEnd()) && <div class="ui-end">{resolvedEnd()}</div>}
+            {filled(resolvedIconChecked()) && (
               <span aria-hidden="true" class="ui-icon-checked">
                 {resolvedIconChecked()}
               </span>

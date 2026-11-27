@@ -1,0 +1,2236 @@
+---
+import "@opui/css/imports.css"
+import "@opui/open-props.css"
+import { execFileSync } from "node:child_process"
+import { readdirSync, readFileSync } from "node:fs"
+import { Font } from "astro:assets"
+import { Chip } from "opui-css/astro"
+import AstroLogo from "../../components/AstroLogo.astro"
+import Html5Logo from "../../components/Html5Logo.astro"
+import NunjucksLogo from "../../components/NunjucksLogo.astro"
+import ReactLogo from "../../components/ReactLogo.astro"
+import Ratchets from "../../components/Release/Ratchets.astro"
+import SolidLogo from "../../components/SolidLogo.astro"
+import SvelteLogo from "../../components/SvelteLogo.astro"
+import TokenTiers from "../../components/TokenTiers.astro"
+import VueLogo from "../../components/VueLogo.astro"
+import { allBlocks, blockGroups } from "../../utils/blocks"
+import { posts } from "../../utils/blog-posts"
+import { addedComponents, changelogSections } from "../../utils/changelog-file"
+import { parseChecklist } from "../../utils/checklist"
+import { components } from "../../utils/components"
+import { capitalized, inWords, listOf } from "../../utils/count-words"
+import { EXAMPLE_THEMES } from "../../utils/example-themes"
+import {
+  EXAMPLE_EXTENSIONS,
+  FRAMEWORKS,
+  PACKAGE_FRAMEWORK_IDS,
+  type FrameworkId,
+} from "../../utils/framework"
+import { releaseVersion } from "../../utils/release"
+import { stressPages, testPagesEnabled } from "../../utils/test-pages"
+import { themeTokens } from "../../utils/theme-tokens"
+import { parseTodo } from "../../utils/todo"
+import { DIAGNOSTICS } from "../../../scripts/component-diagnostics.mjs"
+
+export function getStaticPaths() {
+  if (!testPagesEnabled()) return []
+  return [{ params: { index: undefined } }]
+}
+
+const LOGOS: Record<FrameworkId, typeof AstroLogo> = {
+  astro: AstroLogo,
+  html: Html5Logo,
+  nunjucks: NunjucksLogo,
+  react: ReactLogo,
+  solid: SolidLogo,
+  svelte: SvelteLogo,
+  vue: VueLogo,
+}
+
+const read = (file: string) => readFileSync(file, "utf8")
+const filesIn = (folder: string, pattern: RegExp) =>
+  readdirSync(folder).filter((file) => pattern.test(file))
+const foldersIn = (folder: string) =>
+  readdirSync(folder, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+const format = (value: number) => value.toLocaleString("en")
+const labelOf = (id: string) =>
+  FRAMEWORKS.find((framework) => framework.id === id)?.label ?? id
+
+const changelog = read("packages/opui/CHANGELOG.md")
+const newComponents = addedComponents(changelog, releaseVersion).toSorted(
+  (a, b) => a.localeCompare(b, "en"),
+)
+const entriesOf = (title: string) =>
+  changelogSections(changelog, releaseVersion).find(
+    (section) => section.title === title,
+  )?.entries.length ?? 0
+const releases = [
+  ...changelog.matchAll(/^## (\d+)\.(\d+)\.(\d+) - ((\d{4}-\d{2})-\d{2})$/gm),
+].map(([, major, minor, patch, date, month]) => ({
+  date,
+  major,
+  month,
+  version: `${major}.${minor}.${patch}`,
+}))
+const previous = releases[0]
+
+const EARLIER_FRAMEWORKS = new Set(["astro", "html", "vue"])
+const newFrameworks = listOf(
+  FRAMEWORKS.filter((framework) => !EARLIER_FRAMEWORKS.has(framework.id)).map(
+    (framework) => framework.label,
+  ),
+)
+const targets = inWords(FRAMEWORKS.length)
+const compiled = PACKAGE_FRAMEWORK_IDS.filter((id) => id !== "astro")
+
+const contrastKnobs = (
+  read("packages/opui/css/theme.css")
+    .match(/:where\(\.ui-contrast-more\) \{([^}]*)\}/)?.[1]
+    .match(/^\s*--ui-[\w-]+:/gm) ?? []
+).filter((line) => line.trim() !== "--ui-contrast:").length
+
+const todoSource = read("TODO.md")
+const todo = parseTodo(todoSource)
+const itemCount = (sections: typeof todo.done) =>
+  sections.reduce((total, section) => total + section.items.length, 0)
+const outcomes = ["Fixed", "Explained", "Removed", "Still open"].map(
+  (outcome) => ({
+    count:
+      todoSource.match(new RegExp(`^\\s+- ${outcome}\\b`, "gm"))?.length ?? 0,
+    outcome,
+  }),
+)
+
+const progressOf = (file: string) => {
+  const items = parseChecklist(read(file)).sections.flatMap(
+    (section) => section.items,
+  )
+  const done = items.filter((item) => item.stage === "done").length
+  return {
+    done,
+    ratio: items.length ? done / items.length : 0,
+    total: items.length,
+  }
+}
+
+const compilerLines = [
+  "scripts/build-components.mjs",
+  ...filesIn("scripts", /^component-.+\.mjs$/).map((file) => `scripts/${file}`),
+].reduce((total, file) => total + read(file).split("\n").length, 0)
+const astroComponents = readdirSync("packages/opui/components", {
+  recursive: true,
+}).filter((file) => /^[^/]+\/[^/]+\.astro$/.test(String(file))).length
+
+const APP_LABELS = new Map([
+  ["eleventy", "Eleventy"],
+  ["next", "Next.js"],
+  ["nuxt", "Nuxt"],
+  ["solid-start", "SolidStart"],
+  ["sveltekit", "SvelteKit"],
+])
+const appFolders = foldersIn("tests/apps").filter(
+  (folder) => folder !== "native",
+)
+const viteStarters = appFolders.filter((folder) => folder.startsWith("vite-"))
+const apps = listOf([
+  ...appFolders
+    .filter((folder) => !folder.startsWith("vite-"))
+    .map((folder) => APP_LABELS.get(folder) ?? folder),
+  `${inWords(viteStarters.length)} Vite starters`,
+])
+
+const stats = {
+  agents: filesIn(".claude/agents", /\.md$/).map((file) =>
+    file.replace(/\.md$/, ""),
+  ),
+  answers: todoSource.match(/^\s+> /gm)?.length ?? 0,
+  blocks: allBlocks.length,
+  blockGroups: blockGroups.length,
+  breaking: entriesOf("Breaking"),
+  checklist: progressOf("docs/releases/6.0.0-checklist.md"),
+  checks: progressOf("docs/releases/6.0.0.md"),
+  codes: Object.keys(DIAGNOSTICS).length,
+  compiledFiles: astroComponents * compiled.length,
+  compilerLines,
+  components: components.length,
+  doneTodos: itemCount(todo.done),
+  e2e: filesIn("tests/e2e", /\.spec\.ts$/).length,
+  elements: filesIn("packages/opui/elements", /\.js$/).length,
+  guides: readdirSync(".", { recursive: true })
+    .map(String)
+    .filter(
+      (file) =>
+        file.endsWith("AGENTS.md") &&
+        !/(^|\/)(node_modules|dist[^/]*)\//.test(file),
+    )
+    .toSorted(),
+  handWritten: Object.keys(
+    JSON.parse(read("scripts/hand-written-components.json")),
+  ).length,
+  openTodos: itemCount(todo.sections),
+  posts: posts.length,
+  referenceApps: foldersIn("tests/reference/apps").length,
+  stress: Object.keys(stressPages).length,
+  themes: EXAMPLE_THEMES.length,
+  tokens: themeTokens().length,
+  unit: filesIn("tests/unit", /\.test\.ts$/).length,
+  workflows: filesIn(".github/workflows", /\.yml$/).length,
+}
+
+const git = (...args: string[]) =>
+  execFileSync("git", args, {
+    encoding: "utf8",
+    maxBuffer: 1 << 28,
+    stdio: "pipe",
+  }).trim()
+
+const tally = (values: string[]) =>
+  values.reduce(
+    (counts, value) => counts.set(value, (counts.get(value) ?? 0) + 1),
+    new Map<string, number>(),
+  )
+
+const recorded = {
+  asOf: "2026-11-27",
+  busiestDay: 234,
+  byBots: 181,
+  byClaude: 2586,
+  byMe: 168,
+  commits: 2935,
+  ledgerChanges: 27,
+  monthly: new Map(
+    Object.entries({
+      "2024-04": 6,
+      "2024-08": 32,
+      "2024-09": 8,
+      "2024-11": 239,
+      "2024-12": 196,
+      "2025-01": 171,
+      "2025-02": 24,
+      "2025-03": 31,
+      "2025-04": 20,
+      "2025-05": 19,
+      "2025-06": 16,
+      "2025-07": 20,
+      "2025-08": 16,
+      "2025-09": 6,
+      "2025-10": 17,
+      "2025-11": 12,
+      "2025-12": 11,
+      "2026-01": 2,
+      "2026-02": 4,
+      "2026-04": 1,
+      "2026-05": 41,
+      "2026-06": 20,
+      "2026-07": 1,
+      "2026-09": 122,
+      "2026-10": 1237,
+      "2026-11": 1577,
+    }),
+  ),
+  sessions: 255,
+  weeks: 10,
+}
+
+const fromGit = () => {
+  try {
+    if (git("rev-parse", "--is-shallow-repository") === "true") return
+    const release = git(
+      "log",
+      `-S"version": "${previous.version}"`,
+      "--format=%H",
+      "--",
+      "packages/opui/package.json",
+    )
+      .split("\n")
+      .filter(Boolean)
+      .at(-1)
+    if (!release) return
+    const range = `${release}..HEAD`
+    const authors = git("log", "--format=%an", range).split("\n")
+    const bodies = git("log", "--format=%b", range)
+    const days = tally(
+      git("log", "--format=%ad", "--date=short", range).split("\n"),
+    )
+    const day = 24 * 60 * 60 * 1000
+    const dateOf = (ref: string) =>
+      git("show", "-s", "--format=%ad", "--date=short", ref)
+    return {
+      asOf: dateOf("HEAD"),
+      busiestDay: Math.max(...days.values()),
+      byBots: authors.filter((author) => author.endsWith("[bot]")).length,
+      byClaude: authors.filter((author) => author === "Claude").length,
+      byMe: authors.filter(
+        (author) => author !== "Claude" && !author.endsWith("[bot]"),
+      ).length,
+      commits: authors.length,
+      ledgerChanges: bodies.match(/^Ledger-Change: intended$/gm)?.length ?? 0,
+      monthly: tally(
+        git("log", "--format=%ad", "--date=format:%Y-%m").split("\n"),
+      ),
+      sessions: new Set(bodies.match(/claude\.ai\/code\/session_\w+/g)).size,
+      weeks: Math.round(
+        (Date.parse(dateOf("HEAD")) - Date.parse(dateOf(release))) / (7 * day),
+      ),
+    }
+  } catch {
+    return
+  }
+}
+
+const history = fromGit() ?? recorded
+const claudeShare = Math.round((history.byClaude / history.commits) * 100)
+
+const monthName = (month: string) =>
+  new Date(`${month}-01T00:00:00Z`).toLocaleString("en", {
+    month: "short",
+    timeZone: "UTC",
+    year: "numeric",
+  })
+const dayOf = (date: string) =>
+  new Date(`${date}T00:00:00Z`).toLocaleString("en", {
+    day: "numeric",
+    month: "long",
+    timeZone: "UTC",
+  })
+const asOf = dayOf(history.asOf)
+const months = (() => {
+  const known = [...history.monthly.keys()].toSorted()
+  const [year, month] = known[0].split("-").map(Number)
+  const all: string[] = []
+  for (
+    let date = new Date(Date.UTC(year, month - 1));
+    date.toISOString().slice(0, 7) <= known.at(-1)!;
+    date.setUTCMonth(date.getUTCMonth() + 1)
+  ) {
+    all.push(date.toISOString().slice(0, 7))
+  }
+  return all.map((key) => [key, history.monthly.get(key) ?? 0] as const)
+})()
+const markers = new Map<string, string[]>()
+const mark = (month: string, label: string) =>
+  markers.set(month, [...(markers.get(month) ?? []), label])
+for (const major of new Set(releases.map((release) => release.major))) {
+  mark(
+    releases.findLast((release) => release.major === major)!.month,
+    `${major}.0`,
+  )
+}
+mark(previous.month, previous.version)
+const markerOf = (month: string) =>
+  listOf(
+    (markers.get(month) ?? []).toSorted((a, b) =>
+      a.localeCompare(b, "en", { numeric: true }),
+    ),
+  )
+const cycle = months.filter(([month]) => month >= previous.month)
+const before = months.filter(([month]) => month < previous.month)
+const peaks = new Set([
+  before.toSorted((a, b) => b[1] - a[1])[0]?.[0],
+  months.toSorted((a, b) => b[1] - a[1])[0][0],
+])
+const maxCommits = Math.max(...months.map(([, count]) => count))
+const bars = months.map(([month, count], index) => ({
+  count,
+  cycle: month >= previous.month,
+  label: monthName(month),
+  peak: peaks.has(month),
+  release: markerOf(month),
+  year: month.endsWith("-01") || index === 0 ? month.slice(0, 4) : "",
+}))
+
+const themeFrames = [
+  { label: "Default", src: "/dev/tests/forms/" },
+  ...EXAMPLE_THEMES.map((theme) => ({
+    label: theme.label,
+    src: `/dev/tests/forms/?theme=${theme.name}`,
+  })),
+]
+
+const flat = (source: string) =>
+  source.replace(/\/\/.*$/gm, "").replace(/\s+/g, " ")
+const CARD_ACTIONS: Record<string, { cells: string[]; note?: string }> = {
+  astro: {
+    cells: [
+      "const { align, class: className, ...rest } = Astro.props",
+      "class:list={[…]}",
+      "{...rest}",
+      "<slot />",
+    ],
+    note: "written by hand",
+  },
+  nunjucks: {
+    cells: [
+      "{% macro CardActions(props = {}) %}",
+      'class="ui-actions {%- if …%}"',
+      "{{- rest | opuiAttributes }}",
+      "{{- caller() if caller -}}",
+    ],
+  },
+  react: {
+    cells: [
+      "function CardActions({ align, className, children, ...rest }",
+      "className={cx([…])}",
+      "{...rest}",
+      "{children}",
+    ],
+  },
+  solid: {
+    cells: [
+      'const rest = omit(props, "align", "class", "children")',
+      "class={[…]}",
+      "{...rest}",
+      "{props.children}",
+    ],
+  },
+  svelte: {
+    cells: [
+      "let { align, class: className, children, ...rest }: Props = $props()",
+      "class={[…]}",
+      "{...rest}",
+      "{@render children?.()}",
+    ],
+  },
+  vue: {
+    cells: [
+      "const { align } = defineProps<Props>()",
+      ':class="[…]"',
+      "(falls through to the root)",
+      "<slot></slot>",
+    ],
+  },
+}
+const outputs = PACKAGE_FRAMEWORK_IDS.map((id) => {
+  const row = CARD_ACTIONS[id]
+  if (!row) throw new Error(`slides: no CardActions row for ${id}`)
+  const file = `packages/opui/components/Card/CardActions.${EXAMPLE_EXTENSIONS[id]}`
+  const source = flat(read(file))
+  for (const cell of row.cells) {
+    if (cell.startsWith("(")) continue
+    if (!source.includes(flat(cell.split("…")[0]))) {
+      throw new Error(`slides: ${file} lacks ${cell}`)
+    }
+  }
+  return { ...row, label: labelOf(id) }
+})
+
+const appCount = appFolders.length
+const compiledTargets = compiled.map((id) => ({
+  Logo: LOGOS[id],
+  label: labelOf(id),
+}))
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <Font cssVariable="--font-bricolage-grotesque" preload />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Open Props UI 6.0 - Slides</title>
+  </head>
+  <body>
+    <span aria-hidden="true" class="deck-progress"></span>
+    <main class="deck" aria-roledescription="slide deck">
+      <section class="slide" aria-label="Title">
+        <div class="stage">
+          <div class="frame">
+            <h1>Open Props UI <span class="accent">6.0</span></h1>
+            <p class="lede">and how it was built with Claude Code</p>
+            <ul class="logos" aria-label="Frameworks">
+              {FRAMEWORKS.map((framework) => {
+                const Logo = LOGOS[framework.id]
+                return <li>
+                  <Chip size="large" variant="outlined">
+                    <Logo size={22} slot="start" />
+                    <Fragment slot="label">{framework.label}</Fragment>
+                  </Chip>
+                </li>
+              })}
+            </ul>
+            <p class="byline">Felix Bohlin</p>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            Keys: arrows or Space to move, F fullscreen, P presenter window, N
+            notes, D dark mode.
+          </p>
+          <p>
+            0:00. Hi. Two parts: a little background on what Open Props UI is,
+            then most of the time on 6.0, and on how I built it with Claude
+            Code.
+          </p>
+          <p>
+            Spoiler: {format(history.commits)} commits since the last release,
+            in {inWords(history.weeks)} weeks, almost all of them from Claude
+            Code sessions.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="What is Open Props UI">
+        <div class="stage">
+          <div class="frame">
+            <p class="eyebrow">Background</p>
+            <h2>Design system. Components. Modern HTML &amp; CSS.</h2>
+            <ul class="words">
+              <li>CSS first</li>
+              <li>HTML is a target</li>
+              <li>Feature first</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            0:30. Open Props UI is a component library and design system where
+            the CSS is the product. It started on top of Open Props.
+          </p>
+          <p>
+            CSS first: a component is its stylesheet and the native HTML it
+            styles. HTML is a target: copy the markup, no framework needed; the
+            frameworks are bindings on top. Feature first: I use a new HTML or
+            CSS feature as soon as one engine ships it.
+          </p>
+          <p>
+            Like shadcn: I do the hard work, you take it and make it your own.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="Where it started">
+        <div class="stage">
+          <div class="frame">
+            <p class="eyebrow">Background</p>
+            <p class="quote">Learn all the cool tricks, and pass them on.</p>
+            <p class="kicker">That was then.</p>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            2:00. The library that uses modern CSS and HTML didn't seem to
+            exist, so I wanted to build it, learn the tricks on the way, and
+            pass them on.
+          </p>
+          <p>
+            Everything was written by hand, and readability was a hard rule:
+            anyone at any level should be able to open a stylesheet, get it and
+            change it. Inspiring one person was a win.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="Commits per month">
+        <div class="stage">
+          <div class="frame">
+            <h2>Commits per month</h2>
+            <figure class="chart">
+              <ol class="bars" style={`--max: ${maxCommits}`}>
+                {bars.map((bar) => <li
+                  class:list={["bar", { cycle: bar.cycle, peak: bar.peak }]}
+                  data-tip={`${bar.label}: ${format(bar.count)}`}
+                  style={`--n: ${bar.count}`}
+                >
+                  <span class="bar-fill"></span>
+                  {bar.peak && <span aria-hidden="true" class="bar-value"
+                    >{format(bar.count)}</span
+                  >}
+                  <span class="ui-sr-only"
+                    >{`${bar.label}: ${format(bar.count)} commits`}</span
+                  >
+                  <span aria-hidden="true" class="bar-year">{bar.year}</span>
+                  {bar.release && <span class="bar-release"
+                    >{bar.release}</span
+                  >}
+                </li>)}
+              </ol>
+              <figcaption><span class="cycle-label">6.0</span></figcaption>
+            </figure>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            3:00. Two and a half years in one picture, releases under the axis.
+            The first bump is the road to 1.0 at the end of 2024, a couple of
+            hundred commits a month, by hand.
+          </p>
+          <p>
+            Then 2.0, 3.0, 4.0 and 5.0, all quiet months. And then the 6.0
+            cycle:
+            {listOf(
+              cycle.map(
+                ([month, count]) => `${format(count)} in ${monthName(month)}`,
+              ),
+            )},
+            counted to {asOf}.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="The scope changed">
+        <div class="stage">
+          <div class="frame">
+            <p class="eyebrow">6.0</p>
+            <h2>The core stayed. The scope changed.</h2>
+            <p class="big">One CSS codebase, any design.</p>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            4:30. "Since AI has gotten so good that writing anything by hand has
+            become unnecessary, the core concepts stayed but the scope changed."
+          </p>
+          <p>
+            I always had the 6.0 architecture in mind, but it didn't feel
+            approachable, and I didn't think I could maintain it as a hobby.
+            With agents doing the typing, I could go for it: one codebase that
+            can be shadcn, Material, Bootstrap or a brutalist experiment. If it
+            can be all of those, it can be your design too.
+          </p>
+          <p>
+            The CSS got less readable. The docs got a lot better to make up for
+            it.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="6.0 at a glance">
+        <div class="stage">
+          <div class="frame">
+            <h2>6.0 at a glance</h2>
+            <ul class="tiles tiles-three">
+              <li><strong>{FRAMEWORKS.length}</strong> targets</li>
+              <li><strong>{newComponents.length}</strong> new components</li>
+              <li><strong>{stats.themes}</strong> example themes</li>
+              <li><strong>{stats.blocks}</strong> blocks</li>
+              <li><strong>{stats.posts}</strong> blog posts</li>
+              <li><strong>{stats.breaking}</strong> breaking changes</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            5:30. The headline numbers, computed from the repo when the page
+            builds.
+          </p>
+          <p>
+            {newFrameworks} are new targets, next to HTML, Astro and Vue.
+            {stats.components} components in all, {format(stats.tokens)} theme
+            tokens. It's the first major since 5.0, and a lot of the breaking
+            entries are plain renames.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="Token tiers">
+        <div class="stage">
+          <div class="frame">
+            <h2>Token tiers</h2>
+            <div class="embed" style="--zoom: 0.72">
+              <TokenTiers />
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            6:30. Read a column top to bottom: a knob the theme sets, the role
+            every component with that job reads, an optional component token,
+            the private property, and the CSS property it ends up on.
+          </p>
+          <p>
+            Every token has the --ui- prefix now, and there's a tokens.json in
+            the W3C design tokens format. Open Props itself is optional.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="Example themes">
+        <div class="stage">
+          <div class="frame">
+            <h2>Same markup, {inWords(stats.themes)} themes</h2>
+            <ul
+              class="shots"
+              style={`--columns: ${Math.ceil(themeFrames.length / 2)}`}
+            >
+              {themeFrames.map((frame) => <li>
+                <div class="shot">
+                  <iframe
+                    inert
+                    loading="lazy"
+                    src={frame.src}
+                    tabindex="-1"
+                    title={`${frame.label} theme`}
+                  ></iframe>
+                </div>
+                <p>{frame.label}</p>
+              </li>)}
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            7:45. The forms stress page, live, {inWords(themeFrames.length)}
+            times. Only the tokens differ.
+          </p>
+          <p>
+            The themes are the stress test of the token model: if
+            {listOf(EXAMPLE_THEMES.map((theme) => theme.label))} all work, the
+            hooks are in the right places.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="Contrast">
+        <div class="stage">
+          <div class="frame">
+            <h2>Contrast is a promise</h2>
+            <p class="number">1,036 <span>pairs tested</span></p>
+            <p class="number number-small">1 <span>miss</span></p>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            8:45. Every -text role promises 4.5:1 on every surface, recorded in
+            tokens.json, and a test sweeps every hue in steps of 10, light and
+            dark, normal and more contrast.
+          </p>
+          <p>
+            --ui-contrast: more tightens {contrastKnobs} knobs and never sets a
+            color directly. --ui-on-primary is picked from the fill's luminance
+            with relative color.
+          </p>
+          <p>
+            The one miss: primary text on the filled surface in light mode, at
+            hues 160 to 220, down to 4.24:1 at hue 190. The default hue keeps it
+            above 4.5.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="New components">
+        <div class="stage">
+          <div class="frame">
+            <h2>{newComponents.length} new components</h2>
+            <ul class="names">
+              {newComponents.map((name) => <li>{name}</li>)}
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            9:30. Plus the Layout classes. Field replaces TextField, Textarea,
+            Select and Range: it's the label, hints and box around your own
+            control.
+          </p>
+          <p>
+            When HTML can't do the job, a tiny custom element does:
+            {stats.elements} of them, the same for every framework and for plain
+            HTML.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="The platform does the work">
+        <div class="stage">
+          <div class="frame">
+            <h2>The platform does the work</h2>
+            <ul class="names names-code">
+              <li>popover</li>
+              <li>commandfor</li>
+              <li>interestfor</li>
+              <li>anchor()</li>
+              <li>::scroll-marker</li>
+              <li>base-select</li>
+              <li>scroll-state()</li>
+              <li>:has()</li>
+              <li>progress()</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            10:30. The CSS is the component. Popovers and invoker commands for
+            Dialog, Drawer and Menu; interestfor for Tooltip and Anchor; scroll
+            buttons and markers for the Carousel; base-select for every select
+            in a Field; scroll-state queries for shadows; :has() for Message
+            runs and Field; progress() and round() for fluid type and rhythm.
+          </p>
+          <p>
+            A framework layer is only a binding: props to attributes and
+            classes, slots to parts, events to native events. That's why
+            {newFrameworks} could land in one release. Every one of these has a
+            blog post.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="Feature first">
+        <div class="stage">
+          <div class="frame">
+            <h2>Feature first, honestly</h2>
+            <ol class="flow">
+              <li>One engine ships it</li>
+              <li>The others fail a test</li>
+              <li>They catch up</li>
+              <li>The test says: delete</li>
+            </ol>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            11:30. The cost of the idea: some things only work in one engine for
+            a while. So it's tracked, not hidden.
+          </p>
+          <p>
+            A failure in one engine never gets a workaround in the component
+            CSS. It's an expected failure with a plain-HTML repro, and when the
+            browser catches up, the test fails with "expected to fail but
+            passed". Other fallbacks live in a compat layer behind @supports
+            not, and a test fails once the feature is Baseline. You pick a
+            bundle by audience: opui.css, no-compat, or a Baseline year.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="Docs">
+        <div class="stage">
+          <div class="frame">
+            <h2>Docs for people and agents</h2>
+            <ul class="tiles tiles-three">
+              <li><strong>{FRAMEWORKS.length}</strong> targets per page</li>
+              <li><strong>{stats.posts}</strong> technique posts</li>
+              <li><strong>.md</strong> of every page</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            12:15. Anatomy diagrams and API tables built from tested data, and
+            every page in all {targets} targets.
+          </p>
+          <p>
+            The less readable CSS needed better docs: a blog post per technique,
+            and Under the hood posts that build a component one rule at a time.
+            Plus {stats.blocks} blocks in {stats.blockGroups} categories, and
+            the Theme builder.
+          </p>
+          <p>
+            I expect most readers to be agents, so every page has a Markdown
+            twin, there's llms.txt, and npx opui-css skill drops a skill into
+            your project.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide slide-divider" aria-label="Part two">
+        <div class="stage">
+          <div class="frame">
+            <p class="eyebrow">How it was built</p>
+            <h2>The new "by hand"</h2>
+            <ul class="tiles">
+              <li><strong>{format(history.commits)}</strong> commits</li>
+              <li><strong>{history.weeks}</strong> weeks</li>
+              <li><strong>{history.sessions}</strong> sessions</li>
+              <li><strong>{claudeShare}%</strong> by Claude</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            13:00. Now the part I really want to talk about. Since
+            {previous.version} on {dayOf(previous.date)}:
+            {format(history.commits)} commits in {inWords(history.weeks)} weeks,
+            from {history.sessions} Claude Code sessions.
+          </p>
+          <p>
+            {format(history.byClaude)} by Claude, {history.byBots} by bots,
+            {history.byMe} by me. The busiest day had {history.busiestDay}
+            commits.
+          </p>
+          <p>
+            My job changed from writing code to deciding and directing. The rest
+            of the talk is the setup that makes that safe.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="The problem">
+        <div class="stage">
+          <div class="frame">
+            <h2 class="statement">A chat forgets. A repo doesn't.</h2>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            14:00. A chat is fine for one task. 6.0 was hundreds of them, and
+            every new session starts out knowing nothing about the last one. One
+            person, a hobby project, {targets} targets, {stats.components}
+            components.
+          </p>
+          <p>
+            So the repo is the memory, the checks are the reviewer, and I make
+            the decisions. Instead of keeping every detail in my head, I lean on
+            tools and scripts and spend the attention on architecture.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="AGENTS.md">
+        <div class="stage">
+          <div class="frame">
+            <h2>Guides in the repo</h2>
+            <ul class="files">
+              {stats.guides.map((guide) => <li><code>{guide}</code></li>)}
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            14:45. The root AGENTS.md has the workflows, the rules and a line
+            for every test, and points at {inWords(stats.guides.length - 1)}
+            area guides. They read like onboarding docs for a new contributor,
+            because that's what every session is.
+          </p>
+          <p>
+            The key rule: a rule that a check enforces is written once, in the
+            check's error message. The guide keeps one line naming the check, so
+            the two can't drift apart. And the guides are tested too: a test
+            fails when one names a file, link or heading that doesn't exist.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="Hooks">
+        <div class="stage">
+          <div class="frame">
+            <h2>Catch it the moment it's made</h2>
+            <ol class="flow">
+              <li>Every edit</li>
+              <li>Before Claude stops</li>
+              <li>Commit</li>
+              <li>CI</li>
+            </ol>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            15:45. Claude Code hooks in .claude/settings.json. Session start
+            installs Node from .nvmrc and the dependencies. After every edit:
+            forbidden characters, oklch colors, CSS declaration order, and it
+            refuses edits to generated files.
+          </p>
+          <p>
+            The stop hook is my favorite: oxfmt, oxlint, Stylelint, Knip and the
+            ratchets on every file the session changed. Exit code 2 hands the
+            problems back, so Claude can't end a turn until they're fixed.
+          </p>
+          <p>
+            Then the git hooks run the same checks on staged files and the
+            commit message rules, and CI runs pnpm check, e2e in three engines
+            and real apps. Most problems never get that far.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="Error messages">
+        <div class="stage">
+          <div class="frame">
+            <h2>Error messages are prompts</h2>
+            <pre
+              class="term"
+            >CardActions.react.tsx is compiled from CardActions.astro:
+undo this edit, edit CardActions.astro
+and run pnpm build-components</pre>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            17:00. A real message from the post-edit hook. It's written for the
+            agent reading it: what's wrong, and the exact next step.
+          </p>
+          <p>
+            Every failure in the repo works like that. The compiler says "run
+            pnpm build-components --explain with this code", the stop hook says
+            "fix them before you finish". That's why the rule lives in the
+            message: it's the most read documentation in the repo.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="Review agents">
+        <div class="stage">
+          <div class="frame">
+            <h2>
+              {capitalized(inWords(stats.agents.length))} reviewers that never
+              edit
+            </h2>
+            <ul class="names names-code">
+              {stats.agents.map((agent) => <li>{agent}</li>)}
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            17:45. Subagents in .claude/agents, each with a narrow job: what axe
+            can't catch, the API docs against the props, the blog against the
+            CSS it explains, browser support, the changelog, the CSS, the
+            examples, framework idioms and parity.
+          </p>
+          <p>
+            Read-only on purpose: a reviewer that fixes things hides what it
+            found. /audit runs them on the diff or sweeps an area, verifies
+            every finding against the current code, and merges them into
+            TODO.md.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="TODO.md">
+        <div class="stage">
+          <div class="frame">
+            <h2>Everything goes in <code>TODO.md</code></h2>
+            <pre
+              class="term term-md"
+            ><span class="md-head">- [x] (3) Range: hydration takes the aria-valuetext off a slider</span>
+  - <b>Summary:</b> A hydrated slider is read as a number until it moves.
+  - <b>Recommended:</b> Fix with option A.
+  - <b>Options:</b>
+    - A (recommended): observe aria-valuetext in range.js
+    - B: leave the attribute out of the templates
+  - <b>Fixed:</b> option A.</pre>
+            <ul class="tiles tiles-three">
+              <li><strong>{format(stats.doneTodos)}</strong> closed</li>
+              <li><strong>{stats.openTodos}</strong> open</li>
+              <li><strong>{stats.answers}</strong> answers from me</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            18:30. One Markdown file for everything. Each item has a severity
+            from 1 to 10, every file cited with its lines, a one-sentence
+            summary, a recommended action, and options when there's more than
+            one way to fix it.
+          </p>
+          <p>
+            This one was found by the hydration test, came with two options, and
+            was fixed with option A. Outcomes so far:
+            {listOf(
+              outcomes.map(
+                ({ count, outcome }) => `${format(count)} ${outcome}`,
+              ),
+            )}.
+            A test checks the format like code.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="The TODO loop">
+        <div class="stage">
+          <div class="frame">
+            <h2>The loop</h2>
+            <ol class="flow flow-small">
+              <li>Audit</li>
+              <li>I answer</li>
+              <li>Copy</li>
+              <li>Agent applies</li>
+              <li>Follow-ups</li>
+            </ol>
+            <div class="shot shot-wide">
+              <iframe
+                inert
+                loading="lazy"
+                src="/dev/todo/"
+                tabindex="-1"
+                title="The /dev/todo page"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            19:30. The live /dev/todo page. Each item shows its summary as the
+            headline and the recommendation with an Accept button; options
+            become a radio group, and there's a comment field.
+          </p>
+          <p>
+            I go through it, one button copies my answers, and /todo-answers
+            writes each answer under its item, does the work and notes the
+            outcome. An item with a note after my answer comes back as a
+            follow-up. Agents never edit the file by hand: scripts/todo.mjs
+            takes JSON in and out.
+          </p>
+          <p>
+            The agent does the digging; I say yes, no or "not like that" in
+            seconds. The plan lives in the file, so any session picks up where
+            the last one stopped.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="Release checklists">
+        <div class="stage">
+          <div class="frame">
+            <h2>The release has its own lists</h2>
+            <div class="meters">
+              <div>
+                <p class="meter-name">Manual checks</p>
+                <span
+                  class="meter"
+                  style={`--ratio: ${stats.checks.ratio}`}
+                ></span>
+                <p class="meter-label">
+                  {stats.checks.done} / {stats.checks.total}
+                </p>
+              </div>
+              <div>
+                <p class="meter-name">Polish and launch</p>
+                <span
+                  class="meter"
+                  style={`--ratio: ${stats.checklist.ratio}`}
+                ></span>
+                <p class="meter-label">
+                  {stats.checklist.done} / {stats.checklist.total}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            20:45. /dev/checks holds what no test can see: real devices, screen
+            readers, touch. /dev/checklist holds the polish and launch work.
+            Same loop: I copy the page with my comments, the agent sets the
+            boxes, does the work and notes the outcome.
+          </p>
+          <p>
+            Plus {stats.stress} stress pages, each opened with every example
+            theme and icon library. The dev pages are built with OPUI, so I use
+            my own library every day.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="The compiler">
+        <div class="stage">
+          <div class="frame">
+            <h2>
+              One Astro file, {inWords(PACKAGE_FRAMEWORK_IDS.length)} frameworks
+            </h2>
+            <div class="compile">
+              <p class="compile-source"><code>Button.astro</code></p>
+              <span aria-hidden="true" class="compile-arrow">→</span>
+              <ul class="compile-targets">
+                {compiledTargets.map(({ Logo, label }) => <li>
+                  <Logo size={28} />
+                  {label}
+                </li>)}
+              </ul>
+            </div>
+            <p class="big">
+              {stats.handWritten} of {format(stats.compiledFiles)} files by hand
+            </p>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            21:30. {capitalized(inWords(PACKAGE_FRAMEWORK_IDS.length))} copies
+            of every component, kept in sync by hand, is busywork. So every
+            component is written once, in Astro, and a compiler of about
+            {format(Math.round(stats.compilerLines / 1000) * 1000)} lines writes
+            the {listOf(compiled.map(labelOf))} files and their types. Examples
+            work the same way.
+          </p>
+          <p>
+            Two-way binding comes from the model in api.ts: bind:value in
+            Svelte, v-model in Vue, value and onChange in React, a signal in
+            Solid. A fix in the Astro file reaches every framework in one
+            commit.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="Compiler output">
+        <div class="stage">
+          <div class="frame">
+            <h2>One slot, {inWords(outputs.length)} idioms</h2>
+            <ul class="idioms">
+              {outputs.map((output) => <li>
+                <span>{output.label}</span>
+                <code>{output.cells[3]}</code>
+              </li>)}
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            22:45. The children of CardActions, as the compiler writes them.
+            Each output is what someone fluent in that framework would write;
+            the framework-idioms reviewer checks exactly that.
+          </p>
+          <p>
+            It refuses rather than guesses: anything outside its grammar fails
+            with one of {stats.codes} codes, and --explain says how to fix it.
+            Then I either teach it the construct, or write that file by hand and
+            list it in a ledger with the reason.
+            {capitalized(inWords(stats.handWritten))} files are left.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="Checks">
+        <div class="stage">
+          <div class="frame">
+            <h2>Trust the checks, not the compiler</h2>
+            <ul class="tiles tiles-three">
+              <li><strong>{stats.unit}</strong> unit test files</li>
+              <li><strong>{stats.e2e}</strong> browser specs</li>
+              <li><strong>{appCount}</strong> real apps</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            23:30. The contract test renders every component with every prop
+            value in every framework and compares the markup with Astro; the
+            parity test does the same for every example.
+          </p>
+          <p>
+            In the browser, every example has to read the same, have the same
+            accessibility tree and hold the same form state after a reset, and
+            hydration has to claim every element. Plus visual and axe tests, in
+            three engines.
+          </p>
+          <p>
+            Then real apps: {apps}. A reference app by hand in
+            {inWords(stats.referenceApps)} frameworks. And Fredahead, an app I
+            build on the prereleases, whose friction log feeds bugs back here.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide slide-ratchets" aria-label="Ratchets">
+        <div class="stage">
+          <div class="frame">
+            <h2>Ledgers that only shrink</h2>
+            <div class="embed" style="--zoom: 1.3">
+              <Ratchets />
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            25:00. Every accepted exception lives in a ledger: known
+            accessibility violations, accepted markup drift between frameworks,
+            allowlists.
+          </p>
+          <p>
+            A ledger can shrink freely. The history job in CI fails when one
+            grows, unless a commit says Ledger-Change: intended. That happened
+            {history.ledgerChanges} times in 6.0: always a decision, never an
+            accident.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="Release safety nets">
+        <div class="stage">
+          <div class="frame">
+            <h2>You can't forget the changelog</h2>
+            <ol class="flow">
+              <li>Remove a prop</li>
+              <li>Tests fail</li>
+              <li>Until the changelog says so</li>
+            </ol>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            26:00. The release notes are tested like code. A token, prop or
+            class from the last release that disappears fails until a Breaking
+            or Removed entry names it.
+          </p>
+          <p>
+            An Added or Changed entry needs a What's new note on the component
+            page, and a Breaking one needs a section in the migration guide.
+            Visual baselines only come from CI, and only the bot may commit
+            them.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="Tests that delete code">
+        <div class="stage">
+          <div class="frame">
+            <h2>Tests that tell you to delete code</h2>
+            <ul class="tiles tiles-three tiles-words">
+              <li>The browser caught up</li>
+              <li>The dependency got fixed</li>
+              <li>The feature is Baseline</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            26:45. Workarounds are debt with a timer. An engine bug fails with
+            "expected to fail but passed". The tooling-bugs test reproduces
+            every bug a workaround exists for, and fails when an update fixes
+            it. The compat test fails once a fallback's feature is Baseline. A
+            hand-written file fails once the compiler would write the same.
+          </p>
+          <p>
+            And every rule is fed a sample it must flag, since a broken rule
+            passes a clean repo too.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="Who does what">
+        <div class="stage">
+          <div class="frame">
+            <h2>Who does what</h2>
+            <div class="sides">
+              <div>
+                <h3>Me</h3>
+                <ul>
+                  <li>Direction</li>
+                  <li>New things</li>
+                  <li>Decisions</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Claude</h3>
+                <ul>
+                  <li>Digging</li>
+                  <li>Fixes and ports</li>
+                  <li>Audits</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            27:30. The split that worked for me. I own the architecture and the
+            direction, answer on /dev/todo in seconds per item, and do the
+            manual checks.
+          </p>
+          <p>
+            Claude does the digging and comes with options, the fixes, ports,
+            docs and changelog, the audits, and keeps the ledgers shrinking. The
+            exception is adding something new: there I micro-manage every
+            detail, because that's where the fun is.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="Takeaways">
+        <div class="stage">
+          <div class="frame">
+            <h2>What I'd tell you</h2>
+            <ol class="takeaways">
+              <li>Plan in a file, not a chat</li>
+              <li>Fail at the edit</li>
+              <li>Rules live in checks</li>
+              <li>Refuse, don't guess</li>
+              <li>Ledgers only shrink</li>
+              <li>Keep the fun part</li>
+            </ol>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            28:30. If you take one thing: put the plan somewhere both you and
+            the agent can read, and make the checks talk.
+          </p>
+        </aside>
+      </section>
+
+      <section class="slide" aria-label="Thanks">
+        <div class="stage">
+          <div class="frame">
+            <h2 class="huge">Questions?</h2>
+            <ul class="links">
+              <li><a href="/blog/release-6/">opui.dev/blog/release-6</a></li>
+              <li>
+                <a href="https://github.com/felix-bohlin/ui"
+                  >github.com/felix-bohlin/ui</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">
+          <p>
+            29:30. The release post has the full story, and the repo has
+            everything from the talk: the guides, hooks, agents and TODO.md.
+          </p>
+        </aside>
+      </section>
+    </main>
+    <p class="hud">
+      <span class="hud-timer" hidden></span>
+      <span class="hud-next" hidden></span>
+      <output class="hud-count" aria-live="polite"></output>
+    </p>
+  </body>
+</html>
+
+<script>
+  const deck = document.querySelector<HTMLElement>(".deck")!
+  const slides = [...deck.querySelectorAll<HTMLElement>(".slide")]
+  const count = document.querySelector<HTMLOutputElement>(".hud-count")!
+  const next = document.querySelector<HTMLElement>(".hud-next")!
+  const timer = document.querySelector<HTMLElement>(".hud-timer")!
+  const channel = new BroadcastChannel("opui-slides")
+  const root = document.documentElement
+  const started = Date.now()
+  let index = 0
+
+  const titleOf = (slide?: HTMLElement) =>
+    slide?.querySelector("h1, h2")?.textContent?.replace(/\s+/g, " ").trim() ??
+    ""
+
+  const clamp = (value: number) =>
+    Math.min(slides.length - 1, Math.max(0, value))
+
+  const update = () => {
+    count.value = `${index + 1} / ${slides.length}`
+    next.textContent = slides[index + 1]
+      ? `Next: ${titleOf(slides[index + 1])}`
+      : "Last slide"
+    slides.forEach((slide, i) => {
+      slide.inert = i !== index
+    })
+    history.replaceState(null, "", `${location.search}#${index + 1}`)
+  }
+
+  const show = (target: number, broadcast = true) => {
+    index = clamp(target)
+    deck.scrollTo({ left: index * deck.clientWidth })
+    update()
+    if (broadcast) channel.postMessage(index)
+  }
+
+  const setPresenter = (on: boolean) => {
+    root.classList.toggle("presenter", on)
+    timer.hidden = !on
+    next.hidden = !on
+    show(index, false)
+  }
+
+  deck.addEventListener("scrollend", () => {
+    const settled = clamp(Math.round(deck.scrollLeft / deck.clientWidth))
+    if (settled === index) return
+    index = settled
+    update()
+    channel.postMessage(index)
+  })
+
+  channel.addEventListener("message", (event) => {
+    if (typeof event.data === "number") show(event.data, false)
+  })
+
+  addEventListener("resize", () => show(index, false))
+
+  addEventListener("keydown", (event) => {
+    if (event.altKey || event.ctrlKey || event.metaKey) return
+    if ((event.target as Element).closest("input, select, textarea")) return
+    const steps: Record<string, number> = {
+      " ": event.shiftKey ? -1 : 1,
+      ArrowDown: 1,
+      ArrowLeft: -1,
+      ArrowRight: 1,
+      ArrowUp: -1,
+      PageDown: 1,
+      PageUp: -1,
+    }
+    const key = event.key.toLowerCase()
+    if (event.key in steps) show(index + steps[event.key])
+    else if (event.key === "Home") show(0)
+    else if (event.key === "End") show(slides.length - 1)
+    else if (key === "f") {
+      if (document.fullscreenElement) document.exitFullscreen()
+      else root.requestFullscreen()
+    } else if (key === "n") setPresenter(!root.classList.contains("presenter"))
+    else if (key === "p") {
+      open(
+        `${location.pathname}?presenter#${index + 1}`,
+        "opui-slides-presenter",
+      )
+    } else if (key === "d") {
+      const dark =
+        root.classList.contains("ui-dark") ||
+        (!root.classList.contains("ui-light") &&
+          matchMedia("(prefers-color-scheme: dark)").matches)
+      root.classList.toggle("ui-dark", !dark)
+      root.classList.toggle("ui-light", dark)
+    } else return
+    event.preventDefault()
+  })
+
+  setInterval(() => {
+    const seconds = Math.floor((Date.now() - started) / 1000)
+    timer.textContent = `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`
+  }, 1000)
+
+  for (const shot of document.querySelectorAll<HTMLElement>(".shot")) {
+    new ResizeObserver(([entry]) => {
+      shot.style.setProperty("--scale", String(entry.contentRect.width / 1280))
+    }).observe(shot)
+  }
+
+  index = clamp(Number(location.hash.slice(1)) - 1 || 0)
+  setPresenter(new URLSearchParams(location.search).has("presenter"))
+  deck.focus()
+</script>
+
+<style is:global>
+  @property --n {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 0;
+  }
+
+  html {
+    background-color: var(--ui-surface-filled);
+    font-size: calc(min(100vw, 100dvh * 16 / 9) / 80);
+    overflow: hidden;
+    timeline-scope: --deck;
+
+    &.presenter {
+      font-size: calc(min(62vw, 100dvh * 16 / 9) / 80);
+    }
+  }
+
+  body {
+    background-color: var(--ui-surface-filled);
+    color: var(--ui-text);
+    font-family: var(--ui-font-family-body);
+    margin: 0;
+  }
+
+  .deck {
+    block-size: 100dvh;
+    display: grid;
+    grid-auto-columns: 100vw;
+    grid-auto-flow: column;
+    outline: none;
+    overflow: auto hidden;
+    overscroll-behavior: contain;
+    scroll-snap-type: x mandatory;
+    scroll-timeline: --deck inline;
+    scrollbar-width: none;
+
+    @media (prefers-reduced-motion: no-preference) {
+      scroll-behavior: smooth;
+    }
+  }
+
+  .slide {
+    block-size: 100dvh;
+    display: grid;
+    grid-template-columns: 1fr;
+    inline-size: 100vw;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+
+    .presenter & {
+      grid-template-columns: 62vw 1fr;
+    }
+  }
+
+  .stage {
+    display: grid;
+    min-block-size: 0;
+    place-items: center;
+  }
+
+  .notes {
+    display: none;
+
+    .presenter & {
+      border-inline-start: var(--ui-border-width) solid var(--ui-border-color);
+      color: var(--ui-text-strong);
+      display: block;
+      font-size: clamp(16px, 1.6vw, 30px);
+      line-height: 1.45;
+      overflow: auto;
+      padding: 2em 1.5em 4em;
+    }
+
+    p {
+      margin-block: 0 1em;
+    }
+  }
+
+  .frame {
+    align-content: center;
+    background-color: var(--ui-surface);
+    block-size: 45rem;
+    box-shadow: var(--ui-shadow-surface);
+    box-sizing: border-box;
+    display: grid;
+    font-size: 1.5rem;
+    gap: 1.2em;
+    inline-size: 80rem;
+    line-height: 1.35;
+    overflow: hidden;
+    padding: 3.5rem 5rem;
+
+    > * {
+      margin: 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: var(--ui-text-strong);
+      font-family: var(--font-bricolage-grotesque), sans-serif;
+      line-height: 1.05;
+      margin: 0;
+      text-wrap: balance;
+    }
+
+    h1 {
+      font-size: 3.6em;
+    }
+
+    h2 {
+      font-size: 2.6em;
+    }
+
+    h3 {
+      font-size: 1.15em;
+    }
+
+    code {
+      font-family: var(--ui-font-family-code);
+      font-size: 0.85em;
+    }
+
+    a {
+      color: var(--ui-primary-text);
+    }
+  }
+
+  .eyebrow {
+    color: var(--ui-primary-text);
+    font-size: 0.8em;
+    font-weight: var(--ui-font-weight-label);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .accent {
+    color: var(--ui-primary-text);
+  }
+
+  .lede {
+    font-size: 1.6em;
+  }
+
+  .byline {
+    color: var(--ui-text-strong);
+    font-size: 1.1em;
+    font-weight: var(--ui-font-weight-label);
+  }
+
+  .logos,
+  .links,
+  .names {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    list-style: none;
+    padding: 0;
+  }
+
+  .links {
+    font-size: 1.4em;
+    gap: 0.4em 2em;
+  }
+
+  .names {
+    font-size: 1.1em;
+    gap: 0.6em;
+
+    li {
+      background-color: var(--ui-surface-tonal);
+      border-radius: var(--ui-radius-round);
+      color: var(--ui-text-strong);
+      font-weight: var(--ui-font-weight-emphasis);
+      padding: 0.35em 1em;
+    }
+  }
+
+  .names-code li {
+    font-family: var(--ui-font-family-code);
+  }
+
+  .frame .statement {
+    font-size: 4em;
+  }
+
+  .frame .huge {
+    font-size: 4.5em;
+  }
+
+  .big {
+    color: var(--ui-text-strong);
+    font-family: var(--font-bricolage-grotesque), sans-serif;
+    font-size: 2em;
+    line-height: 1.15;
+  }
+
+  .kicker {
+    color: var(--ui-primary-text);
+    font-family: var(--font-bricolage-grotesque), sans-serif;
+    font-size: 2.6em;
+    font-weight: var(--ui-font-weight-heading);
+  }
+
+  .quote {
+    color: var(--ui-text-strong);
+    font-family: var(--font-bricolage-grotesque), sans-serif;
+    font-size: 2.6em;
+    font-weight: var(--ui-font-weight-label);
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+
+  .words {
+    display: grid;
+    gap: 1em;
+    grid-template-columns: repeat(3, 1fr);
+    list-style: none;
+    padding: 0;
+
+    li {
+      background-color: var(--ui-surface-tonal);
+      border-radius: var(--ui-radius-large);
+      color: var(--ui-text-strong);
+      font-family: var(--font-bricolage-grotesque), sans-serif;
+      font-size: 1.5em;
+      font-weight: var(--ui-font-weight-label);
+      padding: 1.2em 1em;
+      text-align: center;
+    }
+  }
+
+  .number {
+    color: var(--ui-primary-text);
+    font-family: var(--font-bricolage-grotesque), sans-serif;
+    font-size: 6em;
+    font-weight: var(--ui-font-weight-heading);
+    line-height: 1;
+
+    span {
+      color: var(--ui-text);
+      font-family: var(--ui-font-family-body);
+      font-size: 0.25em;
+      font-weight: var(--ui-font-weight-body);
+    }
+  }
+
+  .number-small {
+    font-size: 3.5em;
+
+    span {
+      font-size: 0.4em;
+    }
+  }
+
+  .tiles {
+    display: grid;
+    gap: 0.8em;
+    grid-template-columns: repeat(4, 1fr);
+    list-style: none;
+    padding: 0;
+
+    li {
+      background-color: var(--ui-surface-tonal);
+      border-radius: var(--ui-radius-large);
+      display: grid;
+      font-size: 1.1em;
+      gap: 0.2em;
+      padding: 0.9em 1em;
+    }
+
+    strong {
+      color: var(--ui-primary-text);
+      font-family: var(--font-bricolage-grotesque), sans-serif;
+      font-size: 2.8em;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+  }
+
+  .tiles-three {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .tiles-words li {
+    align-content: center;
+    color: var(--ui-text-strong);
+    font-family: var(--font-bricolage-grotesque), sans-serif;
+    font-size: 1.5em;
+    font-weight: var(--ui-font-weight-label);
+    line-height: 1.15;
+    min-block-size: 5em;
+    text-align: center;
+  }
+
+  .flow {
+    display: grid;
+    gap: 1.6em;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
+    list-style: none;
+    padding: 0;
+
+    li {
+      align-content: center;
+      background-color: var(--ui-surface-tonal);
+      border-radius: var(--ui-radius-large);
+      color: var(--ui-text-strong);
+      display: grid;
+      font-family: var(--font-bricolage-grotesque), sans-serif;
+      font-size: 1.4em;
+      font-weight: var(--ui-font-weight-label);
+      line-height: 1.15;
+      min-block-size: 5em;
+      padding: 0.8em;
+      position: relative;
+      text-align: center;
+
+      &:not(:last-child)::after {
+        color: var(--ui-primary);
+        content: "→";
+        inset-block-start: 50%;
+        inset-inline-end: -1.05em;
+        position: absolute;
+        translate: 0 -50%;
+      }
+    }
+  }
+
+  .flow-small {
+    gap: 1.4em;
+
+    li {
+      font-size: 1em;
+      min-block-size: 0;
+      padding: 0.5em;
+    }
+  }
+
+  .files {
+    display: grid;
+    font-size: 1.3em;
+    gap: 0.6em;
+    list-style: none;
+    padding: 0;
+
+    li {
+      border-inline-start: 0.2em solid var(--ui-primary);
+      color: var(--ui-text-strong);
+      padding-inline-start: 0.7em;
+    }
+  }
+
+  .term {
+    background-color: var(--ui-code-block-bg-color);
+    border-radius: var(--ui-radius);
+    color: var(--ui-code-block-text-color);
+    font-family: var(--ui-font-family-code);
+    font-size: 1.1em;
+    line-height: 1.5;
+    margin: 0;
+    padding: 1em 1.2em;
+    white-space: pre-wrap;
+  }
+
+  .term-md {
+    font-size: 0.8em;
+
+    b {
+      color: oklch(from var(--ui-primary) 0.82 0.12 h);
+    }
+  }
+
+  .md-head {
+    font-weight: var(--ui-font-weight-heading);
+  }
+
+  .meters {
+    display: grid;
+    gap: 3em;
+    grid-template-columns: repeat(2, 1fr);
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .meter-name {
+    color: var(--ui-text-strong);
+    font-size: 1.4em;
+    font-weight: var(--ui-font-weight-label);
+  }
+
+  .meter {
+    background-color: var(--ui-surface-tonal);
+    block-size: 1em;
+    border-radius: var(--ui-radius-round);
+    display: block;
+    margin-block: 0.8em 0.4em;
+    overflow: hidden;
+
+    &::before {
+      background-color: var(--ui-primary);
+      block-size: 100%;
+      content: "";
+      display: block;
+      inline-size: calc(var(--ratio) * 100%);
+    }
+  }
+
+  .meter-label {
+    color: var(--ui-primary-text);
+    font-family: var(--font-bricolage-grotesque), sans-serif;
+    font-size: 2.4em;
+    font-variant-numeric: tabular-nums;
+    font-weight: var(--ui-font-weight-heading);
+  }
+
+  .compile {
+    align-items: center;
+    display: grid;
+    gap: 1.5em;
+    grid-template-columns: auto auto 1fr;
+  }
+
+  .compile-source code {
+    background-color: var(--ui-surface-tonal);
+    border-radius: var(--ui-radius-large);
+    color: var(--ui-text-strong);
+    display: block;
+    font-size: 1.4em;
+    padding: 1em 1.2em;
+  }
+
+  .compile-arrow {
+    color: var(--ui-primary);
+    font-size: 3em;
+  }
+
+  .compile-targets {
+    display: grid;
+    gap: 0.5em 2em;
+    grid-template-columns: repeat(2, max-content);
+    list-style: none;
+    padding: 0;
+
+    li {
+      align-items: center;
+      color: var(--ui-text-strong);
+      display: flex;
+      font-size: 1.3em;
+      font-weight: var(--ui-font-weight-label);
+      gap: 0.5em;
+    }
+  }
+
+  .idioms {
+    display: grid;
+    gap: 0.8em;
+    grid-template-columns: repeat(3, 1fr);
+    list-style: none;
+    padding: 0;
+
+    li {
+      background-color: var(--ui-surface-tonal);
+      border-radius: var(--ui-radius-large);
+      display: grid;
+      gap: 0.4em;
+      padding: 0.9em 1em;
+    }
+
+    span {
+      color: var(--ui-text-subtle);
+      font-size: 0.85em;
+      font-weight: var(--ui-font-weight-label);
+    }
+
+    code {
+      color: var(--ui-text-strong);
+      font-size: 1.1em;
+    }
+  }
+
+  .sides {
+    display: grid;
+    gap: 2em;
+    grid-template-columns: repeat(2, 1fr);
+
+    > div {
+      background-color: var(--ui-surface-tonal);
+      border-radius: var(--ui-radius-large);
+      padding: 1.2em 1.5em;
+    }
+
+    h3 {
+      font-size: 1.8em;
+    }
+
+    ul {
+      display: grid;
+      font-size: 1.4em;
+      gap: 0.3em;
+      list-style: none;
+      margin: 0.6em 0 0;
+      padding: 0;
+    }
+  }
+
+  .takeaways {
+    counter-reset: step;
+    display: grid;
+    gap: 0.7em 2em;
+    grid-template-columns: repeat(2, 1fr);
+    list-style: none;
+    padding: 0;
+
+    li {
+      color: var(--ui-text-strong);
+      counter-increment: step;
+      font-family: var(--font-bricolage-grotesque), sans-serif;
+      font-size: 1.7em;
+      font-weight: var(--ui-font-weight-label);
+      line-height: 1.15;
+
+      &::before {
+        color: var(--ui-primary-text);
+        content: counter(step) ". ";
+      }
+    }
+  }
+
+  .embed {
+    font-size: 1rem;
+    min-block-size: 0;
+    zoom: var(--zoom, 1);
+  }
+
+  .token-tiers > figcaption {
+    display: none;
+  }
+
+  .slide-ratchets {
+    .ratchets-ci,
+    .ratchets-file,
+    .ratchets-holds {
+      display: none;
+    }
+  }
+
+  .shots {
+    display: grid;
+    gap: 0.6em 1.2em;
+    grid-template-columns: repeat(var(--columns, 3), minmax(0, 1fr));
+    list-style: none;
+    padding: 0;
+
+    p {
+      color: var(--ui-text-strong);
+      font-size: 0.9em;
+      font-weight: var(--ui-font-weight-label);
+      margin: 0.3em 0 0;
+    }
+  }
+
+  .shot {
+    aspect-ratio: 16 / 10;
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius);
+    min-inline-size: 0;
+    overflow: hidden;
+    position: relative;
+
+    iframe {
+      block-size: 800px;
+      border: 0;
+      inline-size: 1280px;
+      inset-block-start: 0;
+      inset-inline-start: 0;
+      position: absolute;
+      scale: var(--scale, 0.25);
+      transform-origin: 0 0;
+    }
+  }
+
+  .shot-wide {
+    aspect-ratio: 16 / 7;
+  }
+
+  .chart {
+    display: grid;
+    gap: 2.5em;
+    inline-size: 100%;
+    justify-items: stretch;
+    margin: 0;
+  }
+
+  .bars {
+    align-items: end;
+    block-size: 15em;
+    display: grid;
+    gap: 2px;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
+    inline-size: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .bar {
+    block-size: 100%;
+    display: grid;
+    position: relative;
+
+    &:hover::before {
+      background-color: var(--ui-surface-inverse);
+      border-radius: var(--ui-radius-small);
+      color: var(--ui-surface);
+      content: attr(data-tip);
+      font-size: 0.7em;
+      inset-block-end: calc(var(--n) / var(--max) * 100% + 0.5em);
+      inset-inline-start: 50%;
+      padding: 0.2em 0.5em;
+      position: absolute;
+      translate: -50% 0;
+      white-space: nowrap;
+      z-index: 2;
+    }
+  }
+
+  .bar-fill {
+    align-self: end;
+    background-color: var(--ui-border-color);
+    block-size: max(
+      calc(sign(var(--n)) * 2px),
+      calc(var(--n) / var(--max) * 100%)
+    );
+    border-radius: 4px 4px 0 0;
+
+    .cycle & {
+      background-color: var(--ui-primary);
+    }
+
+    .bar:hover & {
+      background-color: var(--ui-text-strong);
+    }
+  }
+
+  .bar-value {
+    color: var(--ui-text-strong);
+    font-size: 0.75em;
+    font-variant-numeric: tabular-nums;
+    font-weight: var(--ui-font-weight-label);
+    inset-block-end: calc(var(--n) / var(--max) * 100% + 0.2em);
+    inset-inline-start: 50%;
+    position: absolute;
+    translate: -50% 0;
+    white-space: nowrap;
+  }
+
+  .bar-year,
+  .bar-release {
+    font-size: 0.6em;
+    inset-block-start: calc(100% + 0.4em);
+    inset-inline-start: 0;
+    position: absolute;
+    white-space: nowrap;
+  }
+
+  .bar-year {
+    color: var(--ui-text-subtle);
+  }
+
+  .bar-release {
+    color: var(--ui-primary-text);
+    font-weight: var(--ui-font-weight-label);
+    inset-block-start: calc(100% + 1.8em);
+  }
+
+  .chart figcaption {
+    font-size: 0.9em;
+    margin-block-start: 1em;
+  }
+
+  .cycle-label {
+    align-items: center;
+    color: var(--ui-primary-text);
+    display: inline-flex;
+    font-weight: var(--ui-font-weight-label);
+    gap: 0.4em;
+
+    &::before {
+      background-color: var(--ui-primary);
+      block-size: 0.8em;
+      border-radius: 2px;
+      content: "";
+      inline-size: 0.8em;
+    }
+  }
+
+  .deck-progress {
+    animation-duration: auto;
+    animation-fill-mode: both;
+    animation-name: deck-progress;
+    animation-timeline: --deck;
+    animation-timing-function: linear;
+    background-color: var(--ui-primary);
+    block-size: 3px;
+    inline-size: 100%;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    position: fixed;
+    transform-origin: 0 50%;
+    z-index: 3;
+  }
+
+  @keyframes deck-progress {
+    from {
+      scale: 0 1;
+    }
+
+    to {
+      scale: 1 1;
+    }
+  }
+
+  .hud {
+    color: var(--ui-text-subtle);
+    display: flex;
+    font-size: clamp(12px, 1vw, 18px);
+    font-variant-numeric: tabular-nums;
+    gap: 1.5em;
+    inset-block-end: 0.8em;
+    inset-inline-end: 1.2em;
+    margin: 0;
+    position: fixed;
+    z-index: 3;
+  }
+
+  .presenter .hud {
+    color: var(--ui-text-strong);
+    font-size: clamp(14px, 1.4vw, 24px);
+  }
+</style>

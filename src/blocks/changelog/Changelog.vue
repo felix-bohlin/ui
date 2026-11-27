@@ -12,7 +12,7 @@ import {
 
 <template>
   <div
-    class="changelog ui-layout-container ui-layout-column ui-large"
+    class="changelog ui-layout-container ui-layout-column ui-gap-large"
     style="--_max-inline-size: 56rem"
   >
     <div class="ui-layout-row ui-spread changelog-header">
@@ -21,7 +21,7 @@ import {
         <h1 class="ui-h2">What's new!</h1>
         <p>Totally rad new stuff, tweaks and fixes in every release.</p>
       </hgroup>
-      <div class="ui-layout-row ui-small">
+      <div class="ui-layout-row ui-gap-small">
         <Button href="#changelog-rss" size="small" variant="outlined"
           ><svg
             data-icon="rss"
@@ -42,10 +42,10 @@ import {
         </Button>
       </div>
     </div>
-    <Timeline style="--_item-gap: var(--ui-space-8)">
+    <Timeline style="--_item-gap: var(--ui-space-12)">
       <TimelineItem current datetime="2026-10-01" time="Oct 1, 2026">
         <div class="ui-layout-column">
-          <div class="ui-layout-row ui-small">
+          <div class="ui-layout-row ui-gap-small">
             <h2 class="ui-h4" id="changelog-6-0">
               The Megaphone shoutbox is here!
             </h2>
@@ -60,8 +60,8 @@ import {
             Bassbook 6.0 brings the Megaphone, so you can finally be heard over
             the drummer, and profiles now load 3× faster. Woohoo!
           </p>
-          <div class="ui-layout-column ui-small changelog-group">
-            <h3 class="ui-h6 ui-layout-row ui-small">
+          <div class="ui-layout-column ui-gap-small changelog-group">
+            <h3 class="ui-h6 ui-layout-row ui-gap-small">
               <span class="ui-swatch ui-success"></span>Added
             </h3>
             <ul>
@@ -76,8 +76,8 @@ import {
               </li>
             </ul>
           </div>
-          <div class="ui-layout-column ui-small changelog-group">
-            <h3 class="ui-h6 ui-layout-row ui-small">
+          <div class="ui-layout-column ui-gap-small changelog-group">
+            <h3 class="ui-h6 ui-layout-row ui-gap-small">
               <span class="ui-swatch ui-info"></span>Improved
             </h3>
             <ul>
@@ -101,7 +101,7 @@ import {
       </TimelineItem>
       <TimelineItem datetime="2026-09-12" time="Sep 12, 2026">
         <div class="ui-layout-column">
-          <div class="ui-layout-row ui-small">
+          <div class="ui-layout-row ui-gap-small">
             <h2 class="ui-h4" id="changelog-5-8">Polls and profile themes</h2>
             <Chip as="span" label="v5.8.0" size="small" variant="outlined" />
           </div>
@@ -109,19 +109,20 @@ import {
             Ask your friends anything (flatwounds or roundwounds?) and dress up
             your profile with a theme as loud as your low B.
           </p>
-          <div class="ui-layout-column ui-small changelog-group">
-            <h3 class="ui-h6 ui-layout-row ui-small">
+          <div class="ui-layout-column ui-gap-small changelog-group">
+            <h3 class="ui-h6 ui-layout-row ui-gap-small">
               <span class="ui-swatch ui-success"></span>Added
             </h3>
             <ul>
               <li>
-                Polls with up to 8 answers. Yes, “root notes only” counts.
+                Polls with up to 8 answers. Davie504 already made one: “Who
+                slaps better?”, 8 answers, all of them Davie.
               </li>
               <li>Profile themes, from Midnight Fretless to Hot Pink Slap.</li>
             </ul>
           </div>
-          <div class="ui-layout-column ui-small changelog-group">
-            <h3 class="ui-h6 ui-layout-row ui-small">
+          <div class="ui-layout-column ui-gap-small changelog-group">
+            <h3 class="ui-h6 ui-layout-row ui-gap-small">
               <span class="ui-swatch ui-warning"></span>Fixed
             </h3>
             <ul>
@@ -133,12 +134,12 @@ import {
       </TimelineItem>
       <TimelineItem datetime="2026-08-28" time="Aug 28, 2026">
         <div class="ui-layout-column">
-          <div class="ui-layout-row ui-small">
+          <div class="ui-layout-row ui-gap-small">
             <h2 class="ui-h4" id="changelog-5-7-2">Bug fixes</h2>
             <Chip as="span" label="v5.7.2" size="small" variant="outlined" />
           </div>
-          <div class="ui-layout-column ui-small changelog-group">
-            <h3 class="ui-h6 ui-layout-row ui-small">
+          <div class="ui-layout-column ui-gap-small changelog-group">
+            <h3 class="ui-h6 ui-layout-row ui-gap-small">
               <span class="ui-swatch ui-warning"></span>Fixed
             </h3>
             <ul>
@@ -178,7 +179,7 @@ import {
     display: grid;
     gap: var(--ui-space-1);
     list-style-type: disc;
-    padding-inline-start: var(--ui-space-5);
+    padding-inline-start: var(--ui-space-6);
   }
 
   .changelog-more {

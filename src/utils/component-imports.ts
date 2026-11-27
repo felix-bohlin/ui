@@ -15,8 +15,16 @@ const indexes = import.meta.glob<string>("../../packages/opui/*/index.ts", {
 const pascalCase = (slug: string) =>
   slug.replace(/(^|-)([a-z])/g, (_, __, letter: string) => letter.toUpperCase())
 
+const barrelOf = (framework: PackageFrameworkId) =>
+  framework === "nunjucks"
+    ? (indexes["../../packages/opui/astro/index.ts"] ?? "").replaceAll(
+        '.astro"',
+        '.njk"',
+      )
+    : (indexes[`../../packages/opui/${framework}/index.ts`] ?? "")
+
 const exportedFolders = (framework: PackageFrameworkId) => {
-  const source = indexes[`../../packages/opui/${framework}/index.ts`] ?? ""
+  const source = barrelOf(framework)
   const folders = new Map<string, string>()
   for (const [, names, folder] of source.matchAll(
     /^export \{([^}]*)\} from "\.\.\/components\/([^/]+)\//gm,
@@ -36,7 +44,7 @@ const pageFolders = (slug: string) =>
   new Set([pascalCase(slug), ...catalog.sourcesOf(slug)])
 
 const importPattern = new RegExp(
-  `import\\s*\\{([^}]*)\\}\\s*from\\s*"opui-css\\/(?:${PACKAGE_FRAMEWORK_IDS.join("|")})"`,
+  `import\\s*\\{([^}]*)\\}\\s*from\\s*"opui-css\\/(?:${PACKAGE_FRAMEWORK_IDS.join("|")})"|\\{% from "opui\\/index\\.njk" import([^%]*)%\\}`,
   "g",
 )
 
@@ -58,8 +66,8 @@ export const componentImports = (
   for (const [file, source] of Object.entries(exampleSources)) {
     const example = parseExamplePath(file)
     if (example.slug !== slug || example.framework !== framework) continue
-    for (const [, imported] of source.matchAll(importPattern)) {
-      for (const name of imported.split(",")) {
+    for (const [, imported, macros] of source.matchAll(importPattern)) {
+      for (const name of (imported ?? macros).split(",")) {
         const trimmed = name.trim()
         if (
           trimmed &&
@@ -79,7 +87,7 @@ const packageFiles = Object.fromEntries(
   Object.entries(
     import.meta.glob<string>(
       [
-        "../../packages/opui/components/**/*.{astro,svelte,ts,tsx,vue}",
+        "../../packages/opui/components/**/*.{astro,njk,svelte,ts,tsx,vue}",
         "../../packages/opui/css/js/*.js",
         "../../packages/opui/elements/*.js",
       ],
@@ -105,16 +113,27 @@ const resolveImport = (from: string, specifier: string) => {
   )
 }
 
+const macroFile = (name: string) =>
+  Object.keys(packageFiles).find((file) => file.endsWith(`/${name}.njk`))
+
 const relativeImports = (path: string) =>
-  [...packageFiles[path].matchAll(/(?:from|import)\s*\(?"(\.{1,2}\/[^"]+)"/g)]
-    .map(([, specifier]) => resolveImport(path, specifier))
-    .filter((file) => file !== undefined)
+  path.endsWith(".njk")
+    ? [...packageFiles[path].matchAll(/\{% from "opui\/(\w+)\.njk"/g)]
+        .map(([, name]) => macroFile(name))
+        .filter((file) => file !== undefined)
+    : [
+        ...packageFiles[path].matchAll(
+          /(?:from|import)\s*\(?"(\.{1,2}\/[^"]+)"/g,
+        ),
+      ]
+        .map(([, specifier]) => resolveImport(path, specifier))
+        .filter((file) => file !== undefined)
 
 export const componentSources = (
   framework: PackageFrameworkId,
   names: string[],
 ) => {
-  const index = indexes[`../../packages/opui/${framework}/index.ts`] ?? ""
+  const index = barrelOf(framework)
   const exported = new Map<string, string>()
   for (const [, name, path] of index.matchAll(
     /^export \{ default as (\w+) \} from "\.\.\/components\/([^"]+)"/gm,

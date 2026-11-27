@@ -20,6 +20,11 @@ export default {
     description: "The current background. Set by the variants.",
     kind: "output",
   },
+  "--_bg-image": {
+    description:
+      "The image over the background. `none`, or `--ui-surface-raised-image` in `.ui-elevated` when a theme sets it.",
+    kind: "output",
+  },
   "--_border-color": {
     description:
       "The current border color. Set by the variants (`--ui-border-color-raised` in `.ui-tonal` and `.ui-elevated` when a theme sets it) and by hovering `.ui-card-link`.",
@@ -46,7 +51,7 @@ export default {
   },
   "--_elevated-bg-color": {
     description:
-      "Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.",
+      "Background of `.ui-elevated`. Defaults to `--ui-surface-raised`.",
     kind: "input",
   },
   "--_elevated-shadow": {
@@ -61,7 +66,7 @@ export default {
   },
   "--_gap": {
     description:
-      "Gap between the parts. `--ui-space-3`, or `--ui-space-2` in `.ui-dense`. The part after an image subtracts it from its padding.",
+      "Gap between the parts. `--ui-space-4`, or `--ui-space-2` in `.ui-dense`. The part after an image subtracts it from its padding.",
     kind: "input",
   },
   "--_media-inline-size": {
@@ -86,7 +91,7 @@ export default {
   },
   "--_padding": {
     description:
-      "Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset. In an accordion it sets `--_padding-inline`, `--_summary-padding-block` and the block end of `--_content-padding-block`.",
+      "Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-4` when a theme leaves it unset. In an accordion it sets `--_padding-inline`, `--_summary-padding-block` and the block end of `--_content-padding-block`.",
     kind: "input",
   },
   "--_scroll-shadow": {

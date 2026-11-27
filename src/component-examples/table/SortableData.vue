@@ -15,12 +15,12 @@ import {
 const keys = ["name", "style", "gigs"] as const
 
 const bassists = ref([
-  { gigs: 31, name: "Holly Humbucker", style: "Rock" },
-  { gigs: 18, name: "Ines Hertz", style: "Jazz" },
-  { gigs: 42, name: "Lou Headstock", style: "Funk" },
-  { gigs: 7, name: "Percy Groove", style: "Funk" },
-  { gigs: 25, name: "Rory Rootnote", style: "Jazz" },
-  { gigs: 12, name: "Stella Nut", style: "Rock" },
+  { gigs: 7, name: "Adam Groove", style: "Funk" },
+  { gigs: 12, name: "Ellen Nut", style: "Rock" },
+  { gigs: 25, name: "Josh Rootnote", style: "Jazz" },
+  { gigs: 42, name: "Kinga Headstock", style: "Funk" },
+  { gigs: 18, name: "Mohini Hertz", style: "Jazz" },
+  { gigs: 31, name: "Scott Humbucker", style: "Rock" },
 ])
 
 const sort = (event: CustomEvent<SortDetail>) => {

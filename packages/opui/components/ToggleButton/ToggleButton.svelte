@@ -1,10 +1,9 @@
 <script lang="ts">
   import { untrack } from "svelte"
-  import { seedChecked } from "../svelte"
-  import { getFieldGroupContext } from "../FieldGroup/context.svelte"
+  import { relayChecked } from "../svelte"
   import { getToggleGroupContext } from "../ToggleGroup/context.svelte"
   import { isSelected } from "../ToggleGroup/selection"
-  import { warnGroupedChecked } from "../dev"
+  import { DEV, warnGroupedChecked } from "../dev"
   import type { Props } from "./types.svelte"
 
   let {
@@ -13,7 +12,6 @@
     defaultChecked,
     label,
     name,
-    onchange,
     size,
     style,
     type,
@@ -24,26 +22,26 @@
     ...rest
   }: Props = $props()
 
-  const field = getFieldGroupContext()
   const group = getToggleGroupContext()
-  const finalName = $derived(name || group?.groupName || field?.name)
+  const finalName = $derived(name || group?.groupName)
   const finalType = $derived(
     group?.inputType === "radio" ? "radio" : (type ?? "checkbox"),
   )
   const grouped = $derived(isSelected(group?.value, value))
-  untrack(() =>
-    warnGroupedChecked(
-      "ToggleButton",
-      grouped,
-      checked ?? defaultChecked,
-      "ToggleGroup",
-    ),
-  )
-  const isChecked = () => grouped ?? checked ?? !!defaultChecked
-  const initialChecked = untrack(isChecked)
+  if (DEV)
+    untrack(() =>
+      warnGroupedChecked(
+        "ToggleButton",
+        grouped,
+        checked ?? defaultChecked,
+        "ToggleGroup",
+      ),
+    )
+  const isChecked = () => grouped ?? checked
+  const initialChecked = untrack(() => isChecked() ?? !!defaultChecked)
   const change = (input: HTMLInputElement) => {
     if (grouped === undefined) checked = input.checked
-    group?.change?.(input)
+    if (value !== undefined) group?.change?.(input)
   }
 </script>
 
@@ -56,7 +54,7 @@
   {style}
 >
   <input
-    {@attach seedChecked(isChecked, change)}
+    {@attach relayChecked(change, isChecked)}
     defaultChecked={grouped === undefined
       ? (defaultChecked ?? initialChecked)
       : initialChecked}
@@ -64,10 +62,6 @@
     type={finalType}
     {value}
     {...rest}
-    onchange={(event) => {
-      change(event.currentTarget)
-      onchange?.(event)
-    }}
   />
   {#if children}
     {@render children()}

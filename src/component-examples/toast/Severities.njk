@@ -1,0 +1,48 @@
+{% from "opui/index.njk" import Button, Toaster %}
+
+{% call Button({
+  command: "--toast",
+  commandfor: "toast-severities-1",
+  "data-toast": "Draft saved",
+  variant: "outlined"
+}) %}Default{% endcall %}
+{% call Button({
+  command: "--toast",
+  commandfor: "toast-severities-1",
+  "data-toast": "Couldn't save your changes",
+  "data-toast-severity": "critical",
+  variant: "outlined"
+}) %}Critical{% endcall %}
+{% call Button({
+  command: "--toast",
+  commandfor: "toast-severities-1",
+  "data-toast": "A new version is available",
+  "data-toast-severity": "info",
+  variant: "outlined"
+}) %}Info{% endcall %}
+{% call Button({
+  command: "--toast",
+  commandfor: "toast-severities-1",
+  "data-toast": "Export queued",
+  "data-toast-severity": "neutral",
+  variant: "outlined"
+}) %}Neutral{% endcall %}
+{% call Button({
+  command: "--toast",
+  commandfor: "toast-severities-1",
+  "data-toast": "Changes saved",
+  "data-toast-severity": "success",
+  variant: "outlined"
+}) %}Success{% endcall %}
+{% call Button({
+  command: "--toast",
+  commandfor: "toast-severities-1",
+  "data-toast": "Your trial ends in 3 days",
+  "data-toast-severity": "warning",
+  variant: "outlined"
+}) %}Warning{% endcall %}
+{{ Toaster({ id: "toast-severities-1" }) }}
+
+<script type="module">
+  import "opui-css/elements/toaster.js"
+</script>

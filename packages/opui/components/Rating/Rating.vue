@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes, mergeProps, useAttrs } from "vue"
-import { useBound } from "../vue"
+import { computed, mergeProps } from "vue"
+import { useBound, useRestAttrs } from "../vue"
 import { mergeStyle, pluralLabel, styleAttrs } from "../style"
+import { ratingOf } from "./rating"
 import { defined } from "../attrs"
 import type { Props } from "./types.vue-props"
 
@@ -23,7 +24,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs() as HTMLAttributes
+const attrs = useRestAttrs()
 
 const restAttrs = computed(() => {
   const {
@@ -31,7 +32,7 @@ const restAttrs = computed(() => {
     "aria-invalid": _ariaInvalid,
     "aria-label": _ariaLabel,
     ...rest
-  } = attrs
+  } = attrs.value
   return rest
 })
 
@@ -41,15 +42,9 @@ const bound = useBound()
 
 const model = computed(() => modelValue.value ?? value)
 
-const count = computed(() => Number(max))
+const rating = computed(() => ratingOf(max, model.value))
 
-const stars = computed(() =>
-  Array.from({ length: count.value }, (_, index) => index + 1),
-)
-
-const current = computed(() => Number(model.value))
-
-const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
+const invalid = computed(() => (error ? "true" : attrs.value["aria-invalid"]))
 </script>
 
 <template>
@@ -59,7 +54,7 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
     :class="[
       'ui-rating',
       size && size !== 'medium' && `ui-${size}`,
-      $props.class,
+      $attrs.class,
     ]"
     :disabled="disabled"
     :lang="lang"
@@ -84,8 +79,8 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
         :name="name"
         type="radio"
         :value="0"
-        v-bind="defined({ checked: current === 0 })" /></template
-    ><template v-for="(star, index) in stars" :key="index"
+        v-bind="defined({ checked: rating.current === 0 })" /></template
+    ><template v-for="(star, index) in rating.stars" :key="index"
       ><input
         v-if="bound"
         :aria-describedby="attrs['aria-describedby']"
@@ -105,7 +100,7 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
         :required="required"
         type="radio"
         :value="star"
-        v-bind="defined({ checked: current === star })"
+        v-bind="defined({ checked: rating.current === star })"
     /></template>
   </fieldset>
   <meter
@@ -115,15 +110,18 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
     :class="[
       'ui-rating',
       size && size !== 'medium' && `ui-${size}`,
-      $props.class,
+      $attrs.class,
     ]"
     :lang="lang"
-    :max="Number.isFinite(count) ? count : undefined"
-    :value="Number.isFinite(current) ? current : 0"
+    :max="rating.max"
+    :value="rating.value"
     v-bind="
       mergeProps(
         styleAttrs(
-          mergeStyle({ '--_max': count === 5 ? undefined : count }, {}),
+          mergeStyle(
+            { '--_max': rating.count === 5 ? undefined : rating.count },
+            {},
+          ),
         ),
         restAttrs,
       )

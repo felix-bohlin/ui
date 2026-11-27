@@ -11,10 +11,12 @@
 <Form>
   <Fieldset>
     <FieldLegend>Toppings</FieldLegend>
-    <FieldGroup name="checkbox-group-orientation" orientation="horizontal">
-      <Checkbox defaultChecked>Cheese</Checkbox>
-      <Checkbox>Mushrooms</Checkbox>
-      <Checkbox>Olives</Checkbox>
+    <FieldGroup orientation="horizontal">
+      <Checkbox defaultChecked name="checkbox-group-orientation"
+        >Cheese</Checkbox
+      >
+      <Checkbox name="checkbox-group-orientation">Mushrooms</Checkbox>
+      <Checkbox name="checkbox-group-orientation">Olives</Checkbox>
     </FieldGroup>
   </Fieldset>
 </Form>

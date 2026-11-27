@@ -7,7 +7,7 @@
 -    <opui-reactions class="ui-reactions" id="id-1" quick-label="Thumbs up" quick-text="👍" quick-value="+1">
 +    <opui-reactions class="ui-reactions" data-hydrating id="id-1" quick-label="Thumbs up" quick-text="👍" quick-value="+1">
        <div aria-label="Reactions" class="ui-toggle-group" role="group">
-         <label class="ui-toggle-button ui-unused">
+         <label class="ui-suggested ui-toggle-button">
 @@ -58,5 +58,5 @@
    <div class="ui-content">Band practice moved to Thursday. Bring your own patch cables.</div>
    <div class="ui-actions ui-align-start">

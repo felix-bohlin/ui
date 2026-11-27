@@ -2,7 +2,7 @@
   import { untrack } from "svelte"
   import Button from "../Button/Button.svelte"
   import { getDialogContext } from "./context.svelte"
-  import { warnMissingCloseTarget } from "../dev"
+  import { DEV, warnMissingCloseTarget } from "../dev"
   import type { DialogHeaderProps as Props } from "./types.svelte"
 
   let {
@@ -19,9 +19,10 @@
 
   const dialog = getDialogContext()
   const target = $derived(commandfor ?? dialog?.id)
-  untrack(() => {
-    if (closeButton) warnMissingCloseTarget("DialogHeader", target, "Dialog")
-  })
+  if (DEV)
+    untrack(() => {
+      if (closeButton) warnMissingCloseTarget("DialogHeader", target, "Dialog")
+    })
 </script>
 
 <div class={["ui-header", className]} {...rest}>

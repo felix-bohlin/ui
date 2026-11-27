@@ -7,11 +7,15 @@ import {
 } from "../../scripts/build-examples.mjs"
 import { checkAttributeOrder } from "../../scripts/check-components.mjs"
 import {
+  astroPropsOf,
+  exportedTypes,
+  helperReturnsOf,
   reactAttributeName,
   reactBareAttribute,
   reactKinds,
   reactPropsOf,
   resolveReactProp,
+  shapesOfSource,
   typeDiagnostics,
 } from "../../scripts/example-react-props.mjs"
 
@@ -388,5 +392,129 @@ describe("the React form of an attribute", () => {
     expect(reactBareAttribute("title", new Set(["string"]))).toBe('title=""')
     expect(reactBareAttribute("cols", new Set(["number"]))).toBe(undefined)
     expect(reactBareAttribute("nope", new Set())).toBe(undefined)
+  })
+})
+
+describe("the Astro prop types", () => {
+  test("every exported type alias and re-export is read, and a generic one needs defaults", () => {
+    expect(
+      exportedTypes(
+        [
+          'import type * as Base from "./types"',
+          "export type Props = Base.Props",
+          'export type { ItemProps, Other as RenamedProps } from "./types"',
+          "export type ListProps<T> = { items: T[] }",
+          "export type ValueProps<T = string> = { value: T }",
+          "type LocalProps = Base.Props",
+        ].join("\n"),
+      ),
+    ).toEqual(["Props", "ItemProps", "RenamedProps", "ValueProps"])
+  })
+
+  test("a list prop gives the kinds of its items' fields, and a missing type gives nothing", () => {
+    const items = astroPropsOf("Menu", "Props")?.get("items")
+    expect(items?.kinds).toEqual(new Set(["other"]))
+    expect(items?.list.fields.get("label")).toEqual(new Set(["string"]))
+    expect(items?.list.fields.get("disabled")).toEqual(new Set(["boolean"]))
+    expect(astroPropsOf("Menu", "Missing")).toBeUndefined()
+  })
+
+  test("a prop says whether its type takes null", () => {
+    const tabs = astroPropsOf("Tabs", "Props")
+    expect(tabs?.get("role")?.nullable).toBe(true)
+    expect(tabs?.get("orientation")?.nullable).toBe(false)
+  })
+
+  test("a prop type gives how deep its values nest, its fields, its lists and whether it takes null", () => {
+    const shapes = shapesOfSource(
+      [
+        "type Tree = { children?: Tree[]; label: string }",
+        "export type Props<T, S extends string, N extends string | null> = {",
+        "  anything: any",
+        "  constrained: S",
+        "  generic: T",
+        "  group: { ids: string[]; stars: (number | undefined)[] }",
+        "  items?: { label: string; meta: { count: number } }[]",
+        "  label?: string | null",
+        "  nullish: N",
+        "  open: unknown",
+        "  size: 'small' | 'large'",
+        "  style: { color: string; width: number }",
+        "  tree: Tree",
+        "}",
+      ].join("\n"),
+    )
+    const of = (key: "depth" | "nullable") =>
+      Object.fromEntries([...shapes].map(([name, shape]) => [name, shape[key]]))
+    expect(of("nullable")).toEqual({
+      anything: true,
+      constrained: false,
+      generic: true,
+      group: false,
+      items: false,
+      label: true,
+      nullish: true,
+      open: true,
+      size: false,
+      style: false,
+      tree: false,
+    })
+    expect(of("depth")).toEqual({
+      anything: Infinity,
+      constrained: 0,
+      generic: Infinity,
+      group: 2,
+      items: 3,
+      label: 0,
+      nullish: 0,
+      open: Infinity,
+      size: 0,
+      style: 1,
+      tree: Infinity,
+    })
+    expect(shapes.get("items")?.list).toEqual({
+      defined: true,
+      fields: new Map([
+        ["label", new Set(["string"])],
+        ["meta", new Set(["other"])],
+      ]),
+      items: new Set(["other"]),
+    })
+    expect(shapes.get("items")?.members).toEqual(new Map())
+    expect(shapes.get("group")?.lists).toEqual(
+      new Map([
+        [
+          "ids",
+          { defined: true, fields: new Map(), items: new Set(["string"]) },
+        ],
+        [
+          "stars",
+          { defined: false, fields: new Map(), items: new Set(["number"]) },
+        ],
+      ]),
+    )
+    expect(shapes.get("style")?.members).toEqual(
+      new Map([
+        ["color", new Set(["string"])],
+        ["width", new Set(["number"])],
+      ]),
+    )
+  })
+
+  test("a helper's return type gives its kinds and a list's item fields, and a generic list gives no fields", () => {
+    const returns = helperReturnsOf([
+      { file: "Reactions/pills.ts", name: "pillsOf" },
+      { file: "attrs.ts", name: "defined" },
+      { file: "group.ts", name: "toggleInGroup" },
+    ])
+    expect(returns.get("pillsOf")?.kinds).toEqual(new Set(["other"]))
+    expect(returns.get("pillsOf")?.list.fields.get("label")).toEqual(
+      new Set(["string"]),
+    )
+    expect(returns.get("pillsOf")?.list.fields.get("checked")).toEqual(
+      new Set(["boolean"]),
+    )
+    expect(returns.get("defined")?.kinds).toEqual(new Set(["other"]))
+    expect(returns.get("toggleInGroup")?.list.fields).toEqual(new Map())
   })
 })

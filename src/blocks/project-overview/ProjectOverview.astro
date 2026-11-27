@@ -30,7 +30,7 @@ import {
 </style>
 
 <div
-  class="project-overview ui-layout-container ui-layout-column ui-large"
+  class="project-overview ui-layout-container ui-layout-column ui-gap-large"
   style="--_max-inline-size: 80rem"
 >
   <div class="ui-layout-row ui-spread">
@@ -48,7 +48,7 @@ import {
         />
       </p>
     </hgroup>
-    <div class="ui-layout-row ui-small">
+    <div class="ui-layout-row ui-gap-small">
       <Button size="small" type="button" variant="outlined">Share</Button>
       <Button
         command="toggle-popover"
@@ -140,8 +140,8 @@ import {
     </li>
   </ul>
 
-  <div class="ui-layout-columns ui-large" style="--_columns: 3fr 2fr">
-    <div class="ui-layout-column ui-large">
+  <div class="ui-layout-columns ui-gap-large" style="--_columns: 3fr 2fr">
+    <div class="ui-layout-column ui-gap-large">
       <Card
         aria-labelledby="project-overview-milestones-heading"
         as="section"
@@ -195,7 +195,7 @@ import {
                   d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"
                 ></path>
               </svg>
-              <p class="ui-caption">Completed, low end approved</p>
+              <p class="ui-caption">Completed, bassist approved</p>
             </TimelineItem>
             <TimelineItem
               color="success"
@@ -283,30 +283,30 @@ import {
         <List variant="transparent">
           <ListItem
             description="Today, 10:24"
-            label="Holly closed “Extension cords for 40 amps”"
-            ><Avatar aria-label="Holly Humbucker" role="img" slot="start"
-              >HH</Avatar
+            label="Scott closed “Extension cords for 40 amps”"
+            ><Avatar aria-label="Scott Humbucker" role="img" slot="start"
+              >SH</Avatar
             ></ListItem
           >
           <ListItem
             description="Today, 08:51"
-            label="Lou uploaded “Bass Day poster v4.png”"
-            ><Avatar aria-label="Lou Headstock" role="img" slot="start"
-              >LH</Avatar
+            label="Kinga uploaded “Bass Day poster v4.png”"
+            ><Avatar aria-label="Kinga Headstock" role="img" slot="start"
+              >KH</Avatar
             ></ListItem
           >
           <ListItem
             description="Yesterday, 16:02"
-            label="Percy moved the jam rehearsal to 14 October"
-            ><Avatar aria-label="Percy Groove" role="img" slot="start"
-              >PG</Avatar
+            label="Adam moved the jam rehearsal to 14 October"
+            ><Avatar aria-label="Adam Groove" role="img" slot="start"
+              >AG</Avatar
             ></ListItem
           >
         </List>
       </Card>
     </div>
 
-    <div class="ui-layout-column ui-large">
+    <div class="ui-layout-column ui-gap-large">
       <Card
         aria-labelledby="project-overview-team-heading"
         as="section"
@@ -317,29 +317,28 @@ import {
           <p>5 bassists making it happen.</p>
         </hgroup>
         <List dense variant="transparent">
-          <ListItem description="Party boss" label="Percy Groove"
-            ><Avatar aria-label="Percy Groove" role="img" slot="start"
-              >PG</Avatar
+          <ListItem description="Party boss" label="Adam Groove"
+            ><Avatar aria-label="Adam Groove" role="img" slot="start">AG</Avatar
             ><Chip as="span" label="Owner" size="x-small" slot="end"
           /></ListItem>
-          <ListItem description="Poster artist" label="Lou Headstock"
-            ><Avatar aria-label="Lou Headstock" role="img" slot="start"
-              >LH</Avatar
+          <ListItem description="Poster artist" label="Kinga Headstock"
+            ><Avatar aria-label="Kinga Headstock" role="img" slot="start"
+              >KH</Avatar
             ></ListItem
           >
-          <ListItem description="Amp wrangler" label="Holly Humbucker"
-            ><Avatar aria-label="Holly Humbucker" role="img" slot="start"
-              >HH</Avatar
+          <ListItem description="Amp wrangler" label="Scott Humbucker"
+            ><Avatar aria-label="Scott Humbucker" role="img" slot="start"
+              >SH</Avatar
             ></ListItem
           >
-          <ListItem description="Snack captain" label="Ines Hertz"
-            ><Avatar aria-label="Ines Hertz" role="img" slot="start"
-              >IH</Avatar
+          <ListItem description="Snack captain" label="Mohini Hertz"
+            ><Avatar aria-label="Mohini Hertz" role="img" slot="start"
+              >MH</Avatar
             ></ListItem
           >
-          <ListItem description="Sound check hero" label="Rory Rootnote"
-            ><Avatar aria-label="Rory Rootnote" role="img" slot="start"
-              >RR</Avatar
+          <ListItem description="Sound check hero" label="Josh Rootnote"
+            ><Avatar aria-label="Josh Rootnote" role="img" slot="start"
+              >JR</Avatar
             ></ListItem
           >
         </List>
@@ -359,11 +358,11 @@ import {
           <h2 class="ui-h5" id="project-overview-details-heading">Details</h2>
         </hgroup>
         <CardContent
-          ><DescriptionList border="solid">
+          ><DescriptionList leader="solid">
             <DescriptionListItem
               ><DescriptionListTerm>Host</DescriptionListTerm
               ><DescriptionListDescription
-                >Low End Theory</DescriptionListDescription
+                >Bassists Anonymous</DescriptionListDescription
               ></DescriptionListItem
             >
             <DescriptionListItem

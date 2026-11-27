@@ -1,0 +1,42 @@
+{% from "opui/index.njk" import Badge %}
+
+{% call Badge({
+  color: "critical",
+  hideLabel: true,
+  label: "5 unread messages",
+  slots: { indicator: "5" }
+}) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+{% call Badge({
+  color: "info",
+  hideLabel: true,
+  label: "5 unread messages",
+  slots: { indicator: "5" }
+}) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+{% call Badge({
+  color: "neutral",
+  hideLabel: true,
+  label: "5 unread messages",
+  slots: { indicator: "5" }
+}) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+{% call Badge({
+  color: "success",
+  hideLabel: true,
+  label: "5 unread messages",
+  slots: { indicator: "5" }
+}) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+{% call Badge({
+  color: "warning",
+  hideLabel: true,
+  label: "5 unread messages",
+  slots: { indicator: "5" }
+}) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}

@@ -3,12 +3,12 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@solidjs/web": "^2.0.0",
-    "solid-js": "^2.0.0"
+    "@solidjs/web": "^2.0.4",
+    "solid-js": "^2.0.4"
   },
   "devDependencies": {
     "@solidjs/vite-plugin": "^3.0.1",
     "typescript": "^6.0.3",
-    "vite": "^8.3.6"
+    "vite": "^8.4.0"
   }
 }

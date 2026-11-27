@@ -1,0 +1,19 @@
+{% macro Copy(props = {}) %}
+  {%- set props = props | opuiProps("Copy") -%}
+  {%- set rest = props | opuiRest("Copy") -%}
+  {{- opui.warnMissingId("Copy", props.id) -}}
+  {%- set classes = ["ui-copy", props.class] | opuiClass -%}
+  <opui-copy{{ opui.merge(
+    {
+      class: classes,
+      "copied-label": props.copiedLabel,
+      "failed-label": props.failedLabel,
+      id: props.id
+    },
+    opui.defined(rest)
+  ) | opuiAttributes("opui-copy") }}>
+    {{- caller() if caller }}
+    <span class="ui-sr-only" role="status"></span>
+    <span aria-hidden="true" class="ui-floating" popover></span>
+  </opui-copy>
+{%- endmacro %}

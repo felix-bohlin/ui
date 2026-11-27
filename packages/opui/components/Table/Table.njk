@@ -1,0 +1,15 @@
+{% macro Table(props = {}) %}
+  {%- set props = props | opuiProps("Table") -%}
+  {%- set rest = props | opuiRest("Table") -%}
+  <table
+    class="ui-table
+      {%- if props.flush %} ui-flush{% endif %}
+      {%- if props.stickyHeader %} ui-sticky-header{% endif %}
+      {%- if props.density and props.density != 'normal' %} ui-{{ props.density }}{% endif %}
+      {%- if props.overflow and props.overflow != 'wrap' %} ui-overflow-{{ props.overflow }}
+      {%- endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </table>
+{%- endmacro %}

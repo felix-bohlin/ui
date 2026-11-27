@@ -7,6 +7,8 @@ export { default as AnchorContent } from "../components/Anchor/AnchorContent.vue
 export { default as Avatar } from "../components/Avatar/Avatar.vue"
 export { default as AvatarGroup } from "../components/Avatar/AvatarGroup.vue"
 export { default as Badge } from "../components/Badge/Badge.vue"
+export { default as Breadcrumb } from "../components/Breadcrumb/Breadcrumb.vue"
+export { default as BreadcrumbItem } from "../components/Breadcrumb/BreadcrumbItem.vue"
 export { default as Button } from "../components/Button/Button.vue"
 export { default as Callout } from "../components/Callout/Callout.vue"
 export { default as CalloutActions } from "../components/Callout/CalloutActions.vue"
@@ -105,6 +107,10 @@ export type {
   Props as AvatarProps,
 } from "../components/Avatar/types.vue-props"
 export type { Props as BadgeProps } from "../components/Badge/types.vue-props"
+export type {
+  BreadcrumbItemProps,
+  Props as BreadcrumbProps,
+} from "../components/Breadcrumb/types.vue-props"
 export type { Props as ButtonProps } from "../components/Button/types.vue-props"
 export type {
   CalloutActionsProps,

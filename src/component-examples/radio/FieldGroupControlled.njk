@@ -1,0 +1,38 @@
+{% from "opui/index.njk" import
+  Button,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Radio
+%}
+
+{% call Fieldset() %}
+  {% call FieldLegend() %}Shipping{% endcall %}
+  {% call FieldGroup() %}
+    {% call Radio({ checked: true, name: "radio-controlled", value: "standard" }) %}Standard{% endcall %}
+    {% call Radio({ name: "radio-controlled", value: "express" }) %}Express{% endcall %}
+    {% call Radio({ name: "radio-controlled", value: "pickup" }) %}Pickup{% endcall %}
+  {% endcall %}
+{% endcall %}
+<p class="radio-controlled-text">Selected: standard</p>
+{% call Button({ class: "radio-controlled-reset" }) %}Reset{% endcall %}
+
+<script type="module">
+  const text = document.querySelector(".radio-controlled-text")
+  const inputs = [...document.querySelectorAll('[name="radio-controlled"]')]
+
+  function update() {
+    if (!text) return
+    text.textContent = `Selected: ${
+      inputs.find((input) => input.checked)?.value ?? "none"
+    }`
+  }
+
+  inputs.forEach((input) => input.addEventListener("change", update))
+  document
+    .querySelector(".radio-controlled-reset")
+    ?.addEventListener("click", () => {
+      inputs.forEach((input) => (input.checked = input.defaultChecked))
+      update()
+    })
+</script>

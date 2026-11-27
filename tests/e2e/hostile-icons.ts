@@ -4,7 +4,7 @@ import {
   SAMPLE_ICONS,
 } from "../../src/utils/icon-libraries"
 
-export const HOSTILE_SVGS = {
+const HOSTILE_SVGS = {
   "em-size":
     '<svg width="1em" height="1em" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/></svg>',
   "fill-on-shapes":

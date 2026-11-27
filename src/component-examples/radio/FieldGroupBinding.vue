@@ -12,10 +12,12 @@ function reset() {
 <template>
   <Fieldset>
     <FieldLegend>Plan</FieldLegend>
-    <FieldGroup name="radio-binding">
-      <Radio v-model="plan" value="basic">Basic</Radio>
-      <Radio v-model="plan" value="gold">Gold</Radio>
-      <Radio v-model="plan" value="platinum">Platinum</Radio>
+    <FieldGroup>
+      <Radio name="radio-binding" v-model="plan" value="basic">Basic</Radio>
+      <Radio name="radio-binding" v-model="plan" value="gold">Gold</Radio>
+      <Radio name="radio-binding" v-model="plan" value="platinum"
+        >Platinum</Radio
+      >
     </FieldGroup>
   </Fieldset>
   <p class="radio-binding-text">Selected: {{ plan }}</p>

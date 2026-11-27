@@ -39,7 +39,7 @@ const descriptionId = description ? ids("description") : undefined
           class="ui-sr-only"
           disabled={disabled}
           id={inputId}
-          multiple={multiple}
+          multiple={multiple || undefined}
           type="file"
         />
         <span class="ui-button ui-outlined">{label}</span>
@@ -57,7 +57,7 @@ const descriptionId = description ? ids("description") : undefined
     </div>
     {items && items.length > 0 && <ul class="ui-list">
       {items.map((item, index) => <li
-        class:list={[{ "ui-error": item.state === "error" }]}
+        class:list={[{ "ui-state-error": item.state === "error" }]}
       >
         <div class="ui-start">
           {item.preview && <img alt="" src={item.preview} />}

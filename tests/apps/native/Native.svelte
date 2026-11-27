@@ -32,6 +32,9 @@
 <form data-case="checkbox-rerender">
   <input aria-label="Agree" defaultChecked data-round={round} type="checkbox" />
 </form>
+<form data-case="checkbox-spread">
+  <input {...{ "data-round": round }} aria-label="Agree" type="checkbox" />
+</form>
 <form data-case="group-bound">
   {#each views as view (view)}
     <input
@@ -94,6 +97,22 @@
   <input aria-label="Tea" name="drink" type="radio" value="tea" />
   <input aria-label="Coffee" name="drink" type="radio" value="coffee" />
 </form>
+<form data-case="radio-spread">
+  <input
+    {...{ "data-round": round }}
+    aria-label="Tea"
+    name="drink"
+    type="radio"
+    value="tea"
+  />
+  <input
+    {...{ "data-round": round }}
+    aria-label="Coffee"
+    name="drink"
+    type="radio"
+    value="coffee"
+  />
+</form>
 <form data-case="range-bound">
   <input aria-label="Level" bind:value={values.range} type="range" />
   <output>{values.range}</output>
@@ -127,6 +146,17 @@
 <form data-case="rating-empty">
   {#each stars as star (star)}
     <input
+      aria-label={`${star} stars`}
+      name="score"
+      type="radio"
+      value={star}
+    />
+  {/each}
+</form>
+<form data-case="rating-spread">
+  {#each stars as star (star)}
+    <input
+      {...{ "data-round": round }}
       aria-label={`${star} stars`}
       name="score"
       type="radio"

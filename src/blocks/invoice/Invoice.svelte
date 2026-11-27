@@ -22,10 +22,10 @@
 </script>
 
 <div
-  class="invoice ui-layout-container ui-layout-column ui-large"
+  class="invoice ui-layout-container ui-layout-column ui-gap-large"
   style="--_max-inline-size: 58rem"
 >
-  <div class="ui-layout-row ui-small ui-spread invoice-toolbar">
+  <div class="ui-layout-row ui-gap-small ui-spread invoice-toolbar">
     <Button href="#invoice-all" size="small"
       ><svg
         data-icon="chevron-left"
@@ -41,7 +41,7 @@
         ></path>
       </svg><span class="ui-text">All invoices</span></Button
     >
-    <div class="ui-layout-row ui-small">
+    <div class="ui-layout-row ui-gap-small">
       <Button size="small" type="button" variant="outlined">
         <svg
           data-icon="print"
@@ -93,7 +93,7 @@
   >
     <CardContent>
       <div class="ui-layout-row ui-spread invoice-head">
-        <div class="ui-layout-row ui-small invoice-brand">
+        <div class="ui-layout-row ui-gap-small invoice-brand">
           <svg
             data-icon="layers"
             aria-hidden="true"
@@ -109,7 +109,7 @@
           </svg>
           Bassbook
         </div>
-        <div class="ui-layout-column ui-small invoice-title">
+        <div class="ui-layout-column ui-gap-small invoice-title">
           <hgroup>
             <h1 class="ui-h3" id="invoice-heading">Invoice BB-2026-0418</h1>
             <p>Issued 8 October 2026</p>
@@ -124,20 +124,20 @@
         </div>
       </div>
       <div
-        class="ui-layout-grid ui-large ui-stretch invoice-parties"
+        class="ui-layout-grid ui-gap-large ui-stretch invoice-parties"
         style="--_min-inline-size: 12rem"
       >
         <section aria-labelledby="invoice-from">
           <h2 class="ui-overline invoice-label" id="invoice-from">From</h2>
           <address>
-            <strong>Bassbook HQ</strong><br /> 4 Low End Lane<br /> 444 44
+            <strong>Bassbook HQ</strong><br /> 4 Fretboard Lane<br /> 444 44
             Bassville<br /> VAT EX444444444401
           </address>
         </section>
         <section aria-labelledby="invoice-to">
           <h2 class="ui-overline invoice-label" id="invoice-to">Bill to</h2>
           <address>
-            <strong>The Low Enders</strong><br /> Attn. Percy Groove<br />
+            <strong>Slap Like Now</strong><br /> Attn. Adam Groove<br />
             Rehearsal Room B, 7 Drop D Drive<br /> 411 36 Rumbleton
           </address>
         </section>
@@ -198,7 +198,7 @@
           <TableRow>
             <TableCell>
               Gig flyer boost
-              <p class="ui-caption">Pinned on the Low End Theory wall</p>
+              <p class="ui-caption">Pinned on the Bassists Anonymous wall</p>
             </TableCell>
             <TableCell numeric>2</TableCell>
             <TableCell numeric>€4.50</TableCell>
@@ -216,8 +216,8 @@
         </TableBody>
       </Table>
       <DescriptionList
-        border="solid"
         class="invoice-totals"
+        leader="solid"
         orientation="horizontal"
       >
         <DescriptionListItem>
@@ -236,14 +236,14 @@
       <Divider />
       <section
         aria-labelledby="invoice-payment-heading"
-        class="ui-layout-columns ui-large ui-breakpoint-small"
+        class="ui-layout-columns ui-gap-large ui-breakpoint-small"
         style="--_columns: 3fr 2fr"
       >
         <div>
           <h2 class="ui-overline invoice-label" id="invoice-payment-heading">
             Payment details
           </h2>
-          <DescriptionList border="solid">
+          <DescriptionList leader="solid">
             <DescriptionListItem>
               <DescriptionListTerm>Bankgiro</DescriptionListTerm>
               <DescriptionListDescription>4444-4444</DescriptionListDescription>
@@ -281,7 +281,7 @@
       </section>
       <p class="invoice-footer ui-caption">
         Bassbook, Org. no. 444444-4444, registered office Bassville. Thanks for
-        keeping the low end alive! &lt;3
+        keeping it funky! &lt;3
       </p>
     </CardContent>
   </Card>
@@ -296,11 +296,11 @@
         padding: var(--ui-space-2);
 
         @container (inline-size >= 40rem) {
-          padding: var(--ui-space-5);
+          padding: var(--ui-space-6);
         }
 
         > .ui-content {
-          gap: var(--ui-space-6);
+          gap: var(--ui-space-7);
         }
       }
 
@@ -309,7 +309,7 @@
       }
 
       .invoice-brand {
-        font-weight: var(--ui-font-weight-bold);
+        font-weight: var(--ui-font-weight-heading);
 
         svg {
           block-size: 1.75rem;

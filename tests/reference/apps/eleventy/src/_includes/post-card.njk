@@ -1,0 +1,77 @@
+{% from "opui/index.njk" import
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Menu,
+  ToggleButton,
+  ToggleGroup
+%}
+{% from "icon.njk" import icon with context %}
+{% from "user-avatar.njk" import userAvatar %}
+
+{% macro postCard(post) %}
+  {% set author = app.user(post.author) %}
+  {% call Card({
+    "aria-labelledby": "post-" ~ post.id ~ "-author",
+    as: "article",
+    "data-post": post.id,
+    variant: "outlined"
+  }) %}
+    {% call CardHeader({ as: "header" }) %}
+      {{ userAvatar(author) }}
+      <hgroup>
+        <h2 id="post-{{ post.id }}-author">
+          <a href="/u/{{ author.handle }}">{{ author.name }}</a>
+        </h2>
+        <p><time datetime="{{ post.datetime }}">{{ post.time }}</time></p>
+      </hgroup>
+      {% call Button({
+        "aria-label": "Options for " ~ author.name ~ "'s post",
+        command: "toggle-popover",
+        commandfor: "post-menu-" ~ post.id
+      }) %}{{ icon("more") }}{% endcall %}
+    {% endcall %}
+    {{ Menu({
+      align: "end",
+      id: "post-menu-" ~ post.id,
+      items: [
+        { "data-post-action": "copy", label: "Copy link" },
+        {
+          "data-post-action": "save",
+          form: "save-post-" ~ post.id,
+          label: "Save post",
+          type: "submit"
+        },
+        { "data-post-action": "hide", label: "Hide post" }
+      ]
+    }) }}
+    <form data-save-post="{{ post.id }}" hidden id="save-post-{{ post.id }}"></form>
+    {% call CardContent() %}
+      <p data-post-text>{{ post.text }}</p>
+      {% if post.photos.length %}
+        <div class="app-post-photos">
+          {% for id in post.photos %}
+            {% set photo = app.photo(id) %}
+            <img alt="{{ photo.alt }}" src="{{ photo.src }}" />
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endcall %}
+    {% call CardActions({ align: "start" }) %}
+      {% call ToggleGroup({
+        "aria-label": "Reactions",
+        multiple: true,
+        name: "reactions-" ~ post.id,
+        size: "small"
+      }) %}
+        {% for reaction in post.reactions %}
+          {% call ToggleButton({ value: reaction.value }) %}
+            {{ reaction.label }} <span data-count="{{ reaction.count }}">{{ reaction.count }}</span>
+          {% endcall %}
+        {% endfor %}
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endmacro %}

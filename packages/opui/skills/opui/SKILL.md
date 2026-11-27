@@ -14,8 +14,9 @@ Install with `npm install opui-css`. Open Props is bundled in `dist/opui.css` fo
 - With a bundler, import everything with `@import "opui-css/css/imports.css"`, or import `opui-css/css/layers.css` first, then `opui-css/core/palette.css`, `opui-css/css/theme.css`, `opui-css/core/normalize.css`, the components from `opui-css/css/components/<name>.css` (`choice.css` with `checkbox.css`, `radio.css` or `switch.css`), the browser fallbacks from `opui-css/css/compat.css`, and `opui-css/core/utils.css` last. `references/getting-started.md` has the full list.
 - Without a bundler, link `https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css`. It includes the browser fallbacks of the `components.compat` layer: `dist/opui.no-compat.css` leaves them out, and `dist/opui.baseline-<year>.css` keeps only the ones browsers of that Baseline year need.
 - Astro: `import { Button } from "opui-css/astro"`. React: `import { Button } from "opui-css/react"`. Solid: `import { Button } from "opui-css/solid"`. Svelte: `import { Button } from "opui-css/svelte"`. Vue: `import { Button } from "opui-css/vue"`. All still need the CSS imported once.
+- Upgrading from 5.x: read `node_modules/opui-css/MIGRATING.md` before changing code. Its regular expressions add the `--ui-` prefix to theme tokens in one pass, its tables list the renamed tokens, classes, props and imports, and a section per component covers the changes a rename can't make, such as fields, slots that became parts and token overrides that no longer reach the components. Run `npx opui-css check` on the HTML afterwards.
 - `npx opui-css skill` copies this skill, matching the installed version, into `.claude/skills/opui`. Pass `--dir <path>` for another agent's skills folder and `--force` to replace an older copy after an upgrade.
-- After building a page with a `Field` or `.ui-field`, run `npx opui-css check <files or folders>` on its HTML. It lists each field whose label, part ids, `aria-describedby` or step and password buttons don't follow its control's `id`, and fails. It needs `parse5` (`npm install --save-dev parse5`). For a page that renders in the browser, save `document.documentElement.outerHTML` to a file and check that.
+- After building a page with a `Field` or `.ui-field`, run `npx opui-css check <files or folders>` on its HTML. It lists each field whose label, part ids, `aria-describedby` or step and password buttons don't follow its control's `id`, and fails. It needs `parse5` (`npm install --save-dev parse5`). For a page that renders in the browser, and for fields showing an error, run `checkHtml(await page.content())` from `opui-css/check` in an end-to-end test: it returns the same problems.
 
 ## Conventions
 
@@ -40,9 +41,9 @@ Never override a component's outputs (`--_bg-color`, `--_text-color`, `--_border
 | To change                          | Set                                                                                                                                             |
 | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | Main color                         | `--ui-palette-hue` and `--ui-palette-chroma`, or `--ui-palette-source` with any color                                                           |
-| Main color in one part of the page | `.ui-palette` and `--ui-palette-hue` on that element                                                                                            |
+| Main color in one part of the page | `.ui-scope` and `--ui-palette-hue` on that element                                                                                              |
 | Corners                            | `--ui-radius` (buttons and fields follow it)                                                                                                    |
-| Fonts                              | `--ui-font-body`, `--ui-font-heading`, `--ui-font-code`                                                                                         |
+| Fonts                              | `--ui-font-family-body`, `--ui-font-family-heading`, `--ui-font-family-code`                                                                    |
 | Control height                     | `--ui-density`                                                                                                                                  |
 | Spacing in and between containers  | `--ui-space-scale`                                                                                                                              |
 | Shadows                            | `--ui-shadow-color` (light and dark), `--ui-shadow-elevated`, `--ui-shadow-overlay`                                                             |
@@ -55,24 +56,15 @@ Never override a component's outputs (`--_bg-color`, `--_text-color`, `--_border
 @layer theme.custom {
   :where(html) {
     --ui-radius: 4px;
-    --ui-font-body: "Inter", system-ui, sans-serif;
+    --ui-font-family-body: "Inter", system-ui, sans-serif;
     --ui-palette-hue: 265;
   }
 }
 ```
 
-Example themes ship in `opui-css/themes/` (`bootstrap.css`, a Bootstrap 5 look, `brutalist.css`, a neobrutalism look, `govuk.css`, a GOV.UK Design System look, `m3.css`, a Material 3 look, and `shadcn.css`, a shadcn/ui look), to import or copy as a starting point. They borrow those looks and aren't affiliated with the projects behind them. They name their fonts (DM Sans, Roboto, Geist) but don't load them. They start with the layer order, so they work wherever they load. A theme file you write should load after the library, or start with the two `@layer` statements from `css/layers.css`.
+Example themes ship in `opui-css/themes/` (`bootstrap.css`, a Bootstrap 5 look, `brutalist.css`, a neobrutalism look, `govuk.css`, a GOV.UK Design System look, `m3.css`, a Material 3 look, `shadcn.css`, a shadcn/ui look, and `vice-city.css`, a Grand Theft Auto VI site look), to import or copy as a starting point. They borrow those looks and aren't affiliated with the projects behind them. They name their fonts (DM Sans, Figtree, GTAArtDeco, Roboto, Geist) but don't load them. They start with the layer order, so they work wherever they load. A theme file you write should load after the library, or start with the two `@layer` statements from `css/layers.css`.
 
 `tokens.json` at the package root (`node_modules/opui-css/tokens.json`, or `import tokens from "opui-css/tokens.json"`) lists every theme token in the W3C design tokens format: its `$type`, description and default as `$value`, and under `$extensions.opui` its CSS variable, tier, contrast promise and dark and more-contrast values. Unset tokens have no `$value`, only an `example`.
-
-## Figma
-
-`node_modules/opui-css/figma/themes/` has the default theme resolved for Figma: `default/<mode>.tokens.json` per mode (`light`, `dark`, `light-more-contrast`, `dark-more-contrast`) for Figma's Import mode, and `default.figma.json`, which `opui-css/figma/sync.js` turns into variables, effect styles and text styles. The example themes' files are on the docs site, at `https://opui.dev/figma/<theme>.figma.json` and `https://opui.dev/figma/<theme>/<mode>.tokens.json`.
-
-- Every variable has its CSS variable as code syntax, so the Figma MCP server reads a design built with them back as `var(--ui-*)`. Use those tokens in code, not the resolved values.
-- To set up a file with the Figma MCP server's `use_figma` tool, send the contents of `sync.js`, the theme as `const THEME = {...}` and `return await opuiFigmaSync(THEME, options)`. `use_figma` takes at most 50,000 characters and has no `fetch`, and a theme is about 100,000, so send it in parts with `{ partial: true }`: the variables in chunks, then `{ ...THEME, variables: [] }` for the styles. Leave out each color's `hex`, `oklch` and `p3` (keep `p3` in a Display P3 file) to fit more in a call.
-- The other options are `modes` (the mode ids to sync), `effects: false` and `text: false`. It matches variables and styles by name, so running it again updates them in place, and on a plan with one mode per collection it makes a collection per mode.
-- For a person, point to the opui Figma plugin on the theme tokens page, which runs the same function without those limits.
 
 ## References
 

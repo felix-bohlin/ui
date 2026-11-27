@@ -42,6 +42,14 @@ export type ChoiceControl = Base & {
   options: ChoiceOption[]
 }
 
+export const SCALE_KNOBS = {
+  density: "--ui-density",
+  space: "--ui-space-scale",
+}
+
+export const scaledValue = (control: RangeControl, value: string) =>
+  control.scale ? `calc(${value} * var(${SCALE_KNOBS[control.scale]}))` : value
+
 export type RangeControl = Base & {
   display: "number" | "percent" | "unit"
   fallback?: string
@@ -49,7 +57,7 @@ export type RangeControl = Base & {
   kind: "range"
   max: number
   min: number
-  scale?: "density"
+  scale?: keyof typeof SCALE_KNOBS
   step: number
   token: string
   unit: "" | "px" | "rem"
@@ -425,7 +433,7 @@ export const GROUPS: ControlGroup[] = [
       color(
         "surface-elevated",
         "Raised surface",
-        "--ui-surface-elevated",
+        "--ui-surface-raised",
         "fine",
         { hint: "Cards, menus and dialogs" },
       ),
@@ -484,7 +492,7 @@ export const GROUPS: ControlGroup[] = [
           },
           {
             label: "Raised",
-            tokens: { "--ui-track-bg-color": "var(--ui-surface-elevated)" },
+            tokens: { "--ui-track-bg-color": "var(--ui-surface-raised)" },
             value: "raised",
           },
         ],
@@ -522,7 +530,6 @@ export const GROUPS: ControlGroup[] = [
   {
     controls: [
       color("border-color", "Border color", "--ui-border-color", "basic", {
-        follow: ["--ui-border-color-on-filled"],
         hint: "Cards, dividers and tables",
       }),
       {
@@ -582,7 +589,6 @@ export const GROUPS: ControlGroup[] = [
         "--ui-field-border-color",
         "fine",
         {
-          follow: ["--ui-field-border-color-on-filled"],
           hint: "Text fields, selects and checkboxes",
         },
       ),
@@ -781,7 +787,7 @@ export const GROUPS: ControlGroup[] = [
         id: "font-body",
         kind: "choice",
         label: "Font",
-        options: fontOptions("--ui-font-body"),
+        options: fontOptions("--ui-font-family-body"),
         tier: "basic",
       },
       {
@@ -794,10 +800,10 @@ export const GROUPS: ControlGroup[] = [
           {
             group: "System",
             label: "Same as body",
-            tokens: revert("--ui-font-heading"),
+            tokens: revert("--ui-font-family-heading"),
             value: "body",
           },
-          ...fontOptions("--ui-font-heading"),
+          ...fontOptions("--ui-font-family-heading"),
         ],
         tier: "fine",
       },
@@ -811,10 +817,10 @@ export const GROUPS: ControlGroup[] = [
           {
             group: "System",
             label: "Default",
-            tokens: revert("--ui-font-code"),
+            tokens: revert("--ui-font-family-code"),
             value: "default",
           },
-          ...fontOptions("--ui-font-code", CODE_FONTS),
+          ...fontOptions("--ui-font-family-code", CODE_FONTS),
         ],
         tier: "fine",
       },
@@ -824,7 +830,7 @@ export const GROUPS: ControlGroup[] = [
         id: "weight-bold",
         kind: "choice",
         label: "Bold weight",
-        options: weights("--ui-font-weight-bold", [500, 600, 700, 800]),
+        options: weights("--ui-font-weight-heading", [500, 600, 700, 800]),
         tier: "fine",
       },
       {
@@ -833,7 +839,7 @@ export const GROUPS: ControlGroup[] = [
         id: "weight-semibold",
         kind: "choice",
         label: "Semibold weight",
-        options: weights("--ui-font-weight-semibold", [500, 600, 700]),
+        options: weights("--ui-font-weight-label", [500, 600, 700]),
         tier: "fine",
       },
       {
@@ -878,16 +884,16 @@ export const GROUPS: ControlGroup[] = [
           {
             label: "Compact",
             tokens: {
-              "--ui-line-height": "1.5",
-              "--ui-line-height-relaxed": "1.5",
+              "--ui-line-height-compact": "1.5",
+              "--ui-line-height-body": "1.5",
             },
             value: "compact",
           },
           {
             label: "Default",
             tokens: {
-              "--ui-line-height": "1.6",
-              "--ui-line-height-relaxed": "1.75",
+              "--ui-line-height-compact": "1.5",
+              "--ui-line-height-body": "1.75",
             },
             value: "default",
           },
@@ -962,7 +968,7 @@ export const GROUPS: ControlGroup[] = [
             label: "Default",
             tokens: revert(
               "--ui-underline-offset",
-              "--ui-underline-thickness-hover",
+              "--ui-underline-hover-thickness",
             ),
             value: "default",
           },
@@ -970,7 +976,7 @@ export const GROUPS: ControlGroup[] = [
             label: "Loose",
             tokens: {
               "--ui-underline-offset": "4px",
-              "--ui-underline-thickness-hover": "1px",
+              "--ui-underline-hover-thickness": "1px",
             },
             value: "loose",
           },
@@ -978,7 +984,7 @@ export const GROUPS: ControlGroup[] = [
             label: "Browser",
             tokens: {
               "--ui-underline-offset": "auto",
-              "--ui-underline-thickness-hover": "auto",
+              "--ui-underline-hover-thickness": "auto",
             },
             value: "browser",
           },
@@ -1064,8 +1070,8 @@ export const GROUPS: ControlGroup[] = [
           {
             label: "Closer",
             tokens: {
-              "--ui-control-size-large": "2.5rem",
-              "--ui-control-size-small": "2rem",
+              "--ui-control-size-large": "calc(2.5rem * var(--ui-density))",
+              "--ui-control-size-small": "calc(2rem * var(--ui-density))",
             },
             value: "tight",
           },
@@ -1074,12 +1080,13 @@ export const GROUPS: ControlGroup[] = [
       },
       {
         display: "unit",
-        fallback: "var(--ui-space-3)",
+        fallback: "var(--ui-space-4)",
         id: "card-padding",
         kind: "range",
         label: "Card padding",
         max: 2,
         min: 0.5,
+        scale: "space",
         step: 0.125,
         tier: "fine",
         token: "--ui-card-padding",
@@ -1087,12 +1094,13 @@ export const GROUPS: ControlGroup[] = [
       },
       {
         display: "unit",
-        fallback: "var(--ui-space-3)",
+        fallback: "var(--ui-space-4)",
         id: "list-padding",
         kind: "range",
         label: "List item padding",
         max: 1.5,
         min: 0.25,
+        scale: "space",
         step: 0.125,
         tier: "fine",
         token: "--ui-list-item-padding-inline",
@@ -1125,9 +1133,9 @@ export const GROUPS: ControlGroup[] = [
           {
             label: "Compact",
             tokens: {
-              "--ui-switch-thumb-size": "0.75rem",
-              "--ui-switch-track-block-size": "1rem",
-              "--ui-switch-track-inline-size": "2rem",
+              "--ui-switch-thumb-size": "calc(0.75rem * var(--ui-density))",
+              "--ui-switch-track-block-size": "calc(1rem * var(--ui-density))",
+              "--ui-switch-track-inline-size": "calc(2rem * var(--ui-density))",
             },
             value: "compact",
           },
@@ -1292,7 +1300,7 @@ export const GROUPS: ControlGroup[] = [
         options: [
           {
             label: "Calm",
-            tokens: revert("--ui-ease-move", "--ui-press-scale"),
+            tokens: revert("--ui-ease-move", "--ui-state-active-scale"),
             value: "calm",
           },
           {
@@ -1300,7 +1308,7 @@ export const GROUPS: ControlGroup[] = [
             tokens: {
               "--ui-ease-move":
                 "linear(0, 0.066, 0.218, 0.4, 0.578, 0.731, 0.852, 0.94, 0.998, 1.031, 1.047, 1.05, 1.046, 1.038, 1.029, 1.02, 1.012, 1.007, 1.002, 1, 1)",
-              "--ui-press-scale": "0.97",
+              "--ui-state-active-scale": "0.97",
             },
             value: "lively",
           },
@@ -1509,7 +1517,7 @@ export const GROUPS: ControlGroup[] = [
         min: 0.4,
         step: 0.01,
         tier: "fine",
-        token: "--ui-disabled-opacity",
+        token: "--ui-state-disabled-opacity",
         unit: "",
       },
       {
@@ -1538,7 +1546,7 @@ export const GROUPS: ControlGroup[] = [
           },
           {
             label: "Raised",
-            tokens: { "--ui-field-bg-color": "var(--ui-surface-elevated)" },
+            tokens: { "--ui-field-bg-color": "var(--ui-surface-raised)" },
             value: "raised",
           },
         ],
@@ -1622,7 +1630,7 @@ export const libraryDefaults = (css: string) => {
   const defaults: ThemeTokens = {}
   for (const selector of [
     ":where(html)",
-    ":where(html, .ui-palette, .ui-contrast-more)",
+    ":where(html, .ui-scope, .ui-contrast-more)",
   ]) {
     for (const [, token, value] of block(css, selector).matchAll(
       /^\s*(--ui-[\w-]+):\s*([^;]+);/gm,

@@ -3,7 +3,7 @@
 A progress bar on the native progress element, for a task that reports how far along it is, or one that doesn't.
 
 - CSS: `opui-css/css/components/progress.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/progress.md), [Astro](https://opui.dev/astro/components/progress.md), [React](https://opui.dev/react/components/progress.md), [Solid](https://opui.dev/solid/components/progress.md), [Svelte](https://opui.dev/svelte/components/progress.md), [Vue](https://opui.dev/vue/components/progress.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/progress.md), [Astro](https://opui.dev/astro/components/progress.md), [Nunjucks](https://opui.dev/nunjucks/components/progress.md), [React](https://opui.dev/react/components/progress.md), [Solid](https://opui.dev/solid/components/progress.md), [Svelte](https://opui.dev/svelte/components/progress.md), [Vue](https://opui.dev/vue/components/progress.md).
 
 ## Progress
 
@@ -25,7 +25,7 @@ A progress bar on the native progress element, for a task that reports how far a
 
 ### Notes
 
-- Astro, Solid, Svelte and Vue: Attributes that aren't props go to the `<progress>`, like `aria-describedby`, `aria-label` and `id`, and `class` and `style` go to the root `<div>`.
+- Astro, Nunjucks, Solid, Svelte and Vue: Attributes that aren't props go to the `<progress>`, like `aria-describedby`, `aria-label` and `id`, and `class` and `style` go to the root `<div>`.
 - React: Attributes that aren't props go to the `<progress>`, like `aria-describedby`, `aria-label` and `id`, and `className` and `style` go to the root `<div>`.
 
 ## Component properties
@@ -40,14 +40,14 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_ease`: Easing of the value transition. Defaults to `--ui-ease-enter`.
 - `--_loop-duration`: Length of one cycle of the indeterminate animation, and of the pulse that replaces it when `--_motion` is `0`. `2s` by default, multiplied by `--_motion`.
 - `--_motion`: Motion multiplier for the value transition and the indeterminate animation.
-- `--_ring-border-width`: Thickness of the ring of `.ui-round`. Defaults to `--ui-border-width-thick`.
+- `--_ring-border-width`: Thickness of the ring of `.ui-round`. Defaults to `--ui-border-width-large`.
 - `--_ring-size`: Width and height of `.ui-round`. Defaults to `--ui-icon-size-large`.
 
 Outputs: `--_duration` and `--_ring-fraction`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width`, `--ui-border-width-thick`, `--ui-duration`, `--ui-ease-enter`, `--ui-field-border-color`, `--ui-icon-size-large`, `--ui-motion`, `--ui-radius`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-space-1`, `--ui-surface-filled`, `--ui-surface-tonal` and `--ui-track-bg-color`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-border-width-large`, `--ui-duration`, `--ui-ease-enter`, `--ui-field-border-color`, `--ui-icon-size-large`, `--ui-motion`, `--ui-radius`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-space-1`, `--ui-surface-filled`, `--ui-surface-tonal` and `--ui-track-bg-color`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -71,6 +71,18 @@ import { Progress } from "opui-css/astro"
 ---
 
 <Progress aria-label="Loading" />
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Progress %}`
+
+### Example: Indeterminate
+
+```njk
+{% from "opui/index.njk" import Progress %}
+
+{{ Progress({ "aria-label": "Loading" }) }}
 ```
 
 ## React

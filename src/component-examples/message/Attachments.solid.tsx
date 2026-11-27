@@ -3,16 +3,16 @@ import { Avatar, Card, CardContent, Message, MessageList } from "opui-css/solid"
 
 export default function Attachments() {
   return (
-    <MessageList aria-label="Messages with Stella">
+    <MessageList aria-label="Messages with Ellen">
       <Message
-        author="Stella"
+        author="Ellen"
         datetime="2026-10-08T14:31"
-        start={<Avatar>SN</Avatar>}
+        start={<Avatar>EN</Avatar>}
         time="14:31"
       >
         <p>Totally! Here's my slap break:</p>
         <Card variant="outlined">
-          <CardContent class="ui-layout-media ui-small">
+          <CardContent class="ui-layout-media ui-gap-small">
             <svg
               data-icon="document"
               aria-hidden="true"
@@ -37,7 +37,7 @@ export default function Attachments() {
       <Message author="You" datetime="2026-10-08T14:40" outgoing time="14:40">
         <p>Woohoo, thanks! Here's the encore setlist.</p>
         <Card variant="outlined">
-          <CardContent class="ui-layout-media ui-small">
+          <CardContent class="ui-layout-media ui-gap-small">
             <svg
               data-icon="document"
               aria-hidden="true"

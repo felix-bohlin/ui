@@ -4,15 +4,15 @@ import { Avatar } from "opui-css/solid"
 export default function Sizes() {
   return (
     <>
-      <Avatar label="Lou Headstock" size="x-small">
-        LH
+      <Avatar label="Kinga Headstock" size="x-small">
+        KH
       </Avatar>
-      <Avatar label="Percy Groove" size="small">
-        PG
+      <Avatar label="Adam Groove" size="small">
+        AG
       </Avatar>
-      <Avatar label="Ines Hertz">IH</Avatar>
-      <Avatar label="Holly Humbucker" size="large">
-        HH
+      <Avatar label="Mohini Hertz">MH</Avatar>
+      <Avatar label="Scott Humbucker" size="large">
+        SH
       </Avatar>
     </>
   )

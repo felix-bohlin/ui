@@ -1,0 +1,34 @@
+{% from "opui/index.njk" import CharacterCount, Field %}
+
+{% call Field({
+  for: "field-top-and-bottom-1",
+  label: "Name",
+  slots: { top: "Shown on your profile" }
+}) %}
+  <input
+    aria-describedby="field-top-and-bottom-1-top"
+    id="field-top-and-bottom-1"
+    placeholder="Scott Humbucker"
+  />
+{% endcall %}
+
+{% set endText %}
+Up to 80 characters.
+{{ CharacterCount() }}
+{% endset %}
+{% call Field({
+  for: "field-top-and-bottom-2",
+  label: "Bass motto",
+  slots: { bottom: "Plain text, no links", endText: endText }
+}) %}
+  <input
+    aria-describedby="field-top-and-bottom-2-bottom field-top-and-bottom-2-end-text"
+    id="field-top-and-bottom-2"
+    maxlength="80"
+    placeholder="Turn it up, not down"
+  />
+{% endcall %}
+
+<script type="module">
+  import "opui-css/elements/character-count.js"
+</script>

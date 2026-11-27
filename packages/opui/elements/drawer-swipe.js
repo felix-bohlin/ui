@@ -17,7 +17,11 @@ const SPEED = 0.5
 const STILL = 100
 
 const closedBy = (drawer) =>
-  (drawer.closedBy ?? drawer.getAttribute("closedby") ?? "").toLowerCase()
+  (
+    drawer.closedBy ??
+    drawer.getAttribute("closedby") ??
+    (drawer.matches(":modal") ? "closerequest" : "none")
+  ).toLowerCase()
 
 const requestClose = (drawer) => {
   if (typeof drawer.requestClose === "function") {

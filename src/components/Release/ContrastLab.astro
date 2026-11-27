@@ -42,7 +42,7 @@ const pairs = [
   {
     label: "palette-on-tint on the tonal button",
     selector: ".ui-button.ui-tonal",
-    token: "--ui-palette-on-tint",
+    token: "--ui-palette-on-tonal",
   },
   {
     label: "on-primary on the badge",
@@ -84,7 +84,7 @@ const promised = Math.max(...pairs.map(({ needs }) => needs))
 
   <div class="contrast-lab-lab">
     <div class="contrast-lab-stage">
-      <div class="contrast-lab-scope ui-palette">
+      <div class="contrast-lab-scope ui-scope">
         <Card class="contrast-lab-card" variant="outlined">
           <CardHeader>
             <p class="contrast-lab-strong">Weekly report</p>
@@ -180,8 +180,8 @@ const promised = Math.max(...pairs.map(({ needs }) => needs))
   .contrast-lab {
     container-type: inline-size;
     display: grid;
-    gap: var(--ui-space-4);
-    margin-block: var(--ui-space-5);
+    gap: var(--ui-space-5);
+    margin-block: var(--ui-space-6);
 
     & p {
       margin: 0;
@@ -195,7 +195,7 @@ const promised = Math.max(...pairs.map(({ needs }) => needs))
   .contrast-lab-lab {
     align-items: center;
     display: grid;
-    gap: var(--ui-space-4) var(--ui-space-6);
+    gap: var(--ui-space-5) var(--ui-space-7);
 
     @container (min-width: 40rem) {
       grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
@@ -209,7 +209,7 @@ const promised = Math.max(...pairs.map(({ needs }) => needs))
   .contrast-lab-scope {
     color: var(--ui-text);
     display: grid;
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
   }
 
   .contrast-lab-card {
@@ -226,9 +226,9 @@ const promised = Math.max(...pairs.map(({ needs }) => needs))
 
   .contrast-lab-strong {
     color: var(--ui-text-strong);
-    font-family: var(--ui-font-heading, var(--ui-font-body));
+    font-family: var(--ui-font-family-heading, var(--ui-font-family-body));
     font-size: var(--ui-font-size-h5);
-    font-weight: var(--ui-font-weight-bold);
+    font-weight: var(--ui-font-weight-heading);
   }
 
   .contrast-lab-muted {
@@ -250,14 +250,14 @@ const promised = Math.max(...pairs.map(({ needs }) => needs))
     align-items: baseline;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--ui-space-2) var(--ui-space-4);
+    gap: var(--ui-space-2) var(--ui-space-5);
   }
 
   .contrast-lab-value {
     color: var(--ui-text-strong);
     font-size: var(--ui-font-size-h1);
     font-variant-numeric: tabular-nums;
-    font-weight: var(--ui-font-weight-bold);
+    font-weight: var(--ui-font-weight-heading);
     line-height: 1;
   }
 
@@ -319,7 +319,7 @@ const promised = Math.max(...pairs.map(({ needs }) => needs))
   .contrast-lab-mark {
     align-items: center;
     display: none;
-    font-weight: var(--ui-font-weight-bold);
+    font-weight: var(--ui-font-weight-heading);
     gap: var(--ui-space-1);
     transition-duration: calc(var(--ui-duration-slow) * var(--ui-motion));
     transition-property: opacity, scale;

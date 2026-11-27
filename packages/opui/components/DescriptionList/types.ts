@@ -1,6 +1,6 @@
 export type Props = {
-  border?: "dotted" | "solid"
-  orientation?: "auto" | "horizontal"
+  leader?: "dotted" | "solid"
+  orientation?: "auto" | "horizontal" | "vertical"
 }
 
 export type DescriptionListItemProps = {

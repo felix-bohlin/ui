@@ -1,9 +1,9 @@
-<div class="shopping-cart ui-layout-container ui-layout-column ui-large">
+<div class="shopping-cart ui-layout-container ui-layout-column ui-gap-large">
   <hgroup class="ui-hgroup">
     <h1 class="ui-h3">Your gear cart</h1>
     <p>3 totally rad items, prices include VAT</p>
   </hgroup>
-  <div class="ui-layout-columns ui-large" style="--_columns: 2fr 1fr">
+  <div class="ui-layout-columns ui-gap-large" style="--_columns: 2fr 1fr">
     <section class="ui-card ui-outlined" aria-label="Cart items">
       <ul class="ui-layout-column cart-items">
         <li class="cart-item">
@@ -13,7 +13,7 @@
             style="--hue: 0"
             role="img"
           ></div>
-          <div class="ui-layout-column ui-x-small cart-info">
+          <div class="ui-layout-column ui-gap-x-small cart-info">
             <h2 class="ui-h6">
               <a class="ui-link" href="#shopping-cart-gig-bag"
                 >Comfy Cloud Gig Bag</a
@@ -25,7 +25,7 @@
                 <span class="ui-text">In stock, ships today</span>
               </span>
             </p>
-            <div class="ui-layout-row ui-x-small cart-links">
+            <div class="ui-layout-row ui-gap-x-small cart-links">
               <button class="ui-button ui-x-small" type="button">
                 Save for later
               </button>
@@ -104,7 +104,7 @@
             style="--hue: 140"
             role="img"
           ></div>
-          <div class="ui-layout-column ui-x-small cart-info">
+          <div class="ui-layout-column ui-gap-x-small cart-info">
             <h2 class="ui-h6">
               <a class="ui-link" href="#shopping-cart-strings"
                 >Flatwound string set</a
@@ -116,7 +116,7 @@
                 <span class="ui-text">In stock, ships today</span>
               </span>
             </p>
-            <div class="ui-layout-row ui-x-small cart-links">
+            <div class="ui-layout-row ui-gap-x-small cart-links">
               <button class="ui-button ui-x-small" type="button">
                 Save for later
               </button>
@@ -190,7 +190,7 @@
             style="--hue: -80"
             role="img"
           ></div>
-          <div class="ui-layout-column ui-x-small cart-info">
+          <div class="ui-layout-column ui-gap-x-small cart-info">
             <h2 class="ui-h6">
               <a class="ui-link" href="#shopping-cart-tee"
                 >I'm with the bassist tee</a
@@ -202,7 +202,7 @@
                 <span class="ui-text">Back in stock 21 Oct</span>
               </span>
             </p>
-            <div class="ui-layout-row ui-x-small cart-links">
+            <div class="ui-layout-row ui-gap-x-small cart-links">
               <button class="ui-button ui-x-small" type="button">
                 Save for later
               </button>
@@ -279,7 +279,7 @@
         <h2 class="ui-h5" id="shopping-cart-summary-heading">Order summary</h2>
       </hgroup>
       <div class="ui-content">
-        <div class="ui-layout-column ui-small">
+        <div class="ui-layout-column ui-gap-small">
           <p id="shopping-cart-free-shipping">
             Woohoo, you've unlocked <strong>free delivery</strong>!
           </p>
@@ -311,9 +311,9 @@
           <button
             class="ui-chip ui-outlined"
             type="button"
-            aria-label="Remove code LOWEND10, −10%"
+            aria-label="Remove code BASS10, −10%"
           >
-            <span class="ui-text">LOWEND10, −10%</span>
+            <span class="ui-text">BASS10, −10%</span>
             <svg
               data-icon="close"
               aria-hidden="true"
@@ -329,7 +329,7 @@
             </svg>
           </button>
         </div>
-        <dl class="ui-description-list ui-border-solid ui-horizontal">
+        <dl class="ui-description-list ui-leader-solid ui-horizontal">
           <div>
             <dt>Subtotal</dt>
             <dd>€196.00</dd>
@@ -372,14 +372,14 @@
     }
 
     .cart-item {
-      column-gap: var(--ui-space-3);
+      column-gap: var(--ui-space-4);
       display: grid;
       grid-template-areas:
         "thumb info"
         "thumb buy";
       grid-template-columns: auto minmax(0, 1fr);
-      padding: var(--ui-space-3);
-      row-gap: var(--ui-space-3);
+      padding: var(--ui-space-4);
+      row-gap: var(--ui-space-4);
 
       @container (inline-size >= 40rem) {
         grid-template-areas: "thumb info buy";
@@ -411,7 +411,7 @@
     .cart-buy {
       align-items: center;
       display: flex;
-      gap: var(--ui-space-3);
+      gap: var(--ui-space-4);
       grid-area: buy;
       justify-content: space-between;
 
@@ -423,19 +423,19 @@
     }
 
     .cart-line-price {
-      font-weight: var(--ui-font-weight-semibold);
+      font-weight: var(--ui-font-weight-label);
       text-align: end;
 
       s {
         display: block;
-        font-weight: var(--ui-font-weight-normal);
+        font-weight: var(--ui-font-weight-body);
       }
     }
 
     .cart-summary {
       .ui-content {
         display: grid;
-        gap: var(--ui-space-4);
+        gap: var(--ui-space-5);
       }
     }
 

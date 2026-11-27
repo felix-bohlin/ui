@@ -15,9 +15,10 @@ export default function FieldGroupControlled() {
     <>
       <Fieldset>
         <FieldLegend>Shipping</FieldLegend>
-        <FieldGroup name="radio-controlled">
+        <FieldGroup>
           <Radio
             checked={shipping() === "standard"}
+            name="radio-controlled"
             onChange={() => setShipping("standard")}
             value="standard"
           >
@@ -25,6 +26,7 @@ export default function FieldGroupControlled() {
           </Radio>
           <Radio
             checked={shipping() === "express"}
+            name="radio-controlled"
             onChange={() => setShipping("express")}
             value="express"
           >
@@ -32,6 +34,7 @@ export default function FieldGroupControlled() {
           </Radio>
           <Radio
             checked={shipping() === "pickup"}
+            name="radio-controlled"
             onChange={() => setShipping("pickup")}
             value="pickup"
           >

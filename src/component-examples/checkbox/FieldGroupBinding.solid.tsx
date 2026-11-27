@@ -30,9 +30,10 @@ export default function FieldGroupBinding() {
     <>
       <Fieldset>
         <FieldLegend>Newsletter topics</FieldLegend>
-        <FieldGroup name="checkbox-binding">
+        <FieldGroup>
           <Checkbox
             checked={selected().includes("updates")}
+            name="checkbox-binding"
             onChange={toggle}
             value="updates"
           >
@@ -40,6 +41,7 @@ export default function FieldGroupBinding() {
           </Checkbox>
           <Checkbox
             checked={selected().includes("events")}
+            name="checkbox-binding"
             onChange={toggle}
             value="events"
           >
@@ -47,6 +49,7 @@ export default function FieldGroupBinding() {
           </Checkbox>
           <Checkbox
             checked={selected().includes("offers")}
+            name="checkbox-binding"
             onChange={toggle}
             value="offers"
           >

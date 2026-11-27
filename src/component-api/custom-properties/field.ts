@@ -3,54 +3,56 @@ import type { CustomProperties } from "../types"
 export default {
   "--_accent": {
     description:
-      "Border color of `.ui-field-container` when its control has focus without `:focus-visible`, such as a clicked file or color input or a select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.",
+      "Border color of `.ui-field-container` on focus without `:focus-visible`: a clicked select, file or color input, not a text field. Defaults to `--ui-primary`, `--ui-invalid` when invalid.",
     kind: "input",
   },
   "--_affix-block-size": {
     description:
-      "The block size `.ui-start` and `.ui-end` center what they hold in: the field inside its border, or the control's first line, `1lh` and its block padding, in a textarea field and in a field with `.ui-top` or `.ui-bottom`. A registered `<length>`, so `1lh` is the line height of the part. Set on the root, and on `.ui-start` and `.ui-end` in a textarea field and in a field with `.ui-top` or `.ui-bottom`.",
+      "Height `.ui-start` and `.ui-end` center their content in: `--_size` inside the border. In a textarea field or with `.ui-top` or `.ui-bottom`, the control's first line and its block padding, set on the parts.",
     kind: "output",
   },
   "--_affix-button-size": {
     description:
-      "Size of a `.ui-button` in `.ui-start` or `.ui-end`: `--_affix-block-size` minus `--_affix-padding-block` above and below, and at least `--ui-target-min-size`. Set on `.ui-start` and `.ui-end`.",
+      "Size of a `.ui-button` in `.ui-start` or `.ui-end`, which set it: `--_affix-block-size` less `--_affix-padding-block` on each side, at least `--ui-target-min-size`.",
     kind: "output",
   },
   "--_affix-padding-block": {
     description:
-      "The space between a `.ui-button` in `.ui-start` or `.ui-end` and the field's border above and below it: `--ui-space-1`, or less where `--_affix-block-size` leaves less room around a `--ui-target-min-size` button. In a textarea field it pads what the parts hold, so content taller than the first line starts this far below the top. Text alone keeps `--_field-padding-block-fit`. Set on `.ui-start` and `.ui-end`.",
+      "Space above and below a `.ui-button` in `.ui-start` or `.ui-end`, which set it: `--ui-space-1`, less to fit a `--ui-target-min-size` button. Also pads those parts in a textarea field, unless they hold only text.",
     kind: "output",
   },
   "--_affix-text-color": {
     description:
-      "The current color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. Defaults to `--ui-text`, set by the invalid state.",
+      "Text color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. `--ui-text`, `--ui-invalid-text` when invalid.",
     kind: "output",
   },
   "--_arrow-inset": {
-    description: "Distance of the select arrow from the inline end.",
+    description:
+      "Distance of the select and `datalist` arrow from the inline end.",
     kind: "input",
   },
   "--_arrow-padding": {
     description:
-      "Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.",
+      "Inline-end padding that clears the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.",
     kind: "output",
   },
   "--_bg-color": {
     description:
-      "The current background of `.ui-field-container`. `--ui-field-bg-color`, or `--ui-surface` when a theme leaves it unset. Set by `.ui-filled` and its hover state.",
+      "Background of `.ui-field-container`. `--ui-field-bg-color`, else `--ui-surface`; set by `.ui-filled` and its hover.",
     kind: "output",
   },
   "--_border-color": {
     description:
-      "The current border color of `.ui-field-container` and the `.ui-top` and `.ui-bottom` dividers. Set by the invalid state.",
+      "Border color of `.ui-field-container` and the `.ui-top` and `.ui-bottom` dividers. `--ui-invalid` when invalid.",
     kind: "output",
   },
   "--_chevron-image": {
-    description: "The select arrow, as an image used for a mask.",
+    description:
+      "Mask image of the select and `datalist` arrow. Defaults to `--ui-icon-expand`.",
     kind: "input",
   },
   "--_chevron-size": {
-    description: "Width and height of the select arrow.",
+    description: "Size of the select and `datalist` arrow.",
     kind: "input",
   },
   "--_duration": {
@@ -64,52 +66,52 @@ export default {
   },
   "--_end-end-radius": {
     description:
-      "The radius of the end-end corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the next control.",
+      "End-end corner radius of `.ui-field-container`. Defaults to `--_radius`, `0` against the next control in a `ControlGroup`.",
     kind: "input",
   },
   "--_end-start-radius": {
     description:
-      "The radius of the end-start corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.",
+      "End-start corner radius of `.ui-field-container`. Defaults to `--_radius`, `0` against another control in a `ControlGroup`.",
     kind: "input",
   },
   "--_field-padding-block": {
     description:
-      "The preferred block padding of the control. Set by the size classes.",
+      "Preferred block padding of the control. Set by the size classes.",
     kind: "input",
   },
   "--_field-padding-block-fit": {
     description:
-      "The block padding in use, `--_field-padding-block` capped to fit `--_size`.",
+      "Block padding in use: `--_field-padding-block`, capped to fit `--_size`.",
     kind: "output",
   },
   "--_field-padding-inline": {
     description:
-      "The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.",
+      "Inline padding of the control and affixes. Defaults to `--ui-field-padding-inline` (else `--ui-space-2`), or `--ui-field-padding-inline-large` (else `--ui-space-4`) in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.",
     kind: "input",
   },
   "--_file-button-inset": {
     description:
-      "Gap around the `::file-selector-button` of a file field: `--_file-button-padding`, shrunk so the button keeps one line of its text inside the field. Set on `input`.",
+      "Space above and below the `::file-selector-button`: `--_file-button-padding`, less so one line of text fits. Set on the `input`.",
     kind: "output",
   },
   "--_file-button-padding": {
     description:
-      "The preferred gap around the `::file-selector-button` of a file field: `--ui-space-2`, or `--ui-space-1` in `.ui-small` and `.ui-x-small`.",
+      "Preferred space above and below the `::file-selector-button`, outside `.ui-drop-zone`. `--ui-space-2`, `--ui-space-1` in `.ui-small` and `.ui-x-small`.",
     kind: "input",
   },
   "--_font-size": {
     description:
-      "The font size of the control and affixes. At least 16px on iPhone and iPad (`css/compat/field.css`), so iOS Safari doesn't zoom in on focus.",
+      "Font size of the control, `.ui-start` and `.ui-end`. Set by `.ui-x-small` and `.ui-small`, at least 16px on iPhone and iPad.",
     kind: "input",
   },
   "--_helper-text-color": {
     description:
-      "The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--ui-field-helper-text-color`, set by the invalid state.",
+      "Text color of `.ui-start-text` and `.ui-end-text`. `--ui-field-helper-text-color`, `--ui-invalid-text` when invalid.",
     kind: "output",
   },
   "--_min-inline-size": {
     description:
-      "The least width of the control next to `.ui-start` and `.ui-end`, which shrink and end in an ellipsis to keep it, or the whole field when it is narrower. Defaults to `8ch`; a field with a `StepButton` sets its own.",
+      "Minimum width of the control beside `.ui-start` and `.ui-end`, which shrink to keep it, capped at the field's width. Defaults to `8ch`, `4ch` with a `StepButton`.",
     kind: "input",
   },
   "--_motion": {
@@ -118,27 +120,27 @@ export default {
   },
   "--_radius": {
     description:
-      "The corner radius of `.ui-field-container` and a file input's button. Defaults to `--ui-field-radius`, or `--ui-radius` when the theme doesn't set it.",
+      "Corner radius of `.ui-field-container` and the file button. Defaults to `--ui-field-radius`, else `--ui-radius`.",
     kind: "input",
   },
   "--_shadow": {
     description:
-      "The shadow of `.ui-field-container`. Defaults to `--ui-field-shadow`, or `--ui-shadow-control` when the theme leaves it unset. `none` in a `ControlGroup`.",
+      "Shadow of `.ui-field-container`. Defaults to `--ui-field-shadow`, else `--ui-shadow-control`; `none` in a `ControlGroup`.",
     kind: "input",
   },
   "--_size": {
     description:
-      "The height of `.ui-field-container`, a minimum so a textarea can grow, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.",
+      "Minimum height of `.ui-field-container`, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.",
     kind: "input",
   },
   "--_start-end-radius": {
     description:
-      "The radius of the start-end corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.",
+      "Start-end corner radius of `.ui-field-container`. Defaults to `--_radius`, `0` against another control in a `ControlGroup`.",
     kind: "input",
   },
   "--_start-start-radius": {
     description:
-      "The radius of the start-start corner of `.ui-field-container`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the control before it.",
+      "Start-start corner radius of `.ui-field-container`. Defaults to `--_radius`, `0` against the previous control in a `ControlGroup`.",
     kind: "input",
   },
 } satisfies CustomProperties

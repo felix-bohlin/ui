@@ -11,6 +11,11 @@ import {
 import { DIAGNOSTICS, explain } from "./component-diagnostics.mjs"
 import { toReact } from "./component-react.mjs"
 import { apiOf, loadApis, readComponent } from "./component-reader.mjs"
+import {
+  componentFiles,
+  NUNJUCKS_DIR,
+  nunjucksOutputs,
+} from "./component-nunjucks.mjs"
 import { root, unsupported } from "./component-shared.mjs"
 import { toSolid } from "./component-solid.mjs"
 import { toSvelte } from "./component-svelte.mjs"
@@ -104,11 +109,23 @@ export const handWrittenProblems = (handWritten, exists) => {
   ]
 }
 
+export const NUNJUCKS_EXTENSION = `.${exampleExtension("nunjucks")}`
+
 const COMPILED_FILE = new RegExp(
-  `^packages/opui/components/([^/]+)/(?:([^/]+)(${Object.values(PORTS)
+  `^packages/opui/components/([^/]+)/(?:([^/]+)(${[
+    ...Object.values(PORTS),
+    NUNJUCKS_EXTENSION,
+  ]
     .map((extension) => extension.replace(/\./g, "\\."))
     .join("|")})|(${Object.values(TYPE_FILES).join("|")}))$`,
 )
+
+const NUNJUCKS_FILES = new Set([
+  `${NUNJUCKS_DIR}/index.njk`,
+  `${NUNJUCKS_DIR}/macros.ts`,
+])
+
+export const isNunjucksLibrary = (file) => NUNJUCKS_FILES.has(file)
 
 export const astroSourceOf = (
   file,
@@ -220,6 +237,20 @@ export const generate = async ({
       }
     }
   }
+  try {
+    for (const [target, code] of await nunjucksOutputs(
+      await componentFiles(),
+    )) {
+      const [, folder] = COMPILED_FILE.exec(target) ?? []
+      if (folder && only.length > 0 && !only.includes(folder)) continue
+      outputs.set(
+        target,
+        target.endsWith(".ts") ? await formatStably(code, target) : code,
+      )
+    }
+  } catch (error) {
+    problems.push(error.message)
+  }
   return { outputs, problems, skipped }
 }
 
@@ -263,9 +294,10 @@ const main = async () => {
   }
   const stale = [...outputs]
     .filter(([file, code]) => read(file) !== code)
-    .map(
-      ([file]) =>
-        `${file} is stale: edit ${astroSourceOf(file, () => true, {})} and run pnpm build-components`,
+    .map(([file]) =>
+      isNunjucksLibrary(file)
+        ? `${file} is stale: run pnpm build-components`
+        : `${file} is stale: edit ${astroSourceOf(file, () => true, {})} and run pnpm build-components`,
     )
   if (values.check) {
     const errors = [...problems, ...stale]

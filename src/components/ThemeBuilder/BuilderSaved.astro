@@ -134,7 +134,6 @@ const gallery = GALLERY.map((entry) => ({
     readSnapshots,
     removeSnapshot,
     writeSnapshots,
-    type Snapshot,
   } from "../../utils/theme-snapshots"
 
   const drawer = document.querySelector<HTMLDialogElement>("#builder-saved")
@@ -271,8 +270,6 @@ const gallery = GALLERY.map((entry) => ({
 
     render()
   }
-
-  export type { Snapshot }
 </script>
 
 <style>
@@ -357,7 +354,7 @@ const gallery = GALLERY.map((entry) => ({
 
   .builder-theme-name {
     color: var(--ui-text-strong);
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
   }
 
   .builder-theme-meta {

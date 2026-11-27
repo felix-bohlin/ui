@@ -3,17 +3,17 @@ import { Avatar } from "opui-css/react"
 export default function Disabled() {
   return (
     <>
-      <Avatar as="button" label="Holly Humbucker">
-        HH
+      <Avatar as="button" label="Adam Groove">
+        AG
       </Avatar>
-      <Avatar as="button" disabled label="Ines Hertz">
-        IH
+      <Avatar as="button" disabled label="Kinga Headstock">
+        KH
       </Avatar>
-      <Avatar href="#" label="Lou Headstock">
-        LH
+      <Avatar href="#" label="Mohini Hertz">
+        MH
       </Avatar>
-      <Avatar disabled href="#" label="Percy Groove">
-        PG
+      <Avatar disabled href="#" label="Scott Humbucker">
+        SH
       </Avatar>
     </>
   )

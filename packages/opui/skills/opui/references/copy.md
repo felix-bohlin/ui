@@ -3,7 +3,7 @@
 A button that copies text or a field's value to the clipboard.
 
 - CSS: `opui-css/css/components/copy.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/copy.md), [Astro](https://opui.dev/astro/components/copy.md), [React](https://opui.dev/react/components/copy.md), [Solid](https://opui.dev/solid/components/copy.md), [Svelte](https://opui.dev/svelte/components/copy.md), [Vue](https://opui.dev/vue/components/copy.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/copy.md), [Astro](https://opui.dev/astro/components/copy.md), [Nunjucks](https://opui.dev/nunjucks/components/copy.md), [React](https://opui.dev/react/components/copy.md), [Solid](https://opui.dev/solid/components/copy.md), [Svelte](https://opui.dev/svelte/components/copy.md), [Vue](https://opui.dev/vue/components/copy.md).
 
 ## Copy
 
@@ -33,6 +33,7 @@ A button that copies text or a field's value to the clipboard.
 
 - HTML: Wrap the text or the field in `<opui-copy class="ui-copy">` with an id, and end it with `<span class="ui-sr-only" role="status">` for the announcement and `<span class="ui-floating" popover aria-hidden="true">` for the label. Point a button at it with `commandfor` and `command="--copy"`, inside the element or right after it, and import `opui-css/elements/copy.js`. Until it loads, the button is hidden.
 - Astro: The component loads `opui-css/elements/copy.js`. Attributes that aren't props go to the root `<opui-copy>`, and the button works once the element runs.
+- Nunjucks: The macro renders the element without its script, so load `opui-css/elements/copy.js` on the page. Attributes that aren't props go to the root `<opui-copy>`, and the button works once the element runs.
 - React: The component loads `opui-css/elements/copy.js` once it mounts, unless the page imports it first. Attributes that aren't props go to the root `<opui-copy>`, and the button works once the element runs.
 - Solid, Svelte and Vue: The component imports `opui-css/elements/copy.js`, so the element runs as soon as the component's code loads. Attributes that aren't props go to the root `<opui-copy>`, and the button works once the element runs.
 
@@ -42,7 +43,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### copy.css
 
-- `--_bg-color`: Background of the label. Defaults to `--ui-surface-elevated`.
+- `--_bg-color`: Background of the label. Defaults to `--ui-surface-raised`.
 - `--_motion`: Motion multiplier for the reveal and the fade. `0` turns them off.
 - `--_offset`: The gap between the label and the button.
 
@@ -50,7 +51,7 @@ Outputs: `--_accent`, `--_border-color`, `--_duration`, `--_ease`, `--_font-size
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width`, `--ui-button-accent`, `--ui-button-font-weight`, `--ui-button-padding-inline`, `--ui-button-radius`, `--ui-button-shadow`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-duration`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-font-size-control`, `--ui-font-weight-bold`, `--ui-line-height-tight`, `--ui-motion`, `--ui-palette-strong`, `--ui-radius`, `--ui-shadow-control`, `--ui-space-1`, `--ui-space-4`, `--ui-surface-elevated`, `--ui-text-max-chroma` and `--ui-text-min-lightness`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-button-accent`, `--ui-button-font-weight`, `--ui-button-padding-inline`, `--ui-button-radius`, `--ui-button-shadow`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-accent-max-chroma-dark`, `--ui-control-accent-min-lightness-dark`, `--ui-control-border-color`, `--ui-duration`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-font-size-control`, `--ui-font-weight-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-palette-strong`, `--ui-radius`, `--ui-shadow-control`, `--ui-space-1`, `--ui-space-5` and `--ui-surface-raised`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -108,6 +109,35 @@ import { Button, Copy, Field } from "opui-css/astro"
 <Button command="--copy" commandfor="copy-basics-1" variant="outlined"
   >Copy</Button
 >
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Copy %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Button, Copy, Field %}
+
+{% call Copy({ id: "copy-basics-1" }) %}
+  {% call Field({ for: "copy-basics-2", hideLabel: true, label: "Invite link" }) %}
+    <input
+      id="copy-basics-2"
+      readonly
+      value="https://example.com/invite/8f3k2"
+    />
+  {% endcall %}
+{% endcall %}
+{% call Button({
+  command: "--copy",
+  commandfor: "copy-basics-1",
+  variant: "outlined"
+}) %}Copy{% endcall %}
+
+<script type="module">
+  import "opui-css/elements/copy.js"
+</script>
 ```
 
 ## React

@@ -1,0 +1,30 @@
+{% macro Avatar(props = {}) %}
+  {%- set props = props | opuiProps("Avatar") -%}
+  {%- set rest = props | opuiRest("Avatar") -%}
+  {%- set tag = "a"
+    if opui.disabledLink(props.as, props.disabled)
+    else props.as or ("a" if props.href else "div") -%}
+  {{- opui.warnUnnamedControl(
+    "Avatar",
+    props.as == "button" or props.href,
+    opui.merge(rest, { label: props.label })
+  ) -}}
+  {%- set classes = [
+    "ui-avatar",
+    props.shape and props.shape != "circle" and "ui-" ~ props.shape,
+    props.size and props.size != "medium" and "ui-" ~ props.size,
+    props.variant and props.variant != "filled" and "ui-" ~ props.variant,
+    props.class
+  ] | opuiClass -%}
+  <{{ tag | opuiTag }}{{ opui.merge(
+    { class: classes },
+    opui.tagAttrs(tag, props.disabled, props.href),
+    opui.defined(rest)
+  ) | opuiAttributes(tag) }}>
+    {%- if props.src %}{% set alt = props.label | default('') -%}
+    <img src="{{ props.src }}" alt="{{ alt }}">{% else %}<span aria-hidden="true">
+      {{- caller() if caller }}</span>{% endif %}
+    {%- if not props.src and props.label %}<span class="ui-sr-only">
+      {{- props.label }}</span>{% endif -%}
+  </{{ tag | opuiTag }}>
+{%- endmacro %}

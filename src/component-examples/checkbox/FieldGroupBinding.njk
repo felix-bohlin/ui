@@ -1,0 +1,45 @@
+{% from "opui/index.njk" import
+  Button,
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  Fieldset
+%}
+
+{% call Fieldset() %}
+  {% call FieldLegend() %}Newsletter topics{% endcall %}
+  {% call FieldGroup() %}
+    {% call Checkbox({
+      checked: true,
+      name: "checkbox-binding",
+      value: "updates"
+    }) %}Bassbook news{% endcall %}
+    {% call Checkbox({ name: "checkbox-binding", value: "events" }) %}Events{% endcall %}
+    {% call Checkbox({ name: "checkbox-binding", value: "offers" }) %}Gear deals{% endcall %}
+  {% endcall %}
+{% endcall %}
+<p class="checkbox-binding-text">Selected: updates</p>
+{% call Button({ class: "checkbox-binding-reset" }) %}Reset{% endcall %}
+
+<script type="module">
+  const text = document.querySelector(".checkbox-binding-text")
+  const inputs = [...document.querySelectorAll('[name="checkbox-binding"]')]
+
+  function update() {
+    if (!text) return
+    text.textContent = `Selected: ${
+      inputs
+        .filter((input) => input.checked)
+        .map((input) => input.value)
+        .join(", ") || "none"
+    }`
+  }
+
+  inputs.forEach((input) => input.addEventListener("change", update))
+  document
+    .querySelector(".checkbox-binding-reset")
+    ?.addEventListener("click", () => {
+      inputs.forEach((input) => (input.checked = input.defaultChecked))
+      update()
+    })
+</script>

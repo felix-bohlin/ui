@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, inject, useAttrs } from "vue"
+import { computed, inject } from "vue"
+import { useRestAttrs } from "../vue"
 import { CalloutKey } from "./context.vue"
 import { defined } from "../attrs"
 import { classAttrs } from "../cx"
@@ -11,7 +12,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs()
+const attrs = useRestAttrs()
 
 const callout = inject(CalloutKey, undefined)
 
@@ -26,6 +27,6 @@ const severity = computed(() => callout?.severity)
     width="32"
     height="32"
     viewBox="0 0 32 32"
-    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"
+    v-bind="{ ...defined(attrs), ...classAttrs($attrs.class) }"
   ></svg>
 </template>

@@ -212,6 +212,11 @@ export const analyse = (component) => {
         )) {
           Object.assign(item, readsOf(item.code, loop))
         }
+        for (const item of node.attributes.filter(
+          (entry) => entry.condition !== undefined,
+        )) {
+          item.conditionReads = readsOf(item.condition, loop).reads
+        }
         annotate(node.children, loop)
       } else if (node.type === "each") {
         Object.assign(node, readsOf(node.list, loop))

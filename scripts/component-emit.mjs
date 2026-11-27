@@ -208,6 +208,21 @@ const transformer =
             ? node.operand
             : undefined
         const coerced = negated(left) && negated(negated(left))
+        const filledOf = (node) =>
+          ts.isCallExpression(node) &&
+          ts.isIdentifier(node.expression) &&
+          node.expression.text === "filled" &&
+          node.arguments.length === 1
+            ? node.arguments[0]
+            : undefined
+        if (
+          filledOf(right) &&
+          [left, coerced].some(
+            (node) => node && text(node) === text(filledOf(right)),
+          )
+        ) {
+          return right
+        }
         return text(left) === text(right) ||
           (coerced && text(coerced) === text(right))
           ? left
@@ -249,6 +264,28 @@ export const rewriteStatement = (code, options) => {
   return transformed(sourceFile, options)
     .statements.map((statement) =>
       printer.printNode(ts.EmitHint.Unspecified, statement, sourceFile),
+    )
+    .join("\n")
+}
+
+const DEV = ts.factory.createIdentifier("DEV")
+
+export const devOnly = (code) => {
+  const sourceFile = sourceFileOf(code, "warning.ts")
+  return sourceFile.statements
+    .map((statement) =>
+      printer.printNode(
+        ts.EmitHint.Unspecified,
+        ts.isIfStatement(statement) && !statement.elseStatement
+          ? ts.factory.updateIfStatement(
+              statement,
+              ts.factory.createLogicalAnd(DEV, statement.expression),
+              statement.thenStatement,
+              undefined,
+            )
+          : ts.factory.createIfStatement(DEV, statement),
+        sourceFile,
+      ),
     )
     .join("\n")
 }

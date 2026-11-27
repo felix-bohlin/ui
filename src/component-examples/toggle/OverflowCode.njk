@@ -1,0 +1,17 @@
+{% from "opui/index.njk" import ToggleButton, ToggleGroup %}
+
+{% call ToggleGroup({ "aria-label": "Notifications" }) %}
+  {% call ToggleButton({ value: "all" }) %}Everything{% endcall %}
+  {% call ToggleButton({ value: "mentions" }) %}Mentions{% endcall %}
+  {% call ToggleButton({ value: "none" }) %}Nothing at all{% endcall %}
+{% endcall %}
+{% call ToggleGroup({ "aria-label": "Notifications", overflow: "scroll" }) %}
+  {% call ToggleButton({ value: "all" }) %}Everything{% endcall %}
+  {% call ToggleButton({ value: "mentions" }) %}Mentions{% endcall %}
+  {% call ToggleButton({ value: "none" }) %}Nothing at all{% endcall %}
+{% endcall %}
+{% call ToggleGroup({ "aria-label": "Notifications", overflow: "shrink" }) %}
+  {% call ToggleButton({ value: "all" }) %}Everything{% endcall %}
+  {% call ToggleButton({ value: "mentions" }) %}Mentions{% endcall %}
+  {% call ToggleButton({ value: "none" }) %}Nothing at all{% endcall %}
+{% endcall %}

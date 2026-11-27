@@ -35,11 +35,12 @@ export default function CloseBehaviors() {
         <DialogContent>
           <Fieldset>
             <FieldLegend>Choose a closing behavior:</FieldLegend>
-            <FieldGroup name="closedby-demo">
+            <FieldGroup>
               {options.map((option) => (
                 <Radio
                   checked={closedby === option}
                   key={option}
+                  name="closedby-demo"
                   onChange={() => setClosedby(option)}
                   value={option}
                 >

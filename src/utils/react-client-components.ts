@@ -36,4 +36,4 @@ const joinNames = (names: string[]) =>
     : `${names.slice(0, -1).join(", ")} and ${names.at(-1)}`
 
 export const describeClientComponents = () =>
-  `${joinNames(clientRoots)}, and the ${joinNames(clientParts)} parts`
+  `${joinNames(clientRoots)}, and the ${joinNames(clientParts)} ${clientParts.length === 1 ? "part" : "parts"}`

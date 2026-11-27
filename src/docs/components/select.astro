@@ -41,13 +41,13 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
   ]}
   fallbacks={{
     "customizable-select":
-      "Without customizable select, the field draws its own chevron and the browser's own picker opens, with the text of each option only.",
+      "Without customizable select, the select gets the field's chevron and the browser's picker, with option text only.",
     "display-animation":
-      "Without display animation, the picker disappears at once instead of fading out.",
+      "Without display animation, the picker closes without fading.",
     overlay:
       "Without `overlay`, the page can cover the picker while it fades out.",
     "reading-flow":
-      "Without `reading-flow`, Tab and screen readers follow the markup, which puts the top and start parts before the control, as they're drawn. Hand-written HTML needs that order too.",
+      "Without `reading-flow`, Tab and screen readers follow the markup, so write the top and start parts before the control.",
   }}
   apis={[{ title: "Select button API", api: selectButtonApi }]}
   installationTabs={[
@@ -93,24 +93,18 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
 
   <section id="select">
     <h2>Select</h2>
-    <p>
-      A select is a <DocLink href="/components/field">Field</DocLink> with a
-      <code>&lt;select&gt;</code> inside. Write it and wire its
-      <code>aria-describedby</code> as the
-      <DocLink href="/components/field#basics">Field</DocLink> page shows, with
-      the variants, sizes, affixes, validation and layout every field shares,
-      and <DocLink href="/components/field#dense">dense</DocLink> options.
-    </p>
     <Conditional as="p">
       <Fragment slot="components">
-        Write the options straight in the select, after a
-        <code>SelectButton</code>, which shows the selected option in the field.
+        A <DocLink href="/components/field">Field</DocLink> with a
+        <code>&lt;select&gt;</code> inside. Write the options after a
+        <code>SelectButton</code>.
       </Fragment>
       <Fragment slot="html">
-        Write the options straight in the select, after
+        A <DocLink href="/components/field">Field</DocLink> with a
+        <code>&lt;select&gt;</code> inside. Write the options after
         <code
           >&lt;button&gt;&lt;selectedcontent&gt;&lt;/selectedcontent&gt;&lt;/button&gt;</code
-        >, which shows the selected option in the field.
+        >.
       </Fragment>
     </Conditional>
     <AutoExample name="Basics" column />
@@ -131,46 +125,28 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
 
   <section id="rich-options">
     <h2>Rich options</h2>
-    <p>
-      An option can hold an icon or a description. Put a space between the
-      parts, for browsers that show the text only.
-    </p>
+    <p>Put a space between the parts, for browsers that show only the text.</p>
     <AutoExample name="RichOptions" row spacious />
   </section>
 
   <section id="preselected">
     <h2>Preselected</h2>
     <Conditional as="p">
-      <Fragment slot="components">
-        Add <code>selected</code> to the <code>&lt;option&gt;</code>, or bind
-        the select's value.
-      </Fragment>
       <Fragment slot="react">
-        Set <code>defaultValue</code> on the <code>&lt;select&gt;</code>, or
-        <code>value</code> with <code>onChange</code>.
+        Set <code>defaultValue</code> on the <code>&lt;select&gt;</code>.
       </Fragment>
       <Fragment slot="html">
         Add <code>selected</code> to the <code>&lt;option&gt;</code>.
       </Fragment>
     </Conditional>
-    <p>
-      The picker marks the selected option with a check at the end, from
-      <code>--ui-icon-check</code> or a <code>.ui-icon-checked</code> in the
-      option.
-    </p>
     <AutoExample name="Preselected" row spacious />
-  </section>
-
-  <section id="disabled">
-    <h2>Disabled</h2>
-    <AutoExample name="Disabled" row spacious />
   </section>
 
   <section id="required">
     <h2>Required</h2>
     <p>
-      Start a <code>required</code> select with an empty option,
-      <code>value=""</code>, so it's invalid until the user picks one.
+      Give a <code>required</code> select an empty first option,
+      <code>value=""</code>.
     </p>
     <AutoExample name="Required" centered />
   </section>
@@ -178,8 +154,7 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
   <Fragment slot="accessibility">
     <ul>
       <li>
-        The keys that open the picker, move through the options and close it are
-        under
+        The keys are under
         <DocLink href="/components/field#keyboard-support"
           >Keyboard support</DocLink
         >

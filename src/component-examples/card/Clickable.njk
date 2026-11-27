@@ -1,0 +1,24 @@
+{% from "opui/index.njk" import
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader
+%}
+
+{% call Card({ variant: "outlined" }) %}
+  {% call CardHeader() %}
+    <h3><a class="ui-card-link" href="#clickable">Bassbook Gold</a></h3>
+  {% endcall %}
+  {% call CardContent() %}Perks for bassists of every string count.{% endcall %}
+{% endcall %}
+
+{% call Card({ variant: "outlined" }) %}
+  {% call CardHeader() %}
+    <h3><a class="ui-card-link" href="#clickable">Bassbook news</a></h3>
+  {% endcall %}
+  {% call CardContent() %}Every totally rad new feature in one place.{% endcall %}
+  {% call CardActions() %}
+    {% call Button() %}Subscribe{% endcall %}
+  {% endcall %}
+{% endcall %}

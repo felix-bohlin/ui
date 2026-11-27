@@ -1,0 +1,34 @@
+{% from "opui/index.njk" import
+  Accordion,
+  AccordionActions,
+  AccordionContent,
+  AccordionSummary,
+  Button
+%}
+
+{% call Accordion({ open: true, variant: "elevated" }) %}
+  {% call AccordionSummary() %}Bassbook house rules{% endcall %}
+  {% call AccordionContent() %}
+    <p>
+      We updated the house rules on 1 March. The changes cover how long we keep
+      your slap videos and how Bassbook Gold renews.
+    </p>
+  {% endcall %}
+  {% call AccordionActions() %}
+    {% call Button() %}Decline{% endcall %}
+    {% call Button() %}Accept{% endcall %}
+  {% endcall %}
+{% endcall %}
+
+{% call Accordion({ open: true, variant: "elevated" }) %}
+  {% call AccordionSummary() %}Invite your bandmates{% endcall %}
+  {% call AccordionContent() %}
+    <p>
+      Bandmates you invite can view and edit every setlist in your band room.
+    </p>
+  {% endcall %}
+  {% call AccordionActions({ align: "start" }) %}
+    {% call Button() %}Copy link{% endcall %}
+    {% call Button() %}Send invites{% endcall %}
+  {% endcall %}
+{% endcall %}

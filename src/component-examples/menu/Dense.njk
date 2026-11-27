@@ -1,0 +1,14 @@
+{% from "opui/index.njk" import Button, Menu %}
+
+{% call Button({
+  command: "toggle-popover",
+  commandfor: "menu-dense-1",
+  variant: "outlined"
+}) %}
+  Options
+{% endcall %}
+{{ Menu({
+  dense: true,
+  id: "menu-dense-1",
+  items: [{ label: "Copy" }, { label: "Cut" }, { label: "Paste" }]
+}) }}

@@ -101,8 +101,9 @@ To add the prefix in one pass, search your CSS and markup for each of these regu
 --(blue|critical|green|info|neutral|orange|primary|red|success|warning)(?![\w-])
 --((?:color|gray)-(?:1[0-6]|[1-9]))(?![\w-])
 --((?:gray|palette)-(?:chroma|hue)|palette-(?:hue-rotate-by|source))(?![\w-])
---((?:border|field-border)-(?:color|width)|color-scheme|surface-(?:elevated|filled|tonal))(?![\w-])
+--((?:border|field-border)-(?:color|width)|color-scheme|surface-(?:filled|tonal))(?![\w-])
 --((?:button|control|field)-size(?:-x-small|-small|-large)?|focus-ring-(?:color|offset|style|width)|font-size-h[1-6])(?![\w-])
+--(anchor-position-area|motion)(?![\w-])
 ```
 
 These tokens also have a new name, so adding the prefix isn't enough:
@@ -114,6 +115,7 @@ These tokens also have a new name, so adding the prefix isn't enough:
 | `--field-border-radius`   | `--ui-field-radius` (unset, falls back to `--ui-radius`)  |
 | `--primary-contrast`      | `--ui-on-primary`                                         |
 | `--surface-default`       | `--ui-surface`                                            |
+| `--surface-elevated`      | `--ui-surface-raised`                                     |
 | `--text-muted`            | `--ui-text`                                               |
 | `--text-muted-contrast`   | removed, use `--ui-on-inverse` on `--ui-surface-inverse`  |
 | `--text-primary`          | `--ui-text-strong`                                        |
@@ -137,17 +139,17 @@ These tokens also have a new name, so adding the prefix isn't enough:
 
 ```css
 @layer theme.custom {
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-focus-ring-color: var(--ui-primary);
   }
 }
 ```
 
-A theme pins a role by setting it, and the scope classes `.ui-palette` and `.ui-contrast-more` derive every role again from the knobs. Set pinned roles on `:where(html, .ui-palette, .ui-contrast-more)` so the scopes keep them; knobs such as `--ui-radius` or `--ui-palette-hue` can stay on `html`. More contrast tightens knobs and no longer replaces a pinned role, so a theme that wants its primary darkened under `prefers-contrast: more` sets `--ui-primary-source` instead of `--ui-primary`, and a theme that wants another pinned role back under more contrast sets it to `revert-layer` there (see Contrast in the theming guide). The example themes do that and leave `--ui-on-primary` and `--ui-primary-text` to derive from it (brutalist pins `--ui-primary-text` to its text color for black links):
+A theme pins a role by setting it, and the scope classes `.ui-scope` (`.ui-palette` in 5.x) and `.ui-contrast-more` derive every role again from the knobs. Set pinned roles on `:where(html, .ui-scope, .ui-contrast-more)` so the scopes keep them; knobs such as `--ui-radius` or `--ui-palette-hue` can stay on `html`. More contrast tightens knobs and no longer replaces a pinned role, so a theme that wants its primary darkened under `prefers-contrast: more` sets `--ui-primary-source` instead of `--ui-primary`, and a theme that wants another pinned role back under more contrast sets it to `revert-layer` there (see Contrast in the theming guide). The example themes do that and leave `--ui-on-primary` and `--ui-primary-text` to derive from it (brutalist pins `--ui-primary-text` to its text color for black links):
 
 ```css
 @layer theme.custom {
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-primary-source: oklch(0.578 0.228 260);
   }
 }
@@ -161,7 +163,7 @@ The default palette is blue (hue `222.8`) in both color schemes, and the primary
     --ui-palette-hue: 145;
   }
 
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-primary-source: light-dark(var(--ui-color-9), var(--ui-color-6));
   }
 
@@ -192,11 +194,11 @@ The default palette is blue (hue `222.8`) in both color schemes, and the primary
 
 `kbd`, `mark`, `var`, `Tooltip`, `Checkbox`, file inputs outside a `Field` and rounded `Avatar` never get rounder than `--ui-radius` (a file input in a `Field` follows `--ui-field-radius` like other fields).
 
-Component padding, gaps and margins read `--ui-space-1` to `--ui-space-8` instead of the Open Props `--size-*` steps. The steps resolve on `html`, so overriding `--size-*` on a part of the page no longer changes the components in it. Set `--ui-space-scale` on `html` to change the spacing everywhere, or a component's `--_` property to change one.
+Component padding, gaps and margins read `--ui-space-1` to `--ui-space-12` instead of the Open Props `--size-*` steps. The steps resolve on `html`, so overriding `--size-*` on a part of the page no longer changes the components in it. Set `--ui-space-scale` on `html` to change the spacing everywhere, or a component's `--_` property to change one.
 
 A select's picker and `Drawer` use `--ui-shadow-overlay` (`--shadow-3`, was `--shadow-2`), and elevated `Accordion` uses `--ui-shadow-elevated`, the elevated `Card` shadow.
 
-`--ui-primary` is derived from `--ui-primary-source` (`oklch(0.499 0.191 222.8)` in light mode and `--ui-color-6` in dark mode), and `--ui-on-primary` is derived from `--ui-primary` with relative color. If you set your own `--ui-primary` on `html` (or on `.ui-palette`), its text color follows it; elsewhere, add `.ui-palette` or set `--ui-on-primary` too.
+`--ui-primary` is derived from `--ui-primary-source` (`oklch(0.499 0.191 222.8)` in light mode and `--ui-color-6` in dark mode), and `--ui-on-primary` is derived from `--ui-primary` with relative color. If you set your own `--ui-primary` on `html` (or on `.ui-scope`), its text color follows it; elsewhere, add `.ui-scope` or set `--ui-on-primary` too.
 
 `palette.css` no longer registers `--color-*`, `--gray-*`, `--palette-source` and `--palette-hue` with `@property`, so they can't be animated as colors anymore.
 
@@ -287,7 +289,7 @@ Dark mode shadows are darker: every shadow role (`--ui-shadow-elevated`, `--ui-s
 
 ```css
 @layer theme.custom {
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-shadow-color: light-dark(
       oklch(0.28 0.055 290 / 2%),
       oklch(0 0 0 / 30%)
@@ -299,7 +301,7 @@ Dark mode shadows are darker: every shadow role (`--ui-shadow-elevated`, `--ui-s
 
 The Open Props bundle no longer sets the dark values of `--shadow-color` and `--shadow-strength`. If your own CSS reads `--shadow-1` to `--shadow-6` and should darken in dark mode, set those two yourself under `.ui-dark` and the OS dark preference. The bundle no longer contains Open Props' `@custom-media` definitions (`--OSdark`, `--md-n-above` and so on); import `open-props/media` if your PostCSS setup used them.
 
-Components read roles, not palette steps or Open Props values, and the roles are computed on `html`. Overriding a step such as `--ui-gray-4` or an Open Props value such as `--size-3` on a part of the page no longer changes the components there. Override the role, or add `.ui-palette` so the part derives its roles again from its own palette:
+Components read roles, not palette steps or Open Props values, and the roles are computed on `html`. Overriding a step such as `--ui-gray-4` or an Open Props value such as `--size-3` on a part of the page no longer changes the components there. Override the role, or add `.ui-scope` so the part derives its roles again from its own palette:
 
 ```diff
 - .sidebar { --gray-4: oklch(0.928 0.006 265); }
@@ -413,12 +415,12 @@ The floating content is `.ui-floating` instead of `.ui-anchor-floating`, also in
 `alt` is `label`, the name of the person or thing. With `src` it is still the `alt` of the image. Without `src`, the letters or icon sit in a `<span aria-hidden="true">` and `label` is visually hidden text after them, so select `.ui-avatar svg` where a selector matched a direct child. Leave `label` out when the name is shown next to the avatar: the avatar is then decorative, with `alt=""` on the image.
 
 ```diff
-- <Avatar alt="Lou Headstock" src="/lou.jpg" />
-+ <Avatar label="Lou Headstock" src="/lou.jpg" />
-- <Avatar aria-label="Lou Headstock" role="img">LH</Avatar>
-+ <Avatar label="Lou Headstock">LH</Avatar>
-- <Avatar as="button"><span aria-label="Lou Headstock" role="img">LH</span></Avatar>
-+ <Avatar as="button" label="Lou Headstock">LH</Avatar>
+- <Avatar alt="Kinga Headstock" src="/kinga.jpg" />
++ <Avatar label="Kinga Headstock" src="/kinga.jpg" />
+- <Avatar aria-label="Kinga Headstock" role="img">KH</Avatar>
++ <Avatar label="Kinga Headstock">KH</Avatar>
+- <Avatar as="button"><span aria-label="Kinga Headstock" role="img">KH</span></Avatar>
++ <Avatar as="button" label="Kinga Headstock">KH</Avatar>
 ```
 
 The content is hidden from assistive technology, so a name inside it is no longer read: move it to `label`. A link or button avatar needs `label`, `aria-label` or `aria-labelledby` (types in Astro, React, Solid and Svelte, and a warning in development).
@@ -434,7 +436,7 @@ Text uses `--ui-on-primary`, and sizes follow `--ui-control-size` and `--ui-cont
 ```diff
 - <Avatar aria-label="Team" isGroup>
 + <AvatarGroup aria-label="Team">
-    <Avatar label="Lou Headstock" src="/lou.jpg" />
+    <Avatar label="Kinga Headstock" src="/kinga.jpg" />
 - </Avatar>
 + </AvatarGroup>
 ```
@@ -731,34 +733,34 @@ The part files are renamed to `DescriptionListDescription.*`, `DescriptionListIt
 
 ```diff
 - <dt class="ui-term">Name</dt>
-- <dd class="ui-description">Holly</dd>
+- <dd class="ui-description">Scott</dd>
 + <dt>Name</dt>
-+ <dd>Holly</dd>
++ <dd>Scott</dd>
 ```
 
-`border` sets the style of the line between a term and its description, `"solid"` or `"dotted"`, and the list draws none without it. In Astro and Vue, `bordered` is `border="solid"` and `bordered="dotted"` is `border="dotted"`.
+`leader` sets the style of the leader, the line between a term and its description, `"solid"` or `"dotted"`, and the list draws none without it. In Astro and Vue, `bordered` is `leader="solid"` and `bordered="dotted"` is `leader="dotted"`.
 
 ```diff
 - <DescriptionList bordered>
-+ <DescriptionList border="solid">
++ <DescriptionList leader="solid">
 ```
 
 ```diff
 - <DescriptionList bordered="dotted">
-+ <DescriptionList border="dotted">
++ <DescriptionList leader="dotted">
 ```
 
-In HTML, `.ui-bordered` is `.ui-border-solid`, and `.ui-bordered.ui-dotted` is `.ui-border-dotted`. `.ui-dotted` is gone.
+In HTML, `.ui-bordered` is `.ui-leader-solid`, and `.ui-bordered.ui-dotted` is `.ui-leader-dotted`. `.ui-dotted` is gone.
 
 ```diff
 - <dl class="ui-description-list ui-bordered ui-dotted">
-+ <dl class="ui-description-list ui-border-dotted">
++ <dl class="ui-description-list ui-leader-dotted">
 ```
 
 The items are plain `div`s without `.ui-item`.
 
 ```diff
-  <dl class="ui-description-list ui-border-dotted">
+  <dl class="ui-description-list ui-leader-dotted">
 -   <div class="ui-item">
 +   <div>
 ```
@@ -877,11 +879,11 @@ In Astro and Vue, a drawer that opens from the inline start no longer renders `.
 + .ui-drawer:not(.ui-block-end, .ui-block-start, .ui-inline-end) { --_inline-size: 20rem; }
 ```
 
-The header, content and footer rules, the backdrop and the closed state live in `card.css`, shared with `Dialog`. If you import single files, import `card.css` too. The footer spaces its items by `--ui-space-2`, like `Dialog`, instead of `--ui-space-3`.
+The header, content and footer rules, the backdrop and the closed state live in `card.css`, shared with `Dialog`. If you import single files, import `card.css` too. The footer spaces its items by `--ui-space-2`, like `Dialog`, instead of `--ui-space-4`.
 
 ```diff
 - .ui-drawer { }
-+ .ui-drawer { --_footer-gap: var(--ui-space-3); }
++ .ui-drawer { --_footer-gap: var(--ui-space-4); }
 ```
 
 ## Field group and fieldset
@@ -922,6 +924,18 @@ The header, content and footer rules, the backdrop and the closed state live in 
 ```diff
 - <div class="ui-field-group ui-row">
 + <div class="ui-field-group ui-horizontal">
+```
+
+`FieldGroup` no longer takes `name`. Set `name` on each field in the group, as on a native `<input>`. The HTML is the same.
+
+```diff
+- <FieldGroup name="plan">
+-   <Radio value="basic">Basic</Radio>
+-   <Radio value="gold">Gold</Radio>
++ <FieldGroup>
++   <Radio name="plan" value="basic">Basic</Radio>
++   <Radio name="plan" value="gold">Gold</Radio>
+  </FieldGroup>
 ```
 
 ## Icon button
@@ -1072,7 +1086,7 @@ Deep type imports from `opui-css/components/*` are renamed, see [Package and imp
 
 ## Range
 
-`Range` is gone from every framework. A range is a `Field` with your own `<input type="range">` in it, its `id` set to the required `for` (`htmlFor` in React), which the types enforce. `label`, `startText`, `endText` and `spread` are Field's props of the same name, and `id`, `name`, `list`, `min`, `max`, `step` and the value go on the input: bind it with your framework's own `value`, `bind:value` or `v-model`. Point the input's `aria-describedby` at `x-start-text` and `x-end-text` for `for="x"` when the field shows them. Import `field.css` with `range.css`, or use `components.css`.
+`Range` is gone from every framework. A range is a `Field` with your own `<input type="range">` in it, its `id` set to the required `for` (`htmlFor` in React), which the types enforce. `label`, `startText`, `endText` and `spread` are Field's props of the same name, and `id`, `name`, `list`, `min`, `max`, `step` and the value go on the input: bind it with your framework's own `value`, `bind:value` or `v-model`. Point the input's `aria-describedby` at `x-start-text` and `x-end-text` for `for="x"` when they have something to read, and keep it in step with an end text that comes and goes. Import `field.css` with `range.css`, or use `components.css`.
 
 ```diff
 - <Range endText="Quieter after 22:00." label="Volume" max="11" v-model="volume" />
@@ -1137,9 +1151,9 @@ With `spread`, the label and the range split the container into equal columns, a
 
 Same as Text field: the root is `.ui-field` instead of `.ui-select`, and the box around the select `.ui-field-container` instead of `.ui-field`.
 
-The picker is `--ui-surface-elevated` with a `--ui-border-color-on-raised` edge, like `Menu`, instead of `--ui-surface-filled` with the field border. Set `--_bg-color` on `.ui-field select::picker(select)` to keep the old fill, or `--ui-border-color-raised` in your theme to outline every raised surface at once.
+The picker is `--ui-surface-raised` with a `--ui-border-color` edge, like `Menu`, instead of `--ui-surface-filled` with the field border. Set `--_bg-color` on `.ui-field select::picker(select)` to keep the old fill, or `--ui-border-color-raised` in your theme to outline every raised surface at once.
 
-`Select` is `Field`, which takes your `<select>` instead of rendering one, and a required `for` (`htmlFor` in React) with the select's `id`. Write the options in it after a `SelectButton`, instead of passing `items`, and move `name`, `required`, `disabled`, `multiple` and the bound value onto the select: bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. `SelectItem` is gone. Attributes that aren't Field's props go to the root, `style` included.
+`Select` is `Field`, which takes your `<select>` instead of rendering one, and a required `for` (`htmlFor` in React) with the select's `id`. Write the options in it after a `SelectButton`, instead of passing `items`, and move `name`, `required`, `disabled`, `multiple` and the bound value onto the select: bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts with something to read, as for Text field. `SelectItem` is gone. Attributes that aren't Field's props go to the root, `style` included.
 
 ```diff
 - <Select label="Country" items={countries} v-model="country" />
@@ -1340,7 +1354,7 @@ The root is `.ui-field` instead of `.ui-text-field`, and the box around the inpu
   </div>
 ```
 
-`TextField` is `Field`, which takes your `<input>` instead of rendering one, and a required `for` (`htmlFor` in React) with the input's `id`, which the types enforce. Move the input's attributes, `type`, `name`, `value`, `placeholder`, `required`, `disabled` and the rest, onto the input, bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts the field shows, in this order: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`. `id` on the component is gone, and attributes that aren't its props go to the root, as in 5.x. Inside a `FieldGroup`, name the input yourself.
+`TextField` is `Field`, which takes your `<input>` instead of rendering one, and a required `for` (`htmlFor` in React) with the input's `id`, which the types enforce. Move the input's attributes, `type`, `name`, `value`, `placeholder`, `required`, `disabled` and the rest, onto the input, bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts with something to read, in this order: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`. Leave out a part that only holds buttons, an output or hidden content, like a send button in `end`, and keep the list in step with parts that come and go, like an end text that only shows an error. `checkHtml` from `opui-css/check` finds the fields that don't follow this in a rendered page. `id` on the component is gone, and attributes that aren't its props go to the root, as in 5.x, so set `aria-describedby` and `aria-invalid` on the input, not the Field. Inside a `FieldGroup`, name the input yourself.
 
 ```diff
 - <TextField endText="Use your work email." error label="Email" type="email" v-model="email" />
@@ -1440,7 +1454,7 @@ In Vue, use `<template #start>€</template>` and `<template #end>EUR</template>
 
 Same as Text field: the root is `.ui-field` instead of `.ui-textarea`, and the box around the textarea `.ui-field-container` instead of `.ui-field`.
 
-Same as Text field: `Textarea` is `Field`, which takes your `<textarea>` instead of rendering one, and a required `for` (`htmlFor` in React) with its `id`. Move `name`, `required`, `disabled`, `maxlength` and the rest onto the textarea, write its value as its content or bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts the field shows: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`, in that order. `id` on the component is gone, and attributes that aren't its props go to the root, as in 5.x.
+Same as Text field: `Textarea` is `Field`, which takes your `<textarea>` instead of rendering one, and a required `for` (`htmlFor` in React) with its `id`. Move `name`, `required`, `disabled`, `maxlength` and the rest onto the textarea, write its value as its content or bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts with something to read, as for Text field: `x-start-text`, `x-top`, `x-start`, `x-end`, `x-bottom` and `x-end-text` for `for="x"`, in that order. `id` on the component is gone, and attributes that aren't its props go to the root, as in 5.x.
 
 ```diff
 - <Textarea endText="Up to 160 characters." label="Bio" name="bio" value="Bassist." />

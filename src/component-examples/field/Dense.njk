@@ -1,0 +1,11 @@
+{% from "opui/index.njk" import Field, SelectButton %}
+
+{% call Field({ dense: true, for: "field-dense-1", label: "Fruit" }) %}
+  <select id="field-dense-1">
+    {{ SelectButton() }}
+    <option value="">Pick a fruit</option>
+    <option>Apple</option>
+    <option>Banana</option>
+    <option>Cherry</option>
+  </select>
+{% endcall %}

@@ -3,6 +3,8 @@
     Accordion,
     AccordionContent,
     AccordionSummary,
+    Breadcrumb,
+    BreadcrumbItem,
     Button,
     Card,
     Carousel,
@@ -23,16 +25,14 @@
   } from "opui-css/svelte"
 </script>
 
-<div class="product-detail ui-layout-container ui-layout-column ui-large">
-  <nav aria-label="Breadcrumb" class="pd-breadcrumb">
-    <ol class="ui-layout-row ui-small">
-      <li><a class="ui-link" href="#product-detail-shop">Shop</a></li>
-      <li><a class="ui-link" href="#product-detail-gear">Gear</a></li>
-      <li><a class="ui-link" href="#product-detail-gig-bags">Gig bags</a></li>
-      <li><span aria-current="page">Comfy Cloud Gig Bag</span></li>
-    </ol>
-  </nav>
-  <div class="ui-layout-columns" style="--_gap: var(--ui-space-6)">
+<div class="product-detail ui-layout-container ui-layout-column ui-gap-large">
+  <Breadcrumb aria-label="Breadcrumb">
+    <BreadcrumbItem href="#product-detail-shop" label="Shop" />
+    <BreadcrumbItem href="#product-detail-gear" label="Gear" />
+    <BreadcrumbItem href="#product-detail-gig-bags" label="Gig bags" />
+    <BreadcrumbItem current label="Comfy Cloud Gig Bag" />
+  </Breadcrumb>
+  <div class="ui-layout-columns" style="--_gap: var(--ui-space-7)">
     <div class="ui-sticky pd-gallery">
       <Carousel aria-label="Product images" markers tabindex={0}>
         <li>
@@ -69,17 +69,17 @@
         </li>
       </Carousel>
     </div>
-    <div class="ui-layout-column ui-large">
+    <div class="ui-layout-column ui-gap-large">
       <hgroup class="ui-hgroup">
         <p class="ui-overline">Bassbook Shop</p>
         <h1 class="ui-h3">Comfy Cloud Gig Bag</h1>
       </hgroup>
-      <div class="ui-layout-row ui-small">
+      <div class="ui-layout-row ui-gap-small">
         <Rating aria-hidden="true" label="Rated 4.7 out of 5" value={4.7} />
         <span>4.7 out of 5</span>
         <a class="ui-link" href="#product-detail-reviews">128 reviews</a>
       </div>
-      <div class="ui-layout-row ui-small pd-price">
+      <div class="ui-layout-row ui-gap-small pd-price">
         <strong class="ui-tabular-nums">€119.00</strong>
         <s><span class="ui-sr-only">Was{" "}</span>€149.00</s>
         <Chip as="span" label="Save 20%" size="small" />
@@ -128,7 +128,7 @@
             >
           </FieldDescription>
         </Fieldset>
-        <div class="ui-layout-row ui-small pd-buy">
+        <div class="ui-layout-row ui-gap-small pd-buy">
           <Field autoFit for="product-detail-quantity" label="Quantity">
             <input
               id="product-detail-quantity"
@@ -277,11 +277,6 @@
 <style>
   :global {
     .product-detail {
-      .pd-breadcrumb li + li::before {
-        content: "/";
-        margin-inline-end: var(--ui-space-2);
-      }
-
       .pd-gallery {
         position: relative;
       }
@@ -324,11 +319,11 @@
       }
 
       .pd-form {
-        gap: var(--ui-space-5);
+        gap: var(--ui-space-6);
       }
 
       .pd-details ul {
-        padding-inline-start: var(--ui-space-4);
+        padding-inline-start: var(--ui-space-5);
       }
     }
   }

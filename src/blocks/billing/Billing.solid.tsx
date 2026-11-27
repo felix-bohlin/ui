@@ -25,14 +25,14 @@ export default function Billing() {
   return (
     <>
       <div
-        class="billing ui-layout-container ui-layout-column ui-large"
+        class="billing ui-layout-container ui-layout-column ui-gap-large"
         style="--_max-inline-size: 64rem"
       >
         <hgroup class="ui-hgroup">
-          <p>The Low Enders band account</p>
+          <p>Slap Like Now band account</p>
           <h1 class="ui-h3">Billing</h1>
         </hgroup>
-        <div class="ui-layout-columns ui-large" style="--_columns: 3fr 2fr">
+        <div class="ui-layout-columns ui-gap-large" style="--_columns: 3fr 2fr">
           <Card
             aria-labelledby="billing-plan-heading"
             as="section"
@@ -49,7 +49,7 @@ export default function Billing() {
                 <strong class="ui-tabular-nums">€12</strong>
                 <span>per month, 4 members × €3</span>
               </p>
-              <div class="ui-layout-row ui-small">
+              <div class="ui-layout-row ui-gap-small">
                 <Chip as="span" label="Billed monthly" size="small" />
                 <Chip
                   as="span"
@@ -84,7 +84,7 @@ export default function Billing() {
             </hgroup>
             <CardContent>
               <ul class="ui-layout-column">
-                <li class="ui-layout-column ui-x-small">
+                <li class="ui-layout-column ui-gap-x-small">
                   <span
                     class="ui-layout-row ui-spread ui-tabular-nums"
                     id="billing-usage-seats"
@@ -98,7 +98,7 @@ export default function Billing() {
                     value={4}
                   />
                 </li>
-                <li class="ui-layout-column ui-x-small">
+                <li class="ui-layout-column ui-gap-x-small">
                   <span
                     class="ui-layout-row ui-spread ui-tabular-nums"
                     id="billing-usage-recordings"
@@ -112,7 +112,7 @@ export default function Billing() {
                     value={14.2}
                   />
                 </li>
-                <li class="ui-layout-column ui-x-small">
+                <li class="ui-layout-column ui-gap-x-small">
                   <span
                     class="ui-layout-row ui-spread ui-tabular-nums"
                     id="billing-usage-songs"
@@ -166,13 +166,13 @@ export default function Billing() {
               <DescriptionListItem>
                 <DescriptionListTerm>Billing email</DescriptionListTerm>
                 <DescriptionListDescription>
-                  rory@lowend.example
+                  josh@bassmail.example
                 </DescriptionListDescription>
               </DescriptionListItem>
               <DescriptionListItem>
                 <DescriptionListTerm>Band</DescriptionListTerm>
                 <DescriptionListDescription>
-                  The Low Enders
+                  Slap Like Now
                 </DescriptionListDescription>
               </DescriptionListItem>
               <DescriptionListItem>
@@ -184,7 +184,7 @@ export default function Billing() {
               <DescriptionListItem>
                 <DescriptionListTerm>Address</DescriptionListTerm>
                 <DescriptionListDescription>
-                  Rehearsal Room B, 4 Low End Lane, Bassville
+                  Rehearsal Room B, 4 Fretboard Lane, Bassville
                 </DescriptionListDescription>
               </DescriptionListItem>
             </DescriptionList>
@@ -419,7 +419,7 @@ export default function Billing() {
             color: var(--ui-on-primary);
             display: flex;
             font-size: var(--ui-font-size-caption);
-            font-weight: var(--ui-font-weight-bold);
+            font-weight: var(--ui-font-weight-heading);
             inline-size: 4rem;
             justify-content: center;
           }

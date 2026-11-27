@@ -1,12 +1,45 @@
 ---
+import { TableCell, TableRow } from "opui-css/astro"
 import Guide from "../../layouts/Guide.astro"
 import Code from "../../components/Code.astro"
 import CodeGroup from "../../components/CodeGroup.astro"
 import DocLink from "../../components/DocLink.astro"
+import DocsTable from "../../components/DocsTable.astro"
 import Example from "../../components/Example/index"
 import LayerStack from "../../components/LayerStack.astro"
 import ScriptTable from "../../components/ScriptTable.astro"
 import TokenTiers from "../../components/TokenTiers.astro"
+import { npmTag } from "../../utils/release"
+import { tokenTierNotes } from "../../utils/theme-tokens"
+
+const tiers = [
+  [
+    "The whole look",
+    "Knob",
+    "<code>--ui-palette-hue: 150</code> makes the brand color green everywhere.",
+  ],
+  [
+    "One thing everywhere",
+    "Role",
+    "<code>--ui-radius: 1rem</code> rounds the corners of every component.",
+  ],
+  [
+    "One component",
+    "Component token",
+    "<code>--ui-button-radius: 999px</code> makes only buttons round.",
+  ],
+  [
+    "One element",
+    "Private property",
+    '<code>style="--_radius: 0"</code> squares the corners of one button.',
+  ],
+]
+
+const others = [
+  ["Primitive", "--ui-color-16", tokenTierNotes.primitive],
+  ["Hook", "--ui-control-accent", tokenTierNotes.hook],
+  ["Input", "--ui-anchor-position-area", tokenTierNotes.input],
+]
 
 export const keywords = [
   "architecture",
@@ -48,38 +81,37 @@ export const keywords = [
   <section id="token-tiers">
     <h2>Token tiers</h2>
     <p>
-      Each tier reads from the ones before it. Component CSS reads roles, never
-      primitives. <DocLink href="/guide/theme-tokens">Theme tokens</DocLink>
-      names the tier of every token:
+      Tokens are the CSS variables you set to change how things look. Find what
+      you want to change, then set that kind of token:
+    </p>
+    <DocsTable
+      columns={[
+        { label: "To change", width: "22%" },
+        { label: "Set a", width: "22%" },
+        { label: "Example" },
+      ]}
+    >
+      {tiers.map(([change, tier, example]) => <TableRow>
+        <TableCell>{change}</TableCell>
+        <TableCell><strong>{tier}</strong></TableCell>
+        <TableCell set:html={example} />
+      </TableRow>)}
+    </DocsTable>
+    <p>
+      Three more show up on
+      <DocLink href="/guide/theme-tokens">Theme tokens</DocLink>, which names
+      the tier of every token:
+    </p>
+    <ul>
+      {others.map(([tier, token, note]) => <li>
+        <strong>{tier}</strong>, like <code>{token}</code>: {note}
+      </li>)}
+    </ul>
+    <p>
+      Each tier feeds the next: a knob sets the roles, a role is the default of
+      a component token, and so on down to the CSS:
     </p>
     <TokenTiers />
-    <ul>
-      <li>
-        <strong>Knobs</strong>, like <code>--ui-palette-hue</code>: the inputs.
-      </li>
-      <li>
-        <strong>Primitives</strong>, like <code>--ui-color-1</code>: derived
-        from the knobs.
-      </li>
-      <li>
-        <strong>Roles</strong>, like <code>--ui-primary</code>: what every
-        component reads.
-      </li>
-      <li>
-        <strong>Hooks</strong>, like <code>--ui-control-accent</code>: optional
-        roles, unset until a theme sets them.
-      </li>
-      <li>
-        <strong>Component tokens</strong>, like <code>--ui-button-size</code>:
-        read by one component.
-      </li>
-      <li>
-        <strong>Private properties</strong>, like <code>--_accent</code>: one
-        component's
-        <DocLink href="/guide/customizing#component-properties">wiring</DocLink
-        >, set per instance.
-      </li>
-    </ul>
   </section>
 
   <section id="light-and-dark">
@@ -386,8 +418,8 @@ export const keywords = [
         {
           title: "CDN",
           code: `<script type="module">
-  import "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/checkbox.js"
-  import "https://cdn.jsdelivr.net/npm/opui-css@6/elements/step-button.js"
+  import "https://cdn.jsdelivr.net/npm/opui-css@${npmTag}/css/js/checkbox.js"
+  import "https://cdn.jsdelivr.net/npm/opui-css@${npmTag}/elements/step-button.js"
 </script>`,
           lang: "html",
         },

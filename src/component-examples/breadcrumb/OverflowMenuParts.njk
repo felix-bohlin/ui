@@ -1,0 +1,29 @@
+{% from "opui/index.njk" import Breadcrumb, BreadcrumbItem, Button, Menu %}
+
+{% call Breadcrumb({ "aria-label": "Tour breadcrumb", overflow: "menu" }) %}
+  {{ BreadcrumbItem({ href: "#", label: "Groups" }) }}
+  <li>
+    {% call Button({
+      "aria-label": "More levels",
+      command: "toggle-popover",
+      commandfor: "breadcrumb-overflow-menu-parts-1",
+      round: true,
+      size: "x-small"
+    }) %}…{% endcall %}
+    {{ Menu({
+      id: "breadcrumb-overflow-menu-parts-1",
+      items: [
+        { href: "#", label: "Low End Society" },
+        { href: "#", label: "Events" }
+      ]
+    }) }}
+  </li>
+  {{ BreadcrumbItem({ href: "#", label: "Low End Society" }) }}
+  {{ BreadcrumbItem({ href: "#", label: "Events" }) }}
+  {{ BreadcrumbItem({ href: "#", label: "Spring tour" }) }}
+  {{ BreadcrumbItem({ current: true, label: "Setlist" }) }}
+{% endcall %}
+
+<script type="module">
+  import "opui-css/elements/menu.js"
+</script>

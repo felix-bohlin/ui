@@ -1,4 +1,4 @@
-import type { Class, DefaultSlots } from "../vue"
+import type { DefaultSlots } from "../vue"
 import type {
   CardActionsProps as BaseCardActionsProps,
   CardContentProps as BaseCardContentProps,
@@ -6,12 +6,12 @@ import type {
   Props as BaseProps,
 } from "./types"
 
-export type CardActionsProps = BaseCardActionsProps & Class
+export type CardActionsProps = BaseCardActionsProps
 
-export type CardContentProps = BaseCardContentProps & Class
+export type CardContentProps = BaseCardContentProps
 
-export type CardHeaderProps = BaseCardHeaderProps & Class
+export type CardHeaderProps = BaseCardHeaderProps
 
-export type Props = BaseProps & Class
+export type Props = BaseProps
 
 export type Slots = DefaultSlots

@@ -155,6 +155,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     CONTROLS,
     FOLLOW_RADIUS,
     MONOCHROME_PRIMARY,
+    SCALE_KNOBS,
     canonical,
     changeCount,
     controlTokens,
@@ -162,6 +163,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     isFollow,
     matchOption,
     ownTokens,
+    scaledValue,
     tidy,
     type ChoiceControl,
     type ColorControl,
@@ -511,11 +513,9 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         `var(${control.token}${control.fallback ? `, ${control.fallback}` : ""})`,
       )
       if (px === null) return control.min
-      const density =
-        control.scale === "density"
-          ? Number(valueOf("--ui-density") ?? defaults["--ui-density"] ?? 1)
-          : 1
-      return toUnit(px / density, "px")
+      const knob = control.scale && SCALE_KNOBS[control.scale]
+      const factor = knob ? Number(valueOf(knob) ?? defaults[knob] ?? 1) : 1
+      return toUnit(px / factor, "px")
     }
 
     const render = () => {
@@ -958,10 +958,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       } else if (control.kind === "range") {
         const number = Number((target as HTMLInputElement).value)
         target.setAttribute("aria-valuetext", formatRange(control, number))
-        const value =
-          control.scale === "density"
-            ? `calc(${number}${control.unit} * var(--ui-density))`
-            : `${number}${control.unit}`
+        const value = scaledValue(control, `${number}${control.unit}`)
         write({ [control.token]: value }, throttle)
       }
     }
@@ -1307,7 +1304,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       h3 {
         color: var(--ui-text-subtle);
         font-size: var(--ui-font-size-caption);
-        font-weight: var(--ui-font-weight-semibold);
+        font-weight: var(--ui-font-weight-label);
         letter-spacing: var(--ui-letter-spacing-caps);
         text-transform: uppercase;
       }
@@ -1323,7 +1320,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     border-radius: var(--ui-radius-round);
     color: var(--ui-on-primary-tonal, var(--ui-text-strong));
     font-size: var(--ui-font-size-caption);
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
     padding: 0.125em 0.75em;
 
     &[hidden] {
@@ -1352,7 +1349,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
   .builder-moods-title {
     color: var(--ui-text-strong);
     font-size: var(--ui-font-size-small);
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
   }
 
   .builder-moods-list {
@@ -1386,7 +1383,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
   .builder-paste-title {
     color: var(--ui-text-strong);
     font-size: var(--ui-font-size-small);
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
   }
 
   .builder-paste-row {
@@ -1415,7 +1412,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     color: var(--ui-text-strong);
     display: flex;
     font-size: var(--ui-font-size-body);
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
     gap: var(--size-2);
     justify-content: space-between;
     margin: 0;
@@ -1429,6 +1426,6 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
   .builder-fine-meta {
     color: var(--ui-text-subtle);
     font-size: var(--ui-font-size-small);
-    font-weight: var(--ui-font-weight-normal);
+    font-weight: var(--ui-font-weight-body);
   }
 </style>

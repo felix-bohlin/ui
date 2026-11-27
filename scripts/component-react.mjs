@@ -9,6 +9,7 @@ import {
 import {
   componentImport,
   contextImports,
+  devOnly,
   eventRoots,
   groupWarning,
   hydratingRoots,
@@ -21,7 +22,7 @@ import {
   styleOption,
   withImport,
 } from "./component-emit.mjs"
-import { componentFunction, jsxEmitter } from "./component-jsx.mjs"
+import { attrsImport, componentFunction, jsxEmitter } from "./component-jsx.mjs"
 import {
   helpersCalled,
   importLinesOf,
@@ -168,7 +169,7 @@ export const toReact = (component) => {
   const options = {
     rename,
     ids: component.ids,
-    slotHas: (name) => slotProp(name),
+    slotHas: (name) => `filled(${slotProp(name)})`,
     style: styleOption(component, "style ?? {}"),
   }
   const entries = props.map((entry) => {
@@ -220,13 +221,15 @@ export const toReact = (component) => {
     ...derived.map(
       ({ code, name }) => `const ${name} = ${rewriteExpression(code, options)}`,
     ),
-    ...warnings.map(({ code }) => rewriteStatement(code, options)),
+    ...warnings.map(({ code }) => devOnly(rewriteStatement(code, options))),
     ...(item
       ? [
-          groupWarning(
-            component,
-            item,
-            `${item.checked ?? "undefined"} ?? defaultChecked`,
+          devOnly(
+            groupWarning(
+              component,
+              item,
+              `${item.checked ?? "undefined"} ?? defaultChecked`,
+            ),
           ),
         ]
       : []),
@@ -283,7 +286,10 @@ export const toReact = (component) => {
         )
         return filtered ? `{...defined(${chosen})}` : `{...(${chosen})}`
       }
-      if (node.variable && item.code === rest) {
+      if (
+        item.code === rest &&
+        (node.variable || (item.cast && !node.component && !node.custom))
+      ) {
         const cast = `${item.code} as ${restType(node, item)}`
         return filtered ? filteredRest(cast) : `{...(${cast})}`
       }
@@ -449,7 +455,7 @@ export const toReact = (component) => {
   const importLines = [
     ...(reactImport ? [reactImport] : []),
     ...scriptImports(component),
-    ...(usesDefined ? [`import { defined } from "../attrs"`] : []),
+    ...attrsImport(usesDefined, [...body, returned].join("\n")),
     ...(usesCx ? [`import { cx } from "../cx"`] : []),
     ...(reactHelpers.length
       ? [`import { ${reactHelpers.join(", ")} } from "../react"`]
@@ -462,7 +468,10 @@ export const toReact = (component) => {
       read: (name) => `use${name}Context`,
     }),
     ...importLinesOf(used, ["react"]),
-    ...(item ? withImport(imports, "../dev", "warnGroupedChecked") : imports),
+    ...[
+      ...(warnings.length || item ? ["DEV"] : []),
+      ...(item ? ["warnGroupedChecked"] : []),
+    ].reduce((lines, name) => withImport(lines, "../dev", name), imports),
     propsImport(propsType, "types.react"),
     ...(provide
       ? [

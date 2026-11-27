@@ -3,7 +3,7 @@
 </script>
 
 <List>
-  <ListItem description="Uploaded by Lou Headstock" label="Slap tutorial">
+  <ListItem description="Uploaded by Kinga Headstock" label="Slap tutorial">
     {#snippet start()}
       <video controls muted>
         <source
@@ -14,7 +14,7 @@
     {/snippet}
     {#snippet end()}1:30{/snippet}
   </ListItem>
-  <ListItem description="Uploaded by Percy Groove" label="Drop D in 45 seconds">
+  <ListItem description="Uploaded by Adam Groove" label="Drop D in 45 seconds">
     {#snippet start()}
       <video controls muted>
         <source

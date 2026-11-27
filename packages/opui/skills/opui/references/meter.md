@@ -3,7 +3,7 @@
 A bar on the native meter element, for a value in a known range, like disk usage or a poll option's share.
 
 - CSS: `opui-css/css/components/meter.css` and `opui-css/css/components/progress.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/meter.md), [Astro](https://opui.dev/astro/components/meter.md), [React](https://opui.dev/react/components/meter.md), [Solid](https://opui.dev/solid/components/meter.md), [Svelte](https://opui.dev/svelte/components/meter.md), [Vue](https://opui.dev/vue/components/meter.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/meter.md), [Astro](https://opui.dev/astro/components/meter.md), [Nunjucks](https://opui.dev/nunjucks/components/meter.md), [React](https://opui.dev/react/components/meter.md), [Solid](https://opui.dev/solid/components/meter.md), [Svelte](https://opui.dev/svelte/components/meter.md), [Vue](https://opui.dev/vue/components/meter.md).
 
 ## Meter
 
@@ -22,7 +22,7 @@ A bar on the native meter element, for a value in a known range, like disk usage
 ### Notes
 
 - HTML: Add `.ui-meter` to a `<meter>`. `value`, `min`, `max`, `low`, `high` and `optimum` are its native attributes.
-- Astro, React, Solid, Svelte and Vue: `value`, `min`, `max`, `low`, `high` and `optimum` are the native attributes of the `<meter>`, which gets every extra attribute.
+- Astro, Nunjucks, React, Solid, Svelte and Vue: `value`, `min`, `max`, `low`, `high` and `optimum` are the native attributes of the `<meter>`, which gets every extra attribute.
 
 ## Component properties
 
@@ -36,14 +36,14 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_ease`: Easing of the value transition. Defaults to `--ui-ease-enter`.
 - `--_loop-duration`: Length of one cycle of the indeterminate animation, and of the pulse that replaces it when `--_motion` is `0`. `2s` by default, multiplied by `--_motion`.
 - `--_motion`: Motion multiplier for the value transition and the indeterminate animation.
-- `--_ring-border-width`: Thickness of the ring of `.ui-round`. Defaults to `--ui-border-width-thick`.
+- `--_ring-border-width`: Thickness of the ring of `.ui-round`. Defaults to `--ui-border-width-large`.
 - `--_ring-size`: Width and height of `.ui-round`. Defaults to `--ui-icon-size-large`.
 
 Outputs: `--_duration` and `--_ring-fraction`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width`, `--ui-border-width-thick`, `--ui-critical`, `--ui-duration`, `--ui-ease-enter`, `--ui-field-border-color`, `--ui-icon-size-large`, `--ui-motion`, `--ui-radius`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-space-1`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-track-bg-color` and `--ui-warning`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-border-width-large`, `--ui-critical`, `--ui-duration`, `--ui-ease-enter`, `--ui-field-border-color`, `--ui-icon-size-large`, `--ui-motion`, `--ui-radius`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-space-1`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-track-bg-color` and `--ui-warning`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -67,6 +67,18 @@ import { Meter } from "opui-css/astro"
 ---
 
 <Meter aria-label="Storage used" max="128" value="96">96 of 128 GB</Meter>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Meter %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Meter %}
+
+{% call Meter({ "aria-label": "Storage used", max: "128", value: "96" }) %}96 of 128 GB{% endcall %}
 ```
 
 ## React

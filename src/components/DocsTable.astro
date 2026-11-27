@@ -172,7 +172,7 @@ const collapsible = allowCollapse && count > LIMIT + 2
       }
 
       :global(tr > :first-child) {
-        font-weight: var(--ui-font-weight-semibold);
+        font-weight: var(--ui-font-weight-label);
       }
 
       :global(tr > :not(:first-child, :last-child)::before) {
@@ -180,7 +180,7 @@ const collapsible = allowCollapse && count > LIMIT + 2
         content: attr(data-label) / "";
         display: inline-block;
         font-size: var(--ui-font-size-caption);
-        font-weight: var(--ui-font-weight-medium);
+        font-weight: var(--ui-font-weight-emphasis);
         letter-spacing: var(--ui-letter-spacing-caps);
         margin-inline-end: var(--size-2);
         text-transform: uppercase;

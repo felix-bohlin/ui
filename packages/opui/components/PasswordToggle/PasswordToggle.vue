@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import "../../elements/password-toggle.js"
-import { classAttrs } from "../cx"
 import type { Props, Slots } from "./types.vue-props"
 
 const { for: htmlFor, label = "Show password" } = defineProps<Props>()
@@ -8,7 +7,7 @@ defineSlots<Slots>()
 </script>
 
 <template>
-  <component is="opui-password-toggle" v-bind="classAttrs($props.class)">
+  <component is="opui-password-toggle">
     <button
       class="ui-button ui-round"
       type="button"

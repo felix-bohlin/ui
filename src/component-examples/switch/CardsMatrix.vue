@@ -6,16 +6,22 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/vue"
   <Form>
     <Fieldset>
       <FieldLegend>Notifications</FieldLegend>
-      <FieldGroup name="switch-cards-end" orientation="horizontal">
-        <Switch card checked spread value="email">
+      <FieldGroup orientation="horizontal">
+        <Switch card checked name="switch-cards-end" spread value="email">
           Email
           <template #end-text>A summary every morning.</template>
         </Switch>
-        <Switch card spread value="push" variant="elevated">
+        <Switch
+          card
+          name="switch-cards-end"
+          spread
+          value="push"
+          variant="elevated"
+        >
           Push
           <template #end-text>On this device only.</template>
         </Switch>
-        <Switch card spread value="sms" variant="tonal">
+        <Switch card name="switch-cards-end" spread value="sms" variant="tonal">
           SMS
           <template #end-text>For security alerts only.</template>
         </Switch>
@@ -23,16 +29,21 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/vue"
     </Fieldset>
     <Fieldset>
       <FieldLegend>Privacy</FieldLegend>
-      <FieldGroup name="switch-cards-start" orientation="horizontal">
-        <Switch card checked value="status">
+      <FieldGroup orientation="horizontal">
+        <Switch card checked name="switch-cards-start" value="status">
           Online status
           <template #end-text>Others see when you're active.</template>
         </Switch>
-        <Switch card value="receipts" variant="elevated">
+        <Switch
+          card
+          name="switch-cards-start"
+          value="receipts"
+          variant="elevated"
+        >
           Read receipts
           <template #end-text>Others see when you've read a message.</template>
         </Switch>
-        <Switch card value="search" variant="tonal">
+        <Switch card name="switch-cards-start" value="search" variant="tonal">
           Profile search
           <template #end-text>People can find you by email.</template>
         </Switch>

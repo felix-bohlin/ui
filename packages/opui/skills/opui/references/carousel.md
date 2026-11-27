@@ -3,7 +3,7 @@
 A scrolling list with snap points, buttons and markers.
 
 - CSS: `opui-css/css/components/carousel.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/carousel.md), [Astro](https://opui.dev/astro/components/carousel.md), [React](https://opui.dev/react/components/carousel.md), [Solid](https://opui.dev/solid/components/carousel.md), [Svelte](https://opui.dev/svelte/components/carousel.md), [Vue](https://opui.dev/vue/components/carousel.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/carousel.md), [Astro](https://opui.dev/astro/components/carousel.md), [Nunjucks](https://opui.dev/nunjucks/components/carousel.md), [React](https://opui.dev/react/components/carousel.md), [Solid](https://opui.dev/solid/components/carousel.md), [Svelte](https://opui.dev/svelte/components/carousel.md), [Vue](https://opui.dev/vue/components/carousel.md).
 
 ## Carousel
 
@@ -36,7 +36,7 @@ A scrolling list with snap points, buttons and markers.
 ### Notes
 
 - HTML: The root is a `<ul>` with an `aria-label`. CSS adds the buttons, and `.ui-markers` the markers. Smooth scrolling follows `--ui-motion`: `.ui-motion-off` on the carousel or a parent turns it off.
-- Astro, React, Solid, Svelte and Vue: Smooth scrolling follows `--ui-motion`: `.ui-motion-off` on the carousel or a parent turns it off.
+- Astro, Nunjucks, React, Solid, Svelte and Vue: Smooth scrolling follows `--ui-motion`: `.ui-motion-off` on the carousel or a parent turns it off.
 
 ## Component properties
 
@@ -64,21 +64,21 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_marker-label`: Accessible name of each marker, CSS strings with `counter(ui-carousel-item)` where the item number goes. `markerLabel` sets it.
 - `--_marker-selected-bg-color`: Fill and ring of the current marker. Defaults to `--ui-selected-strong`.
 - `--_marker-selected-padding`: Inset of the current marker's dot, smaller than the `--ui-space-2` of the other markers, so the current dot is larger. Defaults to `--ui-space-1`.
-- `--_marker-size`: Size of the markers: `--ui-space-5`, and at least `--ui-target-min-size`, so they stay pointer targets in a theme with a smaller spacing scale. The dot sits inside, inset by `--ui-space-2`.
+- `--_marker-size`: Size of the markers: `--ui-space-6`, and at least `--ui-target-min-size`, so they stay pointer targets in a theme with a smaller spacing scale. The dot sits inside, inset by `--ui-space-2`.
 - `--_media-aspect-ratio`: Aspect ratio of `img`, `video` and `iframe` in items.
 - `--_media-fit`: How `img`, `video` and `iframe` in items fill their aspect ratio: `cover` crops them, `contain` shows them whole, like photos of mixed orientation in a viewer.
 - `--_media-radius`: Corner radius of `img`, `video` and `iframe` in items. Defaults to `--ui-radius`.
 - `--_motion`: Motion multiplier for the button and marker transitions. `0` turns them off.
 - `--_padding-block`: Block padding of `.ui-vertical`, showing the neighboring items. Set by `.ui-peek`.
 - `--_padding-inline`: The inline padding, showing the neighboring items. Set by `.ui-peek`.
-- `--_shadow-room`: Room around the items for their box shadows, so the scroll container doesn't clip them: padding that a negative margin cancels, so the layout stays the same. On the scroll axis it is capped by `--_block-room` and `--_inline-room`. Defaults to `--ui-space-3`.
+- `--_shadow-room`: Room around the items for their box shadows, so the scroll container doesn't clip them: padding that a negative margin cancels, so the layout stays the same. On the scroll axis it is capped by `--_block-room` and `--_inline-room`. Defaults to `--ui-space-4`.
 - `--_snap-align`: Snap alignment of items. `.ui-align-center` sets `center`.
 
 Outputs: `--_block-room`, `--_button-border-color`, `--_button-disabled-border-color`, `--_button-end-flip`, `--_button-flip`, `--_button-scale`, `--_button-start-flip`, `--_duration`, `--_inline-room`, `--_item-size` and `--_scale-duration`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width`, `--ui-button-size-small`, `--ui-control-border-color-filled`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-icon-next`, `--ui-motion`, `--ui-radius`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-8`, `--ui-surface-inverse`, `--ui-target-min-size` and `--ui-text`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-button-size-small`, `--ui-control-border-color-filled`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-icon-next`, `--ui-motion`, `--ui-radius`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-12`, `--ui-space-2`, `--ui-space-4`, `--ui-space-6`, `--ui-surface-inverse`, `--ui-target-min-size` and `--ui-text`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -168,6 +168,41 @@ const places = [
     </Card>
   </li>)}
 </Carousel>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Carousel %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Card, CardHeader, Carousel %}
+{% set places = [
+  { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
+  { description: "Ceviche by the Pacific.", title: "Lima" },
+  { description: "Tiles, trams and custard tarts.", title: "Lisbon" },
+  { description: "Fjords, saunas and modern architecture.", title: "Oslo" },
+  { description: "Medina markets and Mediterranean light.", title: "Tunis" }
+] %}
+
+{% call Carousel({
+  "aria-label": "Destinations",
+  buttons: "outside",
+  markers: true
+}) %}
+  {% for place in places -%}
+    <li>
+      {% call Card({ variant: "tonal" }) %}
+        {% call CardHeader() %}
+          <p>Destination</p>
+          <h3>{{ place.title }}</h3>
+          <p>{{ place.description }}</p>
+        {% endcall %}
+      {% endcall %}
+    </li>
+  {%- endfor %}
+{% endcall %}
 ```
 
 ## React

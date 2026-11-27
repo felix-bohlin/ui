@@ -3,6 +3,10 @@ import { readdir } from "node:fs/promises"
 import { join } from "node:path"
 import { parse } from "@astrojs/compiler"
 import ts from "typescript"
+import {
+  BOOLEAN_ATTRIBUTES,
+  BOOLEAN_WHEN_BOOLEAN,
+} from "../packages/opui/nunjucks/attributes.ts"
 import { allValues, analyse } from "./component-analysis.mjs"
 import { rewriteExpression } from "./component-emit.mjs"
 import { shapeWhitespace } from "./component-layout.mjs"
@@ -20,6 +24,7 @@ import {
   unsupported,
   unwrap,
 } from "./component-shared.mjs"
+import { BOOLEAN_ATTRIBUTES as HTML_BOOLEAN_ATTRIBUTES } from "./html-tokens.mjs"
 
 const apiDir = join(root, "src/component-api")
 
@@ -509,7 +514,32 @@ const chosenSpread = (node) => {
   }
 }
 
-const attributeNode = (item, context) => {
+const WRITTEN_AS_TEXT = new Set(
+  [...HTML_BOOLEAN_ATTRIBUTES].filter(
+    (name) => !BOOLEAN_ATTRIBUTES.has(name) && !BOOLEAN_WHEN_BOOLEAN.has(name),
+  ),
+)
+
+const isOn = (code) => {
+  const node = unwrap(
+    sourceFileOf(`(${code})`, "boolean.ts").statements[0].expression,
+  )
+  const empty = (branch) =>
+    unwrap(branch).kind === ts.SyntaxKind.NullKeyword ||
+    (ts.isIdentifier(unwrap(branch)) && unwrap(branch).text === "undefined")
+  return (
+    node.kind === ts.SyntaxKind.TrueKeyword ||
+    ts.isStringLiteral(node) ||
+    empty(node) ||
+    (ts.isConditionalExpression(node) &&
+      (empty(node.whenTrue) || empty(node.whenFalse))) ||
+    (ts.isBinaryExpression(node) &&
+      node.operatorToken.kind === ts.SyntaxKind.BarBarToken &&
+      empty(node.right))
+  )
+}
+
+const attributeNode = (item, context, element = false) => {
   if (item.kind === "quoted") {
     return { kind: "static", name: item.name, value: item.value }
   }
@@ -561,6 +591,9 @@ const attributeNode = (item, context) => {
     }
     if (item.name.includes(":")) {
       throw unsupported("BC201", context.file, `the directive ${item.name}`)
+    }
+    if (element && WRITTEN_AS_TEXT.has(item.name) && !isOn(code)) {
+      throw unsupported("BC211", context.file, `${item.name}={${code}}`)
     }
     return { code, kind: "expression", name: item.name }
   }
@@ -862,7 +895,7 @@ const toTree = (nodes, context) =>
             consequent: [
               {
                 attributes: node.attributes.map((item) =>
-                  attributeNode(item, context),
+                  attributeNode(item, context, true),
                 ),
                 children,
                 component: undefined,
@@ -907,7 +940,9 @@ const toTree = (nodes, context) =>
         {
           attributes: node.attributes
             .filter((item) => item !== html)
-            .map((item) => attributeNode(item, context)),
+            .map((item) =>
+              attributeNode(item, context, node.type === "element"),
+            ),
           children,
           component,
           custom: node.type === "custom-element",
@@ -1232,6 +1267,7 @@ const itemOf = (file, frontmatter, tree, folder) => {
     group: read.context.folder ?? folder,
     grouped: grouped.name,
     parent: read.name,
+    value: frontmatter.props.find(({ prop }) => prop === "value")?.local,
   }
 }
 
@@ -1372,7 +1408,9 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
       kind: "group",
       local: prop.local,
       prop: declared.prop,
-      read: multiple ? "selectionOf(input, multiple)" : "input.value",
+      read: multiple
+        ? `selectionOf(input, multiple, ${prop.local})`
+        : "input.value",
       type: declared.type,
     }
   }

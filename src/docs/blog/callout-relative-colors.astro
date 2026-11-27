@@ -51,14 +51,14 @@ import Severities from "../../component-examples/callout/Severities.astro"
   --ui-palette-hue-rotate-by: 1;
   --ui-color-3: oklch(from var(--ui-palette-source) 93% calc(0.1 * (c / 0.21)) calc(h + (2 * var(--ui-palette-hue-rotate-by))));
   --ui-color-6: oklch(from var(--ui-palette-source) 71% calc(0.19 * (c / 0.21)) calc(h + (5 * var(--ui-palette-hue-rotate-by))));
-  --ui-palette-tint-subtle: light-dark(
+  --ui-palette-tonal-subtle: light-dark(
     oklch(from var(--ui-color-3) l c h / 60%),
     oklch(from var(--ui-color-6) l c h / 5%)
   );
 }
 
 .callout.info {
-  --bg-color: var(--ui-palette-tint-subtle);
+  --bg-color: var(--ui-palette-tonal-subtle);
   --border-color: var(--ui-palette-border);
   --icon-text-color: var(--ui-palette-accent);
   color: var(--ui-palette-strong);

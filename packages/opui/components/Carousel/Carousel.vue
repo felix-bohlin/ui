@@ -33,7 +33,6 @@ defineSlots<Slots>()
       },
       align && align !== 'start' && `ui-align-${align}`,
       buttons && buttons !== 'inside' && `ui-buttons-${buttons}`,
-      $props.class,
     ]"
     v-bind="
       styleAttrs(

@@ -44,9 +44,9 @@
   --oklch-l: 0.5;
   --oklch-thumb: 1.25rem;
 
-  background-color: var(--ui-surface-elevated);
+  background-color: var(--ui-surface-raised);
   border: var(--ui-border-width) solid
-    var(--ui-border-color-raised, var(--ui-border-color-on-raised));
+    var(--ui-border-color-raised, var(--ui-border-color));
   border-radius: var(--ui-menu-radius, var(--ui-radius));
   box-shadow: var(--ui-shadow-overlay);
   color: var(--ui-text);
@@ -99,7 +99,7 @@
 .oklch-picker-title {
   color: var(--ui-text-strong);
   font-size: var(--ui-font-size-small);
-  font-weight: var(--ui-font-weight-semibold);
+  font-weight: var(--ui-font-weight-label);
   margin: 0;
 }
 
@@ -185,7 +185,7 @@
       appearance: none;
       background-color: var(--oklch-current);
       block-size: var(--oklch-thumb);
-      border: var(--ui-border-width-thick) solid var(--ui-surface);
+      border: var(--ui-border-width-large) solid var(--ui-surface);
       border-radius: 50%;
       box-shadow: 0 0 0 var(--ui-border-width) var(--ui-text-strong);
       inline-size: var(--oklch-thumb);
@@ -194,7 +194,7 @@
     &::-moz-range-thumb {
       background-color: var(--oklch-current);
       block-size: var(--oklch-thumb);
-      border: var(--ui-border-width-thick) solid var(--ui-surface);
+      border: var(--ui-border-width-large) solid var(--ui-surface);
       border-radius: 50%;
       box-shadow: 0 0 0 var(--ui-border-width) var(--ui-text-strong);
       box-sizing: border-box;

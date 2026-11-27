@@ -2,7 +2,7 @@
 import { useBound, useInputAttrs } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import RadioInput from "./RadioInput.vue"
-import { hasName, warnUnnamed } from "../dev"
+import { DEV, hasName, warnUnnamed } from "../dev"
 import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -31,7 +31,7 @@ const model = defineModel<string | number | boolean | undefined>({
 
 const bound = useBound()
 
-warnUnnamed("Radio", hasName({ ...attrs.value, label }, slots.default))
+if (DEV) warnUnnamed("Radio", hasName({ ...attrs.value, label }, slots.default))
 </script>
 
 <template>
@@ -42,7 +42,7 @@ warnUnnamed("Radio", hasName({ ...attrs.value, label }, slots.default))
       card && variant && variant !== 'outlined' && `ui-${variant}`,
       orientation && orientation !== 'horizontal' && `ui-${orientation}`,
       size && size !== 'medium' && `ui-${size}`,
-      $props.class,
+      $attrs.class,
     ]"
     v-bind="styleAttrs($attrs.style)"
   >

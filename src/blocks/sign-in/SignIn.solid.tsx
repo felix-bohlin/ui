@@ -24,7 +24,7 @@ export default function SignIn() {
           </hgroup>
           <CardContent>
             <div
-              class="ui-layout-grid ui-small"
+              class="ui-layout-grid ui-gap-small"
               style="--_min-inline-size: 9rem"
             >
               <Button type="button" variant="outlined">
@@ -66,7 +66,7 @@ export default function SignIn() {
                     autocomplete="email"
                     id="sign-in-email"
                     name="email"
-                    placeholder="rory@lowend.example"
+                    placeholder="josh@bassmail.example"
                     required
                     type="email"
                   />
@@ -80,7 +80,7 @@ export default function SignIn() {
                     type="password"
                   />
                 </Field>
-                <div class="ui-layout-row ui-small ui-spread">
+                <div class="ui-layout-row ui-gap-small ui-spread">
                   <Checkbox name="remember">Remember me &lt;3</Checkbox>
                   <a class="ui-link" href="#forgot-password">
                     Forgot password?
@@ -94,7 +94,7 @@ export default function SignIn() {
             <p class="sign-in-footer">
               New to Bassbook?{" "}
               <a class="ui-link" href="#sign-up">
-                Join the low end
+                Join the rhythm section
               </a>
             </p>
           </CardContent>

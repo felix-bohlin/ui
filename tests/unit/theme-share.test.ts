@@ -9,7 +9,7 @@ import {
 const theme = {
   preset: "m3",
   tokens: {
-    "--ui-font-body": '"DM Sans", Avenir, sans-serif',
+    "--ui-font-family-body": '"DM Sans", Avenir, sans-serif',
     "--ui-palette-source": "oklch(0.654 0.234 34.2)",
     "--ui-primary-source":
       "light-dark(oklch(0.654 0.234 34.2), oklch(0.8 0.1 34))",
@@ -35,7 +35,7 @@ describe("encodeTheme and decodeTheme", () => {
   })
 
   test("round trip text outside ASCII", () => {
-    const tokens = { "--ui-font-body": '"Ålö Sans", sans-serif' }
+    const tokens = { "--ui-font-family-body": '"Ålö Sans", sans-serif' }
     expect(decodeTheme(encodeTheme({ preset: null, tokens }))?.tokens).toEqual(
       tokens,
     )
@@ -43,7 +43,7 @@ describe("encodeTheme and decodeTheme", () => {
 
   test("keep brackets, quotes and marks inside a quoted name", () => {
     const tokens = {
-      "--ui-font-body": `"Hey! (Display) [2]", 'It"s', serif`,
+      "--ui-font-family-body": `"Hey! (Display) [2]", 'It"s', serif`,
       "--ui-shadow-surface": "0 1px 2px oklch(0 0 0 / 0.3)",
     }
     expect(decodeTheme(encodeTheme({ preset: null, tokens }))?.tokens).toEqual(
@@ -123,7 +123,10 @@ describe("encodeTheme and decodeTheme", () => {
     ],
     [
       "a value with a line break",
-      encode({ preset: null, tokens: { "--ui-font-body": '"A\nB", serif' } }),
+      encode({
+        preset: null,
+        tokens: { "--ui-font-family-body": '"A\nB", serif' },
+      }),
     ],
     ["a value that is too long", "a".repeat(20000)],
   ])("return null for %s", (_, value) => {

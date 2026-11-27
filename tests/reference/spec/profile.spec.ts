@@ -39,19 +39,19 @@ test("a profile shows the details, stats and tabs", async ({ page }) => {
 })
 
 test("an empty tab says so", async ({ page }) => {
-  await open(page, "/u/holly")
+  await open(page, "/u/scott")
   await page.locator(".ui-tabs").getByText("Photos", { exact: true }).click()
   await expect(page.getByText("No photos yet.")).toBeVisible()
 })
 
 test("Send message opens the chat with that person", async ({ page }) => {
-  await open(page, "/u/lou")
+  await open(page, "/u/kinga")
   await expect(page.getByRole("button", { name: "Edit profile" })).toHaveCount(
     0,
   )
   await page.getByRole("link", { name: "Send message" }).click()
-  await expect(page).toHaveURL("/chat?with=lou")
-  await expect(page.locator("#chat-title")).toHaveText("Lou Headstock")
+  await expect(page).toHaveURL("/chat?with=kinga")
+  await expect(page.locator("#chat-title")).toHaveText("Kinga Headstock")
 })
 
 test.describe("Edit profile", () => {

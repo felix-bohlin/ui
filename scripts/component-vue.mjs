@@ -7,6 +7,7 @@ import { VOID_ELEMENTS } from "./html-tokens.mjs"
 import {
   componentImport,
   contextImports,
+  devOnly,
   edgeTrimmed,
   eventRoots,
   groupWarning,
@@ -42,8 +43,10 @@ import {
   onlyClass,
   PRESERVED_TAGS,
   propKey,
+  staticClass,
   unionMembers,
   unsupported,
+  withoutClassEntry,
 } from "./component-shared.mjs"
 
 const vueSlot = (name) => (name.includes("-") ? `['${name}']` : `.${name}`)
@@ -201,7 +204,7 @@ export const toVue = (component) => {
   const rename = new Map([
     ...props.flatMap(({ local, prop }) =>
       prop === "class"
-        ? [[local, "$props.class"]]
+        ? [[local, "$attrs.class"]]
         : prop === "style"
           ? [[local, "$attrs.style"]]
           : prop.includes("-")
@@ -217,33 +220,6 @@ export const toVue = (component) => {
     ({ fn, name }) => !fn && !getters.has(name),
   )
   const derivedNames = new Set(computedConsts.map(({ name }) => name))
-  const scriptRename = new Map([
-    ...rename,
-    ...(classInScript ? [[classProp.local, classProp.local]] : []),
-    ...(computedAttrs && restUsed ? [[rest, "attrs.value"]] : []),
-    ...(computedAttrs
-      ? attributeProps.map(({ local, prop }) => [
-          local,
-          `attrs.value['${prop}']`,
-        ])
-      : []),
-    ...computedConsts.map(({ name }) => [name, `${name}.value`]),
-    ...trimmedSlots.map(({ local, slot }) => [local, `slots${vueSlot(slot)}`]),
-    ...(modelRename?.script ?? []),
-  ])
-  const template = {
-    quote: "'",
-    rename,
-    ids: component.ids,
-    slotHas: (name) => `$slots${vueSlot(name)}`,
-    style: styleOption(component, "{}"),
-  }
-  const script = {
-    rename: scriptRename,
-    ids: component.ids,
-    slotHas: (name) => `slots${vueSlot(name)}`,
-    style: styleOption(component, "{}"),
-  }
   if (component.model?.refusal) throw component.model.refusal
   const { model } = component
   const kind = MODEL_KINDS[model?.kind]?.vue
@@ -291,6 +267,56 @@ export const toVue = (component) => {
     definedRoot ||
     componentRoot
   )
+  if (classInScript && !inheritsAttrs) {
+    throw unsupported(
+      "BC504",
+      component.file,
+      `\`${classProp.local}\` in the frontmatter of a component that passes its attributes to an inner element`,
+      "read it in the template",
+    )
+  }
+  const callerClass = (node, { code, reads: classReads }) => {
+    if (!classProp || !inheritsAttrs || !rootElements.includes(node)) {
+      return code
+    }
+    const { code: kept, dropped } = withoutClassEntry(code, classProp.local)
+    if (!dropped && classReads.names.has(classProp.local)) {
+      throw unsupported(
+        "BC504",
+        component.file,
+        `a class list on the root that reads \`${classProp.local}\` without ending in it`,
+        `end the list in \`${classProp.local}\``,
+      )
+    }
+    return kept
+  }
+  const scriptRename = new Map([
+    ...rename,
+    ...(classInScript ? [[classProp.local, "attrs.class"]] : []),
+    ...(!inheritsAttrs && restUsed ? [[rest, "attrs.value"]] : []),
+    ...(!inheritsAttrs
+      ? attributeProps.map(({ local, prop }) => [
+          local,
+          `attrs.value['${prop}']`,
+        ])
+      : []),
+    ...computedConsts.map(({ name }) => [name, `${name}.value`]),
+    ...trimmedSlots.map(({ local, slot }) => [local, `slots${vueSlot(slot)}`]),
+    ...(modelRename?.script ?? []),
+  ])
+  const template = {
+    quote: "'",
+    rename,
+    ids: component.ids,
+    slotHas: (name) => `$slots${vueSlot(name)}`,
+    style: styleOption(component, "{}"),
+  }
+  const script = {
+    rename: scriptRename,
+    ids: component.ids,
+    slotHas: (name) => `slots${vueSlot(name)}`,
+    style: styleOption(component, "{}"),
+  }
   const generic = kind?.generic?.(model) === true
   const { item } = component
   const forwarded = (component.baseProps ?? [])
@@ -311,9 +337,6 @@ export const toVue = (component) => {
     ).has("boolean")
   }
   const declared = [
-    ...(classInScript
-      ? [{ prop: "class", text: `class: ${classProp.local}` }]
-      : []),
     ...forwarded.map((key) => ({ prop: key, text: key })),
     ...props
       .filter(
@@ -357,7 +380,12 @@ export const toVue = (component) => {
   }
   const attribute = (node, item, scope) => {
     if (item.kind === "class") {
-      return `:class="${rewriteExpression(onlyClass(item.code) ?? item.code, scope)}"`
+      const code = callerClass(node, item)
+      if (code === undefined) return ""
+      const text = code === item.code ? undefined : staticClass(code)
+      return text === undefined
+        ? `:class="${rewriteExpression(onlyClass(code) ?? code, scope)}"`
+        : markupAttribute("class", text, false, '"')
     }
     if (item.kind === "spread") {
       if (item.code === rest && item.condition !== undefined) {
@@ -372,7 +400,7 @@ export const toVue = (component) => {
               : definedRoot
                 ? "attrs"
                 : componentRoot && node.component
-                  ? "$attrs"
+                  ? "attrs"
                   : undefined
             : "attrs"
         return [
@@ -605,8 +633,9 @@ export const toVue = (component) => {
               node.attributes.some(
                 (entry) => entry.kind === "spread" && entry.code === rest,
               ))) &&
+          !inheritsAttrs &&
           !node.attributes.some((entry) => entry.kind === "class")
-            ? [':class="$props.class"']
+            ? [':class="$attrs.class"']
             : []),
         ].flatMap((entry) => entry.match(ATTRIBUTE) ?? []),
         own,
@@ -816,7 +845,7 @@ export const toVue = (component) => {
   const statements = [
     ...(filteredAttrs
       ? [
-          `const restAttrs = computed(() => {\n  const { ${attributeProps.map(({ local, prop }) => `${JSON.stringify(prop)}: _${local}, `).join("")}...rest } = attrs\n  return rest\n})`,
+          `const restAttrs = computed(() => {\n  const { ${attributeProps.map(({ local, prop }) => `${JSON.stringify(prop)}: _${local}, `).join("")}...rest } = attrs.value\n  return rest\n})`,
         ]
       : []),
     ...(kind?.setup?.(model, generic) ?? []),
@@ -827,10 +856,10 @@ export const toVue = (component) => {
     ...(uid ? ["const uid = useId()"] : []),
     ...declarations.map(({ line }) => line),
     ...rowLists,
-    ...warnings.map(({ code }) => rewriteStatement(code, script)),
+    ...warnings.map(({ code }) => devOnly(rewriteStatement(code, script))),
     ...(item
       ? [
-          `watchEffect(() =>\n  ${groupWarning(component, item, kind?.warningChecked?.(item) ?? item.checked ?? "undefined", `${item.grouped}.value`)},\n)`,
+          `if (DEV) watchEffect(() =>\n  ${groupWarning(component, item, kind?.warningChecked?.(item) ?? item.checked ?? "undefined", `${item.grouped}.value`)},\n)`,
           kind?.ownModel
             ? `const target = computed({\n  get: () => (${item.parent}?.bound ? ${item.parent}.value : model.value),\n  set: (next) => {\n    if (${item.parent}?.bound) ${item.parent}.value = next as typeof ${item.parent}.value\n    else model.value = next as typeof model.value\n  },\n})`
             : `const target = computed({\n  get: () => ${item.parent}?.value,\n  set: (next) => {\n    if (${item.parent}) ${item.parent}.value = next\n  },\n})`,
@@ -843,7 +872,11 @@ export const toVue = (component) => {
       : []),
   ]
   const vueHelpers = [
-    ...(computedAttrs ? ["useInputAttrs"] : []),
+    ...(computedAttrs
+      ? ["useInputAttrs"]
+      : inheritsAttrs
+        ? []
+        : ["useRestAttrs"]),
     ...namesFrom(
       helpersCalled(
         withoutUnused(statements, markup, declarations).join("\n"),
@@ -854,7 +887,8 @@ export const toVue = (component) => {
     ...(hydrating.size ? ["vHydrated"] : []),
   ].toSorted(byName)
   const plainAttrs =
-    !computedAttrs && (allAttrs || explicitAttrs || restUsed || definedRoot)
+    inheritsAttrs &&
+    (allAttrs || explicitAttrs || restUsed || definedRoot || classInScript)
   const typedAttrs =
     plainAttrs &&
     !explicitAttrs &&
@@ -873,7 +907,7 @@ export const toVue = (component) => {
     ...(reads.length ? ["inject"] : []),
     ...(provide ? ["provide", "reactive"] : []),
     ...(explicitAttrs
-      ? ["type IntrinsicElementAttributes", "useAttrs"]
+      ? ["type IntrinsicElementAttributes"]
       : typedAttrs
         ? ["type HTMLAttributes", "useAttrs"]
         : plainAttrs
@@ -903,6 +937,7 @@ export const toVue = (component) => {
     }),
     ...[
       ...(usesDefined ? [["../attrs", "defined"]] : []),
+      ...(warnings.length || item ? [["../dev", "DEV"]] : []),
       ...(item ? [["../dev", "warnGroupedChecked"]] : []),
       ...(attributeHelpers.has("classAttrs") ? [["../cx", "classAttrs"]] : []),
       ...(attributeHelpers.has("styleAttrs")
@@ -929,13 +964,15 @@ export const toVue = (component) => {
       ? ["const attrs = useInputAttrs()"]
       : explicitAttrs
         ? [
-            `const attrs = useAttrs() as IntrinsicElementAttributes[${JSON.stringify(model.element.tag)}]`,
+            `const attrs = useRestAttrs<IntrinsicElementAttributes[${JSON.stringify(model.element.tag)}]>()`,
           ]
-        : typedAttrs
-          ? ["const attrs = useAttrs() as HTMLAttributes"]
-          : plainAttrs
-            ? ["const attrs = useAttrs()"]
-            : []),
+        : !inheritsAttrs
+          ? ["const attrs = useRestAttrs()"]
+          : typedAttrs
+            ? ["const attrs = useAttrs() as HTMLAttributes"]
+            : plainAttrs
+              ? ["const attrs = useAttrs()"]
+              : []),
     ...statements,
   ]
   const kept = withoutUnused(setup, markup, declarations)

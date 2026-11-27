@@ -16,12 +16,12 @@ import {
 </script>
 
 <template>
-  <div class="shopping-cart ui-layout-container ui-layout-column ui-large">
+  <div class="shopping-cart ui-layout-container ui-layout-column ui-gap-large">
     <hgroup class="ui-hgroup">
       <h1 class="ui-h3">Your gear cart</h1>
       <p>3 totally rad items, prices include VAT</p>
     </hgroup>
-    <div class="ui-layout-columns ui-large" style="--_columns: 2fr 1fr">
+    <div class="ui-layout-columns ui-gap-large" style="--_columns: 2fr 1fr">
       <Card aria-label="Cart items" as="section" variant="outlined">
         <ul class="ui-layout-column cart-items">
           <li class="cart-item">
@@ -31,7 +31,7 @@ import {
               style="--hue: 0"
               role="img"
             ></div>
-            <div class="ui-layout-column ui-x-small cart-info">
+            <div class="ui-layout-column ui-gap-x-small cart-info">
               <h2 class="ui-h6">
                 <a class="ui-link" href="#shopping-cart-gig-bag"
                   >Comfy Cloud Gig Bag</a
@@ -47,7 +47,7 @@ import {
                   size="small"
                 />
               </p>
-              <div class="ui-layout-row ui-x-small cart-links">
+              <div class="ui-layout-row ui-gap-x-small cart-links">
                 <Button size="x-small" type="button">Save for later</Button>
                 <Button color="critical" size="x-small" type="button"
                   >Remove</Button
@@ -97,7 +97,7 @@ import {
               style="--hue: 140"
               role="img"
             ></div>
-            <div class="ui-layout-column ui-x-small cart-info">
+            <div class="ui-layout-column ui-gap-x-small cart-info">
               <h2 class="ui-h6">
                 <a class="ui-link" href="#shopping-cart-strings"
                   >Flatwound string set</a
@@ -113,7 +113,7 @@ import {
                   size="small"
                 />
               </p>
-              <div class="ui-layout-row ui-x-small cart-links">
+              <div class="ui-layout-row ui-gap-x-small cart-links">
                 <Button size="x-small" type="button">Save for later</Button>
                 <Button color="critical" size="x-small" type="button"
                   >Remove</Button
@@ -158,7 +158,7 @@ import {
               style="--hue: -80"
               role="img"
             ></div>
-            <div class="ui-layout-column ui-x-small cart-info">
+            <div class="ui-layout-column ui-gap-x-small cart-info">
               <h2 class="ui-h6">
                 <a class="ui-link" href="#shopping-cart-tee"
                   >I'm with the bassist tee</a
@@ -174,7 +174,7 @@ import {
                   size="small"
                 />
               </p>
-              <div class="ui-layout-row ui-x-small cart-links">
+              <div class="ui-layout-row ui-gap-x-small cart-links">
                 <Button size="x-small" type="button">Save for later</Button>
                 <Button color="critical" size="x-small" type="button"
                   >Remove</Button
@@ -223,7 +223,7 @@ import {
           </h2>
         </hgroup>
         <CardContent>
-          <div class="ui-layout-column ui-small">
+          <div class="ui-layout-column ui-gap-small">
             <p id="shopping-cart-free-shipping">
               Woohoo, you've unlocked <strong>free delivery</strong>!
             </p>
@@ -246,9 +246,9 @@ import {
           </ControlGroup>
           <div>
             <Chip
-              aria-label="Remove code LOWEND10, −10%"
+              aria-label="Remove code BASS10, −10%"
               as="button"
-              label="LOWEND10, −10%"
+              label="BASS10, −10%"
               type="button"
               variant="outlined"
             >
@@ -269,7 +269,7 @@ import {
               </template>
             </Chip>
           </div>
-          <DescriptionList border="solid" orientation="horizontal">
+          <DescriptionList leader="solid" orientation="horizontal">
             <DescriptionListItem>
               <DescriptionListTerm>Subtotal</DescriptionListTerm>
               <DescriptionListDescription>€196.00</DescriptionListDescription>
@@ -315,14 +315,14 @@ import {
   }
 
   .cart-item {
-    column-gap: var(--ui-space-3);
+    column-gap: var(--ui-space-4);
     display: grid;
     grid-template-areas:
       "thumb info"
       "thumb buy";
     grid-template-columns: auto minmax(0, 1fr);
-    padding: var(--ui-space-3);
-    row-gap: var(--ui-space-3);
+    padding: var(--ui-space-4);
+    row-gap: var(--ui-space-4);
 
     @container (inline-size >= 40rem) {
       grid-template-areas: "thumb info buy";
@@ -354,7 +354,7 @@ import {
   .cart-buy {
     align-items: center;
     display: flex;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
     grid-area: buy;
     justify-content: space-between;
 
@@ -366,19 +366,19 @@ import {
   }
 
   .cart-line-price {
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
     text-align: end;
 
     s {
       display: block;
-      font-weight: var(--ui-font-weight-normal);
+      font-weight: var(--ui-font-weight-body);
     }
   }
 
   .cart-summary {
     .ui-content {
       display: grid;
-      gap: var(--ui-space-4);
+      gap: var(--ui-space-5);
     }
   }
 

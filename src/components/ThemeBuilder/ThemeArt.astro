@@ -5,7 +5,7 @@ const { style } = Astro.props
 ---
 
 <span aria-hidden="true" class="theme-art" data-art style={style}>
-  <span class="theme-art-canvas ui-palette">
+  <span class="theme-art-canvas ui-scope">
     <span class="theme-art-heading">Aa</span>
     <span class="theme-art-row">
       <span class="ui-button ui-primary ui-filled ui-x-small">Save</span>
@@ -31,9 +31,9 @@ const { style } = Astro.props
     box-shadow: var(--ui-shadow-surface);
     color: var(--ui-text);
     display: grid;
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     gap: var(--size-2);
-    line-height: var(--ui-line-height, 1.5);
+    line-height: var(--ui-line-height-compact, 1.5);
     overflow: hidden;
     padding: var(--size-2);
     pointer-events: none;
@@ -41,9 +41,9 @@ const { style } = Astro.props
 
   .theme-art-heading {
     color: var(--ui-text-strong);
-    font-family: var(--ui-font-heading, var(--ui-font-body));
+    font-family: var(--ui-font-family-heading, var(--ui-font-family-body));
     font-size: var(--font-size-3);
-    font-weight: var(--ui-font-weight-bold);
+    font-weight: var(--ui-font-weight-heading);
     letter-spacing: var(--ui-letter-spacing-heading, 0);
     line-height: 1;
   }

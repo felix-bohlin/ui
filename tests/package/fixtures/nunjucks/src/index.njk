@@ -1,0 +1,15 @@
+{% from "opui/index.njk" import Button, Field %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>opui-css</title>
+    <link rel="stylesheet" href="/opui.css" />
+  </head>
+  <body>
+    {% call Field({ for: "email", label: "Email" }) %}
+      <input id="email" type="email" />
+    {% endcall %}
+    {% call Button({ color: "primary", type: "submit", variant: "filled" }) %}Save{% endcall %}
+  </body>
+</html>

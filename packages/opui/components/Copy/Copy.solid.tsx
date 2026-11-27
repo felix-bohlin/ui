@@ -2,7 +2,7 @@
 import { omit, untrack } from "solid-js"
 import "../../elements/copy.js"
 import { defined } from "../attrs"
-import { warnMissingId } from "../dev"
+import { DEV, warnMissingId } from "../dev"
 import type { Props } from "./types.solid"
 
 export default function Copy(props: Props) {
@@ -14,9 +14,10 @@ export default function Copy(props: Props) {
     "id",
     "children",
   )
-  untrack(() => {
-    warnMissingId("Copy", props.id)
-  })
+  if (DEV)
+    untrack(() => {
+      warnMissingId("Copy", props.id)
+    })
 
   return (
     <opui-copy

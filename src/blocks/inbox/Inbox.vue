@@ -175,8 +175,8 @@ import {
       </nav>
       <main class="ui-layout-columns" style="--_columns: 20rem 1fr; --_gap: 0">
         <section aria-labelledby="inbox-heading" class="inbox-list">
-          <div class="ui-layout-row ui-small ui-spread inbox-list-header">
-            <div class="ui-layout-row ui-small">
+          <div class="ui-layout-row ui-gap-small ui-spread inbox-list-header">
+            <div class="ui-layout-row ui-gap-small">
               <Button
                 aria-label="Open folders"
                 class="inbox-menu-button"
@@ -210,13 +210,13 @@ import {
             >
               <template #start>
                 <Badge dot label="Unread"
-                  ><Avatar aria-label="Holly Humbucker" role="img"
-                    >HH</Avatar
+                  ><Avatar aria-label="Scott Humbucker" role="img"
+                    >SH</Avatar
                   ></Badge
                 >
               </template>
               <template #label>
-                <span>Holly Humbucker</span>
+                <span>Scott Humbucker</span>
                 <time class="ui-caption" datetime="2026-10-08T09:41"
                   >09:41</time
                 >
@@ -230,19 +230,21 @@ import {
             <ListItem class="inbox-unread" href="#inbox-message-2">
               <template #start>
                 <Badge dot label="Unread"
-                  ><Avatar aria-label="Ines Hertz" role="img">IH</Avatar></Badge
+                  ><Avatar aria-label="Mohini Hertz" role="img"
+                    >MH</Avatar
+                  ></Badge
                 >
               </template>
               <template #label>
-                <span>Ines Hertz</span>
+                <span>Mohini Hertz</span>
                 <time class="ui-caption" datetime="2026-10-08T08:12"
                   >08:12</time
                 >
               </template>
               <p class="inbox-subject">Jam night on Thursday</p>
               <p class="inbox-snippet">
-                Here's a rough plan for the evening. Tell me if we should swap
-                the slap battle…
+                Here's a rough plan for the evening. Davie504 wants a rematch
+                with Charles Berthoud in the slap battle, he says the last one…
               </p>
             </ListItem>
             <ListItem class="inbox-unread" href="#inbox-message-3">
@@ -267,10 +269,10 @@ import {
             </ListItem>
             <ListItem href="#inbox-message-4">
               <template #start>
-                <Avatar aria-label="Stella Nut" role="img">SN</Avatar>
+                <Avatar aria-label="Ellen Nut" role="img">EN</Avatar>
               </template>
               <template #label>
-                <span>Stella Nut</span>
+                <span>Ellen Nut</span>
                 <time class="ui-caption" datetime="2026-10-06T14:05">Mon</time>
               </template>
               <p class="inbox-subject">Re: Photos from band camp</p>
@@ -281,10 +283,10 @@ import {
             </ListItem>
             <ListItem href="#inbox-message-5">
               <template #start>
-                <Avatar aria-label="Percy Groove" role="img">PG</Avatar>
+                <Avatar aria-label="Adam Groove" role="img">AG</Avatar>
               </template>
               <template #label>
-                <span>Percy Groove</span>
+                <span>Adam Groove</span>
                 <time class="ui-caption" datetime="2026-10-03T11:20"
                   >3 Oct</time
                 >
@@ -299,12 +301,12 @@ import {
         </section>
         <article
           aria-labelledby="inbox-subject"
-          class="ui-layout-column ui-large inbox-reader"
+          class="ui-layout-column ui-gap-large inbox-reader"
         >
-          <div class="ui-layout-row ui-x-small ui-spread">
+          <div class="ui-layout-row ui-gap-x-small ui-spread">
             <div
               aria-label="Message actions"
-              class="ui-layout-row ui-x-small"
+              class="ui-layout-row ui-gap-x-small"
               role="group"
             >
               <Button aria-label="Archive" round size="small" type="button"
@@ -355,7 +357,7 @@ import {
                   ></path></svg
               ></Button>
             </div>
-            <div class="ui-layout-row ui-x-small">
+            <div class="ui-layout-row ui-gap-x-small">
               <Button size="small" type="button" variant="outlined"
                 ><svg
                   data-icon="reply"
@@ -388,11 +390,11 @@ import {
               ></Button>
             </div>
           </div>
-          <div class="ui-layout-column ui-small">
+          <div class="ui-layout-column ui-gap-small">
             <h2 class="ui-h4" id="inbox-subject">
               You're IN! Gig details inside
             </h2>
-            <div class="ui-layout-row ui-x-small">
+            <div class="ui-layout-row ui-gap-x-small">
               <Chip
                 as="span"
                 dot
@@ -405,22 +407,22 @@ import {
             </div>
           </div>
           <div class="ui-layout-row">
-            <Avatar aria-label="Holly Humbucker" role="img">HH</Avatar>
+            <Avatar aria-label="Scott Humbucker" role="img">SH</Avatar>
             <div class="inbox-sender-info">
               <p>
-                <strong>Holly Humbucker</strong>{{ " "
+                <strong>Scott Humbucker</strong>{{ " "
                 }}<span class="ui-caption"
-                  >holly@humbucker-booking.example</span
+                  >scott@humbucker-booking.example</span
                 >
               </p>
-              <p class="ui-caption">To you and Percy Groove</p>
+              <p class="ui-caption">To you and Adam Groove</p>
             </div>
             <time class="ui-caption" datetime="2026-10-08T09:41"
               >Wed 8 Oct, 09:41</time
             >
           </div>
           <div class="ui-layout-column inbox-body">
-            <p>Heyyy Rory,</p>
+            <p>Heyyy Josh,</p>
             <p>
               Totally awesome news, Brad and the Brads want a real bassist
               (you!). Attached is the setlist, plus the bass tabs we talked
@@ -433,9 +435,9 @@ import {
               <li>Merch money goes to merch@brads.example</li>
             </ul>
             <p>They promised to turn you UP this time! &lt;3</p>
-            <p>Holly</p>
+            <p>Scott</p>
           </div>
-          <div class="ui-layout-row ui-small">
+          <div class="ui-layout-row ui-gap-small">
             <Chip
               href="#inbox-attachment-setlist"
               label="Setlist-final-final.pdf, 1.2 MB"
@@ -479,8 +481,8 @@ import {
               </template>
             </Chip>
           </div>
-          <form action="#" class="ui-layout-column ui-small inbox-reply">
-            <Field for="inbox-inbox-reply" label="Reply to Holly">
+          <form action="#" class="ui-layout-column ui-gap-small inbox-reply">
+            <Field for="inbox-inbox-reply" label="Reply to Scott">
               <textarea
                 id="inbox-inbox-reply"
                 name="inbox-reply"
@@ -533,7 +535,7 @@ import {
   .inbox-folders {
     border-inline-end: var(--ui-border-width) solid var(--ui-border-color);
     display: none;
-    padding: var(--ui-space-3) var(--ui-space-2);
+    padding: var(--ui-space-4) var(--ui-space-2);
 
     @container (inline-size >= 72rem) {
       display: block;
@@ -546,7 +548,7 @@ import {
   }
 
   .inbox-label-heading {
-    padding: var(--ui-space-3) var(--ui-space-3) 0;
+    padding: var(--ui-space-4) var(--ui-space-4) 0;
   }
 
   .inbox-list {
@@ -559,7 +561,7 @@ import {
   }
 
   .inbox-list-header {
-    padding: var(--ui-space-3) var(--ui-space-3) var(--ui-space-1);
+    padding: var(--ui-space-4) var(--ui-space-4) var(--ui-space-1);
   }
 
   .inbox-messages {
@@ -592,15 +594,15 @@ import {
   .inbox-unread {
     .ui-text p:first-child span,
     .inbox-subject {
-      font-weight: var(--ui-font-weight-semibold);
+      font-weight: var(--ui-font-weight-label);
     }
   }
 
   .inbox-reader {
-    padding: var(--ui-space-4);
+    padding: var(--ui-space-5);
 
     @container (inline-size >= 56rem) {
-      padding: var(--ui-space-5);
+      padding: var(--ui-space-6);
     }
   }
 

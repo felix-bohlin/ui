@@ -44,11 +44,13 @@ tests/apps/*/.output/
 tests/apps/*/.output-readme/
 tests/apps/*/.svelte-kit/
 tests/apps/*/.svelte-kit-readme/
+tests/apps/*/_site/
 tests/apps/*/build/
 tests/apps/*/build-readme/
 tests/apps/*/dist-readme/
 tests/apps/*/next-env.d.ts
 tests/apps/*/public/photos/
+tests/apps/*/src/_includes/blocks/
 tests/apps/*/static/photos/
 tests/apps/*/tsconfig.tsbuildinfo
 
@@ -60,6 +62,7 @@ tests/reference/apps/*/.next/
 tests/reference/apps/*/.nuxt/
 tests/reference/apps/*/.output/
 tests/reference/apps/*/.svelte-kit/
+tests/reference/apps/*/_site/
 tests/reference/apps/*/build/
 tests/reference/apps/*/next-env.d.ts
 tests/reference/apps/*/public/photos/

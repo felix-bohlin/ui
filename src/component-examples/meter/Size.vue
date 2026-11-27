@@ -6,7 +6,7 @@ import { Meter } from "opui-css/vue"
   <Meter
     aria-label="Battery"
     max="100"
-    style="--_block-size: var(--ui-space-3)"
+    style="--_block-size: var(--ui-space-4)"
     value="80"
   />
 </template>

@@ -41,7 +41,7 @@ export default function Poll() {
           }
 
           & > meter {
-            --_accent: var(--ui-palette-tint);
+            --_accent: var(--ui-palette-tonal);
             --_bg-color: var(--ui-surface);
             --_block-size: 100%;
           }
@@ -50,9 +50,9 @@ export default function Poll() {
         .poll-label {
           display: flex;
           font-variant-numeric: tabular-nums;
-          gap: var(--ui-space-3);
+          gap: var(--ui-space-4);
           justify-content: space-between;
-          padding: var(--ui-space-2) var(--ui-space-3);
+          padding: var(--ui-space-2) var(--ui-space-4);
           position: relative;
         }
       `}</style>

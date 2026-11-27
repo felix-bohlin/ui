@@ -1,6 +1,6 @@
 @layer utils {
   :where(.ui-layout-column) {
-    --_gap: var(--ui-space-3);
+    --_gap: var(--ui-space-4);
 
     display: flex;
     flex-direction: column;
@@ -18,7 +18,7 @@
   }
 
   :where(.ui-layout-row) {
-    --_gap: var(--ui-space-3);
+    --_gap: var(--ui-space-4);
     --_justify-content: flex-start;
 
     align-items: center;
@@ -42,7 +42,7 @@
 
   :where(.ui-layout-grid) {
     --_auto-repeat: auto-fill;
-    --_gap: var(--ui-space-3);
+    --_gap: var(--ui-space-4);
     --_max-columns: infinity;
     --_min-inline-size: 16rem;
 
@@ -70,8 +70,8 @@
 
   :where(.ui-layout-columns) {
     --_columns: 1fr 1fr;
-    --_gap: var(--ui-space-3);
-    --_sticky-inset: var(--ui-space-4);
+    --_gap: var(--ui-space-4);
+    --_sticky-inset: var(--ui-space-5);
 
     display: grid;
     gap: var(--_gap);
@@ -120,7 +120,7 @@
   }
 
   :where(.ui-layout-media) {
-    --_gap: var(--ui-space-3);
+    --_gap: var(--ui-space-4);
 
     align-items: center;
     display: flex;
@@ -148,16 +148,16 @@
     .ui-layout-columns,
     .ui-layout-media
   ) {
-    &.ui-x-small {
+    &.ui-gap-x-small {
       --_gap: var(--ui-space-1);
     }
 
-    &.ui-small {
+    &.ui-gap-small {
       --_gap: var(--ui-space-2);
     }
 
-    &.ui-large {
-      --_gap: var(--ui-space-5);
+    &.ui-gap-large {
+      --_gap: var(--ui-space-6);
     }
   }
 
@@ -182,7 +182,7 @@
 
   :where(.ui-layout-container) {
     --_max-inline-size: 72rem;
-    --_padding-inline: var(--ui-space-4);
+    --_padding-inline: var(--ui-space-5);
 
     container-type: inline-size;
     inline-size: 100%;

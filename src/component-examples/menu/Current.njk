@@ -1,0 +1,17 @@
+{% from "opui/index.njk" import Button, Menu %}
+
+{% call Button({
+  command: "toggle-popover",
+  commandfor: "menu-current-1",
+  variant: "outlined"
+}) %}
+  Language
+{% endcall %}
+{{ Menu({
+  id: "menu-current-1",
+  items: [
+    { "aria-current": "true", label: "English", lang: "en" },
+    { label: "Svenska", lang: "sv" },
+    { label: "Deutsch", lang: "de" }
+  ]
+}) }}

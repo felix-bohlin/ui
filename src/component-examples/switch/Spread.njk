@@ -1,0 +1,46 @@
+{% from "opui/index.njk" import Switch %}
+
+{% call Switch({
+  name: "switch-spread",
+  slots: { endText: "Receive alerts when someone mentions you." },
+  spread: true,
+  value: "notifications"
+}) %}
+  Notifications
+  
+{% endcall %}
+
+{% call Switch({
+  name: "switch-spread",
+  required: true,
+  slots: { endText: "Your organization requires it for admins." },
+  spread: true,
+  value: "two-step-login"
+}) %}
+  Two-step login
+  
+{% endcall %}
+
+{% call Switch({
+  disabled: true,
+  name: "switch-spread",
+  slots: { endText: "Turned off by your administrator." },
+  spread: true,
+  value: "location"
+}) %}
+  Location access
+  
+{% endcall %}
+
+{% call Switch({
+  error: true,
+  name: "switch-spread",
+  slots: {
+    endText: "Sync needs cloud backup. Turn it on to continue."
+  },
+  spread: true,
+  value: "backup"
+}) %}
+  Cloud backup
+  
+{% endcall %}

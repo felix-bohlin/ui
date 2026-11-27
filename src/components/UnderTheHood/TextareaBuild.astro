@@ -50,9 +50,9 @@ const steps = [
   </span>
 </div>`,
     notes: [
-      "Same wrapper and box as every Field",
+      "Same box as every Field",
       "<code>rows</code> fixes the height, the content scrolls",
-      "A 1px border color change alone is too weak a focus cue, so <code>:has(:focus-visible)</code> also draws the focus ring around the box",
+      "<code>:has(:focus-visible)</code> adds a ring, since a border color change alone is too weak",
     ],
     title: "Field",
   },
@@ -65,8 +65,8 @@ const steps = [
     features: ["field-sizing"],
     notes: [
       "<code>field-sizing: content</code> sizes the box to its text",
-      "Type a few lines: it grows, delete them: it shrinks",
-      "No resize observer, no JavaScript",
+      "Type and delete a few lines",
+      "No JavaScript",
     ],
     title: "Grow",
   },
@@ -80,8 +80,8 @@ const steps = [
     features: ["lh"],
     notes: [
       "<code>lh</code> is one line of the textarea's own text",
-      "At least three lines plus padding, so an empty field still looks like a textarea",
-      "<code>--_max-block-size</code> changes the 20 line cap, as in the library. Past it, the text scrolls",
+      "The minimum keeps an empty field looking like a textarea",
+      "<code>--_max-block-size</code> sets the cap, as in the library, then it scrolls",
     ],
     title: "Limits",
   },
@@ -98,7 +98,7 @@ const steps = [
 }`,
     notes: [
       "Without a fixed width, <code>field-sizing</code> grows sideways too",
-      "<code>min-inline-size: 25ch</code> keeps short text from collapsing the box",
+      "<code>min-inline-size</code> stops short text collapsing the box",
       "<code>resize: both</code> once the width is free",
     ],
     title: "Auto-fit",
@@ -156,7 +156,7 @@ const notes = [
 <style>
   .stack {
     display: grid;
-    gap: var(--ui-space-4);
+    gap: var(--ui-space-5);
     inline-size: min(100%, 22rem);
   }
 </style>

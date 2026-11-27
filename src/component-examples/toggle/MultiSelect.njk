@@ -1,0 +1,11 @@
+{% from "opui/index.njk" import ToggleButton, ToggleGroup %}
+
+{% call ToggleGroup({
+  "aria-label": "Text style",
+  multiple: true,
+  name: "text-style"
+}) %}
+  {% call ToggleButton({ "aria-label": "Bold", value: "bold" }) %}<strong>B</strong>{% endcall %}
+  {% call ToggleButton({ "aria-label": "Italic", value: "italic" }) %}<i>I</i>{% endcall %}
+  {% call ToggleButton({ "aria-label": "Underline", value: "underline" }) %}<u>U</u>{% endcall %}
+{% endcall %}

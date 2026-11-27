@@ -12,7 +12,7 @@ import {
 
 <template>
   <Table density="spacious">
-    <TableCaption>Low End Theory members</TableCaption>
+    <TableCaption>Bassists Anonymous members</TableCaption>
     <TableHead>
       <TableRow>
         <TableHeaderCell>Name</TableHeaderCell>
@@ -22,17 +22,17 @@ import {
     </TableHead>
     <TableBody>
       <TableRow>
-        <TableCell>Lou Headstock</TableCell>
+        <TableCell>Kinga Headstock</TableCell>
         <TableCell>Flatwound collector</TableCell>
         <TableCell>Göteborg</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>Percy Groove</TableCell>
+        <TableCell>Adam Groove</TableCell>
         <TableCell>Slap enthusiast</TableCell>
         <TableCell>Lisbon</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>Ines Hertz</TableCell>
+        <TableCell>Mohini Hertz</TableCell>
         <TableCell>Low B whisperer</TableCell>
         <TableCell>Berlin</TableCell>
       </TableRow>

@@ -7,7 +7,7 @@ export default function Semantics() {
         <hgroup>
           <p>Gear Talk</p>
           <h3>How I cut my pedalboard in half</h3>
-          <p>Lou Headstock, 12 March</p>
+          <p>Kinga Headstock, 12 March</p>
         </hgroup>
         <Chip label="5 min read" size="small" />
       </CardHeader>

@@ -55,7 +55,7 @@ export default {
   },
   "--_item-padding-inline": {
     description:
-      "Horizontal padding of items, headings and options. `--ui-list-item-padding-inline`, or `--ui-space-3` when a theme leaves it unset.",
+      "Horizontal padding of items, headings and options. `--ui-list-item-padding-inline`, or `--ui-space-4` when a theme leaves it unset.",
     kind: "input",
   },
   "--_motion": {
@@ -85,7 +85,7 @@ export default {
   },
   "--_selected-indicator-size": {
     description:
-      "Width of the bar on selected and current items. Defaults to `--ui-border-width-thick`.",
+      "Width of the bar on selected and current items. Defaults to `--ui-border-width-large`.",
     kind: "input",
   },
   "--_selected-shadow": {

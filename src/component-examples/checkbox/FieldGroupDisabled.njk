@@ -1,0 +1,18 @@
+{% from "opui/index.njk" import
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form
+%}
+
+{% call Form() %}
+  {% call Fieldset({ disabled: true }) %}
+    {% call FieldLegend() %}Newsletter topics{% endcall %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
+      {% call Checkbox({ checked: true, name: "checkbox-group-disabled" }) %}Bassbook news{% endcall %}
+      {% call Checkbox({ name: "checkbox-group-disabled" }) %}Events{% endcall %}
+      {% call Checkbox({ name: "checkbox-group-disabled" }) %}Gear deals{% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

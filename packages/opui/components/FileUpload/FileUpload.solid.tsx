@@ -51,7 +51,7 @@ export default function FileUpload(props: Props) {
               class="ui-sr-only"
               disabled={props.disabled}
               id={inputId()}
-              multiple={props.multiple}
+              multiple={props.multiple || undefined}
               type="file"
             />
             <span class="ui-button ui-outlined">{props.label}</span>
@@ -78,7 +78,9 @@ export default function FileUpload(props: Props) {
                     ? (item().progress ?? 0)
                     : undefined
                 return (
-                  <li class={cx([{ "ui-error": item().state === "error" }])}>
+                  <li
+                    class={cx([{ "ui-state-error": item().state === "error" }])}
+                  >
                     <div class="ui-start">
                       {item().preview && <img alt="" src={item().preview} />}
                       {item().state === "error" && item().description && (

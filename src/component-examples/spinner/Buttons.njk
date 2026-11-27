@@ -1,0 +1,19 @@
+{% from "opui/index.njk" import Button %}
+
+<div class="example-row">
+  {% call Button({ "aria-busy": "true", variant: "filled" }) %}Save{% endcall %}
+  {% call Button({ "aria-busy": "true", disabled: true, variant: "outlined" }) %} Upload {% endcall %}
+  {% call Button({ "aria-busy": "true" }) %}Send{% endcall %}
+</div>
+
+<div class="example-row">
+  {% call Button({ "aria-busy": "true", variant: "filled" }) %}
+    <span class="ui-sr-only">Save</span>
+  {% endcall %}
+  {% call Button({ "aria-busy": "true", disabled: true, variant: "outlined" }) %}
+    <span class="ui-sr-only">Upload</span>
+  {% endcall %}
+  {% call Button({ "aria-busy": "true" }) %}
+    <span class="ui-sr-only">Send</span>
+  {% endcall %}
+</div>

@@ -3,11 +3,7 @@ import { registerHooks } from "node:module"
 import path from "node:path"
 import { fileURLToPath, pathToFileURL } from "node:url"
 
-import {
-  componentHasFramework,
-  exampleExtension,
-  FRAMEWORKS,
-} from "../src/utils/framework.js"
+import { exampleExtension, FRAMEWORKS } from "../src/utils/framework.js"
 import { barrelExports } from "../src/utils/package-source.js"
 import { loadCatalog } from "./catalog.mjs"
 
@@ -20,7 +16,6 @@ const DOCS = path.resolve(ROOT, "src/docs/components")
 const EXAMPLES = path.resolve(ROOT, "src/component-examples")
 const STYLESHEETS = path.resolve(ROOT, "packages/opui/css/components")
 const TOKENS = path.resolve(ROOT, "packages/opui/tokens.json")
-const FIGMA_THEMES = path.resolve(ROOT, "packages/opui/figma/themes")
 
 process.chdir(ROOT)
 
@@ -72,6 +67,7 @@ const COMPONENT_FRAMEWORKS = FRAMEWORKS.filter((f) => f.id !== "html")
 const LANGUAGES = {
   astro: "astro",
   html: "html",
+  nunjucks: "njk",
   react: "tsx",
   solid: "tsx",
   svelte: "svelte",
@@ -423,6 +419,11 @@ function slotLine(api, framework) {
     const names = slotNamesOf(api).map(slotProp).toSorted()
     return [`- ${prefix} slot ${kind}: ${list(names.map(code))}.`]
   }
+  if (framework === "nunjucks") {
+    return [
+      `- ${prefix} named slots: ${list(named.map((name) => code(`slots.${slotProp(name)}`)))}. Pass a string, or markup captured with \`{% set %}\`.`,
+    ]
+  }
   const fill =
     framework === "astro"
       ? `\`slot="${named[0]}"\` on a child`
@@ -477,7 +478,12 @@ function exportsOf(framework) {
   return new Set(
     barrelExports(
       fs.readFileSync(
-        path.resolve(ROOT, "packages/opui", framework, "index.ts"),
+        path.resolve(
+          ROOT,
+          "packages/opui",
+          framework === "nunjucks" ? "astro" : framework,
+          "index.ts",
+        ),
         "utf-8",
       ),
     ).map(({ name }) => name),
@@ -504,7 +510,9 @@ function frameworkSection(framework, apis, slug, examples, baseApis) {
     )
   } else {
     lines.push(
-      `\`import { ${names.join(", ")} } from "opui-css/${framework}"\``,
+      framework === "nunjucks"
+        ? `\`{% from "opui/index.njk" import ${names.join(", ")} %}\``
+        : `\`import { ${names.join(", ")} } from "opui-css/${framework}"\``,
     )
     const clients =
       framework === "react"
@@ -614,11 +622,25 @@ const stripSections = (markdown) =>
     .join("")
     .trimEnd()
 
+const exampleImports = (slug) => {
+  const dir = path.join(EXAMPLES, slug)
+  const files = fs.existsSync(dir)
+    ? fs.readdirSync(dir).filter((file) => file.endsWith(".astro"))
+    : []
+  return new Set(
+    files.flatMap((file) =>
+      [
+        ...fs
+          .readFileSync(path.join(dir, file), "utf-8")
+          .matchAll(/import\s*\{([^}]*)\}\s*from\s*"opui-css\/astro"/g),
+      ].flatMap(([, names]) => names.split(",").map((name) => name.trim())),
+    ),
+  )
+}
+
 async function componentReference(component, apis, docs) {
   const { slug } = component
-  const pageFrameworks = FRAMEWORKS.filter((f) =>
-    componentHasFramework(f.id, slug),
-  )
+  const pageFrameworks = FRAMEWORKS
   const frameworkIds = pageFrameworks.map((f) => f.id)
   const own = apis.filter((entry) => entry.page === slug)
   const order = (entry) => {
@@ -672,7 +694,12 @@ async function componentReference(component, apis, docs) {
             ordered,
             slug,
             docs.examples,
-            apis.filter((entry) => docs.base && entry.page === docs.base),
+            apis.filter(
+              (entry) =>
+                docs.base &&
+                entry.page === docs.base &&
+                exampleImports(slug).has(entry.api.component),
+            ),
           ),
     ),
   ]
@@ -727,7 +754,7 @@ async function gettingStarted() {
   return `${compact(
     [
       "# Getting started",
-      "Every framework needs the CSS. The HTML section covers the CDN file, the npm imports and the files to copy. The Astro, React, Solid, Svelte and Vue sections add their install, CSS import and component import steps.",
+      "Every framework needs the CSS. The HTML section covers the CDN file, the npm imports and the files to copy. The Astro, Nunjucks, React, Solid, Svelte and Vue sections add their install, CSS and component import steps.",
       ...sections,
     ].join("\n\n"),
   )}\n`
@@ -797,7 +824,7 @@ async function buildSkill() {
     "",
     "Guides: `getting-started.md` (setup, with a section per framework), `theming.md` (colors, scopes, density, spacing, corners, fonts, elevation, motion and contrast) and `customizing.md` (the `theme.custom` layer and component properties).",
     "",
-    "Each component reference covers HTML, Astro, React, Solid, Svelte and Vue: the parts, props, classes, slots and notes they share, the component properties and theme tokens, then a section per framework with its import line, slots, hydration and an example.",
+    "Each component reference covers HTML, Astro, Nunjucks, React, Solid, Svelte and Vue: the parts, props, classes, slots and notes they share, the component properties and theme tokens, then a section per framework with its import line, slots, hydration and an example.",
     "",
     "| Component | File | Description |",
     "| --- | --- | --- |",
@@ -816,16 +843,6 @@ async function buildSkill() {
 
   fs.writeFileSync(path.join(REFERENCES, "index.md"), index)
   fs.copyFileSync(path.join(DIST, "tokens.json"), TOKENS)
-  fs.rmSync(FIGMA_THEMES, { force: true, recursive: true })
-  fs.cpSync(
-    path.join(DIST, "figma/default"),
-    path.join(FIGMA_THEMES, "default"),
-    { recursive: true },
-  )
-  fs.copyFileSync(
-    path.join(DIST, "figma/default.figma.json"),
-    path.join(FIGMA_THEMES, "default.figma.json"),
-  )
   console.log(
     `Wrote ${components.length} component references and ${GUIDES.length + 1} guides to ${REFERENCES}`,
   )

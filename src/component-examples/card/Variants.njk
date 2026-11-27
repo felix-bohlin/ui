@@ -1,0 +1,21 @@
+{% from "opui/index.njk" import Card, CardContent %}
+
+{% call Card() %}
+  {% call CardContent() %}Plain{% endcall %}
+{% endcall %}
+
+{% call Card({ variant: "elevated" }) %}
+  {% call CardContent() %}Elevated{% endcall %}
+{% endcall %}
+
+{% call Card({ variant: "outlined" }) %}
+  {% call CardContent() %}Outlined{% endcall %}
+{% endcall %}
+
+{% call Card({ variant: "tonal" }) %}
+  {% call CardContent() %}Tonal{% endcall %}
+{% endcall %}
+
+{% call Card({ variant: "transparent" }) %}
+  {% call CardContent() %}Transparent{% endcall %}
+{% endcall %}

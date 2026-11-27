@@ -1,0 +1,16 @@
+{% from "opui/index.njk" import Stepper %}
+{% set items = [
+  { href: "#", label: "Varukorg" },
+  { href: "#", label: "Leverans", state: "error" },
+  { href: "#", label: "Betalning" },
+  { href: "#", label: "Granska" }
+] %}
+
+{{ Stepper({
+  "aria-label": "Kassans steg",
+  completeLabel: ", klar",
+  current: 2,
+  errorLabel: ", fel",
+  items: items,
+  lang: "sv"
+}) }}

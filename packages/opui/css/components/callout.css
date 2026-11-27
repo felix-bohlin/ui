@@ -5,7 +5,7 @@
     --_border-color: var(--ui-border-color-raised, var(--ui-surface-tonal));
     --_content-gap: var(--ui-space-2);
     --_font-size: var(--ui-font-size-small);
-    --_gap: var(--ui-space-3);
+    --_gap: var(--ui-space-4);
     --_icon-size: var(--ui-icon-size);
     --_icon-text-color: currentColor;
     --_link-duration: calc(var(--ui-duration) * var(--_motion));
@@ -15,13 +15,13 @@
     --_outlined-border-color: var(--ui-border-color);
     --_outlined-icon-text-color: currentColor;
     --_outlined-text-color: var(--ui-text-strong);
-    --_padding: var(--ui-space-3);
+    --_padding: var(--ui-space-4);
     --_radius: var(--ui-radius);
     --_shadow: var(--ui-shadow-surface);
     --_surface-bg-color: var(--ui-surface);
     --_text-color: var(--ui-text-strong);
     --_title-font-size: var(--ui-font-size-body);
-    --ui-divider-gap: var(--ui-space-3);
+    --ui-divider-gap: var(--ui-space-4);
 
     background-color: var(--_surface-bg-color);
     border: var(--ui-border-width) solid var(--_border-color);
@@ -36,24 +36,12 @@
       break-inside: avoid;
     }
 
-    &:not(
-      .ui-critical,
-      .ui-info,
-      .ui-neutral,
-      .ui-outlined,
-      .ui-success,
-      .ui-warning
-    ) {
-      --ui-border-color: var(--ui-border-color-on-raised);
-      --ui-field-border-color: var(--ui-field-border-color-on-raised);
-    }
-
     &.ui-critical,
     &.ui-info,
     &.ui-neutral,
     &.ui-success,
     &.ui-warning {
-      --_bg-color: var(--ui-palette-tint-subtle);
+      --_bg-color: var(--ui-palette-tonal-subtle);
       --_border-color: var(--ui-palette-border);
       --_icon-text-color: var(--ui-palette-accent);
       --_outlined-border-color: var(--ui-palette-accent);
@@ -111,7 +99,7 @@
       h6 {
         color: inherit;
         font-size: var(--_title-font-size);
-        font-weight: var(--ui-font-weight-semibold);
+        font-weight: var(--ui-font-weight-label);
 
         * {
           font-size: inherit;

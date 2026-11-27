@@ -1,0 +1,9 @@
+{% from "opui/index.njk" import Button, Tooltip, TooltipContent %}
+
+{% call Tooltip({ id: "tooltip-basics-1" }) %}
+  {% call Button({
+    "aria-describedby": "tooltip-basics-1",
+    interestfor: "tooltip-basics-1"
+  }) %}Save{% endcall %}
+  {% call TooltipContent() %}Save your changes{% endcall %}
+{% endcall %}

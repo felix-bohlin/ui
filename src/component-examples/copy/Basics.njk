@@ -1,0 +1,20 @@
+{% from "opui/index.njk" import Button, Copy, Field %}
+
+{% call Copy({ id: "copy-basics-1" }) %}
+  {% call Field({ for: "copy-basics-2", hideLabel: true, label: "Invite link" }) %}
+    <input
+      id="copy-basics-2"
+      readonly
+      value="https://example.com/invite/8f3k2"
+    />
+  {% endcall %}
+{% endcall %}
+{% call Button({
+  command: "--copy",
+  commandfor: "copy-basics-1",
+  variant: "outlined"
+}) %}Copy{% endcall %}
+
+<script type="module">
+  import "opui-css/elements/copy.js"
+</script>

@@ -5,7 +5,7 @@ export type FileUploadItem = {
   label: string
   preview?: string
   progress?: number
-  state: "done" | "error" | "queued" | "uploading"
+  state: "complete" | "error" | "queued" | "uploading"
   value: string
 }
 

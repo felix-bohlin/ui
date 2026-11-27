@@ -45,6 +45,7 @@ import {
   checkTypesImport,
   checkVariableTagClassList,
   checkVueAttrs,
+  vueClassOrder,
   withoutBoundBranches,
 } from "../../scripts/check-components.mjs"
 import { colorProblems } from "../../scripts/check-colors.mjs"
@@ -882,6 +883,18 @@ describe("check-components", () => {
     expect(checkClassOrder([['"ui-badge"', "className"]], "cx")).toEqual([])
   })
 
+  test("Vue's class order leaves out the caller's class and one-class lists, and still sees a swap", () => {
+    expect(
+      vueClassOrder("ui-card ui-${variant} className\nui-content className"),
+    ).toBe("ui-card ui-${variant}")
+    expect(vueClassOrder("ui-card ui-${variant}")).toBe(
+      vueClassOrder("ui-card ui-${variant} className"),
+    )
+    expect(vueClassOrder("ui-${variant} ui-card")).not.toBe(
+      vueClassOrder("ui-card ui-${variant} className"),
+    )
+  })
+
   test("a Vue control's bound branch is left out of the class lists", () => {
     const pair =
       '<input v-if="bound" :class="[\'ui-input\']" v-model="modelValue" />\n<input v-else :class="[\'ui-input\']" />'
@@ -1648,6 +1661,19 @@ describe("generate-search-index", () => {
     ).toEqual([
       "Search entries that share an id: Guide",
       "Search entries whose path doesn't end in a slash: guide-sizes",
+    ])
+  })
+
+  test("reports an entry whose headings hold an expression the index can't read", () => {
+    expect(
+      indexProblems([
+        ...["API", "Blocks", "Blog", "Component", "Guide"].map((id) =>
+          entry(id),
+        ),
+        { ...entry("Blog", "blog-release"), headings: "{count} themes" },
+      ]),
+    ).toEqual([
+      "Search entries whose title or headings hold an expression the index reads as source, so write those headings as text: blog-release",
     ])
   })
 

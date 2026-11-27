@@ -1,0 +1,26 @@
+{% from "opui/index.njk" import Callout, CalloutContent, CalloutIcon %}
+
+{% call Callout({
+  closeButton: true,
+  closeLabel: "Dismiss",
+  id: "callout-dismissible-1",
+  severity: "info"
+}) %}
+  {{ CalloutIcon() }}
+  {% call CalloutContent() %}
+    The new tab editor is on for everyone. Your drafts from the old one are in
+    Settings.
+  {% endcall %}
+{% endcall %}
+
+<script type="module">
+  import "opui-css/elements/callout.js"
+</script>
+
+<script type="module">
+  document
+    .querySelector("#callout-dismissible-1")
+    ?.addEventListener("dismiss", (event) => {
+      if (!confirm("Hide this message?")) event.preventDefault()
+    })
+</script>

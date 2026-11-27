@@ -3,7 +3,7 @@ import "../../elements/close-on-navigate.js"
 import "../../elements/menu.js"
 import { computed, inject, provide, reactive } from "vue"
 import { MenuKey } from "./context.vue"
-import { warnMissingId } from "../dev"
+import { DEV, warnMissingId } from "../dev"
 import { disabledLink, tagAttrs } from "../tag"
 import { defined } from "../attrs"
 import { classAttrs } from "../cx"
@@ -51,7 +51,7 @@ const rows = computed(() =>
   }),
 )
 
-warnMissingId("Menu", id)
+if (DEV) warnMissingId("Menu", id)
 
 provide(MenuKey, reactive({ rootId }))
 </script>
@@ -67,7 +67,6 @@ provide(MenuKey, reactive({ rootId }))
       },
       orientation && orientation !== 'vertical' && `ui-${orientation}`,
       side && side !== 'block-end' && `ui-${side}`,
-      $props.class,
     ]"
     :id="id"
     :popover="popover === 'auto' ? '' : popover"

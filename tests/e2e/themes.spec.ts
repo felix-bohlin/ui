@@ -79,7 +79,11 @@ for (const theme of THEMES) {
         await expect
           .soft(preview)
           .toHaveScreenshot(`themes/${theme}/${component}.png`, {
-            mask: [preview.locator("img"), preview.locator("video")],
+            mask: [
+              preview.locator("iframe"),
+              preview.locator("img"),
+              preview.locator("video"),
+            ],
           })
       }
 
@@ -90,7 +94,11 @@ for (const theme of THEMES) {
         await expect
           .soft(example)
           .toHaveScreenshot(`themes/${theme}/${component}/${name}.png`, {
-            mask: [example.locator("img"), example.locator("video")],
+            mask: [
+              example.locator("iframe"),
+              example.locator("img"),
+              example.locator("video"),
+            ],
           })
       }
     })
@@ -102,6 +110,12 @@ const RECOLORED: Record<string, string[]> = {
   brutalist: ["--ui-primary", "--ui-surface", "--ui-surface-tonal"],
   govuk: ["--ui-primary", "--ui-primary-text", "--ui-surface-filled"],
   m3: ["--ui-border-color", "--ui-primary", "--ui-surface", "--ui-text"],
+  "vice-city": [
+    "--ui-border-color",
+    "--ui-primary",
+    "--ui-surface",
+    "--ui-surface-tonal",
+  ],
 }
 const NEUTRAL: Record<string, string> = {
   shadcn: "a black or white primary and gray surfaces, on purpose",
@@ -115,13 +129,13 @@ test("every theme says which tokens follow --ui-palette-source", () => {
 })
 
 for (const [theme, tokens] of Object.entries(RECOLORED)) {
-  test(`the ${theme} theme follows --ui-palette-source in a .ui-palette scope`, async ({
+  test(`the ${theme} theme follows --ui-palette-source in a .ui-scope scope`, async ({
     page,
   }) => {
     await openFixture(page, "html", STRESS_TESTS[0]!, `?theme=${theme}`)
     const colors = await page.evaluate((names) => {
       const scope = document.createElement("div")
-      scope.className = "ui-palette"
+      scope.className = "ui-scope"
       scope.style.setProperty("--ui-palette-source", "oklch(0.6 0.15 30)")
       document.body.append(scope)
       const resolve = (host: Element, name: string) => {

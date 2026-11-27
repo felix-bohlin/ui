@@ -12,7 +12,7 @@ import {
 export default function Empty() {
   return (
     <Table>
-      <TableCaption>Low End Theory members in Reykjavík</TableCaption>
+      <TableCaption>Bassists Anonymous members in Reykjavík</TableCaption>
       <TableHead>
         <TableRow>
           <TableHeaderCell>Name</TableHeaderCell>
@@ -23,7 +23,7 @@ export default function Empty() {
       <TableBody>
         <TableRow>
           <TableCell colSpan={3}>
-            <div className="ui-align-center ui-layout-column ui-small">
+            <div className="ui-align-center ui-layout-column ui-gap-small">
               <p>No members in Reykjavík yet, bummer.</p>
               <Button size="small" variant="outlined">
                 Show all cities

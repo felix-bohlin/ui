@@ -1,0 +1,5 @@
+{% from "opui/index.njk" import Field %}
+
+{% call Field({ autoFit: true, for: "field-auto-fit-1", label: "Project name" }) %}
+  <input id="field-auto-fit-1" placeholder="my-project" />
+{% endcall %}

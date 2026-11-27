@@ -1,5 +1,5 @@
 ---
-import { readFileSync } from "node:fs"
+import { readdirSync, readFileSync } from "node:fs"
 import TechniquePost from "../../layouts/TechniquePost.astro"
 import { Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
 import DocLink from "../../components/DocLink.astro"
@@ -19,14 +19,69 @@ import TitleCard from "../../components/Release/TitleCard.astro"
 import TokenTiers from "../../components/TokenTiers.astro"
 import ButtonBuild from "../../components/UnderTheHood/ButtonBuild.astro"
 import { allBlocks, blockGroups } from "../../utils/blocks"
-import { addedComponents } from "../../utils/changelog-file"
+import { addedComponents, changelogSections } from "../../utils/changelog-file"
+import { capitalized, inWords, listOf } from "../../utils/count-words"
+import { EXAMPLE_THEMES } from "../../utils/example-themes"
+import {
+  EXAMPLE_EXTENSIONS,
+  FRAMEWORKS,
+  PACKAGE_FRAMEWORK_IDS,
+} from "../../utils/framework"
 import { releaseVersion } from "../../utils/release"
+import { parseRenames } from "../../utils/renames"
+import { MAX_SNAPSHOTS } from "../../utils/theme-snapshots"
 import { parseTodo } from "../../utils/todo"
 
-const newComponents = addedComponents(
-  readFileSync("packages/opui/CHANGELOG.md", "utf8"),
-  releaseVersion,
+const changelog = readFileSync("packages/opui/CHANGELOG.md", "utf8")
+const newComponents = addedComponents(changelog, releaseVersion)
+const breaking =
+  changelogSections(changelog, releaseVersion).find(
+    (section) => section.title === "Breaking",
+  )?.entries.length ?? 0
+const { renames } = parseRenames(
+  readFileSync("packages/opui/MIGRATING.md", "utf8"),
 )
+
+const labelOf = (id: string) =>
+  FRAMEWORKS.find((framework) => framework.id === id)?.label ?? id
+const EARLIER_FRAMEWORKS = new Set(["astro", "html", "vue"])
+const newFrameworks = listOf(
+  FRAMEWORKS.filter((framework) => !EARLIER_FRAMEWORKS.has(framework.id)).map(
+    (framework) => framework.label,
+  ),
+)
+const compiled = PACKAGE_FRAMEWORK_IDS.filter((id) => id !== "astro").map(
+  labelOf,
+)
+const frameworkCount = inWords(PACKAGE_FRAMEWORK_IDS.length)
+const themeCount = inWords(EXAMPLE_THEMES.length)
+
+const componentFiles = readdirSync("packages/opui/components", {
+  recursive: true,
+}).map(String)
+const bindingLines = PACKAGE_FRAMEWORK_IDS.map((id) =>
+  componentFiles
+    .filter((file) => file.endsWith(`.${EXAMPLE_EXTENSIONS[id]}`))
+    .reduce(
+      (total, file) =>
+        total +
+        readFileSync(`packages/opui/components/${file}`, "utf8").split("\n")
+          .length,
+      0,
+    ),
+)
+const roughly = (lines: number) =>
+  (Math.round(lines / 100) * 100).toLocaleString("en-GB")
+
+const contrastKnobs = (
+  readFileSync("packages/opui/css/theme.css", "utf8")
+    .match(/:where\(\.ui-contrast-more\) \{([^}]*)\}/)?.[1]
+    .match(/^\s*--ui-[\w-]+:/gm) ?? []
+).filter((line) => line.trim() !== "--ui-contrast:").length
+
+const reviewAgents = readdirSync(".claude/agents").filter((file) =>
+  file.endsWith(".md"),
+).length
 
 const todo = parseTodo(readFileSync("TODO.md", "utf8"))
 const itemCount = (sections: typeof todo.done) =>
@@ -42,13 +97,13 @@ const openTodos = itemCount(todo.sections)
       <p><strong>TL;DR</strong></p>
       <ul>
         <li>
-          What is in 6.0: React, Solid and Svelte, {newComponents.length} new
-          components and the Layout classes, a token system with five example
+          What is in 6.0: {newFrameworks}, {newComponents.length} new components
+          and the Layout classes, a token system with {themeCount} example
           themes to prove it, blocks, the Theme builder and a lot more docs.
         </li>
         <li>
-          Why a major: 115 breaking entries, the first major since 5.0, 31 of
-          them plain renames.
+          Why a major: {breaking} breaking entries, the first major since 5.0,
+          and {renames.length} renames to find and replace.
         </li>
         <li>
           What stayed: CSS first, HTML as a first-class target, feature first.
@@ -129,11 +184,11 @@ const openTodos = itemCount(todo.sections)
       so I was kind of forced to go through all components and update them.
     </p>
 
-    <h3 id="example-themes">Five example themes</h3>
+    <h3 id="example-themes">The example themes</h3>
     <ul>
       <li>
-        Bootstrap, Brutalist, GOV.UK, M3 and Shadcn: what each one proves about
-        the token model.
+        {listOf(EXAMPLE_THEMES.map((theme) => theme.label))}: what each one
+        proves about the token model.
       </li>
       <li>
         All colors in OKLCH; the contrast test lists each theme's known
@@ -147,9 +202,8 @@ const openTodos = itemCount(todo.sections)
 
     <h3 id="tokens-tiers">Token tiers</h3>
     <p>
-      Read a column top to bottom: a knob the theme sets, the role a component
-      reads, the private property the component sets, the CSS property it ends
-      up on.
+      Follow an arrow inward: a knob the theme sets, the role a component reads,
+      the private property the component sets, the CSS property it ends up on.
     </p>
     <TokenTiers />
     <ul>
@@ -166,8 +220,8 @@ const openTodos = itemCount(todo.sections)
       </li>
       <li>
         Derived roles declared on
-        <code>:where(html, .ui-palette, .ui-contrast-more)</code>, so a
-        <code>.ui-palette</code> subtree with an inline knob re-themes itself.
+        <code>:where(html, .ui-scope, .ui-contrast-more)</code>, so a
+        <code>.ui-scope</code> subtree with an inline knob re-themes itself.
       </li>
       <li>
         The layers: <code>theme.palette</code>, <code>theme.base</code>,
@@ -176,7 +230,7 @@ const openTodos = itemCount(todo.sections)
       </li>
       <li>
         Design scales: space <code>--ui-space-1</code> to
-        <code>--ui-space-8</code> times <code>--ui-space-scale</code>,
+        <code>--ui-space-12</code> times <code>--ui-space-scale</code>,
         <code>--ui-density</code>, the type scale
         <code>--ui-font-size-100</code> to <code>--ui-font-size-900</code>,
         motion times <code>--ui-motion</code>, one
@@ -195,8 +249,8 @@ const openTodos = itemCount(todo.sections)
     <ContrastLab />
     <ul>
       <li>
-        <code>--ui-contrast: more</code> tightens 26 knobs, lightness, strength,
-        alpha and widths, and never sets a color directly.
+        <code>--ui-contrast: more</code> tightens {contrastKnobs} knobs,
+        lightness, strength, alpha and widths, and never sets a color directly.
       </li>
       <li>
         The <code>-text</code> roles promise 4.5:1 on every surface; the promise
@@ -227,6 +281,10 @@ const openTodos = itemCount(todo.sections)
       <li>
         <DocLink href="/components/avatar#grouped">AvatarGroup</DocLink>:
         overlapping avatars that make room for the focus ring.
+      </li>
+      <li>
+        <DocLink href="/components/breadcrumb">Breadcrumb</DocLink>: where a
+        page sits, with separators screen readers skip.
       </li>
       <li>
         <DocLink href="/components/carousel">Carousel</DocLink>: scroll snap,
@@ -324,8 +382,8 @@ const openTodos = itemCount(todo.sections)
         layer.
       </li>
       <li>
-        Every page in HTML, Astro, React, Solid, Svelte and Vue, with the
-        examples and the API of the framework you picked.
+        Every page in {listOf(FRAMEWORKS.map((framework) => framework.label))},
+        with the examples and the API of the framework you picked.
       </li>
       <li>
         Markdown for your agent: a <code>.md</code> copy of every page,
@@ -387,8 +445,8 @@ const openTodos = itemCount(todo.sections)
         and more contrast, with a contrast report.
       </li>
       <li>
-        Save up to 50 themes in the browser, undo and redo, and share a theme as
-        a link.
+        Save up to {MAX_SNAPSHOTS} themes in the browser, undo and redo, and
+        share a theme as a link.
       </li>
       <li>
         Start from the default, an example theme or one of the gallery themes.
@@ -409,20 +467,23 @@ const openTodos = itemCount(todo.sections)
       </li>
       <li>
         A framework layer is a binding: props to attributes and classes, slots
-        to parts, events to native events. About 2,500 lines each.
+        to parts, events to native events. About
+        {roughly(Math.min(...bindingLines))} to
+        {roughly(Math.max(...bindingLines))} lines each.
       </li>
       <li>
         Behavior HTML cannot give lives in custom elements, shared by every
         framework and by plain HTML.
       </li>
       <li>
-        Why React, Solid and Svelte could land in one release, and what each
-        binding adds: React 19 with Server Components by default and
-        <code>"use client"</code> only on components that need context, state or
-        effects; Solid 2 with props read through signals, so a component runs
-        once and only what changed updates; Svelte 5 with <code>bind:value</code
-        >, <code>bind:checked</code> and <code>bind:group</code>; Astro and Vue
-        with parts instead of slots.
+        Why {newFrameworks} could land in one release, and what each binding
+        adds: Nunjucks 3 macros that take one dict of props and named slots in
+        <code>slots</code>, with an Eleventy plugin; React 19 with Server
+        Components by default and <code>"use client"</code> only on components
+        that need context, state or effects; Solid 2 with props read through
+        signals, so a component runs once and only what changed updates; Svelte
+        5 with <code>bind:value</code>, <code>bind:checked</code> and
+        <code>bind:group</code>; Astro and Vue with parts instead of slots.
       </li>
       <li>
         The parity test keeps the shells honest: every example rendered in every
@@ -438,13 +499,14 @@ const openTodos = itemCount(todo.sections)
   </section>
 
   <section id="one-source">
-    <h2>One Astro file, five frameworks</h2>
+    <h2>One Astro file, every framework</h2>
     <p>
-      Five frameworks means five copies of every component, and keeping five
-      copies in sync by hand is exactly the kind of busywork I'd rather leave to
-      a machine. So in 6.0 every component is written once, as an Astro file,
-      and a compiler writes the React, Solid, Svelte and Vue versions and their
-      types. The examples in the docs work the same way.
+      {capitalized(frameworkCount)} frameworks means {frameworkCount} copies of
+      every component, and keeping {frameworkCount} copies in sync by hand is
+      exactly the kind of busywork I'd rather leave to a machine. So in 6.0
+      every component is written once, as an Astro file, and a compiler writes
+      the {listOf(compiled)} versions and their types. The examples in the docs
+      work the same way.
     </p>
     <Compiler />
     <ul>
@@ -452,8 +514,8 @@ const openTodos = itemCount(todo.sections)
         <code>pnpm build-components</code> reads the Astro template and its
         TypeScript frontmatter, the types and the value a component binds,
         declared as its model in <code>api.ts</code>. It builds one tree of
-        elements, slots, conditions and loops, and writes the React, Solid,
-        Svelte and Vue files and a type file for each.
+        elements, slots, conditions and loops, and writes the {listOf(compiled)}
+        files and a type file for each.
       </li>
       <li>
         Two-way binding comes from that model: <code>bind:value</code> and
@@ -473,14 +535,15 @@ const openTodos = itemCount(todo.sections)
       <li>
         The compiler isn't what you trust, the checks are. The contract test
         renders every component with every prop value its types allow in all
-        five frameworks and compares the markup with Astro, the parity test does
-        the same for every example, and in the browser each example has to read
-        the same and hold the same control state, also after a form reset.
+        {frameworkCount} frameworks and compares the markup with Astro, the
+        parity test does the same for every example, and in the browser each
+        example has to read the same and hold the same control state, also after
+        a form reset.
       </li>
       <li>
         Examples go the same way: write the Astro example, and
-        <code>pnpm build-examples</code> writes its HTML, React, Solid, Svelte
-        and Vue versions.
+        <code>pnpm build-examples</code> writes its
+        {listOf(["HTML", ...compiled])} versions.
       </li>
       <li>
         What it changed: a fix in the Astro file reaches every framework in one
@@ -518,8 +581,9 @@ const openTodos = itemCount(todo.sections)
         controls, and Toaster replaces Toast.
       </li>
       <li>
-        The explorer above holds the 131 renames the migration guide documents
-        as pairs; structural changes (slots to parts) are in the guide only.
+        The explorer above holds the {renames.length} renames the migration
+        guide documents as pairs; structural changes (slots to parts) are in the
+        guide only.
       </li>
     </ul>
   </section>
@@ -633,12 +697,12 @@ const openTodos = itemCount(todo.sections)
     </p>
     <p>
       The somewhere is a plain Markdown file, <code>TODO.md</code>. Everything
-      goes in there. Most of it comes from audits: nine review agents, one each
-      for accessibility, the API docs, the blog, browser support, the changelog,
-      the CSS, the examples, framework idioms and framework parity. They only
-      report, they never edit. Each finding gets a severity from 1 to 10, the
-      files and lines it is about, a one-sentence summary and a recommended
-      action.
+      goes in there. Most of it comes from audits: {inWords(reviewAgents)}
+      review agents, one each for accessibility, the API docs, the blog, browser
+      support, the changelog, the CSS, the examples, framework idioms and
+      framework parity. They only report, they never edit. Each finding gets a
+      severity from 1 to 10, the files and lines it is about, a one-sentence
+      summary and a recommended action.
     </p>
     <p>
       Reading a file like that by hand gets old fast, so the docs site grew a

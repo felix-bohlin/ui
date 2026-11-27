@@ -67,10 +67,10 @@ import "../styles/global.css"
   <section id="typescript">
     <h2>TypeScript</h2>
     <p>
-      <code>astro check</code> runs on TypeScript 6, not on 7. Keep
-      <code>moduleResolution</code> set to <code>"bundler"</code>, as Astro's
-      <code>tsconfig.json</code> presets do: with <code>"nodenext"</code>, the
-      component props aren't checked.
+      <code>astro check</code> needs <code>@astrojs/check</code> and runs on
+      TypeScript 6, not on 7. Keep <code>moduleResolution</code> set to
+      <code>"bundler"</code>, as Astro's <code>tsconfig.json</code> presets do:
+      with <code>"nodenext"</code>, the component props aren't checked.
     </p>
   </section>
 
@@ -115,7 +115,8 @@ export const onRequest = defineMiddleware((context, next) => {
     />
     <p>
       Add <code>/// &lt;reference types="opui-css/env.d.ts" /&gt;</code> to
-      <code>env.d.ts</code> for the types.
+      <code>src/env.d.ts</code>, or create that file with the line, for the
+      types.
     </p>
   </section>
 

@@ -44,6 +44,7 @@ declare namespace App {
 interface Window {
   themeUtils: {
     applyContrast: (contrast: string | null) => void
+    applyColorScroll: () => void
     applyStoredTheme: () => void
     applyTheme: (theme: "dark" | "light") => void
     applyThemeCss: (
@@ -51,11 +52,14 @@ interface Window {
       css: string,
       tokens?: Record<string, string>,
     ) => void
+    colorScrollEnabled: () => boolean
     getStoredContrast: () => string | null
+    getStoredColorScroll: () => string | null
     getStoredTheme: () => string | null
     getSystemPreference: () => "dark" | "light"
     readTheme: () => import("./utils/theme").StoredTheme | null
     setContrast: (contrast: "more" | "normal" | null) => void
+    setColorScroll: (on: boolean) => void
     setTheme: (theme: "dark" | "light") => void
   }
 }

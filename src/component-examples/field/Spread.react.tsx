@@ -12,7 +12,7 @@ export default function Spread() {
         <input
           aria-describedby="field-spread-1-start-text"
           id="field-spread-1"
-          placeholder="Holly Humbucker"
+          placeholder="Scott Humbucker"
         />
       </Field>
 
@@ -27,7 +27,7 @@ export default function Spread() {
         <input
           aria-describedby="field-spread-2-start-text field-spread-2-end-text"
           id="field-spread-2"
-          placeholder="name@lowend.example"
+          placeholder="name@bassmail.example"
           type="email"
         />
       </Field>

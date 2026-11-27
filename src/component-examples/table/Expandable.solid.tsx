@@ -13,19 +13,19 @@ import {
 
 const orders = [
   {
-    customer: "Lou Headstock",
+    customer: "Kinga Headstock",
     details: "Flatwounds and a comfy strap, shipped to Göteborg on 3 March.",
     id: "1042",
     total: "€84.00",
   },
   {
-    customer: "Percy Groove",
+    customer: "Adam Groove",
     details: "Three items, waiting for the low B string to come back in stock.",
     id: "1043",
     total: "€126.50",
   },
   {
-    customer: "Ines Hertz",
+    customer: "Mohini Hertz",
     details: "One fuzz pedal, delivered to Berlin on 5 March.",
     id: "1044",
     total: "€39.90",

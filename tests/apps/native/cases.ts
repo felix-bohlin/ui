@@ -57,17 +57,6 @@ export const NATIVE_CASES: NativeCase[] = [
   { after: { click: 0 }, before: { click: 0 }, name: "toggle-empty" },
 ]
 
-export const SVELTE_DEFAULT =
-  "Svelte never sets the checked attribute of a native input with bind: or checked= on a client render, so a form reset unchecks it and the bound value becomes empty, where every component's input keeps its first state as defaultChecked and a reset returns to it"
-
-export const SVELTE_SPREAD =
-  "Svelte drops the server's checked attribute from a native input with bind: or checked= when it hydrates, so a form reset unchecks it, and checked= also puts back a choice made before hydration, where every component's input keeps the attribute and the choice, as a native input with a spread does"
-
-export type NativeDifference = { name: string; reason: string; where: string }
-
-export const differences = (where: string, reason: string, names: string[]) =>
-  names.map((name) => ({ name, reason, where }))
-
 const CONTROLS = "input, select, textarea"
 
 const act = async (form: Locator, step: NativeStep) => {

@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test"
-import { FIREFOX_SELF_RTL, failsIn } from "./engine-bugs"
+import { FIREFOX_SELF_RTL, failsIn } from "../expectations"
 import { openFixture } from "./fixtures"
 import {
   SCENARIOS,

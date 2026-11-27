@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs"
 import { posix } from "node:path"
 import { expect, test } from "@playwright/test"
 import type { Page } from "@playwright/test"
-import { FIREFOX_DOWNLOAD_NAVIGATE, failsIn } from "./engine-bugs"
+import { FIREFOX_DOWNLOAD_NAVIGATE, failsIn } from "../expectations"
 import { instantScrolling } from "./fixtures"
 
 const ORIGIN = "https://opui.test"

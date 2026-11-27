@@ -7,7 +7,7 @@ import {
   WEBKIT_RADIO_NO_WRAP,
   WEBKIT_RADIO_RTL_ARROWS,
   WEBKIT_TOP_LAYER_ANCHOR,
-} from "./engine-bugs"
+} from "../expectations"
 import {
   computed,
   FRAMEWORKS,

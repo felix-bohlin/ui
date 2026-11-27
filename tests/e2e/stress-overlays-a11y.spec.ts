@@ -1,6 +1,6 @@
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
-import { FIREFOX_STALE_FALLBACK_OPACITY, failsIn } from "./engine-bugs"
+import { FIREFOX_STALE_FALLBACK_OPACITY, failsIn } from "../expectations"
 import { axeNodes, computed, openFixture } from "./fixtures"
 import {
   SCENARIOS,

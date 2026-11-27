@@ -1,8 +1,9 @@
 import { createElement } from "react"
 import { renderToString } from "react-dom/server"
-import { describe, expect, test, vi } from "vitest"
+import { afterAll, beforeAll, describe, expect, test, vi } from "vitest"
 import {
-  convertExample,
+  compileExample,
+  createRenderer,
   REACT_FIXED_VALUE_TYPES,
 } from "../../scripts/build-examples.mjs"
 import { checkAttributeOrder } from "../../scripts/check-components.mjs"
@@ -21,11 +22,30 @@ import {
 
 const sampleFile = "src/component-examples/sample/Example.astro"
 
-const astro = (body: string, imports = "") =>
-  `---\n${imports ? `import { ${imports} } from "opui-css/astro"\n` : ""}---\n\n${body}\n`
+const astro = (body: string, imports = "", consts = "") =>
+  `---\n${imports ? `import { ${imports} } from "opui-css/astro"\n` : ""}${consts}---\n\n${body}\n`
 
-const react = (body: string, imports = "") =>
-  convertExample(astro(body, imports), "react", sampleFile)
+let renderer: Awaited<ReturnType<typeof createRenderer>>
+
+beforeAll(async () => {
+  renderer = await createRenderer()
+}, 60_000)
+
+afterAll(() => renderer?.close())
+
+const compile = async (source: string, targets: string[]) => {
+  const { outputs, problems } = await compileExample(source, sampleFile, {
+    renderer,
+    targets,
+  })
+  if (problems.length > 0) throw new Error(problems.join("\n"))
+  return outputs
+}
+
+const react = async (body: string, imports = "", consts = "") =>
+  (await compile(astro(body, imports, consts), ["react"])).get(
+    "react",
+  ) as string
 
 const samples: (() => Promise<string>)[] = []
 
@@ -92,7 +112,11 @@ describe("attribute names and value forms in React", () => {
   test.each(
     sampleRows([
       ["<form novalidate></form>", "", "<form noValidate>"],
-      ["<table><tr><td colspan='2'>x</td></tr></table>", "", "colSpan={2}"],
+      [
+        "<table><tbody><tr><td colspan='2'>x</td></tr></tbody></table>",
+        "",
+        "colSpan={2}",
+      ],
       ["<div tabindex='0'>x</div>", "", "tabIndex={0}"],
       ["<div popover>x</div>", "", 'popover=""'],
       ["<div popover='manual'>x</div>", "", 'popover="manual"'],
@@ -121,7 +145,11 @@ describe("attribute names and value forms in React", () => {
   test.each([
     ["<input novalidate />", "", "the attribute novalidate on <input>"],
     ["<td nowrap>x</td>", "", "the attribute nowrap on <td>"],
-    ["<Nope></Nope>", "Nope", "<Nope>, which React's types don't have"],
+    [
+      "<Nope></Nope>",
+      "Button as Nope",
+      "<Nope>, which React's types don't have",
+    ],
     [
       "<td colspan='x'>x</td>",
       "",
@@ -169,10 +197,11 @@ describe("the order of props", () => {
       '<Field variant="filled" label="x" spread for="x" />',
       "Field",
     )
-    expect(await convertExample(source, "svelte", sampleFile)).toContain(
+    const outputs = await compile(source, ["svelte", "vue"])
+    expect(outputs.get("svelte")).toContain(
       '<Field for="x" label="x" spread variant="filled" />',
     )
-    expect(await convertExample(source, "vue", sampleFile)).toContain(
+    expect(outputs.get("vue")).toContain(
       '<Field for="x" label="x" spread variant="filled" />',
     )
   })
@@ -227,9 +256,9 @@ describe("form state in React", () => {
   })
 
   test("rejects an input with a dynamic type", async () => {
-    await expect(react("<input type={kind} />")).rejects.toThrow(
-      "an <input> with a dynamic type",
-    )
+    await expect(
+      react("<input type={kind} />", "", 'const kind = "text"\n'),
+    ).rejects.toThrow("an <input> with a dynamic type")
   })
 
   test("REACT_FIXED_VALUE_TYPES is the set of input types react-dom accepts a value on", () => {
@@ -333,9 +362,9 @@ describe("form state in React", () => {
     )
     expect(await textareaLines()).toContain('defaultValue={"line 1\\nline 2"}')
     expect(await textareaEntities()).toContain('defaultValue="<p>a & <b>b</b>"')
-    await expect(react("<textarea>{text}</textarea>")).rejects.toThrow(
-      "a <textarea> with markup",
-    )
+    await expect(
+      react("<textarea>{text}</textarea>", "", 'const text = "Hello"\n'),
+    ).rejects.toThrow("a <textarea> with markup")
   })
 })
 

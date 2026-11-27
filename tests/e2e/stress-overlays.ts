@@ -5,7 +5,7 @@ import {
   FIREFOX_STALE_FALLBACK_OPACITY,
   WEBKIT_TOP_LAYER_ANCHOR,
   type EngineBugs,
-} from "./engine-bugs"
+} from "../expectations"
 import { needs, settle } from "./fixtures"
 
 type Step =

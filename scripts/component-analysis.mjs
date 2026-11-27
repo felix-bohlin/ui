@@ -56,19 +56,27 @@ const buildsAnew = (node, expressions, seen) => {
 
 const unique = (names) => [...new Set(names)]
 
-const customRootsOf = ({ derived, props, rootElements }) =>
+export const customTagsOf = ({ derived, props }, node) => {
+  if (node.custom) return [node.tag]
+  if (!node.variable) return []
+  const source = [
+    ...derived.filter(({ name }) => name === node.tag),
+    ...props.filter(({ local }) => local === node.tag),
+  ]
+    .map((entry) => entry.code ?? entry.default ?? "")
+    .join(" ")
+  return [...source.matchAll(new RegExp(CUSTOM_TAG_LITERAL, "g"))].map(
+    ([literal]) => literal.slice(1, -1),
+  )
+}
+
+const customRootsOf = (component) =>
   new Map(
-    rootElements.flatMap((node) => {
-      if (node.custom) return [[node, undefined]]
-      if (!node.variable) return []
-      const source = [
-        ...derived.filter(({ name }) => name === node.tag),
-        ...props.filter(({ local }) => local === node.tag),
-      ]
-        .map((entry) => entry.code ?? entry.default ?? "")
-        .join(" ")
-      return CUSTOM_TAG_LITERAL.test(source) ? [[node, node.tag]] : []
-    }),
+    component.rootElements.flatMap((node) =>
+      customTagsOf(component, node).length === 0
+        ? []
+        : [[node, node.custom ? undefined : node.tag]],
+    ),
   )
 
 const customTagOf = ({ restOnRoot, rootElements }) => {

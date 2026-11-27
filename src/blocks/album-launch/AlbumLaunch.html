@@ -17,24 +17,32 @@
         Out everywhere on <time datetime="2027-01-15">Friday 15 January</time>.
         It drops in:
       </p>
-      <dl aria-labelledby="album-launch-countdown-label" class="al-countdown">
-        <div>
-          <dt>Days</dt>
-          <dd>03</dd>
-        </div>
-        <div>
-          <dt>Hours</dt>
-          <dd>14</dd>
-        </div>
-        <div>
-          <dt>Minutes</dt>
-          <dd>27</dd>
-        </div>
-        <div>
-          <dt>Seconds</dt>
-          <dd>09</dd>
-        </div>
-      </dl>
+      <ul aria-labelledby="album-launch-countdown-label" class="al-countdown">
+        <li>
+          <dl class="ui-stat ui-large">
+            <dt class="ui-label">Days</dt>
+            <dd class="ui-value">03</dd>
+          </dl>
+        </li>
+        <li>
+          <dl class="ui-stat ui-large">
+            <dt class="ui-label">Hours</dt>
+            <dd class="ui-value">14</dd>
+          </dl>
+        </li>
+        <li>
+          <dl class="ui-stat ui-large">
+            <dt class="ui-label">Minutes</dt>
+            <dd class="ui-value">27</dd>
+          </dl>
+        </li>
+        <li>
+          <dl class="ui-stat ui-large">
+            <dt class="ui-label">Seconds</dt>
+            <dd class="ui-value">09</dd>
+          </dl>
+        </li>
+      </ul>
       <form class="ui-form al-form" action="#" id="album-launch-form">
         <div class="ui-control-group" role="group">
           <div class="ui-field">
@@ -183,33 +191,20 @@
 
     .al-countdown {
       display: grid;
-      gap: var(--ui-space-4);
+      gap: var(--ui-space-3);
       grid-template-columns: repeat(4, minmax(0, 1fr));
+      list-style-type: none;
       margin: 0;
       max-inline-size: 28rem;
+      padding: 0;
 
-      div {
+      li {
         background-color: oklch(1 0 0 / 8%);
         border: var(--ui-border-width) solid oklch(1 0 0 / 14%);
         border-radius: var(--ui-radius);
         display: grid;
-        padding: var(--ui-space-4) var(--ui-space-2);
-        text-align: center;
-      }
-
-      dt {
-        color: var(--ui-text-subtle);
-        font-size: var(--ui-font-size-caption);
-        order: 2;
-      }
-
-      dd {
-        color: var(--ui-text-strong);
-        font-size: var(--ui-font-size-800);
-        font-variant-numeric: tabular-nums;
-        font-weight: var(--ui-font-weight-heading);
-        line-height: 1;
-        margin: 0;
+        justify-items: center;
+        padding: var(--ui-space-3) var(--ui-space-2);
       }
     }
 

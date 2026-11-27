@@ -2,6 +2,10 @@
 
 An exploration from 2026-11-27, against the 5.4.3 tag and npm tarball, the 6.0.0-rc.7 tarball and this branch. The prototype and its measurements lived in a session scratchpad and are not in the repository; the numbers below are what they measured.
 
+## Decision
+
+Skipped on 2026-11-27: 6.0 ships without a migrate command, since people migrate with an AI assistant that reads `MIGRATING.md`. The gaps below still matter for that: an assistant reads the same guide.
+
 ## Answer
 
 Yes, for a narrow and honest scope. A command can rename the 5.x theme tokens, most private `--_` properties and about two thirds of the removed classes in CSS and HTML, idempotently and checkably, and point at the MIGRATING section for everything else. It cannot migrate an app: 61 of the 136 Breaking and Removed entries need judgment, and the most common real 5.x pattern, a token override on part of the page, still compiles after a rename and no longer does anything.

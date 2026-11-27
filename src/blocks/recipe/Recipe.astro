@@ -13,7 +13,36 @@ import {
   Rating,
   Stat,
   StepButton,
+  Stepper,
 } from "opui-css/astro"
+
+const steps = [
+  {
+    description:
+      "Warm the oil in a big pot over medium heat. Add the onion and garlic and stir for 5 minutes, until soft and shiny.",
+    label: "Soften the onion",
+  },
+  {
+    description:
+      "Turn the heat up, add the beef and break it apart with a spoon. Cook until no pink is left, about 8 minutes.",
+    label: "Brown the beef",
+  },
+  {
+    description:
+      "Stir in the cumin and paprika and give it a minute, until the whole van smells of it.",
+    label: "Add the spices",
+  },
+  {
+    description:
+      "Add the tomatoes and beans, then simmer with the lid half on for 30 minutes. Like a good bass line, it should barely move.",
+    label: "Simmer low and slow",
+  },
+  {
+    description:
+      "Melt in the chocolate, season with salt and serve with rice, bread or straight from the pot.",
+    label: "Finish with chocolate",
+  },
+]
 ---
 
 <style is:global>
@@ -24,45 +53,29 @@ import {
       align-items: center;
     }
 
+    .recipe-method .ui-stepper {
+      --_description-text-color: var(--ui-text);
+
+      font-size: var(--ui-font-size-body);
+
+      & > li {
+        --_label-text-color: var(--ui-text-strong);
+
+        font-weight: var(--ui-font-weight-heading);
+      }
+
+      .ui-description {
+        font-size: var(--ui-font-size-body);
+        line-height: var(--ui-line-height-body);
+      }
+    }
+
     .recipe-ingredients {
       align-self: start;
 
       .ui-content {
         display: grid;
         gap: var(--ui-space-6);
-      }
-    }
-
-    .recipe-steps {
-      counter-reset: recipe-step;
-      display: grid;
-      gap: var(--ui-space-6);
-      list-style-type: none;
-      padding: 0;
-
-      li {
-        column-gap: var(--ui-space-5);
-        counter-increment: recipe-step;
-        display: grid;
-        grid-template-columns: auto minmax(0, 1fr);
-
-        &::before {
-          align-items: center;
-          background-color: var(--ui-primary);
-          block-size: 2rem;
-          border-radius: var(--ui-radius-round);
-          color: var(--ui-on-primary);
-          content: counter(recipe-step);
-          display: grid;
-          font-weight: var(--ui-font-weight-heading);
-          grid-row: span 2;
-          inline-size: 2rem;
-          justify-content: center;
-        }
-      }
-
-      h3 {
-        font-size: var(--ui-font-size-body);
       }
     }
   }
@@ -186,46 +199,14 @@ import {
 
     <section
       aria-labelledby="recipe-method-heading"
-      class="ui-layout-column ui-gap-large"
+      class="recipe-method ui-layout-column ui-gap-large"
     >
       <h2 class="ui-h5" id="recipe-method-heading">Method</h2>
-      <ol class="recipe-steps">
-        <li>
-          <h3>Soften the onion</h3>
-          <p>
-            Warm the oil in a big pot over medium heat. Add the onion and garlic
-            and stir for 5 minutes, until soft and shiny.
-          </p>
-        </li>
-        <li>
-          <h3>Brown the beef</h3>
-          <p>
-            Turn the heat up, add the beef and break it apart with a spoon. Cook
-            until no pink is left, about 8 minutes.
-          </p>
-        </li>
-        <li>
-          <h3>Add the spices</h3>
-          <p>
-            Stir in the cumin and paprika and give it a minute, until the whole
-            van smells of it.
-          </p>
-        </li>
-        <li>
-          <h3>Simmer low and slow</h3>
-          <p>
-            Add the tomatoes and beans, then simmer with the lid half on for 30
-            minutes. Like a good bass line, it should barely move.
-          </p>
-        </li>
-        <li>
-          <h3>Finish with chocolate</h3>
-          <p>
-            Melt in the chocolate, season with salt and serve with rice, bread
-            or straight from the pot.
-          </p>
-        </li>
-      </ol>
+      <Stepper
+        aria-labelledby="recipe-method-heading"
+        items={steps}
+        orientation="vertical"
+      />
       <Callout severity="info">
         <CalloutIcon />
         <CalloutContent>

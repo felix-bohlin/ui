@@ -6,6 +6,7 @@ import {
   Form,
   List,
   ListItem,
+  Stat,
 } from "opui-css/react"
 
 export default function AlbumLaunch() {
@@ -33,27 +34,31 @@ export default function AlbumLaunch() {
               Out everywhere on{" "}
               <time dateTime="2027-01-15">Friday 15 January</time>. It drops in:
             </p>
-            <dl
+            <ul
               aria-labelledby="album-launch-countdown-label"
               className="al-countdown"
             >
-              <div>
-                <dt>Days</dt>
-                <dd>03</dd>
-              </div>
-              <div>
-                <dt>Hours</dt>
-                <dd>14</dd>
-              </div>
-              <div>
-                <dt>Minutes</dt>
-                <dd>27</dd>
-              </div>
-              <div>
-                <dt>Seconds</dt>
-                <dd>09</dd>
-              </div>
-            </dl>
+              <li>
+                <Stat label="Days" size="large">
+                  03
+                </Stat>
+              </li>
+              <li>
+                <Stat label="Hours" size="large">
+                  14
+                </Stat>
+              </li>
+              <li>
+                <Stat label="Minutes" size="large">
+                  27
+                </Stat>
+              </li>
+              <li>
+                <Stat label="Seconds" size="large">
+                  09
+                </Stat>
+              </li>
+            </ul>
             <Form action="#" className="al-form" id="album-launch-form">
               <ControlGroup>
                 <Field htmlFor="album-launch-email">
@@ -203,33 +208,20 @@ export default function AlbumLaunch() {
 
           .al-countdown {
             display: grid;
-            gap: var(--ui-space-4);
+            gap: var(--ui-space-3);
             grid-template-columns: repeat(4, minmax(0, 1fr));
+            list-style-type: none;
             margin: 0;
             max-inline-size: 28rem;
+            padding: 0;
 
-            div {
+            li {
               background-color: oklch(1 0 0 / 8%);
               border: var(--ui-border-width) solid oklch(1 0 0 / 14%);
               border-radius: var(--ui-radius);
               display: grid;
-              padding: var(--ui-space-4) var(--ui-space-2);
-              text-align: center;
-            }
-
-            dt {
-              color: var(--ui-text-subtle);
-              font-size: var(--ui-font-size-caption);
-              order: 2;
-            }
-
-            dd {
-              color: var(--ui-text-strong);
-              font-size: var(--ui-font-size-800);
-              font-variant-numeric: tabular-nums;
-              font-weight: var(--ui-font-weight-heading);
-              line-height: 1;
-              margin: 0;
+              justify-items: center;
+              padding: var(--ui-space-3) var(--ui-space-2);
             }
           }
 

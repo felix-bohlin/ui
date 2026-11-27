@@ -12,6 +12,7 @@ import {
   List,
   ListItem,
   Reactions,
+  Stat,
   Tabs,
   TabsItem,
   TabsLabel,
@@ -60,23 +61,11 @@ export default function BassistProfile() {
               Fretless on Sundays, five-string the rest of the week. I play in
               The Flatwounds and teach anyone who asks nicely.
             </p>
-            <dl
-              class="bp-stats ui-layout-row"
-              style="--_gap: var(--ui-space-7)"
-            >
-              <div>
-                <dt>Followers</dt>
-                <dd>2 413</dd>
-              </div>
-              <div>
-                <dt>Following</dt>
-                <dd>318</dd>
-              </div>
-              <div>
-                <dt>Gigs</dt>
-                <dd>87</dd>
-              </div>
-            </dl>
+            <div class="ui-layout-row" style="--_gap: var(--ui-space-7)">
+              <Stat label="Followers">2 413</Stat>
+              <Stat label="Following">318</Stat>
+              <Stat label="Gigs">87</Stat>
+            </div>
             <ul aria-label="Styles" class="ui-layout-row ui-gap-x-small">
               <li>
                 <Chip as="span" label="Five-string" size="small" />
@@ -297,28 +286,6 @@ export default function BassistProfile() {
             color: var(--ui-text-strong);
             font-size: var(--ui-font-size-700);
             line-height: var(--ui-line-height-tight);
-          }
-
-          .bp-stats {
-            margin: 0;
-
-            div {
-              display: grid;
-            }
-
-            dt {
-              color: var(--ui-text-subtle);
-              font-size: var(--ui-font-size-caption);
-              order: 2;
-            }
-
-            dd {
-              color: var(--ui-text-strong);
-              font-size: var(--ui-font-size-large);
-              font-variant-numeric: tabular-nums;
-              font-weight: var(--ui-font-weight-heading);
-              margin: 0;
-            }
           }
 
           .bp-post .ui-content {

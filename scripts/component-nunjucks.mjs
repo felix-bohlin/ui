@@ -21,6 +21,7 @@ import {
   nunjucksName,
   nunjucksString,
   nunjucksStatement,
+  nunjucksText,
   nunjucksValue,
   slotPresent,
   slotRead,
@@ -145,12 +146,8 @@ const RESERVED = new Set([
 
 const SERIALIZED_ATTRIBUTES = new Set([...BOOLEAN_WHEN_BOOLEAN, "style"])
 
-const TEMPLATE_START = /\{(?=[{%#])/g
-
-const text = (value) => value.replace(TEMPLATE_START, '{{ "{" }}')
-
 const attributeValue = (value) =>
-  text(value.replace(/&/g, "&amp;").replace(/"/g, "&quot;"))
+  nunjucksText(value.replace(/&/g, "&amp;").replace(/"/g, "&quot;"))
 
 const importedNames = (lines) =>
   lines.flatMap((line) =>
@@ -1168,8 +1165,11 @@ export const toNunjucks = (component, { types = new Map() } = {}) => {
       : `{{ ${shown.text} }}`
   }
   const textNode = (node, ctx, last) => {
-    if (ctx.preserved) return text(node.value)
-    const value = text(node.value).replace(/\n/g, `\n${indent(ctx.depth)}`)
+    if (ctx.preserved) return nunjucksText(node.value)
+    const value = nunjucksText(node.value).replace(
+      /\n/g,
+      `\n${indent(ctx.depth)}`,
+    )
     return last && /\n[ ]*$/.test(value)
       ? value.replace(/\n[ ]*$/, `\n${indent(Math.max(ctx.depth - 1, 0))}`)
       : value

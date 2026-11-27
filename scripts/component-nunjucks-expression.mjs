@@ -78,6 +78,11 @@ export const nunjucksString = (value, quote = '"') => {
   return `${mark}${escaped}${mark}`
 }
 
+const TEMPLATE_START = /\{(?=[{%#])/g
+
+export const nunjucksText = (value) =>
+  value.replace(TEMPLATE_START, '{{ "{" }}')
+
 const isName = (name) => IDENTIFIER.test(name) && !KEYWORDS.has(name)
 
 export const nunjucksName = (name) =>

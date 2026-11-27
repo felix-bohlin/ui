@@ -29,23 +29,17 @@ const synthesized = (node) => {
 
 const expressions = new Map()
 
-const parseExpression = (text, quote) => {
+const parseExpression = (text) => {
   const sourceFile = sourceFileOf(`(${text})`, "replacement.ts")
-  const parsed = synthesized(unwrap(sourceFile.statements[0].expression))
-  const requote = (node) =>
-    ts.isStringLiteral(node) && quote === "'"
-      ? ts.factory.createStringLiteral(node.text, true)
-      : ts.visitEachChild(node, requote, ts.nullTransformationContext)
-  const node = requote(parsed)
+  const node = synthesized(unwrap(sourceFile.statements[0].expression))
   return ts.isBinaryExpression(node) || ts.isConditionalExpression(node)
     ? ts.factory.createParenthesizedExpression(node)
     : node
 }
 
-const expressionOf = (text, quote) => {
-  const key = `${quote}\n${text}`
-  if (!expressions.has(key)) expressions.set(key, parseExpression(text, quote))
-  return expressions.get(key)
+const expressionOf = (text) => {
+  if (!expressions.has(text)) expressions.set(text, parseExpression(text))
+  return expressions.get(text)
 }
 
 const bindingNames = (name) =>
@@ -120,7 +114,6 @@ const transformer =
     {
       declared = NO_NAMES,
       ids = NO_IDS,
-      quote = '"',
       rename = new Map(),
       slotHas = (name) => name,
       style,
@@ -136,10 +129,10 @@ const transformer =
     }
     const substituted = (part) => {
       const replacement = asFragment(part)
-      const cached = expressionOf(replacement.code, quote)
+      const cached = expressionOf(replacement.code)
       const expression =
         tracked.has(cached) && tracked.get(cached) !== replacement
-          ? parseExpression(replacement.code, quote)
+          ? parseExpression(replacement.code)
           : cached
       tracked.set(expression, replacement)
       return expression
@@ -154,7 +147,6 @@ const transformer =
             [...declared].filter((name) => !names.includes(name)),
           ),
           ids,
-          quote,
           rename: inner,
           slotHas,
           style,
@@ -240,7 +232,7 @@ const transformer =
       ) {
         return ts.factory.createCallExpression(child.expression, undefined, [
           ts.visitNode(child.arguments[0], visit),
-          expressionOf(style.code, quote),
+          expressionOf(style.code),
         ])
       }
       const read =
@@ -262,9 +254,6 @@ const transformer =
       if (read && declared.has(child.text)) {
         tracked.set(child, fragment(child.text, { declarations: [child.text] }))
         return child
-      }
-      if (ts.isStringLiteral(child) && quote === "'") {
-        return ts.factory.createStringLiteral(child.text, true)
       }
       if (
         ts.isBinaryExpression(child) &&
@@ -413,20 +402,20 @@ const PRINTED = sourceFileOf("", "printed.ts")
 const printed = (node) =>
   printer.printNode(ts.EmitHint.Expression, node, PRINTED)
 
-const propertyName = (key, quote) =>
+const propertyName = (key) =>
   isIdentifierName(key)
     ? ts.factory.createIdentifier(key)
-    : ts.factory.createStringLiteral(key, quote === "'")
+    : ts.factory.createStringLiteral(key)
 
-const objectProperties = (entries, { quote = '"', shorthand = true } = {}) =>
+const objectProperties = (entries, { shorthand = true } = {}) =>
   entries.map((entry) =>
     entry.spread !== undefined
-      ? ts.factory.createSpreadAssignment(expressionOf(entry.spread, quote))
+      ? ts.factory.createSpreadAssignment(expressionOf(entry.spread))
       : shorthand && entry.code === entry.key
         ? ts.factory.createShorthandPropertyAssignment(entry.key)
         : ts.factory.createPropertyAssignment(
-            propertyName(entry.key, quote),
-            expressionOf(entry.code, quote),
+            propertyName(entry.key),
+            expressionOf(entry.code),
           ),
   )
 

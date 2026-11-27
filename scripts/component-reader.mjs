@@ -25,6 +25,7 @@ import {
   unwrap,
 } from "./component-shared.mjs"
 import { BOOLEAN_ATTRIBUTES as HTML_BOOLEAN_ATTRIBUTES } from "./html-tokens.mjs"
+import { attributeNode } from "./markup-nodes.mjs"
 
 const apiDir = join(root, "src/component-api")
 
@@ -390,7 +391,7 @@ const readFrontmatter = (code, file) => {
       if (simple && ts.isAwaitExpression(initializer)) {
         const call = unwrap(initializer.expression)
         const [value, render] = ts.isCallExpression(call)
-          ? call.arguments.map(unwrap)
+          ? call.arguments.map((argument) => unwrap(argument))
           : []
         const rendered =
           render &&
@@ -539,11 +540,7 @@ const isOn = (code) => {
   )
 }
 
-const attributeNode = (item, context, element = false) => {
-  if (item.kind === "quoted") {
-    return { kind: "static", name: item.name, value: item.value }
-  }
-  if (item.kind === "empty") return { kind: "boolean", name: item.name }
+const attributeOf = (item, context, element = false) => {
   if (item.kind === "spread") {
     const sourceFile = sourceFileOf(`(${item.name})`, "spread.ts")
     const written = unwrap(sourceFile.statements[0].expression)
@@ -581,26 +578,27 @@ const attributeNode = (item, context, element = false) => {
       kind: "spread",
     }
   }
-  if (item.kind === "expression") {
-    if (item.name === "class:list") return { kind: "class", code: item.value }
+  if (item.kind === "expression" && item.name === "class:list") {
+    return { kind: "class", code: item.value }
+  }
+  if (item.kind === "expression" && item.name === "class") {
     const code = item.value.trim()
-    if (item.name === "class") {
-      const match = /^cx\(([\s\S]*)\)$/.exec(code)
-      if (!match) throw unsupported("BC201", context.file, `class={${code}}`)
-      return { kind: "class", code: match[1].trim() }
-    }
-    if (item.name.includes(":")) {
-      throw unsupported("BC201", context.file, `the directive ${item.name}`)
-    }
-    if (element && WRITTEN_AS_TEXT.has(item.name) && !isOn(code)) {
-      throw unsupported("BC211", context.file, `${item.name}={${code}}`)
-    }
-    return { code, kind: "expression", name: item.name }
+    const match = /^cx\(([\s\S]*)\)$/.exec(code)
+    if (!match) throw unsupported("BC201", context.file, `class={${code}}`)
+    return { kind: "class", code: match[1].trim() }
   }
-  if (item.kind === "template-literal") {
-    return { code: `\`${item.value}\``, kind: "expression", name: item.name }
+  const read = attributeNode(item, (what) =>
+    unsupported("BC201", context.file, what),
+  )
+  if (
+    item.kind === "expression" &&
+    element &&
+    WRITTEN_AS_TEXT.has(read.name) &&
+    !isOn(read.code)
+  ) {
+    throw unsupported("BC211", context.file, `${read.name}={${read.code}}`)
   }
-  throw unsupported("BC201", context.file, `the attribute ${item.name}`)
+  return read
 }
 
 const markupIdentifier = (index) => `${MARKUP}${index}`
@@ -769,6 +767,7 @@ const expressionNode = (node, context) => {
         ],
         index,
         item: parameter.getText(sourceFile),
+        key: index,
         list: expression.expression.expression.getText(sourceFile),
         optional: !!expression.expression.questionDotToken,
         row: root,
@@ -895,7 +894,7 @@ const toTree = (nodes, context) =>
             consequent: [
               {
                 attributes: node.attributes.map((item) =>
-                  attributeNode(item, context, true),
+                  attributeOf(item, context, true),
                 ),
                 children,
                 component: undefined,
@@ -940,9 +939,7 @@ const toTree = (nodes, context) =>
         {
           attributes: node.attributes
             .filter((item) => item !== html)
-            .map((item) =>
-              attributeNode(item, context, node.type === "element"),
-            ),
+            .map((item) => attributeOf(item, context, node.type === "element")),
           children,
           component,
           custom: node.type === "custom-element",

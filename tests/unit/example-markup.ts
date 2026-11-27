@@ -1,6 +1,7 @@
 import { parse } from "@astrojs/compiler"
 import type { AttributeNode, Node } from "@astrojs/compiler/types"
 import ts from "typescript"
+import { unwrap } from "../../scripts/component-shared.mjs"
 import { parseHtml } from "../../scripts/html-tokens.mjs"
 
 type HtmlNode = ReturnType<typeof parseHtml>[number]
@@ -19,19 +20,8 @@ export type Markup = {
 
 const CODE = new Set(["script", "style"])
 
-const unwrap = (node: ts.Expression) => {
-  while (
-    ts.isParenthesizedExpression(node) ||
-    ts.isAsExpression(node) ||
-    ts.isSatisfiesExpression(node)
-  ) {
-    node = node.expression
-  }
-  return node
-}
-
 const stringOf = (node: ts.Expression) => {
-  const inner = unwrap(node)
+  const inner = unwrap(node, { casts: true })
   return ts.isStringLiteral(inner) || ts.isNoSubstitutionTemplateLiteral(inner)
     ? inner.text
     : undefined
@@ -44,7 +34,7 @@ const expressionOf = (code: string) => {
     ts.ScriptTarget.Latest,
   ).statements
   return statement && ts.isExpressionStatement(statement)
-    ? unwrap(statement.expression)
+    ? unwrap(statement.expression, { casts: true })
     : undefined
 }
 

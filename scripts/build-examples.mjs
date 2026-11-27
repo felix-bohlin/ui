@@ -11,18 +11,17 @@ import { slotProp } from "../src/component-api/frameworks.ts"
 import {
   nunjucksKey,
   nunjucksString,
+  nunjucksText,
   nunjucksValue,
 } from "./component-nunjucks-expression.mjs"
+import { join as joinParts } from "./component-fragment.mjs"
 import { boundComponents } from "./component-models.mjs"
-import { SOLID_PRAGMA } from "./component-shared.mjs"
-import { splitTopLevel } from "./example-display.mjs"
+import { unwrap } from "./component-shared.mjs"
 import {
   attributeText,
   decodeText,
-  decodeTextarea,
   jsxAttribute,
   markupAttribute,
-  jsxText,
   markupText,
   templateLiteral,
 } from "./example-encoders.mjs"
@@ -39,13 +38,7 @@ import {
   ID_PLACEHOLDER,
   idBaseOf,
 } from "./example-ids.mjs"
-import {
-  propsOf,
-  reactBareAttribute,
-  reactKinds,
-  reactPropsOf,
-  resolveReactProp,
-} from "./example-react-props.mjs"
+import { reactPropsOf } from "./example-react-props.mjs"
 import {
   byAttributeName,
   EXAMPLES_DIR,
@@ -59,6 +52,32 @@ import {
 import { BLANK_LINE, markWhitespace, RAW_TEXT } from "./example-whitespace.mjs"
 import { formatStably } from "./format.mjs"
 import { parseHtml, VOID_ELEMENTS } from "./html-tokens.mjs"
+import { attributeNode } from "./markup-nodes.mjs"
+import {
+  JSX_DIALECTS,
+  jsxAttributeCode,
+  jsxName,
+  jsxPrinter,
+  renderedText as jsxRenderedText,
+} from "./print-jsx.mjs"
+import {
+  renderedText as svelteRenderedText,
+  svelteAttribute,
+  svelteEach,
+  svelteElement,
+  svelteExpression,
+  svelteRender,
+  svelteSnippet,
+} from "./print-svelte.mjs"
+import {
+  renderedText as vueRenderedText,
+  slotInputs,
+  vueAttribute,
+  vueElement,
+  vueFor,
+  vueInterpolation,
+  vueTemplate,
+} from "./print-vue.mjs"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const componentsDir = join(root, "packages/opui/components")
@@ -73,16 +92,6 @@ export const REACT_FIXED_VALUE_TYPES = [
   "submit",
 ]
 
-const NUMERIC_ATTRIBUTES = [
-  "colspan",
-  "maxlength",
-  "minlength",
-  "rows",
-  "rowspan",
-  "span",
-  "tabindex",
-]
-
 const MAP_KEY_ORDER = ["id", "value", "name", "title"]
 
 const MARKUP = "__markup__"
@@ -94,27 +103,16 @@ const unsupported = (file, what, target, hint) =>
 
 const NOT_LITERAL = Symbol("not a literal")
 
-const unwrap = (node) => {
-  while (
-    ts.isParenthesizedExpression(node) ||
-    ts.isAsExpression(node) ||
-    ts.isSatisfiesExpression(node)
-  ) {
-    node = node.expression
-  }
-  return node
-}
-
 const isFunction = (node) =>
   ts.isArrowFunction(node) || ts.isFunctionExpression(node)
 
 const passesFunction = (value, seen = new WeakSet()) => {
   if (!value || typeof value !== "object" || seen.has(value)) return false
   seen.add(value)
-  if (value.kind === "expression" && typeof value.value === "string") {
+  if (value.kind === "expression" && typeof value.code === "string") {
     const sourceFile = ts.createSourceFile(
       "expression.ts",
-      `(${value.value})`,
+      `(${value.code})`,
       ts.ScriptTarget.Latest,
       true,
     )
@@ -126,7 +124,7 @@ const passesFunction = (value, seen = new WeakSet()) => {
 }
 
 const literalValue = (node) => {
-  node = unwrap(node)
+  node = unwrap(node, { casts: true })
   if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) {
     return node.text
   }
@@ -221,7 +219,7 @@ const readFrontmatter = (code, file) => {
       declarations.forEach((declaration, index) => {
         const fn =
           !!declaration.initializer &&
-          isFunction(unwrap(declaration.initializer))
+          isFunction(unwrap(declaration.initializer, { casts: true }))
         const items = fn
           ? undefined
           : declaration.initializer
@@ -354,31 +352,12 @@ const toTree = (nodes, context) =>
         throw unsupported(context.file, `a nested <${node.name}>`)
       }
       const attributes = node.attributes.map((item) => {
-        if (item.name.includes(":")) {
-          throw unsupported(context.file, `the directive ${item.name}`)
-        }
-        if (item.kind === "quoted") {
-          return {
-            kind: "string",
-            name: item.name,
-            value:
-              item.name === "style"
-                ? styleDeclarations(item.value)
-                : item.value,
-          }
-        }
-        if (item.kind === "empty") return { kind: "boolean", name: item.name }
-        if (item.kind === "expression" || item.kind === "template-literal") {
-          return {
-            kind: "expression",
-            name: item.name,
-            value:
-              item.kind === "template-literal"
-                ? `\`${item.value}\``
-                : item.value.trim(),
-          }
-        }
-        throw unsupported(context.file, `the attribute ${item.name}`)
+        const read = attributeNode(item, (what) =>
+          unsupported(context.file, what),
+        )
+        return read.kind === "static" && read.name === "style"
+          ? { ...read, value: styleDeclarations(read.value) }
+          : read
       })
       const slot = slotOf(node, context)
       const children = toTree(node.children, {
@@ -400,8 +379,8 @@ const toTree = (nodes, context) =>
               ? svgChildren(children)
               : children,
           component: node.type === "component",
-          name: node.name,
           slot,
+          tag: node.name,
           type: "element",
         },
       ]
@@ -424,7 +403,7 @@ const parseExpression = (code, file) => {
   ) {
     throw unsupported(file, `the expression {${code}}`)
   }
-  return unwrap(statement.expression)
+  return unwrap(statement.expression, { casts: true })
 }
 
 const isPropertyChain = (node) =>
@@ -545,7 +524,7 @@ const mapArrow = (call, context) => {
       `the ${array}.map callback parameter \`${param.getText()}\``,
     )
   }
-  const body = unwrap(arrow.body)
+  const body = unwrap(arrow.body, { casts: true })
   if (!ts.isIdentifier(body) || body.text !== MARKUP) {
     throw unsupported(
       context.file,
@@ -553,9 +532,9 @@ const mapArrow = (call, context) => {
     )
   }
   return {
-    array,
+    item: paramText(param.name),
     key: mapKey(array, items, param, context.file),
-    params: paramText(param.name),
+    list: array,
   }
 }
 
@@ -595,10 +574,12 @@ const expressionNode = (node, context) => {
       `a <${child.name ?? child.type}> as the body of array.map`,
     )
   }
+  const [row] = toTree([child], { ...context, slotHost: false })
   return {
     ...mapArrow(expression, context),
-    child: toTree([child], { ...context, slotHost: false })[0],
-    type: "map",
+    children: [row],
+    row,
+    type: "each",
   }
 }
 
@@ -811,9 +792,8 @@ const usedComponents = (example) => {
   const names = new Set()
   const walk = (nodes) => {
     for (const node of nodes) {
-      if (node.type === "element" && node.component) names.add(node.name)
+      if (node.type === "element" && node.component) names.add(node.tag)
       if (node.children) walk(node.children)
-      if (node.type === "map") walk([node.child])
     }
   }
   walk(example.tree)
@@ -842,29 +822,10 @@ const importLine = (example, framework) => {
   return `import { ${names.join(", ")} } from "opui-css/${framework}"`
 }
 
-const markupAttributes = (node, expression, braces) =>
-  node.attributes
-    .map((item) => {
-      if (item.kind === "boolean") return item.name
-      if (braces && node.component && NUMERIC_ATTRIBUTES.includes(item.name)) {
-        if (item.kind === "string" && /^-?\d+$/.test(item.value)) {
-          return expression({ ...item, kind: "expression" })
-        }
-      }
-      if (item.kind !== "string") return expression(item)
-      return markupAttribute(item.name, item.value, braces)
-    })
-    .join(" ")
-
-const openTag = (name, attributes) =>
-  attributes ? `<${name} ${attributes}` : `<${name}`
-
-const VUE_UNKNOWN_TAGS = new Set(["search"])
-
 const startingProps = (models, framework, node) =>
   new Map(
     node.component
-      ? (models.get(node.name)?.[framework].props.initial ?? [])
+      ? (models.get(node.tag)?.[framework].props.initial ?? [])
       : [],
   )
 
@@ -877,95 +838,65 @@ const markupTarget = (framework, textParts, models) => {
   const markupText = (node, index, nodes) => {
     const content = nodes.filter((item) => !item.slot)
     const at = content.indexOf(node)
-    const leading = content.slice(0, at).every(isBlankText)
-    const trailing = content.slice(at + 1).every(isBlankText)
-    const parts = textParts(node)
-    const between =
-      isBlankText(node) &&
-      nodes[index - 1]?.type !== "text" &&
-      nodes[index + 1]?.type !== "text"
-    return parts
-      .map((part, position) => {
-        if (part.text !== undefined) return part.text
-        const run =
-          part.run === "\n\n" ? "\n\n" : part.run.includes("\n") ? "\n" : " "
-        if (part.role !== "space") return run
-        const edge =
-          (leading && position === 0) ||
-          (trailing && position === parts.length - 1)
-        if (vue)
-          return between || (edge && isBlankText(node)) ? '{{ " " }}' : " "
-        return edge ? '{" "}' : " "
-      })
-      .join("")
+    const blank = isBlankText(node)
+    return (vue ? vueRenderedText : svelteRenderedText)(textParts(node), {
+      between:
+        blank &&
+        nodes[index - 1]?.type !== "text" &&
+        nodes[index + 1]?.type !== "text",
+      blank,
+      leading: content.slice(0, at).every(isBlankText),
+      trailing: content.slice(at + 1).every(isBlankText),
+    })
   }
-  const emit = (nodes, html) =>
+  const emit = (nodes, html, slotted = new Set()) =>
     nodes
       .map((node, index) => {
         if (node.type === "text") return markupText(node, index, nodes)
         if (node.type === "comment") return `<!--${node.value}-->`
         if (node.type === "expression") {
-          return vue ? `{{ ${node.code} }}` : `{${node.code}}`
+          return (vue ? vueInterpolation : svelteExpression)(node.code).code
         }
         if (node.type === "html") {
           const item = html.get(node.name)
           return item.shared && !vue
-            ? `{@render ${node.name}()}`
+            ? svelteRender(node.name)
             : emit(item.tree, html)
         }
-        if (node.type === "map") {
-          if (vue) {
-            return element(
-              {
-                ...node.child,
-                attributes: [
-                  {
-                    kind: "string",
-                    name: "v-for",
-                    value: `${node.params} in ${node.array}`,
-                  },
-                  { kind: "expression", name: "key", value: node.key },
-                  ...node.child.attributes,
-                ],
-              },
-              html,
-            )
-          }
-          const params = node.params.startsWith("{")
-            ? node.params.replace(/^\{\s*/, "{ ").replace(/\s*\}$/, " }")
-            : node.params
-          return `{#each ${node.array} as ${params} (${node.key})}\n${element(node.child, html)}\n{/each}`
+        if (node.type === "each") {
+          return vue
+            ? element(node.row, html, { clause: vueFor(node) })
+            : svelteEach(node, `\n${element(node.row, html)}\n`).code
         }
         const block = (code) =>
           `${/\s$/.test(nodes[index - 1]?.value ?? "") ? "" : "\n"}${code}${/^\s/.test(nodes[index + 1]?.value ?? "") ? "" : "\n"}`
         if (node.type === "fragment") {
-          return block(slotWrapper(node.slot, emit(node.children, html)))
+          return block(
+            slotWrapper(node.slot, emit(node.children, html, slotted)),
+          )
         }
+        const options = { slotted: slotted.has(node) }
         return node.slot
           ? block(
               slotWrapper(
                 node.slot,
-                element({ ...node, slot: undefined }, html),
+                element({ ...node, slot: undefined }, html, options),
               ),
             )
-          : element(node, html)
+          : element(node, html, options)
       })
       .join("")
   const slotWrapper = (slot, content) => {
     const inner = `${content.startsWith("<") ? "\n" : ""}${content}${content.endsWith(">") ? "\n" : ""}`
-    return vue
-      ? `<template #${slot}>${inner}</template>`
-      : `{#snippet ${slotProp(slot)}()}${inner}{/snippet}`
+    return (
+      vue
+        ? vueTemplate(`#${slot}`, inner)
+        : svelteSnippet(slotProp(slot), inner)
+    ).code
   }
-  const expression = (item) =>
-    vue
-      ? item.name === "v-for"
-        ? `v-for="${item.value}"`
-        : `:${item.name}="${attributeText(item.value)}"`
-      : `${item.name}={${item.value}}`
   const svelteDefaults = (node) => {
     if (vue || !node.component) return node
-    const checked = reactPropsOf(node.name, node.component)?.has(
+    const checked = reactPropsOf(node.tag, node.component)?.has(
       "defaultChecked",
     )
     return checked
@@ -997,54 +928,33 @@ const markupTarget = (framework, textParts, models) => {
         }
       : node
   }
-  const attributeValue = (child) =>
-    child.name === "input" &&
-    !child.component &&
-    !child.attributes.some((item) => item.name === "readonly")
-      ? {
-          ...child,
-          attributes: child.attributes.map((item) =>
-            item.kind === "string" && item.name === "value"
-              ? {
-                  kind: "expression",
-                  name: "value.attr",
-                  value: `'${item.value.replaceAll("\\", "\\\\").replaceAll("'", "\\'")}'`,
-                }
-              : item,
-          ),
-        }
-      : child.type === "fragment"
-        ? { ...child, children: child.children.map(attributeValue) }
-        : child
-  const element = (node, html) => {
-    const attributes = markupAttributes(
-      starting(svelteDefaults(node)),
-      expression,
-      !vue,
+  const element = (node, html, { clause, slotted = false } = {}) => {
+    const attributes = joinParts(
+      [
+        ...(clause ? [clause] : []),
+        ...starting(svelteDefaults(node)).attributes.map((item) =>
+          vue
+            ? vueAttribute(item, undefined, { slotted })
+            : svelteAttribute(node, item),
+        ),
+      ],
+      " ",
     )
     const children = emit(
-      vue && node.component ? node.children.map(attributeValue) : node.children,
+      node.children,
       html,
+      vue && node.component ? slotInputs(node.children) : undefined,
     )
-    if (VOID_ELEMENTS.has(node.name)) {
-      return `${openTag(node.name, attributes)} />`
-    }
-    if (!children && node.component) {
-      return `${openTag(node.name, attributes)} />`
-    }
-    if (vue && !node.component && VUE_UNKNOWN_TAGS.has(node.name)) {
-      return `${openTag("component", [`is="${node.name}"`, attributes].filter(Boolean).join(" "))}>${children}</component>`
-    }
-    return `${openTag(node.name, attributes)}>${children}</${node.name}>`
+    return (vue ? vueElement : svelteElement)(node, {
+      attributes,
+      content: children,
+      emptyElements: "components",
+    }).code
   }
   return emit
 }
 
 const NUNJUCKS_WIDTH = 80
-
-const TEMPLATE_START = /\{(?=[{%#])/g
-
-const nunjucksText = (value) => value.replace(TEMPLATE_START, '{{ "{" }}')
 
 const NUNJUCKS_BOOLEANS = new Set([
   "checked",
@@ -1132,12 +1042,12 @@ const toNunjucksExample = (example, file, modules) => {
   }
   const attribute = (item, scope) => {
     if (item.kind === "boolean") return { text: item.name }
-    if (item.kind === "string") {
+    if (item.kind === "static") {
       return {
         text: nunjucksText(markupAttribute(item.name, item.value, false)),
       }
     }
-    const literal = literalOf(item.value)
+    const literal = literalOf(item.code)
     if (literal) {
       const { value } = literal
       if (value === true) return { text: item.name }
@@ -1149,11 +1059,11 @@ const toNunjucksExample = (example, file, modules) => {
       }
       throw unsupported(
         file,
-        `the attribute ${item.name}={${item.value}}`,
+        `the attribute ${item.name}={${item.code}}`,
         "Nunjucks",
       )
     }
-    const node = parseExpression(item.value, file)
+    const node = parseExpression(item.code, file)
     if (ts.isTemplateExpression(node)) {
       const parts = [
         attributeText(node.head.text),
@@ -1164,7 +1074,7 @@ const toNunjucksExample = (example, file, modules) => {
       ]
       return { text: `${item.name}="${parts.join("")}"` }
     }
-    const value = expression(item.value, scope).text
+    const value = expression(item.code, scope).text
     if (NUNJUCKS_BOOLEANS.has(item.name)) {
       return { condition: value, text: item.name }
     }
@@ -1172,10 +1082,10 @@ const toNunjucksExample = (example, file, modules) => {
   }
   const propValue = (item, scope, prefix, depth) => {
     if (item.kind === "boolean") return "true"
-    if (item.kind === "string") return nunjucksString(item.value)
-    const literal = literalOf(item.value)
+    if (item.kind === "static") return nunjucksString(item.value)
+    const literal = literalOf(item.code)
     if (literal) return nunjucksLiteral(literal.value, prefix, depth)
-    return expression(item.value, scope).text
+    return expression(item.code, scope).text
   }
   const isBlank = (node) => node?.type === "text" && !node.value.trim()
   const print = (nodes, out, context) => {
@@ -1211,16 +1121,16 @@ const toNunjucksExample = (example, file, modules) => {
         else print(item.tree, out, context)
         return
       }
-      if (node.type === "map") {
+      if (node.type === "each") {
         const taken = new Set([...consts.keys(), ...context.scope.locals])
-        const destructured = node.params.startsWith("{")
+        const destructured = node.item.startsWith("{")
         const name = destructured
-          ? ([singular(node.array), "entry"].find((item) => !taken.has(item)) ??
-            `${singular(node.array)}${taken.size}`)
-          : node.params
+          ? ([singular(node.list), "entry"].find((item) => !taken.has(item)) ??
+            `${singular(node.list)}${taken.size}`)
+          : node.item
         const renames = new Map(context.scope.renames)
         if (destructured) {
-          for (const pair of node.params.slice(1, -1).split(",")) {
+          for (const pair of node.item.slice(1, -1).split(",")) {
             const [key, local = key] = pair
               .split(":")
               .map((part) => part.trim())
@@ -1234,8 +1144,8 @@ const toNunjucksExample = (example, file, modules) => {
           ]),
           renames,
         }
-        out.text += `{% for ${name} in ${node.array} -%}\n${spaces(context.depth + 1)}`
-        print([node.child], out, {
+        out.text += `{% for ${name} in ${node.list} -%}\n${spaces(context.depth + 1)}`
+        print([node.row], out, {
           ...context,
           depth: context.depth + 1,
           scope,
@@ -1259,22 +1169,22 @@ const toNunjucksExample = (example, file, modules) => {
         ? `{% if ${condition} %}${before}${text}{% endif %}`
         : `${before}${text}`
     const flat = attributes.map((item) => piece(item, " ")).join("")
-    const end = VOID_ELEMENTS.has(node.name) ? " />" : ">"
-    if (fits(out.text, `<${node.name}${flat}${end}`)) {
-      out.text += `<${node.name}${flat}${end}`
+    const end = VOID_ELEMENTS.has(node.tag) ? " />" : ">"
+    if (fits(out.text, `<${node.tag}${flat}${end}`)) {
+      out.text += `<${node.tag}${flat}${end}`
     } else {
       const inner = spaces(context.depth + 1)
-      out.text += `<${node.name}${attributes
+      out.text += `<${node.tag}${attributes
         .map((item) => `\n${inner}${piece(item, "")}`)
         .join("")}\n${spaces(context.depth)}${end.trim()}`
     }
-    if (VOID_ELEMENTS.has(node.name)) return
+    if (VOID_ELEMENTS.has(node.tag)) return
     print(node.children, out, {
       ...context,
       depth: context.depth + 1,
-      raw: context.raw || RAW_TEXT.has(node.name),
+      raw: context.raw || RAW_TEXT.has(node.tag),
     })
-    out.text += `</${node.name}>`
+    out.text += `</${node.tag}>`
   }
   const slotValue = (child, depth, context) => {
     const content =
@@ -1319,7 +1229,7 @@ const toNunjucksExample = (example, file, modules) => {
     const props = node.attributes.map((item) => [item.name, item])
     const prefix = (head) => `${out.text}${head}`
     const call = children.length > 0 && !children.every(isBlank)
-    const head = call ? `{% call ${node.name}(` : `{{ ${node.name}(`
+    const head = call ? `{% call ${node.tag}(` : `{{ ${node.tag}(`
     const entries = props.map(([name, item]) => [
       name,
       propValue(
@@ -1393,7 +1303,7 @@ const mixedSvgText = (nodes) =>
   nodes.some(
     (node) =>
       node.type === "element" &&
-      ((SVG_TEXT_CONTENT.has(node.name) &&
+      ((SVG_TEXT_CONTENT.has(node.tag) &&
         node.children.some((child) => child.type === "element") &&
         node.children.some(
           (child) => child.type === "text" && child.value.trim(),
@@ -1407,7 +1317,7 @@ const toSvelte = (example, textParts, models) => {
     .filter((item) => item.shared)
     .map(
       (item) =>
-        `{#snippet ${item.name}()}\n${emit(item.tree, example.markup)}\n{/snippet}\n\n`,
+        `${svelteSnippet(item.name, `\n${emit(item.tree, example.markup)}\n`).code}\n\n`,
     )
     .join("")
   const script = [importLine(example, "svelte"), ...declarations(example)]
@@ -1430,204 +1340,53 @@ const toVue = (example, textParts, models) => {
   return `${script ? `<script setup lang="ts">\n${script}\n</script>\n\n` : ""}<template>\n${emit(example.tree, example.markup)}\n</template>${styles}\n`
 }
 
-const styleObject = (css, file) =>
-  `{{ ${splitTopLevel(css, ";")
-    .map((declaration) => {
-      const colon = declaration.indexOf(":")
-      if (colon === -1) {
-        throw unsupported(
-          file,
-          `the style declaration ${JSON.stringify(declaration)} has no colon`,
-          "React",
-        )
-      }
-      const property = declaration.slice(0, colon).trim()
-      const key = property.startsWith("--")
-        ? JSON.stringify(property)
-        : property.replace(/-(\w)/g, (_, letter) => letter.toUpperCase())
-      return `${key}: ${JSON.stringify(declaration.slice(colon + 1).trim())}`
-    })
-    .join(", ")} }}`
-
-const jsxExpression = (nodes, context, extra = "") => {
-  const inlined = nodes.flatMap((node) =>
-    node.type === "html" && !context.markup.get(node.name).shared
-      ? context.markup.get(node.name).tree
-      : [node],
-  )
-  const significant = inlined.filter(
-    (node) => !(node.type === "text" && !node.value.trim()),
-  )
-  return significant.length === 1 && significant[0].type === "element" && !extra
-    ? jsxNodes(significant, context)
-    : `<>${jsxNodes(inlined, context)}${extra}</>`
-}
-
-const ASCII_WHITESPACE = /[\t\n\f\r ]+/g
-
-const optionsOf = (nodes) =>
-  nodes.flatMap((child) => {
-    if (child.type !== "element" || child.component) return []
-    if (child.name === "option") return [child]
-    return child.name === "optgroup" ? optionsOf(child.children) : []
-  })
-
-const optionValue = (option) =>
-  option.attributes.find((item) => item.name === "value")?.value ??
-  decodeText(option.children.map((child) => child.value ?? "").join(""))
-    .replace(ASCII_WHITESPACE, " ")
-    .replace(/^ | $/g, "")
-
-const withoutSelected = (nodes) =>
-  nodes.map((child) => {
-    if (child.type !== "element" || child.component) return child
-    if (child.name === "option") {
-      return {
-        ...child,
-        attributes: child.attributes.filter((item) => item.name !== "selected"),
-      }
-    }
-    return child.name === "optgroup"
-      ? { ...child, children: withoutSelected(child.children) }
-      : child
-  })
-
-const stringProp = (name, value) =>
-  value.includes("\n")
-    ? `${name}={${JSON.stringify(value)}}`
-    : jsxAttribute(name, value)
-
-const valueIsState = (node, context) => {
+const valueIsState = (node, refuse) => {
   const attribute = (name) => node.attributes.find((item) => item.name === name)
   if (attribute("readonly")) return false
   if (node.component) return false
-  if (node.name === "textarea") return true
-  if (node.name !== "input") return false
+  if (node.tag === "textarea") return true
+  if (node.tag !== "input") return false
   const type = attribute("type")
-  if (type && type.kind !== "string") {
-    throw unsupported(
-      context.file,
-      "an <input> with a dynamic type",
-      context.dialect.framework,
-    )
+  if (type && type.kind !== "static") {
+    throw refuse("an <input> with a dynamic type")
   }
   return !REACT_FIXED_VALUE_TYPES.includes(type?.value)
 }
 
-const reactFormState = (node, table, context) => {
-  const attribute = (name) => node.attributes.find((item) => item.name === name)
-  const where = `<${node.name}>`
-  const state = {
-    children: node.children,
-    extra: [],
-    initial: startingProps(context.models, "react", node),
-    valueIsState: false,
-  }
-  const selected = optionsOf(node.children).filter((option) =>
-    option.attributes.some((item) => item.name === "selected"),
-  )
-  if (selected.length > 0) {
-    if (!table.has("defaultValue")) {
-      throw unsupported(
-        context.file,
-        `a selected <option> inside ${where}, which has no defaultValue`,
-        "React",
-      )
-    }
-    if (attribute("value") || attribute("defaultValue")) {
-      throw unsupported(
-        context.file,
-        `a selected <option> next to a value on ${where}`,
-        "React",
-      )
-    }
-    const multiple = attribute("multiple")
-    if (!multiple && selected.length > 1) {
-      throw unsupported(
-        context.file,
-        `several selected options in ${where} without multiple`,
-        "React",
-      )
-    }
-    const values = selected.map(optionValue)
-    state.extra.push({
-      code: multiple
-        ? `defaultValue={${JSON.stringify(values)}}`
-        : jsxAttribute("defaultValue", values[0]),
-      name: "defaultValue",
-    })
-    state.children = withoutSelected(node.children)
-  }
-  if (!node.component && node.name === "textarea") {
-    if (node.children.some((child) => child.type !== "text")) {
-      throw unsupported(context.file, "a <textarea> with markup", "React")
-    }
-    const text = decodeTextarea(
-      node.children.map((child) => child.value).join(""),
-    )
-    if (text) {
-      state.extra.push({
-        code: stringProp("defaultValue", text),
-        name: "defaultValue",
-      })
-    }
-    state.children = []
-  }
-  state.valueIsState = valueIsState(node, context)
-  return state
-}
+const startingName = (item, table, state) =>
+  item.name === "checked" && table.has("defaultChecked")
+    ? "defaultChecked"
+    : table.has(state.initial.get(item.name))
+      ? state.initial.get(item.name)
+      : item.name === "value" && state.valueIsState && table.has("defaultValue")
+        ? "defaultValue"
+        : undefined
 
-const jsxPropCode = (name, item, kinds, where, context) => {
-  const { framework, styleObjects, stringCode } = context.dialect
-  const has = (...names) => names.some((kind) => kinds.has(kind))
-  const fail = (what) =>
-    unsupported(
-      context.file,
-      `${what} for the prop ${name} of ${where}, which ${framework} types as ${[...kinds].join(" or ") || "nothing"}`,
-      framework,
-    )
-  if (item.kind === "boolean") {
-    const bare = reactBareAttribute(name, kinds)
-    if (bare) return bare
-    throw fail("an attribute without a value")
-  }
-  if (item.kind === "string") {
-    if (name === "style" && styleObjects) {
-      return `${name}=${styleObject(item.value, context.file)}`
-    }
-    if (has("string", "any", "other")) return stringCode(name, item.value)
-    if (has("number") && /^-?\d+(\.\d+)?$/.test(item.value)) {
-      return `${name}={${item.value}}`
-    }
-    throw fail(`the string ${JSON.stringify(item.value)}`)
-  }
-  return `${name}={${item.value}}`
-}
-
-const jsxProps = (node, context) => {
-  const { dialect } = context
+const jsxProps = (node, { dialect, markup, models, printer, refuse }) => {
   const { framework } = dialect
-  const where = `<${node.name}>`
-  const table = dialect.propsOf(node.name, node.component)
-  if (!table) {
-    throw unsupported(
-      context.file,
-      `${where}, which ${framework}'s types don't have`,
-      framework,
-    )
+  const where = `<${node.tag}>`
+  const table = dialect.propsOf(node.tag, node.component)
+  if (!table) throw refuse(`${where}, which ${framework}'s types don't have`)
+  const state = {
+    ...dialect.formState(node, table, refuse),
+    initial: startingProps(models, dialect.id, node),
+    valueIsState: valueIsState(node, refuse),
   }
-  const state = dialect.formState(node, table, context)
   const props = node.attributes.map((item) => {
-    const name = dialect.propName(item, table, state)
+    const name =
+      startingName(item, table, state) ??
+      jsxName(dialect, table, item.name, "refuse")
     if (!name) {
-      throw unsupported(
-        context.file,
+      throw refuse(
         `the attribute ${item.name} on ${where}, which ${framework}'s types for it don't have`,
-        framework,
       )
     }
     return {
-      code: jsxPropCode(name, item, reactKinds(table, name), where, context),
+      code: jsxAttributeCode(
+        dialect,
+        { item, name, table, where },
+        { policy: "refuse", refuse },
+      ),
       name,
     }
   })
@@ -1636,10 +1395,8 @@ const jsxProps = (node, context) => {
     .map((child) => {
       const name = slotProp(child.slot)
       if (!table.has(name)) {
-        throw unsupported(
-          context.file,
+        throw refuse(
           `the slot ${child.slot} of ${where}, which has no ${name} prop in ${framework}`,
-          framework,
         )
       }
       const content =
@@ -1654,210 +1411,60 @@ const jsxProps = (node, context) => {
           .trim()
         return { code: jsxAttribute(name, decodeText(text)), name }
       }
-      return { code: `${name}={${jsxExpression(content, context)}}`, name }
+      return {
+        code: `${name}={${printer.branch(inlined(content, markup)).code}}`,
+        name,
+      }
     })
   const all = [...props, ...state.extra, ...slots]
   return {
-    children: state.children,
-    code: (node.component
+    attributes: (node.component
       ? all.toSorted((a, b) => byAttributeName(a.name, b.name))
       : all
-    )
-      .map(({ code }) => code)
-      .join(" "),
+    ).map(({ code }) => code),
+    children: state.children,
   }
 }
 
-const joinRuns = (parts) =>
-  parts.reduce((joined, part) => {
-    const previous = joined.at(-1)
-    if (part.run !== undefined && previous?.run !== undefined) {
-      joined[joined.length - 1] = {
-        role:
-          previous.role === "space" || part.role === "space" ? "space" : "drop",
-        run: previous.run === "\n\n" || part.run === "\n\n" ? "\n\n" : part.run,
-      }
-    } else {
-      joined.push(part)
-    }
-    return joined
-  }, [])
-
-const jsxChildren = (nodes) => {
-  const merged = []
-  for (const node of nodes) {
-    const previous = merged.at(-1)
-    if (node.type === "text" && previous?.type === "text") {
-      merged[merged.length - 1] = {
-        parts: [...previous.parts, ...node.parts],
-        type: "text",
-        value: previous.value + node.value,
-      }
-    } else {
-      merged.push(node)
-    }
-  }
-  return merged
-}
-
-const jsxNodes = (nodes, context) => {
-  const { dialect } = context
-  const children = jsxChildren(
-    nodes
-      .filter((node) => !node.slot)
-      .map((node) =>
-        node.type === "text"
-          ? { ...node, parts: context.textParts(node) }
-          : node,
-      ),
+const inlined = (nodes, markup) =>
+  nodes.flatMap((node) =>
+    node.type === "html" && !markup.get(node.name).shared
+      ? markup.get(node.name).tree
+      : [node],
   )
-  return children
-    .map((node) => {
-      if (node.type === "text") {
-        return jsxText(
-          joinRuns(node.parts)
-            .map(
-              (part) =>
-                part.text ??
-                (part.role === "space"
-                  ? " "
-                  : part.run === "\n\n"
-                    ? "\n\n"
-                    : "\n"),
-            )
-            .join(""),
-        )
-      }
-      if (node.type === "comment") {
-        if (node.value.includes("*/")) {
-          throw unsupported(
-            context.file,
-            "a comment that contains */",
-            dialect.framework,
-          )
-        }
-        return `{/*${node.value}*/}`
-      }
-      if (node.type === "expression") return `{${node.code}}`
-      if (node.type === "html") {
-        const item = context.markup.get(node.name)
-        return item.shared
-          ? `{${dialect.sharedRead(node.name)}}`
-          : jsxNodes(item.tree, context)
-      }
-      if (node.type === "map") {
-        const child = jsxElement(
-          node.child,
-          context,
-          dialect.keyed ? node.key : undefined,
-        )
-        return `{${node.array}.map((${dialect.keyed ? node.params : readParam(node.params, child)}) => (${child}))}`
-      }
-      if (node.type === "fragment") {
-        throw unsupported(
-          context.file,
-          "a slot outside a component",
-          dialect.framework,
-        )
-      }
-      return jsxElement(node, context)
-    })
-    .join("")
-}
-
-const jsxElement = (node, context, key) => {
-  const { children, code } = jsxProps(node, context)
-  const attributes = key ? `key={${key}}${code ? ` ${code}` : ""}` : code
-  const content = jsxNodes(children, context)
-  if (VOID_ELEMENTS.has(node.name) || (!content.trim() && node.component)) {
-    return `${openTag(node.name, attributes)} />`
-  }
-  return `${openTag(node.name, attributes)}>${content}</${node.name}>`
-}
-
-const readParam = (param, code) =>
-  /^[A-Za-z_$][\w$]*$/.test(param) &&
-  !new RegExp(`(?<![\\w$.])${param.replaceAll("$", "\\$")}(?![\\w$])`).test(
-    code,
-  )
-    ? ""
-    : param
-
-const JSX_DIALECTS = {
-  react: {
-    formState: reactFormState,
-    framework: "React",
-    keyed: true,
-    pragma: "",
-    preamble: (example) =>
-      example.consts.some(({ fn }) => fn) ||
-      passesFunction(example.tree) ||
-      passesFunction([...example.markup.values()].map(({ tree }) => tree))
-        ? ['"use client"']
-        : [],
-    propName: (item, table, state) =>
-      item.name === "checked" && table.has("defaultChecked")
-        ? "defaultChecked"
-        : (state.initial.get(item.name) ??
-          (item.name === "value" && state.valueIsState
-            ? "defaultValue"
-            : resolveReactProp(table, item.name))),
-    propsOf: reactPropsOf,
-    sharedMarkup: (code) => `(${code})`,
-    sharedRead: (name) => name,
-    stringCode: jsxAttribute,
-    styleObjects: true,
-  },
-  solid: {
-    formState: (node, _, context) => ({
-      children: node.children,
-      extra: [],
-      initial: startingProps(context.models, "solid", node),
-      valueIsState: valueIsState(node, context),
-    }),
-    framework: "Solid",
-    keyed: false,
-    pragma: `${SOLID_PRAGMA}\n`,
-    preamble: () => [],
-    propName: (item, table, state) =>
-      item.name === "checked" && table.has("defaultChecked")
-        ? "defaultChecked"
-        : table.has(state.initial.get(item.name))
-          ? state.initial.get(item.name)
-          : item.name === "value" &&
-              state.valueIsState &&
-              table.has("defaultValue")
-            ? "defaultValue"
-            : table.has(item.name) || item.name.startsWith("data-")
-              ? item.name
-              : undefined,
-    propsOf: (tag, component) => propsOf("solid", tag, component),
-    sharedMarkup: (code) => `() => (${code})`,
-    sharedRead: (name) => `${name}()`,
-    stringCode: stringProp,
-    styleObjects: false,
-  },
-}
 
 const toJsx = (framework, example, textParts, name, file, models) => {
   const dialect = JSX_DIALECTS[framework]
-  const context = {
-    dialect,
-    file,
-    markup: example.markup,
-    models,
-    textParts,
-  }
+  const { markup } = example
+  const refuse = (what) => unsupported(file, what, dialect.framework)
+  const printer = jsxPrinter(dialect, {
+    emptyElements: "components",
+    other: (node, scope, { emit }) => {
+      const item = markup.get(node.name)
+      return item.shared
+        ? `{${dialect.sharedRead(node.name)}}`
+        : emit(item.tree, scope)
+    },
+    props: (node) =>
+      jsxProps(node, { dialect, markup, models, printer, refuse }),
+    refuse,
+    text: jsxRenderedText(textParts),
+  })
   const components = usedComponents(example)
   const functionName = components.includes(name) ? `${name}Example` : name
-  const shared = [...example.markup.values()]
+  const shared = [...markup.values()]
     .filter((item) => item.shared)
     .map(
       (item) =>
-        `const ${item.name} = ${dialect.sharedMarkup(jsxExpression(item.tree, context))}`,
+        `const ${item.name} = ${dialect.sharedMarkup(printer.branch(inlined(item.tree, markup))).code}`,
     )
   const header = [
-    ...dialect.preamble(example),
+    ...(dialect.clientFunctions &&
+    (example.consts.some(({ fn }) => fn) ||
+      passesFunction(example.tree) ||
+      passesFunction([...markup.values()].map(({ tree }) => tree)))
+      ? ['"use client"']
+      : []),
     importLine(example, framework),
     ...declarations(example),
     ...shared,
@@ -1868,7 +1475,11 @@ const toJsx = (framework, example, textParts, name, file, models) => {
     (css) =>
       `\n<style>{\`\n${indent(templateLiteral(css), 8)}\n      \`}</style>`,
   )
-  const body = jsxExpression(example.tree, context, styles.join(""))
+  const body = printer.branch(
+    inlined(example.tree, markup),
+    undefined,
+    styles.join(""),
+  ).code
   return `${dialect.pragma}${header ? `${header}\n\n` : ""}export default function ${functionName}() {\n  return (${body})\n}\n`
 }
 

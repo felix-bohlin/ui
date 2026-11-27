@@ -58,7 +58,7 @@ describe("tooling bugs the generator and the components work around", () => {
     expect(
       code,
       fixed(
-        'VUE_UNKNOWN_TAGS in scripts/build-examples.mjs, which writes <search> as <component is="search"> in Vue',
+        'VUE_UNKNOWN_TAGS in scripts/print-vue.mjs, which writes <search> as <component is="search"> in Vue',
       ),
     ).toContain("resolveComponent")
   })

@@ -1,7 +1,7 @@
 import { slotProp } from "../src/component-api/frameworks.ts"
 import { indent } from "./component-emit.mjs"
-import { asFragment, code, join } from "./component-fragment.mjs"
-import { isBlank } from "./component-shared.mjs"
+import { asFragment, code } from "./component-fragment.mjs"
+import { jsxPrinter, sourceText } from "./print-jsx.mjs"
 
 export const tagNamer = (component, shadowed = []) => {
   const taken = new Set([
@@ -15,104 +15,47 @@ export const tagNamer = (component, shadowed = []) => {
   }
 }
 
-const mapLoop = ({ list, optional, parameters, returned }) =>
-  code`{${list}${optional ? "?" : ""}.map((${parameters}) => ${returned})}`
-
-export const jsxEmitter = ({
-  attributes,
-  each,
-  loop = mapLoop,
-  narrow,
-  rewrite,
-  slotCode,
-  stringSlots,
-  tag = (node) => node.tag,
-}) => {
-  const branch = (nodes, scope) =>
-    wrapFragment(emit(nodes, scope), nodes, scope)
-  const wrapFragment = (inner, nodes, scope) => {
-    const significant = nodes.filter(
-      (node) =>
-        !isBlank(node) &&
-        !(
-          node.type === "slot" &&
-          stringSlots.some(({ slot }) => slot === node.name)
-        ),
-    )
-    const [only] = significant
-    if (significant.length !== 1) return code`<>${inner}</>`
-    if (only.type === "element") return inner
-    if (only.type === "if") return conditional(only, scope)
-    if (only.type === "slot" && only.fallback.length === 0) {
-      return asFragment(slotCode(slotProp(only.name), scope, true))
-    }
-    if (only.type === "expression") return asFragment(rewrite(only.code, scope))
-    return code`<>${inner}</>`
-  }
-  const ternary = (node, scope) => {
-    const test = rewrite(node.test, scope)
-    const consequent = branch(node.consequent, scope)
-    if (!node.alternate) return code`(${test}) && (${consequent})`
-    return code`${test} ? (${consequent}) : (${branch(node.alternate, scope)})`
-  }
-  const conditional = (node, scope) =>
-    narrow?.(node, scope, branch) ?? ternary(node, scope)
-  const emit = (nodes, scope) =>
-    join(
-      nodes.map((node) => {
-        if (node.type === "text") {
-          return node.value === " " || node.inline ? '{" "}' : node.value
-        }
-        if (node.type === "expression") {
-          return code`{${rewrite(node.code, scope)}}`
-        }
-        if (node.type === "slot") {
-          const name = slotProp(node.name)
-          const string = stringSlots.find(({ slot }) => slot === node.name)
-          if (string) {
-            return nodes.some(
-              (sibling) =>
-                sibling.type === "expression" &&
-                sibling.code.trim() === string.local,
-            )
-              ? ""
-              : code`{${slotCode(name)}}`
-          }
-          if (node.fallback.length === 0) {
-            return code`{${slotCode(name, scope, true)}}`
-          }
-          return code`{${slotCode(name, scope)} === undefined ? (${branch(node.fallback, scope)}) : (${slotCode(name, scope, true)})}`
-        }
-        if (node.type === "if") {
-          return (
-            narrow?.(node, scope, branch) ?? code`{${ternary(node, scope)}}`
-          )
-        }
-        if (node.type === "each") {
-          const row = each(node, scope)
-          const body = branch(node.children, row.scope)
-          const returned = row.consts.length
-            ? code`{\n${join(row.consts, "\n")}\nreturn (\n${body}\n)\n}`
-            : code`(\n${body}\n)`
-          return loop({
-            keyed: row.keyed,
-            list: row.list,
-            optional: node.optional,
-            parameters: row.parameters,
-            returned,
-          })
-        }
-        const listed = join(attributes(node, scope), " ")
-        const name = tag(node, scope)
-        const open = code`<${name}${listed.code ? code` ${listed}` : ""}`
-        return node.children.length === 0
-          ? code`${open} />`
-          : code`${open}>${emit(node.children, scope)}</${name}>`
-      }),
-    )
-  const render = (tree, scope) =>
-    tree[0].type === "if" ? conditional(tree[0], scope) : emit(tree, scope)
-  return { render }
+export const componentPrinter = (
+  dialect,
+  { attributes, rewrite, slotCode, stringSlots, ...hooks },
+) => {
+  const stringSlot = (node) =>
+    node.type === "slot"
+      ? stringSlots.find(({ slot }) => slot === node.name)
+      : undefined
+  return jsxPrinter(dialect, {
+    ...hooks,
+    bare: (only, scope) => {
+      if (only.type === "slot" && only.fallback.length === 0) {
+        return asFragment(slotCode(slotProp(only.name), scope, true))
+      }
+      if (only.type === "expression")
+        return asFragment(rewrite(only.code, scope))
+      return undefined
+    },
+    emptyElements: "every",
+    ignored: (node) => stringSlot(node) !== undefined,
+    other: (node, scope, { branch, siblings }) => {
+      const name = slotProp(node.name)
+      const string = stringSlot(node)
+      if (string) {
+        return siblings.some(
+          (sibling) =>
+            sibling.type === "expression" &&
+            sibling.code.trim() === string.local,
+        )
+          ? ""
+          : code`{${slotCode(name)}}`
+      }
+      if (node.fallback.length === 0) {
+        return code`{${slotCode(name, scope, true)}}`
+      }
+      return code`{${slotCode(name, scope)} === undefined ? (${branch(node.fallback, scope)}) : (${slotCode(name, scope, true)})}`
+    },
+    props: (node, scope) => ({ attributes: attributes(node, scope) }),
+    rewrite,
+    text: sourceText,
+  })
 }
 
 export const componentFunction = (name, parameters, body, returned) =>

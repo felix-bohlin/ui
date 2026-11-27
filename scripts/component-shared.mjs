@@ -31,8 +31,13 @@ export const sourceFileOf = (code, name = "frontmatter.ts") =>
 
 export const printer = ts.createPrinter({ removeComments: false })
 
-export const unwrap = (node) => {
-  while (ts.isParenthesizedExpression(node)) node = node.expression
+export const unwrap = (node, { casts = false } = {}) => {
+  while (
+    ts.isParenthesizedExpression(node) ||
+    (casts && (ts.isAsExpression(node) || ts.isSatisfiesExpression(node)))
+  ) {
+    node = node.expression
+  }
   return node
 }
 

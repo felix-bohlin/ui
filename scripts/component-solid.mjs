@@ -24,12 +24,14 @@ import {
   slotReads,
   uses,
 } from "./component-fragment.mjs"
-import { componentFunction, jsxEmitter, tagNamer } from "./component-jsx.mjs"
+import {
+  componentFunction,
+  componentPrinter,
+  tagNamer,
+} from "./component-jsx.mjs"
 import { bindingFor, isCheckedAttribute } from "./component-models.mjs"
-import { jsxAttribute } from "./example-encoders.mjs"
 import { allValues, valuesIn } from "./component-analysis.mjs"
 import {
-  SOLID_PRAGMA,
   byName,
   capitalize,
   classMayBeEmpty,
@@ -43,6 +45,9 @@ import {
   unsupported,
   unwrap,
 } from "./component-shared.mjs"
+import { JSX_DIALECTS, jsxAttributeCode, jsxName } from "./print-jsx.mjs"
+
+const SOLID = JSX_DIALECTS.solid
 
 const CONTROL = named("../solid", "control")
 
@@ -510,17 +515,27 @@ const solidFile = (component, resolvedSlots) => {
         DEFINED,
       )
     }
-    if (entry.kind === "static") return jsxAttribute(entry.name, entry.value)
-    if (entry.kind === "boolean") return entry.name
-    const value = rewrite(entry.code, scope)
-    if (
-      (node.component || node.variable) &&
-      isCondition(value.code) &&
-      reactiveIn(entry, scope)
-    ) {
-      return code`${entry.name}={${call(hoist(node, entry, value, scope))}}`
-    }
-    return code`${entry.name}={${value}}`
+    const value =
+      entry.kind === "expression" ? rewrite(entry.code, scope) : undefined
+    return jsxAttributeCode(
+      SOLID,
+      {
+        item: entry,
+        name: jsxName(SOLID, undefined, entry.name, "keep"),
+        value:
+          value &&
+          (node.component || node.variable) &&
+          isCondition(value.code) &&
+          reactiveIn(entry, scope)
+            ? call(hoist(node, entry, value, scope))
+            : value,
+        where: `<${node.tag}>`,
+      },
+      {
+        policy: "keep",
+        refuse: (what) => unsupported("BC201", component.file, what),
+      },
+    )
   }
   const slotCode = (name, scope, rendered) => {
     if (scope?.itemSlots?.has(name)) {
@@ -657,13 +672,12 @@ const solidFile = (component, resolvedSlots) => {
           ...eachScope.hoisted.map(({ line }) => line),
         ]
       },
-      keyed: "false",
       list: rewrite(node.list, scope),
       parameters: `${row}${usesIndex ? `, ${node.index}` : ""}`,
       scope: eachScope,
     }
   }
-  const { render } = jsxEmitter({
+  const { render } = componentPrinter(SOLID, {
     attributes: (node, scope) => {
       const restAt = node.attributes.findIndex(
         (entry) => entry.kind === "spread" && entry.code === rest,
@@ -702,11 +716,7 @@ const solidFile = (component, resolvedSlots) => {
       }
       return staticTags.get(node.tag) ?? reads(node.tag, node.tag)
     },
-    loop: ({ keyed, list, parameters, returned }) =>
-      uses(
-        code`<For each={${list}}${keyed ? ` keyed={${keyed}}` : ""}>{(${parameters}) => ${returned}}</For>`,
-        SOLID_JS("For"),
-      ),
+    lists: "reactive",
     narrow,
     rewrite,
     slotCode,
@@ -838,7 +848,7 @@ const solidFile = (component, resolvedSlots) => {
   ]
   return {
     parts: [...body, returned],
-    text: `${SOLID_PRAGMA}\n${importLines.join("\n")}\n\n${componentFunction(
+    text: `${SOLID.pragma}${importLines.join("\n")}\n\n${componentFunction(
       component.name,
       "props: Props",
       resolvedBody.map((line) => line.code),

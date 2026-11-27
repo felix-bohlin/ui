@@ -1,4 +1,3 @@
-import { VOID_ELEMENTS } from "./html-tokens.mjs"
 import { slotProp } from "../src/component-api/frameworks.ts"
 import {
   chosenSpreadCode,
@@ -26,7 +25,6 @@ import {
   uses,
 } from "./component-fragment.mjs"
 import { bindingFor, isCheckedAttribute } from "./component-models.mjs"
-import { markupAttribute } from "./example-encoders.mjs"
 import { eventProp } from "./component-types.mjs"
 import {
   byName,
@@ -37,6 +35,15 @@ import {
   propKey,
   unsupported,
 } from "./component-shared.mjs"
+import {
+  sourceText,
+  svelteAttribute,
+  svelteEach,
+  svelteElement,
+  svelteExpression,
+  svelteIf,
+  svelteRender,
+} from "./print-svelte.mjs"
 
 const CONTENT = named("../content.svelte", "content")
 
@@ -159,11 +166,11 @@ export const toSvelte = (component) => {
       }
       return code`{...${spread}}`
     }
-    if (item.kind === "static") {
-      return markupAttribute(item.name, item.value, true)
-    }
-    if (item.kind === "boolean") return item.name
-    return code`${item.name}={${rewrite(item.code)}}`
+    return svelteAttribute(
+      node,
+      item,
+      item.kind === "expression" ? rewrite(item.code) : undefined,
+    )
   }
   const body = (nodes, scope, head = "") => {
     const inner = scope.preserved ? undefined : edgeTrimmed(nodes)
@@ -179,9 +186,7 @@ export const toSvelte = (component) => {
   const emit = (nodes, scope) =>
     join(
       nodes.map((node) => {
-        if (node.type === "text") {
-          return node.value === " " ? '{" "}' : node.value
-        }
+        if (node.type === "text") return sourceText(node)
         if (node.type === "expression") {
           const string = stringSlots.find(
             ({ local }) => local === node.code.trim(),
@@ -192,9 +197,12 @@ export const toSvelte = (component) => {
                 sibling.type === "slot" && sibling.name === string.slot,
             )
               ? ""
-              : uses(`{@render content(${string.prop})}`, CONTENT)
+              : uses(
+                  svelteRender("content", { argument: string.prop }),
+                  CONTENT,
+                )
           }
-          return code`{${rewrite(node.code)}}`
+          return svelteExpression(rewrite(node.code))
         }
         if (node.type === "slot") {
           const name = slotProp(node.name)
@@ -202,20 +210,24 @@ export const toSvelte = (component) => {
             stringSlots.some(({ slot }) => slot === node.name) ||
             component.stringTypedSlots.includes(name)
           ) {
-            return uses(`{@render content(${name})}`, CONTENT)
+            return uses(svelteRender("content", { argument: name }), CONTENT)
           }
           if (node.fallback.length === 0) {
-            return scope.guards.has(name)
-              ? `{@render ${name}()}`
-              : `{@render ${name}?.()}`
+            return svelteRender(name, { optional: !scope.guards.has(name) })
           }
-          return code`{#if ${name}}\n{@render ${name}()}\n{:else}${body(node.fallback, scope)}{/if}`
+          return svelteIf(
+            name,
+            `\n${svelteRender(name)}\n`,
+            body(node.fallback, scope),
+          )
         }
         if (node.type === "if") {
           const test = rewrite(node.test)
-          const consequent = body(node.consequent, guarded(scope, test.code))
-          if (!node.alternate) return code`{#if ${test}}${consequent}{/if}`
-          return code`{#if ${test}}${consequent}{:else}${body(node.alternate, scope)}{/if}`
+          return svelteIf(
+            test,
+            body(node.consequent, guarded(scope, test.code)),
+            node.alternate && body(node.alternate, scope),
+          )
         }
         if (node.type === "each") {
           const consts = join(
@@ -225,7 +237,7 @@ export const toSvelte = (component) => {
             ),
             "\n",
           )
-          return code`{#each ${node.list} as ${node.item}${node.index ? `, ${node.index}` : ""} (${node.index})}${body(node.children, scope, consts)}{/each}`
+          return svelteEach(node, body(node.children, scope, consts))
         }
         const modelAttributes = model.attributes(node, { rewrite })
         const spreadAt = node.attributes.findIndex(
@@ -260,33 +272,15 @@ export const toSvelte = (component) => {
           ],
           " ",
         )
-        const tag = node.variable ? "svelte:element" : node.tag
-        const open = code`<${tag}${node.variable ? ` this={${node.tag}}` : ""}${attributes.code ? code` ${attributes}` : ""}`
-        const progress =
-          node.tag === "progress"
-            ? node.attributes.find(
-                (item) => item.kind === "expression" && item.name === "value",
-              )
-            : undefined
-        const keyed = (written) =>
-          progress
-            ? code`{#key ${rewrite(progress.code)} == null}\n${written}\n{/key}`
-            : written
-        if (
-          node.children.length === 0 &&
-          (node.component ||
-            node.variable ||
-            node.foreign ||
-            VOID_ELEMENTS.has(node.tag))
-        ) {
-          return keyed(code`${open} />`)
-        }
-        return keyed(
-          code`${open}>${body(node.children, {
+        return svelteElement(node, {
+          attributes,
+          content: body(node.children, {
             ...scope,
             preserved: scope.preserved || PRESERVED_TAGS.has(node.tag),
-          })}</${tag}>`,
-        )
+          }),
+          emptyElements: "foreign",
+          rewrite,
+        })
       }),
     )
   const markup = emit(tree, { guards: new Set(), preserved: false })

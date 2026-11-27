@@ -1,11 +1,6 @@
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
-import {
-  reactAttributeName,
-  reactBareAttribute,
-  reactKinds,
-  reactPropsOf,
-} from "./example-react-props.mjs"
+import { reactAttributeName } from "./example-react-props.mjs"
 import {
   componentImport,
   contextLines,
@@ -31,9 +26,8 @@ import {
   typed,
   uses,
 } from "./component-fragment.mjs"
-import { componentFunction, jsxEmitter } from "./component-jsx.mjs"
+import { componentFunction, componentPrinter } from "./component-jsx.mjs"
 import { bindingFor, isCheckedAttribute } from "./component-models.mjs"
-import { jsxAttribute } from "./example-encoders.mjs"
 import { eventProp } from "./component-types.mjs"
 import {
   byName,
@@ -43,6 +37,9 @@ import {
   sourceFileOf,
   unsupported,
 } from "./component-shared.mjs"
+import { JSX_DIALECTS, jsxAttributeCode, jsxName } from "./print-jsx.mjs"
+
+const REACT = JSX_DIALECTS.react
 
 const DEFINED = named("../attrs", "defined")
 
@@ -309,23 +306,25 @@ export const toReact = (component) => {
         ? uses(code`{...defined(${spread})}`, DEFINED)
         : code`{...${spread}}`
     }
-    const name = node.component
-      ? item.name
-      : reactAttributeName(
-          node.variable || node.custom ? undefined : node.tag,
-          item.name,
-        )
-    if (item.kind === "static") return jsxAttribute(name, item.value)
-    if (item.kind === "boolean") {
-      const kinds =
-        node.component || node.variable || node.custom
-          ? new Set()
-          : reactKinds(reactPropsOf(node.tag, false) ?? new Map(), name)
-      return reactBareAttribute(name, kinds) ?? name
-    }
-    return code`${name}={${rewrite(item.code)}}`
+    const table =
+      node.component || node.variable || node.custom
+        ? undefined
+        : REACT.propsOf(node.tag, false)
+    return jsxAttributeCode(
+      REACT,
+      {
+        item,
+        name: jsxName(REACT, table, item.name, "keep"),
+        table,
+        value: item.kind === "expression" ? rewrite(item.code) : undefined,
+        where: `<${node.tag}>`,
+      },
+      {
+        policy: "keep",
+        refuse: (what) => unsupported("BC201", component.file, what),
+      },
+    )
   }
-  const keys = new Map()
   const elementAttributes = (node) => {
     const modelAttributes = model.attributes(node, {
       attribute: (entry) => attribute(node, entry),
@@ -341,7 +340,6 @@ export const toReact = (component) => {
       "ref={rootRef}",
     ]
     return [
-      ...(keys.has(node) ? [`key={${keys.get(node)}}`] : []),
       ...node.attributes.flatMap((entry, index) => [
         ...(index === spreadAt ? modelAttributes.rest : []),
         ...(index === restAt ? rootRef : []),
@@ -360,18 +358,15 @@ export const toReact = (component) => {
       ...(listens && restAt === -1 ? rootRef : []),
     ]
   }
-  const { render } = jsxEmitter({
+  const { render } = componentPrinter(REACT, {
     attributes: elementAttributes,
-    each: (node) => {
-      keys.set(node.row, node.index)
-      return {
-        consts: node.consts.map(
-          ({ code: source, name }) => code`const ${name} = ${rewrite(source)}`,
-        ),
-        list: node.list,
-        parameters: `${node.item}${node.index ? `, ${node.index}` : ""}`,
-      }
-    },
+    each: (node) => ({
+      consts: node.consts.map(
+        ({ code: source, name }) => code`const ${name} = ${rewrite(source)}`,
+      ),
+      list: node.list,
+      parameters: `${node.item}${node.index ? `, ${node.index}` : ""}`,
+    }),
     rewrite,
     slotCode: (name) => name,
     stringSlots,

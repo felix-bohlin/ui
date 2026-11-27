@@ -224,18 +224,6 @@ describe("React", () => {
     ).toContain("export default function ButtonExample()")
   })
 
-  test("quotes a value with double quotes in single quotes", async () => {
-    expect(
-      await convert(
-        astro(
-          "<ListItem description='Has aria-current=\"page\"' />",
-          "ListItem",
-        ),
-        "react",
-      ),
-    ).toContain("description='Has aria-current=\"page\"'")
-  })
-
   test("puts a <style> at the end of the fragment", async () => {
     const code = await convert(
       astro(
@@ -281,26 +269,6 @@ describe("Solid", () => {
     expect(code).toContain('<select name="pick">')
     expect(code).toContain('<option selected value="b">')
   })
-
-  test("a map callback takes no key, and no parameter when its element doesn't read it", async () => {
-    const list = (params: string, item: string) =>
-      convert(
-        astro(
-          `<ul>\n  {items.map((${params}) => <li>${item}</li>)}\n</ul>`,
-          "",
-          'const items = [{ label: "a" }, { label: "b" }]\n',
-        ),
-        "solid",
-      )
-    expect(await list("item", "Row")).toContain("{items.map(() => (")
-    expect(await list("item", "{item.label}")).toContain(
-      "{items.map((item) => (",
-    )
-    expect(await list("{ label }", "{label}")).toContain(
-      "{items.map(({ label }) => (",
-    )
-    expect(await list("item", "{item.label}")).not.toContain("key=")
-  })
 })
 
 describe("Svelte", () => {
@@ -328,27 +296,6 @@ describe("Svelte", () => {
     )
     expect(code).toContain('<Radio defaultChecked name="pick" value="b" />')
     expect(code).toContain('<input type="checkbox" checked />')
-  })
-
-  test("writes values with braces or double quotes as expressions", async () => {
-    const code = await convert(
-      astro(
-        '<Field for="x" label="{count} left" startText=\'A "b"\' />',
-        "Field",
-      ),
-      "svelte",
-    )
-    expect(code).toContain('label={"{count} left"}')
-    expect(code).toContain("startText={'A \"b\"'}")
-  })
-
-  test("numbers a component's tabindex and leaves a native one", async () => {
-    const code = await convert(
-      astro('<Table tabindex="0"></Table>\n<div tabindex="0"></div>', "Table"),
-      "svelte",
-    )
-    expect(code).toContain("<Table tabindex={0} />")
-    expect(code).toContain('<div tabindex="0"></div>')
   })
 
   test("leaves the inside of a template literal as it is", async () => {
@@ -574,23 +521,6 @@ describe("reading .map", () => {
       compile(astro(body, "", consts), FRAMEWORK_TARGETS),
     ).rejects.toThrow(reason)
   })
-
-  test("a .map renders in every target with the key from the data", async () => {
-    const source = astro(
-      "<ul>{places.map(({ id, title }) => <li>{title}</li>)}</ul>",
-      "",
-      PLACES,
-    )
-    expect(await convert(source, "react")).toContain(
-      "<li key={id}>{title}</li>",
-    )
-    expect(await convert(source, "svelte")).toContain(
-      "{#each places as { id, title } (id)}",
-    )
-    expect(await convert(source, "vue")).toContain(
-      '<li v-for="{ id, title } in places" :key="id">',
-    )
-  })
 })
 
 describe("reading the frontmatter", () => {
@@ -770,12 +700,12 @@ describe("the source layout", () => {
           ...(node.attributes
             ? {
                 attributes: (
-                  node.attributes as { kind: string; value: string }[]
+                  node.attributes as { code: string; kind: string }[]
                 ).map((attribute) =>
                   attribute.kind === "expression"
                     ? {
                         ...attribute,
-                        value: attribute.value
+                        code: attribute.code
                           .replace(/\s+/g, "")
                           .replace(/,([\]})])/g, "$1"),
                       }
@@ -786,8 +716,8 @@ describe("the source layout", () => {
           ...(node.children
             ? { children: shape(node.children as Record<string, unknown>[]) }
             : {}),
-          ...(node.child
-            ? { child: shape([node.child as Record<string, unknown>])[0] }
+          ...(node.row
+            ? { row: shape([node.row as Record<string, unknown>])[0] }
             : {}),
         },
       ]

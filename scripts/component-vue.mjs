@@ -4,7 +4,6 @@ import {
   reactPropsOf,
   resolveReactProp,
 } from "./example-react-props.mjs"
-import { VOID_ELEMENTS } from "./html-tokens.mjs"
 import {
   chosenSpreadCode,
   componentImport,
@@ -40,7 +39,6 @@ import {
   uses,
 } from "./component-fragment.mjs"
 import { bindingFor, isCheckedAttribute } from "./component-models.mjs"
-import { markupAttribute } from "./example-encoders.mjs"
 import { emitsTypeOf } from "./component-types.mjs"
 import { allValues, scriptValues, valuesIn } from "./component-analysis.mjs"
 import {
@@ -52,13 +50,21 @@ import {
   itemBinding,
   onlyClass,
   PRESERVED_TAGS,
-  printer,
   propKey,
-  sourceFileOf,
   staticClass,
   unsupported,
   withoutClassEntry,
 } from "./component-shared.mjs"
+import {
+  slotInputs,
+  sourceText,
+  vueAttribute,
+  vueBinding,
+  vueElement,
+  vueFor,
+  vueInterpolation,
+  vueTemplate,
+} from "./print-vue.mjs"
 
 const vueSlot = (name) => (name.includes("-") ? `['${name}']` : `.${name}`)
 
@@ -70,22 +76,6 @@ const COMPUTED = named("vue", "computed")
 const DEFINED = named("../attrs", "defined")
 
 const HTML_ATTRIBUTES = typed("vue", "HTMLAttributes")
-
-const requoted = (node) =>
-  ts.isStringLiteral(node)
-    ? ts.factory.createStringLiteral(node.text, true)
-    : ts.visitEachChild(node, requoted, ts.nullTransformationContext)
-
-const templateItem = (item) => {
-  if (!item.includes('"')) return item
-  const sourceFile = sourceFileOf(`(${item}) => 0`, "item.ts")
-  const [parameter] = sourceFile.statements[0].expression.parameters
-  return printer.printNode(
-    ts.EmitHint.Unspecified,
-    requoted(parameter.name),
-    sourceFile,
-  )
-}
 
 const isMember = (read) =>
   (ts.isPropertyAccessExpression(read.parent) ||
@@ -103,7 +93,7 @@ const isEntriesArgument = (read) =>
   read.parent.expression.name.text === "entries"
 
 const binding = (attribute, value, members) => ({
-  ...code`${attribute}="${value}"`,
+  ...vueBinding(attribute, value),
   attribute,
   members,
   value: asFragment(value),
@@ -370,7 +360,6 @@ export const toVue = (component) => {
   const declared = new Set(derived.map(({ name }) => name))
   const template = {
     declared,
-    quote: "'",
     rename,
     ids: component.ids,
     slotHas: (name) => `$slots${vueSlot(name)}`,
@@ -453,7 +442,7 @@ export const toVue = (component) => {
       return [
         text === undefined
           ? binding(":class", rewrite(onlyClass(source) ?? source, scope))
-          : markupAttribute("class", text, false, '"'),
+          : vueAttribute({ kind: "static", name: "class", value: text }),
       ]
     }
     if (item.kind === "spread") {
@@ -490,10 +479,11 @@ export const toVue = (component) => {
       }
       return [binding("v-bind", definedSpread(item, rewrite(item.code, scope)))]
     }
-    if (item.kind === "static") {
-      return [markupAttribute(item.name, item.value, false, '"')]
+    if (item.kind === "static" || item.kind === "boolean") {
+      return [
+        vueAttribute(item, undefined, { slotted: scope.slotted?.has(node) }),
+      ]
     }
-    if (item.kind === "boolean") return [item.name]
     if (rootElements.includes(node) && inheritsAttrs && item.reads.rest) {
       throw unsupported(
         "BC503",
@@ -506,27 +496,23 @@ export const toVue = (component) => {
   }
   const directive = (nodes, name, test, scope) => {
     const significant = nodes.filter((node) => !isBlank(node))
-    const clause = test === undefined ? name : code`${name}="${test}"`
+    const clause = test === undefined ? name : vueBinding(name, test)
     if (significant.length === 1 && significant[0].type !== "if") {
       return emitOne(significant[0], clause, scope)
     }
-    return code`<template ${clause}>${body(nodes, scope)}</template>`
+    return vueTemplate(clause, body(nodes, scope))
   }
   const emitOne = (node, clause, scope) => {
-    if (node.type === "text") {
-      return node.value === " " || node.inline ? '{{ " " }}' : node.value
-    }
+    if (node.type === "text") return sourceText(node)
     if (node.type === "expression") {
-      const value = rewrite(node.code, scope)
-      return clause
-        ? code`<template ${clause}>{{ ${value} }}</template>`
-        : code`{{ ${value} }}`
+      const value = vueInterpolation(rewrite(node.code, scope))
+      return clause ? vueTemplate(clause, value) : value
     }
     if (node.type === "slot") {
       const slotClause = clause ? code` ${clause}` : ""
       if (node.trimmed) {
         return uses(
-          code`<TrimmedSlot${slotClause} :nodes="$slots${vueSlot(node.name)}?.()" />`,
+          code`<TrimmedSlot${slotClause} ${vueBinding(":nodes", `$slots${vueSlot(node.name)}?.()`)} />`,
           named("../whitespace.vue", "TrimmedSlot"),
         )
       }
@@ -534,8 +520,8 @@ export const toVue = (component) => {
       if (node.fallback.length === 0) {
         return code`<slot${slotClause}${name}></slot>`
       }
-      const pair = code`<slot v-if="$slots${vueSlot(node.name)}"${name}></slot>\n${directive(node.fallback, "v-else", undefined, scope)}`
-      return clause ? code`<template ${clause}>${pair}</template>` : pair
+      const pair = code`<slot ${vueBinding("v-if", `$slots${vueSlot(node.name)}`)}${name}></slot>\n${directive(node.fallback, "v-else", undefined, scope)}`
+      return clause ? vueTemplate(clause, pair) : pair
     }
     if (node.type === "if") {
       const test = rewrite(node.test, scope)
@@ -560,9 +546,12 @@ export const toVue = (component) => {
             ]),
           }
       const root = node.children.find((child) => !isBlank(child))
-      const item = rows?.item ?? templateItem(node.item)
-      const list = rows ? rows.name : rewrite(node.list, scope)
-      const loop = code`v-for="${node.index ? `(${item}, ${node.index})` : item} in ${list}" :key="${node.index}"`
+      const loop = vueFor({
+        index: node.index,
+        item: rows?.item ?? node.item,
+        key: node.key,
+        list: rows ? rows.name : rewrite(node.list, scope),
+      })
       return emitOne(root, loop, inner)
     }
     const modelAttributes = model.attributes(node, {
@@ -625,7 +614,7 @@ export const toVue = (component) => {
           ? { code: asFragment(entry.code).code, key: entry.key }
           : { spread: asFragment(entry.spread).code },
       )
-      const options = { quote: "'", shorthand: false }
+      const options = { shorthand: false }
       return binding(
         "v-bind",
         fragment(
@@ -693,12 +682,17 @@ export const toVue = (component) => {
           ...extra,
           ...modelAttributes.end,
           ...(listened.includes(node)
-            ? events.map((event) => `@${event}="emit('${event}', $event)"`)
+            ? events.map((event) =>
+                vueBinding(`@${event}`, `emit('${event}', $event)`),
+              )
             : []),
           ...(hydrating.has(node)
             ? [
                 hydrating.get(node)
-                  ? code`:data-hydrating="${nameIn(scope, hydrating.get(node))}.includes('-') ? '' : undefined"`
+                  ? vueBinding(
+                      ":data-hydrating",
+                      code`${nameIn(scope, hydrating.get(node))}.includes('-') ? '' : undefined`,
+                    )
                   : 'data-hydrating=""',
                 uses("v-hydrated", named("../vue", "vHydrated")),
               ]
@@ -717,35 +711,23 @@ export const toVue = (component) => {
           .filter((entry) => entry.code !== ""),
         checked,
       )
-    const render = (listed) => {
-      const attributes = join(omitEmptyAttributes(listed, component.file), " ")
-      const tag = node.variable || node.custom ? "component" : node.tag
-      const is = node.variable
-        ? code` :is="${nameIn(scope, node.tag)}"`
-        : node.custom
-          ? ` is="${node.tag}"`
-          : ""
-      const open = code`<${tag}${is}${attributes.code ? code` ${attributes}` : ""}`
-      if (
-        node.children.length === 0 &&
-        (node.component ||
-          node.variable ||
-          node.foreign ||
-          VOID_ELEMENTS.has(node.tag))
-      ) {
-        return code`${open} />`
-      }
-      return code`${open}>${body(node.children, {
-        ...scope,
-        preserved: scope.preserved || PRESERVED_TAGS.has(node.tag),
-      })}</${tag}>`
-    }
+    const render = (listed) =>
+      vueElement(node, {
+        attributes: join(omitEmptyAttributes(listed, component.file), " "),
+        content: body(node.children, {
+          ...scope,
+          preserved: scope.preserved || PRESERVED_TAGS.has(node.tag),
+          slotted: node.component ? slotInputs(node.children) : undefined,
+        }),
+        emptyElements: "foreign",
+        is: node.variable ? nameIn(scope, node.tag) : undefined,
+      })
     const pair = modelAttributes.bound
     if (!pair) return render(listedFor(clause, []))
     const both = code`${render(
-      listedFor(`v-if="${pair.condition}"`, pair.attributes),
+      listedFor(vueBinding("v-if", pair.condition), pair.attributes),
     )}\n${render(listedFor("v-else", [], own))}`
-    return clause ? code`<template ${clause}>${both}</template>` : both
+    return clause ? vueTemplate(clause, both) : both
   }
   const emit = (nodes, scope) =>
     join(
@@ -859,7 +841,7 @@ export const toVue = (component) => {
     return {
       item: `{ ${[
         ...node.consts.map(({ name: local }) => local),
-        `${key}: ${templateItem(node.item)}`,
+        `${key}: ${node.item}`,
       ]
         .toSorted(byName)
         .join(", ")} }`,

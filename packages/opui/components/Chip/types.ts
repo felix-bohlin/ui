@@ -1,4 +1,5 @@
 export type Props<Link = never> = {
+  color?: "accent"
   dot?: boolean
   label?: string
   multiline?: boolean

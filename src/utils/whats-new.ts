@@ -170,6 +170,7 @@ export const whatsNew = {
     `<a href="#sizes">Sizes</a> follow <code>--ui-control-size</code> and its <code>-x-small</code>, <code>-small</code> and <code>-large</code> steps, which buttons share by default.`,
   ],
   badge: [
+    `<a href="#colors"><code>accent</code></a> fills a badge with the current palette, so a <code>.ui-scope</code> with <code>--ui-palette-hue</code> gives it any color.`,
     `Breaking: <code>--_anchor-tx</code> and <code>--_anchor-ty</code> are no longer overrides: the corner classes set <code>--_sign-x</code> and <code>--_sign-y</code> (<a href="#under-the-hood">Under the hood</a>).`,
     {
       ...slots(
@@ -275,6 +276,7 @@ export const whatsNew = {
     `Buttons only show <a href="#variants">hover styles</a> on devices that can hover, so they no longer stick after a tap.`,
   ],
   callout: [
+    `<a href="#accent">Accent</a> paints a callout in the current palette, with no meaning and no icon, so a <code>.ui-scope</code> with <code>--ui-palette-hue</code> gives it any color.`,
     slots(
       `Breaking: the root is a <a href="#accessibility"><code>&lt;div&gt;</code></a> instead of an <code>&lt;article&gt;</code>, with no <code>role="note"</code>, so screen readers read the callout as part of the content around it. Add <code>role="note"</code> to keep the old announcement, and select <code>.ui-callout</code> where a selector matched the <code>article</code>.`,
     ),
@@ -489,6 +491,7 @@ export const whatsNew = {
     },
   ],
   chip: [
+    `<a href="#accent">Accent</a> paints a chip in the current palette, with no meaning and no dot shape, so a <code>.ui-scope</code> with <code>--ui-palette-hue</code> gives a tag any color.`,
     routed(
       (link) =>
         `A link chip takes <a href="#api"><code>as</code></a>: the link component of your router, such as ${link}, which gets the <code>href</code>. With <code>disabled</code> it renders a plain disabled link.`,

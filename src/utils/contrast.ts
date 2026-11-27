@@ -69,6 +69,7 @@ export const CONTRAST_LABELS: Record<string, string> = {
   "--ui-on-primary": "Text on brand fill",
   "--ui-on-selected-strong": "Text on selected fill",
   "--ui-on-warning": "Text on warning fill",
+  "--ui-palette-fill": "Accent fill",
   "--ui-palette-on-strong": "Text on palette fill",
   "--ui-palette-on-tonal": "Text on palette tonal fill",
   "--ui-palette-strong": "Palette fill",

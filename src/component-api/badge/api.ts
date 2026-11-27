@@ -4,10 +4,12 @@ export default {
   component: "Badge",
   options: [
     {
-      description: "Optional colors.",
+      description:
+        "Optional colors. `accent` fills the badge with the current palette: put the badge or a parent in a `.ui-scope` with `--ui-palette-hue` to pick the color.",
       group: "Colors",
       prop: "color",
       values: {
+        accent: ".ui-accent",
         critical: ".ui-critical",
         info: ".ui-info",
         neutral: ".ui-neutral",

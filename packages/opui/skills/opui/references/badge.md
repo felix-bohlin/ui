@@ -15,7 +15,7 @@ A small count or status dot on the corner of another element.
 
 ### Props and modifiers
 
-- `color`: `"critical"` (`.ui-critical`), `"info"` (`.ui-info`), `"neutral"` (`.ui-neutral`), `"success"` (`.ui-success`), `"warning"` (`.ui-warning`). Optional colors.
+- `color`: `"accent"` (`.ui-accent`), `"critical"` (`.ui-critical`), `"info"` (`.ui-info`), `"neutral"` (`.ui-neutral`), `"success"` (`.ui-success`), `"warning"` (`.ui-warning`). Optional colors. `accent` fills the badge with the current palette: put the badge or a parent in a `.ui-scope` with `--ui-palette-hue` to pick the color.
 - `corner`: `"end-end"` (`.ui-end-end`), `"end-start"` (`.ui-end-start`), `"start-end"` (default), `"start-start"` (`.ui-start-start`). The corner the indicator sits on.
 - `dot`: `boolean`, `.ui-dot`. Renders the indicator as a dot. `label` stays as screen reader text, and the `indicator` slot isn't shown.
 - `hideLabel`: `boolean`, `.ui-indicator > span.ui-sr-only`. Hides `label` visually, for the whole sentence screen readers read, such as "5 unread messages". The `indicator` slot then holds the visible text and is hidden from screen readers.
@@ -40,7 +40,7 @@ Outputs: `--_accent`, `--_bg-color`, `--_direction`, `--_duration`, `--_inset-bl
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width-large`, `--ui-critical`, `--ui-critical-fill`, `--ui-duration`, `--ui-ease-enter`, `--ui-font-size-caption`, `--ui-font-weight-emphasis`, `--ui-info`, `--ui-info-fill`, `--ui-motion`, `--ui-neutral`, `--ui-neutral-fill`, `--ui-on-fill`, `--ui-on-primary`, `--ui-on-warning`, `--ui-primary`, `--ui-radius-round`, `--ui-space-1`, `--ui-space-2`, `--ui-space-5`, `--ui-success`, `--ui-success-fill`, `--ui-surface` and `--ui-warning`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width-large`, `--ui-critical`, `--ui-critical-fill`, `--ui-duration`, `--ui-ease-enter`, `--ui-font-size-caption`, `--ui-font-weight-emphasis`, `--ui-info`, `--ui-info-fill`, `--ui-motion`, `--ui-neutral`, `--ui-neutral-fill`, `--ui-on-fill`, `--ui-on-primary`, `--ui-on-warning`, `--ui-palette-accent`, `--ui-palette-fill`, `--ui-primary`, `--ui-radius-round`, `--ui-space-1`, `--ui-space-2`, `--ui-space-5`, `--ui-success`, `--ui-success-fill`, `--ui-surface` and `--ui-warning`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

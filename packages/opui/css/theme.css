@@ -758,6 +758,9 @@
           c h
       )
     );
+    --ui-palette-fill: oklch(
+      from var(--ui-color-9) min(l, var(--_ui-accent-fill-max-lightness)) c h
+    );
     --ui-palette-strong: light-dark(var(--ui-color-16), var(--ui-color-1));
     --ui-palette-on-strong: light-dark(var(--ui-color-1), var(--ui-color-16));
     --ui-palette-text: light-dark(

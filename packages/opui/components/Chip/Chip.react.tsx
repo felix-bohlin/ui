@@ -7,6 +7,7 @@ import type { Props } from "./types.react"
 export default function Chip({
   as,
   className,
+  color,
   disabled,
   dot,
   href,
@@ -26,6 +27,7 @@ export default function Chip({
       className={cx([
         "ui-chip",
         { "ui-dot": dot, "ui-multiline": multiline },
+        color && `ui-${color}`,
         severity && `ui-${severity}`,
         size && size !== "medium" && `ui-${size}`,
         variant !== "tonal" && `ui-${variant}`,

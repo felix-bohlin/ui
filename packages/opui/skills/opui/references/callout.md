@@ -20,6 +20,7 @@ A message in the flow of the page, without interrupting the task.
 - `@dismiss` (Vue): `(event: Event) => void`. Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first.
 - `closeButton`: `boolean`. Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>`, and the component loads `opui-css/elements/callout.js`, which runs the button. While the root has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, the button does nothing.
 - `closeLabel`: `string`, default `"Close"`. The accessible name of the close button. The types take it only with `closeButton`.
+- `color`: `"accent"` (`.ui-accent`). Paints the callout in the current palette, with no meaning and no icon. Put the callout or a parent in a `.ui-scope` with `--ui-palette-hue` to pick the color. A `severity` wins over it.
 - `id`: `string`. The id of the callout. With `closeButton`, the close button points at it with `commandfor`, so the component generates one when it's left out.
 - `ondismiss` (Svelte): `(event: Event) => void`. Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first.
 - `onDismiss` (React and Solid): `(event: Event) => void`. Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first.

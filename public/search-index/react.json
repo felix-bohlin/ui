@@ -371,6 +371,13 @@
     "url": "/react/components/callout/#severities"
   },
   {
+    "id": "component-callout-react-accent",
+    "title": "Accent",
+    "page": "Callout",
+    "category": "Component",
+    "url": "/react/components/callout/#accent"
+  },
+  {
     "id": "component-callout-react-icon",
     "title": "Icon",
     "page": "Callout",
@@ -744,6 +751,13 @@
     "page": "Chip",
     "category": "Component",
     "url": "/react/components/chip/#severities"
+  },
+  {
+    "id": "component-chip-react-accent",
+    "title": "Accent",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/react/components/chip/#accent"
   },
   {
     "id": "component-chip-react-sizes",
@@ -4694,7 +4708,7 @@
     "id": "api-badge-react",
     "title": "Badge API",
     "description": "Reference for Badge React component.",
-    "api": "Badge Container element. The element the badge is anchored to. default The indicator, inside `.ui-floating`. Holds `label`, the visible text with `hideLabel`, or only screen reader text with `dot`. label indicator color Optional colors. corner The corner the indicator sits on. dot Renders the indicator as a dot. `label` stays as screen reader text, and the `indicator` slot isn't shown. hideLabel Hides `label` visually, for the whole sentence screen readers read, such as \"5 unread messages\". The `indicator` slot then holds the visible text and is hidden from screen readers. invisible Hides the indicator. label The indicator text, such as a count. With `hideLabel` or `dot`, only screen readers get it.",
+    "api": "Badge Container element. The element the badge is anchored to. default The indicator, inside `.ui-floating`. Holds `label`, the visible text with `hideLabel`, or only screen reader text with `dot`. label indicator color Optional colors. `accent` fills the badge with the current palette: put the badge or a parent in a `.ui-scope` with `--ui-palette-hue` to pick the color. corner The corner the indicator sits on. dot Renders the indicator as a dot. `label` stays as screen reader text, and the `indicator` slot isn't shown. hideLabel Hides `label` visually, for the whole sentence screen readers read, such as \"5 unread messages\". The `indicator` slot then holds the visible text and is hidden from screen readers. invisible Hides the indicator. label The indicator text, such as a count. With `hideLabel` or `dot`, only screen readers get it.",
     "category": "API",
     "url": "/react/api/#badge"
   },
@@ -4726,7 +4740,7 @@
     "id": "api-callout-react",
     "title": "Callout API",
     "description": "Reference for Callout React component.",
-    "api": "Callout Container element, a `<div>`. With `closeButton`, the `<opui-callout>` custom element, which a button with `commandfor` and `command=\"--dismiss\"` dismisses. An optional icon before the content. Outside HTML, `CalloutIcon` renders the default one for critical, info, success and warning. The content, with an optional heading first. A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon A row of buttons under the content. closeButton Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>`, and the component loads `opui-css/elements/callout.js`, which runs the button. While the root has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, the button does nothing. closeLabel The accessible name of the close button. The types take it only with `closeButton`. id The id of the callout. With `closeButton`, the close button points at it with `commandfor`, so the component generates one when it's left out. onDismiss Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first. severity The severity. Sets the color, and outside HTML the icon `CalloutIcon` renders. variant The variant to use. dismiss Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout. dismiss() Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
+    "api": "Callout Container element, a `<div>`. With `closeButton`, the `<opui-callout>` custom element, which a button with `commandfor` and `command=\"--dismiss\"` dismisses. An optional icon before the content. Outside HTML, `CalloutIcon` renders the default one for critical, info, success and warning. The content, with an optional heading first. A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. closeButton closeLabel close-icon A row of buttons under the content. closeButton Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>`, and the component loads `opui-css/elements/callout.js`, which runs the button. While the root has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, the button does nothing. closeLabel The accessible name of the close button. The types take it only with `closeButton`. color Paints the callout in the current palette, with no meaning and no icon. Put the callout or a parent in a `.ui-scope` with `--ui-palette-hue` to pick the color. A `severity` wins over it. id The id of the callout. With `closeButton`, the close button points at it with `commandfor`, so the component generates one when it's left out. onDismiss Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first. severity The severity. Sets the color, and outside HTML the icon `CalloutIcon` renders. variant The variant to use. dismiss Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout. dismiss() Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
     "category": "API",
     "url": "/react/api/#callout"
   },
@@ -4790,7 +4804,7 @@
     "id": "api-chip-react",
     "title": "Chip API",
     "description": "Reference for Chip React component.",
-    "api": "Chip Container element. Can be a `<div>`, `<span>`, `<a>` or `<button>`. Optional content at the start, such as an icon. start The label, text or rich content. label label Optional content at the end, such as an icon. end as The element to render, or the link component of your router with `href`, such as Next's `Link`, which gets the `href`. Defaults to `\"a\"` with `href`. With `disabled`, it renders a plain `<a>` with `role=\"link\"` and `aria-disabled=\"true\"` instead. Use `\"span\"` inside a `<label>` or `<button>`, like a count in a tab. disabled Disables a button chip. A link chip drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"` instead. dot Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it. href The link to use. Renders an `<a>`. multiline Lets the label wrap to multiple lines. severity The severity of a status chip. It tints a tonal chip, and colors and shapes its dot, the only mark on an outlined one. size The size of the element. variant The variant to use.",
+    "api": "Chip Container element. Can be a `<div>`, `<span>`, `<a>` or `<button>`. Optional content at the start, such as an icon. start The label, text or rich content. label label Optional content at the end, such as an icon. end as The element to render, or the link component of your router with `href`, such as Next's `Link`, which gets the `href`. Defaults to `\"a\"` with `href`. With `disabled`, it renders a plain `<a>` with `role=\"link\"` and `aria-disabled=\"true\"` instead. Use `\"span\"` inside a `<label>` or `<button>`, like a count in a tab. disabled Disables a button chip. A link chip drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"` instead. color Paints the chip in the current palette, with no meaning or dot shape. Put the chip or a parent in a `.ui-scope` with `--ui-palette-hue` to pick the color. A `severity` wins over it. dot Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it. href The link to use. Renders an `<a>`. multiline Lets the label wrap to multiple lines. severity The severity of a status chip. It tints a tonal chip, and colors and shapes its dot, the only mark on an outlined one. size The size of the element. variant The variant to use.",
     "category": "API",
     "url": "/react/api/#chip"
   },

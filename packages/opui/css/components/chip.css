@@ -67,7 +67,14 @@
       }
     }
 
-    &:is(.ui-critical, .ui-info, .ui-neutral, .ui-success, .ui-warning) {
+    &:is(
+      .ui-accent,
+      .ui-critical,
+      .ui-info,
+      .ui-neutral,
+      .ui-success,
+      .ui-warning
+    ) {
       --_dot-bg-color: var(--ui-palette-accent);
 
       &:where(:not(.ui-outlined)) {

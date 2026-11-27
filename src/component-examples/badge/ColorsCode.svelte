@@ -2,6 +2,10 @@
   import { Badge } from "opui-css/svelte"
 </script>
 
+<Badge color="accent" hideLabel label="5 unread messages">
+  <svg aria-hidden="true"><!-- --></svg>
+  {#snippet indicator()}5{/snippet}
+</Badge>
 <Badge color="critical" hideLabel label="5 unread messages">
   <svg aria-hidden="true"><!-- --></svg>
   {#snippet indicator()}5{/snippet}

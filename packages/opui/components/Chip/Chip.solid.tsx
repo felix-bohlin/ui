@@ -10,6 +10,7 @@ export default function Chip(props: Props) {
     props,
     "as",
     "class",
+    "color",
     "disabled",
     "dot",
     "href",
@@ -34,6 +35,7 @@ export default function Chip(props: Props) {
       class={[
         "ui-chip",
         { "ui-dot": props.dot, "ui-multiline": props.multiline },
+        props.color && `ui-${props.color}`,
         props.severity && `ui-${props.severity}`,
         props.size && props.size !== "medium" && `ui-${props.size}`,
         variant() !== "tonal" && `ui-${variant()}`,

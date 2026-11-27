@@ -65,8 +65,13 @@
     }
 
     /* Colors */
-    &:is(.ui-critical, .ui-info, .ui-neutral, .ui-success) {
+    &:is(.ui-accent, .ui-critical, .ui-info, .ui-neutral, .ui-success) {
       --_text-color: var(--ui-on-fill);
+    }
+
+    &.ui-accent {
+      --_accent: var(--ui-palette-accent);
+      --_bg-color: var(--ui-palette-fill);
     }
 
     &.ui-critical {

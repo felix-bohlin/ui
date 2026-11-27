@@ -13,6 +13,7 @@ export default function Callout({
   className,
   closeButton,
   closeLabel = "Close",
+  color,
   id,
   onDismiss,
   ref,
@@ -34,6 +35,7 @@ export default function Callout({
       <Root
         className={cx([
           "ui-callout",
+          color && `ui-${color}`,
           severity && `ui-${severity}`,
           variant && variant !== "tonal" && `ui-${variant}`,
           className,

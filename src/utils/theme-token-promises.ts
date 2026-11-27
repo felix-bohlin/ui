@@ -93,6 +93,7 @@ export const themeTokenPromises: Record<string, TokenPromise> = {
       "--ui-critical-fill",
       "--ui-info-fill",
       "--ui-neutral-fill",
+      "--ui-palette-fill",
       "--ui-success-fill",
     ],
     ratio: 4.5,

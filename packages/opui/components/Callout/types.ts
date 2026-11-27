@@ -1,4 +1,5 @@
 export type Props = {
+  color?: "accent"
   severity?: "critical" | "info" | "neutral" | "success" | "warning"
   variant?: "outlined" | "tonal"
 } & (

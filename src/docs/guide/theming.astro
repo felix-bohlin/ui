@@ -170,9 +170,13 @@ export const keywords = [
       shades from that hue, within the same contrast limits as the page palette:
     </p>
     <Example centered row>
-      <section class="ui-scope scope-demo" style="--ui-palette-hue: 300">
+      <section
+        class="ui-scope scope-demo any-color-demo"
+        style="--ui-palette-hue: 300"
+      >
         <p class="ui-caption">--ui-palette-hue: 300</p>
         <span class="ui-avatar"><span>Pu</span></span>
+        <span class="ui-chip ui-accent"><span class="ui-text">Funk</span></span>
         <button class="ui-button ui-filled ui-primary" type="button">
           Purple
         </button>
@@ -184,9 +188,15 @@ export const keywords = [
           <span class="ui-text">Selected</span>
         </label>
       </section>
-      <section class="ui-scope scope-demo" style="--ui-palette-hue: 190">
+      <section
+        class="ui-scope scope-demo any-color-demo"
+        style="--ui-palette-hue: 190"
+      >
         <p class="ui-caption">--ui-palette-hue: 190</p>
         <span class="ui-avatar"><span>Te</span></span>
+        <span class="ui-chip ui-accent"
+          ><span class="ui-text">Fretless</span></span
+        >
         <button class="ui-button ui-filled ui-primary" type="button">
           Teal
         </button>
@@ -198,9 +208,13 @@ export const keywords = [
           <span class="ui-text">Selected</span>
         </label>
       </section>
-      <section class="ui-scope scope-demo" style="--ui-palette-hue: 45">
+      <section
+        class="ui-scope scope-demo any-color-demo"
+        style="--ui-palette-hue: 45"
+      >
         <p class="ui-caption">--ui-palette-hue: 45</p>
         <span class="ui-avatar"><span>Or</span></span>
+        <span class="ui-chip ui-accent"><span class="ui-text">Slap</span></span>
         <button class="ui-button ui-filled ui-primary" type="button">
           Orange
         </button>
@@ -215,6 +229,7 @@ export const keywords = [
     </Example>
     <Code
       code={`<div class="ui-scope" style="--ui-palette-hue: 300">
+  <span class="ui-chip ui-accent"><span class="ui-text">Funk</span></span>
   <button class="ui-button ui-filled ui-primary" type="button">Purple</button>
 </div>`}
       lang="html"
@@ -224,8 +239,8 @@ export const keywords = [
       such as a brand color: the palette keeps its hue and chroma and sets the
       lightness of each step. Primary buttons and buttons without an intent,
       avatars, links, and checked checkboxes, radios, switches and toggle
-      buttons follow the palette. A chip, callout or badge takes a color from a
-      severity class only, and stays neutral otherwise.
+      buttons follow the palette. Chips, callouts and badges follow it with
+      <code>color="accent"</code> (<code>.ui-accent</code>).
     </p>
   </section>
 
@@ -640,6 +655,10 @@ export const keywords = [
     .ui-caption {
       margin: 0;
     }
+  }
+
+  .any-color-demo {
+    justify-items: start;
   }
 
   .contrast-demo {

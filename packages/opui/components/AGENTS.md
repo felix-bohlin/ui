@@ -194,7 +194,7 @@ One concept has one prop name and one set of values in every component. `tests/u
 
 | Concept                            | Prop                           | Values                                                                    |
 | ---------------------------------- | ------------------------------ | ------------------------------------------------------------------------- |
-| Paint only                         | `color`                        | `critical`, `info`, `neutral`, `primary`, `success`, `warning`            |
+| Paint only                         | `color`                        | `accent`, `critical`, `info`, `neutral`, `primary`, `success`, `warning`  |
 | Meaning                            | `severity`                     | `critical`, `info`, `neutral`, `success`, `warning`                       |
 | Surface                            | `variant`                      | `elevated`, `filled`, `line`, `outlined`, `plain`, `tonal`, `transparent` |
 | Size                               | `size`                         | `x-small`, `small`, `medium`, `large`                                     |
@@ -219,6 +219,7 @@ One concept has one prop name and one set of values in every component. `tests/u
   - `color` changes paint and nothing else.
   - `severity` says what something means, and adds the cues that meaning needs: an icon, a shape-coded dot. Meaning never rests on color alone.
   - `primary` is emphasis, not meaning, so it is a `color` only.
+  - `accent` paints in the current palette, so a `.ui-scope` with `--ui-palette-hue` picks its hue.
 - **Variant words keep Material 3's meaning, and describe the resting look; a hover or selected tint never counts against them:**
   - `filled` is a solid fill in the component's own color: the accent on actions (Button, ControlGroup, Tabs), a surface on fields, containers and tracks.
   - `tonal` is the tonal surface or palette tint.

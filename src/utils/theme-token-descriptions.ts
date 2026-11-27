@@ -348,6 +348,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "The border shade of the current palette: tonal `Callout` borders. Stronger with more contrast. Severity `Chip` borders read it. Re-derived inside every severity scope.",
   "--ui-palette-chroma":
     "Chroma of the palette source color, as a multiplier of `0.21`.",
+  "--ui-palette-fill":
+    "The current palette as a fill under `--ui-on-fill` text: palette step 9 with its lightness capped like the intent fills, darker with more contrast. The `accent` `Badge`. Re-derived inside every severity scope and `.ui-scope`.",
   "--ui-palette-hue":
     "Hue of the palette source color in degrees. `222.8` (blue) by default, in both color schemes.",
   "--ui-palette-hue-rotate-by":

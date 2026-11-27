@@ -53,6 +53,13 @@ export default {
       prop: "disabled",
     },
     {
+      description:
+        "Paints the chip in the current palette, with no meaning or dot shape. Put the chip or a parent in a `.ui-scope` with `--ui-palette-hue` to pick the color. A `severity` wins over it.",
+      group: "Colors",
+      prop: "color",
+      values: { accent: ".ui-accent" },
+    },
+    {
       class: ".ui-dot",
       default: "false",
       description:

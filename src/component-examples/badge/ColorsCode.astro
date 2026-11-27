@@ -2,6 +2,10 @@
 import { Badge } from "opui-css/astro"
 ---
 
+<Badge color="accent" hideLabel label="5 unread messages">
+  <svg aria-hidden="true"><!-- --></svg>
+  <Fragment slot="indicator">5</Fragment>
+</Badge>
 <Badge color="critical" hideLabel label="5 unread messages">
   <svg aria-hidden="true"><!-- --></svg>
   <Fragment slot="indicator">5</Fragment>

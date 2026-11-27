@@ -64,11 +64,12 @@ The theme names its colors by job: the primary and the intents critical, info, s
 
 ```html
 <div class="ui-scope" style="--ui-palette-hue: 300">
+  <span class="ui-chip ui-accent"><span class="ui-text">Funk</span></span>
   <button class="ui-button ui-filled ui-primary" type="button">Purple</button>
 </div>
 ```
 
-Set `--ui-palette-source` instead to start from an exact color, such as a brand color: the palette keeps its hue and chroma and sets the lightness of each step. Primary buttons and buttons without an intent, avatars, links, and checked checkboxes, radios, switches and toggle buttons follow the palette. A chip, callout or badge takes a color from a severity class only, and stays neutral otherwise.
+Set `--ui-palette-source` instead to start from an exact color, such as a brand color: the palette keeps its hue and chroma and sets the lightness of each step. Primary buttons and buttons without an intent, avatars, links, and checked checkboxes, radios, switches and toggle buttons follow the palette. Chips, callouts and badges follow it with `color="accent"` (`.ui-accent`).
 
 ## Surfaces
 

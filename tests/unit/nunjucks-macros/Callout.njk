@@ -9,6 +9,7 @@
   {%- set rootId = ids() if props.closeButton else props.id -%}
   {%- set classes = [
     "ui-callout",
+    props.color and "ui-" ~ props.color,
     props.severity and "ui-" ~ props.severity,
     props.variant and props.variant != "tonal" and "ui-" ~ props.variant,
     props.class

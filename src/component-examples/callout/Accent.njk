@@ -1,0 +1,12 @@
+{% from "opui/index.njk" import Callout, CalloutContent %}
+
+{% call Callout({ color: "accent" }) %}
+  {% call CalloutContent() %}Bassbook Gold members get early access to lessons.{% endcall %}
+{% endcall %}
+{% call Callout({
+  class: "ui-scope",
+  color: "accent",
+  style: "--ui-palette-hue: 300"
+}) %}
+  {% call CalloutContent() %}Funk night starts Friday at 8 pm.{% endcall %}
+{% endcall %}

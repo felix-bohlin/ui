@@ -2,17 +2,17 @@
 const tiers = [
   {
     name: "Knob",
-    note: "Set by a theme",
+    note: "Turned by a theme",
     tokens: ["--ui-palette-hue", "--ui-density", ""],
   },
   {
     name: "Primitive",
-    note: "Palette steps derived from the knobs, plain type scale steps, never read by components",
+    note: "Computed from knobs, read by no component",
     tokens: ["--ui-color-16", "", "--ui-font-size-300"],
   },
   {
     name: "Role",
-    note: "Set by a theme, read by every component with that job",
+    note: "Read by every component with that job",
     tokens: [
       "--ui-palette-strong",
       "--ui-control-size",
@@ -21,13 +21,13 @@ const tiers = [
   },
   {
     name: "Component token",
-    note: "Set by a theme, read by one component",
+    note: "Read by one component",
     optional: ["--ui-button-accent"],
     tokens: ["--ui-button-accent", "--ui-button-size", ""],
   },
   {
     name: "Private property",
-    note: "Declared by the component, set on one element",
+    note: "The component's own wiring",
     tokens: ["--_accent", "--_size", "--_font-size"],
   },
   {

@@ -9,7 +9,12 @@ import { FIGMA_MODES } from "../../utils/figma-tokens"
 import { formatInline } from "../../utils/format-inline"
 import { themeTokenDescriptions } from "../../utils/theme-token-descriptions"
 import { themeTokenPromises } from "../../utils/theme-token-promises"
-import { themeTokenSections, tokenTier } from "../../utils/theme-tokens"
+import {
+  themeTokenSections,
+  tokenTier,
+  tokenTierNotes,
+  tokenTiers,
+} from "../../utils/theme-tokens"
 import { tokenType } from "../../utils/tokens-json"
 import { leadSentence } from "../../utils/lead-sentence"
 
@@ -39,14 +44,7 @@ const slug = (title: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "")
 
-const tiers = [
-  ["knob", "An input a theme turns, like a hue."],
-  ["primitive", "Derived from the knobs. No component reads it."],
-  ["role", "What components read. Most tokens."],
-  ["hook", "An optional role, unset until a theme sets it."],
-  ["component", "Read by one component."],
-  ["input", "Set on an element, never by a theme."],
-]
+const tiers = tokenTiers.map((tier) => [tier, tokenTierNotes[tier]])
 
 const scopes = [
   ["Roles", "<code>html</code> or any element"],

@@ -255,6 +255,24 @@ export type TokenTier =
   | "primitive"
   | "role"
 
+export const tokenTiers = [
+  "knob",
+  "primitive",
+  "role",
+  "hook",
+  "component",
+  "input",
+] as const satisfies TokenTier[]
+
+export const tokenTierNotes = {
+  component: "Read by one component. Set it to change only that one.",
+  hook: "An optional role, unset by default. Set it to override a role for every part with that job.",
+  input: "Set on one element by a prop or style, never by a theme.",
+  knob: "A dial the roles are computed from. Turn it and they all follow.",
+  primitive: "A computed step no component reads. Use it in your own CSS.",
+  role: "A job, like the primary color. Components read roles. Set one to change that job everywhere.",
+} satisfies Record<TokenTier, string>
+
 export const tokenTier = (name: string): TokenTier =>
   (OVERRIDE_HOOKS as readonly string[]).includes(name)
     ? "hook"

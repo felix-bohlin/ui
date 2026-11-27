@@ -22,7 +22,7 @@ import {
   compareNative,
   differences,
   NATIVE_CASES,
-  SVELTE_GROUP,
+  SVELTE_DEFAULT,
   SVELTE_SPREAD,
 } from "./native/cases.ts"
 
@@ -634,7 +634,8 @@ test("a callout dismissed before the app hydrates it waits for the dismiss handl
 })
 
 const NATIVE_DIFFERENCES = [
-  ...differences("sveltekit", SVELTE_GROUP, [
+  ...differences("sveltekit", SVELTE_SPREAD, [
+    "checkbox-bound",
     "group-bound",
     "radio-bound",
     "rating-bound",
@@ -642,8 +643,8 @@ const NATIVE_DIFFERENCES = [
     "tabs-bound",
     "toggle-bound",
   ]),
-  ...differences("sveltekit", SVELTE_SPREAD, ["checkbox-bound"]),
-  ...differences("vite-svelte", SVELTE_GROUP, [
+  ...differences("vite-svelte", SVELTE_DEFAULT, [
+    "checkbox-bound",
     "group-bound",
     "radio-bound",
     "rating-bound",

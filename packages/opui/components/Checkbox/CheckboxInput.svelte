@@ -1,5 +1,7 @@
 <script lang="ts">
   import "../../css/js/checkbox.js"
+  import { untrack } from "svelte"
+  import { relayChecked } from "../svelte"
   import { toggleInGroup } from "../group"
   import { defined } from "../attrs"
   import type { CheckboxInputProps as Props } from "./types.svelte"
@@ -13,11 +15,16 @@
     ...rest
   }: Props = $props()
 
-  const getChecked = () =>
-    group ? group.includes(value) : !!(checked ?? defaultChecked)
-  const setChecked = (isChecked: boolean) => {
-    if (group) group = toggleInGroup(group, value, isChecked)
-    else checked = isChecked
+  const initialChecked = untrack(() =>
+    group !== undefined && value !== undefined
+      ? group.includes(value)
+      : checked,
+  )
+  const relay = (input: HTMLInputElement) => {
+    checked = input.checked
+    if (value !== undefined) {
+      group = toggleInGroup(group ?? [], value, input.checked)
+    }
   }
 </script>
 
@@ -25,7 +32,14 @@
   type="checkbox"
   data-indeterminate={indeterminate ? "" : undefined}
   {...defined(rest)}
-  bind:checked={getChecked, setChecked}
-  {defaultChecked}
+  {@attach relayChecked(
+    relay,
+    () => checked,
+    () =>
+      group === undefined || value === undefined
+        ? undefined
+        : group.includes(value),
+  )}
+  defaultChecked={defaultChecked ?? initialChecked}
   {value}
 />

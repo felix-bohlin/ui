@@ -35,6 +35,13 @@ const state = ref({
   <form data-case="checkbox-rerender">
     <input aria-label="Agree" checked :data-round="round" type="checkbox" />
   </form>
+  <form data-case="checkbox-spread">
+    <input
+      v-bind="{ 'data-round': round }"
+      aria-label="Agree"
+      type="checkbox"
+    />
+  </form>
   <form data-case="group-bound">
     <input
       v-for="view in views"
@@ -96,6 +103,22 @@ const state = ref({
     <input aria-label="Tea" name="drink" type="radio" value="tea" />
     <input aria-label="Coffee" name="drink" type="radio" value="coffee" />
   </form>
+  <form data-case="radio-spread">
+    <input
+      v-bind="{ 'data-round': round }"
+      aria-label="Tea"
+      name="drink"
+      type="radio"
+      value="tea"
+    />
+    <input
+      v-bind="{ 'data-round': round }"
+      aria-label="Coffee"
+      name="drink"
+      type="radio"
+      value="coffee"
+    />
+  </form>
   <form data-case="range-bound">
     <input v-model.number="state.range" aria-label="Level" type="range" />
     <output>{{ state.range }}</output>
@@ -125,6 +148,17 @@ const state = ref({
   </form>
   <form data-case="rating-empty">
     <input
+      v-for="star in stars"
+      :key="star"
+      :aria-label="`${star} stars`"
+      name="score"
+      type="radio"
+      :value="star"
+    />
+  </form>
+  <form data-case="rating-spread">
+    <input
+      v-bind="{ 'data-round': round }"
       v-for="star in stars"
       :key="star"
       :aria-label="`${star} stars`"

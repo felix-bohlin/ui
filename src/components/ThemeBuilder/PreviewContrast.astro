@@ -395,20 +395,20 @@ import { CONTRAST_MODES } from "../../utils/contrast"
   }
 
   .preview-contrast-table :global(.preview-contrast-name) {
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
   }
 
   .preview-contrast-table :global(.preview-contrast-needs) {
     color: var(--ui-text);
-    font-weight: var(--ui-font-weight-normal);
+    font-weight: var(--ui-font-weight-body);
   }
 
   .preview-contrast-table :global(.preview-contrast-token) {
     background: none;
     color: var(--ui-text-subtle);
-    font-family: var(--ui-font-code);
+    font-family: var(--ui-font-family-code);
     font-size: var(--ui-font-size-caption);
-    font-weight: var(--ui-font-weight-normal);
+    font-weight: var(--ui-font-weight-body);
     padding: 0;
   }
 
@@ -421,7 +421,7 @@ import { CONTRAST_MODES } from "../../utils/contrast"
     color: var(--ui-text-subtle);
     display: block;
     font-size: var(--ui-font-size-caption);
-    font-weight: var(--ui-font-weight-normal);
+    font-weight: var(--ui-font-weight-body);
   }
 
   .preview-contrast-table :global(.preview-contrast-reason:empty) {
@@ -436,7 +436,7 @@ import { CONTRAST_MODES } from "../../utils/contrast"
   .preview-contrast-table :global(.preview-contrast-row > th) {
     background-color: var(--ui-surface);
     color: var(--ui-text);
-    font-weight: var(--ui-font-weight-normal);
+    font-weight: var(--ui-font-weight-body);
     padding-inline-start: var(--size-4);
     white-space: nowrap;
   }
@@ -451,7 +451,7 @@ import { CONTRAST_MODES } from "../../utils/contrast"
 
     &[data-status="fail"] {
       color: var(--ui-critical-text);
-      font-weight: var(--ui-font-weight-semibold);
+      font-weight: var(--ui-font-weight-label);
     }
 
     &[data-status="pass"] {
@@ -469,7 +469,7 @@ import { CONTRAST_MODES } from "../../utils/contrast"
     border-radius: var(--ui-radius-small);
     display: inline-grid;
     font-size: var(--ui-font-size-small);
-    font-weight: var(--ui-font-weight-bold);
+    font-weight: var(--ui-font-weight-heading);
     inline-size: 2.25em;
     margin-inline-end: var(--size-2);
     place-items: center;

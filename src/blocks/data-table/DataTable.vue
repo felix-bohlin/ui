@@ -521,10 +521,10 @@ import {
   .data-table-bulk {
     border: var(--ui-border-width) solid var(--ui-border-color);
     border-radius: var(--ui-radius);
-    padding: var(--ui-space-2) var(--ui-space-3);
+    padding: var(--ui-space-2) var(--ui-space-4);
 
     p {
-      font-weight: var(--ui-font-weight-semibold);
+      font-weight: var(--ui-font-weight-label);
     }
   }
 
@@ -537,7 +537,7 @@ import {
   }
 
   .data-table-person {
-    font-weight: var(--ui-font-weight-medium);
+    font-weight: var(--ui-font-weight-emphasis);
   }
 
   .data-table-actions {

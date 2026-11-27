@@ -24,7 +24,7 @@ export default function Newsletter() {
       >
         <Card
           class="ui-layout-columns newsletter-card"
-          style="--_columns: 1fr 1.2fr; --_gap: var(--ui-space-6)"
+          style="--_columns: 1fr 1.2fr; --_gap: var(--ui-space-7)"
           variant="outlined"
         >
           <div class="ui-layout-column ui-gap-large">
@@ -159,20 +159,20 @@ export default function Newsletter() {
           container-type: inline-size;
 
           .newsletter-card {
-            padding: var(--ui-space-5);
+            padding: var(--ui-space-6);
 
             @container (inline-size >= 56rem) {
-              padding: var(--ui-space-7);
+              padding: var(--ui-space-8);
             }
           }
 
           .newsletter-issue .ui-text p:first-child {
-            font-weight: var(--ui-font-weight-medium);
+            font-weight: var(--ui-font-weight-emphasis);
           }
 
           .newsletter-form {
             align-content: start;
-            gap: var(--ui-space-5);
+            gap: var(--ui-space-6);
           }
 
           .newsletter-topics {

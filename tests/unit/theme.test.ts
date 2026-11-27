@@ -24,7 +24,7 @@ describe("customCss", () => {
   test("writes sorted tokens to every scope in the theme.custom layer", () => {
     expect(customCss({ "--ui-radius": "1rem", "--ui-density": "0.9" }))
       .toBe(`@layer theme.custom {
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-density: 0.9;
     --ui-radius: 1rem;
   }
@@ -39,7 +39,7 @@ describe("customCss", () => {
     })
     expect(css).toContain("@media (prefers-contrast: more)")
     expect(css).toContain(
-      ":where(.ui-contrast-more, .ui-contrast-more .ui-palette) {\n    --ui-text-subtle: revert-layer;\n  }",
+      ":where(.ui-contrast-more, .ui-contrast-more .ui-scope) {\n    --ui-text-subtle: revert-layer;\n  }",
     )
     expect(css.match(/--ui-radius/g)).toHaveLength(1)
   })
@@ -71,7 +71,9 @@ describe("exportCss", () => {
   test("imports a web font from Fontsource before the layers", () => {
     const css = exportCss({
       preset: null,
-      tokens: { "--ui-font-heading": '"Playfair Display", Georgia, serif' },
+      tokens: {
+        "--ui-font-family-heading": '"Playfair Display", Georgia, serif',
+      },
     })
     expect(css.startsWith("@import url(")).toBe(true)
     expect(css).toContain("fontsource/css/playfair-display@latest/700.css")
@@ -82,11 +84,14 @@ describe("exportCss", () => {
     expect(
       exportCss({
         preset: null,
-        tokens: { "--ui-font-body": '"DM Sans", Avenir, sans-serif' },
+        tokens: { "--ui-font-family-body": '"DM Sans", Avenir, sans-serif' },
       }),
     ).not.toContain("@import")
     expect(
-      exportCss({ preset: null, tokens: { "--ui-font-body": "system-ui" } }),
+      exportCss({
+        preset: null,
+        tokens: { "--ui-font-family-body": "system-ui" },
+      }),
     ).not.toContain("@import")
   })
 })
@@ -110,12 +115,12 @@ describe("normalizeTheme", () => {
           "--ui-radius": "1rem",
           "--ui-surface": "red; } body { color: red",
           "--ui-text": "url(https://example.com)",
-          "--ui-font-body": '"DM Sans", sans-serif',
+          "--ui-font-family-body": '"DM Sans", sans-serif',
           "--ui-shadow-control": "var(--x",
         },
       }).tokens,
     ).toEqual({
-      "--ui-font-body": '"DM Sans", sans-serif',
+      "--ui-font-family-body": '"DM Sans", sans-serif',
       "--ui-radius": "1rem",
     })
   })

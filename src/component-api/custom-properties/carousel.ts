@@ -144,7 +144,7 @@ export default {
   },
   "--_marker-size": {
     description:
-      "Size of the markers: `--ui-space-5`, and at least `--ui-target-min-size`, so they stay pointer targets in a theme with a smaller spacing scale. The dot sits inside, inset by `--ui-space-2`.",
+      "Size of the markers: `--ui-space-6`, and at least `--ui-target-min-size`, so they stay pointer targets in a theme with a smaller spacing scale. The dot sits inside, inset by `--ui-space-2`.",
     kind: "input",
   },
   "--_media-aspect-ratio": {
@@ -183,7 +183,7 @@ export default {
   },
   "--_shadow-room": {
     description:
-      "Room around the items for their box shadows, so the scroll container doesn't clip them: padding that a negative margin cancels, so the layout stays the same. On the scroll axis it is capped by `--_block-room` and `--_inline-room`. Defaults to `--ui-space-3`.",
+      "Room around the items for their box shadows, so the scroll container doesn't clip them: padding that a negative margin cancels, so the layout stays the same. On the scroll axis it is capped by `--_block-room` and `--_inline-room`. Defaults to `--ui-space-4`.",
 
     kind: "input",
   },

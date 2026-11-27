@@ -2,7 +2,7 @@
   /* Form */
   :where(.ui-form) {
     display: grid;
-    gap: var(--ui-space-8);
+    gap: var(--ui-space-12);
   }
 
   /* Fieldset */
@@ -17,7 +17,7 @@
       all: unset;
       color: var(--ui-field-label-text-color);
       font-weight: var(--ui-field-label-font-weight);
-      margin-block-end: var(--ui-space-3);
+      margin-block-end: var(--ui-space-4);
 
       &:has(+ :where(.ui-description)) {
         margin-block-end: 0;
@@ -32,7 +32,7 @@
       margin: 0;
 
       &:has(+ *) {
-        margin-block-end: var(--ui-space-3);
+        margin-block-end: var(--ui-space-4);
       }
     }
 
@@ -49,7 +49,7 @@
       user-select: none;
 
       & > :where(legend, .ui-legend, .ui-description, .ui-end-text) {
-        opacity: var(--ui-disabled-opacity);
+        opacity: var(--ui-state-disabled-opacity);
       }
 
       button,
@@ -85,7 +85,7 @@
 
     display: flex;
     flex-direction: column;
-    gap: var(--ui-space-4);
+    gap: var(--ui-space-5);
 
     /* If it only has checkboxes, radios, or switches */
     &:has(> :where(.ui-checkbox, .ui-radio, .ui-switch)):not(
@@ -102,12 +102,12 @@
 
       /* If it's not preceded by an hr */
       &:not(:where(hr, .ui-divider) + &) {
-        margin-block-start: var(--ui-space-4);
+        margin-block-start: var(--ui-space-5);
       }
     }
 
     & + & {
-      margin-block-start: var(--ui-space-5);
+      margin-block-start: var(--ui-space-6);
     }
 
     /* Directions */
@@ -119,7 +119,7 @@
       align-items: end;
       flex-direction: row;
       flex-wrap: wrap;
-      gap: var(--ui-space-3);
+      gap: var(--ui-space-4);
 
       & > :where(.ui-field, .ui-one-time-code) {
         flex: 1 1 var(--_field-min-inline-size);
@@ -127,7 +127,7 @@
       }
 
       &:has(> :where(.ui-checkbox, .ui-radio, .ui-switch)) {
-        gap: var(--ui-space-4);
+        gap: var(--ui-space-5);
       }
 
       &:has(> .ui-card:is(.ui-checkbox, .ui-radio, .ui-switch)) {

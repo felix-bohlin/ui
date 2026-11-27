@@ -294,11 +294,11 @@ import {
 <style>
 .notifications {
   .notifications-feed {
-    padding-block-start: var(--ui-space-3);
+    padding-block-start: var(--ui-space-4);
   }
 
   .notifications-unread .ui-text > p:first-child {
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
   }
 
   .notifications-quote {
@@ -315,7 +315,7 @@ import {
   }
 
   .notifications-empty {
-    padding-block: var(--ui-space-8);
+    padding-block: var(--ui-space-12);
   }
 }
 </style>

@@ -352,7 +352,7 @@ const callouts = [
 <style>
   .specimen {
     columns: 18rem 3;
-    gap: var(--ui-space-5);
+    gap: var(--ui-space-6);
   }
 
   .specimen-block {
@@ -360,10 +360,10 @@ const callouts = [
     contain-intrinsic-block-size: auto 300px;
     content-visibility: auto;
     display: grid;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
     margin-inline: calc(-1 * var(--size-5));
     min-inline-size: 0;
-    padding: 0 var(--size-5) var(--ui-space-6);
+    padding: 0 var(--size-5) var(--ui-space-7);
   }
 
   .specimen-type {
@@ -383,7 +383,7 @@ const callouts = [
   .specimen-caption {
     color: var(--ui-text-subtle);
     font-size: var(--ui-font-size-caption);
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
     letter-spacing: var(--ui-letter-spacing-caps);
     margin: 0;
     text-transform: uppercase;
@@ -392,7 +392,7 @@ const callouts = [
   .specimen-buttons {
     align-items: baseline;
     display: grid;
-    gap: var(--ui-space-2) var(--ui-space-3);
+    gap: var(--ui-space-2) var(--ui-space-4);
 
     @container (width >= 24rem) {
       grid-template-columns: auto 1fr;
@@ -412,7 +412,7 @@ const callouts = [
   }
 
   .specimen-form {
-    gap: var(--ui-space-4);
+    gap: var(--ui-space-5);
 
     & :global(.ui-field) {
       inline-size: 100%;
@@ -422,7 +422,7 @@ const callouts = [
   .specimen-backdrop {
     background-color: oklch(from var(--ui-backdrop-bg-color) l c h / 20%);
     border-radius: var(--ui-radius);
-    padding: var(--ui-space-4);
+    padding: var(--ui-space-5);
   }
 
   .specimen-dialog {

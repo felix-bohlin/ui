@@ -68,7 +68,7 @@ import {
 .repo-card-identity {
   align-items: center;
   display: flex;
-  gap: var(--ui-space-3);
+  gap: var(--ui-space-4);
 }
 
 .repo-card-identity > div {

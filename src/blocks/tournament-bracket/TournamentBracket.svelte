@@ -10,7 +10,7 @@
 
 <div
   class="tournament-bracket ui-layout-container ui-layout-column"
-  style="--_gap: var(--ui-space-6); --_max-inline-size: 72rem"
+  style="--_gap: var(--ui-space-7); --_max-inline-size: 72rem"
 >
   <div class="ui-layout-row ui-spread">
     <hgroup class="ui-hgroup">
@@ -199,11 +199,11 @@
 
       .tb-scroll {
         overflow-x: auto;
-        padding-block-end: var(--ui-space-3);
+        padding-block-end: var(--ui-space-4);
       }
 
       .tb-bracket {
-        --_gap: var(--ui-space-8);
+        --_gap: var(--ui-space-12);
         --_line: var(--ui-border-width-large) solid var(--ui-border-color);
 
         display: grid;
@@ -214,7 +214,7 @@
 
       .tb-round {
         display: grid;
-        gap: var(--ui-space-3);
+        gap: var(--ui-space-4);
         grid-template-rows: auto 1fr;
       }
 
@@ -270,9 +270,9 @@
         border: var(--ui-border-width) solid var(--ui-border-color);
         display: flex;
         font-size: var(--ui-font-size-small);
-        gap: var(--ui-space-3);
+        gap: var(--ui-space-4);
         justify-content: space-between;
-        padding: var(--ui-space-2) var(--ui-space-3);
+        padding: var(--ui-space-2) var(--ui-space-4);
         white-space: nowrap;
 
         &:first-child {
@@ -297,7 +297,7 @@
 
         span:last-child {
           color: var(--ui-text-strong);
-          font-weight: var(--ui-font-weight-bold);
+          font-weight: var(--ui-font-weight-heading);
         }
       }
 
@@ -327,7 +327,7 @@
         display: grid;
         inline-size: 4rem;
         justify-content: center;
-        margin-block-end: var(--ui-space-3);
+        margin-block-end: var(--ui-space-4);
       }
     }
   }

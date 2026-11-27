@@ -12,7 +12,7 @@
     --_marker-border-width: var(--ui-border-width-large);
     --_marker-complete-image: var(--ui-icon-check);
     --_marker-error-image: var(--ui-icon-invalid);
-    --_marker-size: var(--ui-space-6);
+    --_marker-size: var(--ui-space-7);
     --_on-accent: var(--ui-on-selected-strong);
     --_orientation: auto;
 
@@ -60,7 +60,7 @@
         display: grid;
         font-size: var(--ui-font-size-caption);
         font-variant-numeric: tabular-nums;
-        font-weight: var(--ui-font-weight-semibold);
+        font-weight: var(--ui-font-weight-label);
         grid-area: 1 / 1;
         inline-size: var(--_marker-size);
         line-height: 1;
@@ -82,7 +82,7 @@
         border-radius: var(--ui-radius-round);
         content: "";
         grid-area: 1 / 3;
-        min-inline-size: var(--ui-space-4);
+        min-inline-size: var(--ui-space-5);
         transition: background-color var(--_duration) var(--_ease);
       }
 
@@ -116,9 +116,9 @@
       & > .ui-description {
         color: var(--_description-text-color);
         font-size: var(--ui-font-size-caption);
-        font-weight: var(--ui-font-weight-normal);
+        font-weight: var(--ui-font-weight-body);
         grid-area: 2 / 2;
-        line-height: var(--ui-line-height);
+        line-height: var(--ui-line-height-compact);
       }
     }
 
@@ -128,7 +128,7 @@
       --_marker-border-color: var(--_accent);
       --_marker-text-color: var(--ui-text);
 
-      font-weight: var(--ui-font-weight-semibold);
+      font-weight: var(--ui-font-weight-label);
     }
 
     /* Completed steps */
@@ -173,7 +173,7 @@
 
     /* Size */
     &.ui-small {
-      --_marker-size: var(--ui-space-5);
+      --_marker-size: var(--ui-space-6);
 
       font-size: var(--ui-font-size-caption);
     }
@@ -192,7 +192,7 @@
         flex-basis: 100%;
         grid-template-columns: auto 1fr;
         min-inline-size: 0;
-        padding-block-end: var(--ui-space-4);
+        padding-block-end: var(--ui-space-5);
 
         &:last-child {
           padding-block-end: 0;

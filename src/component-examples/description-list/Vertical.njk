@@ -1,0 +1,29 @@
+{% from "opui/index.njk" import
+  DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm
+%}
+
+{% call DescriptionList({
+  class: "ui-layout-grid",
+  orientation: "vertical",
+  style: "--_min-inline-size: 9rem"
+}) %}
+  {% call DescriptionListItem() %}
+    {% call DescriptionListTerm() %}Date{% endcall %}
+    {% call DescriptionListDescription() %}Saturday 12 June{% endcall %}
+  {% endcall %}
+  {% call DescriptionListItem() %}
+    {% call DescriptionListTerm() %}Doors{% endcall %}
+    {% call DescriptionListDescription() %}17:00{% endcall %}
+  {% endcall %}
+  {% call DescriptionListItem() %}
+    {% call DescriptionListTerm() %}Venue{% endcall %}
+    {% call DescriptionListDescription() %}Harbour Stage{% endcall %}
+  {% endcall %}
+  {% call DescriptionListItem() %}
+    {% call DescriptionListTerm() %}Entrance{% endcall %}
+    {% call DescriptionListDescription() %}Gate B{% endcall %}
+  {% endcall %}
+{% endcall %}

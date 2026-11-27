@@ -17,7 +17,7 @@ type ThemeSection = {
 }
 
 const HEADER = /^\s*\/\*\s*([^-.\s][^.]*?)(?:\s+-\s+(.*?))?\s*\*\/\s*$/
-const DECLARATION = /^(\s*)(--[\w-]+):\s*(.*)$/
+const DECLARATION = /^(\s*)(--(?!_)[\w-]+):\s*(.*)$/
 const OPTIONAL = /^\s*\/\*\s*(--[\w-]+):\s*(.*?);?\s*\*\/\s*$/
 const CONTRAST_SCOPE =
   /prefers-contrast:\s*more|:where\(\.ui-contrast-more\)|--ui-contrast:\s*more/
@@ -269,7 +269,7 @@ export const themeTokenSections = (): ThemeSection[] =>
   [
     ...parseThemeTokens(),
     {
-      note: "The 16 steps `core/palette.css` derives from `--ui-palette-source` on `:root`, `.ui-palette` and every severity scope, and the grays at their lightness. Components read the palette roles, not the steps.",
+      note: "The 16 steps `core/palette.css` derives from `--ui-palette-source` on `:root`, `.ui-scope` and every severity scope, and the grays at their lightness. Components read the palette roles, not the steps.",
       title: "Palette steps",
       tokens: paletteSteps().map(({ name, value }) => ({ name, value })),
     },
@@ -286,6 +286,28 @@ export const themeTokens = () =>
   themeTokensIn(themeTokenSections()).filter(
     (token) => tokenTier(token.name) !== "input",
   )
+
+const SCALE_KNOBS = ["--ui-density", "--ui-space-scale"]
+
+export const scaledTokens = (tokens = themeTokens()) => {
+  const scaled = new Map<string, string>()
+  const knobOf = (value: string) =>
+    SCALE_KNOBS.find((knob) => value.includes(`var(${knob})`)) ??
+    [...scaled].find(([name]) => value.includes(`var(${name})`))?.[1]
+  let grew = true
+  while (grew) {
+    grew = false
+    for (const token of tokens) {
+      if (token.optional || scaled.has(token.name)) continue
+      const knob = knobOf(token.value)
+      if (knob) {
+        scaled.set(token.name, knob)
+        grew = true
+      }
+    }
+  }
+  return scaled
+}
 
 export const setThemeToken = (css: string, name: string, value: string) => {
   const lines = css.split("\n")

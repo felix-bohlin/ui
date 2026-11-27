@@ -272,7 +272,7 @@ export default function OnboardingChecklist() {
 
           .onboarding-checklist-complete {
             color: var(--ui-text);
-            font-weight: var(--ui-font-weight-medium);
+            font-weight: var(--ui-font-weight-emphasis);
           }
 
           .onboarding-checklist-marker {

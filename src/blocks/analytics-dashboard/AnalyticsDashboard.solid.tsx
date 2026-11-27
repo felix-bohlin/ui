@@ -388,7 +388,7 @@ export default function AnalyticsDashboard() {
           }
 
           .analytics-chart-card .ui-content {
-            padding-block-end: var(--ui-space-6);
+            padding-block-end: var(--ui-space-7);
           }
         }
       `}</style>

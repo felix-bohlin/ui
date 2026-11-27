@@ -1,28 +1,26 @@
 @layer components.root {
   :where(dialog.ui-drawer) {
     --_motion: var(--ui-motion);
-    --_bg-color: var(--ui-surface-elevated);
-    --_bg-image: var(--ui-surface-elevated-image, none);
+    --_bg-color: var(--ui-surface-raised);
+    --_bg-image: var(--ui-surface-raised-image, none);
     --_block-size: min(80dvb, 650px);
     --_border-color: var(--ui-border-color);
     --_border-width: var(--ui-border-width);
     --_closed-translate: calc(-100% * var(--_direction)) 0;
-    --_content-padding: var(--ui-card-padding, var(--ui-space-3));
+    --_content-padding: var(--ui-card-padding, var(--ui-space-4));
     --_direction: 1;
     --_duration: calc(var(--ui-duration-slow) * var(--_motion));
     --_ease: var(--ui-ease-exit);
     --_edge-border-color: var(--ui-border-color-raised, var(--_border-color));
-    --_footer-padding: var(--ui-card-padding, var(--ui-space-3));
+    --_footer-padding: var(--ui-card-padding, var(--ui-space-4));
     --_handle-border-color: var(--ui-border-color);
-    --_header-padding: var(--ui-card-padding, var(--ui-space-3));
+    --_header-padding: var(--ui-card-padding, var(--ui-space-4));
     --_inline-size: min(375px, 100vi);
     --_shadow: var(--ui-shadow-overlay);
     --_swipe-offset: 0px;
     --_swipe-progress: 0;
     --_text-color: var(--ui-text-strong);
-    --ui-border-color: var(--ui-border-color-on-raised);
-    --ui-divider-gap: var(--ui-space-3);
-    --ui-field-border-color: var(--ui-field-border-color-on-raised);
+    --ui-divider-gap: var(--ui-space-4);
 
     background-color: var(--_bg-color);
     background-image: var(--_bg-image);
@@ -142,7 +140,7 @@
           border-radius: var(--ui-radius-round);
           content: "";
           flex: none;
-          inline-size: var(--ui-space-7);
+          inline-size: var(--ui-space-8);
           margin-block: var(--ui-space-2);
         }
 

@@ -76,7 +76,7 @@ export default {
   },
   "--_marker-size": {
     description:
-      "Size of the marker. Defaults to `--ui-space-6`, `--ui-space-5` with `.ui-small`.",
+      "Size of the marker. Defaults to `--ui-space-7`, `--ui-space-6` with `.ui-small`.",
     kind: "input",
   },
   "--_marker-text-color": {

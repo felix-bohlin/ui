@@ -101,8 +101,9 @@ To add the prefix in one pass, search your CSS and markup for each of these regu
 --(blue|critical|green|info|neutral|orange|primary|red|success|warning)(?![\w-])
 --((?:color|gray)-(?:1[0-6]|[1-9]))(?![\w-])
 --((?:gray|palette)-(?:chroma|hue)|palette-(?:hue-rotate-by|source))(?![\w-])
---((?:border|field-border)-(?:color|width)|color-scheme|surface-(?:elevated|filled|tonal))(?![\w-])
+--((?:border|field-border)-(?:color|width)|color-scheme|surface-(?:filled|tonal))(?![\w-])
 --((?:button|control|field)-size(?:-x-small|-small|-large)?|focus-ring-(?:color|offset|style|width)|font-size-h[1-6])(?![\w-])
+--(anchor-position-area|motion)(?![\w-])
 ```
 
 These tokens also have a new name, so adding the prefix isn't enough:
@@ -114,6 +115,7 @@ These tokens also have a new name, so adding the prefix isn't enough:
 | `--field-border-radius`   | `--ui-field-radius` (unset, falls back to `--ui-radius`)  |
 | `--primary-contrast`      | `--ui-on-primary`                                         |
 | `--surface-default`       | `--ui-surface`                                            |
+| `--surface-elevated`      | `--ui-surface-raised`                                     |
 | `--text-muted`            | `--ui-text`                                               |
 | `--text-muted-contrast`   | removed, use `--ui-on-inverse` on `--ui-surface-inverse`  |
 | `--text-primary`          | `--ui-text-strong`                                        |
@@ -137,17 +139,17 @@ These tokens also have a new name, so adding the prefix isn't enough:
 
 ```css
 @layer theme.custom {
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-focus-ring-color: var(--ui-primary);
   }
 }
 ```
 
-A theme pins a role by setting it, and the scope classes `.ui-palette` and `.ui-contrast-more` derive every role again from the knobs. Set pinned roles on `:where(html, .ui-palette, .ui-contrast-more)` so the scopes keep them; knobs such as `--ui-radius` or `--ui-palette-hue` can stay on `html`. More contrast tightens knobs and no longer replaces a pinned role, so a theme that wants its primary darkened under `prefers-contrast: more` sets `--ui-primary-source` instead of `--ui-primary`, and a theme that wants another pinned role back under more contrast sets it to `revert-layer` there (see Contrast in the theming guide). The example themes do that and leave `--ui-on-primary` and `--ui-primary-text` to derive from it (brutalist pins `--ui-primary-text` to its text color for black links):
+A theme pins a role by setting it, and the scope classes `.ui-scope` (`.ui-palette` in 5.x) and `.ui-contrast-more` derive every role again from the knobs. Set pinned roles on `:where(html, .ui-scope, .ui-contrast-more)` so the scopes keep them; knobs such as `--ui-radius` or `--ui-palette-hue` can stay on `html`. More contrast tightens knobs and no longer replaces a pinned role, so a theme that wants its primary darkened under `prefers-contrast: more` sets `--ui-primary-source` instead of `--ui-primary`, and a theme that wants another pinned role back under more contrast sets it to `revert-layer` there (see Contrast in the theming guide). The example themes do that and leave `--ui-on-primary` and `--ui-primary-text` to derive from it (brutalist pins `--ui-primary-text` to its text color for black links):
 
 ```css
 @layer theme.custom {
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-primary-source: oklch(0.578 0.228 260);
   }
 }
@@ -161,7 +163,7 @@ The default palette is blue (hue `222.8`) in both color schemes, and the primary
     --ui-palette-hue: 145;
   }
 
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-primary-source: light-dark(var(--ui-color-9), var(--ui-color-6));
   }
 
@@ -192,11 +194,11 @@ The default palette is blue (hue `222.8`) in both color schemes, and the primary
 
 `kbd`, `mark`, `var`, `Tooltip`, `Checkbox`, file inputs outside a `Field` and rounded `Avatar` never get rounder than `--ui-radius` (a file input in a `Field` follows `--ui-field-radius` like other fields).
 
-Component padding, gaps and margins read `--ui-space-1` to `--ui-space-8` instead of the Open Props `--size-*` steps. The steps resolve on `html`, so overriding `--size-*` on a part of the page no longer changes the components in it. Set `--ui-space-scale` on `html` to change the spacing everywhere, or a component's `--_` property to change one.
+Component padding, gaps and margins read `--ui-space-1` to `--ui-space-12` instead of the Open Props `--size-*` steps. The steps resolve on `html`, so overriding `--size-*` on a part of the page no longer changes the components in it. Set `--ui-space-scale` on `html` to change the spacing everywhere, or a component's `--_` property to change one.
 
 A select's picker and `Drawer` use `--ui-shadow-overlay` (`--shadow-3`, was `--shadow-2`), and elevated `Accordion` uses `--ui-shadow-elevated`, the elevated `Card` shadow.
 
-`--ui-primary` is derived from `--ui-primary-source` (`oklch(0.499 0.191 222.8)` in light mode and `--ui-color-6` in dark mode), and `--ui-on-primary` is derived from `--ui-primary` with relative color. If you set your own `--ui-primary` on `html` (or on `.ui-palette`), its text color follows it; elsewhere, add `.ui-palette` or set `--ui-on-primary` too.
+`--ui-primary` is derived from `--ui-primary-source` (`oklch(0.499 0.191 222.8)` in light mode and `--ui-color-6` in dark mode), and `--ui-on-primary` is derived from `--ui-primary` with relative color. If you set your own `--ui-primary` on `html` (or on `.ui-scope`), its text color follows it; elsewhere, add `.ui-scope` or set `--ui-on-primary` too.
 
 `palette.css` no longer registers `--color-*`, `--gray-*`, `--palette-source` and `--palette-hue` with `@property`, so they can't be animated as colors anymore.
 
@@ -287,7 +289,7 @@ Dark mode shadows are darker: every shadow role (`--ui-shadow-elevated`, `--ui-s
 
 ```css
 @layer theme.custom {
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-shadow-color: light-dark(
       oklch(0.28 0.055 290 / 2%),
       oklch(0 0 0 / 30%)
@@ -299,7 +301,7 @@ Dark mode shadows are darker: every shadow role (`--ui-shadow-elevated`, `--ui-s
 
 The Open Props bundle no longer sets the dark values of `--shadow-color` and `--shadow-strength`. If your own CSS reads `--shadow-1` to `--shadow-6` and should darken in dark mode, set those two yourself under `.ui-dark` and the OS dark preference. The bundle no longer contains Open Props' `@custom-media` definitions (`--OSdark`, `--md-n-above` and so on); import `open-props/media` if your PostCSS setup used them.
 
-Components read roles, not palette steps or Open Props values, and the roles are computed on `html`. Overriding a step such as `--ui-gray-4` or an Open Props value such as `--size-3` on a part of the page no longer changes the components there. Override the role, or add `.ui-palette` so the part derives its roles again from its own palette:
+Components read roles, not palette steps or Open Props values, and the roles are computed on `html`. Overriding a step such as `--ui-gray-4` or an Open Props value such as `--size-3` on a part of the page no longer changes the components there. Override the role, or add `.ui-scope` so the part derives its roles again from its own palette:
 
 ```diff
 - .sidebar { --gray-4: oklch(0.928 0.006 265); }
@@ -877,11 +879,11 @@ In Astro and Vue, a drawer that opens from the inline start no longer renders `.
 + .ui-drawer:not(.ui-block-end, .ui-block-start, .ui-inline-end) { --_inline-size: 20rem; }
 ```
 
-The header, content and footer rules, the backdrop and the closed state live in `card.css`, shared with `Dialog`. If you import single files, import `card.css` too. The footer spaces its items by `--ui-space-2`, like `Dialog`, instead of `--ui-space-3`.
+The header, content and footer rules, the backdrop and the closed state live in `card.css`, shared with `Dialog`. If you import single files, import `card.css` too. The footer spaces its items by `--ui-space-2`, like `Dialog`, instead of `--ui-space-4`.
 
 ```diff
 - .ui-drawer { }
-+ .ui-drawer { --_footer-gap: var(--ui-space-3); }
++ .ui-drawer { --_footer-gap: var(--ui-space-4); }
 ```
 
 ## Field group and fieldset
@@ -1149,7 +1151,7 @@ With `spread`, the label and the range split the container into equal columns, a
 
 Same as Text field: the root is `.ui-field` instead of `.ui-select`, and the box around the select `.ui-field-container` instead of `.ui-field`.
 
-The picker is `--ui-surface-elevated` with a `--ui-border-color-on-raised` edge, like `Menu`, instead of `--ui-surface-filled` with the field border. Set `--_bg-color` on `.ui-field select::picker(select)` to keep the old fill, or `--ui-border-color-raised` in your theme to outline every raised surface at once.
+The picker is `--ui-surface-raised` with a `--ui-border-color` edge, like `Menu`, instead of `--ui-surface-filled` with the field border. Set `--_bg-color` on `.ui-field select::picker(select)` to keep the old fill, or `--ui-border-color-raised` in your theme to outline every raised surface at once.
 
 `Select` is `Field`, which takes your `<select>` instead of rendering one, and a required `for` (`htmlFor` in React) with the select's `id`. Write the options in it after a `SelectButton`, instead of passing `items`, and move `name`, `required`, `disabled`, `multiple` and the bound value onto the select: bind it with your framework's own `value`, `bind:value` or `v-model`, and set `aria-invalid="true"` on it instead of `error`. Point its `aria-describedby` at the parts with something to read, as for Text field. `SelectItem` is gone. Attributes that aren't Field's props go to the root, `style` included.
 

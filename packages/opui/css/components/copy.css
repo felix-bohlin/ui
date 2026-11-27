@@ -13,7 +13,7 @@
         --ui-button-accent,
         var(--ui-control-accent, var(--ui-palette-strong))
       );
-      --_bg-color: var(--ui-surface-elevated);
+      --_bg-color: var(--ui-surface-raised);
       --_border-color: var(--ui-control-border-color, var(--_accent));
       --_duration: calc(var(--ui-duration) * var(--_motion));
       --_ease: var(--ui-ease-exit);
@@ -22,13 +22,14 @@
       --_offset: var(--ui-space-1);
       --_radius: var(--ui-button-radius, var(--ui-radius));
       --_shown-clip-path: inset(
-        -100vmax -100vmax -100vmax calc(-1 * var(--ui-space-4))
+        -100vmax -100vmax -100vmax calc(-1 * var(--ui-space-5))
       );
       --_text-color: light-dark(
         var(--_accent),
         oklch(
-          from var(--_accent) max(l, var(--ui-text-min-lightness))
-            min(c, var(--ui-text-max-chroma)) h
+          from var(--_accent)
+            max(l, var(--ui-control-accent-min-lightness-dark))
+            min(c, var(--ui-control-accent-max-chroma-dark)) h
         )
       );
 
@@ -45,7 +46,7 @@
       clip-path: var(--_hidden-clip-path);
       color: var(--_text-color);
       font-size: var(--_font-size);
-      font-weight: var(--ui-button-font-weight, var(--ui-font-weight-bold));
+      font-weight: var(--ui-button-font-weight, var(--ui-font-weight-heading));
       inset: unset;
       line-height: var(--ui-line-height-tight);
       margin-block: 0;
@@ -68,7 +69,7 @@
       &:dir(rtl) {
         --_hidden-clip-path: inset(-100vmax 100% -100vmax -100vmax);
         --_shown-clip-path: inset(
-          -100vmax calc(-1 * var(--ui-space-4)) -100vmax -100vmax
+          -100vmax calc(-1 * var(--ui-space-5)) -100vmax -100vmax
         );
       }
 

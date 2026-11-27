@@ -39,7 +39,7 @@ export default function AccountSettings() {
         </hgroup>
         <Tabs
           name="account-settings-tabs"
-          style={{ "--_panel-gap": "var(--ui-space-5)" }}
+          style={{ "--_panel-gap": "var(--ui-space-6)" }}
           variant="line"
         >
           <TabsItem defaultChecked id="account-settings-tab-profile">

@@ -48,7 +48,7 @@ export default function Checkout() {
         />
         <div
           class="ui-layout-columns"
-          style="--_columns: 3fr 2fr; --_gap: var(--ui-space-6)"
+          style="--_columns: 3fr 2fr; --_gap: var(--ui-space-7)"
         >
           <Form action="#">
             <Fieldset>
@@ -225,7 +225,7 @@ export default function Checkout() {
               <FieldLegend>Payment</FieldLegend>
               <Tabs
                 name="checkout-payment"
-                style="--_panel-gap: var(--ui-space-4)"
+                style="--_panel-gap: var(--ui-space-5)"
               >
                 <TabsItem defaultChecked id="checkout-pay-card" value="card">
                   <TabsLabel>Card</TabsLabel>
@@ -474,7 +474,7 @@ export default function Checkout() {
           }
 
           .checkout-price {
-            font-weight: var(--ui-font-weight-semibold);
+            font-weight: var(--ui-font-weight-label);
           }
 
           .checkout-submit {

@@ -79,7 +79,7 @@ export const COMPONENT_RADII = CORNER_TOKENS.filter(
 
 export const FOLLOW_RADIUS = "var(--ui-radius)"
 
-export const FONT_TOKENS = ["--ui-font-body", "--ui-font-heading"]
+export const FONT_TOKENS = ["--ui-font-family-body", "--ui-font-family-heading"]
 
 const isBrowser = typeof window !== "undefined"
 
@@ -170,13 +170,13 @@ export const customCss = (tokens: ThemeTokens, icons?: IconBlock | null) => {
   return [
     "@layer theme.custom {",
     ...(entries.length > 0
-      ? [rule(":where(html, .ui-palette, .ui-contrast-more)", entries)]
+      ? [rule(":where(html, .ui-scope, .ui-contrast-more)", entries)]
       : []),
     ...(icons && iconEntries.length > 0
       ? [
           ...(entries.length > 0 ? [""] : []),
           commentLines(icons.comment, "  "),
-          rule(":where(html, .ui-palette, .ui-contrast-more)", iconEntries),
+          rule(":where(html, .ui-scope, .ui-contrast-more)", iconEntries),
         ]
       : []),
     ...(handback.length > 0
@@ -184,14 +184,14 @@ export const customCss = (tokens: ThemeTokens, icons?: IconBlock | null) => {
           "",
           "  @media (prefers-contrast: more) {",
           rule(
-            ":where(\n      html:not(.ui-contrast-normal),\n      html:not(.ui-contrast-normal) .ui-palette\n    )",
+            ":where(\n      html:not(.ui-contrast-normal),\n      html:not(.ui-contrast-normal) .ui-scope\n    )",
             handback,
             "    ",
           ),
           "  }",
           "",
           rule(
-            ":where(.ui-contrast-more, .ui-contrast-more .ui-palette)",
+            ":where(.ui-contrast-more, .ui-contrast-more .ui-scope)",
             handback,
           ),
         ]
@@ -201,7 +201,7 @@ export const customCss = (tokens: ThemeTokens, icons?: IconBlock | null) => {
   ].join("\n")
 }
 
-const FONT_FAMILY_TOKENS = [...FONT_TOKENS, "--ui-font-code"]
+const FONT_FAMILY_TOKENS = [...FONT_TOKENS, "--ui-font-family-code"]
 
 export const themeFontIds = ({ preset, tokens }: Theme) => {
   const base = EXAMPLE_THEMES.find((theme) => theme.name === preset)?.tokens

@@ -55,7 +55,7 @@ export default {
   },
   "--_item-padding-inline": {
     description:
-      "Horizontal padding of items, headings and options. `--ui-list-item-padding-inline`, or `--ui-space-3` when a theme leaves it unset.",
+      "Horizontal padding of items, headings and options. `--ui-list-item-padding-inline`, or `--ui-space-4` when a theme leaves it unset.",
     kind: "input",
   },
   "--_motion": {

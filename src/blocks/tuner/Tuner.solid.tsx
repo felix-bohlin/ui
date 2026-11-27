@@ -14,7 +14,7 @@ export default function Tuner() {
     <>
       <div
         class="tuner ui-layout-container ui-layout-columns"
-        style="--_columns: 3fr 2fr; --_gap: var(--ui-space-6); --_max-inline-size: 60rem"
+        style="--_columns: 3fr 2fr; --_gap: var(--ui-space-7); --_max-inline-size: 60rem"
       >
         <Card
           aria-labelledby="tuner-heading"
@@ -114,7 +114,7 @@ export default function Tuner() {
 
           .tn-tuner .ui-content {
             display: grid;
-            gap: var(--ui-space-5);
+            gap: var(--ui-space-6);
             justify-items: center;
             text-align: center;
           }
@@ -174,7 +174,7 @@ export default function Tuner() {
           .tn-note {
             color: var(--ui-text-strong);
             font-size: 5rem;
-            font-weight: var(--ui-font-weight-bold);
+            font-weight: var(--ui-font-weight-heading);
             line-height: 1;
           }
 
@@ -182,13 +182,13 @@ export default function Tuner() {
             color: var(--ui-text-strong);
             font-size: var(--ui-font-size-900);
             font-variant-numeric: tabular-nums;
-            font-weight: var(--ui-font-weight-bold);
+            font-weight: var(--ui-font-weight-heading);
             line-height: 1;
           }
 
           .tn-beats {
             display: flex;
-            gap: var(--ui-space-3);
+            gap: var(--ui-space-4);
             list-style-type: none;
             margin: 0;
             padding: 0;
@@ -208,7 +208,7 @@ export default function Tuner() {
 
           .tn-metronome .ui-content {
             display: grid;
-            gap: var(--ui-space-5);
+            gap: var(--ui-space-6);
           }
         }
       `}</style>

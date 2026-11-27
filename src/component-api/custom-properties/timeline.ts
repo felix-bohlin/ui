@@ -3,22 +3,22 @@ import type { CustomProperties } from "../types"
 export default {
   "--_dot-size": {
     description:
-      "Size of the plain marker dot. Defaults to `--ui-space-3`, `--ui-space-2` with `.ui-small`.",
+      "Size of the plain marker dot. Defaults to `--ui-space-4`, `--ui-space-2` with `.ui-small`.",
     kind: "input",
   },
   "--_gap": {
     description:
-      "Space on each side of the marker column. Defaults to `--ui-space-3`, `--ui-space-2` with `.ui-small`.",
+      "Space on each side of the marker column. Defaults to `--ui-space-4`, `--ui-space-2` with `.ui-small`.",
     kind: "input",
   },
   "--_icon-marker-size": {
     description:
-      "Size of a `.ui-marker` with an icon. Defaults to `--ui-space-5`, `--ui-space-4` with `.ui-small`.",
+      "Size of a `.ui-marker` with an icon. Defaults to `--ui-space-6`, `--ui-space-5` with `.ui-small`.",
     kind: "input",
   },
   "--_item-gap": {
     description:
-      "Space below each item. Defaults to `--ui-space-5`, `--ui-space-3` with `.ui-small`.",
+      "Space below each item. Defaults to `--ui-space-6`, `--ui-space-4` with `.ui-small`.",
     kind: "input",
   },
   "--_line-border-color": {

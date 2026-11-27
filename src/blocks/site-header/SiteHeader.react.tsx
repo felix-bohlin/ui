@@ -162,15 +162,15 @@ export default function SiteHeader() {
             align-items: center;
             border-block-end: var(--ui-border-width) solid var(--ui-border-color);
             display: flex;
-            gap: var(--ui-space-4);
-            padding: var(--ui-space-3) var(--ui-space-4);
+            gap: var(--ui-space-5);
+            padding: var(--ui-space-4) var(--ui-space-5);
           }
 
           .sh-brand {
             align-items: center;
             color: inherit;
             font-size: var(--ui-font-size-large);
-            font-weight: var(--ui-font-weight-bold);
+            font-weight: var(--ui-font-weight-heading);
             text-decoration: none;
           }
 

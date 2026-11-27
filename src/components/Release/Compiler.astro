@@ -299,16 +299,16 @@ const checks = [
   .compiler {
     container-type: inline-size;
     display: grid;
-    gap: var(--ui-space-4);
+    gap: var(--ui-space-5);
     justify-items: stretch;
-    margin: var(--ui-space-5) 0;
+    margin: var(--ui-space-6) 0;
   }
 
   .compiler-title {
     color: var(--ui-text-strong);
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-small);
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
   }
 
   .compiler-source {
@@ -325,16 +325,16 @@ const checks = [
     border-block-end: var(--ui-border-width) solid var(--ui-border-color);
     display: flex;
     flex-wrap: wrap;
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-small);
     gap: var(--ui-space-2);
     margin: 0;
-    padding: var(--ui-space-2) var(--ui-space-3);
+    padding: var(--ui-space-2) var(--ui-space-4);
 
     & code {
       background: none;
       color: var(--ui-text-strong);
-      font-family: var(--ui-font-code);
+      font-family: var(--ui-font-family-code);
       padding: 0;
     }
   }
@@ -356,13 +356,13 @@ const checks = [
 
   .compiler-code {
     color: var(--ui-text);
-    font-family: var(--ui-font-code);
+    font-family: var(--ui-font-family-code);
     font-size: var(--ui-font-size-caption);
     line-height: 1.45;
     margin: 0;
     min-inline-size: 0;
     overflow-x: auto;
-    padding: var(--ui-space-3);
+    padding: var(--ui-space-4);
     tab-size: 2;
 
     & code {
@@ -408,15 +408,15 @@ const checks = [
     color: var(--ui-text);
     counter-increment: compiler-stage;
     display: grid;
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-caption);
     gap: var(--ui-space-1);
-    padding: var(--ui-space-3);
+    padding: var(--ui-space-4);
 
     & strong {
       color: var(--ui-primary-text);
       font-size: var(--ui-font-size-small);
-      font-weight: var(--ui-font-weight-semibold);
+      font-weight: var(--ui-font-weight-label);
 
       &::before {
         content: counter(compiler-stage) ". ";
@@ -426,7 +426,7 @@ const checks = [
 
   .compiler-rows {
     display: grid;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -440,9 +440,9 @@ const checks = [
 
   .compiler-row-label {
     color: var(--ui-text-strong);
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-small);
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
     margin: 0;
   }
 
@@ -465,7 +465,7 @@ const checks = [
     display: grid;
     gap: var(--ui-space-1);
     min-inline-size: 0;
-    padding: var(--ui-space-2) var(--ui-space-3);
+    padding: var(--ui-space-2) var(--ui-space-4);
     position: relative;
 
     &[data-framework="astro"] {
@@ -489,7 +489,7 @@ const checks = [
     align-items: center;
     color: var(--ui-text-subtle);
     display: flex;
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-caption);
     gap: var(--ui-space-1);
   }
@@ -497,7 +497,7 @@ const checks = [
   .compiler-cell-code {
     background: none;
     color: var(--ui-text-strong);
-    font-family: var(--ui-font-code);
+    font-family: var(--ui-font-family-code);
     font-size: var(--ui-font-size-caption);
     overflow-wrap: anywhere;
     padding: 0;
@@ -505,7 +505,7 @@ const checks = [
 
   .compiler-cell-text {
     color: var(--ui-text);
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-caption);
     font-style: italic;
   }
@@ -523,7 +523,7 @@ const checks = [
     align-items: start;
     color: var(--ui-text);
     display: grid;
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-small);
     gap: var(--ui-space-2);
     grid-template-columns: 1.25rem minmax(0, 1fr);
@@ -540,7 +540,7 @@ const checks = [
 
   .compiler-ledger {
     color: var(--ui-text);
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-small);
     margin: 0;
 

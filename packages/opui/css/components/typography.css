@@ -13,8 +13,8 @@
 
   :where(.ui-h1, .ui-h2, .ui-h3, .ui-h4, .ui-h5, .ui-h6) {
     color: var(--ui-text-strong);
-    font-family: var(--ui-font-heading, var(--ui-font-body));
-    font-weight: var(--ui-font-weight-bold);
+    font-family: var(--ui-font-family-heading, var(--ui-font-family-body));
+    font-weight: var(--ui-font-weight-heading);
     line-height: round(
       up,
       1em + 2 * var(--ui-rhythm-step),
@@ -59,7 +59,7 @@
     hgroup p:first-of-type:first-child {
       color: var(--ui-text-subtle);
       font-size: var(--ui-font-size-caption);
-      font-weight: var(--ui-font-weight-medium);
+      font-weight: var(--ui-font-weight-emphasis);
       letter-spacing: var(--ui-letter-spacing-caps);
       text-transform: uppercase;
     }
@@ -75,7 +75,7 @@
       font-size: var(--ui-font-size-large);
       line-height: round(
         up,
-        calc(1em * var(--ui-line-height)),
+        calc(1em * var(--ui-line-height-compact)),
         var(--ui-rhythm-step)
       );
     }
@@ -99,7 +99,7 @@
   :where(.ui-caption) {
     color: var(--ui-text);
     font-size: var(--ui-font-size-caption);
-    line-height: var(--ui-line-height);
+    line-height: var(--ui-line-height-compact);
   }
 
   /* Severity text */
@@ -189,7 +189,7 @@
     background-color: var(--ui-surface-inverse);
     border-radius: var(--ui-radius-small);
     color: var(--ui-on-inverse);
-    font-family: var(--ui-font-code);
+    font-family: var(--ui-font-family-code);
     overflow-wrap: anywhere;
     padding-block: calc(0.1ex + var(--ui-border-width));
     padding-inline: calc(0.3ex + var(--ui-border-width));
@@ -235,15 +235,15 @@
   }
 
   :where(.ui-samp) {
-    font-family: var(--ui-font-code);
+    font-family: var(--ui-font-family-code);
   }
 
   /* Blockquote */
   :where(.ui-blockquote) {
     border-inline-start: calc(var(--ui-border-width-large) * 1.5) solid
       currentColor;
-    padding-block: var(--ui-space-3);
-    padding-inline: var(--ui-space-4);
+    padding-block: var(--ui-space-4);
+    padding-inline: var(--ui-space-5);
 
     & > :first-child {
       margin-block-start: 0;
@@ -255,7 +255,7 @@
 
     footer {
       color: var(--ui-text);
-      margin-block-start: var(--ui-space-3);
+      margin-block-start: var(--ui-space-4);
     }
   }
 
@@ -266,11 +266,11 @@
       background-color: var(--ui-code-block-bg-color);
       border-radius: var(--ui-radius);
       color: var(--ui-code-block-text-color);
-      font-family: var(--ui-font-code);
+      font-family: var(--ui-font-family-code);
       max-inline-size: 100%;
       overflow-inline: auto;
-      padding-block: var(--ui-space-3);
-      padding-inline: var(--ui-space-4);
+      padding-block: var(--ui-space-4);
+      padding-inline: var(--ui-space-5);
       white-space: pre;
 
       @media print {
@@ -363,8 +363,8 @@
         currentColor;
       font-size: inherit;
       line-height: inherit;
-      padding-block: var(--ui-space-3);
-      padding-inline: var(--ui-space-4);
+      padding-block: var(--ui-space-4);
+      padding-inline: var(--ui-space-5);
 
       & > :first-child {
         margin-block-start: 0;
@@ -465,7 +465,7 @@
       }
 
       color: var(--ui-text-strong);
-      font-weight: var(--ui-font-weight-bold);
+      font-weight: var(--ui-font-weight-heading);
       line-height: round(
         up,
         1em + 2 * var(--ui-rhythm-step),
@@ -663,7 +663,7 @@
       line-height: inherit;
 
       dt {
-        font-weight: var(--ui-font-weight-bold);
+        font-weight: var(--ui-font-weight-heading);
         margin-block-start: 0;
       }
 
@@ -777,7 +777,7 @@
 
     /* Code */
     :where(code, kbd, samp, pre, var) {
-      font-family: var(--ui-font-code);
+      font-family: var(--ui-font-family-code);
     }
 
     :where(:has(> code)) {

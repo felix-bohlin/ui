@@ -5,7 +5,7 @@
 <div class="centered-hero">
   <div
     class="ch-inner ui-layout-container ui-layout-column ui-align-center"
-    style="--_gap: var(--ui-space-6); --_max-inline-size: 56rem"
+    style="--_gap: var(--ui-space-7); --_max-inline-size: 56rem"
   >
     <Chip
       href="#centered-hero-tour"
@@ -42,7 +42,7 @@
       </h2>
       <ul
         class="ui-layout-row ui-align-center ch-bands"
-        style="--_gap: var(--ui-space-6)"
+        style="--_gap: var(--ui-space-7)"
       >
         <li>The Flatwounds</li>
         <li>Sub Club</li>
@@ -58,7 +58,7 @@
     .centered-hero {
       container-type: inline-size;
       isolation: isolate;
-      padding-block: var(--ui-space-8);
+      padding-block: var(--ui-space-12);
       position: relative;
       text-align: center;
 
@@ -119,7 +119,7 @@
       .ch-bands {
         color: var(--ui-text-subtle);
         font-size: var(--ui-font-size-large);
-        font-weight: var(--ui-font-weight-bold);
+        font-weight: var(--ui-font-weight-heading);
         letter-spacing: var(--ui-letter-spacing-caps);
         row-gap: var(--ui-space-2);
         text-transform: uppercase;

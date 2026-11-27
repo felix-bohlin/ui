@@ -162,7 +162,7 @@
 
       .ui-content {
         display: grid;
-        gap: var(--ui-space-4);
+        gap: var(--ui-space-5);
       }
 
       .forgot-password-icon {

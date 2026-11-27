@@ -6,7 +6,7 @@ export default function YearInReview() {
     <>
       <div
         class="year-in-review ui-layout-container ui-layout-column"
-        style="--_gap: var(--ui-space-6); --_max-inline-size: 64rem"
+        style="--_gap: var(--ui-space-7); --_max-inline-size: 64rem"
       >
         <div class="ui-layout-row ui-spread">
           <hgroup class="ui-hgroup">
@@ -147,7 +147,7 @@ export default function YearInReview() {
 
           .yr-grid {
             display: grid;
-            gap: var(--ui-space-4);
+            gap: var(--ui-space-5);
             grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
             list-style-type: none;
             margin: 0;
@@ -171,9 +171,9 @@ export default function YearInReview() {
             border-radius: var(--ui-radius-large);
             color: var(--ui-text);
             display: grid;
-            gap: var(--ui-space-4);
+            gap: var(--ui-space-5);
             min-block-size: 15rem;
-            padding: var(--ui-space-6);
+            padding: var(--ui-space-7);
           }
 
           .yr-wide {
@@ -186,7 +186,7 @@ export default function YearInReview() {
 
           .yr-label {
             font-size: var(--ui-font-size-caption);
-            font-weight: var(--ui-font-weight-semibold);
+            font-weight: var(--ui-font-weight-label);
             letter-spacing: var(--ui-letter-spacing-caps);
             text-transform: uppercase;
           }
@@ -195,7 +195,7 @@ export default function YearInReview() {
             color: var(--ui-text-strong);
             font-size: clamp(var(--ui-font-size-900), 14cqi, 6rem);
             font-variant-numeric: tabular-nums;
-            font-weight: var(--ui-font-weight-bold);
+            font-weight: var(--ui-font-weight-heading);
             letter-spacing: var(--ui-letter-spacing-display);
             line-height: 0.9;
           }
@@ -203,14 +203,14 @@ export default function YearInReview() {
           .yr-headline {
             color: var(--ui-text-strong);
             font-size: var(--ui-font-size-700);
-            font-weight: var(--ui-font-weight-bold);
+            font-weight: var(--ui-font-weight-heading);
             line-height: var(--ui-line-height-tight);
           }
 
           .yr-songs {
             counter-reset: yr-song;
             display: grid;
-            gap: var(--ui-space-3);
+            gap: var(--ui-space-4);
             list-style-type: none;
             margin: 0;
             padding: 0;
@@ -218,13 +218,13 @@ export default function YearInReview() {
             li {
               counter-increment: yr-song;
               display: grid;
-              gap: var(--ui-space-1) var(--ui-space-3);
+              gap: var(--ui-space-1) var(--ui-space-4);
               grid-template-columns: 1.5rem minmax(0, 1fr) auto;
 
               &::before {
                 color: var(--ui-text-strong);
                 content: counter(yr-song);
-                font-weight: var(--ui-font-weight-bold);
+                font-weight: var(--ui-font-weight-heading);
               }
             }
 
@@ -239,7 +239,7 @@ export default function YearInReview() {
 
           .yr-strings {
             display: grid;
-            gap: var(--ui-space-3);
+            gap: var(--ui-space-4);
             list-style-type: none;
             margin: 0;
             padding: 0;
@@ -247,7 +247,7 @@ export default function YearInReview() {
             li {
               align-items: center;
               display: grid;
-              gap: var(--ui-space-3);
+              gap: var(--ui-space-4);
               grid-template-columns: 1.5rem minmax(0, 1fr);
             }
 

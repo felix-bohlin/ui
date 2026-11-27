@@ -15,10 +15,10 @@ export default function AlbumLaunch() {
       <div class="album-launch ui-dark">
         <div
           class="al-inner ui-layout-container ui-layout-columns"
-          style="--_columns: 1fr 1.2fr; --_gap: var(--ui-space-8); --_max-inline-size: 64rem"
+          style="--_columns: 1fr 1.2fr; --_gap: var(--ui-space-12); --_max-inline-size: 64rem"
         >
           <div aria-hidden="true" class="al-art"></div>
-          <div class="ui-layout-column" style="--_gap: var(--ui-space-5)">
+          <div class="ui-layout-column" style="--_gap: var(--ui-space-6)">
             <hgroup class="ui-hgroup">
               <p class="ui-overline">The Flatwounds, new album</p>
               <h1 class="al-title">Deep End</h1>
@@ -145,10 +145,10 @@ export default function AlbumLaunch() {
             );
           border-radius: var(--ui-radius-large);
           container-type: inline-size;
-          padding: var(--ui-space-8) var(--ui-space-6);
+          padding: var(--ui-space-12) var(--ui-space-7);
 
           @container (inline-size >= 48rem) {
-            padding: var(--ui-space-8);
+            padding: var(--ui-space-12);
           }
 
           .al-inner {
@@ -197,7 +197,7 @@ export default function AlbumLaunch() {
 
           .al-countdown {
             display: grid;
-            gap: var(--ui-space-3);
+            gap: var(--ui-space-4);
             grid-template-columns: repeat(4, minmax(0, 1fr));
             margin: 0;
             max-inline-size: 28rem;
@@ -207,7 +207,7 @@ export default function AlbumLaunch() {
               border: var(--ui-border-width) solid oklch(1 0 0 / 14%);
               border-radius: var(--ui-radius);
               display: grid;
-              padding: var(--ui-space-3) var(--ui-space-2);
+              padding: var(--ui-space-4) var(--ui-space-2);
               text-align: center;
             }
 
@@ -221,7 +221,7 @@ export default function AlbumLaunch() {
               color: var(--ui-text-strong);
               font-size: var(--ui-font-size-800);
               font-variant-numeric: tabular-nums;
-              font-weight: var(--ui-font-weight-bold);
+              font-weight: var(--ui-font-weight-heading);
               line-height: 1;
               margin: 0;
             }

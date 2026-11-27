@@ -396,7 +396,7 @@ export default function BlogList() {
 
           .blog-featured {
             .blog-featured-body {
-              padding: var(--ui-space-5);
+              padding: var(--ui-space-6);
             }
 
             h2 {

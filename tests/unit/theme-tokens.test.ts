@@ -13,6 +13,7 @@ import {
   INSTANCE_INPUTS,
   OVERRIDE_HOOKS,
   parseThemeTokens,
+  scaledTokens,
   sectionKey,
   setThemeToken,
   themeTokenSections,
@@ -287,8 +288,8 @@ describe("theme tokens", () => {
       "--ui-icon-success",
       "--ui-icon-warning",
       "--ui-link-focus",
-      "--ui-surface-elevated-image",
       "--ui-surface-image",
+      "--ui-surface-raised-image",
     ])
   })
 
@@ -411,13 +412,15 @@ describe("theme tokens", () => {
 
   test("tokens.json holds native values where the CSS allows and the CSS beside them", () => {
     const json = tokensJson()
-    expect(json.contrast["ui-text-max-lightness"]).toMatchObject({
-      $type: "number",
-      $value: 0.41,
-    })
+    expect(json.contrast["ui-control-accent-min-lightness-dark"]).toMatchObject(
+      {
+        $type: "number",
+        $value: 0.8,
+      },
+    )
     expect(
-      json.contrast["ui-text-max-lightness"].$extensions.opui,
-    ).toMatchObject({ css: "0.41", modes: { "more-contrast": "0.3" } })
+      json.contrast["ui-control-accent-min-lightness-dark"].$extensions.opui,
+    ).toMatchObject({ css: "0.8", modes: { "more-contrast": "0.9" } })
     expect(json.borders["ui-border-width"]).toMatchObject({
       $type: "dimension",
       $value: { unit: "px", value: 1 },
@@ -495,7 +498,83 @@ describe("component css variables", () => {
     const names = cssVarRows(button).map((row) => row.name)
     expect(names).toContain("--ui-button-radius")
     expect(names).toContain("--ui-button-size")
-    expect(names).toContain("--ui-disabled-opacity")
+    expect(names).toContain("--ui-state-disabled-opacity")
     expect(names).toEqual(names.toSorted())
+  })
+})
+
+const scaledOverrideProblem = (
+  name: string,
+  value: string,
+  scaled: Map<string, string>,
+) => {
+  const knob = scaled.get(name)
+  if (!knob || value.trim() === "revert-layer") return undefined
+  return [knob, ...scaled.keys()].some((token) =>
+    value.includes(`var(${token})`),
+  )
+    ? undefined
+    : `${name}: ${value} drops ${knob}, so the size stops following it. Write calc(<length> * var(${knob})), or calc(<length> * var(${knob}) / <your ${knob}>) for the length it has at a value your theme sets, or build it from another scaled token`
+}
+
+const overridesIn = (css: string) =>
+  [
+    ...css
+      .replace(/\/\*[\s\S]*?\*\//g, "")
+      .matchAll(/(--ui-[\w-]+)\s*:\s*([^;{}]+);/g),
+  ].map(([, name, value]) => ({ name, value: value.replace(/\s+/g, " ") }))
+
+describe("scaled tokens", () => {
+  const scaled = scaledTokens()
+
+  test("follow the knob they are scaled by", () => {
+    expect(scaled.get("--ui-control-size")).toBe("--ui-density")
+    expect(scaled.get("--ui-button-size")).toBe("--ui-density")
+    expect(scaled.get("--ui-space-4")).toBe("--ui-space-scale")
+    expect(scaled.has("--ui-radius")).toBe(false)
+    const controlSize = Object.values(tokensJson())
+      .flatMap((section) => Object.entries(section))
+      .find(([key]) => key === "ui-control-size")?.[1]
+    expect(controlSize?.$extensions.opui.scaledBy).toBe("--ui-density")
+  })
+
+  test("an example theme or a Theme builder preset that sets one keeps its knob", () => {
+    const themes = readdirSync("packages/opui/themes").filter((file) =>
+      file.endsWith(".css"),
+    )
+    const builder = [
+      ...readFileSync("src/utils/theme-builder-controls.ts", "utf8").matchAll(
+        /"(--ui-[\w-]+)":\s*"([^"]+)"/g,
+      ),
+    ].map(([, name, value]) => ({ name, value }))
+    const problems = [
+      ...themes.flatMap((file) =>
+        overridesIn(readFileSync(`packages/opui/themes/${file}`, "utf8")).map(
+          ({ name, value }) => scaledOverrideProblem(name, value, scaled),
+        ),
+      ),
+      ...builder.map(({ name, value }) =>
+        scaledOverrideProblem(name, value, scaled),
+      ),
+    ].filter(Boolean)
+    expect(problems).toEqual([])
+  })
+
+  test("samples the scaled override rule must flag and must keep", () => {
+    expect(
+      scaledOverrideProblem("--ui-control-size-small", "2rem", scaled),
+    ).toContain("drops --ui-density")
+    expect(scaledOverrideProblem("--ui-space-4", "1rem", scaled)).toContain(
+      "drops --ui-space-scale",
+    )
+    expect(
+      [
+        ["--ui-control-size-small", "calc(2rem * var(--ui-density))"],
+        ["--ui-control-size-small", "calc(2rem * var(--ui-density) / 0.9)"],
+        ["--ui-button-size", "var(--ui-control-size-large)"],
+        ["--ui-control-size", "revert-layer"],
+        ["--ui-radius", "4px"],
+      ].map(([name, value]) => scaledOverrideProblem(name, value, scaled)),
+    ).toEqual([undefined, undefined, undefined, undefined, undefined])
   })
 })

@@ -32,7 +32,7 @@
     <BreadcrumbItem href="#product-detail-gig-bags" label="Gig bags" />
     <BreadcrumbItem current label="Comfy Cloud Gig Bag" />
   </Breadcrumb>
-  <div class="ui-layout-columns" style="--_gap: var(--ui-space-6)">
+  <div class="ui-layout-columns" style="--_gap: var(--ui-space-7)">
     <div class="ui-sticky pd-gallery">
       <Carousel aria-label="Product images" markers tabindex={0}>
         <li>
@@ -319,11 +319,11 @@
       }
 
       .pd-form {
-        gap: var(--ui-space-5);
+        gap: var(--ui-space-6);
       }
 
       .pd-details ul {
-        padding-inline-start: var(--ui-space-4);
+        padding-inline-start: var(--ui-space-5);
       }
     }
   }

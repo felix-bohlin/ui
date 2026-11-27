@@ -8,7 +8,7 @@ export default function CoverHero() {
         <div className="cover-scrim"></div>
         <div
           className="cover-content ui-dark ui-layout-column"
-          style={{ "--_gap": "var(--ui-space-5)" }}
+          style={{ "--_gap": "var(--ui-space-6)" }}
         >
           <p className="ui-overline">Bassbook Road Trip, summer 2027</p>
           <h1 className="cover-title">
@@ -29,7 +29,7 @@ export default function CoverHero() {
           </div>
           <ul
             className="ui-layout-row cover-facts"
-            style={{ "--_gap": "var(--ui-space-5)" }}
+            style={{ "--_gap": "var(--ui-space-6)" }}
           >
             <li>
               <strong>14</strong> days
@@ -116,10 +116,10 @@ export default function CoverHero() {
             align-items: start;
             background-color: transparent;
             justify-content: end;
-            padding: var(--ui-space-8) var(--ui-space-6);
+            padding: var(--ui-space-12) var(--ui-space-7);
 
             @container (inline-size >= 48rem) {
-              padding: var(--ui-space-8);
+              padding: var(--ui-space-12);
             }
           }
 

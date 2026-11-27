@@ -37,7 +37,7 @@ import {
     </hgroup>
     <Tabs
       name="account-settings-tabs"
-      style="--_panel-gap: var(--ui-space-5)"
+      style="--_panel-gap: var(--ui-space-6)"
       variant="line"
     >
       <TabsItem checked id="account-settings-tab-profile">

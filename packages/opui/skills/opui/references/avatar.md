@@ -73,7 +73,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-large`, `--ui-control-size`, `--ui-control-size-large`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-font-size-caption`, `--ui-font-size-large`, `--ui-font-size-small`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-on-tint`, `--ui-palette-tint`, `--ui-primary`, `--ui-primary-tonal`, `--ui-radius-round`, `--ui-radius-small`, `--ui-space-2`, `--ui-surface` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-large`, `--ui-control-size`, `--ui-control-size-large`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-font-size-caption`, `--ui-font-size-large`, `--ui-font-size-small`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-on-tonal`, `--ui-palette-tonal`, `--ui-primary`, `--ui-primary-tonal`, `--ui-radius-round`, `--ui-radius-small`, `--ui-space-2`, `--ui-state-disabled-opacity`, `--ui-surface` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

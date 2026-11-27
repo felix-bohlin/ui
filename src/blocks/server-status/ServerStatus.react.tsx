@@ -485,7 +485,7 @@ export default function ServerStatus() {
           container-type: inline-size;
 
           .status-chart-card .ui-content {
-            padding-block-end: var(--ui-space-6);
+            padding-block-end: var(--ui-space-7);
           }
 
           .status-response {
@@ -527,7 +527,7 @@ export default function ServerStatus() {
           }
 
           .status-response-summary {
-            margin-block-start: var(--ui-space-6);
+            margin-block-start: var(--ui-space-7);
           }
 
           .status-history {
@@ -552,7 +552,7 @@ export default function ServerStatus() {
           .status-incident-meta {
             --_gap: var(--ui-space-2);
 
-            font-weight: var(--ui-font-weight-normal);
+            font-weight: var(--ui-font-weight-body);
           }
         }
       `}</style>

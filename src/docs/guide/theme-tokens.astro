@@ -50,16 +50,13 @@ const scopes = [
   ["Roles", "<code>html</code> or any element"],
   [
     "Roles derived from other roles",
-    "<code>html</code>, <code>.ui-palette</code>, <code>.ui-contrast-more</code>",
+    "<code>html</code>, <code>.ui-scope</code>, <code>.ui-contrast-more</code>",
   ],
   [
     "<code>--ui-density</code>, <code>--ui-space-scale</code>",
-    "<code>html</code>, <code>.ui-palette</code>, <code>.ui-contrast-more</code>",
+    "<code>html</code>, <code>.ui-scope</code>, <code>.ui-contrast-more</code>",
   ],
-  [
-    "<code>--ui-palette-*</code>",
-    "<code>html</code>, <code>.ui-palette</code>",
-  ],
+  ["<code>--ui-palette-*</code>", "<code>html</code>, <code>.ui-scope</code>"],
 ]
 
 const parts = [
@@ -68,11 +65,6 @@ const parts = [
     "<code>-text</code>",
     "A color tuned for reading, 4.5:1 on every surface",
     "<code>--ui-primary-text</code>",
-  ],
-  [
-    "<code>-on-*</code>",
-    "Drawn on that surface",
-    "<code>--ui-border-color-on-raised</code>",
   ],
   [
     "<code>light</code>, <code>dark</code>",

@@ -208,7 +208,7 @@
       .mp-now {
         .ui-content {
           display: grid;
-          gap: var(--ui-space-5);
+          gap: var(--ui-space-6);
         }
       }
 
@@ -275,11 +275,11 @@
       .mp-lyrics {
         display: grid;
         font-size: var(--ui-font-size-large);
-        gap: var(--ui-space-3);
+        gap: var(--ui-space-4);
 
         .mp-lyric-current {
           color: var(--ui-primary-text);
-          font-weight: var(--ui-font-weight-bold);
+          font-weight: var(--ui-font-weight-heading);
         }
 
         p:not(.mp-lyric-current) {

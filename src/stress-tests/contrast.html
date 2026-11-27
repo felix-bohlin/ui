@@ -1653,8 +1653,9 @@
 <section class="stress" data-example="Surfaces">
   <h2>Surfaces</h2>
   <p>
-    Cards, a table and dividers. Elevated and tonal cards and table headers set
-    their own border color, which high contrast mode replaces.
+    Cards, a table and dividers. The borders are translucent, so they read the
+    same inside elevated and tonal cards and table headers as on the page, and
+    more contrast strengthens them everywhere.
   </p>
   <div class="ui-contrast-more stress-stack">
     <div class="stress-grid">
@@ -1824,16 +1825,16 @@
 <section class="stress" data-example="Scopes">
   <h2>Scopes</h2>
   <p>
-    <code>.ui-contrast-more</code> combined with <code>.ui-palette</code> and
+    <code>.ui-contrast-more</code> combined with <code>.ui-scope</code> and
     <code>.ui-dark</code> in both nesting orders.
   </p>
   <div class="ui-contrast-more stress-contrast-grid">
     <section
-      class="ui-palette stress-contrast-scope"
+      class="ui-scope stress-contrast-scope"
       style="--ui-palette-hue: 30"
       aria-label="Palette scope"
     >
-      <p class="ui-caption">.ui-palette inside .ui-contrast-more</p>
+      <p class="ui-caption">.ui-scope inside .ui-contrast-more</p>
       <div class="ui-field">
         <label class="ui-label" for="contrast-text-field-21">Field</label
         ><span class="ui-field-container"
@@ -2131,7 +2132,7 @@
         <div class="ui-avatar" role="img" aria-label="Four more people">+4</div>
       </div>
       <div
-        class="ui-avatar-group ui-palette"
+        class="ui-avatar-group ui-scope"
         role="group"
         aria-label="Bandmates"
         style="--ui-palette-hue: 150"

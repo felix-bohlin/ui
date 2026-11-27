@@ -15,24 +15,29 @@
         </h1>
         <p>A night of karaoke, chili and one very loud birthday solo.</p>
       </hgroup>
-      <dl class="pi-details">
+      <dl
+        class="ui-description-list ui-vertical pi-details ui-layout-grid"
+        style="--_gap: var(--ui-space-5); --_min-inline-size: 11rem"
+      >
         <div>
-          <dt>When</dt>
+          <dt class="ui-overline">When</dt>
           <dd>
             <time datetime="2027-03-20T19:00">Saturday 20 March, 19:00</time>
           </dd>
         </div>
         <div>
-          <dt>Where</dt>
+          <dt class="ui-overline">Where</dt>
           <dd>The Rehearsal Basement, Fretgatan 4</dd>
         </div>
         <div>
-          <dt>Dress code</dt>
+          <dt class="ui-overline">Dress code</dt>
           <dd>Anything with a bass on it</dd>
         </div>
         <div>
-          <dt>Reply by</dt>
-          <dd><time datetime="2027-03-06">Saturday 6 March</time></dd>
+          <dt class="ui-overline">Reply by</dt>
+          <dd>
+            <time datetime="2027-03-06">Saturday 6 March</time>
+          </dd>
         </div>
       </dl>
       <div class="ui-layout-row ui-gap-small">
@@ -216,9 +221,9 @@
 
       .ui-content {
         display: grid;
-        gap: var(--ui-space-6);
+        gap: var(--ui-space-7);
         justify-items: center;
-        padding-block-end: var(--ui-space-8);
+        padding-block-end: var(--ui-space-12);
       }
     }
 
@@ -269,26 +274,8 @@
 
     .pi-details {
       border-block: var(--ui-border-width) solid var(--ui-border-color);
-      display: grid;
-      gap: var(--ui-space-4) var(--ui-space-6);
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
-      inline-size: 100%;
-      margin: 0;
       max-inline-size: 26rem;
-      padding-block: var(--ui-space-5);
-
-      dt {
-        color: var(--ui-text-subtle);
-        font-size: var(--ui-font-size-caption);
-        letter-spacing: var(--ui-letter-spacing-caps);
-        text-transform: uppercase;
-      }
-
-      dd {
-        color: var(--ui-text-strong);
-        font-weight: var(--ui-font-weight-semibold);
-        margin: 0;
-      }
+      padding-block: var(--ui-space-6);
     }
   }
 </style>

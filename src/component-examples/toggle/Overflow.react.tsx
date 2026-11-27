@@ -5,7 +5,7 @@ export default function Overflow() {
     <div
       style={{
         display: "grid",
-        gap: "var(--ui-space-4)",
+        gap: "var(--ui-space-5)",
         maxInlineSize: "14rem",
       }}
     >

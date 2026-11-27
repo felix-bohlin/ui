@@ -3,16 +3,7 @@
     --_motion: var(--ui-motion);
     --_accent: var(
       --ui-choice-accent,
-      var(
-        --ui-control-accent,
-        light-dark(
-          var(--ui-primary),
-          oklch(
-            from var(--ui-primary) min(l, var(--ui-choice-fill-max-lightness)) c
-              h
-          )
-        )
-      )
+      var(--ui-control-accent, var(--ui-choice-checked-accent))
     );
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease);
@@ -52,7 +43,7 @@
     /* Disabled */
     &:has(:disabled, input[aria-disabled="true"]) {
       cursor: not-allowed;
-      opacity: var(--ui-disabled-opacity);
+      opacity: var(--ui-state-disabled-opacity);
 
       input {
         cursor: not-allowed;
@@ -113,8 +104,9 @@
         --_mark-bg-color: light-dark(
           var(--_accent),
           oklch(
-            from var(--_accent) max(l, var(--ui-text-min-lightness))
-              min(c, var(--ui-text-max-chroma)) h
+            from var(--_accent)
+              max(l, var(--ui-control-accent-min-lightness-dark))
+              min(c, var(--ui-control-accent-max-chroma-dark)) h
           )
         );
         --_rest-border-width: var(
@@ -179,12 +171,7 @@
 
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
-      --_accent: light-dark(
-        var(--ui-invalid),
-        oklch(
-          from var(--ui-invalid) min(l, var(--ui-choice-fill-max-lightness)) c h
-        )
-      );
+      --_accent: var(--ui-choice-invalid-accent);
       --_on-accent: var(--ui-on-fill);
 
       :where(.ui-end-text) {
@@ -225,7 +212,7 @@
     /* Spread layout */
     &.ui-spread {
       align-items: start;
-      column-gap: var(--ui-space-4);
+      column-gap: var(--ui-space-5);
       grid-auto-flow: unset;
       grid-template-columns: 1fr auto;
       inline-size: 100%;
@@ -269,7 +256,7 @@
     /* Card */
     &.ui-card {
       --_hover-bg-color: var(--ui-surface-tonal-hover);
-      --_padding: var(--ui-card-padding, var(--ui-space-3));
+      --_padding: var(--ui-card-padding, var(--ui-space-4));
       --_selected-bg-color: oklch(
         from var(--_accent) l c h / var(--ui-state-selected-alpha-accent)
       );
@@ -281,7 +268,7 @@
       row-gap: 0;
 
       &:not(.ui-spread) {
-        column-gap: var(--ui-space-3);
+        column-gap: var(--ui-space-4);
         grid-template-columns: auto 1fr;
       }
 

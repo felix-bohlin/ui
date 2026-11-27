@@ -17,7 +17,7 @@ A list of terms and their values, like order details or totals.
 ### Props and modifiers
 
 - `leader`: `"dotted"` (`.ui-leader-dotted`), `"solid"` (`.ui-leader-solid`). The style of the leader, the line between the term and the description. Without it, there's no line.
-- `orientation`: `"auto"` (default), `"horizontal"` (`.ui-horizontal`). The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.
+- `orientation`: `"auto"` (default), `"horizontal"` (`.ui-horizontal`), `"vertical"` (`.ui-vertical`). The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width, and `vertical` always stacks them.
 
 ### Slots
 
@@ -48,7 +48,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-large`, `--ui-font-size-large`, `--ui-font-weight-bold`, `--ui-space-1`, `--ui-space-3`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-large`, `--ui-font-size-large`, `--ui-font-weight-heading`, `--ui-space-1`, `--ui-space-4`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

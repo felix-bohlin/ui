@@ -2,13 +2,12 @@
 @layer theme.palette, theme.base, theme.custom, theme.severity;
 
 @layer theme.custom {
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-backdrop-blur: 0px;
     --ui-border-color: light-dark(
       oklch(0.91 0.007 248),
       oklch(0.428 0.015 248)
     );
-    --ui-border-color-on-filled: var(--ui-border-color);
     --ui-border-color-raised: var(--ui-border-color);
     --ui-radius: 0.375rem;
     --ui-radius-small: 0.375rem;
@@ -25,17 +24,16 @@
     --ui-button-padding-inline-small: 0.5rem;
     --ui-button-padding-inline-x-small: 0.5rem;
     --ui-choice-ripple-bg-color: transparent;
-    --ui-choice-size: 1rem;
+    --ui-choice-size: calc(1rem * var(--ui-density) / 0.95);
     --ui-code-bg-color: transparent;
     --ui-critical: oklch(0.592 0.202 21.2);
     --ui-density: 0.95;
     --ui-dialog-radius: 0.5rem;
-    --ui-disabled-opacity: 0.65;
+    --ui-state-disabled-opacity: 0.65;
     --ui-field-border-color: light-dark(
       oklch(0.91 0.007 248),
       oklch(0.428 0.015 248)
     );
-    --ui-field-border-color-on-filled: var(--ui-field-border-color);
     --ui-field-helper-font-size: 0.875rem;
     --ui-field-helper-text-color: light-dark(
       oklch(0.262 0.01 248 / 0.75),
@@ -48,7 +46,7 @@
     --ui-focus-ring-color: oklch(from var(--ui-palette-source) l c h / 0.25);
     --ui-focus-ring-offset: 0px;
     --ui-focus-ring-width: 0.25rem;
-    --ui-font-body:
+    --ui-font-family-body:
       system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
       "Noto Sans", "Liberation Sans", Arial, sans-serif;
     --ui-font-size-h1: min(calc(1.375rem + 1.5vi), 2.5rem);
@@ -57,15 +55,15 @@
     --ui-font-size-h4: min(calc(1.275rem + 0.3vi), 1.5rem);
     --ui-font-size-h5: 1.25rem;
     --ui-font-size-h6: 1rem;
-    --ui-font-weight-bold: 500;
-    --ui-font-weight-semibold: 700;
+    --ui-font-weight-heading: 500;
+    --ui-font-weight-label: 700;
     --ui-gray-chroma: 0.012;
     --ui-gray-hue: 250;
     --ui-info: oklch(0.775 0.1379 218);
     --ui-letter-spacing-display: 0;
     --ui-letter-spacing-heading: 0;
-    --ui-line-height: 1.5;
-    --ui-line-height-relaxed: 1.5;
+    --ui-line-height-compact: 1.5;
+    --ui-line-height-body: 1.5;
     --ui-link-font-weight: 400;
     --ui-neutral: oklch(0.558 0.016 245);
     --ui-on-inverse: light-dark(oklch(1 0 0), oklch(0.262 0.01 248));
@@ -82,7 +80,7 @@
     --ui-shadow-selected: none;
     --ui-success: oklch(0.552 0.1234 157);
     --ui-surface: light-dark(oklch(1 0 0), oklch(0.262 0.01 248));
-    --ui-surface-elevated: light-dark(oklch(1 0 0), oklch(0.306 0.011 248));
+    --ui-surface-raised: light-dark(oklch(1 0 0), oklch(0.306 0.011 248));
     --ui-surface-filled: light-dark(
       oklch(0.942 0.005 248),
       oklch(0.345 0.013 248)
@@ -96,10 +94,10 @@
       oklch(0 0 0 / 0.25),
       oklch(1 0 0 / 0.25)
     );
-    --ui-switch-thumb-size: 0.75rem;
+    --ui-switch-thumb-size: calc(0.75rem * var(--ui-density) / 0.95);
     --ui-switch-track-bg-color: light-dark(oklch(1 0 0), oklch(0.262 0.01 248));
-    --ui-switch-track-block-size: 1rem;
-    --ui-switch-track-inline-size: 2rem;
+    --ui-switch-track-block-size: calc(1rem * var(--ui-density) / 0.95);
+    --ui-switch-track-inline-size: calc(2rem * var(--ui-density) / 0.95);
     --ui-target-min-size: 0px;
     --ui-text: light-dark(oklch(0.262 0.01 248), oklch(0.91 0.007 248));
     --ui-text-strong: light-dark(oklch(0.262 0.01 248), oklch(1 0 0));
@@ -120,7 +118,7 @@
       oklch(0.73 0.123 15)
     );
     --ui-palette-text: light-dark(oklch(0.312 0.098 19), oklch(0.73 0.123 15));
-    --ui-palette-tint-subtle: light-dark(
+    --ui-palette-tonal-subtle: light-dark(
       oklch(0.907 0.037 12),
       oklch(0.207 0.055 18)
     );
@@ -140,7 +138,7 @@
       oklch(0.401 0.0695 216),
       oklch(0.846 0.1074 213)
     );
-    --ui-palette-tint-subtle: light-dark(
+    --ui-palette-tonal-subtle: light-dark(
       oklch(0.943 0.04 212),
       oklch(0.256 0.043 216)
     );
@@ -160,7 +158,7 @@
       oklch(0.302 0.008 240),
       oklch(0.742 0.009 248)
     );
-    --ui-palette-tint-subtle: light-dark(
+    --ui-palette-tonal-subtle: light-dark(
       oklch(0.916 0.003 265),
       oklch(0.204 0.004 265)
     );
@@ -180,7 +178,7 @@
       oklch(0.297 0.06 159),
       oklch(0.726 0.082 163)
     );
-    --ui-palette-tint-subtle: light-dark(
+    --ui-palette-tonal-subtle: light-dark(
       oklch(0.91 0.027 167),
       oklch(0.2 0.035 162)
     );
@@ -200,7 +198,7 @@
       oklch(0.435 0.0876 87),
       oklch(0.898 0.1366 91)
     );
-    --ui-palette-tint-subtle: light-dark(
+    --ui-palette-tonal-subtle: light-dark(
       oklch(0.964 0.051 93),
       oklch(0.28 0.056 91)
     );
@@ -209,7 +207,7 @@
   @media (prefers-contrast: more) {
     :where(
       html:not(.ui-contrast-normal),
-      html:not(.ui-contrast-normal) .ui-palette
+      html:not(.ui-contrast-normal) .ui-scope
     ) {
       --ui-border-color: revert-layer;
       --ui-field-border-color: revert-layer;
@@ -219,7 +217,7 @@
     }
   }
 
-  :where(.ui-contrast-more, .ui-contrast-more .ui-palette) {
+  :where(.ui-contrast-more, .ui-contrast-more .ui-scope) {
     --ui-border-color: revert-layer;
     --ui-field-border-color: revert-layer;
     --ui-field-helper-text-color: revert-layer;
@@ -234,7 +232,7 @@
       --ui-palette-border: revert-layer;
       --ui-palette-strong: revert-layer;
       --ui-palette-text: revert-layer;
-      --ui-palette-tint-subtle: revert-layer;
+      --ui-palette-tonal-subtle: revert-layer;
     }
   }
 
@@ -244,6 +242,6 @@
     --ui-palette-border: revert-layer;
     --ui-palette-strong: revert-layer;
     --ui-palette-text: revert-layer;
-    --ui-palette-tint-subtle: revert-layer;
+    --ui-palette-tonal-subtle: revert-layer;
   }
 }

@@ -222,19 +222,19 @@ export default function Recipe() {
 
             .ui-content {
               display: grid;
-              gap: var(--ui-space-5);
+              gap: var(--ui-space-6);
             }
           }
 
           .recipe-steps {
             counter-reset: recipe-step;
             display: grid;
-            gap: var(--ui-space-5);
+            gap: var(--ui-space-6);
             list-style-type: none;
             padding: 0;
 
             li {
-              column-gap: var(--ui-space-4);
+              column-gap: var(--ui-space-5);
               counter-increment: recipe-step;
               display: grid;
               grid-template-columns: auto minmax(0, 1fr);
@@ -247,7 +247,7 @@ export default function Recipe() {
                 color: var(--ui-on-primary);
                 content: counter(recipe-step);
                 display: grid;
-                font-weight: var(--ui-font-weight-bold);
+                font-weight: var(--ui-font-weight-heading);
                 grid-row: span 2;
                 inline-size: 2rem;
                 justify-content: center;

@@ -34,8 +34,8 @@ export const keywords = [
       code={`@layer theme.custom {
   :where(html) {
     --ui-density: 0.9;
-    --ui-font-body: "Inter", system-ui, sans-serif;
-    --ui-font-heading: "Fraunces", serif;
+    --ui-font-family-body: "Inter", system-ui, sans-serif;
+    --ui-font-family-heading: "Fraunces", serif;
     --ui-palette-chroma: 0.35;
     --ui-palette-hue: 265;
   }
@@ -45,7 +45,7 @@ export const keywords = [
     <p>
       The <DocLink href="/theme-builder">Theme builder</DocLink> writes one for
       you. Put pinned roles, like <code>--ui-primary</code>, on
-      <code>:where(html, .ui-palette, .ui-contrast-more)</code>.
+      <code>:where(html, .ui-scope, .ui-contrast-more)</code>.
     </p>
     <h3 id="example-themes">Example themes</h3>
     <p>
@@ -71,7 +71,7 @@ export const keywords = [
       primary color and their tinted surfaces, text and borders from
       <code>--ui-palette-source</code>, so setting it recolors them, on the page
       or in a
-      <DocLink href="/guide/theming#scopes"><code>.ui-palette</code></DocLink>
+      <DocLink href="/guide/theming#scopes"><code>.ui-scope</code></DocLink>
       scope. The shadcn theme stays black, white and gray. The gray ramp keeps
       <code>--ui-gray-hue</code>, so set it too:
     </p>
@@ -163,7 +163,7 @@ export const keywords = [
 
 @layer overrides {
   .ui-badge {
-    --_indicator-size: var(--ui-space-5);
+    --_indicator-size: var(--ui-space-6);
   }
 }`}
       lang="css"

@@ -38,7 +38,7 @@ const fileId = Astro.locals.$id("code-file")
     border-block-end: 1px solid var(--ui-border-color);
     display: flex;
     gap: var(--ui-space-2);
-    padding: var(--ui-space-2) var(--ui-space-3);
+    padding: var(--ui-space-2) var(--ui-space-4);
   }
 
   .file :global(.code-block pre) {
@@ -47,7 +47,7 @@ const fileId = Astro.locals.$id("code-file")
 
   .file-name {
     align-content: center;
-    font-family: var(--ui-font-code);
+    font-family: var(--ui-font-family-code);
     font-size: var(--ui-font-size-small);
     min-block-size: var(--ui-control-size-small);
   }

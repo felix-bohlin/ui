@@ -2,17 +2,17 @@ import type { CustomProperties } from "../types"
 
 export default {
   "--_bg-color": {
-    description: "The background. Defaults to `--ui-surface-elevated`.",
+    description: "The background. Defaults to `--ui-surface-raised`.",
     kind: "input",
   },
   "--_bg-image": {
     description:
-      "The image over the background, such as a gradient. Defaults to `--ui-surface-elevated-image`, `none` unless a theme sets it.",
+      "The image over the background, such as a gradient. Defaults to `--ui-surface-raised-image`, `none` unless a theme sets it.",
     kind: "input",
   },
   "--_border-color": {
     description:
-      "The edge color. `--ui-border-color-raised` when a theme sets it, otherwise `--ui-border-color-on-raised`.",
+      "The edge color. `--ui-border-color-raised` when a theme sets it, otherwise `--ui-border-color`.",
     kind: "input",
   },
   "--_border-width": {
@@ -21,7 +21,7 @@ export default {
   },
   "--_divider-border-color": {
     description:
-      "Color of the item separators. Defaults to `--ui-border-color-on-raised`.",
+      "Color of the item separators. Defaults to `--ui-border-color`.",
     kind: "input",
   },
   "--_duration": {

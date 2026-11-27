@@ -35,16 +35,14 @@
 
     /* Select popover */
     &::picker(select) {
-      --_bg-color: var(--ui-surface-elevated);
+      --_bg-color: var(--ui-surface-raised);
       --_ease-move: var(--ui-ease-move, var(--_ease));
       --_selected-shadow: none;
-      --ui-border-color: var(--ui-border-color-on-raised);
-      --ui-field-border-color: var(--ui-field-border-color-on-raised);
-      background-image: var(--ui-surface-elevated-image, none);
+      background-image: var(--ui-surface-raised-image, none);
 
       /* Animation on-stage styles */
       border: var(--ui-border-width) solid
-        var(--ui-border-color-raised, var(--ui-border-color-on-raised));
+        var(--ui-border-color-raised, var(--ui-border-color));
       border-radius: var(
         --ui-menu-radius,
         var(--ui-field-radius, var(--ui-radius))
@@ -147,7 +145,7 @@
           var(--ui-text-strong)
         );
         color: var(--ui-text);
-        font-weight: var(--ui-font-weight-medium);
+        font-weight: var(--ui-font-weight-emphasis);
         overflow: hidden;
         padding-inline: var(--ui-space-2);
         text-overflow: ellipsis;

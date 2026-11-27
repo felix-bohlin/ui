@@ -13,10 +13,14 @@ export default {
     {
       default: '"auto"',
       description:
-        "The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.",
+        "The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width, and `vertical` always stacks them.",
       group: "Orientation",
       prop: "orientation",
-      values: { auto: null, horizontal: ".ui-horizontal" },
+      values: {
+        auto: null,
+        horizontal: ".ui-horizontal",
+        vertical: ".ui-vertical",
+      },
     },
   ],
   parts: [

@@ -5,6 +5,10 @@ import {
   Card,
   CardContent,
   Checkbox,
+  DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm,
   Field,
   FieldGroup,
   FieldLegend,
@@ -37,30 +41,49 @@ export default function PartyInvitation() {
               </h1>
               <p>A night of karaoke, chili and one very loud birthday solo.</p>
             </hgroup>
-            <dl className="pi-details">
-              <div>
-                <dt>When</dt>
-                <dd>
+            <DescriptionList
+              className="pi-details ui-layout-grid"
+              orientation="vertical"
+              style={{
+                "--_gap": "var(--ui-space-5)",
+                "--_min-inline-size": "11rem",
+              }}
+            >
+              <DescriptionListItem>
+                <DescriptionListTerm className="ui-overline">
+                  When
+                </DescriptionListTerm>
+                <DescriptionListDescription>
                   <time dateTime="2027-03-20T19:00">
                     Saturday 20 March, 19:00
                   </time>
-                </dd>
-              </div>
-              <div>
-                <dt>Where</dt>
-                <dd>The Rehearsal Basement, Fretgatan 4</dd>
-              </div>
-              <div>
-                <dt>Dress code</dt>
-                <dd>Anything with a bass on it</dd>
-              </div>
-              <div>
-                <dt>Reply by</dt>
-                <dd>
+                </DescriptionListDescription>
+              </DescriptionListItem>
+              <DescriptionListItem>
+                <DescriptionListTerm className="ui-overline">
+                  Where
+                </DescriptionListTerm>
+                <DescriptionListDescription>
+                  The Rehearsal Basement, Fretgatan 4
+                </DescriptionListDescription>
+              </DescriptionListItem>
+              <DescriptionListItem>
+                <DescriptionListTerm className="ui-overline">
+                  Dress code
+                </DescriptionListTerm>
+                <DescriptionListDescription>
+                  Anything with a bass on it
+                </DescriptionListDescription>
+              </DescriptionListItem>
+              <DescriptionListItem>
+                <DescriptionListTerm className="ui-overline">
+                  Reply by
+                </DescriptionListTerm>
+                <DescriptionListDescription>
                   <time dateTime="2027-03-06">Saturday 6 March</time>
-                </dd>
-              </div>
-            </dl>
+                </DescriptionListDescription>
+              </DescriptionListItem>
+            </DescriptionList>
             <div className="ui-layout-row ui-gap-small">
               <AvatarGroup aria-label="Guests who are coming">
                 <Avatar
@@ -194,9 +217,9 @@ export default function PartyInvitation() {
 
             .ui-content {
               display: grid;
-              gap: var(--ui-space-6);
+              gap: var(--ui-space-7);
               justify-items: center;
-              padding-block-end: var(--ui-space-8);
+              padding-block-end: var(--ui-space-12);
             }
           }
 
@@ -247,26 +270,8 @@ export default function PartyInvitation() {
 
           .pi-details {
             border-block: var(--ui-border-width) solid var(--ui-border-color);
-            display: grid;
-            gap: var(--ui-space-4) var(--ui-space-6);
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
-            inline-size: 100%;
-            margin: 0;
             max-inline-size: 26rem;
-            padding-block: var(--ui-space-5);
-
-            dt {
-              color: var(--ui-text-subtle);
-              font-size: var(--ui-font-size-caption);
-              letter-spacing: var(--ui-letter-spacing-caps);
-              text-transform: uppercase;
-            }
-
-            dd {
-              color: var(--ui-text-strong);
-              font-weight: var(--ui-font-weight-semibold);
-              margin: 0;
-            }
+            padding-block: var(--ui-space-6);
           }
         }
       `}</style>

@@ -40,9 +40,9 @@ Never override a component's outputs (`--_bg-color`, `--_text-color`, `--_border
 | To change                          | Set                                                                                                                                             |
 | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | Main color                         | `--ui-palette-hue` and `--ui-palette-chroma`, or `--ui-palette-source` with any color                                                           |
-| Main color in one part of the page | `.ui-palette` and `--ui-palette-hue` on that element                                                                                            |
+| Main color in one part of the page | `.ui-scope` and `--ui-palette-hue` on that element                                                                                              |
 | Corners                            | `--ui-radius` (buttons and fields follow it)                                                                                                    |
-| Fonts                              | `--ui-font-body`, `--ui-font-heading`, `--ui-font-code`                                                                                         |
+| Fonts                              | `--ui-font-family-body`, `--ui-font-family-heading`, `--ui-font-family-code`                                                                    |
 | Control height                     | `--ui-density`                                                                                                                                  |
 | Spacing in and between containers  | `--ui-space-scale`                                                                                                                              |
 | Shadows                            | `--ui-shadow-color` (light and dark), `--ui-shadow-elevated`, `--ui-shadow-overlay`                                                             |
@@ -55,7 +55,7 @@ Never override a component's outputs (`--_bg-color`, `--_text-color`, `--_border
 @layer theme.custom {
   :where(html) {
     --ui-radius: 4px;
-    --ui-font-body: "Inter", system-ui, sans-serif;
+    --ui-font-family-body: "Inter", system-ui, sans-serif;
     --ui-palette-hue: 265;
   }
 }

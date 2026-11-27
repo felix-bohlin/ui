@@ -78,9 +78,9 @@ export const whatsNew = {
     `The open <a href="#basics">panel</a> clips with <code>overflow-block: clip</code> while it animates, so it follows the writing mode.`,
     {
       ...components(
-        `<a href="#basics"><code>AccordionContent</code></a> is a stack with <code>--ui-space-3</code> between its children and no block margins, like card content, so a body with several elements needs no CSS. Content with inline children keeps the normal flow.`,
+        `<a href="#basics"><code>AccordionContent</code></a> is a stack with <code>--ui-space-4</code> between its children and no block margins, like card content, so a body with several elements needs no CSS. Content with inline children keeps the normal flow.`,
       ),
-      html: `<a href="#basics"><code>.ui-content</code></a> is a stack with <code>--ui-space-3</code> between its children and no block margins, like card content, so a body with several elements needs no CSS. Content with inline children keeps the normal flow.`,
+      html: `<a href="#basics"><code>.ui-content</code></a> is a stack with <code>--ui-space-4</code> between its children and no block margins, like card content, so a body with several elements needs no CSS. Content with inline children keeps the normal flow.`,
     },
   ],
   anchor: [
@@ -201,7 +201,7 @@ export const whatsNew = {
     `The indicator border reads <a href="#api"><code>--ui-border-width-large</code></a>.`,
     `<a href="#colors">Warning</a> badges read <code>--ui-on-warning</code>, the text color on a warning fill.`,
     `The indicator has a <a href="#colors">ring in the page background color</a>, so it stands out on a filled avatar or button. Set <code>--_border-color</code> on another surface.`,
-    `<a href="#colors">Critical, info, neutral and success</a> fills stay below <code>--ui-accent-fill-max-lightness</code>, so their text keeps its contrast.`,
+    `<a href="#colors">Critical, info, neutral and success</a> fills read <code>--ui-critical-fill</code> and the other intent fills, so their text keeps its contrast.`,
     slots(
       `Breaking: <code>alignment</code> is <a href="#corners"><code>corner</code></a>.`,
     ),
@@ -263,15 +263,15 @@ export const whatsNew = {
     `Breaking: <a href="#disabled">disabled links</a> have no <code>href</code>, so they can't be focused or followed.`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `Corners follow <code>--ui-radius</code>, and <a href="#api"><code>--ui-button-radius</code></a> overrides it when a theme sets it, so one token squares or rounds every component.`,
-    `Themes set the color of <a href="#colors">default buttons</a> with <a href="#api"><code>--ui-button-accent</code></a> and <code>--ui-button-on-accent</code>, or of every control at once with <code>--ui-control-accent</code> and <code>--ui-control-on-accent</code>, the border with <code>--ui-control-border-color</code> (outlined) and <code>--ui-control-border-color-filled</code> (filled and tonal), the font weight with <code>--ui-button-font-weight</code>, the shadow with <code>--ui-shadow-control</code>, the hover shadow and offset with <code>--ui-button-hover-shadow</code> and <code>--ui-button-hover-translate</code>, and the font size with <code>--ui-font-size-control</code>. In dark mode the text stays at least as light as <code>--ui-text-min-lightness</code>, like the intent text roles.`,
+    `Themes set the color of <a href="#colors">default buttons</a> with <a href="#api"><code>--ui-button-accent</code></a> and <code>--ui-button-on-accent</code>, or of every control at once with <code>--ui-control-accent</code> and <code>--ui-control-on-accent</code>, the border with <code>--ui-control-border-color</code> (outlined) and <code>--ui-control-border-color-filled</code> (filled and tonal), the font weight with <code>--ui-button-font-weight</code>, the shadow with <code>--ui-shadow-control</code>, the hover shadow and offset with <code>--ui-button-hover-shadow</code> and <code>--ui-button-hover-translate</code>, and the font size with <code>--ui-font-size-control</code>. In dark mode the text stays at least as light as <code>--ui-control-accent-min-lightness-dark</code>, like the intent text roles.`,
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code>, the same readable primary as links, and critical ones <code>--ui-critical-text</code>.`,
-    `<a href="#colors">Critical</a> fills and their hover and pressed shades stay within <code>--ui-accent-fill-max-lightness</code>, and the border keeps <code>--ui-critical</code>.`,
+    `<a href="#colors">Critical</a> fills and their hover and pressed shades start from <code>--ui-critical-fill</code>, and the border keeps <code>--ui-critical</code>.`,
     components(
       `<a href="#sizes">Sizes</a> and <a href="#variants">variants</a> name their defaults: <code>size="medium"</code> and <code>variant="transparent"</code>.`,
     ),
     `<a href="#keyboard">Keyboard hints</a> use <code>--ui-line-height-tight</code> (1.25), shared with card captions and tooltips.`,
     `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of <code>--border-size-1</code>.`,
-    `Themes can shrink a button while it's pressed with <a href="#api"><code>--ui-press-scale</code></a>, eased by <code>--ui-ease-move</code>. Buttons in a group never scale.`,
+    `Themes can shrink a button while it's pressed with <a href="#api"><code>--ui-state-active-scale</code></a>, eased by <code>--ui-ease-move</code>. Buttons in a group never scale.`,
     `Buttons only show <a href="#variants">hover styles</a> on devices that can hover, so they no longer stick after a tap.`,
   ],
   callout: [
@@ -326,9 +326,9 @@ export const whatsNew = {
     `<a href="#actions">Actions</a> stick to the bottom of stretched cards and wrap when they don't fit.`,
     {
       ...components(
-        `<a href="#variants"><code>CardContent</code></a> is a stack with <code>--ui-space-3</code> between its children and no block margins, so a body with several elements needs no CSS. Content with inline children keeps the normal flow.`,
+        `<a href="#variants"><code>CardContent</code></a> is a stack with <code>--ui-space-4</code> between its children and no block margins, so a body with several elements needs no CSS. Content with inline children keeps the normal flow.`,
       ),
-      html: `<a href="#variants"><code>.ui-content</code></a> is a stack with <code>--ui-space-3</code> between its children and no block margins, so a body with several elements needs no CSS. Content with inline children keeps the normal flow.`,
+      html: `<a href="#variants"><code>.ui-content</code></a> is a stack with <code>--ui-space-4</code> between its children and no block margins, so a body with several elements needs no CSS. Content with inline children keeps the normal flow.`,
     },
     {
       ...slots(
@@ -344,7 +344,7 @@ export const whatsNew = {
     `Elevated cards use <a href="#api"><code>--ui-shadow-elevated</code></a>, and padding and gaps read the <code>--ui-space-*</code> scale.`,
     `Breaking: <code>--_shadow-light</code> and <code>--_shadow-dark</code> are gone. Set <a href="#api"><code>--ui-shadow-elevated</code></a> in your theme, one shadow whose color follows <code>--ui-shadow-color</code> in each scheme, or <a href="#component-properties"><code>--_elevated-shadow</code></a> on the card.`,
     `<a href="#variants">Tonal and outlined</a> cards read <a href="#api"><code>--ui-shadow-surface</code></a>, and tonal and elevated cards <code>--ui-border-color-raised</code>, when a theme sets them.`,
-    `Borders inside <a href="#variants">tonal and elevated</a> cards read <code>--ui-border-color-on-raised</code> and <code>--ui-field-border-color-on-raised</code>, so a theme's borders reach inside.`,
+    `Borders inside <a href="#variants">tonal and elevated</a> cards read the translucent <code>--ui-border-color</code> and <code>--ui-field-border-color</code>, so a theme's borders reach inside.`,
     components(
       `<a href="#variants">Variants</a> name the default: <code>variant="plain"</code>.`,
     ),
@@ -550,7 +550,7 @@ export const whatsNew = {
     `Corners are <a href="#api"><code>--ui-radius</code></a> (8px) instead of Open Props <code>--radius-2</code> (5px).`,
     `<a href="#button">Button</a> and <a href="#link">link</a> chips only show hover styles on devices that can hover, so they no longer stick after a tap.`,
     `<a href="#button">Button and link chips</a> fade their hover and <a href="#pressed">pressed</a> colors, like buttons.`,
-    `Themes can shrink a button or link chip while it's pressed with <a href="#api"><code>--ui-press-scale</code></a>.`,
+    `Themes can shrink a button or link chip while it's pressed with <a href="#api"><code>--ui-state-active-scale</code></a>.`,
   ],
   "control-group": [
     {
@@ -592,9 +592,9 @@ export const whatsNew = {
       `<a href="#vertical-orientation"><code>orientation</code></a> takes <code>"horizontal"</code>, the default, like <code>Carousel</code>.`,
     ),
     `Corners follow <code>--ui-radius</code>, and <a href="#api"><code>--ui-button-radius</code></a> and <code>--ui-field-radius</code> override it when a theme sets them, so one token squares or rounds every component.`,
-    `Themes set the color of groups without <code>.ui-primary</code> or <code>.ui-critical</code> with <a href="#api"><code>--ui-button-accent</code></a> or <code>--ui-control-accent</code>, the borders of outlined buttons with <code>--ui-control-border-color</code>, the borders of filled and tonal buttons and the lines between buttons in a group that isn't outlined with <code>--ui-control-border-color-filled</code>, and the font weight and size with <code>--ui-button-font-weight</code> and <code>--ui-font-size-control</code>, like buttons. In dark mode the text stays at least as light as <code>--ui-text-min-lightness</code>.`,
+    `Themes set the color of groups without <code>.ui-primary</code> or <code>.ui-critical</code> with <a href="#api"><code>--ui-button-accent</code></a> or <code>--ui-control-accent</code>, the borders of outlined buttons with <code>--ui-control-border-color</code>, the borders of filled and tonal buttons and the lines between buttons in a group that isn't outlined with <code>--ui-control-border-color-filled</code>, and the font weight and size with <code>--ui-button-font-weight</code> and <code>--ui-font-size-control</code>, like buttons. In dark mode the text stays at least as light as <code>--ui-control-accent-min-lightness-dark</code>.`,
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code>, the same readable primary as links.`,
-    `<a href="#colors">Critical</a> fills stay within <code>--ui-accent-fill-max-lightness</code>, like buttons, and with more contrast outlined buttons read <code>--ui-critical-text</code> for their border.`,
+    `<a href="#colors">Critical</a> fills read <code>--ui-critical-fill</code>, like buttons, and with more contrast outlined buttons read <code>--ui-critical-text</code> for their border.`,
     components(
       `<a href="#sizes">Sizes</a> and <a href="#variants">variants</a> name their defaults: <code>size="medium"</code> and <code>variant="transparent"</code>.`,
     ),
@@ -620,8 +620,8 @@ export const whatsNew = {
       vue: `Breaking: <code>Description</code> is now <a href="#api"><code>DescriptionListDescription</code></a>, like Astro.`,
     },
     {
-      default: `<a href="#orientation">Orientation</a>: <code>orientation="horizontal"</code> keeps terms and descriptions side by side at any width.`,
-      html: `<a href="#orientation">Orientation</a>: <code>.ui-horizontal</code> keeps terms and descriptions side by side at any width.`,
+      default: `<a href="#orientation">Orientation</a>: <code>orientation="horizontal"</code> keeps terms and descriptions side by side at any width, and <code>orientation="vertical"</code> always stacks them, in columns with <code>.ui-layout-grid</code>.`,
+      html: `<a href="#orientation">Orientation</a>: <code>.ui-horizontal</code> keeps terms and descriptions side by side at any width, and <code>.ui-vertical</code> always stacks them, in columns with <code>.ui-layout-grid</code>.`,
     },
     {
       ...slots(
@@ -689,7 +689,7 @@ export const whatsNew = {
     ),
     `Breaking: the page scroll lock of <a href="#modal">modal dialogs</a> lives in <code>utils.css</code>. Import it too if you import single files.`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `The <a href="#long-content">scroll shadow</a> reads <code>--ui-shadow-scroll</code>, and borders inside the dialog read <code>--ui-border-color-on-raised</code> and <code>--ui-field-border-color-on-raised</code>.`,
+    `The <a href="#long-content">scroll shadow</a> reads <code>--ui-shadow-scroll</code>, and borders inside the dialog read the translucent <code>--ui-border-color</code> and <code>--ui-field-border-color</code>.`,
     components(
       `<a href="#footer"><code>DialogFooter</code></a> only adds a class for <code>align="start"</code>. The default end alignment renders no <code>.ui-align-end</code>.`,
     ),
@@ -707,9 +707,9 @@ export const whatsNew = {
     `Dialogs have a border in the page background color, or <a href="#api"><code>--ui-border-color-raised</code></a> when a theme sets it, so they stay visible on tonal surfaces.`,
     {
       ...components(
-        `<a href="#basics"><code>DialogContent</code></a> is a stack with <code>--ui-space-3</code> between its children and no block margins, like <code>Drawer</code> content, so paragraphs don't touch. Content with inline children keeps the normal flow.`,
+        `<a href="#basics"><code>DialogContent</code></a> is a stack with <code>--ui-space-4</code> between its children and no block margins, like <code>Drawer</code> content, so paragraphs don't touch. Content with inline children keeps the normal flow.`,
       ),
-      html: `<a href="#basics"><code>.ui-content</code></a> is a stack with <code>--ui-space-3</code> between its children and no block margins, like <code>Drawer</code> content, so paragraphs don't touch. Content with inline children keeps the normal flow.`,
+      html: `<a href="#basics"><code>.ui-content</code></a> is a stack with <code>--ui-space-4</code> between its children and no block margins, like <code>Drawer</code> content, so paragraphs don't touch. Content with inline children keeps the normal flow.`,
     },
   ],
   divider: [
@@ -780,7 +780,7 @@ export const whatsNew = {
       solid: `The <a href="#basics">title</a> is <code>--ui-font-size-h4</code>, like the <code>Dialog</code> title, and <code>--_title-font-size</code> changes it.`,
       svelte: `The <a href="#basics">title</a> is <code>--ui-font-size-h4</code>, like the <code>Dialog</code> title, and <code>--_title-font-size</code> changes it.`,
     },
-    `<a href="#basics">Content</a> is a stack with <code>--ui-space-3</code> between its children, like <code>Dialog</code> content, so paragraphs don't touch. Content with inline children keeps the normal flow, and a focusable content draws its focus ring inside the drawer.`,
+    `<a href="#basics">Content</a> is a stack with <code>--ui-space-4</code> between its children, like <code>Dialog</code> content, so paragraphs don't touch. Content with inline children keeps the normal flow, and a focusable content draws its focus ring inside the drawer.`,
     {
       ...slots(
         `Breaking: a modal drawer <a href="#basics">locks page scrolling</a> like a modal dialog, but a <a href="#non-modal">non-modal</a> one no longer does by default. Set <code>scrollLock</code> on it, and pass the <code>id</code> the trigger points at.`,
@@ -794,9 +794,9 @@ export const whatsNew = {
     `The <a href="#basics">backdrop</a> dims and blurs like <code>Dialog</code>, through <code>--ui-backdrop-bg-color</code> and <code>--ui-backdrop-blur</code>.`,
     `Breaking: <code>--_color</code> is <code>--_text-color</code>, <code>--_transition-duration</code> is <code>--_motion</code> (or <code>--ui-duration-slow</code> in a theme), which <code>--_duration</code> is derived from, and <code>--_transition-timing</code> is no longer an override: the easing follows <code>--ui-ease-enter</code> and <code>--ui-ease-exit</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `The drawer shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with menus and select pickers. Padding reads the <code>--ui-space-*</code> scale.`,
-    `Content padding is <code>--ui-space-3</code>, like the header and the footer (<a href="#basics">Basics</a>).`,
+    `Content padding is <code>--ui-space-4</code>, like the header and the footer (<a href="#basics">Basics</a>).`,
     `The scroll shadow reads <a href="#api"><code>--ui-shadow-scroll</code></a>.`,
-    `The panel sits on <a href="#api"><code>--ui-surface-elevated</code></a>, like Dialog and Menu.`,
+    `The panel sits on <a href="#api"><code>--ui-surface-raised</code></a>, like Dialog and Menu.`,
     components(
       `<code>DrawerTitle</code> warns in development when the drawer's generated id replaces its own <code>id</code>. Pass <code>aria-labelledby</code> on the <code>Drawer</code> to keep it (<a href="#api">API</a>).`,
     ),
@@ -1024,9 +1024,9 @@ export const whatsNew = {
       html: `A <a href="#custom-check">custom check</a>: <code>--ui-icon-check</code> for the check of your icon set, or any icon in <code>.ui-icon-checked</code>.`,
     },
     `Themes can set <a href="#api"><code>--ui-menu-radius</code></a> for a corner radius of its own.`,
-    `The edge reads <a href="#api"><code>--ui-border-color-raised</code></a> when a theme sets it, like drawers and elevated cards, and the separators keep <code>--ui-border-color-on-raised</code>.`,
+    `The edge reads <a href="#api"><code>--ui-border-color-raised</code></a> when a theme sets it, like drawers and elevated cards, and the separators keep <code>--ui-border-color</code>.`,
     `Themes can set <a href="#api"><code>--ui-list-item-padding-inline</code></a>. Descriptions read <code>--ui-text-subtle</code>.`,
-    `The border and dividers are <a href="#api"><code>--ui-border-color-on-raised</code></a>, like other elevated surfaces.`,
+    `The border and dividers are <a href="#api"><code>--ui-border-color</code></a>, translucent so they read the same on the raised surface.`,
     `Items are built like <code>List</code> items, with start and end icons, text and shortcuts (<a href="#basics">Basics</a>).`,
     {
       html: `New component. A <a href="#basics">popover menu</a> that anchors to its trigger, with groups, submenus and a <a href="#horizontal">horizontal</a> row of items. No JavaScript.`,
@@ -1226,7 +1226,7 @@ export const whatsNew = {
       html: `Breaking: the root is <code>&lt;div class="ui-field"&gt;</code>, shared with every field, and the options go in the <a href="#select"><code>&lt;select&gt;</code></a> after its <code>&lt;button&gt;</code>, without <code>.ui-list</code>.`,
     },
     `The <a href="#preselected">selected option</a> gets a check at the end, from <code>--ui-icon-check</code>, and reads <code>--ui-selected</code> and <code>--ui-on-selected</code> when a theme sets them.`,
-    `The <a href="#select">picker</a> is <code>--ui-surface-elevated</code> with the raised edge and <code>--ui-shadow-overlay</code>, like menus.`,
+    `The <a href="#select">picker</a> is <code>--ui-surface-raised</code> with the raised edge and <code>--ui-shadow-overlay</code>, like menus.`,
     `Helper text reads <a href="#api"><code>--ui-text-subtle</code></a>, options <code>--ui-list-item-padding-inline</code>.`,
     `<a href="#optgroup"><code>&lt;optgroup&gt;</code></a> groups take a <code>&lt;legend&gt;</code> heading, and <a href="#option-groups">group labels</a> a shade of the picker's surface and <code>--ui-text</code>.`,
     `The <a href="#select">arrow</a> is a chevron that flips when the picker opens.`,
@@ -1563,7 +1563,7 @@ export const whatsNew = {
     `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
     `<code>ToggleGroup</code> styles sit in the <code>components.extended</code> layer, like <code>ControlGroup</code> (<a href="#toggle-group">Toggle group</a>).`,
     `<a href="#toggle-button">Toggle buttons</a> fade their hover and selected colors, like buttons, also in a <a href="#toggle-group">group</a>.`,
-    `Themes can shrink a <a href="#toggle-button">toggle button</a> while it's pressed with <code>--ui-press-scale</code>, except in a group.`,
+    `Themes can shrink a <a href="#toggle-button">toggle button</a> while it's pressed with <code>--ui-state-active-scale</code>, except in a group.`,
   ],
   tooltip: [
     {
@@ -1622,7 +1622,7 @@ export const whatsNew = {
     `<a href="#rich-text-showcase">Rich text</a> headings, <code>pre</code> and <code>small</code> scale with the surrounding font size, and so does <a href="#inline-text-elements"><code>.ui-small</code></a>.`,
     `Rich text <code>var</code> is monospace, like <a href="#inline-text-elements"><code>.ui-var</code></a>.`,
     `<a href="#link">Links</a> are documented, and get a thicker underline on hover.`,
-    `Headings read <a href="#api"><code>--ui-font-heading</code></a>, and code, <code>kbd</code>, <code>samp</code> and <code>.ui-var</code> read <code>--ui-font-code</code>. Rich text padding and gaps read the <code>--ui-space-*</code> scale; its margins come from the flow space.`,
+    `Headings read <a href="#api"><code>--ui-font-family-heading</code></a>, and code, <code>kbd</code>, <code>samp</code> and <code>.ui-var</code> read <code>--ui-font-family-code</code>. Rich text padding and gaps read the <code>--ui-space-*</code> scale; its margins come from the flow space.`,
     `<a href="#link">Links</a> read <code>--ui-primary-text</code>, which keeps 4.5:1 on every surface, in a List too.`,
     `<a href="#link">Links</a> and <a href="#inline-text-elements">underlined text</a> read <code>--ui-underline-offset</code>, <code>--ui-underline-offset-small</code> and <code>--ui-underline-hover-thickness</code>.`,
     `<a href="#link">Rich text links</a> are styled by <code>link.css</code>, with one rule for <code>.ui-link</code> and classless links. Install it next to <code>typography.css</code>.`,

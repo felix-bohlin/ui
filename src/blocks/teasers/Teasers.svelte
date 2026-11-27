@@ -4,7 +4,7 @@
 
 <div
   class="teasers ui-layout-container ui-layout-column"
-  style="--_gap: var(--ui-space-8); --_max-inline-size: 68rem"
+  style="--_gap: var(--ui-space-12); --_max-inline-size: 68rem"
 >
   <hgroup class="ui-hgroup teasers-intro">
     <p class="ui-overline">From the tour van</p>
@@ -14,7 +14,7 @@
   <article
     aria-labelledby="teasers-fjord"
     class="teaser ui-layout-columns"
-    style="--_columns: 1fr 1fr; --_gap: var(--ui-space-8)"
+    style="--_columns: 1fr 1fr; --_gap: var(--ui-space-12)"
   >
     <div aria-hidden="true" class="teaser-media" style="--_shift: 0"></div>
     <div class="teaser-copy ui-layout-column">
@@ -45,7 +45,7 @@
   <article
     aria-labelledby="teasers-lighthouse"
     class="teaser teaser-reverse ui-layout-columns"
-    style="--_columns: 1fr 1fr; --_gap: var(--ui-space-8)"
+    style="--_columns: 1fr 1fr; --_gap: var(--ui-space-12)"
   >
     <div aria-hidden="true" class="teaser-media" style="--_shift: 140"></div>
     <div class="teaser-copy ui-layout-column">
@@ -76,7 +76,7 @@
   <article
     aria-labelledby="teasers-camp"
     class="teaser ui-layout-columns"
-    style="--_columns: 1fr 1fr; --_gap: var(--ui-space-8)"
+    style="--_columns: 1fr 1fr; --_gap: var(--ui-space-12)"
   >
     <div aria-hidden="true" class="teaser-media" style="--_shift: 220"></div>
     <div class="teaser-copy ui-layout-column">

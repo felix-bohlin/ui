@@ -7,8 +7,7 @@ export default {
     kind: "output",
   },
   "--_bg-color": {
-    description:
-      "Background of the label. Defaults to `--ui-surface-elevated`.",
+    description: "Background of the label. Defaults to `--ui-surface-raised`.",
     kind: "input",
   },
   "--_border-color": {

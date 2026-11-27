@@ -2,7 +2,7 @@
 @layer theme.palette, theme.base, theme.custom, theme.severity;
 
 @layer theme.custom {
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-backdrop-bg-color: light-dark(
       oklch(from var(--ui-palette-source) 0.3 0.08 calc(h - 35) / 45%),
       oklch(from var(--ui-palette-source) 0.12 0.05 calc(h - 35) / 65%)
@@ -26,10 +26,10 @@
     --ui-dialog-radius: 1.25rem;
     --ui-field-radius: 0.75rem;
     --ui-focus-ring-color: var(--ui-primary);
-    --ui-font-body:
+    --ui-font-family-body:
       Figtree, "DM Sans", Avenir, Montserrat, Corbel, URW Gothic,
       source-sans-pro, sans-serif;
-    --ui-font-heading: GTAArtDeco, var(--ui-font-body);
+    --ui-font-family-heading: GTAArtDeco, var(--ui-font-family-body);
     --ui-gray-chroma: 0.04;
     --ui-gray-hue: 295;
     --ui-menu-radius: 0.75rem;
@@ -49,11 +49,11 @@
       oklch(from var(--ui-palette-source) 0.975 0.012 calc(h - 5)),
       oklch(from var(--ui-palette-source) 0.2 0.035 calc(h - 47))
     );
-    --ui-surface-elevated: light-dark(
+    --ui-surface-raised: light-dark(
       oklch(1 0 0),
       oklch(from var(--ui-palette-source) 0.255 0.045 calc(h - 43))
     );
-    --ui-surface-elevated-image: linear-gradient(
+    --ui-surface-raised-image: linear-gradient(
       in oklab,
       light-dark(
         oklch(from var(--ui-palette-source) 0.955 0.03 calc(h + 5)),
@@ -112,20 +112,20 @@
   @media (prefers-contrast: more) {
     :where(
       html:not(.ui-contrast-normal),
-      html:not(.ui-contrast-normal) .ui-palette
+      html:not(.ui-contrast-normal) .ui-scope
     ) {
       --ui-border-color: revert-layer;
       --ui-focus-ring-color: revert-layer;
-      --ui-surface-elevated-image: revert-layer;
+      --ui-surface-raised-image: revert-layer;
       --ui-surface-image: revert-layer;
       --ui-text-subtle: revert-layer;
     }
   }
 
-  :where(.ui-contrast-more, .ui-contrast-more .ui-palette) {
+  :where(.ui-contrast-more, .ui-contrast-more .ui-scope) {
     --ui-border-color: revert-layer;
     --ui-focus-ring-color: revert-layer;
-    --ui-surface-elevated-image: revert-layer;
+    --ui-surface-raised-image: revert-layer;
     --ui-surface-image: revert-layer;
     --ui-text-subtle: revert-layer;
   }

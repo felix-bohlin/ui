@@ -69,7 +69,7 @@ export default function ContextMenu() {
           border: var(--ui-border-width) dashed var(--ui-border-color);
           border-radius: var(--ui-radius);
           inline-size: 100%;
-          padding: var(--ui-space-3);
+          padding: var(--ui-space-4);
           position: relative;
           text-align: center;
         }

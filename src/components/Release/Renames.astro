@@ -256,8 +256,8 @@ const sectionHref = (anchor: string) => link(`/guide/migrating#${anchor}`)
 <style is:global>
   .renames {
     display: grid;
-    gap: var(--ui-space-5);
-    margin-block: var(--ui-space-5);
+    gap: var(--ui-space-6);
+    margin-block: var(--ui-space-6);
 
     & .ui-fieldset {
       gap: var(--ui-space-1);
@@ -270,11 +270,11 @@ const sectionHref = (anchor: string) => link(`/guide/migrating#${anchor}`)
 
   .renames-diff {
     display: grid;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
   }
 
   .renames-code {
-    line-height: var(--ui-line-height);
+    line-height: var(--ui-line-height-compact);
     margin: 0;
     view-timeline-name: --renames;
   }
@@ -417,7 +417,7 @@ const sectionHref = (anchor: string) => link(`/guide/migrating#${anchor}`)
   .renames-explorer {
     container-type: inline-size;
     display: grid;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
   }
 
   .renames-count,
@@ -442,7 +442,7 @@ const sectionHref = (anchor: string) => link(`/guide/migrating#${anchor}`)
   .renames-item {
     border-block-end: var(--ui-border-width) solid var(--ui-border-color);
     display: grid;
-    gap: var(--ui-space-1) var(--ui-space-3);
+    gap: var(--ui-space-1) var(--ui-space-4);
     padding-block-end: var(--ui-space-2);
 
     &[hidden] {

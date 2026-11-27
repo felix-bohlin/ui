@@ -192,7 +192,7 @@ const charts = [
 
     container-type: inline-size;
     display: grid;
-    gap: var(--ui-space-5);
+    gap: var(--ui-space-6);
     inline-size: 100%;
   }
 
@@ -214,7 +214,7 @@ const charts = [
 
   .fluid-compare-charts {
     display: grid;
-    gap: var(--ui-space-4) var(--ui-space-5);
+    gap: var(--ui-space-5) var(--ui-space-6);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
   }
 
@@ -235,7 +235,7 @@ const charts = [
 
       & code {
         color: var(--ui-text-strong);
-        font-weight: var(--ui-font-weight-bold);
+        font-weight: var(--ui-font-weight-heading);
       }
     }
   }
@@ -366,7 +366,7 @@ const charts = [
       transparent 1.45px
     );
     background-size: 20px 20px;
-    padding-block: var(--ui-space-3);
+    padding-block: var(--ui-space-4);
   }
 
   .fluid-compare-frame {
@@ -381,10 +381,10 @@ const charts = [
     border-radius: var(--ui-radius);
     box-sizing: border-box;
     display: grid;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
     grid-template-columns: repeat(2, minmax(0, 1fr));
     inline-size: var(--viewport);
-    padding: var(--ui-space-3);
+    padding: var(--ui-space-4);
     zoom: var(--_scale, 1);
 
     @media (scripting: none) {
@@ -420,7 +420,7 @@ const charts = [
 
     & code {
       color: var(--ui-text-strong);
-      font-weight: var(--ui-font-weight-bold);
+      font-weight: var(--ui-font-weight-heading);
     }
   }
 
@@ -435,7 +435,7 @@ const charts = [
 
   .fluid-compare-sample {
     color: var(--ui-text-strong);
-    font-weight: var(--ui-font-weight-bold);
+    font-weight: var(--ui-font-weight-heading);
   }
 
   .fluid-compare-readout {
@@ -473,7 +473,7 @@ const charts = [
     font-size: var(--ui-font-size-caption);
     font-variant-numeric: tabular-nums;
     inset-block-start: 0;
-    inset-inline-end: var(--ui-space-3);
+    inset-inline-end: var(--ui-space-4);
     line-height: 1;
     padding-inline: var(--ui-space-1);
     position: absolute;
@@ -483,7 +483,7 @@ const charts = [
   .fluid-compare-knobs {
     border: 0;
     display: grid;
-    gap: var(--ui-space-3) var(--ui-space-5);
+    gap: var(--ui-space-4) var(--ui-space-6);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
     margin: 0;
     min-inline-size: 0;

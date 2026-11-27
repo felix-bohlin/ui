@@ -244,12 +244,12 @@ import { Button, Field, FieldGroup, List, ListItem } from "opui-css/vue"
 
 <style>
 .error-page {
-  padding-block: var(--ui-space-6);
+  padding-block: var(--ui-space-7);
 
   .error-page-code {
     color: var(--ui-primary-text);
     font-size: var(--ui-font-size-900);
-    font-weight: var(--ui-font-weight-bold);
+    font-weight: var(--ui-font-weight-heading);
     line-height: 0.95;
   }
 }

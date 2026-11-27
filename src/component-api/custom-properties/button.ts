@@ -8,12 +8,12 @@ export default {
   },
   "--_accent-filled": {
     description:
-      "Fill of filled buttons, of hovered outlined buttons unless `--ui-button-hover` is `layer`, of hovered tonal ones when it is unset, and the base of the filled hover and pressed shades. `--ui-button-accent-filled` when a theme sets it, else `--_accent`, and in `.ui-critical` `--ui-critical` kept within `--ui-accent-fill-max-lightness`, so the light text stays readable while the border keeps `--ui-critical`. `.ui-primary` resets it to `--_accent`, so the token applies to default buttons only.",
+      "Fill of filled buttons, of hovered outlined buttons unless `--ui-button-hover` is `layer`, of hovered tonal ones when it is unset, and the base of the filled hover and pressed shades. `--ui-button-accent-filled` when a theme sets it, else `--_accent`, and in `.ui-critical` `--ui-critical-fill`, so the light text stays readable while the border keeps `--ui-critical`. `.ui-primary` resets it to `--_accent`, so the token applies to default buttons only.",
     kind: "input",
   },
   "--_accent-text": {
     description:
-      "Text color of text and outlined buttons. `--_accent` in light mode. In dark mode its lightness is at least `--ui-text-min-lightness` and its chroma within `--ui-text-max-chroma`. `--ui-primary-text` in `.ui-primary` and `--ui-critical-text` in `.ui-critical`.",
+      "Text color of text and outlined buttons. `--_accent` in light mode. In dark mode its lightness is at least `--ui-control-accent-min-lightness-dark` and its chroma within `--ui-control-accent-max-chroma-dark`. `--ui-primary-text` in `.ui-primary` and `--ui-critical-text` in `.ui-critical`.",
     kind: "output",
   },
   "--_accent-tonal": {

@@ -21,7 +21,7 @@ const numeral = releaseVersion.split(".").slice(0, 2).join(".")
   .hero {
     display: grid;
     justify-items: center;
-    margin-block: var(--ui-space-5);
+    margin-block: var(--ui-space-6);
     max-inline-size: min(var(--content-inline-size), var(--site-content-text));
 
     & .hero-numeral {
@@ -52,9 +52,9 @@ const numeral = releaseVersion.split(".").slice(0, 2).join(".")
       background-clip: text;
       background-image: var(--vi-mark-paint);
       color: transparent;
-      font-family: var(--ui-font-heading, var(--ui-font-body));
+      font-family: var(--ui-font-family-heading, var(--ui-font-family-body));
       font-size: clamp(8rem, 22vw, 16rem);
-      font-weight: var(--ui-font-weight-bold);
+      font-weight: var(--ui-font-weight-heading);
       letter-spacing: -0.06em;
       line-height: 0.9;
       margin: 0;

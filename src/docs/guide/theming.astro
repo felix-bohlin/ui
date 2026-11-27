@@ -13,7 +13,7 @@ const iconSets = Object.keys(ICON_LIBRARIES).toSorted()
 const surfaceRoles = [
   { name: "--ui-surface", note: "The page" },
   {
-    name: "--ui-surface-elevated",
+    name: "--ui-surface-raised",
     note: "Elevated cards and accordions, dialogs, drawers, menus",
   },
   { name: "--ui-surface-tonal", note: "Tonal variants" },
@@ -102,7 +102,7 @@ export const keywords = [
     <p>A scope class re-themes an element and everything inside it:</p>
     <Example centered row>
       <section
-        class="ui-palette scope-demo"
+        class="ui-scope scope-demo"
         style="
           --ui-palette-hue: 30;
           --ui-palette-source: oklch(
@@ -111,7 +111,7 @@ export const keywords = [
           --ui-primary-source: light-dark(var(--ui-color-9), var(--ui-color-6));
         "
       >
-        <p class="ui-caption">.ui-palette with --ui-palette-hue: 30</p>
+        <p class="ui-caption">.ui-scope with --ui-palette-hue: 30</p>
         <button class="ui-button ui-filled ui-primary" type="button">
           Primary
         </button>
@@ -140,7 +140,7 @@ export const keywords = [
     </Example>
     <ul>
       <li>
-        <code>.ui-palette</code>: re-derives every token from the knobs it sets.
+        <code>.ui-scope</code>: re-derives every token from the knobs it sets.
       </li>
       <li>
         <code>.ui-critical</code> and the other severities: swap the palette for
@@ -162,8 +162,14 @@ export const keywords = [
     <h2>Surfaces</h2>
     <RoleSwatches roles={surfaceRoles} />
     <p>
-      Set <code>--ui-border-color-on-raised</code> for borders inside raised
-      components, and <code>--ui-border-color-raised</code> for their edge.
+      <code>--ui-border-color</code> and <code>--ui-field-border-color</code>
+      are translucent, so one value reads the same on every surface: inside a
+      card, a dialog, a menu or a filled list as on the page. Change how strong
+      they are with <code>--ui-border-strength-light</code>,
+      <code>--ui-border-strength-dark</code> and
+      <code>--ui-field-border-strength</code>, which more contrast keeps
+      tightening, or set a color. <code>--ui-border-color-raised</code> sets the
+      edge of raised components.
     </p>
   </section>
 
@@ -184,6 +190,26 @@ export const keywords = [
       its border grows to fit its button, such as an x-small field at
       <code>0.875</code> or a small one at <code>0.75</code>.
     </p>
+    <p>
+      The sizes are computed where the scope classes are, so set the density of
+      a part of the page on an element with <code>.ui-scope</code>, like a
+      compact toolbar:
+    </p>
+    <Code
+      code={`<div class="ui-scope" style="--ui-density: 0.75">
+  <button class="ui-button ui-small" type="button">Bold</button>
+</div>`}
+      lang="html"
+    />
+    <p>
+      A theme that sets a size keeps the knob in it, so the size still follows
+      density: <code>calc(2.25rem * var(--ui-density))</code>. A theme that also
+      sets its own density writes the length it wants at that density,
+      <code>calc(2rem * var(--ui-density) / 0.9)</code>. The same goes for the
+      spacing steps and <code>--ui-space-scale</code>. Each size token says
+      which knob it follows in <code>tokens.json</code>, as <code>scaledBy</code
+      >.
+    </p>
   </section>
 
   <section id="spacing">
@@ -191,6 +217,11 @@ export const keywords = [
     <p>
       Use <code>--ui-space-scale</code> to change spacing. Controls follow
       density instead.
+    </p>
+    <p>
+      Each step is named by its size in quarter rems, so
+      <code>--ui-space-3</code> is 0.75rem and <code>--ui-space-12</code> is
+      3rem, and a new step never renames another.
     </p>
     <Code
       code={`:where(html) {
@@ -222,15 +253,15 @@ export const keywords = [
     <p>Headings follow the body font until you set one.</p>
     <Code
       code={`:where(html) {
-  --ui-font-body: "Inter", system-ui, sans-serif;
-  --ui-font-code: "JetBrains Mono", ui-monospace, monospace;
-  --ui-font-heading: "Fraunces", serif;
+  --ui-font-family-body: "Inter", system-ui, sans-serif;
+  --ui-font-family-code: "JetBrains Mono", ui-monospace, monospace;
+  --ui-font-family-heading: "Fraunces", serif;
 }`}
       lang="css"
     />
     <p>Pin a size role, or replace the scale:</p>
     <Code
-      code={`:where(html, .ui-palette, .ui-contrast-more) {
+      code={`:where(html, .ui-scope, .ui-contrast-more) {
   /* Pin one role */
   --ui-font-size-caption: 0.8125rem;
 }
@@ -264,7 +295,7 @@ export const keywords = [
   --ui-space-scale: calc(0.875 + 0.125 * var(--ui-fluid-progress));
 }
 
-:where(html, .ui-palette, .ui-contrast-more) {
+:where(html, .ui-scope, .ui-contrast-more) {
   /* Or pin a heading */
   --ui-font-size-h1: var(--ui-font-size-800);
 }`}
@@ -290,7 +321,7 @@ export const keywords = [
       <li><code>--ui-shadow-color</code>: every shadow's base color.</li>
     </ul>
     <Code
-      code={`:where(html, .ui-palette, .ui-contrast-more) {
+      code={`:where(html, .ui-scope, .ui-contrast-more) {
   --ui-shadow-color: light-dark(oklch(0.28 0.055 290 / 2%), oklch(0 0 0 / 30%));
   --ui-shadow-elevated: none;
 }`}
@@ -326,13 +357,13 @@ export const keywords = [
     <h3 id="motion-personality">Springy movement</h3>
     <p>
       Off by default. Set <code>--ui-ease-move</code> and
-      <code>--ui-press-scale</code> to turn them on.
+      <code>--ui-state-active-scale</code> to turn them on.
     </p>
     <Code
       code={`:where(html) {
   --ui-ease-move: linear(0, 0.066, 0.218, 0.4, 0.578, 0.731, 0.852, 0.94, 0.998,
     1.031, 1.047, 1.05, 1.046, 1.038, 1.029, 1.02, 1.012, 1.007, 1.002, 1, 1);
-  --ui-press-scale: 0.97;
+  --ui-state-active-scale: 0.97;
 }`}
       lang="css"
     />
@@ -406,25 +437,36 @@ export const keywords = [
       on <DocLink href="/guide/theme-tokens#contrast">Theme tokens</DocLink>.
     </p>
     <p>
+      The roles are derived within lightness and chroma limits that
+      <code>theme.css</code> keeps private, as <code>--_ui-*</code> properties
+      that can change in any release. To keep an exact brand color, pin the
+      role, such as <code>--ui-primary-text</code> or
+      <code>--ui-critical-fill</code>. The one limit a theme sets is for the
+      accents its hooks supply:
+      <code>--ui-control-accent-min-lightness-dark</code> and
+      <code>--ui-control-accent-max-chroma-dark</code> keep a dark accent
+      readable as text in dark mode.
+    </p>
+    <p>
       A role a theme pins stays pinned in every contrast mode. Hand it back with
       <code>revert-layer</code>:
     </p>
     <Code
       code={`@layer theme.custom {
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-border-color: oklch(0.95 0 0);
   }
 
   @media (prefers-contrast: more) {
     :where(
       html:not(.ui-contrast-normal),
-      html:not(.ui-contrast-normal) .ui-palette
+      html:not(.ui-contrast-normal) .ui-scope
     ) {
       --ui-border-color: revert-layer;
     }
   }
 
-  :where(.ui-contrast-more, .ui-contrast-more .ui-palette) {
+  :where(.ui-contrast-more, .ui-contrast-more .ui-scope) {
     --ui-border-color: revert-layer;
   }
 }`}
@@ -519,8 +561,8 @@ export const keywords = [
     align-items: start;
     border-radius: var(--ui-radius);
     display: grid;
-    gap: var(--ui-space-3);
-    padding: var(--ui-space-4);
+    gap: var(--ui-space-4);
+    padding: var(--ui-space-5);
 
     .ui-caption {
       margin: 0;
@@ -529,7 +571,7 @@ export const keywords = [
 
   .contrast-demo {
     display: grid;
-    gap: var(--ui-space-4);
+    gap: var(--ui-space-5);
     grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
     inline-size: 100%;
 
@@ -537,7 +579,7 @@ export const keywords = [
       align-items: start;
       display: flex;
       flex-direction: column;
-      gap: var(--ui-space-3);
+      gap: var(--ui-space-4);
     }
 
     .ui-field {

@@ -30,7 +30,7 @@ const roleId = Astro.locals.$id("theme-dice-role")
     <p aria-live="polite" class="theme-dice-status"></p>
   </div>
 
-  <div class="theme-dice-stage ui-palette">
+  <div class="theme-dice-stage ui-scope">
     <Card class="theme-dice-card" variant="elevated">
       <CardHeader>
         <h3>Invite a bandmate</h3>
@@ -59,7 +59,7 @@ const roleId = Astro.locals.$id("theme-dice-role")
           <input
             id="theme-dice-email"
             name="theme-dice-email"
-            placeholder="bassist@lowend.example"
+            placeholder="bassist@bassmail.example"
             type="email"
           />
         </Field>
@@ -148,15 +148,15 @@ const roleId = Astro.locals.$id("theme-dice-role")
 <style is:global>
   .theme-dice {
     display: grid;
-    gap: var(--ui-space-3);
-    margin-block: var(--ui-space-5);
+    gap: var(--ui-space-4);
+    margin-block: var(--ui-space-6);
   }
 
   .theme-dice-controls {
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--ui-space-2) var(--ui-space-3);
+    gap: var(--ui-space-2) var(--ui-space-4);
 
     & p {
       flex-basis: 100%;
@@ -172,12 +172,12 @@ const roleId = Astro.locals.$id("theme-dice-role")
     color: var(--ui-text);
     container-type: inline-size;
     display: grid;
-    font-family: var(--ui-font-body);
-    padding: var(--ui-space-6) var(--ui-space-4);
+    font-family: var(--ui-font-family-body);
+    padding: var(--ui-space-7) var(--ui-space-5);
     place-items: center;
 
     & h3 {
-      font-family: var(--ui-font-heading, var(--ui-font-body));
+      font-family: var(--ui-font-family-heading, var(--ui-font-family-body));
       font-size: var(--ui-font-size-h5);
       margin: 0;
     }
@@ -206,7 +206,7 @@ const roleId = Astro.locals.$id("theme-dice-role")
 
     & .ui-content {
       display: grid;
-      gap: var(--ui-space-3);
+      gap: var(--ui-space-4);
     }
   }
 
@@ -214,6 +214,6 @@ const roleId = Astro.locals.$id("theme-dice-role")
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
   }
 </style>

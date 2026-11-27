@@ -3,7 +3,7 @@
 A multi-line text input in a Field that grows with its text, with a character count.
 
 - CSS: `opui-css/css/components/field.css` and `opui-css/css/components/textarea.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/textarea.md), [Astro](https://opui.dev/astro/components/textarea.md), [React](https://opui.dev/react/components/textarea.md), [Solid](https://opui.dev/solid/components/textarea.md), [Svelte](https://opui.dev/svelte/components/textarea.md), [Vue](https://opui.dev/vue/components/textarea.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/textarea.md), [Astro](https://opui.dev/astro/components/textarea.md), [Nunjucks](https://opui.dev/nunjucks/components/textarea.md), [React](https://opui.dev/react/components/textarea.md), [Solid](https://opui.dev/solid/components/textarea.md), [Svelte](https://opui.dev/svelte/components/textarea.md), [Vue](https://opui.dev/vue/components/textarea.md).
 
 ## Textarea (CSS only)
 
@@ -15,7 +15,7 @@ A multi-line text input in a Field that grows with its text, with a character co
 ### Notes
 
 - HTML: Put the `<textarea>` in `.ui-field-container`.
-- Astro, Solid, Svelte and Vue: Write a `<textarea>` in a `Field`, with its `id` set to `for`.
+- Astro, Nunjucks, Solid, Svelte and Vue: Write a `<textarea>` in a `Field`, with its `id` set to `for`.
 - React: Write a `<textarea>` in a `Field`, with its `id` set to `htmlFor`.
 
 ## Component properties
@@ -32,7 +32,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_end-end-radius`: End-end corner radius of `.ui-field-container`. Defaults to `--_radius`, `0` against the next control in a `ControlGroup`.
 - `--_end-start-radius`: End-start corner radius of `.ui-field-container`. Defaults to `--_radius`, `0` against another control in a `ControlGroup`.
 - `--_field-padding-block`: Preferred block padding of the control. Set by the size classes.
-- `--_field-padding-inline`: Inline padding of the control and affixes. Defaults to `--ui-field-padding-inline` (else `--ui-space-2`), or `--ui-field-padding-inline-large` (else `--ui-space-3`) in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.
+- `--_field-padding-inline`: Inline padding of the control and affixes. Defaults to `--ui-field-padding-inline` (else `--ui-space-2`), or `--ui-field-padding-inline-large` (else `--ui-space-4`) in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.
 - `--_file-button-padding`: Preferred space above and below the `::file-selector-button`, outside `.ui-drop-zone`. `--ui-space-2`, `--ui-space-1` in `.ui-small` and `.ui-x-small`.
 - `--_font-size`: Font size of the control, `.ui-start` and `.ui-end`. Set by `.ui-x-small` and `.ui-small`, at least 16px on iPhone and iPad.
 - `--_min-inline-size`: Minimum width of the control beside `.ui-start` and `.ui-end`, which shrink to keep it, capped at the field's width. Defaults to `8ch`, `4ch` with a `StepButton`.
@@ -51,7 +51,7 @@ Outputs: `--_affix-block-size`, `--_affix-button-size`, `--_affix-padding-block`
 
 ## Theme tokens
 
-The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-bg-color`, `--ui-field-border-color`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-padding-inline`, `--ui-field-padding-inline-large`, `--ui-field-placeholder-text-color`, `--ui-field-radius`, `--ui-field-required-text-color`, `--ui-field-shadow`, `--ui-field-size`, `--ui-field-size-large`, `--ui-field-size-small`, `--ui-field-size-x-small`, `--ui-focus-border-color`, `--ui-focus-border-width`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-body`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-icon-expand`, `--ui-icon-hide`, `--ui-icon-show`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-shadow-control`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-surface`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-target-min-size`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-duration`, `--ui-ease`, `--ui-field-bg-color`, `--ui-field-border-color`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-padding-inline`, `--ui-field-padding-inline-large`, `--ui-field-placeholder-text-color`, `--ui-field-radius`, `--ui-field-required-text-color`, `--ui-field-shadow`, `--ui-field-size`, `--ui-field-size-large`, `--ui-field-size-small`, `--ui-field-size-x-small`, `--ui-focus-border-color`, `--ui-focus-border-width`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-family-body`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-icon-expand`, `--ui-icon-hide`, `--ui-icon-show`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height-compact`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-shadow-control`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-state-disabled-opacity`, `--ui-surface`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-target-min-size`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -80,6 +80,20 @@ import { Field } from "opui-css/astro"
 <Field for="textarea-basics-1" label="Message">
   <textarea id="textarea-basics-1" name="message"></textarea>
 </Field>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import CharacterCount, Field %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Field %}
+
+{% call Field({ for: "textarea-basics-1", label: "Message" }) %}
+  <textarea id="textarea-basics-1" name="message"></textarea>
+{% endcall %}
 ```
 
 ## React

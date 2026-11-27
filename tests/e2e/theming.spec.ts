@@ -38,7 +38,7 @@ test("a .ui-light subtree renders light", async ({ page }) => {
   )
 })
 
-test("a .ui-palette subtree re-derives its colors", async ({ page }) => {
+test("a .ui-scope subtree re-derives its colors", async ({ page }) => {
   const scope = example(page, "Palette").locator(".scope")
   const button = scope.locator(".ui-button.ui-primary")
   const reference = example(page, "Default").locator(".ui-button.ui-primary")
@@ -51,14 +51,14 @@ test("a .ui-palette subtree re-derives its colors", async ({ page }) => {
 })
 
 for (const theme of THEMES) {
-  test(`a severity class keeps its palette on a .ui-palette or .ui-contrast-more element (${theme})`, async ({
+  test(`a severity class keeps its palette on a .ui-scope or .ui-contrast-more element (${theme})`, async ({
     page,
   }) => {
     if (theme !== "default") {
       await openFixture(page, "html", "stress/theming", `?theme=${theme}`)
     }
     const severities = ["critical", "info", "neutral", "success", "warning"]
-    const scopes = ["ui-contrast-more", "ui-palette"]
+    const scopes = ["ui-contrast-more", "ui-scope"]
     await page.evaluate(
       ([severities, scopes]) => {
         for (const scope of scopes) {
@@ -81,7 +81,7 @@ for (const theme of THEMES) {
         for (const token of [
           "--ui-color-9",
           "--ui-palette-accent",
-          "--ui-palette-tint-subtle",
+          "--ui-palette-tonal-subtle",
         ]) {
           const color = `var(${token}, transparent)`
           const child = await resolveColor(

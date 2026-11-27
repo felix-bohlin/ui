@@ -7,11 +7,11 @@
   description="Eller släpp dem här. PNG eller JPG."
   items={[
     {
-      label: "lou-headstock.png",
-      preview: "/photos/lou-headstock.png",
+      label: "kinga-headstock.png",
+      preview: "/photos/kinga-headstock.png",
       progress: 0.3,
       state: "uploading",
-      value: "lou",
+      value: "kinga",
     },
   ]}
   label="Välj foton"

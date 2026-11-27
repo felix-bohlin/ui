@@ -50,7 +50,7 @@ const descriptionId = computed(() =>
             class="ui-sr-only"
             :disabled="disabled"
             :id="inputId"
-            :multiple="multiple"
+            :multiple="multiple || undefined"
             type="file"
           />
           <span class="ui-button ui-outlined">{{ label }}</span>
@@ -70,7 +70,7 @@ const descriptionId = computed(() =>
         <li
           v-for="(item, index) in items"
           :key="index"
-          v-bind="classAttrs([{ 'ui-error': item.state === 'error' }])"
+          v-bind="classAttrs([{ 'ui-state-error': item.state === 'error' }])"
         >
           <div class="ui-start">
             <img v-if="item.preview" alt="" :src="item.preview" /><button

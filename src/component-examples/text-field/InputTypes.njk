@@ -1,0 +1,59 @@
+{% from "opui/index.njk" import Field %}
+
+<div class="example-column">
+  {% call Field({ for: "text-field-input-types-1", label: "Color" }) %}
+    <input id="text-field-input-types-1" type="color" />
+  {% endcall %}
+  {% call Field({ for: "text-field-input-types-2", label: "Email" }) %}
+    <input
+      id="text-field-input-types-2"
+      placeholder="name@example.com"
+      type="email"
+    />
+  {% endcall %}
+  {% call Field({ for: "text-field-input-types-3", label: "Password" }) %}
+    <input
+      id="text-field-input-types-3"
+      placeholder="Password"
+      type="password"
+    />
+  {% endcall %}
+  {% call Field({ for: "text-field-input-types-4", label: "Search" }) %}
+    <input id="text-field-input-types-4" placeholder="Search" type="search" />
+  {% endcall %}
+  {% call Field({ for: "text-field-input-types-5", label: "Phone" }) %}
+    <input
+      id="text-field-input-types-5"
+      placeholder="(555) 010-0100"
+      type="tel"
+    />
+  {% endcall %}
+  {% call Field({ for: "text-field-input-types-6", label: "Text" }) %}
+    <input id="text-field-input-types-6" placeholder="Text" type="text" />
+  {% endcall %}
+  {% call Field({ for: "text-field-input-types-7", label: "URL" }) %}
+    <input
+      id="text-field-input-types-7"
+      placeholder="https://example.com"
+      type="url"
+    />
+  {% endcall %}
+</div>
+
+<div class="example-column">
+  {% call Field({ for: "text-field-input-types-8", label: "Date" }) %}
+    <input id="text-field-input-types-8" type="date" />
+  {% endcall %}
+  {% call Field({ for: "text-field-input-types-9", label: "Datetime local" }) %}
+    <input id="text-field-input-types-9" type="datetime-local" />
+  {% endcall %}
+  {% call Field({ for: "text-field-input-types-10", label: "Month" }) %}
+    <input id="text-field-input-types-10" type="month" />
+  {% endcall %}
+  {% call Field({ for: "text-field-input-types-11", label: "Time" }) %}
+    <input id="text-field-input-types-11" type="time" />
+  {% endcall %}
+  {% call Field({ for: "text-field-input-types-12", label: "Week" }) %}
+    <input id="text-field-input-types-12" type="week" />
+  {% endcall %}
+</div>

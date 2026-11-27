@@ -1,0 +1,38 @@
+---
+import Conditional from "../../../components/Conditional.astro"
+import {
+  Callout as UICallout,
+  CalloutContent as UICalloutContent,
+  CalloutIcon as UICalloutIcon,
+} from "opui-css/astro"
+
+type Props = {
+  component: "Checkbox" | "Switch" | "ToggleButton"
+}
+
+const { component } = Astro.props
+---
+
+<Conditional as="div">
+  <Fragment slot="vue">
+    <div class="ui-not-rich-text">
+      <UICallout severity="warning">
+        <UICalloutIcon />
+        <UICalloutContent>
+          <h3><code>true-value</code> on the server</h3>
+          <p>
+            A <code>{component}</code> bound with <code>v-model</code> and
+            <code>true-value</code> renders checked on the server when the model
+            holds the <code>false-value</code>, until Vue fixes its server
+            renderer
+            (<a class="ui-link" href="https://github.com/vuejs/core/pull/15973"
+              >vuejs/core#15973</a
+            >). Hydration unchecks it, but a form sent before then submits it.
+            Bind a boolean instead, and map it to your values in a
+            <code>computed</code>.
+          </p>
+        </UICalloutContent>
+      </UICallout>
+    </div>
+  </Fragment>
+</Conditional>

@@ -181,7 +181,7 @@
     }
 
     &:disabled {
-      opacity: var(--ui-disabled-opacity);
+      opacity: var(--ui-state-disabled-opacity);
       -webkit-user-select: none;
       user-select: none;
 

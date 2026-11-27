@@ -1,0 +1,12 @@
+{% from "opui/index.njk" import Button %}
+
+<div class="ui-layout-row ui-spread">
+  <hgroup class="ui-hgroup">
+    <p>Setlists</p>
+    <h3 class="ui-h4">Summer tour</h3>
+  </hgroup>
+  <div class="ui-layout-row ui-gap-small">
+    {% call Button({ variant: "outlined" }) %}Share{% endcall %}
+    {% call Button({ color: "primary", variant: "filled" }) %}New song{% endcall %}
+  </div>
+</div>

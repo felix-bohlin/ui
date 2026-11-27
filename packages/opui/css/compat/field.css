@@ -3,5 +3,21 @@
     :where(.ui-field, .ui-one-time-code) {
       --_font-size: max(16px, var(--ui-font-size-control));
     }
+
+    :where(.ui-field)
+      .ui-field-container
+      > input:is(
+        [type="date"],
+        [type="datetime-local"],
+        [type="month"],
+        [type="time"],
+        [type="week"]
+      ) {
+      appearance: none;
+
+      &::-webkit-date-and-time-value {
+        text-align: start;
+      }
+    }
   }
 }

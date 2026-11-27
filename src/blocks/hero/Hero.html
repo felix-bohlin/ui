@@ -1,9 +1,9 @@
 <div class="hero ui-layout-container" style="--_max-inline-size: 76rem">
   <div
     class="ui-layout-columns hero-inner"
-    style="--_columns: 1fr 1.1fr; --_gap: var(--ui-space-8)"
+    style="--_columns: 1fr 1.1fr; --_gap: var(--ui-space-12)"
   >
-    <div class="ui-layout-column ui-large hero-copy">
+    <div class="ui-layout-column ui-gap-large hero-copy">
       <a class="ui-chip ui-outlined" href="#hero-megaphone">
         <span class="ui-text">New: The Megaphone shoutbox is here!</span>
         <svg
@@ -65,21 +65,21 @@
         aria-label="Preview of a Bassbook gig page with three stats and three practice goals in progress"
         role="img"
       >
-        <div class="ui-layout-row ui-small hero-toolbar">
+        <div class="ui-layout-row ui-gap-small hero-toolbar">
           <span class="ui-swatch"></span>
           <span class="ui-swatch"></span>
           <span class="ui-swatch"></span>
           <span class="hero-url ui-caption">bassbook.example/gigs/42</span>
         </div>
         <div class="ui-layout-column hero-screen">
-          <div class="ui-layout-row ui-small ui-spread">
+          <div class="ui-layout-row ui-gap-small ui-spread">
             <strong>Gig #42</strong>
             <span class="ui-chip ui-small">
               <span class="ui-text">Showtime Oct 16</span>
             </span>
           </div>
           <div
-            class="ui-layout-grid ui-small"
+            class="ui-layout-grid ui-gap-small"
             style="--_max-columns: 3; --_min-inline-size: 4rem"
           >
             <div class="ui-card ui-dense ui-outlined">
@@ -114,12 +114,12 @@
             <li>
               <div class="ui-start">
                 <div class="ui-avatar">
-                  <span aria-hidden="true">IH</span>
+                  <span aria-hidden="true">MH</span>
                 </div>
               </div>
               <div class="ui-text">
                 <p>Learn the setlist</p>
-                <p>Ines Hertz</p>
+                <p>Mohini Hertz</p>
               </div>
               <div class="ui-end">
                 <div class="ui-progress ui-filled">
@@ -130,12 +130,12 @@
             <li>
               <div class="ui-start">
                 <div class="ui-avatar">
-                  <span aria-hidden="true">PG</span>
+                  <span aria-hidden="true">AG</span>
                 </div>
               </div>
               <div class="ui-text">
                 <p>Restring the 5-string</p>
-                <p>Percy Groove</p>
+                <p>Adam Groove</p>
               </div>
               <div class="ui-end">
                 <div class="ui-progress ui-filled">
@@ -146,12 +146,12 @@
             <li>
               <div class="ui-start">
                 <div class="ui-avatar">
-                  <span aria-hidden="true">SN</span>
+                  <span aria-hidden="true">EN</span>
                 </div>
               </div>
               <div class="ui-text">
                 <p>Nail the slap break</p>
-                <p>Stella Nut</p>
+                <p>Ellen Nut</p>
               </div>
               <div class="ui-end">
                 <div class="ui-progress ui-filled">
@@ -194,10 +194,10 @@
         oklch(from var(--ui-primary) l c calc(h + 60) / 15%)
       );
       border-radius: var(--ui-radius);
-      padding: var(--ui-space-4);
+      padding: var(--ui-space-5);
 
       @container (inline-size >= 40rem) {
-        padding: var(--ui-space-6);
+        padding: var(--ui-space-7);
       }
     }
 
@@ -207,7 +207,7 @@
 
     .hero-toolbar {
       border-block-end: var(--ui-border-width) solid var(--ui-border-color);
-      padding: var(--ui-space-2) var(--ui-space-3);
+      padding: var(--ui-space-2) var(--ui-space-4);
 
       .ui-swatch {
         --_swatch-bg-color: var(--ui-border-color);
@@ -219,7 +219,7 @@
     }
 
     .hero-screen {
-      padding: var(--ui-space-3);
+      padding: var(--ui-space-4);
 
       strong {
         font-size: var(--ui-font-size-400);

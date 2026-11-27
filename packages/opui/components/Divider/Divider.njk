@@ -1,0 +1,18 @@
+{% macro Divider(props = {}) %}
+  {%- set props = props | opuiProps("Divider") -%}
+  {%- set rest = props | opuiRest("Divider") -%}
+  {% if caller is defined %}<div
+    class="ui-divider
+      {%- if props.align and props.align != 'center' %} ui-align-{{ props.align }}{% endif %}
+      {%- if props.color %} ui-{{ props.color }}{% endif %}
+      {%- if props.variant and props.variant != 'outlined' %} ui-{{ props.variant }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </div>{% else %}<hr
+    class="ui-divider
+      {%- if props.color %} ui-{{ props.color }}{% endif %}
+      {%- if props.variant and props.variant != 'outlined' %} ui-{{ props.variant }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>{% endif %}
+{%- endmacro %}

@@ -29,12 +29,14 @@ export default {
   notes: {
     astro:
       "`value` checks the buttons whose `value` matches on the server. After that the selection lives in the inputs: read it from the form, or listen for `change` in a script.",
+    nunjucks:
+      "`value` checks the buttons whose `value` matches on the server. After that the selection lives in the inputs: read it from the form, or listen for `change` in a script.",
     react:
       "Use `value` with `onValueChange`, or `defaultValue`. Without them the buttons keep their own state, and `onValueChange` still reports changes.",
     solid:
       "Use `value` with `onValueChange`, or `defaultValue`. Without them the buttons keep their own state, and `onValueChange` still reports changes.",
     svelte:
-      'Bind `value` with a starting value to control the selection, `""` or `[]` for none. Without it, or bound to `undefined`, the buttons keep their own state. A `value` passed without `bind:` is a starting value: the group keeps the selection itself until you pass another.',
+      'Bind `value` to control the selection, `""` or `[]` for none. Bound to `undefined`, it takes the buttons that start checked. A `value` passed without `bind:` is a starting value: the group keeps the selection itself until you pass another.',
     vue: 'Bind `v-model` to control the selection, `""` or `[]` for none: each button binds its input with `v-model`, like native radios or checkboxes. Without it, the buttons keep their own state.',
   },
   options: [
@@ -102,7 +104,7 @@ export default {
     {
       description:
         "The value of the checked button, or the values of the checked buttons with `multiple`. The buttons whose `value` matches are checked, and their own `checked` is ignored.",
-      frameworks: ["astro", "react", "solid"],
+      frameworks: ["astro", "nunjucks", "react", "solid"],
       prop: "value",
     },
   ],

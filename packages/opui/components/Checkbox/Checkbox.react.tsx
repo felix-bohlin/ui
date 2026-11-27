@@ -1,7 +1,7 @@
 import { filled } from "../attrs"
 import { cx } from "../cx"
 import CheckboxInput from "./CheckboxInput.react"
-import { hasName, warnUnnamed } from "../dev"
+import { DEV, hasName, warnUnnamed } from "../dev"
 import type { Props } from "./types.react"
 
 export default function Checkbox({
@@ -20,7 +20,8 @@ export default function Checkbox({
   endText,
   ...rest
 }: Props) {
-  warnUnnamed("Checkbox", hasName({ ...rest, label }, filled(children)))
+  if (DEV)
+    warnUnnamed("Checkbox", hasName({ ...rest, label }, filled(children)))
 
   return (
     <label

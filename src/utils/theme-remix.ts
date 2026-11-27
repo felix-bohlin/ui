@@ -4,6 +4,7 @@ import {
   CONTROLS,
   GROUPS,
   controlTokens,
+  scaledValue,
   type ChoiceControl,
   type RangeControl,
 } from "./theme-builder-controls"
@@ -173,9 +174,7 @@ const rangeValue = (control: RangeControl, random: () => number) => {
   const [min, max] = SHUFFLE_RANGES[control.id] ?? [control.min, control.max]
   const steps = Math.round((max - min) / control.step)
   const number = +(min + Math.round(random() * steps) * control.step).toFixed(4)
-  return control.scale === "density"
-    ? `calc(${number}${control.unit} * var(--ui-density))`
-    : `${number}${control.unit}`
+  return scaledValue(control, `${number}${control.unit}`)
 }
 
 export const randomBrand = (random: () => number) =>

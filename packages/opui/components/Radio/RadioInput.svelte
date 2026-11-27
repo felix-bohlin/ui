@@ -1,7 +1,6 @@
 <script lang="ts">
   import { untrack } from "svelte"
-  import { seedChecked } from "../svelte"
-  import { getFieldGroupContext } from "../FieldGroup/context.svelte"
+  import { relayChecked } from "../svelte"
   import { defined } from "../attrs"
   import type { RadioInputProps as Props } from "./types.svelte"
 
@@ -9,34 +8,27 @@
     checked,
     defaultChecked,
     group = $bindable(),
-    name,
-    onchange,
     value,
     ...rest
   }: Props = $props()
 
-  const field = getFieldGroupContext()
-  const hasGroup = untrack(() => group !== undefined)
-  const isChecked = () =>
-    hasGroup
-      ? group === (value ?? true)
-      : (checked ??
-        (group !== undefined ? group === (value ?? true) : !!defaultChecked))
-  const initialChecked = untrack(isChecked)
-  const check = () => {
-    group = value ?? true
+  const initialChecked = untrack(() =>
+    group !== undefined ? group === (value ?? true) : checked,
+  )
+  const relay = (input: HTMLInputElement) => {
+    if (input.checked) group = value ?? true
+    else if (group === (value ?? true)) group = undefined
   }
 </script>
 
 <input
   type="radio"
-  name={name ?? field?.name}
   {...defined(rest)}
-  {@attach seedChecked(isChecked, check)}
+  {@attach relayChecked(
+    relay,
+    () => checked ?? undefined,
+    () => (group === undefined ? undefined : group === (value ?? true)),
+  )}
   defaultChecked={defaultChecked ?? initialChecked}
-  onchange={(event) => {
-    check()
-    onchange?.(event)
-  }}
   {value}
 />

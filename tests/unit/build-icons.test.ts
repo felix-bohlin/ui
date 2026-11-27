@@ -413,7 +413,7 @@ describe("icon stylesheets", () => {
       true,
     )
     expect(css).toContain(
-      `${readFileSync("packages/opui/css/layers.css", "utf8").trim()}\n\n@layer theme.custom {\n  :where(html, .ui-palette, .ui-contrast-more) {`,
+      `${readFileSync("packages/opui/css/layers.css", "utf8").trim()}\n\n@layer theme.custom {\n  :where(html, .ui-scope, .ui-contrast-more) {`,
     )
     expect(
       [...css.matchAll(/^\s+(--ui-icon-[a-z-]+): (.+);$/gm)].map(

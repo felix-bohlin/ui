@@ -6,7 +6,7 @@
     --_focus-ring-duration: calc(var(--ui-duration) * var(--_motion));
     --_indicator-bg-color: transparent;
     --_indicator-duration: calc(var(--ui-duration) * var(--_motion));
-    --_indicator-size: var(--ui-border-width-thick);
+    --_indicator-size: var(--ui-border-width-large);
     --_inset: calc(var(--ui-space-1) - var(--_track-border-width));
     --_panel-gap: var(--ui-space-2);
     --_radius: var(--ui-radius);
@@ -86,16 +86,16 @@
       cursor: pointer;
       display: inline-flex;
       font-size: var(--ui-font-size-control);
-      font-weight: var(--ui-font-weight-medium);
+      font-weight: var(--ui-font-weight-emphasis);
       gap: var(--ui-space-2);
       isolation: isolate;
       justify-content: center;
-      line-height: var(--ui-line-height-relaxed);
+      line-height: var(--ui-line-height-body);
       order: 1;
       padding-block: calc(
         var(--ui-space-1) + var(--_inset) - var(--_track-border-width)
       );
-      padding-inline: var(--ui-space-3);
+      padding-inline: var(--ui-space-4);
       position: relative;
       transition: color var(--_duration) var(--_ease);
       -webkit-user-select: none;
@@ -139,7 +139,7 @@
           var(--_track-border-color);
         border-start-start-radius: var(--_radius);
         padding-inline-start: calc(
-          var(--ui-space-3) + var(--_inset) - var(--_track-border-width)
+          var(--ui-space-4) + var(--_inset) - var(--_track-border-width)
         );
 
         &::before {
@@ -153,7 +153,7 @@
           var(--_track-border-color);
         border-start-end-radius: var(--_radius);
         padding-inline-end: calc(
-          var(--ui-space-3) + var(--_inset) - var(--_track-border-width)
+          var(--ui-space-4) + var(--_inset) - var(--_track-border-width)
         );
 
         &::before {
@@ -220,7 +220,7 @@
         overflow-wrap: anywhere;
         padding-block: var(--ui-space-1);
         padding-inline: calc(
-          var(--ui-space-3) + var(--_inset) - var(--_track-border-width)
+          var(--ui-space-4) + var(--_inset) - var(--_track-border-width)
         );
         white-space: normal;
 

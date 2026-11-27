@@ -1,0 +1,11 @@
+{% from "opui/index.njk" import List, ListItem %}
+
+{% call List() %}
+  {{ ListItem({
+    "aria-current": "page",
+    description: "12 unread",
+    href: "#selected",
+    label: "Inbox"
+  }) }}
+  {{ ListItem({ href: "#selected", label: "Sent" }) }}
+{% endcall %}

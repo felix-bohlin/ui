@@ -1,0 +1,32 @@
+{% from "opui/StepperItem.njk" import StepperItem %}
+
+{% macro Stepper(props = {}) %}
+  {%- set props = props | opuiProps("Stepper") -%}
+  {%- set rest = props | opuiRest("Stepper") -%}
+  <ol
+    class="ui-stepper
+      {%- if props.orientation and props.orientation != 'auto' %} ui-{{ props.orientation }}
+      {%- endif %}
+      {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    {%- for item in props.items %}
+      {%- set index = loop.index0 -%}
+      {{ StepperItem(opui.merge(
+        { completeLabel: props.completeLabel, errorLabel: props.errorLabel },
+        item,
+        {
+          current: item.current or index == props.current,
+          state: item.state
+            if item.state != none
+            else (
+              "complete"
+                if props.complete or props.current is defined and index < props.current
+                else undefined
+            )
+        }
+      )) }}
+    {%- endfor %}
+    {{ caller() if caller -}}
+  </ol>
+{%- endmacro %}

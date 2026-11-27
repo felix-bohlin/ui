@@ -3,7 +3,7 @@ import type { CustomProperties } from "../types"
 export default {
   "--_bg-color": {
     description:
-      "Background of the picker. Set on `::picker(select)`; on the root it is the field background. Defaults to `--ui-surface-elevated`.",
+      "Background of the picker. Set on `::picker(select)`; on the root it is the field background. Defaults to `--ui-surface-raised`.",
     kind: "input",
   },
   "--_divider-gap": {

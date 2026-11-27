@@ -3,7 +3,7 @@
 Short messages that confirm an action and dismiss themselves.
 
 - CSS: `opui-css/css/components/toaster.css`, `opui-css/css/components/callout.css` and `opui-css/css/components/button.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/toast.md), [Astro](https://opui.dev/astro/components/toast.md), [React](https://opui.dev/react/components/toast.md), [Solid](https://opui.dev/solid/components/toast.md), [Svelte](https://opui.dev/svelte/components/toast.md), [Vue](https://opui.dev/vue/components/toast.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/toast.md), [Astro](https://opui.dev/astro/components/toast.md), [Nunjucks](https://opui.dev/nunjucks/components/toast.md), [React](https://opui.dev/react/components/toast.md), [Solid](https://opui.dev/solid/components/toast.md), [Svelte](https://opui.dev/svelte/components/toast.md), [Vue](https://opui.dev/vue/components/toast.md).
 
 ## Toaster
 
@@ -37,6 +37,7 @@ Short messages that confirm an action and dismiss themselves.
 
 - HTML: Put an `<ol popover="manual">`, a `<div class="ui-sr-only" role="status">` and a `<div class="ui-sr-only" role="alert">` in `<opui-toaster class="ui-toaster">` with an id, and import `opui-css/elements/toaster.js`.
 - Astro: Attributes that aren't props go to the root `<opui-toaster>`. The component loads `opui-css/elements/toaster.js`, which exports `toast()` for a client script.
+- Nunjucks: Attributes that aren't props go to the root `<opui-toaster>`. Load `opui-css/elements/toaster.js` on the page: it shows the toasts and exports `toast()` for a client script.
 - React: Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once `opui-css/elements/toaster.js` runs, which the component loads once it mounts and `toast()` brings with your code. `opui-css/react` exports `toast()` next to `Toaster`.
 - Solid: Attributes that aren't props go to the root `<opui-toaster>`. Toasts show as soon as the component's code loads, which imports `opui-css/elements/toaster.js`. `opui-css/solid` exports `toast()` next to `Toaster`.
 - Svelte: Attributes that aren't props go to the root `<opui-toaster>`. Toasts show as soon as the component's code loads, which imports `opui-css/elements/toaster.js`. `opui-css/svelte` exports `toast()` next to `Toaster`.
@@ -82,7 +83,7 @@ Outputs: `--_bg-color`, `--_border-color`, `--_icon-image`, `--_icon-text-color`
 ### button.css
 
 - `--_accent`: The accent color. Fills, borders, text, hover and active states are derived from it. Defaults to `--ui-button-accent` when a theme sets it. `.ui-primary` and `.ui-critical` set it.
-- `--_accent-filled`: Fill of filled buttons, of hovered outlined buttons unless `--ui-button-hover` is `layer`, of hovered tonal ones when it is unset, and the base of the filled hover and pressed shades. `--ui-button-accent-filled` when a theme sets it, else `--_accent`, and in `.ui-critical` `--ui-critical` kept within `--ui-accent-fill-max-lightness`, so the light text stays readable while the border keeps `--ui-critical`. `.ui-primary` resets it to `--_accent`, so the token applies to default buttons only.
+- `--_accent-filled`: Fill of filled buttons, of hovered outlined buttons unless `--ui-button-hover` is `layer`, of hovered tonal ones when it is unset, and the base of the filled hover and pressed shades. `--ui-button-accent-filled` when a theme sets it, else `--_accent`, and in `.ui-critical` `--ui-critical-fill`, so the light text stays readable while the border keeps `--ui-critical`. `.ui-primary` resets it to `--_accent`, so the token applies to default buttons only.
 - `--_accent-tonal`: Background of `.ui-tonal`. `--ui-surface-tonal`, a palette tint in `.ui-critical`, and `--ui-primary-tonal` or the tint in `.ui-primary`.
 - `--_border-width`: The border width.
 - `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
@@ -104,7 +105,7 @@ Outputs: `--_accent-text`, `--_actions-shift`, `--_bg-color`, `--_border-color`,
 
 ## Theme tokens
 
-The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-focus`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-shadow`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-control-on-accent`, `--ui-critical`, `--ui-critical-text`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-field-border-color-on-raised`, `--ui-focus-border-color`, `--ui-focus-highlight`, `--ui-focus-ring-offset`, `--ui-focus-ring-width`, `--ui-font-code`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-font-weight-semibold`, `--ui-icon-close`, `--ui-icon-critical`, `--ui-icon-info`, `--ui-icon-size`, `--ui-icon-success`, `--ui-icon-warning`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-fill`, `--ui-on-focus-highlight`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-accent`, `--ui-palette-border`, `--ui-palette-on-strong`, `--ui-palette-on-tint`, `--ui-palette-strong`, `--ui-palette-tint`, `--ui-palette-tint-subtle`, `--ui-press-scale`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-safe-area-inset-block-end`, `--ui-safe-area-inset-block-start`, `--ui-safe-area-inset-inline-end`, `--ui-safe-area-inset-inline-start`, `--ui-shadow-control`, `--ui-shadow-overlay`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-text-disabled`, `--ui-text-max-chroma`, `--ui-text-min-lightness` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-focus`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-shadow`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-accent-max-chroma-dark`, `--ui-control-accent-min-lightness-dark`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-control-on-accent`, `--ui-critical`, `--ui-critical-fill`, `--ui-critical-text`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-focus-border-color`, `--ui-focus-highlight`, `--ui-focus-ring-offset`, `--ui-focus-ring-width`, `--ui-font-family-code`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-body`, `--ui-font-weight-heading`, `--ui-font-weight-label`, `--ui-icon-close`, `--ui-icon-critical`, `--ui-icon-info`, `--ui-icon-size`, `--ui-icon-success`, `--ui-icon-warning`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-fill`, `--ui-on-focus-highlight`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-accent`, `--ui-palette-border`, `--ui-palette-on-strong`, `--ui-palette-on-tonal`, `--ui-palette-strong`, `--ui-palette-tonal`, `--ui-palette-tonal-subtle`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-safe-area-inset-block-end`, `--ui-safe-area-inset-block-start`, `--ui-safe-area-inset-inline-end`, `--ui-safe-area-inset-inline-start`, `--ui-shadow-control`, `--ui-shadow-overlay`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4`, `--ui-space-5`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-active-scale`, `--ui-state-disabled-opacity`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-text-disabled` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -152,6 +153,29 @@ import { Button, Toaster } from "opui-css/astro"
   >Save changes</Button
 >
 <Toaster id="toast-basics-1" />
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Toaster %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Button, Toaster %}
+
+{% call Button({
+  command: "--toast",
+  commandfor: "toast-basics-1",
+  "data-toast": "Changes saved",
+  "data-toast-severity": "success",
+  variant: "filled"
+}) %}Save changes{% endcall %}
+{{ Toaster({ id: "toast-basics-1" }) }}
+
+<script type="module">
+  import "opui-css/elements/toaster.js"
+</script>
 ```
 
 ## React

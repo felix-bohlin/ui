@@ -9,14 +9,13 @@ import type {
 } from "./types.vue-props"
 
 const {
-  complete,
   completeLabel = ", completed",
   current,
   description,
-  error,
   errorLabel = ", error",
   href,
   label,
+  state,
 } = defineProps<Props>()
 defineSlots<StepperItemSlots>()
 
@@ -31,11 +30,15 @@ const restAttrs = computed(() => {
   return rest
 })
 
-const state = computed(() =>
-  error ? errorLabel : complete ? completeLabel : undefined,
+const stateLabel = computed(() =>
+  state === "error"
+    ? errorLabel
+    : state === "complete"
+      ? completeLabel
+      : undefined,
 )
 
-const link = computed(() => href && !current && (complete || error))
+const link = computed(() => href && !current && state)
 </script>
 
 <template>
@@ -43,10 +46,7 @@ const link = computed(() => href && !current && (complete || error))
     :aria-current="attrs['aria-current'] ?? (current ? 'step' : undefined)"
     v-bind="{
       ...restAttrs,
-      ...classAttrs([
-        { 'ui-complete': complete, 'ui-error': error },
-        $attrs.class,
-      ]),
+      ...classAttrs([state && `ui-state-${state}`, $attrs.class]),
     }"
   >
     <span
@@ -57,16 +57,16 @@ const link = computed(() => href && !current && (complete || error))
     >{{ " "
     }}<a v-if="link" :href="href"
       >{{ label }}<TrimmedSlot :nodes="$slots.label?.()" /><span
-        v-if="state"
+        v-if="stateLabel"
         class="ui-sr-only"
-        >{{ state }}</span
+        >{{ stateLabel }}</span
       ></a
     >
     <template v-else
       >{{ label }}<TrimmedSlot :nodes="$slots.label?.()" /><span
-        v-if="state"
+        v-if="stateLabel"
         class="ui-sr-only"
-        >{{ state }}</span
+        >{{ stateLabel }}</span
       ></template
     >{{ " "
     }}<span v-if="description || $slots.description" class="ui-description"

@@ -7,7 +7,7 @@
     --_max-inline-size: 15rem;
     --_min-inline-size: 10rem;
     --_offset: var(--ui-space-2);
-    --_shift: var(--ui-space-4);
+    --_shift: var(--ui-space-5);
     --_text-color: var(--ui-on-inverse);
 
     & > .ui-floating {

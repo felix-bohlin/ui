@@ -32,10 +32,14 @@ const closedby = ref<"any" | "closerequest" | "none">("any")
     <DialogContent>
       <Fieldset>
         <FieldLegend>Choose a closing behavior:</FieldLegend>
-        <FieldGroup name="closedby-demo">
-          <Radio v-model="closedby" value="any">any</Radio>
-          <Radio v-model="closedby" value="closerequest">closerequest</Radio>
-          <Radio v-model="closedby" value="none">none</Radio>
+        <FieldGroup>
+          <Radio name="closedby-demo" v-model="closedby" value="any">any</Radio>
+          <Radio name="closedby-demo" v-model="closedby" value="closerequest"
+            >closerequest</Radio
+          >
+          <Radio name="closedby-demo" v-model="closedby" value="none"
+            >none</Radio
+          >
         </FieldGroup>
       </Fieldset>
     </DialogContent>

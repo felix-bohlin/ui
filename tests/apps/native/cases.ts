@@ -17,6 +17,7 @@ export const NATIVE_CASES: NativeCase[] = [
   { after: { click: 0 }, before: { click: 0 }, name: "checkbox-default" },
   { after: { click: 0 }, before: { click: 0 }, name: "checkbox-empty" },
   { after: { click: 0 }, name: "checkbox-rerender", rerender: true },
+  { after: { click: 0 }, name: "checkbox-spread", rerender: true },
   { after: { click: 0 }, before: { click: 2 }, name: "group-bound" },
   { after: { click: 0 }, before: { click: 2 }, name: "group-default" },
   { after: { click: 0 }, before: { click: 2 }, name: "group-empty" },
@@ -24,11 +25,13 @@ export const NATIVE_CASES: NativeCase[] = [
   { after: { click: 1 }, before: { click: 0 }, name: "radio-bound" },
   { after: { click: 1 }, before: { click: 0 }, name: "radio-default" },
   { after: { click: 1 }, before: { click: 0 }, name: "radio-empty" },
+  { after: { click: 1 }, name: "radio-spread", rerender: true },
   { after: { fill: "10" }, before: { fill: "70" }, name: "range-bound" },
   { after: { fill: "10" }, before: { fill: "70" }, name: "range-default" },
   { after: { click: 2 }, before: { click: 5 }, name: "rating-bound" },
   { after: { click: 2 }, before: { click: 5 }, name: "rating-default" },
   { after: { click: 2 }, before: { click: 5 }, name: "rating-empty" },
+  { after: { click: 2 }, name: "rating-spread", rerender: true },
   {
     after: { select: "red" },
     before: { select: "blue" },
@@ -54,11 +57,11 @@ export const NATIVE_CASES: NativeCase[] = [
   { after: { click: 0 }, before: { click: 0 }, name: "toggle-empty" },
 ]
 
-export const SVELTE_GROUP =
-  "a component can't use bind:group, so Radio, Rating, TabsItem and ToggleButton write checked from the bound value with the seedChecked attachment (components/svelte.ts), which keeps the first state as defaultChecked to tell a choice made before hydration from the server's"
+export const SVELTE_DEFAULT =
+  "Svelte never sets the checked attribute of a native input with bind: or checked= on a client render, so a form reset unchecks it and the bound value becomes empty, where every component's input keeps its first state as defaultChecked and a reset returns to it"
 
 export const SVELTE_SPREAD =
-  "Svelte drops the server's value and checked attributes from an input with only bind: when it hydrates, and keeps them on an input with a spread, as every component's input has"
+  "Svelte drops the server's checked attribute from a native input with bind: or checked= when it hydrates, so a form reset unchecks it, and checked= also puts back a choice made before hydration, where every component's input keeps the attribute and the choice, as a native input with a spread does"
 
 export type NativeDifference = { name: string; reason: string; where: string }
 

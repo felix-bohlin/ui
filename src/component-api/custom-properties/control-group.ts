@@ -8,7 +8,7 @@ export default {
   },
   "--_divider-accent": {
     description:
-      "The color `--_divider-enabled-border-color` lightens or darkens by 0.1, like the button's `--_accent-tonal`: `--ui-surface-tonal`, the palette tint in `.ui-critical`, and `--ui-primary-tonal` or the tint in `.ui-primary`. In a filled `.ui-critical` or `.ui-primary` group, `--ui-critical` within `--ui-accent-fill-max-lightness` or `--ui-primary`, like the button's `--_accent-filled`.",
+      "The color `--_divider-enabled-border-color` lightens or darkens by 0.1, like the button's `--_accent-tonal`: `--ui-surface-tonal`, the palette tint in `.ui-critical`, and `--ui-primary-tonal` or the tint in `.ui-primary`. In a filled `.ui-critical` or `.ui-primary` group, `--ui-critical-fill` or `--ui-primary`, like the button's `--_accent-filled`.",
     kind: "input",
   },
   "--_divider-border-color": {
@@ -18,7 +18,7 @@ export default {
   },
   "--_divider-disabled-border-color": {
     description:
-      "`--_divider-enabled-border-color` at `--ui-disabled-opacity`, the line in a group whose buttons are all disabled.",
+      "`--_divider-enabled-border-color` at `--ui-state-disabled-opacity`, the line in a group whose buttons are all disabled.",
     kind: "output",
   },
   "--_divider-enabled-border-color": {

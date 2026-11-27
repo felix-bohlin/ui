@@ -21,7 +21,7 @@ export default function TeamMembers() {
   return (
     <>
       <div
-        class="team-members ui-layout-container ui-layout-column ui-large"
+        class="team-members ui-layout-container ui-layout-column ui-gap-large"
         style="--_max-inline-size: 58rem"
       >
         <div class="ui-layout-row ui-spread">
@@ -29,7 +29,7 @@ export default function TeamMembers() {
             <h1 class="ui-h3">Band members</h1>
             <p>Invite bandmates and pick what they get to do.</p>
           </hgroup>
-          <div class="ui-layout-column ui-x-small team-seats">
+          <div class="ui-layout-column ui-gap-x-small team-seats">
             <p id="team-members-seats">8 of 10 seats in the van</p>
             <Progress aria-labelledby="team-members-seats" max={10} value={8} />
           </div>
@@ -90,7 +90,7 @@ export default function TeamMembers() {
         <Tabs
           class="team-tabs"
           name="team-members-tabs"
-          style="--_panel-gap: var(--ui-space-3)"
+          style="--_panel-gap: var(--ui-space-4)"
         >
           <TabsItem defaultChecked id="team-members-tab-members">
             <TabsLabel>Members (6)</TabsLabel>
@@ -99,7 +99,7 @@ export default function TeamMembers() {
                 <List bordered class="team-list" variant="transparent">
                   <ListItem
                     class="team-end"
-                    description="holly@lowenders.example"
+                    description="scott@slaplikenow.example"
                     end={
                       <>
                         <Chip
@@ -117,7 +117,7 @@ export default function TeamMembers() {
                           variant="outlined"
                         />
                         <Button
-                          aria-label="Actions for Holly Humbucker"
+                          aria-label="Actions for Scott Humbucker"
                           command="toggle-popover"
                           commandfor="team-members-menu-hh"
                           round
@@ -148,16 +148,16 @@ export default function TeamMembers() {
                         />
                       </>
                     }
-                    label="Holly Humbucker"
+                    label="Scott Humbucker"
                     start={
-                      <Avatar aria-label="Holly Humbucker" role="img">
-                        HH
+                      <Avatar aria-label="Scott Humbucker" role="img">
+                        SH
                       </Avatar>
                     }
                   />
                   <ListItem
                     class="team-end"
-                    description="ines@lowenders.example"
+                    description="mohini@slaplikenow.example"
                     end={
                       <>
                         <Chip
@@ -175,7 +175,7 @@ export default function TeamMembers() {
                           variant="outlined"
                         />
                         <Button
-                          aria-label="Actions for Ines Hertz"
+                          aria-label="Actions for Mohini Hertz"
                           command="toggle-popover"
                           commandfor="team-members-menu-ih"
                           round
@@ -211,16 +211,16 @@ export default function TeamMembers() {
                         />
                       </>
                     }
-                    label="Ines Hertz"
+                    label="Mohini Hertz"
                     start={
-                      <Avatar aria-label="Ines Hertz" role="img">
-                        IH
+                      <Avatar aria-label="Mohini Hertz" role="img">
+                        MH
                       </Avatar>
                     }
                   />
                   <ListItem
                     class="team-end"
-                    description="lou@lowenders.example"
+                    description="kinga@slaplikenow.example"
                     end={
                       <>
                         <Chip
@@ -238,7 +238,7 @@ export default function TeamMembers() {
                           variant="outlined"
                         />
                         <Button
-                          aria-label="Actions for Lou Headstock"
+                          aria-label="Actions for Kinga Headstock"
                           command="toggle-popover"
                           commandfor="team-members-menu-lh"
                           round
@@ -274,16 +274,16 @@ export default function TeamMembers() {
                         />
                       </>
                     }
-                    label="Lou Headstock"
+                    label="Kinga Headstock"
                     start={
-                      <Avatar aria-label="Lou Headstock" role="img">
-                        LH
+                      <Avatar aria-label="Kinga Headstock" role="img">
+                        KH
                       </Avatar>
                     }
                   />
                   <ListItem
                     class="team-end"
-                    description="percy@lowenders.example"
+                    description="adam@slaplikenow.example"
                     end={
                       <>
                         <Chip
@@ -301,7 +301,7 @@ export default function TeamMembers() {
                           variant="outlined"
                         />
                         <Button
-                          aria-label="Actions for Percy Groove"
+                          aria-label="Actions for Adam Groove"
                           command="toggle-popover"
                           commandfor="team-members-menu-pg"
                           round
@@ -337,16 +337,16 @@ export default function TeamMembers() {
                         />
                       </>
                     }
-                    label="Percy Groove"
+                    label="Adam Groove"
                     start={
-                      <Avatar aria-label="Percy Groove" role="img">
-                        PG
+                      <Avatar aria-label="Adam Groove" role="img">
+                        AG
                       </Avatar>
                     }
                   />
                   <ListItem
                     class="team-end"
-                    description="rory@lowend.example"
+                    description="josh@bassmail.example"
                     end={
                       <>
                         <Chip
@@ -364,7 +364,7 @@ export default function TeamMembers() {
                           variant="outlined"
                         />
                         <Button
-                          aria-label="Actions for Rory Rootnote"
+                          aria-label="Actions for Josh Rootnote"
                           command="toggle-popover"
                           commandfor="team-members-menu-rr"
                           round
@@ -400,16 +400,16 @@ export default function TeamMembers() {
                         />
                       </>
                     }
-                    label="Rory Rootnote (you)"
+                    label="Josh Rootnote (you)"
                     start={
-                      <Avatar aria-label="Rory Rootnote" role="img">
-                        RR
+                      <Avatar aria-label="Josh Rootnote" role="img">
+                        JR
                       </Avatar>
                     }
                   />
                   <ListItem
                     class="team-end"
-                    description="stella@lowenders.example"
+                    description="ellen@slaplikenow.example"
                     end={
                       <>
                         <Chip
@@ -427,7 +427,7 @@ export default function TeamMembers() {
                           variant="outlined"
                         />
                         <Button
-                          aria-label="Actions for Stella Nut"
+                          aria-label="Actions for Ellen Nut"
                           command="toggle-popover"
                           commandfor="team-members-menu-sn"
                           round
@@ -463,10 +463,10 @@ export default function TeamMembers() {
                         />
                       </>
                     }
-                    label="Stella Nut"
+                    label="Ellen Nut"
                     start={
-                      <Avatar aria-label="Stella Nut" role="img">
-                        SN
+                      <Avatar aria-label="Ellen Nut" role="img">
+                        EN
                       </Avatar>
                     }
                   />
@@ -481,7 +481,7 @@ export default function TeamMembers() {
                 <List bordered class="team-list" variant="transparent">
                   <ListItem
                     class="team-pending-actions"
-                    description="Member, invited by Holly Humbucker on 6 Oct 2026"
+                    description="Member, invited by Scott Humbucker on 6 Oct 2026"
                     end={
                       <>
                         <Button size="small" type="button">
@@ -492,7 +492,7 @@ export default function TeamMembers() {
                         </Button>
                       </>
                     }
-                    label="tambourine.tam@lowenders.example"
+                    label="tambourine.tam@slaplikenow.example"
                     start={
                       <svg
                         data-icon="mail"
@@ -522,7 +522,7 @@ export default function TeamMembers() {
                         </Button>
                       </>
                     }
-                    label="keytar.kit@lowenders.example"
+                    label="keytar.kit@slaplikenow.example"
                     start={
                       <svg
                         data-icon="mail"
@@ -556,7 +556,7 @@ export default function TeamMembers() {
           .team-invite {
             align-items: end;
             display: grid;
-            gap: var(--ui-space-3);
+            gap: var(--ui-space-4);
             grid-template-columns: minmax(0, 1fr);
 
             @container (inline-size >= 40rem) {

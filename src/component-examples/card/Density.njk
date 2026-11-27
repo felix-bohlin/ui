@@ -1,0 +1,13 @@
+{% from "opui/index.njk" import Card, CardContent %}
+
+{% call Card({ density: "dense", variant: "outlined" }) %}
+  {% call CardContent() %}Dense{% endcall %}
+{% endcall %}
+
+{% call Card({ variant: "outlined" }) %}
+  {% call CardContent() %}Normal{% endcall %}
+{% endcall %}
+
+{% call Card({ density: "spacious", variant: "outlined" }) %}
+  {% call CardContent() %}Spacious{% endcall %}
+{% endcall %}

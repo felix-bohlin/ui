@@ -1,0 +1,30 @@
+{% from "opui/index.njk" import Button, Tooltip, TooltipContent %}
+
+{% call Tooltip({ id: "tooltip-position-1", positionArea: "block-start" }) %}
+  {% call Button({
+    "aria-describedby": "tooltip-position-1",
+    interestfor: "tooltip-position-1"
+  }) %}Top{% endcall %}
+  {% call TooltipContent() %}Above{% endcall %}
+{% endcall %}
+{% call Tooltip({ id: "tooltip-position-2", positionArea: "inline-start" }) %}
+  {% call Button({
+    "aria-describedby": "tooltip-position-2",
+    interestfor: "tooltip-position-2"
+  }) %}Start{% endcall %}
+  {% call TooltipContent() %}Before{% endcall %}
+{% endcall %}
+{% call Tooltip({ id: "tooltip-position-3", positionArea: "inline-end" }) %}
+  {% call Button({
+    "aria-describedby": "tooltip-position-3",
+    interestfor: "tooltip-position-3"
+  }) %}End{% endcall %}
+  {% call TooltipContent() %}After{% endcall %}
+{% endcall %}
+{% call Tooltip({ id: "tooltip-position-4", positionArea: "block-end" }) %}
+  {% call Button({
+    "aria-describedby": "tooltip-position-4",
+    interestfor: "tooltip-position-4"
+  }) %}Bottom{% endcall %}
+  {% call TooltipContent() %}Below{% endcall %}
+{% endcall %}

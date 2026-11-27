@@ -104,7 +104,7 @@ describe("export", () => {
       iconExport(lucide),
     )
     expect(css).toContain(
-      `  :where(html, .ui-palette, .ui-contrast-more) {\n    --ui-radius: 1rem;\n  }\n\n  /*\n   * Icons: Lucide`,
+      `  :where(html, .ui-scope, .ui-contrast-more) {\n    --ui-radius: 1rem;\n  }\n\n  /*\n   * Icons: Lucide`,
     )
     expect(css.indexOf("--ui-icon-check")).toBeGreaterThan(css.indexOf("*/"))
   })

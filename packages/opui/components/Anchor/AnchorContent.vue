@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject } from "vue"
 import { AnchorKey } from "./context.vue"
-import { warnReplacedAnchorAttributes } from "../dev"
+import { DEV, warnReplacedAnchorAttributes } from "../dev"
 import type { AnchorContentProps as Props, Slots } from "./types.vue-props"
 
 const { id, popover } = defineProps<Props>()
@@ -9,7 +9,8 @@ defineSlots<Slots>()
 
 const anchor = inject(AnchorKey, undefined)
 
-warnReplacedAnchorAttributes(id, popover, anchor?.floatingId, anchor?.popover)
+if (DEV)
+  warnReplacedAnchorAttributes(id, popover, anchor?.floatingId, anchor?.popover)
 </script>
 
 <template>

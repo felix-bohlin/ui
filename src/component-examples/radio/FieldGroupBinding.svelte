@@ -16,10 +16,12 @@
 
 <Fieldset>
   <FieldLegend>Plan</FieldLegend>
-  <FieldGroup name="radio-binding">
-    <Radio bind:group={plan} value="basic">Basic</Radio>
-    <Radio bind:group={plan} value="gold">Gold</Radio>
-    <Radio bind:group={plan} value="platinum">Platinum</Radio>
+  <FieldGroup>
+    <Radio bind:group={plan} name="radio-binding" value="basic">Basic</Radio>
+    <Radio bind:group={plan} name="radio-binding" value="gold">Gold</Radio>
+    <Radio bind:group={plan} name="radio-binding" value="platinum"
+      >Platinum</Radio
+    >
   </FieldGroup>
 </Fieldset>
 <p class="radio-binding-text">Selected: {plan}</p>

@@ -19,7 +19,7 @@ export default function NotificationSettings() {
   return (
     <>
       <form
-        class="notification-settings ui-layout-container ui-layout-column ui-large"
+        class="notification-settings ui-layout-container ui-layout-column ui-gap-large"
         style="--_max-inline-size: 56rem"
         action="#"
       >
@@ -417,7 +417,7 @@ export default function NotificationSettings() {
             </Table>
           </CardContent>
         </Card>
-        <div class="ui-layout-columns ui-large ui-breakpoint-small">
+        <div class="ui-layout-columns ui-gap-large ui-breakpoint-small">
           <Card
             aria-labelledby="notification-settings-quiet-heading"
             as="section"
@@ -466,20 +466,32 @@ export default function NotificationSettings() {
             <CardContent>
               <FieldGroup
                 aria-labelledby="notification-settings-digest-heading"
-                name="notification-settings-digest"
                 orientation="horizontal"
                 role="radiogroup"
               >
-                <Radio label="Off" value="off" />
-                <Radio defaultChecked label="Daily" value="daily" />
-                <Radio label="Weekly" value="weekly" />
+                <Radio
+                  label="Off"
+                  name="notification-settings-digest"
+                  value="off"
+                />
+                <Radio
+                  defaultChecked
+                  label="Daily"
+                  name="notification-settings-digest"
+                  value="daily"
+                />
+                <Radio
+                  label="Weekly"
+                  name="notification-settings-digest"
+                  value="weekly"
+                />
               </FieldGroup>
             </CardContent>
           </Card>
         </div>
-        <div class="ui-layout-row ui-small ui-spread">
+        <div class="ui-layout-row ui-gap-small ui-spread">
           <p>Changes apply to all your computers and phones.</p>
-          <div class="ui-layout-row ui-small">
+          <div class="ui-layout-row ui-gap-small">
             <Button type="reset">Reset to defaults</Button>
             <Button type="submit" variant="filled">
               Save changes
@@ -515,11 +527,11 @@ export default function NotificationSettings() {
           }
 
           .notif-name {
-            font-weight: var(--ui-font-weight-medium);
+            font-weight: var(--ui-font-weight-emphasis);
           }
 
           .notif-desc {
-            font-weight: var(--ui-font-weight-normal);
+            font-weight: var(--ui-font-weight-body);
           }
 
           .notif-cell {

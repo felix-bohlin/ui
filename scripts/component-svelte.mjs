@@ -82,7 +82,7 @@ export const toSvelte = (component) => {
   const hydrating = hydratingRoots(component, listened)
   const plainProps = [
     ...(kind?.plainProps?.(model) ?? []),
-    ...(component.item ? ["defaultChecked", "onchange"] : []),
+    ...(component.item ? ["defaultChecked"] : []),
     ...handlers,
   ]
   const added = [...bindableProps, ...plainProps]
@@ -158,7 +158,7 @@ export const toSvelte = (component) => {
     }
     if (item.kind === "boolean") return item.name
     if (node.item && item.name === "checked") {
-      return `{@attach seedChecked(isChecked, change)} defaultChecked={${component.item.grouped} === undefined ? (defaultChecked ?? initialChecked) : initialChecked}`
+      return `{@attach relayChecked(change, isChecked)} defaultChecked={${component.item.grouped} === undefined ? (defaultChecked ?? initialChecked) : initialChecked}`
     }
     return `${item.name}={${rewriteExpression(item.code, options)}}`
   }
@@ -259,11 +259,6 @@ export const toSvelte = (component) => {
                 groupChecked && rewriteExpression(groupChecked.code, options),
               )
             : []),
-          ...(node.item
-            ? [
-                "onchange={(event) => {\n  change(event.currentTarget)\n  onchange?.(event)\n}}",
-              ]
-            : []),
         ].join(" ")
         const tag = node.variable ? "svelte:element" : node.tag
         const open = `<${tag}${node.variable ? ` this={${node.tag}}` : ""}${attributes ? ` ${attributes}` : ""}`
@@ -320,17 +315,19 @@ export const toSvelte = (component) => {
     ),
     ...warnings.map((code) =>
       /^if\b/.test(code)
-        ? `untrack(() => {\n${rewriteStatement(code, options)}\n})`
-        : `untrack(() => ${rewriteExpression(code, options)})`,
+        ? `if (DEV) untrack(() => {\n${rewriteStatement(code, options)}\n})`
+        : `if (DEV) untrack(() => ${rewriteExpression(code, options)})`,
     ),
     ...(component.item
       ? [
-          `untrack(() => ${groupWarning(component, component.item, `${component.item.checked ?? "undefined"} ?? defaultChecked`)})`,
-          `const isChecked = () => (${rewriteExpression(component.item.checkedCode, options)}) ?? !!defaultChecked`,
-          "const initialChecked = untrack(isChecked)",
+          `if (DEV) untrack(() => ${groupWarning(component, component.item, `${component.item.checked ?? "undefined"} ?? defaultChecked`)})`,
+          `const isChecked = () => ${rewriteExpression(component.item.checkedCode, options)}`,
+          "const initialChecked = untrack(() => isChecked() ?? !!defaultChecked)",
           `const change = (input: HTMLInputElement) => {\n${[
             ...(kind?.change?.(model, component.item) ?? []),
-            `${component.item.parent}?.change?.(input)`,
+            component.item.value
+              ? `if (${component.item.value} !== undefined) ${component.item.parent}?.change?.(input)`
+              : `${component.item.parent}?.change?.(input)`,
           ]
             .map((line) => `  ${line}\n`)
             .join("")}}`,
@@ -370,6 +367,7 @@ export const toSvelte = (component) => {
     }),
     ...[
       ...(usesDefined ? [["../attrs", "defined"]] : []),
+      ...(warnings.length || component.item ? [["../dev", "DEV"]] : []),
       ...(component.item ? [["../dev", "warnGroupedChecked"]] : []),
       ...(usesClassAttrs ? [["../cx", "classAttrs"]] : []),
     ].reduce(

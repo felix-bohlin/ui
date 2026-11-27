@@ -1,13 +1,18 @@
 import { themeTokenDescriptions } from "./theme-token-descriptions"
 import { themeTokenPromises } from "./theme-token-promises"
-import { sectionKey, themeTokenSections, tokenTier } from "./theme-tokens"
+import {
+  scaledTokens,
+  sectionKey,
+  themeTokenSections,
+  tokenTier,
+} from "./theme-tokens"
 
 const TYPES: [RegExp, string][] = [
   [
-    /-(alpha-accent|alpha-dark|alpha-light|chroma|hue|hue-rotate-by|lightness|opacity|scale|strength|strength-dark|strength-light)$|^--ui-(density|fluid-progress|motion)$|line-height/,
+    /-(alpha-accent|alpha-dark|alpha-light|chroma(-dark|-light)?|hue|hue-rotate-by|lightness(-dark|-light)?|opacity|scale|strength|strength-dark|strength-light)$|^--ui-(density|fluid-progress|motion)$|line-height/,
     "number",
   ],
-  [/^--ui-font-(body|code|heading)$/, "fontFamily"],
+  [/^--ui-font-family-/, "fontFamily"],
   [/font-weight/, "fontWeight"],
   [/^--ui-duration/, "duration"],
   [/^--ui-ease(?!-move$)/, "cubicBezier"],
@@ -24,7 +29,9 @@ const TYPES: [RegExp, string][] = [
 ]
 
 export const tokenType = (name: string) =>
-  TYPES.find(([pattern]) => pattern.test(name))?.[1]
+  name.endsWith("-image")
+    ? undefined
+    : TYPES.find(([pattern]) => pattern.test(name))?.[1]
 
 const NUMBER = /^-?\d*\.?\d+$/
 const LENGTH = /^(-?\d*\.?\d+)(px|rem)$/
@@ -47,6 +54,7 @@ export const tokensJson = () => {
   const sections = themeTokenSections().filter(
     (section) => section.tokens.length > 0,
   )
+  const scaled = scaledTokens()
   const paths = new Map(
     sections.flatMap((section) =>
       section.tokens.map((token) => [
@@ -83,6 +91,9 @@ export const tokensJson = () => {
                   ...(token.optional && { optional: true }),
                   ...(themeTokenPromises[token.name] && {
                     promise: themeTokenPromises[token.name],
+                  }),
+                  ...(scaled.has(token.name) && {
+                    scaledBy: scaled.get(token.name),
                   }),
                   tier: tokenTier(token.name),
                 },

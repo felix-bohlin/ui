@@ -9,14 +9,14 @@
     --_accent-text: light-dark(
       var(--_accent),
       oklch(
-        from var(--_accent) max(l, var(--ui-text-min-lightness))
-          min(c, var(--ui-text-max-chroma)) h
+        from var(--_accent) max(l, var(--ui-control-accent-min-lightness-dark))
+          min(c, var(--ui-control-accent-max-chroma-dark)) h
       )
     );
     --_accent-tonal: var(--ui-surface-tonal);
     --_actions-shift: min(
       var(--_padding-inline) + var(--_border-width),
-      var(--ui-card-padding, var(--ui-space-3)) -
+      var(--ui-card-padding, var(--ui-space-4)) -
         max(
           var(--ui-focus-ring-offset) + var(--ui-focus-ring-width),
           var(--ui-space-1)
@@ -145,7 +145,7 @@
     color: var(--_text-color);
     display: inline-flex;
     font-size: var(--_font-size);
-    font-weight: var(--ui-button-font-weight, var(--ui-font-weight-bold));
+    font-weight: var(--ui-button-font-weight, var(--ui-font-weight-heading));
     gap: var(--ui-space-2);
     justify-content: center;
     min-block-size: var(--_size);
@@ -170,8 +170,8 @@
     &.ui-primary,
     /* Color inherited from Control Group. */
     :where(.ui-control-group.ui-critical, .ui-control-group.ui-primary) > & {
-      --_accent-tonal: var(--ui-palette-tint);
-      --_on-accent-tonal: var(--ui-palette-on-tint);
+      --_accent-tonal: var(--ui-palette-tonal);
+      --_on-accent-tonal: var(--ui-palette-on-tonal);
       --_transparent-active-bg-color: oklch(
         from var(--_accent) l c h / var(--ui-state-active-alpha-accent)
       );
@@ -190,9 +190,7 @@
     &.ui-critical,
     :where(.ui-control-group.ui-critical) > & {
       --_accent: var(--ui-critical);
-      --_accent-filled: oklch(
-        from var(--ui-critical) min(l, var(--ui-accent-fill-max-lightness)) c h
-      );
+      --_accent-filled: var(--ui-critical-fill);
       --_accent-text: var(--ui-critical-text);
       --_on-accent: var(--ui-on-fill);
       --_on-accent-filled: var(--_on-accent);
@@ -203,10 +201,13 @@
       --_accent: var(--ui-primary);
       --_accent-filled: var(--_accent);
       --_accent-text: var(--ui-primary-text);
-      --_accent-tonal: var(--ui-primary-tonal, var(--ui-palette-tint));
+      --_accent-tonal: var(--ui-primary-tonal, var(--ui-palette-tonal));
       --_on-accent: var(--ui-on-primary);
       --_on-accent-filled: var(--_on-accent);
-      --_on-accent-tonal: var(--ui-on-primary-tonal, var(--ui-palette-on-tint));
+      --_on-accent-tonal: var(
+        --ui-on-primary-tonal,
+        var(--ui-palette-on-tonal)
+      );
     }
 
     /* Hover & Active */
@@ -232,7 +233,7 @@
       }
 
       &:where(:active) {
-        scale: var(--ui-press-scale, none);
+        scale: var(--ui-state-active-scale, none);
       }
     }
 
@@ -282,9 +283,9 @@
       border: 0;
       border-radius: var(--ui-radius-small);
       color: inherit;
-      font-family: var(--ui-font-code);
+      font-family: var(--ui-font-family-code);
       font-size: 0.8em;
-      font-weight: var(--ui-font-weight-normal);
+      font-weight: var(--ui-font-weight-body);
       line-height: var(--ui-line-height-tight);
       padding-block: 0.1ex;
       padding-inline: 0.3ex;
@@ -502,7 +503,7 @@
         .ui-tonal,
         :where(.ui-control-group.ui-filled, .ui-control-group.ui-tonal) > *
       ) {
-        opacity: var(--ui-disabled-opacity);
+        opacity: var(--ui-state-disabled-opacity);
       }
 
       &:not(

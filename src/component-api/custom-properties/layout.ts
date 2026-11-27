@@ -18,7 +18,7 @@ export default {
   },
   "--_gap": {
     description:
-      "Space between the children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid`, `.ui-layout-columns` and `.ui-layout-media`. Defaults to `--ui-space-3`, set by the size classes.",
+      "Space between the children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid`, `.ui-layout-columns` and `.ui-layout-media`. Defaults to `--ui-space-4`, set by the size classes.",
     kind: "input",
   },
   "--_justify-content": {
@@ -42,12 +42,12 @@ export default {
   },
   "--_padding-inline": {
     description:
-      "Inline padding of `.ui-layout-container`. Defaults to `--ui-space-4`.",
+      "Inline padding of `.ui-layout-container`. Defaults to `--ui-space-5`.",
     kind: "input",
   },
   "--_sticky-inset": {
     description:
-      "Distance from the top at which a `.ui-sticky` column of `.ui-layout-columns` sticks. Defaults to `--ui-space-4`.",
+      "Distance from the top at which a `.ui-sticky` column of `.ui-layout-columns` sticks. Defaults to `--ui-space-5`.",
     kind: "input",
   },
 } satisfies CustomProperties

@@ -15,7 +15,7 @@ A theme sets [knobs and roles](https://opui.dev/html/guide/concepts.md#token-tie
 3. Roles
 
    - `--ui-primary` Filled buttons, links, checked controls
-   - `--ui-palette-tint` Tonal fills
+   - `--ui-palette-tonal` Tonal fills
    - `--ui-palette-text` Tinted text
    - `--ui-palette-border` Tinted borders
 
@@ -54,14 +54,14 @@ Or set `--ui-palette-source` to any color. Recolor a severity scope through its 
 
 A scope class re-themes an element and everything inside it:
 
-- `.ui-palette`: re-derives every token from the knobs it sets.
+- `.ui-scope`: re-derives every token from the knobs it sets.
 - `.ui-critical` and the other severities: swap the palette for the intent color.
 - `.ui-light` and `.ui-dark`: force a color scheme, except in print, which is always light. Builds that rewrite `light-dark()` only follow them on `html`, see the [README](https://github.com/felix-bohlin/ui/blob/main/packages/opui/README.md#builds-that-rewrite-light-dark).
 
 ## Surfaces
 
 - `--ui-surface` The page
-- `--ui-surface-elevated` Elevated cards and accordions, dialogs, drawers, menus
+- `--ui-surface-raised` Elevated cards and accordions, dialogs, drawers, menus
 - `--ui-surface-tonal` Tonal variants
 - `--ui-surface-filled` Lists, tracks, table headers
 - `--ui-surface-inverse` Tooltips
@@ -72,7 +72,7 @@ A scope class re-themes an element and everything inside it:
 
 Each role with its current value, live with the theme.
 
-Set `--ui-border-color-on-raised` for borders inside raised components, and `--ui-border-color-raised` for their edge.
+`--ui-border-color` and `--ui-field-border-color` are translucent, so one value reads the same on every surface: inside a card, a dialog, a menu or a filled list as on the page. Change how strong they are with `--ui-border-strength-light`, `--ui-border-strength-dark` and `--ui-field-border-strength`, which more contrast keeps tightening, or set a color. `--ui-border-color-raised` sets the edge of raised components.
 
 ## Density
 
@@ -86,9 +86,21 @@ Use `--ui-density` to change the size of every control.
 
 A `Button` in a field's start or end, a checkbox, radio or switch whose label is hidden, the stars of a rating and the markers of a carousel stay at least `--ui-target-min-size` (24px, the minimum target size) at any density. A field with less than 24px inside its border grows to fit its button, such as an x-small field at `0.875` or a small one at `0.75`.
 
+The sizes are computed where the scope classes are, so set the density of a part of the page on an element with `.ui-scope`, like a compact toolbar:
+
+```html
+<div class="ui-scope" style="--ui-density: 0.75">
+  <button class="ui-button ui-small" type="button">Bold</button>
+</div>
+```
+
+A theme that sets a size keeps the knob in it, so the size still follows density: `calc(2.25rem * var(--ui-density))`. A theme that also sets its own density writes the length it wants at that density, `calc(2rem * var(--ui-density) / 0.9)`. The same goes for the spacing steps and `--ui-space-scale`. Each size token says which knob it follows in `tokens.json`, as `scaledBy`.
+
 ## Spacing
 
 Use `--ui-space-scale` to change spacing. Controls follow density instead.
+
+Each step is named by its size in quarter rems, so `--ui-space-3` is 0.75rem and `--ui-space-12` is 3rem, and a new step never renames another.
 
 ```css
 :where(html) {
@@ -118,16 +130,16 @@ Headings follow the body font until you set one.
 
 ```css
 :where(html) {
-  --ui-font-body: "Inter", system-ui, sans-serif;
-  --ui-font-code: "JetBrains Mono", ui-monospace, monospace;
-  --ui-font-heading: "Fraunces", serif;
+  --ui-font-family-body: "Inter", system-ui, sans-serif;
+  --ui-font-family-code: "JetBrains Mono", ui-monospace, monospace;
+  --ui-font-family-heading: "Fraunces", serif;
 }
 ```
 
 Pin a size role, or replace the scale:
 
 ```css
-:where(html, .ui-palette, .ui-contrast-more) {
+:where(html, .ui-scope, .ui-contrast-more) {
   /* Pin one role */
   --ui-font-size-caption: 0.8125rem;
 }
@@ -160,7 +172,7 @@ Headings grow with the viewport. Move the window, reuse the ramp, or pin a headi
   --ui-space-scale: calc(0.875 + 0.125 * var(--ui-fluid-progress));
 }
 
-:where(html, .ui-palette, .ui-contrast-more) {
+:where(html, .ui-scope, .ui-contrast-more) {
   /* Or pin a heading */
   --ui-font-size-h1: var(--ui-font-size-800);
 }
@@ -177,7 +189,7 @@ Headings grow with the viewport. Move the window, reuse the ramp, or pin a headi
 - `--ui-shadow-color`: every shadow's base color.
 
 ```css
-:where(html, .ui-palette, .ui-contrast-more) {
+:where(html, .ui-scope, .ui-contrast-more) {
   --ui-shadow-color: light-dark(oklch(0.28 0.055 290 / 2%), oklch(0 0 0 / 30%));
   --ui-shadow-elevated: none;
 }
@@ -211,13 +223,13 @@ Use `--_motion` on one component:
 
 ### Springy movement
 
-Off by default. Set `--ui-ease-move` and `--ui-press-scale` to turn them on.
+Off by default. Set `--ui-ease-move` and `--ui-state-active-scale` to turn them on.
 
 ```css
 :where(html) {
   --ui-ease-move: linear(0, 0.066, 0.218, 0.4, 0.578, 0.731, 0.852, 0.94, 0.998,
     1.031, 1.047, 1.05, 1.046, 1.038, 1.029, 1.02, 1.012, 1.007, 1.002, 1, 1);
-  --ui-press-scale: 0.97;
+  --ui-state-active-scale: 0.97;
 }
 ```
 
@@ -258,24 +270,26 @@ In HTML, some icons are an `svg` you write: the Accordion marker, the Callout se
 
 More contrast tightens the knobs, and every role follows. Their values are on [Theme tokens](https://opui.dev/html/guide/theme-tokens.md#contrast).
 
+The roles are derived within lightness and chroma limits that `theme.css` keeps private, as `--_ui-*` properties that can change in any release. To keep an exact brand color, pin the role, such as `--ui-primary-text` or `--ui-critical-fill`. The one limit a theme sets is for the accents its hooks supply: `--ui-control-accent-min-lightness-dark` and `--ui-control-accent-max-chroma-dark` keep a dark accent readable as text in dark mode.
+
 A role a theme pins stays pinned in every contrast mode. Hand it back with `revert-layer`:
 
 ```css
 @layer theme.custom {
-  :where(html, .ui-palette, .ui-contrast-more) {
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-border-color: oklch(0.95 0 0);
   }
 
   @media (prefers-contrast: more) {
     :where(
       html:not(.ui-contrast-normal),
-      html:not(.ui-contrast-normal) .ui-palette
+      html:not(.ui-contrast-normal) .ui-scope
     ) {
       --ui-border-color: revert-layer;
     }
   }
 
-  :where(.ui-contrast-more, .ui-contrast-more .ui-palette) {
+  :where(.ui-contrast-more, .ui-contrast-more .ui-scope) {
     --ui-border-color: revert-layer;
   }
 }

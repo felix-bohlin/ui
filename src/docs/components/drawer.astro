@@ -144,6 +144,10 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         <code>commandfor</code> opens the drawer without a ref, and its click
         handler can update your state at the same time.
       </Fragment>
+      <Fragment slot="astro">
+        A <code>Button</code> with <code>command="show-modal"</code> and
+        <code>commandfor</code> opens the drawer with no script.
+      </Fragment>
     </Conditional>
     <Conditional as="p">
       <Fragment slot="react">
@@ -205,6 +209,18 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         click with a modifier key. A change of the query alone from outside it,
         like a filter, leaves it open.
       </Fragment>
+      <Fragment slot="nunjucks">
+        A drawer used as navigation, like the menu in
+        <a href="#basics">Basics</a>, closes when the page navigates with
+        <code>closeOnNavigate</code> and
+        <code>opui-css/elements/close-on-navigate.js</code> on the page: a link
+        inside it, Back and Forward, or a client router. A link inside it closes
+        it on click, also one that only changes the query, unless it has
+        <code>data-keep-open</code>, like a Load more link, or opens elsewhere:
+        a download, a <code>target</code> such as <code>_blank</code>, or a
+        click with a modifier key. A change of the query alone from outside it,
+        like a filter, leaves it open.
+      </Fragment>
     </Conditional>
   </section>
 
@@ -252,6 +268,12 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         <code>Drawer</code>, in a <code>&lt;dialog&gt;</code> of your own or in
         an island on an Astro page, can't find the drawer to close: set
         <code>commandfor</code> to its <code>id</code>.
+      </Fragment>
+      <Fragment slot="astro">
+        The button closes the <code>Drawer</code> it is in. A header outside a
+        <code>Drawer</code>, in a <code>&lt;dialog&gt;</code> of your own, can't
+        find the drawer to close: set <code>commandfor</code> to its
+        <code>id</code>.
       </Fragment>
       <Fragment slot="html">
         Point its <code>commandfor</code> at the drawer's <code>id</code>.

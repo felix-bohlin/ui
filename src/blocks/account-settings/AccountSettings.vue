@@ -28,7 +28,7 @@ import {
 
 <template>
   <div
-    class="account-settings ui-layout-container ui-layout-column ui-large"
+    class="account-settings ui-layout-container ui-layout-column ui-gap-large"
     style="--_max-inline-size: 48rem"
   >
     <hgroup class="ui-hgroup">
@@ -37,7 +37,7 @@ import {
     </hgroup>
     <Tabs
       name="account-settings-tabs"
-      style="--_panel-gap: var(--ui-space-5)"
+      style="--_panel-gap: var(--ui-space-6)"
       variant="line"
     >
       <TabsItem checked id="account-settings-tab-profile">
@@ -47,10 +47,10 @@ import {
             <Fieldset>
               <FieldLegend>Photo</FieldLegend>
               <div class="ui-layout-row acct-photo">
-                <Avatar aria-label="Percy Groove" role="img" shape="rounded"
-                  >PG</Avatar
+                <Avatar aria-label="Adam Groove" role="img" shape="rounded"
+                  >AG</Avatar
                 >
-                <div class="ui-layout-row ui-small">
+                <div class="ui-layout-row ui-gap-small">
                   <Button size="small" type="button" variant="outlined"
                     >Upload new pic</Button
                   >
@@ -72,7 +72,7 @@ import {
                       name="first-name"
                       required
                       type="text"
-                      :value.attr="'Percy'"
+                      :value.attr="'Adam'"
                     />
                   </Field>
                   <Field for="account-settings-last-name" label="Last name">
@@ -94,7 +94,7 @@ import {
                     name="email"
                     required
                     type="email"
-                    :value.attr="'percy@lowend.example'"
+                    :value.attr="'adam@bassmail.example'"
                   />
                   <template #end-text>
                     <span class="ui-p ui-success">Verified</span>, used for
@@ -301,7 +301,7 @@ Fretless bassist in a garage band. Into flatwounds, drop D and very long root no
       </DialogHeader>
       <DialogContent>
         <p id="account-settings-delete-description">
-          This deletes percy@lowend.example, your wall and every photo of your
+          This deletes adam@bassmail.example, your wall and every photo of your
           gear. You can't undo this.
         </p>
       </DialogContent>

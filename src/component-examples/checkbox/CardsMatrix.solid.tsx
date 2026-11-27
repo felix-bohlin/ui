@@ -12,11 +12,12 @@ export default function CardsMatrix() {
     <Form>
       <Fieldset>
         <FieldLegend>Gold add-ons</FieldLegend>
-        <FieldGroup name="checkbox-cards-end" orientation="horizontal">
+        <FieldGroup orientation="horizontal">
           <Checkbox
             card
             defaultChecked
             endText="€8 per month"
+            name="checkbox-cards-end"
             spread
             value="support"
           >
@@ -25,6 +26,7 @@ export default function CardsMatrix() {
           <Checkbox
             card
             endText="€4 per month"
+            name="checkbox-cards-end"
             spread
             value="storage"
             variant="elevated"
@@ -34,6 +36,7 @@ export default function CardsMatrix() {
           <Checkbox
             card
             endText="€6 per month"
+            name="checkbox-cards-end"
             spread
             value="audit-log"
             variant="tonal"
@@ -44,11 +47,12 @@ export default function CardsMatrix() {
       </Fieldset>
       <Fieldset>
         <FieldLegend>Email updates</FieldLegend>
-        <FieldGroup name="checkbox-cards-start" orientation="horizontal">
+        <FieldGroup orientation="horizontal">
           <Checkbox
             card
             defaultChecked
             endText="Every Monday morning."
+            name="checkbox-cards-start"
             value="weekly"
           >
             Weekly jam recap
@@ -56,6 +60,7 @@ export default function CardsMatrix() {
           <Checkbox
             card
             endText="When your band books a gig."
+            name="checkbox-cards-start"
             value="usage"
             variant="elevated"
           >
@@ -64,6 +69,7 @@ export default function CardsMatrix() {
           <Checkbox
             card
             endText="After each payment."
+            name="checkbox-cards-start"
             value="invoices"
             variant="tonal"
           >

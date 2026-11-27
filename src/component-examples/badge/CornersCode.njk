@@ -1,0 +1,33 @@
+{% from "opui/index.njk" import Badge %}
+
+{% call Badge({
+  corner: "start-start",
+  hideLabel: true,
+  label: "35 unread messages",
+  slots: { indicator: "35" }
+}) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+{% call Badge({
+  hideLabel: true,
+  label: "More than 99 unread messages",
+  slots: { indicator: "99+" }
+}) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+{% call Badge({
+  corner: "end-start",
+  hideLabel: true,
+  label: "New messages",
+  slots: { indicator: "New" }
+}) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}
+{% call Badge({
+  corner: "end-end",
+  hideLabel: true,
+  label: "About 3,000 unread messages",
+  slots: { indicator: "3K" }
+}) %}
+  <svg aria-hidden="true"><!-- --></svg>
+{% endcall %}

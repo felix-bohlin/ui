@@ -7,7 +7,7 @@
     <p>Setlists</p>
     <h3 class="ui-h4">Summer tour</h3>
   </hgroup>
-  <div class="ui-layout-row ui-small">
+  <div class="ui-layout-row ui-gap-small">
     <Button variant="outlined">Share</Button>
     <Button color="primary" variant="filled">New song</Button>
   </div>

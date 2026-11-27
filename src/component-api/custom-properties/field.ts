@@ -86,7 +86,7 @@ export default {
   },
   "--_field-padding-inline": {
     description:
-      "Inline padding of the control and affixes. Defaults to `--ui-field-padding-inline` (else `--ui-space-2`), or `--ui-field-padding-inline-large` (else `--ui-space-3`) in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.",
+      "Inline padding of the control and affixes. Defaults to `--ui-field-padding-inline` (else `--ui-space-2`), or `--ui-field-padding-inline-large` (else `--ui-space-4`) in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.",
     kind: "input",
   },
   "--_file-button-inset": {

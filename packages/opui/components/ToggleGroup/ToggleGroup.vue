@@ -9,7 +9,7 @@ import {
 } from "vue"
 import { useBound } from "../vue"
 import { ToggleGroupKey } from "./context.vue"
-import { warnUnnamedGroup } from "../dev"
+import { DEV, warnUnnamedGroup } from "../dev"
 import type { Props, Slots } from "./types.vue-props"
 
 type Model = Multiple extends true ? string[] : string
@@ -31,7 +31,7 @@ const groupName = computed(() => name || `toggle-group-${uid}`)
 
 const inputType = computed(() => (multiple ? "checkbox" : "radio"))
 
-warnUnnamedGroup("ToggleGroup", attrs)
+if (DEV) warnUnnamedGroup("ToggleGroup", attrs)
 
 provide(ToggleGroupKey, reactive({ bound, groupName, inputType, value: model }))
 </script>

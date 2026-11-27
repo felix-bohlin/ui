@@ -1,8 +1,8 @@
 import { readFileSync } from "node:fs"
 import { createRequire } from "node:module"
 import { pathToFileURL } from "node:url"
-import { convertToTSX } from "@astrojs/compiler"
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
+import nunjucks from "nunjucks"
 import { parseFragment } from "parse5"
 import { describe, expect, test } from "vitest"
 import { createRenderer, defineComponent, h, nextTick, ref } from "vue"
@@ -44,7 +44,7 @@ describe("tooling bugs the generator and the components work around", () => {
     expect(
       await container.renderToString(BooleanSpread),
       fixed(
-        'attributeOf in scripts/example-html.mjs and normalizeAttribute in tests/unit/normalize.ts, which read a boolean attribute with the value "true" as the bare attribute',
+        'attributeOf in scripts/example-html.mjs and normalizeAttribute in tests/unit/normalize.ts, which read a boolean attribute with the value "true" as the bare attribute, and BC211 in scripts/component-reader.mjs, which refuses a value bound to such an attribute unless it is undefined when off',
       ),
     ).toContain('multiple="true"')
   })
@@ -128,11 +128,40 @@ describe("tooling bugs the generator and the components work around", () => {
     ).toBe("Hint")
   })
 
+  test("Vue's server renderer checks a v-model checkbox whose model holds its false-value", async () => {
+    const { code } = compileTemplate({
+      compilerOptions: { mode: "function" },
+      filename: "Box.vue",
+      id: "box",
+      source:
+        '<input type="checkbox" v-bind="attrs" v-model="model" true-value="yes" false-value="no">',
+      ssr: true,
+      ssrCssVars: [],
+    })
+    const modules: Record<string, unknown> = {
+      vue: await import("vue"),
+      "vue/server-renderer": await import("vue/server-renderer"),
+    }
+    const ssrRender = new Function("require", code)((id: string) => modules[id])
+    const { createSSRApp } = await import("vue")
+    const { renderToString } = await import("vue/server-renderer")
+    const html = await renderToString(
+      createSSRApp({ data: () => ({ attrs: {}, model: "no" }), ssrRender }),
+    )
+    expect(
+      html,
+      fixed(
+        "the Vue callout in src/docs/components/partials/VueTrueValueCallout.astro and its uses on the Checkbox, Switch and Toggle pages, which warn that a true-value model renders checked on the server (vuejs/core#15973)",
+      ),
+    ).toContain(" checked")
+  })
+
   test("Astro's dev CSS collector compiles the files behind ?raw imports", () => {
     const source = readFileSync(
-      new URL(
-        "../../node_modules/astro/dist/vite-plugin-css/index.js",
-        import.meta.url,
+      createRequire(
+        createRequire(import.meta.url).resolve("astro/package.json"),
+      ).resolve(
+        "@astrojs/vite-plugin-astro/_internal/vite-plugin-css/collect.js",
       ),
       "utf-8",
     )
@@ -145,20 +174,6 @@ describe("tooling bugs the generator and the components work around", () => {
       walk,
       fixed("astro.config.mjs, the opui-raw-without-module-edge plugin"),
     ).not.toMatch(/raw/i)
-  })
-
-  test("@astrojs/compiler types Astro.props as any when Props has an `as` key", async () => {
-    const { code } = await convertToTSX(
-      '---\ntype Props = { as?: "p" | "div" }\n\nconst { as: Tag = "p" } = Astro.props\n---\n\n<Tag />\n',
-      { filename: "Polymorphic.astro" },
-    )
-    expect(code).toContain("type Props")
-    expect(
-      code,
-      fixed(
-        'src/components/Conditional.astro, which writes its Props as Partial<Record<"as", ...>>',
-      ),
-    ).toContain("_props: Record<string, any>")
   })
 
   test("Lightning CSS folds animation-timeline into the animation shorthand when Astro minifies", () => {
@@ -201,6 +216,21 @@ describe("tooling bugs the generator and the components work around", () => {
         "packages/opui/css/components/menu.css, the inset formula for submenus of submenus",
       ),
     ).toThrow('Function("anchored")')
+  })
+
+  test("Nunjucks runs a {% call %} body with the set variables and caller of the macro it calls when both sit in one template", () => {
+    const env = new nunjucks.Environment(null, { autoescape: true })
+    const card =
+      '{% macro card() %}{% set label = "card" %}<p>{{ caller() }}</p>{% endmacro %}'
+    expect(
+      env.renderString(
+        `${card}{% macro page() %}{% set label = "page" %}{% call card() %}{{ label }}{% endcall %}{% endmacro %}{{ page() }}`,
+        {},
+      ),
+      fixed(
+        "nunjucksOutputs in scripts/component-nunjucks.mjs, which writes each macro to a template of its own, the one-macro check in tests/unit/nunjucks.test.ts and the replacement rule on the Nunjucks getting-started page",
+      ),
+    ).toBe("<p>card</p>")
   })
 
   test("parse5 drops the button and div inside a select", () => {

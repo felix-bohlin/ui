@@ -22,7 +22,7 @@ export default function OrderHistory() {
   return (
     <>
       <div
-        class="order-history ui-layout-container ui-layout-column ui-large"
+        class="order-history ui-layout-container ui-layout-column ui-gap-large"
         style="--_max-inline-size: 60rem"
       >
         <div class="ui-layout-row ui-spread">
@@ -66,7 +66,7 @@ export default function OrderHistory() {
             <ToggleButton value="delivered">Delivered</ToggleButton>
           </ToggleGroup>
         </FieldGroup>
-        <ul class="ui-layout-column ui-large">
+        <ul class="ui-layout-column ui-gap-large">
           <li>
             <Card
               aria-labelledby="order-history-4821"
@@ -90,10 +90,10 @@ export default function OrderHistory() {
                   </div>
                   <div>
                     <dt class="ui-caption">Ship to</dt>
-                    <dd>Ines Hertz</dd>
+                    <dd>Mohini Hertz</dd>
                   </div>
                 </dl>
-                <div class="ui-layout-row ui-small">
+                <div class="ui-layout-row ui-gap-small">
                   <Chip
                     as="span"
                     dot
@@ -104,10 +104,10 @@ export default function OrderHistory() {
                 </div>
               </div>
               <CardContent>
-                <div class="ui-layout-column ui-x-small">
+                <div class="ui-layout-column ui-gap-x-small">
                   <p id="order-history-4821-eta">
-                    Arrives <strong>Thursday 8 October</strong>, Low End
-                    Logistics 0037 4821
+                    Arrives <strong>Thursday 8 October</strong>, Fretboard
+                    Freight 0037 4821
                   </p>
                   <Progress
                     aria-labelledby="order-history-4821-eta"
@@ -229,10 +229,10 @@ export default function OrderHistory() {
                   </div>
                   <div>
                     <dt class="ui-caption">Ship to</dt>
-                    <dd>Ines Hertz</dd>
+                    <dd>Mohini Hertz</dd>
                   </div>
                 </dl>
-                <div class="ui-layout-row ui-small">
+                <div class="ui-layout-row ui-gap-small">
                   <Chip
                     as="span"
                     dot
@@ -354,10 +354,10 @@ export default function OrderHistory() {
                   </div>
                   <div>
                     <dt class="ui-caption">Ship to</dt>
-                    <dd>Holly Humbucker</dd>
+                    <dd>Scott Humbucker</dd>
                   </div>
                 </dl>
-                <div class="ui-layout-row ui-small">
+                <div class="ui-layout-row ui-gap-small">
                   <Chip
                     as="span"
                     dot
@@ -434,17 +434,17 @@ export default function OrderHistory() {
           .orders-top {
             align-items: start;
             border-block-end: var(--ui-border-width) solid var(--ui-border-color);
-            padding: var(--ui-space-3);
+            padding: var(--ui-space-4);
           }
 
           .orders-meta {
             display: grid;
             flex: 1 1 24rem;
-            gap: var(--ui-space-3) var(--ui-space-5);
+            gap: var(--ui-space-4) var(--ui-space-6);
             grid-template-columns: repeat(auto-fit, minmax(7rem, max-content));
 
             dd {
-              font-weight: var(--ui-font-weight-semibold);
+              font-weight: var(--ui-font-weight-label);
             }
           }
 

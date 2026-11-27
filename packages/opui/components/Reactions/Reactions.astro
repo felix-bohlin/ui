@@ -4,6 +4,7 @@ import ToggleGroup from "../ToggleGroup/ToggleGroup.astro"
 
 import type { Props } from "./types.astro"
 import { defined } from "../attrs"
+import { pillsOf, usedItem } from "./pills"
 
 export const title = "Reactions"
 
@@ -17,10 +18,8 @@ const {
   ...rest
 } = Astro.props
 
-const used = items.find((item) => item.value === quick?.value)
-const pills = quick
-  ? [used ?? quick, ...items.filter((item) => item.value !== quick?.value)]
-  : items
+const used = usedItem(items, quick)
+const pills = pillsOf(items, quick, used)
 ---
 
 <opui-reactions
@@ -39,7 +38,7 @@ const pills = quick
     {pills.map((item, index) => <ToggleButton
       aria-label={item["aria-label"]}
       checked={!!item.checked}
-      class:list={[{ "ui-unused": quick && !used && index === 0 }]}
+      class:list={[{ "ui-suggested": quick && !used && index === 0 }]}
       value={item.value}
       ><span aria-hidden="true">{item.label}</span></ToggleButton
     >)}

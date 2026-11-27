@@ -1,0 +1,44 @@
+{% from "opui/index.njk" import Checkbox %}
+
+{% call Checkbox({
+  name: "checkbox-spread",
+  slots: { endText: "Wrapped in recycled paper for €3." },
+  spread: true,
+  value: "gift-wrap"
+}) %}
+  Gift wrap
+  
+{% endcall %}
+
+{% call Checkbox({
+  name: "checkbox-spread",
+  required: true,
+  slots: { endText: "Required to place the order." },
+  spread: true,
+  value: "terms"
+}) %}
+  I accept the terms of sale
+  
+{% endcall %}
+
+{% call Checkbox({
+  disabled: true,
+  name: "checkbox-spread",
+  slots: { endText: "Not available for your address." },
+  spread: true,
+  value: "express"
+}) %}
+  Express delivery
+  
+{% endcall %}
+
+{% call Checkbox({
+  error: true,
+  name: "checkbox-spread",
+  slots: { endText: "Confirm your age to buy this item." },
+  spread: true,
+  value: "age"
+}) %}
+  I'm 18 or older
+  
+{% endcall %}

@@ -124,11 +124,21 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
     <Conditional as="p">
       <Fragment slot="components">
         Write the <code>&lt;input&gt;</code> inside the field, with its
-        <code>id</code> set to <code>for</code> (<code>htmlFor</code> in React),
+        <code>id</code> set to <code>for</code>,
         <code>autocomplete="one-time-code"</code>,
         <code>inputmode="numeric"</code>, <code>maxlength="6"</code> and
-        <code>pattern="[0-9]{6}"</code>. Point its <code>aria-describedby</code>
-        at the end text, <code>&lt;id&gt;-end-text</code>.
+        <code>{'pattern="[0-9]{6}"'}</code>. Point its
+        <code>aria-describedby</code> at the end text,
+        <code>&lt;id&gt;-end-text</code>.
+      </Fragment>
+      <Fragment slot="react">
+        Write the <code>&lt;input&gt;</code> inside the field, with its
+        <code>id</code> set to <code>htmlFor</code>,
+        <code>autoComplete="one-time-code"</code>,
+        <code>inputMode="numeric"</code>, <code>{"maxLength={6}"}</code> and
+        <code>{'pattern="[0-9]{6}"'}</code>. Point its
+        <code>aria-describedby</code> at the end text,
+        <code>&lt;id&gt;-end-text</code>.
       </Fragment>
       <Fragment slot="html">
         The root is a <code>&lt;div class="ui-one-time-code"&gt;</code> with a

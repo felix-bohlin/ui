@@ -1,0 +1,9 @@
+{% from "opui/index.njk" import Breadcrumb %}
+{% set items = [
+  { href: "#", label: "Groups" },
+  { href: "#", label: "Low End Society" },
+  { href: "#", label: "Events" },
+  { label: "Friday jam night" }
+] %}
+
+{{ Breadcrumb({ "aria-label": "Event breadcrumb", items: items }) }}

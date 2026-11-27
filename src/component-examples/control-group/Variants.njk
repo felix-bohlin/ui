@@ -1,0 +1,25 @@
+{% from "opui/index.njk" import Button, ControlGroup %}
+
+{% call ControlGroup({ "aria-label": "Edit history" }) %}
+  {% call Button() %}Undo{% endcall %}
+  {% call Button() %}Redo{% endcall %}
+  {% call Button({ href: "#" }) %}History{% endcall %}
+{% endcall %}
+
+{% call ControlGroup({ "aria-label": "Edit history", variant: "outlined" }) %}
+  {% call Button() %}Undo{% endcall %}
+  {% call Button() %}Redo{% endcall %}
+  {% call Button({ href: "#" }) %}History{% endcall %}
+{% endcall %}
+
+{% call ControlGroup({ "aria-label": "Edit history", variant: "tonal" }) %}
+  {% call Button() %}Undo{% endcall %}
+  {% call Button() %}Redo{% endcall %}
+  {% call Button({ href: "#" }) %}History{% endcall %}
+{% endcall %}
+
+{% call ControlGroup({ "aria-label": "Edit history", variant: "filled" }) %}
+  {% call Button() %}Undo{% endcall %}
+  {% call Button() %}Redo{% endcall %}
+  {% call Button({ href: "#" }) %}History{% endcall %}
+{% endcall %}

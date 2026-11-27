@@ -14,9 +14,9 @@
     --_accent: var(--ui-primary);
     --_affix-block-size: calc(var(--_size) - var(--ui-field-border-width) * 2);
     --_affix-text-color: var(--ui-text);
-    --_arrow-inset: var(--ui-space-3);
+    --_arrow-inset: var(--ui-space-4);
     --_arrow-padding: calc(
-      var(--_arrow-inset) + var(--_chevron-size) + var(--ui-space-3)
+      var(--_arrow-inset) + var(--_chevron-size) + var(--ui-space-4)
     );
     --_bg-color: var(--ui-field-bg-color, var(--ui-surface));
     --_border-color: var(--ui-field-border-color);
@@ -88,7 +88,7 @@
       background: transparent;
       border: 0;
       color: var(--ui-text-strong);
-      font-family: var(--ui-font-body);
+      font-family: var(--ui-font-family-body);
       font-size: var(--_font-size);
       grid-area: input;
       inline-size: 100%;
@@ -345,12 +345,12 @@
           align-self: stretch;
           block-size: auto;
           padding-block: var(--_size);
-          padding-inline: var(--ui-space-3);
+          padding-inline: var(--ui-space-4);
 
           &::file-selector-button {
             block-size: var(--_size);
             margin-block: 0;
-            padding-inline: var(--ui-space-3);
+            padding-inline: var(--ui-space-4);
           }
         }
       }
@@ -603,7 +603,7 @@
       :has(:is(input, select, textarea):is(:disabled, [aria-disabled="true"]))
     ) {
       cursor: not-allowed;
-      opacity: var(--ui-disabled-opacity);
+      opacity: var(--ui-state-disabled-opacity);
       -webkit-user-select: none;
       user-select: none;
 
@@ -654,10 +654,10 @@
 
     &.ui-large,
     :where(.ui-control-group.ui-large) > & {
-      --_field-padding-block: calc(var(--ui-space-2) * 1.5);
+      --_field-padding-block: var(--ui-space-3);
       --_field-padding-inline: var(
         --ui-field-padding-inline-large,
-        var(--ui-space-3)
+        var(--ui-space-4)
       );
       --_size: var(--ui-field-size-large);
     }
@@ -667,7 +667,7 @@
     :where(.ui-control-group:is(.ui-small, .ui-x-small)) > & {
       &:has(input[type="color"]) {
         .ui-label {
-          line-height: var(--ui-line-height-control);
+          line-height: var(--ui-line-height-compact);
         }
       }
     }
@@ -675,7 +675,7 @@
     /* Orientation */
     &.ui-spread {
       align-items: start;
-      column-gap: var(--ui-space-4);
+      column-gap: var(--ui-space-5);
       container-type: inline-size;
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       inline-size: 100%;

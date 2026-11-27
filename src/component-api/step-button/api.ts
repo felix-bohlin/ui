@@ -40,6 +40,8 @@ export default {
   notes: {
     default:
       'Put one with `command="--step-down"` in `start` and one with `command="--step-up"` in `end`, next to an `<input type="number">`. It loads `opui-css/elements/step-button.js`. Attributes that aren\'t props, `class` and `style` go to the `<opui-step-button>`, not the button.',
+    nunjucks:
+      'Put one with `command="--step-down"` in `slots.start` and one with `command="--step-up"` in `slots.end`, next to an `<input type="number">`, and load `opui-css/elements/step-button.js` on the page. Attributes that aren\'t props, `class` and `style` go to the `<opui-step-button>`, not the button.',
     react:
       'Put one with `command="--step-down"` in `start` and one with `command="--step-up"` in `end`, next to an `<input type="number">`. It loads `opui-css/elements/step-button.js`. Attributes that aren\'t props, `className` and `style` go to the `<opui-step-button>`, not the button.',
     html: 'Put `<opui-step-button>` in `.ui-start` and `.ui-end`, around a `.ui-button.ui-round` with `command="--step-down"` or `command="--step-up"`, `commandfor` and `aria-controls` naming the input and an `aria-label`, and import `opui-css/elements/step-button.js`. Without it, the input keeps its own spin buttons.',
@@ -53,7 +55,7 @@ export default {
     {
       description:
         "The `id` of the number input, as its button's `commandfor` and `aria-controls`.",
-      frameworks: ["astro", "solid", "svelte", "vue"],
+      frameworks: ["astro", "nunjucks", "solid", "svelte", "vue"],
       prop: "for",
       type: "string",
     },

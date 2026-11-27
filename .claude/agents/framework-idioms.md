@@ -25,7 +25,7 @@ The components you are given, or the ones touched by `git diff --name-only` agai
 
 - `pnpm check-ports` fails on a compiled file that differs from what the compiler writes, and `pnpm check-components` checks props types, `...rest`, `$bindable` and `defineModel` lists, class order, `"use client"` and context files, a list without a key in a React, Svelte or Vue file (JSX from `.map()` without `key`, `{#each}` without `(key)`, `v-for` without `:key`), and in a Solid file the pragma, the `omit()` keys, a slot read twice outside a `<For>`, JSX built with `.map()`, `dynamic()` on a string literal and a ternary, `&&`, `||` or `??` passed to a component.
 - `tests/unit/component-contract.test.ts` and `tests/unit/parity.test.ts` compare the rendered markup with Astro's.
-- `pnpm test:apps` (`tests/apps/apps.spec.ts`) runs every example in Next.js, Nuxt, SvelteKit, the Vite starters and React's StrictMode, with changes made before hydration, elements loaded before React, a restored page and a form reset. Behavior that only shows at runtime belongs there: name the scenario that would catch it instead of guessing from the code.
+- `pnpm test:apps` (`tests/apps/apps.spec.ts`) runs every example in Eleventy, Next.js, Nuxt, SvelteKit, the Vite starters and React's StrictMode, with changes made before hydration, elements loaded before React, a restored page and a form reset. Behavior that only shows at runtime belongs there: name the scenario that would catch it instead of guessing from the code.
 
 ## Check
 
@@ -55,7 +55,7 @@ Read the compiled file next to the closest sibling of its kind (`Checkbox` for a
 **Svelte**
 
 - `$derived` for values computed from props, never an `$effect` that writes state. `untrack` only to read an initial value (a reset default, an initial check).
-- `bind:checked` (a getter and setter pair when the model is shared). `bind:group` where every radio lives in one component, and `seedChecked` from `packages/opui/components/svelte.ts` where it can't.
+- A control's input holds the checked state: `relayChecked` from `packages/opui/components/svelte.ts` relays it to and from the model, and nothing renders the input from a prop the component wrote. No `bind:checked` or `bind:group` on a component's own input, whose render effect would set it from a value Svelte dropped.
 - Snippets and `{@render}`, event attributes (`onchange`), `$props()`, `$bindable()` only for the model. No `export let`, `$:` or `on:` directives.
 - A static tag where the tag is known; `svelte:element` only for a real variable tag.
 - A class list of one entry is the entry (`class={hideLabel ? "ui-sr-only" : "ui-label"}`, `{...classAttrs(className)}` where it can come out empty); several are the `class={[...]}` array.

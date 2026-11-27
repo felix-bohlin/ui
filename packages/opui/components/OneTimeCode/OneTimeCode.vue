@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { type HTMLAttributes, useAttrs } from "vue"
 import { TrimmedSlot } from "../whitespace.vue"
+import { DEV, warnControlAttributes } from "../dev"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -12,11 +14,15 @@ const {
 } = defineProps<Props>()
 const slots = defineSlots<Slots>()
 
+const attrs = useAttrs() as HTMLAttributes
+
 const hasLabel = () => Boolean(label || slots.label)
 
 const hasEndText = () => Boolean(endText || slots["end-text"])
 
 const endTextId = () => (hasEndText() ? `${htmlFor}-end-text` : undefined)
+
+if (DEV) warnControlAttributes("OneTimeCode", attrs)
 </script>
 
 <template>

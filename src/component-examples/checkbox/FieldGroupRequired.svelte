@@ -11,10 +11,15 @@
 <Form>
   <Fieldset>
     <FieldLegend>Agreements</FieldLegend>
-    <FieldGroup name="checkbox-group-required" orientation="horizontal">
-      <Checkbox required>Terms of service</Checkbox>
-      <Checkbox required>Privacy policy</Checkbox>
-      <Checkbox required>Data processing</Checkbox>
+    <FieldGroup orientation="horizontal">
+      <Checkbox name="checkbox-group-required" required
+        >Terms of service</Checkbox
+      >
+      <Checkbox name="checkbox-group-required" required>Privacy policy</Checkbox
+      >
+      <Checkbox name="checkbox-group-required" required
+        >Data processing</Checkbox
+      >
     </FieldGroup>
   </Fieldset>
 </Form>

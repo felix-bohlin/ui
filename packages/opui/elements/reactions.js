@@ -20,7 +20,8 @@ export class ReactionsElement extends Base {
         if (!input.matches?.(CHECKBOX) || !this.group?.contains(input)) return
         event.preventDefault()
         if (this.hasAttribute("data-hydrating")) return
-        this.#request(input.value, input.checked)
+        const { checked, value } = input
+        setTimeout(() => this.#request(value, checked))
       },
       { signal },
     )
@@ -59,7 +60,7 @@ export class ReactionsElement extends Base {
         label: this.getAttribute("quick-label") ?? undefined,
         text: this.getAttribute("quick-text") ?? undefined,
       })
-      pill.classList.add("ui-unused")
+      pill.classList.add("ui-suggested")
       return
     }
     const focused = pill.contains(this.ownerDocument.activeElement)
@@ -78,7 +79,7 @@ export class ReactionsElement extends Base {
   }
 
   set(value, reaction) {
-    this.#fill(value, reaction)?.classList.remove("ui-unused")
+    this.#fill(value, reaction)?.classList.remove("ui-suggested")
   }
 
   #fill(value, { checked, label, text } = {}) {

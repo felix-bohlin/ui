@@ -24,6 +24,11 @@ export const EXAMPLE_THEME_NOTES = {
       "Neutral grays, a near-black primary also behind tooltips, 36px controls with 14px text and 16px padding, 32px small and 40px large buttons, light borders with a faint shadow, the accent tint on hover instead of a fill, a 3px gray focus ring over a gray border, 16px checks with 4px corners, a 32px switch with a white thumb, 8px menus and chips, 10px dialogs and 14px cards with 24px padding, muted secondary text, 500 weight links, the 1.75 line height of Tailwind prose in rich text and Lucide icons.",
     original: "shadcn/ui",
   },
+  "vice-city": {
+    description:
+      "Sunset pinks and violets. In dark mode a deep violet night page with a violet and pink glow at the top, in light mode a lavender to pink to peach sky over a blush page (<code>--ui-surface-image</code>), dialogs, drawers, menus and elevated cards that fade down from mauve or blush (<code>--ui-surface-raised-image</code>), the pastel pink primary, a deep magenta in light mode, also on the focus ring, checked checkboxes, radios and switches in that pink with a dark mark, peach default filled buttons with dark violet text, pill buttons and chips, 16px corners with 12px fields and menus and 20px dialogs, lavender borders and secondary text, a pink glow in the shadows, a blurred violet backdrop, Figtree, and GTAArtDeco, the site's font, for headings where it is installed. With more contrast the gradients go flat.",
+    original: "the Grand Theft Auto VI site",
+  },
 }
 
 export const exampleThemeNotes = (name: string) => {

@@ -3,23 +3,25 @@
     --_motion: var(--ui-motion);
     --_actions-padding-inline: var(--_padding);
     --_bg-color: var(--_surface-bg-color);
+    --_bg-image: none;
     --_border-color: transparent;
     --_border-width: 0;
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease);
-    --_elevated-bg-color: var(--ui-surface-elevated);
+    --_elevated-bg-color: var(--ui-surface-raised);
     --_elevated-shadow: var(--ui-shadow-elevated);
-    --_gap: var(--ui-space-3);
+    --_gap: var(--ui-space-4);
     --_media-inline-size: 40%;
     --_orientation: auto;
     --_outlined-border-color: var(--ui-border-color);
-    --_padding: var(--ui-card-padding, var(--ui-space-3));
+    --_padding: var(--ui-card-padding, var(--ui-space-4));
     --_shadow: none;
     --_surface-bg-color: var(--ui-surface);
     --_tonal-bg-color: var(--ui-surface-tonal);
-    --ui-divider-gap: var(--ui-space-3);
+    --ui-divider-gap: var(--ui-space-4);
 
     background-color: var(--_bg-color);
+    background-image: var(--_bg-image);
     border-color: var(--_border-color);
     border-radius: var(--ui-radius);
     border-style: solid;
@@ -45,7 +47,7 @@
     }
 
     &:where(.ui-card).ui-spacious {
-      --_padding: var(--ui-space-5);
+      --_padding: var(--ui-space-6);
     }
 
     /* Variants */
@@ -61,17 +63,14 @@
       --_border-color: var(--ui-border-color-raised, var(--_surface-bg-color));
       --_border-width: var(--ui-border-width);
       --_shadow: var(--ui-shadow-surface);
-      --ui-border-color: var(--ui-border-color-on-raised);
-      --ui-field-border-color: var(--ui-field-border-color-on-raised);
     }
 
     &.ui-elevated {
       --_bg-color: var(--_elevated-bg-color);
+      --_bg-image: var(--ui-surface-raised-image, none);
       --_border-color: var(--ui-border-color-raised, var(--_surface-bg-color));
       --_border-width: var(--ui-border-width);
       --_shadow: var(--_elevated-shadow);
-      --ui-border-color: var(--ui-border-color-on-raised);
-      --ui-field-border-color: var(--ui-field-border-color-on-raised);
     }
 
     &:where(.ui-accordion, .ui-card).ui-outlined {
@@ -83,8 +82,8 @@
 
     /* Colors */
     &:where(.ui-card).ui-primary {
-      outline: var(--ui-border-width-thick) solid var(--ui-primary);
-      outline-offset: calc(-1 * var(--ui-border-width-thick));
+      outline: var(--ui-border-width-large) solid var(--ui-primary);
+      outline-offset: calc(-1 * var(--ui-border-width-large));
     }
 
     & > :where(hgroup, .ui-content, .ui-header) {
@@ -330,7 +329,7 @@
       ) {
       align-content: start;
       display: grid;
-      gap: var(--ui-space-3);
+      gap: var(--ui-space-4);
       grid-template-columns: minmax(0, 1fr);
 
       & > .ui-divider {
@@ -436,7 +435,7 @@
       &::after {
         block-size: var(--ui-space-2);
         box-shadow: var(--_scroll-shadow);
-        clip-path: inset(100% 0 calc(-1 * var(--ui-space-6)));
+        clip-path: inset(100% 0 calc(-1 * var(--ui-space-7)));
         content: "";
         inset-inline: anchor(var(--_content-anchor) inside);
         opacity: 0;

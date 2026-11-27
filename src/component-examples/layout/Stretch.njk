@@ -1,0 +1,10 @@
+{% from "opui/index.njk" import Card, CardContent %}
+
+<div class="ui-layout-grid ui-stretch" style="--_min-inline-size: 10rem">
+  {% call Card({ variant: "outlined" }) %}
+    {% call CardContent() %}Pokes sent: 128{% endcall %}
+  {% endcall %}
+  {% call Card({ variant: "outlined" }) %}
+    {% call CardContent() %}Replies: 12{% endcall %}
+  {% endcall %}
+</div>

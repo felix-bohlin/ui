@@ -27,7 +27,7 @@
     "name": "Fluent UI System Icons",
     "package": "@fluentui/svg-icons",
     "url": "https://github.com/microsoft/fluentui-system-icons",
-    "version": "1.1.345"
+    "version": "1.1.347"
   },
   "lucide": {
     "copyright": "Copyright (c) 2026 Lucide Icons and Contributors",
@@ -59,7 +59,7 @@
     "name": "Lucide",
     "package": "lucide-static",
     "url": "https://lucide.dev",
-    "version": "1.72.0"
+    "version": "1.80.0"
   },
   "material-symbols": {
     "copyright": "Copyright Google LLC",
@@ -151,6 +151,6 @@
     "name": "Tabler Icons",
     "package": "@tabler/icons",
     "url": "https://tabler.io/icons",
-    "version": "3.51.0"
+    "version": "3.53.0"
   }
 }

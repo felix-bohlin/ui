@@ -1,0 +1,10 @@
+{% from "opui/index.njk" import List, ListItem %}
+
+{% call List() %}
+  {{ ListItem({ label: "Gig poster.pdf" }) }}
+  {{ ListItem({
+    description: "Our logo in every color, with the bass drawn way bigger than the drum kit, at last.",
+    label: "Band logo pack.pdf"
+  }) }}
+  {{ ListItem({ label: "Photos", slots: { end: "100+" } }) }}
+{% endcall %}

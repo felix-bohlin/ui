@@ -4,7 +4,7 @@ import { Avatar, Button, Card, CardContent, Chip } from "opui-css/vue"
 
 <template>
   <div
-    class="blog-list ui-layout-container ui-layout-column ui-large"
+    class="blog-list ui-layout-container ui-layout-column ui-gap-large"
     style="--_max-inline-size: 76rem"
   >
     <div class="ui-layout-row ui-spread blog-header">
@@ -16,7 +16,7 @@ import { Avatar, Button, Card, CardContent, Chip } from "opui-css/vue"
         </p>
       </hgroup>
       <nav aria-label="Categories">
-        <ul class="ui-layout-row ui-small">
+        <ul class="ui-layout-row ui-gap-small">
           <li>
             <Chip aria-current="page" href="#blog-list-all" label="All posts" />
           </li>
@@ -72,14 +72,14 @@ import { Avatar, Button, Card, CardContent, Chip } from "opui-css/vue"
             times louder. Here's what's new and how we built it.
           </p>
         </hgroup>
-        <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
+        <ul class="ui-layout-row ui-gap-x-small blog-tags" aria-label="Tags">
           <li><Chip label="Bassbook news" size="small" /></li>
           <li><Chip label="Release" size="small" /></li>
         </ul>
         <div class="ui-layout-media">
-          <Avatar aria-hidden="true">LH</Avatar>
+          <Avatar aria-hidden="true">KH</Avatar>
           <div>
-            <p>Lou Headstock, Head of Low End</p>
+            <p>Kinga Headstock, Head of Groove</p>
             <p class="ui-caption">
               <time datetime="2026-10-01">Oct 1, 2026</time>, 12 min read
             </p>
@@ -92,7 +92,7 @@ import { Avatar, Button, Card, CardContent, Chip } from "opui-css/vue"
       aria-labelledby="blog-list-latest-heading"
     >
       <h2 class="ui-h4" id="blog-list-latest-heading">Latest posts</h2>
-      <ul class="ui-layout-grid ui-large" style="--_min-inline-size: 20rem">
+      <ul class="ui-layout-grid ui-gap-large" style="--_min-inline-size: 20rem">
         <li>
           <Card as="article" variant="outlined">
             <div
@@ -113,14 +113,17 @@ import { Avatar, Button, Card, CardContent, Chip } from "opui-css/vue"
               </p>
             </hgroup>
             <CardContent class="blog-meta">
-              <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
+              <ul
+                class="ui-layout-row ui-gap-x-small blog-tags"
+                aria-label="Tags"
+              >
                 <li><Chip label="Gear Talk" size="small" /></li>
                 <li><Chip label="Pedals" size="small" /></li>
               </ul>
               <div class="ui-layout-media">
-                <Avatar aria-hidden="true">HH</Avatar>
+                <Avatar aria-hidden="true">SH</Avatar>
                 <div>
-                  <p>Holly Humbucker</p>
+                  <p>Scott Humbucker</p>
                   <p class="ui-caption">
                     <time datetime="2026-09-30">Sep 30, 2026</time>, 9 min read
                   </p>
@@ -149,14 +152,17 @@ import { Avatar, Button, Card, CardContent, Chip } from "opui-css/vue"
               </p>
             </hgroup>
             <CardContent class="blog-meta">
-              <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
+              <ul
+                class="ui-layout-row ui-gap-x-small blog-tags"
+                aria-label="Tags"
+              >
                 <li><Chip label="Guides" size="small" /></li>
                 <li><Chip label="Jamming" size="small" /></li>
               </ul>
               <div class="ui-layout-media">
-                <Avatar aria-hidden="true">IH</Avatar>
+                <Avatar aria-hidden="true">MH</Avatar>
                 <div>
-                  <p>Ines Hertz</p>
+                  <p>Mohini Hertz</p>
                   <p class="ui-caption">
                     <time datetime="2026-09-22">Sep 22, 2026</time>, 5 min read
                   </p>
@@ -171,27 +177,30 @@ import { Avatar, Button, Card, CardContent, Chip } from "opui-css/vue"
               class="blog-cover"
               style="--hue: 320"
               role="img"
-              aria-label="Cover image for How The Low Enders gig weekly with 4 bassists"
+              aria-label="Cover image for How Slap Like Now gig weekly with 4 bassists"
             ></div>
             <hgroup>
               <h3 class="ui-h5">
-                <a class="ui-card-link" href="#blog-list-low-enders"
-                  >How The Low Enders gig weekly with 4 bassists</a
+                <a class="ui-card-link" href="#blog-list-slap-like-now"
+                  >How Slap Like Now gig weekly with 4 bassists</a
                 >
               </h3>
               <p>
-                Sol Lowend on going from one gig a year to a gig every single
-                Friday.
+                Alissia Saddle on going from one gig a year to a gig every
+                single Friday.
               </p>
             </hgroup>
             <CardContent class="blog-meta">
-              <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
+              <ul
+                class="ui-layout-row ui-gap-x-small blog-tags"
+                aria-label="Tags"
+              >
                 <li><Chip label="Member diaries" size="small" /></li>
               </ul>
               <div class="ui-layout-media">
-                <Avatar aria-hidden="true">SN</Avatar>
+                <Avatar aria-hidden="true">EN</Avatar>
                 <div>
-                  <p>Stella Nut</p>
+                  <p>Ellen Nut</p>
                   <p class="ui-caption">
                     <time datetime="2026-09-15">Sep 15, 2026</time>, 7 min read
                   </p>
@@ -219,13 +228,16 @@ import { Avatar, Button, Card, CardContent, Chip } from "opui-css/vue"
               </p>
             </hgroup>
             <CardContent class="blog-meta">
-              <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
+              <ul
+                class="ui-layout-row ui-gap-x-small blog-tags"
+                aria-label="Tags"
+              >
                 <li><Chip label="Member diaries" size="small" /></li>
               </ul>
               <div class="ui-layout-media">
-                <Avatar aria-hidden="true">PG</Avatar>
+                <Avatar aria-hidden="true">AG</Avatar>
                 <div>
-                  <p>Percy Groove</p>
+                  <p>Adam Groove</p>
                   <p class="ui-caption">
                     <time datetime="2026-09-08">Sep 8, 2026</time>, 6 min read
                   </p>
@@ -254,14 +266,17 @@ import { Avatar, Button, Card, CardContent, Chip } from "opui-css/vue"
               </p>
             </hgroup>
             <CardContent class="blog-meta">
-              <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
+              <ul
+                class="ui-layout-row ui-gap-x-small blog-tags"
+                aria-label="Tags"
+              >
                 <li><Chip label="Tabs & tips" size="small" /></li>
                 <li><Chip label="Technique" size="small" /></li>
               </ul>
               <div class="ui-layout-media">
-                <Avatar aria-hidden="true">RR</Avatar>
+                <Avatar aria-hidden="true">JR</Avatar>
                 <div>
-                  <p>Rory Rootnote</p>
+                  <p>Josh Rootnote</p>
                   <p class="ui-caption">
                     <time datetime="2026-08-29">Aug 29, 2026</time>, 8 min read
                   </p>
@@ -290,13 +305,16 @@ import { Avatar, Button, Card, CardContent, Chip } from "opui-css/vue"
               </p>
             </hgroup>
             <CardContent class="blog-meta">
-              <ul class="ui-layout-row ui-x-small blog-tags" aria-label="Tags">
+              <ul
+                class="ui-layout-row ui-gap-x-small blog-tags"
+                aria-label="Tags"
+              >
                 <li><Chip label="Dear diary" size="small" /></li>
               </ul>
               <div class="ui-layout-media">
-                <Avatar aria-hidden="true">AB</Avatar>
+                <Avatar aria-hidden="true">YB</Avatar>
                 <div>
-                  <p>Ada Bridge</p>
+                  <p>Yonit Bridge</p>
                   <p class="ui-caption">
                     <time datetime="2026-08-18">Aug 18, 2026</time>, 4 min read
                   </p>
@@ -333,7 +351,7 @@ import { Avatar, Button, Card, CardContent, Chip } from "opui-css/vue"
 
   .blog-featured {
     .blog-featured-body {
-      padding: var(--ui-space-5);
+      padding: var(--ui-space-6);
     }
 
     h2 {

@@ -3,6 +3,7 @@
 import type { ComponentProps } from "react"
 import { cx } from "../cx"
 import { mergeStyle, pluralLabel } from "../style"
+import { ratingOf } from "./rating"
 import type { Props } from "./types.react"
 
 export default function Rating({
@@ -26,9 +27,7 @@ export default function Rating({
   value,
   ...rest
 }: Props) {
-  const count = Number(max)
-  const stars = Array.from({ length: count }, (_, index) => index + 1)
-  const current = Number(value ?? defaultValue)
+  const rating = ratingOf(max, value ?? defaultValue)
   const invalid = error ? "true" : ariaInvalid
 
   return name ? (
@@ -50,22 +49,26 @@ export default function Rating({
           aria-describedby={ariaDescribedBy}
           aria-invalid={invalid}
           aria-label={clearLabel}
-          checked={value !== undefined ? current === 0 : undefined}
-          defaultChecked={value !== undefined ? undefined : current === 0}
+          checked={value !== undefined ? rating.current === 0 : undefined}
+          defaultChecked={
+            value !== undefined ? undefined : rating.current === 0
+          }
           onChange={() => onValueChange?.(0)}
           name={name}
           type="radio"
           value={0}
         />
       )}
-      {stars.map((star, index) => (
+      {rating.stars.map((star, index) => (
         <input
           key={index}
           aria-describedby={ariaDescribedBy}
           aria-invalid={invalid}
           aria-label={pluralLabel(starLabel, star, lang)}
-          checked={value !== undefined ? current === star : undefined}
-          defaultChecked={value !== undefined ? undefined : current === star}
+          checked={value !== undefined ? rating.current === star : undefined}
+          defaultChecked={
+            value !== undefined ? undefined : rating.current === star
+          }
           onChange={() => onValueChange?.(star)}
           name={name}
           required={required}
@@ -84,12 +87,12 @@ export default function Rating({
         className,
       ])}
       lang={lang}
-      max={Number.isFinite(count) ? count : undefined}
+      max={rating.max}
       style={mergeStyle(
-        { "--_max": count === 5 ? undefined : count },
+        { "--_max": rating.count === 5 ? undefined : rating.count },
         style ?? {},
       )}
-      value={Number.isFinite(current) ? current : 0}
+      value={rating.value}
       {...(rest as ComponentProps<"meter">)}
     />
   )

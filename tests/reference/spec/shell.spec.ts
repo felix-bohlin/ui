@@ -2,6 +2,7 @@ import { NOTIFICATIONS } from "../shared/data.ts"
 import { SCREENS } from "../shared/screens.ts"
 import {
   PHONE_DEVICE,
+  axeViolations,
   clientNavigationMarker,
   expect,
   expectNoAxeViolations,
@@ -9,7 +10,7 @@ import {
   screen,
   test,
 } from "./fixtures.ts"
-import { KNOWN } from "./known.ts"
+import { ANCHORS_VISIBLE, KNOWN } from "./known.ts"
 
 for (const { id, label, path } of SCREENS) {
   test(`${label} renders in the shell and passes axe`, async ({ page }) => {
@@ -198,13 +199,13 @@ test.describe("on a phone", () => {
   test("the nav drawer closes when a link only changes the query", async ({
     page,
   }) => {
-    await open(page, "/chat?with=lou")
+    await open(page, "/chat?with=kinga")
     await page.getByRole("button", { name: "Menu" }).click()
     const drawer = page.getByRole("dialog", { name: "Navigate" })
     await expect(drawer).toBeVisible()
     await drawer.getByRole("link", { name: "Chat" }).click()
     await expect(page).toHaveURL("/chat")
-    await expect(page.locator("#chat-title")).toHaveText("Holly Humbucker")
+    await expect(page.locator("#chat-title")).toHaveText("Scott Humbucker")
     await expect(drawer).toBeHidden({ timeout: 2000 })
   })
 
@@ -220,4 +221,17 @@ test.describe("on a phone", () => {
       ).toBe(true)
     })
   }
+})
+
+test(`known: ${ANCHORS_VISIBLE.reason}`, async ({ page }) => {
+  const messages: string[] = []
+  page.on("console", (message) => messages.push(message.text()))
+  await open(page, "/")
+  await axeViolations(page)
+  const takesSingular = await page.evaluate(() =>
+    CSS.supports("position-visibility", "anchor-visible"),
+  )
+  await expect
+    .poll(() => messages.some((text) => ANCHORS_VISIBLE.message.test(text)))
+    .toBe(takesSingular)
 })

@@ -1,0 +1,10 @@
+{% macro AccordionContent(props = {}) %}
+  {%- set props = props | opuiProps("AccordionContent") -%}
+  {%- set rest = props | opuiRest("AccordionContent") -%}
+  <div
+    class="ui-content
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </div>
+{%- endmacro %}

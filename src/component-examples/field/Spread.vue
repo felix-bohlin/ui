@@ -7,7 +7,7 @@ import { Field } from "opui-css/vue"
     <input
       aria-describedby="field-spread-1-start-text"
       id="field-spread-1"
-      placeholder="Holly Humbucker"
+      placeholder="Scott Humbucker"
     />
     <template #label>Name</template>
     <template #start-text
@@ -19,7 +19,7 @@ import { Field } from "opui-css/vue"
     <input
       aria-describedby="field-spread-2-start-text field-spread-2-end-text"
       id="field-spread-2"
-      placeholder="name@lowend.example"
+      placeholder="name@bassmail.example"
       type="email"
     />
     <template #label>Email</template>

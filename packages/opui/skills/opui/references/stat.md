@@ -3,7 +3,7 @@
 A number with its label and its change, like revenue on a dashboard.
 
 - CSS: `opui-css/css/components/stat.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/stat.md), [Astro](https://opui.dev/astro/components/stat.md), [React](https://opui.dev/react/components/stat.md), [Solid](https://opui.dev/solid/components/stat.md), [Svelte](https://opui.dev/svelte/components/stat.md), [Vue](https://opui.dev/vue/components/stat.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/stat.md), [Astro](https://opui.dev/astro/components/stat.md), [Nunjucks](https://opui.dev/nunjucks/components/stat.md), [React](https://opui.dev/react/components/stat.md), [Solid](https://opui.dev/solid/components/stat.md), [Svelte](https://opui.dev/svelte/components/stat.md), [Vue](https://opui.dev/vue/components/stat.md).
 
 ## Stat
 
@@ -34,7 +34,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ## Theme tokens
 
-The stylesheets read `--ui-font-size-caption`, `--ui-font-size-h3`, `--ui-font-size-h4`, `--ui-font-size-large`, `--ui-font-weight-bold`, `--ui-line-height`, `--ui-line-height-tight`, `--ui-space-1`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-font-size-caption`, `--ui-font-size-h3`, `--ui-font-size-h4`, `--ui-font-size-large`, `--ui-font-weight-heading`, `--ui-line-height-compact`, `--ui-line-height-tight`, `--ui-space-1`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -69,6 +69,26 @@ import { Stat } from "opui-css/astro"
     <span class="ui-caption ui-success">+12.4%</span> from last week
   </Fragment>
 </Stat>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Stat %}`
+
+- `Stat` named slots: `slots.description` and `slots.label`. Pass a string, or markup captured with `{% set %}`.
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Stat %}
+
+{% set description %}
+  <span class="ui-caption ui-success">+12.4%</span> from last week
+{% endset %}
+{% call Stat({ label: "Visitors", slots: { description: description } }) %}
+  48,210
+  
+{% endcall %}
 ```
 
 ## React

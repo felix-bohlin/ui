@@ -10,7 +10,7 @@ const schemes = [
 <div class="preview-strip" data-builder-header>
   <div aria-hidden="true" class="preview-strip-panes" inert>
     {schemes.map(({ label, scheme }) => <div
-      class={`preview-strip-pane ui-palette ui-${scheme}`}
+      class={`preview-strip-pane ui-scope ui-${scheme}`}
     >
       <span class="preview-strip-heading">{label}</span>
       <span class="ui-button ui-primary ui-filled ui-x-small">Save</span>
@@ -70,9 +70,9 @@ const schemes = [
 
   .preview-strip-heading {
     color: var(--ui-text-strong);
-    font-family: var(--ui-font-heading, var(--ui-font-body));
+    font-family: var(--ui-font-family-heading, var(--ui-font-family-body));
     font-size: var(--ui-font-size-small);
-    font-weight: var(--ui-font-weight-bold);
+    font-weight: var(--ui-font-weight-heading);
     inline-size: 100%;
   }
 </style>

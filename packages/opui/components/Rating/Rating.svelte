@@ -1,7 +1,8 @@
 <script lang="ts">
   import { untrack } from "svelte"
-  import { seedChecked } from "../svelte"
+  import { relayChecked } from "../svelte"
   import { mergeStyle, pluralLabel } from "../style"
+  import { ratingOf } from "./rating"
   import type { Props } from "./types.svelte"
   import type { SvelteHTMLElements } from "svelte/elements"
 
@@ -25,9 +26,7 @@
     ...rest
   }: Props = $props()
 
-  const count = $derived(Number(max))
-  const stars = $derived(Array.from({ length: count }, (_, index) => index + 1))
-  const current = $derived(Number(value))
+  const rating = $derived(ratingOf(max, value))
   const invalid = $derived(error ? "true" : ariaInvalid)
 </script>
 
@@ -48,18 +47,16 @@
         {name}
         type="radio"
         value={0}
-        defaultChecked={untrack(() => current === 0)}
-        {@attach seedChecked(
-          () => current === 0,
-          () => {
-            value = 0
+        defaultChecked={untrack(() => rating.current === 0)}
+        {@attach relayChecked(
+          (input) => {
+            if (input.checked) value = 0
+            else if (rating.current === 0) value = undefined
           },
+          () => (value === undefined ? undefined : rating.current === 0),
         )}
-        onchange={() => {
-          value = 0
-        }}
       />
-    {/if}{#each stars as star, index (index)}
+    {/if}{#each rating.stars as star, index (index)}
       <input
         aria-describedby={ariaDescribedBy}
         aria-invalid={invalid}
@@ -68,16 +65,14 @@
         {required}
         type="radio"
         value={star}
-        defaultChecked={untrack(() => current === star)}
-        {@attach seedChecked(
-          () => current === star,
-          () => {
-            value = star
+        defaultChecked={untrack(() => rating.current === star)}
+        {@attach relayChecked(
+          (input) => {
+            if (input.checked) value = star
+            else if (rating.current === star) value = undefined
           },
+          () => (value === undefined ? undefined : rating.current === star),
         )}
-        onchange={() => {
-          value = star
-        }}
       />
     {/each}
   </fieldset>
@@ -87,9 +82,12 @@
     aria-label={ariaLabel ?? label}
     class={["ui-rating", size && size !== "medium" && `ui-${size}`, className]}
     {lang}
-    max={Number.isFinite(count) ? count : undefined}
-    style={mergeStyle({ "--_max": count === 5 ? undefined : count }, style)}
-    value={Number.isFinite(current) ? current : 0}
+    max={rating.max}
+    style={mergeStyle(
+      { "--_max": rating.count === 5 ? undefined : rating.count },
+      style,
+    )}
+    value={rating.value}
     {...rest as SvelteHTMLElements["meter"]}
   ></meter>
 {/if}

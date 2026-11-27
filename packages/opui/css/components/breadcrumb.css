@@ -1,0 +1,157 @@
+@layer components.root {
+  :where(.ui-breadcrumb) {
+    --_motion: var(--ui-motion);
+    --_current-font-weight: var(--ui-font-weight-emphasis);
+    --_current-text-color: var(--ui-text-strong);
+    --_duration: calc(var(--ui-duration) * var(--_motion));
+    --_ease: var(--ui-ease);
+    --_font-size: var(--ui-font-size-body);
+    --_font-weight: var(--ui-font-weight-body);
+    --_gap: var(--ui-space-2);
+    --_hover-text-color: var(--ui-text-strong);
+    --_separator: "/";
+    --_separator-text-color: var(--ui-text-subtle);
+    --_text-color: var(--ui-text-subtle);
+
+    & > ol {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: var(--_font-size);
+      gap: var(--_gap);
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      & > li {
+        align-items: center;
+        color: var(--_text-color);
+        display: flex;
+        font-weight: var(--_font-weight);
+        gap: var(--_gap);
+
+        & + li::before {
+          color: var(--_separator-text-color);
+          content: var(--_separator);
+
+          @supports (content: "*" / "") {
+            content: var(--_separator) / "";
+          }
+        }
+
+        &:has(> .ui-separator)::before {
+          content: none;
+        }
+
+        &:first-child > .ui-separator {
+          display: none;
+        }
+
+        & > .ui-separator {
+          color: var(--_separator-text-color);
+          display: inline-flex;
+
+          & > svg {
+            block-size: var(--ui-icon-size-small);
+            inline-size: var(--ui-icon-size-small);
+          }
+
+          &:dir(rtl) > svg {
+            scale: -1 1;
+          }
+        }
+
+        & > a[href] {
+          text-decoration-line: none;
+          text-underline-offset: var(--ui-underline-offset);
+          transition: color var(--_duration) var(--_ease);
+
+          &:not([aria-current="page"]) {
+            color: inherit;
+            font-weight: inherit;
+          }
+
+          @media (hover: hover) {
+            &:hover {
+              color: var(--_hover-text-color);
+              text-decoration-line: underline;
+            }
+          }
+
+          &:focus-visible {
+            color: var(--_hover-text-color);
+            text-decoration-line: underline;
+          }
+        }
+
+        & > [aria-current="page"] {
+          color: var(--_current-text-color);
+          font-weight: var(--_current-font-weight);
+        }
+
+        &:has(> .ui-menu) {
+          --ui-button-accent: var(--_text-color);
+
+          & > .ui-button {
+            margin: calc(-1 * var(--ui-space-1));
+          }
+        }
+      }
+    }
+
+    &.ui-small {
+      --_font-size: var(--ui-font-size-caption);
+      --_gap: var(--ui-space-1);
+    }
+
+    &.ui-overflow-menu > ol {
+      & > li:has(> .ui-menu):not(:nth-last-child(n + 4)) {
+        display: none;
+      }
+
+      &:has(> li > .ui-menu)
+        > li:not(:first-child, :has(> .ui-menu)):nth-last-child(n + 3) {
+        display: none;
+      }
+    }
+
+    &.ui-overflow-scroll > ol {
+      flex-wrap: nowrap;
+      margin-block: calc(
+        -1 * (var(--ui-focus-ring-width) + var(--ui-focus-ring-offset))
+      );
+      overflow-block: hidden;
+      overflow-inline: auto;
+      overscroll-behavior-inline: contain;
+      padding-block: calc(
+        var(--ui-focus-ring-width) + var(--ui-focus-ring-offset)
+      );
+      scrollbar-width: thin;
+
+      & > li {
+        flex: none;
+        white-space: nowrap;
+      }
+    }
+
+    &.ui-overflow-shrink > ol {
+      flex-wrap: nowrap;
+
+      & > li {
+        flex: none;
+        white-space: nowrap;
+
+        &:not(:first-child, :has(> [aria-current="page"])) {
+          flex: 0 1 auto;
+          min-inline-size: 0;
+
+          & > :not(.ui-separator) {
+            min-inline-size: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+    }
+  }
+}

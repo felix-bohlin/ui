@@ -139,7 +139,7 @@ const name = (part: string) => `states-${scheme}-${part}`
 <style>
   .states {
     columns: 18rem 2;
-    gap: var(--ui-space-5);
+    gap: var(--ui-space-6);
   }
 
   .states-block {
@@ -147,10 +147,10 @@ const name = (part: string) => `states-${scheme}-${part}`
     contain-intrinsic-block-size: auto 300px;
     content-visibility: auto;
     display: grid;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
     margin-inline: calc(-1 * var(--size-5));
     min-inline-size: 0;
-    padding: 0 var(--size-5) var(--ui-space-6);
+    padding: 0 var(--size-5) var(--ui-space-7);
 
     & :global(.ui-field) {
       inline-size: 100%;
@@ -160,7 +160,7 @@ const name = (part: string) => `states-${scheme}-${part}`
   .states-caption {
     color: var(--ui-text-subtle);
     font-size: var(--ui-font-size-caption);
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
     letter-spacing: var(--ui-letter-spacing-caps);
     margin: 0;
     text-transform: uppercase;
@@ -170,7 +170,7 @@ const name = (part: string) => `states-${scheme}-${part}`
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--ui-space-2) var(--ui-space-3);
+    gap: var(--ui-space-2) var(--ui-space-4);
   }
 
   .states-note {

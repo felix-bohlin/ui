@@ -2,7 +2,7 @@
 import { children, omit, untrack } from "solid-js"
 import { filled } from "../attrs"
 import SwitchInput from "./SwitchInput.solid"
-import { hasName, warnUnnamed } from "../dev"
+import { DEV, hasName, warnUnnamed } from "../dev"
 import type { Props } from "./types.solid"
 
 export default function Switch(props: Props) {
@@ -28,9 +28,10 @@ export default function Switch(props: Props) {
   const resolvedEndText = children(() => props.endText)
   const resolvedIconChecked = children(() => props.iconChecked)
   const resolvedIconUnchecked = children(() => props.iconUnchecked)
-  untrack(() => {
-    warnUnnamed("Switch", hasName(props, filled(resolvedChildren())))
-  })
+  if (DEV)
+    untrack(() => {
+      warnUnnamed("Switch", hasName(props, filled(resolvedChildren())))
+    })
   const invalid = () => (props.error ? "true" : props["aria-invalid"])
 
   return (

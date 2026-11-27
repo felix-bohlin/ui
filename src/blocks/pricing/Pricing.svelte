@@ -15,20 +15,20 @@
   } from "opui-css/svelte"
 </script>
 
-<div class="pricing ui-layout-container ui-layout-column ui-large">
+<div class="pricing ui-layout-container ui-layout-column ui-gap-large">
   <div
-    class="ui-layout-container ui-layout-column ui-large ui-align-center pricing-intro"
+    class="ui-layout-container ui-layout-column ui-gap-large ui-align-center pricing-intro"
     style="--_max-inline-size: 40rem; --_padding-inline: 0"
   >
     <hgroup class="ui-hgroup">
       <p>Memberships</p>
-      <h1 class="ui-h2">Totally rad memberships for the low end</h1>
+      <h1 class="ui-h2">Totally rad memberships for bassists</h1>
       <p>
         Start free, upgrade when your bandmates still won't listen. Every paid
         plan comes with a 14-day trial.
       </p>
     </hgroup>
-    <div class="ui-layout-row ui-small ui-align-center">
+    <div class="ui-layout-row ui-gap-small ui-align-center">
       <ToggleGroup
         aria-label="Billing period"
         name="pricing-period"
@@ -50,7 +50,7 @@
       >
     </div>
   </div>
-  <ul class="ui-layout-grid ui-large pricing-plans">
+  <ul class="ui-layout-grid ui-gap-large pricing-plans">
     <li>
       <Card
         aria-labelledby="pricing-basic-heading"
@@ -63,14 +63,14 @@
           <p>For bassists just dipping a toe in.</p>
         </hgroup>
         <CardContent>
-          <div class="ui-layout-column ui-small">
+          <div class="ui-layout-column ui-gap-small">
             <span class="ui-tabular-nums pricing-amount">€0</span><span
               >Free forever</span
             >
           </div>
           <Button href="#pricing-basic" variant="outlined">Join for free</Button
           >
-          <ul class="ui-layout-column ui-small pricing-features">
+          <ul class="ui-layout-column ui-gap-small pricing-features">
             <li>Your very own profile</li>
             <li>A wall for shoutouts</li>
             <li>Up to 3 bands</li>
@@ -97,19 +97,19 @@
           <p>For bassists ready to shine (finally).</p>
         </hgroup>
         <CardContent>
-          <div class="ui-layout-column ui-small pricing-monthly">
+          <div class="ui-layout-column ui-gap-small pricing-monthly">
             <span class="ui-tabular-nums pricing-amount">€3</span><span
               >per month</span
             >
           </div>
-          <div class="ui-layout-column ui-small pricing-yearly">
+          <div class="ui-layout-column ui-gap-small pricing-yearly">
             <span class="ui-tabular-nums pricing-amount">€30</span><span
               >per year, that's 2 months free</span
             >
           </div>
           <Button href="#pricing-gold" variant="filled">Start free trial</Button
           >
-          <ul class="ui-layout-column ui-small pricing-features">
+          <ul class="ui-layout-column ui-gap-small pricing-features">
             <li>Everything in Basic</li>
             <li>A shiny gold name</li>
             <li>Unlimited gear photos</li>
@@ -128,15 +128,18 @@
       >
         <hgroup>
           <h2 class="ui-h5" id="pricing-platinum-heading">Platinum</h2>
-          <p>For legends of the low end. You know who you are.</p>
+          <p>
+            For slap legends. You know who you are. Davie504 asked us to add
+            “not Charles”.
+          </p>
         </hgroup>
         <CardContent>
-          <div class="ui-layout-column ui-small pricing-monthly">
+          <div class="ui-layout-column ui-gap-small pricing-monthly">
             <span class="ui-tabular-nums pricing-amount">€5</span><span
               >per month</span
             >
           </div>
-          <div class="ui-layout-column ui-small pricing-yearly">
+          <div class="ui-layout-column ui-gap-small pricing-yearly">
             <span class="ui-tabular-nums pricing-amount">€50</span><span
               >per year, that's 2 months free</span
             >
@@ -144,7 +147,7 @@
           <Button href="#pricing-platinum" variant="outlined"
             >Go Platinum</Button
           >
-          <ul class="ui-layout-column ui-small pricing-features">
+          <ul class="ui-layout-column ui-gap-small pricing-features">
             <li>Everything in Gold</li>
             <li>Posts 10% louder</li>
             <li>Custom profile glitter</li>
@@ -265,7 +268,7 @@
       }
 
       .pricing-save {
-        font-weight: var(--ui-font-weight-medium);
+        font-weight: var(--ui-font-weight-emphasis);
       }
 
       .pricing-plans {
@@ -278,25 +281,25 @@
 
       .pricing-plan {
         &.pricing-featured {
-          outline: var(--ui-border-width-thick) solid var(--ui-primary);
-          outline-offset: calc(-1 * var(--ui-border-width-thick));
+          outline: var(--ui-border-width-large) solid var(--ui-primary);
+          outline-offset: calc(-1 * var(--ui-border-width-large));
         }
 
         .ui-content {
           display: grid;
-          gap: var(--ui-space-4);
+          gap: var(--ui-space-5);
         }
       }
 
       .pricing-badge {
-        inset-block-start: var(--ui-space-3);
-        inset-inline-end: var(--ui-space-3);
+        inset-block-start: var(--ui-space-4);
+        inset-inline-end: var(--ui-space-4);
         position: absolute;
       }
 
       .pricing-amount {
         font-size: var(--ui-font-size-800);
-        font-weight: var(--ui-font-weight-bold);
+        font-weight: var(--ui-font-weight-heading);
         line-height: 1;
       }
 
@@ -327,7 +330,7 @@
         table-layout: fixed;
 
         th[scope="row"] {
-          font-weight: var(--ui-font-weight-normal);
+          font-weight: var(--ui-font-weight-body);
         }
 
         :is(td, thead th:not(:first-child)) {

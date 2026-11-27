@@ -27,7 +27,7 @@ export default function KitchenSink() {
             <input
               autocomplete="name"
               id="form-kitchen-sink-7"
-              placeholder="Holly Humbucker"
+              placeholder="Scott Humbucker"
               required
             />
           </Field>
@@ -35,7 +35,7 @@ export default function KitchenSink() {
             <input
               autocomplete="email"
               id="form-kitchen-sink-8"
-              placeholder="rory@lowend.example"
+              placeholder="josh@bassmail.example"
               required
               type="email"
             />
@@ -69,19 +69,23 @@ export default function KitchenSink() {
         <FieldDescription id="form-kitchen-sink-4-description">
           Pick the look of your awesome profile page.
         </FieldDescription>
-        <FieldGroup name="theme">
-          <Radio defaultChecked value="light">
+        <FieldGroup>
+          <Radio defaultChecked name="theme" value="light">
             Light theme
           </Radio>
-          <Radio value="dark">Dark theme</Radio>
-          <Radio value="system">System default</Radio>
+          <Radio name="theme" value="dark">
+            Dark theme
+          </Radio>
+          <Radio name="theme" value="system">
+            System default
+          </Radio>
         </FieldGroup>
       </Fieldset>
       <Divider />
       <Fieldset aria-describedby="form-kitchen-sink-5-description">
         <FieldLegend>Bass experience</FieldLegend>
         <FieldDescription id="form-kitchen-sink-5-description">
-          How many years have you held down the low end?
+          How many years have you held down the groove?
         </FieldDescription>
         <FieldGroup>
           <Field

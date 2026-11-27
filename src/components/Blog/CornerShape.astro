@@ -9,9 +9,9 @@ const exponentId = Astro.locals.$id("corner-shape-exponent")
 
 <div class="corner-shape" style={`--_k: ${exponent}; --_radius: ${radius}%`}>
   <div class="corner-shape-row">
-    <Avatar label="Percy Groove" size="small">PG</Avatar>
-    <Avatar label="Rory Rootnote">RR</Avatar>
-    <Avatar label="Stella Nut" size="large">SN</Avatar>
+    <Avatar label="Adam Groove" size="small">AG</Avatar>
+    <Avatar label="Ellen Nut">EN</Avatar>
+    <Avatar label="Josh Rootnote" size="large">JR</Avatar>
     <p class="corner-shape-readout">
       <code data-value>corner-shape: superellipse(2)</code>
       <span data-name>squircle</span>
@@ -61,7 +61,7 @@ const exponentId = Astro.locals.$id("corner-shape-exponent")
 <style>
   .corner-shape {
     display: grid;
-    gap: var(--ui-space-4);
+    gap: var(--ui-space-5);
     inline-size: 100%;
 
     & :global(.ui-avatar) {
@@ -74,7 +74,7 @@ const exponentId = Astro.locals.$id("corner-shape-exponent")
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
   }
 
   .corner-shape-readout {
@@ -95,7 +95,7 @@ const exponentId = Astro.locals.$id("corner-shape-exponent")
   .corner-shape-knobs {
     border: 0;
     display: grid;
-    gap: var(--ui-space-3) var(--ui-space-5);
+    gap: var(--ui-space-4) var(--ui-space-6);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
     margin: 0;
     min-inline-size: 0;

@@ -128,6 +128,10 @@ export const keywords = ["listbox", "menu list", "ul"]
         A <code>.ui-icon-checked</code> at the end of the row shows your own
         icon while the row is selected or current.
       </Fragment>
+      <Fragment slot="nunjucks">
+        <code>slots.iconChecked</code> of a <code>ListItem</code> shows your own
+        icon at the end while the row is selected or current.
+      </Fragment>
       <Fragment slot="react">
         The <code>iconChecked</code> prop of a <code>ListItem</code> shows your
         own icon at the end while the row is selected or current.
@@ -281,7 +285,7 @@ export const keywords = ["listbox", "menu list", "ul"]
     <Anatomy api={listItemApi} zoom={1.25}>
       <UIList style="inline-size: 18rem">
         <ListItem
-          label="Lou Headstock"
+          label="Kinga Headstock"
           description="Flatwound collector"
           href="#clickable-list-item"
         >
@@ -302,7 +306,7 @@ export const keywords = ["listbox", "menu list", "ul"]
         </ListItem>
         <ListItem
           aria-current="true"
-          label="Ozzy Thump"
+          label="Damian Thump"
           description="Slap enthusiast"
           href="#selected"
         >

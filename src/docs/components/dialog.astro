@@ -104,6 +104,10 @@ export const keywords = ["lightbox", "modal", "overlay", "popup"]
 
     <h3 id="modal">Modal</h3>
     <Conditional as="p">
+      <Fragment slot="components">
+        The <code>DialogTitle</code> names the dialog through
+        <code>aria-labelledby</code>.
+      </Fragment>
       <Fragment slot="html">
         Point <code>aria-labelledby</code> at the heading.
       </Fragment>
@@ -115,6 +119,10 @@ export const keywords = ["lightbox", "modal", "overlay", "popup"]
         A <code>Button</code> with <code>command="show-modal"</code> and
         <code>commandfor</code> opens the dialog without a ref, and its click
         handler can update your state at the same time.
+      </Fragment>
+      <Fragment slot="astro">
+        A <code>Button</code> with <code>command="show-modal"</code> and
+        <code>commandfor</code> opens the dialog with no script.
       </Fragment>
     </Conditional>
     <Conditional as="p">
@@ -219,6 +227,12 @@ export const keywords = ["lightbox", "modal", "overlay", "popup"]
         <code>Dialog</code>, in a <code>&lt;dialog&gt;</code> of your own or in
         an island on an Astro page, can't find the dialog to close: set
         <code>commandfor</code> to its <code>id</code>.
+      </Fragment>
+      <Fragment slot="astro">
+        The button closes the <code>Dialog</code> it is in. A header outside a
+        <code>Dialog</code>, in a <code>&lt;dialog&gt;</code> of your own, can't
+        find the dialog to close: set <code>commandfor</code> to its
+        <code>id</code>.
       </Fragment>
       <Fragment slot="html">
         Point its <code>commandfor</code> at the dialog's <code>id</code>.

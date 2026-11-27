@@ -3,7 +3,7 @@ import { Stepper, StepperItem } from "opui-css/astro"
 ---
 
 <Stepper aria-label="Checkout steps">
-  <StepperItem complete href="#" label="Cart">
+  <StepperItem href="#" label="Cart" state="complete">
     <svg
       data-icon="check-all"
       slot="icon-complete"
@@ -22,7 +22,7 @@ import { Stepper, StepperItem } from "opui-css/astro"
       <path d="m22 10-7.5 7.5L13 16"></path>
     </svg>
   </StepperItem>
-  <StepperItem complete href="#" label="Shipping">
+  <StepperItem href="#" label="Shipping" state="complete">
     <svg
       data-icon="check-all"
       slot="icon-complete"

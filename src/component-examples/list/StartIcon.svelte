@@ -3,7 +3,7 @@
 </script>
 
 <List>
-  <ListItem label="Lou Headstock">
+  <ListItem label="Kinga Headstock">
     {#snippet start()}
       <svg
         data-icon="person"
@@ -20,7 +20,7 @@
       </svg>
     {/snippet}
   </ListItem>
-  <ListItem description="5-string slapper" label="Percy Groove">
+  <ListItem description="5-string slapper" label="Adam Groove">
     {#snippet start()}
       <svg
         data-icon="person"

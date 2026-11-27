@@ -1,6 +1,6 @@
 # Getting started
 
-Every framework needs the CSS. The HTML section covers the CDN file, the npm imports and the files to copy. The Astro, React, Solid, Svelte and Vue sections add their install, CSS import and component import steps.
+Every framework needs the CSS. The HTML section covers the CDN file, the npm imports and the files to copy. The Astro, Nunjucks, React, Solid, Svelte and Vue sections add their install, CSS and component import steps.
 
 ## HTML
 
@@ -13,7 +13,7 @@ Add the CSS from the CDN, from npm or by copying the files, then write the class
 One file with the theme, the reset and every component.
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opui-css@next/dist/opui.css" />
 ```
 
 #### Write the classes
@@ -75,7 +75,7 @@ Use `dist/opui.no-compat.css` without the [browser fallbacks](https://opui.dev/h
 
 ### Install manually
 
-No build step needed. Download the package (`npm pack opui-css`, or browse it on [jsDelivr](https://cdn.jsdelivr.net/npm/opui-css@6/)) as `opui`, and import the files:
+No build step needed. Download the package (`npm pack opui-css@next`, or browse it on [jsDelivr](https://cdn.jsdelivr.net/npm/opui-css@next/)) as `opui`, and import the files:
 
 ```css
 @import "./opui/css/layers.css";
@@ -125,8 +125,10 @@ opui
 ├─ themes
 │  ├─ bootstrap.css
 │  ├─ brutalist.css
+│  ├─ govuk.css
 │  ├─ m3.css
-│  └─ shadcn.css
+│  ├─ shadcn.css
+│  └─ vice-city.css
 ├─ open-props.css
 └─ tokens.json
 ```
@@ -140,25 +142,25 @@ For a bundler that resolves CSS `@import`s, like Vite, on Node 26.10 or later.
 `pnpm`
 
 ```sh
-pnpm add opui-css
+pnpm add opui-css@next
 ```
 
 `npm`
 
 ```sh
-npm install opui-css
+npm install opui-css@next
 ```
 
 `yarn`
 
 ```sh
-yarn add opui-css
+yarn add opui-css@next
 ```
 
 `bun`
 
 ```sh
-bun add opui-css
+bun add opui-css@next
 ```
 
 #### Import the CSS
@@ -208,7 +210,7 @@ Without a bundler, add this import map to the `head`:
 
 ```html
 <script type="importmap">
-  { "imports": { "opui-css/": "https://cdn.jsdelivr.net/npm/opui-css@6/" } }
+  { "imports": { "opui-css/": "https://cdn.jsdelivr.net/npm/opui-css@next/" } }
 </script>
 ```
 
@@ -220,11 +222,11 @@ Without a bundler, add this import map to the `head`:
 
 #### [Blocks](https://opui.dev/blocks.md)
 
-37 pages and sections built from the components.
+59 pages and sections built from the components.
 
 #### [Components](https://opui.dev/html/components.md)
 
-44 components, each with HTML examples and its API.
+45 components, each with HTML examples and its API.
 
 #### [Concepts](https://opui.dev/html/guide/concepts.md)
 
@@ -245,19 +247,19 @@ OPUI ships first-class Astro 7 components. Install the package, import what you 
 Needs Node 26.10 or later. Import the CSS once, where your app starts.
 
 ```sh
-pnpm add opui-css astro@7
+pnpm add opui-css@next astro@7
 ```
 
 ```sh
-npm install opui-css astro@7
+npm install opui-css@next astro@7
 ```
 
 ```sh
-yarn add opui-css astro@7
+yarn add opui-css@next astro@7
 ```
 
 ```sh
-bun add opui-css astro@7
+bun add opui-css@next astro@7
 ```
 
 ```astro
@@ -302,7 +304,7 @@ import "../styles/global.css"
 
 ### TypeScript
 
-`astro check` runs on TypeScript 6, not on 7. Keep `moduleResolution` set to `"bundler"`, as Astro's `tsconfig.json` presets do: with `"nodenext"`, the component props aren't checked.
+`astro check` needs `@astrojs/check` and runs on TypeScript 6, not on 7. Keep `moduleResolution` set to `"bundler"`, as Astro's `tsconfig.json` presets do: with `"nodenext"`, the component props aren't checked.
 
 ### How to use
 
@@ -332,7 +334,7 @@ export const onRequest = defineMiddleware((context, next) => {
 })
 ```
 
-Add `/// <reference types="opui-css/env.d.ts" />` to `env.d.ts` for the types.
+Add `/// <reference types="opui-css/env.d.ts" />` to `src/env.d.ts`, or create that file with the line, for the types.
 
 ### Next steps
 
@@ -342,9 +344,190 @@ Add `/// <reference types="opui-css/env.d.ts" />` to `env.d.ts` for the types.
 
 #### [Components](https://opui.dev/astro/components.md)
 
-44 components, each with Astro examples and its API.
+45 components, each with Astro examples and its API.
 
 #### [Concepts](https://opui.dev/astro/guide/concepts.md)
+
+#### [Theme builder](https://opui.dev/theme-builder.md)
+
+## Nunjucks
+
+OPUI ships every component as a Nunjucks 3 macro. Install the package, add the plugin, and import the macros you need.
+
+### Quick start
+
+#### Install and add the plugin
+
+Needs Node 26.10 or later. Configure Nunjucks once, and link the CSS in your layout.
+
+```sh
+pnpm add opui-css@next @11ty/eleventy nunjucks
+```
+
+```sh
+npm install opui-css@next @11ty/eleventy nunjucks
+```
+
+```sh
+yarn add opui-css@next @11ty/eleventy nunjucks
+```
+
+```sh
+bun add opui-css@next @11ty/eleventy nunjucks
+```
+
+```js
+import opui from "opui-css/nunjucks/eleventy"
+
+export default (eleventyConfig) => {
+  eleventyConfig.addPlugin(opui)
+  eleventyConfig.addPassthroughCopy({
+    "node_modules/opui-css/dist/opui.css": "opui.css",
+  })
+}
+```
+
+```html
+<link rel="stylesheet" href="/opui.css" />
+```
+
+#### Call a macro
+
+```html
+{% from "opui/index.njk" import Button %}
+
+{% call Button({ color: "primary", variant: "filled" }) %}Save{% endcall %}
+```
+
+| You write | It renders |
+| --- | --- |
+| `Button()` | `.ui-button` |
+| `color: "primary"` | `.ui-primary` |
+| `variant: "filled"` | `.ui-filled` |
+
+#### Make it yours
+
+### What's in the CSS
+
+### Link only what you use
+
+Copy the CSS folders and your own `css` folder to your site:
+
+```js
+eleventyConfig.addPassthroughCopy({
+  "node_modules/opui-css/core": "opui/core",
+  "node_modules/opui-css/css": "opui/css",
+})
+eleventyConfig.addPassthroughCopy("css")
+```
+
+List the files in a CSS file, and link it instead of `opui.css`:
+
+```css
+@import "/opui/css/layers.css";
+@import "/opui/core/palette.css";
+@import "/opui/css/theme.css";
+@import "/opui/core/normalize.css";
+@import "/opui/css/components/button.css";
+@import "/opui/css/components/choice.css";
+@import "/opui/css/components/checkbox.css";
+@import "/opui/css/compat.css";
+@import "/opui/core/utils.css";
+```
+
+### Without Eleventy
+
+Pass your environment to `configure`:
+
+```js
+import nunjucks from "nunjucks"
+import { configure } from "opui-css/nunjucks"
+
+const env = configure(nunjucks.configure("views"))
+```
+
+It adds the macros under `opui/`, their filters and the `opui` global. It needs `autoescape` on and `trimBlocks`, `lstripBlocks` and `throwOnUndefined` off, the Nunjucks defaults. Your own templates come first, so `views/opui/Button.njk` replaces the Button macro. A replacement defines that one macro and imports any other from `opui/`: when two macros sit in one template, Nunjucks runs a `{% call %}` body with the variables of the macro it calls.
+
+### How to use
+
+Each macro takes one dict with the component's props. The default slot is the body of `{% call %}`, and named slots go in `slots` under their camelCase name, as a string or captured with `{% set %}`:
+
+```html
+{% from "opui/index.njk" import Field %}
+
+{% set start %}<b>@</b>{% endset %}
+{% call Field({ for: "handle", label: "Handle", slots: { start: start } }) %}
+  <input aria-describedby="handle-start" id="handle" />
+{% endcall %}
+```
+
+Props are text, as in the other frameworks: a value marked `| safe` prints escaped, in attributes too, so markup goes in a slot. A prop set to `none` renders as a prop not given, so its default applies.
+
+Keys the macro doesn't take go to its element as attributes. Import a macro on its own with `{% from "opui/Button.njk" import Button %}`, or all of them as `{% import "opui/index.njk" as ui %}`.
+
+A [Field](https://opui.dev/nunjucks/components/field.md) wraps your own control. Give the control an `id`, set `for` on the field to it, and name it like any input. For a hint, set the control's `aria-describedby` to `<id>-end-text`.
+
+### Scripts
+
+The macros render markup only. A few features need a script:
+
+| Feature | What it does | Import |
+| --- | --- | --- |
+| [Character count](https://opui.dev/nunjucks/components/field.md#character-count) | Counts the characters left, in a Field | `opui-css/elements/character-count.js` |
+| [Close on navigate](https://opui.dev/nunjucks/components/drawer.md#navigation) | Closes open menus and `[data-close-on-navigate]` drawers when the page navigates | `opui-css/elements/close-on-navigate.js` |
+| [Copy](https://opui.dev/nunjucks/components/copy.md) | Copies text or a field's value | `opui-css/elements/copy.js` |
+| [Dismissible callout](https://opui.dev/nunjucks/components/callout.md#dismissible) | Hides a callout with its close button | `opui-css/elements/callout.js` |
+| [File upload](https://opui.dev/nunjucks/components/file-upload.md) | Fires `select` for picked and dropped files and `remove` for a file's remove button | `opui-css/elements/file-upload.js` |
+| [Indeterminate checkbox](https://opui.dev/nunjucks/components/checkbox.md#indeterminate) | Sets `indeterminate` from `data-indeterminate` | `opui-css/css/js/checkbox.js` |
+| [Step button](https://opui.dev/nunjucks/components/number-field.md) | Steps a number input's value with its button | `opui-css/elements/step-button.js` |
+| [Password toggle](https://opui.dev/nunjucks/components/text-field.md#password-toggle) | Shows and hides the password | `opui-css/elements/password-toggle.js` |
+| [Reactions](https://opui.dev/nunjucks/components/message.md#saving-reactions) | Asks your server before a reaction changes | `opui-css/elements/reactions.js` |
+| [Select all](https://opui.dev/nunjucks/components/checkbox.md#select-all) | Checks or clears a group of checkboxes from one | `opui-css/elements/select-all.js` |
+| [Sortable table](https://opui.dev/nunjucks/components/table.md#sorting) | Sorts the rows by a column | `opui-css/elements/sortable-table.js` |
+| [Toast](https://opui.dev/nunjucks/components/toast.md) | Shows toasts and dismisses them | `opui-css/elements/toaster.js` |
+
+Without a bundler, copy the scripts to your site:
+
+```js
+eleventyConfig.addPassthroughCopy({
+  "node_modules/opui-css/css/js": "opui/css/js",
+  "node_modules/opui-css/elements": "opui/elements",
+})
+```
+
+And map the package in the `head`:
+
+```html
+<script type="importmap">
+  { "imports": { "opui-css/": "/opui/" } }
+</script>
+```
+
+### Ids
+
+Components a trigger points at need an `id`. Generated ids come from one counter per environment, so they never repeat, but their numbers follow the render order. Pass `id` where it has to stay the same, or your own generator as `configure(env, { id })`.
+
+### Warnings
+
+Unless `NODE_ENV` is `production`, a key that is no prop and no attribute of the element, or a slot the macro doesn't have, warns once:
+
+```text
+[OPUI Button] Unknown prop "lable": Button has no prop by that name and its element no attribute, so it renders as an attribute.
+```
+
+A macro called with anything but one dict, such as `Button("Save")`, throws there instead.
+
+### Next steps
+
+#### [AI assistants](https://opui.dev/nunjucks/llms.txt)
+
+#### [Blocks](https://opui.dev/blocks.md)
+
+#### [Components](https://opui.dev/nunjucks/components.md)
+
+45 components, each with Nunjucks examples and its API.
+
+#### [Concepts](https://opui.dev/nunjucks/guide/concepts.md)
 
 #### [Theme builder](https://opui.dev/theme-builder.md)
 
@@ -357,19 +540,19 @@ OPUI ships first-class React 19 components. Install the package, import what you
 #### Install and import the CSS
 
 ```sh
-pnpm add opui-css react@19 react-dom@19
+pnpm add opui-css@next react@19 react-dom@19
 ```
 
 ```sh
-npm install opui-css react@19 react-dom@19
+npm install opui-css@next react@19 react-dom@19
 ```
 
 ```sh
-yarn add opui-css react@19 react-dom@19
+yarn add opui-css@next react@19 react-dom@19
 ```
 
 ```sh
-bun add opui-css react@19 react-dom@19
+bun add opui-css@next react@19 react-dom@19
 ```
 
 ```tsx
@@ -402,7 +585,7 @@ import "./styles/main.css"
 
 ### Builds
 
-Vite 8, which SvelteKit and Nuxt build with, and Next 16 rewrite `light-dark()` for older browsers by default. The colors still follow the OS, and `.ui-light` or `.ui-dark` on `html` still works, but on a part of the page it stops switching after a build. Target browsers that have `light-dark()`:
+Next 16 and Vite 8 rewrite `light-dark()` for older browsers by default. The colors still follow the OS, and `.ui-light` or `.ui-dark` on `html` still works, but on a part of the page it stops switching after a build. Target browsers that have `light-dark()`:
 
 ```js
 experimental: {
@@ -459,9 +642,9 @@ Every component renders full HTML on the server. Components with state or effect
 
 A choice the user makes before the page hydrates stays on screen. The form controls pass `value`, `checked`, their defaults and `onChange` to the native input, and `Rating`, `Tabs` and `ToggleGroup` render their inputs like native radios, so they work like plain React inputs: React doesn't call `onChange` or `onValueChange` for that choice, and a controlled value misses it. A form that reads its values on submit gets it.
 
-- **70** of 72 need no hydration
+- **72** of 74 need no hydration
 - **2** hydrate for `indeterminate`
-- **44** are Server Components
+- **49** are Server Components
 
 | Component | Client | Server | Server Component | Needs hydration |
 | --- | --- | --- | --- | --- |
@@ -472,6 +655,8 @@ A choice the user makes before the page hydrates stays on screen. The form contr
 | [`Avatar`](https://opui.dev/react/components/avatar.md) | Yes | Yes | Yes | - |
 | [`AvatarGroup`](https://opui.dev/react/components/avatar.md) | Yes | Yes | Yes | - |
 | [`Badge`](https://opui.dev/react/components/badge.md) | Yes | Yes | Yes | - |
+| [`Breadcrumb`](https://opui.dev/react/components/breadcrumb.md) | Yes | Yes | Yes | - |
+| [`BreadcrumbItem`](https://opui.dev/react/components/breadcrumb.md) | Yes | Yes | Yes | - |
 | [`Button`](https://opui.dev/react/components/button.md) | Yes | Yes | Yes | - |
 | [`Callout`](https://opui.dev/react/components/callout.md) | Yes | Yes | No | - |
 | [`Card`](https://opui.dev/react/components/card.md) | Yes | Yes | Yes | - |
@@ -495,7 +680,7 @@ A choice the user makes before the page hydrates stays on screen. The form contr
 | [`DrawerHeader`](https://opui.dev/react/components/drawer.md) | Yes | Yes | No | - |
 | [`Field`](https://opui.dev/react/components/field.md) | Yes | Yes | Yes | - |
 | [`FieldDescription`](https://opui.dev/react/components/form.md) | Yes | Yes | Yes | - |
-| [`FieldGroup`](https://opui.dev/react/components/form.md) | Yes | Yes | No | - |
+| [`FieldGroup`](https://opui.dev/react/components/form.md) | Yes | Yes | Yes | - |
 | [`FieldLegend`](https://opui.dev/react/components/form.md) | Yes | Yes | No | - |
 | [`Fieldset`](https://opui.dev/react/components/form.md) | Yes | Yes | No | - |
 | [`FileUpload`](https://opui.dev/react/components/file-upload.md) | Yes | Yes | No | - |
@@ -510,7 +695,7 @@ A choice the user makes before the page hydrates stays on screen. The form contr
 | [`PasswordToggle`](https://opui.dev/react/components/text-field.md) | Yes | Yes | No | - |
 | [`Progress`](https://opui.dev/react/components/progress.md) | Yes | Yes | Yes | - |
 | [`Radio`](https://opui.dev/react/components/radio.md) | Yes | Yes | Yes | - |
-| [`RadioInput`](https://opui.dev/react/components/radio.md) | Yes | Yes | No | - |
+| [`RadioInput`](https://opui.dev/react/components/radio.md) | Yes | Yes | Yes | - |
 | [`Rating`](https://opui.dev/react/components/rating.md) | Yes | Yes | No | - |
 | [`Reactions`](https://opui.dev/react/components/message.md) | Yes | Yes | No | - |
 | [`SelectAll`](https://opui.dev/react/components/checkbox.md) | Yes | Yes | No | - |
@@ -521,7 +706,7 @@ A choice the user makes before the page hydrates stays on screen. The form contr
 | [`Stepper`](https://opui.dev/react/components/stepper.md) | Yes | Yes | Yes | - |
 | [`StepperItem`](https://opui.dev/react/components/stepper.md) | Yes | Yes | Yes | - |
 | [`Switch`](https://opui.dev/react/components/switch.md) | Yes | Yes | Yes | - |
-| [`SwitchInput`](https://opui.dev/react/components/switch.md) | Yes | Yes | No | - |
+| [`SwitchInput`](https://opui.dev/react/components/switch.md) | Yes | Yes | Yes | - |
 | [`Table`](https://opui.dev/react/components/table.md) | Yes | Yes | Yes | - |
 | [`TableCell`](https://opui.dev/react/components/table.md) | Yes | Yes | Yes | - |
 | [`TableColumn`](https://opui.dev/react/components/table.md) | Yes | Yes | Yes | - |
@@ -546,7 +731,7 @@ A choice the user makes before the page hydrates stays on screen. The form contr
 
 #### [Components](https://opui.dev/react/components.md)
 
-44 components, each with React examples and its API.
+45 components, each with React examples and its API.
 
 #### [Concepts](https://opui.dev/react/guide/concepts.md)
 
@@ -561,19 +746,19 @@ OPUI ships first-class Solid 2 components. Install the package, import what you 
 #### Install and import the CSS
 
 ```sh
-pnpm add opui-css solid-js@2 @solidjs/web@2
+pnpm add opui-css@next solid-js@2 @solidjs/web@2
 ```
 
 ```sh
-npm install opui-css solid-js@2 @solidjs/web@2
+npm install opui-css@next solid-js@2 @solidjs/web@2
 ```
 
 ```sh
-yarn add opui-css solid-js@2 @solidjs/web@2
+yarn add opui-css@next solid-js@2 @solidjs/web@2
 ```
 
 ```sh
-bun add opui-css solid-js@2 @solidjs/web@2
+bun add opui-css@next solid-js@2 @solidjs/web@2
 ```
 
 #### Use a component
@@ -595,6 +780,10 @@ export default function App() {
 ### Builds
 
 The components ship as `.jsx` files with their types, which `@solidjs/vite-plugin` compiles with your Solid through the package's `solid` export condition, for server rendering too.
+
+Vite 8 rewrites `light-dark()` for older browsers by default. The colors still follow the OS, and `.ui-light` or `.ui-dark` on `html` still works, but on a part of the page it stops switching after a build. Target browsers that have `light-dark()`:
+
+Same code as in the HTML section.
 
 ### TypeScript
 
@@ -640,13 +829,19 @@ export default defineConfig({
 })
 ```
 
+With `start`, the plugin builds its entries from `src/App.tsx` instead of `index.html` and `src/index.tsx`, so import the CSS there:
+
+```ts
+import "opui-css/css/imports.css"
+```
+
 A page with more than one root gives each its own `renderId` in `renderToString` and `hydrate`, so the ids the components generate differ between the roots. Roots hydrated in the same task each claim their server markup. A root hydrated in a later task renders again over its markup, so load the code of every root first and call `hydrate` for all of them in one loop.
 
 The props in the last column need hydration.
 
 A choice the user makes before the page hydrates stays on screen, as on a plain Solid input: Solid doesn't call `onChange` or `onValueChange` for it, and a controlled value misses it. A form that reads its values on submit gets it.
 
-- **70** of 72 need no hydration
+- **72** of 74 need no hydration
 - **2** hydrate for `indeterminate`
 
 | Component | Client | Server | Needs hydration |
@@ -658,6 +853,8 @@ A choice the user makes before the page hydrates stays on screen, as on a plain 
 | [`Avatar`](https://opui.dev/solid/components/avatar.md) | Yes | Yes | - |
 | [`AvatarGroup`](https://opui.dev/solid/components/avatar.md) | Yes | Yes | - |
 | [`Badge`](https://opui.dev/solid/components/badge.md) | Yes | Yes | - |
+| [`Breadcrumb`](https://opui.dev/solid/components/breadcrumb.md) | Yes | Yes | - |
+| [`BreadcrumbItem`](https://opui.dev/solid/components/breadcrumb.md) | Yes | Yes | - |
 | [`Button`](https://opui.dev/solid/components/button.md) | Yes | Yes | - |
 | [`Callout`](https://opui.dev/solid/components/callout.md) | Yes | Yes | - |
 | [`Card`](https://opui.dev/solid/components/card.md) | Yes | Yes | - |
@@ -732,7 +929,7 @@ A choice the user makes before the page hydrates stays on screen, as on a plain 
 
 #### [Components](https://opui.dev/solid/components.md)
 
-44 components, each with Solid examples and its API.
+45 components, each with Solid examples and its API.
 
 #### [Concepts](https://opui.dev/solid/guide/concepts.md)
 
@@ -747,19 +944,19 @@ OPUI ships first-class components for Svelte 5.57 and later. Install the package
 #### Install and import the CSS
 
 ```sh
-pnpm add opui-css svelte@5
+pnpm add opui-css@next svelte@5
 ```
 
 ```sh
-npm install opui-css svelte@5
+npm install opui-css@next svelte@5
 ```
 
 ```sh
-yarn add opui-css svelte@5
+yarn add opui-css@next svelte@5
 ```
 
 ```sh
-bun add opui-css svelte@5
+bun add opui-css@next svelte@5
 ```
 
 ```svelte
@@ -803,6 +1000,10 @@ Same code as in the HTML section.
 ```
 
 ### Builds
+
+Vite 8, which SvelteKit builds with, rewrites `light-dark()` for older browsers by default. The colors still follow the OS, and `.ui-light` or `.ui-dark` on `html` still works, but on a part of the page it stops switching after a build. Target browsers that have `light-dark()`:
+
+Same code as in the HTML section.
 
 ### TypeScript
 
@@ -866,7 +1067,7 @@ Every component spreads its other props on its root element, attachments too, so
 
 Every component renders full HTML on the server. The props in the last column need hydration.
 
-- **62** of 72 need no hydration
+- **64** of 74 need no hydration
 - **10** hydrate for `bind:checked`, `bind:group`, `bind:value`, `indeterminate`
 
 | Component | Client | Server | Needs hydration |
@@ -878,6 +1079,8 @@ Every component renders full HTML on the server. The props in the last column ne
 | [`Avatar`](https://opui.dev/svelte/components/avatar.md) | Yes | Yes | - |
 | [`AvatarGroup`](https://opui.dev/svelte/components/avatar.md) | Yes | Yes | - |
 | [`Badge`](https://opui.dev/svelte/components/badge.md) | Yes | Yes | - |
+| [`Breadcrumb`](https://opui.dev/svelte/components/breadcrumb.md) | Yes | Yes | - |
+| [`BreadcrumbItem`](https://opui.dev/svelte/components/breadcrumb.md) | Yes | Yes | - |
 | [`Button`](https://opui.dev/svelte/components/button.md) | Yes | Yes | - |
 | [`Callout`](https://opui.dev/svelte/components/callout.md) | Yes | Yes | - |
 | [`Card`](https://opui.dev/svelte/components/card.md) | Yes | Yes | - |
@@ -952,7 +1155,7 @@ Every component renders full HTML on the server. The props in the last column ne
 
 #### [Components](https://opui.dev/svelte/components.md)
 
-44 components, each with Svelte examples and its API.
+45 components, each with Svelte examples and its API.
 
 #### [Concepts](https://opui.dev/svelte/guide/concepts.md)
 
@@ -967,19 +1170,19 @@ OPUI ships first-class components for Vue 3.5.2 and later. Install the package, 
 #### Install and import the CSS
 
 ```sh
-pnpm add opui-css vue@3
+pnpm add opui-css@next vue@3
 ```
 
 ```sh
-npm install opui-css vue@3
+npm install opui-css@next vue@3
 ```
 
 ```sh
-yarn add opui-css vue@3
+yarn add opui-css@next vue@3
 ```
 
 ```sh
-bun add opui-css vue@3
+bun add opui-css@next vue@3
 ```
 
 ```ts
@@ -1020,6 +1223,10 @@ import "./styles/main.css"
 
 ### Builds
 
+Vite 8, which Nuxt builds with, rewrites `light-dark()` for older browsers by default. The colors still follow the OS, and `.ui-light` or `.ui-dark` on `html` still works, but on a part of the page it stops switching after a build. Target browsers that have `light-dark()`:
+
+Same code as in the HTML section.
+
 ### TypeScript
 
 Vue needs the TypeScript version `vue-tsc` supports, since it checks the `.vue` files: vue-tsc 3.3 runs on TypeScript 6, not on 7. The types resolve with `moduleResolution` set to `"bundler"` or `"nodenext"`.
@@ -1050,7 +1257,7 @@ const dialog = useTemplateRef("dialog")
 
 ### Server rendering
 
-- **62** of 72 need no hydration
+- **64** of 74 need no hydration
 - **10** hydrate for `indeterminate`, `v-model`
 
 | Component | Client | Server | Needs hydration |
@@ -1062,6 +1269,8 @@ const dialog = useTemplateRef("dialog")
 | [`Avatar`](https://opui.dev/vue/components/avatar.md) | Yes | Yes | - |
 | [`AvatarGroup`](https://opui.dev/vue/components/avatar.md) | Yes | Yes | - |
 | [`Badge`](https://opui.dev/vue/components/badge.md) | Yes | Yes | - |
+| [`Breadcrumb`](https://opui.dev/vue/components/breadcrumb.md) | Yes | Yes | - |
+| [`BreadcrumbItem`](https://opui.dev/vue/components/breadcrumb.md) | Yes | Yes | - |
 | [`Button`](https://opui.dev/vue/components/button.md) | Yes | Yes | - |
 | [`Callout`](https://opui.dev/vue/components/callout.md) | Yes | Yes | - |
 | [`Card`](https://opui.dev/vue/components/card.md) | Yes | Yes | - |
@@ -1136,7 +1345,7 @@ const dialog = useTemplateRef("dialog")
 
 #### [Components](https://opui.dev/vue/components.md)
 
-44 components, each with Vue examples and its API.
+45 components, each with Vue examples and its API.
 
 #### [Concepts](https://opui.dev/vue/guide/concepts.md)
 

@@ -3,7 +3,7 @@
 A short label or hint for a control, shown on hover and focus.
 
 - CSS: `opui-css/css/components/tooltip.css` and `opui-css/css/components/anchor.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/tooltip.md), [Astro](https://opui.dev/astro/components/tooltip.md), [React](https://opui.dev/react/components/tooltip.md), [Solid](https://opui.dev/solid/components/tooltip.md), [Svelte](https://opui.dev/svelte/components/tooltip.md), [Vue](https://opui.dev/vue/components/tooltip.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/tooltip.md), [Astro](https://opui.dev/astro/components/tooltip.md), [Nunjucks](https://opui.dev/nunjucks/components/tooltip.md), [React](https://opui.dev/react/components/tooltip.md), [Solid](https://opui.dev/solid/components/tooltip.md), [Svelte](https://opui.dev/svelte/components/tooltip.md), [Vue](https://opui.dev/vue/components/tooltip.md).
 
 ## Tooltip
 
@@ -51,7 +51,7 @@ Outputs: `--_duration`, `--_ease` and `--_ease-move`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width`, `--ui-duration`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-font-size-small`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-inverse`, `--ui-radius-small`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4` and `--ui-surface-inverse`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-duration`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-ease-move`, `--ui-font-size-small`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-inverse`, `--ui-radius-small`, `--ui-space-1`, `--ui-space-2`, `--ui-space-5` and `--ui-surface-inverse`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -90,6 +90,24 @@ import { Button, Tooltip, TooltipContent } from "opui-css/astro"
   >
   <TooltipContent>Save your changes</TooltipContent>
 </Tooltip>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Tooltip, TooltipContent %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Button, Tooltip, TooltipContent %}
+
+{% call Tooltip({ id: "tooltip-basics-1" }) %}
+  {% call Button({
+    "aria-describedby": "tooltip-basics-1",
+    interestfor: "tooltip-basics-1"
+  }) %}Save{% endcall %}
+  {% call TooltipContent() %}Save your changes{% endcall %}
+{% endcall %}
 ```
 
 ## React

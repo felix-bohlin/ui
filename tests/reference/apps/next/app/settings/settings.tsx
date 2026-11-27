@@ -91,12 +91,16 @@ export default function Settings() {
           </Fieldset>
           <Fieldset>
             <FieldLegend>Who can see your posts</FieldLegend>
-            <FieldGroup name="visibility">
-              <Radio value="everyone">Everyone</Radio>
-              <Radio defaultChecked value="friends">
+            <FieldGroup>
+              <Radio name="visibility" value="everyone">
+                Everyone
+              </Radio>
+              <Radio defaultChecked name="visibility" value="friends">
                 Friends
               </Radio>
-              <Radio value="only-me">Only me</Radio>
+              <Radio name="visibility" value="only-me">
+                Only me
+              </Radio>
             </FieldGroup>
           </Fieldset>
           <Fieldset>

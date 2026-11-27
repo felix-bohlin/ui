@@ -1,6 +1,6 @@
 import { cx } from "../cx"
 import Anchor from "../Anchor/Anchor.react"
-import { warnMissingId } from "../dev"
+import { DEV, warnMissingId } from "../dev"
 import type { Props } from "./types.react"
 
 export default function Tooltip({
@@ -11,7 +11,7 @@ export default function Tooltip({
   children,
   ...rest
 }: Props) {
-  warnMissingId("Tooltip", id, "interestfor")
+  if (DEV) warnMissingId("Tooltip", id, "interestfor")
 
   return (
     <Anchor

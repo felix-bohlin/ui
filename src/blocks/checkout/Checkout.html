@@ -1,10 +1,10 @@
-<div class="checkout ui-layout-container ui-layout-column ui-large">
+<div class="checkout ui-layout-container ui-layout-column ui-gap-large">
   <hgroup class="ui-hgroup">
     <p>Bassbook Shop</p>
     <h1 class="ui-h3">Checkout</h1>
   </hgroup>
   <ol class="ui-stepper ui-horizontal" aria-label="Checkout steps">
-    <li class="ui-complete">
+    <li class="ui-state-complete">
       <a href="#checkout-cart">
         Cart<span class="ui-sr-only">, completed</span>
       </a>
@@ -14,7 +14,7 @@
   </ol>
   <div
     class="ui-layout-columns"
-    style="--_columns: 3fr 2fr; --_gap: var(--ui-space-6)"
+    style="--_columns: 3fr 2fr; --_gap: var(--ui-space-7)"
   >
     <form class="ui-form" action="#">
       <fieldset class="ui-fieldset">
@@ -30,12 +30,12 @@
                 placeholder="you@example.com"
                 required
                 type="email"
-                value="ines.hertz@example.com"
+                value="mohini.hertz@example.com"
               />
             </span>
           </div>
           <label class="ui-checkbox">
-            <input type="checkbox" name="news" checked id="checkout-news" />
+            <input type="checkbox" checked id="checkout-news" name="news" />
             <span class="ui-label"
               >Email me about new gear and totally rad offers</span
             >
@@ -57,7 +57,7 @@
                   name="first-name"
                   required
                   type="text"
-                  value="Ines"
+                  value="Mohini"
                 />
               </span>
             </div>
@@ -177,9 +177,9 @@
               <div class="ui-end">
                 <input
                   type="radio"
-                  name="checkout-delivery"
                   checked
                   id="checkout-delivery-standard"
+                  name="checkout-delivery"
                   value="standard"
                 />
               </div>
@@ -197,8 +197,8 @@
               <div class="ui-end">
                 <input
                   type="radio"
-                  name="checkout-delivery"
                   id="checkout-delivery-home"
+                  name="checkout-delivery"
                   value="home"
                 />
               </div>
@@ -216,8 +216,8 @@
               <div class="ui-end">
                 <input
                   type="radio"
-                  name="checkout-delivery"
                   id="checkout-delivery-express"
+                  name="checkout-delivery"
                   value="express"
                 />
               </div>
@@ -227,7 +227,7 @@
       </fieldset>
       <fieldset class="ui-fieldset">
         <legend>Payment</legend>
-        <div class="ui-tabs" style="--_panel-gap: var(--ui-space-4)">
+        <div class="ui-tabs" style="--_panel-gap: var(--ui-space-5)">
           <input
             checked
             class="ui-input"
@@ -302,7 +302,7 @@
                 </div>
               </div>
               <label class="ui-checkbox">
-                <input type="checkbox" name="billing-same" checked />
+                <input type="checkbox" checked name="billing-same" />
                 <span class="ui-label"
                   >Billing address is the same as shipping</span
                 >
@@ -320,7 +320,7 @@
           <div class="ui-panel">
             <p>
               Pay within 30 days of delivery. We'll email the invoice to
-              ines.hertz@example.com once your gear ships.
+              mohini.hertz@example.com once your gear ships.
             </p>
           </div>
           <input
@@ -346,7 +346,7 @@
         >
           Pay €154.30
         </button>
-        <p class="ui-layout-row ui-x-small ui-align-center ui-caption">
+        <p class="ui-layout-row ui-gap-x-small ui-align-center ui-caption">
           <svg
             data-icon="lock"
             aria-hidden="true"
@@ -438,19 +438,19 @@
                 id="checkout-discount"
                 name="discount"
                 type="text"
-                value="LOWEND10"
+                value="BASS10"
               />
             </span>
           </div>
           <button class="ui-button" type="button">Apply</button>
         </div>
-        <dl class="ui-description-list ui-border-solid ui-horizontal">
+        <dl class="ui-description-list ui-leader-solid ui-horizontal">
           <div>
             <dt>Subtotal</dt>
             <dd>€166.00</dd>
           </div>
           <div>
-            <dt>Discount (LOWEND10)</dt>
+            <dt>Discount (BASS10)</dt>
             <dd>−€16.60</dd>
           </div>
           <div>
@@ -501,7 +501,7 @@
     }
 
     .checkout-price {
-      font-weight: var(--ui-font-weight-semibold);
+      font-weight: var(--ui-font-weight-label);
     }
 
     .checkout-submit {

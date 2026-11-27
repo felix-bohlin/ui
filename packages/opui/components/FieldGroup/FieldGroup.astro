@@ -1,15 +1,8 @@
 ---
 import type { Props } from "./types.astro"
-import { fieldGroupContext } from "./context.astro"
 export const title = "Field Group"
 
-const { class: className, name, orientation, ...rest } = Astro.props
-
-const parent = fieldGroupContext.get()
-const html = await fieldGroupContext.provide(
-  { name: name || parent?.name },
-  () => Astro.slots.render("default"),
-)
+const { class: className, orientation, ...rest } = Astro.props
 ---
 
 <div
@@ -20,5 +13,5 @@ const html = await fieldGroupContext.provide(
   ]}
   {...rest}
 >
-  <Fragment set:html={html} />
+  <slot />
 </div>

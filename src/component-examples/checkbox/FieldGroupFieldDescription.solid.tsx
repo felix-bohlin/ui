@@ -16,24 +16,24 @@ export default function FieldGroupFieldDescription() {
         <FieldDescription id="checkbox-field-group-field-description-1-description">
           How we tell you a bandmate finally replied.
         </FieldDescription>
-        <FieldGroup
-          name="checkbox-group-field-description-1"
-          orientation="horizontal"
-        >
-          <Checkbox defaultChecked>Email</Checkbox>
-          <Checkbox>Push</Checkbox>
-          <Checkbox>SMS</Checkbox>
+        <FieldGroup orientation="horizontal">
+          <Checkbox defaultChecked name="checkbox-group-field-description-1">
+            Email
+          </Checkbox>
+          <Checkbox name="checkbox-group-field-description-1">Push</Checkbox>
+          <Checkbox name="checkbox-group-field-description-1">SMS</Checkbox>
         </FieldGroup>
       </Fieldset>
       <Fieldset aria-describedby="checkbox-field-group-field-description-2-description">
         <FieldLegend>Newsletter topics</FieldLegend>
-        <FieldGroup
-          name="checkbox-group-field-description-2"
-          orientation="horizontal"
-        >
-          <Checkbox defaultChecked>Bassbook news</Checkbox>
-          <Checkbox>Events</Checkbox>
-          <Checkbox>Gear deals</Checkbox>
+        <FieldGroup orientation="horizontal">
+          <Checkbox defaultChecked name="checkbox-group-field-description-2">
+            Bassbook news
+          </Checkbox>
+          <Checkbox name="checkbox-group-field-description-2">Events</Checkbox>
+          <Checkbox name="checkbox-group-field-description-2">
+            Gear deals
+          </Checkbox>
         </FieldGroup>
         <FieldDescription id="checkbox-field-group-field-description-2-description">
           Change these at any time in your account.

@@ -1,12 +1,11 @@
 export type StepperItemProps = {
-  complete?: boolean
   completeLabel?: string
   current?: boolean
   description?: string
-  error?: boolean
   errorLabel?: string
   href?: string
   label?: string
+  state?: "complete" | "error"
 }
 
 export type Props = {

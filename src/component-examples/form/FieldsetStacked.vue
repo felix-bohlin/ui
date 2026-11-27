@@ -14,10 +14,10 @@ import {
     <FieldDescription id="form-fieldset-stacked-1-description"
       >Please select your favorite type of pet.</FieldDescription
     >
-    <FieldGroup name="pet">
-      <Radio value="cat">Cat</Radio>
-      <Radio value="dog">Dog</Radio>
-      <Radio value="hamster">Hamster</Radio>
+    <FieldGroup>
+      <Radio name="pet" value="cat">Cat</Radio>
+      <Radio name="pet" value="dog">Dog</Radio>
+      <Radio name="pet" value="hamster">Hamster</Radio>
     </FieldGroup>
   </Fieldset>
 </template>

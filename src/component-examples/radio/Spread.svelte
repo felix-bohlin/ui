@@ -11,16 +11,16 @@
 <Form>
   <Fieldset>
     <FieldLegend>Delivery</FieldLegend>
-    <FieldGroup name="radio-spread">
-      <Radio defaultChecked spread value="standard">
+    <FieldGroup>
+      <Radio defaultChecked name="radio-spread" spread value="standard">
         Standard
         {#snippet endText()}Arrives in 3 to 5 days.{/snippet}
       </Radio>
-      <Radio spread value="express">
+      <Radio name="radio-spread" spread value="express">
         Express
         {#snippet endText()}Arrives tomorrow.{/snippet}
       </Radio>
-      <Radio disabled spread value="pickup">
+      <Radio disabled name="radio-spread" spread value="pickup">
         Pickup
         {#snippet endText()}Not available in your area.{/snippet}
       </Radio>

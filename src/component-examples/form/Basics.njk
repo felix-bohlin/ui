@@ -1,0 +1,27 @@
+{% from "opui/index.njk" import
+  Button,
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form
+%}
+
+{% call Form() %}
+  {% call Fieldset({ "aria-describedby": "form-basics-1-description" }) %}
+    {% call FieldLegend() %}Contact{% endcall %}
+    {% call FieldDescription({ id: "form-basics-1-description" }) %}How can we reach you?{% endcall %}
+    {% call FieldGroup() %}
+      {% call Field({ for: "form-basics-2", label: "Name" }) %}
+        <input autocomplete="name" id="form-basics-2" />
+      {% endcall %}
+      {% call Field({ for: "form-basics-3", label: "Email" }) %}
+        <input autocomplete="email" id="form-basics-3" type="email" />
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call FieldGroup() %}
+    {% call Button({ type: "submit", variant: "filled" }) %}Send{% endcall %}
+  {% endcall %}
+{% endcall %}

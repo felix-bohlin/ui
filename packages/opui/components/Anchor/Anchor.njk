@@ -1,0 +1,24 @@
+{% macro Anchor(props = {}) %}
+  {%- set props = props | opuiProps("Anchor") -%}
+  {%- set rest = props | opuiRest("Anchor") -%}
+  {%- set isHover = props.trigger == "hover" -%}
+  {%- set id = props.id or undefined if isHover else undefined -%}
+  {{- opui.warnMissingId("Anchor", id, "interestfor")
+    if isHover and not opui.extendsAnchor(props.class) -}}
+  {%- set anchor = { floatingId: id, popover: "hint" if isHover else undefined } -%}
+  {%- set classes = [
+    not opui.extendsAnchor(props.class) and 'ui-anchor',
+    props.class
+  ] | opuiClass -%}
+  {%- set idValue = none if isHover else props.id -%}
+  <span
+    {%- if classes %} class="{{ classes }}"{% endif %}
+    {%- if idValue != none %} id="{{ idValue }}"{% endif %}
+    {{- { style: opui.mergeStyle(
+      { "--ui-anchor-position-area": props.positionArea },
+      props.style
+    ) } | opuiAttributes }}
+    {{- rest | opuiAttributes }}>
+    {{- opui.provide("Anchor", anchor, caller) -}}
+  </span>
+{%- endmacro %}

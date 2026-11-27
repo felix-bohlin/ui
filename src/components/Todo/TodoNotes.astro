@@ -62,7 +62,7 @@ const replyAt = (index: number) => {
   .todo-notes {
     display: grid;
     gap: var(--size-3);
-    line-height: var(--ui-line-height-relaxed);
+    line-height: var(--ui-line-height-body);
   }
 
   .todo-note {
@@ -96,7 +96,7 @@ const replyAt = (index: number) => {
 
     figcaption {
       font-size: var(--ui-font-size-caption);
-      font-weight: var(--ui-font-weight-semibold);
+      font-weight: var(--ui-font-weight-label);
       letter-spacing: var(--ui-letter-spacing-caps);
       text-transform: uppercase;
     }
@@ -109,7 +109,7 @@ const replyAt = (index: number) => {
   .todo-outcome {
     --_tone: var(--ui-neutral);
 
-    border-inline-start: var(--ui-border-width-thick) solid var(--_tone);
+    border-inline-start: var(--ui-border-width-large) solid var(--_tone);
     padding-inline-start: var(--size-3);
 
     &[data-tone="done"] {
@@ -131,7 +131,7 @@ const replyAt = (index: number) => {
 
   .todo-outcome-label {
     color: var(--ui-text-strong);
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
 
     &:not(:last-child)::after {
       content: ": ";

@@ -17,9 +17,9 @@ import {
   <div class="hero ui-layout-container" style="--_max-inline-size: 76rem">
     <div
       class="ui-layout-columns hero-inner"
-      style="--_columns: 1fr 1.1fr; --_gap: var(--ui-space-8)"
+      style="--_columns: 1fr 1.1fr; --_gap: var(--ui-space-12)"
     >
-      <div class="ui-layout-column ui-large hero-copy">
+      <div class="ui-layout-column ui-gap-large hero-copy">
         <Chip
           href="#hero-megaphone"
           label="New: The Megaphone shoutbox is here!"
@@ -86,19 +86,19 @@ import {
           role="img"
           variant="elevated"
         >
-          <div class="ui-layout-row ui-small hero-toolbar">
+          <div class="ui-layout-row ui-gap-small hero-toolbar">
             <span class="ui-swatch"></span>
             <span class="ui-swatch"></span>
             <span class="ui-swatch"></span>
             <span class="hero-url ui-caption">bassbook.example/gigs/42</span>
           </div>
           <div class="ui-layout-column hero-screen">
-            <div class="ui-layout-row ui-small ui-spread">
+            <div class="ui-layout-row ui-gap-small ui-spread">
               <strong>Gig #42</strong>
               <Chip as="span" label="Showtime Oct 16" size="small" />
             </div>
             <div
-              class="ui-layout-grid ui-small"
+              class="ui-layout-grid ui-gap-small"
               style="--_max-columns: 3; --_min-inline-size: 4rem"
             >
               <Card density="dense" variant="outlined">
@@ -118,28 +118,25 @@ import {
               </Card>
             </div>
             <List bordered class="hero-tasks" dense variant="transparent">
-              <ListItem description="Ines Hertz" label="Learn the setlist">
+              <ListItem description="Mohini Hertz" label="Learn the setlist">
                 <template #start>
-                  <Avatar>IH</Avatar>
+                  <Avatar>MH</Avatar>
                 </template>
                 <template #end>
                   <Progress :max="100" :value="80" variant="filled" />
                 </template>
               </ListItem>
-              <ListItem
-                description="Percy Groove"
-                label="Restring the 5-string"
-              >
+              <ListItem description="Adam Groove" label="Restring the 5-string">
                 <template #start>
-                  <Avatar>PG</Avatar>
+                  <Avatar>AG</Avatar>
                 </template>
                 <template #end>
                   <Progress :max="100" :value="55" variant="filled" />
                 </template>
               </ListItem>
-              <ListItem description="Stella Nut" label="Nail the slap break">
+              <ListItem description="Ellen Nut" label="Nail the slap break">
                 <template #start>
-                  <Avatar>SN</Avatar>
+                  <Avatar>EN</Avatar>
                 </template>
                 <template #end>
                   <Progress :max="100" :value="30" variant="filled" />
@@ -181,10 +178,10 @@ import {
       oklch(from var(--ui-primary) l c calc(h + 60) / 15%)
     );
     border-radius: var(--ui-radius);
-    padding: var(--ui-space-4);
+    padding: var(--ui-space-5);
 
     @container (inline-size >= 40rem) {
-      padding: var(--ui-space-6);
+      padding: var(--ui-space-7);
     }
   }
 
@@ -194,7 +191,7 @@ import {
 
   .hero-toolbar {
     border-block-end: var(--ui-border-width) solid var(--ui-border-color);
-    padding: var(--ui-space-2) var(--ui-space-3);
+    padding: var(--ui-space-2) var(--ui-space-4);
 
     .ui-swatch {
       --_swatch-bg-color: var(--ui-border-color);
@@ -206,7 +203,7 @@ import {
   }
 
   .hero-screen {
-    padding: var(--ui-space-3);
+    padding: var(--ui-space-4);
 
     strong {
       font-size: var(--ui-font-size-400);

@@ -7,7 +7,7 @@ import { CharacterCount, Field } from "opui-css/vue"
     <input
       aria-describedby="field-top-and-bottom-1-top"
       id="field-top-and-bottom-1"
-      placeholder="Holly Humbucker"
+      placeholder="Scott Humbucker"
     />
     <template #top>Shown on your profile</template>
   </Field>

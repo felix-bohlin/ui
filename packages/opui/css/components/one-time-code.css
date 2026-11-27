@@ -10,7 +10,7 @@
     --_box-start: calc(var(--_cell-size) * 0.125);
     --_cell-size: min(var(--_max-cell-size), 100cqi / (var(--_length) - 0.25));
     --_dash-bg-color: var(--ui-text-subtle);
-    --_dash-block-size: var(--ui-border-width-thick);
+    --_dash-block-size: var(--ui-border-width-large);
     --_dash-image: none;
     --_font-size: var(--ui-font-size-large);
     --_length: 6;
@@ -32,7 +32,7 @@
       box-shadow: none;
       cursor: text;
       direction: ltr;
-      font-family: var(--ui-font-code);
+      font-family: var(--ui-font-family-code);
       font-size: var(--_font-size);
       grid-template-columns: 0 max-content minmax(0, var(--_cell-size)) 1fr;
       grid-template-rows: auto 1fr auto;
@@ -169,7 +169,7 @@
         calc(var(--_length) * var(--_cell-size) / 2 - var(--_cell-size) / 16)
         50% / calc(var(--_cell-size) / 8) var(--_dash-block-size) no-repeat;
       caret-color: var(--_accent);
-      font-family: var(--ui-font-code);
+      font-family: var(--ui-font-family-code);
       font-variant-numeric: tabular-nums;
       inline-size: calc((var(--_length) + 1) * var(--_cell-size));
       letter-spacing: calc(var(--_cell-size) - 1ch);

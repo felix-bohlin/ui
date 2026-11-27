@@ -1,0 +1,8 @@
+{% macro SelectAll(props = {}) %}
+  {%- set props = props | opuiProps("SelectAll") -%}
+  {%- set rest = props | opuiRest("SelectAll") -%}
+  {%- set classes = ["ui-select-all", props.class] | opuiClass -%}
+  <opui-select-all{{ opui.merge({ class: classes }, rest) | opuiAttributes("opui-select-all") }}>
+    {{- caller() if caller -}}
+  </opui-select-all>
+{%- endmacro %}

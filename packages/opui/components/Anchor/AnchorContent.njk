@@ -1,0 +1,20 @@
+{% macro AnchorContent(props = {}) %}
+  {%- set props = props | opuiProps("AnchorContent") -%}
+  {%- set rest = props | opuiRest("AnchorContent") -%}
+  {%- set anchor = opui.context("Anchor") -%}
+  {{- opui.warnReplacedAnchorAttributes(
+    props.id,
+    props.popover,
+    anchor.floatingId,
+    anchor.popover
+  ) -}}
+  {%- set id = anchor.floatingId if anchor.floatingId != none else props.id -%}
+  <span
+    class="ui-floating
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {%- if id != none %} id="{{ id }}"{% endif %}
+    {{- { popover: anchor.popover if anchor.popover != none else props.popover } | opuiAttributes }}
+    {{- rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </span>
+{%- endmacro %}

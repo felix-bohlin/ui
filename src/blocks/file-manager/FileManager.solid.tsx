@@ -1,5 +1,7 @@
 /** @jsxImportSource @solidjs/web */
 import {
+  Breadcrumb,
+  BreadcrumbItem,
   Button,
   Card,
   CardActions,
@@ -19,32 +21,22 @@ export default function FileManager() {
   return (
     <>
       <div
-        class="file-manager ui-layout-container ui-layout-column ui-large"
+        class="file-manager ui-layout-container ui-layout-column ui-gap-large"
         style="--_max-inline-size: 80rem"
       >
         <div class="ui-layout-row ui-spread">
-          <div class="ui-layout-column ui-x-small">
-            <nav aria-label="Breadcrumb" class="files-breadcrumb">
-              <ol class="ui-layout-row ui-x-small">
-                <li>
-                  <a class="ui-link" href="#file-manager-root">
-                    My stuff
-                  </a>
-                </li>
-                <li>
-                  {" "}
-                  <a class="ui-link" href="#file-manager-albums">
-                    Photo albums
-                  </a>
-                </li>
-                <li>
-                  <span aria-current="page">Gig pics</span>
-                </li>
-              </ol>
-            </nav>
+          <div class="ui-layout-column ui-gap-x-small">
+            <Breadcrumb aria-label="Breadcrumb" size="small">
+              <BreadcrumbItem href="#file-manager-root" label="My stuff" />
+              <BreadcrumbItem
+                href="#file-manager-albums"
+                label="Photo albums"
+              />
+              <BreadcrumbItem current label="Gig pics" />
+            </Breadcrumb>
             <h1 class="ui-h3">Gig pics</h1>
           </div>
-          <div class="ui-layout-row ui-small">
+          <div class="ui-layout-row ui-gap-small">
             <Button size="small" type="button" variant="outlined">
               <svg
                 data-icon="folder-add"
@@ -79,7 +71,7 @@ export default function FileManager() {
             </Button>
           </div>
         </div>
-        <div class="ui-layout-columns ui-large" style="--_columns: 1fr 2fr">
+        <div class="ui-layout-columns ui-gap-large" style="--_columns: 1fr 2fr">
           <Card
             aria-labelledby="file-manager-storage-heading"
             as="section"
@@ -103,23 +95,23 @@ export default function FileManager() {
                 max="50"
                 value="18.4"
               />
-              <ul class="ui-layout-column ui-small ui-tabular-nums files-breakdown">
-                <li class="ui-layout-row ui-small">
+              <ul class="ui-layout-column ui-gap-small ui-tabular-nums files-breakdown">
+                <li class="ui-layout-row ui-gap-small">
                   <span class="ui-swatch ui-info"></span>
                   <span>Tabs</span>
                   <span>0.3 GB</span>
                 </li>
-                <li class="ui-layout-row ui-small">
+                <li class="ui-layout-row ui-gap-small">
                   <span class="ui-swatch ui-success"></span>
                   <span>Photos</span>
                   <span>9.6 GB</span>
                 </li>
-                <li class="ui-layout-row ui-small">
+                <li class="ui-layout-row ui-gap-small">
                   <span class="ui-swatch ui-warning"></span>
                   <span>Videos</span>
                   <span>7.2 GB</span>
                 </li>
-                <li class="ui-layout-row ui-small">
+                <li class="ui-layout-row ui-gap-small">
                   <span class="ui-swatch ui-neutral"></span>
                   <span>Other</span>
                   <span>1.3 GB</span>
@@ -322,7 +314,7 @@ export default function FileManager() {
                   </TableCell>
                   <TableCell>
                     <div
-                      class="ui-layout-media ui-small files-name"
+                      class="ui-layout-media ui-gap-small files-name"
                       style="--file: var(--ui-critical)"
                     >
                       <svg
@@ -341,7 +333,7 @@ export default function FileManager() {
                       <span>Drop-D-cheat-sheet.pdf</span>
                     </div>
                   </TableCell>
-                  <TableCell class="files-owner">Lou Headstock</TableCell>
+                  <TableCell class="files-owner">Kinga Headstock</TableCell>
                   <TableCell>6 Oct 2026</TableCell>
                   <TableCell numeric>1.2 MB</TableCell>
                   <TableCell class="files-row-action">
@@ -379,7 +371,7 @@ export default function FileManager() {
                   </TableCell>
                   <TableCell>
                     <div
-                      class="ui-layout-media ui-small files-name"
+                      class="ui-layout-media ui-gap-small files-name"
                       style="--file: var(--ui-success)"
                     >
                       <svg
@@ -398,7 +390,7 @@ export default function FileManager() {
                       <span>Gear-wishlist.xlsx</span>
                     </div>
                   </TableCell>
-                  <TableCell class="files-owner">Holly Humbucker</TableCell>
+                  <TableCell class="files-owner">Scott Humbucker</TableCell>
                   <TableCell>2 Oct 2026</TableCell>
                   <TableCell numeric>86 KB</TableCell>
                   <TableCell class="files-row-action">
@@ -436,7 +428,7 @@ export default function FileManager() {
                   </TableCell>
                   <TableCell>
                     <div
-                      class="ui-layout-media ui-small files-name"
+                      class="ui-layout-media ui-gap-small files-name"
                       style="--file: var(--ui-info)"
                     >
                       <svg
@@ -455,7 +447,7 @@ export default function FileManager() {
                       <span>Low-B-glamour-shot.png</span>
                     </div>
                   </TableCell>
-                  <TableCell class="files-owner">Percy Groove</TableCell>
+                  <TableCell class="files-owner">Adam Groove</TableCell>
                   <TableCell>29 Sep 2026</TableCell>
                   <TableCell numeric>3.4 MB</TableCell>
                   <TableCell class="files-row-action">
@@ -493,7 +485,7 @@ export default function FileManager() {
                   </TableCell>
                   <TableCell>
                     <div
-                      class="ui-layout-media ui-small files-name"
+                      class="ui-layout-media ui-gap-small files-name"
                       style="--file: var(--ui-warning)"
                     >
                       <svg
@@ -512,7 +504,7 @@ export default function FileManager() {
                       <span>Slap-solo-take-7.mp4</span>
                     </div>
                   </TableCell>
-                  <TableCell class="files-owner">Lou Headstock</TableCell>
+                  <TableCell class="files-owner">Kinga Headstock</TableCell>
                   <TableCell>24 Sep 2026</TableCell>
                   <TableCell numeric>248 MB</TableCell>
                   <TableCell class="files-row-action">
@@ -550,7 +542,7 @@ export default function FileManager() {
                   </TableCell>
                   <TableCell>
                     <div
-                      class="ui-layout-media ui-small files-name"
+                      class="ui-layout-media ui-gap-small files-name"
                       style="--file: var(--ui-info)"
                     >
                       <svg
@@ -569,7 +561,7 @@ export default function FileManager() {
                       <span>Why-bass-matters.docx</span>
                     </div>
                   </TableCell>
-                  <TableCell class="files-owner">Stella Nut</TableCell>
+                  <TableCell class="files-owner">Ellen Nut</TableCell>
                   <TableCell>18 Sep 2026</TableCell>
                   <TableCell numeric>42 KB</TableCell>
                   <TableCell class="files-row-action">
@@ -615,16 +607,6 @@ export default function FileManager() {
       <style>{`
         .file-manager {
           container-type: inline-size;
-
-          .files-breadcrumb ol {
-            font-size: var(--ui-font-size-caption);
-
-            li + li::before {
-              color: var(--ui-text);
-              content: "/";
-              margin-inline-end: var(--ui-space-1);
-            }
-          }
 
           .files-breakdown li > span:last-child {
             margin-inline-start: auto;

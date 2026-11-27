@@ -3,7 +3,7 @@
 A star rating: a meter that shows a score, or radios that collect one.
 
 - CSS: `opui-css/css/components/rating.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/rating.md), [Astro](https://opui.dev/astro/components/rating.md), [React](https://opui.dev/react/components/rating.md), [Solid](https://opui.dev/solid/components/rating.md), [Svelte](https://opui.dev/svelte/components/rating.md), [Vue](https://opui.dev/vue/components/rating.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/rating.md), [Astro](https://opui.dev/astro/components/rating.md), [Nunjucks](https://opui.dev/nunjucks/components/rating.md), [React](https://opui.dev/react/components/rating.md), [Solid](https://opui.dev/solid/components/rating.md), [Svelte](https://opui.dev/svelte/components/rating.md), [Vue](https://opui.dev/vue/components/rating.md).
 
 ## Rating
 
@@ -30,12 +30,12 @@ A star rating: a meter that shows a score, or radios that collect one.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`). The size of the element.
 - `starLabel`: `{ few?: string | undefined; many?: string | undefined; one?: string | undefined; other: string; two?: string | undefined; zero?: string | undefined; }`, default `{ one: "{count} star", other: "{count} stars" }`. The accessible name of each star radio: a template per plural category of `lang` (`zero`, `one`, `two`, `few`, `many` and `other`), with `{count}` where the number goes. A category without a template takes `other`. Use it to translate.
 
-Model: `value` (`number | string`), the score of the meter, fractions included, or the checked star of the input. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
+Model: `value` (`number | string`), the score of the meter, fractions included, or the checked star of the input. Astro, Nunjucks, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
 - HTML: Add `.ui-rating` to a `<meter>` with `max` and `value`, or to a `<fieldset>` with a `<legend>` and one radio per star.
-- Astro: Extra attributes go to the `<fieldset>` or the `<meter>`, except `aria-describedby` and `aria-invalid`, which go to every radio.
+- Astro and Nunjucks: Extra attributes go to the `<fieldset>` or the `<meter>`, except `aria-describedby` and `aria-invalid`, which go to every radio.
 - React and Solid: Use `value` with `onValueChange`, or `defaultValue`. Without them the radios keep their own state, and `onValueChange` still reports changes.
 - Svelte: Bind the input with `bind:value`.
 - Vue: Bind the input with `v-model`.
@@ -62,7 +62,7 @@ Outputs: `--_duration`, `--_fill-bg-color` and `--_fill-image`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-required-text-color`, `--ui-font-size-caption`, `--ui-icon-clear`, `--ui-icon-rating`, `--ui-icon-rating-empty`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-motion`, `--ui-radius-small`, `--ui-space-1`, `--ui-space-2`, `--ui-target-min-size`, `--ui-text`, `--ui-text-subtle` and `--ui-warning`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-required-text-color`, `--ui-font-size-caption`, `--ui-icon-clear`, `--ui-icon-rating`, `--ui-icon-rating-empty`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-motion`, `--ui-radius-small`, `--ui-space-1`, `--ui-space-2`, `--ui-state-disabled-opacity`, `--ui-target-min-size`, `--ui-text`, `--ui-text-subtle` and `--ui-warning`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -89,6 +89,18 @@ import { Rating } from "opui-css/astro"
 ---
 
 <Rating label="Rated 4.5 out of 5" value={4.5} />
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Rating %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Rating %}
+
+{{ Rating({ label: "Rated 4.5 out of 5", value: 4.5 }) }}
 ```
 
 ## React

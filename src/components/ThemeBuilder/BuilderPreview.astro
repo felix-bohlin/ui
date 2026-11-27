@@ -61,7 +61,7 @@ const blockSelectId = Astro.locals.$id("preview-block")
         <div class="preview-panes" data-view="both">
           {schemes.map(({ label, scheme }) => <div
             aria-labelledby={`preview-components-${scheme}`}
-            class={`preview-pane ui-palette ui-${scheme}`}
+            class={`preview-pane ui-scope ui-${scheme}`}
             data-scheme={scheme}
             role="group"
           >
@@ -117,7 +117,7 @@ const blockSelectId = Astro.locals.$id("preview-block")
         <div class="preview-panes" data-view="both">
           {schemes.map(({ label, scheme }) => <div
             aria-labelledby={`preview-blocks-${scheme}`}
-            class={`preview-pane preview-frame ui-palette ui-${scheme}`}
+            class={`preview-pane preview-frame ui-scope ui-${scheme}`}
             data-scheme={scheme}
             role="group"
           >
@@ -156,7 +156,7 @@ const blockSelectId = Astro.locals.$id("preview-block")
         <div class="preview-panes" data-view="both">
           {schemes.map(({ label, scheme }) => <div
             aria-labelledby={`preview-states-${scheme}`}
-            class={`preview-pane ui-palette ui-${scheme}`}
+            class={`preview-pane ui-scope ui-${scheme}`}
             data-scheme={scheme}
             role="group"
           >
@@ -194,7 +194,7 @@ const blockSelectId = Astro.locals.$id("preview-block")
         <div class="preview-panes preview-compare" data-view="both" hidden>
           <div
             aria-labelledby="preview-compare-yours"
-            class="preview-pane ui-palette ui-light"
+            class="preview-pane ui-scope ui-light"
             data-compare-pane="yours"
             role="group"
           >
@@ -203,7 +203,7 @@ const blockSelectId = Astro.locals.$id("preview-block")
           </div>
           <div
             aria-labelledby="preview-compare-other"
-            class="preview-pane ui-palette ui-light"
+            class="preview-pane ui-scope ui-light"
             data-compare-pane="other"
             role="group"
           >
@@ -573,7 +573,7 @@ const blockSelectId = Astro.locals.$id("preview-block")
   .preview-pane-label {
     color: var(--ui-text-subtle);
     font-size: var(--ui-font-size-caption);
-    font-weight: var(--ui-font-weight-medium);
+    font-weight: var(--ui-font-weight-emphasis);
     margin-block: 0 var(--size-3);
   }
 
@@ -622,7 +622,7 @@ const blockSelectId = Astro.locals.$id("preview-block")
 
   .is-spotlighting :global(.is-spotlit) {
     border-radius: var(--ui-radius-small);
-    outline: var(--ui-border-width-thick) solid var(--ui-primary);
+    outline: var(--ui-border-width-large) solid var(--ui-primary);
     outline-offset: 3px;
   }
 

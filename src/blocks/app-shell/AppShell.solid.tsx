@@ -21,7 +21,7 @@ export default function AppShell() {
   return (
     <>
       <div class="app-shell">
-        <header class="shell-header ui-layout-row ui-small">
+        <header class="shell-header ui-layout-row ui-gap-small">
           <Button
             aria-label="Open navigation"
             class="shell-menu-button"
@@ -45,7 +45,10 @@ export default function AppShell() {
               ></path>
             </svg>
           </Button>
-          <a class="shell-brand ui-layout-row ui-small" href="#app-shell-home">
+          <a
+            class="shell-brand ui-layout-row ui-gap-small"
+            href="#app-shell-home"
+          >
             <svg
               data-icon="box"
               aria-hidden="true"
@@ -116,13 +119,13 @@ export default function AppShell() {
             as="button"
             command="toggle-popover"
             commandfor="app-shell-account"
-            label="Account menu for Rory Rootnote"
+            label="Account menu for Josh Rootnote"
             type="button"
           >
-            RR
+            JR
           </Avatar>
           <Menu align="end" id="app-shell-account">
-            <li class="ui-heading">rory@lowend.example</li>
+            <li class="ui-heading">josh@bassmail.example</li>
             <ListItem href="#app-shell-profile" label="Profile" />
             <ListItem href="#app-shell-settings" label="Settings" />
             <ListItem
@@ -245,13 +248,13 @@ export default function AppShell() {
               variant="transparent"
             >
               <ListItem
-                href="#app-shell-low-end-theory"
-                label="Low End Theory"
+                href="#app-shell-bassists-anonymous"
+                label="Bassists Anonymous"
                 start={<span class="ui-swatch ui-info"></span>}
               />
               <ListItem
-                href="#app-shell-ignored-bassists"
-                label="Ignored Bassists Anon."
+                href="#app-shell-mixed-too-low"
+                label="Mixed Too Low"
                 start={<span class="ui-swatch ui-warning"></span>}
               />
               <ListItem
@@ -261,11 +264,11 @@ export default function AppShell() {
               />
             </List>
           </nav>
-          <main class="ui-layout-column ui-large">
+          <main class="ui-layout-column ui-gap-large">
             <div class="ui-layout-row ui-spread">
               <hgroup class="ui-hgroup">
                 <p>Wednesday, 8 October</p>
-                <h1 class="ui-h3">Heyyy, Rory! :)</h1>
+                <h1 class="ui-h3">Heyyy, Josh! :)</h1>
               </hgroup>
               <Button size="small" type="button" variant="filled">
                 <svg
@@ -326,7 +329,7 @@ export default function AppShell() {
               </li>
             </ul>
             <div
-              class="ui-layout-columns ui-large ui-breakpoint-large"
+              class="ui-layout-columns ui-gap-large ui-breakpoint-large"
               style="--_columns: 3fr 2fr"
             >
               <Card
@@ -350,21 +353,21 @@ export default function AppShell() {
                   />
                   <ListItem
                     choice="checkbox"
-                    description="Low End Theory, due Fri 10 Oct"
+                    description="Bassists Anonymous, due Fri 10 Oct"
                     end={<CheckboxInput id="app-shell-task-2" />}
                     for="app-shell-task-2"
                     label="Learn the slap break for the encore"
                   />
                   <ListItem
                     choice="checkbox"
-                    description="Ignored Bassists Anon., due Tue 14 Oct"
+                    description="Mixed Too Low, due Tue 14 Oct"
                     end={<CheckboxInput id="app-shell-task-3" />}
                     for="app-shell-task-3"
                     label="Ask if the band has a gig Saturday"
                   />
                   <ListItem
                     choice="checkbox"
-                    description="Low End Theory, due Thu 16 Oct"
+                    description="Bassists Anonymous, due Thu 16 Oct"
                     end={<CheckboxInput id="app-shell-task-4" />}
                     for="app-shell-task-4"
                     label="Practice my “turn it down” face"
@@ -385,28 +388,28 @@ export default function AppShell() {
                 <List variant="transparent">
                   <ListItem
                     description="Gear Talk, 09:42"
-                    label="Percy posted “Rate my pedalboard!!”"
+                    label="Adam posted “Rate my pedalboard!!”"
                     start={
-                      <Avatar aria-label="Percy Groove" role="img">
-                        PG
+                      <Avatar aria-label="Adam Groove" role="img">
+                        AG
                       </Avatar>
                     }
                   />
                   <ListItem
-                    description="Low End Theory, 08:15"
-                    label="Stella commented on “Drop D or bust”"
+                    description="Bassists Anonymous, 08:15"
+                    label="Ellen commented on “Drop D or bust”"
                     start={
-                      <Avatar aria-label="Stella Nut" role="img">
-                        SN
+                      <Avatar aria-label="Ellen Nut" role="img">
+                        EN
                       </Avatar>
                     }
                   />
                   <ListItem
-                    description="Ignored Bassists Anon., 07:58"
-                    label="Ines uploaded 12 gig photos"
+                    description="Mixed Too Low, 07:58"
+                    label="Mohini uploaded 12 gig photos"
                     start={
-                      <Avatar aria-label="Ines Hertz" role="img">
-                        IH
+                      <Avatar aria-label="Mohini Hertz" role="img">
+                        MH
                       </Avatar>
                     }
                   />
@@ -442,7 +445,7 @@ export default function AppShell() {
 
           .shell-header {
             border-block-end: var(--ui-border-width) solid var(--ui-border-color);
-            padding: var(--ui-space-2) var(--ui-space-3);
+            padding: var(--ui-space-2) var(--ui-space-4);
           }
 
           .shell-menu-button {
@@ -453,7 +456,7 @@ export default function AppShell() {
 
           .shell-brand {
             color: var(--ui-text-strong);
-            font-weight: var(--ui-font-weight-bold);
+            font-weight: var(--ui-font-weight-heading);
             margin-inline-end: auto;
             text-decoration: none;
 
@@ -482,11 +485,11 @@ export default function AppShell() {
           }
 
           .shell-nav-label {
-            padding: var(--ui-space-3) var(--ui-space-3) 0;
+            padding: var(--ui-space-4) var(--ui-space-4) 0;
           }
 
           main {
-            padding: var(--ui-space-5) var(--ui-space-4);
+            padding: var(--ui-space-6) var(--ui-space-5);
           }
         }
       `}</style>

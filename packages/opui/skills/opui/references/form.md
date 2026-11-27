@@ -3,7 +3,7 @@
 Classes that space and group form fields, with fieldsets and field groups.
 
 - CSS: `opui-css/css/components/form.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/form.md), [Astro](https://opui.dev/astro/components/form.md), [React](https://opui.dev/react/components/form.md), [Solid](https://opui.dev/solid/components/form.md), [Svelte](https://opui.dev/svelte/components/form.md), [Vue](https://opui.dev/vue/components/form.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/form.md), [Astro](https://opui.dev/astro/components/form.md), [Nunjucks](https://opui.dev/nunjucks/components/form.md), [React](https://opui.dev/react/components/form.md), [Solid](https://opui.dev/solid/components/form.md), [Svelte](https://opui.dev/svelte/components/form.md), [Vue](https://opui.dev/vue/components/form.md).
 
 ## Form
 
@@ -71,7 +71,6 @@ Classes that space and group form fields, with fieldsets and field groups.
 
 ### Props and modifiers
 
-- `name`: `string`. Sets `name` on the OPUI fields inside that don't set their own. A text field's input is your own, so name it there.
 - `orientation`: `"auto"` (default), `"horizontal"` (`.ui-horizontal`), `"vertical"` (`.ui-vertical`). The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row.
 
 ### Slots
@@ -92,7 +91,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ## Theme tokens
 
-The stylesheets read `--ui-disabled-opacity`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-required-text-color`, `--ui-font-size-small`, `--ui-invalid-text`, `--ui-line-height-control`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-space-8` and `--ui-text`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-required-text-color`, `--ui-font-size-small`, `--ui-invalid-text`, `--ui-line-height-compact`, `--ui-space-1`, `--ui-space-12`, `--ui-space-2`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-state-disabled-opacity` and `--ui-text`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -166,11 +165,47 @@ import {
 </Form>
 ```
 
+## Nunjucks
+
+`{% from "opui/index.njk" import FieldDescription, FieldGroup, FieldLegend, Fieldset, Form %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import
+  Button,
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form
+%}
+
+{% call Form() %}
+  {% call Fieldset({ "aria-describedby": "form-basics-1-description" }) %}
+    {% call FieldLegend() %}Contact{% endcall %}
+    {% call FieldDescription({ id: "form-basics-1-description" }) %}How can we reach you?{% endcall %}
+    {% call FieldGroup() %}
+      {% call Field({ for: "form-basics-2", label: "Name" }) %}
+        <input autocomplete="name" id="form-basics-2" />
+      {% endcall %}
+      {% call Field({ for: "form-basics-3", label: "Email" }) %}
+        <input autocomplete="email" id="form-basics-3" type="email" />
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call FieldGroup() %}
+    {% call Button({ type: "submit", variant: "filled" }) %}Send{% endcall %}
+  {% endcall %}
+{% endcall %}
+```
+
 ## React
 
 `import { FieldDescription, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/react"`
 
-- Client components (`"use client"`): `Fieldset`, `FieldLegend` and `FieldGroup`.
+- Client components (`"use client"`): `Fieldset` and `FieldLegend`.
 
 ### Example: Basics
 

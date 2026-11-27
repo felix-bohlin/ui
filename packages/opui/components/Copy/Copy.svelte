@@ -1,7 +1,7 @@
 <script lang="ts">
   import "../../elements/copy.js"
   import { untrack } from "svelte"
-  import { warnMissingId } from "../dev"
+  import { DEV, warnMissingId } from "../dev"
   import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
@@ -16,7 +16,7 @@
     ...rest
   }: Props = $props()
 
-  untrack(() => warnMissingId("Copy", id))
+  if (DEV) untrack(() => warnMissingId("Copy", id))
 </script>
 
 <opui-copy

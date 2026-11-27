@@ -31,7 +31,7 @@
 .review-toolbar {
   align-items: center;
   backdrop-filter: blur(8px);
-  background-color: oklch(from var(--ui-surface-elevated) l c h / 85%);
+  background-color: oklch(from var(--ui-surface-raised) l c h / 85%);
   border: var(--ui-border-width) solid var(--ui-border-color);
   border-radius: var(--ui-radius-large);
   box-shadow: var(--shadow-2);
@@ -182,7 +182,7 @@
   }
 
   &[data-open] {
-    background-color: var(--ui-surface-elevated);
+    background-color: var(--ui-surface-raised);
   }
 }
 
@@ -225,7 +225,7 @@
   all: unset;
   color: var(--ui-text-strong);
   cursor: pointer;
-  font-weight: var(--ui-font-weight-medium);
+  font-weight: var(--ui-font-weight-emphasis);
   line-height: var(--ui-line-height-tight);
   text-wrap: pretty;
 
@@ -266,7 +266,7 @@
   --_tone: var(--ui-text-strong);
 
   color: var(--_tone);
-  font-weight: var(--ui-font-weight-semibold);
+  font-weight: var(--ui-font-weight-label);
   margin-inline-end: var(--size-1);
 
   &::after {
@@ -358,7 +358,7 @@
 .review-dock {
   align-items: center;
   backdrop-filter: blur(8px);
-  background-color: oklch(from var(--ui-surface-elevated) l c h / 90%);
+  background-color: oklch(from var(--ui-surface-raised) l c h / 90%);
   border: var(--ui-border-width) solid var(--ui-border-color);
   border-radius: var(--ui-radius-round);
   box-shadow: var(--shadow-4);
@@ -457,7 +457,7 @@
 
   p {
     color: var(--ui-text-strong);
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
   }
 }
 

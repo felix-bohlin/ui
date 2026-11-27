@@ -92,7 +92,7 @@ export default {
     },
     {
       description:
-        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
+        "The name of the `<input>`. Radios with the same `name` are one group, in which one can be checked.",
       inherited: true,
       prop: "name",
       type: "string",

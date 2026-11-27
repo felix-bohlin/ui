@@ -1,0 +1,13 @@
+{% macro TabsLabel(props = {}) %}
+  {%- set props = props | opuiProps("TabsLabel") -%}
+  {%- set rest = props | opuiRest("TabsLabel") -%}
+  {%- set tabs = opui.context("Tabs") -%}
+  {%- set for = props.for or tabs.tabId -%}
+  <label
+    {%- if for != none %} for="{{ for }}"{% endif %}
+    class="ui-label
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </label>
+{%- endmacro %}

@@ -1,0 +1,14 @@
+{% from "opui/index.njk" import Tabs, TabsItem, TabsLabel %}
+
+<p class="ui-h5">Feed</p>
+{% call Tabs({ "aria-label": "Show in the feed", role: "radiogroup" }) %}
+  {% call TabsItem({ checked: true }) %}
+    {% call TabsLabel() %}All{% endcall %}
+  {% endcall %}
+  {% call TabsItem() %}
+    {% call TabsLabel() %}Posts{% endcall %}
+  {% endcall %}
+  {% call TabsItem() %}
+    {% call TabsLabel() %}Events{% endcall %}
+  {% endcall %}
+{% endcall %}

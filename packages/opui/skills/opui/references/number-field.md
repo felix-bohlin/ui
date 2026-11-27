@@ -3,7 +3,7 @@
 A number input in a Field with step buttons that step the value down and up, for amounts like a quantity.
 
 - CSS: `opui-css/css/components/step-button.css`, `opui-css/css/components/field.css` and `opui-css/css/components/button.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/number-field.md), [Astro](https://opui.dev/astro/components/number-field.md), [React](https://opui.dev/react/components/number-field.md), [Solid](https://opui.dev/solid/components/number-field.md), [Svelte](https://opui.dev/svelte/components/number-field.md), [Vue](https://opui.dev/vue/components/number-field.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/number-field.md), [Astro](https://opui.dev/astro/components/number-field.md), [Nunjucks](https://opui.dev/nunjucks/components/number-field.md), [React](https://opui.dev/react/components/number-field.md), [Solid](https://opui.dev/solid/components/number-field.md), [Svelte](https://opui.dev/svelte/components/number-field.md), [Vue](https://opui.dev/vue/components/number-field.md).
 
 ## StepButton
 
@@ -14,7 +14,7 @@ A number input in a Field with step buttons that step the value down and up, for
 ### Props and modifiers
 
 - `command`: `"--step-down" | "--step-up"`. Which way the button steps: `--step-down` or `--step-up`.
-- `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of the number input, as its button's `commandfor` and `aria-controls`.
+- `for` (Astro, Nunjucks, Solid, Svelte and Vue): `string`. The `id` of the number input, as its button's `commandfor` and `aria-controls`.
 - `htmlFor` (React): `string`. The `id` of the number input, as its button's `commandfor` and `aria-controls`.
 - `label`: `string`, `aria-label`, default `"Decrease" or "Increase"`. The accessible name of the button, by `command`. Pass it translated.
 
@@ -32,6 +32,7 @@ A number input in a Field with step buttons that step the value down and up, for
 
 - HTML: Put `<opui-step-button>` in `.ui-start` and `.ui-end`, around a `.ui-button.ui-round` with `command="--step-down"` or `command="--step-up"`, `commandfor` and `aria-controls` naming the input and an `aria-label`, and import `opui-css/elements/step-button.js`. Without it, the input keeps its own spin buttons.
 - Astro, Solid, Svelte and Vue: Put one with `command="--step-down"` in `start` and one with `command="--step-up"` in `end`, next to an `<input type="number">`. It loads `opui-css/elements/step-button.js`. Attributes that aren't props, `class` and `style` go to the `<opui-step-button>`, not the button.
+- Nunjucks: Put one with `command="--step-down"` in `slots.start` and one with `command="--step-up"` in `slots.end`, next to an `<input type="number">`, and load `opui-css/elements/step-button.js` on the page. Attributes that aren't props, `class` and `style` go to the `<opui-step-button>`, not the button.
 - React: Put one with `command="--step-down"` in `start` and one with `command="--step-up"` in `end`, next to an `<input type="number">`. It loads `opui-css/elements/step-button.js`. Attributes that aren't props, `className` and `style` go to the `<opui-step-button>`, not the button.
 
 ## Component properties
@@ -52,7 +53,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_end-end-radius`: End-end corner radius of `.ui-field-container`. Defaults to `--_radius`, `0` against the next control in a `ControlGroup`.
 - `--_end-start-radius`: End-start corner radius of `.ui-field-container`. Defaults to `--_radius`, `0` against another control in a `ControlGroup`.
 - `--_field-padding-block`: Preferred block padding of the control. Set by the size classes.
-- `--_field-padding-inline`: Inline padding of the control and affixes. Defaults to `--ui-field-padding-inline` (else `--ui-space-2`), or `--ui-field-padding-inline-large` (else `--ui-space-3`) in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.
+- `--_field-padding-inline`: Inline padding of the control and affixes. Defaults to `--ui-field-padding-inline` (else `--ui-space-2`), or `--ui-field-padding-inline-large` (else `--ui-space-4`) in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.
 - `--_file-button-padding`: Preferred space above and below the `::file-selector-button`, outside `.ui-drop-zone`. `--ui-space-2`, `--ui-space-1` in `.ui-small` and `.ui-x-small`.
 - `--_font-size`: Font size of the control, `.ui-start` and `.ui-end`. Set by `.ui-x-small` and `.ui-small`, at least 16px on iPhone and iPad.
 - `--_min-inline-size`: Minimum width of the control beside `.ui-start` and `.ui-end`, which shrink to keep it, capped at the field's width. Defaults to `8ch`, `4ch` with a `StepButton`.
@@ -68,7 +69,7 @@ Outputs: `--_affix-block-size`, `--_affix-button-size`, `--_affix-padding-block`
 ### button.css
 
 - `--_accent`: The accent color. Fills, borders, text, hover and active states are derived from it. Defaults to `--ui-button-accent` when a theme sets it. `.ui-primary` and `.ui-critical` set it.
-- `--_accent-filled`: Fill of filled buttons, of hovered outlined buttons unless `--ui-button-hover` is `layer`, of hovered tonal ones when it is unset, and the base of the filled hover and pressed shades. `--ui-button-accent-filled` when a theme sets it, else `--_accent`, and in `.ui-critical` `--ui-critical` kept within `--ui-accent-fill-max-lightness`, so the light text stays readable while the border keeps `--ui-critical`. `.ui-primary` resets it to `--_accent`, so the token applies to default buttons only.
+- `--_accent-filled`: Fill of filled buttons, of hovered outlined buttons unless `--ui-button-hover` is `layer`, of hovered tonal ones when it is unset, and the base of the filled hover and pressed shades. `--ui-button-accent-filled` when a theme sets it, else `--_accent`, and in `.ui-critical` `--ui-critical-fill`, so the light text stays readable while the border keeps `--ui-critical`. `.ui-primary` resets it to `--_accent`, so the token applies to default buttons only.
 - `--_accent-tonal`: Background of `.ui-tonal`. `--ui-surface-tonal`, a palette tint in `.ui-critical`, and `--ui-primary-tonal` or the tint in `.ui-primary`.
 - `--_border-width`: The border width.
 - `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
@@ -90,7 +91,7 @@ Outputs: `--_accent-text`, `--_actions-shift`, `--_bg-color`, `--_border-color`,
 
 ## Theme tokens
 
-The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-focus`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-shadow`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-control-on-accent`, `--ui-critical`, `--ui-critical-text`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-move`, `--ui-field-bg-color`, `--ui-field-border-color`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-padding-inline`, `--ui-field-padding-inline-large`, `--ui-field-placeholder-text-color`, `--ui-field-radius`, `--ui-field-required-text-color`, `--ui-field-shadow`, `--ui-field-size`, `--ui-field-size-large`, `--ui-field-size-small`, `--ui-field-size-x-small`, `--ui-focus-border-color`, `--ui-focus-border-width`, `--ui-focus-highlight`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-body`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-icon-decrease`, `--ui-icon-expand`, `--ui-icon-hide`, `--ui-icon-increase`, `--ui-icon-show`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-fill`, `--ui-on-focus-highlight`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-on-strong`, `--ui-palette-on-tint`, `--ui-palette-strong`, `--ui-palette-tint`, `--ui-press-scale`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-shadow-control`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-target-min-size`, `--ui-text`, `--ui-text-disabled`, `--ui-text-max-chroma`, `--ui-text-min-lightness`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-focus`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-shadow`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-accent-max-chroma-dark`, `--ui-control-accent-min-lightness-dark`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-control-on-accent`, `--ui-critical`, `--ui-critical-fill`, `--ui-critical-text`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-move`, `--ui-field-bg-color`, `--ui-field-border-color`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-padding-inline`, `--ui-field-padding-inline-large`, `--ui-field-placeholder-text-color`, `--ui-field-radius`, `--ui-field-required-text-color`, `--ui-field-shadow`, `--ui-field-size`, `--ui-field-size-large`, `--ui-field-size-small`, `--ui-field-size-x-small`, `--ui-focus-border-color`, `--ui-focus-border-width`, `--ui-focus-highlight`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-family-body`, `--ui-font-family-code`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-body`, `--ui-font-weight-heading`, `--ui-icon-decrease`, `--ui-icon-expand`, `--ui-icon-hide`, `--ui-icon-increase`, `--ui-icon-show`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height-compact`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-fill`, `--ui-on-focus-highlight`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-on-strong`, `--ui-palette-on-tonal`, `--ui-palette-strong`, `--ui-palette-tonal`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-shadow-control`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-active-scale`, `--ui-state-disabled-opacity`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-target-min-size`, `--ui-text`, `--ui-text-disabled`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -165,6 +166,31 @@ import { Field, StepButton } from "opui-css/astro"
   <StepButton command="--step-down" for="number-field-basics-1" slot="start" />
   <StepButton command="--step-up" for="number-field-basics-1" slot="end" />
 </Field>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Field, StepButton %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import Field, StepButton %}
+
+{% set start %}{{ StepButton({ command: "--step-down", for: "number-field-basics-1" }) }}{% endset %}
+{% set end %}{{ StepButton({ command: "--step-up", for: "number-field-basics-1" }) }}{% endset %}
+{% call Field({
+  autoFit: true,
+  for: "number-field-basics-1",
+  label: "Quantity",
+  slots: { end: end, start: start }
+}) %}
+  <input id="number-field-basics-1" max="10" min="1" type="number" value="1" />
+{% endcall %}
+
+<script type="module">
+  import "opui-css/elements/step-button.js"
+</script>
 ```
 
 ## React

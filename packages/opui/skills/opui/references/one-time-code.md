@@ -3,7 +3,7 @@
 A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill.
 
 - CSS: `opui-css/css/components/field.css` and `opui-css/css/components/one-time-code.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/one-time-code.md), [Astro](https://opui.dev/astro/components/one-time-code.md), [React](https://opui.dev/react/components/one-time-code.md), [Solid](https://opui.dev/solid/components/one-time-code.md), [Svelte](https://opui.dev/svelte/components/one-time-code.md), [Vue](https://opui.dev/vue/components/one-time-code.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/one-time-code.md), [Astro](https://opui.dev/astro/components/one-time-code.md), [Nunjucks](https://opui.dev/nunjucks/components/one-time-code.md), [React](https://opui.dev/react/components/one-time-code.md), [Solid](https://opui.dev/solid/components/one-time-code.md), [Svelte](https://opui.dev/svelte/components/one-time-code.md), [Vue](https://opui.dev/vue/components/one-time-code.md).
 
 ## OneTimeCode
 
@@ -17,7 +17,7 @@ A one-time password (OTP) field: one input drawn as a box per character, with pa
 
 ### Props and modifiers
 
-- `for` (Astro, Solid, Svelte and Vue): `string`. The `id` of your `<input>`. The label points at it, and the end text gets an id that starts with it: `x-end-text` for `for="x"`. Point the input's `aria-describedby` at it.
+- `for` (Astro, Nunjucks, Solid, Svelte and Vue): `string`. The `id` of your `<input>`. The label points at it, and the end text gets an id that starts with it: `x-end-text` for `for="x"`. Point the input's `aria-describedby` at it.
 - `grouped`: `boolean`, `.ui-grouped`. Draws a dash between the two halves of the code. Use it with an even `maxlength`.
 - `hideLabel`: `boolean`, `.ui-one-time-code > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The input keeps it as its accessible name.
 - `htmlFor` (React): `string`. The `id` of your `<input>`, as `htmlFor` like on the element. The label points at it, and the end text gets an id that starts with it: `x-end-text` for `htmlFor="x"`. Point the input's `aria-describedby` at it.
@@ -30,7 +30,7 @@ A one-time password (OTP) field: one input drawn as a box per character, with pa
 ### Notes
 
 - HTML: Use one `<input>` with `autocomplete="one-time-code"`, `maxlength` and a matching `pattern`, such as `[0-9]{6}`, plus `inputmode="numeric"` for digits.
-- Astro, Solid, Svelte and Vue: Write the `<input>` inside, with its `id` set to `for`, `autocomplete="one-time-code"`, a `maxlength` from 4 to 8, which sets the number of boxes, and a matching `pattern`: `inputmode="numeric"` and `[0-9]{6}` for digits, or `autocapitalize="characters"`, `spellcheck="false"` and `[A-Za-z0-9]{6}` for letters and digits. Bind it like any input. Other attributes go to the `.ui-one-time-code` root.
+- Astro, Nunjucks, Solid, Svelte and Vue: Write the `<input>` inside, with its `id` set to `for`, `autocomplete="one-time-code"`, a `maxlength` from 4 to 8, which sets the number of boxes, and a matching `pattern`: `inputmode="numeric"` and `[0-9]{6}` for digits, or `autocapitalize="characters"`, `spellcheck="false"` and `[A-Za-z0-9]{6}` for letters and digits. Bind it like any input. Other attributes go to the `.ui-one-time-code` root.
 - React: Write the `<input>` inside, with its `id` set to `htmlFor`, `autoComplete="one-time-code"`, a `maxLength` from 4 to 8, which sets the number of boxes, and a matching `pattern`: `inputMode="numeric"` and `[0-9]{6}` for digits, or `autoCapitalize="characters"`, `spellCheck={false}` and `[A-Za-z0-9]{6}` for letters and digits. Give it `value` with `onChange`, or `defaultValue`. Other attributes go to the `.ui-one-time-code` root.
 
 ## Component properties
@@ -47,7 +47,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_end-end-radius`: End-end corner radius of `.ui-field-container`. Defaults to `--_radius`, `0` against the next control in a `ControlGroup`.
 - `--_end-start-radius`: End-start corner radius of `.ui-field-container`. Defaults to `--_radius`, `0` against another control in a `ControlGroup`.
 - `--_field-padding-block`: Preferred block padding of the control. Set by the size classes.
-- `--_field-padding-inline`: Inline padding of the control and affixes. Defaults to `--ui-field-padding-inline` (else `--ui-space-2`), or `--ui-field-padding-inline-large` (else `--ui-space-3`) in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.
+- `--_field-padding-inline`: Inline padding of the control and affixes. Defaults to `--ui-field-padding-inline` (else `--ui-space-2`), or `--ui-field-padding-inline-large` (else `--ui-space-4`) in `.ui-large`. An affix with a `.ui-button` uses `--ui-space-1`.
 - `--_file-button-padding`: Preferred space above and below the `::file-selector-button`, outside `.ui-drop-zone`. `--ui-space-2`, `--ui-space-1` in `.ui-small` and `.ui-x-small`.
 - `--_font-size`: Font size of the control, `.ui-start` and `.ui-end`. Set by `.ui-x-small` and `.ui-small`, at least 16px on iPhone and iPad.
 - `--_min-inline-size`: Minimum width of the control beside `.ui-start` and `.ui-end`, which shrink to keep it, capped at the field's width. Defaults to `8ch`, `4ch` with a `StepButton`.
@@ -66,7 +66,7 @@ Outputs: `--_affix-block-size`, `--_affix-button-size`, `--_affix-padding-block`
 - `--_box-feather`: Half the width over which the box edges and corners fade, so the arcs stay smooth. The side edges start twice this far inside the corners, and the radius stays this far under a quarter of the cell, so no corner reaches into the next. Defaults to `0.5px`.
 - `--_box-radius`: Corner radius of the boxes and of the ring: `--ui-field-radius`, else `--ui-radius`, capped `--_box-feather` under a quarter of `--_cell-size`.
 - `--_dash-bg-color`: Color of the dash between the two halves with `.ui-grouped`. Defaults to `--ui-text-subtle`.
-- `--_dash-block-size`: Thickness of the dash. Defaults to `--ui-border-width-thick`.
+- `--_dash-block-size`: Thickness of the dash. Defaults to `--ui-border-width-large`.
 - `--_font-size`: Font size of the code. Defaults to `--ui-font-size-large`, `--ui-font-size-body` with `.ui-small` and `.ui-x-small`, and `--ui-font-size-h4` with `.ui-large`.
 - `--_max-cell-size`: Widest box: 1.2 times the control size or 1.6 times the font size, rounded to `--ui-space-2`.
 
@@ -74,7 +74,7 @@ Outputs: `--_box-end`, `--_box-start`, `--_cell-size`, `--_dash-image` and `--_l
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width-thick`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-bg-color`, `--ui-field-border-color`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-padding-inline`, `--ui-field-padding-inline-large`, `--ui-field-placeholder-text-color`, `--ui-field-radius`, `--ui-field-required-text-color`, `--ui-field-shadow`, `--ui-field-size`, `--ui-field-size-large`, `--ui-field-size-small`, `--ui-field-size-x-small`, `--ui-focus-border-color`, `--ui-focus-border-width`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-body`, `--ui-font-code`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-h4`, `--ui-font-size-large`, `--ui-font-size-small`, `--ui-icon-expand`, `--ui-icon-hide`, `--ui-icon-show`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-shadow-control`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-surface`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-target-min-size`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width-large`, `--ui-duration`, `--ui-ease`, `--ui-field-bg-color`, `--ui-field-border-color`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-padding-inline`, `--ui-field-padding-inline-large`, `--ui-field-placeholder-text-color`, `--ui-field-radius`, `--ui-field-required-text-color`, `--ui-field-shadow`, `--ui-field-size`, `--ui-field-size-large`, `--ui-field-size-small`, `--ui-field-size-x-small`, `--ui-focus-border-color`, `--ui-focus-border-width`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-family-body`, `--ui-font-family-code`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-h4`, `--ui-font-size-large`, `--ui-font-size-small`, `--ui-icon-expand`, `--ui-icon-hide`, `--ui-icon-show`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height-compact`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-shadow-control`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-state-disabled-opacity`, `--ui-surface`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-target-min-size`, `--ui-text`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -130,6 +130,35 @@ import { OneTimeCode } from "opui-css/astro"
     required
   />
 </OneTimeCode>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import OneTimeCode %}`
+
+- `OneTimeCode` named slots: `slots.endText` and `slots.label`. Pass a string, or markup captured with `{% set %}`.
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import OneTimeCode %}
+
+{% call OneTimeCode({
+  endText: "The code expires in 10 minutes.",
+  for: "one-time-code-basics-1",
+  label: "Verification code"
+}) %}
+  <input
+    aria-describedby="one-time-code-basics-1-end-text"
+    autocomplete="one-time-code"
+    id="one-time-code-basics-1"
+    inputmode="numeric"
+    maxlength="6"
+    name="code"
+    pattern="[0-9]{6}"
+    required
+  />
+{% endcall %}
 ```
 
 ## React

@@ -22,15 +22,20 @@ type Props = {
 
 const { imports, slug, sourceTabs = [], tabs } = Astro.props
 
-const importLine = imports
-  ? `import { ${imports.names.join(", ")} } from "${imports.package}"`
-  : ""
+const { framework, link } = Astro.locals
+const macros = framework === "nunjucks"
+
+const importLine = !imports
+  ? ""
+  : macros
+    ? `{% from "opui/index.njk" import ${imports.names.join(", ")} %}`
+    : `import { ${imports.names.join(", ")} } from "${imports.package}"`
 const importCode =
   imports && importLine.length > 80
-    ? `import {\n${imports.names.map((name) => `  ${name},`).join("\n")}\n} from "${imports.package}"`
+    ? macros
+      ? `{% from "opui/index.njk" import\n${imports.names.map((name) => `  ${name}`).join(",\n")}\n%}`
+      : `import {\n${imports.names.map((name) => `  ${name},`).join("\n")}\n} from "${imports.package}"`
     : importLine
-
-const { link } = Astro.locals
 
 const pageFor = (tab: Tab) =>
   components.find((c) => c.slug === tab.title.replace(/\.css$/, ""))
@@ -73,17 +78,31 @@ const usedBy = slug ? dependentsOf(slug) : []
               <p>
                 Import{" "}
                 {imports.names.length === 1
-                  ? "the component"
-                  : "the components"}
-                from{" "} <code>{imports.package}</code>:
+                  ? macros
+                    ? "the macro"
+                    : "the component"
+                  : macros
+                    ? "the macros"
+                    : "the components"}
+                from{" "}
+                <code>{macros ? "opui/index.njk" : imports.package}</code>:
               </p>
-              <Code code={importCode} lang="ts" />
+              <Code code={importCode} lang={macros ? "html" : "ts"} />
             </>
           )}
           <p>
-            The components ship markup only. Import
-            <code>opui-css/css/imports.css</code> once, or only the files under
-            Manual. See
+            {macros ? (
+              <Fragment>
+                The macros ship markup only. Link the CSS once, or only the
+                files under Manual. See
+              </Fragment>
+            ) : (
+              <Fragment>
+                The components ship markup only. Import
+                <code>opui-css/css/imports.css</code> once, or only the files
+                under Manual. See
+              </Fragment>
+            )}
             <a href={link("/guide/getting-started")}>Getting started</a>.
           </p>
         </TabsPanel>

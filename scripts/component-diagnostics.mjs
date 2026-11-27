@@ -109,6 +109,11 @@ export const DIAGNOSTICS = {
     explain:
       "A component without a rest spread on several roots renders one root element, which the ports return and Vue's attributes fall through to. Wrap the template in one element.",
   },
+  BC211: {
+    title: "A boolean attribute Astro writes as text",
+    explain:
+      'Astro writes a value bound to an HTML boolean attribute it doesn\'t list, such as `multiple`, as text, so `multiple={false}` renders `multiple="false"` and the attribute is on. Bind `true`, a string, or a value that is `undefined` when off: `multiple={multiple || undefined}`, or a conditional with an `undefined` or `null` branch.',
+  },
   BC301: {
     title: "A name a port also declares",
     explain:
@@ -208,6 +213,36 @@ export const DIAGNOSTICS = {
     title: "A props type that joins two elements' attributes",
     explain:
       'A component that renders one of two elements types each with its own attributes. Joined with `&`, the attributes of two elements give a `ref` and event handlers typed for both at once, which no ref or handler satisfies in React and Solid. Write a union with one member per element, told apart by a prop, as Button does with `href`: `(Base.Props & { href?: never } & HTMLAttributes<"button">) | (Base.Props & { href: string } & HTMLAttributes<"a">)`.',
+  },
+  BC701: {
+    title: "An expression the Nunjucks compiler can't write",
+    explain:
+      "The Nunjucks compiler (`scripts/component-nunjucks.mjs`) translates each expression into Nunjucks syntax, which has no arrow functions, spreads, `typeof`, `new`, regular expressions, assignments, optional calls or globals such as `Intl` and `Math`. Move the logic into a helper in `packages/opui/components/` and call it, or write the expression with the operators the translator takes.",
+  },
+  BC702: {
+    title: "A helper the Nunjucks runtime doesn't register",
+    explain:
+      "The Nunjucks macros call helpers through the `opui` global, which `packages/opui/nunjucks/macros.ts` fills with the helpers of the shared modules in `packages/opui/components/` that `scripts/component-nunjucks.mjs` finds. Export the helper from one of those modules, or import it from one.",
+  },
+  BC703: {
+    title: "A context provided around a named slot in Nunjucks",
+    explain:
+      "A named slot reaches a Nunjucks macro as content captured with `{% set %}`, which renders before the macro runs, so a context the macro provides can't reach it. Only the default slot, the macro's `caller()`, renders inside the macro, and the prototype provides the context around that call alone, so a fallback for the provided default slot is refused too. Provide the context around the default slot, and move its fallback out of the provided slot.",
+  },
+  BC704: {
+    title: "A named slot passed to an inner component in Nunjucks",
+    explain:
+      "The Nunjucks compiler writes an inner component as a `{% call %}` of its macro, whose body is the inner component's default slot. A child with a `slot` attribute fills one of its named slots, which a macro reads from `props.slots`, and the compiler doesn't yet capture it there. Pass the content in the default slot, or teach `scripts/component-nunjucks.mjs` to capture it with `{% set %}` into `slots`.",
+  },
+  BC705: {
+    title: "A name Nunjucks or the Nunjucks compiler reserves",
+    explain:
+      "A Nunjucks macro reads its props from `props`, its default slot from `caller`, the helpers from `opui` and the loop state from `loop`, and the compiler names its own values with a `__` prefix, so a local or prop with one of those names or a Nunjucks keyword (`and`, `else`, `false`, `if`, `in`, `is`, `none`, `not`, `null`, `or`, `true`) can't be written. Rename the local.",
+  },
+  BC706: {
+    title: "A props type the Nunjucks prototype can't read",
+    explain:
+      "The Nunjucks prototype reads the kinds of a component's props from the type its `.astro` file imports from `./types.astro`, through the TypeScript checker (`astroPropsOf` in `scripts/example-react-props.mjs`). It decides with them where a value prints through `| opuiText` and compares with `==`, and `opuiRest` warns with them about unknown props. Export the imported type from the folder's `types.astro.ts`, as a type alias or a re-export.",
   },
 }
 

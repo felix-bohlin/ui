@@ -14,7 +14,11 @@ export const THEME_SESSION_KEY = "opui-theme-session"
 
 export const THEME_SESSION_GAP = 30 * 60 * 1000
 
-export const VIEW_KEYS = { contrast: "contrast", mode: "theme" } as const
+export const VIEW_KEYS = {
+  contrast: "contrast",
+  drift: "drift",
+  mode: "theme",
+} as const
 
 const LEGACY_KEYS = [
   "opui-custom-theme",

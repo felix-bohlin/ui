@@ -390,6 +390,13 @@ export const themeStore = {
       if (value === null) delete next[name]
       else next[name] = value
     }
+    if (
+      isBrowser &&
+      BRAND_TOKENS.some((name) => next[name] !== current.tokens[name]) &&
+      window.themeUtils.getStoredColorScroll() !== "off"
+    ) {
+      window.themeUtils.setColorScroll(false)
+    }
     themeStore.set({ ...current, tokens: next })
   },
 

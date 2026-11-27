@@ -138,6 +138,8 @@ const { link } = Astro.locals
 </Drawer>
 
 <script>
+  import { themeStore } from "../utils/theme"
+
   const themeSwitcher = document.getElementById(
     "theme-switcher",
   ) as HTMLInputElement | null
@@ -196,6 +198,7 @@ const { link } = Astro.locals
       syncColorScrollSwitcher,
     )
     window.addEventListener("storage", syncColorScrollSwitcher)
+    themeStore.subscribe(syncColorScrollSwitcher)
   } else {
     colorScrollSwitcher?.closest("label")?.remove()
   }

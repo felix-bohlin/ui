@@ -3722,6 +3722,13 @@
     "url": "/vue/guide/theming/#scopes"
   },
   {
+    "id": "guide-theming-vue-any-color",
+    "title": "Any color",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/vue/guide/theming/#any-color"
+  },
+  {
     "id": "guide-theming-vue-surfaces",
     "title": "Surfaces",
     "page": "Theming",

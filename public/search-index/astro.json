@@ -3722,6 +3722,13 @@
     "url": "/astro/guide/theming/#scopes"
   },
   {
+    "id": "guide-theming-astro-any-color",
+    "title": "Any color",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/astro/guide/theming/#any-color"
+  },
+  {
     "id": "guide-theming-astro-surfaces",
     "title": "Surfaces",
     "page": "Theming",

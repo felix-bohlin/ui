@@ -3722,6 +3722,13 @@
     "url": "/react/guide/theming/#scopes"
   },
   {
+    "id": "guide-theming-react-any-color",
+    "title": "Any color",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/react/guide/theming/#any-color"
+  },
+  {
     "id": "guide-theming-react-surfaces",
     "title": "Surfaces",
     "page": "Theming",

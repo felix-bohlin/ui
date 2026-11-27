@@ -3722,6 +3722,13 @@
     "url": "/html/guide/theming/#scopes"
   },
   {
+    "id": "guide-theming-html-any-color",
+    "title": "Any color",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/html/guide/theming/#any-color"
+  },
+  {
     "id": "guide-theming-html-surfaces",
     "title": "Surfaces",
     "page": "Theming",

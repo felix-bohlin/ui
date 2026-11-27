@@ -3722,6 +3722,13 @@
     "url": "/solid/guide/theming/#scopes"
   },
   {
+    "id": "guide-theming-solid-any-color",
+    "title": "Any color",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/solid/guide/theming/#any-color"
+  },
+  {
     "id": "guide-theming-solid-surfaces",
     "title": "Surfaces",
     "page": "Theming",

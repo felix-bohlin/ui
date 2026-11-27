@@ -127,5 +127,11 @@ export const switchPreset = (preset: string | null) => {
     isBrandColor(brand) &&
     tokens["--ui-primary-source"] === brandTokens(brand)["--ui-primary-source"]
   themeStore.setPreset(preset)
-  if (fitted) themeStore.update(brandTokens(brand))
+  if (fitted) {
+    const theme = themeStore.get()
+    themeStore.set({
+      ...theme,
+      tokens: { ...theme.tokens, ...brandTokens(brand) },
+    })
+  }
 }

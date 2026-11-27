@@ -174,6 +174,81 @@ test.describe("a visitor", () => {
     expect(await turnAtMiddle(page)).toBeCloseTo(180, -1)
   })
 
+  test("picking a brand color in the theme drawer turns color scroll off", async ({
+    page,
+  }) => {
+    await seed(page, {})
+    await visit(page)
+    const drawer = await openDrawer(page)
+    const toggle = drawer.getByRole("switch", { name: "Color scroll" })
+    if (!(await hasScrollTimelines(page))) return
+
+    await expect(toggle).toBeChecked()
+    await drawer.getByRole("radio", { name: "Blue" }).check()
+    await expect(toggle).not.toBeChecked()
+    await closeDrawer(page)
+    expect(await turnAtMiddle(page)).toBe(0)
+
+    await page.reload()
+    expect(await turnAtMiddle(page)).toBe(0)
+  })
+
+  test("who turns color scroll back on keeps it through a new start and corners", async ({
+    page,
+  }) => {
+    await seed(page, {})
+    await visit(page)
+    const drawer = await openDrawer(page)
+    const toggle = drawer.getByRole("switch", { name: "Color scroll" })
+    if (!(await hasScrollTimelines(page))) return
+
+    await drawer.getByRole("radio", { name: "Blue" }).check()
+    await expect(toggle).not.toBeChecked()
+    await toggle.click()
+    await expect(toggle).toBeChecked()
+    await drawer.getByLabel("Start from").selectOption("brutalist")
+    await drawer.getByText("Large", { exact: true }).click()
+    await expect(drawer.getByRole("radio", { name: "Large" })).toBeChecked()
+    await expect(toggle).toBeChecked()
+    await closeDrawer(page)
+    expect(await turnAtMiddle(page)).toBeCloseTo(180, -1)
+  })
+
+  test("picking a brand color on the home page turns color scroll off", async ({
+    page,
+  }) => {
+    await seed(page, {})
+    await instantScrolling(page)
+    await page.goto("/")
+    if (!(await hasScrollTimelines(page))) return
+
+    expect(await turnAtMiddle(page)).not.toBe(0)
+    await scrollTo(page, 0)
+    await page.locator(".knobs").getByRole("radio", { name: "Teal" }).check()
+    expect(await turnAtMiddle(page)).toBe(0)
+    expect(
+      await page.evaluate(() => localStorage.getItem("color-scroll")),
+    ).toBe("off")
+  })
+
+  test("picking a brand color in the theme builder turns color scroll off", async ({
+    page,
+  }) => {
+    await seed(page, {})
+    await instantScrolling(page)
+    await page.goto("/theme-builder/")
+    if (!(await hasScrollTimelines(page))) return
+
+    await page
+      .locator('[data-control="brand"]')
+      .getByRole("radio", { name: "Purple" })
+      .check()
+    await expect
+      .poll(() => page.evaluate(() => localStorage.getItem("color-scroll")))
+      .toBe("off")
+    expect(await turnAtMiddle(page)).toBe(0)
+  })
+
   test("who starts from Vice City in the drawer sees color scroll turn off", async ({
     page,
   }) => {

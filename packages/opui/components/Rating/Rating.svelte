@@ -1,6 +1,6 @@
 <script lang="ts">
   import { untrack } from "svelte"
-  import { seedChecked } from "../svelte"
+  import { relayChecked } from "../svelte"
   import { mergeStyle, pluralLabel } from "../style"
   import { ratingOf } from "./rating"
   import type { Props } from "./types.svelte"
@@ -48,15 +48,13 @@
         type="radio"
         value={0}
         defaultChecked={untrack(() => rating.current === 0)}
-        {@attach seedChecked(
-          () => rating.current === 0,
-          () => {
-            value = 0
+        {@attach relayChecked(
+          (input) => {
+            if (input.checked) value = 0
+            else if (rating.current === 0) value = undefined
           },
+          () => (value === undefined ? undefined : rating.current === 0),
         )}
-        onchange={() => {
-          value = 0
-        }}
       />
     {/if}{#each rating.stars as star, index (index)}
       <input
@@ -68,15 +66,13 @@
         type="radio"
         value={star}
         defaultChecked={untrack(() => rating.current === star)}
-        {@attach seedChecked(
-          () => rating.current === star,
-          () => {
-            value = star
+        {@attach relayChecked(
+          (input) => {
+            if (input.checked) value = star
+            else if (rating.current === star) value = undefined
           },
+          () => (value === undefined ? undefined : rating.current === star),
         )}
-        onchange={() => {
-          value = star
-        }}
       />
     {/each}
   </fieldset>

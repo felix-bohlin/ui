@@ -26,7 +26,9 @@
   if (DEV) untrack(() => warnUnnamedGroup("ToggleGroup", rest))
   setToggleGroupContext({
     change(input) {
-      if (value !== undefined) value = selectionOf(input, multiple, value)
+      if (input.checked || input.type === "checkbox")
+        value = selectionOf(input, multiple, value)
+      else if (value === input.value) value = undefined
     },
     get groupName() {
       return groupName

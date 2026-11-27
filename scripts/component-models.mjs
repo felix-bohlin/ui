@@ -33,7 +33,7 @@ export const modelHelpers = (framework, component) =>
       untrack: "solid-js",
     },
     svelte: {
-      seedChecked: "../svelte",
+      relayChecked: "../svelte",
       selectionOf: selectionImport(component),
       toggleInGroup: "../group",
       untrack: "svelte",
@@ -62,15 +62,15 @@ export const MODEL_KINDS = {
     solid: solidChecked,
     svelte: {
       attributes: () => [
-        "bind:checked={getChecked, setChecked}",
-        "{defaultChecked}",
+        "{@attach relayChecked(\n  relay,\n  () => checked,\n  () =>\n    group === undefined || value === undefined\n      ? undefined\n      : group.includes(value),\n)}",
+        "defaultChecked={defaultChecked ?? initialChecked}",
         "{value}",
       ],
       bindables: bindableProps,
       plainProps: () => ["defaultChecked", "value"],
       script: () => [
-        "const getChecked = () =>\n  group ? group.includes(value) : !!(checked ?? defaultChecked)",
-        "const setChecked = (isChecked: boolean) => {\n  if (group) group = toggleInGroup(group, value, isChecked)\n  else checked = isChecked\n}",
+        "const initialChecked = untrack(() =>\n  group !== undefined && value !== undefined\n    ? group.includes(value)\n    : checked,\n)",
+        "const relay = (input: HTMLInputElement) => {\n  checked = input.checked\n  if (value !== undefined) {\n    group = toggleInGroup(group ?? [], value, input.checked)\n  }\n}",
       ],
       typedBindables: true,
     },
@@ -139,7 +139,7 @@ export const MODEL_KINDS = {
     svelte: {
       bindables: bindableProps,
       context: (model) => [
-        `change(input) {\nif (${model.prop} !== undefined) ${model.prop} = ${model.read}\n},`,
+        `change(input) {\nif (input.checked${arrayRead(model) ? ' || input.type === "checkbox"' : ""}) ${model.prop} = ${model.read}\nelse if (${model.prop} === input.value) ${model.prop} = undefined\n},`,
       ],
       typedBindables: true,
     },
@@ -186,8 +186,7 @@ export const MODEL_KINDS = {
       modelsGroupRadio: true,
       radioAttributes: (model, value, checked) => [
         `defaultChecked={untrack(() => ${checked})}`,
-        `{@attach seedChecked(\n  () => ${checked},\n  () => {\n    ${model.local} = ${value}\n  },\n)}`,
-        `onchange={() => {\n  ${model.local} = ${value}\n}}`,
+        `{@attach relayChecked(\n  (input) => {\n    if (input.checked) ${model.local} = ${value}\n    else if (${checked}) ${model.local} = undefined\n  },\n  () => (${model.local} === undefined ? undefined : ${checked}),\n)}`,
       ],
       typedBindables: true,
     },
@@ -208,18 +207,15 @@ export const MODEL_KINDS = {
     solid: solidChecked,
     svelte: {
       attributes: () => [
-        "{@attach seedChecked(isChecked, check)}",
+        "{@attach relayChecked(\n  relay,\n  () => checked ?? undefined,\n  () => (group === undefined ? undefined : group === (value ?? true)),\n)}",
         "defaultChecked={defaultChecked ?? initialChecked}",
-        "onchange={(event) => {\n  check()\n  onchange?.(event)\n}}",
         "{value}",
       ],
       bindables: bindableProps,
-      plainProps: () => ["checked", "defaultChecked", "onchange", "value"],
+      plainProps: () => ["checked", "defaultChecked", "value"],
       script: () => [
-        "const hasGroup = untrack(() => group !== undefined)",
-        "const isChecked = () =>\n  hasGroup\n    ? group === (value ?? true)\n    : (checked ??\n      (group !== undefined ? group === (value ?? true) : !!defaultChecked))",
-        "const initialChecked = untrack(isChecked)",
-        "const check = () => {\n  group = value ?? true\n}",
+        "const initialChecked = untrack(() =>\n  group !== undefined ? group === (value ?? true) : checked,\n)",
+        "const relay = (input: HTMLInputElement) => {\n  if (input.checked) group = value ?? true\n  else if (group === (value ?? true)) group = undefined\n}",
       ],
       typedBindables: true,
     },

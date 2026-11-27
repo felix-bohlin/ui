@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from "node:fs"
-import { dirname, join } from "node:path"
+import { join } from "node:path"
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
 import { MODEL_KINDS } from "./component-models.mjs"
@@ -321,31 +321,84 @@ const eventNames = (alias, file) => {
   })
 }
 
-export const eventsOf = (base, name, folder) => {
-  if (!base) return []
-  const alias = sourceFileOf(base, "types.ts")
-    .statements.filter(ts.isTypeAliasDeclaration)
-    .find(
-      (statement) =>
-        statement.name.text ===
-        eventsTypeOf(name === folder ? "Props" : `${name}Props`),
-    )
+const slotsTypeOf = (name) =>
+  name === "Props" ? "Slots" : name.replace(/Props$/, "Slots")
+
+const propsTypeOf = (types, name) =>
+  name === types.folder ? "Props" : `${name}Props`
+
+export const readTypes = (folder, { astro, base } = {}) => {
+  const astroSource =
+    astro === undefined ? undefined : sourceFileOf(astro, "types.astro.ts")
+  const baseSource =
+    base === undefined ? undefined : sourceFileOf(base, "types.ts")
+  return {
+    aliases: astroSource ? typeAliases(astroSource) : [],
+    astro: astroSource,
+    baseAliases: baseSource?.statements.filter(ts.isTypeAliasDeclaration) ?? [],
+    baseFile: `packages/opui/components/${folder}/types.ts`,
+    file: `packages/opui/components/${folder}/types.astro.ts`,
+    folder,
+  }
+}
+
+export const folderTypes = (folder) => {
+  const read = (name) => {
+    const path = join(root, "packages/opui/components", folder, name)
+    return existsSync(path) ? readFileSync(path, "utf8") : undefined
+  }
+  return readTypes(folder, {
+    astro: read("types.astro.ts"),
+    base: read("types.ts"),
+  })
+}
+
+const baseAliasOf = (types, name) =>
+  types.baseAliases.find((alias) => alias.name.text === name)
+
+const keysOf = (types, name) => {
+  const alias = baseAliasOf(types, name)
+  return alias ? typeKeys(alias.type, types.baseAliases) : []
+}
+
+const eventsOf = (types, propsName) => {
+  const alias = baseAliasOf(types, eventsTypeOf(propsName))
+  return alias ? eventNames(alias, types.baseFile) : []
+}
+
+const slotMembersOf = (types, propsName) => {
+  const alias = baseAliasOf(types, slotsTypeOf(propsName))
   return alias
-    ? eventNames(alias, `packages/opui/components/${folder}/types.ts`)
+    ? slotMembers(alias.type, alias.typeParameters?.[0]?.name.text ?? "S")
     : []
 }
 
-export const toTypes = (
-  folder,
-  { astro, base },
-  slotsByComponent,
-  propsByComponent = {},
-  rootsByComponent = {},
-  modelsByComponent = {},
-) => {
-  const file = `packages/opui/components/${folder}/types.astro.ts`
-  const source = sourceFileOf(astro, "types.astro.ts")
-  const baseImport = source.statements.find(
+export const typeFactsOf = (types, name, { propsType, slots }) => {
+  const propsName = propsTypeOf(types, name)
+  const alias = types.aliases.find((entry) => entry.name === propsType)
+  const elements = alias ? elementsOf(alias.node.type) : []
+  return {
+    baseProps: keysOf(types, propsName),
+    element: elements.length === 1 ? elements[0] : undefined,
+    events: eventsOf(types, propsName),
+    folderSlots: !!baseAliasOf(types, "Slots"),
+    stringTypedSlots: slotMembersOf(types, propsName)
+      .filter((member) => member.string)
+      .map((member) => member.name)
+      .filter((key) => slots.some((slot) => slotProp(slot) === key)),
+  }
+}
+
+export const toTypes = (types, components) => {
+  const { aliases, baseAliases, baseFile: baseFileName, file, folder } = types
+  const componentNamed = (name) =>
+    components.find((component) => component.name === name)
+  const modelOf = (name) => {
+    const model = componentNamed(name)?.model
+    return model?.refusal ? undefined : model
+  }
+  const source = types.astro
+  const baseImport = source?.statements.find(
     (statement) =>
       ts.isImportDeclaration(statement) &&
       statement.moduleSpecifier.text === "./types" &&
@@ -361,8 +414,6 @@ export const toTypes = (
       ts.isImportDeclaration(statement) &&
       statement.moduleSpecifier.text === "astro/types",
   )
-  const baseFile = sourceFileOf(base, "types.ts")
-  const baseAliases = baseFile.statements.filter(ts.isTypeAliasDeclaration)
   const slotTypes = new Map(
     baseAliases
       .filter(({ name }) => name.text.endsWith("Slots"))
@@ -384,7 +435,7 @@ export const toTypes = (
     if (parameter && parameter.default?.kind !== ts.SyntaxKind.NeverKeyword) {
       throw unsupported(
         "BC607",
-        `packages/opui/components/${folder}/types.ts`,
+        baseFileName,
         `the type parameter Link of ${alias.name.text} without the default never`,
         "write `Link = never`: Astro and Svelte take element names only, and React, Solid and Vue pass their link component type",
       )
@@ -403,24 +454,18 @@ export const toTypes = (
     node.name.getText() === "as" &&
     !!node.type &&
     literalKeys(node.type).includes("a")
-  const slotsTypeOf = (name) =>
-    name === "Props" ? "Slots" : name.replace(/Props$/, "Slots")
   const componentOf = (name) =>
     name === "Props" ? folder : name.replace(/Props$/, "")
-  const aliases = typeAliases(source)
   for (const alias of aliases) {
     if (!hasElement(alias.node.type)) {
       throw unsupported("BC602", file, `the type ${alias.name}`)
     }
   }
   const propsAliases = aliases.filter(({ name }) => name.endsWith("Props"))
-  const baseFileName = `packages/opui/components/${folder}/types.ts`
-  const eventTypes = new Map(
-    baseAliases
-      .filter(({ name }) => name.text.endsWith("Events"))
-      .map((alias) => [alias.name.text, alias]),
-  )
-  for (const eventsName of eventTypes.keys()) {
+  const eventTypes = baseAliases
+    .filter(({ name }) => name.text.endsWith("Events"))
+    .map((alias) => alias.name.text)
+  for (const eventsName of eventTypes) {
     if (!propsAliases.some(({ name }) => eventsTypeOf(name) === eventsName)) {
       throw unsupported(
         "BC603",
@@ -430,22 +475,12 @@ export const toTypes = (
       )
     }
   }
-  const eventsFor = (name) =>
-    eventTypes.has(eventsTypeOf(name))
-      ? eventNames(eventTypes.get(eventsTypeOf(name)), baseFileName)
-      : []
   const slotted = propsAliases.filter(({ name }) =>
     slotTypes.has(slotsTypeOf(name)),
   )
-  const slotKeysOf = (slotsAlias) =>
-    slotMembers(
-      slotsAlias.type,
-      slotsAlias.typeParameters?.[0]?.name.text ?? "S",
-    )
   for (const { name } of slotted) {
-    const slotsAlias = slotTypes.get(slotsTypeOf(name))
-    const propsAlias = baseAliases.find((alias) => alias.name.text === name)
-    const slotKeys = slotKeysOf(slotsAlias).map((member) => member.name)
+    const members = slotMembersOf(types, name)
+    const slotKeys = members.map((member) => member.name)
     if (slotKeys.length === 0) {
       throw unsupported(
         "BC604",
@@ -453,14 +488,10 @@ export const toTypes = (
         `the type ${slotsTypeOf(name)}, which names no slot`,
       )
     }
-    const overlap = slotKeysOf(slotsAlias)
+    const overlap = members
       .filter((member) => !member.string)
       .map((member) => member.name)
-      .filter((key) =>
-        (propsAlias ? typeKeys(propsAlias.type, baseAliases) : []).includes(
-          key,
-        ),
-      )
+      .filter((key) => keysOf(types, name).includes(key))
     if (overlap.length > 0) {
       throw unsupported(
         "BC604",
@@ -468,8 +499,8 @@ export const toTypes = (
         `a prop and a slot both named ${overlap.join(", ")}`,
       )
     }
-    const astroSlots = slotsByComponent[componentOf(name)] ?? []
-    const pureSlots = slotKeysOf(slotsAlias)
+    const astroSlots = componentNamed(componentOf(name))?.slots ?? []
+    const pureSlots = members
       .filter((member) => !member.string)
       .map((member) => member.name)
       .filter((key) => !astroSlots.some((slot) => slotProp(slot) === key))
@@ -481,23 +512,15 @@ export const toTypes = (
       )
     }
   }
-  const customRoot = (name) => {
-    const roots = rootsByComponent[componentOf(name)] ?? []
-    return roots.length === 1 && roots[0].includes("-") ? roots[0] : undefined
-  }
   const stringSlotKeys = (name) =>
-    slotTypes.has(slotsTypeOf(name))
-      ? slotKeysOf(slotTypes.get(slotsTypeOf(name)))
-          .filter((member) => member.string)
-          .map((member) => member.name)
-          .toSorted(byName)
-      : []
-  const reactRenamed = (name) => {
-    const baseAlias = baseAliases.find((entry) => entry.name.text === name)
-    return (baseAlias ? typeKeys(baseAlias.type, baseAliases) : [])
+    slotMembersOf(types, name)
+      .filter((member) => member.string)
+      .map((member) => member.name)
+      .toSorted(byName)
+  const reactRenamed = (name) =>
+    keysOf(types, name)
       .filter((key) => key !== "class" && REACT_ATTRIBUTE_NAMES[key])
       .toSorted(byName)
-  }
   const withoutHelper = (framework) =>
     propsAliases.some(
       ({ name }) =>
@@ -529,12 +552,11 @@ export const toTypes = (
       const type = alias.node.type
       const component = componentOf(name)
       const isProps = name.endsWith("Props")
-      const model = isProps ? modelsByComponent[component] : undefined
-      const slots = isProps ? slotsByComponent[component] : undefined
+      const model = isProps ? modelOf(component) : undefined
+      const slots = isProps ? componentNamed(component)?.slots : undefined
       const strings = isProps ? stringSlotKeys(name) : []
-      const tag = isProps ? customRoot(name) : undefined
-      const baseAlias = baseAliases.find((entry) => entry.name.text === name)
-      const known = baseAlias ? typeKeys(baseAlias.type, baseAliases) : []
+      const tag = isProps ? componentNamed(component)?.customTag : undefined
+      const known = keysOf(types, name)
       const kind = MODEL_KINDS[model?.kind]
       const extras =
         framework === "svelte" && kind?.svelte?.typedBindables
@@ -546,7 +568,7 @@ export const toTypes = (
               .toSorted((a, b) => byName(a.prop, b.prop))
           : []
       const callbacks = !!kind?.[framework]?.entries
-      const events = isProps ? eventsFor(name) : []
+      const events = isProps ? eventsOf(types, name) : []
       const omit = [
         ...(slots && !slots.includes("default") ? ["children"] : []),
         ...extras.map(({ prop }) => prop),
@@ -677,7 +699,7 @@ export const toTypes = (
           : omitted.length
             ? part.getText().replace(`Base.${name}`, baseType)
             : baseType
-        const baseAlias = baseAliases.find((entry) => entry.name.text === name)
+        const baseAlias = baseAliasOf(types, name)
         const reactNames = renamed.length
           ? ` & { ${renamed.map((key) => `${REACT_ATTRIBUTE_NAMES[key]}${baseAlias && requiredKey(baseAlias.type, key, baseAliases) ? "" : "?"}: Base.${name}[${JSON.stringify(key)}]`).join("; ")} }`
           : ""
@@ -697,7 +719,7 @@ export const toTypes = (
         )
       }
     }
-    return spliced(astro, edits)
+    return spliced(source.text, edits)
   }
   const react = typed("react")
   const solid = typed("solid")
@@ -708,18 +730,14 @@ export const toTypes = (
     )
     .map(({ name }) => name)
     .toSorted(byName)
-  for (const [component, slots] of Object.entries(slotsByComponent)) {
+  for (const { name: component, slots } of components) {
     const named = slots.filter((slot) => slot !== "default")
     const alias = aliases.find(
-      ({ name }) =>
-        name === (component === folder ? "Props" : `${component}Props`),
+      ({ name }) => name === propsTypeOf(types, component),
     )
-    const covered =
-      alias && slotTypes.has(slotsTypeOf(alias.name))
-        ? slotKeysOf(slotTypes.get(slotsTypeOf(alias.name))).map(
-            (member) => member.name,
-          )
-        : []
+    const covered = alias
+      ? slotMembersOf(types, alias.name).map((member) => member.name)
+      : []
     const uncovered = named.filter(
       (slot) => !covered.includes(slot) && !covered.includes(slotProp(slot)),
     )
@@ -735,11 +753,11 @@ export const toTypes = (
   const vueSlotTypes = slotted.map(({ name }) => {
     const slotsName = slotsTypeOf(name)
     const component = componentOf(name)
-    const hasDefault = (slotsByComponent[component] ?? ["default"]).includes(
-      "default",
-    )
-    const slotNames = slotsByComponent[component] ?? []
-    const named = slotKeysOf(slotTypes.get(slotsName))
+    const hasDefault = (
+      componentNamed(component)?.slots ?? ["default"]
+    ).includes("default")
+    const slotNames = componentNamed(component)?.slots ?? []
+    const named = slotMembersOf(types, name)
       .map((member) => member.name)
       .filter((key) => key !== "children")
       .map((key) => slotNames.find((slot) => slotProp(slot) === key) ?? key)
@@ -752,10 +770,10 @@ export const toTypes = (
   })
   const emitting = propsAliases
     .map(({ name }) => name)
-    .filter((name) => eventsFor(name).length > 0)
+    .filter((name) => eventsOf(types, name).length > 0)
   const vueEmits = emitting.map(
     (name) =>
-      `export type ${emitsTypeOf(name)} = { ${eventsFor(name)
+      `export type ${emitsTypeOf(name)} = { ${eventsOf(types, name)
         .map(
           (event) =>
             `${event}: [event: Base${eventsTypeOf(name)}[${JSON.stringify(event)}]]`,
@@ -801,7 +819,7 @@ export const toTypes = (
     )
   }
   const vueMembers = (alias) => {
-    const model = modelsByComponent[componentOf(alias.name)]
+    const model = modelOf(componentOf(alias.name))
     const undeclared = MODEL_KINDS[model?.kind]?.vue?.undeclared
     const modelOnly = (node) =>
       !!undeclared &&
@@ -874,12 +892,15 @@ export const toTypes = (
   }
   const extrasOf = ({ name, node }) => {
     const component = componentOf(name)
-    const baseAlias = baseAliases.find((alias) => alias.name.text === name)
-    const known = baseAlias ? typeKeys(baseAlias.type, baseAliases) : []
-    const modelled = modelsByComponent[component]
-    const extras = (propsByComponent[component] ?? [])
+    const known = keysOf(types, name)
+    const modelled = modelOf(component)
+    const extras = (componentNamed(component)?.props ?? [])
+      .map(({ prop }) => prop)
       .filter(
         (prop) =>
+          prop !== "class" &&
+          prop !== "style" &&
+          !prop.includes("-") &&
           prop !== "as" &&
           !known.includes(prop) &&
           !declaresProperty(node.type, prop) &&
@@ -967,7 +988,9 @@ export const toTypes = (
           ({ name }) =>
             name !== "Props" &&
             !slotTypes.has(slotsTypeOf(name)) &&
-            (slotsByComponent[componentOf(name)] ?? []).includes("default"),
+            (componentNamed(componentOf(name))?.slots ?? []).includes(
+              "default",
+            ),
         )
         .map(({ name }) => `export type ${slotsTypeOf(name)} = DefaultSlots`)
     : []
@@ -975,7 +998,7 @@ export const toTypes = (
     ...vueAliases,
     ...vueEmits,
     ...(slotTypes.has("Slots") ||
-    !(slotsByComponent[folder] ?? ["default"]).includes("default")
+    !(componentNamed(folder)?.slots ?? ["default"]).includes("default")
       ? []
       : ["export type Slots = DefaultSlots"]),
     ...[...vueSlotTypes, ...defaultOnlySlotTypes].toSorted(byName),
@@ -991,58 +1014,4 @@ export const toTypes = (
     ...vueBody,
   ].join("\n\n")
   return { react, solid, svelte, vue: `${vue}\n` }
-}
-
-export const astroTypesOf = (file) => {
-  const path = join(root, dirname(file), "types.astro.ts")
-  return existsSync(path) ? readFileSync(path, "utf8") : undefined
-}
-
-export const baseTypesOf = (file) => {
-  const path = join(root, dirname(file), "types.ts")
-  return existsSync(path) ? readFileSync(path, "utf8") : undefined
-}
-
-export const basePropsOf = (base, name, folder) => {
-  if (!base) return []
-  const aliases = sourceFileOf(base, "types.ts").statements.filter(
-    ts.isTypeAliasDeclaration,
-  )
-  const alias = aliases.find(
-    (statement) =>
-      statement.name.text === (name === folder ? "Props" : `${name}Props`),
-  )
-  return alias ? typeKeys(alias.type, aliases) : []
-}
-
-export const hasSlotsType = (base) =>
-  !!base &&
-  sourceFileOf(base, "types.ts").statements.some(
-    (statement) =>
-      ts.isTypeAliasDeclaration(statement) && statement.name.text === "Slots",
-  )
-
-export const stringTypedSlots = (base, name, folder, slots) => {
-  if (!base) return []
-  const alias = sourceFileOf(base, "types.ts")
-    .statements.filter(ts.isTypeAliasDeclaration)
-    .find(
-      (statement) =>
-        statement.name.text === (name === folder ? "Slots" : `${name}Slots`),
-    )
-  if (!alias) return []
-  return slotMembers(alias.type, alias.typeParameters?.[0]?.name.text ?? "S")
-    .filter((member) => member.string)
-    .map((member) => member.name)
-    .filter((key) => slots.some((slot) => slotProp(slot) === key))
-}
-
-export const propsElement = (types, propsType) => {
-  if (!types) return undefined
-  const alias = typeAliases(sourceFileOf(types, "types.astro.ts")).find(
-    ({ name }) => name === propsType,
-  )
-  if (!alias) return undefined
-  const elements = elementsOf(alias.node.type)
-  return elements.length === 1 ? elements[0] : undefined
 }

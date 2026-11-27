@@ -15,19 +15,15 @@ import { root, unsupported } from "./component-shared.mjs"
 import { toSolid } from "./component-solid.mjs"
 import { toSvelte } from "./component-svelte.mjs"
 import {
-  astroTypesOf,
-  basePropsOf,
-  eventsOf,
-  hasSlotsType,
-  baseTypesOf,
-  propsElement,
-  stringTypedSlots,
+  folderTypes,
+  readTypes,
   toTypes,
+  typeFactsOf,
 } from "./component-types.mjs"
 import { toVue } from "./component-vue.mjs"
 import { formatStably } from "./format.mjs"
 
-export { loadApis, readComponent, toTypes }
+export { loadApis, readComponent, readTypes, toTypes }
 
 const componentsDir = join(root, "packages/opui/components")
 
@@ -53,12 +49,12 @@ export const EMITTERS = {
 }
 
 export const compileComponent = async (source, file, options = {}) => {
-  const { api, base = baseTypesOf(file), types = astroTypesOf(file) } = options
   const name = file
     .split("/")
     .at(-1)
     .replace(/\.astro$/, "")
   const folder = file.split("/").at(-2)
+  const { api, types = folderTypes(folder) } = options
   const component = await readComponent(
     source,
     file,
@@ -66,13 +62,9 @@ export const compileComponent = async (source, file, options = {}) => {
   )
   const named = {
     ...component,
-    element: propsElement(types, component.propsType),
     folder,
     name,
-    baseProps: basePropsOf(base, name, folder),
-    events: eventsOf(base, name, folder),
-    folderSlots: hasSlotsType(base),
-    stringTypedSlots: stringTypedSlots(base, name, folder, component.slots),
+    ...typeFactsOf(types, name, component),
   }
   const outputs = new Map()
   const refused = new Map()
@@ -155,10 +147,8 @@ export const generate = async ({
   for (const folder of folders) {
     if (only.length > 0 && !only.includes(folder)) continue
     const files = (await readdir(join(componentsDir, folder))).toSorted()
-    const slotsByComponent = {}
-    const modelsByComponent = {}
-    const propsByComponent = {}
-    const rootsByComponent = {}
+    const types = folderTypes(folder)
+    const components = []
     let allCompiled = true
     for (const file of files.filter((entry) => entry.endsWith(".astro"))) {
       const key = `${folder}/${file}`
@@ -171,6 +161,7 @@ export const generate = async ({
         } = await compileComponent(
           await readFile(join(componentsDir, key), "utf8"),
           relative,
+          { types },
         )
         for (const [target, error] of refused) {
           allCompiled = false
@@ -179,25 +170,7 @@ export const generate = async ({
           if (ledgerKey in handWritten) skipped.push(message)
           else problems.push(message)
         }
-        slotsByComponent[component.name] = component.slots
-        modelsByComponent[component.name] = component.model?.refusal
-          ? undefined
-          : component.model
-        propsByComponent[component.name] = component.props
-          .filter(
-            ({ prop }) =>
-              prop !== "class" && prop !== "style" && !prop.includes("-"),
-          )
-          .map(({ prop }) => prop)
-        rootsByComponent[component.name] = component.restOnRoot
-          ? [
-              ...new Set(
-                component.rootElements
-                  .filter((node) => node.custom)
-                  .map((node) => node.tag),
-              ),
-            ]
-          : []
+        components.push(component)
         for (const [target, code] of compiled) {
           const ledgerKey = target.replace("packages/opui/components/", "")
           if (ledgerKey in handWritten) continue
@@ -222,34 +195,20 @@ export const generate = async ({
       if (!allCompiled) {
         throw unsupported(
           "BC606",
-          `packages/opui/components/${folder}/types.astro.ts`,
+          types.file,
           "a folder with a hand-written component",
         )
       }
-      const types = toTypes(
-        folder,
-        {
-          astro: await readFile(
-            join(componentsDir, folder, "types.astro.ts"),
-            "utf8",
-          ),
-          base: await readFile(join(componentsDir, folder, "types.ts"), "utf8"),
-        },
-        slotsByComponent,
-        propsByComponent,
-        rootsByComponent,
-        modelsByComponent,
-      )
+      const typeFiles = toTypes(types, components)
       for (const [framework, typeFile] of Object.entries(TYPE_FILES)) {
         const target = `packages/opui/components/${folder}/${typeFile}`
         if (`${folder}/${typeFile}` in handWritten) continue
-        outputs.set(target, await formatStably(types[framework], target))
+        outputs.set(target, await formatStably(typeFiles[framework], target))
       }
     } catch (error) {
-      const types = `packages/opui/components/${folder}/types.astro.ts`
-      const message = error.message.startsWith(types)
+      const message = error.message.startsWith(types.file)
         ? error.message
-        : `${types}: ${error.message}`
+        : `${types.file}: ${error.message}`
       if (
         Object.values(TYPE_FILES).every(
           (typeFile) => `${folder}/${typeFile}` in handWritten,

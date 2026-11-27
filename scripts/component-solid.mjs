@@ -21,14 +21,13 @@ import {
   namesFrom,
 } from "./component-models.mjs"
 import { jsxAttribute } from "./example-encoders.mjs"
+import { allValues, valuesIn } from "./component-analysis.mjs"
 import {
   SOLID_PRAGMA,
-  allCodes,
   byName,
   capitalize,
   chosenSpreadCode,
   classMayBeEmpty,
-  codesIn,
   elementsIn,
   filtersSpread,
   identifierCounts,
@@ -36,7 +35,6 @@ import {
   identifiersIn,
   isIdentifierName,
   onlyClass,
-  slotsUsedIn,
   sourceFileOf,
   unsupported,
   unwrap,
@@ -46,31 +44,6 @@ const PER_ITEM = "\u0000"
 
 const propAccess = (prop) =>
   isIdentifierName(prop) ? `props.${prop}` : `props[${JSON.stringify(prop)}]`
-
-const parameterNames = (text) => {
-  const sourceFile = sourceFileOf(`(${text}) => 0`, "parameters.ts")
-  const names = []
-  const collect = (name) => {
-    if (ts.isIdentifier(name)) names.push(name.text)
-    else if (
-      ts.isObjectBindingPattern(name) ||
-      ts.isArrayBindingPattern(name)
-    ) {
-      name.elements.forEach(
-        (element) => ts.isBindingElement(element) && collect(element.name),
-      )
-    }
-  }
-  const [statement] = sourceFile.statements
-  const arrow =
-    statement && ts.isExpressionStatement(statement)
-      ? statement.expression
-      : undefined
-  if (arrow && ts.isArrowFunction(arrow)) {
-    arrow.parameters.forEach((parameter) => collect(parameter.name))
-  }
-  return names
-}
 
 const CONDITION_OPERATORS = [
   ts.SyntaxKind.AmpersandAmpersandToken,
@@ -143,8 +116,6 @@ const slotsIn = (nodes) =>
 const isReserved = (name) =>
   ts.identifierToKeywordKind(ts.factory.createIdentifier(name)) !== undefined
 
-const staticTag = (code) => /^"([a-z][a-z0-9-]*)"$/.exec(code.trim())?.[1]
-
 const shortName = (attribute) =>
   attribute
     .replace(/^(aria|data)-/, "")
@@ -189,15 +160,13 @@ export const toSolid = (component) => {
     )
   }
   const props = component.props.filter(
-    ({ local }) => !stringSlots.includes(local),
+    ({ local }) => !stringSlots.some((entry) => entry.local === local),
   )
   const tagProps = props.filter(({ local }) => variableTags.includes(local))
   const staticTags = new Map(
     derived
-      .filter(
-        ({ code, name }) => variableTags.includes(name) && staticTag(code),
-      )
-      .map(({ code, name }) => [name, staticTag(code)]),
+      .filter(({ name, staticTag }) => variableTags.includes(name) && staticTag)
+      .map(({ name, staticTag }) => [name, staticTag]),
   )
   const tagConsts = derived.filter(
     ({ name }) => variableTags.includes(name) && !staticTags.has(name),
@@ -213,16 +182,14 @@ export const toSolid = (component) => {
     ...(rest ? [rest] : []),
   ])
   const accessors = new Set()
-  for (const { code, fn, name } of derived) {
+  for (const { fn, name, reads: valueReads } of derived) {
     if (fn || variableTags.includes(name)) continue
-    const names = identifiersIn(code)
     if (
-      code.includes("Astro.slots") ||
-      [...names].some(
-        (identifier) =>
-          reactive.has(identifier) ||
-          reactive.has(component.ids.bases.get(identifier)),
-      )
+      valueReads.contexts.length > 0 ||
+      valueReads.props.length > 0 ||
+      valueReads.rest ||
+      valueReads.slots.length > 0 ||
+      valueReads.derived.some((read) => accessors.has(read))
     ) {
       reactive.add(name)
       accessors.add(name)
@@ -251,11 +218,7 @@ export const toSolid = (component) => {
     slotHas: (name) => propAccess(slotProp(name)),
   }
   const rewrite = (code, scope = options) => rewriteExpression(code, scope)
-  const taken = new Set([
-    ...component.props.map(({ local }) => local),
-    ...derived.map(({ name }) => name),
-    ...reads.map(({ name }) => name),
-  ])
+  const taken = component.declared
   const local = (kind?.locals?.(model) ?? []).find((name) => taken.has(name))
   if (local) {
     throw unsupported(
@@ -265,14 +228,12 @@ export const toSolid = (component) => {
       "rename the prop or const in the Astro file",
     )
   }
-  const narrowed = (name, code) => {
-    const once = [...identifierCounts(code)]
+  const narrowed = (name, code, names) => {
+    const once = [...names]
       .filter(([read, count]) => count > 1 && rename.get(read)?.endsWith("()"))
       .map(([read]) => [read, read === "value" ? "current" : `${read}Value`])
     if (once.length === 0) return { locals: [], value: rewrite(code) }
-    const clash = once.find(
-      ([, local]) => taken.has(local) || identifiersIn(code).has(local),
-    )
+    const clash = once.find(([, local]) => taken.has(local) || names.has(local))
     if (clash) {
       throw unsupported(
         "BC301",
@@ -291,24 +252,25 @@ export const toSolid = (component) => {
   }
   const functionBody = ({ locals, value }) =>
     locals.length ? `{\n${locals.join("\n")}\nreturn ${value}\n}` : value
-  const accessorCode = (name, code) =>
-    `const ${name} = () => ${functionBody(narrowed(name, code))}`
+  const accessorCode = ({ code, name, reads: valueReads }) =>
+    `const ${name} = () => ${functionBody(narrowed(name, code, valueReads.names))}`
   const functionCode = (name, code) => {
     const arrow = arrowOf(code)
-    const parts = arrow && narrowed(name, arrow.body)
+    const parts =
+      arrow && narrowed(name, arrow.body, identifierCounts(arrow.body))
     return parts?.locals.length
       ? `const ${name} = ${arrow.head} ${functionBody(parts)}`
       : `const ${name} = ${rewrite(code)}`
   }
-  const reactiveIn = (code, scope) =>
-    code.includes("Astro.slots") ||
-    [...identifiersIn(code)].some(
+  const reactiveIn = ({ reads: valueReads }, scope) =>
+    valueReads.slots.length > 0 ||
+    [...valueReads.names.keys()].some(
       (name) => name === rest || (scope.rename.get(name) ?? name) !== name,
     )
-  const codesOf = (nodes) => [
-    ...codesIn(nodes),
+  const valuesOf = (nodes) => [
+    ...valuesIn(nodes),
     ...elementsIn(nodes).flatMap((element) =>
-      element.attributes.map((entry) => entry.code ?? ""),
+      element.attributes.filter((entry) => entry.code !== undefined),
     ),
   ]
   let usesChildren = false
@@ -349,9 +311,10 @@ export const toSolid = (component) => {
       `const ${lowered(local)} = () => ${fallback ? `${propAccess(prop)} || ${fallback}` : propAccess(prop)}`,
       `const ${local} = dynamic(${lowered(local)})`,
     ]),
-    ...derived.flatMap(({ code, fn, name }) =>
-      staticTags.has(name)
-        ? allCodes(component).some((other) => identifiersIn(other).has(name))
+    ...derived.flatMap((value) => {
+      const { code, fn, name } = value
+      return staticTags.has(name)
+        ? allValues(component).some(({ reads: other }) => other.names.has(name))
           ? [`const ${name} = ${code}`]
           : []
         : variableTags.includes(name)
@@ -360,15 +323,15 @@ export const toSolid = (component) => {
               `const ${name} = dynamic(${lowered(name)})`,
             ]
           : accessors.has(name)
-            ? [accessorCode(name, code)]
+            ? [accessorCode(value)]
             : [
                 fn
                   ? functionCode(name, code)
                   : `const ${name} = ${rewrite(code)}`,
-              ],
-    ),
+              ]
+    }),
     ...warnings.map(
-      (code) =>
+      ({ code }) =>
         `untrack(() => {\n${rewriteStatement(code, options).replace(SPREAD_OF_PROPS, "props")}\n})`,
     ),
     ...(item
@@ -466,7 +429,7 @@ export const toSolid = (component) => {
     if (
       (node.component || node.variable) &&
       isCondition(code) &&
-      reactiveIn(entry.code, scope)
+      reactiveIn(entry, scope)
     ) {
       return `${entry.name}={${hoist(node, entry, code, scope)}()}`
     }
@@ -498,7 +461,9 @@ export const toSolid = (component) => {
         elementsIn(node.consequent).some(
           (element) => element.variable && element.tag === name,
         ) ||
-        codesOf(node.consequent).some((code) => passesAsArgument(code, name))
+        valuesOf(node.consequent).some(({ code }) =>
+          passesAsArgument(code, name),
+        )
       )
     ) {
       return undefined
@@ -516,11 +481,7 @@ export const toSolid = (component) => {
     return `<Show when={${rewrite(node.test, scope)}}${fallback}>{(${shown}) => (${branch(node.consequent, inner)})}</Show>`
   }
   const each = (node, scope) => {
-    const declared = [
-      ...parameterNames(node.item),
-      ...(node.index ? parameterNames(node.index) : []),
-      ...node.consts.map(({ name }) => name),
-    ]
+    const declared = node.declares
     const binding = itemBinding(node.item)
     if (!binding) {
       throw unsupported(
@@ -554,15 +515,15 @@ export const toSolid = (component) => {
         .map((element) => element.tag),
     )
     const loopTag = tagNamer(component, shadowed)
-    const usesIndex = [
-      ...node.consts.map(({ code }) => code),
-      ...codesOf(node.children),
-    ].some((code) => identifiersIn(code).has(node.index))
+    const loopValues = [...node.consts, ...valuesOf(node.children)]
+    const usesIndex = loopValues.some(({ reads: valueReads }) =>
+      valueReads.names.has(node.index),
+    )
     const slotReads = [
       ...slotsIn(node.children),
-      ...[...node.consts.map(({ code }) => code), ...codesOf(node.children)]
-        .flatMap(slotsUsedIn)
-        .map(slotProp),
+      ...loopValues.flatMap(({ reads: valueReads }) =>
+        valueReads.slots.map(slotProp),
+      ),
     ]
     const eachScope = {
       ...scope,
@@ -571,7 +532,8 @@ export const toSolid = (component) => {
         ...(scope.itemSlots ?? []),
         ...slotReads.filter(
           (name, index) =>
-            !stringSlots.includes(name) && slotReads.indexOf(name) !== index,
+            !stringSlots.some(({ prop }) => prop === name) &&
+            slotReads.indexOf(name) !== index,
         ),
       ]),
       loop: true,
@@ -581,10 +543,11 @@ export const toSolid = (component) => {
       shadowed: [...(scope.shadowed ?? []), ...shadowed],
     }
     eachScope.slotHas = (name) => slotRead(slotProp(name), eachScope)
-    const consts = node.consts.map(({ code, name }) => {
+    const consts = node.consts.map((entry) => {
+      const { code, name } = entry
       const local = loopTags.has(name) ? loopTag(name) : name
       const value = rewrite(code, eachScope)
-      if (reactiveIn(code, eachScope)) {
+      if (reactiveIn(entry, eachScope)) {
         inner.set(name, `${local}()`)
         if (loopTags.has(name)) eachScope.loopTags.set(name, `${local}()`)
         return `const ${local} = () => ${value}`
@@ -690,12 +653,20 @@ export const toSolid = (component) => {
     (providedValue ?? []).flatMap(({ code }) => {
       const source = derived.find(({ name }) => name === code.trim())
       if (!source || !accessors.has(source.name)) return []
-      const line = accessorCode(source.name, source.code)
+      const line = accessorCode(source)
       const read = new RegExp(`(?<![\\w$.])${source.name}\\(`)
       const others = [...body.filter((other) => other !== line), rendered]
       return others.some((other) => read.test(other))
         ? []
-        : [[source.name, { line, parts: narrowed(source.name, source.code) }]]
+        : [
+            [
+              source.name,
+              {
+                line,
+                parts: narrowed(source.name, source.code, source.reads.names),
+              },
+            ],
+          ]
     }),
   )
   inlined.forEach(({ line }) => body.splice(body.indexOf(line), 1))

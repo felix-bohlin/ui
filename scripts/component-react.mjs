@@ -93,49 +93,6 @@ const dependenciesOf = (code, locals) => {
   return [...found].toSorted(byName)
 }
 
-const isNewEachRender = (code, consts, seen = new Set()) => {
-  const builds = (node) => {
-    if (
-      ts.isParenthesizedExpression(node) ||
-      ts.isAsExpression(node) ||
-      ts.isSatisfiesExpression(node) ||
-      ts.isNonNullExpression(node)
-    ) {
-      return builds(node.expression)
-    }
-    if (ts.isConditionalExpression(node)) {
-      return builds(node.whenTrue) || builds(node.whenFalse)
-    }
-    if (
-      ts.isBinaryExpression(node) &&
-      [
-        ts.SyntaxKind.AmpersandAmpersandToken,
-        ts.SyntaxKind.BarBarToken,
-        ts.SyntaxKind.QuestionQuestionToken,
-      ].includes(node.operatorToken.kind)
-    ) {
-      return builds(node.left) || builds(node.right)
-    }
-    if (ts.isIdentifier(node)) {
-      if (!consts.has(node.text) || seen.has(node.text)) return false
-      seen.add(node.text)
-      return isNewEachRender(consts.get(node.text), consts, seen)
-    }
-    return (
-      ts.isArrowFunction(node) ||
-      ts.isFunctionExpression(node) ||
-      ts.isObjectLiteralExpression(node) ||
-      ts.isArrayLiteralExpression(node) ||
-      ts.isClassExpression(node) ||
-      ts.isNewExpression(node) ||
-      ts.isRegularExpressionLiteral(node)
-    )
-  }
-  return builds(
-    sourceFileOf(`(${code})`, "expression.tsx").statements[0].expression,
-  )
-}
-
 export const toReact = (component) => {
   const {
     components,
@@ -157,7 +114,7 @@ export const toReact = (component) => {
   if (component.model?.everywhere) throw component.model.refusal
   const kind = MODEL_KINDS[component.model?.kind]?.react
   const props = component.props.filter(
-    ({ local }) => !stringSlots.includes(local),
+    ({ local }) => !stringSlots.some((entry) => entry.local === local),
   )
   const tagProps = props.filter(({ local }) => variableTags.includes(local))
   const reactPropOf = (entry) =>
@@ -165,10 +122,7 @@ export const toReact = (component) => {
       component.baseProps?.includes(entry.prop) ? undefined : component.element,
       entry.prop,
     )
-  const taken = new Set([
-    ...component.props.map(({ local }) => local),
-    ...derived.map(({ name }) => name),
-  ])
+  const taken = component.declared
   const events = component.events ?? []
   const listened = eventRoots(component)
   const hydrating = new Map(
@@ -266,7 +220,7 @@ export const toReact = (component) => {
     ...derived.map(
       ({ code, name }) => `const ${name} = ${rewriteExpression(code, options)}`,
     ),
-    ...warnings.map((code) => rewriteStatement(code, options)),
+    ...warnings.map(({ code }) => rewriteStatement(code, options)),
     ...(item
       ? [
           groupWarning(
@@ -452,11 +406,8 @@ export const toReact = (component) => {
         `read a member of it (\`${rest}.id\`) or destructure the attribute in the Astro file`,
       )
     }
-    const consts = new Map(derived.map(({ code, name }) => [name, code]))
     const unstable = derived.find(
-      ({ code, name }) =>
-        dependencies.includes(name) &&
-        isNewEachRender(code, consts, new Set([name])),
+      ({ name, newEachRender }) => newEachRender && dependencies.includes(name),
     )
     if (unstable) {
       throw unsupported(

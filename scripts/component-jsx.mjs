@@ -4,10 +4,8 @@ import { isBlank } from "./component-shared.mjs"
 
 export const tagNamer = (component, shadowed = []) => {
   const taken = new Set([
-    ...component.props.map(({ local }) => local),
+    ...component.declared,
     ...component.slots.map((slot) => slotProp(slot)),
-    ...component.derived.map(({ name }) => name),
-    ...component.reads.map(({ name }) => name),
     ...shadowed,
   ])
   return (name) => {
@@ -35,7 +33,10 @@ export const jsxEmitter = ({
     const significant = nodes.filter(
       (node) =>
         !isBlank(node) &&
-        !(node.type === "slot" && stringSlots.includes(slotProp(node.name))),
+        !(
+          node.type === "slot" &&
+          stringSlots.some(({ slot }) => slot === node.name)
+        ),
     )
     const [only] = significant
     if (significant.length !== 1) return `<>${code}</>`
@@ -64,10 +65,12 @@ export const jsxEmitter = ({
         if (node.type === "expression") return `{${rewrite(node.code, scope)}}`
         if (node.type === "slot") {
           const name = slotProp(node.name)
-          if (stringSlots.includes(name)) {
+          const string = stringSlots.find(({ slot }) => slot === node.name)
+          if (string) {
             return nodes.some(
               (sibling) =>
-                sibling.type === "expression" && sibling.code.trim() === name,
+                sibling.type === "expression" &&
+                sibling.code.trim() === string.local,
             )
               ? ""
               : `{${slotCode(name)}}`

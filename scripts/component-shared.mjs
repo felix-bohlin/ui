@@ -94,12 +94,26 @@ export const chosenSpreadCode = (item, spread, condition) =>
     ? `${condition} ? {} : ${spread}`
     : `${condition} ? ${spread} : {}`
 
-const identifierCache = new Map()
+const slotChecked = (node) => {
+  const callee = ts.isCallExpression(node) && node.expression
+  const owner =
+    callee && ts.isPropertyAccessExpression(callee) && callee.expression
+  return owner &&
+    callee.name.text === "has" &&
+    ts.isPropertyAccessExpression(owner) &&
+    owner.name.text === "slots" &&
+    ts.isIdentifier(owner.expression) &&
+    owner.expression.text === "Astro" &&
+    node.arguments[0] &&
+    ts.isStringLiteralLike(node.arguments[0])
+    ? node.arguments[0].text
+    : undefined
+}
 
-export const identifierCounts = (code) => {
-  const cached = identifierCache.get(code)
-  if (cached) return cached
-  const counts = new Map()
+export const scanCode = (code) => {
+  const sourceFile = sourceFileOf(`(${code})`, "expression.ts")
+  const names = new Map()
+  const slots = []
   const visit = (node) => {
     if (
       ts.isIdentifier(node) &&
@@ -108,14 +122,17 @@ export const identifierCounts = (code) => {
       ) &&
       !(ts.isPropertyAssignment(node.parent) && node.parent.name === node)
     ) {
-      counts.set(node.text, (counts.get(node.text) ?? 0) + 1)
+      names.set(node.text, (names.get(node.text) ?? 0) + 1)
     }
+    const slot = slotChecked(node)
+    if (slot !== undefined) slots.push(slot)
     ts.forEachChild(node, visit)
   }
-  visit(sourceFileOf(`(${code})`, "expression.ts"))
-  identifierCache.set(code, counts)
-  return counts
+  visit(sourceFile)
+  return { expression: sourceFile.statements[0]?.expression, names, slots }
 }
+
+export const identifierCounts = (code) => scanCode(code).names
 
 export const identifiersIn = (code) => new Set(identifierCounts(code).keys())
 
@@ -165,81 +182,6 @@ export const isArrayType = (member) => {
       /^(?:Readonly)?Array$/.test(node.typeName.getText()))
   )
 }
-
-const slotCache = new Map()
-
-export const slotsUsedIn = (code) => {
-  const cached = slotCache.get(code)
-  if (cached) return cached
-  const names = []
-  const visit = (node) => {
-    const callee = ts.isCallExpression(node) && node.expression
-    const owner =
-      callee && ts.isPropertyAccessExpression(callee) && callee.expression
-    if (
-      owner &&
-      callee.name.text === "has" &&
-      ts.isPropertyAccessExpression(owner) &&
-      owner.name.text === "slots" &&
-      ts.isIdentifier(owner.expression) &&
-      owner.expression.text === "Astro" &&
-      node.arguments[0] &&
-      ts.isStringLiteralLike(node.arguments[0])
-    ) {
-      names.push(node.arguments[0].text)
-    }
-    ts.forEachChild(node, visit)
-  }
-  visit(sourceFileOf(`(${code})`, "expression.ts"))
-  slotCache.set(code, names)
-  return names
-}
-
-export const codesIn = (nodes) =>
-  nodes.flatMap((node) => {
-    if (node.type === "expression") return [node.code]
-    if (node.type === "each") {
-      return [
-        node.list,
-        ...node.consts.map(({ code }) => code),
-        ...codesIn(node.children),
-      ]
-    }
-    if (node.type === "if") {
-      return [
-        node.test,
-        ...codesIn(node.consequent),
-        ...codesIn(node.alternate ?? []),
-      ]
-    }
-    if (node.type === "slot") return codesIn(node.fallback)
-    if (node.type === "element") {
-      return [
-        ...node.attributes.flatMap((item) =>
-          item.kind === "expression" ||
-          item.kind === "class" ||
-          item.kind === "spread"
-            ? [item.code]
-            : [],
-        ),
-        ...codesIn(node.children),
-      ]
-    }
-    return []
-  })
-
-export const allCodes = (component) => [
-  ...codesIn(component.tree),
-  ...component.derived.map(({ code }) => code),
-  ...component.warnings,
-  ...(component.provide?.value.map(({ code }) => code) ?? []),
-]
-
-export const scriptCodes = (component) => [
-  ...component.derived.map(({ code }) => code),
-  ...component.warnings,
-  ...(component.provide?.value.map(({ code }) => code) ?? []),
-]
 
 export const byName = (a, b) => a.localeCompare(b, "en")
 

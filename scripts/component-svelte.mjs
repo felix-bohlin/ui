@@ -7,7 +7,6 @@ import {
   eventRoots,
   groupWarning,
   hydratingRoots,
-  importedNames,
   propsImport,
   rewriteExpression,
   rewriteStatement,
@@ -63,7 +62,7 @@ export const toSvelte = (component) => {
     slotHas: (name) => slotProp(name),
   }
   const props = component.props.filter(
-    ({ local }) => !stringSlots.includes(local),
+    ({ local }) => !stringSlots.some((entry) => entry.local === local),
   )
   const reserved = derived.find(({ name }) => name.startsWith("$"))
   if (reserved) {
@@ -88,11 +87,7 @@ export const toSvelte = (component) => {
   const added = [...bindableProps, ...plainProps]
     .filter((prop) => !props.some((entry) => entry.prop === prop))
     .map((prop) => ({ local: prop, prop }))
-  const taken = new Set([
-    ...derived.map(({ name }) => name),
-    ...importedNames(imports),
-  ])
-  const clash = added.find(({ local }) => taken.has(local))
+  const clash = added.find(({ local }) => component.declared.has(local))
   if (clash) {
     throw unsupported(
       "BC301",
@@ -180,21 +175,23 @@ export const toSvelte = (component) => {
           return node.value === " " ? '{" "}' : node.value
         }
         if (node.type === "expression") {
-          const code = node.code.trim()
-          if (stringSlots.includes(code)) {
+          const string = stringSlots.find(
+            ({ local }) => local === node.code.trim(),
+          )
+          if (string) {
             return nodes.some(
               (sibling) =>
-                sibling.type === "slot" && slotProp(sibling.name) === code,
+                sibling.type === "slot" && sibling.name === string.slot,
             )
               ? ""
-              : ((usesContent = true), `{@render content(${code})}`)
+              : ((usesContent = true), `{@render content(${string.prop})}`)
           }
           return `{${rewriteExpression(node.code, options)}}`
         }
         if (node.type === "slot") {
           const name = slotProp(node.name)
           if (
-            stringSlots.includes(name) ||
+            stringSlots.some(({ slot }) => slot === node.name) ||
             component.stringTypedSlots.includes(name)
           ) {
             usesContent = true
@@ -319,7 +316,7 @@ export const toSvelte = (component) => {
         ? `const ${name} = ${rewriteExpression(code, options)}`
         : `const ${name} = $derived(${rewriteExpression(code, options)})`,
     ),
-    ...warnings.map((code) =>
+    ...warnings.map(({ code }) =>
       /^if\b/.test(code)
         ? `untrack(() => {\n${rewriteStatement(code, options)}\n})`
         : `untrack(() => ${rewriteExpression(code, options)})`,

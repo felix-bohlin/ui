@@ -9,6 +9,7 @@ import {
   PORTS,
   readComponent,
   readHandWritten,
+  readTypes,
   toTypes,
   TYPE_FILES,
 } from "../../scripts/build-components.mjs"
@@ -103,6 +104,29 @@ const sampleFile = (name = "Sample") =>
 const astro = (body: string, frontmatter = "", name = "Sample") =>
   `---\nimport type { ${name === "Sample" ? "Props" : `${name}Props as Props`} } from "./types.astro"\n${frontmatter}\nconst { class: className, ...rest } = Astro.props\n---\n\n${body}\n`
 
+type SampleFacts = {
+  customTag?: string
+  model?: Record<string, unknown>
+  props?: string[]
+  slots?: string[]
+}
+
+const typesOf = (
+  files: { astro: string; base: string },
+  components: Record<string, SampleFacts>,
+) =>
+  toTypes(
+    readTypes("Sample", files),
+    Object.entries(components).map(
+      ([name, { props = [], slots = [], ...facts }]) => ({
+        ...facts,
+        name,
+        props: props.map((prop) => ({ local: prop, prop })),
+        slots,
+      }),
+    ),
+  )
+
 const compile = async (source: string, name = "Sample") => {
   const { outputs } = await compileComponent(source, sampleFile(name))
   return Object.fromEntries(
@@ -188,8 +212,10 @@ describe("the ports of a sample", () => {
       ),
       sampleFile(),
       {
-        types:
-          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"hr">\n',
+        types: readTypes("Sample", {
+          astro:
+            'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"hr">\n',
+        }),
       },
     )
     const svelte = outputs.get(sampleFile().replace(".astro", ".svelte"))
@@ -670,7 +696,9 @@ describe("the ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<opui-sample class:list={["ui-sample", className]} {...rest}>\n  <slot />\n</opui-sample>\n\n<script>\n  import "../../elements/sample.js"\n</script>\n',
       sampleFile(),
       {
-        base: "export type Props = {}\n\nexport type Events = {\n  close: Event\n}\n",
+        types: readTypes("Sample", {
+          base: "export type Props = {}\n\nexport type Events = {\n  close: Event\n}\n",
+        }),
       },
     )
     const port = (extension: string) =>
@@ -709,7 +737,9 @@ describe("the ports of a sample", () => {
   test("an event on a root tag that can be a custom element renders data-hydrating on the custom element only, and none on a plain root", async () => {
     const portsOf = async (source: string) => {
       const { outputs } = await compileComponent(source, sampleFile(), {
-        base: "export type Props = {\n  open?: boolean\n}\n\nexport type Events = {\n  close: Event\n}\n",
+        types: readTypes("Sample", {
+          base: "export type Props = {\n  open?: boolean\n}\n\nexport type Events = {\n  close: Event\n}\n",
+        }),
       })
       return (extension: string) =>
         outputs.get(sampleFile().replace(".astro", extension)) ?? ""
@@ -754,7 +784,9 @@ describe("the ports of a sample", () => {
         ),
         sampleFile(),
         {
-          base: "export type Props = {}\n\nexport type Events = {\n  close: Event\n}\n",
+          types: readTypes("Sample", {
+            base: "export type Props = {}\n\nexport type Events = {\n  close: Event\n}\n",
+          }),
         },
       ),
     ).rejects.toThrow(
@@ -767,8 +799,10 @@ describe("the ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\n\nconst { "aria-describedby": ariaDescribedBy, class: className, inputmode, readonly, ...rest } = Astro.props\n---\n\n<input aria-describedby={ariaDescribedBy} class:list={["ui-sample", className]} inputmode={inputmode ?? "text"} readonly={readonly} {...rest} />\n',
       sampleFile(),
       {
-        types:
-          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"input">\n',
+        types: readTypes("Sample", {
+          astro:
+            'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"input">\n',
+        }),
       },
     )
     const react = outputs.get(
@@ -1319,8 +1353,10 @@ describe("the ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\n\nconst { autocomplete = "off", class: className, spellcheck, ...rest } = Astro.props\n---\n\n<span class:list={["ui-sample", className]}>\n  <input {...rest} autocomplete={autocomplete} spellcheck={spellcheck ?? "false"} />\n  <span popover></span>\n  <input disabled />\n</span>\n',
       sampleFile(),
       {
-        types:
-          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & Omit<HTMLAttributes<"input">, "maxlength">\n',
+        types: readTypes("Sample", {
+          astro:
+            'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & Omit<HTMLAttributes<"input">, "maxlength">\n',
+        }),
       },
     )
     const port = (extension: string) =>
@@ -1334,14 +1370,13 @@ describe("the ports of a sample", () => {
       'const { autocomplete = "off", spellcheck = undefined } = defineProps<Props>()',
     )
     expect(
-      toTypes(
-        "Sample",
+      typesOf(
         {
           astro:
             'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & Omit<HTMLAttributes<"input">, "maxlength">\n',
           base: "export type Props = {}\n",
         },
-        { Sample: ["default"] },
+        { Sample: { slots: ["default"] } },
       ).react,
     ).toContain('Omit<ComponentProps<"input">, "maxLength">')
   })
@@ -1374,7 +1409,9 @@ describe("the ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <slot name="end" />\n</div>\n',
       sampleFile(),
       {
-        base: "export type Props = {}\n\nexport type Slots<S> = {\n  end?: string | S\n}\n",
+        types: readTypes("Sample", {
+          base: "export type Props = {}\n\nexport type Slots<S> = {\n  end?: string | S\n}\n",
+        }),
       },
     )
     const svelte = outputs.get(sampleFile().replace(".astro", ".svelte"))
@@ -1999,15 +2036,38 @@ describe("toTypes", () => {
   const base =
     'export type Props = {\n  variant?: "a" | "b"\n}\n\nexport type SamplePartProps = {}\n'
 
+  test("the folder's types give a component its base props, element, events, string-typed slots and whether the folder has a Slots type", async () => {
+    const types = readTypes("Sample", {
+      astro:
+        'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"section">\n\nexport type SamplePartProps = Base.SamplePartProps & HTMLAttributes<"span">\n',
+      base: 'export type Props = {\n  size?: "small"\n}\n\nexport type SamplePartProps = {\n  open?: boolean\n}\n\nexport type SamplePartEvents = {\n  close: Event\n}\n\nexport type SamplePartSlots<S> = {\n  end?: string | S\n  start?: S\n}\n',
+    })
+    const { component } = await compileComponent(
+      astro(
+        '<span class:list={["ui-sample", className]} {...rest}>\n  <slot name="start" />\n  <slot name="end" />\n</span>',
+        "",
+        "SamplePart",
+      ),
+      sampleFile("SamplePart"),
+      { types },
+    )
+    expect(component).toMatchObject({
+      baseProps: ["open"],
+      element: "span",
+      events: ["close"],
+      folderSlots: false,
+      stringTypedSlots: ["end"],
+    })
+  })
+
   test("writes the framework type files from types.ts and types.astro.ts", () => {
-    const types = toTypes(
-      "Sample",
+    const types = typesOf(
       {
         astro:
           'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"div">\n\nexport type SamplePartProps = HTMLAttributes<"dd">\n',
         base,
       },
-      { Sample: ["default"], SamplePart: ["default"] },
+      { Sample: { slots: ["default"] }, SamplePart: { slots: ["default"] } },
     )
     expect(types.react).toBe(
       'import type * as Base from "./types"\nimport type { ComponentProps } from "react"\n\nexport type Props = Base.Props & ComponentProps<"div">\n\nexport type SamplePartProps = ComponentProps<"dd">\n',
@@ -2024,14 +2084,13 @@ describe("toTypes", () => {
   })
 
   test("a component without a slot gets no Vue slot type", () => {
-    const { vue } = toTypes(
-      "Sample",
+    const { vue } = typesOf(
       {
         astro:
           'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"div">\n',
         base: 'export type Props = {\n  variant?: "a" | "b"\n}\n',
       },
-      { Sample: [] },
+      { Sample: { slots: [] } },
     )
     expect(vue).toBe(
       'import type { Class } from "../vue"\nimport type {\n  Props as BaseProps,\n} from "./types"\n\nexport type Props = BaseProps & Class\n',
@@ -2039,14 +2098,16 @@ describe("toTypes", () => {
   })
 
   test("a part with only the default slot gets its own Vue slot type when the folder's Slots names others", async () => {
-    const { vue } = toTypes(
-      "Sample",
+    const { vue } = typesOf(
       {
         astro:
           'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"div">\n\nexport type SamplePartProps = HTMLAttributes<"dd">\n',
         base: `${base}\nexport type Slots<S> = {\n  end?: S\n}\n`,
       },
-      { Sample: ["default", "end"], SamplePart: ["default"] },
+      {
+        Sample: { slots: ["default", "end"] },
+        SamplePart: { slots: ["default"] },
+      },
     )
     expect(vue).toContain(
       "export type SamplePartSlots = DefaultSlots\n\nexport type Slots = { end?: Slot } & DefaultSlots\n",
@@ -2054,7 +2115,11 @@ describe("toTypes", () => {
     const { outputs } = await compileComponent(
       astro("<dd {...rest}>\n  <slot />\n</dd>", "", "SamplePart"),
       sampleFile("SamplePart"),
-      { base: `${base}\nexport type Slots<S> = {\n  end?: S\n}\n` },
+      {
+        types: readTypes("Sample", {
+          base: `${base}\nexport type Slots<S> = {\n  end?: S\n}\n`,
+        }),
+      },
     )
     expect(
       outputs.get(sampleFile("SamplePart").replace(".astro", ".vue")),
@@ -2062,14 +2127,13 @@ describe("toTypes", () => {
   })
 
   test("Vue leaves the attribute keys of the base props out, so they fall through to the element", () => {
-    const { react, vue } = toTypes(
-      "Sample",
+    const { react, vue } = typesOf(
       {
         astro:
           'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"div">\n',
         base: 'export type Props = {\n  variant?: "a" | "b"\n} & ({ "aria-label": string } | { "aria-labelledby": string })\n',
       },
-      { Sample: ["default"] },
+      { Sample: { slots: ["default"] } },
     )
     expect(react).toContain(
       'export type Props = Base.Props & ComponentProps<"div">',
@@ -2080,14 +2144,13 @@ describe("toTypes", () => {
   })
 
   test("a Link parameter takes the link component in React, Solid and Vue, and so does an as that takes an a", () => {
-    const { react, solid, svelte, vue } = toTypes(
-      "Sample",
+    const { react, solid, svelte, vue } = typesOf(
       {
         astro:
           'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props =\n  | (Base.Props & { as?: "button" } & HTMLAttributes<"button">)\n  | (Base.Props & { as?: "a"; href: string } & HTMLAttributes<"a">)\n',
         base: 'export type Props<Link = never> =\n  | { as?: "a" | Link; href: string }\n  | { as?: "button"; href?: never }\n',
       },
-      { Sample: ["default"] },
+      { Sample: { slots: ["default"] } },
     )
     expect(react).toContain(
       'import type { ComponentProps, ComponentType } from "react"',
@@ -2111,22 +2174,21 @@ describe("toTypes", () => {
 
   test("rejects an as that takes a link component in the type literal of a group's model", () => {
     expect(() =>
-      toTypes(
-        "Sample",
+      typesOf(
         {
           astro:
             'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & { as?: "a"; value?: string } & HTMLAttributes<"a">\n',
           base: 'export type Props<Link = never> = {\n  as?: "a" | Link\n  href: string\n}\n',
         },
-        { Sample: ["default"] },
-        {},
-        {},
         {
           Sample: {
-            bindables: [{ prop: "value", type: "string" }],
-            kind: "group",
-            prop: "value",
-            type: "string",
+            model: {
+              bindables: [{ prop: "value", type: "string" }],
+              kind: "group",
+              prop: "value",
+              type: "string",
+            },
+            slots: ["default"],
           },
         },
       ),
@@ -2134,14 +2196,13 @@ describe("toTypes", () => {
   })
 
   test("an Omit keeps the keyof members of its keys next to the literal ones", () => {
-    const types = toTypes(
-      "Sample",
+    const types = typesOf(
       {
         astro:
           'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props &\n  Omit<HTMLAttributes<"input">, keyof Base.Props | "type">\n',
         base,
       },
-      { Sample: [] },
+      { Sample: { slots: [] } },
     )
     expect(types.react).toContain(
       'Omit<ComponentProps<"input">, "children" | "type" | keyof Base.Props>',
@@ -2152,22 +2213,20 @@ describe("toTypes", () => {
   })
 
   test("React and Solid type a radio group's defaultValue and onValueChange like a group's", () => {
-    const { react, solid } = toTypes(
-      "Sample",
+    const { react, solid } = typesOf(
       {
         astro:
           'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"fieldset">\n',
         base: "export type Props = {\n  value?: number | string\n}\n",
       },
-      { Sample: [] },
-      {},
-      {},
       {
         Sample: {
-          bindables: [{ prop: "value", type: "number | string" }],
-          kind: "radioGroup",
-          prop: "value",
-          type: "number | string",
+          model: {
+            bindables: [{ prop: "value", type: "number | string" }],
+            kind: "radioGroup",
+            prop: "value",
+            type: "number | string",
+          },
         },
       },
     )
@@ -2184,15 +2243,18 @@ describe("toTypes", () => {
   })
 
   test("an HTML attribute a component reads becomes a Vue prop", () => {
-    const { vue } = toTypes(
-      "Sample",
+    const { vue } = typesOf(
       {
         astro:
           'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"label">\n',
         base: 'export type Props = {\n  size?: "small"\n} & ({ trigger?: never } | { trigger: "hover" })\n',
       },
-      { Sample: ["default"] },
-      { Sample: ["for", "id", "size", "trigger"] },
+      {
+        Sample: {
+          props: ["for", "id", "size", "trigger"],
+          slots: ["default"],
+        },
+      },
     )
     expect(vue).toContain(
       'export type Props = BaseProps & Class & { for?: IntrinsicElementAttributes["label"]["for"]; id?: IntrinsicElementAttributes["label"]["id"] }',
@@ -2203,15 +2265,13 @@ describe("toTypes", () => {
   })
 
   test("an HTML attribute a component with several elements reads becomes a Vue prop of each element's type", () => {
-    const { vue } = toTypes(
-      "Sample",
+    const { vue } = typesOf(
       {
         astro:
           'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props =\n  | (Base.Props & { as?: "legend" } & HTMLAttributes<"legend">)\n  | (Base.Props & { as: "p" } & HTMLAttributes<"p">)\n',
         base: "export type Props = {}\n",
       },
-      { Sample: ["default"] },
-      { Sample: ["as", "id"] },
+      { Sample: { props: ["as", "id"], slots: ["default"] } },
     )
     expect(vue).toContain(
       'id?: IntrinsicElementAttributes["legend"]["id"] | IntrinsicElementAttributes["p"]["id"]',
@@ -2219,15 +2279,13 @@ describe("toTypes", () => {
   })
 
   test("a literal that reads an element attribute keeps its declaration in Vue, and an element read twice is one element", () => {
-    const { react, vue } = toTypes(
-      "Sample",
+    const { react, vue } = typesOf(
       {
         astro:
           'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & {\n  type?: HTMLAttributes<"input">["type"] | "numeric"\n} & Omit<HTMLAttributes<"input">, "type">\n',
         base: 'export type Props = {\n  size?: "small"\n}\n',
       },
-      { Sample: [] },
-      { Sample: ["id", "size", "type"] },
+      { Sample: { props: ["id", "size", "type"] } },
     )
     expect(react).toContain(
       'type?: ComponentProps<"input">["type"] | "numeric"',
@@ -2238,14 +2296,13 @@ describe("toTypes", () => {
   })
 
   test("React takes a base prop like for by its React name", () => {
-    const { react, svelte } = toTypes(
-      "Sample",
+    const { react, svelte } = typesOf(
       {
         astro:
           'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"li">\n',
         base: "export type Props = {\n  for?: string\n  inset?: boolean\n}\n",
       },
-      { Sample: ["default"] },
+      { Sample: { slots: ["default"] } },
     )
     expect(react).toContain(
       'Without<Base.Props, "for"> & { htmlFor?: Base.Props["for"] }',
@@ -2254,16 +2311,16 @@ describe("toTypes", () => {
   })
 
   test("slots on a union, a string-or-slot prop, a custom element root and a plain alias", () => {
-    const types = toTypes(
-      "Sample",
+    const types = typesOf(
       {
         astro:
           'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props =\n  | (Base.Props & { as?: "button"; href?: never } & HTMLAttributes<"button">)\n  | (Base.Props & { as?: "a"; href: string } & HTMLAttributes<"a">)\n\nexport type SampleItem = Base.SampleItem & Omit<HTMLAttributes<"a">, "children">\n\nexport type SampleTagProps = Base.SampleTagProps & Omit<HTMLAttributes<"div">, "id">\n',
         base: 'export type Props = {\n  size?: "small"\n}\n\nexport type Slots<S> =\n  | { "aria-label": string; children?: S }\n  | { "aria-label"?: string; children: S }\n\nexport type SampleItem = { label: string }\n\nexport type SampleTagProps = { id: string }\n\nexport type SampleTagSlots<S> = {\n  end?: S\n  label?: string | S\n}\n',
       },
-      { Sample: ["default"], SampleTag: ["end", "label"] },
-      {},
-      { SampleTag: ["opui-sample"] },
+      {
+        Sample: { slots: ["default"] },
+        SampleTag: { customTag: "opui-sample", slots: ["end", "label"] },
+      },
     )
     expect(types.react).toContain(
       '  | (Base.Props & Base.Slots<ReactNode> & { as?: "button"; href?: never } & ComponentProps<"button">)\n  | (Base.Props & Base.Slots<ReactNode> & { as?: "a"; href: string } & ComponentProps<"a">)',
@@ -2287,22 +2344,21 @@ describe("toTypes", () => {
   })
 
   test("the React and Solid types of a group add defaultValue and onValueChange", () => {
-    const { react, solid, svelte, vue } = toTypes(
-      "Sample",
+    const { react, solid, svelte, vue } = typesOf(
       {
         astro:
           'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & { value?: string } & HTMLAttributes<"div">\n',
         base,
       },
-      { Sample: ["default"] },
-      {},
-      {},
       {
         Sample: {
-          bindables: [{ prop: "value", type: "string" }],
-          kind: "group",
-          prop: "value",
-          type: "string",
+          model: {
+            bindables: [{ prop: "value", type: "string" }],
+            kind: "group",
+            prop: "value",
+            type: "string",
+          },
+          slots: ["default"],
         },
       },
     )
@@ -2319,22 +2375,22 @@ describe("toTypes", () => {
   })
 
   test("the types of a group tie the value's React and Solid props to each declaration of it", () => {
-    const { react, solid, vue } = toTypes(
-      "Sample",
+    const { react, solid, vue } = typesOf(
       {
         astro:
           'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props &\n  Base.Selection<{ value?: string }, { value?: string[] }> &\n  Omit<HTMLAttributes<"div">, "size">\n',
         base: `${base}\n\nexport type Selection<Single, Multiple> =\n  ({ multiple?: false } & Single) | ({ multiple: true } & Multiple)\n`,
       },
-      { Sample: ["default"] },
-      { Sample: ["value"] },
-      {},
       {
         Sample: {
-          bindables: [{ prop: "value", type: "string | string[]" }],
-          kind: "group",
-          prop: "value",
-          type: "string | string[]",
+          model: {
+            bindables: [{ prop: "value", type: "string | string[]" }],
+            kind: "group",
+            prop: "value",
+            type: "string | string[]",
+          },
+          props: ["value"],
+          slots: ["default"],
         },
       },
     )
@@ -2348,21 +2404,20 @@ describe("toTypes", () => {
   })
 
   test("the Svelte types declare a model's bindables", () => {
-    const { react, svelte } = toTypes(
-      "Sample",
+    const { react, svelte } = typesOf(
       { astro: simple, base },
-      { Sample: ["default"] },
-      {},
-      {},
       {
         Sample: {
-          bindables: [
-            { prop: "group", type: "(string | number)[]" },
-            { prop: "checked", type: "boolean" },
-          ],
-          kind: "checked",
-          prop: "checked",
-          type: "boolean | (string | number)[]",
+          model: {
+            bindables: [
+              { prop: "group", type: "(string | number)[]" },
+              { prop: "checked", type: "boolean" },
+            ],
+            kind: "checked",
+            prop: "checked",
+            type: "boolean | (string | number)[]",
+          },
+          slots: ["default"],
         },
       },
     )
@@ -2375,14 +2430,13 @@ describe("toTypes", () => {
   })
 
   test("a Props alias keeps its Omit and literal parts in Vue", () => {
-    const { vue } = toTypes(
-      "Sample",
+    const { vue } = typesOf(
       {
         astro:
           'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Omit<Base.Props, "items"> & {\n  items?: string[]\n} & Omit<HTMLAttributes<"menu">, "id">\n',
         base: "export type Props = {\n  id: string\n  items?: number[]\n}\n",
       },
-      { Sample: ["default"] },
+      { Sample: { slots: ["default"] } },
     )
     expect(vue).toContain(
       'export type Props = Omit<BaseProps, "items"> & {\n  items?: string[]\n} & Class',
@@ -2390,14 +2444,13 @@ describe("toTypes", () => {
   })
 
   test("a polymorphic root lists its tags for Vue", () => {
-    const { vue } = toTypes(
-      "Sample",
+    const { vue } = typesOf(
       {
         astro:
           'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props =\n  | (Base.Props & { as?: "fieldset" } & HTMLAttributes<"fieldset">)\n  | (Base.Props & { as: "div" } & HTMLAttributes<"div">)\n',
         base,
       },
-      { Sample: ["default"] },
+      { Sample: { slots: ["default"] } },
     )
     expect(vue).toContain(
       'export type Props = BaseProps & Class & { as?: "div" | "fieldset" }',
@@ -2408,10 +2461,9 @@ describe("toTypes", () => {
     'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"div">\n'
 
   test("a Slots type joins the props in every framework", () => {
-    const types = toTypes(
-      "Sample",
+    const types = typesOf(
       { astro: simple, base: `${base}\nexport type Slots<S> = { end?: S }\n` },
-      { Sample: ["default", "end"] },
+      { Sample: { slots: ["default", "end"] } },
     )
     expect(types.react).toContain(
       'import type { ComponentProps, ReactNode } from "react"',
@@ -2430,13 +2482,12 @@ describe("toTypes", () => {
   })
 
   test("an Events type adds on<Event> in React and Solid, on<event> in Svelte and an Emits type in Vue", () => {
-    const types = toTypes(
-      "Sample",
+    const types = typesOf(
       {
         astro: simple,
         base: `${base}\nexport type Events = {\n  close: CustomEvent<number>\n}\n`,
       },
-      { Sample: ["default"] },
+      { Sample: { slots: ["default"] } },
     )
     expect(types.react).toContain(
       'export type Props = Base.Props & { onClose?: (event: Base.Events["close"]) => void } & ComponentProps<"div">',
@@ -2456,15 +2507,12 @@ describe("toTypes", () => {
   })
 
   test("a custom element root leaves out its own typing of a component event", () => {
-    const { solid, svelte } = toTypes(
-      "Sample",
+    const { solid, svelte } = typesOf(
       {
         astro: simple,
         base: `${base}\nexport type Events = {\n  close: Event\n}\n`,
       },
-      { Sample: ["default"] },
-      {},
-      { Sample: ["opui-sample"] },
+      { Sample: { customTag: "opui-sample", slots: ["default"] } },
     )
     expect(svelte).toContain(
       'export type Props = Base.Props & { onclose?: (event: Base.Events["close"]) => void } & Omit<SvelteHTMLElements["opui-sample"], "onclose">',
@@ -2477,7 +2525,7 @@ describe("toTypes", () => {
   test.each([
     [
       { astro: simple, base },
-      { Sample: ["default", "end-text"] },
+      { Sample: { slots: ["default", "end-text"] } },
       "the slot end-text of Sample, which types.ts has no Slots type for",
     ],
     [
@@ -2485,7 +2533,7 @@ describe("toTypes", () => {
         astro: simple,
         base: `${base}\nexport type Events = {\n  valueChange: Event\n}\n`,
       },
-      { Sample: ["default"] },
+      { Sample: { slots: ["default"] } },
       "the event valueChange in Events",
     ],
     [
@@ -2493,7 +2541,7 @@ describe("toTypes", () => {
         astro: simple,
         base: `${base}\nexport type OtherEvents = {\n  close: Event\n}\n`,
       },
-      { Sample: ["default"] },
+      { Sample: { slots: ["default"] } },
       "the type OtherEvents, which names no props type in types.astro.ts",
     ],
     [
@@ -2502,7 +2550,7 @@ describe("toTypes", () => {
           'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = HTMLAttributes<"div">\n',
         base: `${base}\nexport type Events = {\n  close: Event\n}\n`,
       },
-      { Sample: ["default"] },
+      { Sample: { slots: ["default"] } },
       "the type Props, which has Events but no Base.Props to join them to",
     ],
     [
@@ -2510,7 +2558,7 @@ describe("toTypes", () => {
         astro: simple,
         base: `${base}\nexport type Slots<S> = { variant?: S }\n`,
       },
-      { Sample: ["default", "variant"] },
+      { Sample: { slots: ["default", "variant"] } },
       "a prop and a slot both named variant",
     ],
     [
@@ -2519,7 +2567,7 @@ describe("toTypes", () => {
           'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & Extra & HTMLAttributes<"div">\n',
         base,
       },
-      { Sample: ["default"] },
+      { Sample: { slots: ["default"] } },
       "the type Props, whose part Extra has no Vue form",
     ],
     [
@@ -2527,7 +2575,7 @@ describe("toTypes", () => {
         astro: simple,
         base: `${base}\nexport type Slots<S> = { endText?: S }\n`,
       },
-      { Sample: ["default"] },
+      { Sample: { slots: ["default"] } },
       "the slot endText, whose Vue name is kebab-case",
     ],
     [
@@ -2535,11 +2583,11 @@ describe("toTypes", () => {
         astro: simple,
         base: 'export type Props<Link> = {\n  as?: "a" | Link\n}\n',
       },
-      { Sample: ["default"] },
+      { Sample: { slots: ["default"] } },
       "the type parameter Link of Props without the default never",
     ],
-  ])("rejects %j", (files, slots, reason) => {
-    expect(() => toTypes("Sample", files, slots)).toThrow(reason)
+  ])("rejects %j", (files, components, reason) => {
+    expect(() => typesOf(files, components)).toThrow(reason)
   })
 })
 

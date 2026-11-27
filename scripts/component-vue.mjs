@@ -29,24 +29,19 @@ import {
 } from "./component-models.mjs"
 import { markupAttribute } from "./example-encoders.mjs"
 import { emitsTypeOf } from "./component-types.mjs"
+import { allValues, scriptValues, valuesIn } from "./component-analysis.mjs"
 import {
-  allCodes,
   byName,
   chosenSpreadCode,
   classMayBeEmpty,
-  codesIn,
   elementsIn,
   filtersRest,
-  identifierCounts,
-  identifiersIn,
   isArrayType,
   isBlank,
   itemBinding,
   onlyClass,
   PRESERVED_TAGS,
   propKey,
-  scriptCodes,
-  slotsUsedIn,
   unionMembers,
   unsupported,
 } from "./component-shared.mjs"
@@ -159,13 +154,13 @@ export const toVue = (component) => {
     variableTags,
     warnings,
   } = component
-  const codes = allCodes(component)
+  const values = allValues(component)
   const used = new Set([
-    ...codes.flatMap((code) => [...identifiersIn(code)]),
+    ...values.flatMap(({ reads }) => [...reads.names.keys()]),
     ...variableTags,
   ])
   const usedInScript = new Set(
-    scriptCodes(component).flatMap((code) => [...identifiersIn(code)]),
+    scriptValues(component).flatMap(({ reads }) => [...reads.names.keys()]),
   )
   const attrsOnInner = !restOnRoot
   const { chosenRest, multiRoot } = component
@@ -175,10 +170,9 @@ export const toVue = (component) => {
     ({ local, prop }) => prop.includes("-") && used.has(local),
   )
   const restUsed =
-    (!!rest &&
-      codes.some((code) => code !== rest && identifiersIn(code).has(rest))) ||
+    values.some(({ code, reads }) => code !== rest && reads.rest) ||
     attributeProps.length > 0
-  if (attrsOnInner && codes.some((code) => /\bmergeStyle\(/.test(code))) {
+  if (attrsOnInner && values.some(({ code }) => /\bmergeStyle\(/.test(code))) {
     throw unsupported(
       "BC502",
       component.file,
@@ -190,24 +184,12 @@ export const toVue = (component) => {
   const modelRename = MODEL_KINDS[component.model?.kind]?.vue?.rename?.(
     component.model,
   )
-  const slotReaders = derived.reduce((names, { code, name }) => {
-    const ids = identifiersIn(code)
-    return slotsUsedIn(code).length > 0 ||
-      trimmedSlots.some(({ local }) => ids.has(local)) ||
-      [...names].some((other) => ids.has(other))
-      ? new Set([...names, name])
-      : names
-  }, new Set())
   const getters = new Set(
     derived
-      .filter(({ fn, name }) => !fn && slotReaders.has(name))
+      .filter(({ fn, readsSlot }) => !fn && readsSlot)
       .map(({ name }) => name),
   )
-  const providedReader = provide?.value.find(
-    ({ code }) =>
-      slotsUsedIn(code).length > 0 ||
-      [...identifiersIn(code)].some((name) => slotReaders.has(name)),
-  )
+  const providedReader = provide?.value.find(({ readsSlot }) => readsSlot)
   if (providedReader) {
     throw unsupported(
       "BC403",
@@ -357,10 +339,8 @@ export const toVue = (component) => {
   ]
     .toSorted((a, b) => byName(a.prop, b.prop))
     .map(({ text }) => text)
-  const slotsInScript = scriptCodes(component).some(
-    (code) =>
-      slotsUsedIn(code).length > 0 ||
-      trimmedSlots.some(({ local }) => identifiersIn(code).has(local)),
+  const slotsInScript = scriptValues(component).some(
+    ({ reads }) => reads.slots.length > 0,
   )
   let usesTrimmedSlot = false
   const attributeHelpers = new Set()
@@ -406,12 +386,7 @@ export const toVue = (component) => {
       return markupAttribute(item.name, item.value, false, '"')
     }
     if (item.kind === "boolean") return item.name
-    if (
-      rest &&
-      rootElements.includes(node) &&
-      inheritsAttrs &&
-      identifiersIn(item.code).has(rest)
-    ) {
+    if (rootElements.includes(node) && inheritsAttrs && item.reads.rest) {
       throw unsupported(
         "BC503",
         component.file,
@@ -458,12 +433,7 @@ export const toVue = (component) => {
     }
     if (node.type === "each") {
       const rows = rowsOf(node, scope)
-      const declared = new Set([
-        ...(scope.declared ?? []),
-        ...identifiersIn(node.item),
-        ...(node.index ? [node.index] : []),
-        ...node.consts.map(({ name }) => name),
-      ])
+      const declared = new Set([...(scope.declared ?? []), ...node.declares])
       const inner = rows
         ? { ...scope, declared }
         : {
@@ -692,30 +662,20 @@ export const toVue = (component) => {
       .join("")
   const rowLists = []
   const rowsOf = (node, scope) => {
-    const codes = [
-      ...node.consts.map(({ code }) => code),
-      ...codesIn(node.children),
-      ...elementsIn(node.children).flatMap((element) =>
-        element.variable ? [element.tag] : [],
-      ),
-    ]
+    const loopValues = [...node.consts, ...valuesIn(node.children)]
+    const tags = elementsIn(node.children)
+      .filter((element) => element.variable)
+      .map((element) => element.tag)
     const reads = (name) =>
-      codes.reduce(
-        (total, code) => total + (identifierCounts(code).get(name) ?? 0),
-        0,
+      loopValues.reduce(
+        (total, value) => total + (value.reads.names.get(name) ?? 0),
+        tags.filter((tag) => tag === name).length,
       )
     if (!node.consts.some(({ name }) => reads(name) > 1)) return undefined
-    const inTemplate = [node.list, ...node.consts.map(({ code }) => code)].some(
-      (code) => {
-        const ids = identifiersIn(code)
-        return (
-          slotsUsedIn(code).length > 0 ||
-          trimmedSlots.some(({ local }) => ids.has(local)) ||
-          [...ids].some(
-            (name) => slotReaders.has(name) || scope.declared?.has(name),
-          )
-        )
-      },
+    const inTemplate = [node, ...node.consts].some(
+      (value) =>
+        value.readsSlot ||
+        value.reads.loop.some((name) => scope.declared?.has(name)),
     )
     if (inTemplate) return undefined
     const binding = itemBinding(node.item)
@@ -755,9 +715,8 @@ export const toVue = (component) => {
     ])
     used.add(name)
     const key = free(["item", "entry", "row"])
-    const constCodes = node.consts.map(({ code }) => code)
     const readInConsts = (local) =>
-      constCodes.some((code) => identifiersIn(code).has(local))
+      node.consts.some(({ reads: constReads }) => constReads.names.has(local))
     const fields = binding.fields.filter(({ local }) => readInConsts(local))
     const pattern = binding.name
       ? undefined
@@ -773,8 +732,8 @@ export const toVue = (component) => {
         [...script.rename].filter(([local]) => !declared.has(local)),
       ),
     }
-    const usesIndex = constCodes.some((code) =>
-      identifiersIn(code).has(node.index),
+    const usesIndex = node.consts.some(({ reads: constReads }) =>
+      constReads.names.has(node.index),
     )
     const entries = [
       ...node.consts.map(({ name: local }) => local),
@@ -868,7 +827,7 @@ export const toVue = (component) => {
     ...(uid ? ["const uid = useId()"] : []),
     ...declarations.map(({ line }) => line),
     ...rowLists,
-    ...warnings.map((code) => rewriteStatement(code, script)),
+    ...warnings.map(({ code }) => rewriteStatement(code, script)),
     ...(item
       ? [
           `watchEffect(() =>\n  ${groupWarning(component, item, kind?.warningChecked?.(item) ?? item.checked ?? "undefined", `${item.grouped}.value`)},\n)`,

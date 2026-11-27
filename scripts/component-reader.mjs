@@ -3,11 +3,10 @@ import { readdir } from "node:fs/promises"
 import { join } from "node:path"
 import { parse } from "@astrojs/compiler"
 import ts from "typescript"
-import { slotProp } from "../src/component-api/frameworks.ts"
+import { allValues, analyse } from "./component-analysis.mjs"
 import { rewriteExpression } from "./component-emit.mjs"
 import { shapeWhitespace } from "./component-layout.mjs"
 import {
-  allCodes,
   capitalize,
   containsKind,
   elementsIn,
@@ -730,6 +729,11 @@ const expressionNode = (node, context) => {
       {
         children,
         consts,
+        declares: [
+          ...bindingNames(parameter.name),
+          index,
+          ...consts.map(({ name }) => name),
+        ],
         index,
         item: parameter.getText(sourceFile),
         list: expression.expression.expression.getText(sourceFile),
@@ -1060,11 +1064,12 @@ export const readComponent = async (source, file, api) => {
         .map((node) => node.tag),
     ),
   ]
-  const stringSlots = frontmatter.props
-    .filter(({ prop }) => slots.some((slot) => slotProp(slot) === prop))
-    .map(({ local }) => local)
   const item = itemOf(file, frontmatter, roots, file.split("/").at(-2))
-  const component = {
+  const ids = {
+    bases: new Map(frontmatter.idBases),
+    prefixes: new Set(frontmatter.idPrefixes),
+  }
+  const component = analyse({
     ...frontmatter,
     file,
     item,
@@ -1072,19 +1077,20 @@ export const readComponent = async (source, file, api) => {
       ? frontmatter.warnings.filter((code) => !callsGroupWarning(code))
       : frontmatter.warnings,
     chosenRest: chosenRest.length > 0,
+    ids,
     model: modelOf(frontmatter, roots, api, file, file.split("/").at(-2)),
     multiRoot,
     restOnRoot: (rootElements ?? []).some((node) =>
       spreads(node, frontmatter.rest),
     ),
     scripts,
-    stringSlots,
     rootElements: rootElements ?? [],
     slots: slots.toSorted(),
     tree: roots,
     variableTags,
-  }
-  const untranslated = allCodes(component).find((code) =>
+  })
+  const codes = allValues(component).map(({ code }) => code)
+  const untranslated = codes.find((code) =>
     /\bAstro\.(?!slots\.has\(|locals\b)/.test(code),
   )
   if (untranslated) {
@@ -1095,11 +1101,7 @@ export const readComponent = async (source, file, api) => {
       "read a slot with Astro.slots.has(name), and props from the Astro.props destructuring",
     )
   }
-  const ids = {
-    bases: new Map(frontmatter.idBases),
-    prefixes: new Set(frontmatter.idPrefixes),
-  }
-  const idProblem = allCodes(component)
+  const idProblem = codes
     .map((code) => unloweredIdCall(code, ids))
     .find(Boolean)
   if (idProblem) {
@@ -1112,10 +1114,9 @@ export const readComponent = async (source, file, api) => {
   }
   return {
     ...component,
-    ids,
     uid:
       ids.prefixes.size > 0 ||
-      allCodes(component).some((code) => /\bAstro\.locals\b/.test(code)),
+      codes.some((code) => /\bAstro\.locals\b/.test(code)),
   }
 }
 

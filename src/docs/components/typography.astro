@@ -16,51 +16,13 @@ import {
   TableRow,
 } from "opui-css/astro"
 
-import LinkCSS from "@opui/css/components/link.css?raw"
-import TypographyCSS from "@opui/css/components/typography.css?raw"
-
-import typographyApi from "../../component-api/typography/api"
-
 export const description =
   "Text styles: classes on single elements, or .ui-rich-text around content."
 
 export const keywords = ["font", "heading", "prose", "text"]
 ---
 
-<Component
-  description={description}
-  slug="typography"
-  browserSupport={[
-    "attr",
-    "box-decoration-break",
-    "container-style-queries",
-    "exp-functions",
-    "has",
-    "if",
-    "lh",
-    "light-dark",
-    "logical-properties",
-    "registered-custom-properties",
-    "relative-color",
-    "round-mod-rem",
-    "scope",
-    "text-wrap-pretty",
-  ]}
-  fallbacks={{
-    attr: "Without typed `attr()`, an ordered list in rich text with a `start` indents for four-digit numbers.",
-    "box-decoration-break":
-      "Without `box-decoration-break`, a highlight that wraps keeps its padding and rounded corners only at its start and end.",
-    if: "Without `if()`, the compat layer still dims the subtitle of a heading group, and keeps it at full strength with more contrast.",
-    "text-wrap-pretty":
-      "Without `text-wrap: pretty`, the last line of a paragraph, heading or caption can hold a single word.",
-  }}
-  apis={[{ title: "Typography API", api: typographyApi }]}
-  installationTabs={[
-    { title: "typography.css", code: TypographyCSS, lang: "css" },
-    { title: "link.css", code: LinkCSS, lang: "css" },
-  ]}
->
-  <Fragment slot="title">Typography</Fragment>
+<Component description={description}>
   <Fragment slot="preamble">
     Text styles: classes on single elements, or <code>.ui-rich-text</code>
     around content.

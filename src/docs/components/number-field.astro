@@ -9,11 +9,6 @@ import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 import ValidationNotes from "./partials/ValidationNotes.astro"
 
-import ButtonCSS from "@opui/css/components/button.css?raw"
-import FieldCSS from "@opui/css/components/field.css?raw"
-import StepButtonCSS from "@opui/css/components/step-button.css?raw"
-import StepButtonJS from "@opui/elements/step-button.js?raw"
-
 import stepButtonApi from "../../component-api/step-button/api"
 
 export const description =
@@ -22,43 +17,7 @@ export const description =
 export const keywords = ["counter", "quantity", "spin button", "stepper"]
 ---
 
-<Component
-  description={description}
-  base="field"
-  slug="number-field"
-  browserSupport={[
-    "alt-text-generated-content",
-    "color-mix",
-    "container-queries",
-    "container-style-queries",
-    "field-sizing",
-    "has",
-    "invoker-commands",
-    "lh",
-    "light-dark",
-    "reading-flow",
-    "registered-custom-properties",
-    "relative-color",
-    "user-pseudos",
-  ]}
-  fallbacks={{
-    "reading-flow":
-      "Without `reading-flow`, nothing changes: the step buttons are already in order.",
-  }}
-  apis={[{ title: "Step button API", api: stepButtonApi }]}
-  installationTabs={[
-    { title: "step-button.css", code: StepButtonCSS, lang: "css" },
-    { title: "step-button.js", code: StepButtonJS, lang: "js" },
-    {
-      title: "field.css",
-      code: FieldCSS,
-      lang: "css",
-      isDependency: true,
-    },
-    { title: "button.css", code: ButtonCSS, lang: "css", isDependency: true },
-  ]}
->
-  <Fragment slot="title">Number field</Fragment>
+<Component description={description}>
   <Fragment slot="preamble">
     <p>
       A small amount stepped down and up, like a quantity. For a wide scale, use

@@ -29,38 +29,22 @@ Groups, parts and slots come from closed lists, so a new component can't invent 
 - **Part classes:** `.ui-actions`, `.ui-bottom`, `.ui-content`, `.ui-description`, `.ui-end`, `.ui-end-text`, `.ui-field-container`, `.ui-floating`, `.ui-footer`, `.ui-header`, `.ui-heading`, `.ui-icon-checked`, `.ui-icon-complete`, `.ui-icon-unchecked`, `.ui-indicator`, `.ui-input`, `.ui-label`, `.ui-legend`, `.ui-marker`, `.ui-panel`, `.ui-separator`, `.ui-start`, `.ui-start-text`, `.ui-text`, `.ui-top` and `.ui-value`. A part may also be another component's root (the `DrawerHeader` close `.ui-button`). `.ui-card-link` is the one exception.
 - **Slots:** `actions`, `bottom`, `close-icon`, `default`, `description`, `end`, `end-text`, `icon-checked`, `icon-complete`, `icon-unchecked`, `indicator`, `label`, `marker`, `separator`, `start`, `start-text`, `submenu` and `top`. React and Svelte use the camelCase form (`startText`), so a slot has one name in every framework.
 
-## Framework-specific APIs
+## API tables on a page
 
-API tables are **auto-resolved** when the doc page declares `slug="..."` on `<Component>`. The layout reads `src/component-api/<slug>/api.ts`:
+The layout shows the tables of every `api.ts` whose `page` is the docs page's slug, so the page imports none:
 
 ```
 src/component-api/button/
   api.ts
 ```
 
-The doc page is just:
+Each table is titled by its component's name, such as "Accordion summary API". The page's entry in `src/component-api/pages.ts` sets the order with `apis`, and shows another page's table too when it lists that folder (e.g., Button on the Control group page):
 
-```astro
-<Component slug="button">...</Component>
-```
-
-No `apis` prop, no manual imports.
-
-Pass `apis={[ ... ]}` explicitly to give the section a title, or to show several API sections on one page (e.g., a component plus its `*Group` companion):
-
-```astro
----
-import buttonApi from "../../component-api/button/api"
-import controlGroupApi from "../../component-api/control-group/api"
----
-
-<Component
-  apis={[
-    { title: "Control group API", api: controlGroupApi },
-    { title: "Button API", api: buttonApi },
-  ]}
-  >...</Component
->
+```ts
+"control-group": {
+  apis: ["control-group", "button"],
+  title: "Control group",
+},
 ```
 
 ## Data-driven APIs (`api.ts`)
@@ -120,12 +104,12 @@ The `--_` custom properties a stylesheet declares are documented per stylesheet,
 
 `tests/unit/custom-properties.test.ts` fails when the keys aren't sorted, when a stylesheet declares a `--_` property that isn't documented, documents one it doesn't declare, or isn't shown on any page. The Component layout renders the table for the page's stylesheets: `pageStylesheets` in [custom-properties.ts](custom-properties.ts) collects the `css` of every `api.ts` whose page is the slug, so a stylesheet shows up on a page as soon as an `api.ts` lists it.
 
-[catalog.ts](catalog.ts) answers what follows from `page`, `source` and `css`: the page of an `api.ts`, the apis, source folders and stylesheets of a page, the page of a component name, and the files a page owns. The site and the tests read it through `catalog.glob.ts`, the Node scripts through `loadCatalog()` in `scripts/catalog.mjs`. Ask it instead of writing the `page` or `css` fallback again.
+[catalog.ts](catalog.ts) answers what follows from `page`, `source` and `css` and from the page data in [pages.ts](pages.ts): the page of an `api.ts`, the apis, source folders and stylesheets of a page, the page of a component name, and the files a page owns, and for each docs page its name, family, the API tables it shows in order, the files it installs, which page owns a stylesheet, which pages a page depends on and which use it, its imports per framework and its browser features. The site and the tests read it through `catalog.glob.ts`, the Node scripts through `loadCatalog()` in `scripts/catalog.mjs`. Ask it instead of writing the `page` or `css` fallback again, or reading a docs page's source.
 
 Prop names and types are read from each framework's types file (from every member of a union), Astro and Vue slots from the component source, and Svelte snippets and React and Solid slot props from `types.svelte.ts`, `types.react.ts` and `types.solid.ts`, so they are never written by hand. React, Solid and Svelte get a `children` row when `api.ts` documents a `default` slot and the types don't declare `children`. Framework syntax lives in [frameworks.ts](frameworks.ts).
 
 `checkApi`, `checkClasses` and `checkExports` in [component-source.ts](../utils/component-source.ts) return every `[component-api]` problem: a prop or slot missing from `api.ts`, a documented prop, part prop, snippet or slot that isn't in the source, a destructured default that differs from `default`, a class, `cssVar` or `anchorName` that the stylesheets don't have, a stylesheet class that no `api.ts` names, a `source` and `component` that match no component file, and a component exported from a barrel in `packages/opui/<framework>/index.ts` that is neither an `api.ts`'s `component` nor a part's `component`. `tests/unit/component-api.test.ts` runs them over every `api.ts` in `pnpm test`, and the docs build throws them all at once.
 
-Pages pass it to `<Component>` as `apis={[{ title: "Password toggle API", api }]}`, or let `<Component slug="...">` pick it up without a title. `<Anatomy>` finds it from the page slug. `tests/e2e/anatomy.spec.ts` checks every page with `heroAnatomy` for overflow and spacing, and for axe violations on the HTML pages.
+The layout renders it on the page its `page` names. `<Anatomy>` finds it from the page slug. `tests/e2e/anatomy.spec.ts` checks every page with `heroAnatomy` for overflow and spacing, and for axe violations on the HTML pages.
 
 Refer to [card/api.ts](card/api.ts) and [field/api.ts](field/api.ts) for the preferred implementations of multi-framework APIs.

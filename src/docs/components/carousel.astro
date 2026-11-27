@@ -22,10 +22,6 @@ import {
   Switch as UISwitch,
 } from "opui-css/astro"
 
-import CarouselCSS from "@opui/css/components/carousel.css?raw"
-
-import carouselApi from "../../component-api/carousel/api"
-
 const photos = [
   { alt: "A deep blue fjord between steep mountains", id: 1015 },
   { alt: "Red rock cliffs lit by the setting sun", id: 1016 },
@@ -66,37 +62,7 @@ const itemsPerViewId = Astro.locals.$id("carousel-items-per-view")
 const aspectRatioId = Astro.locals.$id("carousel-aspect-ratio")
 ---
 
-<Component
-  description={description}
-  slug="carousel"
-  heroAnatomy
-  apis={[{ title: "Carousel API", api: carouselApi }]}
-  browserSupport={[
-    "alt-text-generated-content",
-    "anchor-positioning",
-    "dir-pseudo",
-    "if",
-    "light-dark",
-    "logical-properties",
-    "relative-color",
-    "scroll-buttons",
-    "scroll-marker-targets",
-    "scroll-markers",
-    "scroll-snap",
-    "scrollbar-width",
-  ]}
-  fallbacks={{
-    if: "Without `if()`, the compat layer still turns smooth scrolling off under reduced motion and with `.ui-motion-off`.",
-    "scroll-buttons":
-      "Without scroll buttons, the carousel shows its scrollbar instead of previous and next buttons, and still scrolls and snaps.",
-    "scroll-marker-targets":
-      "Without `:target-current`, the markers don't show which item is current.",
-    "scroll-markers":
-      "Without scroll markers, the carousel has no markers to jump to an item.",
-  }}
-  installationTabs={[{ title: "carousel.css", code: CarouselCSS, lang: "css" }]}
->
-  <Fragment slot="title">Carousel</Fragment>
+<Component description={description} heroAnatomy>
   <Fragment slot="preamble">
     Items people browse in a small space, like photos or products. For items to
     compare, use a <DocLink href="/components/layout#grid">layout grid</DocLink

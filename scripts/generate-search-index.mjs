@@ -7,8 +7,8 @@ import { parseFragment } from "parse5"
 import { blockCategories, blocks } from "../src/utils/blocks-data.ts"
 import { posts } from "../src/utils/blog-posts.ts"
 import { conditionalSlot, FRAMEWORKS, hrefFor } from "../src/utils/framework.js"
-import { componentName } from "../src/utils/names.js"
 import { SEARCH_CATEGORIES } from "../src/utils/search-categories.js"
+import { loadCatalog } from "./catalog.mjs"
 import { VOID_ELEMENTS } from "./html-tokens.mjs"
 
 /** @typedef {import("../src/utils/search-categories.js").SearchItem} SearchItem */
@@ -202,22 +202,27 @@ function pageEntries({ category, frameworkId, id, meta, url }) {
   ]
 }
 
-function readMeta(file) {
-  return readPage(file, fs.readFileSync(file, "utf-8").replace(/\r\n/g, "\n"))
+function readMeta(file, title) {
+  return readPage(
+    file,
+    fs.readFileSync(file, "utf-8").replace(/\r\n/g, "\n"),
+    title,
+  )
 }
 
 /**
  * @param {string} file
  * @param {string} content
+ * @param {string} [pageTitle]
  */
-export function readPage(file, content) {
+export function readPage(file, content, pageTitle) {
   const titleMatch = content.match(
     /<Fragment\s+slot="title"\s*>(.*?)<\/Fragment\s*>/s,
   )
 
-  if (!titleMatch) throw new Error(`${file} has no title slot`)
+  if (!pageTitle && !titleMatch) throw new Error(`${file} has no title slot`)
 
-  const slotTitle = slotText(titleMatch[1])
+  const slotTitle = pageTitle ?? slotText(titleMatch[1])
   const title = /^\{.*\}$/s.test(slotTitle)
     ? (importedMarkdown(file, content)
         .match(/^# (.+)$/m)?.[1]
@@ -347,7 +352,7 @@ export function frameworkIndex(index, frameworkId) {
 async function generateIndex() {
   console.log("Generating search index...")
 
-  const componentDocs = (await globby(["src/docs/components/*.astro"])).sort()
+  const catalog = await loadCatalog()
   const guidePages = (await globby(["src/docs/guide/*.astro"])).sort()
   const gettingStartedPages = (
     await globby(["src/docs/guide/getting-started/[A-Z]*.astro"])
@@ -356,16 +361,16 @@ async function generateIndex() {
 
   /** @type {SearchItem[]} */
   const index = []
-  const titles = new Map()
 
   // Component documentation: one entry per (component × framework). Each
   // framework variant is an independent indexable page in the new routing.
-  for (const file of componentDocs) {
-    const meta = readMeta(file)
+  for (const slug of catalog.pages) {
+    const meta = readMeta(
+      `src/docs/components/${slug}.astro`,
+      catalog.nameOf(slug),
+    )
 
-    const slug = path.basename(file, ".astro")
     const sharedPath = `/components/${slug}`
-    titles.set(slug, meta.title)
 
     for (const framework of FRAMEWORKS) {
       index.push(
@@ -506,7 +511,7 @@ async function generateIndex() {
     )
     const folder = path.basename(path.dirname(file))
 
-    const name = componentName(folder, titles)
+    const name = catalog.nameOf(folder)
 
     for (const framework of FRAMEWORKS) {
       const html = framework.id === "html"

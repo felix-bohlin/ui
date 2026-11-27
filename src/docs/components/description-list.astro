@@ -11,11 +11,8 @@ import {
 } from "opui-css/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
-import DescriptionListCSS from "@opui/css/components/description-list.css?raw"
 import PropOrClass from "../../components/PropOrClass.astro"
 
-import descriptionListApi from "../../component-api/description-list/api"
-import descriptionListItemApi from "../../component-api/description-list-item/api"
 import DescriptionListBuild from "../../components/UnderTheHood/DescriptionListBuild.astro"
 
 export const description =
@@ -24,24 +21,7 @@ export const description =
 export const keywords = ["dl", "key value", "properties"]
 ---
 
-<Component
-  description={description}
-  slug="description-list"
-  heroAnatomy
-  apis={[
-    { title: "Description list API", api: descriptionListApi },
-    { title: "Description list item API", api: descriptionListItemApi },
-  ]}
-  browserSupport={["container-queries"]}
-  installationTabs={[
-    {
-      title: "description-list.css",
-      code: DescriptionListCSS,
-      lang: "css",
-    },
-  ]}
->
-  <Fragment slot="title">Description list</Fragment>
+<Component description={description} heroAnatomy>
   <Fragment slot="preamble">
     Labels with their values, like order details. For one key number, use a
     <DocLink href="/components/stat">Stat</DocLink>.

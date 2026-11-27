@@ -11,10 +11,7 @@ import {
   StepperItem as UIStepperItem,
 } from "opui-css/astro"
 
-import StepperCSS from "@opui/css/components/stepper.css?raw"
-
 import stepperItemApi from "../../component-api/stepper-item/api"
-import stepperApi from "../../component-api/stepper/api"
 
 export const description =
   "A list of steps that shows where someone is in a flow, like a checkout."
@@ -22,23 +19,7 @@ export const description =
 export const keywords = ["progress steps", "wizard"]
 ---
 
-<Component
-  description={description}
-  slug="stepper"
-  heroAnatomy
-  apis={[
-    { title: "Stepper API", api: stepperApi },
-    { title: "Stepper item API", api: stepperItemApi },
-  ]}
-  browserSupport={[
-    "alt-text-generated-content",
-    "container-queries",
-    "container-style-queries",
-    "has",
-  ]}
-  installationTabs={[{ title: "stepper.css", code: StepperCSS, lang: "css" }]}
->
-  <Fragment slot="title">Stepper</Fragment>
+<Component description={description} heroAnatomy>
   <Fragment slot="preamble">
     Where someone is in a flow of steps. For dated events, use a
     <DocLink href="/components/timeline">Timeline</DocLink>, and for where a

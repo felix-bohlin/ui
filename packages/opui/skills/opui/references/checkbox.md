@@ -2,7 +2,7 @@
 
 A box people check for choices submitted with a form, alone or in a group.
 
-- CSS: `opui-css/css/components/checkbox.css`, `opui-css/css/components/choice.css`, `opui-css/css/components/form.css`, `opui-css/css/components/card.css` and `opui-css/css/components/select-all.css`.
+- CSS: `opui-css/css/components/checkbox.css`, `opui-css/css/components/choice.css`, `opui-css/css/components/select-all.css`, `opui-css/css/components/card.css` and `opui-css/css/components/form.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/checkbox.md), [Astro](https://opui.dev/astro/components/checkbox.md), [Nunjucks](https://opui.dev/nunjucks/components/checkbox.md), [React](https://opui.dev/react/components/checkbox.md), [Solid](https://opui.dev/solid/components/checkbox.md), [Svelte](https://opui.dev/svelte/components/checkbox.md), [Vue](https://opui.dev/vue/components/checkbox.md).
 - The docs page also documents `FieldGroup`, see `form.md`.
 
@@ -106,10 +106,6 @@ Outputs: `--_border-color`.
 
 Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration`, `--_mark-bg-color`, `--_rest-border-width`, `--_ripple-scale` and `--_shadow`.
 
-### form.css
-
-- `--_field-min-inline-size`: Width a field in a horizontal `.ui-field-group` wraps at. Fields grow from it to share the row.
-
 ### card.css
 
 - `--_actions-padding-inline`: Inline padding of `.ui-actions`. Defaults to `--_padding`. The actions pass it on as `--ui-card-padding`, so a text button at either end keeps its focus ring inside the card.
@@ -130,6 +126,10 @@ Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration`, `--
 - `--_tonal-bg-color`: Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.
 
 Outputs: `--_bg-color`, `--_bg-image`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration`, `--_orientation` and `--_shadow`.
+
+### form.css
+
+- `--_field-min-inline-size`: Width a field in a horizontal `.ui-field-group` wraps at. Fields grow from it to share the row.
 
 ## Theme tokens
 

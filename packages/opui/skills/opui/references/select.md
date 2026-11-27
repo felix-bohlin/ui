@@ -2,7 +2,7 @@
 
 A dropdown for picking one value from a list in a form.
 
-- CSS: `opui-css/css/components/field.css`, `opui-css/css/components/select.css` and `opui-css/css/components/list.css`.
+- CSS: `opui-css/css/components/select.css`, `opui-css/css/components/field.css` and `opui-css/css/components/list.css`.
 - Full docs with every example: [HTML](https://opui.dev/html/components/select.md), [Astro](https://opui.dev/astro/components/select.md), [Nunjucks](https://opui.dev/nunjucks/components/select.md), [React](https://opui.dev/react/components/select.md), [Solid](https://opui.dev/solid/components/select.md), [Svelte](https://opui.dev/svelte/components/select.md), [Vue](https://opui.dev/vue/components/select.md).
 
 ## SelectButton
@@ -19,6 +19,15 @@ A dropdown for picking one value from a list in a form.
 ## Component properties
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
+
+### select.css
+
+- `--_bg-color`: Background of the picker. Set on `::picker(select)`; on the root it is the field background. Defaults to `--ui-surface-raised`.
+- `--_divider-gap`: Space around the lines of `.ui-border-top` options. Set on `::picker(select)`, smaller in `.ui-dense`.
+- `--_item-gap`: Gap between the parts of an option. Set on `::picker(select)`, smaller in `.ui-dense`.
+- `--_start-size`: Size of the icons in an option and of the check. Set on `::picker(select)`, smaller in `.ui-dense`.
+
+Outputs: `--_ease-move`, `--_selected-indicator-offset` and `--_selected-shadow`.
 
 ### field.css
 
@@ -42,15 +51,6 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_start-start-radius`: Start-start corner radius of `.ui-field-container`. Defaults to `--_radius`, `0` against the previous control in a `ControlGroup`.
 
 Outputs: `--_affix-block-size`, `--_affix-button-size`, `--_affix-padding-block`, `--_affix-text-color`, `--_arrow-padding`, `--_bg-color`, `--_border-color`, `--_duration`, `--_field-padding-block-fit`, `--_file-button-inset` and `--_helper-text-color`.
-
-### select.css
-
-- `--_bg-color`: Background of the picker. Set on `::picker(select)`; on the root it is the field background. Defaults to `--ui-surface-raised`.
-- `--_divider-gap`: Space around the lines of `.ui-border-top` options. Set on `::picker(select)`, smaller in `.ui-dense`.
-- `--_item-gap`: Gap between the parts of an option. Set on `::picker(select)`, smaller in `.ui-dense`.
-- `--_start-size`: Size of the icons in an option and of the check. Set on `::picker(select)`, smaller in `.ui-dense`.
-
-Outputs: `--_ease-move`, `--_selected-indicator-offset` and `--_selected-shadow`.
 
 ### list.css
 

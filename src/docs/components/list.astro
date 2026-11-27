@@ -7,11 +7,9 @@ import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import { List as UIList, ListItem, Switch } from "opui-css/astro"
 
-import ListCSS from "@opui/css/components/list.css?raw"
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 
-import listApi from "../../component-api/list/api"
 import listItemApi from "../../component-api/list-item/api"
 import ListBuild from "../../components/UnderTheHood/ListBuild.astro"
 
@@ -21,24 +19,7 @@ export const description =
 export const keywords = ["listbox", "menu list", "ul"]
 ---
 
-<Component
-  description={description}
-  slug="list"
-  heroAnatomy
-  apis={[
-    { title: "List API", api: listApi },
-    { title: "List item API", api: listItemApi },
-  ]}
-  browserSupport={[
-    "color-mix",
-    "dir-pseudo",
-    "has",
-    "overflow-clip",
-    "relative-color",
-  ]}
-  installationTabs={[{ title: "list.css", code: ListCSS, lang: "css" }]}
->
-  <Fragment slot="title">List</Fragment>
+<Component description={description} heroAnatomy>
   <Fragment slot="preamble">
     Rows of similar items, like contacts, files or settings. For data in
     columns, use a <DocLink href="/components/table">Table</DocLink>.

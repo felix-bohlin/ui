@@ -17,17 +17,11 @@ import {
   TableRow,
 } from "opui-css/astro"
 
-import DialogCSS from "@opui/css/components/dialog.css?raw"
-import CardCSS from "@opui/css/components/card.css?raw"
-
 import ClosedbyTable from "../../components/ClosedbyTable.astro"
 import Conditional from "../../components/Conditional.astro"
 import DocsTable from "../../components/DocsTable.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 
-import dialogApi from "../../component-api/dialog/api"
-import dialogFooterApi from "../../component-api/dialog-footer/api"
-import dialogHeaderApi from "../../component-api/dialog-header/api"
 import DialogBuild from "../../components/UnderTheHood/DialogBuild.astro"
 
 export const description =
@@ -36,47 +30,7 @@ export const description =
 export const keywords = ["lightbox", "modal", "overlay", "popup"]
 ---
 
-<Component
-  description={description}
-  heroAnatomy
-  slug="dialog"
-  apis={[
-    { title: "Dialog API", api: dialogApi },
-    { title: "Dialog header API", api: dialogHeaderApi },
-    { title: "Dialog footer API", api: dialogFooterApi },
-  ]}
-  browserSupport={[
-    "anchor-positioning",
-    "backdrop-filter",
-    "container-scroll-state-queries",
-    "dialog-closedby",
-    "display-animation",
-    "has",
-    "invoker-commands",
-    "logical-properties",
-    "overflow-clip",
-    "overlay",
-    "round-mod-rem",
-    "scrollbar-gutter",
-    "starting-style",
-    "transition-behavior",
-  ]}
-  fallbacks={{
-    "container-scroll-state-queries":
-      "Without scroll-state queries, long content scrolls without the shadows that mark more content above or below.",
-    "dialog-closedby":
-      "Without `closedby`, a modal dialog closes with Esc whatever the value, and a click outside doesn't close it. The [polyfill](/guide/browser-support#polyfills) adds it.",
-    "display-animation":
-      "Without display animation, the dialog disappears at once instead of fading out.",
-    overlay:
-      "Without `overlay`, the backdrop disappears as soon as the dialog starts to close, and the page can cover the dialog while it fades out.",
-  }}
-  installationTabs={[
-    { title: "dialog.css", code: DialogCSS, lang: "css" },
-    { title: "card.css", code: CardCSS, lang: "css", isDependency: true },
-  ]}
->
-  <Fragment slot="title">Dialog</Fragment>
+<Component description={description} heroAnatomy>
   <Fragment slot="preamble">
     A question or short task that needs full attention. For side content, use a
     <DocLink href="/components/drawer">Drawer</DocLink>.

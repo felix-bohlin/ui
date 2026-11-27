@@ -12,70 +12,21 @@ import {
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 
-import FieldCSS from "@opui/css/components/field.css?raw"
-import CharacterCountJS from "@opui/elements/character-count.js?raw"
-
-import characterCountApi from "../../component-api/character-count/api"
-import fieldApi from "../../component-api/field/api"
 import FieldBuild from "../../components/UnderTheHood/FieldBuild.astro"
 
 export const description =
   "The label, hints and box around a form control you write: an input, a select or a textarea."
 
 export const keywords = ["form", "input", "label", "select", "textarea"]
-
-export const skillExamples = ["Basics", "Ids"]
 ---
 
 <Component
   description={description}
   heroAnatomy
-  slug="field"
-  browserSupport={[
-    "alt-text-generated-content",
-    "attr",
-    "color-mix",
-    "container-queries",
-    "customizable-select",
-    "dir-pseudo",
-    "display-animation",
-    "field-sizing",
-    "has",
-    "invoker-commands",
-    "lh",
-    "open-pseudo",
-    "overlay",
-    "reading-flow",
-    "registered-custom-properties",
-    "relative-color",
-    "starting-style",
-    "transition-behavior",
-    "user-pseudos",
-  ]}
-  fallbacks={{
-    attr: "Without typed `attr()`, a textarea is at least three lines tall, whatever `rows` says.",
-    "customizable-select":
-      "Without customizable select, a select gets the field's chevron and the browser's picker, with option text only.",
-    "display-animation":
-      "Without display animation, the select picker closes without fading.",
-    overlay:
-      "Without `overlay`, the page can cover the select picker while it fades out.",
-    "reading-flow":
-      "Without `reading-flow`, Tab and screen readers follow the markup, so write the top and start parts before the control.",
-  }}
-  apis={[
-    { title: "Field API", api: fieldApi },
-    { title: "Character count API", api: characterCountApi },
-  ]}
   changelogPaths={[
     { path: "packages/opui/css/components/text-field.css", type: "css" },
   ]}
-  installationTabs={[
-    { title: "field.css", code: FieldCSS, lang: "css" },
-    { title: "character-count.js", code: CharacterCountJS, lang: "js" },
-  ]}
 >
-  <Fragment slot="title">Field</Fragment>
   <Fragment slot="preamble">
     The label, text and box around your own <code>&lt;input&gt;</code>,
     <code>&lt;select&gt;</code> or <code>&lt;textarea&gt;</code>. Each control

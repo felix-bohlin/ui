@@ -16,11 +16,6 @@ import {
   TableRow,
 } from "opui-css/astro"
 
-import DrawerCSS from "@opui/css/components/drawer.css?raw"
-import CardCSS from "@opui/css/components/card.css?raw"
-import drawerApi from "../../component-api/drawer/api"
-import drawerFooterApi from "../../component-api/drawer-footer/api"
-import drawerHeaderApi from "../../component-api/drawer-header/api"
 import DrawerBuild from "../../components/UnderTheHood/DrawerBuild.astro"
 
 import BlockLink from "../../components/BlockLink.astro"
@@ -35,48 +30,7 @@ export const description =
 export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
 ---
 
-<Component
-  description={description}
-  heroAnatomy
-  slug="drawer"
-  browserSupport={[
-    "anchor-positioning",
-    "backdrop-filter",
-    "container-scroll-state-queries",
-    "dialog-closedby",
-    "dir-pseudo",
-    "display-animation",
-    "has",
-    "invoker-commands",
-    "logical-properties",
-    "overflow-clip",
-    "overlay",
-    "round-mod-rem",
-    "scrollbar-gutter",
-    "starting-style",
-    "transition-behavior",
-  ]}
-  fallbacks={{
-    "container-scroll-state-queries":
-      "Without scroll-state queries, long content scrolls without the shadows that mark more content above or below.",
-    "dialog-closedby":
-      "Without `closedby`, a modal drawer closes with Esc whatever the value, and a click outside doesn't close it. The [polyfill](/guide/browser-support#polyfills) adds it.",
-    "display-animation":
-      "Without display animation, the drawer disappears at once instead of sliding out.",
-    overlay:
-      "Without `overlay`, the backdrop disappears as soon as the drawer starts to close, and the page can cover the drawer while it slides out.",
-  }}
-  apis={[
-    { title: "Drawer API", api: drawerApi },
-    { title: "Drawer header API", api: drawerHeaderApi },
-    { title: "Drawer footer API", api: drawerFooterApi },
-  ]}
-  installationTabs={[
-    { title: "drawer.css", code: DrawerCSS, lang: "css" },
-    { title: "card.css", code: CardCSS, lang: "css", isDependency: true },
-  ]}
->
-  <Fragment slot="title">Drawer</Fragment>
+<Component description={description} heroAnatomy>
   <Fragment slot="preamble">
     Navigation, filters or side content that slides in from an edge of the
     screen. For a task that needs full attention, use a

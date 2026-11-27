@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs"
+import { posix } from "node:path"
 import { expect, test } from "@playwright/test"
 import type { Page } from "@playwright/test"
 import { FIREFOX_DOWNLOAD_NAVIGATE, failsIn } from "./engine-bugs"
@@ -11,6 +12,22 @@ const source = (file: string) =>
     new URL(`../../packages/opui/elements/${file}`, import.meta.url),
     "utf8",
   )
+
+const IMPORT = /^import \{([^}]*)\} from "(\.{1,2}\/[^"]+)"\n/gm
+
+const classic = (file: string): string =>
+  source(file)
+    .replaceAll(IMPORT, (_, names: string, specifier: string) => {
+      const list = names
+        .split(",")
+        .map((name) => name.trim())
+        .filter(Boolean)
+        .join(", ")
+      return `const { ${list} } = (() => {\n${classic(posix.join(posix.dirname(file), specifier))}\nreturn { ${list} }\n})()\n`
+    })
+    .replaceAll(/^export /gm, "")
+
+const served = (url: string) => source(new URL(url).pathname.slice(1))
 
 const TRACKER = `{
   window.pendingTimers = new Map()
@@ -83,15 +100,15 @@ declare global {
 type Order = "after" | "before"
 
 const open = async (page: Page, file: string, markup: string, order: Order) => {
-  const script =
-    order === "before"
-      ? `<script>{${source(file).replaceAll(/^export /gm, "")}}</script>`
-      : ""
+  const script = order === "before" ? `<script>{${classic(file)}}</script>` : ""
   await page.addInitScript(TRACKER)
   await page.route(`${ORIGIN}/**`, (route) =>
     route.fulfill(
       route.request().url().endsWith(".js")
-        ? { body: source(file), contentType: "text/javascript" }
+        ? {
+            body: served(route.request().url()),
+            contentType: "text/javascript",
+          }
         : {
             body: `<!doctype html><html lang="en"><head>${script}</head><body>${markup}</body></html>`,
             contentType: "text/html",
@@ -711,10 +728,7 @@ const openWith = async (page: Page, markup: string) => {
     const url = route.request().url()
     return route.fulfill(
       url.endsWith(".js")
-        ? {
-            body: source(url.slice(url.lastIndexOf("/") + 1)),
-            contentType: "text/javascript",
-          }
+        ? { body: served(url), contentType: "text/javascript" }
         : {
             body: `<!doctype html><html lang="en"><head></head><body>${markup}</body></html>`,
             contentType: "text/html",
@@ -835,6 +849,78 @@ test("character-count.js follows a control the page renders after it, sets or re
   })
   await expect(count).toHaveText("4/10")
   expect(restored, "the replaced control gets its own value back").toBe(true)
+})
+
+test("followControl finds a Field part's control through its button's commandfor, or else its field, and syncs the part on each change until it disconnects", async ({
+  page,
+}) => {
+  await openWith(
+    page,
+    `<form>
+      <div class="ui-field">
+        <label class="ui-label" for="bio">Bio</label>
+        <span class="ui-field-container"><textarea id="bio" maxlength="20"></textarea></span>
+        <span class="ui-end-text"><span id="count"></span></span>
+      </div>
+      <div class="ui-field">
+        <label class="ui-label" for="quantity">Quantity</label>
+        <span class="ui-field-container">
+          <input id="quantity" max="3" type="number" value="1" />
+          <span class="ui-end"><span id="step"><button type="button" commandfor="bio">+</button></span></span>
+        </span>
+      </div>
+    </form>`,
+  )
+  const result = await page.evaluate(async (url) => {
+    const { followControl } = await import(url)
+    const log: string[] = []
+    const settle = () => new Promise((resolve) => setTimeout(resolve, 10))
+    const count = followControl(document.getElementById("count"), {
+      attributes: ["maxlength"],
+      sync: () => log.push("count"),
+      value: true,
+    })
+    const button = () => document.querySelector("#step button")
+    const step = followControl(document.getElementById("step"), {
+      attributes: ["max"],
+      button,
+      sync: () => log.push("step"),
+    })
+    const controls = () => [count.control?.id, step.control?.id ?? null]
+    const found = [controls()]
+    button()!.setAttribute("commandfor", "quantity")
+    found.push(controls())
+    count.connect()
+    step.connect()
+    await settle()
+    const connected = log.splice(0)
+    const bio = document.querySelector("textarea")!
+    bio.value = "Bass"
+    document.querySelector("input")!.max = "4"
+    bio.maxLength = 30
+    await settle()
+    const changed = log.splice(0)
+    document.querySelector("form")!.reset()
+    await settle()
+    const reset = log.splice(0)
+    count.disconnect()
+    step.disconnect()
+    bio.value = "Drums"
+    bio.maxLength = 40
+    document.querySelector("form")!.reset()
+    await settle()
+    return { changed, connected, found, reset, stopped: log }
+  }, `${ORIGIN}/internal/field-part.js`)
+  expect(result).toEqual({
+    changed: ["count", "count", "step"],
+    connected: ["count", "step", "count", "step"],
+    found: [
+      ["bio", null],
+      ["bio", "quantity"],
+    ],
+    reset: ["count"],
+    stopped: [],
+  })
 })
 
 test("step-button.js marks its limit when the page sets the value, sharing one value hook with character-count.js", async ({

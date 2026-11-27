@@ -10,9 +10,18 @@ const site = new URL("https://example.com")
 const page = (body: string, head = "") =>
   `<!doctype html><html><head>${head}</head><body>${body}</body></html>`
 
+const IMPORT_MAP = `<script type="importmap">${JSON.stringify({
+  imports: { "opui-css/elements/a.js": "/_astro/a.H1.js" },
+  scopes: { "/_astro/a.H1.js": { "/_astro/internal/b.js": "/_astro/b.H2.js" } },
+})}</script>`
+
 const BUTTON = page(
   '<h2 id="sizes">Sizes</h2><a href="/html/components/button/#sizes">Sizes</a><a href="#top">Top</a>',
+  IMPORT_MAP,
 )
+
+const IMPORT_MAP_PROBLEM =
+  "which does not exist: src/utils/import-map.ts scopes each module it serves to map its relative imports to the files the build emits"
 
 const TIMELINE_SHORTHAND =
   "puts a timeline in the animation shorthand, which browsers drop with the whole declaration: Lightning CSS folds an animation-timeline that follows the shorthand into it when Astro minifies, so write that rule with animation-* longhands"
@@ -21,6 +30,8 @@ const DOMAIN_RULE = `${NETLIFY_ORIGIN}/* https://example.com/:splat 301!`
 
 const clean = () => ({
   "/_redirects": `${DOMAIN_RULE}\n`,
+  "/_astro/a.H1.js": 'import { b } from "./internal/b.js"\n\nb()\n',
+  "/_astro/b.H2.js": "export const b = () => {}\n",
   "/_astro/page.css":
     ".a{animation:spin 1s var(--ease,linear) infinite}.b{animation-fill-mode:both;animation-name:fill;animation-timeline:scroll(root)}.c{--animation:fill view()}",
   "/html/components/button/index.html": BUTTON,
@@ -130,6 +141,26 @@ describe("check-dist", () => {
         ),
       },
       `"animation:linear both fill --stages" ${TIMELINE_SHORTHAND} <- /html/components/button/`,
+    ],
+    [
+      "a module the import map serves that is missing",
+      { "/_astro/b.H2.js": undefined },
+      "/_astro/b.H2.js is in the import map but does not exist <- /html/components/button/",
+    ],
+    [
+      "a relative import of a module the import map serves that it doesn't map",
+      { "/_astro/b.H2.js": 'export { c } from "./c.js"\n' },
+      `/_astro/b.H2.js imports "./c.js", which loads /_astro/c.js, ${IMPORT_MAP_PROBLEM} <- /html/components/button/`,
+    ],
+    [
+      "a relative import of a module the import map serves without a scope",
+      {
+        "/html/components/button/index.html": BUTTON.replace(
+          /"scopes":\{.*?\}\}/,
+          '"scopes":{}',
+        ),
+      },
+      `/_astro/a.H1.js imports "./internal/b.js", which loads /_astro/internal/b.js, ${IMPORT_MAP_PROBLEM} <- /html/components/button/`,
     ],
     [
       "a _redirects with another rule ahead of the domain rule",

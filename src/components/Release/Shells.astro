@@ -29,7 +29,7 @@ const jsSources = import.meta.glob<string>(
   { eager: true, import: "default", query: "?raw" },
 )
 const elementSources = import.meta.glob<string>(
-  "../../../packages/opui/elements/*.js",
+  "../../../packages/opui/elements/**/*.js",
   { eager: true, import: "default", query: "?raw" },
 )
 const nunjucksSources = import.meta.glob<string>(

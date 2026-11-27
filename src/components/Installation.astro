@@ -1,6 +1,7 @@
 ---
 import Code from "./Code.astro"
 import { compatCss } from "../utils/compat"
+import { elementImports } from "../utils/component-imports"
 import { components, dependentsOf } from "../utils/components"
 import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
 import InstallationFiles from "./InstallationFiles.astro"
@@ -60,6 +61,7 @@ const allTabs = [
         ]
       : [],
   ),
+  ...elementImports(tabs.map((tab) => tab.title)),
 ]
 
 const usedBy = slug ? dependentsOf(slug) : []

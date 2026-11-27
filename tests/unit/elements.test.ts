@@ -6,6 +6,8 @@ import type { ComponentApi } from "../../src/component-api/types"
 import type { CalloutElement } from "../../packages/opui/elements/callout.js"
 import type { CharacterCountElement } from "../../packages/opui/elements/character-count.js"
 import type { CopyElement } from "../../packages/opui/elements/copy.js"
+import { watchValue } from "../../packages/opui/elements/internal/field-part.js"
+import { removeOnNullish } from "../../packages/opui/elements/internal/nullish.js"
 import type { PasswordToggleElement } from "../../packages/opui/elements/password-toggle.js"
 import type { ReactionsElement } from "../../packages/opui/elements/reactions.js"
 import type { SelectAllElement } from "../../packages/opui/elements/select-all.js"
@@ -61,93 +63,262 @@ test("the elements and the css/js scripts import in Node, which has no DOM", () 
   const sample = "data:text/javascript,document.title"
   expect(Object.keys(importErrors([sample]))).toEqual([sample])
 
-  const scripts = globSync("packages/opui/{css/js,elements}/*.js").toSorted()
-  expect(scripts.length).toBeGreaterThan(0)
+  const scripts = globSync(
+    "packages/opui/{css/js,elements,elements/internal}/*.js",
+  ).toSorted()
+  expect(scripts).toContain("packages/opui/elements/internal/field-part.js")
   expect(
     importErrors(scripts.map((file) => pathToFileURL(file).href)),
     "a server render that imports these fails: reach the DOM only inside a function or class, and define an element only when customElements exists",
   ).toEqual({})
 })
 
-const valueHooks = (script: string) => {
-  const start = script.indexOf("function descriptorOf(")
-  const end = script.indexOf("\nexport class ")
-  return start < 0 || end < start ? undefined : script.slice(start, end)
-}
-
-test("every element that watches a control's value carries the same value hook, so they share one wrapper per control", () => {
-  const hooks = globSync("packages/opui/elements/*.js")
-    .toSorted()
-    .flatMap((file) => {
-      const script = readFileSync(file, "utf8")
-      if (!script.includes("watchValue(")) return []
-      expect(script, file).toContain(
-        'const WATCH = Symbol.for("opui-value-watch")',
-      )
-      return [{ file, hook: valueHooks(script) }]
-    })
-  expect(hooks.map(({ file }) => file)).toEqual([
-    "packages/opui/elements/character-count.js",
-    "packages/opui/elements/step-button.js",
-  ])
-  for (const { file, hook } of hooks) {
-    expect(hook, `${file} has no value hook`).toBeDefined()
-    expect(hook, `${file} has another value hook than ${hooks[0].file}`).toBe(
-      hooks[0].hook,
-    )
+class Control {
+  #value = ""
+  get value() {
+    return this.#value
   }
-})
-
-test("the value hook reader flags a script without one", () => {
-  expect(valueHooks("export class AElement {}")).toBeUndefined()
-  expect(
-    valueHooks(
-      "function descriptorOf() {}\nfunction watchValue() {}\nexport class AElement {}",
-    ),
-  ).toBe("function descriptorOf() {}\nfunction watchValue() {}")
-})
-
-const nullishHook = (script: string) => {
-  const start = script.indexOf("const NULLISH_REMOVES = [")
-  const end = script.indexOf("\nif (globalThis.customElements")
-  return start < 0 || end < start ? undefined : script.slice(start, end)
+  set value(next) {
+    this.#value = next
+  }
 }
 
-const nullishProblems = (file: string, script: string) =>
-  [...script.matchAll(/customElements\.define\("[\w-]+", (\w+)\)/g)].flatMap(
-    ([, name]) =>
-      script.includes(`removeOnNullish(${name})\n  customElements.define(`)
-        ? []
-        : [`${file} defines ${name} without calling removeOnNullish first`],
+test("watchValue calls each update when a script sets the value, through one wrapper per control, and gives the control its value back after the last unwatch", () => {
+  const control = new Control()
+  const calls: string[] = []
+  const stopA = watchValue(control, () => calls.push(`a ${control.value}`))
+  const stopB = watchValue(control, () => calls.push(`b ${control.value}`))
+  const wrapper = Object.getPrototypeOf(control)
+  expect(wrapper).not.toBe(Control.prototype)
+  expect(Object.getPrototypeOf(wrapper)).toBe(Control.prototype)
+  control.value = "x"
+  stopA()
+  expect(Object.getPrototypeOf(control)).toBe(wrapper)
+  control.value = "y"
+  stopB()
+  control.value = "z"
+  expect(calls).toEqual(["a x", "b x", "b y"])
+  expect(control.value).toBe("z")
+  expect(Object.getPrototypeOf(control)).toBe(Control.prototype)
+  expect(Object.getOwnPropertySymbols(control)).toEqual([])
+})
+
+test("watchValue wraps a value property the control has of its own, as React's value tracker sets, and puts it back", () => {
+  const control = new Control()
+  const tracked: string[] = []
+  const own = {
+    configurable: true,
+    get(this: Control) {
+      return Reflect.get(Control.prototype, "value", this)
+    },
+    set(this: Control, next: string) {
+      tracked.push(next)
+      Reflect.set(Control.prototype, "value", next, this)
+    },
+  }
+  Object.defineProperty(control, "value", own)
+  const calls: string[] = []
+  const stop = watchValue(control, () => calls.push(control.value))
+  control.value = "x"
+  stop()
+  control.value = "y"
+  expect([calls, tracked]).toEqual([["x"], ["x", "y"]])
+  expect(Object.getOwnPropertyDescriptor(control, "value")).toEqual({
+    ...own,
+    enumerable: false,
+  })
+  expect(Object.getPrototypeOf(control)).toBe(Control.prototype)
+})
+
+test("two copies of the field part module share one wrapper per control", () => {
+  const url = pathToFileURL(
+    "packages/opui/elements/internal/field-part.js",
+  ).href
+  const result = JSON.parse(
+    execFileSync(
+      process.execPath,
+      [
+        "--input-type=module",
+        "--eval",
+        `const [one, two] = await Promise.all([
+  import(${JSON.stringify(`${url}?one`)}),
+  import(${JSON.stringify(`${url}?two`)}),
+])
+class Control {
+  #value = ""
+  get value() {
+    return this.#value
+  }
+  set value(next) {
+    this.#value = next
+  }
+}
+const control = new Control()
+const calls = []
+const stopOne = one.watchValue(control, () => calls.push("one"))
+const stopTwo = two.watchValue(control, () => calls.push("two"))
+const depth = (object) => {
+  let count = 0
+  for (let proto = Object.getPrototypeOf(object); proto !== Control.prototype; proto = Object.getPrototypeOf(proto)) count++
+  return count
+}
+const wrappers = depth(control)
+control.value = "x"
+stopOne()
+stopTwo()
+console.log(JSON.stringify({ calls, copies: one !== two, unwrapped: depth(control), wrappers }))`,
+      ],
+      { encoding: "utf8" },
+    ),
+  )
+  expect(result).toEqual({
+    calls: ["one", "two"],
+    copies: true,
+    unwrapped: 0,
+    wrappers: 1,
+  })
+})
+
+test("removeOnNullish makes a global attribute property set to null or undefined remove the attribute, and passes other values on", () => {
+  const removed: string[] = []
+  const assigned: [string, unknown][] = []
+  class Base {
+    removeAttribute(name: string) {
+      removed.push(name)
+    }
+  }
+  for (const name of ["className", "id", "tabIndex"]) {
+    Object.defineProperty(Base.prototype, name, {
+      configurable: true,
+      get: () => "",
+      set(value) {
+        assigned.push([name, value])
+      },
+    })
+  }
+  class AElement extends Base {}
+  removeOnNullish(AElement)
+  Object.assign(new AElement(), {
+    className: null,
+    id: undefined,
+    tabIndex: 0,
+    title: null,
+  })
+  expect(removed).toEqual(["class", "id"])
+  expect(assigned).toEqual([["tabIndex", 0]])
+  expect(Object.hasOwn(AElement.prototype, "title")).toBe(false)
+})
+
+const NULLISH = {
+  className: "class",
+  id: "id",
+  lang: "lang",
+  tabIndex: "tabindex",
+  title: "title",
+}
+
+type Definitions = Record<string, { keeps: string[]; tag: string }[]>
+
+const definitions = (modules: Record<string, string>): Definitions =>
+  JSON.parse(
+    execFileSync(
+      process.execPath,
+      [
+        "--input-type=module",
+        "--eval",
+        `const removed = []
+class HTMLElement {
+  removeAttribute(name) {
+    removed.push(name)
+  }
+}
+const names = ${JSON.stringify(NULLISH)}
+for (const name of Object.keys(names)) {
+  Object.defineProperty(HTMLElement.prototype, name, {
+    configurable: true,
+    get() {},
+    set() {},
+  })
+}
+globalThis.HTMLElement = HTMLElement
+const registry = new Map()
+let defined = []
+globalThis.customElements = {
+  define(tag, element) {
+    const instance = Object.create(element.prototype)
+    const keeps = Object.entries(names).filter(([name, attribute]) =>
+      [null, undefined].some((value) => {
+        removed.length = 0
+        instance[name] = value
+        return !removed.includes(attribute)
+      }),
+    )
+    defined.push({ keeps: keeps.map(([name]) => name), tag })
+    registry.set(tag, element)
+  },
+  get: (tag) => registry.get(tag),
+}
+const result = {}
+for (const [name, url] of Object.entries(${JSON.stringify(modules)})) {
+  defined = []
+  await import(url)
+  result[name] = defined
+}
+console.log(JSON.stringify(result))`,
+      ],
+      { encoding: "utf8" },
+    ),
   )
 
-test("every element removes a global attribute set to null or undefined, with the same hook, called before it is defined", () => {
-  const scripts = globSync("packages/opui/elements/*.js")
-    .toSorted()
-    .map((file) => ({ file, script: readFileSync(file, "utf8") }))
-    .filter(({ script }) => script.includes("customElements.define("))
-  expect(scripts.length).toBeGreaterThan(5)
+const nullishProblems = (defined: Definitions) =>
+  Object.entries(defined).flatMap(([file, list]) =>
+    list
+      .filter(({ keeps }) => keeps.length > 0)
+      .map(
+        ({ keeps, tag }) =>
+          `${file} defines <${tag}> before an assignment of null or undefined to ${keeps.join(", ")} removes the attribute`,
+      ),
+  )
+
+test("every element removes a global attribute set to null or undefined, through removeOnNullish called before it is defined", () => {
+  const defined = definitions(
+    Object.fromEntries(
+      globSync("packages/opui/elements/*.js")
+        .toSorted()
+        .map((file) => [file, pathToFileURL(file).href]),
+    ),
+  )
   expect(
-    scripts.flatMap(({ file, script }) => nullishProblems(file, script)),
+    Object.values(defined).filter((list) => list.length > 0).length,
+  ).toBeGreaterThan(5)
+  expect(
+    nullishProblems(defined),
+    "import removeOnNullish from ./internal/nullish.js and call it on the class right before customElements.define",
   ).toEqual([])
-  const first = nullishHook(scripts[0].script)
-  expect(first).toBeDefined()
-  for (const { file, script } of scripts) {
-    expect(
-      nullishHook(script),
-      `${file} has another nullish hook than ${scripts[0].file}`,
-    ).toBe(first)
-  }
 })
 
-test("the nullish hook check flags an element defined without the hook", () => {
-  expect(
-    nullishProblems(
-      "a.js",
-      'if (globalThis.customElements) {\n  customElements.define("opui-a", AElement)\n}',
+test("the nullish check flags an element defined without the hook, or with the hook only after it is defined", () => {
+  const nullish = pathToFileURL(
+    "packages/opui/elements/internal/nullish.js",
+  ).href
+  const module = (name: string, body: string) =>
+    `data:text/javascript,${encodeURIComponent(`import { removeOnNullish } from ${JSON.stringify(nullish)}\nexport class ${name} extends HTMLElement {}\n${body}`)}`
+  const defined = definitions({
+    "a.js": module("AElement", 'customElements.define("opui-a", AElement)'),
+    "b.js": module(
+      "BElement",
+      'customElements.define("opui-b", BElement)\nremoveOnNullish(BElement)',
     ),
-  ).toEqual(["a.js defines AElement without calling removeOnNullish first"])
-  expect(nullishHook("export class AElement {}")).toBeUndefined()
+    "c.js": module(
+      "CElement",
+      'removeOnNullish(CElement)\ncustomElements.define("opui-c", CElement)',
+    ),
+  })
+  expect(defined["c.js"]).toEqual([{ keeps: [], tag: "opui-c" }])
+  expect(nullishProblems(defined)).toEqual([
+    "a.js defines <opui-a> before an assignment of null or undefined to className, id, lang, tabIndex, title removes the attribute",
+    "b.js defines <opui-b> before an assignment of null or undefined to className, id, lang, tabIndex, title removes the attribute",
+  ])
 })
 
 const typingProblems = (file: string, script: string, types: string) =>

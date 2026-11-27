@@ -1,9 +1,10 @@
+import { followControl } from "./internal/field-part.js"
+import { removeOnNullish } from "./internal/nullish.js"
+
 const Base = globalThis.HTMLElement ?? class {}
 
 const DELAY = 750
 const LABEL = "Characters left: {count}"
-
-const WATCH = Symbol.for("opui-value-watch")
 
 const announcers = new WeakMap()
 
@@ -30,82 +31,24 @@ function announcerOf(control) {
   return announcer
 }
 
-function descriptorOf(object) {
-  for (let proto = object; proto; proto = Object.getPrototypeOf(proto)) {
-    const descriptor = Object.getOwnPropertyDescriptor(proto, "value")
-    if (descriptor) return descriptor
-  }
-}
-
-function watchValue(control, update) {
-  let watch = control[WATCH]
-  if (!watch) {
-    const own = Object.getOwnPropertyDescriptor(control, "value")
-    const { get, set } = own ?? descriptorOf(control)
-    const updates = new Set()
-    const value = {
-      configurable: true,
-      get() {
-        return get.call(this)
-      },
-      set(next) {
-        set.call(this, next)
-        for (const each of updates) each()
-      },
-    }
-    let restore
-    if (own) {
-      Object.defineProperty(control, "value", { ...own, ...value })
-      restore = () => {
-        if (
-          Object.getOwnPropertyDescriptor(control, "value")?.set === value.set
-        )
-          Object.defineProperty(control, "value", own)
-      }
-    } else {
-      const proto = Object.getPrototypeOf(control)
-      function Watched() {}
-      Watched.prototype = Object.create(proto, {
-        constructor: { configurable: true, value: Watched, writable: true },
-        value,
-      })
-      Object.setPrototypeOf(control, Watched.prototype)
-      restore = () => {
-        if (Object.getPrototypeOf(control) === Watched.prototype)
-          Object.setPrototypeOf(control, proto)
-      }
-    }
-    watch = { restore, updates }
-    control[WATCH] = watch
-  }
-  watch.updates.add(update)
-  return () => {
-    watch.updates.delete(update)
-    if (watch.updates.size) return
-    watch.restore()
-    delete control[WATCH]
-  }
-}
-
 export class CharacterCountElement extends Base {
-  #controller
-  #observer
+  #follow = followControl(this, {
+    attributes: ["maxlength", "value"],
+    sync: () => this.#update(),
+    value: true,
+  })
   #timeout
-  #unwatch
-  #watched
 
   get control() {
-    return this.closest(".ui-field")?.querySelector("input, textarea") ?? null
+    return this.#follow.control
   }
 
   connectedCallback() {
     if (!this.hasAttribute("aria-hidden")) {
       this.setAttribute("aria-hidden", "true")
     }
-    this.#controller = new AbortController()
-    const { signal } = this.#controller
-    const root = this.getRootNode()
-    root.addEventListener(
+    const signal = this.#follow.connect()
+    this.getRootNode().addEventListener(
       "input",
       (event) => {
         if (event.target !== this.control) return
@@ -114,33 +57,10 @@ export class CharacterCountElement extends Base {
       },
       { signal },
     )
-    root.addEventListener(
-      "reset",
-      (event) => {
-        if (event.target === this.control?.form)
-          setTimeout(() => this.#update())
-      },
-      { signal },
-    )
-    this.#observer = new MutationObserver(() => this.#sync())
-    const field = this.closest(".ui-field")
-    if (field) {
-      this.#observer.observe(field, {
-        attributeFilter: ["maxlength", "value"],
-        childList: true,
-        subtree: true,
-      })
-    }
-    this.#sync()
-    queueMicrotask(() => this.#sync())
   }
 
   disconnectedCallback() {
-    this.#controller?.abort()
-    this.#observer?.disconnect()
-    this.#unwatch?.()
-    this.#unwatch = undefined
-    this.#watched = undefined
+    this.#follow.disconnect()
     clearTimeout(this.#timeout)
   }
 
@@ -167,18 +87,6 @@ export class CharacterCountElement extends Base {
     }, DELAY)
   }
 
-  #sync() {
-    const control = this.control
-    if (control !== this.#watched) {
-      this.#unwatch?.()
-      this.#unwatch = control
-        ? watchValue(control, () => this.#update())
-        : undefined
-      this.#watched = control
-    }
-    this.#update()
-  }
-
   #update() {
     const control = this.control
     const text =
@@ -188,46 +96,6 @@ export class CharacterCountElement extends Base {
     const node = this.firstChild
     if (node instanceof Text && !node.nextSibling) node.data = text
     else this.textContent = text
-  }
-}
-
-const NULLISH_REMOVES = [
-  "accessKey",
-  "autocapitalize",
-  "autocorrect",
-  "className",
-  "contentEditable",
-  "dir",
-  "draggable",
-  "enterKeyHint",
-  "id",
-  "inputMode",
-  "lang",
-  "slot",
-  "spellcheck",
-  "tabIndex",
-  "title",
-  "translate",
-  "writingSuggestions",
-]
-
-function removeOnNullish(element) {
-  for (const name of NULLISH_REMOVES) {
-    let proto = Object.getPrototypeOf(element.prototype)
-    while (proto && !Object.hasOwn(proto, name)) {
-      proto = Object.getPrototypeOf(proto)
-    }
-    const descriptor = proto && Object.getOwnPropertyDescriptor(proto, name)
-    if (!descriptor?.set) continue
-    const attribute = name === "className" ? "class" : name.toLowerCase()
-    Object.defineProperty(element.prototype, name, {
-      configurable: true,
-      get: descriptor.get,
-      set(value) {
-        if (value == null) this.removeAttribute(attribute)
-        else descriptor.set.call(this, value)
-      },
-    })
   }
 }
 

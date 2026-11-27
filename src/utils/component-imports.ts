@@ -89,7 +89,7 @@ const packageFiles = Object.fromEntries(
       [
         "../../packages/opui/components/**/*.{astro,njk,svelte,ts,tsx,vue}",
         "../../packages/opui/css/js/*.js",
-        "../../packages/opui/elements/*.js",
+        "../../packages/opui/elements/**/*.js",
       ],
       { eager: true, import: "default", query: "?raw" },
     ),
@@ -128,6 +128,25 @@ const relativeImports = (path: string) =>
       ]
         .map(([, specifier]) => resolveImport(path, specifier))
         .filter((file) => file !== undefined)
+
+export const elementImports = (files: string[]) => {
+  const seen = new Set<string>()
+  const queue = files
+    .map((file) => `elements/${file}`)
+    .filter((path) => path in packageFiles)
+  while (queue.length > 0) {
+    for (const file of relativeImports(queue.shift()!)) {
+      if (seen.has(file)) continue
+      seen.add(file)
+      queue.push(file)
+    }
+  }
+  return [...seen].toSorted().map((path) => ({
+    code: packageFiles[path],
+    lang: langOf(path),
+    title: path.replace(/^elements\//, ""),
+  }))
+}
 
 export const componentSources = (
   framework: PackageFrameworkId,

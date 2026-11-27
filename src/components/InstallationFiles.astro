@@ -14,11 +14,13 @@ const { sourceTabs, tabs: allTabs } = Astro.props
 const framework = Astro.locals.framework
 const frameworkLabel = FRAMEWORKS.find((f) => f.id === framework)?.label
 
-const sourceNames = new Set(
-  sourceTabs.map((tab) => tab.title.slice(tab.title.lastIndexOf("/") + 1)),
-)
+const inSource = (tab: Tab) =>
+  sourceTabs.some(
+    (source) =>
+      source.title === tab.title || source.title.endsWith(`/${tab.title}`),
+  )
 const styleFiles = allTabs.filter(
-  (tab) => tab.title.endsWith(".css") || !sourceNames.has(tab.title),
+  (tab) => tab.title.endsWith(".css") || !inSource(tab),
 )
 
 const groups = [

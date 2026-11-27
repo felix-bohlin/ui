@@ -1,17 +1,13 @@
 import { existsSync, globSync, readFileSync } from "node:fs"
 import { describe, expect, test } from "vitest"
-import {
-  htmlFromRender,
-  markTopLevelBlankLines,
-  readExample,
-} from "../../scripts/build-examples.mjs"
+import { readExample } from "../../scripts/build-examples.mjs"
 import { decodeText, htmlText } from "../../scripts/example-encoders.mjs"
 import {
-  BLANK_LINE_MARKER,
   cleanRender,
   meaningChange,
   meaningOf,
 } from "../../scripts/example-html.mjs"
+import { BLANK_LINE_MARKER } from "../../scripts/example-whitespace.mjs"
 import { parseHtml } from "../../scripts/html-tokens.mjs"
 
 const clean = (html: string, css: string[] = []) =>
@@ -177,33 +173,6 @@ describe("meaningOf", () => {
         '<p style="color: var(--y)">a</p>',
       ),
     ).not.toBe(undefined)
-  })
-
-  test("htmlFromRender throws when formatting changes what the HTML renders", async () => {
-    await expect(
-      htmlFromRender(
-        '<span>text<div class="ui-avatar">IJ</div></span>',
-        "---\n---\n\n<span>text<div class='ui-avatar'>IJ</div></span>\n",
-        "src/component-examples/sample/Example.astro",
-      ),
-    ).rejects.toThrow("formatting the HTML changed what it renders")
-  })
-})
-
-describe("markTopLevelBlankLines", () => {
-  test("marks the blank lines between top-level nodes, keeping text and bytes", async () => {
-    expect(
-      await markTopLevelBlankLines(
-        '---\nconst a = "é"\n---\n\n<p>é</p>\n\nPrimary\n<p>b</p>\n<script>\n  x()\n</script>\n',
-      ),
-    ).toBe(
-      `---\nconst a = "é"\n---\n\n<p>é</p>\n<!--${BLANK_LINE_MARKER}-->\nPrimary\n<p>b</p>\n<script>\n  x()\n</script>\n`,
-    )
-  })
-
-  test("leaves blank lines inside elements alone", async () => {
-    const source = "---\n---\n\n<div>\n\n<p>a</p>\n</div>\n"
-    expect(await markTopLevelBlankLines(source)).toBe(source)
   })
 })
 

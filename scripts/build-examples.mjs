@@ -26,13 +26,10 @@ import {
   templateLiteral,
 } from "./example-encoders.mjs"
 import {
-  BLANK_LINE_MARKER,
   cleanRender,
   declarations as styleDeclarations,
   meaningChange,
   meaningOf,
-  WHITESPACE_MARK,
-  whitespaceRoles,
 } from "./example-html.mjs"
 import {
   assignExampleIds,
@@ -58,6 +55,7 @@ import {
   staleProblems,
   TARGETS,
 } from "./example-targets.mjs"
+import { BLANK_LINE, markWhitespace, RAW_TEXT } from "./example-whitespace.mjs"
 import { formatStably } from "./format.mjs"
 import { parseHtml, VOID_ELEMENTS } from "./html-tokens.mjs"
 
@@ -89,8 +87,6 @@ const NUMERIC_ATTRIBUTES = [
 const MAP_KEY_ORDER = ["id", "value", "name", "title"]
 
 const MARKUP = "__markup__"
-
-const BLANK_LINE = /\n[^\S\n]*\n/
 
 const unsupported = (file, what, target, hint) =>
   new Error(
@@ -709,92 +705,6 @@ export const readExample = async (source, file = "Example.astro") => {
   return { blankLines, body, frontmatter, scripts, styles }
 }
 
-const RAW_TEXT = new Set([
-  "listing",
-  "pre",
-  "script",
-  "style",
-  "textarea",
-  "title",
-  "xmp",
-])
-
-const markWhitespace = async (source) => {
-  const { ast } = await parse(source, { position: true })
-  const marks = []
-  const visit = (nodes, parent, raw) => {
-    for (const node of nodes) {
-      if (node.type === "text") {
-        if (raw || parent === "root" || parent === "expression") continue
-        for (const match of node.value.matchAll(/[\t\n\f\r ]+/g)) {
-          marks.push(
-            node.position.start.offset +
-              Buffer.byteLength(node.value.slice(0, match.index)),
-          )
-        }
-        continue
-      }
-      if (!node.children) continue
-      const setsContent = node.attributes?.some((item) =>
-        ["set:html", "set:text"].includes(item.name),
-      )
-      visit(
-        node.children,
-        node.type,
-        raw ||
-          setsContent ||
-          (node.type === "element" && RAW_TEXT.has(node.name)),
-      )
-    }
-  }
-  visit(ast.children, "root", false)
-  let bytes = Buffer.from(source)
-  for (const offset of marks.toReversed()) {
-    bytes = Buffer.concat([
-      bytes.subarray(0, offset),
-      Buffer.from(`<Fragment set:html="<!--${WHITESPACE_MARK}${offset}-->" />`),
-      bytes.subarray(offset),
-    ])
-  }
-  return bytes.toString()
-}
-
-export const markTopLevelBlankLines = async (source) => {
-  const { ast } = await parse(source, { position: true })
-  const nodes = ast.children.filter((node) => node.type !== "frontmatter")
-  const isBody = (node) =>
-    node &&
-    node.type !== "text" &&
-    !(node.type === "element" && /^(script|style)$/.test(node.name))
-  const neighbor = (index, step) => {
-    let at = index + step
-    while (nodes[at]?.type === "text") at += step
-    return nodes[at]
-  }
-  let bytes = Buffer.from(source)
-  for (const [index, node] of [...nodes.entries()].toReversed()) {
-    if (
-      node.type === "text" &&
-      BLANK_LINE.test(node.value) &&
-      isBody(neighbor(index, -1)) &&
-      isBody(neighbor(index, 1))
-    ) {
-      const { end, start } = node.position
-      bytes = Buffer.concat([
-        bytes.subarray(0, start.offset),
-        Buffer.from(
-          node.value.replace(
-            /[^\S\n]*\n[^\S\n]*\n\s*/g,
-            `\n<!--${BLANK_LINE_MARKER}-->\n`,
-          ),
-        ),
-        bytes.subarray(end.offset),
-      ])
-    }
-  }
-  return bytes.toString()
-}
-
 const setHtmlNames = (nodes, names = new Set()) => {
   for (const node of nodes) {
     const html = attribute(node, "set:html")
@@ -950,11 +860,11 @@ const markupAttributes = (node, expression, braces) =>
 const openTag = (name, attributes) =>
   attributes ? `<${name} ${attributes}` : `<${name}`
 
-export const VUE_UNKNOWN_TAGS = new Set(["search"])
+const VUE_UNKNOWN_TAGS = new Set(["search"])
 
 export const VUE_MODEL_VALUE = ["Tabs", "ToggleGroup"]
 
-const markupTarget = (framework, roles) => {
+const markupTarget = (framework, textParts) => {
   const vue = framework === "vue"
   const isBlankText = (node) => node.type === "text" && !node.value.trim()
   const markupText = (node, index, nodes) => {
@@ -962,7 +872,7 @@ const markupTarget = (framework, roles) => {
     const at = content.indexOf(node)
     const leading = content.slice(0, at).every(isBlankText)
     const trailing = content.slice(at + 1).every(isBlankText)
-    const parts = textParts(node, roles)
+    const parts = textParts(node)
     const between =
       isBlankText(node) &&
       nodes[index - 1]?.type !== "text" &&
@@ -1475,8 +1385,8 @@ const mixedSvgText = (nodes) =>
         mixedSvgText(node.children)),
   )
 
-const toSvelte = (example) => {
-  const emit = markupTarget("svelte", example.roles)
+const toSvelte = (example, textParts) => {
+  const emit = markupTarget("svelte", textParts)
   const snippets = [...example.markup.values()]
     .filter((item) => item.shared)
     .map(
@@ -1493,8 +1403,8 @@ const toSvelte = (example) => {
   return `${script ? `<script lang="ts">\n${script}\n</script>\n\n` : ""}${snippets}${emit(example.tree, example.markup)}${styles}\n`
 }
 
-const toVue = (example) => {
-  const emit = markupTarget("vue", example.roles)
+const toVue = (example, textParts) => {
+  const emit = markupTarget("vue", textParts)
   const script = [importLine(example, "vue"), ...declarations(example)]
     .filter(Boolean)
     .join("\n\n")
@@ -1737,28 +1647,6 @@ const jsxProps = (node, context) => {
   }
 }
 
-const textParts = (node, roles) => {
-  const parts = []
-  let last = 0
-  for (const match of node.value.matchAll(/[\t\n\f\r ]+/g)) {
-    if (match.index > last)
-      parts.push({ text: node.value.slice(last, match.index) })
-    const offset =
-      node.start === undefined
-        ? undefined
-        : node.start + Buffer.byteLength(node.value.slice(0, match.index))
-    parts.push({
-      role: node.topLevel
-        ? "drop"
-        : (roles?.get(offset) ?? (match[0].includes("\n") ? "drop" : "space")),
-      run: node.topLevel && BLANK_LINE.test(match[0]) ? "\n\n" : match[0],
-    })
-    last = match.index + match[0].length
-  }
-  if (last < node.value.length) parts.push({ text: node.value.slice(last) })
-  return parts
-}
-
 const joinRuns = (parts) =>
   parts.reduce((joined, part) => {
     const previous = joined.at(-1)
@@ -1798,7 +1686,7 @@ const jsxNodes = (nodes, context) => {
       .filter((node) => !node.slot)
       .map((node) =>
         node.type === "text"
-          ? { ...node, parts: textParts(node, context.roles) }
+          ? { ...node, parts: context.textParts(node) }
           : node,
       ),
   )
@@ -1926,13 +1814,13 @@ const JSX_DIALECTS = {
   },
 }
 
-const toJsx = (framework, example, name, file = `${name}.astro`) => {
+const toJsx = (framework, example, textParts, name, file) => {
   const dialect = JSX_DIALECTS[framework]
   const context = {
     dialect,
     file,
     markup: example.markup,
-    roles: example.roles,
+    textParts,
   }
   const components = usedComponents(example)
   const functionName = components.includes(name) ? `${name}Example` : name
@@ -1965,26 +1853,8 @@ const jsxStyleIndent = (code) =>
       `${spaces}<style>{\`\n${indent(dedent(css), spaces.length + 2)}\n${spaces}\`}</style>`,
   )
 
-/** @param {string} source @param {string} framework @param {string} file @param {{ read?: Awaited<ReturnType<typeof readExample>>, roles?: Map<number, string> }} [options] */
-export const convertExample = async (
-  source,
-  framework,
-  file,
-  { read, rendered, roles } = {},
-) => {
-  const name = file
-    .split("/")
-    .at(-1)
-    .replace(/\.astro$/, "")
-  const example = { ...(await parseExample(source, file, { read })), roles }
+const toFramework = async (framework, example, textParts, file, modules) => {
   if (framework === "nunjucks") {
-    if (rendered === undefined) {
-      throw new Error(
-        `${file}: the Nunjucks file needs the Astro render for its element scripts`,
-      )
-    }
-    const { markup } = renderedMarkup(rendered, example, file)
-    const modules = await scriptModules(markup, example)
     return toNunjucksExample(
       example,
       file,
@@ -2003,10 +1873,17 @@ export const convertExample = async (
       "write the React, Solid, Svelte and Vue files by hand and list them in scripts/hand-written-examples.json",
     )
   }
+  const name = file
+    .split("/")
+    .at(-1)
+    .replace(/\.astro$/, "")
   const target = file.replace(/\.astro$/, TARGETS[framework])
   if (framework in JSX_DIALECTS) {
     return jsxStyleIndent(
-      await formatStably(toJsx(framework, example, name, file), target),
+      await formatStably(
+        toJsx(framework, example, textParts, name, file),
+        target,
+      ),
     )
   }
   if (mixedSvgText(example.tree)) {
@@ -2018,12 +1895,12 @@ export const convertExample = async (
     )
   }
   if (framework === "svelte") {
-    return formatStably(toSvelte(example), target)
+    return formatStably(toSvelte(example, textParts), target)
   }
   if (framework !== "vue") {
     throw unsupported(file, `the framework ${framework}`, framework)
   }
-  return formatStably(toVue(example), target)
+  return formatStably(toVue(example, textParts), target)
 }
 
 export const runtimeImports = (code, file) => {
@@ -2235,11 +2112,7 @@ const scriptModules = async (markup, example) => {
   ].filter(Boolean)
 }
 
-/** @param {string} rendered @param {string} source @param {string} file @param {{ read?: Awaited<ReturnType<typeof readExample>> }} [options] */
-export const htmlFromRender = async (rendered, source, file, { read } = {}) => {
-  const example = read ?? (await readExample(source, file))
-  const { markup, nodes } = renderedMarkup(rendered, example, file)
-  const modules = await scriptModules(markup, example)
+const toHtml = async (example, file, { markup, modules, nodes }) => {
   const parts = [
     markup,
     ...example.styles.map((css) => `<style>\n${indent(css, 2)}\n</style>`),
@@ -2284,15 +2157,6 @@ export const createRenderer = async () => {
         resolveId: (id) =>
           sources.has(join(root, id)) ? join(root, id) : undefined,
       },
-      {
-        enforce: "pre",
-        name: "opui-example-blank-lines",
-        transform: (code, id) =>
-          SOURCE_DIRS.some((dir) => id.startsWith(join(root, dir, "/"))) &&
-          id.endsWith(".astro")
-            ? markWhitespace(code).then(markTopLevelBlankLines)
-            : undefined,
-      },
       ...config.plugins,
     ],
     appType: "custom",
@@ -2309,9 +2173,15 @@ export const createRenderer = async () => {
       locals: { $id: createExampleIdPlaceholders() },
       ...options,
     })
+  const versions = new Map()
   const addSource = (file, source) => {
-    sources.set(join(root, file), source)
-    return `/${file}`
+    const seen = versions.get(file) ?? []
+    if (!seen.includes(source)) seen.push(source)
+    versions.set(file, seen)
+    const version = seen.indexOf(source)
+    const id = version === 0 ? `/${file}` : `/${file}?source=${version}`
+    sources.set(join(root, id), source)
+    return id
   }
   return {
     close: () => server.close().catch(() => {}),
@@ -2319,15 +2189,83 @@ export const createRenderer = async () => {
     loadSource: (file, source) => server.ssrLoadModule(addSource(file, source)),
     renderSource: (file, source, options) =>
       renderModule(addSource(file, source), options),
-    render: async (file, source) => {
-      if (source.includes(ID_PLACEHOLDER)) {
-        throw new Error(
-          `${file} contains ${ID_PLACEHOLDER}, which the generator uses for ids from Astro.locals.$id`,
-        )
-      }
-      return renderModule(`/${file}`)
-    },
   }
+}
+
+/** @param {string} source @param {string} file @param {{ renderer: Awaited<ReturnType<typeof createRenderer>>, targets?: (keyof typeof TARGETS)[] }} options */
+export const compileExample = async (
+  source,
+  file,
+  { renderer, targets = Object.keys(TARGETS) },
+) => {
+  const outputs = new Map()
+  const targetFile = (target) => file.replace(/\.astro$/, TARGETS[target])
+  let read
+  try {
+    if (source.includes(ID_PLACEHOLDER)) {
+      throw new Error(
+        `${file} contains ${ID_PLACEHOLDER}, which the generator uses for ids from Astro.locals.$id`,
+      )
+    }
+    read = await readExample(source, file)
+  } catch (error) {
+    return { outputs, problems: [`${file}: ${error.message}`] }
+  }
+  let example
+  let refusal
+  if (targets.some((target) => target !== "html")) {
+    try {
+      example = await parseExample(source, file, { read })
+    } catch (error) {
+      refusal = error
+    }
+  }
+  if (!targets.includes("html") && !example) {
+    return {
+      outputs,
+      problems: targets.map(
+        (target) => `${targetFile(target)}: ${refusal.message}`,
+      ),
+    }
+  }
+  let rendered
+  let textParts
+  try {
+    const whitespace = await markWhitespace(source)
+    rendered = await renderer.renderSource(file, whitespace.source)
+    textParts = whitespace.read(rendered, read.styles)
+  } catch (error) {
+    return { outputs, problems: [`${file}: ${error.message}`] }
+  }
+  let page
+  const pageOf = () =>
+    (page ??= (async () => {
+      const { markup, nodes } = renderedMarkup(rendered, read, file)
+      return { markup, modules: await scriptModules(markup, read), nodes }
+    })())
+  const problems = []
+  for (const target of targets) {
+    try {
+      if (target === "html") {
+        outputs.set(target, await toHtml(read, file, await pageOf()))
+        continue
+      }
+      if (refusal) throw refusal
+      outputs.set(
+        target,
+        await toFramework(
+          target,
+          example,
+          textParts,
+          file,
+          target === "nunjucks" ? (await pageOf()).modules : [],
+        ),
+      )
+    } catch (error) {
+      problems.push(`${targetFile(target)}: ${error.message}`)
+    }
+  }
+  return { outputs, problems }
 }
 
 const exampleKeys = async (only) => {
@@ -2382,47 +2320,21 @@ export const generate = async ({
   )
   try {
     for (const { dir, key } of keys) {
-      const astroFile = `${dir}/${key}.astro`
-      const source = await readFile(join(root, astroFile), "utf8")
+      const file = `${dir}/${key}.astro`
       const targets = generatedTargets(
         key,
         dir === EXAMPLES_DIR ? handWritten : {},
       )
-      let read
-      let rendered
-      let roles
-      try {
-        if (targets.length > 0) {
-          rendered = await renderer.render(astroFile, source)
-          read = await readExample(source, astroFile)
-          roles = whitespaceRoles(rendered, read.styles)
-        }
-      } catch (error) {
-        problems.push(`${astroFile}: ${error.message}`)
-        continue
+      if (targets.length === 0) continue
+      const compiled = await compileExample(
+        await readFile(join(root, file), "utf8"),
+        file,
+        { renderer, targets },
+      )
+      for (const [target, code] of compiled.outputs) {
+        outputs.set(file.replace(/\.astro$/, TARGETS[target]), code)
       }
-      for (const framework of targets) {
-        const target = `${dir}/${key}${TARGETS[framework]}`
-        try {
-          if (framework === "html") {
-            outputs.set(
-              target,
-              await htmlFromRender(rendered, source, astroFile, { read }),
-            )
-          } else {
-            outputs.set(
-              target,
-              await convertExample(source, framework, astroFile, {
-                read,
-                rendered,
-                roles,
-              }),
-            )
-          }
-        } catch (error) {
-          problems.push(`${target}: ${error.message}`)
-        }
-      }
+      problems.push(...compiled.problems)
     }
   } finally {
     await renderer.close()

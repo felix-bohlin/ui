@@ -1,12 +1,12 @@
 import { globSync, readFileSync } from "node:fs"
 import { stripTypeScriptTypes } from "node:module"
 import { compile as compileSvelte } from "svelte/compiler"
-import { beforeAll, describe, expect, test } from "vitest"
+import { afterAll, beforeAll, describe, expect, test } from "vitest"
 import {
-  convertExample,
+  compileExample,
+  createRenderer,
   generate,
   elementTags,
-  htmlFromRender,
   parseExample,
   readExample,
   runtimeImports,
@@ -74,10 +74,28 @@ const sampleFile = (name = "Example") =>
 const formatted = async (source: string, name?: string, printWidth?: number) =>
   formatCode(source, sampleFile(name), { printWidth })
 
+const FRAMEWORK_TARGETS = Object.keys(TARGETS).filter(
+  (target) => target !== "html",
+)
+
+let renderer: Awaited<ReturnType<typeof createRenderer>>
+
+const compile = async (source: string, targets: string[], name?: string) => {
+  const { outputs, problems } = await compileExample(source, sampleFile(name), {
+    renderer,
+    targets,
+  })
+  if (problems.length > 0) throw new Error(problems.join("\n"))
+  return outputs
+}
+
 const convert = async (source: string, framework: string, name?: string) =>
-  convertExample(await formatted(source, name), framework, sampleFile(name))
+  (await compile(await formatted(source, name), [framework], name)).get(
+    framework,
+  )
 
 beforeAll(async () => {
+  renderer = await createRenderer()
   for (const framework of HYDRATED_FRAMEWORK_IDS) {
     await convert(
       astro('<Button type="button">Hi</Button>', "Button"),
@@ -85,6 +103,8 @@ beforeAll(async () => {
     )
   }
 }, 120_000)
+
+afterAll(() => renderer?.close())
 
 describe("React", () => {
   test("renames attributes and turns static state into defaults", async () => {
@@ -151,8 +171,8 @@ describe("React", () => {
 
   test("rejects a style declaration without a colon", async () => {
     await expect(
-      convert(astro('<div style="color red"></div>'), "react"),
-    ).rejects.toThrow('the style declaration "color red" has no colon')
+      convert(astro('<div style="color: red; /* x */"></div>'), "react"),
+    ).rejects.toThrow('the style declaration "/* x */" has no colon')
   })
 
   test("a set:html inside a comment keeps the const", async () => {
@@ -418,49 +438,41 @@ describe("reading .map", () => {
   }
 
   test.each(Object.entries(layouts))("reads %s", async (_, [body, imports]) => {
-    const { tree } = await parseExample(
-      astro(body, imports, PLACES),
-      sampleFile(),
+    const outputs = await compile(astro(body, imports, PLACES), [
+      "react",
+      "svelte",
+    ])
+    expect(outputs.get("react")).toContain("{places.map(({ id, title }) => (")
+    expect(outputs.get("react")).toContain(" key={id}>")
+    expect(outputs.get("svelte")).toContain(
+      "{#each places as { id, title } (id)}",
     )
-    const [list] = tree
-    const map = list.children.find(
-      (child: { type: string }) => child.type === "map",
-    )
-    expect(map).toMatchObject({ array: "places", key: "id", type: "map" })
-    expect(map.params.replace(/\s+/g, " ")).toMatch(/^\{ ?id, ?title,? ?\}$/)
   })
 
   test("reads a string array and keys it by the string", async () => {
-    const { tree } = await parseExample(
+    const outputs = await compile(
       astro(
         "<ul>{names.map((name) => <li>{name}</li>)}</ul>",
         "",
         'const names = ["a", "b"]\n',
       ),
-      sampleFile(),
+      ["react", "svelte"],
     )
-    expect(
-      tree[0].children.find((c: { type: string }) => c.type === "map"),
-    ).toMatchObject({
-      key: "name",
-      params: "name",
-    })
+    expect(outputs.get("react")).toContain("{names.map((name) => (")
+    expect(outputs.get("react")).toContain("<li key={name}>{name}</li>")
+    expect(outputs.get("svelte")).toContain("{#each names as name (name)}")
   })
 
   test("reads a const with as const", async () => {
-    const { tree } = await parseExample(
+    const outputs = await compile(
       astro(
         "<ul>{names.map((name) => <li>{name}</li>)}</ul>",
         "",
         'const names = ["a", "b"] as const\n',
       ),
-      sampleFile(),
+      ["svelte"],
     )
-    expect(
-      tree[0].children.find((c: { type: string }) => c.type === "map"),
-    ).toMatchObject({
-      key: "name",
-    })
+    expect(outputs.get("svelte")).toContain("{#each names as name (name)}")
   })
 
   test.each([
@@ -489,10 +501,11 @@ describe("reading .map", () => {
       "ident",
     ],
   ])("keys by %s", async (_, body, consts, key) => {
-    const { tree } = await parseExample(astro(body, "", consts), sampleFile())
-    expect(
-      tree[0].children.find((c: { type: string }) => c.type === "map"),
-    ).toMatchObject({ key })
+    const outputs = await compile(astro(body, "", consts), ["react", "svelte"])
+    expect(outputs.get("react")).toContain(`<li key={${key}}>`)
+    expect(outputs.get("svelte")).toMatch(
+      new RegExp(`\\{#each rows as .+ \\(${key.replace(".", "\\.")}\\)\\}`),
+    )
   })
 
   test.each([
@@ -564,7 +577,7 @@ describe("reading .map", () => {
     ],
   ])("rejects %s", async (_, body, consts, reason) => {
     await expect(
-      parseExample(astro(body, "", consts), sampleFile()),
+      compile(astro(body, "", consts), FRAMEWORK_TARGETS),
     ).rejects.toThrow(reason)
   })
 
@@ -655,9 +668,9 @@ describe("reading the frontmatter", () => {
       ? "<Button><Fragment set:html={icon} /></Button>"
       : "<p>{x}</p>"
     await expect(
-      parseExample(
+      compile(
         astro(body, consts.includes("icon") ? "Button" : "", consts),
-        sampleFile(),
+        FRAMEWORK_TARGETS,
       ),
     ).rejects.toThrow(reason)
   })
@@ -714,9 +727,9 @@ describe("reading slots", () => {
     ],
   ])("rejects %s", async (_, body, reason) => {
     await expect(
-      parseExample(
+      compile(
         astro(body, "Card", PLACES + "const name = 'a'\n"),
-        sampleFile(),
+        FRAMEWORK_TARGETS,
       ),
     ).rejects.toThrow(reason)
   })
@@ -896,16 +909,26 @@ describe("HTML", () => {
 
   test("appends the example's script without its types", async () => {
     expect(
-      await htmlFromRender(
-        "<p>Hi</p>",
-        astro(
-          '<p>Hi</p>\n\n<script>\n  const p = document.querySelector<HTMLElement>("p")\n</script>',
-        ),
-        "src/component-examples/sample/Example.astro",
-      ),
+      (
+        await compile(
+          astro(
+            '<p>Hi</p>\n\n<script>\n  const p = document.querySelector<HTMLElement>("p")\n</script>',
+          ),
+          ["html"],
+        )
+      ).get("html"),
     ).toBe(
       '<p>Hi</p>\n\n<script type="module">\n  const p = document.querySelector("p")\n</script>\n',
     )
+  })
+
+  test("is refused when formatting changes what it renders", async () => {
+    await expect(
+      compile(
+        "---\n---\n\n<span>text<div class='ui-avatar'>IJ</div></span>\n",
+        ["html"],
+      ),
+    ).rejects.toThrow("formatting the HTML changed what it renders")
   })
 })
 
@@ -942,11 +965,12 @@ test("VUE_MODEL_VALUE lists the components whose Vue file holds the value in a m
 test("Vue takes the value of a group as model-value, and <search> through <component>", async () => {
   const source =
     '---\nimport { ToggleButton, ToggleGroup } from "opui-css/astro"\n---\n\n<search>\n  <ToggleGroup name="range" value="7">\n    <ToggleButton label="7 days" value="7" />\n  </ToggleGroup>\n</search>\n'
-  const vue = await convertExample(source, "vue", sampleFile())
+  const outputs = await compile(source, ["svelte", "vue"])
+  const vue = outputs.get("vue")
   expect(vue).toContain('<component is="search">')
   expect(vue).toContain('<ToggleGroup name="range" model-value="7">')
   expect(vue).toContain('<ToggleButton label="7 days" value="7" />')
-  const svelte = await convertExample(source, "svelte", sampleFile())
+  const svelte = outputs.get("svelte")
   expect(svelte).toContain("<search>")
   expect(svelte).toContain('<ToggleGroup name="range" value="7">')
 })
@@ -1102,26 +1126,48 @@ describe("generated examples", () => {
 })
 
 describe("an example's structure", () => {
-  const read = (body: string, consts = "") =>
-    readExample(astro(body, "", consts), sampleFile())
+  const refusals = async (source: string) => {
+    const { outputs, problems } = await compileExample(source, sampleFile(), {
+      renderer,
+    })
+    expect(outputs.size).toBe(0)
+    return problems
+  }
 
   test("finds a script in the syntax, not in text that looks like one", async () => {
-    const quoted = await read(
-      "<p>Hi</p>",
-      'const code = "<script>1</script>"\n// <script>\n',
+    const quoted = await compile(
+      astro(
+        "<p>Hi</p>",
+        "",
+        'const code = "<script>1</script>"\n// <script>\n',
+      ),
+      ["html", "react"],
     )
-    expect(quoted.scripts).toEqual([])
-    const indented = await read("<p>Hi</p>\n  <script>\n    1\n  </script>")
-    expect(indented.scripts).toHaveLength(1)
+    expect(quoted.get("html")).toBe("<p>Hi</p>\n")
+    const indented = await compileExample(
+      astro("<p>Hi</p>\n  <script>\n    1\n  </script>"),
+      sampleFile(),
+      { renderer, targets: ["html", "react"] },
+    )
+    expect(indented.outputs.get("html")).toContain('<script type="module">')
+    expect(indented.problems).toEqual([
+      expect.stringContaining("a client <script>"),
+    ])
   })
 
   test("reads every script and style, blank lines and the body", async () => {
-    const read2 = await read(
-      "<p>A</p>\n\n<p>B</p>\n<p>C</p>\n<style is:global>\n  p {}\n</style>\n<script>\n  1\n</script>\n<script>\n  2\n</script>",
+    const html = (
+      await compile(
+        astro(
+          "<p>A</p>\n\n<p>B</p>\n<p>C</p>\n<style is:global>\n  p {}\n</style>\n<script>\n  1\n</script>\n<script>\n  2\n</script>",
+        ),
+        ["html"],
+      )
+    ).get("html")
+    expect(html).toMatch(
+      /^<p>A<\/p>\n\n<p>B<\/p>\n<p>C<\/p>\n\n<style>\n {2}p \{/,
     )
-    expect(read2.scripts).toHaveLength(2)
-    expect(read2.styles).toEqual(["p {}"])
-    expect(read2.blankLines).toEqual([true, false])
+    expect(html.match(/<script type="module">/g)).toHaveLength(2)
   })
 
   test.each([
@@ -1134,16 +1180,9 @@ describe("an example's structure", () => {
       "the attribute define:vars",
     ],
   ])("rejects a script with %s in every target", async (_, script, reason) => {
-    const source = astro(`<p>Hi</p>\n${script}`)
-    await expect(readExample(source, sampleFile())).rejects.toThrow(reason)
-    for (const framework of HYDRATED_FRAMEWORK_IDS) {
-      await expect(
-        convertExample(source, framework, sampleFile()),
-      ).rejects.toThrow(reason)
-    }
-    await expect(
-      htmlFromRender("<p>Hi</p>", source, sampleFile()),
-    ).rejects.toThrow(reason)
+    expect(await refusals(astro(`<p>Hi</p>\n${script}`))).toEqual([
+      expect.stringContaining(reason),
+    ])
   })
 
   test.each([
@@ -1154,17 +1193,9 @@ describe("an example's structure", () => {
       "<style is:global define:vars={{ a: 1 }}>p {}</style>",
     ],
   ])("rejects %s in every target", async (_, style) => {
-    const source = astro(`<p>Hi</p>\n${style}`)
-    const reason = "a <style> that isn't exactly <style is:global>"
-    await expect(readExample(source, sampleFile())).rejects.toThrow(reason)
-    for (const framework of HYDRATED_FRAMEWORK_IDS) {
-      await expect(
-        convertExample(source, framework, sampleFile()),
-      ).rejects.toThrow(reason)
-    }
-    await expect(
-      htmlFromRender("<p>Hi</p>", source, sampleFile()),
-    ).rejects.toThrow(reason)
+    expect(await refusals(astro(`<p>Hi</p>\n${style}`))).toEqual([
+      expect.stringContaining("a <style> that isn't exactly <style is:global>"),
+    ])
   })
 
   test.each([
@@ -1183,19 +1214,22 @@ describe("an example's structure", () => {
       'export * from "opui-css/elements/toaster.js"',
     ],
   ])("rejects %s in a script", async (_, code) => {
-    await expect(
-      read(`<p>Hi</p>\n<script>\n  ${code}\n</script>`),
-    ).rejects.toThrow("an import from outside opui-css in a <script>")
+    expect(
+      await refusals(astro(`<p>Hi</p>\n<script>\n  ${code}\n</script>`)),
+    ).toEqual([
+      expect.stringContaining("an import from outside opui-css in a <script>"),
+    ])
   })
 
   test("a script imports from opui-css instead of the rule's side-effect import", async () => {
-    const html = await htmlFromRender(
-      "<opui-toaster></opui-toaster>",
-      astro(
-        '<opui-toaster></opui-toaster>\n<script>\n  import { toast } from "opui-css/elements/toaster.js"\n\n  toast("Saved")\n</script>',
-      ),
-      sampleFile(),
-    )
+    const html = (
+      await compile(
+        astro(
+          '<opui-toaster></opui-toaster>\n<script>\n  import { toast } from "opui-css/elements/toaster.js"\n\n  toast("Saved")\n</script>',
+        ),
+        ["html"],
+      )
+    ).get("html")
     expect(html.match(/<script type="module">/g)).toHaveLength(1)
     expect(html).toContain(
       'import { toast } from "opui-css/elements/toaster.js"',
@@ -1221,24 +1255,29 @@ describe("an example's structure", () => {
       "a comment directly inside <Fragment>",
     ],
   ])("rejects %s", async (_, body, reason) => {
-    await expect(
-      readExample(astro(body, "Card"), sampleFile()),
-    ).rejects.toThrow(reason)
+    expect(await refusals(astro(body, "Card"))).toEqual([
+      expect.stringContaining(reason),
+    ])
   })
 
   test("a comment inside an element is fine", async () => {
-    const { body } = await read("<svg><!-- icon --><path /></svg>")
-    expect(body.length).toBeGreaterThan(0)
+    const outputs = await compile(astro("<svg><!-- icon --><path /></svg>"), [
+      "html",
+      "react",
+    ])
+    expect(outputs.get("html")).toContain("<!-- icon -->")
+    expect(outputs.get("react")).toContain("{/* icon */}")
   })
 
   test("two scripts become two modules after the rule imports", async () => {
-    const html = await htmlFromRender(
-      "<opui-copy></opui-copy>",
-      astro(
-        "<opui-copy></opui-copy>\n<script>\n  const a = 1\n</script>\n<script>\n  const a = 2\n</script>",
-      ),
-      sampleFile(),
-    )
+    const html = (
+      await compile(
+        astro(
+          "<opui-copy></opui-copy>\n<script>\n  const a = 1\n</script>\n<script>\n  const a = 2\n</script>",
+        ),
+        ["html"],
+      )
+    ).get("html")
     expect(html.match(/<script type="module">/g)).toHaveLength(3)
     expect(html.indexOf('import "opui-css/elements/copy.js"')).toBeLessThan(
       html.indexOf("const a = 1"),

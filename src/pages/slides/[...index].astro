@@ -417,17 +417,11 @@ const outputs = PACKAGE_FRAMEWORK_IDS.map((id) => {
   return { ...row, label: labelOf(id) }
 })
 
-const agentNotes: Record<string, string> = {
-  a11y: "what axe can't catch",
-  "api-docs": "api.ts against the props and the CSS",
-  blog: "posts against the CSS they explain",
-  "browser-support": "web-features ids on every page",
-  changelog: "CHANGELOG, What's new, MIGRATING",
-  css: "quality and modern CSS",
-  examples: "coverage and consistency",
-  "framework-idioms": "code an expert wouldn't write",
-  "framework-parity": `${targets} targets in sync`,
-}
+const appCount = appFolders.length
+const compiledTargets = compiled.map((id) => ({
+  Logo: LOGOS[id],
+  label: labelOf(id),
+}))
 ---
 
 <!doctype html>
@@ -444,13 +438,9 @@ const agentNotes: Record<string, string> = {
     <main class="deck" aria-roledescription="slide deck">
       <section class="slide" aria-label="Title">
         <div class="stage">
-          <div class="frame frame-title">
-            <p class="eyebrow">opui.dev</p>
+          <div class="frame">
             <h1>Open Props UI <span class="accent">6.0</span></h1>
-            <p class="lede">
-              A design system for {targets} targets, and
-              {format(history.commits)} commits with Claude Code
-            </p>
+            <p class="lede">and how it was built with Claude Code</p>
             <ul class="logos" aria-label="Frameworks">
               {FRAMEWORKS.map((framework) => {
                 const Logo = LOGOS[framework.id]
@@ -463,22 +453,22 @@ const agentNotes: Record<string, string> = {
               })}
             </ul>
             <p class="byline">Felix Bohlin</p>
-            <p class="keys">
-              <kbd>→</kbd> next <kbd>F</kbd> fullscreen <kbd>P</kbd> presenter
-              window <kbd>N</kbd> notes <kbd>D</kbd> dark
-            </p>
           </div>
         </div>
         <aside class="notes">
+          <p>
+            Keys: arrows or Space to move, F fullscreen, P presenter window, N
+            notes, D dark mode.
+          </p>
           <p>
             0:00. Hi. Two parts: a little background on what Open Props UI is,
             then most of the time on 6.0, and on how I built it with Claude
             Code.
           </p>
           <p>
-            The second number on this slide is the real topic: almost all of
-            those commits came out of Claude Code sessions in
-            {inWords(history.weeks)} weeks.
+            Spoiler: {format(history.commits)} commits since the last release,
+            in {inWords(history.weeks)} weeks, almost all of them from Claude
+            Code sessions.
           </p>
         </aside>
       </section>
@@ -488,42 +478,23 @@ const agentNotes: Record<string, string> = {
           <div class="frame">
             <p class="eyebrow">Background</p>
             <h2>Design system. Components. Modern HTML &amp; CSS.</h2>
-            <div class="columns">
-              <div class="panel">
-                <h3>CSS first</h3>
-                <p>
-                  A component is its stylesheet and the native HTML it styles.
-                </p>
-              </div>
-              <div class="panel">
-                <h3>HTML is a target</h3>
-                <p>
-                  Copy the markup, no framework needed. The frameworks are
-                  bindings on top.
-                </p>
-              </div>
-              <div class="panel">
-                <h3>Feature first</h3>
-                <p>
-                  A new HTML or CSS feature is used as soon as one engine ships
-                  it.
-                </p>
-              </div>
-            </div>
-            <p class="footnote">
-              Built on Open Props. The shadcn model: grab it, make it yours.
-            </p>
+            <ul class="words">
+              <li>CSS first</li>
+              <li>HTML is a target</li>
+              <li>Feature first</li>
+            </ul>
           </div>
         </div>
         <aside class="notes">
           <p>
             0:30. Open Props UI is a component library and design system where
-            the CSS is the product.
+            the CSS is the product. It started on top of Open Props.
           </p>
           <p>
-            Three ideas from day one: CSS first, plain HTML as a real target,
-            and feature first: use the new platform features as soon as one
-            browser ships them.
+            CSS first: a component is its stylesheet and the native HTML it
+            styles. HTML is a target: copy the markup, no framework needed; the
+            frameworks are bindings on top. Feature first: I use a new HTML or
+            CSS feature as soon as one engine ships it.
           </p>
           <p>
             Like shadcn: I do the hard work, you take it and make it your own.
@@ -535,32 +506,20 @@ const agentNotes: Record<string, string> = {
         <div class="stage">
           <div class="frame">
             <p class="eyebrow">Background</p>
-            <h2>Where it started</h2>
-            <blockquote class="quote">
-              <p>
-                I wanted to build that library, learn all the cool tricks and
-                techniques and ultimately pass them on.
-              </p>
-            </blockquote>
-            <ul class="points">
-              <li>Everything written by hand</li>
-              <li>
-                Pragmatic, readable CSS that anyone at any level could grasp and
-                modify
-              </li>
-              <li>Inspiring at least one person was a win</li>
-            </ul>
+            <p class="quote">Learn all the cool tricks, and pass them on.</p>
             <p class="kicker">That was then.</p>
           </div>
         </div>
         <aside class="notes">
           <p>
             2:00. The library that uses modern CSS and HTML didn't seem to
-            exist, so I wanted to build it, and learn the tricks on the way.
+            exist, so I wanted to build it, learn the tricks on the way, and
+            pass them on.
           </p>
           <p>
-            Readability was a hard rule: someone should be able to open a
-            stylesheet and get it.
+            Everything was written by hand, and readability was a hard rule:
+            anyone at any level should be able to open a stylesheet, get it and
+            change it. Inspiring one person was a win.
           </p>
         </aside>
       </section>
@@ -568,8 +527,7 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="Commits per month">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">Background</p>
-            <h2>Commits per month since 2024</h2>
+            <h2>Commits per month</h2>
             <figure class="chart">
               <ol class="bars" style={`--max: ${maxCommits}`}>
                 {bars.map((bar) => <li
@@ -590,28 +548,25 @@ const agentNotes: Record<string, string> = {
                   >}
                 </li>)}
               </ol>
-              <figcaption>
-                <span class="cycle-label">The 6.0 cycle</span>
-                {listOf(
-                  cycle.map(
-                    ([month, count]) =>
-                      `${format(count)} in ${monthName(month)}`,
-                  ),
-                )}.
-                Releases under the axis, counted to {asOf}.
-              </figcaption>
+              <figcaption><span class="cycle-label">6.0</span></figcaption>
             </figure>
           </div>
         </div>
         <aside class="notes">
           <p>
-            3:00. Two and a half years in one picture. The first bump is the
-            road to 1.0 at the end of 2024, a couple of hundred commits a month
-            by hand.
+            3:00. Two and a half years in one picture, releases under the axis.
+            The first bump is the road to 1.0 at the end of 2024, a couple of
+            hundred commits a month, by hand.
           </p>
           <p>
             Then 2.0, 3.0, 4.0 and 5.0, all quiet months. And then the 6.0
-            cycle: more than a thousand commits a month in October and November.
+            cycle:
+            {listOf(
+              cycle.map(
+                ([month, count]) => `${format(count)} in ${monthName(month)}`,
+              ),
+            )},
+            counted to {asOf}.
           </p>
         </aside>
       </section>
@@ -621,32 +576,24 @@ const agentNotes: Record<string, string> = {
           <div class="frame">
             <p class="eyebrow">6.0</p>
             <h2>The core stayed. The scope changed.</h2>
-            <blockquote class="quote">
-              <p>
-                Since AI has gotten so good that writing anything by hand has
-                become unnecessary, the core concepts stayed but the scope
-                changed.
-              </p>
-            </blockquote>
-            <p class="big">
-              One CSS codebase flexible enough for shadcn, Material, Bootstrap
-              or a brutalist experiment.
-            </p>
-            <p class="footnote">
-              The CSS got less readable. The docs got a lot better to make up
-              for it.
-            </p>
+            <p class="big">One CSS codebase, any design.</p>
           </div>
         </div>
         <aside class="notes">
           <p>
-            4:30. I always had the 6.0 architecture in mind, but it didn't feel
-            approachable, and I didn't think I could maintain it as a hobby.
+            4:30. "Since AI has gotten so good that writing anything by hand has
+            become unnecessary, the core concepts stayed but the scope changed."
           </p>
           <p>
-            With agents doing the typing, I could go for the original vision: if
-            one codebase can be shadcn, Material and brutalist, it can be your
-            design too.
+            I always had the 6.0 architecture in mind, but it didn't feel
+            approachable, and I didn't think I could maintain it as a hobby.
+            With agents doing the typing, I could go for it: one codebase that
+            can be shadcn, Material, Bootstrap or a brutalist experiment. If it
+            can be all of those, it can be your design too.
+          </p>
+          <p>
+            The CSS got less readable. The docs got a lot better to make up for
+            it.
           </p>
         </aside>
       </section>
@@ -654,34 +601,27 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="6.0 at a glance">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">6.0</p>
             <h2>6.0 at a glance</h2>
-            <ul class="tiles">
-              <li>
-                <strong>{FRAMEWORKS.length}</strong> targets:
-                {listOf(FRAMEWORKS.map((framework) => framework.label))}
-              </li>
-              <li><strong>{stats.components}</strong> components</li>
-              <li><strong>{newComponents.length}</strong> of them new</li>
+            <ul class="tiles tiles-three">
+              <li><strong>{FRAMEWORKS.length}</strong> targets</li>
+              <li><strong>{newComponents.length}</strong> new components</li>
               <li><strong>{stats.themes}</strong> example themes</li>
-              <li><strong>{format(stats.tokens)}</strong> theme tokens</li>
               <li><strong>{stats.blocks}</strong> blocks</li>
               <li><strong>{stats.posts}</strong> blog posts</li>
-              <li>
-                <strong>{stats.breaking}</strong> breaking changelog entries
-              </li>
+              <li><strong>{stats.breaking}</strong> breaking changes</li>
             </ul>
           </div>
         </div>
         <aside class="notes">
           <p>
-            5:30. The headline numbers. They're computed from the repo when the
-            page builds.
+            5:30. The headline numbers, computed from the repo when the page
+            builds.
           </p>
           <p>
-            {newFrameworks} are new targets, next to HTML, Astro and Vue. It's
-            the first major since 5.0, and a lot of the breaking entries are
-            plain renames.
+            {newFrameworks} are new targets, next to HTML, Astro and Vue.
+            {stats.components} components in all, {format(stats.tokens)} theme
+            tokens. It's the first major since 5.0, and a lot of the breaking
+            entries are plain renames.
           </p>
         </aside>
       </section>
@@ -689,9 +629,8 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="Token tiers">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">6.0: a proper design system</p>
             <h2>Token tiers</h2>
-            <div class="embed" style="--zoom: 0.66">
+            <div class="embed" style="--zoom: 0.72">
               <TokenTiers />
             </div>
           </div>
@@ -704,7 +643,7 @@ const agentNotes: Record<string, string> = {
           </p>
           <p>
             Every token has the --ui- prefix now, and there's a tokens.json in
-            the W3C format. Open Props itself is optional.
+            the W3C design tokens format. Open Props itself is optional.
           </p>
         </aside>
       </section>
@@ -712,8 +651,7 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="Example themes">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">6.0: a proper design system</p>
-            <h2>Same markup, {stats.themes} example themes</h2>
+            <h2>Same markup, {inWords(stats.themes)} themes</h2>
             <ul
               class="shots"
               style={`--columns: ${Math.ceil(themeFrames.length / 2)}`}
@@ -749,43 +687,26 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="Contrast">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">6.0: a proper design system</p>
-            <h2>Contrast as a guarantee</h2>
-            <div class="split">
-              <ul class="points">
-                <li>
-                  <code>--ui-contrast: more</code> tightens {contrastKnobs}
-                  knobs and never sets a color directly
-                </li>
-                <li>
-                  Every <code>-text</code> role promises 4.5:1 on every surface,
-                  recorded in <code>tokens.json</code>
-                </li>
-                <li>
-                  <code>--ui-on-primary</code> picked from the fill's luminance
-                  with relative color
-                </li>
-              </ul>
-              <div class="callout-number">
-                <strong>1,036</strong>
-                <span
-                  >pairs tested: every hue in steps of 10, light and dark,
-                  normal and more contrast</span
-                >
-                <strong class="small">1 miss</strong>
-                <span>4.24:1 at hue 190</span>
-              </div>
-            </div>
+            <h2>Contrast is a promise</h2>
+            <p class="number">1,036 <span>pairs tested</span></p>
+            <p class="number number-small">1 <span>miss</span></p>
           </div>
         </div>
         <aside class="notes">
           <p>
-            8:45. Contrast isn't a hope, it's a promise in the tokens, and a
-            test sweeps every hue.
+            8:45. Every -text role promises 4.5:1 on every surface, recorded in
+            tokens.json, and a test sweeps every hue in steps of 10, light and
+            dark, normal and more contrast.
           </p>
           <p>
-            One pair misses: primary text on the filled surface in light mode,
-            between hue 160 and 220. The default hue keeps it above 4.5.
+            --ui-contrast: more tightens {contrastKnobs} knobs and never sets a
+            color directly. --ui-on-primary is picked from the fill's luminance
+            with relative color.
+          </p>
+          <p>
+            The one miss: primary text on the filled surface in light mode, at
+            hues 160 to 220, down to 4.24:1 at hue 190. The default hue keeps it
+            above 4.5.
           </p>
         </aside>
       </section>
@@ -793,123 +714,84 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="New components">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">6.0</p>
-            <h2>{newComponents.length} new components, plus Layout</h2>
+            <h2>{newComponents.length} new components</h2>
             <ul class="names">
               {newComponents.map((name) => <li>{name}</li>)}
             </ul>
-            <p class="footnote">
-              When HTML can't do the job, a tiny custom element does:
-              {stats.elements} of them, the same for every framework and plain
-              HTML.
-            </p>
           </div>
         </div>
         <aside class="notes">
           <p>
-            9:30. The new ones. Field replaces TextField, Textarea, Select and
-            Range: it's the label, hints and box around your own control.
+            9:30. Plus the Layout classes. Field replaces TextField, Textarea,
+            Select and Range: it's the label, hints and box around your own
+            control.
           </p>
           <p>
-            Where HTML needs a little help, like the Toaster or sortable tables,
-            a small custom element does it once for every target.
+            When HTML can't do the job, a tiny custom element does:
+            {stats.elements} of them, the same for every framework and for plain
+            HTML.
           </p>
         </aside>
       </section>
 
-      <section class="slide" aria-label="The CSS is the component">
+      <section class="slide" aria-label="The platform does the work">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">6.0</p>
-            <h2>The CSS is the component</h2>
-            <dl class="features">
-              <div>
-                <dt>Popover + invoker commands</dt>
-                <dd>Dialog, Drawer, Menu</dd>
-              </div>
-              <div>
-                <dt><code>interestfor</code></dt>
-                <dd>Tooltip, Anchor</dd>
-              </div>
-              <div>
-                <dt>
-                  <code>::scroll-button()</code>, <code>::scroll-marker</code>
-                </dt>
-                <dd>Carousel</dd>
-              </div>
-              <div>
-                <dt><code>appearance: base-select</code></dt>
-                <dd>every select in a Field</dd>
-              </div>
-              <div>
-                <dt>Scroll-state queries</dt>
-                <dd>Dialog, Drawer, sticky Table headers</dd>
-              </div>
-              <div>
-                <dt>Scroll-driven animations</dt>
-                <dd>Range fill</dd>
-              </div>
-              <div>
-                <dt><code>:has()</code></dt>
-                <dd>Message runs, Field, Form</dd>
-              </div>
-              <div>
-                <dt><code>progress()</code>, <code>round()</code></dt>
-                <dd>fluid headings, vertical rhythm</dd>
-              </div>
-            </dl>
-            <p class="footnote">
-              A framework layer is only a binding: props to attributes and
-              classes, slots to parts, events to native events.
-            </p>
+            <h2>The platform does the work</h2>
+            <ul class="names names-code">
+              <li>popover</li>
+              <li>commandfor</li>
+              <li>interestfor</li>
+              <li>anchor()</li>
+              <li>::scroll-marker</li>
+              <li>base-select</li>
+              <li>scroll-state()</li>
+              <li>:has()</li>
+              <li>progress()</li>
+            </ul>
           </div>
         </div>
         <aside class="notes">
           <p>
-            10:30. The behavior lives in the platform. That's why
-            {newFrameworks} could land in one release: there's little to port.
+            10:30. The CSS is the component. Popovers and invoker commands for
+            Dialog, Drawer and Menu; interestfor for Tooltip and Anchor; scroll
+            buttons and markers for the Carousel; base-select for every select
+            in a Field; scroll-state queries for shadows; :has() for Message
+            runs and Field; progress() and round() for fluid type and rhythm.
           </p>
-          <p>Every one of these has a blog post explaining the trick.</p>
+          <p>
+            A framework layer is only a binding: props to attributes and
+            classes, slots to parts, events to native events. That's why
+            {newFrameworks} could land in one release. Every one of these has a
+            blog post.
+          </p>
         </aside>
       </section>
 
       <section class="slide" aria-label="Feature first">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">6.0</p>
             <h2>Feature first, honestly</h2>
-            <ul class="points">
-              <li>One engine shipping a feature is enough</li>
-              <li>
-                A failure in one engine gets no workaround in the component CSS:
-                it's an expected failure, with a plain-HTML repro
-              </li>
-              <li>
-                When the browser catches up, the test fails with "expected to
-                fail but passed"
-              </li>
-              <li>
-                Fallbacks live in a compat layer, behind
-                <code>@supports not</code> or an engine gate, and
-                <code>compat.test.ts</code> fails once the feature is Baseline
-                widely available
-              </li>
-              <li>
-                Pick a bundle by audience: <code>opui.css</code>,
-                <code>opui.no-compat.css</code>,
-                <code>opui.baseline-&lt;year&gt;.css</code>
-              </li>
-            </ul>
+            <ol class="flow">
+              <li>One engine ships it</li>
+              <li>The others fail a test</li>
+              <li>They catch up</li>
+              <li>The test says: delete</li>
+            </ol>
           </div>
         </div>
         <aside class="notes">
           <p>
             11:30. The cost of the idea: some things only work in one engine for
-            a while.
+            a while. So it's tracked, not hidden.
           </p>
           <p>
-            So it's tracked, not hidden. Every gap has a repro, and the tests
-            tell me the day it can be deleted.
+            A failure in one engine never gets a workaround in the component
+            CSS. It's an expected failure with a plain-HTML repro, and when the
+            browser catches up, the test fails with "expected to fail but
+            passed". Other fallbacks live in a compat layer behind @supports
+            not, and a test fails once the feature is Baseline. You pick a
+            bundle by audience: opui.css, no-compat, or a Baseline year.
           </p>
         </aside>
       </section>
@@ -917,39 +799,29 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="Docs">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">6.0</p>
-            <h2>The docs grew up</h2>
-            <div class="columns">
-              <ul class="points">
-                <li>Anatomy diagrams and API tables built from tested data</li>
-                <li>Every page in all {targets} targets</li>
-                <li>
-                  For agents: a <code>.md</code> of every page,
-                  <code>llms.txt</code>, <code>npx opui-css skill</code>
-                </li>
-              </ul>
-              <ul class="points">
-                <li>
-                  {stats.posts} blog posts, one per technique, and Under the
-                  hood build-ups
-                </li>
-                <li>{stats.blocks} blocks in {stats.blockGroups} categories</li>
-                <li>
-                  The Theme builder: import, shuffle, preview, export
-                  <code>theme.css</code> or <code>tokens.json</code>
-                </li>
-              </ul>
-            </div>
+            <h2>Docs for people and agents</h2>
+            <ul class="tiles tiles-three">
+              <li><strong>{FRAMEWORKS.length}</strong> targets per page</li>
+              <li><strong>{stats.posts}</strong> technique posts</li>
+              <li><strong>.md</strong> of every page</li>
+            </ul>
           </div>
         </div>
         <aside class="notes">
           <p>
-            12:15. The less readable CSS needed better docs: the Under the hood
-            posts build a component one rule at a time.
+            12:15. Anatomy diagrams and API tables built from tested data, and
+            every page in all {targets} targets.
+          </p>
+          <p>
+            The less readable CSS needed better docs: a blog post per technique,
+            and Under the hood posts that build a component one rule at a time.
+            Plus {stats.blocks} blocks in {stats.blockGroups} categories, and
+            the Theme builder.
           </p>
           <p>
             I expect most readers to be agents, so every page has a Markdown
-            twin and the package ships a skill.
+            twin, there's llms.txt, and npx opui-css skill drops a skill into
+            your project.
           </p>
         </aside>
       </section>
@@ -959,36 +831,29 @@ const agentNotes: Record<string, string> = {
           <div class="frame">
             <p class="eyebrow">How it was built</p>
             <h2>The new "by hand"</h2>
-            <ul class="tiles tiles-four">
-              <li>
-                <strong>{format(history.commits)}</strong> commits since
-                {previous.version}, in {history.weeks} weeks
-              </li>
-              <li><strong>{history.sessions}</strong> Claude Code sessions</li>
-              <li>
-                <strong>{claudeShare}%</strong> of the commits authored by
-                Claude
-              </li>
-              <li>
-                <strong>{history.busiestDay}</strong> commits on the busiest day
-              </li>
+            <ul class="tiles">
+              <li><strong>{format(history.commits)}</strong> commits</li>
+              <li><strong>{history.weeks}</strong> weeks</li>
+              <li><strong>{history.sessions}</strong> sessions</li>
+              <li><strong>{claudeShare}%</strong> by Claude</li>
             </ul>
-            <p class="footnote">
-              {format(history.byClaude)} by Claude, {history.byBots} by bots,
-              {history.byMe} by me. Counted from the git history on {asOf}.
-            </p>
           </div>
         </div>
         <aside class="notes">
           <p>
             13:00. Now the part I really want to talk about. Since
             {previous.version} on {dayOf(previous.date)}:
-            {inWords(history.weeks)} weeks.
+            {format(history.commits)} commits in {inWords(history.weeks)} weeks,
+            from {history.sessions} Claude Code sessions.
           </p>
           <p>
-            Most commits are written by Claude in cloud sessions. My job changed
-            from writing code to deciding and directing. The rest of the talk is
-            the setup that makes that safe.
+            {format(history.byClaude)} by Claude, {history.byBots} by bots,
+            {history.byMe} by me. The busiest day had {history.busiestDay}
+            commits.
+          </p>
+          <p>
+            My job changed from writing code to deciding and directing. The rest
+            of the talk is the setup that makes that safe.
           </p>
         </aside>
       </section>
@@ -996,39 +861,20 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="The problem">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">How it was built</p>
-            <h2>A chat forgets. A repo doesn't.</h2>
-            <ul class="points">
-              <li>
-                6.0 was hundreds of tasks, and every session starts out knowing
-                nothing about the last one
-              </li>
-              <li>
-                One person, a hobby project, {targets} targets,
-                {stats.components} components
-              </li>
-              <li>
-                So the repo is the memory, the checks are the reviewer, and I
-                make the decisions
-              </li>
-            </ul>
-            <blockquote class="quote">
-              <p>
-                Instead of keeping every detail in your head, lean on tools and
-                scripts to harden the library, and spend the attention on
-                architecture and the big picture.
-              </p>
-            </blockquote>
+            <h2 class="statement">A chat forgets. A repo doesn't.</h2>
           </div>
         </div>
         <aside class="notes">
           <p>
-            14:00. A chat is fine for one task. Hundreds of tasks need somewhere
-            to live that both the agents and I can read.
+            14:00. A chat is fine for one task. 6.0 was hundreds of them, and
+            every new session starts out knowing nothing about the last one. One
+            person, a hobby project, {targets} targets, {stats.components}
+            components.
           </p>
           <p>
-            Three pieces: guides in the repo, checks that fail loudly, and a
-            plan in a file.
+            So the repo is the memory, the checks are the reviewer, and I make
+            the decisions. Instead of keeping every detail in my head, I lean on
+            tools and scripts and spend the attention on architecture.
           </p>
         </aside>
       </section>
@@ -1036,41 +882,24 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="AGENTS.md">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">How it was built: the memory</p>
-            <h2>The guides: <code>AGENTS.md</code></h2>
-            <div class="split">
-              <ul class="files">
-                {stats.guides.map((guide) => <li>
-                  <code>{guide}</code>
-                  {guide === "AGENTS.md" && " workflows, rules, every test"}
-                </li>)}
-              </ul>
-              <div class="stack">
-                <p class="big">
-                  A rule a check enforces is written once, in the check's error
-                  message. The guide keeps one line naming the check.
-                </p>
-                <pre
-                  class="term"
-                >Never write the em dash (U+2014) or the middle dot (U+00B7): `pnpm check-characters` fails on them</pre>
-                <p class="footnote">
-                  The guides are tested too: <code>instructions.test.ts</code>
-                  fails on a file, link or heading that doesn't exist.
-                </p>
-              </div>
-            </div>
+            <h2>Guides in the repo</h2>
+            <ul class="files">
+              {stats.guides.map((guide) => <li><code>{guide}</code></li>)}
+            </ul>
           </div>
         </div>
         <aside class="notes">
           <p>
-            14:45. The root guide points at {inWords(stats.guides.length - 1)}
+            14:45. The root AGENTS.md has the workflows, the rules and a line
+            for every test, and points at {inWords(stats.guides.length - 1)}
             area guides. They read like onboarding docs for a new contributor,
             because that's what every session is.
           </p>
           <p>
-            The key rule: a rule that a test enforces lives in the test's error
-            message. The guide only names the check, so the two can't drift
-            apart.
+            The key rule: a rule that a check enforces is written once, in the
+            check's error message. The guide keeps one line naming the check, so
+            the two can't drift apart. And the guides are tested too: a test
+            fails when one names a file, link or heading that doesn't exist.
           </p>
         </aside>
       </section>
@@ -1078,60 +907,31 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="Hooks">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">How it was built: guardrails</p>
             <h2>Catch it the moment it's made</h2>
-            <ol class="steps">
-              <li>
-                <strong>Session start</strong>
-                <span
-                  >Node from <code>.nvmrc</code>, <code>pnpm install</code>, the
-                  Playwright browser</span
-                >
-              </li>
-              <li>
-                <strong>After every edit</strong>
-                <span
-                  >characters, <code>oklch()</code> colors, declaration order,
-                  refuses edits to generated files</span
-                >
-              </li>
-              <li>
-                <strong>Before Claude stops</strong>
-                <span
-                  >oxfmt, oxlint, Stylelint, Knip and the ratchets on every
-                  changed file</span
-                >
-              </li>
-              <li>
-                <strong>Git hooks</strong>
-                <span
-                  >the same checks on staged files, commit message rules</span
-                >
-              </li>
-              <li>
-                <strong>CI</strong>
-                <span
-                  ><code>pnpm check</code>, e2e in three engines, real
-                  apps</span
-                >
-              </li>
+            <ol class="flow">
+              <li>Every edit</li>
+              <li>Before Claude stops</li>
+              <li>Commit</li>
+              <li>CI</li>
             </ol>
-            <p class="footnote">
-              Claude Code hooks in <code>.claude/settings.json</code>: exit code
-              2 hands the problems back, and the session isn't done until
-              they're fixed.
-            </p>
           </div>
         </div>
         <aside class="notes">
           <p>
-            15:45. Hooks run at every step. The post-edit hook checks the file
-            Claude just touched, in milliseconds.
+            15:45. Claude Code hooks in .claude/settings.json. Session start
+            installs Node from .nvmrc and the dependencies. After every edit:
+            forbidden characters, oklch colors, CSS declaration order, and it
+            refuses edits to generated files.
           </p>
           <p>
-            The stop hook is my favorite: Claude can't end a turn while the
-            files it changed fail formatting, lint or a ratchet. pnpm check is
-            still the gate, but most problems never get that far.
+            The stop hook is my favorite: oxfmt, oxlint, Stylelint, Knip and the
+            ratchets on every file the session changed. Exit code 2 hands the
+            problems back, so Claude can't end a turn until they're fixed.
+          </p>
+          <p>
+            Then the git hooks run the same checks on staged files and the
+            commit message rules, and CI runs pnpm check, e2e in three engines
+            and real apps. Most problems never get that far.
           </p>
         </aside>
       </section>
@@ -1139,29 +939,24 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="Error messages">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">How it was built: guardrails</p>
             <h2>Error messages are prompts</h2>
             <pre
               class="term"
-            >Card/CardActions.react.tsx is compiled from Card/CardActions.astro: undo this edit, edit Card/CardActions.astro and run pnpm build-components</pre>
-            <pre
-              class="term"
-            >Run pnpm build-components --explain &lt;code&gt; for what a [BC...] code refuses and how to fix it.</pre>
-            <pre
-              class="term"
-            >The checks found problems in the files this session changed. Fix them before you finish; pnpm check is still the gate.</pre>
-            <p class="big">Every failure says what to do next.</p>
+            >CardActions.react.tsx is compiled from CardActions.astro:
+undo this edit, edit CardActions.astro
+and run pnpm build-components</pre>
           </div>
         </div>
         <aside class="notes">
           <p>
-            17:00. Real messages from the hooks and the compiler. Each one is
-            written for the agent reading it: what's wrong, and the exact next
-            step.
+            17:00. A real message from the post-edit hook. It's written for the
+            agent reading it: what's wrong, and the exact next step.
           </p>
           <p>
-            That's why the rule lives in the message: it's the most read
-            documentation in the repo.
+            Every failure in the repo works like that. The compiler says "run
+            pnpm build-components --explain with this code", the stop hook says
+            "fix them before you finish". That's why the rule lives in the
+            message: it's the most read documentation in the repo.
           </p>
         </aside>
       </section>
@@ -1169,30 +964,27 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="Review agents">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">How it was built: review</p>
-            <h2>{stats.agents.length} review agents</h2>
-            <dl class="agents">
-              {stats.agents.map((agent) => <div>
-                <dt>{agent}</dt>
-                <dd>{agentNotes[agent] ?? ""}</dd>
-              </div>)}
-            </dl>
-            <p class="footnote">
-              They report, they never edit. <code>/audit</code> runs them on the
-              diff or sweeps an area, and merges the findings into
-              <code>TODO.md</code>.
-            </p>
+            <h2>
+              {capitalized(inWords(stats.agents.length))} reviewers that never
+              edit
+            </h2>
+            <ul class="names names-code">
+              {stats.agents.map((agent) => <li>{agent}</li>)}
+            </ul>
           </div>
         </div>
         <aside class="notes">
           <p>
-            17:45. Subagents in .claude/agents, each with a narrow job and a
-            checklist.
+            17:45. Subagents in .claude/agents, each with a narrow job: what axe
+            can't catch, the API docs against the props, the blog against the
+            CSS it explains, browser support, the changelog, the CSS, the
+            examples, framework idioms and parity.
           </p>
           <p>
             Read-only on purpose: a reviewer that fixes things hides what it
-            found. Every finding is verified against the current code and cites
-            files and lines.
+            found. /audit runs them on the diff or sweeps an area, verifies
+            every finding against the current code, and merges them into
+            TODO.md.
           </p>
         </aside>
       </section>
@@ -1200,51 +992,39 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="TODO.md">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">How it was built: the plan</p>
-            <h2>One item in <code>TODO.md</code></h2>
-            <div class="split split-wide">
-              <pre
-                class="term term-md"
-              ><span class="md-head">- [x] (3) Range: in Svelte and Vue, hydration takes the `aria-valuetext` off a slider ... (`range.js:12-30`)</span>
-  - <b>Summary:</b> A hydrated Svelte or Vue slider with labeled options is read as a number until it is first moved.
-  - <b>Recommended:</b> Fix with option A. One script then covers every framework and plain HTML.
-  - Fix: found by `tests/e2e/hydration.spec.ts` ...
+            <h2>Everything goes in <code>TODO.md</code></h2>
+            <pre
+              class="term term-md"
+            ><span class="md-head">- [x] (3) Range: hydration takes the aria-valuetext off a slider</span>
+  - <b>Summary:</b> A hydrated slider is read as a number until it moves.
+  - <b>Recommended:</b> Fix with option A.
   - <b>Options:</b>
-    - A (recommended): in `range.js`, also observe `aria-valuetext` ...
-    - B: leave the attribute out of the Svelte and Vue templates ...
-  - <b>Fixed:</b> option A. `range.js` also observes `aria-valuetext` ...</pre>
-              <ul class="legend">
-                <li>
-                  <strong>Severity</strong> 1 to 10, and every file cited with
-                  its lines
-                </li>
-                <li><strong>Summary</strong> the headline on the page</li>
-                <li><strong>Recommended</strong> the Accept button</li>
-                <li><strong>Options</strong> a radio group</li>
-                <li>
-                  <strong>Outcome</strong>
-                  {outcomes
-                    .map(({ count, outcome }) => `${outcome} ${format(count)}`)
-                    .join(", ")}
-                </li>
-              </ul>
-            </div>
-            <p class="footnote">
-              {format(stats.doneTodos)} items closed, {stats.openTodos} open,
-              {stats.answers} answers from me. <code>todo.test.ts</code> checks
-              the format.
-            </p>
+    - A (recommended): observe aria-valuetext in range.js
+    - B: leave the attribute out of the templates
+  - <b>Fixed:</b> option A.</pre>
+            <ul class="tiles tiles-three">
+              <li><strong>{format(stats.doneTodos)}</strong> closed</li>
+              <li><strong>{stats.openTodos}</strong> open</li>
+              <li><strong>{stats.answers}</strong> answers from me</li>
+            </ul>
           </div>
         </div>
         <aside class="notes">
           <p>
-            18:30. Everything goes in one Markdown file. This one was found by
-            the hydration test, came with two options and a recommendation, and
-            was fixed with option A.
+            18:30. One Markdown file for everything. Each item has a severity
+            from 1 to 10, every file cited with its lines, a one-sentence
+            summary, a recommended action, and options when there's more than
+            one way to fix it.
           </p>
           <p>
-            The structure is what lets a page render it, and a test checks it
-            like code.
+            This one was found by the hydration test, came with two options, and
+            was fixed with option A. Outcomes so far:
+            {listOf(
+              outcomes.map(
+                ({ count, outcome }) => `${format(count)} ${outcome}`,
+              ),
+            )}.
+            A test checks the format like code.
           </p>
         </aside>
       </section>
@@ -1252,51 +1032,42 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="The TODO loop">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">How it was built: the plan</p>
             <h2>The loop</h2>
-            <div class="split split-shot">
-              <ol class="loop">
-                <li>An audit, or I, add items to <code>TODO.md</code></li>
-                <li>
-                  I answer on <code>/dev/todo</code>: accept, pick an option,
-                  comment
-                </li>
-                <li>One button copies every answer for an agent</li>
-                <li>
-                  <code>/todo-answers</code> applies them, does the work, notes
-                  the outcome
-                </li>
-                <li>
-                  A note after my answer brings the item back as a follow-up
-                </li>
-              </ol>
-              <div class="shot shot-tall">
-                <iframe
-                  inert
-                  loading="lazy"
-                  src="/dev/todo/"
-                  tabindex="-1"
-                  title="The /dev/todo page"
-                ></iframe>
-              </div>
+            <ol class="flow flow-small">
+              <li>Audit</li>
+              <li>I answer</li>
+              <li>Copy</li>
+              <li>Agent applies</li>
+              <li>Follow-ups</li>
+            </ol>
+            <div class="shot shot-wide">
+              <iframe
+                inert
+                loading="lazy"
+                src="/dev/todo/"
+                tabindex="-1"
+                title="The /dev/todo page"
+              ></iframe>
             </div>
-            <p class="footnote">
-              Agents never edit the file by hand: <code>scripts/todo.mjs</code>
-              takes JSON in and out (<code>add</code>, <code>apply-answers</code
-              >, <code>list</code>, <code>resolve</code>, <code>sort</code>,
-              <code>triage</code>).
-            </p>
           </div>
         </div>
         <aside class="notes">
           <p>
-            19:30. The live page on the right. The agent does the digging and
-            comes with a proposal; I say yes, no or "not like that" in seconds
-            per item.
+            19:30. The live /dev/todo page. Each item shows its summary as the
+            headline and the recommendation with an Accept button; options
+            become a radio group, and there's a comment field.
           </p>
           <p>
-            The planning lives in the file, not in my head or in a chat that's
-            gone tomorrow, so any session picks up where the last one stopped.
+            I go through it, one button copies my answers, and /todo-answers
+            writes each answer under its item, does the work and notes the
+            outcome. An item with a note after my answer comes back as a
+            follow-up. Agents never edit the file by hand: scripts/todo.mjs
+            takes JSON in and out.
+          </p>
+          <p>
+            The agent does the digging; I say yes, no or "not like that" in
+            seconds. The plan lives in the file, so any session picks up where
+            the last one stopped.
           </p>
         </aside>
       </section>
@@ -1304,56 +1075,42 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="Release checklists">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">How it was built: the plan</p>
             <h2>The release has its own lists</h2>
             <div class="meters">
               <div>
-                <h3><code>/dev/checks</code></h3>
-                <p>What no test can see: real devices, screen readers, touch</p>
+                <p class="meter-name">Manual checks</p>
                 <span
                   class="meter"
                   style={`--ratio: ${stats.checks.ratio}`}
                 ></span>
                 <p class="meter-label">
-                  {stats.checks.done} of {stats.checks.total} done
+                  {stats.checks.done} / {stats.checks.total}
                 </p>
               </div>
               <div>
-                <h3><code>/dev/checklist</code></h3>
-                <p>The polish and launch work</p>
+                <p class="meter-name">Polish and launch</p>
                 <span
                   class="meter"
                   style={`--ratio: ${stats.checklist.ratio}`}
                 ></span>
                 <p class="meter-label">
-                  {stats.checklist.done} of {stats.checklist.total} done
-                </p>
-              </div>
-              <div>
-                <h3><code>/dev/tests</code></h3>
-                <p>
-                  {stats.stress} stress pages, each with every example theme and
-                  icon library
+                  {stats.checklist.done} / {stats.checklist.total}
                 </p>
               </div>
             </div>
-            <p class="footnote">
-              Same loop: I copy the page with my comments, the agent sets the
-              boxes, does the work and notes <code>Done:</code>,
-              <code>Fixed:</code>, <code>Started:</code> or
-              <code>Skipped.</code>
-            </p>
           </div>
         </div>
         <aside class="notes">
           <p>
-            20:45. The dev pages are built with OPUI, so I use my own library
-            every day.
+            20:45. /dev/checks holds what no test can see: real devices, screen
+            readers, touch. /dev/checklist holds the polish and launch work.
+            Same loop: I copy the page with my comments, the agent sets the
+            boxes, does the work and notes the outcome.
           </p>
           <p>
-            The manual checks are the human part of the release. Everything else
-            is on the polish checklist, with the same answer and outcome loop as
-            TODO.
+            Plus {stats.stress} stress pages, each opened with every example
+            theme and icon library. The dev pages are built with OPUI, so I use
+            my own library every day.
           </p>
         </aside>
       </section>
@@ -1361,55 +1118,38 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="The compiler">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">How it was built: one source</p>
             <h2>
               One Astro file, {inWords(PACKAGE_FRAMEWORK_IDS.length)} frameworks
             </h2>
-            <ol class="pipeline">
-              <li>
-                <strong>In</strong>
-                <span
-                  ><code>Button.astro</code>, <code>types.ts</code>,
-                  <code>types.astro.ts</code>, the model in
-                  <code>api.ts</code></span
-                >
-              </li>
-              <li>
-                <strong>Read</strong>
-                <span>one tree of elements, slots, conditions and loops</span>
-              </li>
-              <li>
-                <strong>Write</strong>
-                <span>{listOf(compiled.map(labelOf))}, and their types</span>
-              </li>
-            </ol>
-            <ul class="tiles tiles-three">
-              <li>
-                <strong>{stats.handWritten}</strong> of
-                {format(stats.compiledFiles)} framework files written by hand
-              </li>
-              <li>
-                <strong>{format(stats.compilerLines)}</strong> lines of compiler
-              </li>
-              <li><strong>{stats.codes}</strong> codes for what it refuses</li>
-            </ul>
-            <p class="footnote">
-              Two-way binding from the model: <code>bind:value</code> in Svelte,
-              <code>v-model</code> in Vue, <code>value</code> and
-              <code>onChange</code> in React, a signal in Solid.
+            <div class="compile">
+              <p class="compile-source"><code>Button.astro</code></p>
+              <span aria-hidden="true" class="compile-arrow">→</span>
+              <ul class="compile-targets">
+                {compiledTargets.map(({ Logo, label }) => <li>
+                  <Logo size={28} />
+                  {label}
+                </li>)}
+              </ul>
+            </div>
+            <p class="big">
+              {stats.handWritten} of {format(stats.compiledFiles)} files by hand
             </p>
           </div>
         </div>
         <aside class="notes">
           <p>
             21:30. {capitalized(inWords(PACKAGE_FRAMEWORK_IDS.length))} copies
-            of every component kept in sync by hand is busywork. So every
-            component is written once, in Astro, and a compiler writes the rest.
-            Examples work the same way.
+            of every component, kept in sync by hand, is busywork. So every
+            component is written once, in Astro, and a compiler of about
+            {format(Math.round(stats.compilerLines / 1000) * 1000)} lines writes
+            the {listOf(compiled.map(labelOf))} files and their types. Examples
+            work the same way.
           </p>
           <p>
-            A fix in the Astro file reaches every framework in one commit, and a
-            new component starts out in all of them.
+            Two-way binding comes from the model in api.ts: bind:value in
+            Svelte, v-model in Vue, value and onChange in React, a signal in
+            Solid. A fix in the Astro file reaches every framework in one
+            commit.
           </p>
         </aside>
       </section>
@@ -1417,50 +1157,27 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="Compiler output">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">How it was built: one source</p>
-            <h2>Same component, {inWords(compiled.length)} outputs</h2>
-            <table class="outputs">
-              <thead>
-                <tr>
-                  <th scope="col">CardActions</th>
-                  <th scope="col">Props</th>
-                  <th scope="col">Classes</th>
-                  <th scope="col">Attributes</th>
-                  <th scope="col">Children</th>
-                </tr>
-              </thead>
-              <tbody>
-                {outputs.map((output) => <tr>
-                  <th scope="row">
-                    {output.label}
-                    {output.note && <small>{output.note}</small>}
-                  </th>
-                  {output.cells.map((cell) => <td>
-                    {cell.startsWith("(") ? cell : <code>{cell}</code>}
-                  </td>)}
-                </tr>)}
-              </tbody>
-            </table>
-            <p class="footnote">
-              It refuses rather than guesses: anything outside its grammar fails
-              with one of {stats.codes} codes, and
-              <code>pnpm build-components --explain &lt;code&gt;</code> says how
-              to fix it.
-            </p>
+            <h2>One slot, {inWords(outputs.length)} idioms</h2>
+            <ul class="idioms">
+              {outputs.map((output) => <li>
+                <span>{output.label}</span>
+                <code>{output.cells[3]}</code>
+              </li>)}
+            </ul>
           </div>
         </div>
         <aside class="notes">
           <p>
-            22:45. CardActions, as the compiler writes it. Each output is what
-            someone fluent in that framework would write: a framework-idioms
-            reviewer checks exactly that.
+            22:45. The children of CardActions, as the compiler writes them.
+            Each output is what someone fluent in that framework would write;
+            the framework-idioms reviewer checks exactly that.
           </p>
           <p>
             It refuses rather than guesses: anything outside its grammar fails
-            with a code and an explanation. Then I either teach it the
-            construct, or write that file by hand and list it in a ledger with
-            the reason. {capitalized(inWords(stats.handWritten))} files are
-            left.
+            with one of {stats.codes} codes, and --explain says how to fix it.
+            Then I either teach it the construct, or write that file by hand and
+            list it in a ledger with the reason.
+            {capitalized(inWords(stats.handWritten))} files are left.
           </p>
         </aside>
       </section>
@@ -1468,61 +1185,41 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="Checks">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">How it was built: trust</p>
             <h2>Trust the checks, not the compiler</h2>
-            <div class="columns">
-              <div class="panel">
-                <h3>Node <small>{stats.unit} test files</small></h3>
-                <p>
-                  Every component with every prop value in every framework,
-                  compared with Astro. Every example too. Types, dev warnings,
-                  React context in StrictMode.
-                </p>
-              </div>
-              <div class="panel">
-                <h3>Browser <small>{stats.e2e} specs</small></h3>
-                <p>
-                  Same text, same accessibility tree, same form state after a
-                  reset. Hydration claims every element. Visual, axe, three
-                  engines.
-                </p>
-              </div>
-              <div class="panel">
-                <h3>Real apps</h3>
-                <p>
-                  {apps}. A reference app by hand in
-                  {inWords(stats.referenceApps)} frameworks. Fredahead, built on
-                  the prereleases.
-                </p>
-              </div>
-            </div>
-            <p class="footnote">{stats.workflows} CI workflows run them.</p>
+            <ul class="tiles tiles-three">
+              <li><strong>{stats.unit}</strong> unit test files</li>
+              <li><strong>{stats.e2e}</strong> browser specs</li>
+              <li><strong>{appCount}</strong> real apps</li>
+            </ul>
           </div>
         </div>
         <aside class="notes">
           <p>
-            23:30. The compiler isn't what I trust, the checks are. Contract and
-            parity tests compare markup across frameworks; the browser tests
-            compare what a person actually gets.
+            23:30. The contract test renders every component with every prop
+            value in every framework and compares the markup with Astro; the
+            parity test does the same for every example.
           </p>
           <p>
-            Fredahead is a real app I build on the prereleases; its friction log
-            feeds bugs back here.
+            In the browser, every example has to read the same, have the same
+            accessibility tree and hold the same form state after a reset, and
+            hydration has to claim every element. Plus visual and axe tests, in
+            three engines.
+          </p>
+          <p>
+            Then real apps: {apps}. A reference app by hand in
+            {inWords(stats.referenceApps)} frameworks. And Fredahead, an app I
+            build on the prereleases, whose friction log feeds bugs back here.
           </p>
         </aside>
       </section>
 
-      <section class="slide" aria-label="Ratchets">
+      <section class="slide slide-ratchets" aria-label="Ratchets">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">How it was built: no drift</p>
             <h2>Ledgers that only shrink</h2>
-            <div class="embed">
+            <div class="embed" style="--zoom: 1.3">
               <Ratchets />
             </div>
-            <p class="footnote">
-              {history.ledgerChanges} commits in 6.0 grew a ledger on purpose.
-            </p>
           </div>
         </div>
         <aside class="notes">
@@ -1532,8 +1229,10 @@ const agentNotes: Record<string, string> = {
             allowlists.
           </p>
           <p>
-            A ledger can shrink freely. Growing one takes a trailer in the
-            commit message, so it's always a decision, never an accident.
+            A ledger can shrink freely. The history job in CI fails when one
+            grows, unless a commit says Ledger-Change: intended. That happened
+            {history.ledgerChanges} times in 6.0: always a decision, never an
+            accident.
           </p>
         </aside>
       </section>
@@ -1541,39 +1240,25 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="Release safety nets">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">How it was built: no drift</p>
             <h2>You can't forget the changelog</h2>
-            <ul class="points">
-              <li>
-                A token, prop or class that disappears fails until a Breaking or
-                Removed entry names it (<code>released-tokens.json</code>,
-                <code>released-api.json</code>)
-              </li>
-              <li>
-                An Added or Changed entry needs a What's new note on the
-                component page, a Breaking one a section in
-                <code>MIGRATING.md</code>
-              </li>
-              <li>
-                Visual baselines only come from CI, and only the bot may commit
-                them
-              </li>
-              <li>
-                Stale generated files on a pull request: CI regenerates and
-                commits them
-              </li>
-            </ul>
+            <ol class="flow">
+              <li>Remove a prop</li>
+              <li>Tests fail</li>
+              <li>Until the changelog says so</li>
+            </ol>
           </div>
         </div>
         <aside class="notes">
           <p>
-            26:00. The release notes are tested like code. You can't remove a
-            prop without the changelog saying so, and you can't log a change
-            without the docs page showing it.
+            26:00. The release notes are tested like code. A token, prop or
+            class from the last release that disappears fails until a Breaking
+            or Removed entry names it.
           </p>
           <p>
-            Screenshots generated on a laptop never get committed: the history
-            job checks who committed every baseline.
+            An Added or Changed entry needs a What's new note on the component
+            page, and a Breaking one needs a section in the migration guide.
+            Visual baselines only come from CI, and only the bot may commit
+            them.
           </p>
         </aside>
       </section>
@@ -1581,44 +1266,25 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="Tests that delete code">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">How it was built: no drift</p>
             <h2>Tests that tell you to delete code</h2>
-            <dl class="features features-wide">
-              <div>
-                <dt>Engine bugs</dt>
-                <dd>"expected to fail but passed": remove the entry</dd>
-              </div>
-              <div>
-                <dt><code>tooling-bugs.test.ts</code></dt>
-                <dd>a dependency fixed the bug: remove the workaround</dd>
-              </div>
-              <div>
-                <dt><code>compat.test.ts</code></dt>
-                <dd>the feature is Baseline: remove the fallback</dd>
-              </div>
-              <div>
-                <dt>Known hydration and app problems</dt>
-                <dd>fail once they stop happening</dd>
-              </div>
-              <div>
-                <dt>Hand-written files</dt>
-                <dd>fail once the compiler would write the same</dd>
-              </div>
-            </dl>
-            <p class="big">
-              And every rule is fed a sample it must flag, since a broken rule
-              passes a clean repo too.
-            </p>
+            <ul class="tiles tiles-three tiles-words">
+              <li>The browser caught up</li>
+              <li>The dependency got fixed</li>
+              <li>The feature is Baseline</li>
+            </ul>
           </div>
         </div>
         <aside class="notes">
           <p>
-            26:45. Workarounds are debt with a timer. Each one has a test that
-            fails the day it's no longer needed.
+            26:45. Workarounds are debt with a timer. An engine bug fails with
+            "expected to fail but passed". The tooling-bugs test reproduces
+            every bug a workaround exists for, and fails when an update fixes
+            it. The compat test fails once a fallback's feature is Baseline. A
+            hand-written file fails once the compiler would write the same.
           </p>
           <p>
-            The last line is a lesson I learned the hard way: a check that never
-            fails looks exactly like a check that works.
+            And every rule is fed a sample it must flag, since a broken rule
+            passes a clean repo too.
           </p>
         </aside>
       </section>
@@ -1626,25 +1292,22 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="Who does what">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">How it was built</p>
             <h2>Who does what</h2>
-            <div class="columns columns-two">
-              <div class="panel">
+            <div class="sides">
+              <div>
                 <h3>Me</h3>
-                <ul class="points">
-                  <li>Architecture and direction</li>
-                  <li>New things, every detail: that's where the fun is</li>
-                  <li>Answers on <code>/dev/todo</code>, seconds per item</li>
-                  <li>Manual checks: devices, screen readers, touch</li>
+                <ul>
+                  <li>Direction</li>
+                  <li>New things</li>
+                  <li>Decisions</li>
                 </ul>
               </div>
-              <div class="panel">
+              <div>
                 <h3>Claude</h3>
-                <ul class="points">
-                  <li>The digging, and a proposal with options</li>
-                  <li>Fixes, ports, docs, changelog</li>
-                  <li>Audits with {stats.agents.length} reviewers</li>
-                  <li>Shrinking the ledgers</li>
+                <ul>
+                  <li>Digging</li>
+                  <li>Fixes and ports</li>
+                  <li>Audits</li>
                 </ul>
               </div>
             </div>
@@ -1652,12 +1315,15 @@ const agentNotes: Record<string, string> = {
         </div>
         <aside class="notes">
           <p>
-            27:30. The split that worked for me. Hardening and maintenance go to
-            the tools and the agents.
+            27:30. The split that worked for me. I own the architecture and the
+            direction, answer on /dev/todo in seconds per item, and do the
+            manual checks.
           </p>
           <p>
-            The exception is adding something new: there I micro-manage and
-            direct every detail, because that's the part I enjoy.
+            Claude does the digging and comes with options, the fixes, ports,
+            docs and changelog, the audits, and keeps the ledgers shrinking. The
+            exception is adding something new: there I micro-manage every
+            detail, because that's where the fun is.
           </p>
         </aside>
       </section>
@@ -1665,15 +1331,14 @@ const agentNotes: Record<string, string> = {
       <section class="slide" aria-label="Takeaways">
         <div class="stage">
           <div class="frame">
-            <p class="eyebrow">Takeaways</p>
             <h2>What I'd tell you</h2>
             <ol class="takeaways">
-              <li>Put the plan in a file, not a chat</li>
-              <li>Fail at the edit, not in review</li>
-              <li>Write a rule once: in the check's error message</li>
-              <li>Refuse rather than guess</li>
-              <li>Let ledgers only shrink</li>
-              <li>Spend your attention where the fun is</li>
+              <li>Plan in a file, not a chat</li>
+              <li>Fail at the edit</li>
+              <li>Rules live in checks</li>
+              <li>Refuse, don't guess</li>
+              <li>Ledgers only shrink</li>
+              <li>Keep the fun part</li>
             </ol>
           </div>
         </div>
@@ -1687,8 +1352,7 @@ const agentNotes: Record<string, string> = {
 
       <section class="slide" aria-label="Thanks">
         <div class="stage">
-          <div class="frame frame-title">
-            <p class="eyebrow">Thanks</p>
+          <div class="frame">
             <h2 class="huge">Questions?</h2>
             <ul class="links">
               <li><a href="/blog/release-6/">opui.dev/blog/release-6</a></li>
@@ -1912,7 +1576,7 @@ const agentNotes: Record<string, string> = {
     box-sizing: border-box;
     display: grid;
     font-size: 1.5rem;
-    gap: 0.8em;
+    gap: 1.2em;
     inline-size: 80rem;
     line-height: 1.35;
     overflow: hidden;
@@ -1937,7 +1601,7 @@ const agentNotes: Record<string, string> = {
     }
 
     h2 {
-      font-size: 2.2em;
+      font-size: 2.6em;
     }
 
     h3 {
@@ -1954,10 +1618,6 @@ const agentNotes: Record<string, string> = {
     }
   }
 
-  .frame-title {
-    gap: 1em;
-  }
-
   .eyebrow {
     color: var(--ui-primary-text);
     font-size: 0.8em;
@@ -1971,31 +1631,13 @@ const agentNotes: Record<string, string> = {
   }
 
   .lede {
-    font-size: 1.4em;
-    max-inline-size: 30ch;
-    text-wrap: balance;
+    font-size: 1.6em;
   }
 
   .byline {
     color: var(--ui-text-strong);
+    font-size: 1.1em;
     font-weight: var(--ui-font-weight-label);
-  }
-
-  .keys {
-    color: var(--ui-text-subtle);
-    font-size: 0.7em;
-
-    kbd {
-      border: var(--ui-border-width) solid var(--ui-border-color);
-      border-radius: var(--ui-radius-small);
-      font-family: var(--ui-font-family-code);
-      margin-inline: 0.6em 0.3em;
-      padding: 0.1em 0.4em;
-
-      &:first-child {
-        margin-inline-start: 0;
-      }
-    }
   }
 
   .logos,
@@ -2009,112 +1651,98 @@ const agentNotes: Record<string, string> = {
   }
 
   .links {
-    font-size: 1.3em;
+    font-size: 1.4em;
     gap: 0.4em 2em;
   }
 
-  .names li {
-    background-color: var(--ui-surface-tonal);
-    border-radius: var(--ui-radius-round);
-    color: var(--ui-text-strong);
-    font-weight: var(--ui-font-weight-emphasis);
-    padding: 0.3em 0.9em;
+  .names {
+    font-size: 1.1em;
+    gap: 0.6em;
+
+    li {
+      background-color: var(--ui-surface-tonal);
+      border-radius: var(--ui-radius-round);
+      color: var(--ui-text-strong);
+      font-weight: var(--ui-font-weight-emphasis);
+      padding: 0.35em 1em;
+    }
+  }
+
+  .names-code li {
+    font-family: var(--ui-font-family-code);
+  }
+
+  .frame .statement {
+    font-size: 4em;
   }
 
   .frame .huge {
-    font-size: 4em;
+    font-size: 4.5em;
   }
 
   .big {
     color: var(--ui-text-strong);
-    font-size: 1.3em;
-    line-height: 1.25;
-    text-wrap: balance;
+    font-family: var(--font-bricolage-grotesque), sans-serif;
+    font-size: 2em;
+    line-height: 1.15;
   }
 
   .kicker {
     color: var(--ui-primary-text);
     font-family: var(--font-bricolage-grotesque), sans-serif;
-    font-size: 2em;
+    font-size: 2.6em;
     font-weight: var(--ui-font-weight-heading);
   }
 
-  .footnote {
-    color: var(--ui-text-subtle);
-    font-size: 0.85em;
-    text-wrap: pretty;
-  }
-
   .quote {
-    border-inline-start: 0.25em solid var(--ui-primary);
     color: var(--ui-text-strong);
-    font-size: 1.25em;
-    font-style: italic;
-    margin: 0;
-    padding-inline-start: 0.8em;
-    text-wrap: pretty;
-
-    p {
-      margin: 0;
-    }
+    font-family: var(--font-bricolage-grotesque), sans-serif;
+    font-size: 2.6em;
+    font-weight: var(--ui-font-weight-label);
+    line-height: 1.1;
+    text-wrap: balance;
   }
 
-  .points {
+  .words {
     display: grid;
-    gap: 0.45em;
-    margin: 0;
-    padding-inline-start: 1.1em;
-
-    li::marker {
-      color: var(--ui-primary);
-    }
-  }
-
-  .columns {
-    display: grid;
-    gap: 1.2em;
+    gap: 1em;
     grid-template-columns: repeat(3, 1fr);
-  }
+    list-style: none;
+    padding: 0;
 
-  .columns-two {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .panel {
-    align-content: start;
-    background-color: var(--ui-surface-tonal);
-    border-radius: var(--ui-radius-large);
-    display: grid;
-    gap: 0.5em;
-    padding: 1em 1.2em;
-
-    p,
-    h3 {
-      margin: 0;
+    li {
+      background-color: var(--ui-surface-tonal);
+      border-radius: var(--ui-radius-large);
+      color: var(--ui-text-strong);
+      font-family: var(--font-bricolage-grotesque), sans-serif;
+      font-size: 1.5em;
+      font-weight: var(--ui-font-weight-label);
+      padding: 1.2em 1em;
+      text-align: center;
     }
+  }
 
-    small {
-      color: var(--ui-text-subtle);
+  .number {
+    color: var(--ui-primary-text);
+    font-family: var(--font-bricolage-grotesque), sans-serif;
+    font-size: 6em;
+    font-weight: var(--ui-font-weight-heading);
+    line-height: 1;
+
+    span {
+      color: var(--ui-text);
       font-family: var(--ui-font-family-body);
-      font-size: 0.7em;
+      font-size: 0.25em;
       font-weight: var(--ui-font-weight-body);
-      margin-inline-start: 0.4em;
     }
   }
 
-  .split {
-    align-items: center;
-    display: grid;
-    gap: 2em;
-    grid-template-columns: 1fr 1fr;
-  }
+  .number-small {
+    font-size: 3.5em;
 
-  .split-wide {
-    grid-template-columns: 3fr 2fr;
-  }
-
-  .split-shot {
-    grid-template-columns: 2fr 3fr;
+    span {
+      font-size: 0.4em;
+    }
   }
 
   .tiles {
@@ -2128,7 +1756,7 @@ const agentNotes: Record<string, string> = {
       background-color: var(--ui-surface-tonal);
       border-radius: var(--ui-radius-large);
       display: grid;
-      font-size: 0.85em;
+      font-size: 1.1em;
       gap: 0.2em;
       padding: 0.9em 1em;
     }
@@ -2136,7 +1764,7 @@ const agentNotes: Record<string, string> = {
     strong {
       color: var(--ui-primary-text);
       font-family: var(--font-bricolage-grotesque), sans-serif;
-      font-size: 2.6em;
+      font-size: 2.8em;
       font-variant-numeric: tabular-nums;
       line-height: 1;
     }
@@ -2146,76 +1774,72 @@ const agentNotes: Record<string, string> = {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  .callout-number {
-    background-color: var(--ui-surface-tonal);
-    border-radius: var(--ui-radius-large);
-    display: grid;
-    gap: 0.3em;
-    padding: 1.2em 1.4em;
-
-    strong {
-      color: var(--ui-primary-text);
-      font-family: var(--font-bricolage-grotesque), sans-serif;
-      font-size: 3.4em;
-      line-height: 1;
-    }
-
-    .small {
-      font-size: 2em;
-      margin-block-start: 0.4em;
-    }
+  .tiles-words li {
+    align-content: center;
+    color: var(--ui-text-strong);
+    font-family: var(--font-bricolage-grotesque), sans-serif;
+    font-size: 1.5em;
+    font-weight: var(--ui-font-weight-label);
+    line-height: 1.15;
+    min-block-size: 5em;
+    text-align: center;
   }
 
-  .features,
-  .agents {
+  .flow {
     display: grid;
-    gap: 0.5em 2em;
-    grid-template-columns: repeat(2, 1fr);
-    margin: 0;
+    gap: 1.6em;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
+    list-style: none;
+    padding: 0;
 
-    div {
-      border-block-start: var(--ui-border-width) solid var(--ui-border-color);
-      padding-block-start: 0.4em;
-    }
-
-    dt {
+    li {
+      align-content: center;
+      background-color: var(--ui-surface-tonal);
+      border-radius: var(--ui-radius-large);
       color: var(--ui-text-strong);
-      font-weight: var(--ui-font-weight-label);
-    }
-
-    dd {
-      color: var(--ui-text);
-      margin: 0;
-    }
-  }
-
-  .features-wide {
-    grid-template-columns: 1fr;
-
-    div {
       display: grid;
-      gap: 1em;
-      grid-template-columns: 2fr 3fr;
+      font-family: var(--font-bricolage-grotesque), sans-serif;
+      font-size: 1.4em;
+      font-weight: var(--ui-font-weight-label);
+      line-height: 1.15;
+      min-block-size: 5em;
+      padding: 0.8em;
+      position: relative;
+      text-align: center;
+
+      &:not(:last-child)::after {
+        color: var(--ui-primary);
+        content: "→";
+        inset-block-start: 50%;
+        inset-inline-end: -1.05em;
+        position: absolute;
+        translate: 0 -50%;
+      }
     }
   }
 
-  .agents {
-    grid-template-columns: repeat(3, 1fr);
+  .flow-small {
+    gap: 1.4em;
 
-    dt {
-      font-family: var(--ui-font-family-code);
+    li {
+      font-size: 1em;
+      min-block-size: 0;
+      padding: 0.5em;
     }
   }
 
   .files {
     display: grid;
-    gap: 0.5em;
+    font-size: 1.3em;
+    gap: 0.6em;
     list-style: none;
     padding: 0;
 
     li {
       border-inline-start: 0.2em solid var(--ui-primary);
-      padding-inline-start: 0.6em;
+      color: var(--ui-text-strong);
+      padding-inline-start: 0.7em;
     }
   }
 
@@ -2224,15 +1848,15 @@ const agentNotes: Record<string, string> = {
     border-radius: var(--ui-radius);
     color: var(--ui-code-block-text-color);
     font-family: var(--ui-font-family-code);
-    font-size: 0.75em;
-    line-height: 1.45;
+    font-size: 1.1em;
+    line-height: 1.5;
     margin: 0;
-    padding: 0.8em 1em;
+    padding: 1em 1.2em;
     white-space: pre-wrap;
   }
 
   .term-md {
-    font-size: 0.6em;
+    font-size: 0.8em;
 
     b {
       color: oklch(from var(--ui-primary) 0.82 0.12 h);
@@ -2243,142 +1867,28 @@ const agentNotes: Record<string, string> = {
     font-weight: var(--ui-font-weight-heading);
   }
 
-  .legend {
-    display: grid;
-    font-size: 0.9em;
-    gap: 0.5em;
-    list-style: none;
-    padding: 0;
-
-    strong {
-      color: var(--ui-primary-text);
-      display: block;
-    }
-  }
-
-  .steps,
-  .pipeline {
-    counter-reset: step;
-    display: grid;
-    gap: 0.8em;
-    grid-auto-columns: 1fr;
-    grid-auto-flow: column;
-    list-style: none;
-    padding: 0;
-
-    li {
-      background-color: var(--ui-surface-tonal);
-      border-radius: var(--ui-radius-large);
-      counter-increment: step;
-      display: grid;
-      font-size: 0.85em;
-      gap: 0.4em;
-      grid-template-rows: auto 1fr;
-      padding: 1em;
-      position: relative;
-
-      &:not(:last-child)::after {
-        color: var(--ui-primary);
-        content: "→";
-        inset-block-start: 50%;
-        inset-inline-end: -0.85em;
-        position: absolute;
-        translate: 0 -50%;
-        z-index: 1;
-      }
-    }
-
-    strong {
-      color: var(--ui-text-strong);
-      font-size: 1.15em;
-
-      &::before {
-        color: var(--ui-primary-text);
-        content: counter(step) ". ";
-      }
-    }
-  }
-
-  .pipeline li {
-    font-size: 1em;
-  }
-
-  .loop {
-    counter-reset: step;
-    display: grid;
-    gap: 0.6em;
-    list-style: none;
-    padding: 0;
-
-    li {
-      counter-increment: step;
-      padding-inline-start: 2.2em;
-      position: relative;
-
-      &::before {
-        background-color: var(--ui-primary);
-        border-radius: var(--ui-radius-round);
-        color: var(--ui-palette-on-strong);
-        content: counter(step);
-        font-size: 0.8em;
-        font-weight: var(--ui-font-weight-heading);
-        inline-size: 1.8em;
-        inset-block-start: 0;
-        inset-inline-start: 0;
-        line-height: 1.8em;
-        position: absolute;
-        text-align: center;
-      }
-    }
-  }
-
-  .takeaways {
-    counter-reset: step;
-    display: grid;
-    gap: 0.5em 2em;
-    grid-template-columns: repeat(2, 1fr);
-    list-style: none;
-    padding: 0;
-
-    li {
-      color: var(--ui-text-strong);
-      counter-increment: step;
-      font-family: var(--font-bricolage-grotesque), sans-serif;
-      font-size: 1.4em;
-      font-weight: var(--ui-font-weight-label);
-      line-height: 1.15;
-
-      &::before {
-        color: var(--ui-primary-text);
-        content: counter(step) ". ";
-      }
-    }
-  }
-
   .meters {
     display: grid;
-    gap: 0.3em 1.5em;
-    grid-template-columns: repeat(3, 1fr);
+    gap: 3em;
+    grid-template-columns: repeat(2, 1fr);
 
-    > div {
-      align-content: start;
-      display: grid;
-      grid-row: span 4;
-      grid-template-rows: subgrid;
+    p {
+      margin: 0;
     }
+  }
 
-    p,
-    h3 {
-      margin: 0 0 0.4em;
-    }
+  .meter-name {
+    color: var(--ui-text-strong);
+    font-size: 1.4em;
+    font-weight: var(--ui-font-weight-label);
   }
 
   .meter {
     background-color: var(--ui-surface-tonal);
-    block-size: 0.6em;
+    block-size: 1em;
     border-radius: var(--ui-radius-round);
     display: block;
-    margin-block: 0.8em 0.3em;
+    margin-block: 0.8em 0.4em;
     overflow: hidden;
 
     &::before {
@@ -2391,8 +1901,124 @@ const agentNotes: Record<string, string> = {
   }
 
   .meter-label {
+    color: var(--ui-primary-text);
+    font-family: var(--font-bricolage-grotesque), sans-serif;
+    font-size: 2.4em;
+    font-variant-numeric: tabular-nums;
+    font-weight: var(--ui-font-weight-heading);
+  }
+
+  .compile {
+    align-items: center;
+    display: grid;
+    gap: 1.5em;
+    grid-template-columns: auto auto 1fr;
+  }
+
+  .compile-source code {
+    background-color: var(--ui-surface-tonal);
+    border-radius: var(--ui-radius-large);
     color: var(--ui-text-strong);
-    font-weight: var(--ui-font-weight-label);
+    display: block;
+    font-size: 1.4em;
+    padding: 1em 1.2em;
+  }
+
+  .compile-arrow {
+    color: var(--ui-primary);
+    font-size: 3em;
+  }
+
+  .compile-targets {
+    display: grid;
+    gap: 0.5em 2em;
+    grid-template-columns: repeat(2, max-content);
+    list-style: none;
+    padding: 0;
+
+    li {
+      align-items: center;
+      color: var(--ui-text-strong);
+      display: flex;
+      font-size: 1.3em;
+      font-weight: var(--ui-font-weight-label);
+      gap: 0.5em;
+    }
+  }
+
+  .idioms {
+    display: grid;
+    gap: 0.8em;
+    grid-template-columns: repeat(3, 1fr);
+    list-style: none;
+    padding: 0;
+
+    li {
+      background-color: var(--ui-surface-tonal);
+      border-radius: var(--ui-radius-large);
+      display: grid;
+      gap: 0.4em;
+      padding: 0.9em 1em;
+    }
+
+    span {
+      color: var(--ui-text-subtle);
+      font-size: 0.85em;
+      font-weight: var(--ui-font-weight-label);
+    }
+
+    code {
+      color: var(--ui-text-strong);
+      font-size: 1.1em;
+    }
+  }
+
+  .sides {
+    display: grid;
+    gap: 2em;
+    grid-template-columns: repeat(2, 1fr);
+
+    > div {
+      background-color: var(--ui-surface-tonal);
+      border-radius: var(--ui-radius-large);
+      padding: 1.2em 1.5em;
+    }
+
+    h3 {
+      font-size: 1.8em;
+    }
+
+    ul {
+      display: grid;
+      font-size: 1.4em;
+      gap: 0.3em;
+      list-style: none;
+      margin: 0.6em 0 0;
+      padding: 0;
+    }
+  }
+
+  .takeaways {
+    counter-reset: step;
+    display: grid;
+    gap: 0.7em 2em;
+    grid-template-columns: repeat(2, 1fr);
+    list-style: none;
+    padding: 0;
+
+    li {
+      color: var(--ui-text-strong);
+      counter-increment: step;
+      font-family: var(--font-bricolage-grotesque), sans-serif;
+      font-size: 1.7em;
+      font-weight: var(--ui-font-weight-label);
+      line-height: 1.15;
+
+      &::before {
+        color: var(--ui-primary-text);
+        content: counter(step) ". ";
+      }
+    }
   }
 
   .embed {
@@ -2401,44 +2027,15 @@ const agentNotes: Record<string, string> = {
     zoom: var(--zoom, 1);
   }
 
-  .stack {
-    display: grid;
-    gap: 0.8em;
+  .token-tiers > figcaption {
+    display: none;
   }
 
-  .outputs {
-    border-collapse: collapse;
-    font-size: 0.7em;
-    inline-size: 100%;
-
-    th,
-    td {
-      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
-      padding: 0.55em 0.8em 0.55em 0;
-      text-align: start;
-      vertical-align: top;
-    }
-
-    thead th {
-      color: var(--ui-text-subtle);
-      font-size: 0.85em;
-      font-weight: var(--ui-font-weight-label);
-    }
-
-    tbody th {
-      color: var(--ui-text-strong);
-      white-space: nowrap;
-    }
-
-    small {
-      color: var(--ui-text-subtle);
-      display: block;
-      font-size: 0.8em;
-      font-weight: var(--ui-font-weight-body);
-    }
-
-    code {
-      font-size: 0.9em;
+  .slide-ratchets {
+    .ratchets-ci,
+    .ratchets-file,
+    .ratchets-holds {
+      display: none;
     }
   }
 
@@ -2451,7 +2048,7 @@ const agentNotes: Record<string, string> = {
 
     p {
       color: var(--ui-text-strong);
-      font-size: 0.8em;
+      font-size: 0.9em;
       font-weight: var(--ui-font-weight-label);
       margin: 0.3em 0 0;
     }
@@ -2477,12 +2074,8 @@ const agentNotes: Record<string, string> = {
     }
   }
 
-  .shot-tall {
-    aspect-ratio: 16 / 11;
-
-    iframe {
-      block-size: 960px;
-    }
+  .shot-wide {
+    aspect-ratio: 16 / 7;
   }
 
   .chart {
@@ -2577,15 +2170,24 @@ const agentNotes: Record<string, string> = {
   }
 
   .chart figcaption {
-    color: var(--ui-text-subtle);
-    font-size: 0.8em;
+    font-size: 0.9em;
     margin-block-start: 1em;
   }
 
   .cycle-label {
+    align-items: center;
     color: var(--ui-primary-text);
+    display: inline-flex;
     font-weight: var(--ui-font-weight-label);
-    margin-inline-end: 1em;
+    gap: 0.4em;
+
+    &::before {
+      background-color: var(--ui-primary);
+      block-size: 0.8em;
+      border-radius: 2px;
+      content: "";
+      inline-size: 0.8em;
+    }
   }
 
   .deck-progress {

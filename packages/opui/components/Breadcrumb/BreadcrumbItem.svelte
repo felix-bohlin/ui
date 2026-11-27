@@ -23,12 +23,7 @@
       {@render separator()}
     </span>
   {/if}
-  <svelte:element
-    this={Tag}
-    aria-current={current ? "page" : undefined}
-    {...classAttrs([href && "ui-link"])}
-    {href}
-  >
+  <svelte:element this={Tag} aria-current={current ? "page" : undefined} {href}>
     {label}{@render children?.()}
   </svelte:element>
 </li>

@@ -1,12 +1,28 @@
 ---
 import type { Props } from "./types.astro"
-import { cx } from "../cx"
+import Button from "../Button/Button.astro"
+import Menu from "../Menu/Menu.astro"
+import { createId } from "../id"
+import { collapsedLevels } from "./collapsed"
 
 export const title = "Breadcrumb"
 
-const { class: className, items, overflow, size, ...rest } = Astro.props
+const idOf = createId(Astro.locals)
+const {
+  class: className,
+  items,
+  menuLabel,
+  overflow,
+  size,
+  ...rest
+} = Astro.props
 
 const lastIndex = items ? items.length - 1 : -1
+const collapsed = overflow === "menu" && items ? collapsedLevels(items) : []
+const collapsing = collapsed.length > 0
+const menuId = idOf("breadcrumb-menu")
+const head = collapsing ? items?.slice(0, 1) : items
+const tail = collapsing ? items?.slice(1) : undefined
 ---
 
 <nav
@@ -19,7 +35,7 @@ const lastIndex = items ? items.length - 1 : -1
   {...rest}
 >
   <ol>
-    {items?.map(({ current, href, label }, index) => {
+    {head?.map(({ current, href, label }, index) => {
       const ItemTag = href ? "a" : "span"
       return <li>
         {index > 0 && Astro.slots.has("separator") && <span
@@ -29,9 +45,41 @@ const lastIndex = items ? items.length - 1 : -1
         /></span>}
         <ItemTag
           aria-current={(current ?? index === lastIndex) ? "page" : undefined}
-          class={cx([href && "ui-link"])}
           href={href}
           >{label}</ItemTag
+        >
+      </li>
+    })}
+    {collapsing && <li>
+      {Astro.slots.has("separator") && <span
+        aria-hidden="true"
+        class="ui-separator"
+        ><slot name="separator"
+      /></span>}
+      <Button
+        aria-label={menuLabel}
+        command="toggle-popover"
+        commandfor={menuId}
+        round
+        size="x-small"
+        >…</Button
+      >
+      <Menu id={menuId} items={collapsed} />
+    </li>}
+    {tail?.map(({ current, href, label }, index) => {
+      const TailTag = href ? "a" : "span"
+      return <li>
+        {Astro.slots.has("separator") && <span
+          aria-hidden="true"
+          class="ui-separator"
+          ><slot name="separator"
+        /></span>}
+        <TailTag
+          aria-current={
+            (current ?? index === lastIndex - 1) ? "page" : undefined
+          }
+          href={href}
+          >{label}</TailTag
         >
       </li>
     })}

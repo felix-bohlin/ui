@@ -2,17 +2,17 @@
   {%- set props = props | opuiProps("BreadcrumbItem") -%}
   {%- set rest = props | opuiRest("BreadcrumbItem") -%}
   {%- set tag = "a" if props.href else "span" -%}
-  {%- set classes = [props.href and "ui-link"] | opuiClass -%}
   <li
     {%- if props.class %} class="{{ props.class }}"{% endif %}
     {{- rest | opuiAttributes }}>
     {%- if props.slots.separator != none -%}
       <span aria-hidden="true" class="ui-separator">{{ props.slots.separator | safe }}</span>
     {%- endif %}
-    <{{ tag | opuiTag }}{{ {
-      "aria-current": "page" if props.current else none,
-      class: classes,
-      href: props.href
-    } | opuiAttributes(tag) }}>{{ props.label }}{{ caller() if caller }}</{{ tag | opuiTag }}>
+    <{{ tag | opuiTag }}
+      {{- {
+        "aria-current": "page" if props.current else none,
+        href: props.href
+      } | opuiAttributes(tag) }}>
+      {{- props.label }}{{ caller() if caller }}</{{ tag | opuiTag }}>
   </li>
 {%- endmacro %}

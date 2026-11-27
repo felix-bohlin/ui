@@ -2,7 +2,6 @@
 import { dynamic } from "@solidjs/web"
 import { children, omit } from "solid-js"
 import { filled } from "../attrs"
-import { cx } from "../cx"
 import type { BreadcrumbItemProps as Props } from "./types.solid"
 
 export default function BreadcrumbItem(props: Props) {
@@ -27,11 +26,7 @@ export default function BreadcrumbItem(props: Props) {
           {resolvedSeparator()}
         </span>
       )}{" "}
-      <Tag
-        aria-current={tagCurrent()}
-        class={cx([props.href && "ui-link"])}
-        href={props.href}
-      >
+      <Tag aria-current={tagCurrent()} href={props.href}>
         {props.label}
         {props.children}
       </Tag>

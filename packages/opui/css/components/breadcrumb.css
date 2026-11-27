@@ -1,10 +1,17 @@
 @layer components.root {
   :where(.ui-breadcrumb) {
+    --_motion: var(--ui-motion);
+    --_current-font-weight: var(--ui-font-weight-emphasis);
     --_current-text-color: var(--ui-text-strong);
+    --_duration: calc(var(--ui-duration) * var(--_motion));
+    --_ease: var(--ui-ease);
     --_font-size: var(--ui-font-size-body);
+    --_font-weight: var(--ui-font-weight-body);
     --_gap: var(--ui-space-2);
+    --_hover-text-color: var(--ui-text-strong);
     --_separator: "/";
     --_separator-text-color: var(--ui-text-subtle);
+    --_text-color: var(--ui-text-subtle);
 
     & > ol {
       align-items: center;
@@ -18,7 +25,9 @@
 
       & > li {
         align-items: center;
+        color: var(--_text-color);
         display: flex;
+        font-weight: var(--_font-weight);
         gap: var(--_gap);
 
         & + li::before {
@@ -52,10 +61,40 @@
           }
         }
 
+        & > a[href] {
+          text-decoration-line: none;
+          text-underline-offset: var(--ui-underline-offset);
+          transition: color var(--_duration) var(--_ease);
+
+          &:not([aria-current="page"]) {
+            color: inherit;
+            font-weight: inherit;
+          }
+
+          @media (hover: hover) {
+            &:hover {
+              color: var(--_hover-text-color);
+              text-decoration-line: underline;
+            }
+          }
+
+          &:focus-visible {
+            color: var(--_hover-text-color);
+            text-decoration-line: underline;
+          }
+        }
+
         & > [aria-current="page"] {
           color: var(--_current-text-color);
-          font-weight: var(--ui-font-weight-medium);
-          text-decoration-line: none;
+          font-weight: var(--_current-font-weight);
+        }
+
+        &:has(> .ui-menu) {
+          --ui-button-accent: var(--_text-color);
+
+          & > .ui-button {
+            margin: calc(-1 * var(--ui-space-1));
+          }
         }
       }
     }
@@ -63,6 +102,17 @@
     &.ui-small {
       --_font-size: var(--ui-font-size-caption);
       --_gap: var(--ui-space-1);
+    }
+
+    &.ui-overflow-menu > ol {
+      & > li:has(> .ui-menu):not(:nth-last-child(n + 4)) {
+        display: none;
+      }
+
+      &:has(> li > .ui-menu)
+        > li:not(:first-child, :has(> .ui-menu)):nth-last-child(n + 3) {
+        display: none;
+      }
     }
 
     &.ui-overflow-scroll > ol {

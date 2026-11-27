@@ -20,11 +20,7 @@ export default function BreadcrumbItem({
           {separator}
         </span>
       )}{" "}
-      <Tag
-        aria-current={current ? "page" : undefined}
-        className={cx([href && "ui-link"])}
-        href={href}
-      >
+      <Tag aria-current={current ? "page" : undefined} href={href}>
         {label}
         {children}
       </Tag>

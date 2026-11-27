@@ -11,10 +11,25 @@ export type BreadcrumbItemData = {
 }
 
 export type Props = {
-  items?: BreadcrumbItemData[]
-  overflow?: "scroll" | "shrink" | "wrap"
   size?: "small" | "medium"
-} & ({ "aria-label": string } | { "aria-labelledby": string })
+} & ({ "aria-label": string } | { "aria-labelledby": string }) &
+  (
+    | {
+        items: BreadcrumbItemData[]
+        menuLabel: string
+        overflow: "menu"
+      }
+    | {
+        items?: never
+        menuLabel?: never
+        overflow: "menu"
+      }
+    | {
+        items?: BreadcrumbItemData[]
+        menuLabel?: never
+        overflow?: "scroll" | "shrink" | "wrap"
+      }
+  )
 
 export type Slots<S> = {
   separator?: S

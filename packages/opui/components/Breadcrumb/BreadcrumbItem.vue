@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from "vue"
-import { classAttrs } from "../cx"
 import type {
   BreadcrumbItemProps as Props,
   BreadcrumbItemSlots,
@@ -20,7 +19,6 @@ const Tag = computed(() => (href ? "a" : "span"))
     }}<component
       :is="Tag"
       :aria-current="current ? 'page' : undefined"
-      v-bind="classAttrs([href && 'ui-link'])"
       :href="href"
       >{{ label }}<slot></slot
     ></component>

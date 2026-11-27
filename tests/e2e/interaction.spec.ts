@@ -168,6 +168,63 @@ interaction(
 )
 
 interaction(
+  "breadcrumb",
+  "OverflowMenu",
+  "breadcrumb overflow menu collapses the middle levels into a menu",
+  async ({ root }) => {
+    const long = root.getByRole("navigation", { name: "Fog Five breadcrumb" })
+    const trail = long.locator(":scope > ol > li > :is(a, span)")
+    await expect(trail).toHaveText([
+      "Marketplace",
+      "Basses",
+      "Five-string",
+      "Fretless",
+      "Fog Five",
+    ])
+    const visible = await trail.evaluateAll((levels) =>
+      levels.flatMap((level) =>
+        level.checkVisibility() ? [level.textContent] : [],
+      ),
+    )
+    expect(visible).toEqual(["Marketplace", "Fretless", "Fog Five"])
+
+    const button = long.getByRole("button", { name: "More levels" })
+    const menu = long.locator(".ui-menu")
+    await expect(button).toBeVisible()
+    await expect(menu).toBeHidden()
+    await button.click()
+    await expect(menu).toBeVisible()
+    await expect(menu.getByRole("link")).toHaveText(["Basses", "Five-string"])
+    await button.click()
+    await expect(menu).toBeHidden()
+
+    const short = root.getByRole("navigation", { name: "Jam night breadcrumb" })
+    await expect(short.getByRole("button")).toHaveCount(0)
+    await expect(short.getByRole("link")).toHaveText([
+      "Groups",
+      "Low End Society",
+    ])
+    await expect(short.getByRole("link").first()).toBeVisible()
+    await expect(short.getByRole("link").last()).toBeVisible()
+  },
+)
+
+interaction(
+  "breadcrumb",
+  "OverflowMenuParts",
+  "breadcrumb overflow menu hides the levels a hand-written menu item holds",
+  async ({ root }) => {
+    const nav = root.getByRole("navigation", { name: "Tour breadcrumb" })
+    await expect(nav.getByRole("link")).toHaveText(["Groups", "Spring tour"])
+    await nav.getByRole("button", { name: "More levels" }).click()
+    await expect(nav.locator(".ui-menu").getByRole("link")).toHaveText([
+      "Low End Society",
+      "Events",
+    ])
+  },
+)
+
+interaction(
   "checkbox",
   "FieldGroupBinding",
   "checkbox group binds the checked values",

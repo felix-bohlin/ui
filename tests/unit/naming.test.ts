@@ -41,7 +41,10 @@ const vocabulary: Record<string, { group: string; values: string[] }> = {
     group: "Orientation",
     values: ["auto", "horizontal", "vertical"],
   },
-  overflow: { group: "Overflow", values: ["scroll", "shrink", "wrap"] },
+  overflow: {
+    group: "Overflow",
+    values: ["menu", "scroll", "shrink", "wrap"],
+  },
   severity: {
     group: "Severities",
     values: ["critical", "info", "neutral", "success", "warning"],

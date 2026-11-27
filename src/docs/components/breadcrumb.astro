@@ -32,7 +32,9 @@ export const keywords = ["crumbs", "navigation path", "trail"]
     "alt-text-generated-content",
     "dir-pseudo",
     "has",
+    "invoker-commands",
     "logical-properties",
+    "popover",
     "scrollbar-width",
   ]}
   installationTabs={[
@@ -74,8 +76,11 @@ export const keywords = ["crumbs", "navigation path", "trail"]
         items={[
           { href: "#basics", label: "Groups" },
           { href: "#basics", label: "Low End Society" },
+          { href: "#basics", label: "Events" },
           { label: "Friday jam night" },
         ]}
+        menuLabel="More levels"
+        overflow="menu"
       >
         <svg
           slot="separator"
@@ -160,12 +165,50 @@ export const keywords = ["crumbs", "navigation path", "trail"]
     <p>
       A long trail wraps. Use
       <PropOrClass prop='overflow="scroll"' class=".ui-overflow-scroll" /> to
-      scroll it in one row, or
+      scroll it in one row,
       <PropOrClass prop='overflow="shrink"' class=".ui-overflow-shrink" /> to
-      truncate every level but the first and the current one.
+      truncate every level but the first and the current one, or
+      <PropOrClass prop='overflow="menu"' class=".ui-overflow-menu" /> to
+      collapse the middle levels into a menu.
     </p>
 
     <AutoExample name="Overflow" />
+
+    <h3 id="overflow-menu">Collapsed levels in a menu</h3>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >With <code>items</code>, use <code>overflow="menu"</code> to keep the
+        first level, the parent and the current page in view and collapse the
+        levels between them into a menu behind a <code>…</code> button. Name the
+        button with <code>menuLabel</code>, in the page's language. A trail of
+        three levels or fewer looks the same as without it.</Fragment
+      >
+      <Fragment slot="html"
+        >Use <code>.ui-overflow-menu</code> to keep the first level, the parent
+        and the current page in view and hide the levels between them. Put an
+        <code>li</code> second in the list with a <code>.ui-button</code> that
+        opens a <code>.ui-menu</code> of the hidden levels, and name the button
+        with <code>aria-label</code>. The item shows when there are more than
+        three levels, so a short trail looks the same as without it.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="OverflowMenu" />
+
+    <Conditional as="p">
+      <Fragment slot="components"
+        >With <code>BreadcrumbItem</code> parts, keep every level and write the
+        menu item yourself as the second child: an <code>li</code> with a
+        <code>Button</code> that opens a <code>Menu</code> of the levels between
+        the first and the parent. <code>.ui-overflow-menu</code> hides those
+        levels and shows the item when there are more than three.</Fragment
+      >
+      <Fragment slot="html"
+        >The same markup, written by hand with its own menu id.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="OverflowMenuParts" />
   </section>
 
   <section id="items">
@@ -197,6 +240,13 @@ export const keywords = ["crumbs", "navigation path", "trail"]
         A current page without a link is no tab stop, and
         <code>aria-current="page"</code> names it as the current page.
       </li>
+      <li>
+        The <code>…</code> button of
+        <PropOrClass prop='overflow="menu"' class=".ui-overflow-menu" /> has no
+        visible text, so give it a name like "More levels", with
+        <PropOrClass prop="menuLabel" class="aria-label" />. The hidden levels
+        leave the accessibility tree and are read in the menu instead.
+      </li>
     </ul>
     <KeyboardSupport />
   </Fragment>
@@ -216,6 +266,14 @@ export const keywords = ["crumbs", "navigation path", "trail"]
       <code>li</code> but the first and the one with
       <code>[aria-current="page"]</code> shrink, with
       <code>text-overflow: ellipsis</code> on its text.
+    </p>
+    <p>
+      <code>.ui-overflow-menu</code> finds the item that holds the menu with
+      <code>li:has(&gt; .ui-menu)</code>. When the list has one, it hides every
+      other <code>li</code> but the first and the last two with
+      <code>:nth-last-child(n + 3)</code>, and it hides the menu item itself
+      until it has three levels after it, with
+      <code>:not(:nth-last-child(n + 4))</code>.
     </p>
   </Fragment>
 </Component>

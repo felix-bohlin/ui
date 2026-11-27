@@ -7,7 +7,7 @@ export default {
       attribute: '[aria-current="page"]',
       default: "false",
       description:
-        "Marks the current page, in the text color and without an underline.",
+        "Marks the current page, in the strong text color at medium weight.",
       group: "Current",
       prop: "current",
     },
@@ -33,7 +33,8 @@ export default {
     },
     {
       code: "<a>",
-      description: "The level, as a link with `.ui-link`, or a `span`.",
+      description:
+        "The level, as a link in the subtle text color that underlines on hover and focus, or a `span`.",
       props: ["current", "href", "label"],
       selector: "a, span:not(.ui-separator)",
     },

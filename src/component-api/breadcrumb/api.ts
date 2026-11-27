@@ -5,7 +5,7 @@ export default {
   keyboard: [
     {
       description:
-        "Moves focus to the next link. A current page without `href` is no stop.",
+        'Moves focus to the next link. A current page without `href` is no stop. With `overflow="menu"`, the `…` button is a stop, and from it Tab moves into its open menu.',
       keys: ["Tab"],
     },
     {
@@ -13,8 +13,17 @@ export default {
       keys: ["Shift + Tab"],
     },
     {
-      description: "Follows the focused link.",
+      description:
+        "Follows the focused link. On the `…` button, opens or closes the menu of collapsed levels.",
       keys: ["Enter"],
+    },
+    {
+      description: "On the `…` button, works like Enter.",
+      keys: ["Space"],
+    },
+    {
+      description: "Closes the open menu and returns focus to the `…` button.",
+      keys: ["Esc"],
     },
   ],
   notes: {
@@ -44,12 +53,19 @@ export default {
       prop: "items",
     },
     {
+      description:
+        'The accessible name of the button that opens the collapsed levels, in the page\'s language. Required with `items` and `overflow="menu"`.',
+      group: "Menu label",
+      prop: "menuLabel",
+    },
+    {
       default: '"wrap"',
       description:
-        "What a trail too long for its row does: wrap onto more rows, scroll inline, or truncate every level but the first and the current one.",
+        "What a trail too long for its row does: wrap onto more rows, collapse the levels between the first and the parent into a menu, scroll inline, or truncate every level but the first and the current one.",
       group: "Overflow",
       prop: "overflow",
       values: {
+        menu: ".ui-overflow-menu",
         scroll: ".ui-overflow-scroll",
         shrink: ".ui-overflow-shrink",
         wrap: null,
@@ -75,6 +91,13 @@ export default {
       description: "A level, with the separator before it.",
       props: ["items"],
       selector: "li",
+    },
+    {
+      code: "<li>",
+      description:
+        'With `overflow="menu"`, the second item: a `Button` that opens a `Menu` of the levels between the first and the parent. Shown when there are more than three levels.',
+      props: ["menuLabel"],
+      selector: "li:has(> .ui-menu)",
     },
     {
       code: '<span class="ui-separator">',

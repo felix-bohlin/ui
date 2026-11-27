@@ -27,7 +27,7 @@ import { formatInline } from "../utils/format-inline"
 import { FRAMEWORKS, hrefFor, type FrameworkId } from "../utils/framework"
 import { posts } from "../utils/blog-posts"
 import { releaseVersion } from "../utils/release"
-import { themeTokens, tokenTier } from "../utils/theme-tokens"
+import { OPTIONAL_GLOBALS, themeTokens, tokenTier } from "../utils/theme-tokens"
 
 const description = "Design system. Components. Modern HTML & CSS."
 
@@ -47,8 +47,10 @@ const FRAMEWORK_BRANDING: Record<FrameworkId, { Logo: typeof AstroLogo }> = {
   vue: { Logo: VueLogo },
 }
 
-const roleTokens = themeTokens().filter(
-  (token) => tokenTier(token.name) === "role",
+const globalTokens = themeTokens().filter(
+  (token) =>
+    tokenTier(token.name) === "global" &&
+    !(OPTIONAL_GLOBALS as readonly string[]).includes(token.name),
 ).length
 
 const featuredBlocks = allBlocks.filter((block) =>
@@ -234,7 +236,8 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         <header class="sheet-header">
           <h2 class="ui-h2" id="spec-heading">Build your theme</h2>
           <p>
-            Three choices drive most of the {roleTokens} role tokens. Try it.
+            Three choices drive most of the {globalTokens} global tokens. Try
+            it.
           </p>
         </header>
 

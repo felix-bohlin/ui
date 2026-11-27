@@ -12,7 +12,7 @@
     color-scheme: dark;
   }
 
-  /* Knobs. Plain values, set once on html and inherited by every scope. */
+  /* Primitive tokens. Plain values, set once on html and inherited by every scope. */
   :where(html) {
     color-scheme: light;
     color-scheme: var(--ui-color-scheme);
@@ -20,7 +20,7 @@
     /* Color scheme */
     --ui-color-scheme: light;
 
-    /* Palette - the knobs core/palette.css derives --ui-color-1 to --ui-color-16 from */
+    /* Palette - the primitive tokens core/palette.css derives --ui-color-1 to --ui-color-16 from */
     --ui-palette-chroma: 0.5;
     --ui-palette-hue: 222.8;
     --ui-palette-hue-rotate-by: 0;
@@ -258,7 +258,7 @@
     }
   }
 
-  /* Derived tokens. Formulas of the knobs, computed again on every scope element. */
+  /* Derived tokens. Formulas of the primitive tokens, computed again on every scope element. */
   :where(html, .ui-scope, .ui-contrast-more) {
     /* Borders */
     --ui-radius-large: calc(var(--ui-radius) * 1.5);
@@ -746,7 +746,7 @@
     .ui-success,
     .ui-warning
   ) {
-    /* Palette roles - shades of the current palette, re-derived inside the severity scopes */
+    /* Palette shades - the shades of the current palette, re-derived inside the severity scopes */
     --ui-palette-accent: light-dark(
       oklch(from var(--ui-color-9) min(l, var(--_ui-accent-max-lightness)) c h),
       oklch(

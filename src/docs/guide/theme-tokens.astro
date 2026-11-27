@@ -45,9 +45,9 @@ const slug = (title: string) =>
 const tiers = tokenTiers.map((tier) => [tier, tokenTierNotes[tier]])
 
 const scopes = [
-  ["Roles", "<code>html</code> or any element"],
+  ["Global tokens", "<code>html</code> or any element"],
   [
-    "Roles derived from other roles",
+    "Global tokens derived from other tokens",
     "<code>html</code>, <code>.ui-scope</code>, <code>.ui-contrast-more</code>",
   ],
   [
@@ -89,7 +89,7 @@ const sample = JSON.stringify(
       $type: "dimension",
       $value: { unit: "rem", value: 0.5 },
       $extensions: {
-        opui: { css: "0.5rem", cssVar: "--ui-radius", tier: "role" },
+        opui: { css: "0.5rem", cssVar: "--ui-radius", tier: "global" },
       },
     },
   },
@@ -180,7 +180,7 @@ export const keywords = [
     <figure class="token-name ui-not-rich-text">
       <div class="parts" aria-hidden="true">
         <span><code>--ui-</code><small>prefix</small></span>
-        <span><code>primary</code><small>role</small></span>
+        <span><code>primary</code><small>job</small></span>
         <span><code>-text</code><small>variant</small></span>
       </div>
       <figcaption><code>--ui-primary-text</code></figcaption>
@@ -209,7 +209,7 @@ export const keywords = [
       {section.tokens.map((token) => <TableRow>
         <TableCell>
           <code>{token.name}</code>
-          {token.tier !== "role" && <span
+          {token.tier !== "global" && <span
             class="ui-chip ui-outlined ui-x-small"
           >
             <span class="ui-text">{token.tier}</span>

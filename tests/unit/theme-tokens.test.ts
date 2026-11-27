@@ -10,8 +10,8 @@ import { themeTokenDescriptions } from "../../src/utils/theme-token-descriptions
 import { themeTokenPromises } from "../../src/utils/theme-token-promises"
 import { themeTokenTiers } from "../../src/utils/theme-token-tiers"
 import {
-  INSTANCE_INPUTS,
-  OVERRIDE_HOOKS,
+  LOCAL_TOKENS,
+  OPTIONAL_GLOBALS,
   parseThemeTokens,
   scaledTokens,
   sectionKey,
@@ -90,7 +90,7 @@ describe("theme tokens", () => {
     ).toEqual([
       "Color scheme",
       "Palette",
-      "Palette roles",
+      "Palette shades",
       "Named colors (no severity meaning)",
       "Intent tokens",
       "Primary",
@@ -118,10 +118,10 @@ describe("theme tokens", () => {
     ])
   })
 
-  test("the table adds the palette steps and the instance inputs", () => {
+  test("the table adds the palette steps and the local tokens", () => {
     const titles = themeTokenSections().map((section) => section.title)
     expect(titles.indexOf("Palette steps")).toBe(titles.indexOf("Palette") + 1)
-    expect(titles.at(-1)).toBe("Instance inputs")
+    expect(titles.at(-1)).toBe("Local tokens")
     const names = (title: string) =>
       themeTokenSections()
         .find((section) => section.title === title)!
@@ -132,19 +132,19 @@ describe("theme tokens", () => {
       ),
     )
     expect(names("Palette steps").every((name) => find(name))).toBe(true)
-    expect(names("Instance inputs")).toEqual(
-      INSTANCE_INPUTS.map((token) => token.name),
+    expect(names("Local tokens")).toEqual(
+      LOCAL_TOKENS.map((token) => token.name),
     )
-    expect(names("Instance inputs").some((name) => find(name))).toBe(false)
+    expect(names("Local tokens").some((name) => find(name))).toBe(false)
   })
 
-  test("every token a stylesheet reads is a theme token or an instance input", () => {
+  test("every token a stylesheet reads is a theme token or a local token", () => {
     const reads = new Set(
       [...componentCss.matchAll(/var\((--ui-[\w-]+)/g)].map(
         (match) => match[1],
       ),
     )
-    const inputs = INSTANCE_INPUTS.map((token) => token.name)
+    const inputs = LOCAL_TOKENS.map((token) => token.name)
     expect(
       [...reads].filter((name) => !find(name) && !inputs.includes(name)),
     ).toEqual([])
@@ -329,7 +329,7 @@ describe("theme tokens", () => {
     }
   })
 
-  test("the knob block reads no other token, so knobs inherit into every scope", () => {
+  test("the primitive block reads no other token, so primitives inherit into every scope", () => {
     const start = themeSource.indexOf(":where(html) {")
     const end = themeSource.indexOf("\n  }\n", start)
     const block = themeSource.slice(start, end)
@@ -339,7 +339,7 @@ describe("theme tokens", () => {
     expect(reads).toEqual([])
   })
 
-  test("the contrast rules set knobs only, and both set the same ones", () => {
+  test("the contrast rules set primitives only, and both set the same ones", () => {
     const bodies = [
       ...themeSource.matchAll(
         /:where\((?:html:not\(\.ui-contrast-normal\)|\.ui-contrast-more)\) \{([^}]*)\}/g,
@@ -350,52 +350,52 @@ describe("theme tokens", () => {
     expect(bodies[0]).not.toMatch(/var\(--(?:ui-|_)/)
   })
 
-  test("an optional token has one fallback, unless it is a hook with a default per component", () => {
+  test("an optional token has one fallback, unless it is an optional global with a default per component", () => {
     const optional = tokens.filter((token) => token.optional)
     for (const token of optional) {
       const fallbacks = fallbacksOf(token.name)
-      if (tokenTier(token.name) === "hook") {
+      if ((OPTIONAL_GLOBALS as readonly string[]).includes(token.name)) {
         expect(fallbacks.length, token.name).toBeGreaterThan(1)
       } else {
         expect(fallbacks.length, token.name).toBeLessThanOrEqual(1)
       }
     }
-    for (const name of OVERRIDE_HOOKS) {
+    for (const name of OPTIONAL_GLOBALS) {
       expect(find(name)?.optional, name).toBe(true)
     }
-    expect([...OVERRIDE_HOOKS]).toEqual([...OVERRIDE_HOOKS].toSorted())
+    expect([...OPTIONAL_GLOBALS]).toEqual([...OPTIONAL_GLOBALS].toSorted())
   })
 
-  test("every token has a tier, declared beside the hooks, and no tier is stale", () => {
+  test("every token has a tier, and no tier is stale", () => {
     const names = new Set(tokens.map((token) => token.name))
     for (const name of Object.keys(themeTokenTiers)) {
       expect(names, name).toContain(name)
-      expect(OVERRIDE_HOOKS, name).not.toContain(name)
+      expect(OPTIONAL_GLOBALS, name).not.toContain(name)
     }
-    for (const tier of ["component", "knob", "primitive"]) {
+    for (const tier of ["component", "primitive", "scale"]) {
       const names = Object.entries(themeTokenTiers)
         .filter(([name, candidate]) => candidate === tier && !steps.has(name))
         .map(([name]) => name)
       expect(names, tier).toEqual(names.toSorted())
     }
-    expect(tokenTier("--ui-palette-hue")).toBe("knob")
-    expect(tokenTier("--ui-font-size-300")).toBe("primitive")
-    for (const name of steps) expect(tokenTier(name), name).toBe("primitive")
-    expect(tokenTier("--ui-anchor-position-area")).toBe("input")
-    expect(tokenTier("--ui-primary")).toBe("role")
-    expect(tokenTier("--ui-selected")).toBe("hook")
+    expect(tokenTier("--ui-palette-hue")).toBe("primitive")
+    expect(tokenTier("--ui-font-size-300")).toBe("scale")
+    for (const name of steps) expect(tokenTier(name), name).toBe("scale")
+    expect(tokenTier("--ui-anchor-position-area")).toBe("local")
+    expect(tokenTier("--ui-primary")).toBe("global")
+    expect(tokenTier("--ui-selected")).toBe("global")
     expect(tokenTier("--ui-button-size")).toBe("component")
     expect(tokenTier("--ui-code-bg-color")).toBe("component")
-    expect(tokenTier("--ui-backdrop-bg-color")).toBe("role")
-    expect(tokenTier("--ui-control-size")).toBe("role")
-    const knobBlock = themeSource.slice(
+    expect(tokenTier("--ui-backdrop-bg-color")).toBe("global")
+    expect(tokenTier("--ui-control-size")).toBe("global")
+    const primitiveBlock = themeSource.slice(
       themeSource.indexOf(":where(html) {"),
       themeSource.indexOf("\n  }\n", themeSource.indexOf(":where(html) {")),
     )
     for (const token of tokens) {
-      if (tokenTier(token.name) !== "knob") continue
+      if (tokenTier(token.name) !== "primitive") continue
       expect(
-        knobBlock.includes(`${token.name}:`) ||
+        primitiveBlock.includes(`${token.name}:`) ||
           token.name === "--ui-primary-source",
         token.name,
       ).toBe(true)
@@ -436,7 +436,7 @@ describe("theme tokens", () => {
       json.contrast["ui-text-strength-light"].$extensions.opui.css,
     ).toBeUndefined()
     expect(json.state["ui-selected"]).toMatchObject({
-      $extensions: { opui: { optional: true, tier: "hook" } },
+      $extensions: { opui: { optional: true, tier: "global" } },
     })
     expect(json.state["ui-selected"].$value).toBeUndefined()
   })
@@ -445,8 +445,8 @@ describe("theme tokens", () => {
     expect(Object.keys(tokensJson())).toEqual(
       expect.arrayContaining([
         "field",
-        "instance-inputs",
         "intent",
+        "local-tokens",
         "named-colors",
       ]),
     )
@@ -527,7 +527,7 @@ const overridesIn = (css: string) =>
 describe("scaled tokens", () => {
   const scaled = scaledTokens()
 
-  test("follow the knob they are scaled by", () => {
+  test("follow the primitive they are scaled by", () => {
     expect(scaled.get("--ui-control-size")).toBe("--ui-density")
     expect(scaled.get("--ui-button-size")).toBe("--ui-density")
     expect(scaled.get("--ui-space-4")).toBe("--ui-space-scale")
@@ -538,7 +538,7 @@ describe("scaled tokens", () => {
     expect(controlSize?.$extensions.opui.scaledBy).toBe("--ui-density")
   })
 
-  test("an example theme or a Theme builder preset that sets one keeps its knob", () => {
+  test("an example theme or a Theme builder preset that sets one keeps its primitive", () => {
     const themes = readdirSync("packages/opui/themes").filter((file) =>
       file.endsWith(".css"),
     )

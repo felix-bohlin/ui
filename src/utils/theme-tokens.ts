@@ -31,7 +31,7 @@ const SECTIONS = [
   ["Color scheme", "color-scheme"],
   ["Palette", "palette"],
   ["Palette steps", "palette-steps"],
-  ["Palette roles", "palette-roles"],
+  ["Palette shades", "palette-shades"],
   ["Named colors (no severity meaning)", "named-colors"],
   ["Intent tokens", "intent"],
   ["Primary", "primary"],
@@ -56,7 +56,7 @@ const SECTIONS = [
   ["Elevation", "elevation"],
   ["Overlays", "overlays"],
   ["Safe areas", "safe-areas"],
-  ["Instance inputs", "instance-inputs"],
+  ["Local tokens", "local-tokens"],
 ]
 const sectionOrder = (title: string) => {
   const index = SECTIONS.findIndex(([name]) => name === title)
@@ -225,7 +225,7 @@ export const parseThemeTokens = (css = themeSource): ThemeSection[] => {
   )
 }
 
-export const OVERRIDE_HOOKS = [
+export const OPTIONAL_GLOBALS = [
   "--ui-border-color-raised",
   "--ui-choice-accent",
   "--ui-control-accent",
@@ -239,7 +239,7 @@ export const OVERRIDE_HOOKS = [
   "--ui-track-bg-color",
 ] as const
 
-export const INSTANCE_INPUTS: ThemeToken[] = [
+export const LOCAL_TOKENS: ThemeToken[] = [
   {
     name: "--ui-anchor-position-area",
     optional: true,
@@ -247,38 +247,29 @@ export const INSTANCE_INPUTS: ThemeToken[] = [
   },
 ]
 
-export type TokenTier =
-  | "component"
-  | "hook"
-  | "input"
-  | "knob"
-  | "primitive"
-  | "role"
+export type TokenTier = "component" | "global" | "local" | "primitive" | "scale"
 
 export const tokenTiers = [
-  "knob",
   "primitive",
-  "role",
-  "hook",
+  "scale",
+  "global",
   "component",
-  "input",
+  "local",
 ] as const satisfies TokenTier[]
 
 export const tokenTierNotes = {
   component: "Changes one component, like the button's corners.",
-  hook: "Unset by default. Set it to change one job for a group of components.",
-  input: "Set on one element by a prop, not in a theme.",
-  knob: "Changes many things at once, like the brand color.",
-  primitive: "A ready-made value for your own CSS. Components don't use it.",
-  role: "Changes one job everywhere, like the corners of every component.",
+  global:
+    "Changes one job everywhere, like the corners of every component. Some are unset until you set them.",
+  local: "Changes one element. Set by a prop or a style, never by a theme.",
+  primitive: "Changes many things at once, like the brand color.",
+  scale: "A ready-made step for your own CSS. Components don't use it.",
 } satisfies Record<TokenTier, string>
 
 export const tokenTier = (name: string): TokenTier =>
-  (OVERRIDE_HOOKS as readonly string[]).includes(name)
-    ? "hook"
-    : INSTANCE_INPUTS.some((token) => token.name === name)
-      ? "input"
-      : (themeTokenTiers[name] ?? "role")
+  LOCAL_TOKENS.some((token) => token.name === name)
+    ? "local"
+    : (themeTokenTiers[name] ?? "global")
 
 const themeTokensIn = (sections: ThemeSection[]) =>
   sections.flatMap((section) => section.tokens)
@@ -287,14 +278,14 @@ export const themeTokenSections = (): ThemeSection[] =>
   [
     ...parseThemeTokens(),
     {
-      note: "The 16 steps `core/palette.css` derives from `--ui-palette-source` on `:root`, `.ui-scope` and every severity scope, and the grays at their lightness. Components read the palette roles, not the steps.",
+      note: "The 16 steps `core/palette.css` derives from `--ui-palette-source` on `:root`, `.ui-scope` and every severity scope, and the grays at their lightness. Components read the palette tokens, not the steps.",
       title: "Palette steps",
       tokens: paletteSteps().map(({ name, value }) => ({ name, value })),
     },
     {
       note: "Read by components but set on an element, by a prop or a style, for that element and everything inside it. A theme doesn't set them, and each component has its own default.",
-      title: "Instance inputs",
-      tokens: INSTANCE_INPUTS,
+      title: "Local tokens",
+      tokens: LOCAL_TOKENS,
     },
   ]
     .filter((section) => section.tokens.length > 0)
@@ -302,7 +293,7 @@ export const themeTokenSections = (): ThemeSection[] =>
 
 export const themeTokens = () =>
   themeTokensIn(themeTokenSections()).filter(
-    (token) => tokenTier(token.name) !== "input",
+    (token) => tokenTier(token.name) !== "local",
   )
 
 const SCALE_KNOBS = ["--ui-density", "--ui-space-scale"]

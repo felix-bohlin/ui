@@ -1,19 +1,19 @@
 ---
 const tiers = [
   {
-    name: "Knob",
-    note: "Turned by a theme",
+    name: "Primitive token",
+    note: "Set by a theme",
     scope: "theme",
     tokens: ["--ui-palette-hue", "--ui-density", ""],
   },
   {
-    name: "Primitive",
-    note: "Computed from knobs, read by no component",
+    name: "Scale token",
+    note: "Computed from primitives, read by no component",
     scope: "theme",
     tokens: ["--ui-color-16", "", "--ui-font-size-300"],
   },
   {
-    name: "Role",
+    name: "Global token",
     note: "Read by every component with that job",
     scope: "theme",
     tokens: [
@@ -30,7 +30,7 @@ const tiers = [
     tokens: ["--ui-button-accent", "--ui-button-size", ""],
   },
   {
-    name: "Private property",
+    name: "Local token",
     note: "Set on one element",
     scope: "element",
     tokens: ["--_accent", "--_size", "--_font-size"],
@@ -156,7 +156,7 @@ const name = "token-tiers-trace"
     A filled Button, traced from the theme to its CSS. Each box is how far a
     token reaches, and an arrow that jumps a band skips that tier. The theme
     sets the Button's tokens too, but only a Button reads them. Unset,
-    <code>--ui-button-accent</code> falls back to the role.
+    <code>--ui-button-accent</code> falls back to the global token.
   </figcaption>
 </figure>
 
@@ -240,10 +240,10 @@ const name = "token-tiers-trace"
       chips.slice(1).forEach((chip, step) => wire(chips[step], chip))
       if (figure.dataset.fallback?.split(" ").includes(trace)) {
         const role = stage.querySelector(
-          `.chip[data-trace="${trace}"][data-tier="role"]`,
+          `.chip[data-trace="${trace}"][data-tier="global-token"]`,
         )
         const own = stage.querySelector(
-          `.chip[data-trace="${trace}"][data-tier="private-property"]`,
+          `.chip[data-trace="${trace}"][data-tier="local-token"]`,
         )
         if (shown(role) && shown(own)) wire(role, own, true)
       }
@@ -479,7 +479,7 @@ const name = "token-tiers-trace"
       border-style: dashed;
     }
 
-    &[data-tier="primitive"] {
+    &[data-tier="scale-token"] {
       border-style: dotted;
     }
 

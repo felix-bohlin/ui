@@ -103,6 +103,7 @@ To add the prefix in one pass, search your CSS and markup for each of these regu
 --((?:gray|palette)-(?:chroma|hue)|palette-(?:hue-rotate-by|source))(?![\w-])
 --((?:border|field-border)-(?:color|width)|color-scheme|surface-(?:filled|tonal))(?![\w-])
 --((?:button|control|field)-size(?:-x-small|-small|-large)?|focus-ring-(?:color|offset|style|width)|font-size-h[1-6])(?![\w-])
+--(anchor-position-area|motion)(?![\w-])
 ```
 
 These tokens also have a new name, so adding the prefix isn't enough:

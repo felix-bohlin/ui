@@ -1,23 +1,8 @@
 import { expect, test } from "@playwright/test"
-import {
-  casesOf,
-  compareNative,
-  differences,
-  NATIVE_CASES,
-  SVELTE_SPREAD,
-} from "../apps/native/cases"
+import { casesOf, compareNative, NATIVE_CASES } from "../apps/native/cases"
 import { FRAMEWORKS, isHydratedFramework } from "../../src/utils/framework"
+import { failsWhere } from "../expectations"
 import { instantScrolling, pageErrors } from "./fixtures"
-
-const DIFFERENCES = differences("svelte", SVELTE_SPREAD, [
-  "checkbox-bound",
-  "group-bound",
-  "radio-bound",
-  "rating-bound",
-  "rating-default",
-  "tabs-bound",
-  "toggle-bound",
-])
 
 for (const { id, label } of FRAMEWORKS) {
   if (!isHydratedFramework(id)) continue
@@ -37,10 +22,7 @@ for (const { id, label } of FRAMEWORKS) {
       test(`${nativeCase.name} holds the same state as the native control before hydration, after a change and after a form reset`, async ({
         page,
       }) => {
-        const difference = DIFFERENCES.find(
-          (entry) => entry.where === id && entry.name === nativeCase.name,
-        )
-        test.fail(!!difference, difference?.reason)
+        failsWhere({ aspect: nativeCase.name, check: "native", framework: id })
         const errors = pageErrors(page)
         await instantScrolling(page)
         await page.goto(`/dev/fixtures/${id}-native/?hold`)

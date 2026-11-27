@@ -14,6 +14,7 @@ import {
   TEXT,
   type Case,
 } from "../unit/case-table"
+import { expectation, expectStill } from "../expectations"
 import { instantScrolling, pageErrors } from "./fixtures"
 
 const UPDATED = ["react", "solid", "svelte", "vue"] as const
@@ -26,8 +27,6 @@ const NATIVE_ATTRIBUTES = {
   placeholder: TEXT,
   title: TEXT,
 }
-
-const KNOWN: Record<string, string> = {}
 
 const NESTING_WARNING = /^In HTML, (%s|text nodes) cannot be a child of/
 
@@ -126,26 +125,23 @@ for (const framework of UPDATED) {
           [framework, component, empty, state] as const,
         )
         if (fresh === undefined) continue
-        const check = (label: string, actual?: string, expected?: string) => {
-          const known = KNOWN[`${framework}/${label}`]
+        const check = (aspect: string, actual?: string, expected?: string) => {
+          const where = {
+            aspect,
+            check: "updates",
+            component,
+            framework,
+          } as const
+          const known = expectation(where)
           if (known) {
-            expect
-              .soft(
-                actual,
-                `${label} now renders the same (${known}): remove it from KNOWN`,
-              )
-              .not.toBe(expected)
+            expectStill(expect, actual !== expected, known, where)
           } else {
-            expect.soft(actual, label).toBe(expected)
+            expect.soft(actual, `${component} ${aspect}`).toBe(expected)
           }
         }
+        check(`with ${entry.name}, set after a render without it`, added, fresh)
         check(
-          `${component} with ${entry.name}, set after a render without it`,
-          added,
-          fresh,
-        )
-        check(
-          `${component} without ${entry.name}, unset after a render with it`,
+          `without ${entry.name}, unset after a render with it`,
           cleared,
           freshEmpty,
         )

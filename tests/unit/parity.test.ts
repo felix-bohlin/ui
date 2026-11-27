@@ -14,6 +14,7 @@ import {
   type FrameworkId as Framework,
 } from "../../src/utils/framework"
 import { createIdGenerator, exampleIdBase } from "../../src/utils/id"
+import { expectation, expectStill } from "../expectations"
 import { idsOf, normalize } from "./normalize"
 import { render, renderNunjucks, type SolidComponent } from "./renderers"
 
@@ -62,8 +63,6 @@ const EXAMPLE_CLASSES = new Set(
     ),
   ),
 )
-
-const KNOWN_DIFFERENCES: Record<string, string> = {}
 
 const REFERENCES: Record<Framework, Framework[]> = {
   astro: ["html"],
@@ -373,15 +372,17 @@ describe.each(cases)("$key", (example) => {
       markup(example, reference, comments),
       markup(example, framework, comments),
     ])
-    const known = [framework, reference]
-      .map((name) => `${example.key}: ${name}`)
-      .find((name) => name in KNOWN_DIFFERENCES)
-    if (known) {
-      expect(
-        actual,
-        `${known} is in KNOWN_DIFFERENCES (${KNOWN_DIFFERENCES[known]}) but no longer differs; delete it`,
-      ).not.toBe(expected)
-      return
+    for (const name of [framework, reference]) {
+      const where = {
+        check: "parity",
+        example: example.key,
+        framework: name,
+      } as const
+      const known = expectation(where)
+      if (known) {
+        expectStill(expect, actual !== expected, known, where)
+        return
+      }
     }
     const driftFile = `__snapshots__/${example.key}.${framework}.diff`
     const recorded = existsSync(new URL(driftFile, import.meta.url))

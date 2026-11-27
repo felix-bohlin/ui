@@ -1,19 +1,6 @@
 import { expect, test, type Page } from "@playwright/test"
-import {
-  WEBKIT_INNER_TEXT_HIDDEN_NODES,
-  failsIn,
-  type EngineBugs,
-} from "./engine-bugs"
+import { expectation, expectStill, failsWhere } from "../expectations"
 import { COMPONENTS, FRAMEWORKS, openFixture, type Framework } from "./fixtures"
-
-const ENGINE_FAILURES: Record<string, EngineBugs> = {
-  checkbox: { webkit: WEBKIT_INNER_TEXT_HIDDEN_NODES },
-  message: { webkit: WEBKIT_INNER_TEXT_HIDDEN_NODES },
-  stepper: { webkit: WEBKIT_INNER_TEXT_HIDDEN_NODES },
-  tooltip: { webkit: WEBKIT_INNER_TEXT_HIDDEN_NODES },
-}
-
-const KNOWN_DIFFERENCES: Record<string, string> = {}
 
 const texts = async (page: Page, framework: Framework, component: string) => {
   await openFixture(page, framework, component)
@@ -65,11 +52,14 @@ for (const component of COMPONENTS) {
     browserName,
     page,
   }) => {
-    failsIn(browserName, ENGINE_FAILURES[component])
+    failsWhere({
+      check: "example-text",
+      engine: browserName,
+      example: component,
+    })
     test.setTimeout(120_000)
     const astro = await texts(page, "astro", component)
     expect(astro.size).toBeGreaterThan(0)
-    const known: string[] = []
     for (const framework of FRAMEWORKS.filter((name) => name !== "astro")) {
       for (const [name, actual] of await texts(page, framework, component)) {
         const expected = astro.get(name)
@@ -77,8 +67,14 @@ for (const component of COMPONENTS) {
         const key = `${framework}/${component}/${name}`
         const same =
           actual.text === expected.text && actual.aria === expected.aria
-        if (key in KNOWN_DIFFERENCES) {
-          if (same) known.push(key)
+        const where = {
+          check: "example-text",
+          example: name,
+          framework,
+        } as const
+        const known = expectation(where)
+        if (known) {
+          expectStill(expect, !same, known, where)
           continue
         }
         expect
@@ -89,9 +85,5 @@ for (const component of COMPONENTS) {
           .toBe(expected.aria)
       }
     }
-    expect(
-      known,
-      "these KNOWN_DIFFERENCES no longer differ: delete them",
-    ).toEqual([])
   })
 }

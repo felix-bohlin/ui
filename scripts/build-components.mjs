@@ -53,7 +53,7 @@ export const EMITTERS = {
   vue: toVue,
 }
 
-export const compileComponent = async (source, file, options = {}) => {
+export const namedComponent = async (source, file, options = {}) => {
   const name = file
     .split("/")
     .at(-1)
@@ -65,12 +65,17 @@ export const compileComponent = async (source, file, options = {}) => {
     file,
     "api" in options ? api : await apiOf(folder, name),
   )
-  const named = {
+  return {
     ...component,
     folder,
     name,
     ...typeFactsOf(types, name, component),
   }
+}
+
+export const compileComponent = async (source, file, options = {}) => {
+  const named = await namedComponent(source, file, options)
+  const { folder, name } = named
   const outputs = new Map()
   const refused = new Map()
   const ports = Object.entries(PORTS)

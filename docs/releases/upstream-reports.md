@@ -1,14 +1,14 @@
 # Upstream reports
 
-Every report to post upstream before 6.0, ready to paste: the engine bugs behind the expected failures in `tests/e2e/engine-bugs.ts`, a comment for Vue, an issue for Astro, one filed issue to watch and one bug that still needs a repro.
+Every report to post upstream before 6.0, ready to paste: the engine bugs behind the expected failures in `tests/expectations.ts`, a comment for Vue, an issue for Astro, one filed issue to watch and one bug that still needs a repro.
 
 ## Firefox
 
-File these on Bugzilla (bugzilla.mozilla.org, product Core). Search first with the keywords under each report, and comment on a match instead of filing a duplicate. Each test case is the plain-HTML repro from `tests/e2e/engines.spec.ts`, resolved into one file with a small script that logs the numbers the test checks. Once filed, add the report's link next to its constant in `tests/e2e/engine-bugs.ts`.
+File these on Bugzilla (bugzilla.mozilla.org, product Core). Search first with the keywords under each report, and comment on a match instead of filing a duplicate. Each test case is the plain-HTML repro from `tests/e2e/engines.spec.ts`, resolved into one file with a small script that logs the numbers the test checks. Once filed, add the report's link next to its constant in `tests/expectations.ts`.
 
 ### position-area self- keywords in a right-to-left part of a left-to-right page
 
-From: `FIREFOX_SELF_RTL` in `tests/e2e/engine-bugs.ts`, its repro in `tests/e2e/engines.spec.ts:104-121`, the Menu item under To check in `TODO.md` ("Menu: in Firefox, a menu in a `dir="rtl"` part of a left-to-right page") and the `firefox-rtl-menu` example in `src/todo-examples/`.
+From: `FIREFOX_SELF_RTL` in `tests/expectations.ts`, its repro in `tests/e2e/engines.spec.ts:104-121`, the Menu item under To check in `TODO.md` ("Menu: in Firefox, a menu in a `dir="rtl"` part of a left-to-right page") and the `firefox-rtl-menu` example in `src/todo-examples/`.
 
 Where: Bugzilla, Core :: Layout: Positioned.
 
@@ -64,7 +64,7 @@ Seen in Playwright's Firefox 155.0 (Playwright 1.63.0). Confirm in a Firefox rel
 
 ### getComputedStyle keeps a mid-fade opacity after a position-try fallback
 
-From: `FIREFOX_STALE_FALLBACK_OPACITY` in `tests/e2e/engine-bugs.ts`, its repro in `tests/e2e/engines.spec.ts:123-159`, the Tooltip item under To check in `TODO.md` ("Tooltip: in Firefox, `getComputedStyle` keeps reporting a tooltip's opacity"), which has the first draft of this report, and the `firefox-tooltip-fade` example in `src/todo-examples/`.
+From: `FIREFOX_STALE_FALLBACK_OPACITY` in `tests/expectations.ts`, its repro in `tests/e2e/engines.spec.ts:123-159`, the Tooltip item under To check in `TODO.md` ("Tooltip: in Firefox, `getComputedStyle` keeps reporting a tooltip's opacity"), which has the first draft of this report, and the `firefox-tooltip-fade` example in `src/todo-examples/`.
 
 Where: Bugzilla, Core :: CSS Transitions and Animations.
 
@@ -123,7 +123,7 @@ Seen in Playwright's Firefox 155.0 (Playwright 1.63.0). Confirm in a Firefox rel
 
 ### A fixed element anchored inside a sticky header moves down by the page scroll
 
-From: `FIREFOX_STICKY_ANCHOR_SCROLL` in `tests/e2e/engine-bugs.ts`, its repro in `tests/e2e/engines.spec.ts:161-198`, the docs header test it marks in `tests/e2e/docs.spec.ts` ("a long section heading takes the content width...") and commit a7385c1d, which found that the drift needs a second layout.
+From: `FIREFOX_STICKY_ANCHOR_SCROLL` in `tests/expectations.ts`, its repro in `tests/e2e/engines.spec.ts:161-198`, the docs header test it marks in `tests/e2e/docs.spec.ts` ("a long section heading takes the content width...") and commit a7385c1d, which found that the drift needs a second layout.
 
 Where: Bugzilla, Core :: Layout: Positioned.
 
@@ -177,11 +177,11 @@ Seen in Playwright's Firefox 155.0 (Playwright 1.63.0). Confirm in a Firefox rel
 
 ## WebKit
 
-File these on bugs.webkit.org (product WebKit). Search first with the keywords under each report, and comment on a match instead of filing a duplicate. Each test case is the plain-HTML repro from `tests/e2e/engines.spec.ts`, resolved into one file. In Safari on macOS a click doesn't focus a radio button, so for the radio reports press Option+Tab to reach the group (or plain Tab with Safari Settings, Advanced, "Press Tab to highlight each item on a webpage" on). Once filed, add the report's link next to its constant in `tests/e2e/engine-bugs.ts`.
+File these on bugs.webkit.org (product WebKit). Search first with the keywords under each report, and comment on a match instead of filing a duplicate. Each test case is the plain-HTML repro from `tests/e2e/engines.spec.ts`, resolved into one file. In Safari on macOS a click doesn't focus a radio button, so for the radio reports press Option+Tab to reach the group (or plain Tab with Safari Settings, Advanced, "Press Tab to highlight each item on a webpage" on). Once filed, add the report's link next to its constant in `tests/expectations.ts`.
 
 ### Arrow-key focus doesn't bring a hidden radio's label fully into view
 
-From: `WEBKIT_ARROW_FOCUS_SCROLL` in `tests/e2e/engine-bugs.ts`, its repro in `tests/e2e/engines.spec.ts:335-368`, and the overflow Tabs test it marks in `tests/e2e/interaction.spec.ts` ("overflow tabs scroll the focused tab into view").
+From: `WEBKIT_ARROW_FOCUS_SCROLL` in `tests/expectations.ts`, its repro in `tests/e2e/engines.spec.ts:335-368`, and the overflow Tabs test it marks in `tests/e2e/interaction.spec.ts` ("overflow tabs scroll the focused tab into view").
 
 Where: bugs.webkit.org, component Scrolling (or Forms).
 
@@ -251,7 +251,7 @@ Seen in Playwright's WebKit 26.6 (Playwright 1.63.0). Confirm in a Safari releas
 
 ### A StaticRange highlight isn't painted on text that was display: none
 
-From: `WEBKIT_HIGHLIGHT_HIDDEN_TEXT` in `tests/e2e/engine-bugs.ts`, its repro in `tests/e2e/engines.spec.ts:446-506`, and the docs syntax highlighting in `src/utils/syntax-highlight.ts`, which registers `StaticRange`s and renews them when hidden code is revealed (`tests/e2e/docs.spec.ts`, `expectRenewedRanges`).
+From: `WEBKIT_HIGHLIGHT_HIDDEN_TEXT` in `tests/expectations.ts`, its repro in `tests/e2e/engines.spec.ts:446-506`, and the docs syntax highlighting in `src/utils/syntax-highlight.ts`, which registers `StaticRange`s and renews them when hidden code is revealed (`tests/e2e/docs.spec.ts`, `expectRenewedRanges`).
 
 Where: bugs.webkit.org, component CSS (or Layout and Rendering).
 
@@ -301,7 +301,7 @@ Seen in Playwright's WebKit 26.6 (Playwright 1.63.0). Confirm in a Safari releas
 
 ### innerText changes with the whitespace and comments between elements
 
-From: `WEBKIT_INNER_TEXT_HIDDEN_NODES` in `tests/e2e/engine-bugs.ts`, its repro in `tests/e2e/engines.spec.ts:370-444`, and the Avatar, Message, Stepper and Tooltip cases it marks in `tests/e2e/example-text.spec.ts`.
+From: `WEBKIT_INNER_TEXT_HIDDEN_NODES` in `tests/expectations.ts`, its repro in `tests/e2e/engines.spec.ts:370-444`, and the Avatar, Message, Stepper and Tooltip cases it marks in `tests/e2e/example-text.spec.ts`.
 
 Where: bugs.webkit.org, component DOM.
 
@@ -391,7 +391,7 @@ Seen in Playwright's WebKit 26.6 (Playwright 1.63.0). Confirm in a Safari releas
 
 ### The arrow keys don't wrap from the last radio button to the first
 
-From: `WEBKIT_RADIO_NO_WRAP` in `tests/e2e/engine-bugs.ts`, its repro in `tests/e2e/engines.spec.ts:300-319`, and the Tabs test it marks in `tests/e2e/interaction.spec.ts` ("tabs wrap between the last and the first tab with the arrow keys").
+From: `WEBKIT_RADIO_NO_WRAP` in `tests/expectations.ts`, its repro in `tests/e2e/engines.spec.ts:300-319`, and the Tabs test it marks in `tests/e2e/interaction.spec.ts` ("tabs wrap between the last and the first tab with the arrow keys").
 
 Where: bugs.webkit.org, component Forms.
 
@@ -429,7 +429,7 @@ Seen in Playwright's WebKit 26.6 (Playwright 1.63.0). Confirm in a Safari releas
 
 ### Left Arrow moves to the previous radio button in right-to-left text
 
-From: `WEBKIT_RADIO_RTL_ARROWS` in `tests/e2e/engine-bugs.ts`, its repro in `tests/e2e/engines.spec.ts:321-333`, and the Tabs and ToggleGroup right-to-left tests it marks in `tests/e2e/interaction.spec.ts`.
+From: `WEBKIT_RADIO_RTL_ARROWS` in `tests/expectations.ts`, its repro in `tests/e2e/engines.spec.ts:321-333`, and the Tabs and ToggleGroup right-to-left tests it marks in `tests/e2e/interaction.spec.ts`.
 
 Where: bugs.webkit.org, component Forms.
 
@@ -469,7 +469,7 @@ Seen in Playwright's WebKit 26.6 (Playwright 1.63.0). Confirm in a Safari releas
 
 ### A popover anchored inside a modal dialog moves up by the page scroll
 
-From: `WEBKIT_TOP_LAYER_ANCHOR` in `tests/e2e/engine-bugs.ts`, its repro in `tests/e2e/engines.spec.ts:62-102`, the overlay scenarios it marks in `tests/e2e/stress-overlays.ts`, and the Menu, Tooltip item under To check in `TODO.md` ("Menu, Tooltip: in WebKit, a popover anchored to a trigger inside a modal Dialog").
+From: `WEBKIT_TOP_LAYER_ANCHOR` in `tests/expectations.ts`, its repro in `tests/e2e/engines.spec.ts:62-102`, the overlay scenarios it marks in `tests/e2e/stress-overlays.ts`, and the Menu, Tooltip item under To check in `TODO.md` ("Menu, Tooltip: in WebKit, a popover anchored to a trigger inside a modal Dialog").
 
 Status: already on file. `TODO.md` records that WebKit bug 304551, "incorrect anchor positioning when a fixed-positioned element and its anchor are both in the top layer", was closed as a duplicate of bug 301023. Don't file a new one: open bug 301023, and if it's still open and its test case has no scrolled page, add this test case as a comment. Then link 301023 next to `WEBKIT_TOP_LAYER_ANCHOR`.
 
@@ -728,4 +728,4 @@ What's left, in Safari:
 1. Open `/theme-builder/` (`pnpm dev` or the Netlify preview), leave it idle, and record a few seconds in Web Inspector's Timelines tab. If Safari doesn't render frames at idle, note that on the item: the cost may be WebKitGTK's alone.
 2. If it does, reduce it: start from a plain page with the Range markup and `dist/opui.css` inside `.ui-palette`, and add the builder's pieces one at a time (the preview's containers, `content-visibility: auto`, the `.ui-palette` panes and the page's custom properties) until the idle cost appears.
 3. With a repro, search bugs.webkit.org for `view-timeline idle`, `scroll-driven animation repaint` and `animation-timeline continuous rendering`, then file it (component Animations, or Layout and Rendering) with the repro as its test case.
-4. Add the reason to `tests/e2e/engine-bugs.ts` with the repro in `tests/e2e/engines.spec.ts`, and mark the theme builder tests slow in WebKit for it (option A on the item).
+4. Add the reason to `tests/expectations.ts` with the repro in `tests/e2e/engines.spec.ts`, and mark the theme builder tests slow in WebKit for it (option A on the item).

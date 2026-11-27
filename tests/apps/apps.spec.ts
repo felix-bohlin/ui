@@ -8,23 +8,9 @@ import {
 import { readdirSync, readFileSync } from "node:fs"
 import path from "node:path"
 import { isHydratedFramework } from "../../src/utils/framework.js"
-import {
-  ANCHORS_VISIBLE,
-  type App,
-  APPS,
-  appDir,
-  blocksOf,
-  examplesOf,
-  KNOWN_CONSOLE,
-  KNOWN_PROBLEMS,
-} from "./apps.ts"
-import {
-  compareNative,
-  differences,
-  NATIVE_CASES,
-  SVELTE_DEFAULT,
-  SVELTE_SPREAD,
-} from "./native/cases.ts"
+import { expectations, expectStill, failsWhere } from "../expectations.ts"
+import { type App, APPS, appDir, blocksOf, examplesOf } from "./apps.ts"
+import { compareNative, NATIVE_CASES } from "./native/cases.ts"
 
 const PIXEL = Buffer.from(
   "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
@@ -100,14 +86,14 @@ const loadElement = async (page: Page, file: string) => {
 }
 
 const knownProblems = (name: string, slug: string) =>
-  KNOWN_PROBLEMS.filter((known) => known.app === name && known.slug === slug)
+  expectations({ app: name, check: "apps", example: slug })
 
 const unexpected = (problems: string[], name: string, slug: string) =>
   problems.filter(
     (problem) =>
-      !knownProblems(name, slug).some((known) => known.message === problem) &&
-      !KNOWN_CONSOLE.some(
-        (known) => known.apps.includes(name) && known.message.test(problem),
+      !knownProblems(name, slug).some((known) => known.aspect === problem) &&
+      !expectations({ app: name, check: "apps-console" }).some((known) =>
+        problem.includes(String(known.aspect)),
       ),
   )
 
@@ -265,20 +251,35 @@ for (const prefix of PREFIXES) {
         unexpected(problems, app.name, slug),
         `${app.name} ${path} logs errors or warnings`,
       ).toEqual([])
-      expect(
-        knownProblems(app.name, slug)
-          .filter(({ message }) => !problems.includes(message))
-          .map(({ reason }) => reason),
-        `${app.name} ${path} no longer logs these known problems: remove them from KNOWN_PROBLEMS in tests/apps/apps.ts`,
-      ).toEqual([])
+      for (const known of knownProblems(app.name, slug)) {
+        const aspect = String(known.aspect)
+        expectStill(expect, problems.includes(aspect), known, {
+          app: app.name,
+          aspect,
+          check: "apps",
+          example: slug,
+        })
+      }
     })
   }
 }
 
-test(`known: ${ANCHORS_VISIBLE.reason}`, async ({ page }, testInfo) => {
+const ANCHORS = expectations({ check: "apps-console" }).filter(({ aspect }) =>
+  String(aspect).includes("anchors-visible"),
+)
+
+test(`known: ${ANCHORS.map(({ reason }) => reason).join()}`, async ({
+  page,
+}, testInfo) => {
   const app = appOf(testInfo.project.name)
+  expect(
+    ANCHORS,
+    "the anchors-visible entry in tests/expectations.ts",
+  ).toHaveLength(1)
   test.skip(
-    !ANCHORS_VISIBLE.apps.includes(app.name),
+    !expectations({ app: app.name, check: "apps-console" }).some((entry) =>
+      ANCHORS.includes(entry),
+    ),
     `${app.name} bundles the CSS`,
   )
   const messages: string[] = []
@@ -289,7 +290,11 @@ test(`known: ${ANCHORS_VISIBLE.reason}`, async ({ page }, testInfo) => {
     CSS.supports("position-visibility", "anchor-visible"),
   )
   await expect
-    .poll(() => messages.some((text) => ANCHORS_VISIBLE.message.test(text)))
+    .poll(() =>
+      messages.some((text) =>
+        ANCHORS.some(({ aspect }) => text.includes(String(aspect))),
+      ),
+    )
     .toBe(takesSingular)
 })
 
@@ -639,27 +644,6 @@ test("a callout dismissed before the app hydrates it waits for the dismiss handl
   expect(unexpected(problems, app.name, "callout")).toEqual([])
 })
 
-const NATIVE_DIFFERENCES = [
-  ...differences("sveltekit", SVELTE_SPREAD, [
-    "checkbox-bound",
-    "group-bound",
-    "radio-bound",
-    "rating-bound",
-    "rating-default",
-    "tabs-bound",
-    "toggle-bound",
-  ]),
-  ...differences("vite-svelte", SVELTE_DEFAULT, [
-    "checkbox-bound",
-    "group-bound",
-    "radio-bound",
-    "rating-bound",
-    "rating-default",
-    "tabs-bound",
-    "toggle-bound",
-  ]),
-]
-
 for (const nativeCase of NATIVE_CASES) {
   test(`native/${nativeCase.name} holds the same state as the native control before hydration, after a change and after a form reset`, async ({
     page,
@@ -669,10 +653,7 @@ for (const nativeCase of NATIVE_CASES) {
       !examples.get(app.framework)?.has("native"),
       `${app.framework} has no native comparison pair`,
     )
-    const difference = NATIVE_DIFFERENCES.find(
-      (entry) => entry.where === app.name && entry.name === nativeCase.name,
-    )
-    test.fail(!!difference, difference?.reason)
+    failsWhere({ app: app.name, aspect: nativeCase.name, check: "native" })
     const problems = await watch(page)
     const release = app.scripts
       ? await holdScripts(page, app.scripts)

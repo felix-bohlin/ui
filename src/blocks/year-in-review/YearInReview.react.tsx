@@ -1,4 +1,4 @@
-import { Button } from "opui-css/react"
+import { Button, Meter } from "opui-css/react"
 
 export default function YearInReview() {
   return (
@@ -31,7 +31,7 @@ export default function YearInReview() {
         </div>
         <ul className="yr-grid">
           <li className="yr-card yr-wide ui-dark">
-            <p className="yr-label">Time with your bass</p>
+            <p className="ui-overline">Time with your bass</p>
             <p className="yr-big">1 284 hours</p>
             <p>
               That's 53 days straight. More than the drummer practised, by a
@@ -39,7 +39,7 @@ export default function YearInReview() {
             </p>
           </li>
           <li className="yr-card ui-dark" style={{ "--_shift": "120" }}>
-            <p className="yr-label">Your bass personality</p>
+            <p className="ui-overline">Your bass personality</p>
             <p className="yr-headline">The Pocket Keeper</p>
             <p>
               You play behind the beat, never rush a fill and make everyone else
@@ -47,41 +47,44 @@ export default function YearInReview() {
             </p>
           </li>
           <li className="yr-card ui-dark" style={{ "--_shift": "200" }}>
-            <p className="yr-label" id="year-in-review-songs">
+            <p className="ui-overline" id="year-in-review-songs">
               Most played
             </p>
             <ol aria-labelledby="year-in-review-songs" className="yr-songs">
               <li>
-                <span>Root Note Romance</span>
+                <span id="year-in-review-song-1">Root Note Romance</span>
                 <span className="ui-tabular-nums">412×</span>
-                <span
-                  aria-hidden="true"
-                  className="yr-bar"
-                  style={{ "--_value": "100%" }}
-                ></span>
+                <Meter
+                  aria-labelledby="year-in-review-song-1"
+                  className="yr-meter"
+                  max={412}
+                  value={412}
+                />
               </li>
               <li>
-                <span>Chest Cavity Dub</span>
+                <span id="year-in-review-song-2">Chest Cavity Dub</span>
                 <span className="ui-tabular-nums">298×</span>
-                <span
-                  aria-hidden="true"
-                  className="yr-bar"
-                  style={{ "--_value": "72%" }}
-                ></span>
+                <Meter
+                  aria-labelledby="year-in-review-song-2"
+                  className="yr-meter"
+                  max={412}
+                  value={298}
+                />
               </li>
               <li>
-                <span>Fretless Lullaby</span>
+                <span id="year-in-review-song-3">Fretless Lullaby</span>
                 <span className="ui-tabular-nums">187×</span>
-                <span
-                  aria-hidden="true"
-                  className="yr-bar"
-                  style={{ "--_value": "45%" }}
-                ></span>
+                <Meter
+                  aria-labelledby="year-in-review-song-3"
+                  className="yr-meter"
+                  max={412}
+                  value={187}
+                />
               </li>
             </ol>
           </li>
           <li className="yr-card ui-dark" style={{ "--_shift": "300" }}>
-            <p className="yr-label" id="year-in-review-strings">
+            <p className="ui-overline" id="year-in-review-strings">
               Favourite string
             </p>
             <ul aria-labelledby="year-in-review-strings" className="yr-strings">
@@ -123,7 +126,7 @@ export default function YearInReview() {
             <p>The low E, 61% of your notes. A classic.</p>
           </li>
           <li className="yr-card ui-dark" style={{ "--_shift": "40" }}>
-            <p className="yr-label">Longest practice streak</p>
+            <p className="ui-overline">Longest practice streak</p>
             <p className="yr-headline">41 days in a row</p>
             <div
               aria-label="36 of the last 42 days had practice"
@@ -183,13 +186,6 @@ export default function YearInReview() {
             }
           }
 
-          .yr-label {
-            font-size: var(--ui-font-size-caption);
-            font-weight: var(--ui-font-weight-label);
-            letter-spacing: var(--ui-letter-spacing-caps);
-            text-transform: uppercase;
-          }
-
           .yr-big {
             color: var(--ui-text-strong);
             font-size: clamp(var(--ui-font-size-900), 14cqi, 6rem);
@@ -227,12 +223,11 @@ export default function YearInReview() {
               }
             }
 
-            .yr-bar {
-              background-color: var(--ui-text-strong);
-              block-size: 0.375rem;
-              border-radius: var(--ui-radius-round);
+            .yr-meter {
+              --_accent: var(--ui-text-strong);
+              --_bg-color: oklch(1 0 0 / 20%);
+
               grid-column: 2 / -1;
-              inline-size: var(--_value);
             }
           }
 

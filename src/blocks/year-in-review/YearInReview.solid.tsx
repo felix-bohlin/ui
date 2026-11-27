@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { Button } from "opui-css/solid"
+import { Button, Meter } from "opui-css/solid"
 
 export default function YearInReview() {
   return (
@@ -32,7 +32,7 @@ export default function YearInReview() {
         </div>
         <ul class="yr-grid">
           <li class="yr-card yr-wide ui-dark">
-            <p class="yr-label">Time with your bass</p>
+            <p class="ui-overline">Time with your bass</p>
             <p class="yr-big">1 284 hours</p>
             <p>
               That's 53 days straight. More than the drummer practised, by a
@@ -40,7 +40,7 @@ export default function YearInReview() {
             </p>
           </li>
           <li class="yr-card ui-dark" style="--_shift: 120">
-            <p class="yr-label">Your bass personality</p>
+            <p class="ui-overline">Your bass personality</p>
             <p class="yr-headline">The Pocket Keeper</p>
             <p>
               You play behind the beat, never rush a fill and make everyone else
@@ -48,41 +48,44 @@ export default function YearInReview() {
             </p>
           </li>
           <li class="yr-card ui-dark" style="--_shift: 200">
-            <p class="yr-label" id="year-in-review-songs">
+            <p class="ui-overline" id="year-in-review-songs">
               Most played
             </p>
             <ol aria-labelledby="year-in-review-songs" class="yr-songs">
               <li>
-                <span>Root Note Romance</span>
+                <span id="year-in-review-song-1">Root Note Romance</span>
                 <span class="ui-tabular-nums">412×</span>
-                <span
-                  aria-hidden="true"
-                  class="yr-bar"
-                  style="--_value: 100%"
-                ></span>
+                <Meter
+                  aria-labelledby="year-in-review-song-1"
+                  class="yr-meter"
+                  max={412}
+                  value={412}
+                />
               </li>
               <li>
-                <span>Chest Cavity Dub</span>
+                <span id="year-in-review-song-2">Chest Cavity Dub</span>
                 <span class="ui-tabular-nums">298×</span>
-                <span
-                  aria-hidden="true"
-                  class="yr-bar"
-                  style="--_value: 72%"
-                ></span>
+                <Meter
+                  aria-labelledby="year-in-review-song-2"
+                  class="yr-meter"
+                  max={412}
+                  value={298}
+                />
               </li>
               <li>
-                <span>Fretless Lullaby</span>
+                <span id="year-in-review-song-3">Fretless Lullaby</span>
                 <span class="ui-tabular-nums">187×</span>
-                <span
-                  aria-hidden="true"
-                  class="yr-bar"
-                  style="--_value: 45%"
-                ></span>
+                <Meter
+                  aria-labelledby="year-in-review-song-3"
+                  class="yr-meter"
+                  max={412}
+                  value={187}
+                />
               </li>
             </ol>
           </li>
           <li class="yr-card ui-dark" style="--_shift: 300">
-            <p class="yr-label" id="year-in-review-strings">
+            <p class="ui-overline" id="year-in-review-strings">
               Favourite string
             </p>
             <ul aria-labelledby="year-in-review-strings" class="yr-strings">
@@ -124,7 +127,7 @@ export default function YearInReview() {
             <p>The low E, 61% of your notes. A classic.</p>
           </li>
           <li class="yr-card ui-dark" style="--_shift: 40">
-            <p class="yr-label">Longest practice streak</p>
+            <p class="ui-overline">Longest practice streak</p>
             <p class="yr-headline">41 days in a row</p>
             <div
               aria-label="36 of the last 42 days had practice"
@@ -184,13 +187,6 @@ export default function YearInReview() {
             }
           }
 
-          .yr-label {
-            font-size: var(--ui-font-size-caption);
-            font-weight: var(--ui-font-weight-label);
-            letter-spacing: var(--ui-letter-spacing-caps);
-            text-transform: uppercase;
-          }
-
           .yr-big {
             color: var(--ui-text-strong);
             font-size: clamp(var(--ui-font-size-900), 14cqi, 6rem);
@@ -228,12 +224,11 @@ export default function YearInReview() {
               }
             }
 
-            .yr-bar {
-              background-color: var(--ui-text-strong);
-              block-size: 0.375rem;
-              border-radius: var(--ui-radius-round);
+            .yr-meter {
+              --_accent: var(--ui-text-strong);
+              --_bg-color: oklch(1 0 0 / 20%);
+
               grid-column: 2 / -1;
-              inline-size: var(--_value);
             }
           }
 

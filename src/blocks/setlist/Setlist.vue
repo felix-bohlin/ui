@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { Button, Card, CardContent, Checkbox, Chip } from "opui-css/vue"
+import {
+  Button,
+  Card,
+  CardContent,
+  Checkbox,
+  Chip,
+  Divider,
+} from "opui-css/vue"
 </script>
 
 <template>
@@ -61,7 +68,9 @@ import { Button, Card, CardContent, Checkbox, Chip } from "opui-css/vue"
           <span class="sl-note ui-caption">Fretless, lights down</span>
         </li>
       </ol>
-      <p aria-hidden="true" class="sl-encore">Encore</p>
+      <Divider align="start" aria-hidden="true" class="sl-encore"
+        >Encore</Divider
+      >
       <ol
         aria-label="Encore"
         class="sl-songs"
@@ -239,12 +248,9 @@ import { Button, Card, CardContent, Checkbox, Chip } from "opui-css/vue"
   }
 
   .sl-encore {
-    border-block-start: var(--ui-border-width-large) dashed
-      var(--ui-text-subtle);
     font-weight: var(--ui-font-weight-heading);
     letter-spacing: var(--ui-letter-spacing-caps);
     margin-block: var(--ui-space-5) var(--ui-space-2);
-    padding-block-start: var(--ui-space-4);
     text-transform: uppercase;
   }
 

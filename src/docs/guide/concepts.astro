@@ -13,18 +13,32 @@ import { npmTag } from "../../utils/release"
 import { tokenTierNotes } from "../../utils/theme-tokens"
 
 const tiers = [
-  ["Knob", "--ui-palette-hue", tokenTierNotes.knob],
-  ["Primitive", "--ui-color-16", tokenTierNotes.primitive],
-  ["Role", "--ui-primary", tokenTierNotes.role],
-  ["Hook", "--ui-control-accent", tokenTierNotes.hook],
-  ["Component token", "--ui-button-size", tokenTierNotes.component],
-  ["Input", "--ui-anchor-position-area", tokenTierNotes.input],
   [
-    "Private property",
-    "--_accent",
-    "A component's own wiring, set on one element.",
-    "/guide/customizing#component-properties",
+    "The whole look",
+    "Knob",
+    "<code>--ui-palette-hue: 150</code> makes the brand color green everywhere.",
   ],
+  [
+    "One thing everywhere",
+    "Role",
+    "<code>--ui-radius: 1rem</code> rounds the corners of every component.",
+  ],
+  [
+    "One component",
+    "Component token",
+    "<code>--ui-button-radius: 999px</code> makes only buttons round.",
+  ],
+  [
+    "One element",
+    "Private property",
+    '<code>style="--_radius: 0"</code> squares the corners of one button.',
+  ],
+]
+
+const others = [
+  ["Primitive", "--ui-color-16", tokenTierNotes.primitive],
+  ["Hook", "--ui-control-accent", tokenTierNotes.hook],
+  ["Input", "--ui-anchor-position-area", tokenTierNotes.input],
 ]
 
 export const keywords = [
@@ -67,31 +81,36 @@ export const keywords = [
   <section id="token-tiers">
     <h2>Token tiers</h2>
     <p>
-      A theme turns <strong>knobs</strong>, the knobs compute
-      <strong>roles</strong>, and components read the roles. The other tiers
-      branch off that line.
-      <DocLink href="/guide/theme-tokens">Theme tokens</DocLink> names the tier
-      of every token.
+      Tokens are the CSS variables you set to change how things look. Find what
+      you want to change, then set that kind of token:
     </p>
     <DocsTable
       columns={[
-        { label: "Tier", width: "20%" },
-        { label: "Like", width: "30%" },
-        { label: "What it is" },
+        { label: "To change", width: "22%" },
+        { label: "Set a", width: "22%" },
+        { label: "Example" },
       ]}
     >
-      {tiers.map(([name, token, note, href]) => <TableRow>
-        <TableCell>
-          {href ? (
-            <DocLink href={href}><strong>{name}</strong></DocLink>
-          ) : (
-            <strong>{name}</strong>
-          )}
-        </TableCell>
-        <TableCell><code>{token}</code></TableCell>
-        <TableCell>{note}</TableCell>
+      {tiers.map(([change, tier, example]) => <TableRow>
+        <TableCell>{change}</TableCell>
+        <TableCell><strong>{tier}</strong></TableCell>
+        <TableCell set:html={example} />
       </TableRow>)}
     </DocsTable>
+    <p>
+      Three more show up on
+      <DocLink href="/guide/theme-tokens">Theme tokens</DocLink>, which names
+      the tier of every token:
+    </p>
+    <ul>
+      {others.map(([tier, token, note]) => <li>
+        <strong>{tier}</strong>, like <code>{token}</code>: {note}
+      </li>)}
+    </ul>
+    <p>
+      Each tier feeds the next: a knob sets the roles, a role is the default of
+      a component token, and so on down to the CSS:
+    </p>
     <TokenTiers />
   </section>
 

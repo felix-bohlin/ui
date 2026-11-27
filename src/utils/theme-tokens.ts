@@ -265,13 +265,12 @@ export const tokenTiers = [
 ] as const satisfies TokenTier[]
 
 export const tokenTierNotes = {
-  component:
-    "Named after one component, and read by those built on it. Set it to change just those.",
-  hook: "An optional role, unset by default. Set it to override a role for every part with that job.",
-  input: "Set on one element by a prop or style, never by a theme.",
-  knob: "A dial the roles are computed from. Turn it and they all follow.",
-  primitive: "A computed step no component reads. Use it in your own CSS.",
-  role: "A job, like the primary color. Components read roles. Set one to change that job everywhere.",
+  component: "Changes one component, like the button's corners.",
+  hook: "Unset by default. Set it to change one job for a group of components.",
+  input: "Set on one element by a prop, not in a theme.",
+  knob: "Changes many things at once, like the brand color.",
+  primitive: "A ready-made value for your own CSS. Components don't use it.",
+  role: "Changes one job everywhere, like the corners of every component.",
 } satisfies Record<TokenTier, string>
 
 export const tokenTier = (name: string): TokenTier =>

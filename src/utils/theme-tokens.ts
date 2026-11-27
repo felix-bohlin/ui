@@ -32,7 +32,6 @@ const SECTIONS = [
   ["Palette", "palette"],
   ["Palette steps", "palette-steps"],
   ["Palette shades", "palette-shades"],
-  ["Named colors (no severity meaning)", "named-colors"],
   ["Intent tokens", "intent"],
   ["Primary", "primary"],
   ["Text", "text"],

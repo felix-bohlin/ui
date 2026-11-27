@@ -6,8 +6,6 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-backdrop-bg-color":
     "Overlay color behind an open `Dialog` or `Drawer`. `--ui-text` at 50% in light mode, and half the lightness of `--ui-surface` at 50% in dark mode.",
   "--ui-backdrop-blur": "Blur radius behind an open `Dialog` or `Drawer`.",
-  "--ui-blue":
-    "A literal blue, hue 240 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
   "--ui-border-color":
     "Default border color for cards, lists, tables and dividers, on the page and inside every raised or filled surface. `--ui-text-strong` at `--ui-border-strength-light` or `--ui-border-strength-dark` over transparent, so it reads the same on every surface.",
   "--ui-border-color-raised":
@@ -119,7 +117,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-control-size-large": "Shared large height for fields and buttons.",
   "--ui-control-size-small": "Shared small height for fields and buttons.",
   "--ui-control-size-x-small": "Shared x-small height for fields and buttons.",
-  "--ui-critical": "Severity color for errors and destructive actions.",
+  "--ui-critical":
+    "Severity color for errors and destructive actions. A red at hue 25 by default.",
   "--ui-critical-fill":
     "Critical as a fill under `--ui-on-fill` text: `--ui-critical` with its lightness capped so the text reads on it, darker with more contrast. Critical `Button`s and `ControlGroup` dividers, and the critical `Badge`. A theme that pins its critical fill sets it here.",
   "--ui-critical-text":
@@ -247,8 +246,6 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-font-weight-label": "Font weight for labels, table headers and titles.",
   "--ui-gray-chroma": "Chroma of the gray ramp. Raise it for tinted grays.",
   "--ui-gray-hue": "Hue of the gray ramp.",
-  "--ui-green":
-    "A literal green, hue 145 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
   "--ui-icon-check":
     "The check that marks the current item of a `Menu`, the selected item of a listbox and select picker, and a complete `Stepper` step. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-icon-clear":
@@ -291,7 +288,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-icon-warning":
     "The icon of a warning `Callout` and `Toaster` toast. An SVG image used as a mask, so only its shape counts and it takes the text color.",
   "--ui-info":
-    "Severity color for informational messages, and the dotted underline of `abbr`, `dfn`, `.ui-abbr` and `.ui-dfn`.",
+    "Severity color for informational messages, and the dotted underline of `abbr`, `dfn`, `.ui-abbr` and `.ui-dfn`. A blue at hue 240 by default, the same blue as the `.ui-info` palette.",
   "--ui-info-fill":
     "Info as a fill under `--ui-on-fill` text: `--ui-info` with its lightness capped so the text reads on it, darker with more contrast. Critical `Button`s and `ControlGroup` dividers, and the info `Badge`. A theme that pins its info fill sets it here.",
   "--ui-info-text":
@@ -345,8 +342,6 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Text color on `--ui-selected-strong`: the selected tab of filled `Tabs` and the number or icon of the current `Stepper` and `Timeline` markers. Defaults to `--ui-on-primary`.",
   "--ui-on-warning":
     "Text color on a `--ui-warning` fill: the warning `Badge`. White on a warning below 0.182 relative luminance and near-black above it, like `--ui-on-primary`.",
-  "--ui-orange":
-    "A literal orange, hue 75 at `0.66`, the lightness of palette step 7 in every palette. No severity meaning.",
   "--ui-palette-accent":
     "The accent shade of the current palette: `Callout` icons and outlined borders. Stronger with more contrast. The severity `Chip` dot reads it. Re-derived inside every severity scope, so `.ui-success` gets a green one.",
   "--ui-palette-border":
@@ -387,8 +382,6 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Corner radius of small parts: `kbd`, inline `code`, `mark`, `var`, `Tooltip`, the file input and a `rounded` `Avatar`. `--ui-radius`, capped at 5px.",
   "--ui-radius-x-small":
     "Corner radius of the `Checkbox` box. `--ui-radius`, capped at 2px.",
-  "--ui-red":
-    "A literal red, hue 25 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
   "--ui-rhythm-step":
     "Vertical rhythm unit. Rich text margins and heading line heights round to it.",
   "--ui-rich-text-flow-gap":
@@ -462,7 +455,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Alpha of the hover state layer on neutral buttons and `ToggleButton` in light mode.",
   "--ui-state-selected-alpha-accent":
     'Alpha of the tint behind selected `List` and `Menu` rows, select options and checked `Message` reactions when `--ui-selected` is unset, behind checked `Checkbox`, `Radio` and `Switch` cards, which tint their accent, behind the current page (`aria-current="page"`) in text, outlined and tonal buttons, and of the selected `Tabs` pill in dark mode. `15%` with more contrast, so light text keeps 7:1 in dark mode.',
-  "--ui-success": "Severity color for success messages.",
+  "--ui-success":
+    "Severity color for success messages. A green at hue 145 by default.",
   "--ui-success-fill":
     "Success as a fill under `--ui-on-fill` text: `--ui-success` with its lightness capped so the text reads on it, darker with more contrast. Critical `Button`s and `ControlGroup` dividers, and the success `Badge`. A theme that pins its success fill sets it here.",
   "--ui-success-text":
@@ -534,7 +528,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-underline-offset-small":
     "Gap between text and the underline of `abbr`, `dfn`, `ins` and `u` and their classes.",
   "--ui-warning":
-    "Severity color for warnings. Unlike the other severities it keeps its lightness with more contrast: the fill is light and takes dark `--ui-on-warning` text, and `--ui-warning-text` gets the stricter lightness limits instead.",
+    "Severity color for warnings, an orange at hue 75 by default. Unlike the other severities it keeps its lightness with more contrast: the fill is light and takes dark `--ui-on-warning` text, and `--ui-warning-text` gets the stricter lightness limits instead.",
   "--ui-warning-text":
     "Warning as a text color, for warning text outside a `.ui-warning` scope. `--ui-warning` with its lightness limited so it reads as text on every surface.",
   ...Object.fromEntries(

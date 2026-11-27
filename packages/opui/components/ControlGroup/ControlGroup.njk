@@ -1,0 +1,18 @@
+{% macro ControlGroup(props = {}) %}
+  {%- set props = props | opuiProps("ControlGroup") -%}
+  {%- set rest = props | opuiRest("ControlGroup") -%}
+  {%- set role = props.role | default('group') -%}
+  <div
+    class="ui-control-group
+      {%- if props.orientation == 'vertical' %} ui-vertical{% endif %}
+      {%- if props.color %} ui-{{ props.color }}{% endif %}
+      {%- if props.overflow and props.overflow != 'wrap' %} ui-overflow-{{ props.overflow }}
+      {%- endif %}
+      {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}
+      {%- if props.variant and props.variant != 'transparent' %} ui-{{ props.variant }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    role="{{ role }}"
+    {{- rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </div>
+{%- endmacro %}

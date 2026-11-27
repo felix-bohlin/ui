@@ -3,23 +3,23 @@ import { Avatar, AvatarGroup, Badge } from "opui-css/react"
 export default function Grouped() {
   return (
     <AvatarGroup aria-label="Band">
-      <Avatar label="Ada Bridge">AB</Avatar>
-      <Avatar label="Holly Humbucker">HH</Avatar>
-      <Avatar as="button" label="Ines Hertz">
-        IH
+      <Avatar label="Adam Groove">AG</Avatar>
+      <Avatar label="Ellen Nut">EN</Avatar>
+      <Avatar as="button" label="Josh Rootnote">
+        JR
       </Avatar>
-      <Avatar as="button" label="Lou Headstock">
-        LH
+      <Avatar as="button" label="Kinga Headstock">
+        KH
       </Avatar>
-      <Avatar href="#" label="Percy Groove">
-        PG
+      <Avatar href="#" label="Mohini Hertz">
+        MH
       </Avatar>
-      <Avatar href="#" label="Rory Rootnote">
-        RR
+      <Avatar href="#" label="Scott Humbucker">
+        SH
       </Avatar>
       <Badge dot label="Online">
-        <Avatar href="#" label="Stella Nut, online">
-          SN
+        <Avatar href="#" label="Yonit Bridge, online">
+          YB
         </Avatar>
       </Badge>
     </AvatarGroup>

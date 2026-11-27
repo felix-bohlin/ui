@@ -6,11 +6,12 @@ export default function CardsMatrix() {
     <Form>
       <Fieldset>
         <FieldLegend>Notifications</FieldLegend>
-        <FieldGroup name="switch-cards-end" orientation="horizontal">
+        <FieldGroup orientation="horizontal">
           <Switch
             card
             defaultChecked
             endText="A summary every morning."
+            name="switch-cards-end"
             spread
             value="email"
           >
@@ -19,6 +20,7 @@ export default function CardsMatrix() {
           <Switch
             card
             endText="On this device only."
+            name="switch-cards-end"
             spread
             value="push"
             variant="elevated"
@@ -28,6 +30,7 @@ export default function CardsMatrix() {
           <Switch
             card
             endText="For security alerts only."
+            name="switch-cards-end"
             spread
             value="sms"
             variant="tonal"
@@ -38,11 +41,12 @@ export default function CardsMatrix() {
       </Fieldset>
       <Fieldset>
         <FieldLegend>Privacy</FieldLegend>
-        <FieldGroup name="switch-cards-start" orientation="horizontal">
+        <FieldGroup orientation="horizontal">
           <Switch
             card
             defaultChecked
             endText="Others see when you're active."
+            name="switch-cards-start"
             value="status"
           >
             Online status
@@ -50,6 +54,7 @@ export default function CardsMatrix() {
           <Switch
             card
             endText="Others see when you've read a message."
+            name="switch-cards-start"
             value="receipts"
             variant="elevated"
           >
@@ -58,6 +63,7 @@ export default function CardsMatrix() {
           <Switch
             card
             endText="People can find you by email."
+            name="switch-cards-start"
             value="search"
             variant="tonal"
           >

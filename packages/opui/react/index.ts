@@ -8,6 +8,8 @@ export { default as AnchorContent } from "../components/Anchor/AnchorContent.rea
 export { default as Avatar } from "../components/Avatar/Avatar.react"
 export { default as AvatarGroup } from "../components/Avatar/AvatarGroup.react"
 export { default as Badge } from "../components/Badge/Badge.react"
+export { default as Breadcrumb } from "../components/Breadcrumb/Breadcrumb.react"
+export { default as BreadcrumbItem } from "../components/Breadcrumb/BreadcrumbItem.react"
 export { default as Button } from "../components/Button/Button.react"
 export { default as Callout } from "../components/Callout/Callout.react"
 export { default as CalloutActions } from "../components/Callout/CalloutActions.react"
@@ -106,6 +108,10 @@ export type {
   Props as AvatarProps,
 } from "../components/Avatar/types.react"
 export type { Props as BadgeProps } from "../components/Badge/types.react"
+export type {
+  BreadcrumbItemProps,
+  Props as BreadcrumbProps,
+} from "../components/Breadcrumb/types.react"
 export type { Props as ButtonProps } from "../components/Button/types.react"
 export type {
   CalloutActionsProps,

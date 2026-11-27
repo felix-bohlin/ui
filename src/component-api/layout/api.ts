@@ -5,6 +5,7 @@ export default {
   css: ["layout"],
   notes: {
     astro: "Add the classes to elements in your templates.",
+    nunjucks: "Add the classes to elements in your templates.",
     react: "Add the classes to elements in your markup.",
     solid: "Add the classes to elements in your markup.",
     svelte: "Add the classes to elements in your markup.",
@@ -89,13 +90,13 @@ export default {
       default: '"medium"',
       description:
         "The space between children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid`, `.ui-layout-columns` and `.ui-layout-media`.",
-      group: "Sizes",
-      prop: "size",
+      group: "Gap",
+      prop: "gap",
       values: {
-        large: ".ui-large",
+        large: ".ui-gap-large",
         medium: null,
-        small: ".ui-small",
-        "x-small": ".ui-x-small",
+        small: ".ui-gap-small",
+        "x-small": ".ui-gap-x-small",
       },
     },
     {

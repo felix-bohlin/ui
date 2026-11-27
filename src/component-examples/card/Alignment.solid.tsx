@@ -26,7 +26,7 @@ export default function Alignment() {
 
       <Card variant="outlined">
         <CardContent>
-          Band photo where you're finally in focus, added by Lou Headstock.
+          Band photo where you're finally in focus, added by Kinga Headstock.
         </CardContent>
         <CardActions align="start">
           <Button aria-label="Favorite" round size="small">

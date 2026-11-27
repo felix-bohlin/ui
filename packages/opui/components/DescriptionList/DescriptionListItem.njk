@@ -1,0 +1,10 @@
+{% macro DescriptionListItem(props = {}) %}
+  {%- set props = props | opuiProps("DescriptionListItem") -%}
+  {%- set rest = props | opuiRest("DescriptionListItem") -%}
+  {%- set classes = [props.total and 'ui-total', props.class] | opuiClass -%}
+  <div
+    {%- if classes %} class="{{ classes }}"{% endif %}
+    {{- rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </div>
+{%- endmacro %}

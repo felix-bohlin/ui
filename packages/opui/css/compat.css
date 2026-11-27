@@ -1,6 +1,7 @@
 @import "./layers.css";
 @import "./compat/anchor.css";
 @import "./compat/avatar.css";
+@import "./compat/breadcrumb.css";
 @import "./compat/carousel.css";
 @import "./compat/control-group.css";
 @import "./compat/copy.css";

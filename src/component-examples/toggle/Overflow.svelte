@@ -2,7 +2,7 @@
   import { ToggleButton, ToggleGroup } from "opui-css/svelte"
 </script>
 
-<div style="display: grid; gap: var(--ui-space-4); max-inline-size: 14rem">
+<div style="display: grid; gap: var(--ui-space-5); max-inline-size: 14rem">
   <div style="display: grid; gap: var(--ui-space-1)">
     <p>Wrap</p>
     <ToggleGroup aria-label="Notifications">

@@ -1,0 +1,28 @@
+{% from "opui/index.njk" import ToggleButton, ToggleGroup %}
+
+<div style="display: grid; gap: var(--ui-space-5); max-inline-size: 14rem">
+  <div style="display: grid; gap: var(--ui-space-1)">
+    <p>Wrap</p>
+    {% call ToggleGroup({ "aria-label": "Notifications" }) %}
+      {% call ToggleButton({ value: "all" }) %}Everything{% endcall %}
+      {% call ToggleButton({ value: "mentions" }) %}Mentions{% endcall %}
+      {% call ToggleButton({ value: "none" }) %}Nothing at all{% endcall %}
+    {% endcall %}
+  </div>
+  <div style="display: grid; gap: var(--ui-space-1)">
+    <p>Scroll</p>
+    {% call ToggleGroup({ "aria-label": "Notifications", overflow: "scroll" }) %}
+      {% call ToggleButton({ value: "all" }) %}Everything{% endcall %}
+      {% call ToggleButton({ value: "mentions" }) %}Mentions{% endcall %}
+      {% call ToggleButton({ value: "none" }) %}Nothing at all{% endcall %}
+    {% endcall %}
+  </div>
+  <div style="display: grid; gap: var(--ui-space-1)">
+    <p>Shrink</p>
+    {% call ToggleGroup({ "aria-label": "Notifications", overflow: "shrink" }) %}
+      {% call ToggleButton({ value: "all" }) %}Everything{% endcall %}
+      {% call ToggleButton({ value: "mentions" }) %}Mentions{% endcall %}
+      {% call ToggleButton({ value: "none" }) %}Nothing at all{% endcall %}
+    {% endcall %}
+  </div>
+</div>

@@ -57,7 +57,7 @@
     /* Layout */
     & > summary {
       cursor: pointer;
-      font-weight: var(--ui-font-weight-bold);
+      font-weight: var(--ui-font-weight-heading);
       padding-block: var(--_summary-padding-block);
       padding-inline: var(--_summary-padding-inline);
       -webkit-user-select: none;

@@ -43,6 +43,7 @@ const fruits = ref(fruitsOf(0))
 const steps = ref(stepsOf(0))
 const name = ref("Ada")
 const plan = ref("free")
+const tags = ref(["archived", "news"])
 const toppings = ref(["basil", "cheese"])
 
 function refreshActions(event: MouseEvent) {
@@ -166,6 +167,16 @@ onBeforeUnmount(() =>
       <ToggleButton value="left">Left</ToggleButton>
       <ToggleButton value="right">Right</ToggleButton>
     </ToggleGroup>
+    <ToggleGroup
+      aria-label="Stored tags"
+      multiple
+      name="stored-tags"
+      v-model="tags"
+    >
+      <ToggleButton value="news">News</ToggleButton>
+      <ToggleButton value="sports">Sports</ToggleButton>
+    </ToggleGroup>
+    <output id="models-tags">{{ JSON.stringify(tags) }}</output>
     <ToggleGroup aria-label="Own density" name="own-density">
       <ToggleButton checked value="compact">Compact</ToggleButton>
       <ToggleButton value="roomy">Roomy</ToggleButton>

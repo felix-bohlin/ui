@@ -38,7 +38,7 @@ export default {
   },
   "--_dash-block-size": {
     description:
-      "Thickness of the dash. Defaults to `--ui-border-width-thick`.",
+      "Thickness of the dash. Defaults to `--ui-border-width-large`.",
     kind: "input",
   },
   "--_dash-image": {

@@ -12,7 +12,6 @@ defineSlots<Slots>()
       { 'ui-flush': flush, 'ui-sticky-header': stickyHeader },
       density && density !== 'normal' && `ui-${density}`,
       overflow && overflow !== 'wrap' && `ui-overflow-${overflow}`,
-      $props.class,
     ]"
   >
     <slot></slot>

@@ -30,7 +30,7 @@ import { HYDRATED_FRAMEWORK_IDS } from "../../src/utils/framework"
 const EXAMPLES = "../../src/component-examples/"
 
 const sources = import.meta.glob<string>(
-  "../../src/component-examples/**/*.{astro,html,react.tsx,solid.tsx,svelte,vue}",
+  "../../src/component-examples/**/*.{astro,html,njk,react.tsx,solid.tsx,svelte,vue}",
   { eager: true, import: "default", query: "?raw" },
 )
 const blocks = import.meta.glob("../../src/blocks/*/*.astro")
@@ -796,7 +796,7 @@ describe("the source layout", () => {
 
   test("reads a style attribute as its declarations, however it is laid out", async () => {
     const declarations =
-      "display: grid; gap: var(--ui-space-4); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr))"
+      "display: grid; gap: var(--ui-space-5); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr))"
     const oneLine = astro(`<div style="${declarations}"></div>`)
     const lines = astro(
       `<div style="\n    ${declarations.replaceAll("; ", ";\n    ")};\n  "></div>`,
@@ -1071,7 +1071,10 @@ describe("generated examples", () => {
     }
     expect(scripted.length).toBeGreaterThan(0)
     for (const key of scripted) {
-      expect(generatedTargets(key, handWritten), key).toEqual(["html"])
+      expect(generatedTargets(key, handWritten), key).toEqual([
+        "html",
+        "nunjucks",
+      ])
     }
   })
 

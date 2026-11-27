@@ -7,8 +7,7 @@ export default {
     {
       members: [
         {
-          description:
-            "Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits.",
+          description: "Hides the password, as on a form reset or submit.",
           kind: "method",
           name: "hidePassword()",
         },
@@ -19,8 +18,7 @@ export default {
           name: "input",
         },
         {
-          description:
-            "Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
+          description: "Shows the password.",
           kind: "method",
           name: "showPassword()",
         },
@@ -30,22 +28,24 @@ export default {
   ],
   notes: {
     default:
-      "Put it in the field's `end` slot, next to a `type=\"password\"` input, and leave that part out of the input's `aria-describedby` when it only holds the toggle. It loads `opui-css/elements/password-toggle.js`, which runs the button. Attributes that aren't props, `class` and `style` go to the `<opui-password-toggle>`, which has `display: contents`, not to the button.",
+      'Put it in `end`, next to a `type="password"` input. It loads `opui-css/elements/password-toggle.js`. Attributes that aren\'t props, `class` and `style` go to the `<opui-password-toggle>`, not the button.',
+    nunjucks:
+      'Put it in `slots.end`, next to a `type="password"` input, and load `opui-css/elements/password-toggle.js` on the page. Attributes that aren\'t props, `class` and `style` go to the `<opui-password-toggle>`, not the button.',
     react:
-      "Put it in the field's `end`, next to a `type=\"password\"` input, and leave that part out of the input's `aria-describedby` when it only holds the toggle. It loads `opui-css/elements/password-toggle.js`, which runs the button. Attributes that aren't props, `className` and `style` go to the `<opui-password-toggle>`, which has `display: contents`, not to the button.",
-    html: 'Put `<opui-password-toggle>` in `.ui-end`, around a `.ui-button.ui-round` with `aria-pressed="false"`, `commandfor` naming the input and `command="--toggle-password"`, and import `opui-css/elements/password-toggle.js`. Leave `.ui-end` out of the input\'s `aria-describedby` when it only holds the toggle.',
+      'Put it in `end`, next to a `type="password"` input. It loads `opui-css/elements/password-toggle.js`. Attributes that aren\'t props, `className` and `style` go to the `<opui-password-toggle>`, not the button.',
+    html: 'Put `<opui-password-toggle>` in `.ui-end`, around a `.ui-button.ui-round` with `aria-pressed="false"`, `command="--toggle-password"` and `commandfor` naming the input, and import `opui-css/elements/password-toggle.js`.',
   },
   options: [
     {
       description:
-        "The `id` of the password input the toggle shows and hides, as its button's `commandfor`.",
-      frameworks: ["astro", "solid", "svelte", "vue"],
+        "The `id` of the password input, as its button's `commandfor`.",
+      frameworks: ["astro", "nunjucks", "solid", "svelte", "vue"],
       prop: "for",
       type: "string",
     },
     {
       description:
-        "The `id` of the password input the toggle shows and hides, as `htmlFor` like on a label, and its button's `commandfor`.",
+        "The `id` of the password input, as its button's `commandfor`.",
       frameworks: ["react"],
       prop: "htmlFor",
       type: "string",
@@ -63,7 +63,7 @@ export default {
   root: {
     code: "<opui-password-toggle>",
     description:
-      'A `.ui-button.ui-round` with `aria-pressed` and `command="--toggle-password"` that shows and hides the password. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is disabled, and `aria-disabled` while the input is `aria-disabled`. `<opui-password-toggle>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-password-toggle>` is defined.',
+      "A `.ui-button.ui-round` with `aria-pressed` that shows and hides the password, with an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked`, or your icons. It follows the input's `disabled` and `aria-disabled`, and stays hidden until `<opui-password-toggle>` is defined.",
     selector: "opui-password-toggle > .ui-button",
   },
   slots: [

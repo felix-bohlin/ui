@@ -2,7 +2,7 @@
 import { omit, untrack } from "solid-js"
 import "../../elements/toaster.js"
 import { defined } from "../attrs"
-import { warnMissingId } from "../dev"
+import { DEV, warnMissingId } from "../dev"
 import type { Props } from "./types.solid"
 
 export default function Toaster(props: Props) {
@@ -16,9 +16,10 @@ export default function Toaster(props: Props) {
     "limit",
     "side",
   )
-  untrack(() => {
-    warnMissingId("Toaster", props.id)
-  })
+  if (DEV)
+    untrack(() => {
+      warnMissingId("Toaster", props.id)
+    })
 
   return (
     <opui-toaster

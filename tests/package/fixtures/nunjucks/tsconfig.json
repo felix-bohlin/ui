@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "erasableSyntaxOnly": true,
+    "exactOptionalPropertyTypes": true,
+    "lib": ["ES2023"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "noEmit": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ES2023",
+    "types": [],
+    "verbatimModuleSyntax": true
+  },
+  "include": ["src"]
+}

@@ -17,10 +17,16 @@ export default function FieldGroupExample() {
         <FieldDescription id="form-field-group-1-description">
           You can change your plan at any time.
         </FieldDescription>
-        <FieldGroup name="plan">
-          <Radio value="starter">Starter</Radio>
-          <Radio value="team">Team</Radio>
-          <Radio value="business">Business</Radio>
+        <FieldGroup>
+          <Radio name="plan" value="starter">
+            Starter
+          </Radio>
+          <Radio name="plan" value="team">
+            Team
+          </Radio>
+          <Radio name="plan" value="business">
+            Business
+          </Radio>
         </FieldGroup>
       </Fieldset>
       <Fieldset aria-describedby="form-field-group-2-description">
@@ -28,21 +34,24 @@ export default function FieldGroupExample() {
         <FieldDescription id="form-field-group-2-description">
           Billed monthly with your plan.
         </FieldDescription>
-        <FieldGroup name="add-ons">
+        <FieldGroup>
           <Checkbox
             endText="Daily snapshots, kept for 30 days."
+            name="add-ons"
             value="backups"
           >
             Backups
           </Checkbox>
           <Checkbox
             endText="Encrypt your files with your own keys."
+            name="add-ons"
             value="encryption"
           >
             Encryption
           </Checkbox>
           <Checkbox
             endText="Sign in with your company account."
+            name="add-ons"
             value="single-sign-on"
           >
             Single sign-on

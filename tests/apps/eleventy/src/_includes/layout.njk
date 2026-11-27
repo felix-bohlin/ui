@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/opui/css/imports.css">
+    <script type="importmap">
+      { "imports": { "opui-css/": "/opui/" } }
+    </script>
+  </head>
+  <body>
+    <nav>
+      {%- for slug in site.slugs %}
+      <a href="/{{ slug }}">{{ slug }}</a>
+      {%- endfor %}
+    </nav>
+    <main>{{ content | safe }}</main>
+  </body>
+</html>

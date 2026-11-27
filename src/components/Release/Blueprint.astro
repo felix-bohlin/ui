@@ -178,7 +178,7 @@ const pathLength = built ? 1 : undefined
 <style is:global>
   .blueprint {
     container-type: inline-size;
-    margin: var(--ui-space-5) 0;
+    margin: var(--ui-space-6) 0;
   }
 
   .blueprint-paper {
@@ -189,7 +189,7 @@ const pathLength = built ? 1 : undefined
     display: grid;
     gap: var(--ui-space-2);
     overflow: clip;
-    padding: var(--ui-space-5) var(--ui-space-4) var(--ui-space-4);
+    padding: var(--ui-space-6) var(--ui-space-5) var(--ui-space-5);
   }
 
   .blueprint-grid {
@@ -200,13 +200,13 @@ const pathLength = built ? 1 : undefined
   .blueprint-panel {
     align-content: start;
     display: grid;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
     min-inline-size: 0;
   }
 
   .blueprint-title {
     font-size: var(--ui-font-size-small);
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
     letter-spacing: var(--ui-letter-spacing-caps);
     margin: 0;
     text-align: center;
@@ -236,14 +236,14 @@ const pathLength = built ? 1 : undefined
     text-align: center;
 
     & code {
-      font-family: var(--ui-font-code);
+      font-family: var(--ui-font-family-code);
       font-size: var(--ui-font-size-caption);
       overflow-wrap: anywhere;
     }
   }
 
   .blueprint-label {
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
   }
 
   code.blueprint-label {
@@ -279,7 +279,7 @@ const pathLength = built ? 1 : undefined
   }
 
   .blueprint-wire {
-    block-size: var(--ui-space-4);
+    block-size: var(--ui-space-5);
     display: block;
     fill: none;
     inline-size: 100%;
@@ -324,11 +324,11 @@ const pathLength = built ? 1 : undefined
         );
       border-style: dashed;
       color: var(--ui-text-subtle);
-      font-family: var(--ui-font-code);
+      font-family: var(--ui-font-family-code);
     }
 
     & .blueprint-title {
-      font-weight: var(--ui-font-weight-normal);
+      font-weight: var(--ui-font-weight-body);
       letter-spacing: normal;
       text-transform: none;
     }
@@ -340,7 +340,7 @@ const pathLength = built ? 1 : undefined
     }
 
     & .blueprint-node {
-      font-family: var(--ui-font-code);
+      font-family: var(--ui-font-family-code);
       rotate: -0.6deg;
     }
 
@@ -350,7 +350,7 @@ const pathLength = built ? 1 : undefined
     }
 
     & .blueprint-label {
-      font-weight: var(--ui-font-weight-normal);
+      font-weight: var(--ui-font-weight-body);
     }
 
     & .blueprint-wire {
@@ -365,7 +365,7 @@ const pathLength = built ? 1 : undefined
     }
 
     & .blueprint-node {
-      background-color: var(--ui-surface-elevated);
+      background-color: var(--ui-surface-raised);
       border-color: var(--ui-primary);
       box-shadow: var(--ui-shadow-surface);
 
@@ -395,7 +395,7 @@ const pathLength = built ? 1 : undefined
     }
 
     .blueprint-link {
-      block-size: var(--ui-space-6);
+      block-size: var(--ui-space-7);
     }
 
     .blueprint-across {

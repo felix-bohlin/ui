@@ -1,0 +1,16 @@
+{% from "opui/index.njk" import Card, CardContent, CardHeader, Chip %}
+
+{% call Card({ as: "article", variant: "outlined" }) %}
+  {% call CardHeader({ as: "header" }) %}
+    <hgroup>
+      <p>Gear Talk</p>
+      <h3>How I cut my pedalboard in half</h3>
+      <p>Kinga Headstock, 12 March</p>
+    </hgroup>
+    {{ Chip({ label: "5 min read", size: "small" }) }}
+  {% endcall %}
+  {% call CardContent() %}
+    Ditching the third fuzz and one very sad chorus pedal took my setup time
+    from twelve minutes to five. Totally rad!
+  {% endcall %}
+{% endcall %}

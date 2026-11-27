@@ -21,7 +21,7 @@ export default function Faq() {
       <div class="faq ui-layout-container">
         <div
           class="ui-layout-columns faq-inner"
-          style="--_columns: 2fr 3fr; --_gap: var(--ui-space-6) var(--ui-space-8)"
+          style="--_columns: 2fr 3fr; --_gap: var(--ui-space-7) var(--ui-space-12)"
         >
           <hgroup class="ui-hgroup">
             <p>Help corner</p>
@@ -193,10 +193,10 @@ export default function Faq() {
               <p>Our support bassists usually reply within 2 hours. &lt;3</p>
             </hgroup>
             <CardContent class="ui-layout-media">
-              <Avatar aria-hidden="true">LH</Avatar>
+              <Avatar aria-hidden="true">KH</Avatar>
               <div>
                 <p>
-                  Lou Headstock{" "}
+                  Kinga Headstock{" "}
                   <Chip
                     as="span"
                     dot

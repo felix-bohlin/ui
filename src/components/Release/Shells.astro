@@ -8,6 +8,7 @@ import {
 import { FRAMEWORKS, type FrameworkId } from "../../utils/framework"
 import { SOLID_PRAGMA } from "../../../scripts/component-shared.mjs"
 import { renderSolid } from "../Example/render-solid"
+import { nunjucksRenderer } from "../../utils/nunjucks"
 
 const id = "shells"
 const slug = "card"
@@ -29,6 +30,10 @@ const jsSources = import.meta.glob<string>(
 )
 const elementSources = import.meta.glob<string>(
   "../../../packages/opui/elements/**/*.js",
+  { eager: true, import: "default", query: "?raw" },
+)
+const nunjucksSources = import.meta.glob<string>(
+  "../../../packages/opui/components/**/*.njk",
   { eager: true, import: "default", query: "?raw" },
 )
 const reactSources = import.meta.glob<string>(
@@ -58,6 +63,7 @@ const layers = [
   { core: true, label: "Component CSS", sources: cssSources },
   { core: true, label: "Custom elements", sources: elementSources },
   { core: true, label: "Init helpers", sources: jsSources },
+  { core: false, label: "Nunjucks macros", sources: nunjucksSources },
   { core: false, label: "React components", sources: reactSources },
   { core: false, label: "Solid components", sources: solidSources },
   { core: false, label: "Svelte components", sources: svelteSources },
@@ -100,7 +106,7 @@ const parts: Record<string, string> = {
 }
 
 const PART_TOKEN =
-  /(<\/?)?\b(CardActions|CardContent|CardHeader|Card|Button|ui-card-link|ui-actions|ui-button|ui-card|ui-content|ui-header|ui-outlined|outlined)\b/g
+  /(<\/?|\{% call |\{\{ )?\b(CardActions|CardContent|CardHeader|Card|Button|ui-card-link|ui-actions|ui-button|ui-card|ui-content|ui-header|ui-outlined|outlined)\b|\{% endcall %\}/g
 
 const escape = (text: string) =>
   text.replace(/[&<>]/g, (char) => `&#${char.charCodeAt(0)};`)
@@ -108,13 +114,21 @@ const escape = (text: string) =>
 const markParts = (code: string) => {
   const opened: Record<string, number> = {}
   const stacks: Record<string, number[]> = {}
+  const calls: string[] = []
   let html = ""
   let last = 0
   for (const match of code.matchAll(PART_TOKEN)) {
+    if (match[0] === "{% endcall %}") {
+      const part = calls.pop()!
+      html += `${escape(code.slice(last, match.index))}{% <mark class="shells-part" style="--shells-part: ${id}-${part}-${stacks[part]?.pop() ?? 0}-close">endcall</mark> %}`
+      last = match.index + match[0].length
+      continue
+    }
     const [, prefix = "", token] = match
     const part = parts[token]
-    const isTag = prefix.startsWith("<")
-    const isImport = !isTag && /^[A-Z]/.test(token)
+    const isTag = prefix !== "" && prefix !== "</"
+    if (prefix === "{% call ") calls.push(part)
+    const isImport = !isTag && prefix !== "</" && /^[A-Z]/.test(token)
     let occurrence: string
     if (prefix === "</") {
       occurrence = `${stacks[part]?.pop() ?? 0}-close`
@@ -143,22 +157,26 @@ const source = (framework: FrameworkId) => {
 const displayLabel = (framework: FrameworkId, label: string) =>
   framework === "html" ? "No framework" : label
 
+const renderNunjucks = nunjucksRenderer(Astro.locals.$id)
+
 const renders = FRAMEWORKS.map(({ id: framework, label }) => ({
   Component:
-    framework === "html" || framework === "solid"
+    framework === "html" || framework === "nunjucks" || framework === "solid"
       ? undefined
       : exampleModules[examplePath(slug, name, framework)]?.default,
   framework,
   html:
     framework === "html"
       ? source("html")
-      : framework === "solid"
-        ? renderSolid(
-            exampleModules[examplePath(slug, name, framework)]
-              ?.default as never,
-            `${id}-`,
-          )
-        : undefined,
+      : framework === "nunjucks"
+        ? renderNunjucks(source("nunjucks"))
+        : framework === "solid"
+          ? renderSolid(
+              exampleModules[examplePath(slug, name, framework)]
+                ?.default as never,
+              `${id}-`,
+            )
+          : undefined,
   label: displayLabel(framework, label),
   marked: markParts(source(framework)),
 }))
@@ -250,14 +268,14 @@ const frameworkId = Astro.locals.$id("shells-framework")
   .shells {
     container-type: inline-size;
     display: grid;
-    gap: var(--ui-space-5);
+    gap: var(--ui-space-6);
     grid-template-columns: minmax(0, 1fr);
-    margin-block: var(--ui-space-5);
+    margin-block: var(--ui-space-6);
   }
 
   .shells-cost {
     display: grid;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
     justify-items: stretch;
     margin: 0;
     view-timeline: --shells-cost block;
@@ -265,9 +283,9 @@ const frameworkId = Astro.locals.$id("shells-framework")
 
   .shells-cost-title {
     color: var(--ui-text-strong);
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-small);
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
   }
 
   .shells-layers {
@@ -280,9 +298,9 @@ const frameworkId = Astro.locals.$id("shells-framework")
 
   .shells-layer {
     align-items: center;
-    column-gap: var(--ui-space-3);
+    column-gap: var(--ui-space-4);
     display: grid;
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-small);
     grid-template-areas:
       "label files lines"
@@ -298,7 +316,7 @@ const frameworkId = Astro.locals.$id("shells-framework")
 
   .shells-layer-label {
     color: var(--ui-text-strong);
-    font-weight: var(--ui-font-weight-medium);
+    font-weight: var(--ui-font-weight-emphasis);
     grid-area: label;
   }
 
@@ -332,14 +350,14 @@ const frameworkId = Astro.locals.$id("shells-framework")
 
   .shells-server {
     color: var(--ui-text);
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-small);
     margin: 0;
   }
 
   .shells-morph {
     display: grid;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
     min-inline-size: 0;
   }
 
@@ -354,14 +372,14 @@ const frameworkId = Astro.locals.$id("shells-framework")
     border-radius: var(--ui-radius-large);
     color: var(--ui-text);
     display: none;
-    font-family: var(--ui-font-code);
+    font-family: var(--ui-font-family-code);
     font-size: var(--ui-font-size-caption);
     grid-area: 1 / 1;
     line-height: 1.45;
     margin: 0;
     min-inline-size: 0;
     overflow-x: auto;
-    padding: var(--ui-space-3) var(--ui-space-2);
+    padding: var(--ui-space-4) var(--ui-space-2);
     tab-size: 2;
     view-transition-class: shells-code;
     view-transition-group: contain;
@@ -380,7 +398,7 @@ const frameworkId = Astro.locals.$id("shells-framework")
     background-color: var(--ui-surface-tonal);
     border-radius: var(--ui-radius-small);
     color: var(--ui-palette-text, var(--ui-text-strong));
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
     margin-inline: -0.15em;
     padding-inline: 0.15em;
     view-transition-class: shells-part;
@@ -394,13 +412,13 @@ const frameworkId = Astro.locals.$id("shells-framework")
 
   .shells-note {
     color: var(--ui-text-subtle);
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-caption);
     margin: 0;
   }
 
   .shells-diffs {
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-small);
 
     & summary {
@@ -408,7 +426,7 @@ const frameworkId = Astro.locals.$id("shells-framework")
     }
 
     & p {
-      font-weight: var(--ui-font-weight-semibold);
+      font-weight: var(--ui-font-weight-label);
       margin-block: var(--ui-space-2) var(--ui-space-1);
     }
   }
@@ -416,7 +434,7 @@ const frameworkId = Astro.locals.$id("shells-framework")
   .shells-diff {
     background-color: var(--ui-surface-tonal);
     border-radius: var(--ui-radius-small);
-    font-family: var(--ui-font-code);
+    font-family: var(--ui-font-family-code);
     font-size: var(--ui-font-size-caption);
     inline-size: 100%;
     line-height: 1.6;

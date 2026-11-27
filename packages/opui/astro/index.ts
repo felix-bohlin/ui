@@ -7,6 +7,8 @@ export { default as AnchorContent } from "../components/Anchor/AnchorContent.ast
 export { default as Avatar } from "../components/Avatar/Avatar.astro"
 export { default as AvatarGroup } from "../components/Avatar/AvatarGroup.astro"
 export { default as Badge } from "../components/Badge/Badge.astro"
+export { default as Breadcrumb } from "../components/Breadcrumb/Breadcrumb.astro"
+export { default as BreadcrumbItem } from "../components/Breadcrumb/BreadcrumbItem.astro"
 export { default as Button } from "../components/Button/Button.astro"
 export { default as Callout } from "../components/Callout/Callout.astro"
 export { default as CalloutActions } from "../components/Callout/CalloutActions.astro"
@@ -104,6 +106,10 @@ export type {
   Props as AvatarProps,
 } from "../components/Avatar/types.astro"
 export type { Props as BadgeProps } from "../components/Badge/types.astro"
+export type {
+  BreadcrumbItemProps,
+  Props as BreadcrumbProps,
+} from "../components/Breadcrumb/types.astro"
 export type { Props as ButtonProps } from "../components/Button/types.astro"
 export type {
   CalloutActionsProps,

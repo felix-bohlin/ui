@@ -53,21 +53,6 @@ aside.sidebar {
       --shadow-strength: 20%;
     }
   }
-
-  :where(
-    html:not([data-example-theme]),
-    html:not([data-example-theme])
-      :where(.ui-palette, .ui-contrast-more):not(.preview-pane)
-  ) {
-    --ui-border-color-on-raised: light-dark(
-      color-mix(
-        in oklch,
-        var(--ui-text-strong) var(--ui-border-strength-light),
-        var(--ui-surface)
-      ),
-      var(--ui-surface)
-    );
-  }
 }
 
 :where(:root:not([data-example-theme], [data-theme-font]))
@@ -206,5 +191,19 @@ aside.sidebar {
     #main-content .docs-table[data-collapsed] tbody > tr {
       display: block;
     }
+  }
+}
+
+.vi-on {
+  display: none;
+}
+
+html[data-example-theme="vice-city"] {
+  .vi-off {
+    display: none;
+  }
+
+  .vi-on {
+    display: inline;
   }
 }

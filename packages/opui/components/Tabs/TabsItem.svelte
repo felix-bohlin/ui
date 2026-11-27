@@ -1,9 +1,9 @@
 <script lang="ts">
   import { untrack } from "svelte"
-  import { seedChecked } from "../svelte"
+  import { relayChecked } from "../svelte"
   import { getTabsContext, setTabsContext } from "./context.svelte"
   import { isSelected } from "../ToggleGroup/selection"
-  import { warnGroupedChecked } from "../dev"
+  import { DEV, warnGroupedChecked } from "../dev"
   import { defined } from "../attrs"
   import type { TabsItemProps as Props } from "./types.svelte"
 
@@ -13,7 +13,6 @@
     defaultChecked,
     id,
     name,
-    onchange,
     value,
 
     // Snippets
@@ -26,13 +25,19 @@
   const groupName = $derived(name || parent?.groupName || `tabs-${uid}`)
   const tabId = $derived(id || `tab-${uid}`)
   const grouped = $derived(isSelected(parent?.value, value))
-  untrack(() =>
-    warnGroupedChecked("TabsItem", grouped, checked ?? defaultChecked, "Tabs"),
-  )
-  const isChecked = () => grouped ?? checked ?? !!defaultChecked
-  const initialChecked = untrack(isChecked)
+  if (DEV)
+    untrack(() =>
+      warnGroupedChecked(
+        "TabsItem",
+        grouped,
+        checked ?? defaultChecked,
+        "Tabs",
+      ),
+    )
+  const isChecked = () => grouped ?? checked
+  const initialChecked = untrack(() => isChecked() ?? !!defaultChecked)
   const change = (input: HTMLInputElement) => {
-    parent?.change?.(input)
+    if (value !== undefined) parent?.change?.(input)
   }
   setTabsContext({
     get groupName() {
@@ -45,7 +50,7 @@
 </script>
 
 <input
-  {@attach seedChecked(isChecked, change)}
+  {@attach relayChecked(change, isChecked)}
   defaultChecked={grouped === undefined
     ? (defaultChecked ?? initialChecked)
     : initialChecked}
@@ -55,8 +60,4 @@
   type="radio"
   {value}
   {...defined(rest)}
-  onchange={(event) => {
-    change(event.currentTarget)
-    onchange?.(event)
-  }}
 />{@render children?.()}

@@ -19,7 +19,7 @@ export default function ForgotPassword() {
         style={{ "--_max-inline-size": "56rem" }}
       >
         <div
-          className="ui-layout-grid ui-large forgot-password-grid"
+          className="ui-layout-grid ui-gap-large forgot-password-grid"
           style={{ "--_max-columns": "2", "--_min-inline-size": "19rem" }}
         >
           <Card
@@ -65,7 +65,7 @@ export default function ForgotPassword() {
                       autoComplete="email"
                       id="forgot-password-email"
                       name="email"
-                      placeholder="rory@lowend.example"
+                      placeholder="josh@bassmail.example"
                       required
                       type="email"
                     />
@@ -130,7 +130,8 @@ export default function ForgotPassword() {
                   Check your inbox!
                 </h2>
                 <p>
-                  We sent a reset link to <strong>rory@lowend.example</strong>.
+                  We sent a reset link to <strong>josh@bassmail.example</strong>
+                  .
                 </p>
               </hgroup>
               <Callout severity="info">
@@ -169,7 +170,7 @@ export default function ForgotPassword() {
 
           .ui-content {
             display: grid;
-            gap: var(--ui-space-4);
+            gap: var(--ui-space-5);
           }
 
           .forgot-password-icon {

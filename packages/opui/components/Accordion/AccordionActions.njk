@@ -1,0 +1,11 @@
+{% macro AccordionActions(props = {}) %}
+  {%- set props = props | opuiProps("AccordionActions") -%}
+  {%- set rest = props | opuiRest("AccordionActions") -%}
+  <div
+    class="ui-actions
+      {%- if props.align and props.align != 'end' %} ui-align-{{ props.align }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </div>
+{%- endmacro %}

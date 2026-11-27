@@ -1,0 +1,8 @@
+{% macro SelectButton(props = {}) %}
+  {%- set props = props | opuiProps("SelectButton") -%}
+  {%- set rest = props | opuiRest("SelectButton") -%}
+  {%- set selectedContent = "selectedcontent" -%}
+  <button{{ rest | opuiAttributes }}>
+    <{{ selectedContent | opuiTag }}></{{ selectedContent | opuiTag }}>
+  </button>
+{%- endmacro %}

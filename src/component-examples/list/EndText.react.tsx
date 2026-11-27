@@ -5,7 +5,7 @@ export default function EndText() {
     <List>
       <ListItem end="2.4 MB" label="Slap lesson 3.pdf" />
       <ListItem
-        description="Uploaded by Lou Headstock"
+        description="Uploaded by Kinga Headstock"
         end="860 kB"
         label="Band photo.jpg"
       />

@@ -1,15 +1,15 @@
-import type { Class, DefaultSlots } from "../vue"
+import type { DefaultSlots } from "../vue"
 import type {
   DescriptionListItemProps as BaseDescriptionListItemProps,
   Props as BaseProps,
 } from "./types"
 
-export type DescriptionListDescriptionProps = Class
+export type DescriptionListDescriptionProps = {}
 
-export type DescriptionListItemProps = BaseDescriptionListItemProps & Class
+export type DescriptionListItemProps = BaseDescriptionListItemProps
 
-export type DescriptionListTermProps = Class
+export type DescriptionListTermProps = {}
 
-export type Props = BaseProps & Class
+export type Props = BaseProps
 
 export type Slots = DefaultSlots

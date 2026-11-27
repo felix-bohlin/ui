@@ -1,0 +1,74 @@
+{% from "opui/index.njk" import
+  Checkbox,
+  SelectAll,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow
+%}
+
+{% call SelectAll() %}
+  {% call Table() %}
+    {% call TableHead() %}
+      {% call TableRow() %}
+        {% call TableHeaderCell() %}
+          {% call Checkbox({ "data-select-all": "", hideLabel: true }) %}Select all tabs{% endcall %}
+        {% endcall %}
+        {% call TableHeaderCell() %}File{% endcall %}
+        {% call TableHeaderCell() %}Size{% endcall %}
+      {% endcall %}
+    {% endcall %}
+    {% call TableBody() %}
+      {% call TableRow() %}
+        {% call TableCell() %}
+          {% call Checkbox({
+            checked: true,
+            hideLabel: true,
+            name: "checkbox-hidden-label",
+            value: "invoice"
+          }) %}Select Setlist.pdf{% endcall %}
+        {% endcall %}
+        {% call TableCell() %}Setlist.pdf{% endcall %}
+        {% call TableCell() %}120 kB{% endcall %}
+      {% endcall %}
+      {% call TableRow() %}
+        {% call TableCell() %}
+          {% call Checkbox({
+            hideLabel: true,
+            name: "checkbox-hidden-label",
+            value: "logo"
+          }) %}Select Band-logo.svg{% endcall %}
+        {% endcall %}
+        {% call TableCell() %}Band-logo.svg{% endcall %}
+        {% call TableCell() %}8 kB{% endcall %}
+      {% endcall %}
+      {% call TableRow() %}
+        {% call TableCell() %}
+          {% call Checkbox({
+            hideLabel: true,
+            name: "checkbox-hidden-label",
+            value: "notes"
+          }) %}Select Slap-tabs.md{% endcall %}
+        {% endcall %}
+        {% call TableCell() %}Slap-tabs.md{% endcall %}
+        {% call TableCell() %}2 kB{% endcall %}
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}
+
+<p>
+  Notify me by
+  {% call Checkbox({
+    checked: true,
+    name: "checkbox-hidden-label-notify",
+    value: "email"
+  }) %}email{% endcall %}
+  and {% call Checkbox({ name: "checkbox-hidden-label-notify", value: "sms" }) %}SMS{% endcall %}.
+</p>
+
+<script type="module">
+  import "opui-css/elements/select-all.js"
+</script>

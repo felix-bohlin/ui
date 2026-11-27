@@ -9,7 +9,7 @@
 
       color: var(--_text-color);
       cursor: pointer;
-      font-weight: var(--ui-link-font-weight, var(--ui-font-weight-bold));
+      font-weight: var(--ui-link-font-weight, var(--ui-font-weight-heading));
       text-decoration: underline;
       text-decoration-color: var(--_text-color);
       text-underline-offset: var(--ui-underline-offset);
@@ -35,7 +35,7 @@
             oklch(from var(--_text-color) calc(l * 1.15) c h)
           );
           text-decoration-color: currentColor;
-          text-decoration-thickness: var(--ui-underline-thickness-hover);
+          text-decoration-thickness: var(--ui-underline-hover-thickness);
         }
       }
 
@@ -45,7 +45,7 @@
           oklch(from var(--_text-color) calc(l * 1.15) c h)
         );
         text-decoration-color: currentColor;
-        text-decoration-thickness: var(--ui-underline-thickness-hover);
+        text-decoration-thickness: var(--ui-underline-hover-thickness);
       }
     }
 

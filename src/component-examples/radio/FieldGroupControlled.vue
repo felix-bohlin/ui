@@ -8,9 +8,10 @@ const shipping = ref("standard")
 <template>
   <Fieldset>
     <FieldLegend>Shipping</FieldLegend>
-    <FieldGroup name="radio-controlled">
+    <FieldGroup>
       <Radio
         :checked="shipping === 'standard'"
+        name="radio-controlled"
         value="standard"
         @change="shipping = 'standard'"
       >
@@ -18,6 +19,7 @@ const shipping = ref("standard")
       </Radio>
       <Radio
         :checked="shipping === 'express'"
+        name="radio-controlled"
         value="express"
         @change="shipping = 'express'"
       >
@@ -25,6 +27,7 @@ const shipping = ref("standard")
       </Radio>
       <Radio
         :checked="shipping === 'pickup'"
+        name="radio-controlled"
         value="pickup"
         @change="shipping = 'pickup'"
       >

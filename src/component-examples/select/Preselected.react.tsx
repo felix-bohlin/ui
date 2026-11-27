@@ -13,11 +13,11 @@ export default function Preselected() {
       </Field>
 
       <Field htmlFor="select-preselected-2" label="Band">
-        <select id="select-preselected-2" defaultValue="low-end-theory">
+        <select id="select-preselected-2" defaultValue="bassists-anonymous">
           <SelectButton />
+          <option value="bassists-anonymous">Bassists Anonymous</option>
           <option value="brad-and-the-brads">Brad and the Brads</option>
-          <option value="low-end-theory">Low End Theory</option>
-          <option value="the-low-enders">The Low Enders</option>
+          <option value="slap-like-now">Slap Like Now</option>
         </select>
       </Field>
     </>

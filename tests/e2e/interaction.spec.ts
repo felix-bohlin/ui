@@ -26,6 +26,8 @@ type Interaction = (context: {
   root: Locator
 }) => Promise<void>
 
+const SCRIPTED = PACKAGE_FRAMEWORK_IDS.filter((id) => id !== "nunjucks")
+
 const interaction = (
   component: string,
   name: string,
@@ -103,6 +105,122 @@ interaction(
     await items.nth(1).locator("summary").click()
     await expect(items.nth(1)).toHaveAttribute("open")
     await expect(items.nth(0)).not.toHaveAttribute("open")
+  },
+)
+
+interaction(
+  "breadcrumb",
+  "Basics",
+  "breadcrumb separators stay out of the accessibility tree",
+  async ({ page, root }) => {
+    const nav = root.getByRole("navigation", { name: "Breadcrumb" })
+    await expect(nav.getByRole("listitem")).toHaveCount(3)
+    await expect(nav.getByRole("link")).toHaveCount(2)
+    await expect(nav.locator('[aria-current="page"]')).toHaveText(
+      "Friday jam night",
+    )
+    const browser = page.context().browser()?.browserType().name()
+    if (browser !== "chromium") return
+    const separator = await nav
+      .locator("li + li")
+      .first()
+      .evaluate((li) => getComputedStyle(li, "::before").content)
+    expect(separator).toBe('"/" / ""')
+    const cdp = await page.context().newCDPSession(page)
+    const { result } = await cdp.send("Runtime.evaluate", {
+      expression: `document.querySelector('[data-example="Basics"] .ui-breadcrumb')`,
+    })
+    const { nodes } = await cdp.send("Accessibility.queryAXTree", {
+      objectId: result.objectId,
+      role: "StaticText",
+    })
+    const texts = nodes.map((node) => String(node.name?.value ?? ""))
+    expect(texts).toContain("Groups")
+    expect(texts.filter((text) => text.includes("/"))).toEqual([])
+  },
+  ["html"],
+)
+
+interaction(
+  "breadcrumb",
+  "Overflow",
+  "breadcrumb overflow scrolls one row or truncates the middle levels",
+  async ({ root }) => {
+    const scroll = root.locator(".ui-overflow-scroll > ol")
+    await expect
+      .poll(() => scroll.evaluate((ol) => ol.scrollWidth > ol.clientWidth))
+      .toBe(true)
+    const levels = await root
+      .locator(".ui-overflow-shrink > ol > li > :not(.ui-separator)")
+      .evaluateAll((elements) =>
+        elements.map((element) => element.scrollWidth > element.clientWidth),
+      )
+    expect(levels).toHaveLength(5)
+    expect(levels[0]).toBe(false)
+    expect(levels.at(-1)).toBe(false)
+    expect(levels.slice(1, -1)).toContain(true)
+    const shrink = root.locator(".ui-overflow-shrink > ol")
+    expect(
+      await shrink.evaluate((ol) => ol.scrollWidth <= ol.clientWidth),
+    ).toBe(true)
+  },
+  ["html"],
+)
+
+interaction(
+  "breadcrumb",
+  "OverflowMenu",
+  "breadcrumb overflow menu collapses the middle levels into a menu",
+  async ({ root }) => {
+    const long = root.getByRole("navigation", { name: "Fog Five breadcrumb" })
+    const trail = long.locator(":scope > ol > li > :is(a, span)")
+    await expect(trail).toHaveText([
+      "Marketplace",
+      "Basses",
+      "Five-string",
+      "Fretless",
+      "Fog Five",
+    ])
+    const visible = await trail.evaluateAll((levels) =>
+      levels.flatMap((level) =>
+        level.checkVisibility() ? [level.textContent] : [],
+      ),
+    )
+    expect(visible).toEqual(["Marketplace", "Fretless", "Fog Five"])
+
+    const button = long.getByRole("button", { name: "More levels" })
+    const menu = long.locator(".ui-menu")
+    await expect(button).toBeVisible()
+    await expect(menu).toBeHidden()
+    await button.click()
+    await expect(menu).toBeVisible()
+    await expect(menu.getByRole("link")).toHaveText(["Basses", "Five-string"])
+    await button.click()
+    await expect(menu).toBeHidden()
+
+    const short = root.getByRole("navigation", { name: "Jam night breadcrumb" })
+    await expect(short.getByRole("button")).toHaveCount(0)
+    await expect(short.getByRole("link")).toHaveText([
+      "Groups",
+      "Low End Society",
+    ])
+    await expect(short.getByRole("link").first()).toBeVisible()
+    await expect(short.getByRole("link").last()).toBeVisible()
+  },
+)
+
+interaction(
+  "breadcrumb",
+  "OverflowMenuParts",
+  "breadcrumb overflow menu hides the levels a hand-written menu item holds",
+  async ({ root }) => {
+    const nav = root.getByRole("navigation", { name: "Tour breadcrumb" })
+    await expect(nav.getByRole("link")).toHaveText(["Groups", "Spring tour"])
+    await nav.getByRole("button", { name: "More levels" }).click()
+    await expect(nav.locator(".ui-menu").getByRole("link")).toHaveText([
+      "Low End Society",
+      "Events",
+    ])
   },
 )
 
@@ -866,7 +984,7 @@ interaction(
     const band = root.locator("select").nth(1)
 
     await expect(role).toHaveValue("bass")
-    await expect(band).toHaveValue("low-end-theory")
+    await expect(band).toHaveValue("bassists-anonymous")
     await role.selectOption("tambourine")
     await expect(role).toHaveValue("tambourine")
   },
@@ -1150,7 +1268,7 @@ interaction(
     await expect.poll(border).toBe(invalid)
 
     await input.focus()
-    await page.keyboard.type("Holly")
+    await page.keyboard.type("Scott")
     await page.keyboard.press("Tab")
     await expect.poll(border).toBe(initial)
   },
@@ -1692,6 +1810,24 @@ interaction(
 
 interaction(
   "menu",
+  "Basics",
+  "menu rows paint no background at rest, so the menu's surface color and image show the same on the rows as between them",
+  async ({ page, root }) => {
+    const menu = root.locator("menu.ui-menu")
+
+    await root.getByRole("button", { name: "Options" }).click()
+    await expect(menu).toBeVisible()
+    await page.mouse.move(0, 0)
+    const rows = await menu.locator("li, li > :is(a, button)").all()
+    expect(rows.length).toBeGreaterThan(0)
+    for (const row of rows) {
+      expect(await computed(row, "background-color")).toBe("rgba(0, 0, 0, 0)")
+    }
+  },
+)
+
+interaction(
+  "menu",
   "Horizontal",
   "a horizontal menu lays its items out in one row that fits them",
   async ({ root }) => {
@@ -1725,7 +1861,7 @@ interaction(
     await page.evaluate(() => history.pushState({}, "", "elsewhere/"))
     await expect(menu).toBeHidden()
   },
-  PACKAGE_FRAMEWORK_IDS,
+  SCRIPTED,
 )
 
 interaction(
@@ -1758,7 +1894,7 @@ interaction(
     })
     await expect(menu).toBeHidden()
   },
-  PACKAGE_FRAMEWORK_IDS,
+  SCRIPTED,
 )
 
 interaction(
@@ -2135,7 +2271,7 @@ interaction(
     await party.focus()
     await page.keyboard.press("Space")
     await expect(party).not.toBeChecked()
-    expect(await requests()).toEqual([
+    await expect.poll(requests).toEqual([
       { checked: true, value: "tada" },
       { checked: false, value: "+1" },
       { checked: true, value: "tada" },
@@ -2164,7 +2300,7 @@ interaction(
     await expect(
       message.getByRole("checkbox", { name: "Thumbs up, 2" }),
     ).toBeChecked()
-    expect(await requests()).toEqual([
+    await expect.poll(requests).toEqual([
       { checked: true, value: "heart" },
       { checked: false, value: "+1" },
     ])
@@ -2231,14 +2367,14 @@ interaction(
     })
 
     await expect(pills).toHaveCount(1)
-    await expect(pills).toHaveClass(/ui-unused/)
+    await expect(pills).toHaveClass(/ui-suggested/)
     await expect(pills).toHaveText("👍")
     await expect(quick).not.toBeChecked()
     expect(await computed(pills, "border-top-style")).toBe("dashed")
 
     const usedPills = used.locator(".ui-toggle-button")
     await expect(usedPills).toHaveText(["👍 3", "🎉 1"])
-    await expect(usedPills.first()).not.toHaveClass(/ui-unused/)
+    await expect(usedPills.first()).not.toHaveClass(/ui-suggested/)
     await expect(
       used.getByRole("checkbox", { name: "Thumbs up, 3" }),
     ).toBeChecked()
@@ -2254,8 +2390,8 @@ interaction(
 
     await pills.click()
     await expect(quick).not.toBeChecked()
-    await expect(pills).toHaveClass(/ui-unused/)
-    expect(await requests()).toEqual([{ checked: true, value: "+1" }])
+    await expect(pills).toHaveClass(/ui-suggested/)
+    await expect.poll(requests).toEqual([{ checked: true, value: "+1" }])
 
     await page.emulateMedia({ forcedColors: "active" })
     expect(await computed(pills, "border-top-style")).toBe("dashed")
@@ -2281,7 +2417,7 @@ interaction(
       text: "👍 1",
     })
     await expect(pills).toHaveCount(1)
-    await expect(pills).not.toHaveClass(/ui-unused/)
+    await expect(pills).not.toHaveClass(/ui-suggested/)
     await expect(pills).toHaveText("👍 1")
     await expect(quick).toBeChecked()
     await expect(quick).toHaveAccessibleName("Thumbs up, 1")
@@ -2297,7 +2433,7 @@ interaction(
 
     await callReactions(first, "delete", "+1")
     await expect(pills).toHaveText(["👍", "❤️ 1"])
-    await expect(pills.first()).toHaveClass(/ui-unused/)
+    await expect(pills.first()).toHaveClass(/ui-suggested/)
     await expect(quick).not.toBeChecked()
     await expect(quick).toHaveAccessibleName("Thumbs up")
     await expect(quick).toBeFocused()
@@ -2313,7 +2449,7 @@ interaction(
     await callReactions(second, "delete", "+1")
     const last = second.locator(".ui-toggle-button")
     await expect(last).toHaveText("👍")
-    await expect(last).toHaveClass(/ui-unused/)
+    await expect(last).toHaveClass(/ui-suggested/)
     await second.evaluate((element) =>
       element.querySelector(".ui-toggle-button")?.remove(),
     )
@@ -2339,7 +2475,7 @@ interaction(
       await expect(avatar).toBeHidden()
     }
     const headers = root.locator(".ui-message > .ui-content > .ui-header")
-    await expect(headers).toHaveText(["Stella", "Stella", "You", "Stella"])
+    await expect(headers).toHaveText(["Ellen", "Ellen", "You", "Ellen"])
     for (const header of await headers.all()) {
       expect(await computed(header, "clip-path")).toBe("inset(50%)")
       expect(await computed(header, "display")).not.toBe("none")
@@ -2388,7 +2524,7 @@ interaction(
       await input.evaluate((element: HTMLInputElement) =>
         [...(element.list?.options ?? [])].map((option) => option.value),
       ),
-    ).toEqual(["Ines Hertz", "Lou Headstock", "Percy Groove"])
+    ).toEqual(["Adam Groove", "Kinga Headstock", "Mohini Hertz"])
   },
 )
 
@@ -2584,12 +2720,12 @@ interaction(
       root.getByRole("columnheader", { name, exact: true })
     const names = root.locator("tbody tr td:first-child")
     const byGigs = [
-      "Percy Groove",
-      "Stella Nut",
-      "Ines Hertz",
-      "Rory Rootnote",
-      "Holly Humbucker",
-      "Lou Headstock",
+      "Adam Groove",
+      "Ellen Nut",
+      "Mohini Hertz",
+      "Josh Rootnote",
+      "Scott Humbucker",
+      "Kinga Headstock",
     ]
 
     await expect(root.locator("opui-sortable-table")).not.toHaveAttribute(
@@ -2624,14 +2760,14 @@ test("the data-table block selects and sorts its rows together", async ({
   for (const row of await rows.all()) await expect(row).toBeChecked()
 
   await page.getByRole("button", { name: "Points" }).click()
-  await expect(firstCustomer).toContainText("Holly Humbucker")
+  await expect(firstCustomer).toContainText("Scott Humbucker")
   await page.getByRole("button", { name: "Points" }).click()
-  await expect(firstCustomer).toContainText("Rory Rootnote")
+  await expect(firstCustomer).toContainText("Josh Rootnote")
   await page.getByRole("button", { name: "Joined" }).click()
-  await expect(firstCustomer).toContainText("Ines Hertz")
+  await expect(firstCustomer).toContainText("Mohini Hertz")
   for (const row of await rows.all()) await expect(row).toBeChecked()
 
-  await page.getByRole("checkbox", { name: "Select Percy Groove" }).click()
+  await page.getByRole("checkbox", { name: "Select Adam Groove" }).click()
   await expect(all).not.toBeChecked()
   await expect(all).toHaveJSProperty("indeterminate", true)
 })
@@ -3422,17 +3558,17 @@ interaction(
     )
     await countEvents(root, "select")
     await input.setInputFiles([
-      photo("lou.png"),
+      photo("kinga.png"),
       { buffer: Buffer.from("notes"), mimeType: "text/plain", name: "a.txt" },
-      photo("percy.png"),
+      photo("adam.png"),
     ])
     await expect(rows).toHaveCount(2)
-    await expect(rows.nth(0)).toContainText("lou.png")
-    await expect(rows.nth(1)).toContainText("percy.png")
+    await expect(rows.nth(0)).toContainText("kinga.png")
+    await expect(rows.nth(1)).toContainText("adam.png")
     await expect(element).toHaveAttribute("data-select-count", "1")
     await expect(input).toHaveValue("")
 
-    await input.setInputFiles([photo("lou.png")])
+    await input.setInputFiles([photo("kinga.png")])
     await expect(rows).toHaveCount(3)
     await expect(element).toHaveAttribute("data-select-count", "2")
   },
@@ -3450,22 +3586,22 @@ interaction(
       root.getByRole("button", { name: `Remove ${name}` })
 
     await input.setInputFiles([
-      photo("lou.png"),
-      photo("percy.png"),
-      photo("holly.png"),
+      photo("kinga.png"),
+      photo("adam.png"),
+      photo("scott.png"),
     ])
     await expect(rows).toHaveCount(3)
     await countEvents(root, "remove")
 
-    await remove("percy.png").focus()
+    await remove("adam.png").focus()
     await page.keyboard.press("Enter")
     await expect(rows).toHaveCount(2)
     await expect(element).toHaveAttribute("data-remove-count", "1")
-    await expect(remove("holly.png")).toBeFocused()
+    await expect(remove("scott.png")).toBeFocused()
 
     await page.keyboard.press("Enter")
     await expect(rows).toHaveCount(1)
-    await expect(remove("lou.png")).toBeFocused()
+    await expect(remove("kinga.png")).toBeFocused()
 
     await page.keyboard.press("Enter")
     await expect(rows).toHaveCount(0)
@@ -3535,7 +3671,7 @@ interaction(
     const list = root.locator(".ui-list")
     const first = list.locator("li").first()
     const failed = root.getByRole("button", {
-      name: "holly-humbucker.png This photo is larger than 10 MB.",
+      name: "scott-humbucker.png This photo is larger than 10 MB.",
     })
     const message = root.locator(".ui-description[popover]")
     const box = async (locator: Locator) => {

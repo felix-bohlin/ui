@@ -1,0 +1,38 @@
+{% from "opui/index.njk" import Accordion, AccordionContent, AccordionSummary %}
+
+{% call Accordion() %}
+  {% call AccordionSummary() %}Plain{% endcall %}
+  {% call AccordionContent() %}
+    <p>
+      Return any bass within 30 days for a full refund, no awkward questions.
+    </p>
+  {% endcall %}
+{% endcall %}
+
+{% call Accordion({ variant: "elevated" }) %}
+  {% call AccordionSummary() %}Elevated{% endcall %}
+  {% call AccordionContent() %}
+    <p>String orders over €50 ship free within the EU.</p>
+  {% endcall %}
+{% endcall %}
+
+{% call Accordion({ variant: "outlined" }) %}
+  {% call AccordionSummary() %}Outlined{% endcall %}
+  {% call AccordionContent() %}
+    <p>Pay by card, bank transfer or a jar of gig money.</p>
+  {% endcall %}
+{% endcall %}
+
+{% call Accordion({ variant: "tonal" }) %}
+  {% call AccordionSummary() %}Tonal{% endcall %}
+  {% call AccordionContent() %}
+    <p>Track your new flatwounds from the link in the confirmation email.</p>
+  {% endcall %}
+{% endcall %}
+
+{% call Accordion({ variant: "transparent" }) %}
+  {% call AccordionSummary() %}Transparent{% endcall %}
+  {% call AccordionContent() %}
+    <p>Reach our bass whisperers by chat or email on weekdays from 9 to 17.</p>
+  {% endcall %}
+{% endcall %}

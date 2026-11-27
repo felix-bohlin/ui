@@ -1,6 +1,7 @@
 /** @jsxImportSource @solidjs/web */
 import { children, omit } from "solid-js"
 import "../../elements/password-toggle.js"
+import { filled } from "../attrs"
 import type { Props } from "./types.solid"
 
 export default function PasswordToggle(props: Props) {
@@ -20,7 +21,7 @@ export default function PasswordToggle(props: Props) {
         command="--toggle-password"
         commandfor={props.for}
       >
-        {resolvedIconUnchecked() ? (
+        {filled(resolvedIconUnchecked()) ? (
           <span aria-hidden="true" class="ui-icon-unchecked">
             {resolvedIconUnchecked()}
           </span>
@@ -34,7 +35,7 @@ export default function PasswordToggle(props: Props) {
             viewBox="0 0 24 24"
           />
         )}{" "}
-        {resolvedIconChecked() ? (
+        {filled(resolvedIconChecked()) ? (
           <span aria-hidden="true" class="ui-icon-checked">
             {resolvedIconChecked()}
           </span>

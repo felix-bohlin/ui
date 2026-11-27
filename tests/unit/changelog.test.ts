@@ -242,7 +242,7 @@ test("theme tokens added since the last release are named in the CHANGELOG", () 
           !named(name),
       )
       .toSorted(),
-    "name each token in backticks in an entry of the unreleased version, or a range such as `--ui-space-1` to `--ui-space-8`",
+    "name each token in backticks in an entry of the unreleased version, or a range such as `--ui-space-1` to `--ui-space-12`",
   ).toEqual([])
 })
 
@@ -331,7 +331,7 @@ describe("the changelog rules flag their samples", () => {
 
   test("a class or token is named by its backticks or a range", () => {
     const named = namedIn(
-      "- `Tabs` add `.ui-tab-line`, `--ui-tab-gap` and `--ui-space-1` to `--ui-space-3`.",
+      "- `Tabs` add `.ui-tab-line`, `--ui-tab-gap` and `--ui-space-1` to `--ui-space-4`.",
     )
     expect(
       [
@@ -339,7 +339,7 @@ describe("the changelog rules flag their samples", () => {
         "--ui-tab-gap",
         "--ui-space-2",
         ".ui-other",
-        "--ui-space-4",
+        "--ui-space-5",
       ].filter(named),
     ).toEqual([".ui-tab-line", "--ui-tab-gap", "--ui-space-2"])
   })

@@ -1,0 +1,23 @@
+{% from "opui/index.njk" import Field, StepButton %}
+
+{% set start %}{{ StepButton({ command: "--step-down", for: "number-field-step-1" }) }}{% endset %}
+{% set end %}{{ StepButton({ command: "--step-up", for: "number-field-step-1" }) }}{% endset %}
+{% call Field({
+  autoFit: true,
+  for: "number-field-step-1",
+  label: "Opacity",
+  slots: { end: end, start: start }
+}) %}
+  <input
+    id="number-field-step-1"
+    max="1"
+    min="0"
+    step="0.1"
+    type="number"
+    value="0.5"
+  />
+{% endcall %}
+
+<script type="module">
+  import "opui-css/elements/step-button.js"
+</script>

@@ -52,15 +52,15 @@ test("the character count follows the field when the app empties it", async ({
 test("each post is an article named by its author", async ({ page }) => {
   await expect(posts(page)).toHaveCount(PAGE_SIZE)
   const first = POSTS[0]!
-  const article = page.getByRole("article", { name: "Holly Humbucker" }).first()
+  const article = page.getByRole("article", { name: "Scott Humbucker" }).first()
   await expect(article).toContainText(first.text)
   await expect(article.locator("time")).toHaveAttribute(
     "datetime",
     first.datetime,
   )
   await expect(
-    article.getByRole("link", { name: "Holly Humbucker" }),
-  ).toHaveAttribute("href", "/u/holly")
+    article.getByRole("link", { name: "Scott Humbucker" }),
+  ).toHaveAttribute("href", "/u/scott")
   await expect(article.locator("header .ui-avatar")).toHaveCount(1)
   await expect(article.locator("a.ui-avatar")).toHaveCount(0)
   await expect(article.locator("header .ui-avatar img")).toHaveAttribute(
@@ -70,7 +70,7 @@ test("each post is an article named by its author", async ({ page }) => {
 })
 
 test("a reaction adds one to its count", async ({ page }) => {
-  const article = postBy(page, "Holly Humbucker").first()
+  const article = postBy(page, "Scott Humbucker").first()
   const like = article.getByRole("checkbox", { name: "Like 12" })
   await like.check({ force: true })
   await expect(article.getByRole("checkbox", { name: "Like 13" })).toBeChecked()
@@ -118,7 +118,7 @@ test("the filters show posts with photos, and saved posts", async ({
 
 test("Save post closes the menu", async ({ page }) => {
   await page
-    .getByRole("button", { name: "Options for Lou Headstock's post" })
+    .getByRole("button", { name: "Options for Kinga Headstock's post" })
     .click()
   const menu = page.locator("#post-menu-p10")
   await menu.getByRole("button", { name: "Save post" }).click()
@@ -127,7 +127,7 @@ test("Save post closes the menu", async ({ page }) => {
 
 test("Save post submits a form and saves the post", async ({ page }) => {
   await page
-    .getByRole("button", { name: "Options for Lou Headstock's post" })
+    .getByRole("button", { name: "Options for Kinga Headstock's post" })
     .click()
   const menu = page.locator("#post-menu-p10")
   await expect(menu).toBeVisible()
@@ -141,7 +141,7 @@ test("Save post submits a form and saves the post", async ({ page }) => {
   await expect(posts(page)).toHaveCount(1)
   await expect(posts(page).first()).toContainText("rehearsal room")
   await page
-    .getByRole("button", { name: "Options for Lou Headstock's post" })
+    .getByRole("button", { name: "Options for Kinga Headstock's post" })
     .click()
   await expect(
     menu.getByRole("button", { name: "Remove from saved" }),
@@ -150,7 +150,7 @@ test("Save post submits a form and saves the post", async ({ page }) => {
 
 test("Hide post removes the post", async ({ page }) => {
   await page
-    .getByRole("button", { name: "Options for Holly Humbucker's post" })
+    .getByRole("button", { name: "Options for Scott Humbucker's post" })
     .first()
     .click()
   await page
@@ -164,7 +164,7 @@ test("Hide post removes the post", async ({ page }) => {
 
 test("Hide post moves focus to the next post", async ({ page }) => {
   await page
-    .getByRole("button", { name: "Options for Holly Humbucker's post" })
+    .getByRole("button", { name: "Options for Scott Humbucker's post" })
     .first()
     .click()
   await page
@@ -180,7 +180,7 @@ test("Hide post on the last post moves focus to the post before it", async ({
   page,
 }) => {
   await page
-    .getByRole("button", { name: "Options for Percy Groove's post" })
+    .getByRole("button", { name: "Options for Adam Groove's post" })
     .click()
   await page
     .locator("#post-menu-p8")
@@ -223,7 +223,7 @@ test("Copy link writes the post's link to the clipboard", async ({
 
 test("an open post menu passes axe", async ({ page }) => {
   await page
-    .getByRole("button", { name: "Options for Holly Humbucker's post" })
+    .getByRole("button", { name: "Options for Scott Humbucker's post" })
     .first()
     .click()
   await expect(page.locator("#post-menu-p12")).toBeVisible()

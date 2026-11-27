@@ -1,0 +1,34 @@
+{% from "opui/index.njk" import
+  Button,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle
+%}
+
+{% call Button({
+  command: "show-modal",
+  commandfor: "dialog-footer-alignment-1",
+  variant: "outlined"
+}) %}
+  Show shortcuts
+{% endcall %}
+
+{% call Dialog({ id: "dialog-footer-alignment-1" }) %}
+  {% call DialogHeader() %}
+    {% call DialogTitle() %}Keyboard shortcuts{% endcall %}
+  {% endcall %}
+  {% call DialogContent() %}
+    <p>Press <kbd>?</kbd> anywhere to open this list again.</p>
+  {% endcall %}
+  {% call DialogFooter({ align: "start" }) %}
+    {% call Button({
+      command: "close",
+      commandfor: "dialog-footer-alignment-1",
+      variant: "filled"
+    }) %}
+      Got it
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

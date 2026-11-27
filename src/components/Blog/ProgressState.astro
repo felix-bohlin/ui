@@ -28,7 +28,7 @@ const valueId = Astro.locals.$id("progress-state-value")
 <style>
   .progress-state {
     display: grid;
-    gap: var(--ui-space-4);
+    gap: var(--ui-space-5);
     inline-size: min(100%, 28rem);
   }
 
@@ -42,7 +42,7 @@ const valueId = Astro.locals.$id("progress-state-value")
 
     & code {
       color: var(--ui-text-strong);
-      font-weight: var(--ui-font-weight-bold);
+      font-weight: var(--ui-font-weight-heading);
     }
   }
 
@@ -66,7 +66,7 @@ const valueId = Astro.locals.$id("progress-state-value")
   .progress-state-controls {
     align-items: end;
     display: grid;
-    gap: var(--ui-space-3) var(--ui-space-5);
+    gap: var(--ui-space-4) var(--ui-space-6);
     grid-template-columns: minmax(0, 1fr) auto;
   }
 </style>

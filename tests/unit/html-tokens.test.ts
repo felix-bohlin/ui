@@ -79,6 +79,12 @@ describe("parseHtml", () => {
     ])
   })
 
+  test("names the attribute a start tag repeats with another value", () => {
+    expect(() => parseHtml("<ol role=list ROLE='log'></ol>")).toThrow(
+      expect.objectContaining({ attribute: "role" }),
+    )
+  })
+
   test("accepts an attribute repeated with the same value", () => {
     const source = '<option selected="" value="a" selected="">A</option>'
     expect(serialize(parseHtml(source))).toBe(source)

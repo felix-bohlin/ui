@@ -18,9 +18,9 @@ export default function Hero() {
       <div class="hero ui-layout-container" style="--_max-inline-size: 76rem">
         <div
           class="ui-layout-columns hero-inner"
-          style="--_columns: 1fr 1.1fr; --_gap: var(--ui-space-8)"
+          style="--_columns: 1fr 1.1fr; --_gap: var(--ui-space-12)"
         >
-          <div class="ui-layout-column ui-large hero-copy">
+          <div class="ui-layout-column ui-gap-large hero-copy">
             <Chip
               end={
                 <svg
@@ -89,7 +89,7 @@ export default function Hero() {
               role="img"
               variant="elevated"
             >
-              <div class="ui-layout-row ui-small hero-toolbar">
+              <div class="ui-layout-row ui-gap-small hero-toolbar">
                 <span class="ui-swatch"></span>
                 <span class="ui-swatch"></span>
                 <span class="ui-swatch"></span>
@@ -98,12 +98,12 @@ export default function Hero() {
                 </span>
               </div>
               <div class="ui-layout-column hero-screen">
-                <div class="ui-layout-row ui-small ui-spread">
+                <div class="ui-layout-row ui-gap-small ui-spread">
                   <strong>Gig #42</strong>
                   <Chip as="span" label="Showtime Oct 16" size="small" />
                 </div>
                 <div
-                  class="ui-layout-grid ui-small"
+                  class="ui-layout-grid ui-gap-small"
                   style="--_max-columns: 3; --_min-inline-size: 4rem"
                 >
                   <Card density="dense" variant="outlined">
@@ -130,22 +130,22 @@ export default function Hero() {
                 </div>
                 <List bordered class="hero-tasks" dense variant="transparent">
                   <ListItem
-                    description="Ines Hertz"
+                    description="Mohini Hertz"
                     end={<Progress max={100} value={80} variant="filled" />}
                     label="Learn the setlist"
-                    start={<Avatar>IH</Avatar>}
+                    start={<Avatar>MH</Avatar>}
                   />
                   <ListItem
-                    description="Percy Groove"
+                    description="Adam Groove"
                     end={<Progress max={100} value={55} variant="filled" />}
                     label="Restring the 5-string"
-                    start={<Avatar>PG</Avatar>}
+                    start={<Avatar>AG</Avatar>}
                   />
                   <ListItem
-                    description="Stella Nut"
+                    description="Ellen Nut"
                     end={<Progress max={100} value={30} variant="filled" />}
                     label="Nail the slap break"
-                    start={<Avatar>SN</Avatar>}
+                    start={<Avatar>EN</Avatar>}
                   />
                 </List>
               </div>
@@ -181,10 +181,10 @@ export default function Hero() {
               oklch(from var(--ui-primary) l c calc(h + 60) / 15%)
             );
             border-radius: var(--ui-radius);
-            padding: var(--ui-space-4);
+            padding: var(--ui-space-5);
 
             @container (inline-size >= 40rem) {
-              padding: var(--ui-space-6);
+              padding: var(--ui-space-7);
             }
           }
 
@@ -194,7 +194,7 @@ export default function Hero() {
 
           .hero-toolbar {
             border-block-end: var(--ui-border-width) solid var(--ui-border-color);
-            padding: var(--ui-space-2) var(--ui-space-3);
+            padding: var(--ui-space-2) var(--ui-space-4);
 
             .ui-swatch {
               --_swatch-bg-color: var(--ui-border-color);
@@ -206,7 +206,7 @@ export default function Hero() {
           }
 
           .hero-screen {
-            padding: var(--ui-space-3);
+            padding: var(--ui-space-4);
 
             strong {
               font-size: var(--ui-font-size-400);

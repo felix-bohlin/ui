@@ -1,0 +1,27 @@
+{% from "opui/index.njk" import Button, Field %}
+
+{% set end %}{% call Button({
+  "aria-label": "Send",
+  color: "primary",
+  round: true,
+  type: "button",
+  variant: "filled"
+}) %}
+  <svg
+    data-icon="send"
+    aria-hidden="true"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+  >
+    <path d="M3 20v-6l8-2-8-2V4l19 8z"></path>
+  </svg>
+{% endcall %}{% endset %}
+{% call Field({
+  for: "textarea-affix-button-1",
+  label: "Message",
+  slots: { end: end }
+}) %}
+  <textarea id="textarea-affix-button-1" placeholder="Write a message..."></textarea>
+{% endcall %}

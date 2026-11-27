@@ -1,0 +1,34 @@
+{% macro Message(props = {}) %}
+  {%- set props = props | opuiProps("Message") -%}
+  {%- set rest = props | opuiRest("Message") -%}
+  <li
+    class="ui-message
+      {%- if props.newAuthor %} ui-new-author{% endif %}
+      {%- if props.outgoing %} ui-outgoing{% endif %}
+      {%- if props.typing %} ui-typing{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    {{- props.slots.start | safe }}
+    {% if props.typing %}<div class="ui-content" role="status">
+      <span class="ui-sr-only">{{ caller() if caller }}</span>
+    </div>{% else %}<div class="ui-content">
+      {%- if props.author %}<p class="ui-header">{{ props.author }}</p>{% endif %}
+      {{ caller() if caller }}
+      {% if props.time or props.slots.end != none -%}
+        <p class="ui-footer">
+          {%- if props.time -%}
+            <time{% if props.datetime != none %} datetime="{{ props.datetime }}"{% endif %}>
+              {{- props.time }}</time>
+          {%- endif %}{% if props.slots.end != none %}<span class="ui-end">
+            {{- props.slots.end | safe }}</span>{% endif -%}
+        </p>
+      {%- endif -%}
+    </div>{% endif %}
+    {% if props.slots.actions != none %}<div class="ui-actions">
+      {{- props.slots.actions | safe -}}
+    </div>{% endif %}
+    {% if props.slots.bottom != none %}<div class="ui-bottom">
+      {{- props.slots.bottom | safe -}}
+    </div>{% endif -%}
+  </li>
+{%- endmacro %}

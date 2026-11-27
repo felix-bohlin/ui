@@ -68,11 +68,12 @@ export const keywords = ["dl", "key value", "properties"]
     <AutoExample name="Basics" />
   </section>
 
-  <section id="border">
-    <h2>Border</h2>
+  <section id="leader">
+    <h2>Leader</h2>
     <p>
-      Use <PropOrClass prop='border="solid"' class=".ui-border-solid" />, or
-      <PropOrClass prop='border="dotted"' class=".ui-border-dotted" /> for dots.
+      A leader runs from each term to its value. Use
+      <PropOrClass prop='leader="solid"' class=".ui-leader-solid" />, or
+      <PropOrClass prop='leader="dotted"' class=".ui-leader-dotted" /> for dots.
     </p>
     <AutoExample name="Bordered" column spacious />
   </section>
@@ -85,6 +86,12 @@ export const keywords = ["dl", "key value", "properties"]
       keep a row.
     </p>
     <AutoExample name="Orientation" column spacious />
+    <p>
+      <PropOrClass prop='orientation="vertical"' class=".ui-vertical" /> always
+      puts the term above its value. Add <code>.ui-layout-grid</code> to lay the
+      items out in columns, like the details on a ticket.
+    </p>
+    <AutoExample name="Vertical" />
   </section>
 
   <section id="total">
@@ -101,8 +108,8 @@ export const keywords = ["dl", "key value", "properties"]
         adds nothing to what they announce.
       </li>
       <li>
-        The leader lines of a bordered list aren't read, so a term and its value
-        have to make sense one after the other.
+        The leader lines aren't read, so a term and its value have to make sense
+        one after the other.
       </li>
     </ul>
   </Fragment>

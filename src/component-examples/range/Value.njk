@@ -1,0 +1,21 @@
+{% from "opui/index.njk" import Field %}
+
+{% set endText %}<output for="range-value-1">80%</output>{% endset %}
+{% call Field({
+  for: "range-value-1",
+  label: "Brightness",
+  slots: { endText: endText }
+}) %}
+  <input aria-valuetext="80%" id="range-value-1" type="range" value="80" />
+{% endcall %}
+
+<script type="module">
+  const input = document.querySelector("#range-value-1")
+  const output = document.querySelector('output[for="range-value-1"]')
+
+  input?.addEventListener("input", () => {
+    const text = `${input.value}%`
+    input.setAttribute("aria-valuetext", text)
+    if (output) output.textContent = text
+  })
+</script>

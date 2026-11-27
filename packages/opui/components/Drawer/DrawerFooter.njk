@@ -1,0 +1,11 @@
+{% macro DrawerFooter(props = {}) %}
+  {%- set props = props | opuiProps("DrawerFooter") -%}
+  {%- set rest = props | opuiRest("DrawerFooter") -%}
+  <div
+    class="ui-footer
+      {%- if props.align and props.align != 'end' %} ui-align-{{ props.align }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </div>
+{%- endmacro %}

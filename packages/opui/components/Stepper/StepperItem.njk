@@ -1,0 +1,28 @@
+{% macro StepperItem(props = {}) %}
+  {%- set props = props | opuiProps("StepperItem") -%}
+  {%- set rest = props | opuiRest("StepperItem") -%}
+  {%- set completeLabel = props.completeLabel | default(", completed") -%}
+  {%- set errorLabel = props.errorLabel | default(", error") -%}
+  {%- set labelSlot = props.slots.label | opuiTrim -%}
+  {%- set stateLabel = errorLabel
+    if props.state == "error"
+    else (completeLabel if props.state == "complete" else none) -%}
+  {%- set ariaCurrent = props["aria-current"] | default('step' if props.current else none) -%}
+  {%- set classes = [props.state and 'ui-state-' ~ props.state, props.class] | opuiClass -%}
+  <li
+    {%- if ariaCurrent != none %} aria-current="{{ ariaCurrent }}"{% endif %}
+    {%- if classes %} class="{{ classes }}"{% endif %}
+    {{- rest | opuiAttributes }}>
+    {%- if props.slots.iconComplete != none -%}
+      <span aria-hidden="true" class="ui-icon-complete">{{ props.slots.iconComplete | safe }}</span>
+    {%- endif %}
+    {% if props.href and not props.current and props.state %}<a href="{{ props.href }}">
+      {{- props.label }}{{ labelSlot }}{% if stateLabel %}<span class="ui-sr-only">
+        {{- stateLabel }}</span>{% endif %}</a>{% else %}{{ props.label }}{{ labelSlot }}
+    {%- if stateLabel %}<span class="ui-sr-only">{{ stateLabel }}</span>{% endif %}{% endif %}
+    {% if props.description or props.slots.description != none -%}
+      <span class="ui-description">{{ props.description }}
+        {{- props.slots.description | safe }}</span>
+    {%- endif -%}
+  </li>
+{%- endmacro %}

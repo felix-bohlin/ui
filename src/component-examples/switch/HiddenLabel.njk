@@ -1,0 +1,72 @@
+{% from "opui/index.njk" import
+  Switch,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow
+%}
+
+{% call Table() %}
+  {% call TableHead() %}
+    {% call TableRow() %}
+      {% call TableHeaderCell() %}<span class="ui-sr-only">On</span>{% endcall %}
+      {% call TableHeaderCell() %}Channel{% endcall %}
+      {% call TableHeaderCell() %}Schedule{% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call TableBody() %}
+    {% call TableRow() %}
+      {% call TableCell() %}
+        {% call Switch({
+          checked: true,
+          hideLabel: true,
+          name: "switch-hidden-label",
+          value: "email"
+        }) %}Email{% endcall %}
+      {% endcall %}
+      {% call TableCell() %}Email{% endcall %}
+      {% call TableCell() %}Daily{% endcall %}
+    {% endcall %}
+    {% call TableRow() %}
+      {% call TableCell() %}
+        {% call Switch({
+          hideLabel: true,
+          name: "switch-hidden-label",
+          value: "push"
+        }) %}Push{% endcall %}
+      {% endcall %}
+      {% call TableCell() %}Push{% endcall %}
+      {% call TableCell() %}Right away{% endcall %}
+    {% endcall %}
+    {% call TableRow() %}
+      {% call TableCell() %}
+        {% call Switch({
+          hideLabel: true,
+          name: "switch-hidden-label",
+          value: "sms"
+        }) %}SMS{% endcall %}
+      {% endcall %}
+      {% call TableCell() %}SMS{% endcall %}
+      {% call TableCell() %}Weekly{% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}
+
+<p>
+  Play
+  {% call Switch({
+    checked: true,
+    hideLabel: true,
+    name: "switch-hidden-label-sound",
+    value: "sounds"
+  }) %}Sounds{% endcall %}
+  sounds and
+  {% call Switch({
+    hideLabel: true,
+    name: "switch-hidden-label-sound",
+    value: "haptics"
+  }) %}Haptics{% endcall %}
+  haptics.
+</p>

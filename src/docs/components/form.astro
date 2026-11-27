@@ -233,9 +233,9 @@ export const keywords = ["fieldset", "input group", "label", "validation"]
           <UIFieldDescription id="form-anatomy-description"
             >Pick one.</UIFieldDescription
           >
-          <UIFieldGroup name="form-anatomy">
-            <UIRadio value="cat" checked>Cat</UIRadio>
-            <UIRadio value="dog">Dog</UIRadio>
+          <UIFieldGroup>
+            <UIRadio checked name="form-anatomy" value="cat">Cat</UIRadio>
+            <UIRadio name="form-anatomy" value="dog">Dog</UIRadio>
           </UIFieldGroup>
           <span class="ui-end-text">Supporting text</span>
         </UIFieldset>
@@ -254,6 +254,6 @@ export const keywords = ["fieldset", "input group", "label", "validation"]
   }
 
   #form-kitchen-sink-1:not(.kitchen-sink-dividers) > .ui-field-group {
-    margin-block-start: var(--ui-space-4);
+    margin-block-start: var(--ui-space-5);
   }
 </style>

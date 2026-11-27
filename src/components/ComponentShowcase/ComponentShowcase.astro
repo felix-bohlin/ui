@@ -8,6 +8,8 @@ import {
   Avatar,
   AvatarGroup,
   Badge,
+  Breadcrumb,
+  BreadcrumbItem,
   Button,
   Callout,
   CalloutContent,
@@ -143,7 +145,7 @@ const emailId = Astro.locals.$id("component-showcase-email")
 
     <Fragment slot="avatar">
       <AvatarGroup aria-hidden="true" aria-label="Team">
-        <Avatar label="Lou Headstock" src="/photos/lou-headstock.png" />
+        <Avatar label="Kinga Headstock" src="/photos/kinga-headstock.png" />
         <Avatar>OP</Avatar>
         <Avatar>
           <svg
@@ -163,6 +165,14 @@ const emailId = Astro.locals.$id("component-showcase-email")
 
     <Fragment slot="badge">
       <Badge aria-hidden="true" label="3">Inbox</Badge>
+    </Fragment>
+
+    <Fragment slot="breadcrumb">
+      <Breadcrumb aria-hidden="true" aria-label="Breadcrumb" inert size="small">
+        <BreadcrumbItem href="#" label="Groups" />
+        <BreadcrumbItem href="#" label="Low End Society" />
+        <BreadcrumbItem current label="Jam night" />
+      </Breadcrumb>
     </Fragment>
 
     <Fragment slot="button">
@@ -234,7 +244,7 @@ const emailId = Astro.locals.$id("component-showcase-email")
     <Fragment slot="copy">
       <div
         aria-hidden="true"
-        class="ui-layout-row ui-small showcase-copy"
+        class="ui-layout-row ui-gap-small showcase-copy"
         inert
       >
         <Field
@@ -266,7 +276,7 @@ const emailId = Astro.locals.$id("component-showcase-email")
     </Fragment>
 
     <Fragment slot="description-list">
-      <DescriptionList aria-hidden="true" border="dotted">
+      <DescriptionList aria-hidden="true" leader="dotted">
         <DescriptionListItem>
           <DescriptionListTerm>Name</DescriptionListTerm>
           <DescriptionListDescription>Open Props UI</DescriptionListDescription>
@@ -313,7 +323,7 @@ const emailId = Astro.locals.$id("component-showcase-email")
           aria-hidden="true"
           id="component-showcase-band"
           inert
-          value="Low End Theory"
+          value="Bassists Anonymous"
         />
       </Field>
     </Fragment>
@@ -324,17 +334,17 @@ const emailId = Astro.locals.$id("component-showcase-email")
           id="index-file-upload-showcase"
           items={[
             {
-              label: "lou-headstock.png",
-              preview: "/photos/lou-headstock.png",
-              state: "done",
-              value: "lou",
+              label: "kinga-headstock.png",
+              preview: "/photos/kinga-headstock.png",
+              state: "complete",
+              value: "kinga",
             },
             {
-              label: "percy-groove.png",
-              preview: "/photos/percy-groove.png",
+              label: "adam-groove.png",
+              preview: "/photos/adam-groove.png",
               progress: 0.6,
               state: "uploading",
-              value: "percy",
+              value: "adam",
             },
           ]}
           label="Choose photos"
@@ -361,17 +371,20 @@ const emailId = Astro.locals.$id("component-showcase-email")
     </Fragment>
 
     <Fragment slot="layout">
-      <div class="ui-layout-column ui-small showcase-layout" aria-hidden="true">
-        <div class="ui-layout-column ui-x-small">
+      <div
+        class="ui-layout-column ui-gap-small showcase-layout"
+        aria-hidden="true"
+      >
+        <div class="ui-layout-column ui-gap-x-small">
           <span class="showcase-layout-heading"></span>
           <span class="showcase-layout-text"></span>
         </div>
-        <div class="ui-layout-grid ui-x-small">
+        <div class="ui-layout-grid ui-gap-x-small">
           <span class="showcase-layout-tile"></span>
           <span class="showcase-layout-tile"></span>
           <span class="showcase-layout-tile"></span>
         </div>
-        <div class="ui-layout-row ui-x-small showcase-layout-actions">
+        <div class="ui-layout-row ui-gap-x-small showcase-layout-actions">
           <span class="showcase-layout-button"></span>
           <span class="showcase-layout-button showcase-layout-primary"></span>
         </div>
@@ -418,7 +431,7 @@ const emailId = Astro.locals.$id("component-showcase-email")
 
     <Fragment slot="message">
       <MessageList aria-hidden="true" style="inline-size: 14rem">
-        <Message author="Stella">
+        <Message author="Ellen">
           <p>Flatwounds are on!</p>
         </Message>
         <Message author="You" outgoing>
@@ -479,9 +492,9 @@ const emailId = Astro.locals.$id("component-showcase-email")
     </Fragment>
 
     <Fragment slot="radio">
-      <FieldGroup name="index-radio-showcase" aria-hidden="true" inert>
-        <Radio checked>Whoa</Radio>
-        <Radio>Nice</Radio>
+      <FieldGroup aria-hidden="true" inert>
+        <Radio checked name="index-radio-showcase">Whoa</Radio>
+        <Radio name="index-radio-showcase">Nice</Radio>
       </FieldGroup>
     </Fragment>
 
@@ -604,7 +617,7 @@ const emailId = Astro.locals.$id("component-showcase-email")
     </Fragment>
 
     <Fragment slot="toast">
-      <div aria-hidden="true" class="ui-layout-column ui-x-small" inert>
+      <div aria-hidden="true" class="ui-layout-column ui-gap-x-small" inert>
         <Callout severity="success">
           <CalloutContent><p>Changes saved</p></CalloutContent>
         </Callout>

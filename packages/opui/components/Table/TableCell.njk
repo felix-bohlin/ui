@@ -1,0 +1,10 @@
+{% macro TableCell(props = {}) %}
+  {%- set props = props | opuiProps("TableCell") -%}
+  {%- set rest = props | opuiRest("TableCell") -%}
+  {%- set classes = [{ "ui-numeric": props.numeric }, props.class] | opuiClass -%}
+  <td
+    {%- if classes %} class="{{ classes }}"{% endif %}
+    {{- rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </td>
+{%- endmacro %}

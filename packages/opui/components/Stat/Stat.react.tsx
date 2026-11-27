@@ -1,3 +1,4 @@
+import { filled } from "../attrs"
 import { cx } from "../cx"
 import type { Props } from "./types.react"
 
@@ -20,7 +21,7 @@ export default function Stat({
     >
       <dt className="ui-label">{label}</dt>
       <dd className="ui-value">{children}</dd>
-      {description && <dd className="ui-description">{description}</dd>}
+      {filled(description) && <dd className="ui-description">{description}</dd>}
     </dl>
   )
 }

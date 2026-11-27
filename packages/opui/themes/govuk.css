@@ -2,11 +2,9 @@
 @layer theme.palette, theme.base, theme.custom, theme.severity;
 
 @layer theme.custom {
-  :where(html, .ui-palette, .ui-contrast-more) {
-    --ui-accent-fill-max-lightness: 0.56;
+  :where(html, .ui-scope, .ui-contrast-more) {
     --ui-backdrop-blur: 0px;
     --ui-border-color: light-dark(oklch(0.851 0 0), oklch(0.404 0 0));
-    --ui-border-color-on-filled: var(--ui-border-color);
     --ui-border-color-raised: var(--ui-border-color);
     --ui-radius: 0px;
     --ui-button-accent: var(--ui-text-strong);
@@ -25,15 +23,13 @@
     --ui-choice-checked: mark;
     --ui-choice-on-accent: var(--ui-surface);
     --ui-choice-ripple-bg-color: var(--ui-border-color);
-    --ui-choice-size: 2.5rem;
-    --ui-choice-size-large: 3rem;
-    --ui-choice-size-small: 1.5rem;
-    --ui-choice-size-x-small: 1.25rem;
+    --ui-choice-size: calc(2.5rem * var(--ui-density));
+    --ui-choice-size-large: calc(3rem * var(--ui-density));
+    --ui-choice-size-small: calc(1.5rem * var(--ui-density));
+    --ui-choice-size-x-small: calc(1.25rem * var(--ui-density));
     --ui-critical: oklch(0.558 0.186 25.6);
-    --ui-disabled-opacity: 0.5;
+    --ui-state-disabled-opacity: 0.5;
     --ui-field-border-color: light-dark(oklch(0.153 0 0), oklch(1 0 0));
-    --ui-field-border-color-on-filled: var(--ui-field-border-color);
-    --ui-field-border-color-on-raised: var(--ui-field-border-color);
     --ui-field-border-width: 2px;
     --ui-field-helper-font-size: 1.1875rem;
     --ui-field-label-font-size: 1.1875rem;
@@ -45,7 +41,7 @@
     --ui-focus-ring-color: oklch(0.899 0.186 97.9);
     --ui-focus-ring-offset: 0px;
     --ui-focus-ring-width: 3px;
-    --ui-font-body: arial, sans-serif;
+    --ui-font-family-body: arial, sans-serif;
     --ui-font-size-100: 1rem;
     --ui-font-size-200: 1rem;
     --ui-font-size-300: 1.1875rem;
@@ -58,16 +54,15 @@
     --ui-font-size-h3: clamp(1.3125rem, 1.1786rem + 0.67vi, 1.5rem);
     --ui-font-size-h4: 1.1875rem;
     --ui-font-size-large: clamp(1.3125rem, 1.1786rem + 0.67vi, 1.5rem);
-    --ui-font-weight-medium: 400;
-    --ui-font-weight-semibold: 700;
+    --ui-font-weight-emphasis: 400;
+    --ui-font-weight-label: 700;
     --ui-gray-chroma: 0;
     --ui-gray-hue: 0;
     --ui-info: oklch(0.535 0.136 249.9);
     --ui-letter-spacing-display: 0;
     --ui-letter-spacing-heading: 0;
-    --ui-line-height: 1.3158;
-    --ui-line-height-control: 1.3158;
-    --ui-line-height-relaxed: 1.3158;
+    --ui-line-height-compact: 1.3158;
+    --ui-line-height-body: 1.3158;
     --ui-link-focus: highlight;
     --ui-link-font-weight: 400;
     --ui-link-visited-text-color: light-dark(
@@ -90,7 +85,7 @@
     --ui-space-scale: 1.25;
     --ui-success: oklch(0.514 0.11 161);
     --ui-surface: light-dark(oklch(1 0 0), oklch(0.153 0 0));
-    --ui-surface-elevated: light-dark(oklch(1 0 0), oklch(0.2 0 0));
+    --ui-surface-raised: light-dark(oklch(1 0 0), oklch(0.2 0 0));
     --ui-surface-filled: light-dark(
       oklch(from var(--ui-palette-source) 0.977 0.006 calc(h - 10.1)),
       oklch(from var(--ui-palette-source) 0.22 0.02 calc(h - 4.9))
@@ -100,36 +95,102 @@
     --ui-switch-thumb-bg-color: var(--ui-field-border-color);
     --ui-switch-track-bg-color: var(--ui-surface);
     --ui-text: var(--ui-text-strong);
-    --ui-text-max-lightness: 0.56;
+    --ui-critical-text: light-dark(
+      oklch(from var(--ui-critical) min(l, 0.56) c h),
+      oklch(
+        from var(--ui-critical)
+          max(l, var(--ui-control-accent-min-lightness-dark))
+          min(c, var(--ui-control-accent-max-chroma-dark)) h
+      )
+    );
+    --ui-info-text: light-dark(
+      oklch(from var(--ui-info) min(l, 0.56) c h),
+      oklch(
+        from var(--ui-info) max(l, var(--ui-control-accent-min-lightness-dark))
+          min(c, var(--ui-control-accent-max-chroma-dark)) h
+      )
+    );
+    --ui-invalid-text: light-dark(
+      oklch(from var(--ui-invalid) min(l, 0.56) c h),
+      oklch(
+        from var(--ui-invalid)
+          max(l, var(--ui-control-accent-min-lightness-dark))
+          min(c, var(--ui-control-accent-max-chroma-dark)) h
+      )
+    );
+    --ui-neutral-text: light-dark(
+      oklch(from var(--ui-neutral) min(l, 0.56) c h),
+      oklch(
+        from var(--ui-neutral)
+          max(l, var(--ui-control-accent-min-lightness-dark))
+          min(c, var(--ui-control-accent-max-chroma-dark)) h
+      )
+    );
+    --ui-success-text: light-dark(
+      oklch(from var(--ui-success) min(l, 0.56) c h),
+      oklch(
+        from var(--ui-success)
+          max(l, var(--ui-control-accent-min-lightness-dark))
+          min(c, var(--ui-control-accent-max-chroma-dark)) h
+      )
+    );
+    --ui-warning-text: light-dark(
+      oklch(from var(--ui-warning) min(l, 0.56) c h),
+      oklch(
+        from var(--ui-warning)
+          max(l, var(--ui-control-accent-min-lightness-dark))
+          min(c, var(--ui-control-accent-max-chroma-dark)) h
+      )
+    );
+    --ui-critical-fill: oklch(from var(--ui-critical) min(l, 0.56) c h);
+    --ui-info-fill: oklch(from var(--ui-info) min(l, 0.56) c h);
+    --ui-neutral-fill: oklch(from var(--ui-neutral) min(l, 0.56) c h);
+    --ui-success-fill: oklch(from var(--ui-success) min(l, 0.56) c h);
     --ui-text-strong: light-dark(oklch(0.153 0 0), oklch(1 0 0));
     --ui-text-subtle: light-dark(oklch(0.404 0 0), oklch(0.851 0 0));
     --ui-underline-offset: 0.1578em;
-    --ui-underline-thickness-hover: max(3px, 0.1875rem, 0.12em);
+    --ui-underline-hover-thickness: max(3px, 0.1875rem, 0.12em);
     --ui-warning: oklch(0.706 0.171 44.8);
   }
 
   @media (prefers-contrast: more) {
     :where(
       html:not(.ui-contrast-normal),
-      html:not(.ui-contrast-normal) .ui-palette
+      html:not(.ui-contrast-normal) .ui-scope
     ) {
-      --ui-accent-fill-max-lightness: revert-layer;
       --ui-border-color: revert-layer;
       --ui-focus-border-color: revert-layer;
       --ui-focus-ring-color: revert-layer;
       --ui-link-visited-text-color: revert-layer;
       --ui-primary-text: revert-layer;
-      --ui-text-max-lightness: revert-layer;
+      --ui-critical-text: revert-layer;
+      --ui-info-text: revert-layer;
+      --ui-invalid-text: revert-layer;
+      --ui-neutral-text: revert-layer;
+      --ui-success-text: revert-layer;
+      --ui-warning-text: revert-layer;
+      --ui-critical-fill: revert-layer;
+      --ui-info-fill: revert-layer;
+      --ui-neutral-fill: revert-layer;
+      --ui-success-fill: revert-layer;
     }
   }
 
-  :where(.ui-contrast-more, .ui-contrast-more .ui-palette) {
-    --ui-accent-fill-max-lightness: revert-layer;
+  :where(.ui-contrast-more, .ui-contrast-more .ui-scope) {
     --ui-border-color: revert-layer;
     --ui-focus-border-color: revert-layer;
     --ui-focus-ring-color: revert-layer;
     --ui-link-visited-text-color: revert-layer;
     --ui-primary-text: revert-layer;
-    --ui-text-max-lightness: revert-layer;
+    --ui-critical-text: revert-layer;
+    --ui-info-text: revert-layer;
+    --ui-invalid-text: revert-layer;
+    --ui-neutral-text: revert-layer;
+    --ui-success-text: revert-layer;
+    --ui-warning-text: revert-layer;
+    --ui-critical-fill: revert-layer;
+    --ui-info-fill: revert-layer;
+    --ui-neutral-fill: revert-layer;
+    --ui-success-fill: revert-layer;
   }
 }

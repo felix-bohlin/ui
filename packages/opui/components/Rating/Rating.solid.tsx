@@ -1,6 +1,7 @@
 /** @jsxImportSource @solidjs/web */
-import { For, omit, untrack } from "solid-js"
+import { For, omit } from "solid-js"
 import { mergeStyle, pluralLabel } from "../style"
+import { ratingOf } from "./rating"
 import { control } from "../solid"
 import type { Props } from "./types.solid"
 
@@ -33,13 +34,11 @@ export default function Rating(props: Props) {
     props.starLabel === undefined
       ? { one: "{count} star", other: "{count} stars" }
       : props.starLabel
-  const count = () => Number(max())
-  const stars = () => Array.from({ length: count() }, (_, index) => index + 1)
-  const current = () => Number(props.value ?? props.defaultValue)
+  const rating = () => ratingOf(max(), props.value ?? props.defaultValue)
   const invalid = () => (props.error ? "true" : props["aria-invalid"])
   const checkedControl = control(
-    () => (props.value === undefined ? undefined : current() === 0),
-    untrack(() => current() === 0),
+    () => (props.value === undefined ? undefined : rating().current === 0),
+    () => (props.value === undefined ? rating().current === 0 : undefined),
   )
 
   return (
@@ -55,7 +54,7 @@ export default function Rating(props: Props) {
           disabled={props.disabled}
           lang={props.lang}
           style={props.style}
-          {...rest}
+          {...(rest as object)}
         >
           <legend>{props.label}</legend>
           {!props.required && (
@@ -71,12 +70,17 @@ export default function Rating(props: Props) {
               value={0}
             />
           )}
-          <For each={stars()} keyed={false}>
+          <For each={rating().stars} keyed={false}>
             {(star) => {
               const itemCheckedControl = control(
                 () =>
-                  props.value === undefined ? undefined : current() === star(),
-                untrack(() => current() === star()),
+                  props.value === undefined
+                    ? undefined
+                    : rating().current === star(),
+                () =>
+                  props.value === undefined
+                    ? rating().current === star()
+                    : undefined,
               )
               return (
                 <input
@@ -105,13 +109,13 @@ export default function Rating(props: Props) {
             props.class,
           ]}
           lang={props.lang}
-          max={Number.isFinite(count()) ? count() : undefined}
+          max={rating().max}
           style={mergeStyle(
-            { "--_max": count() === 5 ? undefined : count() },
+            { "--_max": rating().count === 5 ? undefined : rating().count },
             props.style,
           )}
-          value={Number.isFinite(current()) ? current() : 0}
-          {...rest}
+          value={rating().value}
+          {...(rest as object)}
         />
       )}
     </>

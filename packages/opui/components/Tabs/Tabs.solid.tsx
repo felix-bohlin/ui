@@ -1,7 +1,7 @@
 /** @jsxImportSource @solidjs/web */
 import { createUniqueId, omit, untrack } from "solid-js"
 import { TabsContext } from "./context.solid"
-import { warnUnnamedGroup } from "../dev"
+import { DEV, warnUnnamedGroup } from "../dev"
 import type { Props } from "./types.solid"
 
 export default function Tabs(props: Props) {
@@ -22,9 +22,10 @@ export default function Tabs(props: Props) {
   const change = (input: HTMLInputElement) => {
     props.onValueChange?.(input.value)
   }
-  untrack(() => {
-    if (props.role === "radiogroup") warnUnnamedGroup("Tabs", rest)
-  })
+  if (DEV)
+    untrack(() => {
+      if (props.role === "radiogroup") warnUnnamedGroup("Tabs", rest)
+    })
 
   return (
     <TabsContext

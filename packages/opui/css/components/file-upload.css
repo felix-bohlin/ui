@@ -30,8 +30,8 @@
       flex-direction: column;
       gap: var(--ui-space-2);
       justify-content: center;
-      padding-block: var(--ui-space-5);
-      padding-inline: var(--ui-space-4);
+      padding-block: var(--ui-space-6);
+      padding-inline: var(--ui-space-5);
       position: relative;
       text-align: center;
       transition:
@@ -47,7 +47,7 @@
         cursor: not-allowed;
 
         & > .ui-label {
-          opacity: var(--ui-disabled-opacity);
+          opacity: var(--ui-state-disabled-opacity);
         }
       }
 
@@ -198,7 +198,7 @@
         }
       }
 
-      &.ui-error > .ui-text > .ui-description {
+      &.ui-state-error > .ui-text > .ui-description {
         color: var(--ui-critical-text);
       }
 
@@ -276,8 +276,8 @@
           }
         }
 
-        &.ui-error > .ui-start {
-          border: var(--ui-border-width-thick) solid var(--ui-critical);
+        &.ui-state-error > .ui-start {
+          border: var(--ui-border-width-large) solid var(--ui-critical);
         }
 
         & > .ui-text {
@@ -303,14 +303,14 @@
           }
 
           & > .ui-description:popover-open {
-            background-color: var(--ui-surface-elevated);
+            background-color: var(--ui-surface-raised);
             border: var(--ui-border-width) solid var(--ui-critical);
             border-radius: var(--ui-radius);
             box-shadow: var(--ui-shadow-overlay);
             font-size: var(--ui-font-size-small);
             max-inline-size: var(--_description-max-inline-size);
             padding-block: var(--ui-space-2);
-            padding-inline: var(--ui-space-3);
+            padding-inline: var(--ui-space-4);
 
             @supports (position-area: block-end) {
               inset: auto;

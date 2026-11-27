@@ -13,6 +13,7 @@
     "tests/package/fixtures"
   ],
   "compilerOptions": {
+    "erasableSyntaxOnly": true,
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "paths": {

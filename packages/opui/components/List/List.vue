@@ -19,7 +19,6 @@ defineSlots<Slots>()
       'ui-list',
       { 'ui-bordered': bordered, 'ui-dense': dense, 'ui-flush': flush },
       variant && variant !== 'filled' && `ui-${variant}`,
-      $props.class,
     ]"
     :role="role ?? 'list'"
   >

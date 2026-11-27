@@ -31,7 +31,7 @@ export default {
       attribute: "[data-close-on-navigate]",
       default: "false",
       description:
-        "Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. A link inside it closes it on click, unless it has `data-keep-open`, and a change of the query alone from outside it leaves it open. Reads the Navigation API.",
+        "Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. A link inside it closes it on click, unless it has `data-keep-open` or opens elsewhere (a download, a `target` such as `_blank`, a click with a modifier key), and a change of the query alone from outside it leaves it open. Reads the Navigation API.",
       group: "Close on navigate",
       prop: "closeOnNavigate",
     },

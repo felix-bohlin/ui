@@ -11,9 +11,9 @@ const conversations = (page: import("@playwright/test").Page) =>
 
 test("/chat opens the first conversation", async ({ page }) => {
   await open(page, "/chat")
-  await expect(page.locator("#chat-title")).toHaveText("Holly Humbucker")
+  await expect(page.locator("#chat-title")).toHaveText("Scott Humbucker")
   const messages = page.getByRole("list", {
-    name: "Messages with Holly Humbucker",
+    name: "Messages with Scott Humbucker",
   })
   await expect(messages.locator("li.ui-divider")).toHaveText([
     "Yesterday",
@@ -22,10 +22,10 @@ test("/chat opens the first conversation", async ({ page }) => {
   await expect(messages.locator("li.ui-message")).toHaveCount(4)
   await expect(messages.locator("li.ui-message.ui-outgoing")).toHaveCount(1)
   await expect(
-    conversations(page).getByRole("link", { name: /Holly Humbucker/ }),
+    conversations(page).getByRole("link", { name: /Scott Humbucker/ }),
   ).toHaveAttribute("aria-current", "page")
   await expect(
-    conversations(page).getByRole("link", { name: /Holly Humbucker/ }),
+    conversations(page).getByRole("link", { name: /Scott Humbucker/ }),
   ).toContainText("1 unread")
   await expectNoAxeViolations(page)
 })
@@ -34,12 +34,12 @@ test("a conversation link opens it on the client", async ({ page }) => {
   await open(page, "/chat")
   const stillLoaded = await clientNavigationMarker(page)
   await conversations(page)
-    .getByRole("link", { name: /Lou Headstock/ })
+    .getByRole("link", { name: /Kinga Headstock/ })
     .click()
-  await expect(page).toHaveURL("/chat?with=lou")
-  await expect(page.locator("#chat-title")).toHaveText("Lou Headstock")
+  await expect(page).toHaveURL("/chat?with=kinga")
+  await expect(page.locator("#chat-title")).toHaveText("Kinga Headstock")
   await expect(
-    conversations(page).getByRole("link", { name: /Lou Headstock/ }),
+    conversations(page).getByRole("link", { name: /Kinga Headstock/ }),
   ).toHaveAttribute("aria-current", "page")
   await expect(
     conversations(page).locator('[aria-current="page"]'),
@@ -49,15 +49,15 @@ test("a conversation link opens it on the client", async ({ page }) => {
 
 test("an unknown handle opens the first conversation", async ({ page }) => {
   await open(page, "/chat?with=nobody")
-  await expect(page.locator("#chat-title")).toHaveText("Holly Humbucker")
+  await expect(page.locator("#chat-title")).toHaveText("Scott Humbucker")
 })
 
 test("sending appends a message and keeps it per conversation", async ({
   page,
 }) => {
-  await open(page, "/chat?with=percy")
+  await open(page, "/chat?with=adam")
   const messages = page.getByRole("list", {
-    name: "Messages with Percy Groove",
+    name: "Messages with Adam Groove",
   })
   await expect(messages.locator("li.ui-message")).toHaveCount(2)
   const field = page.getByRole("textbox", { name: "Message" })
@@ -74,12 +74,12 @@ test("sending appends a message and keeps it per conversation", async ({
   await expect(field).toHaveValue("")
 
   await conversations(page)
-    .getByRole("link", { name: /Lou Headstock/ })
+    .getByRole("link", { name: /Kinga Headstock/ })
     .click()
-  await expect(page.locator("#chat-title")).toHaveText("Lou Headstock")
+  await expect(page.locator("#chat-title")).toHaveText("Kinga Headstock")
   await expect(page.getByText("See you Thursday")).toHaveCount(0)
   await conversations(page)
-    .getByRole("link", { name: /Percy Groove/ })
+    .getByRole("link", { name: /Adam Groove/ })
     .click()
   await expect(messages.locator("li.ui-message")).toHaveCount(3)
 })

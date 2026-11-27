@@ -1,0 +1,25 @@
+{% from "opui/index.njk" import Field, StepButton %}
+{% set id = "field-ids-1" %}
+
+{% set start %}{{ StepButton({ command: "--step-down", for: id }) }}{% endset %}
+{% set end %}{{ StepButton({ command: "--step-up", for: id }) }}{% endset %}
+{% call Field({
+  autoFit: true,
+  endText: "Up to 10 per order.",
+  for: id,
+  label: "Quantity",
+  slots: { end: end, start: start }
+}) %}
+  <input
+    aria-describedby="{{ id }}-end-text"
+    id="{{ id }}"
+    max="10"
+    min="1"
+    type="number"
+    value="1"
+  />
+{% endcall %}
+
+<script type="module">
+  import "opui-css/elements/step-button.js"
+</script>

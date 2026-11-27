@@ -20,13 +20,13 @@ const knobs = [
 
 const roles = [
   { name: "--ui-primary", note: "Filled buttons, links, checked controls" },
-  { name: "--ui-palette-tint", note: "Tonal fills" },
+  { name: "--ui-palette-tonal", note: "Tonal fills" },
   { name: "--ui-palette-text", note: "Tinted text" },
   { name: "--ui-palette-border", note: "Tinted borders" },
 ]
 ---
 
-<figure class="token-flow ui-palette ui-not-rich-text" id="token-flow">
+<figure class="token-flow ui-scope ui-not-rich-text" id="token-flow">
   <ol>
     <li>
       <span class="step">Knobs</span>
@@ -126,8 +126,8 @@ const roles = [
   .token-flow {
     container-type: inline-size;
     display: grid;
-    gap: var(--ui-space-3);
-    margin-block: var(--ui-space-5);
+    gap: var(--ui-space-4);
+    margin-block: var(--ui-space-6);
   }
 
   ol,
@@ -139,7 +139,7 @@ const roles = [
 
   .token-flow > ol {
     display: grid;
-    gap: var(--ui-space-6);
+    gap: var(--ui-space-7);
     grid-template-columns: 1.25fr 1fr 1.25fr 1fr;
 
     > li {
@@ -147,8 +147,8 @@ const roles = [
       background-color: var(--ui-surface-tonal);
       border-radius: var(--ui-radius);
       display: grid;
-      gap: var(--ui-space-3);
-      padding: var(--ui-space-3);
+      gap: var(--ui-space-4);
+      padding: var(--ui-space-4);
       position: relative;
     }
 
@@ -156,9 +156,9 @@ const roles = [
       color: var(--ui-text);
       content: "\2192" / "";
       font-size: var(--ui-font-size-h4);
-      inline-size: var(--ui-space-6);
+      inline-size: var(--ui-space-7);
       inset-block-start: 50%;
-      inset-inline-start: calc(-1 * var(--ui-space-6));
+      inset-inline-start: calc(-1 * var(--ui-space-7));
       line-height: 1;
       position: absolute;
       text-align: center;
@@ -169,14 +169,14 @@ const roles = [
   .step {
     color: var(--ui-text);
     font-size: var(--ui-font-size-caption);
-    font-weight: var(--ui-font-weight-medium);
+    font-weight: var(--ui-font-weight-emphasis);
     letter-spacing: var(--ui-letter-spacing-caps);
     text-transform: uppercase;
   }
 
   .knobs {
     display: grid;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
 
     code {
       font-size: var(--ui-font-size-caption);
@@ -214,11 +214,11 @@ const roles = [
   }
 
   .swatch {
-    block-size: var(--ui-space-4);
+    block-size: var(--ui-space-5);
     border: var(--ui-border-width) solid currentColor;
     border-radius: var(--ui-radius-small);
     forced-color-adjust: none;
-    inline-size: var(--ui-space-4);
+    inline-size: var(--ui-space-5);
   }
 
   code {
@@ -237,10 +237,10 @@ const roles = [
       grid-template-columns: 1fr;
 
       > li + li::before {
-        block-size: var(--ui-space-6);
+        block-size: var(--ui-space-7);
         content: "\2193" / "";
         inline-size: auto;
-        inset-block-start: calc(-1 * var(--ui-space-6));
+        inset-block-start: calc(-1 * var(--ui-space-7));
         inset-inline-start: 50%;
         translate: -50% 0;
       }

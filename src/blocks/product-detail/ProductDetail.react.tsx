@@ -2,6 +2,8 @@ import {
   Accordion,
   AccordionContent,
   AccordionSummary,
+  Breadcrumb,
+  BreadcrumbItem,
   Button,
   Card,
   Carousel,
@@ -24,32 +26,16 @@ import {
 export default function ProductDetail() {
   return (
     <>
-      <div className="product-detail ui-layout-container ui-layout-column ui-large">
-        <nav aria-label="Breadcrumb" className="pd-breadcrumb">
-          <ol className="ui-layout-row ui-small">
-            <li>
-              <a className="ui-link" href="#product-detail-shop">
-                Shop
-              </a>
-            </li>
-            <li>
-              <a className="ui-link" href="#product-detail-gear">
-                Gear
-              </a>
-            </li>
-            <li>
-              <a className="ui-link" href="#product-detail-gig-bags">
-                Gig bags
-              </a>
-            </li>
-            <li>
-              <span aria-current="page">Comfy Cloud Gig Bag</span>
-            </li>
-          </ol>
-        </nav>
+      <div className="product-detail ui-layout-container ui-layout-column ui-gap-large">
+        <Breadcrumb aria-label="Breadcrumb">
+          <BreadcrumbItem href="#product-detail-shop" label="Shop" />
+          <BreadcrumbItem href="#product-detail-gear" label="Gear" />
+          <BreadcrumbItem href="#product-detail-gig-bags" label="Gig bags" />
+          <BreadcrumbItem current label="Comfy Cloud Gig Bag" />
+        </Breadcrumb>
         <div
           className="ui-layout-columns"
-          style={{ "--_gap": "var(--ui-space-6)" }}
+          style={{ "--_gap": "var(--ui-space-7)" }}
         >
           <div className="ui-sticky pd-gallery">
             <Carousel aria-label="Product images" markers tabIndex={0}>
@@ -87,12 +73,12 @@ export default function ProductDetail() {
               </li>
             </Carousel>
           </div>
-          <div className="ui-layout-column ui-large">
+          <div className="ui-layout-column ui-gap-large">
             <hgroup className="ui-hgroup">
               <p className="ui-overline">Bassbook Shop</p>
               <h1 className="ui-h3">Comfy Cloud Gig Bag</h1>
             </hgroup>
-            <div className="ui-layout-row ui-small">
+            <div className="ui-layout-row ui-gap-small">
               <Rating
                 aria-hidden="true"
                 defaultValue={4.7}
@@ -103,7 +89,7 @@ export default function ProductDetail() {
                 128 reviews
               </a>
             </div>
-            <div className="ui-layout-row ui-small pd-price">
+            <div className="ui-layout-row ui-gap-small pd-price">
               <strong className="ui-tabular-nums">€119.00</strong>
               <s>
                 <span className="ui-sr-only">Was </span>€149.00
@@ -157,7 +143,7 @@ export default function ProductDetail() {
                   </a>
                 </FieldDescription>
               </Fieldset>
-              <div className="ui-layout-row ui-small pd-buy">
+              <div className="ui-layout-row ui-gap-small pd-buy">
                 <Field
                   autoFit
                   end={
@@ -319,11 +305,6 @@ export default function ProductDetail() {
       </div>
       <style>{`
         .product-detail {
-          .pd-breadcrumb li + li::before {
-            content: "/";
-            margin-inline-end: var(--ui-space-2);
-          }
-
           .pd-gallery {
             position: relative;
           }
@@ -366,11 +347,11 @@ export default function ProductDetail() {
           }
 
           .pd-form {
-            gap: var(--ui-space-5);
+            gap: var(--ui-space-6);
           }
 
           .pd-details ul {
-            padding-inline-start: var(--ui-space-4);
+            padding-inline-start: var(--ui-space-5);
           }
         }
       `}</style>

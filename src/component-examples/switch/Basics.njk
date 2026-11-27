@@ -1,0 +1,22 @@
+{% from "opui/index.njk" import Switch %}
+
+{% call Switch({
+  checked: true,
+  hideLabel: true,
+  name: "switch-basics",
+  value: "wifi"
+}) %}Wi-Fi{% endcall %}
+{% call Switch({ hideLabel: true, name: "switch-basics", value: "bluetooth" }) %}Bluetooth{% endcall %}
+{% call Switch({
+  checked: true,
+  disabled: true,
+  hideLabel: true,
+  name: "switch-basics",
+  value: "location"
+}) %}Location{% endcall %}
+{% call Switch({
+  disabled: true,
+  hideLabel: true,
+  name: "switch-basics",
+  value: "airplane-mode"
+}) %}Airplane mode{% endcall %}

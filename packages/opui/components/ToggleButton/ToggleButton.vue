@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { computed, inject, watchEffect } from "vue"
 import { useBound, useInputAttrs } from "../vue"
-import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { ToggleGroupKey } from "../ToggleGroup/context.vue"
 import { isSelected } from "../ToggleGroup/selection"
-import { warnGroupedChecked } from "../dev"
+import { DEV, warnGroupedChecked } from "../dev"
 import { defined } from "../attrs"
 import { styleAttrs } from "../style"
 import type { Props, Slots } from "./types.vue-props"
@@ -31,11 +30,9 @@ const model = defineModel<boolean | undefined>({
 
 const bound = useBound()
 
-const field = inject(FieldGroupKey, undefined)
-
 const group = inject(ToggleGroupKey, undefined)
 
-const finalName = computed(() => name || group?.groupName || field?.name)
+const finalName = computed(() => name || group?.groupName)
 
 const finalType = computed(() =>
   group?.inputType === "radio" ? "radio" : (type ?? "checkbox"),
@@ -43,14 +40,15 @@ const finalType = computed(() =>
 
 const grouped = computed(() => isSelected(group?.value, value))
 
-watchEffect(() =>
-  warnGroupedChecked(
-    "ToggleButton",
-    grouped.value,
-    checked ?? model.value,
-    "ToggleGroup",
-  ),
-)
+if (DEV)
+  watchEffect(() =>
+    warnGroupedChecked(
+      "ToggleButton",
+      grouped.value,
+      checked ?? model.value,
+      "ToggleGroup",
+    ),
+  )
 
 const target = computed({
   get: () => (group?.bound ? group.value : model.value),
@@ -66,7 +64,7 @@ const target = computed({
     :class="[
       'ui-toggle-button',
       size && size !== 'medium' && `ui-${size}`,
-      $props.class,
+      $attrs.class,
     ]"
     v-bind="styleAttrs($attrs.style)"
   >

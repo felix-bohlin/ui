@@ -1,5 +1,6 @@
 ---
 import type { Props } from "./types.astro"
+import type { HTMLAttributes } from "astro/types"
 import { menuContext } from "./context.astro"
 import { defined } from "../attrs"
 import { warnMissingId } from "../dev"
@@ -74,7 +75,7 @@ const html = await menuContext.provide({ rootId }, () =>
           command={closes ? "hide-popover" : undefined}
           commandfor={closes ? rootId : undefined}
           data-keep-open={keepOpen ? "" : undefined}
-          {...defined(itemRest)}
+          {...defined(itemRest as HTMLAttributes<"button">)}
         >
           <div class="ui-text">
             <p>{label}</p>

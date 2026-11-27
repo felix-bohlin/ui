@@ -6,7 +6,7 @@
   <input
     aria-describedby="field-top-and-bottom-1-top"
     id="field-top-and-bottom-1"
-    placeholder="Holly Humbucker"
+    placeholder="Scott Humbucker"
   />
   {#snippet top()}Shown on your profile{/snippet}
 </Field>

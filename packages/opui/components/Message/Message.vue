@@ -15,7 +15,6 @@ defineSlots<Slots>()
         'ui-outgoing': outgoing,
         'ui-typing': typing,
       },
-      $props.class,
     ]"
   >
     <slot name="start"></slot>

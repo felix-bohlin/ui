@@ -1,5 +1,6 @@
 /** @jsxImportSource @solidjs/web */
 import { children, omit } from "solid-js"
+import { filled } from "../attrs"
 import { cx } from "../cx"
 import type { StepperItemProps as Props } from "./types.solid"
 
@@ -8,12 +9,11 @@ export default function StepperItem(props: Props) {
     props,
     "aria-current",
     "class",
-    "complete",
     "completeLabel",
     "current",
-    "error",
     "errorLabel",
     "href",
+    "state",
     "description",
     "iconComplete",
     "label",
@@ -25,23 +25,23 @@ export default function StepperItem(props: Props) {
     props.completeLabel === undefined ? ", completed" : props.completeLabel
   const errorLabel = () =>
     props.errorLabel === undefined ? ", error" : props.errorLabel
-  const state = () =>
-    props.error ? errorLabel() : props.complete ? completeLabel() : undefined
-  const link = () =>
-    props.href && !props.current && (props.complete || props.error)
+  const stateLabel = () =>
+    props.state === "error"
+      ? errorLabel()
+      : props.state === "complete"
+        ? completeLabel()
+        : undefined
+  const link = () => props.href && !props.current && props.state
 
   return (
     <li
       aria-current={
         props["aria-current"] ?? (props.current ? "step" : undefined)
       }
-      class={cx([
-        { "ui-complete": props.complete, "ui-error": props.error },
-        props.class,
-      ])}
+      class={cx([props.state && `ui-state-${props.state}`, props.class])}
       {...rest}
     >
-      {resolvedIconComplete() && (
+      {filled(resolvedIconComplete()) && (
         <span aria-hidden="true" class="ui-icon-complete">
           {resolvedIconComplete()}
         </span>
@@ -49,15 +49,15 @@ export default function StepperItem(props: Props) {
       {link() ? (
         <a href={props.href}>
           {resolvedLabel()}
-          {state() && <span class="ui-sr-only">{state()}</span>}
+          {stateLabel() && <span class="ui-sr-only">{stateLabel()}</span>}
         </a>
       ) : (
         <>
           {resolvedLabel()}
-          {state() && <span class="ui-sr-only">{state()}</span>}
+          {stateLabel() && <span class="ui-sr-only">{stateLabel()}</span>}
         </>
       )}{" "}
-      {resolvedDescription() && (
+      {filled(resolvedDescription()) && (
         <span class="ui-description">{resolvedDescription()}</span>
       )}
     </li>

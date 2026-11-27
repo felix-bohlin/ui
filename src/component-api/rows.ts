@@ -24,7 +24,7 @@ const byName = (a: { name: string }, b: { name: string }) =>
 const on = (option: ApiOption, modifier: string | null) =>
   modifier && option.part ? `${option.part}${modifier}` : modifier
 
-export const modifiers = (option: ApiOption) => {
+const modifiers = (option: ApiOption) => {
   const values = [
     ...[option.class ?? option.attribute].flatMap((modifier) =>
       modifier ? [on(option, modifier)] : [],

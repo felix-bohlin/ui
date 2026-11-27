@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import "../../elements/reactions.js"
-import { computed, type HTMLAttributes, useAttrs } from "vue"
-import { vHydrated } from "../vue"
+import { computed } from "vue"
+import { useRestAttrs, vHydrated } from "../vue"
 import ToggleButton from "../ToggleButton/ToggleButton.vue"
 import ToggleGroup from "../ToggleGroup/ToggleGroup.vue"
+import { pillsOf, usedItem } from "./pills"
 import { defined } from "../attrs"
 import { classAttrs } from "../cx"
 import type { Props, Emits, Slots } from "./types.vue-props"
@@ -16,33 +17,26 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs() as HTMLAttributes
+const attrs = useRestAttrs()
 
 const restAttrs = computed(() => {
   const {
     "aria-label": _ariaLabel,
     "aria-labelledby": _ariaLabelledby,
     ...rest
-  } = attrs
+  } = attrs.value
   return rest
 })
 
-const used = computed(() => items.find((item) => item.value === quick?.value))
+const used = computed(() => usedItem(items, quick))
 
-const pills = computed(() =>
-  quick
-    ? [
-        used.value ?? quick,
-        ...items.filter((item) => item.value !== quick?.value),
-      ]
-    : items,
-)
+const pills = computed(() => pillsOf(items, quick, used.value))
 </script>
 
 <template>
   <component
     is="opui-reactions"
-    :class="['ui-reactions', $props.class]"
+    :class="['ui-reactions', $attrs.class]"
     :quick-label="quick?.['aria-label']"
     :quick-text="quick?.label"
     :quick-value="quick?.value"
@@ -62,7 +56,7 @@ const pills = computed(() =>
         :key="index"
         :aria-label="item['aria-label']"
         :checked="!!item.checked"
-        v-bind="classAttrs([{ 'ui-unused': quick && !used && index === 0 }])"
+        v-bind="classAttrs([{ 'ui-suggested': quick && !used && index === 0 }])"
         :value="item.value"
       >
         <span aria-hidden="true">{{ item.label }}</span>

@@ -1,3 +1,4 @@
+import { readdirSync, readFileSync } from "node:fs"
 import { join } from "node:path"
 import { fileURLToPath } from "node:url"
 import ts from "typescript"
@@ -47,11 +48,15 @@ const compilerOptions = () =>
     root,
   ).options
 
-const createProgram = (files = new Map()) => {
+const createProgram = (files = new Map(), frameworks = true) => {
   const options = compilerOptions()
   const sources = new Map([
-    [virtualFile, virtualSource],
-    [solidFile, solidSource],
+    ...(frameworks
+      ? [
+          [virtualFile, virtualSource],
+          [solidFile, solidSource],
+        ]
+      : []),
     ...files,
   ])
   const host = ts.createCompilerHost(options)
@@ -111,9 +116,8 @@ const load = (framework = "react") => {
 
 const members = (type) => (type.isUnion() ? type.types : [type])
 
-const kindsOf = (checker, symbol, location) => {
+const kindsOfParts = (checker, all) => {
   const kinds = new Set()
-  const all = members(checker.getTypeOfSymbolAtLocation(symbol, location))
   const allowsTrue = all.some(
     (member) =>
       member.flags & ts.TypeFlags.BooleanLike &&
@@ -131,6 +135,12 @@ const kindsOf = (checker, symbol, location) => {
   }
   return kinds
 }
+
+const kindsOf = (checker, symbol, location) =>
+  kindsOfParts(
+    checker,
+    members(checker.getTypeOfSymbolAtLocation(symbol, location)),
+  )
 
 const propsOfType = (checker, type, location) => {
   const props = new Map()
@@ -208,3 +218,326 @@ export const reactBareAttribute = (name, kinds) =>
     : kinds.has("string")
       ? `${name}=""`
       : undefined
+
+const astroFile = join(root, "src/component-examples/astro-props.ts")
+
+export const exportedTypes = (source) =>
+  ts
+    .createSourceFile("types.astro.ts", source, ts.ScriptTarget.Latest)
+    .statements.flatMap((statement) =>
+      ts.isTypeAliasDeclaration(statement) &&
+      statement.modifiers?.some(
+        (modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword,
+      ) &&
+      !statement.typeParameters?.some((parameter) => !parameter.default)
+        ? [statement.name.text]
+        : ts.isExportDeclaration(statement) &&
+            statement.exportClause &&
+            ts.isNamedExports(statement.exportClause)
+          ? statement.exportClause.elements.map((element) => element.name.text)
+          : [],
+    )
+
+const astroSource = () => {
+  const componentsDir = join(root, "packages/opui/components")
+  const entries = readdirSync(componentsDir, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .toSorted()
+    .flatMap((folder) => {
+      let source
+      try {
+        source = readFileSync(
+          join(componentsDir, folder, "types.astro.ts"),
+          "utf8",
+        )
+      } catch {
+        return []
+      }
+      return exportedTypes(source).map((name) => ({ folder, name }))
+    })
+  return [
+    ...[...new Set(entries.map(({ folder }) => folder))].map(
+      (folder) =>
+        `import type * as ${folder} from "../../packages/opui/components/${folder}/types.astro"`,
+    ),
+    `export type Props = {`,
+    ...entries.map(
+      ({ folder, name }) =>
+        `  ${JSON.stringify(`${folder}/${name}`)}: ${folder}.${name}`,
+    ),
+    "}",
+  ].join("\n")
+}
+
+let astro
+
+const OPEN = ts.TypeFlags.Any | ts.TypeFlags.Unknown
+
+const NONE = ts.TypeFlags.Null | ts.TypeFlags.Undefined | ts.TypeFlags.Void
+
+const takes = (checker, type, flags) => {
+  if (type.flags & (flags | OPEN)) return true
+  if (type.flags & ts.TypeFlags.TypeParameter) {
+    const constraint = checker.getBaseConstraintOfType(type)
+    return (
+      !constraint ||
+      members(constraint).some((part) => takes(checker, part, flags))
+    )
+  }
+  return false
+}
+
+const takesNull = (checker, type) => takes(checker, type, ts.TypeFlags.Null)
+
+const isOwnProperty = (property) =>
+  !!property.declarations?.some(
+    (declaration) =>
+      !declaration.getSourceFile().fileName.includes("/node_modules/"),
+  )
+
+const depths = new WeakMap()
+
+const depthOf = (checker, type, location, open = new Set()) => {
+  if (type.flags & OPEN) return Infinity
+  if (type.flags & ts.TypeFlags.TypeParameter) {
+    const constraint = checker.getBaseConstraintOfType(type)
+    return constraint ? depthOf(checker, constraint, location, open) : Infinity
+  }
+  if (type.isUnion()) {
+    return Math.max(
+      0,
+      ...type.types.map((part) => depthOf(checker, part, location, open)),
+    )
+  }
+  if (!(type.flags & ts.TypeFlags.Object) && !type.isIntersection()) {
+    return 0
+  }
+  if (type.getCallSignatures().length) return 0
+  if (depths.has(type)) return depths.get(type)
+  if (open.has(type)) return Infinity
+  open.add(type)
+  const children =
+    checker.isArrayType(type) || checker.isTupleType(type)
+      ? checker.getTypeArguments(type)
+      : checker
+          .getPropertiesOfType(type)
+          .filter(isOwnProperty)
+          .map((property) =>
+            checker.getTypeOfSymbolAtLocation(property, location),
+          )
+  const depth =
+    1 +
+    Math.max(
+      0,
+      ...children.map((child) => depthOf(checker, child, location, open)),
+    )
+  open.delete(type)
+  depths.set(type, depth)
+  return depth
+}
+
+const unite = (maps) => {
+  const united = new Map()
+  for (const map of maps) {
+    for (const [name, kinds] of map) {
+      united.set(name, new Set([...(united.get(name) ?? []), ...kinds]))
+    }
+  }
+  return united
+}
+
+const objectParts = (checker, type) =>
+  members(type).filter(
+    (part) =>
+      (part.flags & ts.TypeFlags.Object || part.isIntersection()) &&
+      !checker.isArrayType(part) &&
+      !checker.isTupleType(part) &&
+      !part.getCallSignatures().length,
+  )
+
+const fieldsOf = (checker, type, location) =>
+  unite(
+    objectParts(checker, type).map(
+      (part) =>
+        new Map(
+          checker
+            .getPropertiesOfType(part)
+            .map((field) => [field.name, kindsOf(checker, field, location)]),
+        ),
+    ),
+  )
+
+const listOf = (checker, type, location) => {
+  const items = members(type)
+    .filter((part) => checker.isArrayType(part))
+    .flatMap((list) => members(checker.getTypeArguments(list)[0]))
+  return {
+    defined:
+      items.length > 0 && !items.some((item) => takes(checker, item, NONE)),
+    fields: unite(items.map((item) => fieldsOf(checker, item, location))),
+    items: kindsOfParts(checker, items),
+  }
+}
+
+const unitedList = (known, list) => ({
+  defined: known.defined && list.defined,
+  fields: unite([known.fields, list.fields]),
+  items: new Set([...known.items, ...list.items]),
+})
+
+const uniteLists = (maps) => {
+  const united = new Map()
+  for (const map of maps) {
+    for (const [name, list] of map) {
+      united.set(
+        name,
+        united.has(name) ? unitedList(united.get(name), list) : list,
+      )
+    }
+  }
+  return united
+}
+
+const listsOf = (checker, type, location) =>
+  uniteLists(
+    objectParts(checker, type).map(
+      (part) =>
+        new Map(
+          checker
+            .getPropertiesOfType(part)
+            .map((field) => [
+              field.name,
+              listOf(
+                checker,
+                checker.getTypeOfSymbolAtLocation(field, location),
+                location,
+              ),
+            ])
+            .filter(([, list]) => list.items.size),
+        ),
+    ),
+  )
+
+const shapeOf = (checker, symbol, location) => {
+  const type = checker.getTypeOfSymbolAtLocation(symbol, location)
+  return {
+    depth: depthOf(checker, type, location),
+    kinds: kindsOf(checker, symbol, location),
+    list: listOf(checker, type, location),
+    lists: listsOf(checker, type, location),
+    members: fieldsOf(checker, type, location),
+    nullable: members(type).some((part) => takesNull(checker, part)),
+  }
+}
+
+const merged = (known, shape) =>
+  known
+    ? {
+        depth: Math.max(known.depth, shape.depth),
+        kinds: new Set([...known.kinds, ...shape.kinds]),
+        list: unitedList(known.list, shape.list),
+        lists: uniteLists([known.lists, shape.lists]),
+        members: unite([known.members, shape.members]),
+        nullable: known.nullable || shape.nullable,
+      }
+    : shape
+
+const typeProgram = (file, source, alias) => {
+  const program = createProgram(new Map([[file, source]]), false)
+  const location = program
+    .getSourceFile(file)
+    .statements.find(
+      (statement) =>
+        ts.isTypeAliasDeclaration(statement) && statement.name.text === alias,
+    )
+  const checker = program.getTypeChecker()
+  return {
+    checker,
+    container: checker.getTypeFromTypeNode(location.type),
+    location,
+  }
+}
+
+export const astroPropsOf = (folder, propsType) => {
+  astro ??= {
+    cache: new Map(),
+    ...typeProgram(astroFile, astroSource(), "Props"),
+  }
+  const key = `${folder}/${propsType}`
+  if (!astro.cache.has(key)) {
+    const { checker, container, location } = astro
+    const symbol = checker.getPropertyOfType(container, key)
+    let props
+    if (symbol) {
+      props = new Map()
+      for (const member of members(
+        checker.getTypeOfSymbolAtLocation(symbol, location),
+      )) {
+        for (const property of checker.getPropertiesOfType(member)) {
+          props.set(
+            property.name,
+            merged(
+              props.get(property.name),
+              shapeOf(checker, property, location),
+            ),
+          )
+        }
+      }
+    }
+    astro.cache.set(key, props)
+  }
+  return astro.cache.get(key)
+}
+
+const shapesFile = join(root, "src/component-examples/shapes.ts")
+
+export const shapesOfSource = (source) => {
+  const { checker, container, location } = typeProgram(
+    shapesFile,
+    source,
+    "Props",
+  )
+  return new Map(
+    checker
+      .getPropertiesOfType(container)
+      .map((symbol) => [symbol.name, shapeOf(checker, symbol, location)]),
+  )
+}
+
+const returnsFile = join(root, "src/component-examples/helper-returns.ts")
+
+const returnsCache = new Map()
+
+export const helperReturnsOf = (entries) => {
+  const key = JSON.stringify(entries)
+  if (!returnsCache.has(key)) {
+    const modules = [...new Set(entries.map(({ file }) => file))].toSorted()
+    const source = [
+      ...modules.map(
+        (file, index) =>
+          `import type * as m${index} from "../../packages/opui/components/${file.replace(/\.ts$/, "")}"`,
+      ),
+      "export type Returns = {",
+      ...entries.map(
+        ({ file, name }) =>
+          `  ${JSON.stringify(name)}: ReturnType<typeof m${modules.indexOf(file)}.${name}>`,
+      ),
+      "}",
+    ].join("\n")
+    const { checker, container, location } = typeProgram(
+      returnsFile,
+      source,
+      "Returns",
+    )
+    returnsCache.set(
+      key,
+      new Map(
+        checker
+          .getPropertiesOfType(container)
+          .map((symbol) => [symbol.name, shapeOf(checker, symbol, location)]),
+      ),
+    )
+  }
+  return returnsCache.get(key)
+}

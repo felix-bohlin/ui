@@ -4,7 +4,7 @@ export default function StartVideo() {
   return (
     <List>
       <ListItem
-        description="Uploaded by Lou Headstock"
+        description="Uploaded by Kinga Headstock"
         end="1:30"
         label="Slap tutorial"
         start={
@@ -17,7 +17,7 @@ export default function StartVideo() {
         }
       />
       <ListItem
-        description="Uploaded by Percy Groove"
+        description="Uploaded by Adam Groove"
         end="0:45"
         label="Drop D in 45 seconds"
         start={

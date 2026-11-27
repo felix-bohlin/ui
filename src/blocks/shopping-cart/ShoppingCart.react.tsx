@@ -16,13 +16,13 @@ import {
 export default function ShoppingCart() {
   return (
     <>
-      <div className="shopping-cart ui-layout-container ui-layout-column ui-large">
+      <div className="shopping-cart ui-layout-container ui-layout-column ui-gap-large">
         <hgroup className="ui-hgroup">
           <h1 className="ui-h3">Your gear cart</h1>
           <p>3 totally rad items, prices include VAT</p>
         </hgroup>
         <div
-          className="ui-layout-columns ui-large"
+          className="ui-layout-columns ui-gap-large"
           style={{ "--_columns": "2fr 1fr" }}
         >
           <Card aria-label="Cart items" as="section" variant="outlined">
@@ -34,7 +34,7 @@ export default function ShoppingCart() {
                   style={{ "--hue": "0" }}
                   role="img"
                 ></div>
-                <div className="ui-layout-column ui-x-small cart-info">
+                <div className="ui-layout-column ui-gap-x-small cart-info">
                   <h2 className="ui-h6">
                     <a className="ui-link" href="#shopping-cart-gig-bag">
                       Comfy Cloud Gig Bag
@@ -50,7 +50,7 @@ export default function ShoppingCart() {
                       size="small"
                     />
                   </p>
-                  <div className="ui-layout-row ui-x-small cart-links">
+                  <div className="ui-layout-row ui-gap-x-small cart-links">
                     <Button size="x-small" type="button">
                       Save for later
                     </Button>
@@ -102,7 +102,7 @@ export default function ShoppingCart() {
                   style={{ "--hue": "140" }}
                   role="img"
                 ></div>
-                <div className="ui-layout-column ui-x-small cart-info">
+                <div className="ui-layout-column ui-gap-x-small cart-info">
                   <h2 className="ui-h6">
                     <a className="ui-link" href="#shopping-cart-strings">
                       Flatwound string set
@@ -118,7 +118,7 @@ export default function ShoppingCart() {
                       size="small"
                     />
                   </p>
-                  <div className="ui-layout-row ui-x-small cart-links">
+                  <div className="ui-layout-row ui-gap-x-small cart-links">
                     <Button size="x-small" type="button">
                       Save for later
                     </Button>
@@ -165,7 +165,7 @@ export default function ShoppingCart() {
                   style={{ "--hue": "-80" }}
                   role="img"
                 ></div>
-                <div className="ui-layout-column ui-x-small cart-info">
+                <div className="ui-layout-column ui-gap-x-small cart-info">
                   <h2 className="ui-h6">
                     <a className="ui-link" href="#shopping-cart-tee">
                       I'm with the bassist tee
@@ -181,7 +181,7 @@ export default function ShoppingCart() {
                       size="small"
                     />
                   </p>
-                  <div className="ui-layout-row ui-x-small cart-links">
+                  <div className="ui-layout-row ui-gap-x-small cart-links">
                     <Button size="x-small" type="button">
                       Save for later
                     </Button>
@@ -235,7 +235,7 @@ export default function ShoppingCart() {
               </h2>
             </hgroup>
             <CardContent>
-              <div className="ui-layout-column ui-small">
+              <div className="ui-layout-column ui-gap-small">
                 <p id="shopping-cart-free-shipping">
                   Woohoo, you've unlocked <strong>free delivery</strong>!
                 </p>
@@ -258,7 +258,7 @@ export default function ShoppingCart() {
               </ControlGroup>
               <div>
                 <Chip
-                  aria-label="Remove code LOWEND10, −10%"
+                  aria-label="Remove code BASS10, −10%"
                   as="button"
                   end={
                     <svg
@@ -275,12 +275,12 @@ export default function ShoppingCart() {
                       ></path>
                     </svg>
                   }
-                  label="LOWEND10, −10%"
+                  label="BASS10, −10%"
                   type="button"
                   variant="outlined"
                 />
               </div>
-              <DescriptionList border="solid" orientation="horizontal">
+              <DescriptionList leader="solid" orientation="horizontal">
                 <DescriptionListItem>
                   <DescriptionListTerm>Subtotal</DescriptionListTerm>
                   <DescriptionListDescription>
@@ -333,14 +333,14 @@ export default function ShoppingCart() {
           }
 
           .cart-item {
-            column-gap: var(--ui-space-3);
+            column-gap: var(--ui-space-4);
             display: grid;
             grid-template-areas:
               "thumb info"
               "thumb buy";
             grid-template-columns: auto minmax(0, 1fr);
-            padding: var(--ui-space-3);
-            row-gap: var(--ui-space-3);
+            padding: var(--ui-space-4);
+            row-gap: var(--ui-space-4);
 
             @container (inline-size >= 40rem) {
               grid-template-areas: "thumb info buy";
@@ -372,7 +372,7 @@ export default function ShoppingCart() {
           .cart-buy {
             align-items: center;
             display: flex;
-            gap: var(--ui-space-3);
+            gap: var(--ui-space-4);
             grid-area: buy;
             justify-content: space-between;
 
@@ -384,19 +384,19 @@ export default function ShoppingCart() {
           }
 
           .cart-line-price {
-            font-weight: var(--ui-font-weight-semibold);
+            font-weight: var(--ui-font-weight-label);
             text-align: end;
 
             s {
               display: block;
-              font-weight: var(--ui-font-weight-normal);
+              font-weight: var(--ui-font-weight-body);
             }
           }
 
           .cart-summary {
             .ui-content {
               display: grid;
-              gap: var(--ui-space-4);
+              gap: var(--ui-space-5);
             }
           }
 

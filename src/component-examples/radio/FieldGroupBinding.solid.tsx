@@ -19,9 +19,10 @@ export default function FieldGroupBinding() {
     <>
       <Fieldset>
         <FieldLegend>Plan</FieldLegend>
-        <FieldGroup name="radio-binding">
+        <FieldGroup>
           <Radio
             checked={plan() === "basic"}
+            name="radio-binding"
             onChange={() => setPlan("basic")}
             value="basic"
           >
@@ -29,6 +30,7 @@ export default function FieldGroupBinding() {
           </Radio>
           <Radio
             checked={plan() === "gold"}
+            name="radio-binding"
             onChange={() => setPlan("gold")}
             value="gold"
           >
@@ -36,6 +38,7 @@ export default function FieldGroupBinding() {
           </Radio>
           <Radio
             checked={plan() === "platinum"}
+            name="radio-binding"
             onChange={() => setPlan("platinum")}
             value="platinum"
           >

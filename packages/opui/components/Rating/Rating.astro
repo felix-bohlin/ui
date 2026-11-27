@@ -1,6 +1,8 @@
 ---
 import type { Props } from "./types.astro"
+import type { HTMLAttributes } from "astro/types"
 import { mergeStyle, pluralLabel } from "../style"
+import { ratingOf } from "./rating"
 
 export const title = "Rating"
 
@@ -24,9 +26,7 @@ const {
   ...rest
 } = Astro.props
 
-const count = Number(max)
-const stars = Array.from({ length: count }, (_, index) => index + 1)
-const current = Number(value)
+const rating = ratingOf(max, value)
 const invalid = error ? "true" : ariaInvalid
 ---
 
@@ -41,7 +41,7 @@ const invalid = error ? "true" : ariaInvalid
     disabled={disabled}
     lang={lang}
     style={style}
-    {...rest}
+    {...(rest as HTMLAttributes<"fieldset">)}
   >
     <legend>{label}</legend>
     {!required && (
@@ -49,18 +49,18 @@ const invalid = error ? "true" : ariaInvalid
         aria-describedby={ariaDescribedBy}
         aria-invalid={invalid}
         aria-label={clearLabel}
-        checked={current === 0}
+        checked={rating.current === 0}
         name={name}
         type="radio"
         value={0}
       />
     )}
-    {stars.map((star) => (
+    {rating.stars.map((star) => (
       <input
         aria-describedby={ariaDescribedBy}
         aria-invalid={invalid}
         aria-label={pluralLabel(starLabel, star, lang)}
-        checked={current === star}
+        checked={rating.current === star}
         name={name}
         required={required}
         type="radio"
@@ -78,9 +78,12 @@ const invalid = error ? "true" : ariaInvalid
       className,
     ]}
     lang={lang}
-    max={Number.isFinite(count) ? count : undefined}
-    style={mergeStyle({ "--_max": count === 5 ? undefined : count }, style)}
-    value={Number.isFinite(current) ? current : 0}
-    {...rest}
+    max={rating.max}
+    style={mergeStyle(
+      { "--_max": rating.count === 5 ? undefined : rating.count },
+      style,
+    )}
+    value={rating.value}
+    {...(rest as HTMLAttributes<"meter">)}
   />
 )}

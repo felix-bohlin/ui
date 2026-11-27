@@ -187,6 +187,19 @@ for (const { id, label } of FRAMEWORKS) {
       expect(errors).toEqual([])
     })
 
+    test("a bound multiple group keeps the values that have no button", async ({
+      page,
+    }) => {
+      const errors = pageErrors(page)
+      const tags = page.locator("#models-tags")
+      await expect(tags).toHaveText('["archived","news"]')
+      await page.getByText("Sports", { exact: true }).click()
+      await expect(tags).toHaveText('["archived","news","sports"]')
+      await page.getByText("News", { exact: true }).click()
+      await expect(tags).toHaveText('["archived","sports"]')
+      expect(errors).toEqual([])
+    })
+
     test("a list keeps its rows when its items are replaced by new objects", async ({
       page,
     }) => {

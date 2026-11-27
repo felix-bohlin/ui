@@ -1,0 +1,51 @@
+{% from "opui/index.njk" import Tabs, TabsItem, TabsLabel, TabsPanel %}
+
+{% call Tabs({ name: "vertical-tabs", orientation: "vertical" }) %}
+  {% call TabsItem({ checked: true }) %}
+    {% call TabsLabel() %}Profile{% endcall %}
+    {% call TabsPanel() %}
+      <h3>Profile</h3>
+      <p>Your name, photo and the bio people see next to your posts.</p>
+    {% endcall %}
+  {% endcall %}
+  {% call TabsItem() %}
+    {% call TabsLabel() %}Security{% endcall %}
+    {% call TabsPanel() %}
+      <h3>Security</h3>
+      <p>Your password, passkeys and the devices signed in to your account.</p>
+    {% endcall %}
+  {% endcall %}
+  {% call TabsItem() %}
+    {% call TabsLabel() %}Notifications{% endcall %}
+    {% call TabsPanel() %}
+      <h3>Notifications</h3>
+      <p>Which updates reach you by email and which by push.</p>
+    {% endcall %}
+  {% endcall %}
+  {% call TabsItem() %}
+    {% call TabsLabel() %}Connected apps{% endcall %}
+    {% call TabsPanel() %}
+      <h3>Connected apps</h3>
+      <p>The gig calendar and tuner apps that can read your account.</p>
+    {% endcall %}
+  {% endcall %}
+{% endcall %}
+
+{% call Tabs({
+  name: "vertical-line-tabs",
+  orientation: "vertical",
+  variant: "line"
+}) %}
+  {% call TabsItem({ checked: true }) %}
+    {% call TabsLabel() %}Monday{% endcall %}
+    {% call TabsPanel() %}Slap workshops and root note drills, from 9:00.{% endcall %}
+  {% endcall %}
+  {% call TabsItem() %}
+    {% call TabsLabel() %}Tuesday{% endcall %}
+    {% call TabsPanel() %}Jams in both rehearsal rooms, and pizza night at 19:00.{% endcall %}
+  {% endcall %}
+  {% call TabsItem() %}
+    {% call TabsLabel() %}Wednesday{% endcall %}
+    {% call TabsPanel() %}Lightning solos until noon, then the big closing jam.{% endcall %}
+  {% endcall %}
+{% endcall %}

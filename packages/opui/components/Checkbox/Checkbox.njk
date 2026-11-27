@@ -1,0 +1,34 @@
+{% from "opui/CheckboxInput.njk" import CheckboxInput %}
+
+{% macro Checkbox(props = {}) %}
+  {%- set props = props | opuiProps("Checkbox") -%}
+  {%- set rest = props | opuiRest("Checkbox") -%}
+  {%- set labelSlot = (caller() if caller) | opuiTrim -%}
+  {{- opui.warnUnnamed(
+    "Checkbox",
+    opui.hasName(opui.merge(rest, { label: props.label }), caller is defined)
+  ) -}}
+  <label
+    class="ui-checkbox
+      {%- if props.card %} ui-card{% endif %}
+      {%- if props.spread %} ui-spread{% endif %}
+      {%- if props.card and props.variant and props.variant != 'outlined' %} ui-{{ props.variant }}
+      {%- endif %}
+      {%- if props.orientation and props.orientation != 'horizontal' %} ui-{{ props.orientation }}
+      {%- endif %}
+      {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- { style: props.style } | opuiAttributes }}>
+    {{- CheckboxInput(opui.merge(
+      rest,
+      { "aria-invalid": "true" if props.error else props["aria-invalid"] }
+    )) }}
+    {% if props.label or labelSlot -%}
+      <span class="{{ 'ui-sr-only' if props.hideLabel else 'ui-label' }}">{{ props.label }}
+        {{- labelSlot }}</span>
+    {%- endif %}
+    {% if props.endText or props.slots.endText != none -%}
+      <span class="ui-end-text">{{ props.endText }}{{ props.slots.endText | safe }}</span>
+    {%- endif -%}
+  </label>
+{%- endmacro %}

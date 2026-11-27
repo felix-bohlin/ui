@@ -9,9 +9,9 @@
     margin: 0;
     padding: 0;
 
-    &.ui-border-dotted {
+    &.ui-leader-dotted {
       --_border-style: dotted;
-      --_border-width: var(--ui-border-width-thick);
+      --_border-width: var(--ui-border-width-large);
     }
 
     & & {
@@ -34,7 +34,7 @@
 
       dt {
         display: block;
-        font-weight: var(--ui-font-weight-bold);
+        font-weight: var(--ui-font-weight-heading);
       }
 
       dd {
@@ -48,8 +48,8 @@
         border-block-start: var(--ui-border-width) solid var(--ui-border-color);
         color: var(--ui-text-strong);
         font-size: var(--ui-font-size-large);
-        font-weight: var(--ui-font-weight-bold);
-        padding-block-start: var(--ui-space-3);
+        font-weight: var(--ui-font-weight-heading);
+        padding-block-start: var(--ui-space-4);
 
         dd {
           color: inherit;
@@ -57,7 +57,7 @@
       }
     }
 
-    &:is(.ui-border-dotted, .ui-border-solid) > div {
+    &:is(.ui-leader-dotted, .ui-leader-solid) > div {
       grid-template-columns: auto 1fr auto;
 
       dt {
@@ -70,7 +70,7 @@
 
       &::after {
         background-color: transparent;
-        block-size: var(--ui-border-width-thick);
+        block-size: var(--ui-border-width-large);
         border-block-end: var(--_border-width) var(--_border-style)
           var(--ui-border-color);
         content: "";
@@ -78,15 +78,39 @@
       }
     }
 
-    @container (inline-size <= 45ch) {
-      &:not(.ui-horizontal) > div {
+    &.ui-vertical {
+      gap: var(--ui-space-4);
+
+      & > div {
         align-items: normal;
         gap: 0;
         grid-template-columns: none;
         justify-content: normal;
 
         & + div {
-          margin-block-start: var(--ui-space-3);
+          margin-block-start: 0;
+        }
+
+        dd {
+          color: inherit;
+          text-align: inherit;
+        }
+
+        &::after {
+          content: none;
+        }
+      }
+    }
+
+    @container (inline-size <= 45ch) {
+      &:not(.ui-horizontal, .ui-vertical) > div {
+        align-items: normal;
+        gap: 0;
+        grid-template-columns: none;
+        justify-content: normal;
+
+        & + div {
+          margin-block-start: var(--ui-space-4);
         }
 
         dd {

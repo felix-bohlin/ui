@@ -3,7 +3,7 @@
 A drop zone around a file input that lists the files your app is uploading, with a preview, progress, a message and a remove button for each.
 
 - CSS: `opui-css/css/components/file-upload.css`, `opui-css/css/components/button.css`, `opui-css/css/components/list.css` and `opui-css/css/components/progress.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/file-upload.md), [Astro](https://opui.dev/astro/components/file-upload.md), [React](https://opui.dev/react/components/file-upload.md), [Solid](https://opui.dev/solid/components/file-upload.md), [Svelte](https://opui.dev/svelte/components/file-upload.md), [Vue](https://opui.dev/vue/components/file-upload.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/file-upload.md), [Astro](https://opui.dev/astro/components/file-upload.md), [Nunjucks](https://opui.dev/nunjucks/components/file-upload.md), [React](https://opui.dev/react/components/file-upload.md), [Solid](https://opui.dev/solid/components/file-upload.md), [Svelte](https://opui.dev/svelte/components/file-upload.md), [Vue](https://opui.dev/vue/components/file-upload.md).
 
 ## FileUpload
 
@@ -30,7 +30,7 @@ A drop zone around a file input that lists the files your app is uploading, with
 - `description`: `string`. The hint in the drop zone. It describes the input, and is visually hidden in the compact row.
 - `disabled`: `boolean`, `input:disabled`. Disables the input and dims the trigger. A drop does nothing.
 - `id`: `string`. The id of the file input. The remove buttons point at it, so the component generates one when it's left out. The ids the component generates start with it: `x-description` for the hint, and `x-label-0` and `x-description-0` for the first file's name and message, for `id="x"`.
-- `items`: `FileUploadItem[]`, `.ui-list > li.ui-error`. The files, as `{ description, label, preview, progress, state, value }` objects. `label` is the file name, `value` the id the `remove` event names, `preview` the URL of an image, `state` one of `"done"`, `"error"`, `"queued"` and `"uploading"`, `progress` a fraction from 0 to 1 while uploading, and `description` a message, which a failed file shows in the critical color.
+- `items`: `FileUploadItem[]`, `.ui-list > li.ui-state-error`. The files, as `{ description, label, preview, progress, state, value }` objects. `label` is the file name, `value` the id the `remove` event names, `preview` the URL of an image, `state` one of `"complete"`, `"error"`, `"queued"` and `"uploading"`, `progress` a fraction from 0 to 1 while uploading, and `description` a message, which a failed file shows in the critical color.
 - `label`: `string`. The text of the trigger, which names the file input.
 - `multiple`: `boolean`, `input[multiple]`. Takes several files in one pick or drop. Without it, `select` gets the first accepted file.
 - `onremove` (Svelte): `(event: CustomEvent<RemoveDetail>) => void`. Called when a remove button is pressed, with the item's `value` in `event.detail.value`. Take the item out of `items`, and cancel its upload.
@@ -46,12 +46,13 @@ A drop zone around a file input that lists the files your app is uploading, with
 - `<opui-file-upload>`, defined by `opui-css/elements/file-upload.js`:
   - `input`: The `<input type="file">` inside, or `null`. Read-only.
   - `remove` event: Fires when a remove button is pressed, with its `value` in `event.detail.value`. It bubbles. Once the row is gone, focus moves to the next row's remove button, or else the previous one, or else the input.
-  - `select` event: Fires after a pick or a drop, with the new files in `event.detail.files`: the ones the input's `accept` allows, and only the first without `multiple`. It bubbles, and the input is cleared afterwards.
+  - `select` event: Fires after a pick or a drop, with the new files in `event.detail.files`: the ones the input's `accept` allows, and only the first without `multiple`. It bubbles. The input is already empty by then, so the same file can be picked again: read the files from `event.detail.files`.
 
 ### Notes
 
 - HTML: Import `opui-css/elements/file-upload.js`, and render the rows yourself from the `select` and `remove` events: one `<li>` per file in a `<ul class="ui-list">` after the `.ui-field-container`, with the preview in `.ui-start`, the name, a `.ui-progress` and the message in `.ui-text`, and the remove button in `.ui-end` with `command="--remove"`, `commandfor` set to the input's id and the file's id as its `value`. A failed file's message has `popover` and an `id`, and a `<button type="button" popovertarget>` in `.ui-start` opens it in the compact row.
 - Astro: The component loads `opui-css/elements/file-upload.js`. The component uploads nothing and keeps no files: start the upload from the `select` event, and pass each file's state back in `items`. Attributes that aren't props go to the `<opui-file-upload>`, and `id` names the file input.
+- Nunjucks: The macro renders the element without its script, so load `opui-css/elements/file-upload.js` on the page. The component uploads nothing and keeps no files: start the upload from the `select` event, and pass each file's state back in `items`. Attributes that aren't props go to the `<opui-file-upload>`, and `id` names the file input.
 - React: The component loads `opui-css/elements/file-upload.js` once it mounts, unless the page imports it first. The component uploads nothing and keeps no files: start the upload from the `select` event, and pass each file's state back in `items`. Attributes that aren't props go to the `<opui-file-upload>`, and `id` names the file input.
 - Solid, Svelte and Vue: The component imports `opui-css/elements/file-upload.js`, so the element runs as soon as the component's code loads. The component uploads nothing and keeps no files: start the upload from the `select` event, and pass each file's state back in `items`. Attributes that aren't props go to the `<opui-file-upload>`, and `id` names the file input.
 
@@ -73,7 +74,7 @@ Outputs: `--_bg-color`, `--_duration`, `--_field-bg-color`, `--_field-border-col
 ### button.css
 
 - `--_accent`: The accent color. Fills, borders, text, hover and active states are derived from it. Defaults to `--ui-button-accent` when a theme sets it. `.ui-primary` and `.ui-critical` set it.
-- `--_accent-filled`: Fill of filled buttons, of hovered outlined buttons unless `--ui-button-hover` is `layer`, of hovered tonal ones when it is unset, and the base of the filled hover and pressed shades. `--ui-button-accent-filled` when a theme sets it, else `--_accent`, and in `.ui-critical` `--ui-critical` kept within `--ui-accent-fill-max-lightness`, so the light text stays readable while the border keeps `--ui-critical`. `.ui-primary` resets it to `--_accent`, so the token applies to default buttons only.
+- `--_accent-filled`: Fill of filled buttons, of hovered outlined buttons unless `--ui-button-hover` is `layer`, of hovered tonal ones when it is unset, and the base of the filled hover and pressed shades. `--ui-button-accent-filled` when a theme sets it, else `--_accent`, and in `.ui-critical` `--ui-critical-fill`, so the light text stays readable while the border keeps `--ui-critical`. `.ui-primary` resets it to `--_accent`, so the token applies to default buttons only.
 - `--_accent-tonal`: Background of `.ui-tonal`. `--ui-surface-tonal`, a palette tint in `.ui-critical`, and `--ui-primary-tonal` or the tint in `.ui-primary`.
 - `--_border-width`: The border width.
 - `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
@@ -103,12 +104,12 @@ Outputs: `--_accent-text`, `--_actions-shift`, `--_bg-color`, `--_border-color`,
 - `--_hover-bg-color`: Background of hovered items, from `--ui-primary`.
 - `--_item-ease`: Easing of the row transitions. Defaults to `--ui-ease`.
 - `--_item-gap`: Gap between the content of an item. Smaller in `.ui-dense`.
-- `--_item-padding-inline`: Horizontal padding of items, headings and options. `--ui-list-item-padding-inline`, or `--ui-space-3` when a theme leaves it unset.
+- `--_item-padding-inline`: Horizontal padding of items, headings and options. `--ui-list-item-padding-inline`, or `--ui-space-4` when a theme leaves it unset.
 - `--_motion`: Motion multiplier for the row transitions of a `.ui-list`. `0` turns them off. A `Menu` and a select picker read their own.
 - `--_radius`: The corner radius of a `.ui-list`. Defaults to `--ui-radius`, and `0` when the list is a direct child of a `Card`, `Accordion` or `Dialog`, which round and clip it themselves.
 - `--_selected-bg-color`: Background of selected and current items and options. `--ui-selected` when the theme sets it, otherwise `--ui-primary` at `--ui-state-selected-alpha-accent`, stronger than `--_hover-bg-color`. With more contrast it is `--_hover-bg-color`, so the text keeps 7:1, and the bar marks the row.
 - `--_selected-indicator-bg-color`: Color of the bar on the start edge of selected and current items and options, which marks them without relying on the fill. Defaults to `--ui-selected-strong`.
-- `--_selected-indicator-size`: Width of the bar on selected and current items. Defaults to `--ui-border-width-thick`.
+- `--_selected-indicator-size`: Width of the bar on selected and current items. Defaults to `--ui-border-width-large`.
 - `--_start-image-size`: Width of a square image in `.ui-start`.
 - `--_start-size`: Maximum size of leading and trailing icons, and the indent of `.ui-inset` items. Smaller in `.ui-dense`.
 - `--_start-video-size`: Height of a video in `.ui-start`, which keeps a 16:9 ratio.
@@ -123,14 +124,14 @@ Outputs: `--_font-size`, `--_icon-size`, `--_item-duration`, `--_selected-indica
 - `--_ease`: Easing of the value transition. Defaults to `--ui-ease-enter`.
 - `--_loop-duration`: Length of one cycle of the indeterminate animation, and of the pulse that replaces it when `--_motion` is `0`. `2s` by default, multiplied by `--_motion`.
 - `--_motion`: Motion multiplier for the value transition and the indeterminate animation.
-- `--_ring-border-width`: Thickness of the ring of `.ui-round`. Defaults to `--ui-border-width-thick`.
+- `--_ring-border-width`: Thickness of the ring of `.ui-round`. Defaults to `--ui-border-width-large`.
 - `--_ring-size`: Width and height of `.ui-round`. Defaults to `--ui-icon-size-large`.
 
 Outputs: `--_duration` and `--_ring-fraction`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-focus`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-shadow`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-choice-size-small`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-control-on-accent`, `--ui-control-size`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-critical`, `--ui-critical-text`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-move`, `--ui-field-border-color`, `--ui-field-border-color-on-filled`, `--ui-focus-border-color`, `--ui-focus-highlight`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-width`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-icon-check`, `--ui-icon-close`, `--ui-icon-increase`, `--ui-icon-invalid`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-line-height`, `--ui-line-height-tight`, `--ui-list-item-padding-inline`, `--ui-motion`, `--ui-on-fill`, `--ui-on-focus-highlight`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-on-selected`, `--ui-palette-on-strong`, `--ui-palette-on-tint`, `--ui-palette-strong`, `--ui-palette-tint`, `--ui-press-scale`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-selected`, `--ui-selected-strong`, `--ui-shadow-control`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-switch-thumb-size-small`, `--ui-switch-track-block-size-small`, `--ui-switch-track-inline-size-small`, `--ui-text-disabled`, `--ui-text-max-chroma`, `--ui-text-min-lightness`, `--ui-text-strong`, `--ui-text-subtle` and `--ui-track-bg-color`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-large`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-focus`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-shadow`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-choice-size-small`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-accent-max-chroma-dark`, `--ui-control-accent-min-lightness-dark`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-control-on-accent`, `--ui-control-size`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-critical`, `--ui-critical-fill`, `--ui-critical-text`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-move`, `--ui-field-border-color`, `--ui-focus-border-color`, `--ui-focus-highlight`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-width`, `--ui-font-family-code`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-body`, `--ui-font-weight-heading`, `--ui-icon-check`, `--ui-icon-close`, `--ui-icon-increase`, `--ui-icon-invalid`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-line-height-compact`, `--ui-line-height-tight`, `--ui-list-item-padding-inline`, `--ui-motion`, `--ui-on-fill`, `--ui-on-focus-highlight`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-on-selected`, `--ui-palette-on-strong`, `--ui-palette-on-tonal`, `--ui-palette-strong`, `--ui-palette-tonal`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-selected`, `--ui-selected-strong`, `--ui-shadow-control`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-active-scale`, `--ui-state-disabled-opacity`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-filled`, `--ui-surface-raised`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-switch-thumb-size-small`, `--ui-switch-track-block-size-small`, `--ui-switch-track-inline-size-small`, `--ui-text-disabled`, `--ui-text-strong`, `--ui-text-subtle` and `--ui-track-bg-color`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -188,6 +189,27 @@ import { FileUpload } from "opui-css/astro"
   label="Choose photos"
   multiple
 />
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import FileUpload %}`
+
+### Example: Basics
+
+```njk
+{% from "opui/index.njk" import FileUpload %}
+
+{{ FileUpload({
+  accept: "image/*",
+  description: "Or drop them here. PNG or JPG.",
+  label: "Choose photos",
+  multiple: true
+}) }}
+
+<script type="module">
+  import "opui-css/elements/file-upload.js"
+</script>
 ```
 
 ## React

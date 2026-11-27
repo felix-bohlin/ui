@@ -2,6 +2,7 @@
 import Component from "../../layouts/Component.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
+import VueTrueValueCallout from "./partials/VueTrueValueCallout.astro"
 import DocLink from "../../components/DocLink.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import {
@@ -138,6 +139,7 @@ export const keywords = ["pressed", "toggle button"]
     </Conditional>
 
     <AutoExample name="Binding" centered column />
+    <VueTrueValueCallout component="ToggleButton" />
 
     <h3 id="text-icon">Text + icon</h3>
     <p>Icon-only buttons need an <code>aria-label</code>.</p>

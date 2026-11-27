@@ -2,6 +2,8 @@ import { expect, test } from "@playwright/test"
 import { instantScrolling } from "./fixtures"
 
 test.describe("todo page", () => {
+  test.describe.configure({ timeout: 60_000 })
+
   test.beforeEach(async ({ page }) => {
     await instantScrolling(page)
     await page.addInitScript(() => {

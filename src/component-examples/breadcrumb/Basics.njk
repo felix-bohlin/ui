@@ -1,0 +1,7 @@
+{% from "opui/index.njk" import Breadcrumb, BreadcrumbItem %}
+
+{% call Breadcrumb({ "aria-label": "Breadcrumb" }) %}
+  {{ BreadcrumbItem({ href: "#", label: "Groups" }) }}
+  {{ BreadcrumbItem({ href: "#", label: "Low End Society" }) }}
+  {{ BreadcrumbItem({ current: true, label: "Friday jam night" }) }}
+{% endcall %}

@@ -21,7 +21,7 @@ export default function SalesDashboard() {
   return (
     <>
       <div
-        class="sales-dashboard ui-layout-container ui-layout-column ui-large"
+        class="sales-dashboard ui-layout-container ui-layout-column ui-gap-large"
         style="--_max-inline-size: 80rem"
       >
         <div class="ui-layout-row ui-spread">
@@ -29,7 +29,7 @@ export default function SalesDashboard() {
             <p>Bassbook Shop, updated 8 October, 14:05</p>
             <h1 class="ui-h3">Merch sales</h1>
           </hgroup>
-          <div class="ui-layout-row ui-small sales-actions">
+          <div class="ui-layout-row ui-gap-small sales-actions">
             <Field
               for="sales-dashboard-sales-dashboard-period"
               label="Period"
@@ -133,7 +133,7 @@ export default function SalesDashboard() {
             </Card>
           </li>
         </ul>
-        <div class="ui-layout-columns ui-large" style="--_columns: 2fr 1fr">
+        <div class="ui-layout-columns ui-gap-large" style="--_columns: 2fr 1fr">
           <Card
             aria-labelledby="sales-dashboard-revenue-heading"
             as="section"
@@ -148,10 +148,10 @@ export default function SalesDashboard() {
             </hgroup>
             <CardContent>
               <ul aria-hidden="true" class="ui-layout-row ui-caption">
-                <li class="ui-layout-row ui-x-small">
+                <li class="ui-layout-row ui-gap-x-small">
                   <span class="ui-swatch sales-revenue"></span>Revenue
                 </li>
-                <li class="ui-layout-row ui-x-small">
+                <li class="ui-layout-row ui-gap-x-small">
                   <span class="sales-target-line"></span>Target
                 </li>
               </ul>
@@ -242,9 +242,9 @@ export default function SalesDashboard() {
             </hgroup>
             <CardContent>
               <ul class="ui-layout-column">
-                <li class="ui-layout-column ui-x-small">
+                <li class="ui-layout-column ui-gap-x-small">
                   <div
-                    class="ui-layout-row ui-small ui-tabular-nums sales-target"
+                    class="ui-layout-row ui-gap-small ui-tabular-nums sales-target"
                     id="sales-dashboard-target-shop"
                   >
                     <span>Online shop</span>
@@ -256,9 +256,9 @@ export default function SalesDashboard() {
                     value={248}
                   />
                 </li>
-                <li class="ui-layout-column ui-x-small">
+                <li class="ui-layout-column ui-gap-x-small">
                   <div
-                    class="ui-layout-row ui-small ui-tabular-nums sales-target"
+                    class="ui-layout-row ui-gap-small ui-tabular-nums sales-target"
                     id="sales-dashboard-target-gigs"
                   >
                     <span>Merch table at gigs</span>
@@ -270,9 +270,9 @@ export default function SalesDashboard() {
                     value={112}
                   />
                 </li>
-                <li class="ui-layout-column ui-x-small">
+                <li class="ui-layout-column ui-gap-x-small">
                   <div
-                    class="ui-layout-row ui-small ui-tabular-nums sales-target"
+                    class="ui-layout-row ui-gap-small ui-tabular-nums sales-target"
                     id="sales-dashboard-target-bass-shops"
                   >
                     <span>Bass shops</span>
@@ -284,9 +284,9 @@ export default function SalesDashboard() {
                     value={64}
                   />
                 </li>
-                <li class="ui-layout-column ui-x-small">
+                <li class="ui-layout-column ui-gap-x-small">
                   <div
-                    class="ui-layout-row ui-small ui-tabular-nums sales-target"
+                    class="ui-layout-row ui-gap-small ui-tabular-nums sales-target"
                     id="sales-dashboard-target-bundles"
                   >
                     <span>Band bundles</span>
@@ -343,7 +343,7 @@ export default function SalesDashboard() {
                       #2482
                     </a>
                   </TableCell>
-                  <TableCell>Lou Headstock</TableCell>
+                  <TableCell>Kinga Headstock</TableCell>
                   <TableCell>8 Oct, 13:58</TableCell>
                   <TableCell>
                     <Chip
@@ -363,7 +363,7 @@ export default function SalesDashboard() {
                       #2481
                     </a>
                   </TableCell>
-                  <TableCell>Fretless Fiona's Bass Barn</TableCell>
+                  <TableCell>Fretless Tal's Bass Barn</TableCell>
                   <TableCell>8 Oct, 13:41</TableCell>
                   <TableCell>
                     <Chip
@@ -383,7 +383,7 @@ export default function SalesDashboard() {
                       #2480
                     </a>
                   </TableCell>
-                  <TableCell>Holly Humbucker</TableCell>
+                  <TableCell>Scott Humbucker</TableCell>
                   <TableCell>8 Oct, 13:12</TableCell>
                   <TableCell>
                     <Chip
@@ -403,7 +403,7 @@ export default function SalesDashboard() {
                       #2479
                     </a>
                   </TableCell>
-                  <TableCell>Ines Hertz</TableCell>
+                  <TableCell>Mohini Hertz</TableCell>
                   <TableCell>8 Oct, 12:47</TableCell>
                   <TableCell>
                     <Chip
@@ -423,7 +423,7 @@ export default function SalesDashboard() {
                       #2478
                     </a>
                   </TableCell>
-                  <TableCell>Percy Groove</TableCell>
+                  <TableCell>Adam Groove</TableCell>
                   <TableCell>8 Oct, 12:30</TableCell>
                   <TableCell>
                     <Chip
@@ -460,12 +460,12 @@ export default function SalesDashboard() {
           }
 
           .sales-target-line {
-            border-block-start: var(--ui-border-width-thick) dashed var(--ui-text);
-            inline-size: var(--ui-space-3);
+            border-block-start: var(--ui-border-width-large) dashed var(--ui-text);
+            inline-size: var(--ui-space-4);
           }
 
           .sales-chart-card .ui-content {
-            padding-block-end: var(--ui-space-6);
+            padding-block-end: var(--ui-space-7);
           }
 
           .sales-chart {
@@ -481,7 +481,7 @@ export default function SalesDashboard() {
             position: relative;
 
             &::before {
-              border-block-start: var(--ui-border-width-thick) dashed var(--ui-text);
+              border-block-start: var(--ui-border-width-large) dashed var(--ui-text);
               content: "";
               inset-block-end: var(--target);
               inset-inline: 0;

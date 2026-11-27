@@ -135,7 +135,11 @@ for (const library of LIBRARIES) {
           await expect
             .soft(example)
             .toHaveScreenshot(`icons/${library}/${component}/${name}.png`, {
-              mask: [example.locator("img"), example.locator("video")],
+              mask: [
+                example.locator("iframe"),
+                example.locator("img"),
+                example.locator("video"),
+              ],
             })
         }
       }

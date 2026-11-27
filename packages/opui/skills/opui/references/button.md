@@ -3,7 +3,7 @@
 A button for actions, like saving a form, with variants, colors, sizes and icons.
 
 - CSS: `opui-css/css/components/button.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/button.md), [Astro](https://opui.dev/astro/components/button.md), [React](https://opui.dev/react/components/button.md), [Solid](https://opui.dev/solid/components/button.md), [Svelte](https://opui.dev/svelte/components/button.md), [Vue](https://opui.dev/vue/components/button.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/button.md), [Astro](https://opui.dev/astro/components/button.md), [Nunjucks](https://opui.dev/nunjucks/components/button.md), [React](https://opui.dev/react/components/button.md), [Solid](https://opui.dev/solid/components/button.md), [Svelte](https://opui.dev/svelte/components/button.md), [Vue](https://opui.dev/vue/components/button.md).
 
 ## Button
 
@@ -18,8 +18,10 @@ A button for actions, like saving a form, with variants, colors, sizes and icons
 
 - `aria-label`: `string`. The accessible name, for a button without visible text. React, Solid and Svelte require it, or `aria-labelledby`, when there are no `children`.
 - `aria-labelledby`: `string`. The id of the element that names a button without visible text, instead of `aria-label`.
-- `as` (Astro and Svelte): `"a" | "button"`, default `"button"`. The element to render. Defaults to `"a"` with `href`.
-- `as` (React, Solid and Vue): `"a" | "button" | ComponentType<any>`, default `"button"`. The element to render, or the link component of your router with `href`, such as Next's `Link`, Solid Router's `A` or Nuxt's `NuxtLink`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.
+- `as` (Astro, Nunjucks and Svelte): `"a" | "button"`, default `"button"`. The element to render. Defaults to `"a"` with `href`.
+- `as` (React): `"a" | "button" | ComponentType<any>`, default `"button"`. The element to render, or the link component of your router with `href`, such as Next's `Link`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.
+- `as` (Solid): `"a" | "button" | Component<any>`, default `"button"`. The element to render, or the link component of your router with `href`, such as Solid Router's `A`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.
+- `as` (Vue): `"a" | "button" | Component`, default `"button"`. The element to render, or the link component of your router with `href`, such as Nuxt's `NuxtLink`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.
 - `color`: `"critical"` (`.ui-critical`), `"primary"` (`.ui-primary`). Optional colors.
 - `disabled`: `boolean`. Disables the button. A link button drops its `href` and gets `role="link"` and `aria-disabled="true"`.
 - `href`: `string`. The link to use. Renders an `<a>`.
@@ -40,7 +42,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 ### button.css
 
 - `--_accent`: The accent color. Fills, borders, text, hover and active states are derived from it. Defaults to `--ui-button-accent` when a theme sets it. `.ui-primary` and `.ui-critical` set it.
-- `--_accent-filled`: Fill of filled buttons, of hovered outlined buttons unless `--ui-button-hover` is `layer`, of hovered tonal ones when it is unset, and the base of the filled hover and pressed shades. `--ui-button-accent-filled` when a theme sets it, else `--_accent`, and in `.ui-critical` `--ui-critical` kept within `--ui-accent-fill-max-lightness`, so the light text stays readable while the border keeps `--ui-critical`. `.ui-primary` resets it to `--_accent`, so the token applies to default buttons only.
+- `--_accent-filled`: Fill of filled buttons, of hovered outlined buttons unless `--ui-button-hover` is `layer`, of hovered tonal ones when it is unset, and the base of the filled hover and pressed shades. `--ui-button-accent-filled` when a theme sets it, else `--_accent`, and in `.ui-critical` `--ui-critical-fill`, so the light text stays readable while the border keeps `--ui-critical`. `.ui-primary` resets it to `--_accent`, so the token applies to default buttons only.
 - `--_accent-tonal`: Background of `.ui-tonal`. `--ui-surface-tonal`, a palette tint in `.ui-critical`, and `--ui-primary-tonal` or the tint in `.ui-primary`.
 - `--_border-width`: The border width.
 - `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
@@ -62,7 +64,7 @@ Outputs: `--_accent-text`, `--_actions-shift`, `--_bg-color`, `--_border-color`,
 
 ## Theme tokens
 
-The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-focus`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-shadow`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-control-on-accent`, `--ui-critical`, `--ui-critical-text`, `--ui-disabled-opacity`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-move`, `--ui-focus-border-color`, `--ui-focus-highlight`, `--ui-focus-ring-offset`, `--ui-focus-ring-width`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-fill`, `--ui-on-focus-highlight`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-on-strong`, `--ui-palette-on-tint`, `--ui-palette-strong`, `--ui-palette-tint`, `--ui-press-scale`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-shadow-control`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-state-selected-alpha-accent`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-text-disabled`, `--ui-text-max-chroma`, `--ui-text-min-lightness` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-focus`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-shadow`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-accent-max-chroma-dark`, `--ui-control-accent-min-lightness-dark`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-control-on-accent`, `--ui-critical`, `--ui-critical-fill`, `--ui-critical-text`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-move`, `--ui-focus-border-color`, `--ui-focus-highlight`, `--ui-focus-ring-offset`, `--ui-focus-ring-width`, `--ui-font-family-code`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-body`, `--ui-font-weight-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-fill`, `--ui-on-focus-highlight`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-on-strong`, `--ui-palette-on-tonal`, `--ui-palette-strong`, `--ui-palette-tonal`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-shadow-control`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-active-scale`, `--ui-state-disabled-opacity`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-state-selected-alpha-accent`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-text-disabled` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -123,6 +125,38 @@ import { Button } from "opui-css/astro"
   <Button variant="filled">Filled</Button>
   <Button disabled variant="filled">Disabled</Button>
   <Button href="#" variant="filled">Link</Button>
+</div>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import Button %}`
+
+### Example: Variants
+
+```njk
+{% from "opui/index.njk" import Button %}
+
+<div class="example-row">
+  {% call Button() %}Transparent{% endcall %}
+  {% call Button({ disabled: true }) %}Disabled{% endcall %}
+  {% call Button({ href: "#" }) %}Link{% endcall %}
+  {% call Button({ "aria-current": "page", href: "#" }) %}Current{% endcall %}
+</div>
+<div class="example-row">
+  {% call Button({ variant: "outlined" }) %}Outlined{% endcall %}
+  {% call Button({ disabled: true, variant: "outlined" }) %}Disabled{% endcall %}
+  {% call Button({ href: "#", variant: "outlined" }) %}Link{% endcall %}
+</div>
+<div class="example-row">
+  {% call Button({ variant: "tonal" }) %}Tonal{% endcall %}
+  {% call Button({ disabled: true, variant: "tonal" }) %}Disabled{% endcall %}
+  {% call Button({ href: "#", variant: "tonal" }) %}Link{% endcall %}
+</div>
+<div class="example-row">
+  {% call Button({ variant: "filled" }) %}Filled{% endcall %}
+  {% call Button({ disabled: true, variant: "filled" }) %}Disabled{% endcall %}
+  {% call Button({ href: "#", variant: "filled" }) %}Link{% endcall %}
 </div>
 ```
 

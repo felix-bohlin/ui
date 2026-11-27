@@ -1,0 +1,83 @@
+{% from "opui/index.njk" import
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form
+%}
+
+{% call Form() %}
+  {% call Fieldset() %}
+    {% call FieldLegend() %}Gold add-ons{% endcall %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
+      {% call Checkbox({
+        card: true,
+        checked: true,
+        name: "checkbox-cards-end",
+        slots: { endText: "€8 per month" },
+        spread: true,
+        value: "support"
+      }) %}
+        Priority bass help
+        
+      {% endcall %}
+      {% call Checkbox({
+        card: true,
+        name: "checkbox-cards-end",
+        slots: { endText: "€4 per month" },
+        spread: true,
+        value: "storage",
+        variant: "elevated"
+      }) %}
+        Extra slap video storage
+        
+      {% endcall %}
+      {% call Checkbox({
+        card: true,
+        name: "checkbox-cards-end",
+        slots: { endText: "€6 per month" },
+        spread: true,
+        value: "audit-log",
+        variant: "tonal"
+      }) %}
+        Gig diary
+        
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call Fieldset() %}
+    {% call FieldLegend() %}Email updates{% endcall %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
+      {% call Checkbox({
+        card: true,
+        checked: true,
+        name: "checkbox-cards-start",
+        slots: { endText: "Every Monday morning." },
+        value: "weekly"
+      }) %}
+        Weekly jam recap
+        
+      {% endcall %}
+      {% call Checkbox({
+        card: true,
+        name: "checkbox-cards-start",
+        slots: { endText: "When your band books a gig." },
+        value: "usage",
+        variant: "elevated"
+      }) %}
+        Gig alerts
+        
+      {% endcall %}
+      {% call Checkbox({
+        card: true,
+        name: "checkbox-cards-start",
+        slots: { endText: "After each payment." },
+        value: "invoices",
+        variant: "tonal"
+      }) %}
+        Gold receipts
+        
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

@@ -12,7 +12,12 @@ export default {
     kind: "input",
   },
   "--_bg-color": {
-    description: "The background. Defaults to `--ui-surface-elevated`.",
+    description: "The background. Defaults to `--ui-surface-raised`.",
+    kind: "input",
+  },
+  "--_bg-image": {
+    description:
+      "The image over the background, such as a gradient. Defaults to `--ui-surface-raised-image`, `none` unless a theme sets it.",
     kind: "input",
   },
   "--_block-size": {
@@ -22,7 +27,7 @@ export default {
   },
   "--_border-color": {
     description:
-      "Color of the `.ui-header` and `.ui-footer` dividers, and of the inner edge unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-border-color-on-raised`.",
+      "Color of the `.ui-header` and `.ui-footer` dividers, and of the inner edge unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-border-color`.",
     kind: "input",
   },
   "--_border-width": {
@@ -37,7 +42,7 @@ export default {
   },
   "--_content-padding": {
     description:
-      "Padding of `.ui-content`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.",
+      "Padding of `.ui-content`. `--ui-card-padding`, or `--ui-space-4` when a theme leaves it unset.",
     kind: "input",
   },
   "--_direction": {
@@ -61,7 +66,7 @@ export default {
   },
   "--_footer-padding": {
     description:
-      "Padding of `.ui-footer`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.",
+      "Padding of `.ui-footer`. `--ui-card-padding`, or `--ui-space-4` when a theme leaves it unset.",
     kind: "input",
   },
   "--_handle-border-color": {
@@ -71,7 +76,7 @@ export default {
   },
   "--_header-padding": {
     description:
-      "Padding of `.ui-header`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.",
+      "Padding of `.ui-header`. `--ui-card-padding`, or `--ui-space-4` when a theme leaves it unset.",
     kind: "input",
   },
   "--_inline-size": {

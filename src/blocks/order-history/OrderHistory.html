@@ -1,5 +1,5 @@
 <div
-  class="order-history ui-layout-container ui-layout-column ui-large"
+  class="order-history ui-layout-container ui-layout-column ui-gap-large"
   style="--_max-inline-size: 60rem"
 >
   <div class="ui-layout-row ui-spread">
@@ -50,7 +50,7 @@
       </label>
     </div>
   </div>
-  <ul class="ui-layout-column ui-large">
+  <ul class="ui-layout-column ui-gap-large">
     <li>
       <article class="ui-card ui-outlined" aria-labelledby="order-history-4821">
         <div class="ui-layout-row ui-spread orders-top">
@@ -66,19 +66,19 @@
             </div>
             <div>
               <dt class="ui-caption">Ship to</dt>
-              <dd>Ines Hertz</dd>
+              <dd>Mohini Hertz</dd>
             </div>
           </dl>
-          <div class="ui-layout-row ui-small">
+          <div class="ui-layout-row ui-gap-small">
             <span class="ui-chip ui-dot ui-info ui-small">
               <span class="ui-text">In transit</span>
             </span>
           </div>
         </div>
         <div class="ui-content">
-          <div class="ui-layout-column ui-x-small">
+          <div class="ui-layout-column ui-gap-x-small">
             <p id="order-history-4821-eta">
-              Arrives <strong>Thursday 8 October</strong>, Low End Logistics
+              Arrives <strong>Thursday 8 October</strong>, Fretboard Freight
               0037 4821
             </p>
             <div class="ui-progress">
@@ -216,10 +216,10 @@
             </div>
             <div>
               <dt class="ui-caption">Ship to</dt>
-              <dd>Ines Hertz</dd>
+              <dd>Mohini Hertz</dd>
             </div>
           </dl>
-          <div class="ui-layout-row ui-small">
+          <div class="ui-layout-row ui-gap-small">
             <span class="ui-chip ui-dot ui-success ui-small">
               <span class="ui-text">Delivered 17 Sep</span>
             </span>
@@ -361,10 +361,10 @@
             </div>
             <div>
               <dt class="ui-caption">Ship to</dt>
-              <dd>Holly Humbucker</dd>
+              <dd>Scott Humbucker</dd>
             </div>
           </dl>
-          <div class="ui-layout-row ui-small">
+          <div class="ui-layout-row ui-gap-small">
             <span class="ui-chip ui-dot ui-warning ui-small">
               <span class="ui-text">Returned</span>
             </span>
@@ -441,17 +441,17 @@
     .orders-top {
       align-items: start;
       border-block-end: var(--ui-border-width) solid var(--ui-border-color);
-      padding: var(--ui-space-3);
+      padding: var(--ui-space-4);
     }
 
     .orders-meta {
       display: grid;
       flex: 1 1 24rem;
-      gap: var(--ui-space-3) var(--ui-space-5);
+      gap: var(--ui-space-4) var(--ui-space-6);
       grid-template-columns: repeat(auto-fit, minmax(7rem, max-content));
 
       dd {
-        font-weight: var(--ui-font-weight-semibold);
+        font-weight: var(--ui-font-weight-label);
       }
     }
 

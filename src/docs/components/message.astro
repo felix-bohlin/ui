@@ -209,16 +209,16 @@ export const keywords = ["chat", "chat bubble", "conversation"]
   <Fragment slot="anatomy">
     <Anatomy>
       <UIMessageList
-        aria-label="Messages with Stella"
+        aria-label="Messages with Ellen"
         style="inline-size: 22rem"
       >
         <UIMessage
-          author="Stella"
+          author="Ellen"
           datetime="2026-10-08T14:31"
           style="--_actions-opacity: 1"
           time="14:31"
         >
-          <UIAvatar slot="start">SN</UIAvatar>
+          <UIAvatar slot="start">EN</UIAvatar>
           <p>Here's my totally rad new bass line.</p>
           <Fragment slot="end">Read</Fragment>
           <UIButton
@@ -322,6 +322,11 @@ export const keywords = ["chat", "chat bubble", "conversation"]
         with a <DocLink href="/components/toggle">Toggle group</DocLink> of
         checkbox pills. Import <code>opui-css/elements/reactions.js</code
         >.</Fragment
+      >
+      <Fragment slot="nunjucks"
+        ><code>Reactions</code> in <code>slots.bottom</code>, with the reactions
+        in <code>items</code>. <code>checked</code> marks your own. Load
+        <code>opui-css/elements/reactions.js</code> on the page.</Fragment
       >
       <Fragment slot="components"
         ><code>Reactions</code> in the <code>bottom</code> slot, with the
@@ -454,7 +459,7 @@ export const keywords = ["chat", "chat bubble", "conversation"]
       <code>command="--react"</code> fires on it, then closes the popover the
       button is in, which returns focus to the button that opened it. A
       <code>.ui-bottom</code> without pills loses its margins, so a message
-      whose last reaction is removed closes up. The unused quick reaction
+      whose last reaction is removed closes up. The suggested quick reaction
       differs by its border style, which forced colors keep.
     </p>
     <p>

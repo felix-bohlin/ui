@@ -170,13 +170,13 @@ const gear = `M ${point(root, 0)} ${Array.from(
 <style is:global>
   .ratchets {
     display: grid;
-    gap: var(--ui-space-4);
-    margin-block: var(--ui-space-5);
+    gap: var(--ui-space-5);
+    margin-block: var(--ui-space-6);
   }
 
   .ratchets-tiles {
     display: grid;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
     list-style: none;
     margin: 0;
@@ -188,9 +188,9 @@ const gear = `M ${point(root, 0)} ${Array.from(
     background-color: var(--ui-surface);
     border: var(--ui-border-width) solid var(--ui-border-color);
     border-radius: var(--ui-radius-large);
-    column-gap: var(--ui-space-3);
+    column-gap: var(--ui-space-4);
     display: grid;
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     grid-template-areas:
       "wheel label"
       "wheel count"
@@ -198,7 +198,7 @@ const gear = `M ${point(root, 0)} ${Array.from(
       "file file";
     grid-template-columns: 4.5rem minmax(0, 1fr);
     min-inline-size: 0;
-    padding: var(--ui-space-3);
+    padding: var(--ui-space-4);
     row-gap: var(--ui-space-1);
     view-timeline: --ratchets-tile block;
   }
@@ -254,7 +254,7 @@ const gear = `M ${point(root, 0)} ${Array.from(
     align-self: end;
     color: var(--ui-text-strong);
     font-size: var(--ui-font-size-small);
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
     grid-area: label;
     margin: 0;
   }
@@ -270,10 +270,10 @@ const gear = `M ${point(root, 0)} ${Array.from(
 
   .ratchets-number {
     color: var(--ui-text-strong);
-    font-family: var(--ui-font-heading);
+    font-family: var(--ui-font-family-heading);
     font-size: var(--ui-font-size-h3);
     font-variant-numeric: tabular-nums;
-    font-weight: var(--ui-font-weight-bold);
+    font-weight: var(--ui-font-weight-heading);
     line-height: 1.1;
   }
 
@@ -291,7 +291,7 @@ const gear = `M ${point(root, 0)} ${Array.from(
 
   .ratchets-file {
     color: var(--ui-text-subtle);
-    font-family: var(--ui-font-code);
+    font-family: var(--ui-font-family-code);
     font-size: var(--ui-font-size-caption);
     grid-area: file;
   }
@@ -304,7 +304,7 @@ const gear = `M ${point(root, 0)} ${Array.from(
 
   .ratchets-ci {
     color: var(--ui-text-subtle);
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-small);
     margin: 0;
 

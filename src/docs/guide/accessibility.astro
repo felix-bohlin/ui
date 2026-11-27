@@ -271,7 +271,7 @@ const html = Astro.locals.framework === "html"
       theme tokens:
     </p>
     <Code
-      code={`:where(html, .ui-palette, .ui-contrast-more) {
+      code={`:where(html, .ui-scope, .ui-contrast-more) {
   --ui-focus-ring-color: var(--ui-primary);
 }
 
@@ -291,7 +291,7 @@ const html = Astro.locals.framework === "html"
       and thicken it with <code>--ui-focus-border-width</code>:
     </p>
     <Code
-      code={`:where(html, .ui-palette, .ui-contrast-more) {
+      code={`:where(html, .ui-scope, .ui-contrast-more) {
   --ui-focus-border-color: oklch(0.153 0 0);
   --ui-focus-ring-color: oklch(0.899 0.186 97.9);
 }

@@ -1,13 +1,11 @@
 @layer components.extended {
   :where(.ui-menu) {
     --_motion: var(--ui-motion);
-    --_bg-color: var(--ui-surface-elevated);
-    --_border-color: var(
-      --ui-border-color-raised,
-      var(--ui-border-color-on-raised)
-    );
+    --_bg-color: var(--ui-surface-raised);
+    --_bg-image: var(--ui-surface-raised-image, none);
+    --_border-color: var(--ui-border-color-raised, var(--ui-border-color));
     --_border-width: var(--ui-border-width);
-    --_divider-border-color: var(--ui-border-color-on-raised);
+    --_divider-border-color: var(--ui-border-color);
     --_duration: calc(var(--ui-duration-slow) * var(--_motion));
     --_ease: var(--ui-ease-exit);
     --_fit-max-block-size: min(
@@ -27,10 +25,9 @@
     --_shadow: var(--ui-shadow-overlay);
     --_side: self-block-end;
     --_span: span-self-inline-end;
-    --ui-border-color: var(--ui-border-color-on-raised);
-    --ui-field-border-color: var(--ui-field-border-color-on-raised);
 
     background-color: var(--_bg-color);
+    background-image: var(--_bg-image);
     border: var(--_border-width) solid var(--_border-color);
     border-radius: var(--_radius);
     box-shadow: var(--_shadow);
@@ -220,7 +217,7 @@
     :where(li.ui-heading) {
       color: var(--ui-text);
       font-size: var(--ui-font-size-caption);
-      font-weight: var(--ui-font-weight-bold);
+      font-weight: var(--ui-font-weight-heading);
       min-block-size: auto;
       padding-block: var(--ui-space-2) var(--ui-space-1);
     }

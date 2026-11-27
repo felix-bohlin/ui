@@ -1,0 +1,8 @@
+{% from "opui/index.njk" import List, ListItem, SwitchInput %}
+
+{% call List() %}
+  {% set end %}{{ SwitchInput() }}{% endset %}
+  {{ ListItem({ choice: "switch", slots: { end: end, label: "Bluetooth" } }) }}
+  {% set end %}{{ SwitchInput() }}{% endset %}
+  {{ ListItem({ choice: "switch", slots: { end: end, label: "Wi-Fi" } }) }}
+{% endcall %}

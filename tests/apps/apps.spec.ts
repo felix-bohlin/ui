@@ -7,12 +7,22 @@ import {
 } from "@playwright/test"
 import { readdirSync, readFileSync } from "node:fs"
 import path from "node:path"
-import { APPS, appDir, examplesOf, KNOWN_PROBLEMS } from "./apps.ts"
+import { isHydratedFramework } from "../../src/utils/framework.js"
+import {
+  ANCHORS_VISIBLE,
+  type App,
+  APPS,
+  appDir,
+  blocksOf,
+  examplesOf,
+  KNOWN_CONSOLE,
+  KNOWN_PROBLEMS,
+} from "./apps.ts"
 import {
   compareNative,
   differences,
   NATIVE_CASES,
-  SVELTE_GROUP,
+  SVELTE_DEFAULT,
   SVELTE_SPREAD,
 } from "./native/cases.ts"
 
@@ -30,6 +40,17 @@ const examples = new Map(
 
 const slugs = [
   ...new Set([...examples.values()].flatMap((list) => [...list.keys()])),
+].toSorted()
+
+const blocks = new Map(
+  APPS.filter((app) => app.blocks).map((app) => [
+    app.name,
+    blocksOf(app.framework),
+  ]),
+)
+
+const blockSlugs = [
+  ...new Set([...blocks.values()].flatMap((list) => [...list.keys()])),
 ].toSorted()
 
 const appOf = (name: string) => {
@@ -84,7 +105,10 @@ const knownProblems = (name: string, slug: string) =>
 const unexpected = (problems: string[], name: string, slug: string) =>
   problems.filter(
     (problem) =>
-      !knownProblems(name, slug).some((known) => known.message === problem),
+      !knownProblems(name, slug).some((known) => known.message === problem) &&
+      !KNOWN_CONSOLE.some(
+        (known) => known.apps.includes(name) && known.message.test(problem),
+      ),
   )
 
 const watch = async (page: Page) => {
@@ -103,10 +127,16 @@ const watch = async (page: Page) => {
   return problems
 }
 
-const open = async (page: Page, path: string) => {
-  await page.goto(path)
-  await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
+const ready = async (page: Page, app: App) => {
+  if (isHydratedFramework(app.framework)) {
+    await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
+  }
   await page.waitForLoadState("load")
+}
+
+const open = async (page: Page, app: App, path: string) => {
+  await page.goto(path)
+  await ready(page, app)
 }
 
 const undefinedElements = (page: Page) =>
@@ -129,6 +159,7 @@ const serverRender = async (
   browser: Browser,
   baseURL: string,
   path: string,
+  attribute = "data-example",
 ) => {
   const context = await browser.newContext({
     baseURL,
@@ -137,16 +168,49 @@ const serverRender = async (
   const page = await context.newPage()
   await offline(page)
   const response = await page.goto(path)
-  const rendered = await page
-    .locator("[data-example]")
-    .evaluateAll((elements) =>
+  const rendered = await page.locator(`[${attribute}]`).evaluateAll(
+    (elements, name) =>
       elements.map((element) => ({
         empty: !element.firstElementChild && !element.textContent?.trim(),
-        example: element.getAttribute("data-example"),
+        example: element.getAttribute(name),
       })),
-    )
+    attribute,
+  )
   await context.close()
   return { rendered, status: response?.status() }
+}
+
+for (const slug of blockSlugs) {
+  test(`the ${slug} block renders on the server and defines its elements`, async ({
+    browser,
+    page,
+  }, testInfo) => {
+    const app = appOf(testInfo.project.name)
+    test.skip(!blocks.get(app.name)?.has(slug), `${app.name} renders no blocks`)
+    const path = `/blocks/${slug}`
+    const { rendered, status } = await serverRender(
+      browser,
+      `http://localhost:${app.port}`,
+      path,
+      "data-block",
+    )
+    expect(status, `${app.name} answers ${path}`).toBe(200)
+    expect(
+      rendered,
+      `${app.name} renders the ${slug} block on the server`,
+    ).toEqual([{ empty: false, example: slug }])
+    const problems = await watch(page)
+    await open(page, app, path)
+    await expect
+      .poll(() => undefinedElements(page), {
+        message: `${app.name} ${path} leaves custom elements undefined`,
+      })
+      .toEqual([])
+    expect(
+      unexpected(problems, app.name, `blocks/${slug}`),
+      `${app.name} ${path} logs errors or warnings`,
+    ).toEqual([])
+  })
 }
 
 const PREFIXES = [
@@ -187,7 +251,7 @@ for (const prefix of PREFIXES) {
       }
 
       const problems = await watch(page)
-      await open(page, path)
+      await open(page, app, path)
       expect(
         await renderedExamples(page),
         `${app.name} renders every ${slug} example in the browser`,
@@ -211,10 +275,28 @@ for (const prefix of PREFIXES) {
   }
 }
 
+test(`known: ${ANCHORS_VISIBLE.reason}`, async ({ page }, testInfo) => {
+  const app = appOf(testInfo.project.name)
+  test.skip(
+    !ANCHORS_VISIBLE.apps.includes(app.name),
+    `${app.name} bundles the CSS`,
+  )
+  const messages: string[] = []
+  page.on("console", (message) => messages.push(message.text()))
+  await offline(page)
+  await open(page, app, "/button")
+  const takesSingular = await page.evaluate(() =>
+    CSS.supports("position-visibility", "anchor-visible"),
+  )
+  await expect
+    .poll(() => messages.some((text) => ANCHORS_VISIBLE.message.test(text)))
+    .toBe(takesSingular)
+})
+
 test("the CSS loads", async ({ page }, testInfo) => {
   const app = appOf(testInfo.project.name)
   const problems = await watch(page)
-  await open(page, "/button")
+  await open(page, app, "/button")
   expect(
     await page.evaluate(() =>
       getComputedStyle(document.documentElement)
@@ -259,7 +341,7 @@ test("the components answer input once hydrated", async ({
 }, testInfo) => {
   const app = appOf(testInfo.project.name)
   const problems = await watch(page)
-  await open(page, "/field")
+  await open(page, app, "/field")
   const example = page.locator('[data-example="field/ValidationBinding"]')
   const input = example.getByRole("textbox", { name: "Username" })
   await input.fill("holly!")
@@ -279,7 +361,7 @@ test("navigating to another page renders its examples", async ({
 }, testInfo) => {
   const app = appOf(testInfo.project.name)
   const problems = await watch(page)
-  await open(page, "/button")
+  await open(page, app, "/button")
   await page.evaluate(() => Object.assign(window, { opuiSameDocument: true }))
   await page
     .locator("nav")
@@ -289,7 +371,7 @@ test("navigating to another page renders its examples", async ({
   const expected = expectedExamples(app.name, "dialog")
   await expect(page.locator("[data-example]")).toHaveCount(expected.length)
   expect(await renderedExamples(page)).toEqual(expected)
-  if (app.ssr) {
+  if (app.ssr && app.navigation !== "document") {
     expect(
       await page.evaluate(() => "opuiSameDocument" in window),
       `${app.name} navigates without reloading the page`,
@@ -441,7 +523,7 @@ for (const slug of changedSlugs) {
     const app = appOf(testInfo.project.name)
     test.skip(!app.ssr, `${app.name} renders on the client only`)
     const problems = await watch(page)
-    await open(page, `/${slug}`)
+    await open(page, app, `/${slug}`)
     const changed = []
     for (const item of changesOn(slug)) {
       const control = await controlOf(page, item)
@@ -453,8 +535,7 @@ for (const slug of changedSlugs) {
     }
     await page.goto("/button")
     await page.goBack()
-    await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
-    await page.waitForLoadState("load")
+    await ready(page, app)
     for (const { control, item } of changed) {
       expect(
         (await formStateOf(control)).current,
@@ -559,7 +640,8 @@ test("a callout dismissed before the app hydrates it waits for the dismiss handl
 })
 
 const NATIVE_DIFFERENCES = [
-  ...differences("sveltekit", SVELTE_GROUP, [
+  ...differences("sveltekit", SVELTE_SPREAD, [
+    "checkbox-bound",
     "group-bound",
     "radio-bound",
     "rating-bound",
@@ -567,8 +649,8 @@ const NATIVE_DIFFERENCES = [
     "tabs-bound",
     "toggle-bound",
   ]),
-  ...differences("sveltekit", SVELTE_SPREAD, ["checkbox-bound"]),
-  ...differences("vite-svelte", SVELTE_GROUP, [
+  ...differences("vite-svelte", SVELTE_DEFAULT, [
+    "checkbox-bound",
     "group-bound",
     "radio-bound",
     "rating-bound",
@@ -583,6 +665,10 @@ for (const nativeCase of NATIVE_CASES) {
     page,
   }, testInfo) => {
     const app = appOf(testInfo.project.name)
+    test.skip(
+      !examples.get(app.framework)?.has("native"),
+      `${app.framework} has no native comparison pair`,
+    )
     const difference = NATIVE_DIFFERENCES.find(
       (entry) => entry.where === app.name && entry.name === nativeCase.name,
     )

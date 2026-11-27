@@ -1,0 +1,54 @@
+{% from "opui/index.njk" import
+  Button,
+  Drawer,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Radio
+%}
+
+{% call Button({
+  command: "show-modal",
+  commandfor: "drawer-close-behaviors-1",
+  variant: "outlined"
+}) %}
+  Open drawer
+{% endcall %}
+
+{% call Drawer({ id: "drawer-close-behaviors-1" }) %}
+  {% call DrawerHeader({ closeButton: true }) %}
+    {% call DrawerTitle() %}How to close{% endcall %}
+  {% endcall %}
+  {% call DrawerContent() %}
+    {% call Fieldset() %}
+      {% call FieldLegend() %}Choose a closing behavior:{% endcall %}
+      {% call FieldGroup() %}
+        {% call Radio({ checked: true, name: "closedby-demo", value: "any" }) %}any{% endcall %}
+        {% call Radio({ name: "closedby-demo", value: "closerequest" }) %}closerequest{% endcall %}
+        {% call Radio({ name: "closedby-demo", value: "none" }) %}none{% endcall %}
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call DrawerFooter() %}
+    {% call Button({
+      command: "close",
+      commandfor: "drawer-close-behaviors-1",
+      size: "small"
+    }) %}
+      Close manually
+    {% endcall %}
+  {% endcall %}
+{% endcall %}
+
+<script type="module">
+  const drawer = document.getElementById("drawer-close-behaviors-1")
+  document.querySelectorAll('input[name="closedby-demo"]').forEach((radio) => {
+    radio.addEventListener("change", () =>
+      drawer?.setAttribute("closedby", radio.value),
+    )
+  })
+</script>

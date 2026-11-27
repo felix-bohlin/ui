@@ -81,13 +81,13 @@ const columns = [
 <style>
   .rhythm-compare {
     display: grid;
-    gap: var(--ui-space-5);
+    gap: var(--ui-space-6);
     inline-size: 100%;
   }
 
   .rhythm-compare-columns {
     display: grid;
-    gap: var(--ui-space-4) var(--ui-space-5);
+    gap: var(--ui-space-5) var(--ui-space-6);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
   }
 
@@ -104,7 +104,7 @@ const columns = [
 
     & code {
       color: var(--ui-text-strong);
-      font-weight: var(--ui-font-weight-bold);
+      font-weight: var(--ui-font-weight-heading);
     }
   }
 
@@ -138,7 +138,7 @@ const columns = [
   .rhythm-compare-heading {
     color: var(--ui-text-strong);
     font-size: var(--font-size);
-    font-weight: var(--ui-font-weight-bold);
+    font-weight: var(--ui-font-weight-heading);
     margin: 0;
 
     [data-mode="raw"] & {
@@ -169,7 +169,7 @@ const columns = [
     }
 
     &:after {
-      border-block-end: var(--ui-border-width-thick) var(--_edge-style)
+      border-block-end: var(--ui-border-width-large) var(--_edge-style)
         var(--_edge);
       content: "";
       inset: auto 0 0;
@@ -212,7 +212,7 @@ const columns = [
   .rhythm-compare-knobs {
     border: 0;
     display: grid;
-    gap: var(--ui-space-3) var(--ui-space-5);
+    gap: var(--ui-space-4) var(--ui-space-6);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
     margin: 0;
     min-inline-size: 0;

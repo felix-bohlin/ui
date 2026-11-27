@@ -1,12 +1,12 @@
 <div
-  class="account-settings ui-layout-container ui-layout-column ui-large"
+  class="account-settings ui-layout-container ui-layout-column ui-gap-large"
   style="--_max-inline-size: 48rem"
 >
   <hgroup class="ui-hgroup">
     <h1 class="ui-h3">Account settings</h1>
     <p>Tweak your profile, your password and how Bassbook looks for you.</p>
   </hgroup>
-  <div class="ui-tabs ui-line" style="--_panel-gap: var(--ui-space-5)">
+  <div class="ui-tabs ui-line" style="--_panel-gap: var(--ui-space-6)">
     <input
       checked
       class="ui-input"
@@ -22,12 +22,12 @@
           <div class="ui-layout-row acct-photo">
             <div
               class="ui-avatar ui-rounded"
-              aria-label="Percy Groove"
+              aria-label="Adam Groove"
               role="img"
             >
-              <span aria-hidden="true">PG</span>
+              <span aria-hidden="true">AG</span>
             </div>
-            <div class="ui-layout-row ui-small">
+            <div class="ui-layout-row ui-gap-small">
               <button class="ui-button ui-small ui-outlined" type="button">
                 Upload new pic
               </button>
@@ -53,7 +53,7 @@
                     name="first-name"
                     required
                     type="text"
-                    value="Percy"
+                    value="Adam"
                   />
                 </span>
               </div>
@@ -83,7 +83,7 @@
                   name="email"
                   required
                   type="email"
-                  value="percy@lowend.example"
+                  value="adam@bassmail.example"
                 />
               </span>
               <span class="ui-end-text" id="account-settings-email-end-text">
@@ -207,7 +207,7 @@ Fretless bassist in a garage band. Into flatwounds, drop D and very long root no
           <legend>Sign-in security</legend>
           <div class="ui-field-group">
             <label class="ui-switch ui-spread">
-              <input type="checkbox" role="switch" name="two-factor" checked />
+              <input type="checkbox" role="switch" checked name="two-factor" />
               <span class="ui-label">Two-factor authentication</span>
               <span class="ui-end-text"
                 >Ask for a code so nobody sneaks onto your wall.</span
@@ -217,8 +217,8 @@ Fretless bassist in a garage band. Into flatwounds, drop D and very long root no
               <input
                 type="checkbox"
                 role="switch"
-                name="sign-in-alerts"
                 checked
+                name="sign-in-alerts"
               />
               <span class="ui-label">Sign-in alerts</span>
               <span class="ui-end-text"
@@ -315,8 +315,8 @@ Fretless bassist in a garage band. Into flatwounds, drop D and very long root no
               <input
                 type="checkbox"
                 role="switch"
-                name="underline-links"
                 checked
+                name="underline-links"
               />
               <span class="ui-label">Always underline links</span>
             </label>
@@ -364,7 +364,7 @@ Fretless bassist in a garage band. Into flatwounds, drop D and very long root no
     </div>
     <div class="ui-content">
       <p id="account-settings-delete-description">
-        This deletes percy@lowend.example, your wall and every photo of your
+        This deletes adam@bassmail.example, your wall and every photo of your
         gear. You can't undo this.
       </p>
     </div>

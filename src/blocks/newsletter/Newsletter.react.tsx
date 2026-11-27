@@ -23,10 +23,10 @@ export default function Newsletter() {
       >
         <Card
           className="ui-layout-columns newsletter-card"
-          style={{ "--_columns": "1fr 1.2fr", "--_gap": "var(--ui-space-6)" }}
+          style={{ "--_columns": "1fr 1.2fr", "--_gap": "var(--ui-space-7)" }}
           variant="outlined"
         >
-          <div className="ui-layout-column ui-large">
+          <div className="ui-layout-column ui-gap-large">
             <hgroup className="ui-hgroup">
               <p>The Bassbook Low-Down</p>
               <h1 className="ui-h3">
@@ -34,7 +34,7 @@ export default function Newsletter() {
               </h1>
               <p>
                 New features, gear gossip and how other bassists rock Bassbook.
-                Join 12&nbsp;400 totally rad low enders.
+                Join 12&nbsp;400 totally rad groovers.
               </p>
             </hgroup>
             <section aria-labelledby="newsletter-recent-heading">
@@ -67,7 +67,7 @@ export default function Newsletter() {
                   autoComplete="email"
                   id="newsletter-email"
                   name="email"
-                  placeholder="you@lowend.example"
+                  placeholder="you@bassmail.example"
                   required
                   type="email"
                 />
@@ -81,10 +81,7 @@ export default function Newsletter() {
               <FieldDescription>
                 Pick what you wanna hear about.
               </FieldDescription>
-              <FieldGroup
-                className="newsletter-topics"
-                name="newsletter-topics"
-              >
+              <FieldGroup className="newsletter-topics">
                 <Checkbox
                   aria-describedby="newsletter-topic-news-text"
                   defaultChecked
@@ -93,6 +90,7 @@ export default function Newsletter() {
                       Shiny new features and fixes
                     </span>
                   }
+                  name="newsletter-topics"
                   value="news"
                 >
                   Bassbook news
@@ -104,6 +102,7 @@ export default function Newsletter() {
                       Strings, amps and pedal hoarding
                     </span>
                   }
+                  name="newsletter-topics"
                   value="gear"
                 >
                   Gear Talk
@@ -116,6 +115,7 @@ export default function Newsletter() {
                       Grooves, slap tricks and drop D
                     </span>
                   }
+                  name="newsletter-topics"
                   value="tips"
                 >
                   Tabs &amp; tips
@@ -127,6 +127,7 @@ export default function Newsletter() {
                       Bassists just like you, venting
                     </span>
                   }
+                  name="newsletter-topics"
                   value="diaries"
                 >
                   Member diaries
@@ -162,20 +163,20 @@ export default function Newsletter() {
           container-type: inline-size;
 
           .newsletter-card {
-            padding: var(--ui-space-5);
+            padding: var(--ui-space-6);
 
             @container (inline-size >= 56rem) {
-              padding: var(--ui-space-7);
+              padding: var(--ui-space-8);
             }
           }
 
           .newsletter-issue .ui-text p:first-child {
-            font-weight: var(--ui-font-weight-medium);
+            font-weight: var(--ui-font-weight-emphasis);
           }
 
           .newsletter-form {
             align-content: start;
-            gap: var(--ui-space-5);
+            gap: var(--ui-space-6);
           }
 
           .newsletter-topics {

@@ -3,7 +3,7 @@
 Buttons that switch options on and off, alone or in a group, like bold in a toolbar.
 
 - CSS: `opui-css/css/components/toggle-group.css` and `opui-css/css/components/toggle-button.css`.
-- Full docs with every example: [HTML](https://opui.dev/html/components/toggle.md), [Astro](https://opui.dev/astro/components/toggle.md), [React](https://opui.dev/react/components/toggle.md), [Solid](https://opui.dev/solid/components/toggle.md), [Svelte](https://opui.dev/svelte/components/toggle.md), [Vue](https://opui.dev/vue/components/toggle.md).
+- Full docs with every example: [HTML](https://opui.dev/html/components/toggle.md), [Astro](https://opui.dev/astro/components/toggle.md), [Nunjucks](https://opui.dev/nunjucks/components/toggle.md), [React](https://opui.dev/react/components/toggle.md), [Solid](https://opui.dev/solid/components/toggle.md), [Svelte](https://opui.dev/svelte/components/toggle.md), [Vue](https://opui.dev/vue/components/toggle.md).
 
 ## ToggleGroup
 
@@ -22,19 +22,19 @@ Buttons that switch options on and off, alone or in a group, like bold in a tool
 - `overflow`: `"scroll"` (`.ui-overflow-scroll`), `"shrink"` (`.ui-overflow-shrink`), `"wrap"` (default). What the items do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size.
 - `role`: `string`. The `role` of the root, such as `toolbar`. Without it, `radiogroup`, or `group` with `multiple`.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the buttons.
-- `value` (Astro, React and Solid): `string | string[]`. The value of the checked button, or the values of the checked buttons with `multiple`. The buttons whose `value` matches are checked, and their own `checked` is ignored.
+- `value` (Astro, Nunjucks, React and Solid): `string | string[]`. The value of the checked button, or the values of the checked buttons with `multiple`. The buttons whose `value` matches are checked, and their own `checked` is ignored.
 
 ### Slots
 
 - `default`: The toggle buttons.
 
-Model: `value` (`string | string[]`), the value of the checked button, or the values of the checked buttons with `multiple`. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
+Model: `value` (`string | string[]`), the value of the checked button, or the values of the checked buttons with `multiple`. Astro, Nunjucks, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
-- Astro: `value` checks the buttons whose `value` matches on the server. After that the selection lives in the inputs: read it from the form, or listen for `change` in a script.
+- Astro and Nunjucks: `value` checks the buttons whose `value` matches on the server. After that the selection lives in the inputs: read it from the form, or listen for `change` in a script.
 - React and Solid: Use `value` with `onValueChange`, or `defaultValue`. Without them the buttons keep their own state, and `onValueChange` still reports changes.
-- Svelte: Bind `value` with a starting value to control the selection, `""` or `[]` for none. Without it, or bound to `undefined`, the buttons keep their own state. A `value` passed without `bind:` is a starting value: the group keeps the selection itself until you pass another.
+- Svelte: Bind `value` to control the selection, `""` or `[]` for none. Bound to `undefined`, it takes the buttons that start checked. A `value` passed without `bind:` is a starting value: the group keeps the selection itself until you pass another.
 - Vue: Bind `v-model` to control the selection, `""` or `[]` for none: each button binds its input with `v-model`, like native radios or checkboxes. Without it, the buttons keep their own state.
 
 ## ToggleButton
@@ -50,7 +50,7 @@ Model: `value` (`string | string[]`), the value of the checked button, or the va
 - `disabled`: `boolean`, `input[aria-disabled="true"]`, `input[disabled]`. Dims the button and skips it with Tab and the arrow keys. `aria-disabled="true"` looks the same, but keeps the button focusable and its value in the form, and doesn't stop the change, so block it with a script.
 - `id`: `string`. The id of the `<input>`.
 - `label`: `string`. The button text when there is no child content.
-- `name`: `string`. The name of the input. Falls back to the `ToggleGroup`'s name, then to a `FieldGroup`'s.
+- `name`: `string`. The name of the input. Falls back to the `ToggleGroup`'s name.
 - `required`: `boolean`. The form won't submit until it's checked. A `ToggleGroup` without `multiple` needs it on one button only.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
 - `type`: `"checkbox"` (`input[type="checkbox"]`, default), `"radio"` (`input[type="radio"]`). The input type. `radio` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio.
@@ -60,11 +60,11 @@ Model: `value` (`string | string[]`), the value of the checked button, or the va
 
 - `default`: The label and an optional icon.
 
-Model: `checked` (`boolean`), the checked state of a standalone button. Astro, React and Solid `checked`, Svelte `bind:checked`, Vue `v-model`.
+Model: `checked` (`boolean`), the checked state of a standalone button. Astro, Nunjucks, React and Solid `checked`, Svelte `bind:checked`, Vue `v-model`.
 
 ### Notes
 
-- Astro: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`.
+- Astro and Nunjucks: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`.
 - React: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `className` and `style` go to the root `<label>`. `defaultChecked` sets the starting state, and `checked` with `onChange` controls it, like on any input. In a `ToggleGroup` with a `value` or `defaultValue`, the group's value wins and a button's own `checked` and `defaultChecked` are ignored.
 - Solid: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. `checked` sets the state and follows it when it changes, and `onChange` reports changes. In a `ToggleGroup` with a `value`, the group's value wins and a button's own `checked` is ignored.
 - Svelte: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. `bind:checked` binds a standalone checkbox button. A radio fires no `change` when another one takes the check, so for a choice of one, use a `ToggleGroup` with `bind:value`. In a `ToggleGroup`, `checked` only sets the starting state: the group's value wins once it has one.
@@ -96,7 +96,7 @@ Outputs: `--_bg-color`, `--_border-color` and `--_duration`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-radius`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-ease-move`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-icon-size`, `--ui-motion`, `--ui-on-primary`, `--ui-on-selected`, `--ui-press-scale`, `--ui-primary`, `--ui-radius`, `--ui-selected`, `--ui-shadow-control`, `--ui-space-2`, `--ui-space-3`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-surface`, `--ui-text-disabled` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-radius`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-duration`, `--ui-ease`, `--ui-ease-move`, `--ui-focus-border-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-icon-size`, `--ui-motion`, `--ui-on-primary`, `--ui-on-selected`, `--ui-primary`, `--ui-radius`, `--ui-selected`, `--ui-shadow-control`, `--ui-space-2`, `--ui-space-4`, `--ui-state-active-scale`, `--ui-state-disabled-opacity`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-surface`, `--ui-text-disabled` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -146,6 +146,22 @@ import { ToggleButton } from "opui-css/astro"
   <svg data-icon="critical" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
   Show warnings
 </ToggleButton>
+```
+
+## Nunjucks
+
+`{% from "opui/index.njk" import ToggleButton, ToggleGroup %}`
+
+### Example: Standalone
+
+```njk
+{% from "opui/index.njk" import ToggleButton %}
+
+{{ ToggleButton({ label: "Show grid", name: "standalone-demo-1" }) }}
+{% call ToggleButton({ name: "standalone-demo-2" }) %}
+  <svg data-icon="critical" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
+  Show warnings
+{% endcall %}
 ```
 
 ## React

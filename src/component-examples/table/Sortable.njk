@@ -1,0 +1,69 @@
+{% from "opui/index.njk" import
+  SortableTable,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow
+%}
+
+{% call SortableTable() %}
+  {% call Table() %}
+    {% call TableCaption() %}Planets{% endcall %}
+    {% call TableHead() %}
+      {% call TableRow() %}
+        {% call TableHeaderCell({ "aria-sort": "ascending", sortable: true }) %}Planet{% endcall %}
+        {% call TableHeaderCell({ numeric: true, sortable: true }) %}Moons{% endcall %}
+        {% call TableHeaderCell({ numeric: true, sortable: true }) %}Diameter{% endcall %}
+      {% endcall %}
+    {% endcall %}
+    {% call TableBody() %}
+      {% call TableRow() %}
+        {% call TableCell() %}Earth{% endcall %}
+        {% call TableCell({ numeric: true }) %}1{% endcall %}
+        {% call TableCell({ "data-sort-value": "12742", numeric: true }) %}12,742 km{% endcall %}
+      {% endcall %}
+      {% call TableRow() %}
+        {% call TableCell() %}Jupiter{% endcall %}
+        {% call TableCell({ numeric: true }) %}95{% endcall %}
+        {% call TableCell({ "data-sort-value": "139820", numeric: true }) %}139,820 km{% endcall %}
+      {% endcall %}
+      {% call TableRow() %}
+        {% call TableCell() %}Mars{% endcall %}
+        {% call TableCell({ numeric: true }) %}2{% endcall %}
+        {% call TableCell({ "data-sort-value": "6779", numeric: true }) %}6,779 km{% endcall %}
+      {% endcall %}
+      {% call TableRow() %}
+        {% call TableCell() %}Mercury{% endcall %}
+        {% call TableCell({ numeric: true }) %}0{% endcall %}
+        {% call TableCell({ "data-sort-value": "4879", numeric: true }) %}4,879 km{% endcall %}
+      {% endcall %}
+      {% call TableRow() %}
+        {% call TableCell() %}Neptune{% endcall %}
+        {% call TableCell({ numeric: true }) %}16{% endcall %}
+        {% call TableCell({ "data-sort-value": "49244", numeric: true }) %}49,244 km{% endcall %}
+      {% endcall %}
+      {% call TableRow() %}
+        {% call TableCell() %}Saturn{% endcall %}
+        {% call TableCell({ numeric: true }) %}146{% endcall %}
+        {% call TableCell({ "data-sort-value": "116460", numeric: true }) %}116,460 km{% endcall %}
+      {% endcall %}
+      {% call TableRow() %}
+        {% call TableCell() %}Uranus{% endcall %}
+        {% call TableCell({ numeric: true }) %}28{% endcall %}
+        {% call TableCell({ "data-sort-value": "50724", numeric: true }) %}50,724 km{% endcall %}
+      {% endcall %}
+      {% call TableRow() %}
+        {% call TableCell() %}Venus{% endcall %}
+        {% call TableCell({ numeric: true }) %}0{% endcall %}
+        {% call TableCell({ "data-sort-value": "12104", numeric: true }) %}12,104 km{% endcall %}
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}
+
+<script type="module">
+  import "opui-css/elements/sortable-table.js"
+</script>

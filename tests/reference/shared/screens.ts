@@ -76,6 +76,7 @@ export const SCREENS: Screen[] = [
 
 export const PORTS = {
   astro: 4501,
+  eleventy: 4506,
   next: 4503,
   nuxt: 4504,
   solid: 4505,

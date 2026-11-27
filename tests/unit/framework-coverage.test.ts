@@ -156,12 +156,12 @@ const problemsOf = (
             `src/fixtures/models.${extension}`,
             `write the fixture with the controls of the other frameworks' and add it to src/fixtures/mount.ts, so tests/e2e/models.spec.ts runs its scenarios in ${label}`,
           ),
-          ...missing(
-            facts.apps.includes(id),
-            `tests/apps/apps.ts has no app with framework "${id}": add one, so pnpm test:apps builds the package into a ${label} app`,
-          ),
         ]
       : []),
+    ...missing(
+      id === "astro" || facts.apps.includes(id),
+      `tests/apps/apps.ts has no app with framework "${id}": add one, so pnpm test:apps builds the package into a ${label} app`,
+    ),
   ]
 }
 
@@ -209,6 +209,19 @@ test("the check flags a framework that is listed but wired up nowhere", () => {
     "src/fixtures/models.lit.ts",
     "tests/apps/apps.ts",
   ])
+  expect(
+    problemsOf(
+      {
+        extension: "liquid",
+        hydrated: false,
+        id: "liquid",
+        label: "Liquid",
+        types: "types.astro.ts",
+      },
+      facts,
+    ).filter((problem) => problem.startsWith("tests/apps/apps.ts")),
+    "a server-only framework needs an app too",
+  ).toHaveLength(1)
 })
 
 test("the check flags a glob that leaves a framework out", () => {

@@ -95,7 +95,7 @@ describe("astroMarkup", () => {
         '<p>Thanks for the jam, {name}. See you{" "}<!-- soon -->on Friday!</p>',
         "<p>{`Turn it up`}</p>",
         "<p>{items.length}</p>",
-        '<p><strong>Rory</strong> booked a gig<span set:text="Tonight" /></p>',
+        '<p><strong>Josh</strong> booked a gig<span set:text="Tonight" /></p>',
         "{items.map((item) => <li>Item: {item}</li>)}",
         '<script>console.log("Label")</script>',
         "<style>p::after { content: 'Label' }</style>",
@@ -105,7 +105,7 @@ describe("astroMarkup", () => {
       "Bass news",
       "Thanks for the jam, {name}. See you on Friday!",
       "Turn it up",
-      "Rory",
+      "Josh",
       "booked a gig",
       "Tonight",
       "Item: {item}",
@@ -117,7 +117,7 @@ describe("astroMarkup", () => {
       [
         "---",
         'const note = "<p>Gear Talk</p>"',
-        "const photos = [{ alt: 'A fretless bass', size: 2 }, { 'label': `Low End` }]",
+        "const photos = [{ alt: 'A fretless bass', size: 2 }, { 'label': `Slap Like Now` }]",
         "---",
         "<Fragment set:html={note} />",
         '<div set:html={"<em>Slap</em>"} />',
@@ -126,7 +126,7 @@ describe("astroMarkup", () => {
     expect(markup.texts).toEqual(["Gear Talk", "Slap"])
     expect(markup.strings).toEqual([
       { key: "alt", value: "A fretless bass" },
-      { key: "label", value: "Low End" },
+      { key: "label", value: "Slap Like Now" },
     ])
   })
 })

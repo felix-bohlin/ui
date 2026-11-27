@@ -2,7 +2,7 @@ import { exampleTheme } from "./example-themes"
 import { themeStore, type Theme } from "./theme"
 import { iconLibraryOf } from "./theme-icons"
 
-export const DEFAULT_ICON_LIBRARY = "fluent"
+const DEFAULT_ICON_LIBRARY = "fluent"
 
 export const themeIconLibrary = ({ preset, tokens }: Theme) =>
   iconLibraryOf({ ...exampleTheme(preset)?.tokens, ...tokens }) ??
@@ -24,7 +24,7 @@ const restore = (svg: Element, { attributes, children }: Original) => {
   svg.replaceChildren(...children.map((child) => child.cloneNode(true)))
 }
 
-export const showIcon = (svg: Element, markup: string | undefined) => {
+const showIcon = (svg: Element, markup: string | undefined) => {
   const original = originals.get(svg) ?? {
     attributes: [...svg.attributes].map(({ name, value }): [string, string] => [
       name,

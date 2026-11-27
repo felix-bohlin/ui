@@ -7,7 +7,7 @@ export default function GridLayout() {
     <div
       style={{
         display: "grid",
-        gap: "var(--ui-space-4)",
+        gap: "var(--ui-space-5)",
         gridTemplateColumns: "repeat(auto-fit, minmax(14rem, 1fr))",
       }}
     >

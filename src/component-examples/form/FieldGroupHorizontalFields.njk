@@ -1,0 +1,13 @@
+{% from "opui/index.njk" import Button, Field, FieldGroup, Form %}
+
+{% call Form() %}
+  {% call FieldGroup({ orientation: "horizontal" }) %}
+    {% call Field({
+      for: "form-field-group-horizontal-fields-1",
+      label: "Discount code"
+    }) %}
+      <input id="form-field-group-horizontal-fields-1" name="discount" />
+    {% endcall %}
+    {% call Button({ variant: "outlined" }) %}Apply{% endcall %}
+  {% endcall %}
+{% endcall %}

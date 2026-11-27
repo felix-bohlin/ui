@@ -1,0 +1,39 @@
+{% from "opui/ToggleButton.njk" import ToggleButton %}
+{% from "opui/ToggleGroup.njk" import ToggleGroup %}
+
+{% macro Reactions(props = {}) %}
+  {%- set props = props | opuiProps("Reactions") -%}
+  {%- set rest = props | opuiRest("Reactions") -%}
+  {%- set items = props.items | default([]) -%}
+  {%- set used = opui.usedItem(items, props.quick) -%}
+  {%- set pills = opui.pillsOf(items, props.quick, used) -%}
+  {%- set classes = ["ui-reactions", props.class] | opuiClass -%}
+  <opui-reactions{{ opui.merge(
+    {
+      class: classes,
+      "quick-label": props.quick["aria-label"],
+      "quick-text": props.quick.label,
+      "quick-value": props.quick.value
+    },
+    opui.defined(rest)
+  ) | opuiAttributes("opui-reactions") }}>
+    {%- call ToggleGroup({
+      "aria-label": props["aria-label"],
+      "aria-labelledby": props["aria-labelledby"],
+      multiple: true,
+      name: props.name
+    }) %}
+      {% for item in pills %}
+        {%- set index = loop.index0 -%}
+        {% call ToggleButton({
+          "aria-label": item["aria-label"],
+          checked: true if item.checked else false,
+          class: [{ "ui-suggested": props.quick and not used and index == 0 }] | opuiClass,
+          value: item.value
+        }) %}<span aria-hidden="true">{{ item.label }}</span>{% endcall %}
+      {%- endfor %}
+    {% endcall %}
+    {{ caller() if caller }}
+    <span class="ui-sr-only" role="status"></span>
+  </opui-reactions>
+{%- endmacro %}

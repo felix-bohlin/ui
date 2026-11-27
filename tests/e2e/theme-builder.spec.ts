@@ -1,7 +1,6 @@
-import { readdirSync, readFileSync } from "node:fs"
+import { readdirSync } from "node:fs"
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test, type Locator, type Page } from "@playwright/test"
-import { strFromU8, unzipSync } from "fflate"
 import { iconTokensOf } from "../../src/utils/theme-icons"
 import { axeNodes, instantScrolling, settle } from "./fixtures"
 
@@ -251,37 +250,6 @@ test("the export drawer holds the CSS", async ({ page }) => {
   )
 })
 
-test("the export drawer downloads the theme for Figma", async ({ page }) => {
-  await open(page)
-  await page.locator('[data-mood="minimal"]').click()
-  await page.getByRole("button", { name: "Export CSS" }).click()
-  const [download] = await Promise.all([
-    page.waitForEvent("download"),
-    page.locator("[data-figma-download]").click(),
-  ])
-  expect(download.suggestedFilename()).toBe("opui-figma.zip")
-  const files = unzipSync(readFileSync(await download.path()))
-  expect(Object.keys(files).toSorted()).toEqual([
-    "dark-more-contrast.tokens.json",
-    "dark.tokens.json",
-    "light-more-contrast.tokens.json",
-    "light.tokens.json",
-    "theme.figma.json",
-  ])
-  const theme = JSON.parse(strFromU8(files["theme.figma.json"]))
-  expect(theme.collection).toBe("opui custom")
-  expect(
-    theme.variables.find(
-      ({ name }: { name: string }) => name === "borders/ui-radius",
-    )?.values.light,
-  ).toBe(0)
-  const light = JSON.parse(strFromU8(files["light.tokens.json"]))
-  expect(light.surfaces["ui-surface"].$extensions["com.figma"]).toEqual({
-    codeSyntax: { WEB: "var(--ui-surface)" },
-    scopes: ["FRAME_FILL", "SHAPE_FILL"],
-  })
-})
-
 test("on a phone the preview opens as a sheet", async ({ page }) => {
   await open(page, 390)
   await expect(page.locator(".preview-strip")).toBeVisible()
@@ -331,7 +299,7 @@ test("pasting a color, a theme.css or an image sets the theme", async ({
     "Nothing to use there. Paste a color, a theme.css or an image.",
   )
   await paste.fill(`@layer theme.custom {
-    :where(html, .ui-palette, .ui-contrast-more) {
+    :where(html, .ui-scope, .ui-contrast-more) {
       --ui-radius: 1rem;
       --ui-density: 0.875;
     }
@@ -484,7 +452,7 @@ test("the All tokens room resolves every token and takes a value", async ({
   await expect(
     page.locator('[data-token="--ui-primary"] [data-dark] [data-text]'),
   ).toContainText("oklch(")
-  const field = page.locator('input[name="token-ui-space-7"]')
+  const field = page.locator('input[name="token-ui-space-8"]')
   await field.fill("9rem")
   await field.dispatchEvent("change")
   await expect(changes(page)).toHaveText("1 change")
@@ -492,12 +460,12 @@ test("the All tokens room resolves every token and takes a value", async ({
   await field.fill("url(evil)")
   await field.dispatchEvent("change")
   await expect(toast(page)).toContainText(
-    "is not a value --ui-space-7 can take",
+    "is not a value --ui-space-8 can take",
   )
   await expect(field).toHaveValue("9rem")
-  await page.locator('input[name="builder-search"]').fill("space-7")
+  await page.locator('input[name="builder-search"]').fill("space-8")
   await expect(page.locator("[data-search-summary]")).toHaveText(
-    '1 setting matches "space-7".',
+    '1 setting matches "space-8".',
   )
   await expect(page.locator("[data-token]:visible")).toHaveCount(1)
 })

@@ -43,6 +43,13 @@ export default function Native() {
           type="checkbox"
         />
       </form>
+      <form data-case="checkbox-spread">
+        <input
+          {...{ "data-round": round() }}
+          aria-label="Agree"
+          type="checkbox"
+        />
+      </form>
       <form data-case="group-bound">
         <For each={views}>
           {(view) => (
@@ -110,6 +117,22 @@ export default function Native() {
         <input aria-label="Tea" name="drink" type="radio" value="tea" />
         <input aria-label="Coffee" name="drink" type="radio" value="coffee" />
       </form>
+      <form data-case="radio-spread">
+        <input
+          {...{ "data-round": round() }}
+          aria-label="Tea"
+          name="drink"
+          type="radio"
+          value="tea"
+        />
+        <input
+          {...{ "data-round": round() }}
+          aria-label="Coffee"
+          name="drink"
+          type="radio"
+          value="coffee"
+        />
+      </form>
       <form data-case="range-bound">
         <input
           aria-label="Level"
@@ -154,6 +177,19 @@ export default function Native() {
         <For each={stars}>
           {(star) => (
             <input
+              aria-label={`${star} stars`}
+              name="score"
+              type="radio"
+              value={star}
+            />
+          )}
+        </For>
+      </form>
+      <form data-case="rating-spread">
+        <For each={stars}>
+          {(star) => (
+            <input
+              {...{ "data-round": round() }}
               aria-label={`${star} stars`}
               name="score"
               type="radio"

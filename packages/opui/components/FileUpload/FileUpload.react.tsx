@@ -49,7 +49,7 @@ export default function FileUpload({
               className="ui-sr-only"
               disabled={disabled}
               id={inputId}
-              multiple={multiple}
+              multiple={multiple || undefined}
               type="file"
             />
             <span className="ui-button ui-outlined">{label}</span>
@@ -72,7 +72,7 @@ export default function FileUpload({
             {items.map((item, index) => (
               <li
                 key={index}
-                className={cx([{ "ui-error": item.state === "error" }])}
+                className={cx([{ "ui-state-error": item.state === "error" }])}
               >
                 <div className="ui-start">
                   {item.preview && <img alt="" src={item.preview} />}

@@ -214,6 +214,70 @@
     "url": "/html/components/badge/#corners"
   },
   {
+    "id": "component-breadcrumb-html",
+    "title": "Breadcrumb",
+    "description": "Shows where the page sits in a hierarchy, with a link to each level above it.",
+    "keywords": "crumbs navigation path trail",
+    "category": "Component",
+    "url": "/html/components/breadcrumb/"
+  },
+  {
+    "id": "component-breadcrumb-html-basics",
+    "title": "Basics",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/html/components/breadcrumb/#basics"
+  },
+  {
+    "id": "component-breadcrumb-html-sizes",
+    "title": "Sizes",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/html/components/breadcrumb/#sizes"
+  },
+  {
+    "id": "component-breadcrumb-html-separator",
+    "title": "Separator",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/html/components/breadcrumb/#separator"
+  },
+  {
+    "id": "component-breadcrumb-html-current-link",
+    "title": "Current page as a link",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/html/components/breadcrumb/#current-link"
+  },
+  {
+    "id": "component-breadcrumb-html-overflow",
+    "title": "Overflow",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/html/components/breadcrumb/#overflow"
+  },
+  {
+    "id": "component-breadcrumb-html-overflow-menu",
+    "title": "Collapsed levels in a menu",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/html/components/breadcrumb/#overflow-menu"
+  },
+  {
+    "id": "component-breadcrumb-html-items",
+    "title": "Items",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/html/components/breadcrumb/#items"
+  },
+  {
+    "id": "component-breadcrumb-html-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Breadcrumb",
+    "category": "Component",
+    "url": "/html/components/breadcrumb/#keyboard-support"
+  },
+  {
     "id": "component-button-html",
     "title": "Button",
     "description": "A button for actions, like saving a form, with variants, colors, sizes and icons.",
@@ -895,11 +959,11 @@
     "url": "/html/components/description-list/#basics"
   },
   {
-    "id": "component-description-list-html-border",
-    "title": "Border",
+    "id": "component-description-list-html-leader",
+    "title": "Leader",
     "page": "Description list",
     "category": "Component",
-    "url": "/html/components/description-list/#border"
+    "url": "/html/components/description-list/#leader"
   },
   {
     "id": "component-description-list-html-orientation",
@@ -1123,13 +1187,6 @@
     "url": "/html/components/field/#basics"
   },
   {
-    "id": "component-field-html-ids",
-    "title": "Ids",
-    "page": "Field",
-    "category": "Component",
-    "url": "/html/components/field/#ids"
-  },
-  {
     "id": "component-field-html-variants",
     "title": "Variants",
     "page": "Field",
@@ -1165,20 +1222,6 @@
     "url": "/html/components/field/#start-text"
   },
   {
-    "id": "component-field-html-end-text",
-    "title": "End text",
-    "page": "Field",
-    "category": "Component",
-    "url": "/html/components/field/#end-text"
-  },
-  {
-    "id": "component-field-html-character-count",
-    "title": "Character count",
-    "page": "Field",
-    "category": "Component",
-    "url": "/html/components/field/#character-count"
-  },
-  {
     "id": "component-field-html-affix",
     "title": "Affix",
     "page": "Field",
@@ -1193,6 +1236,27 @@
     "url": "/html/components/field/#top-and-bottom"
   },
   {
+    "id": "component-field-html-end-text",
+    "title": "End text",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#end-text"
+  },
+  {
+    "id": "component-field-html-character-count",
+    "title": "Character count",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#character-count"
+  },
+  {
+    "id": "component-field-html-ids",
+    "title": "Ids",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#ids"
+  },
+  {
     "id": "component-field-html-validation",
     "title": "Validation",
     "page": "Field",
@@ -1205,6 +1269,13 @@
     "page": "Field",
     "category": "Component",
     "url": "/html/components/field/#bound-validation"
+  },
+  {
+    "id": "component-field-html-disabled",
+    "title": "Disabled and read-only",
+    "page": "Field",
+    "category": "Component",
+    "url": "/html/components/field/#disabled"
   },
   {
     "id": "component-field-html-spread",
@@ -2388,13 +2459,6 @@
     "page": "Select",
     "category": "Component",
     "url": "/html/components/select/#preselected"
-  },
-  {
-    "id": "component-select-html-disabled",
-    "title": "Disabled",
-    "page": "Select",
-    "category": "Component",
-    "url": "/html/components/select/#disabled"
   },
   {
     "id": "component-select-html-required",
@@ -3629,27 +3693,6 @@
     "url": "/html/guide/theme-tokens/#tokens-json"
   },
   {
-    "id": "guide-theme-tokens-html-figma",
-    "title": "Figma",
-    "page": "Theme tokens",
-    "category": "Guide",
-    "url": "/html/guide/theme-tokens/#figma"
-  },
-  {
-    "id": "guide-theme-tokens-html-figma-plugin",
-    "title": "With the plugin",
-    "page": "Theme tokens",
-    "category": "Guide",
-    "url": "/html/guide/theme-tokens/#figma-plugin"
-  },
-  {
-    "id": "guide-theme-tokens-html-figma-files",
-    "title": "Without the plugin",
-    "page": "Theme tokens",
-    "category": "Guide",
-    "url": "/html/guide/theme-tokens/#figma-files"
-  },
-  {
     "id": "guide-theme-tokens-html-naming",
     "title": "How tokens are named",
     "page": "Theme tokens",
@@ -4028,7 +4071,7 @@
     "id": "blog-release-6",
     "title": "opui 6.0",
     "description": "What changed in 6.0 and why, with live demos.",
-    "headings": "It's a proper design system now Five example themes Token tiers Contrast as a guarantee Loads of new components So much cool stuff in the docs Blocks! Theme builder The CSS is the component One Astro file, five frameworks Slots become parts, props get one naming model The platform did the work Browser support, honestly The new \"by hand\" Working with AI Where it landed Migrating",
+    "headings": "It's a proper design system now The example themes Token tiers Contrast as a guarantee Loads of new components So much cool stuff in the docs Blocks! Theme builder The CSS is the component One Astro file, every framework Slots become parts, props get one naming model The platform did the work Browser support, honestly The new \"by hand\" Working with AI Where it landed Migrating",
     "category": "Blog",
     "url": "/blog/release-6/"
   },
@@ -4121,6 +4164,14 @@
     "url": "/blocks/account-settings/"
   },
   {
+    "id": "block-album-launch",
+    "title": "Album launch",
+    "description": "A release countdown on a dark stage, with record art, big digits, a pre-save field and the first tracks to hear.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/album-launch/"
+  },
+  {
     "id": "block-analytics-dashboard",
     "title": "Analytics dashboard",
     "description": "Key metrics, a bar chart, top pages and traffic sources, with a date range toggle.",
@@ -4135,6 +4186,22 @@
     "headings": "Application",
     "category": "Blocks",
     "url": "/blocks/app-shell/"
+  },
+  {
+    "id": "block-article",
+    "title": "Article",
+    "description": "A magazine article with a breadcrumb, byline, cover image, a sticky table of contents, rich text, tags and an author card.",
+    "headings": "Content",
+    "category": "Blocks",
+    "url": "/blocks/article/"
+  },
+  {
+    "id": "block-bassist-profile",
+    "title": "Bassist profile",
+    "description": "A musician's profile with a stage-light cover, stats, gear, and a wall of posts with reactions.",
+    "headings": "Application",
+    "category": "Blocks",
+    "url": "/blocks/bassist-profile/"
   },
   {
     "id": "block-billing",
@@ -4153,12 +4220,36 @@
     "url": "/blocks/blog-list/"
   },
   {
+    "id": "block-call-to-action",
+    "title": "Call to action",
+    "description": "A bold banner with one call to action, and a split section with an inline email sign-up.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/call-to-action/"
+  },
+  {
+    "id": "block-centered-hero",
+    "title": "Centered hero",
+    "description": "A centered headline with a soft glow, two calls to action, member avatars and a row of band names.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/centered-hero/"
+  },
+  {
     "id": "block-changelog",
     "title": "Changelog",
     "description": "Releases on a timeline, each with a version, a date and grouped changes.",
     "headings": "Marketing",
     "category": "Blocks",
     "url": "/blocks/changelog/"
+  },
+  {
+    "id": "block-character-sheet",
+    "title": "Character sheet",
+    "description": "An RPG-style profile with hit points, experience, attribute meters, an inventory, abilities and a quest log.",
+    "headings": "Games",
+    "category": "Blocks",
+    "url": "/blocks/character-sheet/"
   },
   {
     "id": "block-chat",
@@ -4175,6 +4266,30 @@
     "headings": "E-commerce",
     "category": "Blocks",
     "url": "/blocks/checkout/"
+  },
+  {
+    "id": "block-collage-hero",
+    "title": "Collage hero",
+    "description": "A headline and pitch next to an overlapping collage of illustrated scenes with a floating stat card.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/collage-hero/"
+  },
+  {
+    "id": "block-contact",
+    "title": "Contact",
+    "description": "Ways to get in touch and opening hours, next to a contact form with a topic and a consent box.",
+    "headings": "Content",
+    "category": "Blocks",
+    "url": "/blocks/contact/"
+  },
+  {
+    "id": "block-cover-hero",
+    "title": "Cover hero",
+    "description": "A full-bleed illustrated scene with a dark scrim, a headline, calls to action and quick facts on top.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/cover-hero/"
   },
   {
     "id": "block-data-table",
@@ -4233,6 +4348,14 @@
     "url": "/blocks/forgot-password/"
   },
   {
+    "id": "block-gig-ticket",
+    "title": "Gig ticket",
+    "description": "A festival ticket with a tear-off stub and barcode, the running order and who holds each ticket.",
+    "headings": "Events",
+    "category": "Blocks",
+    "url": "/blocks/gig-ticket/"
+  },
+  {
     "id": "block-hero",
     "title": "Hero",
     "description": "A headline, a short pitch, two calls to action and a product preview.",
@@ -4265,12 +4388,28 @@
     "url": "/blocks/kanban-board/"
   },
   {
+    "id": "block-leaderboard",
+    "title": "Leaderboard",
+    "description": "A podium for the top three, a table of the rest with your own row highlighted, and your stats for the week.",
+    "headings": "Games",
+    "category": "Blocks",
+    "url": "/blocks/leaderboard/"
+  },
+  {
     "id": "block-lightbox",
     "title": "Lightbox",
     "description": "A post's photos in a dark full-screen viewer: swipe sideways between them, and down to close.",
     "headings": "Application",
     "category": "Blocks",
     "url": "/blocks/lightbox/"
+  },
+  {
+    "id": "block-music-player",
+    "title": "Music player",
+    "description": "The track playing now with a cover, seek bar and controls, next to the queue and the lyrics.",
+    "headings": "Lifestyle",
+    "category": "Blocks",
+    "url": "/blocks/music-player/"
   },
   {
     "id": "block-newsletter",
@@ -4313,6 +4452,14 @@
     "url": "/blocks/order-history/"
   },
   {
+    "id": "block-party-invitation",
+    "title": "Party invitation",
+    "description": "A birthday invitation with the when, where and who, next to an RSVP form with guests, food and a song request.",
+    "headings": "Events",
+    "category": "Blocks",
+    "url": "/blocks/party-invitation/"
+  },
+  {
     "id": "block-pricing",
     "title": "Pricing",
     "description": "Three plans with a monthly or yearly toggle, a highlighted plan and a feature comparison.",
@@ -4337,6 +4484,14 @@
     "url": "/blocks/project-overview/"
   },
   {
+    "id": "block-recipe",
+    "title": "Recipe",
+    "description": "A cooking recipe with times and a rating, a servings stepper, an ingredient checklist and numbered steps.",
+    "headings": "Lifestyle",
+    "category": "Blocks",
+    "url": "/blocks/recipe/"
+  },
+  {
     "id": "block-sales-dashboard",
     "title": "Sales dashboard",
     "description": "Revenue, orders and conversion with sales targets and the latest orders.",
@@ -4351,6 +4506,14 @@
     "headings": "Dashboards",
     "category": "Blocks",
     "url": "/blocks/server-status/"
+  },
+  {
+    "id": "block-setlist",
+    "title": "Setlist",
+    "description": "A setlist taped to the stage floor with keys, tempos and notes, songs ticked off as they're played, and a stage plot.",
+    "headings": "Events",
+    "category": "Blocks",
+    "url": "/blocks/setlist/"
   },
   {
     "id": "block-shopping-cart",
@@ -4377,6 +4540,22 @@
     "url": "/blocks/sign-up/"
   },
   {
+    "id": "block-site-footer",
+    "title": "Site footer",
+    "description": "A site footer with a newsletter field, columns of links, legal links and a language picker.",
+    "headings": "Content",
+    "category": "Blocks",
+    "url": "/blocks/site-footer/"
+  },
+  {
+    "id": "block-site-header",
+    "title": "Site header",
+    "description": "A site header with a logo, navigation with a dropdown menu and calls to action, collapsing into a drawer on small screens.",
+    "headings": "Content",
+    "category": "Blocks",
+    "url": "/blocks/site-header/"
+  },
+  {
     "id": "block-team-members",
     "title": "Team members",
     "description": "An invite form and a member list with roles, statuses and actions.",
@@ -4385,12 +4564,44 @@
     "url": "/blocks/team-members/"
   },
   {
+    "id": "block-teasers",
+    "title": "Teasers",
+    "description": "Alternating rows of image and text, image left then image right, each with a tag, a title and a link.",
+    "headings": "Content",
+    "category": "Blocks",
+    "url": "/blocks/teasers/"
+  },
+  {
     "id": "block-testimonials",
     "title": "Testimonials",
     "description": "Customer quotes with names, roles and ratings.",
     "headings": "Marketing",
     "category": "Blocks",
     "url": "/blocks/testimonials/"
+  },
+  {
+    "id": "block-tournament-bracket",
+    "title": "Tournament bracket",
+    "description": "A battle of the bands bracket with scores, connector lines between rounds and the champion still to be decided.",
+    "headings": "Games",
+    "category": "Blocks",
+    "url": "/blocks/tournament-bracket/"
+  },
+  {
+    "id": "block-trivia-quiz",
+    "title": "Trivia quiz",
+    "description": "A quiz question with answer tiles, a timer meter, progress, a streak and the feedback after answering.",
+    "headings": "Games",
+    "category": "Blocks",
+    "url": "/blocks/trivia-quiz/"
+  },
+  {
+    "id": "block-tuner",
+    "title": "Tuner",
+    "description": "A tuner with a needle gauge and string picker, next to a metronome with tempo, beats and time signature.",
+    "headings": "Lifestyle",
+    "category": "Blocks",
+    "url": "/blocks/tuner/"
   },
   {
     "id": "block-two-factor",
@@ -4409,10 +4620,18 @@
     "url": "/blocks/user-directory/"
   },
   {
+    "id": "block-year-in-review",
+    "title": "Year in review",
+    "description": "A year-end recap in bold cards: hours played, a personality, top songs, a favourite string and a practice streak.",
+    "headings": "Dashboards",
+    "category": "Blocks",
+    "url": "/blocks/year-in-review/"
+  },
+  {
     "id": "theme-builder",
     "title": "Theme builder",
     "description": "Start from a preset, pick a mood and your colors, shuffle, check the contrast, and copy one CSS file.",
-    "headings": "bootstrap Brand color brutalist Contrast check Corners Density Export theme.css Fonts Generator govuk Light and dark mode m3 Motion OKLCH Presets shadcn Shadows Share link Spacing Status colors",
+    "headings": "bootstrap Brand color brutalist Contrast check Corners Density Export theme.css Fonts Generator govuk Light and dark mode m3 Motion OKLCH Presets shadcn Shadows Share link Spacing Status colors vice-city",
     "category": "Guide",
     "url": "/theme-builder/"
   },
@@ -4436,7 +4655,7 @@
     "id": "api-accordion-html",
     "title": "Accordion API",
     "description": "Reference for Accordion HTML component.",
-    "api": "details.ui-accordion Container element. The always visible header. summary The marker. In Astro, React, Solid, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates. summary .ui-marker The collapsible content. .ui-content A group of actions, such as buttons. .ui-actions [name] Group Groups accordions so only one of them can be open at a time. .ui-marker-animation-flip .ui-marker-animation-turn Marker animation How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` turns it a quarter turn, for a marker that points to the inline end and then points down when open. The default chevron points down, so `turn` needs a custom marker. [open] State Whether the accordion is open. .ui-elevated .ui-outlined .ui-tonal .ui-transparent Variants The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface or border, and no inline padding.",
+    "api": "details.ui-accordion Container element. The always visible header. summary The marker. Outside HTML, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates. summary .ui-marker The collapsible content. .ui-content A group of actions, such as buttons. .ui-actions [name] Group Groups accordions so only one of them can be open at a time. .ui-marker-animation-flip .ui-marker-animation-turn Marker animation How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` turns it a quarter turn, for a marker that points to the inline end and then points down when open. The default chevron points down, so `turn` needs a custom marker. [open] State Whether the accordion is open. .ui-elevated .ui-outlined .ui-tonal .ui-transparent Variants The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface or border, and no inline padding.",
     "category": "API",
     "url": "/html/api/#accordion"
   },
@@ -4473,6 +4692,22 @@
     "url": "/html/api/#badge"
   },
   {
+    "id": "api-breadcrumb-item-html",
+    "title": "Breadcrumb item API",
+    "description": "Reference for Breadcrumb item HTML component.",
+    "api": "li A level. Replaces the drawn separator before the level. .ui-separator The level, a link or a `span`. a, span:not(.ui-separator) [aria-current=\"page\"] Current Marks the current page.",
+    "category": "API",
+    "url": "/html/api/#breadcrumb-item"
+  },
+  {
+    "id": "api-breadcrumb-html",
+    "title": "Breadcrumb API",
+    "description": "Reference for Breadcrumb HTML component.",
+    "api": "nav.ui-breadcrumb The navigation landmark. The list of levels. ol A level, with the separator before it. li With `overflow=\"menu\"`, the `…` button and its menu. li:has(> .ui-menu) Replaces the drawn separator of the levels in `items`. .ui-separator [aria-label] Label Accessible name of the landmark. .ui-overflow-menu .ui-overflow-scroll .ui-overflow-shrink Overflow What a trail too long for its row does. .ui-small Sizes The size of the element.",
+    "category": "API",
+    "url": "/html/api/#breadcrumb"
+  },
+  {
     "id": "api-button-html",
     "title": "Button API",
     "description": "Reference for Button HTML component.",
@@ -4484,7 +4719,7 @@
     "id": "api-callout-html",
     "title": "Callout API",
     "description": "Reference for Callout HTML component.",
-    "api": ".ui-callout Container element, a `<div>`. With `closeButton`, the `<opui-callout>` custom element, which a button with `commandfor` and `command=\"--dismiss\"` dismisses. An optional icon before the content. In Astro, React, Solid, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. .ui-callout > svg The content, with an optional heading first. .ui-content A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. .ui-callout > .ui-button A row of buttons under the content. .ui-actions .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Severities The severity. Sets the color, and in Astro, React, Solid, Svelte and Vue the icon `CalloutIcon` renders. .ui-outlined Variants The variant to use. dismiss Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout. dismiss() Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
+    "api": ".ui-callout Container element, a `<div>`. With `closeButton`, the `<opui-callout>` custom element, which a button with `commandfor` and `command=\"--dismiss\"` dismisses. An optional icon before the content. Outside HTML, `CalloutIcon` renders the default one for critical, info, success and warning. .ui-callout > svg The content, with an optional heading first. .ui-content A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command=\"--dismiss\"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`. .ui-callout > .ui-button A row of buttons under the content. .ui-actions .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Severities The severity. Sets the color, and outside HTML the icon `CalloutIcon` renders. .ui-outlined Variants The variant to use. dismiss Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout. dismiss() Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
     "category": "API",
     "url": "/html/api/#callout"
   },
@@ -4508,7 +4743,7 @@
     "id": "api-card-html",
     "title": "Card API",
     "description": "Reference for Card HTML component.",
-    "api": ".ui-card Container element. An image or video that runs to the edges of the card. `img`, `picture` and `video` children fill the width and crop to the height you give them. .ui-card > img The card header. .ui-header The card content. .ui-content A group of actions, such as buttons. .ui-actions .ui-primary Colors Paints a thick `--ui-primary` outline around the card, for the one card in a row that stands out, like a recommended plan. .ui-dense .ui-spacious Density How much room the parts get. `spacious` pads them with `--ui-space-5` for a card that stands alone, such as a sign-in form, `dense` with `--ui-space-2` for a small stat. .ui-horizontal .ui-vertical Orientation The orientation of the element. With `auto`, a card whose first child is an image, picture or video puts it at the start, over the full height, with the other parts next to it, once the card is `40rem` wide, and on top below that. `horizontal` always puts it at the start and `vertical` always on top. The image takes `--_media-inline-size`, `40%` of the card. .ui-elevated .ui-outlined .ui-tonal .ui-transparent Variants The variant to use. The default `plain` card has the page surface color and no border.",
+    "api": ".ui-card Container element. An image or video that runs to the edges of the card. `img`, `picture` and `video` children fill the width and crop to the height you give them. .ui-card > img The card header. .ui-header The card content. .ui-content A group of actions, such as buttons. .ui-actions .ui-primary Colors Paints a thick `--ui-primary` outline around the card, for the one card in a row that stands out, like a recommended plan. .ui-dense .ui-spacious Density How much room the parts get. `spacious` pads them with `--ui-space-6` for a card that stands alone, such as a sign-in form, `dense` with `--ui-space-2` for a small stat. .ui-horizontal .ui-vertical Orientation The orientation of the element. With `auto`, a card whose first child is an image, picture or video puts it at the start, over the full height, with the other parts next to it, once the card is `40rem` wide, and on top below that. `horizontal` always puts it at the start and `vertical` always on top. The image takes `--_media-inline-size`, `40%` of the card. .ui-elevated .ui-outlined .ui-tonal .ui-transparent Variants The variant to use. The default `plain` card has the page surface color and no border.",
     "category": "API",
     "url": "/html/api/#card"
   },
@@ -4524,7 +4759,7 @@
     "id": "api-character-count-html",
     "title": "Character count API",
     "description": "Reference for Character count HTML component.",
-    "api": ".ui-end-text > .ui-value Shows the characters typed out of the control's `maxlength`, `aria-hidden` so it stays out of the field's description. Once 10% or 10 are left, whichever is more, a live region outside the label announces the characters left. label Label The announcement near the limit, with `{count}` for the characters left. Pass it translated. control The `<input>` or `<textarea>` of the field it's in, or `null` outside one. Read-only.",
+    "api": ".ui-end-text > .ui-value Shows the characters typed out of `maxlength`, `aria-hidden` so it stays out of the description. Screen readers hear the characters left once 10% or 10 remain, whichever is more. label Label The announcement near the limit, with `{count}` for the characters left. Pass it translated. control The field's `<input>` or `<textarea>`, or `null` outside a field. Read-only.",
     "category": "API",
     "url": "/html/api/#character-count"
   },
@@ -4580,7 +4815,7 @@
     "id": "api-description-list-html",
     "title": "Description list API",
     "description": "Reference for Description list HTML component.",
-    "api": "dl.ui-description-list Container element. Groups a term with its description. dl.ui-description-list > div The term. dt The description. dd .ui-border-dotted .ui-border-solid Borders The style of the line between the term and the description. Without it, there's no line. .ui-horizontal Orientation The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.",
+    "api": "dl.ui-description-list Container element. Groups a term with its description. dl.ui-description-list > div The term. dt The description. dd .ui-leader-dotted .ui-leader-solid Leader The style of the leader, the line between the term and the description. Without it, there's no line. .ui-horizontal .ui-vertical Orientation The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width, and `vertical` always stacks them.",
     "category": "API",
     "url": "/html/api/#description-list"
   },
@@ -4636,7 +4871,7 @@
     "id": "api-drawer-html",
     "title": "Drawer API",
     "description": "Reference for Drawer HTML component.",
-    "api": "dialog.ui-drawer Container element. The header, a row for the title and anything next to it, with an optional close button. .ui-header The title. Names the drawer through `aria-labelledby`. .ui-header > h2 The scrollable content. .ui-content The footer, a row at the end. .ui-footer .ui-backdrop-transparent Backdrop The backdrop style. `transparent` keeps the page behind it fully visible. [closedby] Behavior How the drawer can be closed. `any` also closes it on a click outside. Swiping a drawer at the block start or end toward its edge is a close request too, so `none` turns it off. [data-close-on-navigate] Close on navigate Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. A link inside it closes it on click, unless it has `data-keep-open`, and a change of the query alone from outside it leaves it open. Reads the Navigation API. .ui-scroll-lock Scroll lock Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`. .ui-block-end .ui-block-start .ui-inline-end Position The side it opens from.",
+    "api": "dialog.ui-drawer Container element. The header, a row for the title and anything next to it, with an optional close button. .ui-header The title. Names the drawer through `aria-labelledby`. .ui-header > h2 The scrollable content. .ui-content The footer, a row at the end. .ui-footer .ui-backdrop-transparent Backdrop The backdrop style. `transparent` keeps the page behind it fully visible. [closedby] Behavior How the drawer can be closed. `any` also closes it on a click outside. Swiping a drawer at the block start or end toward its edge is a close request too, so `none` turns it off. [data-close-on-navigate] Close on navigate Closes the drawer when the page navigates: a link inside it, Back and Forward, or a client router. A link inside it closes it on click, unless it has `data-keep-open` or opens elsewhere (a download, a `target` such as `_blank`, a click with a modifier key), and a change of the query alone from outside it leaves it open. Reads the Navigation API. .ui-scroll-lock Scroll lock Locks page scroll while the drawer is open, also when `show()` opens it. A modal drawer locks it without this. With a transparent backdrop the page stays scrollable, except on screens narrower than `31.25rem`. .ui-block-end .ui-block-start .ui-inline-end Position The side it opens from.",
     "category": "API",
     "url": "/html/api/#drawer"
   },
@@ -4668,7 +4903,7 @@
     "id": "api-field-html",
     "title": "Field API",
     "description": "Reference for Field HTML component.",
-    "api": ".ui-field Container element, a `<div>`. The label inside is a `<label for>` that names the control by itself. The label for the field. .ui-label Start text displayed above the field. .ui-start-text The boxed control area. .ui-field-container Content above the control, inside the border, with a divider. .ui-field-container > .ui-top Content at the inline-start of the field, inside the border. .ui-field-container > .ui-start Your control, written directly inside `.ui-field-container` with its `id` set to `for`. Bind it, name it and mark it `required`, `disabled` or `aria-invalid=\"true\"` like any control. A `<textarea>` grows with its content, and a `<select>` is a customizable select. .ui-field-container > :is(input, select, textarea) Content at the inline-end of the field, inside the border, such as a `PasswordToggle`. .ui-field-container > .ui-end Content below the control, inside the border, with a divider. .ui-field-container > .ui-bottom Supporting text displayed below the field, and a `CharacterCount`. .ui-end-text .ui-auto-fit Auto fit Lets the width follow the content, from `25ch`, or `4ch` with step buttons. A textarea can then be resized both ways. .ui-dense Dense Packs the options of a select tighter. .ui-drop-zone Drop zone Makes a `type=\"file\"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker. .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Spread Pushes the label and start text to one side and the control to the other. :has(:is(input, select, textarea):is(:disabled, [aria-disabled=\"true\"])) :has([aria-invalid=\"true\"], :user-invalid) :has([readonly]) :has(:required) State Set on the control: `aria-invalid=\"true\"`, or `:user-invalid`, shows the error colors, `required` adds a required mark after the label, `disabled` or `aria-disabled=\"true\"` dims the field, and `readonly` keeps the text cursor. .ui-filled Variants The variant to use.",
+    "api": ".ui-field A `<div>`, whose `<label for>` names the control. The label for the field. .ui-label Text above the box. .ui-start-text The box around the control. .ui-field-container Content above the control, inside the box. .ui-field-container > .ui-top Content before the control, inside the box. .ui-field-container > .ui-start Your control, with the field's `for` as its `id`. .ui-field-container > :is(input, select, textarea) Content after the control, inside the box, like a `PasswordToggle`. .ui-field-container > .ui-end Content below the control, inside the box. .ui-field-container > .ui-bottom Text below the box, and a `CharacterCount`. .ui-end-text .ui-auto-fit Auto fit Fits the width to the content, from `25ch` (`4ch` with step buttons), and lets a textarea resize sideways. .ui-dense Dense Tighter select options. .ui-drop-zone Drop zone Makes a `type=\"file\"` input a tall, dashed drop zone. .ui-sr-only Label Visually hides the label but keeps its name. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Spread Puts the label and start text beside the control. :has(:is(input, select, textarea):is(:disabled, [aria-disabled=\"true\"])) :has([aria-invalid=\"true\"], :user-invalid) :has([readonly]) :has(:required) State Set on the control: invalid shows the error colors, required marks the label, disabled dims the field and read-only keeps the text cursor. .ui-filled Variants The variant to use.",
     "category": "API",
     "url": "/html/api/#field"
   },
@@ -4684,7 +4919,7 @@
     "id": "api-file-upload-html",
     "title": "File upload API",
     "description": "Reference for File upload HTML component.",
-    "api": "opui-file-upload.ui-file-upload The `<opui-file-upload>` custom element, a size container. It fires `select` for picks and drops and `remove` for the remove buttons, and has the `drag-over` custom state while files are dragged over it. While it has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, it holds picked files back and remove buttons do nothing. Lays out the drop zone and the files: stacked, or in one row when the root is narrower than `28rem`. .ui-content The drop zone, dashed, and solid while files are dragged over the root. In the compact row it is a square add tile. .ui-content > .ui-field-container Names the file input and covers the drop zone, so a click anywhere in it opens the picker. Its plus `<svg>` shows in the compact row. .ui-field-container > .ui-label The file input, visually hidden. Its focus ring is drawn on the drop zone. .ui-label > input The visible trigger, a `<span>` since a label can't hold a button. Visually hidden in the compact row. .ui-label > .ui-button The hint, linked to the input with `aria-describedby`. .ui-field-container > .ui-description The files, one `<li>` each: List rows, or square previews that scroll sideways in the compact row. .ui-content > .ui-list The preview: the `<img>` of the file, or a tonal placeholder until there is one. On a failed file it also holds the `<button popovertarget>` that opens the message in the compact row. .ui-list > li > .ui-start The file name, a `Progress` while the file is queued or uploading, and the message in a `.ui-description`. In the compact row the name is visually hidden and the progress lies along the bottom edge. .ui-list > li > .ui-text The remove button, a round `.ui-button` with `command=\"--remove\"`, in every state. .ui-list > li > .ui-end The live region. It is always in the page, so a change of its text is announced. [role=\"status\"] [accept] Accept The file types the input takes, as on a file input: extensions, MIME types and `type/*`. The element applies it to picks as well as drops. :disabled State Disables the input and dims the trigger. A drop does nothing. .ui-error Items The files, as `{ description, label, preview, progress, state, value }` objects. `label` is the file name, `value` the id the `remove` event names, `preview` the URL of an image, `state` one of `\"done\"`, `\"error\"`, `\"queued\"` and `\"uploading\"`, `progress` a fraction from 0 to 1 while uploading, and `description` a message, which a failed file shows in the critical color. [multiple] Multiple Takes several files in one pick or drop. Without it, `select` gets the first accepted file. input The `<input type=\"file\">` inside, or `null`. Read-only. remove Fires when a remove button is pressed, with its `value` in `event.detail.value`. It bubbles. Once the row is gone, focus moves to the next row's remove button, or else the previous one, or else the input. select Fires after a pick or a drop, with the new files in `event.detail.files`: the ones the input's `accept` allows, and only the first without `multiple`. It bubbles, and the input is cleared afterwards.",
+    "api": "opui-file-upload.ui-file-upload The `<opui-file-upload>` custom element, a size container. It fires `select` for picks and drops and `remove` for the remove buttons, and has the `drag-over` custom state while files are dragged over it. While it has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, it holds picked files back and remove buttons do nothing. Lays out the drop zone and the files: stacked, or in one row when the root is narrower than `28rem`. .ui-content The drop zone, dashed, and solid while files are dragged over the root. In the compact row it is a square add tile. .ui-content > .ui-field-container Names the file input and covers the drop zone, so a click anywhere in it opens the picker. Its plus `<svg>` shows in the compact row. .ui-field-container > .ui-label The file input, visually hidden. Its focus ring is drawn on the drop zone. .ui-label > input The visible trigger, a `<span>` since a label can't hold a button. Visually hidden in the compact row. .ui-label > .ui-button The hint, linked to the input with `aria-describedby`. .ui-field-container > .ui-description The files, one `<li>` each: List rows, or square previews that scroll sideways in the compact row. .ui-content > .ui-list The preview: the `<img>` of the file, or a tonal placeholder until there is one. On a failed file it also holds the `<button popovertarget>` that opens the message in the compact row. .ui-list > li > .ui-start The file name, a `Progress` while the file is queued or uploading, and the message in a `.ui-description`. In the compact row the name is visually hidden and the progress lies along the bottom edge. .ui-list > li > .ui-text The remove button, a round `.ui-button` with `command=\"--remove\"`, in every state. .ui-list > li > .ui-end The live region. It is always in the page, so a change of its text is announced. [role=\"status\"] [accept] Accept The file types the input takes, as on a file input: extensions, MIME types and `type/*`. The element applies it to picks as well as drops. :disabled State Disables the input and dims the trigger. A drop does nothing. .ui-state-error Items The files, as `{ description, label, preview, progress, state, value }` objects. `label` is the file name, `value` the id the `remove` event names, `preview` the URL of an image, `state` one of `\"complete\"`, `\"error\"`, `\"queued\"` and `\"uploading\"`, `progress` a fraction from 0 to 1 while uploading, and `description` a message, which a failed file shows in the critical color. [multiple] Multiple Takes several files in one pick or drop. Without it, `select` gets the first accepted file. input The `<input type=\"file\">` inside, or `null`. Read-only. remove Fires when a remove button is pressed, with its `value` in `event.detail.value`. It bubbles. Once the row is gone, focus moves to the next row's remove button, or else the previous one, or else the input. select Fires after a pick or a drop, with the new files in `event.detail.files`: the ones the input's `accept` allows, and only the first without `multiple`. It bubbles. The input is already empty by then, so the same file can be picked again: read the files from `event.detail.files`.",
     "category": "API",
     "url": "/html/api/#file-upload"
   },
@@ -4700,7 +4935,7 @@
     "id": "api-layout-html",
     "title": "Layout API",
     "description": "Reference for Layout HTML component.",
-    "api": ".ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-columns, .ui-layout-media, .ui-layout-container Any element. The classes only set its layout. .ui-align-center .ui-align-end Alignment Where `.ui-layout-row` puts its children along the row, and where `.ui-layout-column` lines up its children and their text. .ui-bordered Borders Draws a line in the middle of each gap of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid` and `.ui-layout-columns`, only between two children, so a wrapped row or the short last row of a grid starts and ends without one. Browsers without gap decorations leave the gap without the line. .ui-breakpoint-large .ui-breakpoint-small Breakpoint The container width at which `.ui-layout-columns` goes from one column to `--_columns`: `40rem`, `56rem` or `72rem`. .ui-layout-column Column A column with even space between its children. On a `ul` or `ol` it also drops the list bullets and margins. .ui-layout-columns Columns One column that becomes the `--_columns` tracks at the breakpoint, measured on the nearest container, such as `.ui-layout-container`. .ui-layout-container Container Centers its content, caps its width and is the container `.ui-layout-columns` measures. .ui-layout-grid Grid Columns that fill the width and wrap. On a `ul` or `ol` it also drops the list bullets and margins, and a `.ui-card` in each `li` fills its cell. .ui-layout-media Media A media object: a fixed-size start, such as an avatar, next to text that fills the rest and wraps instead of widening the row. .ui-layout-row Row A wrapping row with its children centered vertically. On a `ul` or `ol` it also drops the list bullets and margins. .ui-large .ui-small .ui-x-small Sizes The space between children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid`, `.ui-layout-columns` and `.ui-layout-media`. .ui-spread Spread Pushes the children of `.ui-layout-row` to its two ends, for a page header with a heading group and its actions. .ui-sticky Sticky On a child of `.ui-layout-columns`, keeps it in view at `--_sticky-inset` from the top while the other column scrolls, once the columns sit side by side. .ui-stretch Stretch Stretches the columns of `.ui-layout-grid` over the row when there are fewer children than fit, instead of leaving the rest empty.",
+    "api": ".ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-columns, .ui-layout-media, .ui-layout-container Any element. The classes only set its layout. .ui-align-center .ui-align-end Alignment Where `.ui-layout-row` puts its children along the row, and where `.ui-layout-column` lines up its children and their text. .ui-bordered Borders Draws a line in the middle of each gap of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid` and `.ui-layout-columns`, only between two children, so a wrapped row or the short last row of a grid starts and ends without one. Browsers without gap decorations leave the gap without the line. .ui-breakpoint-large .ui-breakpoint-small Breakpoint The container width at which `.ui-layout-columns` goes from one column to `--_columns`: `40rem`, `56rem` or `72rem`. .ui-layout-column Column A column with even space between its children. On a `ul` or `ol` it also drops the list bullets and margins. .ui-layout-columns Columns One column that becomes the `--_columns` tracks at the breakpoint, measured on the nearest container, such as `.ui-layout-container`. .ui-layout-container Container Centers its content, caps its width and is the container `.ui-layout-columns` measures. .ui-layout-grid Grid Columns that fill the width and wrap. On a `ul` or `ol` it also drops the list bullets and margins, and a `.ui-card` in each `li` fills its cell. .ui-layout-media Media A media object: a fixed-size start, such as an avatar, next to text that fills the rest and wraps instead of widening the row. .ui-layout-row Row A wrapping row with its children centered vertically. On a `ul` or `ol` it also drops the list bullets and margins. .ui-gap-large .ui-gap-small .ui-gap-x-small Gap The space between children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid`, `.ui-layout-columns` and `.ui-layout-media`. .ui-spread Spread Pushes the children of `.ui-layout-row` to its two ends, for a page header with a heading group and its actions. .ui-sticky Sticky On a child of `.ui-layout-columns`, keeps it in view at `--_sticky-inset` from the top while the other column scrolls, once the columns sit side by side. .ui-stretch Stretch Stretches the columns of `.ui-layout-grid` over the row when there are fewer children than fit, instead of leaving the rest empty.",
     "category": "API",
     "url": "/html/api/#layout"
   },
@@ -4764,7 +4999,7 @@
     "id": "api-password-toggle-html",
     "title": "Password toggle API",
     "description": "Reference for Password toggle HTML component.",
-    "api": "opui-password-toggle > .ui-button A `.ui-button.ui-round` with `aria-pressed` and `command=\"--toggle-password\"` that shows and hides the password. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Disabled while the input is disabled, and `aria-disabled` while the input is `aria-disabled`. `<opui-password-toggle>` keeps it in step, also when a script changes the input, and hides the password when the input is disabled. Hidden until `<opui-password-toggle>` is defined. aria-label Label The accessible name of the toggle. Pass it translated. hidePassword() Hides the password: sets the input's `type` back to `password` and the toggle's `aria-pressed` to `false`. The element calls it when the form resets or submits. input The `<input>` its button's `commandfor` names, or `null`. Read-only. showPassword() Shows the password: sets the input's `type` to `text` and the toggle's `aria-pressed` to `true`.",
+    "api": "opui-password-toggle > .ui-button A `.ui-button.ui-round` with `aria-pressed` that shows and hides the password, with an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked`, or your icons. It follows the input's `disabled` and `aria-disabled`, and stays hidden until `<opui-password-toggle>` is defined. aria-label Label The accessible name of the toggle. Pass it translated. hidePassword() Hides the password, as on a form reset or submit. input The `<input>` its button's `commandfor` names, or `null`. Read-only. showPassword() Shows the password.",
     "category": "API",
     "url": "/html/api/#password-toggle"
   },
@@ -4796,7 +5031,7 @@
     "id": "api-range-html",
     "title": "Range API",
     "description": "Reference for Range HTML component.",
-    "api": ".ui-field:has(> .ui-field-container > input[type=\"range\"]) A `.ui-field` with an `<input type=\"range\">` in its container, which `range.css` draws without the field's box, as tall as any field's control. Your range input, directly in `.ui-field-container`. The track fills up to the thumb with CSS, so it follows the value without a script. The field's variant (`variant`, `.ui-filled`) and size (`size`, `.ui-x-small`, `.ui-small`, `.ui-large`) set the track and thumb. .ui-field-container > input[type=\"range\"] Labels for the input it's linked to with `list`: the `label` of each option shows under its value. The labels are spread evenly, so space the values evenly. Give it `aria-hidden=\"true\"`, and set `aria-valuetext` on the input to the label at its value, since screen readers don't read the datalist. .ui-field-container > datalist",
+    "api": ".ui-field:has(> .ui-field-container > input[type=\"range\"]) A `.ui-field` with an `<input type=\"range\">`, drawn without the field's box. Your range input. The track fills up to the thumb without a script, and the field's variant (`variant`, `.ui-filled`) and size (`size`, `.ui-x-small`, `.ui-small`, `.ui-large`) set the track and thumb. .ui-field-container > input[type=\"range\"] Labels under the input, linked with `list`: each option's `label`, spread evenly. Give it `aria-hidden=\"true\"`, and set the input's `aria-valuetext` to the label at its value. .ui-field-container > datalist",
     "category": "API",
     "url": "/html/api/#range"
   },
@@ -4812,7 +5047,7 @@
     "id": "api-reactions-html",
     "title": "Reactions API",
     "description": "Reference for Reactions HTML component.",
-    "api": "opui-reactions.ui-reactions The `<opui-reactions>` custom element, a row that wraps, and `display: contents` in the `bottom` slot of a `Message`. A click on a pill, or on a button with `command=\"--react\"`, this element in `commandfor` and the emoji as its `value`, fires a `reaction` event that bubbles, and changes nothing. A pick of an emoji you already reacted with asks to uncheck it, and the menu the button is in closes. While it has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, clicks ask for nothing. The `ToggleGroup` of pills, named by the `aria-label` or `aria-labelledby` of the component. .ui-toggle-group A reaction: a checkbox `ToggleButton` drawn as a pill, checked when you reacted with it. .ui-toggle-button The live region that `announce()` writes to, visually hidden with `.ui-sr-only`. [role=\"status\"] [quick-label] Quick label The name of the quick reaction without a count, such as `Thumbs up`, which `delete()` gives its pill. [quick-text] Quick text The emoji of the quick reaction without a count, which `delete()` gives its pill. [quick-value] Quick value The `value` of the quick reaction, the one-tap reaction whose pill comes first and stays when `delete()` is called with it. .ui-unused Unused The pill of the quick reaction while nobody has used it: a dashed border. announce(message) Reads `message` to screen readers, through the `role=\"status\"` child. delete(value) Removes the pill of `value`, and moves focus to the next pill, the previous one or the first button after the pills when the removed pill had it. The pill of the `quick-value` reaction stays, unchecked and `.ui-unused`, with the `quick-label` and `quick-text` attributes as its name and text, and keeps focus. group The `.ui-toggle-group` of pills, or `null`. Read-only. reaction Fires when a pill is clicked, or a button with `command=\"--react\"` and this element in `commandfor`, with the `value` and the `checked` state asked for in `event.detail`. It bubbles, and changes nothing. set(value, reaction) Updates the pill of `value` with `{ checked, label, text }`, the accessible name in `label` and the emoji and count in `text`, or adds one at the end, and the `quick-value` reaction first. It removes `.ui-unused` from the pill.",
+    "api": "opui-reactions.ui-reactions The `<opui-reactions>` custom element, a row that wraps, and `display: contents` in the `bottom` slot of a `Message`. A click on a pill, or on a button with `command=\"--react\"`, this element in `commandfor` and the emoji as its `value`, fires a `reaction` event that bubbles, and changes nothing. A pick of an emoji you already reacted with asks to uncheck it, and the menu the button is in closes. While it has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, clicks ask for nothing. The `ToggleGroup` of pills, named by the `aria-label` or `aria-labelledby` of the component. .ui-toggle-group A reaction: a checkbox `ToggleButton` drawn as a pill, checked when you reacted with it. .ui-toggle-button The live region that `announce()` writes to, visually hidden with `.ui-sr-only`. [role=\"status\"] [quick-label] Quick label The name of the quick reaction without a count, such as `Thumbs up`, which `delete()` gives its pill. [quick-text] Quick text The emoji of the quick reaction without a count, which `delete()` gives its pill. [quick-value] Quick value The `value` of the quick reaction, the one-tap reaction whose pill comes first and stays when `delete()` is called with it. .ui-suggested Suggested The pill of the quick reaction while nobody has picked it, which suggests it: a dashed border. announce(message) Reads `message` to screen readers, through the `role=\"status\"` child. delete(value) Removes the pill of `value`, and moves focus to the next pill, the previous one or the first button after the pills when the removed pill had it. The pill of the `quick-value` reaction stays, unchecked and `.ui-suggested`, with the `quick-label` and `quick-text` attributes as its name and text, and keeps focus. group The `.ui-toggle-group` of pills, or `null`. Read-only. reaction Fires when a pill is clicked, or a button with `command=\"--react\"` and this element in `commandfor`, with the `value` and the `checked` state asked for in `event.detail`. It bubbles, and changes nothing. set(value, reaction) Updates the pill of `value` with `{ checked, label, text }`, the accessible name in `label` and the emoji and count in `text`, or adds one at the end, and the `quick-value` reaction first. It removes `.ui-suggested` from the pill.",
     "category": "API",
     "url": "/html/api/#reactions"
   },
@@ -4820,7 +5055,7 @@
     "id": "api-select-all-html",
     "title": "Select all API",
     "description": "Reference for Select all HTML component.",
-    "api": "opui-select-all.ui-select-all The `<opui-select-all>` custom element, `display: contents`, around the group, such as a `Fieldset` or a `Table`. The checkbox that checks and unchecks the other enabled checkboxes inside. It's checked when they all are, and `indeterminate` when some are. input[data-select-all] control The controlling checkbox, the one with `data-select-all`, or `null`. Read-only. items The enabled checkboxes it controls, in document order. Read-only. sync() Sets the controlling checkbox's `checked` and `indeterminate` from the others. The element calls it when one changes, so call it only after setting `checked` from a script.",
+    "api": "opui-select-all.ui-select-all The `<opui-select-all>` custom element, `display: contents`, around the group, such as a `Fieldset` or a `Table`. The checkbox that checks and unchecks the other enabled checkboxes inside. It's checked when they all are, and `indeterminate` when some are. input[data-select-all] control The controlling checkbox, the one with `data-select-all`, or `null`. Read-only. items The enabled checkboxes it controls, in document order. Read-only. sync() Sets the controlling checkbox's `checked` and `indeterminate` from the others. The element calls it when one of them changes, also when a script or your framework sets its `checked`, and when one is added, removed, enabled or disabled inside it.",
     "category": "API",
     "url": "/html/api/#select-all"
   },
@@ -4828,7 +5063,7 @@
     "id": "api-select-button-html",
     "title": "Select button API",
     "description": "Reference for Select button HTML component.",
-    "api": "select > button The select's button, with `<selectedcontent>` inside, which shows the selected option.",
+    "api": "select > button The select's button, showing the selected option in `<selectedcontent>`.",
     "category": "API",
     "url": "/html/api/#select-button"
   },
@@ -4860,7 +5095,7 @@
     "id": "api-step-button-html",
     "title": "Step button API",
     "description": "Reference for Step button HTML component.",
-    "api": "opui-step-button > .ui-button A `.ui-button.ui-round` with `command=\"--step-down\"` or `command=\"--step-up\"`. Renders a minus or a plus icon by default, or the icon in its default slot. Disabled while the input is, and `aria-disabled` at `min` or `max`, while the input is read-only and while it is `aria-disabled`. `<opui-step-button>` keeps it in step, also when a script changes the input. Hidden until `<opui-step-button>` is defined. aria-label Label The accessible name of the button, by `command`. Pass it translated. input The `<input>` its button's `commandfor` names, or `null`. Read-only. step() Steps the value down or up by `step`, as its button's `command` says, unless the input is disabled, read-only or at `min` or `max`, and fires `input` and `change`.",
+    "api": "opui-step-button > .ui-button A `.ui-button.ui-round` with `command=\"--step-down\"` or `command=\"--step-up\"`, showing a minus or a plus, or your icon. Disabled with the input, and `aria-disabled` at `min` or `max` or while the input is read-only or `aria-disabled`. Hidden until `<opui-step-button>` is defined. aria-label Label The accessible name of the button, by `command`. Pass it translated. input The `<input>` its button's `commandfor` names, or `null`. Read-only. step() Steps the value by `step` in the button's direction, within `min` and `max` and unless the input is disabled or read-only, and fires `input` and `change`.",
     "category": "API",
     "url": "/html/api/#step-button"
   },
@@ -4868,7 +5103,7 @@
     "id": "api-stepper-item-html",
     "title": "Stepper item API",
     "description": "Reference for Stepper item HTML component.",
-    "api": "li A step. Replaces the check in the marker of a complete step. Hidden from screen readers. .ui-icon-complete The label, as a link back to the step. a A short line under the label. .ui-description .ui-complete Complete Marks the step complete: a check in the marker and the line to the next step in the accent color. [aria-current=\"step\"] Current Marks the current step. The steps before it show as complete, with or without `.ui-complete`. .ui-error Validation Marks a step with an error: an exclamation mark in the marker and the label in the invalid color. Wins over `complete`.",
+    "api": "li A step. Replaces the check in the marker of a complete step. Hidden from screen readers. .ui-icon-complete The label, as a link back to the step. a A short line under the label. .ui-description [aria-current=\"step\"] Current Marks the current step. The steps before it show as complete, with or without `.ui-state-complete`. .ui-state-complete .ui-state-error State The step's state: `complete` shows a check in the marker and the line to the next step in the accent color, `error` an exclamation mark in the marker and the label in the invalid color. Without it the step is still to come, or the current one.",
     "category": "API",
     "url": "/html/api/#stepper-item"
   },
@@ -4967,6 +5202,14 @@
     "api": ".ui-tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. .ui-input:not(:checked) + .ui-label A tab. .ui-input:checked + .ui-label The panel of the selected tab. .ui-input:checked + .ui-label + .ui-panel [name] Group The name shared by the tab inputs. Generated when omitted. .ui-vertical Orientation The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them. .ui-overflow-wrap Overflow What the tabs do when they don't fit. `scroll` keeps them on one row and scrolls it sideways, and `wrap` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column. [role=\"radiogroup\"] Role Makes tabs without panels a radio group, which `aria-label` names. Tabs with panels take no role: the root holds the panels, and a radio group holds only radios. .ui-filled .ui-line .ui-outlined Variants The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.",
     "category": "API",
     "url": "/html/api/#tabs"
+  },
+  {
+    "id": "api-textarea-html",
+    "title": "Textarea API",
+    "description": "Reference for Textarea HTML component.",
+    "api": ".ui-field:has(> .ui-field-container > textarea) A `.ui-field` with a `<textarea>`. Your textarea, `rows` lines tall (3 by default), growing to `--_max-block-size` (20 lines). It resizes taller, and wider with `autoFit` (`.ui-auto-fit`). .ui-field-container > textarea",
+    "category": "API",
+    "url": "/html/api/#textarea"
   },
   {
     "id": "api-timeline-item-html",

@@ -27,7 +27,7 @@
     --_button-start-flip: -1;
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease);
-    --_gap: var(--ui-space-3);
+    --_gap: var(--ui-space-4);
     --_inline-room: min(
       var(--_gap),
       max(0px, var(--_shadow-room) - var(--_padding-inline))
@@ -40,18 +40,18 @@
     --_marker-bg-color: transparent;
     --_marker-border-color: var(--ui-text);
     --_marker-gap: 0px;
-    --_marker-group-offset: var(--ui-space-3);
+    --_marker-group-offset: var(--ui-space-4);
     --_marker-label: "Slide " counter(ui-carousel-item);
     --_marker-selected-bg-color: var(--ui-selected-strong);
     --_marker-selected-padding: var(--ui-space-1);
-    --_marker-size: max(var(--ui-target-min-size), var(--ui-space-5));
+    --_marker-size: max(var(--ui-target-min-size), var(--ui-space-6));
     --_media-aspect-ratio: 16 / 9;
     --_media-fit: cover;
     --_media-radius: var(--ui-radius);
     --_padding-block: 0px;
     --_padding-inline: 0px;
     --_scale-duration: calc(var(--ui-duration-fast) * var(--_motion));
-    --_shadow-room: var(--ui-space-3);
+    --_shadow-room: var(--ui-space-4);
     --_snap-align: start;
 
     counter-reset: ui-carousel-item;
@@ -100,7 +100,7 @@
 
     /* Peek at the neighbouring items */
     &.ui-peek {
-      --_padding-inline: var(--ui-space-8);
+      --_padding-inline: var(--ui-space-12);
     }
 
     /* Vertical */
@@ -125,7 +125,7 @@
       scroll-snap-type: block mandatory;
 
       &.ui-peek {
-        --_padding-block: var(--ui-space-8);
+        --_padding-block: var(--ui-space-12);
       }
     }
 

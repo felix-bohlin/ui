@@ -17,6 +17,7 @@ import { renderHydratableSolid } from "../../../components/Example/render-solid"
 import { renderHydratableSvelte } from "../../../components/Example/render-svelte"
 import { renderHydratableVue } from "../../../components/Example/render-vue"
 import { fixturePagesEnabled } from "../../../utils/test-pages"
+import { nunjucksRenderer } from "../../../utils/nunjucks"
 
 const allExamples = Object.entries(exampleSources).map(([path, source]) => ({
   ...parseExamplePath(path),
@@ -49,6 +50,7 @@ const { component, framework } = Astro.params as {
   component: string
   framework: FrameworkId
 }
+const renderNunjucks = nunjucksRenderer(Astro.locals.$id)
 const examples = await Promise.all(
   examplesFor(framework, component).map(async (example) => {
     const Example = example.Component as never
@@ -99,6 +101,9 @@ const examples = await Promise.all(
           )}
           {example.framework === "html" && (
             <Fragment set:html={example.source} />
+          )}
+          {example.framework === "nunjucks" && (
+            <Fragment set:html={renderNunjucks(example.source)} />
           )}
           {"html" in example && (
             <div

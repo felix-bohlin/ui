@@ -7,3 +7,6 @@ export const defined = <T extends object>(attrs: T) =>
       ),
     ].filter(([, value]) => value != null),
   ) as T
+
+export const filled = (node: unknown) =>
+  node != null && typeof node !== "boolean" && node !== ""

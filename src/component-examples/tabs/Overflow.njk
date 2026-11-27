@@ -1,0 +1,36 @@
+{% from "opui/index.njk" import Tabs, TabsItem, TabsLabel, TabsPanel %}
+
+{% call Tabs({ name: "overflow-tabs" }) %}
+  {% call TabsItem({ checked: true }) %}
+    {% call TabsLabel() %}Profile{% endcall %}
+    {% call TabsPanel() %}Profile settings and information.{% endcall %}
+  {% endcall %}
+  {% call TabsItem() %}
+    {% call TabsLabel() %}Settings{% endcall %}
+    {% call TabsPanel() %}General account settings.{% endcall %}
+  {% endcall %}
+  {% call TabsItem() %}
+    {% call TabsLabel() %}Notifications{% endcall %}
+    {% call TabsPanel() %}Manage your notifications.{% endcall %}
+  {% endcall %}
+  {% call TabsItem() %}
+    {% call TabsLabel() %}Bassbook Gold{% endcall %}
+    {% call TabsPanel() %}Your plan, receipts and payment methods.{% endcall %}
+  {% endcall %}
+  {% call TabsItem() %}
+    {% call TabsLabel() %}Security{% endcall %}
+    {% call TabsPanel() %}Passwords, sessions and two-factor authentication.{% endcall %}
+  {% endcall %}
+  {% call TabsItem() %}
+    {% call TabsLabel() %}Gear{% endcall %}
+    {% call TabsPanel() %}Your basses, amps and pedalboards.{% endcall %}
+  {% endcall %}
+  {% call TabsItem() %}
+    {% call TabsLabel() %}Bands{% endcall %}
+    {% call TabsPanel() %}Your bands and who plays what.{% endcall %}
+  {% endcall %}
+  {% call TabsItem() %}
+    {% call TabsLabel() %}Advanced{% endcall %}
+    {% call TabsPanel() %}Export data or delete the account.{% endcall %}
+  {% endcall %}
+{% endcall %}

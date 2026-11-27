@@ -1,7 +1,15 @@
 ---
 import "../styles/theme-fonts.css"
 import { EXAMPLE_THEMES } from "../utils/example-themes"
-import { FONT_TOKENS, LAYERS, THEME_KEY, VIEW_KEYS } from "../utils/theme"
+import {
+  FONT_TOKENS,
+  LAYERS,
+  PRESETS_WITHOUT_COLOR_SCROLL,
+  THEME_KEY,
+  THEME_SESSION_GAP,
+  THEME_SESSION_KEY,
+  VIEW_KEYS,
+} from "../utils/theme"
 import { BUNDLED_FONTS, WEB_FONTS, fontCssUrls } from "../utils/theme-fonts"
 
 type Props = {
@@ -17,7 +25,7 @@ const exampleFonts = Object.fromEntries(
   EXAMPLE_THEMES.map((theme) => [
     theme.name,
     Object.fromEntries(
-      [...FONT_TOKENS, "--ui-font-code"]
+      [...FONT_TOKENS, "--ui-font-family-code"]
         .filter((name) => name in theme.tokens)
         .map((name) => [name, theme.tokens[name]]),
     ),
@@ -39,7 +47,10 @@ const webFonts = Object.fromEntries(
     FONT_TOKENS,
     LAYERS,
     overrides,
+    PRESETS_WITHOUT_COLOR_SCROLL,
     THEME_KEY,
+    THEME_SESSION_GAP,
+    THEME_SESSION_KEY,
     VIEW_KEYS,
     webFonts,
   }}
@@ -63,6 +74,24 @@ const webFonts = Object.fromEntries(
     return element
   }
 
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
+
+  const turned = (value) => {
+    const color = value.trim()
+    if (color.startsWith("light-dark(") && color.endsWith(")")) {
+      const inner = color.slice("light-dark(".length, -1)
+      let depth = 0
+      for (let index = 0; index < inner.length; index++) {
+        if (inner[index] === "(") depth++
+        else if (inner[index] === ")") depth--
+        else if (inner[index] === "," && depth === 0) {
+          return `light-dark(${turned(inner.slice(0, index))}, ${turned(inner.slice(index + 1))})`
+        }
+      }
+    }
+    return `oklch(from ${color} l c calc(h + var(--site-color-scroll)))`
+  }
+
   window.themeUtils = {
     getSystemPreference() {
       return window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -75,6 +104,64 @@ const webFonts = Object.fromEntries(
       } catch {
         return null
       }
+    },
+    getStoredColorScroll() {
+      try {
+        return localStorage.getItem(VIEW_KEYS.colorScroll)
+      } catch {
+        return null
+      }
+    },
+    colorScrollEnabled() {
+      if (overrides) return false
+      const stored = window.themeUtils.getStoredColorScroll()
+      if (stored) return stored === "on"
+      return (
+        !navigator.webdriver &&
+        !reducedMotion.matches &&
+        !PRESETS_WITHOUT_COLOR_SCROLL.includes(
+          document.documentElement.dataset.exampleTheme,
+        )
+      )
+    },
+    applyColorScroll() {
+      const colorScroll = style("opui-color-scroll")
+      colorScroll.textContent = ""
+      if (!window.themeUtils.colorScrollEnabled()) {
+        colorScroll.remove()
+        return
+      }
+      const computed = getComputedStyle(document.documentElement)
+      const source = computed.getPropertyValue("--ui-palette-source").trim()
+      const primary = computed.getPropertyValue("--ui-primary-source").trim()
+      if (!source || !primary) {
+        window.addEventListener("load", window.themeUtils.applyColorScroll, {
+          once: true,
+        })
+        return
+      }
+      if (/[;{}<]/.test(source + primary)) return
+      colorScroll.textContent = `@property --site-color-scroll { syntax: "<number>"; inherits: true; initial-value: 0; }
+@keyframes site-color-scroll { to { --site-color-scroll: 360; } }
+@supports (animation-timeline: scroll()) {
+  :root {
+    --ui-palette-source: ${turned(source)};
+    --ui-primary-source: ${turned(primary)};
+    animation: site-color-scroll linear both;
+    animation-timeline: scroll(root block);
+  }
+}`
+      if (!colorScroll.isConnected) {
+        const presetStyle = document.getElementById("opui-example-theme")
+        if (presetStyle) presetStyle.before(colorScroll)
+        else document.head.append(colorScroll)
+      }
+    },
+    setColorScroll(on) {
+      try {
+        localStorage.setItem(VIEW_KEYS.colorScroll, on ? "on" : "off")
+      } catch {}
+      window.themeUtils.applyColorScroll()
     },
     getStoredTheme() {
       try {
@@ -134,7 +221,7 @@ const webFonts = Object.fromEntries(
         FONT_TOKENS.some((name) => Object.hasOwn(tokens ?? {}, name)),
       )
       const stacks = { ...exampleFonts[preset], ...tokens }
-      for (const name of [...FONT_TOKENS, "--ui-font-code"]) {
+      for (const name of [...FONT_TOKENS, "--ui-font-family-code"]) {
         const family = String(stacks[name] ?? "")
           .split(",")[0]
           .trim()
@@ -149,6 +236,7 @@ const webFonts = Object.fromEntries(
           }
         }
       }
+      window.themeUtils.applyColorScroll()
     },
     applyStoredTheme() {
       const theme = window.themeUtils.readTheme()
@@ -181,6 +269,36 @@ const webFonts = Object.fromEntries(
         window.themeUtils.getSystemPreference(),
     )
 
+  const stampSession = () => {
+    try {
+      localStorage.setItem(THEME_SESSION_KEY, String(Date.now()))
+    } catch {}
+  }
+
+  const rotateTheme = () => {
+    try {
+      const last = Number(localStorage.getItem(THEME_SESSION_KEY))
+      if (Date.now() - last < THEME_SESSION_GAP) return
+      const theme = window.themeUtils.readTheme()
+      if (Object.keys(theme?.tokens ?? {}).length > 0) return
+      const current = theme?.preset ?? null
+      const choices = [null, ...Object.keys(exampleThemes)].filter(
+        (preset) => preset !== current,
+      )
+      const preset = choices[Math.floor(Math.random() * choices.length)]
+      localStorage.setItem(
+        THEME_KEY,
+        JSON.stringify({ css: "", preset, tokens: {} }),
+      )
+    } catch {}
+  }
+
+  if (!navigator.webdriver) {
+    rotateTheme()
+    stampSession()
+    window.addEventListener("pagehide", stampSession)
+  }
+
   applyMode()
   window.themeUtils.applyContrast(
     forcedContrast ?? window.themeUtils.getStoredContrast(),
@@ -193,11 +311,19 @@ const webFonts = Object.fromEntries(
       if (!window.themeUtils.getStoredTheme()) applyMode()
     })
 
+  reducedMotion.addEventListener("change", () => {
+    if (!window.themeUtils.getStoredColorScroll())
+      window.themeUtils.applyColorScroll()
+  })
+
   window.addEventListener("storage", (event) => {
     if (event.key === null || event.key === THEME_KEY) {
       window.themeUtils.applyStoredTheme()
     }
     if (event.key === null || event.key === VIEW_KEYS.mode) applyMode()
+    if (event.key === null || event.key === VIEW_KEYS.colorScroll) {
+      window.themeUtils.applyColorScroll()
+    }
     if (event.key === null || event.key === VIEW_KEYS.contrast) {
       window.themeUtils.applyContrast(
         forcedContrast ?? window.themeUtils.getStoredContrast(),

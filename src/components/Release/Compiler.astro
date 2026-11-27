@@ -3,9 +3,9 @@ import { readdirSync, readFileSync } from "node:fs"
 import {
   EXAMPLE_EXTENSIONS,
   FRAMEWORKS,
-  HYDRATED_FRAMEWORK_IDS,
   PACKAGE_FRAMEWORK_IDS,
 } from "../../utils/framework"
+import NunjucksLogo from "../NunjucksLogo.astro"
 import ReactLogo from "../ReactLogo.astro"
 import SolidLogo from "../SolidLogo.astro"
 import SvelteLogo from "../SvelteLogo.astro"
@@ -18,6 +18,7 @@ const componentsDir = "packages/opui/components"
 
 const sources = {
   astro: readFileSync(`${componentsDir}/${folder}/${name}.astro`, "utf8"),
+  nunjucks: readFileSync(`${componentsDir}/${folder}/${name}.njk`, "utf8"),
   react: readFileSync(`${componentsDir}/${folder}/${name}.react.tsx`, "utf8"),
   solid: readFileSync(`${componentsDir}/${folder}/${name}.solid.tsx`, "utf8"),
   svelte: readFileSync(`${componentsDir}/${folder}/${name}.svelte`, "utf8"),
@@ -66,6 +67,9 @@ const rows: {
   {
     cells: {
       astro: { code: find("astro", /const \{[^}]*\} = Astro\.props/)[0] },
+      nunjucks: {
+        code: find("nunjucks", /\{% macro \w+\(props = \{\}\) %\}/)[0],
+      },
       react: { code: `function ${reactProps[1]}({ ${list(reactProps[2])} })` },
       solid: { code: `function ${solidProps[1]}(props)` },
       svelte: { code: `let { ${list(svelteProps[1])} } = $props()` },
@@ -76,6 +80,10 @@ const rows: {
   {
     cells: {
       astro: { ...has("astro", "class:list={["), code: "class:list={[…]}" },
+      nunjucks: {
+        ...has("nunjucks", 'class="ui-actions'),
+        code: 'class="ui-actions{% if … %}…{% endif %}"',
+      },
       react: {
         ...has("react", "className={cx(["),
         code: "className={cx([…])}",
@@ -89,6 +97,7 @@ const rows: {
   {
     cells: {
       astro: has("astro", "{...rest}"),
+      nunjucks: has("nunjucks", "rest | opuiAttributes"),
       react: has("react", "{...rest}"),
       solid: has("solid", "{...rest}"),
       svelte: has("svelte", "{...rest}"),
@@ -99,6 +108,7 @@ const rows: {
   {
     cells: {
       astro: has("astro", "<slot />"),
+      nunjucks: has("nunjucks", "caller()"),
       react: has("react", "{children}"),
       solid: has("solid", "{props.children}"),
       svelte: has("svelte", "{@render children?.()}"),
@@ -110,6 +120,7 @@ const rows: {
 
 const logos = {
   astro: undefined,
+  nunjucks: NunjucksLogo,
   react: ReactLogo,
   solid: SolidLogo,
   svelte: SvelteLogo,
@@ -130,7 +141,9 @@ const frameworks = PACKAGE_FRAMEWORK_IDS.map((framework) => ({
   label: labelOf(framework),
 }))
 
-const targets = joined(HYDRATED_FRAMEWORK_IDS.map(labelOf))
+const COMPILED_IDS = PACKAGE_FRAMEWORK_IDS.filter((id) => id !== "astro")
+
+const targets = joined(COMPILED_IDS.map(labelOf))
 
 const stages = [
   {
@@ -144,7 +157,7 @@ const stages = [
     title: "Model",
   },
   {
-    detail: `${targets}, and a type file for each`,
+    detail: `${targets}, and a type file for each but Nunjucks`,
     title: "Emit",
   },
   {
@@ -163,7 +176,7 @@ const examples = readdirSync("src/component-examples", {
 }).filter((file) => typeof file === "string" && file.endsWith(".astro")).length
 
 const PORTS = Object.fromEntries(
-  HYDRATED_FRAMEWORK_IDS.map((framework) => [
+  COMPILED_IDS.map((framework) => [
     `.${EXAMPLE_EXTENSIONS[framework]}`,
     labelOf(framework),
   ]),
@@ -286,16 +299,16 @@ const checks = [
   .compiler {
     container-type: inline-size;
     display: grid;
-    gap: var(--ui-space-4);
+    gap: var(--ui-space-5);
     justify-items: stretch;
-    margin: var(--ui-space-5) 0;
+    margin: var(--ui-space-6) 0;
   }
 
   .compiler-title {
     color: var(--ui-text-strong);
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-small);
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
   }
 
   .compiler-source {
@@ -312,16 +325,16 @@ const checks = [
     border-block-end: var(--ui-border-width) solid var(--ui-border-color);
     display: flex;
     flex-wrap: wrap;
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-small);
     gap: var(--ui-space-2);
     margin: 0;
-    padding: var(--ui-space-2) var(--ui-space-3);
+    padding: var(--ui-space-2) var(--ui-space-4);
 
     & code {
       background: none;
       color: var(--ui-text-strong);
-      font-family: var(--ui-font-code);
+      font-family: var(--ui-font-family-code);
       padding: 0;
     }
   }
@@ -343,13 +356,13 @@ const checks = [
 
   .compiler-code {
     color: var(--ui-text);
-    font-family: var(--ui-font-code);
+    font-family: var(--ui-font-family-code);
     font-size: var(--ui-font-size-caption);
     line-height: 1.45;
     margin: 0;
     min-inline-size: 0;
     overflow-x: auto;
-    padding: var(--ui-space-3);
+    padding: var(--ui-space-4);
     tab-size: 2;
 
     & code {
@@ -395,15 +408,15 @@ const checks = [
     color: var(--ui-text);
     counter-increment: compiler-stage;
     display: grid;
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-caption);
     gap: var(--ui-space-1);
-    padding: var(--ui-space-3);
+    padding: var(--ui-space-4);
 
     & strong {
       color: var(--ui-primary-text);
       font-size: var(--ui-font-size-small);
-      font-weight: var(--ui-font-weight-semibold);
+      font-weight: var(--ui-font-weight-label);
 
       &::before {
         content: counter(compiler-stage) ". ";
@@ -413,7 +426,7 @@ const checks = [
 
   .compiler-rows {
     display: grid;
-    gap: var(--ui-space-3);
+    gap: var(--ui-space-4);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -427,9 +440,9 @@ const checks = [
 
   .compiler-row-label {
     color: var(--ui-text-strong);
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-small);
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
     margin: 0;
   }
 
@@ -452,7 +465,7 @@ const checks = [
     display: grid;
     gap: var(--ui-space-1);
     min-inline-size: 0;
-    padding: var(--ui-space-2) var(--ui-space-3);
+    padding: var(--ui-space-2) var(--ui-space-4);
     position: relative;
 
     &[data-framework="astro"] {
@@ -476,7 +489,7 @@ const checks = [
     align-items: center;
     color: var(--ui-text-subtle);
     display: flex;
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-caption);
     gap: var(--ui-space-1);
   }
@@ -484,7 +497,7 @@ const checks = [
   .compiler-cell-code {
     background: none;
     color: var(--ui-text-strong);
-    font-family: var(--ui-font-code);
+    font-family: var(--ui-font-family-code);
     font-size: var(--ui-font-size-caption);
     overflow-wrap: anywhere;
     padding: 0;
@@ -492,7 +505,7 @@ const checks = [
 
   .compiler-cell-text {
     color: var(--ui-text);
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-caption);
     font-style: italic;
   }
@@ -510,7 +523,7 @@ const checks = [
     align-items: start;
     color: var(--ui-text);
     display: grid;
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-small);
     gap: var(--ui-space-2);
     grid-template-columns: 1.25rem minmax(0, 1fr);
@@ -527,7 +540,7 @@ const checks = [
 
   .compiler-ledger {
     color: var(--ui-text);
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-small);
     margin: 0;
 

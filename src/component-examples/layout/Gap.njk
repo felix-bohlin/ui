@@ -1,0 +1,24 @@
+{% from "opui/index.njk" import Button %}
+
+<div class="ui-layout-column">
+  <div class="ui-layout-row ui-gap-x-small">
+    {% call Button({ variant: "outlined" }) %}Day{% endcall %}
+    {% call Button({ variant: "outlined" }) %}Week{% endcall %}
+    {% call Button({ variant: "outlined" }) %}Month{% endcall %}
+  </div>
+  <div class="ui-layout-row ui-gap-small">
+    {% call Button({ variant: "outlined" }) %}Day{% endcall %}
+    {% call Button({ variant: "outlined" }) %}Week{% endcall %}
+    {% call Button({ variant: "outlined" }) %}Month{% endcall %}
+  </div>
+  <div class="ui-layout-row">
+    {% call Button({ variant: "outlined" }) %}Day{% endcall %}
+    {% call Button({ variant: "outlined" }) %}Week{% endcall %}
+    {% call Button({ variant: "outlined" }) %}Month{% endcall %}
+  </div>
+  <div class="ui-layout-row ui-gap-large">
+    {% call Button({ variant: "outlined" }) %}Day{% endcall %}
+    {% call Button({ variant: "outlined" }) %}Week{% endcall %}
+    {% call Button({ variant: "outlined" }) %}Month{% endcall %}
+  </div>
+</div>

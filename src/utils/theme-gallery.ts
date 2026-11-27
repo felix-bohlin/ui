@@ -22,7 +22,7 @@ export const GALLERY: GalleryEntry[] = [
         "--ui-chip-radius": "var(--ui-radius)",
         "--ui-dialog-radius": "var(--ui-radius)",
         "--ui-field-radius": "var(--ui-radius)",
-        "--ui-font-body":
+        "--ui-font-family-body":
           '"DM Sans", Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, sans-serif',
         "--ui-gray-chroma": "0.012",
         "--ui-gray-hue": "55",
@@ -46,11 +46,51 @@ export const GALLERY: GalleryEntry[] = [
       preset: "brutalist",
       tokens: {
         "--ui-density": "0.875",
-        "--ui-font-body":
+        "--ui-font-family-body":
           "Geist, Inter, Roboto, Helvetica Neue, Arial Nova, Nimbus Sans, Arial, sans-serif",
         "--ui-palette-source": "oklch(0.62 0.18 150)",
         "--ui-primary-source":
           "light-dark(oklch(0.52 0.18 150), oklch(0.78 0.18 150))",
+      },
+    },
+  },
+  {
+    author: "opui",
+    description:
+      "Sunset pinks on deep violet night surfaces, a peach call to action, pill buttons and a soft pink glow.",
+    id: "dusk",
+    name: "Dusk",
+    theme: {
+      preset: null,
+      tokens: {
+        "--ui-button-accent-filled":
+          "light-dark(oklch(0.84 0.09 60), oklch(0.88 0.07 70))",
+        "--ui-button-on-accent-filled": "oklch(0.24 0.05 300)",
+        "--ui-button-radius": "var(--ui-radius-round)",
+        "--ui-chip-radius": "var(--ui-radius-round)",
+        "--ui-dialog-radius": "var(--ui-radius)",
+        "--ui-field-radius": "var(--ui-radius)",
+        "--ui-font-family-body":
+          'Figtree, "DM Sans", Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, sans-serif',
+        "--ui-gray-chroma": "0.04",
+        "--ui-gray-hue": "295",
+        "--ui-menu-radius": "var(--ui-radius)",
+        "--ui-palette-source": "oklch(0.62 0.15 335)",
+        "--ui-primary-source":
+          "light-dark(oklch(0.52 0.17 340), oklch(0.86 0.07 355))",
+        "--ui-radius": "1rem",
+        "--ui-radius-small": "min(0.5rem, var(--ui-radius))",
+        "--ui-radius-x-small": "min(0.25rem, var(--ui-radius))",
+        "--ui-shadow-color":
+          "light-dark(oklch(0.55 0.18 340 / 12%), oklch(0.05 0.04 300 / 60%))",
+        "--ui-surface":
+          "light-dark(oklch(0.97 0.015 330), oklch(0.21 0.035 290))",
+        "--ui-surface-raised":
+          "light-dark(oklch(1 0 0), oklch(0.26 0.045 292))",
+        "--ui-surface-tonal":
+          "light-dark(oklch(0.93 0.035 330), oklch(0.32 0.06 300))",
+        "--ui-text-strong":
+          "light-dark(oklch(0.22 0.07 300), oklch(0.97 0.02 320))",
       },
     },
   },
@@ -82,12 +122,12 @@ export const GALLERY: GalleryEntry[] = [
         "--ui-button-hover-shadow": "none",
         "--ui-button-hover-translate": "revert-layer",
         "--ui-field-shadow": "none",
-        "--ui-font-heading":
+        "--ui-font-family-heading":
           'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
         "--ui-gray-chroma": "0.012",
         "--ui-gray-hue": "70",
-        "--ui-line-height": "1.6",
-        "--ui-line-height-relaxed": "1.75",
+        "--ui-line-height-compact": "1.5",
+        "--ui-line-height-body": "1.75",
         "--ui-palette-source": "oklch(0.5 0.1 60)",
         "--ui-primary-source":
           "light-dark(oklch(0.5 0.1 60), oklch(0.76 0.1 60))",
@@ -99,7 +139,7 @@ export const GALLERY: GalleryEntry[] = [
         "--ui-shadow-selected": "none",
         "--ui-shadow-surface": "none",
         "--ui-underline-offset": "4px",
-        "--ui-underline-thickness-hover": "1px",
+        "--ui-underline-hover-thickness": "1px",
       },
     },
   },

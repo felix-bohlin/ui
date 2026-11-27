@@ -141,6 +141,15 @@ export default defineConfig({
         },
       },
       {
+        name: "opui-nunjucks-source",
+        enforce: "pre",
+        load(id) {
+          const [file, query] = id.split("?")
+          if (query || !file.endsWith(".njk")) return
+          return `export default ${JSON.stringify(readFileSync(file, "utf-8"))}`
+        },
+      },
+      {
         name: "opui-raw-without-module-edge",
         apply: "serve",
         enforce: "pre",

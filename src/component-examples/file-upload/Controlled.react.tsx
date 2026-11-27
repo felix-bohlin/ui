@@ -30,7 +30,7 @@ export default function Controlled() {
         setItems((items) =>
           items.map((item) =>
             item.value === value
-              ? { ...item, progress, state: done ? "done" : "uploading" }
+              ? { ...item, progress, state: done ? "complete" : "uploading" }
               : item,
           ),
         )

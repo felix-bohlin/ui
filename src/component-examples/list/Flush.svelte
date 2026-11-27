@@ -22,7 +22,7 @@
       </Button>
     {/snippet}
   </ListItem>
-  <ListItem description="Fretless enthusiast" label="Lou Headstock">
+  <ListItem description="Fretless enthusiast" label="Kinga Headstock">
     {#snippet start()}
       <svg
         data-icon="person"

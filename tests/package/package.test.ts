@@ -17,6 +17,7 @@ import { tmpdir } from "node:os"
 import path from "node:path"
 import ts from "typescript"
 import { afterAll, beforeAll, describe, expect, test } from "vitest"
+import * as dev from "../../packages/opui/components/dev"
 import { HYDRATED_FRAMEWORK_IDS } from "../../src/utils/framework.js"
 import { lightDarkSettings } from "./readme.ts"
 
@@ -36,6 +37,11 @@ const FIXTURES: {
     build: { args: ["build"], package: "astro" },
     check: { args: ["check"], package: "astro" },
     framework: "astro",
+  },
+  {
+    build: { args: [], bin: "eleventy", package: "@11ty/eleventy" },
+    check: { args: ["--noEmit", "-p", "."], bin: "tsc", package: "typescript" },
+    framework: "nunjucks",
   },
   {
     build: { args: ["build"], package: "vite" },
@@ -147,6 +153,29 @@ console.log([deps.size, "pre-bundled dependencies served"].join(" "))
 `
 
 const SERVER_RENDER = {
+  nunjucks: String.raw`
+import { readFileSync } from "node:fs"
+import nunjucks from "nunjucks"
+import { configure } from "opui-css/nunjucks"
+
+const env = configure(new nunjucks.Environment(null, { autoescape: true }))
+const render = (source) => env.renderString(source, {})
+
+console.log(
+  render(
+    '{% from "opui/index.njk" import Button %}{% call Button({ color: "primary", type: "submit", variant: "filled" }) %}Save{% endcall %}',
+  ).replace(/>\s+/g, ">").replace(/\s+</g, "<"),
+)
+console.log(
+  render('{% import "opui/index.njk" as ui %}{% for name, macro in ui %}.{% endfor %}').length,
+  "components",
+)
+console.log(
+  "deep imports share the entry point's modules:",
+  env.getTemplate("opui/DialogTitle.njk").tmplStr ===
+    readFileSync("node_modules/opui-css/components/Dialog/DialogTitle.njk", "utf8"),
+)
+`,
   react: String.raw`
 import { createElement } from "react"
 import { renderToString } from "react-dom/server"
@@ -216,6 +245,43 @@ const [outDir, settings] = process.argv.slice(2)
 const config = JSON.parse(settings)
 await build({ ...config, build: { ...config.build, outDir }, logLevel: "silent" })
 `
+
+const PRODUCTION_BUILD = String.raw`
+process.env.NODE_ENV = "production"
+const { build } = await import("vite")
+
+const result = await build({
+  build: {
+    lib: { entry: process.argv[2], formats: ["es"] },
+    minify: false,
+    rollupOptions: {
+      external: (id) => /^[^./\0]/.test(id) && !id.startsWith("opui-css"),
+    },
+    write: false,
+  },
+  logLevel: "silent",
+  mode: "production",
+})
+process.stdout.write(
+  [result]
+    .flat()
+    .flatMap(({ output }) => output)
+    .map((chunk) => chunk.code ?? "")
+    .join("\n"),
+)
+`
+
+const DEV_ONLY = Object.keys(dev).filter(
+  (name) => name === "hasName" || name.startsWith("warn"),
+)
+
+const devLeftovers = (code: string) => [
+  ...(code.includes("[OPUI") ? ["[OPUI"] : []),
+  ...DEV_ONLY.filter((name) => new RegExp(`\\b${name}\\(`).test(code)),
+  ...new Set(
+    [...code.matchAll(/^\s*(untrack|watchEffect)\(/gm)].map(([, name]) => name),
+  ),
+]
 
 const cssIn = (dist: string) =>
   readdirSync(dist, { recursive: true })
@@ -339,6 +405,50 @@ test("every entry point is in the tarball", () => {
     return !files.some((file) => pattern.test(file))
   })
   expect(missing).toEqual([])
+})
+
+const SOURCE_FILE = /\.(astro|js|jsx|mjs|svelte|ts|tsx|vue)$/
+
+const sideEffectImports = (file: string, code: string) =>
+  [...code.matchAll(/^\s*import\s+["']([^"']+)["']/gm)].flatMap(
+    ([, specifier]) =>
+      specifier.startsWith(".")
+        ? [path.posix.join(path.posix.dirname(file), specifier)]
+        : specifier.startsWith("opui-css/")
+          ? [specifier.slice("opui-css/".length)]
+          : [],
+  )
+
+const keptBy = (patterns: string[], file: string) =>
+  patterns.some((pattern) =>
+    pattern.includes("/")
+      ? path.posix.matchesGlob(file, pattern.replace(/^\.\//, ""))
+      : path.posix.matchesGlob(path.posix.basename(file), pattern),
+  )
+
+test("sideEffects keeps every file the package imports for its side effects or that defines an element", () => {
+  const sample = ["*.css", "./elements/*.js"]
+  expect(keptBy(sample, "css/components/button.css")).toBe(true)
+  expect(keptBy(sample, "elements/copy.js")).toBe(true)
+  expect(keptBy(sample, "css/js/checkbox.js")).toBe(false)
+  expect(
+    sideEffectImports(
+      "components/Copy/Copy.vue",
+      'import "../../elements/copy.js"\nimport { h } from "vue"\n',
+    ),
+  ).toEqual(["elements/copy.js"])
+
+  const { sideEffects } = JSON.parse(
+    readFileSync(path.join(unpacked, "package.json"), "utf8"),
+  )
+  const needed = new Set<string>()
+  for (const file of files.filter((file) => SOURCE_FILE.test(file))) {
+    const code = readFileSync(path.join(unpacked, file), "utf8")
+    if (code.includes("customElements.define(")) needed.add(file)
+    for (const target of sideEffectImports(file, code)) needed.add(target)
+  }
+  expect(needed.size).toBeGreaterThan(0)
+  expect([...needed].filter((file) => !keptBy(sideEffects, file))).toEqual([])
 })
 
 test("every compiled component file has a deep import, with its types, and Node takes the server build of a Vue file", () => {
@@ -755,6 +865,45 @@ describe("the opui-css command", () => {
       expect(output).toContain("Checked 2 fields in 2 files")
     })
 
+    test("opui-css/check exports checkHtml, with its types", () => {
+      symlinkSync(unpacked, path.join(work, "node_modules/opui-css"))
+      const result = spawnSync(
+        process.execPath,
+        [
+          "--input-type=module",
+          "--eval",
+          'import { checkHtml } from "opui-css/check"\nconsole.log(JSON.stringify(checkHtml(process.argv[1])))',
+          FIELD("quantity", "amount"),
+        ],
+        { cwd: dir, encoding: "utf8" },
+      )
+      expect(JSON.parse(result.stdout)).toEqual({
+        fields: 1,
+        problems: [
+          {
+            line: 1,
+            message: '#quantity: the label\'s for is "amount", not "quantity"',
+          },
+        ],
+      })
+      const { resolvedModule } = ts.resolveModuleName(
+        "opui-css/check",
+        path.join(dir, "index.ts"),
+        {
+          module: ts.ModuleKind.NodeNext,
+          moduleResolution: ts.ModuleResolutionKind.NodeNext,
+        },
+        ts.sys,
+      )
+      expect(
+        resolvedModule &&
+          path.relative(
+            realpathSync(unpacked),
+            realpathSync(resolvedModule.resolvedFileName),
+          ),
+      ).toBe(path.join("bin", "check.d.mts"))
+    })
+
     test("check says when the HTML has no fields", () => {
       writeFileSync(path.join(dir, "empty.html"), '<div id="root"></div>')
       const { output, status } = opui("check", "empty.html")
@@ -795,7 +944,9 @@ describe.each(FIXTURES)(
       const dist = path.join(dir, "dist")
       const html = readFileSync(path.join(dist, "index.html"), "utf8")
       expect(html).toMatch(
-        framework === "astro" ? /class="ui-button/ : /<script type="module"/,
+        framework === "astro" || framework === "nunjucks"
+          ? /class="ui-button/
+          : /<script type="module"/,
       )
       const css = cssIn(dist)
       expect(css).toContain("@layer openprops")
@@ -824,6 +975,57 @@ describe.each(FIXTURES)(
           "the vite.config block in the README's Builds that rewrite light-dark() section no longer keeps light-dark()",
         ).toContain("light-dark(")
         expect(lightDarkProblems(css)).toEqual([])
+      },
+    )
+
+    test.runIf(HYDRATED_FRAMEWORK_IDS.some((id) => id === framework))(
+      "a production build leaves out the dev warnings and the code that computes what they check",
+      () => {
+        writeFileSync(path.join(dir, "production-build.mjs"), PRODUCTION_BUILD)
+        writeFileSync(
+          path.join(dir, "production-entry.js"),
+          `export * from "opui-css/${framework}"\n`,
+        )
+        expect(
+          devLeftovers(
+            run("node", ["production-build.mjs", "production-entry.js"], dir),
+          ),
+          `the ${framework} components still call these in a production build: put each warning behind \`if (DEV)\` from components/dev.ts`,
+        ).toEqual([])
+      },
+    )
+
+    test.runIf(framework === "vue")(
+      "the production check flags a warning without the flag, and an effect that only ran one",
+      () => {
+        writeFileSync(path.join(dir, "production-build.mjs"), PRODUCTION_BUILD)
+        const leftovers = (name: string, call: string) => {
+          writeFileSync(
+            path.join(dir, `${name}.js`),
+            `import { watchEffect } from "vue"\nimport { DEV, hasName, warnUnnamed } from "opui-css/dist/components/dev.js"\nexport const sample = (props) => {\n  ${call}\n  return [watchEffect, props.label]\n}\n`,
+          )
+          return devLeftovers(
+            run("node", ["production-build.mjs", `${name}.js`], dir),
+          )
+        }
+        expect(
+          leftovers(
+            "unguarded",
+            'warnUnnamed("Sample", hasName(props, undefined))',
+          ),
+        ).toEqual(["hasName"])
+        expect(
+          leftovers(
+            "effect",
+            'watchEffect(() => warnUnnamed("Sample", props.label))',
+          ),
+        ).toEqual(["watchEffect"])
+        expect(
+          leftovers(
+            "guarded",
+            'if (DEV) warnUnnamed("Sample", hasName(props, undefined))',
+          ),
+        ).toEqual([])
       },
     )
 

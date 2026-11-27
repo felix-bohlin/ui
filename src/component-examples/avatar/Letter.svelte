@@ -2,6 +2,6 @@
   import { Avatar } from "opui-css/svelte"
 </script>
 
-<Avatar label="Lou Headstock">LH</Avatar>
-<Avatar label="Percy Groove">PG</Avatar>
-<Avatar label="Ines Hertz">IH</Avatar>
+<Avatar label="Kinga Headstock">KH</Avatar>
+<Avatar label="Adam Groove">AG</Avatar>
+<Avatar label="Mohini Hertz">MH</Avatar>

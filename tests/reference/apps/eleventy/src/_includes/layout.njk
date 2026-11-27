@@ -1,0 +1,100 @@
+{% from "opui/index.njk" import
+  Avatar,
+  Badge,
+  Button,
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  List,
+  ListItem,
+  Menu
+-%}
+{% from "icon.njk" import icon with context -%}
+{% set user = app.me() -%}
+{% set unread = app.unreadNotifications() -%}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link href="data:," rel="icon" />
+    <title>{{ title }} | Reference</title>
+    <script>
+      try {
+        const theme = localStorage.getItem("reference-theme")
+        if (theme) document.documentElement.dataset.theme = theme
+      } catch {}
+    </script>
+    <link href="/app.css" rel="stylesheet" />
+    <script src="/app.js" type="module"></script>
+  </head>
+  <body>
+    <a class="ui-sr-only ui-focusable" href="#main">Skip to content</a>
+    <header class="app-header">
+      {% call Button({
+        "aria-label": "Menu",
+        class: "app-menu-button",
+        command: "show-modal",
+        commandfor: "nav-drawer"
+      }) %}{{ icon("menu") }}{% endcall %}
+      <a class="app-brand" href="/">Reference</a>
+      <nav aria-label="Main" class="app-nav">
+        {% for screen in app.SCREENS %}
+          {% set current = page.url == "/" if screen.path == "/" else page.url.startsWith(screen.path ~ "/") %}
+          {% call Button({ "aria-current": "page" if current else none, href: screen.path }) %}
+            {{ screen.label }}
+          {% endcall %}
+        {% endfor %}
+      </nav>
+      {% call Badge({
+        hideLabel: true,
+        label: unread ~ " unread notifications",
+        slots: { indicator: unread }
+      }) %}
+        {% call Button({
+          "aria-label": "Notifications",
+          command: "toggle-popover",
+          commandfor: "notifications-menu"
+        }) %}{{ icon("bell") }}{% endcall %}
+      {% endcall %}
+      {{ Menu({ align: "end", id: "notifications-menu", items: app.notificationItems }) }}
+      {% call Button({
+        "aria-label": "Theme",
+        command: "toggle-popover",
+        commandfor: "theme-menu"
+      }) %}{{ icon("palette") }}{% endcall %}
+      {{ Menu({
+        align: "end",
+        id: "theme-menu",
+        items: [
+          { "data-theme-choice": "default", label: "Default" },
+          { "data-theme-choice": "sunset", label: "Sunset" }
+        ]
+      }) }}
+      {% call Avatar({ href: "/u/" ~ user.handle, label: "Your profile", size: "small" }) %}
+        {{ user.initials }}
+      {% endcall %}
+    </header>
+    {% call Drawer({ closeOnNavigate: true, id: "nav-drawer" }) %}
+      {% call DrawerHeader({ closeButton: true }) %}
+        {% call DrawerTitle() %}Navigate{% endcall %}
+      {% endcall %}
+      {% call DrawerContent() %}
+        {% call List({ variant: "transparent" }) %}
+          {% for screen in app.SCREENS %}
+            {% set current = page.url == "/" if screen.path == "/" else page.url.startsWith(screen.path ~ "/") %}
+            {{ ListItem({
+              "aria-current": "page" if current else none,
+              href: screen.path,
+              label: screen.label
+            }) }}
+          {% endfor %}
+        {% endcall %}
+      {% endcall %}
+    {% endcall %}
+    <main class="app-main" id="main" tabindex="-1">
+      {{ content | safe }}
+    </main>
+  </body>
+</html>

@@ -3,7 +3,7 @@ import type { CustomProperties } from "../types"
 export default {
   "--_min-inline-size": {
     description:
-      "The least width of the input of a field with step buttons and `autoFit`, which otherwise fits its value. `4ch`, instead of the `8ch` of the other fields, which `field.css` keeps next to the affixes.",
+      "Minimum width of the input between the step buttons, which fits its value in `.ui-auto-fit`. Defaults to `4ch`.",
     kind: "input",
   },
 } satisfies CustomProperties

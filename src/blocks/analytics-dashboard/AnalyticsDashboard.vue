@@ -18,15 +18,15 @@ import {
 
 <template>
   <div
-    class="analytics-dashboard ui-layout-container ui-layout-column ui-large"
+    class="analytics-dashboard ui-layout-container ui-layout-column ui-gap-large"
     style="--_max-inline-size: 80rem"
   >
     <div class="ui-layout-row ui-spread">
       <hgroup class="ui-hgroup">
-        <p>bassbook.example/rory</p>
+        <p>bassbook.example/josh</p>
         <h1 class="ui-h3">Your profile stats</h1>
       </hgroup>
-      <div class="ui-layout-row ui-small">
+      <div class="ui-layout-row ui-gap-small">
         <ToggleGroup
           aria-label="Date range"
           name="analytics-range"
@@ -104,7 +104,7 @@ import {
         </Card>
       </li>
     </ul>
-    <div class="ui-layout-columns ui-large" style="--_columns: 2fr 1fr">
+    <div class="ui-layout-columns ui-gap-large" style="--_columns: 2fr 1fr">
       <Card
         aria-labelledby="analytics-dashboard-visitors-heading"
         as="section"
@@ -184,7 +184,7 @@ import {
         </hgroup>
         <CardContent>
           <ul class="ui-layout-column">
-            <li class="ui-layout-column ui-x-small">
+            <li class="ui-layout-column ui-gap-x-small">
               <span
                 class="ui-layout-row ui-spread"
                 id="analytics-dashboard-source-friends"
@@ -196,19 +196,19 @@ import {
                 :value="46"
               />
             </li>
-            <li class="ui-layout-column ui-x-small">
+            <li class="ui-layout-column ui-gap-x-small">
               <span
                 class="ui-layout-row ui-spread"
-                id="analytics-dashboard-source-low-end"
-                ><span>Low End Theory</span><span>28%</span></span
+                id="analytics-dashboard-source-bassists-anonymous"
+                ><span>Bassists Anonymous</span><span>28%</span></span
               >
               <Progress
-                aria-labelledby="analytics-dashboard-source-low-end"
+                aria-labelledby="analytics-dashboard-source-bassists-anonymous"
                 :max="100"
                 :value="28"
               />
             </li>
-            <li class="ui-layout-column ui-x-small">
+            <li class="ui-layout-column ui-gap-x-small">
               <span
                 class="ui-layout-row ui-spread"
                 id="analytics-dashboard-source-gear"
@@ -220,7 +220,7 @@ import {
                 :value="17"
               />
             </li>
-            <li class="ui-layout-column ui-x-small">
+            <li class="ui-layout-column ui-gap-x-small">
               <span
                 class="ui-layout-row ui-spread"
                 id="analytics-dashboard-source-band"
@@ -266,7 +266,7 @@ import {
             <TableRow>
               <TableCell
                 ><a class="ui-link" href="#analytics-page-home"
-                  >/rory</a
+                  >/josh</a
                 ></TableCell
               >
               <TableCell numeric>612</TableCell>
@@ -275,7 +275,7 @@ import {
             </TableRow>
             <TableRow>
               <TableCell>
-                <a class="ui-link" href="#analytics-page-wall">/rory/wall</a>
+                <a class="ui-link" href="#analytics-page-wall">/josh/wall</a>
               </TableCell>
               <TableCell numeric>388</TableCell>
               <TableCell numeric>902</TableCell>
@@ -284,7 +284,7 @@ import {
             <TableRow>
               <TableCell>
                 <a class="ui-link" href="#analytics-page-videos"
-                  >/rory/videos/slap-in-drop-d</a
+                  >/josh/videos/slap-in-drop-d</a
                 >
               </TableCell>
               <TableCell numeric>245</TableCell>
@@ -294,7 +294,7 @@ import {
             <TableRow>
               <TableCell>
                 <a class="ui-link" href="#analytics-page-gear"
-                  >/rory/gear/pedalboard</a
+                  >/josh/gear/pedalboard</a
                 >
               </TableCell>
               <TableCell numeric>104</TableCell>
@@ -352,7 +352,7 @@ import {
   }
 
   .analytics-chart-card .ui-content {
-    padding-block-end: var(--ui-space-6);
+    padding-block-end: var(--ui-space-7);
   }
 }
 </style>

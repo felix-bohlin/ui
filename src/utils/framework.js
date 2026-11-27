@@ -7,7 +7,7 @@
 //
 // Order convention: default framework first.
 
-/** @typedef {"html" | "astro" | "react" | "solid" | "svelte" | "vue"} FrameworkId */
+/** @typedef {"html" | "astro" | "nunjucks" | "react" | "solid" | "svelte" | "vue"} FrameworkId */
 
 /** @type {FrameworkId} */
 export const DEFAULT_FRAMEWORK = "html"
@@ -16,6 +16,7 @@ export const DEFAULT_FRAMEWORK = "html"
 export const FRAMEWORKS = [
   { id: "html", label: "HTML" },
   { id: "astro", label: "Astro" },
+  { id: "nunjucks", label: "Nunjucks" },
   { id: "react", label: "React" },
   { id: "solid", label: "Solid" },
   { id: "svelte", label: "Svelte" },
@@ -34,15 +35,21 @@ export const PACKAGE_FRAMEWORK_IDS = FRAMEWORK_IDS.filter(
   (id) => id !== "html",
 ).map((id) => /** @type {PackageFrameworkId} */ (id))
 
+/** @typedef {"astro" | "nunjucks"} ServerFrameworkId */
+
+/** @typedef {Exclude<PackageFrameworkId, ServerFrameworkId>} HydratedFrameworkId */
+
 /**
  * @param {FrameworkId} framework
- * @returns {framework is Exclude<PackageFrameworkId, "astro">}
+ * @returns {framework is HydratedFrameworkId}
  */
 export function isHydratedFramework(framework) {
-  return framework !== "html" && framework !== "astro"
+  return (
+    framework !== "html" && framework !== "astro" && framework !== "nunjucks"
+  )
 }
 
-/** @type {Exclude<PackageFrameworkId, "astro">[]} */
+/** @type {HydratedFrameworkId[]} */
 export const HYDRATED_FRAMEWORK_IDS =
   PACKAGE_FRAMEWORK_IDS.filter(isHydratedFramework)
 
@@ -50,6 +57,7 @@ export const HYDRATED_FRAMEWORK_IDS =
 export const EXAMPLE_EXTENSIONS = {
   astro: "astro",
   html: "html",
+  nunjucks: "njk",
   react: "react.tsx",
   solid: "solid.tsx",
   svelte: "svelte",
@@ -59,10 +67,17 @@ export const EXAMPLE_EXTENSIONS = {
 /** @type {Record<PackageFrameworkId, string>} */
 export const TYPES_FILES = {
   astro: "types.astro.ts",
+  nunjucks: "types.astro.ts",
   react: "types.react.ts",
   solid: "types.solid.ts",
   svelte: "types.svelte.ts",
   vue: "types.vue-props.ts",
+}
+
+/** @param {FrameworkId} framework */
+export function codeLanguage(framework) {
+  if (framework === "react" || framework === "solid") return "tsx"
+  return framework === "nunjucks" ? "html" : framework
 }
 
 /** @param {FrameworkId} framework */
@@ -104,7 +119,9 @@ export function conditionalSlot(framework, has) {
   return (
     framework === "html"
       ? [framework, DEFAULT_FRAMEWORK]
-      : [framework, "components", DEFAULT_FRAMEWORK]
+      : framework === "nunjucks"
+        ? [framework, "astro", "components", DEFAULT_FRAMEWORK]
+        : [framework, "components", DEFAULT_FRAMEWORK]
   ).find(has)
 }
 
@@ -118,27 +135,7 @@ export function frameworkPaths() {
   }))
 }
 
-/** @type {Record<string, FrameworkId[]>} */
-export const COMPONENT_FRAMEWORKS = {}
-
 export const FRAMEWORK_AGNOSTIC_EXAMPLES = ["typography/Default"]
-
-/**
- * @param {FrameworkId} framework
- * @param {string} slug
- */
-export function componentHasFramework(framework, slug) {
-  return COMPONENT_FRAMEWORKS[slug]?.includes(framework) ?? true
-}
-
-/**
- * @param {FrameworkId} framework
- * @param {string} sharedPath
- */
-export function pathHasFramework(framework, sharedPath) {
-  const slug = sharedPath.match(/^\/components\/([^/]+)/)?.[1]
-  return !slug || componentHasFramework(framework, slug)
-}
 
 export const FRAMEWORK_FREE_PREFIXES = [
   "/blocks",
@@ -219,13 +216,11 @@ export function hrefFor(framework, pathname) {
 export function frameworkVariantsOf(pathname) {
   const sharedPath = stripFrameworkPrefix(pathname)
   if (isFrameworkFree(sharedPath)) return []
-  return FRAMEWORKS.filter((l) => pathHasFramework(l.id, sharedPath)).map(
-    (l) => ({
-      framework: l.id,
-      url: hrefFor(l.id, pathname),
-      isDefault: l.id === DEFAULT_FRAMEWORK,
-    }),
-  )
+  return FRAMEWORKS.map((l) => ({
+    framework: l.id,
+    url: hrefFor(l.id, pathname),
+    isDefault: l.id === DEFAULT_FRAMEWORK,
+  }))
 }
 
 export const FRAMEWORK_STORAGE_KEY = "opui-framework"

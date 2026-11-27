@@ -4,7 +4,10 @@ const files = import.meta.glob<string>("../../packages/opui/themes/*.css", {
   query: "?raw",
 })
 
-const LABELS = new Map([["govuk", "GOV.UK"]])
+const LABELS = new Map([
+  ["govuk", "GOV.UK"],
+  ["vice-city", "Vice City"],
+])
 
 export const EXAMPLE_THEMES = Object.entries(files)
   .map(([path, css]) => {

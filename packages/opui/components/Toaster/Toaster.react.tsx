@@ -3,7 +3,7 @@
 import "../../elements/toaster.js"
 import { defined } from "../attrs"
 import { cx } from "../cx"
-import { warnMissingId } from "../dev"
+import { DEV, warnMissingId } from "../dev"
 import type { Props } from "./types.react"
 
 export default function Toaster({
@@ -16,7 +16,7 @@ export default function Toaster({
   side,
   ...rest
 }: Props) {
-  warnMissingId("Toaster", id)
+  if (DEV) warnMissingId("Toaster", id)
 
   return (
     <opui-toaster

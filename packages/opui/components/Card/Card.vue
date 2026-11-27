@@ -20,7 +20,6 @@ defineSlots<Slots>()
       density && density !== 'normal' && `ui-${density}`,
       orientation && orientation !== 'auto' && `ui-${orientation}`,
       variant && variant !== 'plain' && `ui-${variant}`,
-      $props.class,
     ]"
   >
     <slot></slot>

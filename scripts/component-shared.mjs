@@ -6,7 +6,13 @@ export const root = fileURLToPath(new URL("..", import.meta.url))
 
 export const SOLID_PRAGMA = "/** @jsxImportSource @solidjs/web */"
 
-export const unsupported = (code, file, what, hint) => {
+export const unsupported = (
+  code,
+  file,
+  what,
+  hint,
+  compiler = "scripts/build-components.mjs",
+) => {
   if (!(code in DIAGNOSTICS)) {
     throw new Error(
       `unsupported() takes a code from scripts/component-diagnostics.mjs, not ${code}`,
@@ -14,7 +20,7 @@ export const unsupported = (code, file, what, hint) => {
   }
   return Object.assign(
     new Error(
-      `${file} uses ${what}, which scripts/build-components.mjs can't compile: ${hint ?? "support the construct in scripts/build-components.mjs, or list the file in scripts/hand-written-components.json with the reason"} [${code}]`,
+      `${file} uses ${what}, which ${compiler} can't compile: ${hint ?? "support the construct in scripts/build-components.mjs, or list the file in scripts/hand-written-components.json with the reason"} [${code}]`,
     ),
     { code },
   )
@@ -286,6 +292,42 @@ export const classText = (code) => {
       ? node.elements[0]
       : node
   return only && isClassText(only) ? unwrap(only).getText() : undefined
+}
+
+export const withoutClassEntry = (code, name) => {
+  const [statement] = sourceFileOf(`(${code})`, "class.ts").statements
+  const node =
+    statement && ts.isExpressionStatement(statement)
+      ? unwrap(statement.expression)
+      : undefined
+  const isName = (entry) => {
+    const value = unwrap(entry)
+    return ts.isIdentifier(value) && value.text === name
+  }
+  if (node && isName(node)) return { code: undefined, dropped: true }
+  if (!node || !ts.isArrayLiteralExpression(node)) {
+    return { code, dropped: false }
+  }
+  const kept = node.elements.filter((entry) => !isName(entry))
+  return {
+    code: kept.length
+      ? `[${kept.map((entry) => entry.getText()).join(", ")}]`
+      : undefined,
+    dropped: kept.length < node.elements.length,
+  }
+}
+
+export const staticClass = (code) => {
+  const node = classNode(code)
+  const list = node && unwrap(node)
+  const only =
+    list && ts.isArrayLiteralExpression(list) && list.elements.length === 1
+      ? unwrap(list.elements[0])
+      : list
+  return only &&
+    (ts.isStringLiteral(only) || ts.isNoSubstitutionTemplateLiteral(only))
+    ? only.text
+    : undefined
 }
 
 export const onlyClass = (code) => {

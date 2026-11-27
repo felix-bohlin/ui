@@ -129,6 +129,25 @@ const relativeImports = (path: string) =>
         .map(([, specifier]) => resolveImport(path, specifier))
         .filter((file) => file !== undefined)
 
+export const elementImports = (files: string[]) => {
+  const seen = new Set<string>()
+  const queue = files
+    .map((file) => `elements/${file}`)
+    .filter((path) => path in packageFiles)
+  while (queue.length > 0) {
+    for (const file of relativeImports(queue.shift()!)) {
+      if (seen.has(file)) continue
+      seen.add(file)
+      queue.push(file)
+    }
+  }
+  return [...seen].toSorted().map((path) => ({
+    code: packageFiles[path],
+    lang: langOf(path),
+    title: path.replace(/^elements\//, ""),
+  }))
+}
+
 export const componentSources = (
   framework: PackageFrameworkId,
   names: string[],

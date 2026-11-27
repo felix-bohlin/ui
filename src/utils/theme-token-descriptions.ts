@@ -27,7 +27,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-button-focus":
     'How a focused `Button` and `ControlGroup` button show focus. `highlight` fills the button with `--ui-focus-highlight` and `--ui-on-focus-highlight` text instead of the ring, like GOV.UK. The outline stays, transparent, so forced colors still draw the ring, and a button with `aria-disabled="true"` keeps the ring. When unset (`ring`), the focus ring shows.',
   "--ui-button-font-weight":
-    "Font weight of `Button`. When unset, buttons follow `--ui-font-weight-bold`.",
+    "Font weight of `Button`. When unset, buttons follow `--ui-font-weight-heading`.",
   "--ui-button-hover":
     "How `Button` and `ControlGroup` show hover and pressed states. `layer` draws a translucent state layer: the text color over filled and tonal buttons, the accent over outlined ones, which keep their text and border. Filled, tonal, primary and critical buttons use `--ui-state-hover-alpha-accent` and `--ui-state-active-alpha-accent`, and neutral outlined buttons the light and dark alphas. `shade-all` shades the fill of every button that has one, filled and tonal: filled buttons as when unset, tonal ones with `--ui-surface-tonal-hover`, darker in light mode and lighter in dark mode, and a step further when pressed. Outlined buttons fill with the accent, as when unset. When unset (`shade`), filled buttons shade their fill and outlined and tonal buttons fill with the accent.",
   "--ui-button-hover-shadow":
@@ -193,12 +193,12 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-focus-ring-offset": "Distance between a control and its focus ring.",
   "--ui-focus-ring-style": "Outline style of the focus ring.",
   "--ui-focus-ring-width": "Width of the focus ring. `3px` with more contrast.",
-  "--ui-font-body":
+  "--ui-font-family-body":
     "Font family for body text, fields and buttons. `system-ui, sans-serif` by default.",
-  "--ui-font-code":
+  "--ui-font-family-code":
     "Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. A monospace stack by default.",
-  "--ui-font-heading":
-    "Font family for `h1`–`h6` and the `.ui-h1`–`.ui-h6` classes. When unset, headings follow `--ui-font-body`.",
+  "--ui-font-family-heading":
+    "Font family for `h1`–`h6` and the `.ui-h1`–`.ui-h6` classes. When unset, headings follow `--ui-font-family-body`.",
   "--ui-font-size-100":
     "The smallest step of the type scale, 12px. `--ui-font-size-caption` reads it. Set the steps to reshape every size at once, or a role to move one.",
   "--ui-font-size-200":
@@ -239,13 +239,12 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Font size of lead paragraphs, `.ui-p.ui-large`, large `Avatar` initials, the `DescriptionList` total row, the value of a small `Stat` and the `OneTimeCode` digits. Defaults to `--ui-font-size-500`.",
   "--ui-font-size-small":
     "Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, `List` text, small buttons, toggles and fields, and large chips. Defaults to `--ui-font-size-200`.",
-  "--ui-font-weight-bold": "Font weight for headings, buttons and terms.",
-  "--ui-font-weight-medium":
-    "Font weight for badges, overlines and group labels.",
-  "--ui-font-weight-normal":
+  "--ui-font-weight-body":
     "Font weight for body text, `List` text and `Button` keyboard shortcuts.",
-  "--ui-font-weight-semibold":
-    "Font weight for labels, table headers and titles.",
+  "--ui-font-weight-emphasis":
+    "Font weight for badges, overlines and group labels.",
+  "--ui-font-weight-heading": "Font weight for headings, buttons and terms.",
+  "--ui-font-weight-label": "Font weight for labels, table headers and titles.",
   "--ui-gray-chroma": "Chroma of the gray ramp. Raise it for tinted grays.",
   "--ui-gray-hue": "Hue of the gray ramp.",
   "--ui-green":
@@ -307,18 +306,18 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Letter spacing of `h1` and `h2`, tighter than the body.",
   "--ui-letter-spacing-heading":
     "Letter spacing of `h3` and `h4`, slightly tighter than the body.",
-  "--ui-line-height":
-    "Line height of captions, `List` text, the `Stat` label and description and the `Stepper` description. Body text and prose use `--ui-line-height-relaxed`.",
+  "--ui-line-height-body":
+    "Line height of the page text set on `html`, and of `Tabs` labels.",
+  "--ui-line-height-compact":
+    "Line height of short text that isn't page prose: captions, the lead paragraph, `List` text, the `Stat` label and description and the `Stepper` description. Page text uses `--ui-line-height-body`.",
   "--ui-line-height-control":
     "Line height of interface text: labels, helpers, choice labels and field hints.",
-  "--ui-line-height-relaxed":
-    "Line height of the page text set on `html`, and of `Tabs` labels.",
   "--ui-line-height-tight":
-    "Line height of single-line controls and compact text: field inputs, dense `Table` cells, the `Stat` value, `Tooltip`, `Card` captions and keyboard hints in buttons.",
+    "Line height of single-line controls and dense text: field inputs, dense `Table` cells, the `Stat` value, `Tooltip`, `Card` captions and keyboard hints in buttons.",
   "--ui-link-focus":
     "How a focused `.ui-link` and a focused link in `.ui-rich-text` show focus. `highlight` fills the link with `--ui-focus-highlight`, draws its text and a bar under it in `--ui-on-focus-highlight` and drops the underline, like GOV.UK. The bar is a block-end border as thick as the focus ring or `--ui-focus-border-width`, whichever is wider, so it follows the writing mode and sits under every line of a wrapped link. The outline stays, transparent, so forced colors still draw the ring. When unset (`ring`), the focus ring shows.",
   "--ui-link-font-weight":
-    "Font weight of `.ui-link` and of links in `.ui-rich-text`. When unset, links follow `--ui-font-weight-bold`, the weight of headings.",
+    "Font weight of `.ui-link` and of links in `.ui-rich-text`. When unset, links follow `--ui-font-weight-heading`, the weight of headings.",
   "--ui-link-visited-text-color":
     "Text and underline color of a visited `.ui-link` and of visited links in `.ui-rich-text`. Hover and focus keep their own color. When unset, visited links look like the others.",
   "--ui-list-item-padding-inline":
@@ -401,7 +400,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-rich-text-heading-margin-block-start":
     "Space above `h1` to `h6` in `.ui-rich-text`, rounded to `--ui-rhythm-step`. It overlaps the margin of the block before, so `0px` leaves the paragraph gap. Give a length: a unitless `0` drops both margins. `em` is the heading's own font size, so larger headings get more room, and `rem` gives every level the same space. When unset, each level takes a multiple of `--ui-rich-text-flow-gap`: 3 above `h1` and `h2`, 2 above `h3` and 1.5 above `h4` to `h6`. A heading group keeps its own spacing.",
   "--ui-rich-text-line-height":
-    "Line height of `.ui-rich-text`, for themes whose prose is looser than their interface text. When unset, rich text keeps the line height around it, `--ui-line-height-relaxed` on the page.",
+    "Line height of `.ui-rich-text`, for themes whose prose is looser than their interface text. When unset, rich text keeps the line height around it, `--ui-line-height-body` on the page.",
   "--ui-safe-area-inset-block-end":
     "The part of the bottom of the screen a home indicator covers, `env(safe-area-inset-bottom)`. A `Drawer` at the block end or on an inline side pads its content above it, and a `Toaster` at the block end sits above it. `0px` unless the viewport meta tag has `viewport-fit=cover`.",
   "--ui-safe-area-inset-block-start":

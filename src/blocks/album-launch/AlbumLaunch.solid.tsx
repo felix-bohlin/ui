@@ -221,7 +221,7 @@ export default function AlbumLaunch() {
               color: var(--ui-text-strong);
               font-size: var(--ui-font-size-800);
               font-variant-numeric: tabular-nums;
-              font-weight: var(--ui-font-weight-bold);
+              font-weight: var(--ui-font-weight-heading);
               line-height: 1;
               margin: 0;
             }

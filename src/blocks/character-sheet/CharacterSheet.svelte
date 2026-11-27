@@ -361,7 +361,7 @@
         --_gap: var(--ui-space-2);
 
         align-items: center;
-        font-weight: var(--ui-font-weight-normal);
+        font-weight: var(--ui-font-weight-body);
       }
     }
   }

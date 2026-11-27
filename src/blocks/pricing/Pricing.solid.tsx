@@ -290,7 +290,7 @@ export default function Pricing() {
           }
 
           .pricing-save {
-            font-weight: var(--ui-font-weight-medium);
+            font-weight: var(--ui-font-weight-emphasis);
           }
 
           .pricing-plans {
@@ -321,7 +321,7 @@ export default function Pricing() {
 
           .pricing-amount {
             font-size: var(--ui-font-size-800);
-            font-weight: var(--ui-font-weight-bold);
+            font-weight: var(--ui-font-weight-heading);
             line-height: 1;
           }
 
@@ -352,7 +352,7 @@ export default function Pricing() {
             table-layout: fixed;
 
             th[scope="row"] {
-              font-weight: var(--ui-font-weight-normal);
+              font-weight: var(--ui-font-weight-body);
             }
 
             :is(td, thead th:not(:first-child)) {

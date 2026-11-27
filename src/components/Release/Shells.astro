@@ -283,9 +283,9 @@ const frameworkId = Astro.locals.$id("shells-framework")
 
   .shells-cost-title {
     color: var(--ui-text-strong);
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-small);
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
   }
 
   .shells-layers {
@@ -300,7 +300,7 @@ const frameworkId = Astro.locals.$id("shells-framework")
     align-items: center;
     column-gap: var(--ui-space-4);
     display: grid;
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-small);
     grid-template-areas:
       "label files lines"
@@ -316,7 +316,7 @@ const frameworkId = Astro.locals.$id("shells-framework")
 
   .shells-layer-label {
     color: var(--ui-text-strong);
-    font-weight: var(--ui-font-weight-medium);
+    font-weight: var(--ui-font-weight-emphasis);
     grid-area: label;
   }
 
@@ -350,7 +350,7 @@ const frameworkId = Astro.locals.$id("shells-framework")
 
   .shells-server {
     color: var(--ui-text);
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-small);
     margin: 0;
   }
@@ -372,7 +372,7 @@ const frameworkId = Astro.locals.$id("shells-framework")
     border-radius: var(--ui-radius-large);
     color: var(--ui-text);
     display: none;
-    font-family: var(--ui-font-code);
+    font-family: var(--ui-font-family-code);
     font-size: var(--ui-font-size-caption);
     grid-area: 1 / 1;
     line-height: 1.45;
@@ -398,7 +398,7 @@ const frameworkId = Astro.locals.$id("shells-framework")
     background-color: var(--ui-surface-tonal);
     border-radius: var(--ui-radius-small);
     color: var(--ui-palette-text, var(--ui-text-strong));
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
     margin-inline: -0.15em;
     padding-inline: 0.15em;
     view-transition-class: shells-part;
@@ -412,13 +412,13 @@ const frameworkId = Astro.locals.$id("shells-framework")
 
   .shells-note {
     color: var(--ui-text-subtle);
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-caption);
     margin: 0;
   }
 
   .shells-diffs {
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     font-size: var(--ui-font-size-small);
 
     & summary {
@@ -426,7 +426,7 @@ const frameworkId = Astro.locals.$id("shells-framework")
     }
 
     & p {
-      font-weight: var(--ui-font-weight-semibold);
+      font-weight: var(--ui-font-weight-label);
       margin-block: var(--ui-space-2) var(--ui-space-1);
     }
   }
@@ -434,7 +434,7 @@ const frameworkId = Astro.locals.$id("shells-framework")
   .shells-diff {
     background-color: var(--ui-surface-tonal);
     border-radius: var(--ui-radius-small);
-    font-family: var(--ui-font-code);
+    font-family: var(--ui-font-family-code);
     font-size: var(--ui-font-size-caption);
     inline-size: 100%;
     line-height: 1.6;

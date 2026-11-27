@@ -319,7 +319,7 @@ export default function Notifications() {
           }
 
           .notifications-unread .ui-text > p:first-child {
-            font-weight: var(--ui-font-weight-semibold);
+            font-weight: var(--ui-font-weight-label);
           }
 
           .notifications-quote {

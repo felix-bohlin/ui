@@ -34,7 +34,7 @@
 
       dt {
         display: block;
-        font-weight: var(--ui-font-weight-bold);
+        font-weight: var(--ui-font-weight-heading);
       }
 
       dd {
@@ -48,7 +48,7 @@
         border-block-start: var(--ui-border-width) solid var(--ui-border-color);
         color: var(--ui-text-strong);
         font-size: var(--ui-font-size-large);
-        font-weight: var(--ui-font-weight-bold);
+        font-weight: var(--ui-font-weight-heading);
         padding-block-start: var(--ui-space-4);
 
         dd {

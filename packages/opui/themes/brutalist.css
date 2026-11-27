@@ -42,19 +42,19 @@
     );
     --ui-field-label-font-weight: 700;
     --ui-focus-ring-color: light-dark(oklch(0 0 0), oklch(1 0 0));
-    --ui-font-body:
+    --ui-font-family-body:
       "DM Sans", Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro,
       sans-serif;
     --ui-font-size-control: 0.875rem;
-    --ui-font-weight-bold: 700;
-    --ui-font-weight-normal: 500;
-    --ui-font-weight-semibold: 700;
+    --ui-font-weight-heading: 700;
+    --ui-font-weight-body: 500;
+    --ui-font-weight-label: 700;
     --ui-gray-chroma: 0.03;
     --ui-gray-hue: 260;
     --ui-letter-spacing-display: 0;
     --ui-letter-spacing-heading: 0;
-    --ui-line-height: 1.5;
-    --ui-line-height-relaxed: 1.5;
+    --ui-line-height-compact: 1.5;
+    --ui-line-height-body: 1.5;
     --ui-list-item-padding-inline: 0.5rem;
     --ui-on-inverse: var(--ui-on-primary);
     --ui-palette-source: oklch(0.675 0.1725 259.5);

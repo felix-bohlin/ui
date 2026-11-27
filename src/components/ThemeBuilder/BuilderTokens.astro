@@ -91,7 +91,7 @@ const count = sections.reduce((sum, section) => sum + section.tokens.length, 0)
   .builder-token-title {
     color: var(--ui-text-strong);
     font-size: var(--ui-font-size-body);
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
     margin: 0;
   }
 
@@ -146,7 +146,7 @@ const count = sections.reduce((sum, section) => sum + section.tokens.length, 0)
     &::before {
       color: var(--ui-text-subtle);
       content: "Light";
-      font-family: var(--ui-font-body);
+      font-family: var(--ui-font-family-body);
     }
 
     &[data-dark]::before {

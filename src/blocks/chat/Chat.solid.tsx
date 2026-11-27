@@ -444,7 +444,7 @@ export default function Chat() {
             border-radius: var(--ui-radius-round);
             color: var(--ui-on-primary);
             font-size: var(--ui-font-size-caption);
-            font-weight: var(--ui-font-weight-semibold);
+            font-weight: var(--ui-font-weight-label);
             line-height: 1;
             min-inline-size: var(--ui-space-6);
             padding: var(--ui-space-1) var(--ui-space-2);

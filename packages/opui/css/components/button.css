@@ -145,7 +145,7 @@
     color: var(--_text-color);
     display: inline-flex;
     font-size: var(--_font-size);
-    font-weight: var(--ui-button-font-weight, var(--ui-font-weight-bold));
+    font-weight: var(--ui-button-font-weight, var(--ui-font-weight-heading));
     gap: var(--ui-space-2);
     justify-content: center;
     min-block-size: var(--_size);
@@ -283,9 +283,9 @@
       border: 0;
       border-radius: var(--ui-radius-small);
       color: inherit;
-      font-family: var(--ui-font-code);
+      font-family: var(--ui-font-family-code);
       font-size: 0.8em;
-      font-weight: var(--ui-font-weight-normal);
+      font-weight: var(--ui-font-weight-body);
       line-height: var(--ui-line-height-tight);
       padding-block: 0.1ex;
       padding-inline: 0.3ex;

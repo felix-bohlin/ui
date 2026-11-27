@@ -421,7 +421,7 @@ export default function Billing() {
             color: var(--ui-on-primary);
             display: flex;
             font-size: var(--ui-font-size-caption);
-            font-weight: var(--ui-font-weight-bold);
+            font-weight: var(--ui-font-weight-heading);
             inline-size: 4rem;
             justify-content: center;
           }

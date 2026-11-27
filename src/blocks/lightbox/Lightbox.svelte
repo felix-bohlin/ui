@@ -167,7 +167,7 @@
           border-radius: var(--ui-radius-round);
           color: oklch(100% 0 0);
           font-size: var(--ui-font-size-caption);
-          font-weight: var(--ui-font-weight-semibold);
+          font-weight: var(--ui-font-weight-label);
           margin: var(--ui-space-4);
           padding: var(--ui-space-1) var(--ui-space-4);
           place-self: end;
@@ -200,7 +200,7 @@
          Without scroll timelines it stays empty. */
       .lightbox-count {
         font-variant-numeric: tabular-nums;
-        font-weight: var(--ui-font-weight-semibold);
+        font-weight: var(--ui-font-weight-label);
 
         @supports (animation-timeline: scroll()) {
           animation: lightbox-count linear both;

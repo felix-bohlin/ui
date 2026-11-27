@@ -1619,7 +1619,7 @@ export const whatsNew = {
     `<a href="#rich-text-showcase">Rich text</a> headings, <code>pre</code> and <code>small</code> scale with the surrounding font size, and so does <a href="#inline-text-elements"><code>.ui-small</code></a>.`,
     `Rich text <code>var</code> is monospace, like <a href="#inline-text-elements"><code>.ui-var</code></a>.`,
     `<a href="#link">Links</a> are documented, and get a thicker underline on hover.`,
-    `Headings read <a href="#api"><code>--ui-font-heading</code></a>, and code, <code>kbd</code>, <code>samp</code> and <code>.ui-var</code> read <code>--ui-font-code</code>. Rich text padding and gaps read the <code>--ui-space-*</code> scale; its margins come from the flow space.`,
+    `Headings read <a href="#api"><code>--ui-font-family-heading</code></a>, and code, <code>kbd</code>, <code>samp</code> and <code>.ui-var</code> read <code>--ui-font-family-code</code>. Rich text padding and gaps read the <code>--ui-space-*</code> scale; its margins come from the flow space.`,
     `<a href="#link">Links</a> read <code>--ui-primary-text</code>, which keeps 4.5:1 on every surface, in a List too.`,
     `<a href="#link">Links</a> and <a href="#inline-text-elements">underlined text</a> read <code>--ui-underline-offset</code>, <code>--ui-underline-offset-small</code> and <code>--ui-underline-hover-thickness</code>.`,
     `<a href="#link">Rich text links</a> are styled by <code>link.css</code>, with one rule for <code>.ui-link</code> and classless links. Install it next to <code>typography.css</code>.`,

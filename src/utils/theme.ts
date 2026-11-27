@@ -79,7 +79,7 @@ export const COMPONENT_RADII = CORNER_TOKENS.filter(
 
 export const FOLLOW_RADIUS = "var(--ui-radius)"
 
-export const FONT_TOKENS = ["--ui-font-body", "--ui-font-heading"]
+export const FONT_TOKENS = ["--ui-font-family-body", "--ui-font-family-heading"]
 
 const isBrowser = typeof window !== "undefined"
 
@@ -201,7 +201,7 @@ export const customCss = (tokens: ThemeTokens, icons?: IconBlock | null) => {
   ].join("\n")
 }
 
-const FONT_FAMILY_TOKENS = [...FONT_TOKENS, "--ui-font-code"]
+const FONT_FAMILY_TOKENS = [...FONT_TOKENS, "--ui-font-family-code"]
 
 export const themeFontIds = ({ preset, tokens }: Theme) => {
   const base = EXAMPLE_THEMES.find((theme) => theme.name === preset)?.tokens

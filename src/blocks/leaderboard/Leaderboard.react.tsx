@@ -285,7 +285,7 @@ export default function Leaderboard() {
               border-start-start-radius: var(--ui-radius);
               display: grid;
               font-size: var(--ui-font-size-800);
-              font-weight: var(--ui-font-weight-bold);
+              font-weight: var(--ui-font-weight-heading);
               inline-size: 100%;
               padding-block-start: var(--ui-space-4);
             }

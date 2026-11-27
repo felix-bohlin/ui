@@ -77,7 +77,7 @@ Outputs: `--_duration`, `--_label-text-color`, `--_line-border-color`, `--_marke
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width-large`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-normal`, `--ui-font-weight-semibold`, `--ui-icon-check`, `--ui-icon-invalid`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height`, `--ui-motion`, `--ui-on-selected-strong`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-space-1`, `--ui-space-2`, `--ui-space-5`, `--ui-space-6`, `--ui-space-7`, `--ui-text`, `--ui-text-subtle` and `--ui-underline-offset`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width-large`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-weight-body`, `--ui-font-weight-label`, `--ui-icon-check`, `--ui-icon-invalid`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height-compact`, `--ui-motion`, `--ui-on-selected-strong`, `--ui-radius-round`, `--ui-selected-strong`, `--ui-space-1`, `--ui-space-2`, `--ui-space-5`, `--ui-space-6`, `--ui-space-7`, `--ui-text`, `--ui-text-subtle` and `--ui-underline-offset`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

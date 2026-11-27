@@ -22,7 +22,7 @@ export const GALLERY: GalleryEntry[] = [
         "--ui-chip-radius": "var(--ui-radius)",
         "--ui-dialog-radius": "var(--ui-radius)",
         "--ui-field-radius": "var(--ui-radius)",
-        "--ui-font-body":
+        "--ui-font-family-body":
           '"DM Sans", Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, sans-serif',
         "--ui-gray-chroma": "0.012",
         "--ui-gray-hue": "55",
@@ -46,7 +46,7 @@ export const GALLERY: GalleryEntry[] = [
       preset: "brutalist",
       tokens: {
         "--ui-density": "0.875",
-        "--ui-font-body":
+        "--ui-font-family-body":
           "Geist, Inter, Roboto, Helvetica Neue, Arial Nova, Nimbus Sans, Arial, sans-serif",
         "--ui-palette-source": "oklch(0.62 0.18 150)",
         "--ui-primary-source":
@@ -70,7 +70,7 @@ export const GALLERY: GalleryEntry[] = [
         "--ui-chip-radius": "var(--ui-radius-round)",
         "--ui-dialog-radius": "var(--ui-radius)",
         "--ui-field-radius": "var(--ui-radius)",
-        "--ui-font-body":
+        "--ui-font-family-body":
           'Figtree, "DM Sans", Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, sans-serif',
         "--ui-gray-chroma": "0.04",
         "--ui-gray-hue": "295",
@@ -122,12 +122,12 @@ export const GALLERY: GalleryEntry[] = [
         "--ui-button-hover-shadow": "none",
         "--ui-button-hover-translate": "revert-layer",
         "--ui-field-shadow": "none",
-        "--ui-font-heading":
+        "--ui-font-family-heading":
           'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
         "--ui-gray-chroma": "0.012",
         "--ui-gray-hue": "70",
-        "--ui-line-height": "1.6",
-        "--ui-line-height-relaxed": "1.75",
+        "--ui-line-height-compact": "1.6",
+        "--ui-line-height-body": "1.75",
         "--ui-palette-source": "oklch(0.5 0.1 60)",
         "--ui-primary-source":
           "light-dark(oklch(0.5 0.1 60), oklch(0.76 0.1 60))",

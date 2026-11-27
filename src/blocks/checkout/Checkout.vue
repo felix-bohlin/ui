@@ -454,7 +454,7 @@ import {
   }
 
   .checkout-price {
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
   }
 
   .checkout-submit {

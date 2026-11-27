@@ -382,12 +382,12 @@ export default function ShoppingCart() {
           }
 
           .cart-line-price {
-            font-weight: var(--ui-font-weight-semibold);
+            font-weight: var(--ui-font-weight-label);
             text-align: end;
 
             s {
               display: block;
-              font-weight: var(--ui-font-weight-normal);
+              font-weight: var(--ui-font-weight-body);
             }
           }
 

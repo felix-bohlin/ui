@@ -217,7 +217,7 @@
     :where(li.ui-heading) {
       color: var(--ui-text);
       font-size: var(--ui-font-size-caption);
-      font-weight: var(--ui-font-weight-bold);
+      font-weight: var(--ui-font-weight-heading);
       min-block-size: auto;
       padding-block: var(--ui-space-2) var(--ui-space-1);
     }

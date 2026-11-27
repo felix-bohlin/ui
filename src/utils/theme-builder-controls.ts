@@ -787,7 +787,7 @@ export const GROUPS: ControlGroup[] = [
         id: "font-body",
         kind: "choice",
         label: "Font",
-        options: fontOptions("--ui-font-body"),
+        options: fontOptions("--ui-font-family-body"),
         tier: "basic",
       },
       {
@@ -800,10 +800,10 @@ export const GROUPS: ControlGroup[] = [
           {
             group: "System",
             label: "Same as body",
-            tokens: revert("--ui-font-heading"),
+            tokens: revert("--ui-font-family-heading"),
             value: "body",
           },
-          ...fontOptions("--ui-font-heading"),
+          ...fontOptions("--ui-font-family-heading"),
         ],
         tier: "fine",
       },
@@ -817,10 +817,10 @@ export const GROUPS: ControlGroup[] = [
           {
             group: "System",
             label: "Default",
-            tokens: revert("--ui-font-code"),
+            tokens: revert("--ui-font-family-code"),
             value: "default",
           },
-          ...fontOptions("--ui-font-code", CODE_FONTS),
+          ...fontOptions("--ui-font-family-code", CODE_FONTS),
         ],
         tier: "fine",
       },
@@ -830,7 +830,7 @@ export const GROUPS: ControlGroup[] = [
         id: "weight-bold",
         kind: "choice",
         label: "Bold weight",
-        options: weights("--ui-font-weight-bold", [500, 600, 700, 800]),
+        options: weights("--ui-font-weight-heading", [500, 600, 700, 800]),
         tier: "fine",
       },
       {
@@ -839,7 +839,7 @@ export const GROUPS: ControlGroup[] = [
         id: "weight-semibold",
         kind: "choice",
         label: "Semibold weight",
-        options: weights("--ui-font-weight-semibold", [500, 600, 700]),
+        options: weights("--ui-font-weight-label", [500, 600, 700]),
         tier: "fine",
       },
       {
@@ -884,16 +884,16 @@ export const GROUPS: ControlGroup[] = [
           {
             label: "Compact",
             tokens: {
-              "--ui-line-height": "1.5",
-              "--ui-line-height-relaxed": "1.5",
+              "--ui-line-height-compact": "1.5",
+              "--ui-line-height-body": "1.5",
             },
             value: "compact",
           },
           {
             label: "Default",
             tokens: {
-              "--ui-line-height": "1.6",
-              "--ui-line-height-relaxed": "1.75",
+              "--ui-line-height-compact": "1.6",
+              "--ui-line-height-body": "1.75",
             },
             value: "default",
           },

@@ -283,7 +283,7 @@ import {
 
     .mp-lyric-current {
       color: var(--ui-primary-text);
-      font-weight: var(--ui-font-weight-bold);
+      font-weight: var(--ui-font-weight-heading);
     }
 
     p:not(.mp-lyric-current) {

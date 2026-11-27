@@ -207,7 +207,7 @@ import { Avatar, Card, CardContent, Rating } from "opui-css/vue"
   }
 
   .testimonials-name {
-    font-weight: var(--ui-font-weight-medium);
+    font-weight: var(--ui-font-weight-emphasis);
   }
 }
 </style>

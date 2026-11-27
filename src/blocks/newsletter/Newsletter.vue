@@ -156,7 +156,7 @@ import {
   }
 
   .newsletter-issue .ui-text p:first-child {
-    font-weight: var(--ui-font-weight-medium);
+    font-weight: var(--ui-font-weight-emphasis);
   }
 
   .newsletter-form {

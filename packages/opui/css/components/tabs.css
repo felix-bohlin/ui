@@ -86,11 +86,11 @@
       cursor: pointer;
       display: inline-flex;
       font-size: var(--ui-font-size-control);
-      font-weight: var(--ui-font-weight-medium);
+      font-weight: var(--ui-font-weight-emphasis);
       gap: var(--ui-space-2);
       isolation: isolate;
       justify-content: center;
-      line-height: var(--ui-line-height-relaxed);
+      line-height: var(--ui-line-height-body);
       order: 1;
       padding-block: calc(
         var(--ui-space-1) + var(--_inset) - var(--_track-border-width)

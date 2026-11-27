@@ -17,9 +17,9 @@
     background-image: var(--ui-surface-image, none);
     caret-color: var(--ui-primary);
     color: var(--ui-text);
-    font-family: var(--ui-font-body);
+    font-family: var(--ui-font-family-body);
     interpolate-size: allow-keywords;
-    line-height: var(--ui-line-height-relaxed);
+    line-height: var(--ui-line-height-body);
     min-block-size: 100%;
     scroll-behavior: if(style(--ui-motion: 0): auto; else: smooth);
 
@@ -61,7 +61,7 @@
     container-type: inline-size;
     font-size: var(--ui-font-size-body);
     font-synthesis: style;
-    font-weight: var(--ui-font-weight-normal);
+    font-weight: var(--ui-font-weight-body);
     inline-size: 100%;
     margin: 0;
     min-block-size: 100svb;
@@ -89,8 +89,8 @@
   }
 
   :where(h1, h2, h3, h4, h5, h6) {
-    font-family: var(--ui-font-heading, var(--ui-font-body));
-    font-weight: var(--ui-font-weight-bold);
+    font-family: var(--ui-font-family-heading, var(--ui-font-family-body));
+    font-weight: var(--ui-font-weight-heading);
   }
 
   :where(input, button, select, textarea),

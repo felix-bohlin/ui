@@ -26,10 +26,10 @@
     --ui-dialog-radius: 1.25rem;
     --ui-field-radius: 0.75rem;
     --ui-focus-ring-color: var(--ui-primary);
-    --ui-font-body:
+    --ui-font-family-body:
       Figtree, "DM Sans", Avenir, Montserrat, Corbel, URW Gothic,
       source-sans-pro, sans-serif;
-    --ui-font-heading: GTAArtDeco, var(--ui-font-body);
+    --ui-font-family-heading: GTAArtDeco, var(--ui-font-family-body);
     --ui-gray-chroma: 0.04;
     --ui-gray-hue: 295;
     --ui-menu-radius: 0.75rem;

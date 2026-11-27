@@ -574,7 +574,7 @@
       .inbox-unread {
         .ui-text p:first-child span,
         .inbox-subject {
-          font-weight: var(--ui-font-weight-semibold);
+          font-weight: var(--ui-font-weight-label);
         }
       }
 

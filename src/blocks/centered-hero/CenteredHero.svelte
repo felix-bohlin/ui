@@ -119,7 +119,7 @@
       .ch-bands {
         color: var(--ui-text-subtle);
         font-size: var(--ui-font-size-large);
-        font-weight: var(--ui-font-weight-bold);
+        font-weight: var(--ui-font-weight-heading);
         letter-spacing: var(--ui-letter-spacing-caps);
         row-gap: var(--ui-space-2);
         text-transform: uppercase;

@@ -9,7 +9,7 @@
 
       color: var(--_text-color);
       cursor: pointer;
-      font-weight: var(--ui-link-font-weight, var(--ui-font-weight-bold));
+      font-weight: var(--ui-link-font-weight, var(--ui-font-weight-heading));
       text-decoration: underline;
       text-decoration-color: var(--_text-color);
       text-underline-offset: var(--ui-underline-offset);

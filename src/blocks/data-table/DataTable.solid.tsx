@@ -567,7 +567,7 @@ export default function DataTable() {
             padding: var(--ui-space-2) var(--ui-space-4);
 
             p {
-              font-weight: var(--ui-font-weight-semibold);
+              font-weight: var(--ui-font-weight-label);
             }
           }
 
@@ -580,7 +580,7 @@ export default function DataTable() {
           }
 
           .data-table-person {
-            font-weight: var(--ui-font-weight-medium);
+            font-weight: var(--ui-font-weight-emphasis);
           }
 
           .data-table-actions {

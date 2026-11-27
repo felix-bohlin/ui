@@ -281,7 +281,7 @@
           color: var(--ui-text-strong);
           font-size: var(--ui-font-size-large);
           font-variant-numeric: tabular-nums;
-          font-weight: var(--ui-font-weight-bold);
+          font-weight: var(--ui-font-weight-heading);
           margin: 0;
         }
       }

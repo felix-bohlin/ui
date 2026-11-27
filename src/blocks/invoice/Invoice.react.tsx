@@ -352,7 +352,7 @@ export default function Invoice() {
           }
 
           .invoice-brand {
-            font-weight: var(--ui-font-weight-bold);
+            font-weight: var(--ui-font-weight-heading);
 
             svg {
               block-size: 1.75rem;

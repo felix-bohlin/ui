@@ -24,7 +24,7 @@ const exampleFonts = Object.fromEntries(
   EXAMPLE_THEMES.map((theme) => [
     theme.name,
     Object.fromEntries(
-      [...FONT_TOKENS, "--ui-font-code"]
+      [...FONT_TOKENS, "--ui-font-family-code"]
         .filter((name) => name in theme.tokens)
         .map((name) => [name, theme.tokens[name]]),
     ),
@@ -143,7 +143,7 @@ const webFonts = Object.fromEntries(
         FONT_TOKENS.some((name) => Object.hasOwn(tokens ?? {}, name)),
       )
       const stacks = { ...exampleFonts[preset], ...tokens }
-      for (const name of [...FONT_TOKENS, "--ui-font-code"]) {
+      for (const name of [...FONT_TOKENS, "--ui-font-family-code"]) {
         const family = String(stacks[name] ?? "")
           .split(",")[0]
           .trim()

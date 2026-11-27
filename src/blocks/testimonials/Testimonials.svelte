@@ -204,7 +204,7 @@
       }
 
       .testimonials-name {
-        font-weight: var(--ui-font-weight-medium);
+        font-weight: var(--ui-font-weight-emphasis);
       }
     }
   }

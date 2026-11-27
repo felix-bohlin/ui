@@ -291,7 +291,7 @@ import {
 
     span:last-child {
       color: var(--ui-text-strong);
-      font-weight: var(--ui-font-weight-bold);
+      font-weight: var(--ui-font-weight-heading);
     }
   }
 

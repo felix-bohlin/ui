@@ -200,6 +200,19 @@ test("the token rules catch -contrast and an on-color without a fill", () => {
 
 const vocabularyProblem = (name: string) => {
   if (!name.startsWith("--ui-")) return undefined
+  if (
+    /^--ui-font-weight-(normal|medium|semibold|bold|light|black|\d+)$/.test(
+      name,
+    )
+  ) {
+    return "name a weight by the role it styles (--ui-font-weight-label), so a theme that sets it can't make a name lie"
+  }
+  if (name === "--ui-line-height") {
+    return "no bare line height: name the text it sets (--ui-line-height-body for page text, --ui-line-height-control for controls)"
+  }
+  if (/^--ui-font-(body|code|heading)$/.test(name)) {
+    return "a font family is --ui-font-family-*, so it doesn't read like --ui-font-size-*"
+  }
   const words = name.slice("--ui-".length).split("-")
   if (words.includes("elevated") && name !== "--ui-shadow-elevated") {
     return "elevated only names the variant (--ui-shadow-elevated): a surface above the page is raised"
@@ -245,8 +258,11 @@ test("samples the vocabulary rule must flag and must keep", () => {
       "--ui-button-pressed-bg-color",
       "--ui-disabled-opacity",
       "--ui-hover-alpha-light",
+      "--ui-font-weight-bold",
+      "--ui-line-height",
+      "--ui-font-body",
     ].map((name) => vocabularyProblem(name) === undefined),
-  ).toEqual([false, false, false, false, false, false])
+  ).toEqual(Array(9).fill(false))
   expect(
     [
       "--ui-shadow-elevated",
@@ -259,8 +275,11 @@ test("samples the vocabulary rule must flag and must keep", () => {
       "--ui-surface-tonal-hover",
       "--ui-underline-hover-thickness",
       "--_elevated-shadow",
+      "--ui-font-weight-label",
+      "--ui-line-height-body",
+      "--ui-font-family-body",
     ].map(vocabularyProblem),
-  ).toEqual(Array(10).fill(undefined))
+  ).toEqual(Array(13).fill(undefined))
 })
 
 const STATE_ENDING = /-(checked|focus|hover)$/

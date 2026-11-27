@@ -34,7 +34,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ## Theme tokens
 
-The stylesheets read `--ui-font-size-caption`, `--ui-font-size-h3`, `--ui-font-size-h4`, `--ui-font-size-large`, `--ui-font-weight-bold`, `--ui-line-height`, `--ui-line-height-tight`, `--ui-space-1`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-font-size-caption`, `--ui-font-size-h3`, `--ui-font-size-h4`, `--ui-font-size-large`, `--ui-font-weight-heading`, `--ui-line-height-compact`, `--ui-line-height-tight`, `--ui-space-1`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

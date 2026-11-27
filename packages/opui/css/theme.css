@@ -46,12 +46,12 @@
     --ui-focus-ring-width: 2px;
 
     /* Typography */
-    --ui-font-body: system-ui, sans-serif;
-    --ui-font-code:
+    --ui-font-family-body: system-ui, sans-serif;
+    --ui-font-family-code:
       Dank Mono, Operator Mono, Inconsolata, Fira Mono, ui-monospace, SF Mono,
       Monaco, Droid Sans Mono, Source Code Pro, Cascadia Code, Menlo, Consolas,
       DejaVu Sans Mono, monospace;
-    /* --ui-font-heading: var(--ui-font-body); */
+    /* --ui-font-family-heading: var(--ui-font-family-body); */
 
     --ui-font-size-100: 0.75rem;
     --ui-font-size-200: 0.875rem;
@@ -66,10 +66,10 @@
     --ui-fluid-min-inline-size: 20rem;
     --ui-fluid-max-inline-size: 48rem;
 
-    --ui-font-weight-normal: 400;
-    --ui-font-weight-medium: 500;
-    --ui-font-weight-semibold: 600;
-    --ui-font-weight-bold: 700;
+    --ui-font-weight-body: 400;
+    --ui-font-weight-emphasis: 500;
+    --ui-font-weight-label: 600;
+    --ui-font-weight-heading: 700;
 
     --ui-letter-spacing-caps: 0.06em;
     --ui-letter-spacing-display: -0.02em;
@@ -77,9 +77,9 @@
 
     --ui-line-height-tight: 1.25;
     --ui-line-height-control: 1.5;
-    --ui-line-height: 1.6;
-    --ui-line-height-relaxed: 1.75;
-    /* --ui-rich-text-line-height: var(--ui-line-height-relaxed); */
+    --ui-line-height-compact: 1.6;
+    --ui-line-height-body: 1.75;
+    /* --ui-rich-text-line-height: var(--ui-line-height-body); */
 
     --ui-rhythm-step: 0.25rem;
     /* --ui-rich-text-flow-gap: 1.25em; */
@@ -90,7 +90,7 @@
     --ui-underline-offset-small: 1px;
     --ui-underline-hover-thickness: 3px;
     /* --ui-link-focus: ring; */
-    /* --ui-link-font-weight: var(--ui-font-weight-bold); */
+    /* --ui-link-font-weight: var(--ui-font-weight-heading); */
 
     /* Spacing - gaps, padding and margins inside and between components. */
     --ui-space-scale: 1;
@@ -119,7 +119,7 @@
     /* --ui-button-accent-filled: var(--ui-button-accent); */
     /* --ui-button-on-accent-filled: var(--ui-button-on-accent); */
     /* --ui-button-radius: var(--ui-radius); */
-    /* --ui-button-font-weight: var(--ui-font-weight-bold); */
+    /* --ui-button-font-weight: var(--ui-font-weight-heading); */
     /* --ui-button-focus: ring; */
     /* --ui-button-hover: shade; */
     /* --ui-button-hover-shadow: var(--ui-shadow-control); */
@@ -394,7 +394,7 @@
     --ui-field-helper-line-height: var(--ui-line-height-control);
     --ui-field-label-text-color: var(--ui-text-strong);
     --ui-field-label-font-size: var(--ui-font-size-small);
-    --ui-field-label-font-weight: var(--ui-font-weight-semibold);
+    --ui-field-label-font-weight: var(--ui-font-weight-label);
     --ui-field-required-text-color: var(--ui-invalid-text);
     --ui-field-border-color: color-mix(
       in oklch,

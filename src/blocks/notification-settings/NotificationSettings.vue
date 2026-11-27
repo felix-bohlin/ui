@@ -521,11 +521,11 @@ import {
   }
 
   .notif-name {
-    font-weight: var(--ui-font-weight-medium);
+    font-weight: var(--ui-font-weight-emphasis);
   }
 
   .notif-desc {
-    font-weight: var(--ui-font-weight-normal);
+    font-weight: var(--ui-font-weight-body);
   }
 
   .notif-cell {

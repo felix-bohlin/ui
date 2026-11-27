@@ -46,7 +46,7 @@
       clip-path: var(--_hidden-clip-path);
       color: var(--_text-color);
       font-size: var(--_font-size);
-      font-weight: var(--ui-button-font-weight, var(--ui-font-weight-bold));
+      font-weight: var(--ui-button-font-weight, var(--ui-font-weight-heading));
       inset: unset;
       line-height: var(--ui-line-height-tight);
       margin-block: 0;

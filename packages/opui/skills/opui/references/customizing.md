@@ -10,8 +10,8 @@ Set the [knobs, roles and component tokens](https://opui.dev/html/guide/concepts
 @layer theme.custom {
   :where(html) {
     --ui-density: 0.9;
-    --ui-font-body: "Inter", system-ui, sans-serif;
-    --ui-font-heading: "Fraunces", serif;
+    --ui-font-family-body: "Inter", system-ui, sans-serif;
+    --ui-font-family-heading: "Fraunces", serif;
     --ui-palette-chroma: 0.35;
     --ui-palette-hue: 265;
   }

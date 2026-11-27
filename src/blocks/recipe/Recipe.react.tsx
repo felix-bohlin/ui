@@ -251,7 +251,7 @@ export default function Recipe() {
                 color: var(--ui-on-primary);
                 content: counter(recipe-step);
                 display: grid;
-                font-weight: var(--ui-font-weight-bold);
+                font-weight: var(--ui-font-weight-heading);
                 grid-row: span 2;
                 inline-size: 2rem;
                 justify-content: center;

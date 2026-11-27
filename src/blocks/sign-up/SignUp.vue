@@ -272,7 +272,7 @@ import {
   }
 
   .sign-up-strong {
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
   }
 
   .sign-up-plans .ui-end {

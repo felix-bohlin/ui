@@ -99,7 +99,7 @@
       h6 {
         color: inherit;
         font-size: var(--_title-font-size);
-        font-weight: var(--ui-font-weight-semibold);
+        font-weight: var(--ui-font-weight-label);
 
         * {
           font-size: inherit;

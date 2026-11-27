@@ -145,7 +145,7 @@
           var(--ui-text-strong)
         );
         color: var(--ui-text);
-        font-weight: var(--ui-font-weight-medium);
+        font-weight: var(--ui-font-weight-emphasis);
         overflow: hidden;
         padding-inline: var(--ui-space-2);
         text-overflow: ellipsis;

@@ -88,7 +88,7 @@
       background: transparent;
       border: 0;
       color: var(--ui-text-strong);
-      font-family: var(--ui-font-body);
+      font-family: var(--ui-font-family-body);
       font-size: var(--_font-size);
       grid-area: input;
       inline-size: 100%;

@@ -443,7 +443,7 @@ export default function OrderHistory() {
             grid-template-columns: repeat(auto-fit, minmax(7rem, max-content));
 
             dd {
-              font-weight: var(--ui-font-weight-semibold);
+              font-weight: var(--ui-font-weight-label);
             }
           }
 

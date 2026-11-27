@@ -41,7 +41,7 @@
     --ui-focus-ring-color: oklch(0.899 0.186 97.9);
     --ui-focus-ring-offset: 0px;
     --ui-focus-ring-width: 3px;
-    --ui-font-body: arial, sans-serif;
+    --ui-font-family-body: arial, sans-serif;
     --ui-font-size-100: 1rem;
     --ui-font-size-200: 1rem;
     --ui-font-size-300: 1.1875rem;
@@ -54,16 +54,16 @@
     --ui-font-size-h3: clamp(1.3125rem, 1.1786rem + 0.67vi, 1.5rem);
     --ui-font-size-h4: 1.1875rem;
     --ui-font-size-large: clamp(1.3125rem, 1.1786rem + 0.67vi, 1.5rem);
-    --ui-font-weight-medium: 400;
-    --ui-font-weight-semibold: 700;
+    --ui-font-weight-emphasis: 400;
+    --ui-font-weight-label: 700;
     --ui-gray-chroma: 0;
     --ui-gray-hue: 0;
     --ui-info: oklch(0.535 0.136 249.9);
     --ui-letter-spacing-display: 0;
     --ui-letter-spacing-heading: 0;
-    --ui-line-height: 1.3158;
+    --ui-line-height-compact: 1.3158;
     --ui-line-height-control: 1.3158;
-    --ui-line-height-relaxed: 1.3158;
+    --ui-line-height-body: 1.3158;
     --ui-link-focus: highlight;
     --ui-link-font-weight: 400;
     --ui-link-visited-text-color: light-dark(

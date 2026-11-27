@@ -48,7 +48,7 @@
       color: var(--_text-color);
       display: grid;
       font-size: var(--ui-font-size-caption);
-      font-weight: var(--ui-font-weight-medium);
+      font-weight: var(--ui-font-weight-emphasis);
       inline-size: max-content;
       line-height: normal;
       min-inline-size: var(--_indicator-size);

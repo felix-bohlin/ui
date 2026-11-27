@@ -250,7 +250,7 @@ export default function ErrorPage() {
           .error-page-code {
             color: var(--ui-primary-text);
             font-size: var(--ui-font-size-900);
-            font-weight: var(--ui-font-weight-bold);
+            font-weight: var(--ui-font-weight-heading);
             line-height: 0.95;
           }
         }

@@ -130,9 +130,9 @@ Headings follow the body font until you set one.
 
 ```css
 :where(html) {
-  --ui-font-body: "Inter", system-ui, sans-serif;
-  --ui-font-code: "JetBrains Mono", ui-monospace, monospace;
-  --ui-font-heading: "Fraunces", serif;
+  --ui-font-family-body: "Inter", system-ui, sans-serif;
+  --ui-font-family-code: "JetBrains Mono", ui-monospace, monospace;
+  --ui-font-family-heading: "Fraunces", serif;
 }
 ```
 

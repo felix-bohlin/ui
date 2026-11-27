@@ -177,7 +177,7 @@ export default function Tuner() {
           .tn-note {
             color: var(--ui-text-strong);
             font-size: 5rem;
-            font-weight: var(--ui-font-weight-bold);
+            font-weight: var(--ui-font-weight-heading);
             line-height: 1;
           }
 
@@ -185,7 +185,7 @@ export default function Tuner() {
             color: var(--ui-text-strong);
             font-size: var(--ui-font-size-900);
             font-variant-numeric: tabular-nums;
-            font-weight: var(--ui-font-weight-bold);
+            font-weight: var(--ui-font-weight-heading);
             line-height: 1;
           }
 

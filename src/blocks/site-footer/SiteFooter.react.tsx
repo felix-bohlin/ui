@@ -182,7 +182,7 @@ export default function SiteFooter() {
             align-items: center;
             color: inherit;
             font-size: var(--ui-font-size-large);
-            font-weight: var(--ui-font-weight-bold);
+            font-weight: var(--ui-font-weight-heading);
             text-decoration: none;
           }
 

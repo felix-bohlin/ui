@@ -200,7 +200,7 @@ export default function Setlist() {
 
           .sl-title {
             font-size: var(--ui-font-size-700);
-            font-weight: var(--ui-font-weight-bold);
+            font-weight: var(--ui-font-weight-heading);
             letter-spacing: var(--ui-letter-spacing-caps);
             line-height: var(--ui-line-height-tight);
             text-transform: uppercase;
@@ -226,12 +226,12 @@ export default function Setlist() {
             &::before {
               content: counter(sl-song) ".";
               font-variant-numeric: tabular-nums;
-              font-weight: var(--ui-font-weight-bold);
+              font-weight: var(--ui-font-weight-heading);
             }
 
             .ui-checkbox {
               font-size: var(--ui-font-size-large);
-              font-weight: var(--ui-font-weight-semibold);
+              font-weight: var(--ui-font-weight-label);
             }
 
             &:has(:checked) .ui-checkbox {
@@ -247,7 +247,7 @@ export default function Setlist() {
           }
 
           .sl-key {
-            font-weight: var(--ui-font-weight-bold);
+            font-weight: var(--ui-font-weight-heading);
           }
 
           .sl-note {
@@ -259,7 +259,7 @@ export default function Setlist() {
           .sl-encore {
             border-block-start: var(--ui-border-width-large) dashed
               var(--ui-text-subtle);
-            font-weight: var(--ui-font-weight-bold);
+            font-weight: var(--ui-font-weight-heading);
             letter-spacing: var(--ui-letter-spacing-caps);
             margin-block: var(--ui-space-5) var(--ui-space-2);
             padding-block-start: var(--ui-space-4);
@@ -288,7 +288,7 @@ export default function Setlist() {
               border-radius: var(--ui-radius-small);
               display: grid;
               font-size: var(--ui-font-size-caption);
-              font-weight: var(--ui-font-weight-semibold);
+              font-weight: var(--ui-font-weight-label);
               justify-content: center;
               text-align: center;
             }

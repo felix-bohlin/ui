@@ -25,7 +25,7 @@ describe("parsePaste", () => {
       @layer theme.custom {
         :where(html, .ui-scope, .ui-contrast-more) {
           --ui-radius: 1rem;
-          --ui-font-body: "DM Sans", sans-serif;
+          --ui-font-family-body: "DM Sans", sans-serif;
           --ui-shadow-elevated: url(evil);
           --not-ours: 1;
         }
@@ -35,7 +35,7 @@ describe("parsePaste", () => {
       theme: {
         preset: null,
         tokens: {
-          "--ui-font-body": '"DM Sans", sans-serif',
+          "--ui-font-family-body": '"DM Sans", sans-serif',
           "--ui-radius": "1rem",
         },
       },

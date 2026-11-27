@@ -186,7 +186,7 @@ export default function YearInReview() {
 
           .yr-label {
             font-size: var(--ui-font-size-caption);
-            font-weight: var(--ui-font-weight-semibold);
+            font-weight: var(--ui-font-weight-label);
             letter-spacing: var(--ui-letter-spacing-caps);
             text-transform: uppercase;
           }
@@ -195,7 +195,7 @@ export default function YearInReview() {
             color: var(--ui-text-strong);
             font-size: clamp(var(--ui-font-size-900), 14cqi, 6rem);
             font-variant-numeric: tabular-nums;
-            font-weight: var(--ui-font-weight-bold);
+            font-weight: var(--ui-font-weight-heading);
             letter-spacing: var(--ui-letter-spacing-display);
             line-height: 0.9;
           }
@@ -203,7 +203,7 @@ export default function YearInReview() {
           .yr-headline {
             color: var(--ui-text-strong);
             font-size: var(--ui-font-size-700);
-            font-weight: var(--ui-font-weight-bold);
+            font-weight: var(--ui-font-weight-heading);
             line-height: var(--ui-line-height-tight);
           }
 
@@ -224,7 +224,7 @@ export default function YearInReview() {
               &::before {
                 color: var(--ui-text-strong);
                 content: counter(yr-song);
-                font-weight: var(--ui-font-weight-bold);
+                font-weight: var(--ui-font-weight-heading);
               }
             }
 

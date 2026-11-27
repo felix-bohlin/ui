@@ -103,7 +103,7 @@
 
       & > .ui-header {
         font-size: var(--ui-font-size-caption);
-        font-weight: var(--ui-font-weight-semibold);
+        font-weight: var(--ui-font-weight-label);
       }
 
       & > .ui-footer {

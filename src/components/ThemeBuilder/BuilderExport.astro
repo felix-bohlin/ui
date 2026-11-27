@@ -117,9 +117,9 @@ const setup = `@import "opui-css/css/imports.css";
       const preset = exampleTheme(theme.preset)?.tokens ?? {}
       const custom = new Set<string>()
       for (const token of [
-        "--ui-font-body",
-        "--ui-font-code",
-        "--ui-font-heading",
+        "--ui-font-family-body",
+        "--ui-font-family-code",
+        "--ui-font-family-heading",
       ]) {
         const stack = theme.tokens[token] ?? preset[token]
         if (!stack || stack === "revert-layer") continue
@@ -295,7 +295,7 @@ const setup = `@import "opui-css/css/imports.css";
 
   .builder-css-title {
     font-family: var(--font-mono);
-    font-weight: var(--ui-font-weight-semibold);
+    font-weight: var(--ui-font-weight-label);
   }
 
   .builder-css-meta {

@@ -2163,7 +2163,7 @@ export const createRenderer = async () => {
     configFile: false,
     logLevel: "error",
     optimizeDeps: { noDiscovery: true },
-    server: { hmr: false, middlewareMode: true, ws: false },
+    server: { hmr: false, middlewareMode: true, watch: null, ws: false },
   })
   const { experimental_AstroContainer } =
     await server.ssrLoadModule("astro/container")

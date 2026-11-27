@@ -4,6 +4,7 @@ import { EXAMPLE_THEMES } from "../utils/example-themes"
 import {
   FONT_TOKENS,
   LAYERS,
+  PRESETS_WITHOUT_COLOR_SHIFT,
   THEME_KEY,
   THEME_SESSION_GAP,
   THEME_SESSION_KEY,
@@ -46,6 +47,7 @@ const webFonts = Object.fromEntries(
     FONT_TOKENS,
     LAYERS,
     overrides,
+    PRESETS_WITHOUT_COLOR_SHIFT,
     THEME_KEY,
     THEME_SESSION_GAP,
     THEME_SESSION_KEY,
@@ -87,7 +89,7 @@ const webFonts = Object.fromEntries(
         }
       }
     }
-    return `oklch(from ${color} l c calc(h + var(--site-hue-drift)))`
+    return `oklch(from ${color} l c calc(h + var(--site-color-shift)))`
   }
 
   window.themeUtils = {
@@ -103,57 +105,63 @@ const webFonts = Object.fromEntries(
         return null
       }
     },
-    getStoredDrift() {
+    getStoredColorShift() {
       try {
-        return localStorage.getItem(VIEW_KEYS.drift)
+        return localStorage.getItem(VIEW_KEYS.colorShift)
       } catch {
         return null
       }
     },
-    driftEnabled() {
+    colorShiftEnabled() {
       if (overrides) return false
-      const stored = window.themeUtils.getStoredDrift()
+      const stored = window.themeUtils.getStoredColorShift()
       if (stored) return stored === "on"
-      return !navigator.webdriver && !reducedMotion.matches
+      return (
+        !navigator.webdriver &&
+        !reducedMotion.matches &&
+        !PRESETS_WITHOUT_COLOR_SHIFT.includes(
+          document.documentElement.dataset.exampleTheme,
+        )
+      )
     },
-    applyDrift() {
-      const drift = style("opui-hue-drift")
-      drift.textContent = ""
-      if (!window.themeUtils.driftEnabled()) {
-        drift.remove()
+    applyColorShift() {
+      const shift = style("opui-color-shift")
+      shift.textContent = ""
+      if (!window.themeUtils.colorShiftEnabled()) {
+        shift.remove()
         return
       }
       const computed = getComputedStyle(document.documentElement)
       const source = computed.getPropertyValue("--ui-palette-source").trim()
       const primary = computed.getPropertyValue("--ui-primary-source").trim()
       if (!source || !primary) {
-        window.addEventListener("load", window.themeUtils.applyDrift, {
+        window.addEventListener("load", window.themeUtils.applyColorShift, {
           once: true,
         })
         return
       }
       if (/[;{}<]/.test(source + primary)) return
-      drift.textContent = `@property --site-hue-drift { syntax: "<number>"; inherits: true; initial-value: 0; }
-@keyframes site-hue-drift { to { --site-hue-drift: 360; } }
+      shift.textContent = `@property --site-color-shift { syntax: "<number>"; inherits: true; initial-value: 0; }
+@keyframes site-color-shift { to { --site-color-shift: 360; } }
 @supports (animation-timeline: scroll()) {
   :root {
     --ui-palette-source: ${turned(source)};
     --ui-primary-source: ${turned(primary)};
-    animation: site-hue-drift linear both;
+    animation: site-color-shift linear both;
     animation-timeline: scroll(root block);
   }
 }`
-      if (!drift.isConnected) {
+      if (!shift.isConnected) {
         const presetStyle = document.getElementById("opui-example-theme")
-        if (presetStyle) presetStyle.before(drift)
-        else document.head.append(drift)
+        if (presetStyle) presetStyle.before(shift)
+        else document.head.append(shift)
       }
     },
-    setDrift(on) {
+    setColorShift(on) {
       try {
-        localStorage.setItem(VIEW_KEYS.drift, on ? "on" : "off")
+        localStorage.setItem(VIEW_KEYS.colorShift, on ? "on" : "off")
       } catch {}
-      window.themeUtils.applyDrift()
+      window.themeUtils.applyColorShift()
     },
     getStoredTheme() {
       try {
@@ -228,7 +236,7 @@ const webFonts = Object.fromEntries(
           }
         }
       }
-      window.themeUtils.applyDrift()
+      window.themeUtils.applyColorShift()
     },
     applyStoredTheme() {
       const theme = window.themeUtils.readTheme()
@@ -304,7 +312,8 @@ const webFonts = Object.fromEntries(
     })
 
   reducedMotion.addEventListener("change", () => {
-    if (!window.themeUtils.getStoredDrift()) window.themeUtils.applyDrift()
+    if (!window.themeUtils.getStoredColorShift())
+      window.themeUtils.applyColorShift()
   })
 
   window.addEventListener("storage", (event) => {
@@ -312,8 +321,8 @@ const webFonts = Object.fromEntries(
       window.themeUtils.applyStoredTheme()
     }
     if (event.key === null || event.key === VIEW_KEYS.mode) applyMode()
-    if (event.key === null || event.key === VIEW_KEYS.drift) {
-      window.themeUtils.applyDrift()
+    if (event.key === null || event.key === VIEW_KEYS.colorShift) {
+      window.themeUtils.applyColorShift()
     }
     if (event.key === null || event.key === VIEW_KEYS.contrast) {
       window.themeUtils.applyContrast(

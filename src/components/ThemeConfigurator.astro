@@ -86,8 +86,8 @@ const { link } = Astro.locals
               ></path>
             </svg>
           </Switch>
-          <Switch spread id="drift-switcher">
-            Color drift
+          <Switch spread id="color-shift-switcher">
+            Color shift
             <svg
               slot="icon-checked"
               xmlns="http://www.w3.org/2000/svg"
@@ -176,27 +176,27 @@ const { link } = Astro.locals
     window.themeUtils?.setContrast(contrastSwitcher.checked ? "more" : "normal")
   })
 
-  const driftSwitcher = document.getElementById(
-    "drift-switcher",
+  const colorShiftSwitcher = document.getElementById(
+    "color-shift-switcher",
   ) as HTMLInputElement | null
 
-  function syncDriftSwitcher() {
-    if (!driftSwitcher) return
-    driftSwitcher.checked = window.themeUtils?.driftEnabled() ?? false
+  function syncColorShiftSwitcher() {
+    if (!colorShiftSwitcher) return
+    colorShiftSwitcher.checked = window.themeUtils?.colorShiftEnabled() ?? false
   }
 
   if (CSS.supports("animation-timeline", "scroll()")) {
-    syncDriftSwitcher()
-    driftSwitcher?.addEventListener("change", () => {
-      window.themeUtils?.setDrift(driftSwitcher.checked)
+    syncColorShiftSwitcher()
+    colorShiftSwitcher?.addEventListener("change", () => {
+      window.themeUtils?.setColorShift(colorShiftSwitcher.checked)
     })
     matchMedia("(prefers-reduced-motion: reduce)").addEventListener(
       "change",
-      syncDriftSwitcher,
+      syncColorShiftSwitcher,
     )
-    window.addEventListener("storage", syncDriftSwitcher)
+    window.addEventListener("storage", syncColorShiftSwitcher)
   } else {
-    driftSwitcher?.closest("label")?.remove()
+    colorShiftSwitcher?.closest("label")?.remove()
   }
 
   matchMedia("(prefers-color-scheme: dark)").addEventListener(
@@ -207,8 +207,9 @@ const { link } = Astro.locals
   new MutationObserver(() => {
     syncThemeSwitcher()
     syncContrastSwitcher()
+    syncColorShiftSwitcher()
   }).observe(document.documentElement, {
-    attributeFilter: ["class"],
+    attributeFilter: ["class", "data-example-theme"],
     attributes: true,
   })
 </script>

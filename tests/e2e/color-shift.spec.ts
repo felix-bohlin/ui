@@ -8,12 +8,23 @@ const asVisitor = (page: Page) =>
     Object.defineProperty(navigator, "webdriver", { get: () => false })
   })
 
-const storeDrift = (page: Page, value: string) =>
-  page.addInitScript((drift) => {
-    if (sessionStorage.getItem("seeded")) return
-    sessionStorage.setItem("seeded", "true")
-    localStorage.setItem("drift", drift)
-  }, value)
+const seed = (
+  page: Page,
+  stored: { colorShift?: string; preset?: string | null },
+) =>
+  page.addInitScript(
+    ({ colorShift, preset }) => {
+      if (sessionStorage.getItem("seeded")) return
+      sessionStorage.setItem("seeded", "true")
+      localStorage.setItem("opui-theme-session", String(Date.now()))
+      localStorage.setItem(
+        "opui-theme",
+        JSON.stringify({ css: "", preset, tokens: {} }),
+      )
+      if (colorShift) localStorage.setItem("color-shift", colorShift)
+    },
+    { colorShift: stored.colorShift ?? null, preset: stored.preset ?? null },
+  )
 
 const visit = async (page: Page) => {
   await instantScrolling(page)
@@ -51,6 +62,13 @@ const hueOf = (color: string) =>
 const turn = (from: string, to: string) =>
   (((hueOf(to) - hueOf(from)) % 360) + 360) % 360
 
+const turnAtMiddle = async (page: Page) => {
+  await scrollTo(page, 0)
+  const top = await colors(page)
+  await scrollTo(page, 0.5)
+  return turn(top.primary, (await colors(page)).primary)
+}
+
 const hasScrollTimelines = (page: Page) =>
   supports(page, "scroll-driven animations", () =>
     CSS.supports("animation-timeline", "scroll()"),
@@ -64,6 +82,13 @@ const openDrawer = async (page: Page) => {
   return drawer
 }
 
+const closeDrawer = async (page: Page) => {
+  await page.keyboard.press("Escape")
+  await expect(page.locator("#theme-configurator-drawer")).not.toHaveAttribute(
+    "open",
+  )
+}
+
 test.describe("a visitor", () => {
   test.beforeEach(async ({ page }) => {
     await asVisitor(page)
@@ -72,6 +97,7 @@ test.describe("a visitor", () => {
   test("sees the brand hue turn once round the wheel over the page", async ({
     page,
   }) => {
+    await seed(page, {})
     await visit(page)
     const top = await colors(page)
     await scrollTo(page, 0.5)
@@ -85,12 +111,13 @@ test.describe("a visitor", () => {
     expect(middle.critical, "status colors keep their hue").toBe(top.critical)
   })
 
-  test("turns color drift off in the theme drawer and keeps the choice", async ({
+  test("turns color shift off in the theme drawer and keeps the choice", async ({
     page,
   }) => {
+    await seed(page, {})
     await visit(page)
     const drawer = await openDrawer(page)
-    const toggle = drawer.getByRole("switch", { name: "Color drift" })
+    const toggle = drawer.getByRole("switch", { name: "Color shift" })
 
     if (!(await hasScrollTimelines(page))) {
       await expect(toggle).toHaveCount(0)
@@ -100,56 +127,84 @@ test.describe("a visitor", () => {
     await expect(toggle).toBeChecked()
     await toggle.click()
     await expect(toggle).not.toBeChecked()
-    await page.keyboard.press("Escape")
-
-    const top = await colors(page)
-    await scrollTo(page, 0.5)
-    expect((await colors(page)).primary).toBe(top.primary)
+    await closeDrawer(page)
+    expect(await turnAtMiddle(page)).toBe(0)
 
     await page.reload()
-    await scrollTo(page, 0.5)
-    expect((await colors(page)).primary).toBe(top.primary)
-    expect(await page.evaluate(() => localStorage.getItem("drift"))).toBe("off")
+    expect(await turnAtMiddle(page)).toBe(0)
+    expect(await page.evaluate(() => localStorage.getItem("color-shift"))).toBe(
+      "off",
+    )
   })
 
-  test("who prefers reduced motion starts without drift and can turn it on", async ({
+  test("who prefers reduced motion starts without color shift and can turn it on", async ({
     page,
   }) => {
     await page.emulateMedia({ reducedMotion: "reduce" })
+    await seed(page, {})
     await visit(page)
-    const top = await colors(page)
-    await scrollTo(page, 0.5)
-    expect((await colors(page)).primary).toBe(top.primary)
+    expect(await turnAtMiddle(page)).toBe(0)
 
     await scrollTo(page, 0)
     const drawer = await openDrawer(page)
-    const toggle = drawer.getByRole("switch", { name: "Color drift" })
+    const toggle = drawer.getByRole("switch", { name: "Color shift" })
     if (!(await hasScrollTimelines(page))) return
 
     await expect(toggle).not.toBeChecked()
     await toggle.click()
-    await page.keyboard.press("Escape")
-    await scrollTo(page, 0.5)
-    expect(turn(top.primary, (await colors(page)).primary)).toBeCloseTo(180, -1)
+    await closeDrawer(page)
+    expect(await turnAtMiddle(page)).toBeCloseTo(180, -1)
+  })
+
+  test("on the Vice City theme starts without color shift and can turn it on", async ({
+    page,
+  }) => {
+    await seed(page, { preset: "vice-city" })
+    await visit(page)
+    expect(await turnAtMiddle(page)).toBe(0)
+
+    await scrollTo(page, 0)
+    const drawer = await openDrawer(page)
+    const toggle = drawer.getByRole("switch", { name: "Color shift" })
+    if (!(await hasScrollTimelines(page))) return
+
+    await expect(toggle).not.toBeChecked()
+    await toggle.click()
+    await closeDrawer(page)
+    expect(await turnAtMiddle(page)).toBeCloseTo(180, -1)
+  })
+
+  test("who starts from Vice City in the drawer sees color shift turn off", async ({
+    page,
+  }) => {
+    await seed(page, {})
+    await visit(page)
+    const drawer = await openDrawer(page)
+    const toggle = drawer.getByRole("switch", { name: "Color shift" })
+    if (!(await hasScrollTimelines(page))) return
+
+    await expect(toggle).toBeChecked()
+    await drawer.getByLabel("Start from").selectOption("vice-city")
+    await expect(toggle).not.toBeChecked()
+    await closeDrawer(page)
+    expect(await turnAtMiddle(page)).toBe(0)
   })
 })
 
-test("an automated browser starts without drift so screenshots stay put", async ({
+test("an automated browser starts without color shift so screenshots stay put", async ({
   page,
 }) => {
   await visit(page)
-  const top = await colors(page)
-  await scrollTo(page, 0.5)
-  expect((await colors(page)).primary).toBe(top.primary)
+  expect(await turnAtMiddle(page)).toBe(0)
 })
 
 test("a stored choice wins over the automated browser default", async ({
   page,
 }) => {
-  await storeDrift(page, "on")
+  await seed(page, { colorShift: "on" })
   await visit(page)
-  const top = await colors(page)
-  await scrollTo(page, 0.5)
-  const turned = turn(top.primary, (await colors(page)).primary)
-  expect(turned).toBeCloseTo((await hasScrollTimelines(page)) ? 180 : 0, -1)
+  expect(await turnAtMiddle(page)).toBeCloseTo(
+    (await hasScrollTimelines(page)) ? 180 : 0,
+    -1,
+  )
 })

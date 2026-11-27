@@ -489,7 +489,7 @@ async function stylesheetSection(stylesheets) {
   if (blocks.length === 0) return []
   return [
     [
-      "## Component properties",
+      "## Local tokens",
       "",
       "Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.",
       "",

@@ -247,8 +247,8 @@ export const allowlistErrors = (found, allowed) => {
         if (!listed.has(entry)) {
           errors.push(
             kind === "primitives"
-              ? `${entry} is read in ${file}: components read --ui-* roles, not palette steps or Open Props`
-              : `${entry} in ${file} is a literal length: use a --ui-* role, an em, ex, lh or ch value, or a documented --_* input in its :where() default rule`,
+              ? `${entry} is read in ${file}: components read --ui-* global tokens, not scale tokens or Open Props`
+              : `${entry} in ${file} is a literal length: use a --ui-* global token, an em, ex, lh or ch value, or a documented --_* input in its :where() default rule`,
           )
         }
       }

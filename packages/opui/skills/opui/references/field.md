@@ -66,7 +66,7 @@ The label, hints and box around a form control you write: an input, a select or 
 - React and Solid: Put it in `endText`. It loads `opui-css/elements/character-count.js`.
 - Svelte: Put it in the `endText` snippet. It loads `opui-css/elements/character-count.js`.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

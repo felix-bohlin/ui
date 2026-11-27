@@ -53,7 +53,7 @@ An image, initials or icon that stands for a person or an entity.
 
 - HTML: The root needs `role="group"` and an `aria-label`.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

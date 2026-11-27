@@ -19,7 +19,7 @@ A slider for picking a number by moving a thumb along a track.
 - Astro, Nunjucks, Solid, Svelte and Vue: Write an `<input type="range">` in a `Field`, with its `id` set to `for`. Show the value yourself, and set `aria-valuetext` when the number alone doesn't say it.
 - React: Write an `<input type="range">` in a `Field`, with its `id` set to `htmlFor`. Show the value yourself, and set `aria-valuetext` when the number alone doesn't say it.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

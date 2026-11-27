@@ -27,7 +27,7 @@ A short label or hint for a control, shown on hover and focus.
 
 - HTML: Give `.ui-floating` `popover="hint"` and an id, and add `interestfor` with that id to the trigger. A toggletip trigger also takes `commandfor` and `command="toggle-popover"`.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

@@ -419,7 +419,7 @@ const size = knob("--ui-tpyo")
     ])
   })
 
-  test("reports palette steps and Open Props, not roles or private properties", () => {
+  test("reports palette steps and Open Props, not global or local tokens", () => {
     expect(
       primitives(
         new Set([

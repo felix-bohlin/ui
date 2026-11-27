@@ -56,7 +56,7 @@ A drop zone around a file input that lists the files your app is uploading, with
 - React: The component loads `opui-css/elements/file-upload.js` once it mounts, unless the page imports it first. The component uploads nothing and keeps no files: start the upload from the `select` event, and pass each file's state back in `items`. Attributes that aren't props go to the `<opui-file-upload>`, and `id` names the file input.
 - Solid, Svelte and Vue: The component imports `opui-css/elements/file-upload.js`, so the element runs as soon as the component's code loads. The component uploads nothing and keeps no files: start the upload from the `select` event, and pass each file's state back in `items`. Attributes that aren't props go to the `<opui-file-upload>`, and `id` names the file input.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 
@@ -118,7 +118,7 @@ Outputs: `--_font-size`, `--_icon-size`, `--_item-duration`, `--_selected-indica
 
 ### progress.css
 
-- `--_accent`: Color of the bar, and of a `Meter` fill in its optimum range. Defaults to `--ui-selected-strong`, the role Stepper and Timeline read for the done part of their track, which is `--ui-primary` unless a theme sets it.
+- `--_accent`: Color of the bar, and of a `Meter` fill in its optimum range. Defaults to `--ui-selected-strong`, the global token Stepper and Timeline read for the done part of their track, which is `--ui-primary` unless a theme sets it.
 - `--_bg-color`: Color of the track. `--ui-track-bg-color` when the theme sets it, otherwise `--ui-surface-tonal`; `.ui-filled` sets it to `--ui-surface-filled`.
 - `--_block-size`: Height of the track of a `Progress` or a `Meter`. Defaults to `--ui-space-1`. `.ui-round` reads `--_ring-size` instead.
 - `--_ease`: Easing of the value transition. Defaults to `--ui-ease-enter`.

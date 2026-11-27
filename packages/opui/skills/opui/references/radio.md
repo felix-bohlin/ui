@@ -55,7 +55,7 @@ Model: `value` (`string | number | boolean`), the selected value of the group. A
 
 - Astro, Nunjucks, React, Solid, Svelte and Vue: The radio `<input>` without the label, for a custom layout inside a `label.ui-radio`, such as the end of a `ListItem` with `choice="radio"`. Attributes that aren't props go to the `<input>`.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

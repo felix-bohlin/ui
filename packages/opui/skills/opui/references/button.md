@@ -35,7 +35,7 @@ A button for actions, like saving a form, with variants, colors, sizes and icons
 
 - `default`: The label and an optional icon.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

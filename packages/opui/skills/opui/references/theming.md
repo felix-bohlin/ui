@@ -1,10 +1,10 @@
 # Theming
 
-The knobs and roles behind colors, density, spacing, corners, fonts, elevation, motion and contrast, and the classes that scope them.
+The primitive and global tokens behind colors, density, spacing, corners, fonts, elevation, motion and contrast, and the classes that scope them.
 
-A theme sets [knobs and roles](https://opui.dev/html/guide/concepts.md#token-tiers), and every component reads the roles:
+A theme sets [primitive and global tokens](https://opui.dev/html/guide/concepts.md#token-tiers), and every component reads the global tokens:
 
-1. Knobs
+1. Primitive tokens
 
    `--ui-palette-hue` 223
 
@@ -12,7 +12,7 @@ A theme sets [knobs and roles](https://opui.dev/html/guide/concepts.md#token-tie
 
 2. Palette `--ui-color-1` to `--ui-color-16`
 
-3. Roles
+3. Global tokens
 
    - `--ui-primary` Filled buttons, links, checked controls
    - `--ui-palette-tonal` Tonal fills
@@ -54,7 +54,7 @@ Or set `--ui-palette-source` to any color. Recolor a severity scope through its 
 
 A scope class re-themes an element and everything inside it:
 
-- `.ui-scope`: re-derives every token from the knobs it sets.
+- `.ui-scope`: re-derives every token from the primitive tokens it sets.
 - `.ui-critical` and the other severities: swap the palette for the intent color.
 - `.ui-light` and `.ui-dark`: force a color scheme, except in print, which is always light. Builds that rewrite `light-dark()` only follow them on `html`, see the [README](https://github.com/felix-bohlin/ui/blob/main/packages/opui/README.md#builds-that-rewrite-light-dark).
 
@@ -70,7 +70,7 @@ A scope class re-themes an element and everything inside it:
 - `--ui-border-color` Dividers, outlined variants
 - `--ui-field-border-color` Fields
 
-Each role with its current value, live with the theme.
+Each global token with its current value, live with the theme.
 
 `--ui-border-color` and `--ui-field-border-color` are translucent, so one value reads the same on every surface: inside a card, a dialog, a menu or a filled list as on the page. Change how strong they are with `--ui-border-strength-light`, `--ui-border-strength-dark` and `--ui-field-border-strength`, which more contrast keeps tightening, or set a color. `--ui-border-color-raised` sets the edge of raised components.
 
@@ -94,7 +94,7 @@ The sizes are computed where the scope classes are, so set the density of a part
 </div>
 ```
 
-A theme that sets a size keeps the knob in it, so the size still follows density: `calc(2.25rem * var(--ui-density))`. A theme that also sets its own density writes the length it wants at that density, `calc(2rem * var(--ui-density) / 0.9)`. The same goes for the spacing steps and `--ui-space-scale`. Each size token says which knob it follows in `tokens.json`, as `scaledBy`.
+A theme that sets a size keeps `--ui-density` in it, so the size still follows density: `calc(2.25rem * var(--ui-density))`. A theme that also sets its own density writes the length it wants at that density, `calc(2rem * var(--ui-density) / 0.9)`. The same goes for the spacing steps and `--ui-space-scale`. Each size token says which primitive token it follows in `tokens.json`, as `scaledBy`.
 
 ## Spacing
 
@@ -136,11 +136,11 @@ Headings follow the body font until you set one.
 }
 ```
 
-Pin a size role, or replace the scale:
+Pin a size token, or replace the scale:
 
 ```css
 :where(html, .ui-scope, .ui-contrast-more) {
-  /* Pin one role */
+  /* Pin one token */
   --ui-font-size-caption: 0.8125rem;
 }
 
@@ -241,7 +241,7 @@ transition: transform calc(var(--ui-duration) * var(--ui-motion)) var(--ui-ease)
 
 ## Icons
 
-Every icon a component draws itself reads a `--ui-icon-*` token, one for each role, such as `--ui-icon-close` and `--ui-icon-expand`. Each is an SVG image used as a mask, so only its shape counts and it takes the text color. The defaults are Fluent UI System Icons, and [Theme tokens](https://opui.dev/html/guide/theme-tokens.md#icons) lists them all. Set them to the icons of your icon set:
+Every icon a component draws itself reads a `--ui-icon-*` token, one for each use, such as `--ui-icon-close` and `--ui-icon-expand`. Each is an SVG image used as a mask, so only its shape counts and it takes the text color. The defaults are Fluent UI System Icons, and [Theme tokens](https://opui.dev/html/guide/theme-tokens.md#icons) lists them all. Set them to the icons of your icon set:
 
 ```css
 :where(html) {
@@ -268,11 +268,11 @@ In HTML, some icons are an `svg` you write: the Accordion marker, the Callout se
 
 ## Contrast
 
-More contrast tightens the knobs, and every role follows. Their values are on [Theme tokens](https://opui.dev/html/guide/theme-tokens.md#contrast).
+More contrast tightens the primitive tokens, and every global token follows. Their values are on [Theme tokens](https://opui.dev/html/guide/theme-tokens.md#contrast).
 
-The roles are derived within lightness and chroma limits that `theme.css` keeps private, as `--_ui-*` properties that can change in any release. To keep an exact brand color, pin the role, such as `--ui-primary-text` or `--ui-critical-fill`. The one limit a theme sets is for the accents its hooks supply: `--ui-control-accent-min-lightness-dark` and `--ui-control-accent-max-chroma-dark` keep a dark accent readable as text in dark mode.
+The global tokens are derived within lightness and chroma limits that `theme.css` keeps private, as `--_ui-*` properties that can change in any release. To keep an exact brand color, pin the global token, such as `--ui-primary-text` or `--ui-critical-fill`. The one limit a theme sets is for the accents its optional global tokens supply: `--ui-control-accent-min-lightness-dark` and `--ui-control-accent-max-chroma-dark` keep a dark accent readable as text in dark mode.
 
-A role a theme pins stays pinned in every contrast mode. Hand it back with `revert-layer`:
+A global token a theme pins stays pinned in every contrast mode. Hand it back with `revert-layer`:
 
 ```css
 @layer theme.custom {
@@ -306,7 +306,7 @@ A role a theme pins stays pinned in every contrast mode. Hand it back with `reve
 
 ### Custom values
 
-Set the knobs under the media query and on `.ui-contrast-more`:
+Set the primitive tokens under the media query and on `.ui-contrast-more`:
 
 ```css
 @layer theme.custom {

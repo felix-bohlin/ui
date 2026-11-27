@@ -37,7 +37,7 @@ A button that copies text or a field's value to the clipboard.
 - React: The component loads `opui-css/elements/copy.js` once it mounts, unless the page imports it first. Attributes that aren't props go to the root `<opui-copy>`, and the button works once the element runs.
 - Solid, Svelte and Vue: The component imports `opui-css/elements/copy.js`, so the element runs as soon as the component's code loads. Attributes that aren't props go to the root `<opui-copy>`, and the button works once the element runs.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

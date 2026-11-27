@@ -24,7 +24,7 @@ A number with its label and its change, like revenue on a dashboard.
 
 - `default`: The value.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

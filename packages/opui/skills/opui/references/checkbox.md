@@ -84,7 +84,7 @@ Model: `checked` (`boolean | (string | number)[]`), the checked state, or the ch
 - React: The component loads `opui-css/elements/select-all.js` once it mounts, unless the page imports it first. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.
 - Solid, Svelte and Vue: The component imports `opui-css/elements/select-all.js`, so the element runs as soon as the component's code loads. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

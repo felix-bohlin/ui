@@ -35,7 +35,7 @@ A number input in a Field with step buttons that step the value down and up, for
 - Nunjucks: Put one with `command="--step-down"` in `slots.start` and one with `command="--step-up"` in `slots.end`, next to an `<input type="number">`, and load `opui-css/elements/step-button.js` on the page. Attributes that aren't props, `class` and `style` go to the `<opui-step-button>`, not the button.
 - React: Put one with `command="--step-down"` in `start` and one with `command="--step-up"` in `end`, next to an `<input type="number">`. It loads `opui-css/elements/step-button.js`. Attributes that aren't props, `className` and `style` go to the `<opui-step-button>`, not the button.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

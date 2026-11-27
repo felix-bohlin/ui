@@ -6,7 +6,7 @@ import { themeTokenSections, tokenTier } from "../../utils/theme-tokens"
 const sections = themeTokenSections()
   .map((section) => ({
     title: section.title,
-    tokens: section.tokens.filter((token) => tokenTier(token.name) !== "input"),
+    tokens: section.tokens.filter((token) => tokenTier(token.name) !== "local"),
   }))
   .filter((section) => section.tokens.length > 0)
 const descriptions = themeTokenDescriptions as Record<string, string>

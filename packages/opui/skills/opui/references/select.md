@@ -16,7 +16,7 @@ A dropdown for picking one value from a list in a form.
 - HTML: Put `<button><selectedcontent></selectedcontent></button>` first in the `<select>`, before the options.
 - Astro, Nunjucks, React, Solid, Svelte and Vue: Put it first in your `<select>`. The browser copies the selected option into `<selectedcontent>`, icon and description included. Browsers without customizable select leave it out.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

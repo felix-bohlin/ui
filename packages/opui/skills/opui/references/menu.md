@@ -46,7 +46,7 @@ A popover list of actions or links.
 - React and Solid: Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onClick`, `target` or `data-*`. Open menus close when the page navigates, also with a client router, through `opui-css/elements/close-on-navigate.js`, which the component loads. A link item, and an item that submits or resets a form, closes the menu on click through `opui-css/elements/menu.js`, which the component loads too.
 - Svelte: Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onclick`, `target` or `data-*`. Open menus close when the page navigates, also with a client router, through `opui-css/elements/close-on-navigate.js`, which the component loads. A link item, and an item that submits or resets a form, closes the menu on click through `opui-css/elements/menu.js`, which the component loads too.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

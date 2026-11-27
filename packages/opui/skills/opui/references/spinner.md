@@ -19,7 +19,7 @@ A spinner on any element with aria-busy="true", for content that is loading.
 
 - Set `aria-busy="true"` on an element to show a spinner. `<html>`, `<input>`, `<progress>`, `<select>` and `<textarea>` never show one, and neither do elements with `aria-describedby`, except buttons and links.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

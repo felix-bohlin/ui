@@ -27,7 +27,7 @@ Floating content placed next to an element with CSS anchor positioning.
 
 - HTML: To show on hover, give `.ui-floating` `popover="hint"` and an id. Add `interestfor` with that id to the trigger.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

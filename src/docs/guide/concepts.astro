@@ -15,12 +15,12 @@ import { tokenTierNotes } from "../../utils/theme-tokens"
 const tiers = [
   [
     "The whole look",
-    "Knob",
+    "Primitive token",
     "<code>--ui-palette-hue: 150</code> makes the brand color green everywhere.",
   ],
   [
     "One thing everywhere",
-    "Role",
+    "Global token",
     "<code>--ui-radius: 1rem</code> rounds the corners of every component.",
   ],
   [
@@ -30,15 +30,23 @@ const tiers = [
   ],
   [
     "One element",
-    "Private property",
+    "Local token",
     '<code>style="--_radius: 0"</code> squares the corners of one button.',
   ],
 ]
 
 const others = [
-  ["Primitive", "--ui-color-16", tokenTierNotes.primitive],
-  ["Hook", "--ui-control-accent", tokenTierNotes.hook],
-  ["Input", "--ui-anchor-position-area", tokenTierNotes.input],
+  ["Scale tokens", "--ui-color-16", tokenTierNotes.scale],
+  [
+    "Optional global tokens",
+    "--ui-control-accent",
+    "Unset by default. Set one to change one job for a group of components, like the accent of every control.",
+  ],
+  [
+    "Local tokens set by a prop",
+    "--ui-anchor-position-area",
+    "A component sets them on its element. A theme doesn't.",
+  ],
 ]
 
 export const keywords = [
@@ -98,7 +106,7 @@ export const keywords = [
       </TableRow>)}
     </DocsTable>
     <p>
-      Three more show up on
+      You'll also meet these on
       <DocLink href="/guide/theme-tokens">Theme tokens</DocLink>, which names
       the tier of every token:
     </p>
@@ -108,8 +116,9 @@ export const keywords = [
       </li>)}
     </ul>
     <p>
-      Each tier feeds the next: a knob sets the roles, a role is the default of
-      a component token, and so on down to the CSS:
+      Each tier feeds the next: primitive tokens compute the global tokens, a
+      global token is the default of a component token, and so on down to the
+      CSS:
     </p>
     <TokenTiers />
   </section>

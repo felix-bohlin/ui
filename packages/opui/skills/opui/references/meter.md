@@ -24,13 +24,13 @@ A bar on the native meter element, for a value in a known range, like disk usage
 - HTML: Add `.ui-meter` to a `<meter>`. `value`, `min`, `max`, `low`, `high` and `optimum` are its native attributes.
 - Astro, Nunjucks, React, Solid, Svelte and Vue: `value`, `min`, `max`, `low`, `high` and `optimum` are the native attributes of the `<meter>`, which gets every extra attribute.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 
 ### progress.css
 
-- `--_accent`: Color of the bar, and of a `Meter` fill in its optimum range. Defaults to `--ui-selected-strong`, the role Stepper and Timeline read for the done part of their track, which is `--ui-primary` unless a theme sets it.
+- `--_accent`: Color of the bar, and of a `Meter` fill in its optimum range. Defaults to `--ui-selected-strong`, the global token Stepper and Timeline read for the done part of their track, which is `--ui-primary` unless a theme sets it.
 - `--_bg-color`: Color of the track. `--ui-track-bg-color` when the theme sets it, otherwise `--ui-surface-tonal`; `.ui-filled` sets it to `--ui-surface-filled`.
 - `--_block-size`: Height of the track of a `Progress` or a `Meter`. Defaults to `--ui-space-1`. `.ui-round` reads `--_ring-size` instead.
 - `--_ease`: Easing of the value transition. Defaults to `--ui-ease-enter`.

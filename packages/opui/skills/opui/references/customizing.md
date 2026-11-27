@@ -1,10 +1,10 @@
 # Customizing
 
-A theme in `theme.custom`, `--_*` properties for one component, and your own layer for the rest.
+A theme in `theme.custom`, `--_*` local tokens for one component, and your own layer for the rest.
 
 ## Your theme
 
-Set the [knobs, roles and component tokens](https://opui.dev/html/guide/concepts.md#token-tiers) you change in the `theme.custom` layer.
+Set the [primitive, global and component tokens](https://opui.dev/html/guide/concepts.md#token-tiers) you change in the `theme.custom` layer.
 
 ```css
 @layer theme.custom {
@@ -18,7 +18,7 @@ Set the [knobs, roles and component tokens](https://opui.dev/html/guide/concepts
 }
 ```
 
-The [Theme builder](https://opui.dev/theme-builder.md) writes one for you. Put pinned roles, like `--ui-primary`, on `:where(html, .ui-scope, .ui-contrast-more)`.
+The [Theme builder](https://opui.dev/theme-builder.md) writes one for you. Put pinned global tokens, like `--ui-primary`, on `:where(html, .ui-scope, .ui-contrast-more)`.
 
 ### Example themes
 
@@ -45,7 +45,7 @@ The bootstrap, brutalist, govuk, m3 and vice-city themes derive their primary co
 }
 ```
 
-## Component properties
+## Local tokens
 
 Each component page lists its `--_*` properties. Button reads these, among others:
 

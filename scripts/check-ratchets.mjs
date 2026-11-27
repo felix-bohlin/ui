@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url"
 const RATCHETS = [
   {
     file: "scripts/css-vars-allowlist.json",
-    fix: "use a --ui-* role or a documented input instead of a new allowlist entry",
+    fix: "use a --ui-* global token or a documented local token instead of a new allowlist entry",
   },
   {
     file: "tests/unit/example-copy-allowlist.json",

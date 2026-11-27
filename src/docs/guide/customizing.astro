@@ -17,7 +17,7 @@ export const keywords = [
 <Guide overline="Guide">
   <Fragment slot="title">Customizing</Fragment>
   <Fragment slot="preamble">
-    A theme in <code>theme.custom</code>, <code>--_*</code> properties for one
+    A theme in <code>theme.custom</code>, <code>--_*</code> local tokens for one
     component, and your own layer for the rest.
   </Fragment>
 
@@ -26,7 +26,7 @@ export const keywords = [
     <p>
       Set the
       <DocLink href="/guide/concepts#token-tiers"
-        >knobs, roles and component tokens</DocLink
+        >primitive, global and component tokens</DocLink
       >
       you change in the <code>theme.custom</code> layer.
     </p>
@@ -44,7 +44,7 @@ export const keywords = [
     />
     <p>
       The <DocLink href="/theme-builder">Theme builder</DocLink> writes one for
-      you. Put pinned roles, like <code>--ui-primary</code>, on
+      you. Put pinned global tokens, like <code>--ui-primary</code>, on
       <code>:where(html, .ui-scope, .ui-contrast-more)</code>.
     </p>
     <h3 id="example-themes">Example themes</h3>
@@ -85,7 +85,7 @@ export const keywords = [
   </section>
 
   <section id="component-properties">
-    <h2>Component properties</h2>
+    <h2>Local tokens</h2>
     <p>
       Each component page lists its <code>--_*</code> properties. Button reads
       these, among others:

@@ -56,7 +56,7 @@ A summary that opens to show more content, on its own or in a group.
 
 - `default`: The actions, such as buttons.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

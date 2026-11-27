@@ -92,7 +92,7 @@ Chat bubbles that group by sender, with attachments, reactions and a typing indi
 - React: The component loads `opui-css/elements/reactions.js` once it mounts, unless the page imports it first. A click never checks or unchecks a pill on its own: change `items` when your server answers. `announce(message)` on `event.target` reads a message to screen readers.
 - Solid, Svelte and Vue: The component imports `opui-css/elements/reactions.js`, so the element runs as soon as the component's code loads. A click never checks or unchecks a pill on its own: change `items` when your server answers. `announce(message)` on `event.target` reads a message to screen readers.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

@@ -1,7 +1,7 @@
 import { paletteSteps } from "./palette-steps"
 import type { TokenTier } from "./theme-tokens"
 
-const knobs = [
+const primitives = [
   "--ui-border-strength-dark",
   "--ui-border-strength-light",
   "--ui-code-bg-alpha-dark",
@@ -37,7 +37,7 @@ const knobs = [
   "--ui-text-strength-light",
 ]
 
-const primitives = [
+const scales = [
   "--ui-fluid-progress",
   "--ui-font-size-100",
   "--ui-font-size-200",
@@ -119,8 +119,8 @@ const componentTokens = [
 ]
 
 export const themeTokenTiers: Record<string, TokenTier> = Object.fromEntries([
-  ...knobs.map((name) => [name, "knob"]),
   ...primitives.map((name) => [name, "primitive"]),
-  ...paletteSteps().map(({ name }) => [name, "primitive"]),
+  ...scales.map((name) => [name, "scale"]),
+  ...paletteSteps().map(({ name }) => [name, "scale"]),
   ...componentTokens.map((name) => [name, "component"]),
 ])

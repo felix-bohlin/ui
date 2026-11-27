@@ -116,7 +116,7 @@ A table for data people scan and compare, with sticky headers, sorting and expan
 - React: The component loads `opui-css/elements/sortable-table.js` once it mounts, unless the page imports it first. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead.
 - Solid, Svelte and Vue: The component imports `opui-css/elements/sortable-table.js`, so the element runs as soon as the component's code loads. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

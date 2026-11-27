@@ -233,7 +233,7 @@ const vocabularyProblem = (name: string) => {
     /-(alpha-[a-z]+|opacity|scale)$/.test(name) &&
     !name.startsWith("--ui-state-")
   ) {
-    return "a knob that tunes a state across components lives under --ui-state-, and a role takes its state as a suffix"
+    return "a primitive token that tunes a state across components lives under --ui-state-, and a global token takes its state as a suffix"
   }
   return undefined
 }

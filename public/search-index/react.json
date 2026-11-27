@@ -3621,7 +3621,7 @@
   {
     "id": "guide-customizing-react",
     "title": "Customizing",
-    "description": "A theme in theme.custom, --_* properties for one component, and your own layer for the rest.",
+    "description": "A theme in theme.custom, --_* local tokens for one component, and your own layer for the rest.",
     "keywords": "css variables custom properties override restyle",
     "category": "Guide",
     "url": "/react/guide/customizing/"
@@ -3642,7 +3642,7 @@
   },
   {
     "id": "guide-customizing-react-component-properties",
-    "title": "Component properties",
+    "title": "Local tokens",
     "page": "Customizing",
     "category": "Guide",
     "url": "/react/guide/customizing/#component-properties"
@@ -3702,7 +3702,7 @@
   {
     "id": "guide-theming-react",
     "title": "Theming",
-    "description": "The knobs and roles behind colors, density, spacing, corners, fonts, elevation, motion and contrast, and the classes that scope them.",
+    "description": "The primitive and global tokens behind colors, density, spacing, corners, fonts, elevation, motion and contrast, and the classes that scope them.",
     "keywords": "brand color color scheme dark mode dark theme light mode radius shadows theme",
     "category": "Guide",
     "url": "/react/guide/theming/"

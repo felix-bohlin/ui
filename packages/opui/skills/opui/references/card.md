@@ -59,7 +59,7 @@ A surface for related content and actions.
 
 - `default`: The actions, such as buttons.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

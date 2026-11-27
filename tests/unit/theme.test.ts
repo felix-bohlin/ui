@@ -152,7 +152,7 @@ describe("migrateLegacy", () => {
     expect(migrateLegacy(storage({}))).toBeNull()
   })
 
-  test("keeps the preset and turns the palette knobs into a source", () => {
+  test("keeps the preset and turns the palette primitives into a source", () => {
     expect(
       migrateLegacy(
         storage({

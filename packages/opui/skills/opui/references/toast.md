@@ -43,7 +43,7 @@ Short messages that confirm an action and dismiss themselves.
 - Svelte: Attributes that aren't props go to the root `<opui-toaster>`. Toasts show as soon as the component's code loads, which imports `opui-css/elements/toaster.js`. `opui-css/svelte` exports `toast()` next to `Toaster`.
 - Vue: Attributes that aren't props go to the root `<opui-toaster>`. Toasts show as soon as the component's code loads, which imports `opui-css/elements/toaster.js`. `opui-css/vue` exports `toast()` next to `Toaster`.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

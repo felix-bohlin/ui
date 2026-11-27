@@ -31,7 +31,7 @@ describe("component api", () => {
 })
 
 describe("component api checks", () => {
-  test("anchorNames reads anchor-name, and the private property it reads", () => {
+  test("anchorNames reads anchor-name, and the local token it reads", () => {
     expect([
       ...anchorNames(
         ":where(.a) { --_content-anchor: --ui-a; &:where(.b) { --_content-anchor: --ui-b; } & > .c { anchor-name: var(--_content-anchor); } } .d { anchor-name: --ui-d, --ui-e; }",

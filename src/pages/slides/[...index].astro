@@ -637,9 +637,10 @@ const compiledTargets = compiled.map((id) => ({
         </div>
         <aside class="notes">
           <p>
-            6:30. Read a column top to bottom: a knob the theme sets, the role
-            every component with that job reads, an optional component token,
-            the private property, and the CSS property it ends up on.
+            6:30. Read a column top to bottom: a primitive token the theme sets,
+            the global token every component with that job reads, an optional
+            component token, the local token, and the CSS property it ends up
+            on.
           </p>
           <p>
             Every token has the --ui- prefix now, and there's a tokens.json in
@@ -679,7 +680,7 @@ const compiledTargets = compiled.map((id) => ({
           <p>
             The themes are the stress test of the token model: if
             {listOf(EXAMPLE_THEMES.map((theme) => theme.label))} all work, the
-            hooks are in the right places.
+            tokens are in the right places.
           </p>
         </aside>
       </section>
@@ -694,14 +695,14 @@ const compiledTargets = compiled.map((id) => ({
         </div>
         <aside class="notes">
           <p>
-            8:45. Every -text role promises 4.5:1 on every surface, recorded in
-            tokens.json, and a test sweeps every hue in steps of 10, light and
-            dark, normal and more contrast.
+            8:45. Every -text global token promises 4.5:1 on every surface,
+            recorded in tokens.json, and a test sweeps every hue in steps of 10,
+            light and dark, normal and more contrast.
           </p>
           <p>
-            --ui-contrast: more tightens {contrastKnobs} knobs and never sets a
-            color directly. --ui-on-primary is picked from the fill's luminance
-            with relative color.
+            --ui-contrast: more tightens {contrastKnobs} primitive tokens and
+            never sets a color directly. --ui-on-primary is picked from the
+            fill's luminance with relative color.
           </p>
           <p>
             The one miss: primary text on the filled surface in light mode, at

@@ -208,7 +208,7 @@ One concept has one prop name and one set of values in every component. `tests/u
 | Checked state                      | `checked`                      | the native attribute                                                      |
 | Open state                         | `open`                         | the native attribute, on a `details`, `dialog` or popover root            |
 | One or many                        | `multiple` (boolean)           | the native attribute                                                      |
-| Overflow on the layout axis        | `overflow`                     | `scroll`, `shrink`, `wrap`                                                |
+| Overflow on the layout axis        | `overflow`                     | `menu`, `scroll`, `shrink`, `wrap`                                        |
 | Primary text                       | `label`                        | a string, with a `label` slot for rich content                            |
 | Secondary text                     | `description`                  | a string, with a `description` slot for rich content                      |
 | A visible label made invisible     | `hideLabel` (boolean)          | renders `.ui-sr-only` on the label                                        |
@@ -595,6 +595,7 @@ The components without a block, and why:
 - `DescriptionList`, `Divider`, `Form`, `Layout`: the browser forces their lines and colors itself. The `DescriptionList` leaders and total line and the `Divider` line are real borders and the `Layout` `.ui-bordered` lines are column and row rules, all forced to `CanvasText`. The invalid end text of a `Form` fieldset loses its color, while the invalid controls inside keep their dashed border.
 - `Badge`, `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
 - `Toaster`: every toast is a `Callout`, and `callout.css` has the block for its border and its severity and close icons.
+- `Breadcrumb`: text and links only. The browser forces the links to `LinkText` and the text to `CanvasText`, the current page differs by weight, a separator is text or an icon in `currentColor`, and the `.ui-overflow-menu` button and menu are a `Button` and a `Menu`.
 - `Link`: text and underlines, forced to `LinkText` and `CanvasText`.
 - `Stat`: text only, no boundary or state.
 - `Textarea`, the textarea of a `.ui-field`: `textarea.css` only sizes the control; `field.css` has the block.

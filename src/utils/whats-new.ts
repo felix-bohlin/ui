@@ -207,6 +207,9 @@ export const whatsNew = {
     ),
     `Text on a primary <a href="#colors">badge</a> reads <code>--ui-on-primary</code>.`,
   ],
+  breadcrumb: [
+    `New: a <a href="#basics">Breadcrumb</a> shows where the page sits in a hierarchy, with quiet links to the levels above, a <a href="#separator">separator</a> screen readers skip, a <a href="#sizes">small</a> size and long trails that <a href="#overflow">scroll, shrink</a> or <a href="#overflow-menu">collapse into a menu</a>.`,
+  ],
   button: [
     routed(
       (link) =>
@@ -1652,6 +1655,7 @@ export const whatsNew = {
  */
 export const highlighted = new Set<string>([
   "accordion",
+  "breadcrumb",
   "button",
   "card",
   "carousel",
@@ -1675,6 +1679,7 @@ export const highlighted = new Set<string>([
 ] satisfies (keyof typeof whatsNew)[])
 
 export const added = new Set<string>([
+  "breadcrumb",
   "carousel",
   "copy",
   "field",

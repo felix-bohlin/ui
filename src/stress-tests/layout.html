@@ -1979,10 +1979,50 @@
 <section class="stress" data-example="RightToLeft">
   <h2>Right to left</h2>
   <p>
-    The same card, list, callout, accordion, description list, tabs and badges
-    with dir="rtl". Padding, icons, actions and badge positions should mirror.
+    The same breadcrumb, card, list, callout, accordion, description list, tabs
+    and badges with dir="rtl". Padding, icons, actions, badge positions and the
+    breadcrumb chevrons should mirror.
   </p>
   <div class="stress-grid" dir="rtl">
+    <nav aria-label="Breadcrumb" class="ui-breadcrumb">
+      <ol>
+        <li><a href="#stress-layout-rtl-groups">Groups</a></li>
+        <li>
+          <span aria-hidden="true" class="ui-separator"
+            ><svg
+              data-icon="chevron-right"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M11.116 26.634a1.25 1.25 0 0 1 0-1.768L19.982 16l-8.866-8.866a1.25 1.25 0 0 1 1.768-1.768l9.75 9.75a1.25 1.25 0 0 1 0 1.768l-9.75 9.75a1.25 1.25 0 0 1-1.768 0"
+              ></path></svg
+          ></span>
+          <a href="#stress-layout-rtl-society">Low End Society</a>
+        </li>
+        <li>
+          <span aria-hidden="true" class="ui-separator"
+            ><svg
+              data-icon="chevron-right"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M11.116 26.634a1.25 1.25 0 0 1 0-1.768L19.982 16l-8.866-8.866a1.25 1.25 0 0 1 1.768-1.768l9.75 9.75a1.25 1.25 0 0 1 0 1.768l-9.75 9.75a1.25 1.25 0 0 1-1.768 0"
+              ></path></svg
+          ></span>
+          <span aria-current="page">Friday jam night</span>
+        </li>
+      </ol>
+    </nav>
     <div class="ui-card ui-outlined">
       <hgroup>
         <p>Overline</p>

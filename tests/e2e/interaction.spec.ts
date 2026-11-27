@@ -109,6 +109,122 @@ interaction(
 )
 
 interaction(
+  "breadcrumb",
+  "Basics",
+  "breadcrumb separators stay out of the accessibility tree",
+  async ({ page, root }) => {
+    const nav = root.getByRole("navigation", { name: "Breadcrumb" })
+    await expect(nav.getByRole("listitem")).toHaveCount(3)
+    await expect(nav.getByRole("link")).toHaveCount(2)
+    await expect(nav.locator('[aria-current="page"]')).toHaveText(
+      "Friday jam night",
+    )
+    const browser = page.context().browser()?.browserType().name()
+    if (browser !== "chromium") return
+    const separator = await nav
+      .locator("li + li")
+      .first()
+      .evaluate((li) => getComputedStyle(li, "::before").content)
+    expect(separator).toBe('"/" / ""')
+    const cdp = await page.context().newCDPSession(page)
+    const { result } = await cdp.send("Runtime.evaluate", {
+      expression: `document.querySelector('[data-example="Basics"] .ui-breadcrumb')`,
+    })
+    const { nodes } = await cdp.send("Accessibility.queryAXTree", {
+      objectId: result.objectId,
+      role: "StaticText",
+    })
+    const texts = nodes.map((node) => String(node.name?.value ?? ""))
+    expect(texts).toContain("Groups")
+    expect(texts.filter((text) => text.includes("/"))).toEqual([])
+  },
+  ["html"],
+)
+
+interaction(
+  "breadcrumb",
+  "Overflow",
+  "breadcrumb overflow scrolls one row or truncates the middle levels",
+  async ({ root }) => {
+    const scroll = root.locator(".ui-overflow-scroll > ol")
+    await expect
+      .poll(() => scroll.evaluate((ol) => ol.scrollWidth > ol.clientWidth))
+      .toBe(true)
+    const levels = await root
+      .locator(".ui-overflow-shrink > ol > li > :not(.ui-separator)")
+      .evaluateAll((elements) =>
+        elements.map((element) => element.scrollWidth > element.clientWidth),
+      )
+    expect(levels).toHaveLength(5)
+    expect(levels[0]).toBe(false)
+    expect(levels.at(-1)).toBe(false)
+    expect(levels.slice(1, -1)).toContain(true)
+    const shrink = root.locator(".ui-overflow-shrink > ol")
+    expect(
+      await shrink.evaluate((ol) => ol.scrollWidth <= ol.clientWidth),
+    ).toBe(true)
+  },
+  ["html"],
+)
+
+interaction(
+  "breadcrumb",
+  "OverflowMenu",
+  "breadcrumb overflow menu collapses the middle levels into a menu",
+  async ({ root }) => {
+    const long = root.getByRole("navigation", { name: "Fog Five breadcrumb" })
+    const trail = long.locator(":scope > ol > li > :is(a, span)")
+    await expect(trail).toHaveText([
+      "Marketplace",
+      "Basses",
+      "Five-string",
+      "Fretless",
+      "Fog Five",
+    ])
+    const visible = await trail.evaluateAll((levels) =>
+      levels.flatMap((level) =>
+        level.checkVisibility() ? [level.textContent] : [],
+      ),
+    )
+    expect(visible).toEqual(["Marketplace", "Fretless", "Fog Five"])
+
+    const button = long.getByRole("button", { name: "More levels" })
+    const menu = long.locator(".ui-menu")
+    await expect(button).toBeVisible()
+    await expect(menu).toBeHidden()
+    await button.click()
+    await expect(menu).toBeVisible()
+    await expect(menu.getByRole("link")).toHaveText(["Basses", "Five-string"])
+    await button.click()
+    await expect(menu).toBeHidden()
+
+    const short = root.getByRole("navigation", { name: "Jam night breadcrumb" })
+    await expect(short.getByRole("button")).toHaveCount(0)
+    await expect(short.getByRole("link")).toHaveText([
+      "Groups",
+      "Low End Society",
+    ])
+    await expect(short.getByRole("link").first()).toBeVisible()
+    await expect(short.getByRole("link").last()).toBeVisible()
+  },
+)
+
+interaction(
+  "breadcrumb",
+  "OverflowMenuParts",
+  "breadcrumb overflow menu hides the levels a hand-written menu item holds",
+  async ({ root }) => {
+    const nav = root.getByRole("navigation", { name: "Tour breadcrumb" })
+    await expect(nav.getByRole("link")).toHaveText(["Groups", "Spring tour"])
+    await nav.getByRole("button", { name: "More levels" }).click()
+    await expect(nav.locator(".ui-menu").getByRole("link")).toHaveText([
+      "Low End Society",
+      "Events",
+    ])
+  },
+)
+
+interaction(
   "checkbox",
   "FieldGroupBinding",
   "checkbox group binds the checked values",

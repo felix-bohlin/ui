@@ -9,6 +9,8 @@ export { default as AnchorContent } from "../components/Anchor/AnchorContent.sve
 export { default as Avatar } from "../components/Avatar/Avatar.svelte"
 export { default as AvatarGroup } from "../components/Avatar/AvatarGroup.svelte"
 export { default as Badge } from "../components/Badge/Badge.svelte"
+export { default as Breadcrumb } from "../components/Breadcrumb/Breadcrumb.svelte"
+export { default as BreadcrumbItem } from "../components/Breadcrumb/BreadcrumbItem.svelte"
 export { default as Button } from "../components/Button/Button.svelte"
 export { default as Callout } from "../components/Callout/Callout.svelte"
 export { default as CalloutActions } from "../components/Callout/CalloutActions.svelte"
@@ -107,6 +109,10 @@ export type {
   Props as AvatarProps,
 } from "../components/Avatar/types.svelte"
 export type { Props as BadgeProps } from "../components/Badge/types.svelte"
+export type {
+  BreadcrumbItemProps,
+  Props as BreadcrumbProps,
+} from "../components/Breadcrumb/types.svelte"
 export type { Props as ButtonProps } from "../components/Button/types.svelte"
 export type {
   CalloutActionsProps,

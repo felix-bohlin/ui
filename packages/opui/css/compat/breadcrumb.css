@@ -1,0 +1,7 @@
+@layer components.compat {
+  @supports not (overflow-inline: auto) {
+    :where(.ui-breadcrumb).ui-overflow-scroll > ol {
+      overflow-x: auto;
+    }
+  }
+}

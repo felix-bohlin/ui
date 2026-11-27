@@ -4,13 +4,17 @@
 >
   <div class="ui-layout-row ui-spread">
     <div class="ui-layout-column ui-gap-x-small">
-      <nav aria-label="Breadcrumb" class="files-breadcrumb">
-        <ol class="ui-layout-row ui-gap-x-small">
-          <li><a class="ui-link" href="#file-manager-root">My stuff</a></li>
+      <nav class="ui-breadcrumb ui-small" aria-label="Breadcrumb">
+        <ol>
           <li>
-            <a class="ui-link" href="#file-manager-albums">Photo albums</a>
+            <a href="#file-manager-root">My stuff</a>
           </li>
-          <li><span aria-current="page">Gig pics</span></li>
+          <li>
+            <a href="#file-manager-albums">Photo albums</a>
+          </li>
+          <li>
+            <span aria-current="page">Gig pics</span>
+          </li>
         </ol>
       </nav>
       <h1 class="ui-h3">Gig pics</h1>
@@ -599,16 +603,6 @@
 <style>
   .file-manager {
     container-type: inline-size;
-
-    .files-breadcrumb ol {
-      font-size: var(--ui-font-size-caption);
-
-      li + li::before {
-        color: var(--ui-text);
-        content: "/";
-        margin-inline-end: var(--ui-space-1);
-      }
-    }
 
     .files-breakdown li > span:last-child {
       margin-inline-start: auto;

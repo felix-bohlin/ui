@@ -88,7 +88,7 @@ Model: `value` (`string`), the `value` of the selected tab. Astro, Nunjucks, Rea
 
 - `default`: The panel content.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

@@ -40,7 +40,7 @@ Model: `value` (`number | string`), the score of the meter, fractions included, 
 - Svelte: Bind the input with `bind:value`.
 - Vue: Bind the input with `v-model`.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

@@ -21,7 +21,7 @@ A line between content, plain or with a label at the start, middle or end.
 
 - `default`: Optional content in the middle of the line. Renders a `<div>`.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

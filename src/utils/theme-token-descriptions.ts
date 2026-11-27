@@ -72,7 +72,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-choice-checked":
     "How a checked `Checkbox` and `Radio` look. `mark` keeps the surface and the border of the unchecked input and draws the check, dash or dot in the choice accent, lifted to text lightness in dark mode, like GOV.UK. When unset (`fill`), the input fills with the accent under a mark in its on-accent color. Forced colors always fill. `Switch` and checkbox and radio cards don't read it.",
   "--ui-choice-checked-accent":
-    "The fill of a checked `Checkbox`, `Radio` and `Switch` when no accent hook is set: `--ui-primary`, with its lightness capped in dark mode so the mark keeps 3:1 against its surface.",
+    "The fill of a checked `Checkbox`, `Radio` and `Switch` when no optional accent token is set: `--ui-primary`, with its lightness capped in dark mode so the mark keeps 3:1 against its surface.",
   "--ui-choice-invalid-accent":
     "The fill of a checked invalid `Checkbox`, `Radio` and `Switch`: `--ui-invalid`, with its lightness capped in dark mode like `--ui-choice-checked-accent`.",
   "--ui-choice-label-offset":
@@ -101,13 +101,13 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-color-scheme":
     "The color scheme in force: `light`, or `dark` under `prefers-color-scheme: dark`. In print it is `light`, also under `.ui-dark`. `html` reads it as its `color-scheme`, `.ui-light` and `.ui-dark` set it on a part of the page, and `Typography` reads it in a style query. Set the classes, not the token.",
   "--ui-contrast":
-    "`more` tightens the contrast knobs (`--ui-text-strength-*`, `--ui-text-disabled-strength`, `--ui-border-strength-*`, `--ui-field-border-strength`, `--ui-code-bg-alpha-*`, `--ui-state-active-alpha-dark`, `--ui-state-selected-alpha-accent` and `--ui-focus-ring-width`) and the lightness and chroma limits the color roles are derived within, and every role derived from them follows. Set to `more` under `prefers-contrast: more` or by `.ui-contrast-more`. Components read it in style queries for shape changes. See [Contrast](/guide/theming#contrast).",
+    "`more` tightens the contrast primitives (`--ui-text-strength-*`, `--ui-text-disabled-strength`, `--ui-border-strength-*`, `--ui-field-border-strength`, `--ui-code-bg-alpha-*`, `--ui-state-active-alpha-dark`, `--ui-state-selected-alpha-accent` and `--ui-focus-ring-width`) and the lightness and chroma limits the global color tokens are derived within, and every global token derived from them follows. Set to `more` under `prefers-contrast: more` or by `.ui-contrast-more`. Components read it in style queries for shape changes. See [Contrast](/guide/theming#contrast).",
   "--ui-control-accent":
     "The accent every control shares: `Button` and `ControlGroup` without `.ui-primary` or `.ui-critical`, a checked `Checkbox`, `Radio` and `Switch`, and the thumb and fill of a range. Unset by default, so buttons keep `--ui-palette-strong` and choice controls `--ui-primary`. Set it to `--ui-primary` to give every control the brand color in one line, like Material and shadcn, and `--ui-button-accent` or `--ui-choice-accent` to override one of them.",
   "--ui-control-accent-max-chroma-dark":
-    "The most chroma a control's accent color keeps in dark mode where it colors text or a mark: `Button` text, the `Checkbox`, `Radio` and `Switch` mark and `Copy` text, whichever accent hook sets the color. `0.1`.",
+    "The most chroma a control's accent color keeps in dark mode where it colors text or a mark: `Button` text, the `Checkbox`, `Radio` and `Switch` mark and `Copy` text, whichever optional accent token sets the color. `0.1`.",
   "--ui-control-accent-min-lightness-dark":
-    "The least lightness a control's accent color has in dark mode where it colors text or a mark, like `--ui-control-accent-max-chroma-dark`. `0.8`, and `0.9` with more contrast, so a dark accent from a hook still reads on a dark surface.",
+    "The least lightness a control's accent color has in dark mode where it colors text or a mark, like `--ui-control-accent-max-chroma-dark`. `0.8`, and `0.9` with more contrast, so a dark accent from an optional accent token still reads on a dark surface.",
   "--ui-control-border-color":
     "Border color of controls without a fill: `Button` with `.ui-outlined`, also in an outlined `ControlGroup`, `ToggleButton`, `ToggleGroup`, `Chip` with `.ui-outlined`, the track of `Tabs` with `.ui-outlined`, and the selected `Tabs` pill. When unset, outlined buttons use their color, the selected `Tabs` pill `--ui-field-border-color` and the rest `--ui-border-color`. Themes that outline controls like fields set it to `--ui-field-border-color`.",
   "--ui-control-border-color-filled":
@@ -200,7 +200,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-font-family-heading":
     "Font family for `h1`–`h6` and the `.ui-h1`–`.ui-h6` classes. When unset, headings follow `--ui-font-family-body`.",
   "--ui-font-size-100":
-    "The smallest step of the type scale, 12px. `--ui-font-size-caption` reads it. Set the steps to reshape every size at once, or a role to move one.",
+    "The smallest step of the type scale, 12px. `--ui-font-size-caption` reads it. Set the steps to reshape every size at once, or a type token such as `--ui-font-size-body` to move one.",
   "--ui-font-size-200":
     "Type scale step, 14px. `--ui-font-size-small` reads it.",
   "--ui-font-size-300":
@@ -360,7 +360,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-palette-on-strong": "Text color on `--ui-palette-strong`.",
   "--ui-palette-on-tonal": "Text color on `--ui-palette-tonal`.",
   "--ui-palette-source":
-    "The source color the palette is derived from. A theme leaves it unset, and `palette.css` builds it from `--ui-palette-hue` and `--ui-palette-chroma`: `oklch(58% 0.105 222.8)` by default. Set it to replace those two knobs. Any color works: the palette keeps its oklch hue, scales its chroma and sets the lightness per step. See [Palette](/guide/theming#palette).",
+    "The source color the palette is derived from. A theme leaves it unset, and `palette.css` builds it from `--ui-palette-hue` and `--ui-palette-chroma`: `oklch(58% 0.105 222.8)` by default. Set it to replace those two primitives. Any color works: the palette keeps its oklch hue, scales its chroma and sets the lightness per step. See [Palette](/guide/theming#palette).",
   "--ui-palette-strong":
     "The strongest shade of the current palette, the darkest in light mode and the lightest in dark mode, with the most contrast against the page: `Callout` text, the default `Button` fill when `--ui-button-accent` is unset. Severity `Chip` text reads it. Re-derived inside every severity scope.",
   "--ui-palette-text":

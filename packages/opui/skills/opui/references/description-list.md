@@ -37,7 +37,7 @@ A list of terms and their values, like order details or totals.
 
 - `default`: The term and the description.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

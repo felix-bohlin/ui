@@ -65,7 +65,7 @@ A panel that slides in from an edge of the screen, for navigation, filters or si
 
 - `default`: The footer content, such as buttons.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

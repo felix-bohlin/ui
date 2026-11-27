@@ -31,14 +31,14 @@ Buttons and fields joined into one control, like a split button or a search fiel
 
 - HTML: The root needs `role="group"` and a name.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 
 ### control-group.css
 
 - `--_divider-accent`: The color `--_divider-enabled-border-color` lightens or darkens by 0.1, like the button's `--_accent-tonal`: `--ui-surface-tonal`, the palette tint in `.ui-critical`, and `--ui-primary-tonal` or the tint in `.ui-primary`. In a filled `.ui-critical` or `.ui-primary` group, `--ui-critical-fill` or `--ui-primary`, like the button's `--_accent-filled`.
-- `--_divider-enabled-border-color`: Color of the line while a button in the group is enabled, from `--_divider-accent`. In a `.ui-filled` group without a color, `currentColor`, so where the buttons overlap each one draws the line in its own text color, and the rule between them is `transparent`, so the surface behind the group shows through. `--ui-control-border-color-filled`, the hook for filled controls, replaces it when a theme sets it.
+- `--_divider-enabled-border-color`: Color of the line while a button in the group is enabled, from `--_divider-accent`. In a `.ui-filled` group without a color, `currentColor`, so where the buttons overlap each one draws the line in its own text color, and the rule between them is `transparent`, so the surface behind the group shows through. `--ui-control-border-color-filled`, the optional global token for filled controls, replaces it when a theme sets it.
 
 Outputs: `--_border-color`, `--_divider-border-color`, `--_divider-disabled-border-color`, `--_divider-gap`, `--_end-end-radius`, `--_end-start-radius`, `--_overlap`, `--_ring-reach`, `--_shadow`, `--_start-border-color`, `--_start-end-radius` and `--_start-start-radius`.
 

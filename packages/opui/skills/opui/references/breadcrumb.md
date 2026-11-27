@@ -50,7 +50,7 @@ Shows where the page sits in a hierarchy, with a link to each level above it.
 
 - `default`: The name of the level, after `label`, such as an icon.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

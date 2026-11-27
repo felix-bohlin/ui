@@ -54,7 +54,7 @@ A list of steps that shows where someone is in a flow, like a checkout.
 
 - HTML: Write the screen reader state yourself: `<span class="ui-sr-only">, completed</span>` after the label of a complete step, `, error` after one with an error.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

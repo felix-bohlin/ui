@@ -81,7 +81,7 @@ Classes that space and group form fields, with fieldsets and field groups.
 
 - HTML: To label the group, wrap it in a `.ui-fieldset` with a `<legend>`.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

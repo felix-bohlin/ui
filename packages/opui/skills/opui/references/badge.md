@@ -22,7 +22,7 @@ A small count or status dot on the corner of another element.
 - `invisible`: `boolean`, `.ui-invisible`. Hides the indicator.
 - `label`: `string`. The indicator text, such as a count. With `hideLabel` or `dot`, only screen readers get it.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

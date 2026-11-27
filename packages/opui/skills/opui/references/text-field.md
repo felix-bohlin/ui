@@ -36,7 +36,7 @@ A single-line text input in a Field: input types, numbers as text, a password to
 - Nunjucks: Put it in `slots.end`, next to a `type="password"` input, and load `opui-css/elements/password-toggle.js` on the page. Attributes that aren't props, `class` and `style` go to the `<opui-password-toggle>`, not the button.
 - React: Put it in `end`, next to a `type="password"` input. It loads `opui-css/elements/password-toggle.js`. Attributes that aren't props, `className` and `style` go to the `<opui-password-toggle>`, not the button.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

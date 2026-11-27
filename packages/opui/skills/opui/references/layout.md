@@ -32,7 +32,7 @@ Classes for the space between components, in columns, rows and grids.
 - Astro, Nunjucks and Vue: Add the classes to elements in your templates.
 - React, Solid and Svelte: Add the classes to elements in your markup.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

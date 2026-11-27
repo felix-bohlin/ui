@@ -18,7 +18,7 @@ A multi-line text input in a Field that grows with its text, with a character co
 - Astro, Nunjucks, Solid, Svelte and Vue: Write a `<textarea>` in a `Field`, with its `id` set to `for`.
 - React: Write a `<textarea>` in a `Field`, with its `id` set to `htmlFor`.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

@@ -30,7 +30,7 @@ A compact label or control for filters, tags and choices.
 - State (HTML): `button` (`button[disabled]`), `link` (`a[aria-disabled="true"]`), `static` (`.ui-disabled`). Disables a button chip. A link chip, which can't take `disabled`, drops its `href` and takes `role="link"` and `aria-disabled="true"` instead. A static chip can't be disabled; `.ui-disabled` gives it an inactive look without announcing a state.
 - `variant`: `"outlined"` (`.ui-outlined`), `"tonal"` (default). The variant to use.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

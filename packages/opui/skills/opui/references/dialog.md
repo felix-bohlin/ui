@@ -60,7 +60,7 @@ A window over the page for a question or a short task, modal or not.
 
 - `default`: The footer content, such as buttons.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

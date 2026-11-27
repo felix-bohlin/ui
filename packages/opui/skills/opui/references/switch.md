@@ -58,7 +58,7 @@ Model: `checked` (`boolean | (string | number)[]`), the checked state, or the ch
 
 - Astro, Nunjucks, React, Solid, Svelte and Vue: The switch `<input>` without the label, for a custom layout such as the end of a list item. Attributes that aren't props go to the `<input>`.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

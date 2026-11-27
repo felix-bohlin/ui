@@ -195,15 +195,16 @@ const openTodos = itemCount(todo.sections)
         exceptions.
       </li>
       <li>
-        Hooks a theme can reach: <code>--ui-control-accent</code>,
-        <code>--ui-selected</code>, <code>--ui-border-color-raised</code>.
+        Optional global tokens a theme can set: <code>--ui-control-accent</code
+        >, <code>--ui-selected</code>, <code>--ui-border-color-raised</code>.
       </li>
     </ul>
 
     <h3 id="tokens-tiers">Token tiers</h3>
     <p>
-      Follow an arrow inward: a knob the theme sets, the role a component reads,
-      the private property the component sets, the CSS property it ends up on.
+      Follow an arrow inward: a primitive token the theme sets, the global token
+      a component reads, the local token the component sets, the CSS property it
+      ends up on.
     </p>
     <TokenTiers />
     <ul>
@@ -214,14 +215,15 @@ const openTodos = itemCount(todo.sections)
         >.
       </li>
       <li>
-        Tiers: knobs, roles (some optional hooks) and component tokens, and
-        which one to touch for what
+        Tiers: primitive, scale, global (some optional), component and local
+        tokens, and which one to touch for what
         (<DocLink href="/guide/theme-tokens">Theme tokens</DocLink>).
       </li>
       <li>
-        Derived roles declared on
+        Derived global tokens declared on
         <code>:where(html, .ui-scope, .ui-contrast-more)</code>, so a
-        <code>.ui-scope</code> subtree with an inline knob re-themes itself.
+        <code>.ui-scope</code> subtree with an inline primitive token re-themes
+        itself.
       </li>
       <li>
         The layers: <code>theme.palette</code>, <code>theme.base</code>,
@@ -249,12 +251,14 @@ const openTodos = itemCount(todo.sections)
     <ContrastLab />
     <ul>
       <li>
-        <code>--ui-contrast: more</code> tightens {contrastKnobs} knobs,
-        lightness, strength, alpha and widths, and never sets a color directly.
+        <code>--ui-contrast: more</code> tightens {contrastKnobs} primitive
+        tokens, lightness, strength, alpha and widths, and never sets a color
+        directly.
       </li>
       <li>
-        The <code>-text</code> roles promise 4.5:1 on every surface; the promise
-        is recorded in <code>tokens.json</code> and tested at the default hue.
+        The <code>-text</code> global tokens promise 4.5:1 on every surface; the
+        promise is recorded in <code>tokens.json</code> and tested at the
+        default hue.
       </li>
       <li>
         <code>--ui-on-primary</code> picked from the fill's luminance with
@@ -567,7 +571,7 @@ const openTodos = itemCount(todo.sections)
         <code>type="button"</code> by default.
       </li>
       <li>
-        Private custom properties follow one shape: <code>--_accent</code>,
+        Local tokens follow one shape: <code>--_accent</code>,
         <code>--_text-color</code>, <code>--_bg-color</code>,
         <code>--_size</code>, <code>--_radius</code>.
       </li>
@@ -676,8 +680,8 @@ const openTodos = itemCount(todo.sections)
         shrink.
       </li>
       <li>
-        The kind of bug they catch: palette knobs declared twice, with a copy
-        that disagreed and never applied.
+        The kind of bug they catch: palette primitives declared twice, with a
+        copy that disagreed and never applied.
       </li>
       <li>
         The exception is adding something new: that is where the fun is,
@@ -789,7 +793,7 @@ const openTodos = itemCount(todo.sections)
       <li>Types from the framework entry; <code>types.vue-props.ts</code>.</li>
       <li>
         The <a href="#one-naming-model">rename explorer</a> for props, classes,
-        tokens and private properties.
+        tokens and local tokens.
       </li>
       <li>
         Visual shifts to expect: rich text spacing and heading sizes, the Tabs

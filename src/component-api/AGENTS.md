@@ -115,7 +115,7 @@ keyboard: [
 
 The `--_` custom properties a stylesheet declares are documented per stylesheet, not per `api.ts`, since several APIs share one stylesheet. `src/component-api/custom-properties/<stylesheet>.ts` default-exports a `CustomProperties` record ([types.ts](types.ts)) with a short `description` and a `kind` per property:
 
-- `input`: a knob to set on the component, such as `--_accent`, `--_size` or `--_motion`.
+- `input`: a local token to set on the component, such as `--_accent`, `--_size` or `--_motion`.
 - `output`: derived from the inputs, the variant or the state, such as `--_bg-color`. Overriding it freezes it in every state.
 
 `tests/unit/custom-properties.test.ts` fails when the keys aren't sorted, when a stylesheet declares a `--_` property that isn't documented, documents one it doesn't declare, or isn't shown on any page. The Component layout renders the table for the page's stylesheets: `pageStylesheets` in [custom-properties.ts](custom-properties.ts) collects the `css` of every `api.ts` whose page is the slug, so a stylesheet shows up on a page as soon as an `api.ts` lists it.

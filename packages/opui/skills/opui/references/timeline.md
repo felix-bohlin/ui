@@ -44,7 +44,7 @@ A list of dated events with markers and a connecting line.
 
 - `default`: The content of the event, after the title.
 
-## Component properties
+## Local tokens
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 

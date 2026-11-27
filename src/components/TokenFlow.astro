@@ -29,7 +29,7 @@ const roles = [
 <figure class="token-flow ui-scope ui-not-rich-text" id="token-flow">
   <ol>
     <li>
-      <span class="step">Knobs</span>
+      <span class="step">Primitive tokens</span>
       <div class="knobs">
         {knobs.map((knob) => <Field for={knob.id} size="small">
           <Fragment slot="label"><code>{knob.name}</code></Fragment>
@@ -60,7 +60,7 @@ const roles = [
       <span><code>--ui-color-1</code> to <code>--ui-color-16</code></span>
     </li>
     <li>
-      <span class="step">Roles</span>
+      <span class="step">Global tokens</span>
       <ul class="roles">
         {roles.map((role) => <li>
           <span

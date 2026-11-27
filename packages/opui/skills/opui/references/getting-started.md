@@ -45,7 +45,7 @@ Each component page lists the files it needs under Installation.
 1. `css/layers.css` The layer order First
 2. `dist/op.css` Open Props for your own CSS Optional
 3. `core/palette.css` 16 color steps from your hue
-4. `css/theme.css` The knobs and roles components read
+4. `css/theme.css` The tokens components read
 5. `core/normalize.css` Reset and focus ring
 6. `css/components.css` Every component, or one file each from css/components/
 7. `css/compat.css` Browser fallbacks Optional

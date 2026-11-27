@@ -40,15 +40,16 @@ export const keywords = [
 <Guide overline="Guide">
   <Fragment slot="title">Theming</Fragment>
   <Fragment slot="preamble">
-    The knobs and roles behind colors, density, spacing, corners, fonts,
-    elevation, motion and contrast, and the classes that scope them.
+    The primitive and global tokens behind colors, density, spacing, corners,
+    fonts, elevation, motion and contrast, and the classes that scope them.
   </Fragment>
 
   <section>
     <p>
       A theme sets
-      <DocLink href="/guide/concepts#token-tiers">knobs and roles</DocLink>, and
-      every component reads the roles:
+      <DocLink href="/guide/concepts#token-tiers"
+        >primitive and global tokens</DocLink
+      >, and every component reads the global tokens:
     </p>
     <TokenFlow />
     <p>
@@ -140,7 +141,8 @@ export const keywords = [
     </Example>
     <ul>
       <li>
-        <code>.ui-scope</code>: re-derives every token from the knobs it sets.
+        <code>.ui-scope</code>: re-derives every token from the primitive tokens
+        it sets.
       </li>
       <li>
         <code>.ui-critical</code> and the other severities: swap the palette for
@@ -202,13 +204,13 @@ export const keywords = [
       lang="html"
     />
     <p>
-      A theme that sets a size keeps the knob in it, so the size still follows
-      density: <code>calc(2.25rem * var(--ui-density))</code>. A theme that also
-      sets its own density writes the length it wants at that density,
-      <code>calc(2rem * var(--ui-density) / 0.9)</code>. The same goes for the
-      spacing steps and <code>--ui-space-scale</code>. Each size token says
-      which knob it follows in <code>tokens.json</code>, as <code>scaledBy</code
-      >.
+      A theme that sets a size keeps <code>--ui-density</code> in it, so the
+      size still follows density: <code>calc(2.25rem * var(--ui-density))</code
+      >. A theme that also sets its own density writes the length it wants at
+      that density, <code>calc(2rem * var(--ui-density) / 0.9)</code>. The same
+      goes for the spacing steps and <code>--ui-space-scale</code>. Each size
+      token says which primitive token it follows in <code>tokens.json</code>,
+      as <code>scaledBy</code>.
     </p>
   </section>
 
@@ -259,10 +261,10 @@ export const keywords = [
 }`}
       lang="css"
     />
-    <p>Pin a size role, or replace the scale:</p>
+    <p>Pin a size token, or replace the scale:</p>
     <Code
       code={`:where(html, .ui-scope, .ui-contrast-more) {
-  /* Pin one role */
+  /* Pin one token */
   --ui-font-size-caption: 0.8125rem;
 }
 
@@ -379,7 +381,7 @@ export const keywords = [
     <h2>Icons</h2>
     <p>
       Every icon a component draws itself reads a <code>--ui-icon-*</code>
-      token, one for each role, such as <code>--ui-icon-close</code> and
+      token, one for each use, such as <code>--ui-icon-close</code> and
       <code>--ui-icon-expand</code>. Each is an SVG image used as a mask, so
       only its shape counts and it takes the text color. The defaults are Fluent
       UI System Icons, and
@@ -433,23 +435,24 @@ export const keywords = [
   <section id="contrast">
     <h2>Contrast</h2>
     <p>
-      More contrast tightens the knobs, and every role follows. Their values are
-      on <DocLink href="/guide/theme-tokens#contrast">Theme tokens</DocLink>.
+      More contrast tightens the primitive tokens, and every global token
+      follows. Their values are on
+      <DocLink href="/guide/theme-tokens#contrast">Theme tokens</DocLink>.
     </p>
     <p>
-      The roles are derived within lightness and chroma limits that
+      The global tokens are derived within lightness and chroma limits that
       <code>theme.css</code> keeps private, as <code>--_ui-*</code> properties
       that can change in any release. To keep an exact brand color, pin the
-      role, such as <code>--ui-primary-text</code> or
+      global token, such as <code>--ui-primary-text</code> or
       <code>--ui-critical-fill</code>. The one limit a theme sets is for the
-      accents its hooks supply:
+      accents its optional global tokens supply:
       <code>--ui-control-accent-min-lightness-dark</code> and
       <code>--ui-control-accent-max-chroma-dark</code> keep a dark accent
       readable as text in dark mode.
     </p>
     <p>
-      A role a theme pins stays pinned in every contrast mode. Hand it back with
-      <code>revert-layer</code>:
+      A global token a theme pins stays pinned in every contrast mode. Hand it
+      back with <code>revert-layer</code>:
     </p>
     <Code
       code={`@layer theme.custom {
@@ -532,7 +535,8 @@ export const keywords = [
 
     <h3 id="contrast-custom">Custom values</h3>
     <p>
-      Set the knobs under the media query and on <code>.ui-contrast-more</code>:
+      Set the primitive tokens under the media query and on
+      <code>.ui-contrast-more</code>:
     </p>
     <Code
       code={`@layer theme.custom {

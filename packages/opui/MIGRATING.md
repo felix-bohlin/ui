@@ -64,7 +64,7 @@ The Vue type files are `types.vue-props.ts` instead of `types.d.vue.ts`, since T
 + import type { ButtonProps } from "opui-css/vue"
 ```
 
-`open-props` is an optional peer dependency. `theme.css` and the example themes no longer read Open Props: the values they took from it (`--size-*`, `--radius-*`, `--border-size-2`, `--ease-in-3`, `--ease-out-3`, `--font-sans`, `--font-mono`, `--font-weight-*`, `--hue-*` and the shadows) are written into `theme.css`, with the same results. `dist/opui.css` still bundles most of Open Props, without its `@custom-media` definitions, its palette (`--palette-*`, `--color-1` to `--color-16`) and the dark shadow values. `css/imports.css` no longer imports `open-props.css`: if your own CSS reads Open Props, import `opui-css/open-props.css` after it and install `open-props`. Otherwise drop the `open-props` package, and replace Open Props values in your theme with plain values or roles:
+`open-props` is an optional peer dependency. `theme.css` and the example themes no longer read Open Props: the values they took from it (`--size-*`, `--radius-*`, `--border-size-2`, `--ease-in-3`, `--ease-out-3`, `--font-sans`, `--font-mono`, `--font-weight-*`, `--hue-*` and the shadows) are written into `theme.css`, with the same results. `dist/opui.css` still bundles most of Open Props, without its `@custom-media` definitions, its palette (`--palette-*`, `--color-1` to `--color-16`) and the dark shadow values. `css/imports.css` no longer imports `open-props.css`: if your own CSS reads Open Props, import `opui-css/open-props.css` after it and install `open-props`. Otherwise drop the `open-props` package, and replace Open Props values in your theme with plain values or global tokens:
 
 ```diff
   @layer theme.custom {
@@ -77,7 +77,7 @@ The Vue type files are `types.vue-props.ts` instead of `types.d.vue.ts`, since T
   }
 ```
 
-`opui-css/open-props` (`dist/op.css`) no longer includes Open Props' palette (`--palette-*` and `--color-1` to `--color-16`). If you load `op.css` on its own and read those properties, import `opui-css/core/palette.css` with `opui-css/css/theme.css`, which sets the palette knobs, and read the `--ui-` names (`--ui-palette-*` and `--ui-color-1` to `--ui-color-16`).
+`opui-css/open-props` (`dist/op.css`) no longer includes Open Props' palette (`--palette-*` and `--color-1` to `--color-16`). If you load `op.css` on its own and read those properties, import `opui-css/core/palette.css` with `opui-css/css/theme.css`, which sets the palette primitives, and read the `--ui-` names (`--ui-palette-*` and `--ui-color-1` to `--ui-color-16`).
 
 The `types.solid.ts` files type the Solid 2 components in `opui-css/solid` instead of Solid 1 attributes, so they need `solid-js` and `@solidjs/web` 2. Import the props from the barrel:
 
@@ -128,7 +128,7 @@ These tokens also have a new name, so adding the prefix isn't enough:
 + .note { color: var(--ui-text-strong); border-radius: var(--ui-radius); }
 ```
 
-`--font-size-05` is `--ui-font-size-small`, one of the type roles that replace the Open Props steps in the components: `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-size-body`, `--ui-font-size-control` and `--ui-font-size-large`, which default to steps of the new `--ui-font-size-100` to `--ui-font-size-900` scale.
+`--font-size-05` is `--ui-font-size-small`, one of the type tokens that replace the Open Props steps in the components: `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-size-body`, `--ui-font-size-control` and `--ui-font-size-large`, which default to steps of the new `--ui-font-size-100` to `--ui-font-size-900` scale.
 
 ```diff
 - .note { font-size: var(--font-size-05); }
@@ -145,7 +145,7 @@ These tokens also have a new name, so adding the prefix isn't enough:
 }
 ```
 
-A theme pins a role by setting it, and the scope classes `.ui-scope` (`.ui-palette` in 5.x) and `.ui-contrast-more` derive every role again from the knobs. Set pinned roles on `:where(html, .ui-scope, .ui-contrast-more)` so the scopes keep them; knobs such as `--ui-radius` or `--ui-palette-hue` can stay on `html`. More contrast tightens knobs and no longer replaces a pinned role, so a theme that wants its primary darkened under `prefers-contrast: more` sets `--ui-primary-source` instead of `--ui-primary`, and a theme that wants another pinned role back under more contrast sets it to `revert-layer` there (see Contrast in the theming guide). The example themes do that and leave `--ui-on-primary` and `--ui-primary-text` to derive from it (brutalist pins `--ui-primary-text` to its text color for black links):
+A theme pins a global token by setting it, and the scope classes `.ui-scope` (`.ui-palette` in 5.x) and `.ui-contrast-more` derive every global token again from the primitive tokens. Set pinned global tokens on `:where(html, .ui-scope, .ui-contrast-more)` so the scopes keep them; plain values such as `--ui-radius` and primitive tokens such as `--ui-palette-hue` can stay on `html`. More contrast tightens primitive tokens and no longer replaces a pinned global token, so a theme that wants its primary darkened under `prefers-contrast: more` sets `--ui-primary-source` instead of `--ui-primary`, and a theme that wants another pinned global token back under more contrast sets it to `revert-layer` there (see Contrast in the theming guide). The example themes do that and leave `--ui-on-primary` and `--ui-primary-text` to derive from it (brutalist pins `--ui-primary-text` to its text color for black links):
 
 ```css
 @layer theme.custom {
@@ -208,7 +208,7 @@ Component borders read `--ui-border-width` (`Accordion`, `Callout`, `Card`, `Chi
 
 Links (`.ui-link` and rich text links) darken in light mode and lighten in dark mode on hover and focus, and their underline gets `3px` thick.
 
-Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent color, `--_text-color` for text, `--_bg-color` for the component's own background (a sub-part keeps a prefix, like `--_thumb-bg-color`), `--_duration` and `--_ease` for motion, `--_size` for a control's size (the height, and the width of a square control) while a part's size takes the part's name (`--_indicator-size`), `--_radius` for corners, and `--_block-size` and `--_inline-size` for one axis of a box that isn't a control. A color says what it paints (`-bg-color`, `-text-color`, `-border-color`), sizes are logical (`-block-size`, `-inline-size`) and names aren't abbreviated. Rename them where you set them. A property the component sets (an output in the Component properties table) isn't an override: the rows below name the input to set instead:
+Local tokens (`--_*`) follow one scheme: `--_accent` for the accent color, `--_text-color` for text, `--_bg-color` for the component's own background (a sub-part keeps a prefix, like `--_thumb-bg-color`), `--_duration` and `--_ease` for motion, `--_size` for a control's size (the height, and the width of a square control) while a part's size takes the part's name (`--_indicator-size`), `--_radius` for corners, and `--_block-size` and `--_inline-size` for one axis of a box that isn't a control. A color says what it paints (`-bg-color`, `-text-color`, `-border-color`), sizes are logical (`-block-size`, `-inline-size`) and names aren't abbreviated. Rename them where you set them. A property the component sets (an output in the Local tokens table) isn't an override: the rows below name the input to set instead:
 
 | Component                   | Old                                               | New                                                                                                                                                                                                                                   |
 | --------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -285,7 +285,7 @@ Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent
 
 `--ui-info` and `--ui-blue` use hue 240, the same blue as the `.ui-info` palette, so info badges and callouts match. If you relied on the old cyan-ish blue (hue 210), set `--ui-blue` in your theme.
 
-Dark mode shadows are darker: every shadow role (`--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-selected`) builds its layers from `--ui-shadow-color`, `light-dark(oklch(0.268 0.003 265 / 1%), oklch(0.11 0.01 259 / 20%))`, so it darkens under `.ui-dark`, also on a part of the page, and the OS dark preference. 5.x cards picked a lighter and a darker Open Props shadow per scheme (`--_shadow-light` and `--_shadow-dark`, in the table above); now one `--ui-shadow-elevated` serves both schemes, so set `--ui-shadow-color` to change the color in each scheme, or `--ui-shadow-elevated` to replace the shadow:
+Dark mode shadows are darker: every shadow token (`--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-selected`) builds its layers from `--ui-shadow-color`, `light-dark(oklch(0.268 0.003 265 / 1%), oklch(0.11 0.01 259 / 20%))`, so it darkens under `.ui-dark`, also on a part of the page, and the OS dark preference. 5.x cards picked a lighter and a darker Open Props shadow per scheme (`--_shadow-light` and `--_shadow-dark`, in the table above); now one `--ui-shadow-elevated` serves both schemes, so set `--ui-shadow-color` to change the color in each scheme, or `--ui-shadow-elevated` to replace the shadow:
 
 ```css
 @layer theme.custom {
@@ -301,7 +301,7 @@ Dark mode shadows are darker: every shadow role (`--ui-shadow-elevated`, `--ui-s
 
 The Open Props bundle no longer sets the dark values of `--shadow-color` and `--shadow-strength`. If your own CSS reads `--shadow-1` to `--shadow-6` and should darken in dark mode, set those two yourself under `.ui-dark` and the OS dark preference. The bundle no longer contains Open Props' `@custom-media` definitions (`--OSdark`, `--md-n-above` and so on); import `open-props/media` if your PostCSS setup used them.
 
-Components read roles, not palette steps or Open Props values, and the roles are computed on `html`. Overriding a step such as `--ui-gray-4` or an Open Props value such as `--size-3` on a part of the page no longer changes the components there. Override the role, or add `.ui-scope` so the part derives its roles again from its own palette:
+Components read global tokens, not palette steps or Open Props values, and the global tokens are computed on `html`. Overriding a step such as `--ui-gray-4` or an Open Props value such as `--size-3` on a part of the page no longer changes the components there. Override the global token, or add `.ui-scope` so the part derives its global tokens again from its own palette:
 
 ```diff
 - .sidebar { --gray-4: oklch(0.928 0.006 265); }
@@ -1613,7 +1613,7 @@ Tooltips use `--ui-surface-inverse` and `--ui-on-inverse`, and shift along the v
 
 ## Typography and rich text
 
-`del`, `ins`, `abbr` and `dfn` are no longer severity scopes. `del` text reads `--ui-critical-text`, `ins` text `--ui-success-text` and the `abbr` and `dfn` underline `--ui-info`, and content inside them keeps the page palette. Wrap content that read a `--ui-palette-*` role inside them in `.ui-critical`, `.ui-success` or `.ui-info`.
+`del`, `ins`, `abbr` and `dfn` are no longer severity scopes. `del` text reads `--ui-critical-text`, `ins` text `--ui-success-text` and the `abbr` and `dfn` underline `--ui-info`, and content inside them keeps the page palette. Wrap content that read a `--ui-palette-*` shade inside them in `.ui-critical`, `.ui-success` or `.ui-info`.
 
 Rich text (`.ui-rich-text`) only styles headings without a class, like lists. Add a `.ui-h1`–`.ui-h6` class to a heading that has another class. Component parts such as the `Callout` title keep their own styles.
 

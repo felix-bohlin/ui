@@ -21,9 +21,12 @@ const { panel = true } = Astro.props
     <svg
       class="vi-lockup-swash"
       preserveAspectRatio="none"
-      viewBox="0 0 300 24"
+      viewBox="0 0 273 10"
     >
-      <path d="M4 20C70 16 150 10 296 3"></path>
+      <path
+        d="M6.1 6.2C3 7.6 3.9 9.4 10.4 9.2C34.8 8.6 66.1 7.9 99.1 6.4C137.4 4.6 168.7 4.1 203.4 2.4C226.1 1.3 245.2 0.4 259.1 -0.3"
+        pathLength="1"
+      ></path>
     </svg>
   </span>
 </span>
@@ -96,22 +99,27 @@ const { panel = true } = Astro.props
   }
 
   .vi-lockup-swash {
-    animation: vi-lockup-swash calc(0.5s * var(--ui-motion)) ease-out
-      calc(1.9s * var(--ui-motion)) both;
     block-size: 0.22em;
-    clip-path: inset(-100% -10%);
-    filter: drop-shadow(0 0 0.06em var(--vi-lockup-glow));
+    contain: inline-size;
+    filter: drop-shadow(0 0 0.03em var(--vi-lockup-glow))
+      drop-shadow(0 0 0.1em var(--vi-lockup-glow));
     inline-size: 112%;
     margin-block-start: -0.08em;
     margin-inline-start: -4%;
+    max-inline-size: none;
     overflow: visible;
 
     & path {
+      animation: vi-lockup-swash calc(0.55s * var(--ui-motion))
+        cubic-bezier(0.5, 0, 0.15, 1) calc(1.9s * var(--ui-motion)) both;
       fill: none;
+      opacity: 0;
       stroke: var(--vi-lockup-ink);
+      stroke-dasharray: 1 2;
+      stroke-dashoffset: 1.02;
       stroke-linecap: round;
-      stroke-width: 3;
-      vector-effect: non-scaling-stroke;
+      stroke-linejoin: round;
+      stroke-width: 2.73;
     }
   }
 
@@ -123,7 +131,16 @@ const { panel = true } = Astro.props
 
   @keyframes vi-lockup-swash {
     from {
-      clip-path: inset(-100% 110% -100% -10%);
+      opacity: 0;
+    }
+
+    1% {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 1;
+      stroke-dashoffset: 0;
     }
   }
 </style>

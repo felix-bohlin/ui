@@ -52,6 +52,13 @@ export default function Native() {
           type="checkbox"
         />
       </form>
+      <form data-case="checkbox-spread">
+        <input
+          {...{ "data-round": round }}
+          aria-label="Agree"
+          type="checkbox"
+        />
+      </form>
       <form data-case="group-bound">
         {views.map((view) => (
           <input
@@ -120,6 +127,22 @@ export default function Native() {
         <input aria-label="Tea" name="drink" type="radio" value="tea" />
         <input aria-label="Coffee" name="drink" type="radio" value="coffee" />
       </form>
+      <form data-case="radio-spread">
+        <input
+          {...{ "data-round": round }}
+          aria-label="Tea"
+          name="drink"
+          type="radio"
+          value="tea"
+        />
+        <input
+          {...{ "data-round": round }}
+          aria-label="Coffee"
+          name="drink"
+          type="radio"
+          value="coffee"
+        />
+      </form>
       <form data-case="range-bound">
         <input
           aria-label="Level"
@@ -161,6 +184,18 @@ export default function Native() {
       <form data-case="rating-empty">
         {stars.map((star) => (
           <input
+            aria-label={`${star} stars`}
+            key={star}
+            name="score"
+            type="radio"
+            value={star}
+          />
+        ))}
+      </form>
+      <form data-case="rating-spread">
+        {stars.map((star) => (
+          <input
+            {...{ "data-round": round }}
             aria-label={`${star} stars`}
             key={star}
             name="score"

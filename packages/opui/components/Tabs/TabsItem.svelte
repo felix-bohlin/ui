@@ -1,6 +1,6 @@
 <script lang="ts">
   import { untrack } from "svelte"
-  import { seedChecked } from "../svelte"
+  import { relayChecked } from "../svelte"
   import { getTabsContext, setTabsContext } from "./context.svelte"
   import { isSelected } from "../ToggleGroup/selection"
   import { DEV, warnGroupedChecked } from "../dev"
@@ -13,7 +13,6 @@
     defaultChecked,
     id,
     name,
-    onchange,
     value,
 
     // Snippets
@@ -35,10 +34,10 @@
         "Tabs",
       ),
     )
-  const isChecked = () => grouped ?? checked ?? !!defaultChecked
-  const initialChecked = untrack(isChecked)
+  const isChecked = () => grouped ?? checked
+  const initialChecked = untrack(() => isChecked() ?? !!defaultChecked)
   const change = (input: HTMLInputElement) => {
-    parent?.change?.(input)
+    if (value !== undefined) parent?.change?.(input)
   }
   setTabsContext({
     get groupName() {
@@ -51,7 +50,7 @@
 </script>
 
 <input
-  {@attach seedChecked(isChecked, change)}
+  {@attach relayChecked(change, isChecked)}
   defaultChecked={grouped === undefined
     ? (defaultChecked ?? initialChecked)
     : initialChecked}
@@ -61,8 +60,4 @@
   type="radio"
   {value}
   {...defined(rest)}
-  onchange={(event) => {
-    change(event.currentTarget)
-    onchange?.(event)
-  }}
 />{@render children?.()}

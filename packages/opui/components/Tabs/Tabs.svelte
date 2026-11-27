@@ -26,7 +26,8 @@
     })
   setTabsContext({
     change(input) {
-      if (value !== undefined) value = input.value
+      if (input.checked) value = input.value
+      else if (value === input.value) value = undefined
     },
     get groupName() {
       return groupName

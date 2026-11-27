@@ -48,6 +48,9 @@ const state = ref({
   <form data-case="checkbox-rerender">
     <Checkbox checked :data-round="round" label="Agree" />
   </form>
+  <form data-case="checkbox-spread">
+    <Checkbox v-bind="{ 'data-round': round }" label="Agree" />
+  </form>
   <form data-case="group-bound">
     <ToggleGroup v-model="state.group" aria-label="View" name="view">
       <ToggleButton v-for="view in views" :key="view" :value="view">
@@ -99,6 +102,20 @@ const state = ref({
     <Radio label="Tea" name="drink" value="tea" />
     <Radio label="Coffee" name="drink" value="coffee" />
   </form>
+  <form data-case="radio-spread">
+    <Radio
+      v-bind="{ 'data-round': round }"
+      label="Tea"
+      name="drink"
+      value="tea"
+    />
+    <Radio
+      v-bind="{ 'data-round': round }"
+      label="Coffee"
+      name="drink"
+      value="coffee"
+    />
+  </form>
   <form data-case="range-bound">
     <Field for="range-bound" label="Level">
       <input id="range-bound" v-model.number="state.range" type="range" />
@@ -119,6 +136,9 @@ const state = ref({
   </form>
   <form data-case="rating-empty">
     <Rating label="Score" name="score" />
+  </form>
+  <form data-case="rating-spread">
+    <Rating v-bind="{ 'data-round': round }" label="Score" name="score" />
   </form>
   <form data-case="select-bound">
     <Field for="select-bound" label="Color">

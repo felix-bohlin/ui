@@ -55,7 +55,7 @@ Read the compiled file next to the closest sibling of its kind (`Checkbox` for a
 **Svelte**
 
 - `$derived` for values computed from props, never an `$effect` that writes state. `untrack` only to read an initial value (a reset default, an initial check).
-- `bind:checked` (a getter and setter pair when the model is shared). `bind:group` where every radio lives in one component, and `seedChecked` from `packages/opui/components/svelte.ts` where it can't.
+- A control's input holds the checked state: `relayChecked` from `packages/opui/components/svelte.ts` relays it to and from the model, and nothing renders the input from a prop the component wrote. No `bind:checked` or `bind:group` on a component's own input, whose render effect would set it from a value Svelte dropped.
 - Snippets and `{@render}`, event attributes (`onchange`), `$props()`, `$bindable()` only for the model. No `export let`, `$:` or `on:` directives.
 - A static tag where the tag is known; `svelte:element` only for a real variable tag.
 - A class list of one entry is the entry (`class={hideLabel ? "ui-sr-only" : "ui-label"}`, `{...classAttrs(className)}` where it can come out empty); several are the `class={[...]}` array.

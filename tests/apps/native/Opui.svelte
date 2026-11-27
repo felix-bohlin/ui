@@ -46,6 +46,9 @@
 <form data-case="checkbox-rerender">
   <Checkbox defaultChecked data-round={round} label="Agree" />
 </form>
+<form data-case="checkbox-spread">
+  <Checkbox {...{ "data-round": round }} label="Agree" />
+</form>
 <form data-case="group-bound">
   <ToggleGroup aria-label="View" bind:value={values.group} name="view">
     {#each views as view (view)}
@@ -94,6 +97,15 @@
   <Radio label="Tea" name="drink" value="tea" />
   <Radio label="Coffee" name="drink" value="coffee" />
 </form>
+<form data-case="radio-spread">
+  <Radio {...{ "data-round": round }} label="Tea" name="drink" value="tea" />
+  <Radio
+    {...{ "data-round": round }}
+    label="Coffee"
+    name="drink"
+    value="coffee"
+  />
+</form>
 <form data-case="range-bound">
   <Field for="range-bound" label="Level">
     <input bind:value={values.range} id="range-bound" type="range" />
@@ -114,6 +126,9 @@
 </form>
 <form data-case="rating-empty">
   <Rating label="Score" name="score" />
+</form>
+<form data-case="rating-spread">
+  <Rating {...{ "data-round": round }} label="Score" name="score" />
 </form>
 <form data-case="select-bound">
   <Field for="select-bound" label="Color">

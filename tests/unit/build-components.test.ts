@@ -1448,10 +1448,10 @@ describe("the ports of a sample", () => {
     const svelte = outputs.get(sampleFile().replace(".astro", ".svelte"))
     expect(svelte).toContain('import { toggleInGroup } from "../group"')
     expect(svelte).toContain(
-      "  let {\n    checked = $bindable(),\n    defaultChecked,\n    group = $bindable(),\n    name,\n    value,\n    ...rest\n  }: Props = $props()\n\n  const getChecked = () =>\n    group ? group.includes(value) : !!(checked ?? defaultChecked)\n  const setChecked = (isChecked: boolean) => {\n    if (group) group = toggleInGroup(group, value, isChecked)\n    else checked = isChecked\n  }\n",
+      "  let {\n    checked = $bindable(),\n    defaultChecked,\n    group = $bindable(),\n    name,\n    value,\n    ...rest\n  }: Props = $props()\n\n  const initialChecked = untrack(() =>\n    group !== undefined && value !== undefined\n      ? group.includes(value)\n      : checked,\n  )\n  const relay = (input: HTMLInputElement) => {\n    checked = input.checked\n    if (value !== undefined) {\n      group = toggleInGroup(group ?? [], value, input.checked)\n    }\n  }\n",
     )
     expect(svelte).toContain(
-      '<input\n  type="checkbox"\n  {name}\n  {...defined(rest)}\n  bind:checked={getChecked, setChecked}\n  {defaultChecked}\n  {value}\n/>',
+      '<input\n  type="checkbox"\n  {name}\n  {...defined(rest)}\n  {@attach relayChecked(\n    relay,\n    () => checked,\n    () =>\n      group === undefined || value === undefined\n        ? undefined\n        : group.includes(value),\n  )}\n  defaultChecked={defaultChecked ?? initialChecked}\n  {value}\n/>',
     )
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
     expect(vue).toContain(
@@ -1479,7 +1479,7 @@ describe("the ports of a sample", () => {
       },
     )
     expect(outputs.get(sampleFile().replace(".astro", ".svelte"))).toContain(
-      '<input\n  type="radio"\n  {...defined(rest)}\n  {@attach seedChecked(isChecked, check)}\n  defaultChecked={defaultChecked ?? initialChecked}\n  onchange={(event) => {\n    check()\n    onchange?.(event)\n  }}\n  {value}\n/>',
+      '<input\n  type="radio"\n  {...defined(rest)}\n  {@attach relayChecked(\n    relay,\n    () => checked ?? undefined,\n    () => (group === undefined ? undefined : group === (value ?? true)),\n  )}\n  defaultChecked={defaultChecked ?? initialChecked}\n  {value}\n/>',
     )
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
     expect(vue).not.toContain("computed")
@@ -1536,7 +1536,7 @@ describe("the ports of a sample", () => {
     )
     expect(react).toContain("<SampleContext value={context}>")
     expect(outputs.get(sampleFile().replace(".astro", ".svelte"))).toContain(
-      "  setSampleContext({\n    change(input) {\n      if (value !== undefined) value = input.value\n    },\n    get name() {\n      return name\n    },\n    get value() {\n      return value\n    },\n  })\n",
+      "  setSampleContext({\n    change(input) {\n      if (input.checked) value = input.value\n      else if (value === input.value) value = undefined\n    },\n    get name() {\n      return name\n    },\n    get value() {\n      return value\n    },\n  })\n",
     )
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
     expect(vue).toContain(
@@ -1584,17 +1584,15 @@ describe("the ports of a sample", () => {
     expect(svelte).toContain(
       '    warnGroupedChecked("Sample", grouped, checked ?? defaultChecked, "Tabs"),\n',
     )
-    expect(svelte).toContain('  import { seedChecked } from "../svelte"\n')
+    expect(svelte).toContain('  import { relayChecked } from "../svelte"\n')
     expect(svelte).toContain(
-      "  const isChecked = () => grouped ?? checked ?? !!defaultChecked\n  const initialChecked = untrack(isChecked)\n  const change = (input: HTMLInputElement) => {\n    parent?.change?.(input)\n  }\n",
+      "  const isChecked = () => grouped ?? checked\n  const initialChecked = untrack(() => isChecked() ?? !!defaultChecked)\n  const change = (input: HTMLInputElement) => {\n    if (value !== undefined) parent?.change?.(input)\n  }\n",
     )
     expect(svelte).toContain(
-      "  {@attach seedChecked(isChecked, change)}\n  defaultChecked={grouped === undefined\n    ? (defaultChecked ?? initialChecked)\n    : initialChecked}\n",
+      "  {@attach relayChecked(change, isChecked)}\n  defaultChecked={grouped === undefined\n    ? (defaultChecked ?? initialChecked)\n    : initialChecked}\n",
     )
     expect(svelte).not.toMatch(/\schecked=\{/)
-    expect(svelte).toContain(
-      "  {...defined(rest)}\n  onchange={(event) => {\n    change(event.currentTarget)\n    onchange?.(event)\n  }}\n/>{@render children?.()}\n",
-    )
+    expect(svelte).toContain("  {...defined(rest)}\n/>{@render children?.()}\n")
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
     expect(vue).not.toContain("useBound")
     expect(vue).toContain(
@@ -1732,12 +1730,10 @@ describe("the ports of a sample", () => {
     expect(svelte).toContain("    checked = $bindable(),\n")
     expect(svelte).not.toContain("toggleInGroup")
     expect(svelte).toContain(
-      "  const change = (input: HTMLInputElement) => {\n    if (grouped === undefined) checked = input.checked\n    group?.change?.(input)\n  }\n",
+      "  const change = (input: HTMLInputElement) => {\n    if (grouped === undefined) checked = input.checked\n    if (value !== undefined) group?.change?.(input)\n  }\n",
     )
-    expect(svelte).toContain("    {@attach seedChecked(isChecked, change)}\n")
-    expect(svelte).toContain(
-      "    onchange={(event) => {\n      change(event.currentTarget)\n      onchange?.(event)\n    }}\n",
-    )
+    expect(svelte).toContain("    {@attach relayChecked(change, isChecked)}\n")
+    expect(svelte).not.toContain("onchange")
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
     expect(vue).toContain(
       "const model = defineModel<boolean | undefined>({\n  default: undefined,\n})",
@@ -2629,12 +2625,12 @@ describe("the compiled components", () => {
 
   test("a model kind's helper is imported when the code calls it, from its module", () => {
     const used = helpersCalled(
-      "const checkedControl = control(read)\nitemCheckedControl(x)\nprops.untrack(y)\nseedChecked(input)",
-      { control: "../solid", seedChecked: "../svelte", untrack: "solid-js" },
+      "const checkedControl = control(read)\nitemCheckedControl(x)\nprops.untrack(y)\nrelayChecked(input)",
+      { control: "../solid", relayChecked: "../svelte", untrack: "solid-js" },
     )
     expect(used).toEqual([
       { module: "../solid", name: "control" },
-      { module: "../svelte", name: "seedChecked" },
+      { module: "../svelte", name: "relayChecked" },
     ])
     expect(importLinesOf(used, ["../svelte"])).toEqual([
       'import { control } from "../solid"',

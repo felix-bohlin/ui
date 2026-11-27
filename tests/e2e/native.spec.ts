@@ -4,23 +4,20 @@ import {
   compareNative,
   differences,
   NATIVE_CASES,
-  SVELTE_GROUP,
   SVELTE_SPREAD,
 } from "../apps/native/cases"
 import { FRAMEWORKS, isHydratedFramework } from "../../src/utils/framework"
 import { instantScrolling, pageErrors } from "./fixtures"
 
-const DIFFERENCES = [
-  ...differences("svelte", SVELTE_GROUP, [
-    "group-bound",
-    "radio-bound",
-    "rating-bound",
-    "rating-default",
-    "tabs-bound",
-    "toggle-bound",
-  ]),
-  ...differences("svelte", SVELTE_SPREAD, ["checkbox-bound"]),
-]
+const DIFFERENCES = differences("svelte", SVELTE_SPREAD, [
+  "checkbox-bound",
+  "group-bound",
+  "radio-bound",
+  "rating-bound",
+  "rating-default",
+  "tabs-bound",
+  "toggle-bound",
+])
 
 for (const { id, label } of FRAMEWORKS) {
   if (!isHydratedFramework(id)) continue

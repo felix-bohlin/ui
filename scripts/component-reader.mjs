@@ -1266,6 +1266,7 @@ const itemOf = (file, frontmatter, tree, folder) => {
     group: read.context.folder ?? folder,
     grouped: grouped.name,
     parent: read.name,
+    value: frontmatter.props.find(({ prop }) => prop === "value")?.local,
   }
 }
 

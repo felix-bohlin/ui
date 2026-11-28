@@ -118,7 +118,8 @@ export default {
       code: "<svg>",
       component: "CalloutIcon",
       description:
-        "An optional icon before the content. Outside HTML, `CalloutIcon` renders the default one for critical, info, success and warning.",
+        "An optional icon before the content. `CalloutIcon` renders the default one for critical, info, success and warning.",
+      htmlDescription: "An optional icon before the content.",
       selector: ".ui-callout > svg",
     },
     {
@@ -129,7 +130,9 @@ export default {
     {
       code: "<button>",
       description:
-        'A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command="--dismiss"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`.',
+        'A close button at the end of the first row. With `closeButton`, the component renders it with `command="--dismiss"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`.',
+      htmlDescription:
+        'A close button, a `.ui-button` that is a direct child of the callout, at the end of the first row. With `command="--dismiss"` and `commandfor` naming the callout, it hides the callout, and stays hidden until `<opui-callout>` is defined.',
       props: ["closeButton", "closeLabel"],
       selector: ".ui-callout > .ui-button",
       slots: ["close-icon"],
@@ -143,6 +146,8 @@ export default {
   root: {
     description:
       'Container element, a `<div>`. With `closeButton`, the `<opui-callout>` custom element, which a button with `commandfor` and `command="--dismiss"` dismisses.',
+    htmlDescription:
+      'Container element, a `<div>`, or the `<opui-callout>` custom element, which a button with `commandfor` and `command="--dismiss"` dismisses.',
     selector: ".ui-callout",
   },
   slots: [

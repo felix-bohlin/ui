@@ -2,7 +2,7 @@ import { paletteSteps } from "./palette-steps"
 
 export const themeTokenDescriptions: Record<string, string> = {
   "--ui-anchor-position-area":
-    "The `position-area` of the floating content of an `Anchor`, a popover `Menu` or a `Tooltip`. The `positionArea` prop sets it on one instance, or set it on an element for everything inside it. When unset, each keeps its own: `self-start self-end` for `Anchor`, its `side` and `span` for `Menu` (`self-block-end span-self-inline-end`), `self-block-start` for `Tooltip` and `self-inline-start` for the `Copy` label.",
+    "The `position-area` of the floating content of an `Anchor`, a popover `Menu` or a `Tooltip`. Set it on one instance, or on an element for everything inside it. When unset, each keeps its own: `self-start self-end` for `Anchor`, its `side` and `span` for `Menu` (`self-block-end span-self-inline-end`), `self-block-start` for `Tooltip` and `self-inline-start` for the `Copy` label.",
   "--ui-backdrop-bg-color":
     "Overlay color behind an open `Dialog` or `Drawer`. `--ui-text` at 50% in light mode, and half the lightness of `--ui-surface` at 50% in dark mode.",
   "--ui-backdrop-blur": "Blur radius behind an open `Dialog` or `Drawer`.",

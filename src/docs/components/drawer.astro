@@ -143,13 +143,24 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         A drawer used as navigation, like the menu in
         <a href="#basics">Basics</a>, closes when the page navigates with
         <code>closeOnNavigate</code>: a link inside it, Back and Forward, or a
-        client router in SvelteKit, Next or Nuxt. Otherwise the new page loads
-        behind a modal drawer, inert, and screen readers miss the change. A link
-        inside it closes it on click, also one that only changes the query,
-        unless it has <code>data-keep-open</code>, like a Load more link, or
-        opens elsewhere: a download, a <code>target</code> such as
-        <code>_blank</code>, or a click with a modifier key. A change of the
-        query alone from outside it, like a filter, leaves it open.
+        client
+        router<Conditional>
+          <Fragment slot="astro"
+            >, like Astro's <code>ClientRouter</code></Fragment
+          >
+          <Fragment slot="nunjucks" />
+          <Fragment slot="react">, like Next's</Fragment>
+          <Fragment slot="solid">, like Solid Router</Fragment>
+          <Fragment slot="svelte">, like SvelteKit's</Fragment>
+          <Fragment slot="vue">, like Nuxt's</Fragment>
+        </Conditional
+        >. Otherwise the new page loads behind a modal drawer, inert, and screen
+        readers miss the change. A link inside it closes it on click, also one
+        that only changes the query, unless it has <code>data-keep-open</code>,
+        like a Load more link, or opens elsewhere: a download, a
+        <code>target</code> such as <code>_blank</code>, or a click with a
+        modifier key. A change of the query alone from outside it, like a
+        filter, leaves it open.
       </Fragment>
       <Fragment slot="html">
         A drawer used as navigation, like the menu in
@@ -346,8 +357,13 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         </Conditional>
       </li>
       <li>
-        Put <code>autofocus</code> on the first thing to interact with, or the
-        close button.
+        Put
+        <Conditional
+          ><Fragment slot="html"><code>autofocus</code></Fragment
+          ><Fragment slot="components"><code>autofocus</code></Fragment
+          ><Fragment slot="react"><code>autoFocus</code></Fragment></Conditional
+        >
+        on the first thing to interact with, or the close button.
       </li>
     </ul>
 

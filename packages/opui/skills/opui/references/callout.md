@@ -10,9 +10,9 @@ A message in the flow of the page, without interrupting the task.
 ### Parts
 
 - `.ui-callout` (root): Container element, a `<div>`. With `closeButton`, the `<opui-callout>` custom element, which a button with `commandfor` and `command="--dismiss"` dismisses.
-- `<svg>` (`CalloutIcon`): An optional icon before the content. Outside HTML, `CalloutIcon` renders the default one for critical, info, success and warning.
+- `<svg>` (`CalloutIcon`): An optional icon before the content. `CalloutIcon` renders the default one for critical, info, success and warning.
 - `.ui-content` (`CalloutContent`): The content, with an optional heading first.
-- `<button>` (prop `closeButton`, prop `closeLabel`, slot `close-icon`): A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. With `closeButton`, the component renders it with `command="--dismiss"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`.
+- `<button>` (prop `closeButton`, prop `closeLabel`, slot `close-icon`): A close button at the end of the first row. With `closeButton`, the component renders it with `command="--dismiss"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`.
 - `.ui-actions` (`CalloutActions`): A row of buttons under the content.
 
 ### Props and modifiers

@@ -160,7 +160,8 @@ export default {
     },
     {
       code: "<input>, <select> or <textarea>",
-      description: "Your control, with the field's `for` as its `id`.",
+      description: "Your control, with the `id` the field's label names.",
+      htmlDescription: "Your control, with the label's `for` as its `id`.",
       selector: ".ui-field-container > :is(input, select, textarea)",
     },
     {

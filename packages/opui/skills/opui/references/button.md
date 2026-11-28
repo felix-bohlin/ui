@@ -16,7 +16,8 @@ A button for actions, like saving a form, with variants, colors, sizes and icons
 
 ### Props and modifiers
 
-- `aria-label`: `string`. The accessible name, for a button without visible text. React, Solid and Svelte require it, or `aria-labelledby`, when there are no `children`.
+- `aria-label` (Astro, HTML, Nunjucks and Vue): `string`. The accessible name, for a button without visible text.
+- `aria-label` (React, Solid and Svelte): `string`. The accessible name, for a button without visible text. The types require it, or `aria-labelledby`, when there are no `children`.
 - `aria-labelledby`: `string`. The id of the element that names a button without visible text, instead of `aria-label`.
 - `as` (Astro, Nunjucks and Svelte): `"a" | "button"`, default `"button"`. The element to render. Defaults to `"a"` with `href`.
 - `as` (React): `"a" | "button" | ComponentType<any>`, default `"button"`. The element to render, or the link component of your router with `href`, such as Next's `Link`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.

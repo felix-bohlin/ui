@@ -53,7 +53,7 @@ export default {
   },
   "--_length": {
     description:
-      "Number of boxes. Follows `maxlength` from 4 to 8, and defaults to 6.",
+      "Number of boxes. Follows the input's maximum length from 4 to 8, and defaults to 6.",
     kind: "output",
   },
   "--_max-cell-size": {

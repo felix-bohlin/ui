@@ -64,6 +64,8 @@ export default {
       code: "<span popover>",
       description:
         "The label next to the button that shows `copiedLabel` or `failedLabel`.",
+      htmlDescription:
+        "The label next to the button that shows `copied-label` or `failed-label`.",
       props: ["copiedLabel", "failedLabel"],
       selector: ".ui-floating",
     },

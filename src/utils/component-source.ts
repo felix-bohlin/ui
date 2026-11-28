@@ -130,7 +130,7 @@ const cleanType = (text: string) => {
     .flatMap(flattened)
     .filter((part) => part !== "undefined" && part !== "null")
   const hasString = parts.includes("string")
-  return parts
+  const cleaned = parts
     .filter((part) => !(hasString && /^\(string & .+\)$/.test(part)))
     .map((part) => {
       const types = [
@@ -143,6 +143,7 @@ const cleanType = (text: string) => {
       ]
       return types.length === 1 ? types[0] : part
     })
+  return [...new Set(cleaned)]
     .toSorted((a, b) => a.localeCompare(b, "en"))
     .join(" | ")
 }

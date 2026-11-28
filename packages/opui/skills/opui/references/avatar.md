@@ -14,7 +14,7 @@ An image, initials or icon that stands for a person or an entity.
 
 ### Props and modifiers
 
-- `aria-label`: `string`. The accessible name of a link or button avatar, instead of `label`. The Astro, React, Solid and Svelte types require one of `label`, `aria-label` and `aria-labelledby` on a link or button. In Vue it passes through as an attribute.
+- `aria-label`: `string`. The accessible name of a link or button avatar, instead of `label`. A link or button needs one of `label`, `aria-label` and `aria-labelledby`.
 - `aria-labelledby`: `string`. The id of the element that names a link or button avatar, instead of `label`.
 - `as` (Astro, Nunjucks and Svelte): `"a" | "button" | "div"`, default `"div"`. The element to render. Defaults to `"a"` with `href`.
 - `as` (React): `"a" | "button" | "div" | ComponentType<any>`, default `"div"`. The element to render, or the link component of your router with `href`, such as Next's `Link`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.
@@ -41,7 +41,8 @@ An image, initials or icon that stands for a person or an entity.
 
 ### Props and modifiers
 
-- `aria-label`: `string`, `[aria-label]`. The accessible name of the group. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.
+- `aria-label` (HTML, Nunjucks and Vue): `string`, `[aria-label]`. The accessible name of the group. Give it one, or `aria-labelledby`.
+- `aria-label` (Astro, React, Solid and Svelte): `string`. The accessible name of the group. The types require it, or `aria-labelledby`.
 - `aria-labelledby`: `string`. The id of the element that names the group, instead of `aria-label`.
 - `role`: `string`, default `"group"`. The `role` of the root. A passed role replaces `group`.
 

@@ -70,7 +70,9 @@ export default {
     },
     {
       description:
-        "The indicator, inside `.ui-floating`. Holds `label`, the visible text with `hideLabel`, or only screen reader text with `dot`.",
+        "The indicator, inside `.ui-floating`. Holds `label`, as visible text, or as screen reader text only with `hideLabel` or `dot`.",
+      htmlDescription:
+        "The indicator, inside `.ui-floating`. Holds the label, as visible text, or as screen reader text only in a `.ui-sr-only` span or with `.ui-dot`.",
       props: ["label"],
       selector: ".ui-indicator",
       slots: ["indicator"],

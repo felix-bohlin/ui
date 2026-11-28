@@ -44,6 +44,8 @@ export default {
   root: {
     code: "<opui-character-count>",
     description:
+      "Shows the characters typed out of the control's maximum length, `aria-hidden` so it stays out of the description. Screen readers hear the characters left once 10% or 10 remain, whichever is more.",
+    htmlDescription:
       "Shows the characters typed out of `maxlength`, `aria-hidden` so it stays out of the description. Screen readers hear the characters left once 10% or 10 remain, whichever is more.",
     selector: ".ui-end-text > .ui-value",
   },

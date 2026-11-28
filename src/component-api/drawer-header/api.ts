@@ -29,6 +29,8 @@ export default {
       code: "<button>",
       description:
         "Closes the drawer, with `closeButton`. Renders a close icon by default, or the `svg` in `close-icon`.",
+      htmlDescription:
+        'Closes the drawer, with `command="close"` and `commandfor` naming it. Holds a close icon.',
       props: ["closeButton", "closeLabel"],
       selector: ".ui-header > .ui-button",
       slots: ["close-icon"],

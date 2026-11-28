@@ -159,6 +159,11 @@ export const cssVarRows = (...apis: ComponentApi[]) => {
     .sort(byName)
 }
 
+export const partDescription = (part: ApiPart, framework: Framework) =>
+  framework === "html"
+    ? (part.htmlDescription ?? part.description)
+    : part.description
+
 export const partLabel = (
   api: ComponentApi,
   part: ApiPart,

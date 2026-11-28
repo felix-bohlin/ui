@@ -21,11 +21,17 @@ export default {
   ],
   options: [
     {
-      description:
-        "The accessible name, for a button without visible text. React, Solid and Svelte require it, or `aria-labelledby`, when there are no `children`.",
+      description: "The accessible name, for a button without visible text.",
+      frameworks: ["astro", "html", "nunjucks", "vue"],
       inherited: true,
       prop: "aria-label",
       type: "string",
+    },
+    {
+      description:
+        "The accessible name, for a button without visible text. The types require it, or `aria-labelledby`, when there are no `children`.",
+      frameworks: ["react", "solid", "svelte"],
+      prop: "aria-label",
     },
     {
       description:

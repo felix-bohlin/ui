@@ -122,7 +122,11 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
     <h2>Grouped</h2>
     <p>
       Use <PropOrClass prop="grouped" class=".ui-grouped" /> with an even
-      <code>maxlength</code>.
+      <Conditional
+        ><Fragment slot="html"><code>maxlength</code></Fragment
+        ><Fragment slot="components"><code>maxlength</code></Fragment
+        ><Fragment slot="react"><code>maxLength</code></Fragment></Conditional
+      >.
     </p>
 
     <AutoExample name="Grouped" />
@@ -137,8 +141,12 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
   <section id="length">
     <h2>Length</h2>
     <p>
-      The boxes follow the input's <code>maxlength</code>, from 4 to 8. Match
-      the <code>pattern</code>.
+      The boxes follow the input's
+      <Conditional
+        ><Fragment slot="html"><code>maxlength</code></Fragment
+        ><Fragment slot="components"><code>maxlength</code></Fragment
+        ><Fragment slot="react"><code>maxLength</code></Fragment></Conditional
+      >, from 4 to 8. Match the <code>pattern</code>.
     </p>
 
     <AutoExample name="Length" />

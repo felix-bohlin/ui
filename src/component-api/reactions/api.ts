@@ -58,12 +58,20 @@ export default {
     },
     {
       description:
-        "The accessible name of the group of pills. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.",
+        "The accessible name of the group of pills. Give it one, or `aria-labelledby`.",
+      frameworks: ["html", "nunjucks", "vue"],
       group: "Label",
       inherited: true,
       part: ".ui-toggle-group",
       prop: "aria-label",
       type: "string",
+    },
+    {
+      description:
+        "The accessible name of the group of pills. The types require it, or `aria-labelledby`.",
+      frameworks: ["astro", "react", "solid", "svelte"],
+      part: ".ui-toggle-group",
+      prop: "aria-label",
     },
     {
       description:

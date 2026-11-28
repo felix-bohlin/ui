@@ -10,7 +10,7 @@ A multi-line text input in a Field that grows with its text, with a character co
 ### Parts
 
 - `.ui-field:has(> .ui-field-container > textarea)` (root): A `.ui-field` with a `<textarea>`.
-- `<textarea>`: Your textarea, `rows` lines tall (3 by default), growing to `--_max-block-size` (20 lines). It resizes taller, and wider with `autoFit` (`.ui-auto-fit`).
+- `<textarea>`: Your textarea, `rows` lines tall (3 by default), growing to `--_max-block-size` (20 lines). It resizes taller, and wider with `autoFit` on the `Field`.
 
 ### Notes
 

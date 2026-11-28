@@ -12,13 +12,13 @@ A one-time password (OTP) field: one input drawn as a box per character, with pa
 - `div.ui-one-time-code` (root): Holds the label, the boxes and the end text, and fits the boxes to its width.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-field-container`: Draws a box per character and a ring on the next one.
-- `<input>`: Your input, written directly inside `.ui-field-container` with its `id` set to `for`. Its `maxlength`, from 4 to 8, sets the number of boxes. `autocomplete="one-time-code"` lets the browser fill in a code it received; use `off` for a code read off another screen. Mark it `required`, `disabled` or `aria-invalid="true"` like any input.
+- `<input>`: Your input, written directly inside the container with the `id` the field's label names. Its maximum length, from 4 to 8, sets the number of boxes. One-time-code autocomplete lets the browser fill in a code it received; turn it off for a code read off another screen. Mark it required, disabled or invalid like any input.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
 
 ### Props and modifiers
 
 - `for` (Astro, Nunjucks, Solid, Svelte and Vue): `string`. The `id` of your `<input>`. The label points at it, and the end text gets an id that starts with it: `x-end-text` for `for="x"`. Point the input's `aria-describedby` at it.
-- `grouped`: `boolean`, `.ui-grouped`. Draws a dash between the two halves of the code. Use it with an even `maxlength`.
+- `grouped`: `boolean`, `.ui-grouped`. Draws a dash between the two halves of the code. Use it with an even maximum length.
 - `hideLabel`: `boolean`, `.ui-one-time-code > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The input keeps it as its accessible name.
 - `htmlFor` (React): `string`. The `id` of your `<input>`, as `htmlFor` like on the element. The label points at it, and the end text gets an id that starts with it: `x-end-text` for `htmlFor="x"`. Point the input's `aria-describedby` at it.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.

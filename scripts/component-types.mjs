@@ -19,17 +19,51 @@ import {
   unsupported,
 } from "./component-shared.mjs"
 
-const ELEMENT_TYPES = {
-  react: (element) => `ComponentProps<${element}>`,
-  solid: (element) => `ComponentProps<${element}>`,
-  svelte: (element) => `SvelteHTMLElements[${element}]`,
-  vue: (element) => `IntrinsicElementAttributes[${element}]`,
-}
+const camelEvent = (event) => `on${event[0].toUpperCase()}${event.slice(1)}`
 
-const LINK_TYPES = {
-  react: "ComponentType<any>",
-  solid: "Component<any>",
-  vue: "Component",
+const lowerEvent = (event) => `on${event}`
+
+const sameKey = (element, key) => key
+
+const TYPE_DIALECTS = {
+  react: {
+    attributeKey: (element, key) =>
+      reactAttributeName(JSON.parse(element), key),
+    element: (element) => `ComponentProps<${element}>`,
+    elementImport: ({ link, slotted }) =>
+      `import type { ${["ComponentProps", ...(link ? ["ComponentType"] : []), ...(slotted ? ["ReactNode"] : [])].join(", ")} } from "react"`,
+    event: camelEvent,
+    link: "ComponentType<any>",
+    omitsDeclared: false,
+    renames: true,
+    slot: "ReactNode",
+  },
+  solid: {
+    attributeKey: sameKey,
+    element: (element) => `ComponentProps<${element}>`,
+    elementImport: ({ link, slotted }) =>
+      `import type { ${["ComponentProps", ...(slotted ? ["JSX"] : [])].join(", ")} } from "@solidjs/web"${link ? '\nimport type { Component } from "solid-js"' : ""}`,
+    event: camelEvent,
+    link: "Component<any>",
+    omitsDeclared: true,
+    renames: false,
+    slot: "JSX.Element",
+  },
+  svelte: {
+    attributeKey: sameKey,
+    element: (element) => `SvelteHTMLElements[${element}]`,
+    elementImport: ({ slotted }) =>
+      `import type { SvelteHTMLElements } from "svelte/elements"${slotted ? '\nimport type { Snippet } from "svelte"' : ""}`,
+    event: lowerEvent,
+    link: undefined,
+    omitsDeclared: false,
+    renames: false,
+    slot: "Snippet",
+  },
+  vue: {
+    element: (element) => `IntrinsicElementAttributes[${element}]`,
+    link: "Component",
+  },
 }
 
 const isReference = (node, name) =>
@@ -160,9 +194,6 @@ const replacing = (node, text) => ({
 
 const appending = (node, text) => ({ end: node.end, start: node.end, text })
 
-const frameworkKey = (framework, element, key) =>
-  framework === "react" ? reactAttributeName(JSON.parse(element), key) : key
-
 const declaredAttributes = (element, keys) => {
   const attributes = propsOf("solid", JSON.parse(element), false)
   return attributes ? keys.filter((key) => attributes.has(key)) : []
@@ -170,15 +201,19 @@ const declaredAttributes = (element, keys) => {
 
 const omitted = (framework, element, keys, others = []) =>
   keys.length || others.length
-    ? `Omit<${ELEMENT_TYPES[framework](element)}, ${[
+    ? `Omit<${TYPE_DIALECTS[framework].element(element)}, ${[
         ...[
-          ...new Set(keys.map((key) => frameworkKey(framework, element, key))),
+          ...new Set(
+            keys.map((key) =>
+              TYPE_DIALECTS[framework].attributeKey(element, key),
+            ),
+          ),
         ]
           .map((key) => JSON.stringify(key))
           .toSorted(),
         ...others,
       ].join(" | ")}>`
-    : ELEMENT_TYPES[framework](element)
+    : TYPE_DIALECTS[framework].element(element)
 
 const typeAliases = (source) =>
   source.statements.filter(ts.isTypeAliasDeclaration).map((statement) => ({
@@ -301,9 +336,7 @@ const slotMembers = (node, parameter) =>
       : []
 
 export const eventProp = (framework, event) =>
-  framework === "react" || framework === "solid"
-    ? `on${event[0].toUpperCase()}${event.slice(1)}`
-    : `on${event}`
+  TYPE_DIALECTS[framework].event(event)
 
 export const eventsTypeOf = (name) =>
   name === "Props" ? "Events" : name.replace(/Props$/, "Events")
@@ -560,26 +593,18 @@ export const toTypes = (types, components) => {
     propsAliases.some(
       ({ name }) =>
         stringSlotKeys(name).some((key) => keysOf(types, name).includes(key)) ||
-        (framework === "react" && reactRenamed(name).length > 0),
+        (TYPE_DIALECTS[framework].renames && reactRenamed(name).length > 0),
     )
       ? "\n\ntype Without<T, K extends PropertyKey> = T extends unknown\n  ? Omit<T, K>\n  : never"
       : ""
-  const slotsMember = {
-    react: "ReactNode",
-    solid: "JSX.Element",
-    svelte: "Snippet",
-  }
   const linking = aliases.some(({ node }) => linksBase(node.type))
   const typed = (framework) => {
-    const link = linking ? LINK_TYPES[framework] : undefined
+    const dialect = TYPE_DIALECTS[framework]
+    const link = linking ? dialect.link : undefined
     const edits = [
       replacing(
         elementImport,
-        framework === "react"
-          ? `import type { ${["ComponentProps", ...(link ? ["ComponentType"] : []), ...(slotted.length ? ["ReactNode"] : [])].join(", ")} } from "react"${withoutHelper(framework)}`
-          : framework === "solid"
-            ? `import type { ${["ComponentProps", ...(slotted.length ? ["JSX"] : [])].join(", ")} } from "@solidjs/web"${link ? '\nimport type { Component } from "solid-js"' : ""}${withoutHelper(framework)}`
-            : `import type { SvelteHTMLElements } from "svelte/elements"${slotted.length ? '\nimport type { Snippet } from "svelte"' : ""}${withoutHelper(framework)}`,
+        `${dialect.elementImport({ link, slotted: slotted.length > 0 })}${withoutHelper(framework)}`,
       ),
     ]
     for (const alias of aliases) {
@@ -619,7 +644,7 @@ export const toTypes = (types, components) => {
                 ? [
                     ...ref.keys,
                     ...omit,
-                    ...(framework === "solid" &&
+                    ...(dialect.omitsDeclared &&
                     !ref.others?.includes(`keyof Base.${name}`)
                       ? declaredAttributes(
                           tag ? JSON.stringify(tag) : ref.element,
@@ -710,7 +735,7 @@ export const toTypes = (types, components) => {
       }
       baseParts.forEach((part) => {
         const withSlots = slotTypes.has(slotsTypeOf(name))
-          ? ` & Base.${slotsTypeOf(name)}<${slotsMember[framework]}>`
+          ? ` & Base.${slotsTypeOf(name)}<${dialect.slot}>`
           : ""
         const handlers = events.length
           ? ` & { ${events.map((event) => `${eventProp(framework, event)}?: (event: Base.${eventsTypeOf(name)}[${JSON.stringify(event)}]) => void`).join("; ")} }`
@@ -719,7 +744,7 @@ export const toTypes = (types, components) => {
           callbacks && tied.length === 0
             ? ` & { defaultValue?: ${model.type}; onValueChange?: (value: ${model.type}) => void${declaresProperty(type, model.prop) || known.includes(model.prop) ? "" : `; ${model.prop}?: ${model.type}`} }`
             : ""
-        const renamed = framework === "react" ? reactRenamed(name) : []
+        const renamed = dialect.renames ? reactRenamed(name) : []
         const omitted = omitsBase(part, name)
           ? literalKeys(part.typeArguments[1])
           : []
@@ -828,7 +853,7 @@ export const toTypes = (types, components) => {
         edits.push(
           replacing(
             child,
-            `Base${child.right.text}${linked.has(child.right.text) ? `<${LINK_TYPES.vue}>` : ""}`,
+            `Base${child.right.text}${linked.has(child.right.text) ? `<${TYPE_DIALECTS.vue.link}>` : ""}`,
           ),
         )
         return
@@ -838,7 +863,7 @@ export const toTypes = (types, components) => {
         edits.push(
           replacing(
             ref,
-            ELEMENT_TYPES.vue(ref.typeArguments[0].literal.getText()),
+            TYPE_DIALECTS.vue.element(ref.typeArguments[0].literal.getText()),
           ),
         )
         return
@@ -967,7 +992,9 @@ export const toTypes = (types, components) => {
       const { kept } = isUnion(node.type)
         ? {
             kept: based.includes(name)
-              ? [`Base${name}${linked.has(name) ? `<${LINK_TYPES.vue}>` : ""}`]
+              ? [
+                  `Base${name}${linked.has(name) ? `<${TYPE_DIALECTS.vue.link}>` : ""}`,
+                ]
               : [],
           }
         : vueMembers(alias)
@@ -975,7 +1002,7 @@ export const toTypes = (types, components) => {
         const baseAlias = baseAliases.find(
           (candidate) =>
             `Base${candidate.name.text}` ===
-            entry.replace(`<${LINK_TYPES.vue}>`, ""),
+            entry.replace(`<${TYPE_DIALECTS.vue.link}>`, ""),
         )
         const attributes = baseAlias
           ? attributeKeys(baseAlias.type, baseAliases)

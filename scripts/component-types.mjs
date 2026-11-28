@@ -930,13 +930,6 @@ export const toTypes = (types, components) => {
       )
       .toSorted(byName)
     const elements = elementsOf(node.type)
-    if (extras.length > 0 && elements.length === 0) {
-      throw unsupported(
-        "BC605",
-        file,
-        `the prop ${extras[0]} of ${component}, which the Vue types can't take from no element`,
-      )
-    }
     return extras.map(
       (prop) =>
         `${propKey(prop)}?: ${elements

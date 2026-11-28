@@ -8,10 +8,11 @@ import {
   HYDRATED_FRAMEWORK_IDS,
   TYPES_FILES,
 } from "../src/utils/framework.js"
-import { DIAGNOSTICS, explain } from "./component-diagnostics.mjs"
+import { DIAGNOSTICS, explain, SAMPLE_FILE } from "./component-diagnostics.mjs"
 import { toReact } from "./component-react.mjs"
 import { apiOf, loadApis, readComponent } from "./component-reader.mjs"
 import {
+  compileNunjucksComponent,
   componentFiles,
   NUNJUCKS_DIR,
   nunjucksOutputs,
@@ -149,6 +150,46 @@ export const astroSourceOf = (
   return exists(source) ? source : undefined
 }
 
+const folderTypeFiles = (types, components, allCompiled) => {
+  if (!allCompiled) {
+    throw unsupported(
+      "BC606",
+      types.file,
+      "a folder with a hand-written component",
+    )
+  }
+  return toTypes(types, components)
+}
+
+export const refusalsOf = async ({ api, astro, file = SAMPLE_FILE, types }) => {
+  const folder = file.split("/").at(-2)
+  const read = types ? readTypes(folder, types) : folderTypes(folder)
+  const refusals = []
+  const attempt = async (run) => {
+    try {
+      return await run()
+    } catch (error) {
+      if (!error.code) throw error
+      refusals.push(error)
+    }
+  }
+  const compiled = await attempt(() =>
+    compileComponent(astro, file, { ...(api && { api }), types: read }),
+  )
+  refusals.push(...(compiled?.refused.values() ?? []))
+  if (types) {
+    await attempt(() =>
+      folderTypeFiles(
+        read,
+        compiled ? [compiled.component] : [],
+        compiled?.refused.size === 0,
+      ),
+    )
+  }
+  await attempt(() => compileNunjucksComponent(astro, file))
+  return refusals
+}
+
 export const generate = async ({
   only = [],
   handWritten = readHandWritten(),
@@ -214,14 +255,7 @@ export const generate = async ({
       }
     }
     try {
-      if (!allCompiled) {
-        throw unsupported(
-          "BC606",
-          types.file,
-          "a folder with a hand-written component",
-        )
-      }
-      const typeFiles = toTypes(types, components)
+      const typeFiles = folderTypeFiles(types, components, allCompiled)
       for (const [framework, typeFile] of Object.entries(TYPE_FILES)) {
         const target = `packages/opui/components/${folder}/${typeFile}`
         if (`${folder}/${typeFile}` in handWritten) continue

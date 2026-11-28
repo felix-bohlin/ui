@@ -1,13 +1,33 @@
-import { asFragment, code, fragment, needsOf } from "./component-fragment.mjs"
+import {
+  asFragment,
+  code,
+  fragment,
+  needsOf,
+  type Part,
+} from "./component-fragment.ts"
 import { attributeText, markupAttribute } from "./example-encoders.mjs"
-import { atEdge, runLayout, selfCloses } from "./markup-nodes.mjs"
+import {
+  atEdge,
+  type Attribute,
+  type EachNode,
+  type Edges,
+  type ElementNode,
+  type MarkupNode,
+  runLayout,
+  selfCloses,
+  type TextNode,
+  type TextPart,
+} from "./markup-nodes.ts"
 
 export const SPACE = '{{ " " }}'
 
-export const sourceText = (node) =>
+export const sourceText = (node: TextNode) =>
   node.value === " " || node.inline ? SPACE : node.value
 
-export const renderedText = (parts, position) =>
+export const renderedText = (
+  parts: readonly TextPart[],
+  position: Edges & { between?: boolean; blank?: boolean },
+) =>
   parts
     .map((part, at) => {
       if (part.text !== undefined) return part.text
@@ -18,17 +38,21 @@ export const renderedText = (parts, position) =>
     })
     .join("")
 
-export const vueInterpolation = (value) => code`{{ ${value} }}`
+export const vueInterpolation = (value: Part) => code`{{ ${value} }}`
 
-const escaped = (value) => {
+const escaped = (value: Part) => {
   const written = asFragment(value)
   return fragment(attributeText(written.code), needsOf([written]))
 }
 
-export const vueBinding = (attribute, value) =>
+export const vueBinding = (attribute: string, value: Part) =>
   code`${attribute}="${escaped(value)}"`
 
-export const vueAttribute = (item, value, { slotted = false } = {}) => {
+export const vueAttribute = (
+  item: Attribute,
+  value?: Part,
+  { slotted = false } = {},
+) => {
   if (item.kind === "boolean") return item.name
   if (item.kind === "static") {
     return slotted && item.name === "value"
@@ -41,15 +65,20 @@ export const vueAttribute = (item, value, { slotted = false } = {}) => {
   return vueBinding(`:${item.name}`, value ?? item.code)
 }
 
-export const vueFor = ({ index, item, key, list }) =>
+export const vueFor = ({
+  index,
+  item,
+  key,
+  list,
+}: Pick<EachNode, "index" | "item" | "key" | "list">) =>
   code`${vueBinding("v-for", code`${index ? `(${item}, ${index})` : item} in ${list}`)} ${vueBinding(":key", key)}`
 
-export const vueTemplate = (clause, content) =>
+export const vueTemplate = (clause: Part, content: Part) =>
   code`<template ${clause}>${content}</template>`
 
 const VUE_UNKNOWN_TAGS = new Set(["search"])
 
-export const slotInputs = (children) =>
+export const slotInputs = (children: readonly MarkupNode[]): Set<ElementNode> =>
   new Set(
     children.flatMap((child) =>
       child.type === "fragment"
@@ -64,8 +93,18 @@ export const slotInputs = (children) =>
   )
 
 export const vueElement = (
-  node,
-  { attributes, content = "", emptyElements, is = node.tag },
+  node: ElementNode,
+  {
+    attributes,
+    content = "",
+    emptyElements,
+    is = node.tag,
+  }: {
+    attributes: Part
+    content?: Part
+    emptyElements: Parameters<typeof selfCloses>[2]
+    is?: Part
+  },
 ) => {
   const named =
     node.custom || (!node.component && VUE_UNKNOWN_TAGS.has(node.tag))

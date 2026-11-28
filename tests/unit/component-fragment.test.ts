@@ -20,7 +20,7 @@ import {
   slotReads,
   typed,
   uses,
-} from "../../scripts/component-fragment.mjs"
+} from "../../scripts/component-fragment.ts"
 
 const CX = named("../cx", "cx")
 const DEFINED = named("../attrs", "defined")

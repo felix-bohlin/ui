@@ -161,7 +161,8 @@ const folderTypeFiles = (types, components, allCompiled) => {
   return toTypes(types, components)
 }
 
-export const refusalsOf = async ({ api, astro, file = SAMPLE_FILE, types }) => {
+export const refusalsOf = async (sample) => {
+  const { api, astro, file = SAMPLE_FILE, types } = sample
   const folder = file.split("/").at(-2)
   const read = types ? readTypes(folder, types) : folderTypes(folder)
   const refusals = []

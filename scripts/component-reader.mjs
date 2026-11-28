@@ -27,7 +27,7 @@ import {
   unwrap,
 } from "./component-shared.mjs"
 import { BOOLEAN_ATTRIBUTES as HTML_BOOLEAN_ATTRIBUTES } from "./html-tokens.mjs"
-import { attributeNode } from "./markup-nodes.mjs"
+import { attributeNode } from "./markup-nodes.ts"
 
 const apiDir = join(root, "src/component-api")
 

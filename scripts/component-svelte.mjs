@@ -23,7 +23,7 @@ import {
   named,
   typed,
   uses,
-} from "./component-fragment.mjs"
+} from "./component-fragment.ts"
 import { bindingFor, isCheckedAttribute } from "./component-models.mjs"
 import { eventProp } from "./component-types.mjs"
 import {
@@ -43,7 +43,7 @@ import {
   svelteExpression,
   svelteIf,
   svelteRender,
-} from "./print-svelte.mjs"
+} from "./print-svelte.ts"
 
 const CONTENT = named("../content.svelte", "content")
 

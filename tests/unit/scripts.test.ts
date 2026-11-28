@@ -18,7 +18,7 @@ const SCRIPTS = [
     .filter(Boolean),
   ...filesIn("packages/opui/bin", (file) => file.endsWith(".mjs")),
   ...filesIn("packages/opui/scripts", (file) => file.endsWith(".mjs")),
-  ...filesIn("scripts", (file) => file.endsWith(".mjs")),
+  ...filesIn("scripts", (file) => /\.(?:mjs|ts)$/.test(file)),
 ].toSorted()
 
 const TESTS = readdirSync("tests", { recursive: true })
@@ -64,7 +64,8 @@ const literals = (source: string) => {
 export const referencesOf = (file: string, source: string) =>
   literals(source)
     .filter(
-      (value) => /\.(?:mjs|sh)$/.test(value) || value.startsWith(".githooks/"),
+      (value) =>
+        /\.(?:mjs|sh|ts)$/.test(value) || value.startsWith(".githooks/"),
     )
     .map((value) =>
       normalize(/^\.\.?\//.test(value) ? join(dirname(file), value) : value),
@@ -126,6 +127,9 @@ test("a script counts as tested when a test imports it or names its path whole",
   expect(sample('spawnSync("sh", [".githooks/commit-msg", file])')).toContain(
     ".githooks/commit-msg",
   )
+  expect(
+    sample('import { selfCloses } from "../../scripts/markup-nodes.ts"'),
+  ).toContain("scripts/markup-nodes.ts")
 })
 
 test("a script mentioned in a message, a comment or a missing path does not count", () => {

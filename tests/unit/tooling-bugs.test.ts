@@ -54,9 +54,9 @@ describe("tooling bugs the generator and the components work around", () => {
     const source = "<p>{label}</p>\n"
     const { ast } = await parse(source, { position: true })
     const [paragraph] = ast.children
-    const [expression] = paragraph.children
+    const [expression] = paragraph?.type === "element" ? paragraph.children : []
     expect(
-      source[expression.position.start.offset],
+      source[expression?.position?.start.offset ?? 0],
       fixed(
         "startOf in scripts/component-reader.mjs, which finds the { of an expression from the offset before it",
       ),
@@ -72,7 +72,7 @@ describe("tooling bugs the generator and the components work around", () => {
     expect(
       code,
       fixed(
-        'VUE_UNKNOWN_TAGS in scripts/print-vue.mjs, which writes <search> as <component is="search"> in Vue',
+        'VUE_UNKNOWN_TAGS in scripts/print-vue.ts, which writes <search> as <component is="search"> in Vue',
       ),
     ).toContain("resolveComponent")
   })

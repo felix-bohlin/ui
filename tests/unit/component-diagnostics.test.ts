@@ -54,10 +54,9 @@ test("diagnosticProblems flags a call without a code, an unlisted code, an unuse
     "BC101 in scripts/component-diagnostics.mjs is never thrown: remove it",
   )
   expect(
-    diagnosticProblems(
-      { "a.mjs": 'throw unsupported("BC101", file, "x")' },
-      { BC101: { explain: "", title: "" } },
-    ),
+    diagnosticProblems({ "a.mjs": 'throw unsupported("BC101", file, "x")' }, {
+      BC101: { explain: "", title: "" },
+    } as unknown as typeof DIAGNOSTICS),
   ).toEqual([
     "BC101 in scripts/component-diagnostics.mjs needs a sample the compiler refuses with it, or, when no source reaches it, the table it guards",
   ])

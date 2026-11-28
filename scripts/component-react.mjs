@@ -25,7 +25,7 @@ import {
   named,
   typed,
   uses,
-} from "./component-fragment.mjs"
+} from "./component-fragment.ts"
 import { componentFunction, componentPrinter } from "./component-jsx.mjs"
 import { bindingFor, isCheckedAttribute } from "./component-models.mjs"
 import { eventProp } from "./component-types.mjs"

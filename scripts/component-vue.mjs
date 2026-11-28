@@ -38,7 +38,7 @@ import {
   reads,
   typed,
   uses,
-} from "./component-fragment.mjs"
+} from "./component-fragment.ts"
 import { bindingFor, isCheckedAttribute } from "./component-models.mjs"
 import { emitsTypeOf } from "./component-types.mjs"
 import { allValues, scriptValues, valuesIn } from "./component-analysis.mjs"
@@ -65,7 +65,7 @@ import {
   vueFor,
   vueInterpolation,
   vueTemplate,
-} from "./print-vue.mjs"
+} from "./print-vue.ts"
 
 const vueSlot = (name) => (name.includes("-") ? `['${name}']` : `.${name}`)
 

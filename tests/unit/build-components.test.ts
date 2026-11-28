@@ -14,7 +14,11 @@ import {
   toTypes,
   TYPE_FILES,
 } from "../../scripts/build-components.mjs"
-import { needsOf } from "../../scripts/component-fragment.mjs"
+import {
+  type Import,
+  needsOf,
+  type Part,
+} from "../../scripts/component-fragment.ts"
 import {
   bindingFor,
   bindingOf,
@@ -2687,10 +2691,6 @@ describe("model kinds", () => {
 
   type Node = { tag: string }
 
-  type Part = string | { code: string; imports: Import[] }
-
-  type Import = { module: string; name: string }
-
   type Shape = {
     attributes: (
       node: Node,
@@ -3117,9 +3117,7 @@ describe("model kinds", () => {
         }
       >
     const importsIn = (parts: Part[]) =>
-      (needsOf(parts).imports as Import[]).map(
-        ({ module, name }) => `${name} from ${module}`,
-      )
+      needsOf(parts).imports.map(({ module, name }) => `${name} from ${module}`)
     const texts = (context: { text?: Part }[]) =>
       context.flatMap(({ text }) => (text === undefined ? [] : [text]))
     const single = groupOf("string")

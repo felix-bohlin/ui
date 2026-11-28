@@ -10,7 +10,7 @@ import {
   named,
   reads,
   uses,
-} from "./component-fragment.mjs"
+} from "./component-fragment.ts"
 import { loadApis, readComponent } from "./component-reader.mjs"
 import {
   byName,

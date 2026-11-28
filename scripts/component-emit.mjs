@@ -6,7 +6,7 @@ import {
   named,
   needsOf,
   uses,
-} from "./component-fragment.mjs"
+} from "./component-fragment.ts"
 import {
   byName,
   isBlank,

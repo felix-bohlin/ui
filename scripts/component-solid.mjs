@@ -24,7 +24,7 @@ import {
   reads,
   slotReads,
   uses,
-} from "./component-fragment.mjs"
+} from "./component-fragment.ts"
 import {
   componentFunction,
   componentPrinter,

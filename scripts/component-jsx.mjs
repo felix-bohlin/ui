@@ -1,6 +1,6 @@
 import { slotProp } from "../src/component-api/frameworks.ts"
 import { indent } from "./component-emit.mjs"
-import { asFragment, code } from "./component-fragment.mjs"
+import { asFragment, code } from "./component-fragment.ts"
 import { jsxPrinter, sourceText } from "./print-jsx.mjs"
 
 export const tagNamer = (component, shadowed = []) => {

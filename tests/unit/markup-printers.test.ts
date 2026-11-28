@@ -1,6 +1,14 @@
 import { describe, expect, test } from "vitest"
-import { asFragment } from "../../scripts/component-fragment.mjs"
-import { attributeNode, selfCloses } from "../../scripts/markup-nodes.mjs"
+import { asFragment, type Part } from "../../scripts/component-fragment.ts"
+import {
+  type Attribute,
+  attributeNode,
+  type EachNode,
+  type ElementNode,
+  type MarkupNode,
+  selfCloses,
+  type TextNode,
+} from "../../scripts/markup-nodes.ts"
 import {
   JSX_DIALECTS,
   jsxAttributeCode,
@@ -18,7 +26,7 @@ import {
   svelteEach,
   svelteElement,
   svelteRender,
-} from "../../scripts/print-svelte.mjs"
+} from "../../scripts/print-svelte.ts"
 import {
   SPACE as VUE_SPACE,
   renderedText as vueRenderedText,
@@ -28,42 +36,27 @@ import {
   vueBinding,
   vueElement,
   vueFor,
-} from "../../scripts/print-vue.mjs"
-
-type Attribute = { code?: string; kind: string; name: string; value?: string }
-
-type Node = {
-  attributes?: Attribute[]
-  children?: Node[]
-  code?: string
-  component?: boolean
-  custom?: boolean
-  foreign?: boolean
-  inline?: boolean
-  key?: string
-  list?: string
-  item?: string
-  row?: Node
-  tag?: string
-  type: string
-  value?: string
-  variable?: boolean
-}
+} from "../../scripts/print-vue.ts"
 
 const element = (
   tag: string,
-  attributes: Attribute[] = [],
-  children: Node[] = [],
-  facts: Partial<Node> = {},
-): Node => ({ attributes, children, tag, type: "element", ...facts })
+  attributes: ElementNode["attributes"] = [],
+  children: MarkupNode[] = [],
+  facts: Partial<ElementNode> = {},
+): ElementNode => ({ attributes, children, tag, type: "element", ...facts })
 
-const text = (value: string, facts: Partial<Node> = {}): Node => ({
+const text = (value: string, facts: Partial<TextNode> = {}): TextNode => ({
   type: "text",
   value,
   ...facts,
 })
 
-const each = (row: Node, list = "items", item = "item", key = "item.id") => ({
+const each = (
+  row: MarkupNode,
+  list = "items",
+  item = "item",
+  key = "item.id",
+): EachNode => ({
   children: [text("\n"), row, text("\n")],
   item,
   key,
@@ -72,9 +65,13 @@ const each = (row: Node, list = "items", item = "item", key = "item.id") => ({
   type: "each",
 })
 
-const statics = (value: string) => ({ kind: "static", name: "title", value })
+const statics = (value: string): Attribute => ({
+  kind: "static",
+  name: "title",
+  value,
+})
 
-const written = (part: unknown) => asFragment(part).code
+const written = (part: Part) => asFragment(part).code
 
 const QUOTED = ['say "hi"', String.raw`a\b`, "{x}", "a\nb"] as const
 
@@ -85,7 +82,9 @@ describe("the node vocabulary", () => {
     expect(
       attributeNode({ kind: "quoted", name: "id", value: "a" }, refuse),
     ).toEqual({ kind: "static", name: "id", value: "a" })
-    expect(attributeNode({ kind: "empty", name: "hidden" }, refuse)).toEqual({
+    expect(
+      attributeNode({ kind: "empty", name: "hidden", value: "" }, refuse),
+    ).toEqual({
       kind: "boolean",
       name: "hidden",
     })
@@ -119,7 +118,7 @@ describe("the node vocabulary", () => {
   })
 
   test("a void element always closes itself, and an empty element closes itself when the policy names its kind", () => {
-    const closes = (node: Node, content: string) =>
+    const closes = (node: ElementNode, content: string) =>
       (["components", "foreign", "every"] as const).map((policy) =>
         selfCloses(node, content, policy),
       )
@@ -157,8 +156,8 @@ describe("the JSX printer", () => {
     jsxPrinter(dialect, {
       emptyElements: "components",
       other: () => "",
-      props: (node: Node) => ({
-        attributes: (node.attributes ?? []).map((item) =>
+      props: (node: ElementNode) => ({
+        attributes: node.attributes.map((item) =>
           jsxAttributeCode(
             dialect,
             { item, name: item.name, where: `<${node.tag}>` },
@@ -172,7 +171,7 @@ describe("the JSX printer", () => {
     })
   const branch = (
     dialect: typeof react,
-    nodes: Node[],
+    nodes: MarkupNode[],
     options?: Record<string, unknown>,
     extra?: string,
   ) => written(printer(dialect, options).branch(nodes, undefined, extra))
@@ -201,7 +200,7 @@ describe("the JSX printer", () => {
     )
     expect(
       branch(react, [{ code: "title", type: "expression" }], {
-        bare: (node: Node & { code: string }) => node.code,
+        bare: (node: { code: string }) => node.code,
       }),
     ).toBe("title")
     expect(branch(react, [element("p")], {}, "<style />")).toBe(
@@ -213,7 +212,7 @@ describe("the JSX printer", () => {
     expect(
       branch(react, [
         element("p"),
-        element("b", [], [], { slot: "icon" } as Partial<Node>),
+        element("b", [], [], { slot: "icon" } as Partial<ElementNode>),
       ]),
     ).toBe("<p></p>")
   })
@@ -252,7 +251,7 @@ describe("the JSX printer", () => {
     expect(jsxSourceText([text("\n", { inline: true })])).toBe('{" "}')
     expect(jsxSourceText([text("\n")])).toBe("\n")
     expect(jsxSourceText([text("a {b} &amp; c")])).toBe('a {"{"}b{"}"} &amp; c')
-    const parts = (node: Node) =>
+    const parts = (node: TextNode) =>
       node.value === "a"
         ? [{ text: "a" }, { role: "space", run: " " }]
         : [{ role: "drop", run: "\n  " }, { text: "&lt;b&gt; {c}" }]
@@ -334,7 +333,7 @@ describe("the Svelte printer", () => {
       'title={"{x}"}',
       String.raw`title={"a\nb"}`,
     ])
-    const tabindex = { kind: "static", name: "tabindex", value: "0" }
+    const tabindex = { kind: "static", name: "tabindex", value: "0" } as const
     expect(
       svelteAttribute(element("Table", [], [], { component: true }), tabindex),
     ).toBe("tabindex={0}")
@@ -351,7 +350,11 @@ describe("the Svelte printer", () => {
   })
 
   test("an element closes by the policy, a variable tag is svelte:element and a bound progress value is keyed", () => {
-    const print = (node: Node, content = "", emptyElements = "components") =>
+    const print = (
+      node: ElementNode,
+      content = "",
+      emptyElements: Parameters<typeof selfCloses>[2] = "components",
+    ) =>
       written(svelteElement(node, { attributes: "", content, emptyElements }))
     expect(print(element("input"))).toBe("<input />")
     expect(print(element("Table", [], [], { component: true }))).toBe(
@@ -441,9 +444,8 @@ describe("the Vue printer", () => {
   })
 
   test("a static value of an input straight in a component's slot is written as an attribute", () => {
-    const input = element("input", [
-      { kind: "static", name: "value", value: "it's" },
-    ])
+    const value = { kind: "static", name: "value", value: "it's" } as const
+    const input = element("input", [value])
     const readonly = element("input", [{ kind: "boolean", name: "readonly" }])
     const nested = element("input")
     const inputs = slotInputs([
@@ -453,9 +455,9 @@ describe("the Vue printer", () => {
       element("div", [], [element("input")]),
     ])
     expect([...inputs]).toEqual([input, nested])
-    expect(
-      written(vueAttribute(input.attributes![0], undefined, { slotted: true })),
-    ).toBe(":value.attr=\"'it\\'s'\"")
+    expect(written(vueAttribute(value, undefined, { slotted: true }))).toBe(
+      ":value.attr=\"'it\\'s'\"",
+    )
   })
 
   test("a loop is a v-for with its key, with the index in parentheses", () => {
@@ -472,7 +474,7 @@ describe("the Vue printer", () => {
   })
 
   test("a variable tag, a custom element and a tag Vue can't resolve render through component", () => {
-    const print = (node: Node, is?: string) =>
+    const print = (node: ElementNode, is?: string) =>
       written(
         vueElement(node, {
           attributes: 'class="a"',

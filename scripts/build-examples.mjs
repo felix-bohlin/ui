@@ -14,7 +14,7 @@ import {
   nunjucksText,
   nunjucksValue,
 } from "./component-nunjucks-expression.mjs"
-import { join as joinParts } from "./component-fragment.mjs"
+import { join as joinParts } from "./component-fragment.ts"
 import { boundComponents } from "./component-models.mjs"
 import { unwrap } from "./component-shared.mjs"
 import {
@@ -52,7 +52,7 @@ import {
 import { BLANK_LINE, markWhitespace, RAW_TEXT } from "./example-whitespace.mjs"
 import { formatStably } from "./format.mjs"
 import { parseHtml, VOID_ELEMENTS } from "./html-tokens.mjs"
-import { attributeNode } from "./markup-nodes.mjs"
+import { attributeNode } from "./markup-nodes.ts"
 import {
   JSX_DIALECTS,
   jsxAttributeCode,
@@ -68,7 +68,7 @@ import {
   svelteExpression,
   svelteRender,
   svelteSnippet,
-} from "./print-svelte.mjs"
+} from "./print-svelte.ts"
 import {
   renderedText as vueRenderedText,
   slotInputs,
@@ -77,7 +77,7 @@ import {
   vueFor,
   vueInterpolation,
   vueTemplate,
-} from "./print-vue.mjs"
+} from "./print-vue.ts"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const componentsDir = join(root, "packages/opui/components")

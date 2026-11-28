@@ -1,4 +1,4 @@
-import { asFragment, code, join, named, uses } from "./component-fragment.mjs"
+import { asFragment, code, join, named, uses } from "./component-fragment.ts"
 import { isBlank, SOLID_PRAGMA } from "./component-shared.mjs"
 import { splitTopLevel } from "./example-display.mjs"
 import {
@@ -14,7 +14,7 @@ import {
   reactKinds,
   resolveReactProp,
 } from "./example-react-props.mjs"
-import { selfCloses } from "./markup-nodes.mjs"
+import { selfCloses } from "./markup-nodes.ts"
 
 export const SPACE = '{" "}'
 

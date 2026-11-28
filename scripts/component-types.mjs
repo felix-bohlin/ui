@@ -23,7 +23,7 @@ const camelEvent = (event) => `on${event[0].toUpperCase()}${event.slice(1)}`
 
 const lowerEvent = (event) => `on${event}`
 
-const sameKey = (element, key) => key
+const sameKey = (_element, key) => key
 
 const TYPE_DIALECTS = {
   react: {

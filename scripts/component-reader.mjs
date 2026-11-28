@@ -11,12 +11,14 @@ import { allValues, analyse } from "./component-analysis.mjs"
 import { rewriteExpression } from "./component-emit.mjs"
 import { shapeWhitespace } from "./component-layout.mjs"
 import {
+  at,
   capitalize,
   containsKind,
   elementsIn,
   identifiersIn,
   isArrayType,
   isBlank,
+  positionOf,
   root,
   sourceFileOf,
   spreads,
@@ -169,6 +171,7 @@ const readFrontmatter = (code, file) => {
     ts.isIdentifier(statement.expression.expression) &&
     devFunctions.has(statement.expression.expression.text)
   for (const statement of sourceFile.statements) {
+    const here = at(file, positionOf(statement))
     if (ts.isImportDeclaration(statement)) {
       const specifier = statement.moduleSpecifier.text
       const clause = statement.importClause
@@ -203,7 +206,7 @@ const readFrontmatter = (code, file) => {
       if (specifier.endsWith(".astro") && clause.name) {
         const match = /^(?:\.\.\/([^/]+)|\.)\/([^/]+)\.astro$/.exec(specifier)
         if (!match)
-          throw unsupported("BC101", file, `the import of ${specifier}`)
+          throw unsupported("BC101", here, `the import of ${specifier}`)
         result.components.push({
           folder: match[1],
           local: clause.name.text,
@@ -233,7 +236,7 @@ const readFrontmatter = (code, file) => {
         result.imports.push(statement.getText(sourceFile))
         continue
       }
-      throw unsupported("BC101", file, `the import of ${specifier}`)
+      throw unsupported("BC101", here, `the import of ${specifier}`)
     }
     if (
       ts.isVariableStatement(statement) &&
@@ -251,7 +254,7 @@ const readFrontmatter = (code, file) => {
         .getModifiers(statement)
         ?.some((modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword)
     ) {
-      throw unsupported("BC102", file, `the frontmatter statement \`${text}\``)
+      throw unsupported("BC102", here, `the frontmatter statement \`${text}\``)
     }
     const usesProps = (node) =>
       containsKind(
@@ -263,7 +266,7 @@ const readFrontmatter = (code, file) => {
     if (!ts.isVariableStatement(statement) && usesProps(statement)) {
       throw unsupported(
         "BC103",
-        file,
+        here,
         `Astro.props in \`${text}\``,
         "destructure what the statement needs and read the names",
       )
@@ -314,7 +317,7 @@ const readFrontmatter = (code, file) => {
       if (simple && usesProps(initializer)) {
         throw unsupported(
           "BC103",
-          file,
+          here,
           `Astro.props in \`${text}\``,
           "destructure what the statement needs and read the names",
         )
@@ -326,7 +329,7 @@ const readFrontmatter = (code, file) => {
       }
       if (factory?.kind === "base") {
         if (result.idBases.length > 0) {
-          throw unsupported("BC106", file, `a second createIds in \`${text}\``)
+          throw unsupported("BC106", here, `a second createIds in \`${text}\``)
         }
         result.idBases.push([declaration.name.text, ID_BASE])
         const fallback = `\`${factory.prefix}-\${Astro.locals}\``
@@ -375,7 +378,7 @@ const readFrontmatter = (code, file) => {
       ) {
         throw unsupported(
           "BC107",
-          file,
+          here,
           `Fragment as a value in \`${text}\``,
           "write it as a condition between one tag and Fragment",
         )
@@ -383,7 +386,7 @@ const readFrontmatter = (code, file) => {
       if (simple && containsKind(initializer, handlerString)) {
         throw unsupported(
           "BC108",
-          file,
+          here,
           `a handler string in \`${text}\``,
           "React can't attach a string to an event; give the element the attribute, or write the behavior in a helper",
         )
@@ -411,7 +414,7 @@ const readFrontmatter = (code, file) => {
           )
         ) {
           if (result.provide) {
-            throw unsupported("BC109", file, "a second context provide")
+            throw unsupported("BC109", here, "a second context provide")
           }
           result.provide = {
             context: contextOf(call.expression),
@@ -433,7 +436,7 @@ const readFrontmatter = (code, file) => {
       ) {
         throw unsupported(
           "BC109",
-          file,
+          here,
           `a context get() inside \`${text}\``,
           "assign the get() to its own const first",
         )
@@ -451,7 +454,7 @@ const readFrontmatter = (code, file) => {
         })
         continue
       }
-      throw unsupported("BC102", file, `the frontmatter statement \`${text}\``)
+      throw unsupported("BC102", here, `the frontmatter statement \`${text}\``)
     }
     if (isWarning(statement)) {
       result.warnings.push(statement.expression.getText(sourceFile))
@@ -468,7 +471,7 @@ const readFrontmatter = (code, file) => {
       result.warnings.push(statement.getText(sourceFile))
       continue
     }
-    throw unsupported("BC102", file, `the frontmatter statement \`${text}\``)
+    throw unsupported("BC102", here, `the frontmatter statement \`${text}\``)
   }
   if (!result.propsType) throw unsupported("BC104", file, "no Props import")
   if (result.props.length === 0 && !result.rest) {
@@ -584,19 +587,24 @@ const attributeOf = (item, context, element = false) => {
   if (item.kind === "expression" && item.name === "class") {
     const code = item.value.trim()
     const match = /^cx\(([\s\S]*)\)$/.exec(code)
-    if (!match) throw unsupported("BC201", context.file, `class={${code}}`)
+    if (!match)
+      throw unsupported(
+        "BC201",
+        at(context.file, item.position?.start),
+        `class={${code}}`,
+      )
     return { kind: "class", code: match[1].trim() }
   }
   if (item.kind === "quoted" && /^on[a-z]/.test(item.name)) {
     throw unsupported(
       "BC108",
-      context.file,
+      at(context.file, item.position?.start),
       `the handler string ${item.name}="${item.value}"`,
       "React can't attach a string to an event; write the behavior in a helper",
     )
   }
   const read = attributeNode(item, (what) =>
-    unsupported("BC201", context.file, what),
+    unsupported("BC201", at(context.file, item.position?.start), what),
   )
   if (
     item.kind === "expression" &&
@@ -604,7 +612,11 @@ const attributeOf = (item, context, element = false) => {
     WRITTEN_AS_TEXT.has(read.name) &&
     !isOn(read.code)
   ) {
-    throw unsupported("BC211", context.file, `${read.name}={${read.code}}`)
+    throw unsupported(
+      "BC211",
+      at(context.file, item.position?.start),
+      `${read.name}={${read.code}}`,
+    )
   }
   return read
 }
@@ -619,6 +631,14 @@ const bindingNames = (name) =>
           ts.isBindingElement(element) ? bindingNames(element.name) : [],
         )
       : []
+
+const startOf = (node, { source }) => {
+  if (node.type !== "expression") return node.position?.start
+  const before = source
+    .slice(0, source.indexOf("{", node.position.start.offset))
+    .split("\n")
+  return { column: before.at(-1).length + 1, line: before.length }
+}
 
 const expressionNode = (node, context) => {
   const markup = []
@@ -637,7 +657,11 @@ const expressionNode = (node, context) => {
     sourceFile.statements.length !== 1 ||
     !ts.isExpressionStatement(statement)
   ) {
-    throw unsupported("BC202", context.file, `the expression {${code}}`)
+    throw unsupported(
+      "BC202",
+      at(context.file, startOf(node, context)),
+      `the expression {${code}}`,
+    )
   }
   const placeholder = (expression) => {
     const inner = unwrap(expression)
@@ -658,7 +682,11 @@ const expressionNode = (node, context) => {
       placeholder(inner.right)
     ) {
       if (hasPlaceholder(inner.left)) {
-        throw unsupported("BC202", context.file, `the expression {${code}}`)
+        throw unsupported(
+          "BC202",
+          at(context.file, startOf(node, context)),
+          `the expression {${code}}`,
+        )
       }
       return [
         {
@@ -670,7 +698,11 @@ const expressionNode = (node, context) => {
     }
     if (ts.isConditionalExpression(inner) && hasPlaceholder(inner)) {
       if (hasPlaceholder(inner.condition)) {
-        throw unsupported("BC202", context.file, `the expression {${code}}`)
+        throw unsupported(
+          "BC202",
+          at(context.file, startOf(node, context)),
+          `the expression {${code}}`,
+        )
       }
       return [
         {
@@ -684,7 +716,7 @@ const expressionNode = (node, context) => {
     if (hasPlaceholder(inner)) {
       throw unsupported(
         "BC202",
-        context.file,
+        at(context.file, startOf(node, context)),
         `the expression {${code}}, whose branches hold more than one element`,
       )
     }
@@ -705,7 +737,7 @@ const expressionNode = (node, context) => {
     const describe = (what) =>
       unsupported(
         "BC203",
-        context.file,
+        at(context.file, startOf(node, context)),
         `the expression {${code}}, whose ${what}`,
       )
     if (
@@ -848,7 +880,7 @@ const toTree = (nodes, context) =>
       if (node.attributes.some((item) => item.name !== "name")) {
         throw unsupported(
           "BC204",
-          context.file,
+          at(context.file, startOf(node, context)),
           "a slot with attributes other than name",
         )
       }
@@ -871,7 +903,11 @@ const toTree = (nodes, context) =>
           ? slotOfHtml(attribute.value, context)
           : undefined
       if (slot) return [slot]
-      throw unsupported("BC205", context.file, `<Fragment ${attribute.name}>`)
+      throw unsupported(
+        "BC205",
+        at(context.file, startOf(node, context)),
+        `<Fragment ${attribute.name}>`,
+      )
     }
     if (
       node.type === "element" ||
@@ -879,7 +915,11 @@ const toTree = (nodes, context) =>
       node.type === "custom-element"
     ) {
       if (node.type === "element" && /^(script|style)$/.test(node.name)) {
-        throw unsupported("BC206", context.file, `a <${node.name}>`)
+        throw unsupported(
+          "BC206",
+          at(context.file, startOf(node, context)),
+          `a <${node.name}>`,
+        )
       }
       const optionalTag = context.optionalTags?.get(node.name)
       if (optionalTag) {
@@ -924,7 +964,11 @@ const toTree = (nodes, context) =>
       const variable =
         node.type === "component" && !component && context.locals.has(node.name)
       if (node.type === "component" && !component && !variable) {
-        throw unsupported("BC206", context.file, `<${node.name}>`)
+        throw unsupported(
+          "BC206",
+          at(context.file, startOf(node, context)),
+          `<${node.name}>`,
+        )
       }
       const inner =
         node.type === "element" && /^(math|svg)$/.test(node.name)
@@ -940,7 +984,11 @@ const toTree = (nodes, context) =>
           ? slotOfHtml(html.value, context)
           : undefined
       if (html && !htmlSlot && !external) {
-        throw unsupported("BC207", context.file, `set:html={${html.value}}`)
+        throw unsupported(
+          "BC207",
+          at(context.file, startOf(node, context)),
+          `set:html={${html.value}}`,
+        )
       }
       const children = htmlSlot ? [htmlSlot] : toTree(node.children, inner)
       return [
@@ -959,7 +1007,11 @@ const toTree = (nodes, context) =>
         },
       ]
     }
-    throw unsupported("BC208", context.file, `a ${node.type} node`)
+    throw unsupported(
+      "BC208",
+      at(context.file, startOf(node, context)),
+      `a ${node.type} node`,
+    )
   })
 
 const callsGroupWarning = (code) =>
@@ -995,7 +1047,7 @@ export const readComponent = async (source, file, api) => {
     ) {
       throw unsupported(
         "BC111",
-        file,
+        at(file, node.position?.start),
         "a <script> with more than side-effect imports",
       )
     }
@@ -1004,6 +1056,7 @@ export const readComponent = async (source, file, api) => {
   const context = {
     components: frontmatter.components,
     file,
+    source,
     locals: new Set([
       ...frontmatter.props.map(({ local }) => local),
       ...frontmatter.derived.map(({ name }) => name),

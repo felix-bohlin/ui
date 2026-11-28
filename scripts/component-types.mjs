@@ -9,8 +9,10 @@ import {
   reactAttributeName,
 } from "./example-react-props.mjs"
 import {
+  at,
   byName,
   containsKind,
+  positionOf,
   propKey,
   root,
   sourceFileOf,
@@ -313,7 +315,7 @@ const eventNames = (alias, file) => {
   if (!ts.isTypeLiteralNode(alias.type)) {
     throw unsupported(
       "BC603",
-      file,
+      at(file, positionOf(alias)),
       `the type ${alias.name.text}, which isn't an object type`,
       "list each event the root element fires with the type of its event object: `{ dismiss: Event }`",
     )
@@ -328,7 +330,7 @@ const eventNames = (alias, file) => {
     ) {
       throw unsupported(
         "BC603",
-        file,
+        at(file, positionOf(member)),
         `the event ${name || member.getText()} in ${alias.name.text}`,
         "name each event the root element fires in lowercase letters, with the type of its event object: `dismiss: Event`",
       )
@@ -452,7 +454,7 @@ export const toTypes = (types, components) => {
     if (parameter && parameter.default?.kind !== ts.SyntaxKind.NeverKeyword) {
       throw unsupported(
         "BC607",
-        baseFileName,
+        at(baseFileName, positionOf(parameter)),
         `the type parameter Link of ${alias.name.text} without the default never`,
         "write `Link = never`: Astro and Svelte take element names only, and React, Solid and Vue pass their link component type",
       )
@@ -475,27 +477,32 @@ export const toTypes = (types, components) => {
     name === "Props" ? folder : name.replace(/Props$/, "")
   for (const alias of aliases) {
     if (!hasElement(alias.node.type)) {
-      throw unsupported("BC602", file, `the type ${alias.name}`)
+      throw unsupported(
+        "BC602",
+        at(file, positionOf(alias.node)),
+        `the type ${alias.name}`,
+      )
     }
     const joined = joinedElements(alias.node.type)
     if (joined) {
       throw unsupported(
         "BC608",
-        file,
+        at(file, positionOf(alias.node)),
         `the type ${alias.name}, which joins the attributes of ${joined.join(" and ")} with &`,
         "write a union with one element per member, as Button does",
       )
     }
   }
   const propsAliases = aliases.filter(({ name }) => name.endsWith("Props"))
-  const eventTypes = baseAliases
-    .filter(({ name }) => name.text.endsWith("Events"))
-    .map((alias) => alias.name.text)
-  for (const eventsName of eventTypes) {
+  const eventTypes = baseAliases.filter(({ name }) =>
+    name.text.endsWith("Events"),
+  )
+  for (const eventsAlias of eventTypes) {
+    const eventsName = eventsAlias.name.text
     if (!propsAliases.some(({ name }) => eventsTypeOf(name) === eventsName)) {
       throw unsupported(
         "BC603",
-        baseFileName,
+        at(baseFileName, positionOf(eventsAlias)),
         `the type ${eventsName}, which names no props type in types.astro.ts`,
         "name it after the props it belongs to: Events for Props, <Root><Part>Events for <Root><Part>Props",
       )
@@ -504,13 +511,15 @@ export const toTypes = (types, components) => {
   const slotted = propsAliases.filter(({ name }) =>
     slotTypes.has(slotsTypeOf(name)),
   )
+  const slotsAt = (name) =>
+    at(baseFileName, positionOf(baseAliasOf(types, slotsTypeOf(name))))
   for (const { name } of slotted) {
     const members = slotMembersOf(types, name)
     const slotKeys = members.map((member) => member.name)
     if (slotKeys.length === 0) {
       throw unsupported(
         "BC604",
-        file,
+        slotsAt(name),
         `the type ${slotsTypeOf(name)}, which names no slot`,
       )
     }
@@ -521,7 +530,7 @@ export const toTypes = (types, components) => {
     if (overlap.length > 0) {
       throw unsupported(
         "BC604",
-        file,
+        slotsAt(name),
         `a prop and a slot both named ${overlap.join(", ")}`,
       )
     }
@@ -533,7 +542,7 @@ export const toTypes = (types, components) => {
     if (pureSlots.some((key) => /[A-Z]/.test(key))) {
       throw unsupported(
         "BC604",
-        file,
+        slotsAt(name),
         `the slot ${pureSlots.find((key) => /[A-Z]/.test(key))}, whose Vue name is kebab-case`,
       )
     }
@@ -665,7 +674,7 @@ export const toTypes = (types, components) => {
             if (tied.length > 0) {
               throw unsupported(
                 "BC607",
-                file,
+                at(file, positionOf(node)),
                 `the type ${name}, whose as takes a link component next to a model`,
               )
             }
@@ -694,7 +703,7 @@ export const toTypes = (types, components) => {
       if (events.length > 0 && baseParts.length === 0) {
         throw unsupported(
           "BC603",
-          file,
+          at(file, positionOf(type)),
           `the type ${name}, which has ${eventsTypeOf(name)} but no Base.${name} to join them to`,
           `start it with Base.${name} &`,
         )
@@ -888,7 +897,7 @@ export const toTypes = (types, components) => {
       }
       throw unsupported(
         "BC602",
-        file,
+        at(file, positionOf(part)),
         `the type ${alias.name}, whose part ${part.getText()} has no Vue form`,
       )
     }

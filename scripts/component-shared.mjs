@@ -6,9 +6,20 @@ export const root = fileURLToPath(new URL("..", import.meta.url))
 
 export const SOLID_PRAGMA = "/** @jsxImportSource @solidjs/web */"
 
+export const at = (file, position) =>
+  position ? { column: position.column, file, line: position.line } : file
+
+export const positionOf = (node) => {
+  const sourceFile = node.getSourceFile()
+  const { character, line } = sourceFile.getLineAndCharacterOfPosition(
+    node.getStart(sourceFile),
+  )
+  return { column: character + 1, line: line + 1 }
+}
+
 export const unsupported = (
   code,
-  file,
+  where,
   what,
   hint,
   compiler = "scripts/build-components.mjs",
@@ -18,11 +29,14 @@ export const unsupported = (
       `unsupported() takes a code from scripts/component-diagnostics.mjs, not ${code}`,
     )
   }
+  const { column, file, line } =
+    typeof where === "string" ? { file: where } : where
+  const place = line === undefined ? file : `${file}:${line}:${column}`
   return Object.assign(
     new Error(
-      `${file} uses ${what}, which ${compiler} can't compile: ${hint ?? "support the construct in scripts/build-components.mjs, or list the file in scripts/hand-written-components.json with the reason"} [${code}]`,
+      `${place} uses ${what}, which ${compiler} can't compile: ${hint ?? "support the construct in scripts/build-components.mjs, or list the file in scripts/hand-written-components.json with the reason"} [${code}]`,
     ),
-    { code },
+    { code, file, ...(line !== undefined && { column, line }) },
   )
 }
 

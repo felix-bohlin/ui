@@ -49,6 +49,20 @@ describe("tooling bugs the generator and the components work around", () => {
     ).toContain('multiple="true"')
   })
 
+  test("the Astro compiler starts the position of an expression one character before its {", async () => {
+    const { parse } = await import("@astrojs/compiler")
+    const source = "<p>{label}</p>\n"
+    const { ast } = await parse(source, { position: true })
+    const [paragraph] = ast.children
+    const [expression] = paragraph.children
+    expect(
+      source[expression.position.start.offset],
+      fixed(
+        "startOf in scripts/component-reader.mjs, which finds the { of an expression from the offset before it",
+      ),
+    ).toBe(">")
+  })
+
   test("Vue takes <search> for a component it can't resolve", () => {
     const { code } = compileTemplate({
       filename: "Search.vue",

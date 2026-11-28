@@ -11,7 +11,7 @@ import {
   diagnosticProblems,
   explain,
 } from "../../scripts/component-diagnostics.mjs"
-import { unsupported } from "../../scripts/component-shared.mjs"
+import { at, unsupported } from "../../scripts/component-shared.mjs"
 
 const compilerSources = () =>
   Object.fromEntries(
@@ -74,6 +74,34 @@ test("unsupported() ends its message with the code and refuses an unlisted one",
     "unsupported() takes a code from scripts/component-diagnostics.mjs, not BC999",
   )
 })
+
+test("unsupported() names the line and column it is given", () => {
+  const error = unsupported(
+    "BC202",
+    at("a.astro", { column: 3, line: 7 }),
+    "the expression {x}",
+  )
+  expect(error).toMatchObject({ column: 3, file: "a.astro", line: 7 })
+  expect(error.message).toMatch(/^a\.astro:7:3 uses the expression \{x\}/)
+  expect(at("a.astro", undefined)).toBe("a.astro")
+})
+
+test.each([
+  ["BC103", "Sample.astro:6:1"],
+  ["BC201", "Sample.astro:7:6"],
+  ["BC202", "Sample.astro:8:3"],
+  ["BC204", "Sample.astro:8:3"],
+  ["BC602", "types.astro.ts:4:34"],
+  ["BC603", "types.ts:6:3"],
+] as const)(
+  "the refusal of the sample of %s names the line and column of the construct",
+  async (code, place) => {
+    const refusal = (await refusalsOf(DIAGNOSTICS[code].sample)).find(
+      (error) => error.code === code,
+    )
+    expect(refusal?.message).toContain(`/Sample/${place} uses `)
+  },
+)
 
 test("a refusal of the compiler carries its code", async () => {
   await expect(

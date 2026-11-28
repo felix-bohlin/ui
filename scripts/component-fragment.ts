@@ -58,12 +58,12 @@ export const arrowBody = (part: Part) =>
     ? code`(${part})`
     : asFragment(part)
 
-export const named = (module: string, name: string): Import => ({
+export const named = (module: string, name: string) => ({
   module,
   name,
 })
 
-export const typed = (module: string, name: string): Import => ({
+export const typed = (module: string, name: string) => ({
   module,
   name,
   type: true,
@@ -77,7 +77,7 @@ export const uses = (part: Part, ...imports: Import[]) => {
 export const reads = (text: string, ...declarations: string[]) =>
   fragment(text, { declarations })
 
-export const declaration = (name: string, part: Part): Fragment => ({
+export const declaration = (name: string, part: Part) => ({
   ...asFragment(part),
   declares: name,
 })

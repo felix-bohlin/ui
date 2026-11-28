@@ -9,9 +9,10 @@ import { attributeText, markupAttribute } from "./example-encoders.mjs"
 import {
   atEdge,
   type Attribute,
-  type EachNode,
   type Edges,
   type ElementNode,
+  type ElementParts,
+  type LoopHead,
   type MarkupNode,
   runLayout,
   selfCloses,
@@ -65,12 +66,7 @@ export const vueAttribute = (
   return vueBinding(`:${item.name}`, value ?? item.code)
 }
 
-export const vueFor = ({
-  index,
-  item,
-  key,
-  list,
-}: Pick<EachNode, "index" | "item" | "key" | "list">) =>
+export const vueFor = ({ index, item, key, list }: LoopHead) =>
   code`${vueBinding("v-for", code`${index ? `(${item}, ${index})` : item} in ${list}`)} ${vueBinding(":key", key)}`
 
 export const vueTemplate = (clause: Part, content: Part) =>
@@ -99,12 +95,7 @@ export const vueElement = (
     content = "",
     emptyElements,
     is = node.tag,
-  }: {
-    attributes: Part
-    content?: Part
-    emptyElements: Parameters<typeof selfCloses>[2]
-    is?: Part
-  },
+  }: ElementParts & { is?: Part },
 ) => {
   const named =
     node.custom || (!node.component && VUE_UNKNOWN_TAGS.has(node.tag))

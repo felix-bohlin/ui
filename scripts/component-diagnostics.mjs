@@ -102,7 +102,7 @@ export const DIAGNOSTICS = {
   BC108: {
     title: "An event handler written as a string",
     explain:
-      "React can't attach a string to an event, so a handler string, written on the element or held in a const, has no form in the React port. Write the behavior in a helper.",
+      'A handler string, written on the element or held in a const, has no form in two ports: React drops it and Svelte refuses to compile it. Give the element a custom command (`command="--name"` and `commandfor`) that an element in `packages/opui/elements/` handles, as Copy handles `--copy` and Callout `--dismiss`.',
     sample: {
       astro: component(
         `${PROPS}\nconst { ...rest } = Astro.props\n\nconst close = { onclick: "this.closest('dialog').close()" }\n`,

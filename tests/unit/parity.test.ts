@@ -15,7 +15,7 @@ import {
 } from "../../src/utils/framework"
 import { createIdGenerator, exampleIdBase } from "../../src/utils/id"
 import { derivedExpectations, expectation, expectStill } from "../expectations"
-import { idsOf, normalize } from "./normalize"
+import { idsOf, normalize, type Without } from "./normalize"
 import { render, renderNunjucks, type SolidComponent } from "./renderers"
 
 const RECORD = !!process.env.PARITY_RECORD
@@ -190,6 +190,26 @@ test("the snapshot check flags a snapshot and a drift file whose example is gone
   ).toEqual(["a/Gone.html", "a/Gone.react.diff"])
 })
 
+test("the data-hydrating check flags a marked root without the attribute, and only a marked one", () => {
+  const without = { attribute: "data-hydrating", on: ["opui-callout"] }
+  expect(
+    unmarked(
+      parseHtml(
+        "<opui-callout data-hydrating><p>Saved</p></opui-callout><opui-callout><div></div></opui-callout>",
+      ),
+      without,
+    ),
+  ).toEqual(["opui-callout"])
+  expect(
+    unmarked(
+      parseHtml(
+        "<opui-copy><opui-callout data-hydrating></opui-callout></opui-copy>",
+      ),
+      without,
+    ),
+  ).toEqual([])
+})
+
 test("the React renderer fails on a console.error", async () => {
   const Controlled = () => createElement("input", { value: "x" })
   await expect(
@@ -240,9 +260,9 @@ const markup = (
   example: Example,
   framework: Framework,
   comments = COMMENTED.includes(framework),
-  without?: { attribute: string; on: string[] },
+  without?: Without,
 ) => {
-  const cacheKey = `${example.key}.${framework}.${comments}.${without?.attribute}`
+  const cacheKey = `${example.key}.${framework}.${comments}.${without?.attribute}.${without?.on.join(",")}`
   if (!cache.has(cacheKey)) {
     cache.set(
       cacheKey,
@@ -265,6 +285,24 @@ const authoredIds = async (example: Example, framework: Framework) => {
     source.includes(`"${id}"`),
   )
 }
+
+const unmarked = (
+  nodes: ReturnType<typeof parseHtml>,
+  without: Without,
+): string[] =>
+  nodes.flatMap((node) =>
+    node.type === "element"
+      ? [
+          ...(without.on.includes(node.tag) &&
+          !node.attrs.some(
+            ({ name }: { name: string }) => name === without.attribute,
+          )
+            ? [node.tag]
+            : []),
+          ...unmarked(node.children, without),
+        ]
+      : [],
+  )
 
 const exposedSvgs = (
   nodes: ReturnType<typeof parseHtml>,
@@ -384,11 +422,13 @@ describe.each(cases)("$key", (example) => {
     } as const
     const derived = expectation(late, DERIVED)
     if (derived) {
-      actual = await markup(example, framework, comments, {
-        attribute: late.aspect,
-        on: derived.on ?? [],
-      })
+      const marked = { attribute: late.aspect, on: derived.on ?? [] }
+      actual = await markup(example, framework, comments, marked)
       expectStill(expect, actual !== rendering, derived, late)
+      expect(
+        unmarked(parseHtml(await rendered(example, framework)), marked),
+        `${framework} leaves ${late.aspect} off a root that hydratingRoots() in scripts/component-emit.mjs marks`,
+      ).toEqual([])
     }
     for (const name of [framework, reference]) {
       const where = {

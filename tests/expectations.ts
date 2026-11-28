@@ -252,7 +252,7 @@ export const derivedExpectations = async (): Promise<Expectation[]> => {
     }
   }
   const tags = [...hydrating.values()].flat().toSorted()
-  const rendering = (dir: URL, prefix = "") =>
+  const examplesRendering = (dir: URL, prefix = "") =>
     foldersIn(dir).flatMap((slug) =>
       filesIn(dir, slug, ".html")
         .filter((file) =>
@@ -262,7 +262,7 @@ export const derivedExpectations = async (): Promise<Expectation[]> => {
         )
         .map((file) => `${prefix}${slug}/${file.slice(0, -".html".length)}`),
     )
-  const examples = rendering(EXAMPLES_DIR)
+  const examples = examplesRendering(EXAMPLES_DIR)
   const source = "hydratingRoots() in scripts/component-emit.mjs"
   return [
     ...[...hydrating].map(([component, on]): Expectation => ({
@@ -286,7 +286,10 @@ export const derivedExpectations = async (): Promise<Expectation[]> => {
     {
       aspect: "data-hydrating",
       check: "parity",
-      example: [...rendering(BLOCKS_DIR, "blocks/"), ...examples].toSorted(),
+      example: [
+        ...examplesRendering(BLOCKS_DIR, "blocks/"),
+        ...examples,
+      ].toSorted(),
       framework: HYDRATED_FRAMEWORK_IDS.filter((id) => id !== "solid"),
       on: tags,
       reason: HYDRATING,

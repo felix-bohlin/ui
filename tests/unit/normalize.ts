@@ -120,7 +120,7 @@ const verbatimLine = (text: string) =>
 
 type Rendered = ReturnType<typeof renderedText>
 
-type Without = { attribute: string; on: string[] }
+export type Without = { attribute: string; on: string[] }
 
 const serialize = (
   nodes: Node[],

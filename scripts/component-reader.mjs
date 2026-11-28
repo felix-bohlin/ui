@@ -388,7 +388,7 @@ const readFrontmatter = (code, file) => {
           "BC108",
           here,
           `a handler string in \`${text}\``,
-          "React can't attach a string to an event; give the element the attribute, or write the behavior in a helper",
+          'React drops a string handler and Svelte refuses one; give the element a custom command (command="--name" and commandfor) that an element in packages/opui/elements/ handles, as Copy and Callout do',
         )
       }
       if (simple && ts.isAwaitExpression(initializer)) {
@@ -600,7 +600,7 @@ const attributeOf = (item, context, element = false) => {
       "BC108",
       at(context.file, item.position?.start),
       `the handler string ${item.name}="${item.value}"`,
-      "React can't attach a string to an event; write the behavior in a helper",
+      'React drops a string handler and Svelte refuses one; give the element a custom command (command="--name" and commandfor) that an element in packages/opui/elements/ handles, as Copy and Callout do',
     )
   }
   const read = attributeNode(item, (what) =>
@@ -1056,7 +1056,6 @@ export const readComponent = async (source, file, api) => {
   const context = {
     components: frontmatter.components,
     file,
-    source,
     locals: new Set([
       ...frontmatter.props.map(({ local }) => local),
       ...frontmatter.derived.map(({ name }) => name),
@@ -1065,6 +1064,7 @@ export const readComponent = async (source, file, api) => {
       frontmatter.optionalTags.map((entry) => [entry.name, entry]),
     ),
     provide: frontmatter.provide,
+    source,
     trimmedSlots: new Map(
       frontmatter.trimmedSlots.map(({ local, slot }) => [local, slot]),
     ),

@@ -3,9 +3,10 @@ import { markupAttribute } from "./example-encoders.mjs"
 import {
   atEdge,
   type Attribute,
-  type EachNode,
   type Edges,
   type ElementNode,
+  type ElementParts,
+  type LoopHead,
   runLayout,
   selfCloses,
   type TextNode,
@@ -67,10 +68,7 @@ export const svelteIf = (test: Part, consequent: Part, alternate?: Part) =>
     ? code`{#if ${test}}${consequent}{/if}`
     : code`{#if ${test}}${consequent}{:else}${alternate}{/if}`
 
-export const svelteEach = (
-  { index, item, key, list }: Pick<EachNode, "index" | "item" | "key" | "list">,
-  body: Part,
-) =>
+export const svelteEach = ({ index, item, key, list }: LoopHead, body: Part) =>
   code`{#each ${list} as ${item}${index ? `, ${index}` : ""} (${key})}${body}{/each}`
 
 export const svelteElement = (
@@ -79,13 +77,8 @@ export const svelteElement = (
     attributes,
     content = "",
     emptyElements,
-    rewrite = (value: string): Part => value,
-  }: {
-    attributes: Part
-    content?: Part
-    emptyElements: Parameters<typeof selfCloses>[2]
-    rewrite?: (value: string) => Part
-  },
+    rewrite = (value) => value,
+  }: ElementParts & { rewrite?: (value: string) => Part },
 ) => {
   const tag = node.variable ? "svelte:element" : node.tag
   const listed = asFragment(attributes)

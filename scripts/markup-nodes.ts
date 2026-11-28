@@ -1,3 +1,4 @@
+import type { Part } from "./component-fragment.ts"
 import { VOID_ELEMENTS } from "./html-tokens.mjs"
 
 export type Attribute =
@@ -29,6 +30,8 @@ export type EachNode = {
   row: MarkupNode
   type: "each"
 }
+
+export type LoopHead = Pick<EachNode, "index" | "item" | "key" | "list">
 
 type IfNode = {
   alternate?: MarkupNode[]
@@ -72,6 +75,14 @@ export const attributeNode = (
   throw refuse(`the attribute ${item.name}`)
 }
 
+export type EmptyElements = keyof typeof EMPTY_ELEMENTS
+
+export type ElementParts = {
+  attributes: Part
+  content?: Part
+  emptyElements: EmptyElements
+}
+
 const EMPTY_ELEMENTS = {
   components: (node: ElementNode) => !!(node.component || node.variable),
   every: () => true,
@@ -82,7 +93,7 @@ const EMPTY_ELEMENTS = {
 export const selfCloses = (
   node: ElementNode,
   content: string,
-  emptyElements: keyof typeof EMPTY_ELEMENTS,
+  emptyElements: EmptyElements,
 ) =>
   VOID_ELEMENTS.has(node.tag) ||
   (!content.trim() && EMPTY_ELEMENTS[emptyElements](node))

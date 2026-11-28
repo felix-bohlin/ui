@@ -5,6 +5,7 @@ import {
   attributeNode,
   type EachNode,
   type ElementNode,
+  type EmptyElements,
   type MarkupNode,
   selfCloses,
   type TextNode,
@@ -353,7 +354,7 @@ describe("the Svelte printer", () => {
     const print = (
       node: ElementNode,
       content = "",
-      emptyElements: Parameters<typeof selfCloses>[2] = "components",
+      emptyElements: EmptyElements = "components",
     ) =>
       written(svelteElement(node, { attributes: "", content, emptyElements }))
     expect(print(element("input"))).toBe("<input />")

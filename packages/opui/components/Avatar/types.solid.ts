@@ -1,11 +1,17 @@
 import type * as Base from "./types"
-import type { JSX } from "solid-js"
+import type { ComponentProps } from "@solidjs/web"
+import type { Component } from "solid-js"
 
-export type Props = Base.Props &
-  Base.Slots<JSX.Element> &
-  Pick<JSX.ImgHTMLAttributes<HTMLImageElement>, Base.ImageProps> &
+export type Props = Base.Props<Component<any>> &
   (
-    | ({ as?: "div" } & JSX.HTMLAttributes<HTMLDivElement>)
-    | ({ as?: "button" } & JSX.ButtonHTMLAttributes<HTMLButtonElement>)
-    | ({ as?: "a" } & JSX.AnchorHTMLAttributes<HTMLAnchorElement>)
+    | ({ as?: "div"; href?: never } & ComponentProps<"div">)
+    | ({ as: "button" } & Omit<ComponentProps<"button">, "disabled"> &
+        Base.Named)
+    | ({ as?: "a" | Component<any> } & Omit<
+        ComponentProps<"a">,
+        "href" | "shape"
+      > &
+        Base.Named)
   )
+
+export type AvatarGroupProps = Base.AvatarGroupProps & ComponentProps<"div">

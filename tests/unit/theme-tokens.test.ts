@@ -1,0 +1,574 @@
+import { existsSync, readFileSync, readdirSync } from "node:fs"
+import paletteSource from "@opui/core/palette.css?raw"
+import themeSource from "@opui/css/theme.css?raw"
+import { describe, expect, test } from "vitest"
+import { cssVarRows, stylesheets } from "../../src/component-api/rows"
+import type { ComponentApi } from "../../src/component-api/types"
+import { BRAND_TOKENS, CORNER_TOKENS, FONT_TOKENS } from "../../src/utils/theme"
+import { paletteSteps } from "../../src/utils/palette-steps"
+import { themeTokenDescriptions } from "../../src/utils/theme-token-descriptions"
+import { themeTokenPromises } from "../../src/utils/theme-token-promises"
+import { themeTokenTiers } from "../../src/utils/theme-token-tiers"
+import {
+  LOCAL_TOKENS,
+  OPTIONAL_GLOBALS,
+  parseThemeTokens,
+  scaledTokens,
+  sectionKey,
+  setThemeToken,
+  themeTokenSections,
+  themeTokens,
+  tokenTier,
+} from "../../src/utils/theme-tokens"
+import { tokenType, tokensJson } from "../../src/utils/tokens-json"
+
+const sections = parseThemeTokens()
+const tokens = themeTokens()
+const find = (name: string) => tokens.find((token) => token.name === name)
+const steps = new Set(paletteSteps().map((step) => step.name))
+
+const selectorList = (selector: string) => {
+  const list = selector.trim().replace(/^:where\(([\s\S]*)\)$/, "$1")
+  const parts = [""]
+  let depth = 0
+  for (const char of list) {
+    if (char === "(") depth++
+    if (char === ")") depth--
+    if (char === "," && depth === 0) parts.push("")
+    else parts[parts.length - 1] += char
+  }
+  return parts.map((part) => part.replaceAll(/\s+/g, ""))
+}
+
+const componentCss = [
+  ...readdirSync("packages/opui/css/components").map(
+    (file) => `packages/opui/css/components/${file}`,
+  ),
+  ...readdirSync("packages/opui/core").map(
+    (file) => `packages/opui/core/${file}`,
+  ),
+]
+  .filter((file) => file.endsWith(".css"))
+  .map((file) => readFileSync(file, "utf8"))
+  .join("\n")
+  .replaceAll(/\s+/g, " ")
+  .replaceAll(/\( /g, "(")
+
+const fallbacksOf = (name: string) => {
+  const fallbacks = new Set<string>()
+  const needle = `var(${name},`
+  let from = componentCss.indexOf(needle)
+  while (from >= 0) {
+    let depth = 1
+    let index = from + needle.length
+    for (; depth > 0 && index < componentCss.length; index++) {
+      if (componentCss[index] === "(") depth++
+      if (componentCss[index] === ")") depth--
+    }
+    fallbacks.add(
+      componentCss
+        .slice(from + needle.length, index - 1)
+        .replaceAll(/\s+/g, " ")
+        .trim(),
+    )
+    from = componentCss.indexOf(needle, index)
+  }
+  return [...fallbacks]
+}
+
+const paletteSourceScopes = (css: string) =>
+  [...css.replaceAll(/\/\*[\s\S]*?\*\//g, "").matchAll(/([^{}]+)\{([^{}]*)\}/g)]
+    .filter(([, , body]) => /--ui-palette-source\s*:/.test(body))
+    .map(([, selector, body]) => ({ body, selectors: selectorList(selector) }))
+
+describe("theme tokens", () => {
+  test("sections follow the headers in theme.css", () => {
+    expect(
+      sections
+        .filter((section) => section.tokens.length > 0)
+        .map((section) => section.title),
+    ).toEqual([
+      "Color scheme",
+      "Palette",
+      "Palette shades",
+      "Intent tokens",
+      "Primary",
+      "Text",
+      "Surfaces",
+      "Borders",
+      "Field / input",
+      "Focus ring",
+      "Typography",
+      "Code",
+      "Spacing",
+      "Controls",
+      "Control sizes",
+      "Button",
+      "Tabs",
+      "Divider",
+      "Motion",
+      "Contrast",
+      "State",
+      "Icons",
+      "Choice controls",
+      "Elevation",
+      "Overlays",
+      "Safe areas",
+    ])
+  })
+
+  test("the table adds the palette steps and the local tokens", () => {
+    const titles = themeTokenSections().map((section) => section.title)
+    expect(titles.indexOf("Palette steps")).toBe(titles.indexOf("Palette") + 1)
+    expect(titles.at(-1)).toBe("Local tokens")
+    const names = (title: string) =>
+      themeTokenSections()
+        .find((section) => section.title === title)!
+        .tokens.map((token) => token.name)
+    expect(names("Palette steps")).toEqual(
+      ["color", "gray"].flatMap((family) =>
+        Array.from({ length: 16 }, (_, index) => `--ui-${family}-${index + 1}`),
+      ),
+    )
+    expect(names("Palette steps").every((name) => find(name))).toBe(true)
+    expect(names("Local tokens")).toEqual(
+      LOCAL_TOKENS.map((token) => token.name),
+    )
+    expect(names("Local tokens").some((name) => find(name))).toBe(false)
+  })
+
+  test("every token a stylesheet reads is a theme token or a local token", () => {
+    const reads = new Set(
+      [...componentCss.matchAll(/var\((--ui-[\w-]+)/g)].map(
+        (match) => match[1],
+      ),
+    )
+    const inputs = LOCAL_TOKENS.map((token) => token.name)
+    expect(
+      [...reads].filter((name) => !find(name) && !inputs.includes(name)),
+    ).toEqual([])
+    for (const name of inputs) {
+      expect(reads, name).toContain(name)
+      expect(themeSource, name).not.toContain(`${name}:`)
+    }
+  })
+
+  test("every token is declared once", () => {
+    const names = tokens.map((token) => token.name)
+    expect(new Set(names).size).toBe(names.length)
+    expect(find("--ui-border-color")).toBeDefined()
+    expect(find("--ui-radius")).toBeDefined()
+  })
+
+  test("the parser skips print-only values", () => {
+    const parsed = parseThemeTokens(`@layer theme.base {
+  :where(html) {
+    /* Color scheme */
+    --x-scheme: light;
+  }
+
+  :where(html.ui-dark) {
+    --x-scheme: dark;
+  }
+
+  @media print {
+    :where(html),
+    .ui-dark {
+      --x-scheme: print;
+    }
+  }
+}
+`)
+    expect(parsed.flatMap(({ tokens }) => tokens)).toEqual([
+      { dark: "dark", name: "--x-scheme", value: "light" },
+    ])
+  })
+
+  test("the parser reads light, dark, more-contrast and optional values", () => {
+    const parsed = parseThemeTokens(`@layer theme.base {
+  :where(html) {
+    /* Text - text colors */
+    --x-text: var(--x-ink);
+    /* --x-source: red; */
+    --x-shadow:
+      0 1px red,
+      0 2px blue;
+
+    /* Motion */
+    --x-motion: 1;
+  }
+
+  :where(html.ui-dark) {
+    --x-text: white;
+    --x-dark-only: 1;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :where(html:not(.ui-light)) {
+      --x-text: white;
+    }
+  }
+
+  .ui-card {
+    --x-card: 1;
+  }
+
+  :where(html:dir(rtl)) {
+    --x-motion: -1;
+  }
+
+  @container style(--ui-contrast: more) {
+    :where(*) {
+      --x-text: black;
+    }
+  }
+}
+`)
+    expect(parsed).toEqual([
+      {
+        note: "text colors",
+        title: "Text",
+        tokens: [
+          {
+            dark: "white",
+            moreContrast: "black",
+            name: "--x-text",
+            value: "var(--x-ink)",
+          },
+          { name: "--x-source", optional: true, value: "red" },
+          { name: "--x-shadow", value: "0 1px red, 0 2px blue" },
+        ],
+      },
+      {
+        note: undefined,
+        title: "Motion",
+        tokens: [{ name: "--x-motion", value: "1" }],
+      },
+    ])
+  })
+
+  test("theme.css has dark and more-contrast overrides, and optional tokens", () => {
+    expect(tokens.filter((token) => token.dark).length).toBeGreaterThan(0)
+    expect(tokens.filter((token) => token.moreContrast).length).toBeGreaterThan(
+      0,
+    )
+    expect(tokens.filter((token) => token.optional).length).toBeGreaterThan(0)
+  })
+
+  test("every token has a design token type, unless the format has none for it", () => {
+    expect(
+      tokens
+        .filter((token) => !tokenType(token.name))
+        .map((token) => token.name)
+        .toSorted(),
+    ).toEqual([
+      "--ui-button-focus",
+      "--ui-button-hover",
+      "--ui-button-hover-translate",
+      "--ui-choice-checked",
+      "--ui-color-scheme",
+      "--ui-contrast",
+      "--ui-ease-move",
+      "--ui-icon-check",
+      "--ui-icon-clear",
+      "--ui-icon-close",
+      "--ui-icon-critical",
+      "--ui-icon-decrease",
+      "--ui-icon-expand",
+      "--ui-icon-hide",
+      "--ui-icon-increase",
+      "--ui-icon-info",
+      "--ui-icon-invalid",
+      "--ui-icon-next",
+      "--ui-icon-rating",
+      "--ui-icon-rating-empty",
+      "--ui-icon-show",
+      "--ui-icon-sort",
+      "--ui-icon-success",
+      "--ui-icon-warning",
+      "--ui-link-focus",
+      "--ui-surface-image",
+      "--ui-surface-raised-image",
+    ])
+  })
+
+  test("every token has a description and no description is stale", () => {
+    const names = themeTokenSections()
+      .flatMap((section) => section.tokens)
+      .map((token) => token.name)
+    for (const name of names) {
+      expect(themeTokenDescriptions[name], name).toBeTruthy()
+      expect(themeTokenDescriptions[name], name).not.toContain("undefined")
+    }
+    for (const name of Object.keys(themeTokenDescriptions)) {
+      expect(names, name).toContain(name)
+    }
+    const written = Object.keys(themeTokenDescriptions).filter(
+      (name) => !steps.has(name),
+    )
+    expect(written).toEqual(written.toSorted())
+  })
+
+  test("every promise names declared tokens and is sorted", () => {
+    for (const [name, promise] of Object.entries(themeTokenPromises)) {
+      expect(find(name), name).toBeDefined()
+      for (const against of promise.against) {
+        for (const read of against.match(/--ui-[\w-]+/g) ?? [])
+          expect(find(read), read).toBeDefined()
+      }
+    }
+    expect(Object.keys(themeTokenPromises)).toEqual(
+      Object.keys(themeTokenPromises).toSorted(),
+    )
+  })
+
+  test("every token the quick theme controls write exists in theme.css", () => {
+    for (const token of [...BRAND_TOKENS, ...CORNER_TOKENS, ...FONT_TOKENS]) {
+      expect(find(token)).toBeDefined()
+    }
+  })
+
+  test("the primitive block reads no other token, so primitives inherit into every scope", () => {
+    const start = themeSource.indexOf(":where(html) {")
+    const end = themeSource.indexOf("\n  }\n", start)
+    const block = themeSource.slice(start, end)
+    const reads = [
+      ...block.matchAll(/^\s*(--ui-[\w-]+):[^;]*var\(--(?:ui-|_)[^;]*;/gm),
+    ].map((match) => match[1])
+    expect(reads).toEqual([])
+  })
+
+  test("the contrast rules set primitives only, and both set the same ones", () => {
+    const bodies = [
+      ...themeSource.matchAll(
+        /:where\((?:html:not\(\.ui-contrast-normal\)|\.ui-contrast-more)\) \{([^}]*)\}/g,
+      ),
+    ].map((match) => match[1].replaceAll(/\s+/g, " ").trim())
+    expect(bodies).toHaveLength(2)
+    expect(bodies[0]).toBe(bodies[1])
+    expect(bodies[0]).not.toMatch(/var\(--(?:ui-|_)/)
+  })
+
+  test("an optional token has one fallback, unless it is an optional global with a default per component", () => {
+    const optional = tokens.filter((token) => token.optional)
+    for (const token of optional) {
+      const fallbacks = fallbacksOf(token.name)
+      if ((OPTIONAL_GLOBALS as readonly string[]).includes(token.name)) {
+        expect(fallbacks.length, token.name).toBeGreaterThan(1)
+      } else {
+        expect(fallbacks.length, token.name).toBeLessThanOrEqual(1)
+      }
+    }
+    for (const name of OPTIONAL_GLOBALS) {
+      expect(find(name)?.optional, name).toBe(true)
+    }
+    expect([...OPTIONAL_GLOBALS]).toEqual([...OPTIONAL_GLOBALS].toSorted())
+  })
+
+  test("every token has a tier, and no tier is stale", () => {
+    const names = new Set(tokens.map((token) => token.name))
+    for (const name of Object.keys(themeTokenTiers)) {
+      expect(names, name).toContain(name)
+      expect(OPTIONAL_GLOBALS, name).not.toContain(name)
+    }
+    for (const tier of ["component", "primitive", "scale"]) {
+      const names = Object.entries(themeTokenTiers)
+        .filter(([name, candidate]) => candidate === tier && !steps.has(name))
+        .map(([name]) => name)
+      expect(names, tier).toEqual(names.toSorted())
+    }
+    expect(tokenTier("--ui-palette-hue")).toBe("primitive")
+    expect(tokenTier("--ui-font-size-300")).toBe("scale")
+    for (const name of steps) expect(tokenTier(name), name).toBe("scale")
+    expect(tokenTier("--ui-anchor-position-area")).toBe("local")
+    expect(tokenTier("--ui-primary")).toBe("global")
+    expect(tokenTier("--ui-selected")).toBe("global")
+    expect(tokenTier("--ui-button-size")).toBe("component")
+    expect(tokenTier("--ui-code-bg-color")).toBe("component")
+    expect(tokenTier("--ui-backdrop-bg-color")).toBe("global")
+    expect(tokenTier("--ui-control-size")).toBe("global")
+    const primitiveBlock = themeSource.slice(
+      themeSource.indexOf(":where(html) {"),
+      themeSource.indexOf("\n  }\n", themeSource.indexOf(":where(html) {")),
+    )
+    for (const token of tokens) {
+      if (tokenTier(token.name) !== "primitive") continue
+      expect(
+        primitiveBlock.includes(`${token.name}:`) ||
+          token.name === "--ui-primary-source",
+        token.name,
+      ).toBe(true)
+    }
+  })
+
+  test("a declared token is read without a fallback", () => {
+    const declared = tokens.filter((token) => !token.optional)
+    const withFallback = declared
+      .filter((token) => fallbacksOf(token.name).length > 0)
+      .map((token) => token.name)
+    expect(withFallback).toEqual([])
+  })
+
+  test("tokens.json holds native values where the CSS allows and the CSS beside them", () => {
+    const json = tokensJson()
+    expect(json.contrast["ui-control-accent-min-lightness-dark"]).toMatchObject(
+      {
+        $type: "number",
+        $value: 0.8,
+      },
+    )
+    expect(
+      json.contrast["ui-control-accent-min-lightness-dark"].$extensions.opui,
+    ).toMatchObject({ css: "0.8", modes: { "more-contrast": "0.9" } })
+    expect(json.borders["ui-border-width"]).toMatchObject({
+      $type: "dimension",
+      $value: { unit: "px", value: 1 },
+    })
+    expect(json.typography["ui-font-size-caption"]).toMatchObject({
+      $type: "dimension",
+      $value: "{typography.ui-font-size-100}",
+    })
+    expect(json.contrast["ui-text-strength-light"]).toMatchObject({
+      $value: "87%",
+    })
+    expect(
+      json.contrast["ui-text-strength-light"].$extensions.opui.css,
+    ).toBeUndefined()
+    expect(json.state["ui-selected"]).toMatchObject({
+      $extensions: { opui: { optional: true, tier: "global" } },
+    })
+    expect(json.state["ui-selected"].$value).toBeUndefined()
+  })
+
+  test("tokens.json groups have fixed keys, not slugs of the theme.css comments", () => {
+    expect(Object.keys(tokensJson())).toEqual(
+      expect.arrayContaining(["field", "intent", "local-tokens"]),
+    )
+    expect(() => sectionKey("Field and input")).toThrow(
+      'The theme.css section "Field and input" has no key',
+    )
+  })
+
+  test("every scope that sets --ui-palette-source re-derives the palette", () => {
+    const derived = paletteSourceScopes(paletteSource).find(({ body }) =>
+      /--ui-color-1\s*:/.test(body),
+    )?.selectors
+    const scopes = paletteSourceScopes(themeSource).flatMap(
+      ({ selectors }) => selectors,
+    )
+    expect(scopes).toContain(".ui-warning")
+    for (const scope of scopes) expect(derived, scope).toContain(scope)
+  })
+
+  test("setThemeToken replaces the light declaration only", () => {
+    const css = setThemeToken(
+      "html {\n  --x: 1;\n}\nhtml.ui-dark {\n  --x: 2;\n}\n",
+      "--x",
+      "3",
+    )
+    expect(css).toBe("html {\n  --x: 3;\n}\nhtml.ui-dark {\n  --x: 2;\n}\n")
+    expect(() => setThemeToken(css, "--missing", "1")).toThrow()
+  })
+})
+
+describe("component css variables", () => {
+  const apis = Object.values(
+    import.meta.glob<{ default: ComponentApi }>(
+      "../../src/component-api/*/api.ts",
+      { eager: true },
+    ),
+  ).map((module) => module.default)
+
+  test("every api maps to existing stylesheets", () => {
+    for (const api of apis) {
+      for (const file of stylesheets(api)) {
+        expect(existsSync(file), `${api.component}: ${file}`).toBe(true)
+      }
+    }
+  })
+
+  test("button reads its size and radius tokens", () => {
+    const button = apis.find((api) => api.component === "Button")!
+    const names = cssVarRows(button).map((row) => row.name)
+    expect(names).toContain("--ui-button-radius")
+    expect(names).toContain("--ui-button-size")
+    expect(names).toContain("--ui-state-disabled-opacity")
+    expect(names).toEqual(names.toSorted())
+  })
+})
+
+const scaledOverrideProblem = (
+  name: string,
+  value: string,
+  scaled: Map<string, string>,
+) => {
+  const knob = scaled.get(name)
+  if (!knob || value.trim() === "revert-layer") return undefined
+  return [knob, ...scaled.keys()].some((token) =>
+    value.includes(`var(${token})`),
+  )
+    ? undefined
+    : `${name}: ${value} drops ${knob}, so the size stops following it. Write calc(<length> * var(${knob})), or calc(<length> * var(${knob}) / <your ${knob}>) for the length it has at a value your theme sets, or build it from another scaled token`
+}
+
+const overridesIn = (css: string) =>
+  [
+    ...css
+      .replace(/\/\*[\s\S]*?\*\//g, "")
+      .matchAll(/(--ui-[\w-]+)\s*:\s*([^;{}]+);/g),
+  ].map(([, name, value]) => ({ name, value: value.replace(/\s+/g, " ") }))
+
+describe("scaled tokens", () => {
+  const scaled = scaledTokens()
+
+  test("follow the primitive they are scaled by", () => {
+    expect(scaled.get("--ui-control-size")).toBe("--ui-density")
+    expect(scaled.get("--ui-button-size")).toBe("--ui-density")
+    expect(scaled.get("--ui-space-4")).toBe("--ui-space-scale")
+    expect(scaled.has("--ui-radius")).toBe(false)
+    const controlSize = Object.values(tokensJson())
+      .flatMap((section) => Object.entries(section))
+      .find(([key]) => key === "ui-control-size")?.[1]
+    expect(controlSize?.$extensions.opui.scaledBy).toBe("--ui-density")
+  })
+
+  test("an example theme or a Theme builder preset that sets one keeps its primitive", () => {
+    const themes = readdirSync("packages/opui/themes").filter((file) =>
+      file.endsWith(".css"),
+    )
+    const builder = [
+      ...readFileSync("src/utils/theme-builder-controls.ts", "utf8").matchAll(
+        /"(--ui-[\w-]+)":\s*"([^"]+)"/g,
+      ),
+    ].map(([, name, value]) => ({ name, value }))
+    const problems = [
+      ...themes.flatMap((file) =>
+        overridesIn(readFileSync(`packages/opui/themes/${file}`, "utf8")).map(
+          ({ name, value }) => scaledOverrideProblem(name, value, scaled),
+        ),
+      ),
+      ...builder.map(({ name, value }) =>
+        scaledOverrideProblem(name, value, scaled),
+      ),
+    ].filter(Boolean)
+    expect(problems).toEqual([])
+  })
+
+  test("samples the scaled override rule must flag and must keep", () => {
+    expect(
+      scaledOverrideProblem("--ui-control-size-small", "2rem", scaled),
+    ).toContain("drops --ui-density")
+    expect(scaledOverrideProblem("--ui-space-4", "1rem", scaled)).toContain(
+      "drops --ui-space-scale",
+    )
+    expect(
+      [
+        ["--ui-control-size-small", "calc(2rem * var(--ui-density))"],
+        ["--ui-control-size-small", "calc(2rem * var(--ui-density) / 0.9)"],
+        ["--ui-button-size", "var(--ui-control-size-large)"],
+        ["--ui-control-size", "revert-layer"],
+        ["--ui-radius", "4px"],
+      ].map(([name, value]) => scaledOverrideProblem(name, value, scaled)),
+    ).toEqual([undefined, undefined, undefined, undefined, undefined])
+  })
+})

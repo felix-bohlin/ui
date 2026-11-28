@@ -1,0 +1,59 @@
+import { filled } from "../attrs"
+import { cx } from "../cx"
+import SwitchInput from "./SwitchInput.react"
+import { DEV, hasName, warnUnnamed } from "../dev"
+import type { Props } from "./types.react"
+
+export default function Switch({
+  "aria-invalid": ariaInvalid,
+  card,
+  className,
+  error,
+  hideLabel,
+  label,
+  orientation,
+  size,
+  spread,
+  style,
+  variant,
+  children,
+  endText,
+  iconChecked,
+  iconUnchecked,
+  ...rest
+}: Props) {
+  if (DEV) warnUnnamed("Switch", hasName({ ...rest, label }, filled(children)))
+
+  return (
+    <label
+      className={cx([
+        "ui-switch",
+        { "ui-card": card, "ui-spread": spread },
+        card && variant && variant !== "outlined" && `ui-${variant}`,
+        orientation && orientation !== "horizontal" && `ui-${orientation}`,
+        size && size !== "medium" && `ui-${size}`,
+        className,
+      ])}
+      style={style}
+    >
+      {filled(iconUnchecked) && (
+        <span className="ui-icon-unchecked" aria-hidden="true">
+          {iconUnchecked}
+        </span>
+      )}{" "}
+      {filled(iconChecked) && (
+        <span className="ui-icon-checked" aria-hidden="true">
+          {iconChecked}
+        </span>
+      )}{" "}
+      <SwitchInput {...rest} aria-invalid={error ? "true" : ariaInvalid} />
+      {(label || children) && (
+        <span className={hideLabel ? "ui-sr-only" : "ui-label"}>
+          {label}
+          {children}
+        </span>
+      )}
+      {filled(endText) && <span className="ui-end-text">{endText}</span>}
+    </label>
+  )
+}

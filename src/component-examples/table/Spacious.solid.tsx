@@ -1,0 +1,42 @@
+/** @jsxImportSource @solidjs/web */
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/solid"
+
+export default function Spacious() {
+  return (
+    <Table density="spacious">
+      <TableCaption>Bassists Anonymous members</TableCaption>
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>Name</TableHeaderCell>
+          <TableHeaderCell>Specialty</TableHeaderCell>
+          <TableHeaderCell>Location</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell>Kinga Headstock</TableCell>
+          <TableCell>Flatwound collector</TableCell>
+          <TableCell>Göteborg</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Adam Groove</TableCell>
+          <TableCell>Slap enthusiast</TableCell>
+          <TableCell>Lisbon</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Mohini Hertz</TableCell>
+          <TableCell>Low B whisperer</TableCell>
+          <TableCell>Berlin</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  )
+}

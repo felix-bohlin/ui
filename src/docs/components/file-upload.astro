@@ -1,0 +1,202 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import DefaultIcon from "./partials/DefaultIcon.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+
+export const description =
+  "A drop zone around a file input that lists the files your app is uploading, with a preview, progress, a message and a remove button for each."
+
+export const keywords = ["attachment", "drop zone", "dropzone", "photos"]
+---
+
+<Component description={description}>
+  <Fragment slot="preamble">
+    A drop zone that lists the files your app uploads. For one file that posts
+    with a form, use the
+    <DocLink href="/components/field#drop-zone">drop zone</DocLink> of a Text
+    field.
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      Files that upload as soon as they're picked, like the
+      <a href="#upload-as-you-pick">photos of a post</a>.
+    </li>
+    <li slot="when">
+      A narrow place, like a comment box on a phone: the
+      <a href="#compact">compact row</a>.
+    </li>
+    <li slot="when-not">
+      One file that posts with its form: use a
+      <DocLink href="/components/field#drop-zone">Field</DocLink>.
+    </li>
+    <li slot="when-not">
+      A list of files that are already stored: use a
+      <DocLink href="/components/list">List</DocLink>.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        <code>label</code> names the file input, and <code>description</code> is
+        the hint. <code>accept</code> and <code>multiple</code> work as on a
+        file input.
+      </Fragment>
+      <Fragment slot="html">
+        Import <code>opui-css/elements/file-upload.js</code>. The label names
+        the file input, and <code>aria-describedby</code> links the hint.
+      </Fragment>
+      <Fragment slot="nunjucks">
+        <code>label</code> names the file input, and <code>description</code> is
+        the hint. <code>accept</code> and <code>multiple</code> work as on a
+        file input. Load <code>opui-css/elements/file-upload.js</code> on the
+        page.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Basics" column />
+  </section>
+
+  <section id="files">
+    <h2>Files</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Pass the files as <code>items</code>. A queued file shows a waiting
+        <DocLink href="/components/progress">Progress</DocLink>, and an
+        uploading one its <code>progress</code> from 0 to 1.
+      </Fragment>
+      <Fragment slot="html">
+        Each file is an <code>&lt;li&gt;</code> of a
+        <DocLink href="/components/list">List</DocLink>, with a
+        <DocLink href="/components/progress">Progress</DocLink> while it's
+        queued or uploading.
+      </Fragment>
+    </Conditional>
+    <DefaultIcon tokens={["--ui-icon-close", "--ui-icon-increase"]} />
+    <AutoExample name="Items" column />
+  </section>
+
+  <section id="upload-as-you-pick">
+    <h2>Upload as you pick</h2>
+    <Conditional as="p">
+      <Fragment slot="react">
+        The component uploads nothing. Start each upload in <code>onSelect</code
+        >, keep its state in <code>items</code>, and cancel it in
+        <code>onRemove</code>.
+      </Fragment>
+      <Fragment slot="solid">
+        The component uploads nothing. Start each upload in <code>onSelect</code
+        >, keep its state in <code>items</code>, and cancel it in
+        <code>onRemove</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        The component uploads nothing. Start each upload in <code>onselect</code
+        >, keep its state in <code>items</code>, and cancel it in
+        <code>onremove</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        The component uploads nothing. Start each upload in <code>@select</code
+        >, keep its state in <code>items</code>, and cancel it in
+        <code>@remove</code>.
+      </Fragment>
+      <Fragment slot="html">
+        The element uploads nothing. Add a row and start its upload in the
+        <code>select</code> event, and take the row out and cancel the upload in
+        <code>remove</code>.
+      </Fragment>
+    </Conditional>
+    <p>This example only pretends to upload.</p>
+    <AutoExample name="Controlled" column />
+  </section>
+
+  <section id="errors">
+    <h2>Errors</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Give a failed file <code>state: "error"</code> and a
+        <code>description</code>, and say it once in <code>status</code>, which
+        screen readers announce.
+      </Fragment>
+      <Fragment slot="html">
+        Mark a failed file with <code>.ui-state-error</code>, and say it once in
+        the <code>role="status"</code> region, which screen readers announce.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Errors" column />
+  </section>
+
+  <section id="disabled">
+    <h2>Disabled</h2>
+    <AutoExample name="Disabled" column />
+  </section>
+
+  <section id="compact">
+    <h2>Compact</h2>
+    <p>
+      Narrower than <code>28rem</code>, the component is one row: an add tile,
+      then previews that scroll sideways. A failed preview opens its message.
+    </p>
+    <AutoExample name="Compact" column />
+  </section>
+
+  <section id="labels">
+    <h2>Labels</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Translate the names of the remove buttons and the progress bars with
+        <code>removeLabel</code> and <code>progressLabel</code>, where
+        <code>&#123;label&#125;</code> is the file's name.
+      </Fragment>
+      <Fragment slot="html">
+        Translate the <code>aria-label</code> of each remove button and progress
+        bar.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Labels" column />
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        The trigger's text names the file input. The hint is its description, so
+        it's read after the name.
+      </li>
+      <li>
+        Dragging is never the only way: the input opens the file picker from the
+        keyboard.
+      </li>
+      <li>
+        Every file keeps its remove button in every state. After a removal,
+        focus moves to the next file's remove button, or else the previous one,
+        or else the input.
+      </li>
+      <li>
+        Failures are announced once, in the status region, and each failed file
+        carries its own message.
+        <Conditional>
+          <Fragment slot="components">
+            Fill <code>status</code> when uploads fail or finish.
+          </Fragment>
+          <Fragment slot="html">
+            Keep the region in the page and change its text.
+          </Fragment>
+        </Conditional>
+      </li>
+      <li>
+        In the compact row the file names and the hint are visually hidden, and
+        a failed preview is a button named by the file and its message.
+      </li>
+      <li>
+        Checked in Chromium's accessibility tree. Not yet checked with a screen
+        reader on a phone.
+      </li>
+    </ul>
+    <KeyboardSupport />
+  </Fragment>
+</Component>

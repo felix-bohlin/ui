@@ -1,72 +1,175 @@
 ---
-import CodeGroup from "./CodeGroup.astro"
-import { components } from "../utils/components"
+import Code from "./Code.astro"
+import { catalog } from "../component-api/catalog.glob"
+import { compatCss } from "../utils/compat"
+import { elementImports } from "../utils/component-imports"
+import { componentName } from "../utils/components"
+import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
+import InstallationFiles from "./InstallationFiles.astro"
+import InstallCommand from "../docs/guide/getting-started/partials/InstallCommand.astro"
 
 export type Tab = {
   title: string
-  code?: string
+  code: string
   lang?: string
   isDependency?: boolean
-  seeAlso?: boolean
 }
 
 type Props = {
-  tabs: Tab[]
+  imports?: { names: string[]; package: string }
+  slug: string
+  snippets?: Tab[]
+  sourceTabs?: Tab[]
 }
 
-const { tabs } = Astro.props
-const { link } = Astro.locals
+const { imports, slug, snippets = [], sourceTabs = [] } = Astro.props
 
-const dependencies = tabs
-  .filter((tab) => tab.isDependency)
-  .map((tab) => {
-    const slug = tab.title.replace(".css", "")
-    return components.find((c) => c.href.endsWith(slug))
-  })
-  .filter((c): c is (typeof components)[number] => c != null)
+const { framework, link } = Astro.locals
+const macros = framework === "nunjucks"
 
-const seeAlsoLinks = tabs
-  .filter((tab) => tab.seeAlso)
-  .map((tab) => {
-    const slug = tab.title.replace(".css", "")
-    return components.find((c) => c.href.endsWith(slug))
-  })
-  .filter(Boolean) as (typeof components)[number][]
+const importLine = !imports
+  ? ""
+  : macros
+    ? `{% from "opui/index.njk" import ${imports.names.join(", ")} %}`
+    : `import { ${imports.names.join(", ")} } from "${imports.package}"`
+const importCode =
+  imports && importLine.length > 80
+    ? macros
+      ? `{% from "opui/index.njk" import\n${imports.names.map((name) => `  ${name}`).join(",\n")}\n%}`
+      : `import {\n${imports.names.map((name) => `  ${name},`).join("\n")}\n} from "${imports.package}"`
+    : importLine
+
+const files = import.meta.glob<string>(
+  [
+    "../../packages/opui/css/components/*.css",
+    "../../packages/opui/elements/*.js",
+  ],
+  { eager: true, import: "default", query: "?raw" },
+)
+
+const tabs = [
+  ...catalog.installOf(slug).map(({ dependency, file, type }) => ({
+    code: files[
+      type === "css"
+        ? `../../packages/opui/css/components/${file}`
+        : `../../packages/opui/elements/${file}`
+    ],
+    isDependency: dependency,
+    lang: type,
+    title: file,
+  })),
+  ...snippets,
+]
+
+const pageLink = (page: string) => ({
+  href: `/components/${page}`,
+  name: componentName(page),
+})
+
+const dependencies = catalog.dependenciesOf(slug).map(pageLink)
+
+const allTabs = [
+  ...tabs,
+  ...tabs.flatMap((tab) =>
+    compatCss[tab.title]
+      ? [
+          {
+            code: compatCss[tab.title],
+            isDependency: tab.isDependency,
+            lang: "css",
+            title: `compat/${tab.title}`,
+          },
+        ]
+      : [],
+  ),
+  ...elementImports(tabs.map((tab) => tab.title)),
+]
+
+const usedBy = catalog.dependentsOf(slug).map(pageLink)
 ---
 
-<section>
-  <h2 id="installation">Installation</h2>
-  <slot />
+<section id="installation">
+  <h2>Installation</h2>
+  {imports ? (
+    <Tabs class="installation-methods" overflow="wrap" variant="line">
+      <TabsItem checked>
+        <TabsLabel>Command</TabsLabel>
+        <TabsPanel>
+          <InstallCommand />
+          {imports.names.length > 0 && (
+            <>
+              <p>
+                Import{" "}
+                {imports.names.length === 1
+                  ? macros
+                    ? "the macro"
+                    : "the component"
+                  : macros
+                    ? "the macros"
+                    : "the components"}
+                from{" "}
+                <code>{macros ? "opui/index.njk" : imports.package}</code>:
+              </p>
+              <Code code={importCode} lang={macros ? "html" : "ts"} />
+            </>
+          )}
+          <p>
+            {macros ? (
+              <Fragment>
+                The macros ship markup only. Link the CSS once, or only the
+                files under Manual. See
+              </Fragment>
+            ) : (
+              <Fragment>
+                The components ship markup only. Import
+                <code>opui-css/css/imports.css</code> once, or only the files
+                under Manual. See
+              </Fragment>
+            )}
+            <a href={link("/guide/getting-started")}>Getting started</a>.
+          </p>
+        </TabsPanel>
+      </TabsItem>
+      <TabsItem>
+        <TabsLabel>Manual</TabsLabel>
+        <TabsPanel>
+          <InstallationFiles sourceTabs={sourceTabs} tabs={allTabs}>
+            <slot />
+          </InstallationFiles>
+        </TabsPanel>
+      </TabsItem>
+    </Tabs>
+  ) : (
+    <InstallationFiles sourceTabs={sourceTabs} tabs={allTabs}>
+      <slot />
+    </InstallationFiles>
+  )}
 
-  {
-    dependencies.length > 0 && (
-      <>
-        <h3 id="dependencies">Dependencies</h3>
-        <ul>
-          {dependencies.map((dep) => (
-            <li>
-              <a href={link(dep.href)}>{dep.name}</a>
-            </li>
-          ))}
-        </ul>
-      </>
-    )
-  }
+  {dependencies.length > 0 && (
+    <>
+      <h3 id="dependencies">Dependencies</h3>
+      <ul>
+        {dependencies.map((dep) => <li>
+          <a href={link(dep.href)}>{dep.name}</a>
+        </li>)}
+      </ul>
+    </>
+  )}
 
-  {
-    seeAlsoLinks.length > 0 && (
-      <>
-        <h3 id="see-also">See also</h3>
-        <ul>
-          {seeAlsoLinks.map((item) => (
-            <li>
-              <a href={link(item.href)}>{item.name}</a>
-            </li>
-          ))}
-        </ul>
-      </>
-    )
-  }
-
-  <CodeGroup tabs={tabs.filter((tab) => tab.code)} />
+  {usedBy.length > 0 && (
+    <>
+      <h3 id="used-by">Used by</h3>
+      <ul>
+        {usedBy.map((item) => <li>
+          <a href={link(item.href)}>{item.name}</a>
+        </li>)}
+      </ul>
+    </>
+  )}
 </section>
+
+<style>
+  .installation-methods {
+    margin-block: var(--size-4);
+  }
+</style>

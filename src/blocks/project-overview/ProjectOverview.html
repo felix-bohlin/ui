@@ -1,0 +1,442 @@
+<div
+  class="project-overview ui-layout-container ui-layout-column ui-gap-large"
+  style="--_max-inline-size: 80rem"
+>
+  <div class="ui-layout-row ui-spread">
+    <hgroup class="ui-hgroup">
+      <p>Bassbook, community meetup</p>
+      <h1 class="ui-h3">Bass Day 2026</h1>
+      <p>
+        <span class="ui-chip ui-dot ui-success ui-small ui-outlined">
+          <span class="ui-text">On track</span>
+        </span>
+      </p>
+    </hgroup>
+    <div class="ui-layout-row ui-gap-small">
+      <button class="ui-button ui-small ui-outlined" type="button">
+        Share
+      </button>
+      <button
+        class="ui-button ui-small ui-filled"
+        type="button"
+        command="toggle-popover"
+        commandfor="project-overview-actions"
+      >
+        <span class="ui-text">Actions</span>
+        <svg
+          data-icon="chevron-down"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"
+          ></path>
+        </svg>
+      </button>
+      <menu class="ui-menu ui-align-end" id="project-overview-actions" popover>
+        <li>
+          <button
+            type="button"
+            command="hide-popover"
+            commandfor="project-overview-actions"
+          >
+            <div class="ui-text">
+              <p>Edit details</p>
+            </div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            command="hide-popover"
+            commandfor="project-overview-actions"
+          >
+            <div class="ui-text">
+              <p>Add milestone</p>
+            </div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            command="hide-popover"
+            commandfor="project-overview-actions"
+          >
+            <div class="ui-text">
+              <p>Export report</p>
+            </div>
+          </button>
+        </li>
+        <li class="ui-border-top ui-critical">
+          <button
+            type="button"
+            command="hide-popover"
+            commandfor="project-overview-actions"
+          >
+            <div class="ui-text">
+              <p>Archive meetup</p>
+            </div>
+          </button>
+        </li>
+      </menu>
+    </div>
+  </div>
+  <div class="ui-callout ui-warning">
+    <svg
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+    ></svg>
+    <div class="ui-content">
+      <p>
+        The big jam rehearsal moved from 10 to 14 October.
+        <a class="ui-link" href="#project-overview-jam">See what changed</a>
+      </p>
+    </div>
+  </div>
+  <ul class="ui-layout-grid ui-stretch" style="--_min-inline-size: 13rem">
+    <li>
+      <div class="ui-card ui-outlined">
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">
+              <span id="project-overview-progress-label">Progress</span>
+            </dt>
+            <dd class="ui-value">64%</dd>
+          </dl>
+          <div class="ui-progress">
+            <progress
+              max="100"
+              value="64"
+              aria-labelledby="project-overview-progress-label"
+            ></progress>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="ui-card ui-outlined">
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Tasks completed</dt>
+            <dd class="ui-value">86 of 134</dd>
+            <dd class="ui-description">11 closed this week</dd>
+          </dl>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="ui-card ui-outlined">
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Time left</dt>
+            <dd class="ui-value">23 days</dd>
+            <dd class="ui-description">Bass Day is 31 October</dd>
+          </dl>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="ui-card ui-outlined">
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Budget used</dt>
+            <dd class="ui-value">41 200 kr</dd>
+            <dd class="ui-description">69% of 60 000 kr</dd>
+          </dl>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <div class="ui-layout-columns ui-gap-large" style="--_columns: 3fr 2fr">
+    <div class="ui-layout-column ui-gap-large">
+      <section
+        class="ui-card ui-outlined"
+        aria-labelledby="project-overview-milestones-heading"
+      >
+        <hgroup>
+          <h2 class="ui-h5" id="project-overview-milestones-heading">
+            Milestones
+          </h2>
+          <p>3 of 5 completed.</p>
+        </hgroup>
+        <div class="ui-content">
+          <ol class="ui-timeline">
+            <li class="ui-success">
+              <span class="ui-marker">
+                <svg
+                  data-icon="check-circle"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"
+                  ></path>
+                </svg>
+              </span>
+              <time datetime="2026-08-14">14 Aug</time>
+              <h3 class="ui-h6">Find a venue with enough outlets</h3>
+              <p class="ui-caption">Completed, 12 venues visited</p>
+            </li>
+            <li class="ui-success">
+              <span class="ui-marker">
+                <svg
+                  data-icon="check-circle"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"
+                  ></path>
+                </svg>
+              </span>
+              <time datetime="2026-09-05">5 Sep</time>
+              <h3 class="ui-h6">Book a sound tech who loves bass</h3>
+              <p class="ui-caption">Completed, bassist approved</p>
+            </li>
+            <li class="ui-success">
+              <span class="ui-marker">
+                <svg
+                  data-icon="check-circle"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"
+                  ></path>
+                </svg>
+              </span>
+              <time datetime="2026-09-26">26 Sep</time>
+              <h3 class="ui-h6">Name tags and goodie bags</h3>
+              <p class="ui-caption">Completed, two days late</p>
+            </li>
+            <li aria-current="step">
+              <span class="ui-marker">
+                <svg
+                  data-icon="circle-half"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16m0-14v12a6 6 0 0 0 0-12"
+                  ></path>
+                </svg>
+              </span>
+              <time datetime="2026-10-14">14 Oct</time>
+              <h3 class="ui-h6">
+                <span id="project-overview-jam-label">Big jam rehearsal</span>
+              </h3>
+              <p class="ui-caption">In progress, 18 of 26 tasks done</p>
+              <div class="ui-progress">
+                <progress
+                  max="26"
+                  value="18"
+                  aria-labelledby="project-overview-jam-label"
+                ></progress>
+              </div>
+            </li>
+            <li>
+              <span class="ui-marker">
+                <svg
+                  data-icon="circle"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16"
+                  ></path>
+                </svg>
+              </span>
+              <time datetime="2026-10-31">31 Oct</time>
+              <h3 class="ui-h6">Bass Day, woohoo!</h3>
+              <p class="ui-caption">Upcoming</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+      <section
+        class="ui-card ui-outlined"
+        aria-labelledby="project-overview-activity-heading"
+      >
+        <hgroup>
+          <h2 class="ui-h5" id="project-overview-activity-heading">
+            Recent activity
+          </h2>
+        </hgroup>
+        <ul class="ui-list ui-transparent" role="list">
+          <li>
+            <div class="ui-start">
+              <div class="ui-avatar" aria-label="Scott Humbucker" role="img">
+                <span aria-hidden="true">SH</span>
+              </div>
+            </div>
+            <div class="ui-text">
+              <p>Scott closed “Extension cords for 40 amps”</p>
+              <p>Today, 10:24</p>
+            </div>
+          </li>
+          <li>
+            <div class="ui-start">
+              <div class="ui-avatar" aria-label="Kinga Headstock" role="img">
+                <span aria-hidden="true">KH</span>
+              </div>
+            </div>
+            <div class="ui-text">
+              <p>Kinga uploaded “Bass Day poster v4.png”</p>
+              <p>Today, 08:51</p>
+            </div>
+          </li>
+          <li>
+            <div class="ui-start">
+              <div class="ui-avatar" aria-label="Adam Groove" role="img">
+                <span aria-hidden="true">AG</span>
+              </div>
+            </div>
+            <div class="ui-text">
+              <p>Adam moved the jam rehearsal to 14 October</p>
+              <p>Yesterday, 16:02</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </div>
+    <div class="ui-layout-column ui-gap-large">
+      <section
+        class="ui-card ui-outlined"
+        aria-labelledby="project-overview-team-heading"
+      >
+        <hgroup>
+          <h2 class="ui-h5" id="project-overview-team-heading">Team</h2>
+          <p>5 bassists making it happen.</p>
+        </hgroup>
+        <ul class="ui-list ui-dense ui-transparent" role="list">
+          <li>
+            <div class="ui-start">
+              <div class="ui-avatar" aria-label="Adam Groove" role="img">
+                <span aria-hidden="true">AG</span>
+              </div>
+            </div>
+            <div class="ui-text">
+              <p>Adam Groove</p>
+              <p>Party boss</p>
+            </div>
+            <div class="ui-end">
+              <span class="ui-chip ui-x-small">
+                <span class="ui-text">Owner</span>
+              </span>
+            </div>
+          </li>
+          <li>
+            <div class="ui-start">
+              <div class="ui-avatar" aria-label="Kinga Headstock" role="img">
+                <span aria-hidden="true">KH</span>
+              </div>
+            </div>
+            <div class="ui-text">
+              <p>Kinga Headstock</p>
+              <p>Poster artist</p>
+            </div>
+          </li>
+          <li>
+            <div class="ui-start">
+              <div class="ui-avatar" aria-label="Scott Humbucker" role="img">
+                <span aria-hidden="true">SH</span>
+              </div>
+            </div>
+            <div class="ui-text">
+              <p>Scott Humbucker</p>
+              <p>Amp wrangler</p>
+            </div>
+          </li>
+          <li>
+            <div class="ui-start">
+              <div class="ui-avatar" aria-label="Mohini Hertz" role="img">
+                <span aria-hidden="true">MH</span>
+              </div>
+            </div>
+            <div class="ui-text">
+              <p>Mohini Hertz</p>
+              <p>Snack captain</p>
+            </div>
+          </li>
+          <li>
+            <div class="ui-start">
+              <div class="ui-avatar" aria-label="Josh Rootnote" role="img">
+                <span aria-hidden="true">JR</span>
+              </div>
+            </div>
+            <div class="ui-text">
+              <p>Josh Rootnote</p>
+              <p>Sound check hero</p>
+            </div>
+          </li>
+        </ul>
+        <div class="ui-actions">
+          <button class="ui-button ui-small" type="button">
+            Invite people
+          </button>
+        </div>
+      </section>
+      <section
+        class="ui-card ui-outlined"
+        aria-labelledby="project-overview-details-heading"
+      >
+        <hgroup>
+          <h2 class="ui-h5" id="project-overview-details-heading">Details</h2>
+        </hgroup>
+        <div class="ui-content">
+          <dl class="ui-description-list ui-leader-solid">
+            <div>
+              <dt>Host</dt>
+              <dd>Bassists Anonymous</dd>
+            </div>
+            <div>
+              <dt>Started</dt>
+              <dd>4 August 2026</dd>
+            </div>
+            <div>
+              <dt>Bass Day</dt>
+              <dd>31 October 2026</dd>
+            </div>
+            <div>
+              <dt>Basses</dt>
+              <dd>4-string, 5-string, fretless</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<style>
+  .project-overview {
+    container-type: inline-size;
+  }
+</style>

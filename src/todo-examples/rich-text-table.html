@@ -1,0 +1,95 @@
+<style>
+  .todo-table-scroll {
+    max-inline-size: 100%;
+    overflow-x: auto;
+
+    > table:not([class]) {
+      display: table;
+      overflow-inline: visible;
+    }
+  }
+</style>
+<p class="todo-note">
+  For VoiceOver in Safari. Both tables hold the same data. The first is as it
+  ships: <code>.ui-rich-text</code> makes a table <code>display: block</code> so
+  it can scroll, which in Safari has a record of turning a table into plain
+  text. The second keeps the table a table and scrolls a wrapping
+  <code>div</code> instead, focusable and named by the caption so keyboard users
+  can scroll it. With VoiceOver on, move to each table (VO+Command+T jumps to
+  the next one) and read the cells: if the first is announced as a table with
+  its column and row headers, the item can go; if only the second is, option A
+  holds.
+</p>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Today: <code>display: block</code></p>
+    <div class="ui-rich-text">
+      <table>
+        <caption>
+          Cold brew ratios
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Method</th>
+            <th scope="col">Grind</th>
+            <th scope="col">Ratio</th>
+            <th scope="col">Hours</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Immersion</th>
+            <td>Coarse</td>
+            <td><code>1:8</code></td>
+            <td>18</td>
+          </tr>
+          <tr>
+            <th scope="row">Slow drip</th>
+            <td>Medium</td>
+            <td><code>1:10</code></td>
+            <td>4</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">Option A: a table in a scrolling wrapper</p>
+    <div class="ui-rich-text">
+      <div
+        aria-labelledby="todo-table-scroll-caption"
+        class="todo-table-scroll"
+        role="region"
+        tabindex="0"
+      >
+        <table>
+          <caption id="todo-table-scroll-caption">
+            Cold brew ratios, scrolled by a wrapper
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Method</th>
+              <th scope="col">Grind</th>
+              <th scope="col">Ratio</th>
+              <th scope="col">Hours</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Immersion</th>
+              <td>Coarse</td>
+              <td><code>1:8</code></td>
+              <td>18</td>
+            </tr>
+            <tr>
+              <th scope="row">Slow drip</th>
+              <td>Medium</td>
+              <td><code>1:10</code></td>
+              <td>4</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>

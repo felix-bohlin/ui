@@ -1,0 +1,31 @@
+{% from "opui/index.njk" import
+  Accordion,
+  AccordionContent,
+  AccordionSummary,
+  Card
+%}
+
+{% call Card({
+  "aria-label": "Shipping questions",
+  role: "group",
+  variant: "outlined"
+}) %}
+  {% call Accordion() %}
+    {% call AccordionSummary() %}How long does delivery take?{% endcall %}
+    {% call AccordionContent() %}
+      <p>Two to four working days within the EU, and up to ten elsewhere.</p>
+    {% endcall %}
+  {% endcall %}
+  {% call Accordion() %}
+    {% call AccordionSummary() %}Can I change the delivery address?{% endcall %}
+    {% call AccordionContent() %}
+      <p>Yes, until the order ships. Edit it under Orders in your account.</p>
+    {% endcall %}
+  {% endcall %}
+  {% call Accordion() %}
+    {% call AccordionSummary() %}What does shipping cost?{% endcall %}
+    {% call AccordionContent() %}
+      <p>Orders over €50 ship free. Smaller orders cost €4.90.</p>
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

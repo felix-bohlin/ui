@@ -1,0 +1,19 @@
+{% from "opui/TimelineItem.njk" import TimelineItem %}
+
+{% macro Timeline(props = {}) %}
+  {%- set props = props | opuiProps("Timeline") -%}
+  {%- set rest = props | opuiRest("Timeline") -%}
+  <ol
+    class="ui-timeline
+      {%- if props.tracked %} ui-tracked{% endif %}
+      {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    {%- for entry in props.items -%}
+      {% call TimelineItem(entry | opuiOmit(["description"])) %}
+        {% if entry.description %}<p>{{ entry.description }}</p>{% endif %}
+      {% endcall %}
+    {%- endfor %}
+    {{ caller() if caller -}}
+  </ol>
+{%- endmacro %}

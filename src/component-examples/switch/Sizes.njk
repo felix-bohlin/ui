@@ -1,0 +1,29 @@
+{% from "opui/index.njk" import Switch %}
+
+<div class="example-row">
+  {% call Switch({
+    checked: true,
+    hideLabel: true,
+    name: "switch-sizes",
+    size: "x-small"
+  }) %}X-small{% endcall %}
+  {% call Switch({
+    checked: true,
+    hideLabel: true,
+    name: "switch-sizes",
+    size: "small"
+  }) %}Small{% endcall %}
+  {% call Switch({ checked: true, hideLabel: true, name: "switch-sizes" }) %}Medium{% endcall %}
+  {% call Switch({
+    checked: true,
+    hideLabel: true,
+    name: "switch-sizes",
+    size: "large"
+  }) %}Large{% endcall %}
+</div>
+<div class="example-row">
+  {% call Switch({ checked: true, name: "switch-sizes", size: "x-small" }) %}X-small{% endcall %}
+  {% call Switch({ checked: true, name: "switch-sizes", size: "small" }) %}Small{% endcall %}
+  {% call Switch({ checked: true, name: "switch-sizes" }) %}Medium{% endcall %}
+  {% call Switch({ checked: true, name: "switch-sizes", size: "large" }) %}Large{% endcall %}
+</div>

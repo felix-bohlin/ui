@@ -1,0 +1,75 @@
+<div style="inline-size: 20rem; max-inline-size: 100%">
+  <opui-file-upload class="ui-file-upload">
+    <div class="ui-content">
+      <div class="ui-field-container">
+        <label class="ui-label">
+          <input accept="image/*" aria-describedby="id-2" class="ui-sr-only" id="id-1" multiple type="file">
+          <span class="ui-button ui-outlined">Choose photos</span>
+          <svg aria-hidden="true" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"></svg>
+        </label>
+        <span class="ui-description" id="id-2">Or drop them here. PNG or JPG.</span>
+      </div>
+      <ul class="ui-list">
+        <li>
+          <div class="ui-start">
+            <img alt src="/photos/kinga-headstock.png">
+          </div>
+          <div class="ui-text">
+            <p dir="auto" id="id-3">kinga-headstock.png</p>
+          </div>
+          <div class="ui-end">
+            <button aria-label="Remove kinga-headstock.png" class="ui-button ui-round ui-small" command="--remove" commandfor="id-1" type="button" value="kinga">
+              <svg aria-hidden="true" height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg"></svg>
+            </button>
+          </div>
+        </li>
+        <li>
+          <div class="ui-start">
+            <img alt src="/photos/adam-groove.png">
+          </div>
+          <div class="ui-text">
+            <p dir="auto" id="id-4">adam-groove.png</p>
+            <div class="ui-progress">
+              <progress aria-label="Uploading adam-groove.png" value="0.6"></progress>
+            </div>
+          </div>
+          <div class="ui-end">
+            <button aria-label="Remove adam-groove.png" class="ui-button ui-round ui-small" command="--remove" commandfor="id-1" type="button" value="adam">
+              <svg aria-hidden="true" height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg"></svg>
+            </button>
+          </div>
+        </li>
+        <li class="ui-state-error">
+          <div class="ui-start">
+            <img alt src="/photos/scott-humbucker.png">
+            <button aria-labelledby="id-5 id-6" popovertarget="id-6" type="button"></button>
+          </div>
+          <div class="ui-text">
+            <p dir="auto" id="id-5">scott-humbucker.png</p>
+            <p class="ui-description" id="id-6" popover="auto">This photo is larger than 10 MB.</p>
+          </div>
+          <div class="ui-end">
+            <button aria-label="Remove scott-humbucker.png" class="ui-button ui-round ui-small" command="--remove" commandfor="id-1" type="button" value="scott">
+              <svg aria-hidden="true" height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg"></svg>
+            </button>
+          </div>
+        </li>
+        <li>
+          <div class="ui-start"></div>
+          <div class="ui-text">
+            <p dir="auto" id="id-7">stage-left.png</p>
+            <div class="ui-progress">
+              <progress aria-label="Uploading stage-left.png"></progress>
+            </div>
+          </div>
+          <div class="ui-end">
+            <button aria-label="Remove stage-left.png" class="ui-button ui-round ui-small" command="--remove" commandfor="id-1" type="button" value="stage">
+              <svg aria-hidden="true" height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg"></svg>
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <span class="ui-sr-only" role="status">1 photo didn't upload.</span>
+  </opui-file-upload>
+</div>

@@ -1,21 +1,30 @@
 <script setup lang="ts">
 import {
+  Field,
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
-  Textarea,
-  TextField,
+  Fieldset,
 } from "opui-css/vue"
 </script>
 
 <template>
-  <FieldSet>
-    <FieldLegend>Pet info</FieldLegend>
-    <FieldDescription>We must know your pet's information.</FieldDescription>
-    <FieldGroup name="bio">
-      <TextField label="Name" name="name" />
-      <Textarea required label="Life story" />
+  <Fieldset aria-describedby="form-fieldset-required-1-description">
+    <FieldLegend>Delivery</FieldLegend>
+    <FieldDescription id="form-fieldset-required-1-description"
+      >Where should we send your order?</FieldDescription
+    >
+    <FieldGroup>
+      <Field for="form-fieldset-required-2" label="Recipient">
+        <input id="form-fieldset-required-2" name="recipient" />
+      </Field>
+      <Field for="form-fieldset-required-3" label="Address">
+        <textarea
+          id="form-fieldset-required-3"
+          name="address"
+          required
+        ></textarea>
+      </Field>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </template>

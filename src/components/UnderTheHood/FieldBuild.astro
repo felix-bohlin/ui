@@ -1,0 +1,192 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.field {
+  --accent: var(--ui-primary);
+  --affix-text-color: var(--ui-text);
+  --border-color: var(--ui-field-border-color);
+  --helper-text-color: var(--ui-field-helper-text-color);
+
+  display: grid;
+}
+
+.label {
+  font-size: var(--ui-field-label-font-size);
+  font-weight: 600;
+  margin-block-end: var(--ui-space-1);
+}
+
+.container {
+  background-color: var(--ui-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--ui-radius);
+  display: grid;
+  min-block-size: var(--ui-field-size);
+}
+
+.container input {
+  background: transparent;
+  border: 0;
+  color: var(--ui-text-strong);
+  font: inherit;
+  min-inline-size: 0;
+  outline: 0;
+  padding: var(--ui-space-2);
+}
+
+.field:focus-within .container {
+  border-color: var(--accent);
+}
+
+.container:has(:focus-visible) {
+  outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+    var(--ui-focus-ring-color);
+  outline-offset: var(--ui-focus-ring-offset);
+}
+
+.end-text {
+  color: var(--helper-text-color);
+  font-size: var(--ui-field-helper-font-size);
+  margin-block-start: var(--ui-space-1);
+}`,
+    features: ["focus-visible", "focus-within", "label"],
+    html: `
+<div class="field">
+  <label class="label" for="price">Price</label>
+  <span class="container">
+    <input id="price" />
+  </span>
+</div>`,
+    notes: [
+      "<code>&lt;label for&gt;</code> keeps buttons in the box out of the input's name",
+      "The wrapper draws the box, the input is borderless",
+      "<code>:focus-within</code> moves the focus color to the box",
+      "<code>:has(:focus-visible)</code> adds a ring, since a border color change alone is too weak",
+    ],
+    title: "Wrapper",
+  },
+  {
+    css: `
+.container {
+  grid-template-areas: "start input end";
+  grid-template-columns: auto 1fr auto;
+}
+
+.container input {
+  grid-area: input;
+}
+
+.start,
+.end {
+  align-items: center;
+  color: var(--affix-text-color);
+  display: inline-flex;
+  padding-inline: var(--ui-space-2);
+}
+
+.start {
+  grid-area: start;
+}
+
+.end {
+  grid-area: end;
+}
+
+.container:has(> .start) input {
+  padding-inline-start: 0;
+}
+
+.container:has(> .end) input {
+  padding-inline-end: 0;
+}`,
+    features: ["grid", "has"],
+    html: `
+<span class="container">
+  <span class="start" id="price-start">€</span>
+  <input aria-describedby="price-start price-end" id="price" />
+  <span class="end" id="price-end">per month</span>
+</span>`,
+    notes: [
+      "Markup in drawn order, so Tab reaches an affix button where it sits",
+      "<code>:has(> .start)</code> drops the input padding next to an affix",
+      "<code>aria-describedby</code> reads the affixes after the name, not in it",
+    ],
+    title: "Affixes",
+  },
+  {
+    css: `
+.field:has(:required) .label::after {
+  color: var(--ui-field-required-text-color);
+  content: "*";
+  margin-inline-start: 0.25ex;
+}`,
+    notes: [
+      "<code>:has(:required)</code> marks the label from the input's own attribute",
+    ],
+    title: "Required",
+  },
+  {
+    css: `
+.field:has([aria-invalid="true"], :user-invalid) {
+  --accent: var(--ui-invalid);
+  --affix-text-color: var(--ui-invalid-text);
+  --border-color: var(--ui-invalid);
+  --helper-text-color: var(--ui-invalid-text);
+}`,
+    features: ["user-pseudos"],
+    notes: [
+      "<code>:user-invalid</code> waits for an edit or a submit attempt",
+      '<code>aria-invalid="true"</code> for server errors, screen readers announce it too',
+      "Swaps the custom properties the rules above read",
+    ],
+    title: "Validation",
+  },
+]
+---
+
+<BuildUp id="build-field" steps={steps}>
+  <div class="stack">
+    <div class="field">
+      <label class="label" for="build-field-price">Price</label>
+      <span class="container">
+        <span class="start" id="build-field-price-start">€</span>
+        <input
+          aria-describedby="build-field-price-start build-field-price-end"
+          id="build-field-price"
+          inputmode="numeric"
+          name="build-field-price"
+          required
+          value="12"
+        />
+        <span class="end" id="build-field-price-end">per month</span>
+      </span>
+    </div>
+    <div class="field">
+      <label class="label" for="build-field-email">Email</label>
+      <span class="container">
+        <input
+          aria-describedby="build-field-email-error"
+          aria-invalid="true"
+          id="build-field-email"
+          name="build-field-email"
+          type="email"
+          value="felix@"
+        />
+      </span>
+      <span class="end-text" id="build-field-email-error"
+        >Enter a complete email address</span
+      >
+    </div>
+  </div>
+</BuildUp>
+
+<style>
+  .stack {
+    display: grid;
+    gap: var(--ui-space-5);
+    inline-size: min(100%, 20rem);
+  }
+</style>

@@ -1,0 +1,219 @@
+<div
+  class="tuner ui-layout-container ui-layout-columns"
+  style="
+    --_columns: 3fr 2fr;
+    --_gap: var(--ui-space-7);
+    --_max-inline-size: 60rem;
+  "
+>
+  <section class="ui-card ui-outlined tn-tuner" aria-labelledby="tuner-heading">
+    <div class="ui-content">
+      <h1 class="ui-overline" id="tuner-heading">Tuner</h1>
+      <div aria-hidden="true" class="tn-gauge"></div>
+      <p class="tn-note" role="status">
+        <span aria-hidden="true">E</span
+        ><span class="ui-sr-only">E string, 6 cents flat</span>
+      </p>
+      <span class="ui-chip ui-dot ui-warning">
+        <span class="ui-text">6 cents flat</span>
+      </span>
+      <p class="ui-caption">Low E, 41.2 Hz. Tighten a little.</p>
+      <div class="ui-toggle-group" role="radiogroup" aria-label="String">
+        <label class="ui-toggle-button">
+          <input name="tuner-string" type="radio" value="b" />
+          B
+        </label>
+        <label class="ui-toggle-button">
+          <input checked name="tuner-string" type="radio" value="e" />
+          E
+        </label>
+        <label class="ui-toggle-button">
+          <input name="tuner-string" type="radio" value="a" />
+          A
+        </label>
+        <label class="ui-toggle-button">
+          <input name="tuner-string" type="radio" value="d" />
+          D
+        </label>
+        <label class="ui-toggle-button">
+          <input name="tuner-string" type="radio" value="g" />
+          G
+        </label>
+      </div>
+    </div>
+  </section>
+  <section
+    class="ui-card ui-outlined tn-metronome"
+    aria-labelledby="tuner-metronome-heading"
+  >
+    <hgroup>
+      <h2 class="ui-h5" id="tuner-metronome-heading">Metronome</h2>
+      <p>Lock in before you lock in.</p>
+    </hgroup>
+    <div class="ui-content">
+      <p class="tn-bpm">96 <span class="ui-caption">BPM</span></p>
+      <div class="ui-field">
+        <label class="ui-label" for="tuner-tempo">Tempo</label>
+        <span class="ui-field-container">
+          <input
+            aria-valuetext="96 beats per minute"
+            id="tuner-tempo"
+            max="240"
+            min="40"
+            name="tempo"
+            type="range"
+            value="96"
+          />
+        </span>
+      </div>
+      <ol aria-label="Beat 1 of 4" class="tn-beats">
+        <li class="tn-beat-now"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ol>
+      <div
+        class="ui-toggle-group ui-small"
+        role="radiogroup"
+        aria-label="Time signature"
+      >
+        <label class="ui-toggle-button">
+          <input name="tuner-signature" type="radio" value="3-4" />
+          3/4
+        </label>
+        <label class="ui-toggle-button">
+          <input checked name="tuner-signature" type="radio" value="4-4" />
+          4/4
+        </label>
+        <label class="ui-toggle-button">
+          <input name="tuner-signature" type="radio" value="6-8" />
+          6/8
+        </label>
+      </div>
+      <div class="ui-layout-row ui-gap-small">
+        <button class="ui-button ui-filled" type="button">
+          <svg
+            data-icon="play"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20m0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16m-2 4.27a1 1 0 0 1 1.5-.86l5 3a1 1 0 0 1 0 1.72l-5 3A1 1 0 0 1 10 14.27z"
+            ></path>
+          </svg>
+          <span class="ui-text">Start</span>
+        </button>
+        <button class="ui-button ui-outlined" type="button">Tap tempo</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+  .tuner {
+    container-type: inline-size;
+
+    .tn-tuner .ui-content {
+      display: grid;
+      gap: var(--ui-space-6);
+      justify-items: center;
+      text-align: center;
+    }
+
+    .tn-gauge {
+      aspect-ratio: 2 / 1;
+      background-image: radial-gradient(
+        circle at 50% 100%,
+        var(--ui-text-strong) 0 0.5rem,
+        transparent 0.55rem
+      );
+      inline-size: min(100%, 22rem);
+      position: relative;
+
+      &::before {
+        background-image:
+          conic-gradient(
+            from -90deg at 50% 100%,
+            oklch(from var(--ui-critical) l c h / 35%) 0 40deg,
+            oklch(from var(--ui-warning) l c h / 35%) 40deg 81deg,
+            oklch(from var(--ui-success) l c h / 45%) 81deg 99deg,
+            oklch(from var(--ui-warning) l c h / 35%) 99deg 140deg,
+            oklch(from var(--ui-critical) l c h / 35%) 140deg 180deg,
+            transparent 180deg
+          ),
+          repeating-conic-gradient(
+            from -90deg at 50% 100%,
+            var(--ui-border-color) 0 0.6deg,
+            transparent 0.6deg 9deg
+          );
+        border-start-end-radius: 999rem;
+        border-start-start-radius: 999rem;
+        content: "";
+        inset: 0;
+        mask-image: radial-gradient(
+          circle at 50% 100%,
+          transparent 0 55%,
+          black 56%
+        );
+        position: absolute;
+      }
+
+      &::after {
+        background-color: var(--ui-text-strong);
+        block-size: 92%;
+        border-radius: var(--ui-radius-round);
+        content: "";
+        inline-size: 3px;
+        inset-block-end: 0;
+        inset-inline-start: calc(50% - 1.5px);
+        position: absolute;
+        rotate: -12deg;
+        transform-origin: 50% 100%;
+      }
+    }
+
+    .tn-note {
+      color: var(--ui-text-strong);
+      font-size: 5rem;
+      font-weight: var(--ui-font-weight-heading);
+      line-height: 1;
+    }
+
+    .tn-bpm {
+      color: var(--ui-text-strong);
+      font-size: var(--ui-font-size-900);
+      font-variant-numeric: tabular-nums;
+      font-weight: var(--ui-font-weight-heading);
+      line-height: 1;
+    }
+
+    .tn-beats {
+      display: flex;
+      gap: var(--ui-space-4);
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        background-color: var(--ui-surface-tonal);
+        block-size: 1rem;
+        border-radius: var(--ui-radius-round);
+        inline-size: 1rem;
+      }
+
+      .tn-beat-now {
+        background-color: var(--ui-primary);
+        box-shadow: 0 0 0 0.375rem oklch(from var(--ui-primary) l c h / 25%);
+      }
+    }
+
+    .tn-metronome .ui-content {
+      display: grid;
+      gap: var(--ui-space-6);
+    }
+  }
+</style>

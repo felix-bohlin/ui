@@ -1,0 +1,24 @@
+@layer components.compat {
+  @supports not selector(:interest-source) {
+    :where(.ui-anchor):has(:focus-visible) > .ui-floating[popover] {
+      display: block;
+      position-anchor: --anchor;
+    }
+
+    @media (hover: hover) {
+      :where(.ui-anchor):hover > .ui-floating[popover] {
+        display: block;
+        position-anchor: --anchor;
+      }
+    }
+  }
+
+  /* Firefox and older Chromium only take anchors-visible. Newer Chromium
+     deprecates it and can warn about it even here, where the rule never
+     applies. Remove once Firefox takes anchor-visible. */
+  @supports not (position-visibility: anchor-visible) {
+    :where(.ui-anchor, .ui-tooltip) > .ui-floating[popover] {
+      position-visibility: anchors-visible;
+    }
+  }
+}

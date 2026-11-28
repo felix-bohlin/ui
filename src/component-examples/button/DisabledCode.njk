@@ -1,0 +1,4 @@
+{% from "opui/index.njk" import Button %}
+
+{% call Button({ disabled: true }) %}Text{% endcall %}
+{% call Button({ disabled: true, href: "#" }) %}Text link{% endcall %}

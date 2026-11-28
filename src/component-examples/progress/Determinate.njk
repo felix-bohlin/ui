@@ -1,0 +1,21 @@
+{% from "opui/index.njk" import Progress %}
+
+{{ Progress({
+  "aria-label": "Uploading",
+  id: "progress-determinate-1",
+  max: "100",
+  value: "10"
+}) }}
+
+<script type="module">
+  const progress = document.querySelector("#progress-determinate-1")
+  if (progress) {
+    setInterval(() => {
+      if (progress.value >= 100) {
+        progress.value = 10
+      } else {
+        progress.value += 10
+      }
+    }, 3000)
+  }
+</script>

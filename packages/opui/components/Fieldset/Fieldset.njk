@@ -1,0 +1,20 @@
+{% macro Fieldset(props = {}) %}
+  {%- set props = props | opuiProps("Fieldset") -%}
+  {%- set rest = props | opuiRest("Fieldset") -%}
+  {%- set tag = props.as | default("fieldset") -%}
+  {%- set isFieldset = tag == "fieldset" -%}
+  {%- set legendId = undefined
+    if isFieldset
+    else opui.autoLabelledBy(rest, (rest.id or opui.id("fieldset")) ~ "-legend") -%}
+  {%- set classes = ["ui-fieldset", props.class] | opuiClass -%}
+  <{{ tag | opuiTag }}{{ opui.merge(
+    {
+      "aria-labelledby": legendId,
+      class: classes,
+      role: none if isFieldset else "group"
+    },
+    opui.defined(rest)
+  ) | opuiAttributes(tag) }}>
+    {{- opui.provide("Fieldset", { legendId: legendId }, caller) -}}
+  </{{ tag | opuiTag }}>
+{%- endmacro %}

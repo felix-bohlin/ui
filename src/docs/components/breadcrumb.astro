@@ -1,0 +1,206 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import Usage from "./partials/Usage.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import { Breadcrumb as UIBreadcrumb } from "opui-css/astro"
+
+export const description =
+  "Shows where the page sits in a hierarchy, with a link to each level above it."
+
+export const keywords = ["crumbs", "navigation path", "trail"]
+---
+
+<Component description={description} heroAnatomy>
+  <Fragment slot="preamble">
+    Where the page sits in a hierarchy. For the steps of a flow, use a
+    <DocLink href="/components/stepper">Stepper</DocLink>.
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      A hierarchy of three or more levels, like shop categories or folders.
+    </li>
+    <li slot="when">A page people reach from search.</li>
+    <li slot="when-not">
+      Steps of a flow: use a
+      <DocLink href="/components/stepper">Stepper</DocLink>.
+    </li>
+    <li slot="when-not">
+      Pages on one level: use <DocLink href="/components/tabs">Tabs</DocLink>.
+    </li>
+  </Usage>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UIBreadcrumb
+        aria-label="Group breadcrumb"
+        items={[
+          { href: "#basics", label: "Groups" },
+          { href: "#basics", label: "Low End Society" },
+          { href: "#basics", label: "Events" },
+          { label: "Friday jam night" },
+        ]}
+        menuLabel="More levels"
+        overflow="menu"
+      >
+        <svg
+          slot="separator"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m9 18 6-6-6-6"></path>
+        </svg>
+      </UIBreadcrumb>
+    </Anatomy>
+  </Fragment>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Set <code>current</code> on the level of the page.</Fragment
+      >
+      <Fragment slot="html"
+        >Mark the level of the page with <code>aria-current="page"</code
+        >.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Basics" />
+  </section>
+
+  <section id="sizes">
+    <h2>Sizes</h2>
+    <p>
+      Use <PropOrClass prop='size="small"' class=".ui-small" /> for tight
+      spaces.
+    </p>
+
+    <AutoExample name="Sizes" />
+  </section>
+
+  <section id="separator">
+    <h2>Separator</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Set <code>--_separator</code> to another string, or put an icon in the
+        <code>separator</code> slot.</Fragment
+      >
+      <Fragment slot="html"
+        >Set <code>--_separator</code> to another string, or put an icon in a
+        <code>.ui-separator</code> in each <code>li</code>.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Separator" />
+  </section>
+
+  <section id="current-link">
+    <h2>Current page as a link</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Give the current level an <code>href</code>.</Fragment
+      >
+      <Fragment slot="html"
+        >Put <code>aria-current="page"</code> on a link.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="CurrentLink" />
+  </section>
+
+  <section id="overflow">
+    <h2>Overflow</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Wraps by default. Use <code>overflow</code> to change it.</Fragment
+      >
+      <Fragment slot="html"
+        >Wraps by default. Use <code>.ui-overflow-scroll</code>,
+        <code>.ui-overflow-shrink</code> or <code>.ui-overflow-menu</code> to
+        change it.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Overflow" />
+
+    <h3 id="overflow-menu">Collapsed levels in a menu</h3>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Use <code>overflow="menu"</code> with <code>items</code>, and name the
+        button with <code>menuLabel</code>. It shows with more than three
+        levels.</Fragment
+      >
+      <Fragment slot="html"
+        >Put an <code>li</code> with a button and a <code>.ui-menu</code> second
+        in the list. It shows with more than three levels.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="OverflowMenu" />
+
+    <Conditional as="p">
+      <Fragment slot="components"
+        >With <code>BreadcrumbItem</code> parts, write the menu item as the
+        second child.</Fragment
+      >
+      <Fragment slot="html">With its own menu id.</Fragment>
+    </Conditional>
+
+    <AutoExample name="OverflowMenuParts" />
+  </section>
+
+  <section id="items">
+    <h2>Items</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >The markup the <code>items</code> prop renders.</Fragment
+      >
+      <Fragment slot="components"
+        >Use <code>items</code>. The last level is the current page.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Items" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>Name the landmark with <code>aria-label</code>.</li>
+      <li>Screen readers skip the separators.</li>
+      <li>
+        Name the <code>…</code> button with
+        <PropOrClass prop="menuLabel" class="aria-label" />.
+      </li>
+    </ul>
+    <KeyboardSupport />
+  </Fragment>
+
+  <Fragment slot="under-the-hood">
+    <p>
+      <code>nav.ui-breadcrumb &gt; ol</code> is a wrapping flex row. Each
+      <code>li</code> after the first draws <code>--_separator</code> in
+      <code>::before</code> with empty alternative text, unless it has a
+      <code>.ui-separator</code>.
+    </p>
+    <p>
+      <code>.ui-overflow-menu</code> finds the menu item with
+      <code>li:has(&gt; .ui-menu)</code>, hides every other <code>li</code> but
+      the first and the last two with <code>:nth-last-child(n + 3)</code>, and
+      shows the menu item only with three levels after it.
+    </p>
+  </Fragment>
+</Component>

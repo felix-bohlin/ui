@@ -1,0 +1,15 @@
+<script lang="ts">
+  import { Avatar, AvatarGroup, Badge } from "opui-css/svelte"
+</script>
+
+<AvatarGroup aria-label="Band">
+  <Avatar label="Adam Groove">AG</Avatar>
+  <Avatar label="Ellen Nut">EN</Avatar>
+  <Avatar as="button" label="Josh Rootnote">JR</Avatar>
+  <Avatar as="button" label="Kinga Headstock">KH</Avatar>
+  <Avatar href="#" label="Mohini Hertz">MH</Avatar>
+  <Avatar href="#" label="Scott Humbucker">SH</Avatar>
+  <Badge dot label="Online">
+    <Avatar href="#" label="Yonit Bridge, online">YB</Avatar>
+  </Badge>
+</AvatarGroup>

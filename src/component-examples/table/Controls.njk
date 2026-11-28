@@ -1,0 +1,92 @@
+{% from "opui/index.njk" import
+  Field,
+  SelectButton,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow
+%}
+{% set roles = [
+  { label: "Flatwound collector", value: "flatwound-collector" },
+  { label: "Low B whisperer", value: "low-b-whisperer" },
+  { label: "Slap enthusiast", value: "slap-enthusiast" },
+  { label: "Tone advisor", value: "tone-advisor" }
+] %}
+
+{% call Table({ density: "dense" }) %}
+  {% call TableCaption() %}Bassists Anonymous members{% endcall %}
+  {% call TableHead() %}
+    {% call TableRow() %}
+      {% call TableHeaderCell() %}Name{% endcall %}
+      {% call TableHeaderCell() %}Specialty{% endcall %}
+      {% call TableHeaderCell() %}Notes{% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call TableBody() %}
+    {% call TableRow() %}
+      {% call TableCell() %}Kinga Headstock{% endcall %}
+      {% call TableCell() %}
+        {% call Field({
+          for: "table-controls-3",
+          hideLabel: true,
+          label: "Specialty for Kinga Headstock"
+        }) %}
+          <select id="table-controls-3">
+            {{ SelectButton() }}
+            {% for role in roles -%}
+              <option value="{{ role.value }}">
+                {{ role.label }}
+              </option>
+            {%- endfor %}
+          </select>
+        {% endcall %}
+      {% endcall %}
+      {% call TableCell() %}
+        {% call Field({
+          for: "table-controls-1",
+          hideLabel: true,
+          label: "Notes for Kinga Headstock"
+        }) %}
+          <input
+            id="table-controls-1"
+            placeholder="Add a note about their tone"
+          />
+        {% endcall %}
+      {% endcall %}
+    {% endcall %}
+    {% call TableRow() %}
+      {% call TableCell() %}Adam Groove{% endcall %}
+      {% call TableCell() %}
+        {% call Field({
+          for: "table-controls-4",
+          hideLabel: true,
+          label: "Specialty for Adam Groove"
+        }) %}
+          <select id="table-controls-4">
+            {{ SelectButton() }}
+            {% for role in roles -%}
+              <option value="{{ role.value }}">
+                {{ role.label }}
+              </option>
+            {%- endfor %}
+          </select>
+        {% endcall %}
+      {% endcall %}
+      {% call TableCell() %}
+        {% call Field({
+          for: "table-controls-2",
+          hideLabel: true,
+          label: "Notes for Adam Groove"
+        }) %}
+          <input
+            id="table-controls-2"
+            placeholder="Add a note about their tone"
+          />
+        {% endcall %}
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}

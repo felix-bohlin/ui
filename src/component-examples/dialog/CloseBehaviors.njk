@@ -1,0 +1,50 @@
+{% from "opui/index.njk" import
+  Button,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Radio
+%}
+
+{% call Button({
+  command: "show-modal",
+  commandfor: "dialog-close-behaviors-1",
+  variant: "outlined"
+}) %}
+  Open dialog
+{% endcall %}
+
+{% call Dialog({ closedby: "any", id: "dialog-close-behaviors-1" }) %}
+  {% call DialogHeader() %}
+    {% call DialogTitle() %}How to close{% endcall %}
+  {% endcall %}
+  {% call DialogContent() %}
+    {% call Fieldset() %}
+      {% call FieldLegend() %}Choose a closing behavior:{% endcall %}
+      {% call FieldGroup() %}
+        {% call Radio({ checked: true, name: "closedby-demo", value: "any" }) %}any{% endcall %}
+        {% call Radio({ name: "closedby-demo", value: "closerequest" }) %}closerequest{% endcall %}
+        {% call Radio({ name: "closedby-demo", value: "none" }) %}none{% endcall %}
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call DialogFooter() %}
+    {% call Button({ command: "close", commandfor: "dialog-close-behaviors-1" }) %}
+      Close manually
+    {% endcall %}
+  {% endcall %}
+{% endcall %}
+
+<script type="module">
+  const dialog = document.getElementById("dialog-close-behaviors-1")
+  document.querySelectorAll('input[name="closedby-demo"]').forEach((radio) => {
+    radio.addEventListener("change", () =>
+      dialog?.setAttribute("closedby", radio.value),
+    )
+  })
+</script>

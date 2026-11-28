@@ -1,0 +1,76 @@
+---
+import { releaseVersion } from "../../utils/release"
+import ViLockup from "../ViLockup.astro"
+
+const numeral = releaseVersion.split(".").slice(0, 2).join(".")
+---
+
+<div class="hero ui-not-rich-text" id="hero">
+  <p class="hero-numeral">
+    <span class="vi-off">{numeral}</span><span class="vi-on"><ViLockup /></span>
+  </p>
+</div>
+
+<style is:global>
+  @property --hero-dawn {
+    inherits: false;
+    initial-value: 0%;
+    syntax: "<percentage>";
+  }
+
+  .hero {
+    display: grid;
+    justify-items: center;
+    margin-block: var(--ui-space-6);
+    max-inline-size: min(var(--content-inline-size), var(--site-content-text));
+
+    & .hero-numeral {
+      --_glow-inner: light-dark(oklch(0.8 0.16 65), oklch(0.86 0.15 75));
+      --_glow-outer: light-dark(oklch(0.66 0.19 25), oklch(0.74 0.16 25));
+      --_sky-bottom: light-dark(
+        oklch(from var(--ui-primary) 0.45 0.12 h),
+        oklch(from var(--ui-primary) 0.72 0.12 h)
+      );
+      --_sky-top: light-dark(
+        oklch(from var(--ui-primary) 0.24 0.08 h),
+        oklch(from var(--ui-primary) 0.6 0.1 h)
+      );
+
+      --vi-mark-paint:
+        radial-gradient(
+          90% 60% at 50% calc(100% + var(--hero-dawn)),
+          var(--_glow-inner),
+          transparent 60%
+        ),
+        radial-gradient(
+          140% 85% at 50% calc(105% + var(--hero-dawn)),
+          var(--_glow-outer),
+          transparent 70%
+        ),
+        linear-gradient(var(--_sky-top), var(--_sky-bottom));
+
+      background-clip: text;
+      background-image: var(--vi-mark-paint);
+      color: transparent;
+      font-family: var(--ui-font-family-heading, var(--ui-font-family-body));
+      font-size: clamp(8rem, 22vw, 16rem);
+      font-weight: var(--ui-font-weight-heading);
+      letter-spacing: -0.06em;
+      line-height: 0.9;
+      margin: 0;
+      padding-inline-end: 0.06em;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero .hero-numeral {
+      animation: hero-dawn 2.4s var(--ui-ease-enter) both;
+    }
+  }
+
+  @keyframes hero-dawn {
+    from {
+      --hero-dawn: 50%;
+    }
+  }
+</style>

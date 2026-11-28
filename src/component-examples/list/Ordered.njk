@@ -1,0 +1,26 @@
+{% from "opui/index.njk" import List, ListItem %}
+
+{% call List({
+  "aria-label": "Top readers this month",
+  as: "ol",
+  bordered: true
+}) %}
+  {% set start %}<span>1</span>{% endset %}
+  {{ ListItem({
+    description: "42 books",
+    label: "Ines Moreau",
+    slots: { start: start }
+  }) }}
+  {% set start %}<span>2</span>{% endset %}
+  {{ ListItem({
+    description: "37 books",
+    label: "Tomás Ekberg",
+    slots: { start: start }
+  }) }}
+  {% set start %}<span>3</span>{% endset %}
+  {{ ListItem({
+    description: "31 books",
+    label: "Priya Natarajan",
+    slots: { start: start }
+  }) }}
+{% endcall %}

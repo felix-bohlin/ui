@@ -1,0 +1,342 @@
+# Theming
+
+The primitive and global tokens behind colors, density, spacing, corners, fonts, elevation, motion and contrast, and the classes that scope them.
+
+A theme sets [primitive and global tokens](https://opui.dev/html/guide/concepts.md#token-tiers), and every component reads the global tokens:
+
+1. Primitive tokens
+
+   `--ui-palette-hue` 223
+
+   `--ui-palette-chroma` 0.5
+
+2. Palette `--ui-color-1` to `--ui-color-16`
+
+3. Global tokens
+
+   - `--ui-primary` Filled buttons, links, checked controls
+   - `--ui-palette-tonal` Tonal fills
+   - `--ui-palette-text` Tinted text
+   - `--ui-palette-border` Tinted borders
+
+4. Components
+
+   [A link](#token-flow)
+
+Snippets go in [`@layer theme.custom`](https://opui.dev/html/guide/customizing.md#your-theme). Every token is on [Theme tokens](https://opui.dev/html/guide/theme-tokens.md).
+
+## Palette
+
+One hue and chroma derive the 16 palette steps.
+
+```css
+:where(html) {
+  --ui-palette-chroma: 0.5;
+  --ui-palette-hue: 222.8;
+  --ui-palette-hue-rotate-by: 0;
+}
+```
+
+- `--ui-palette-chroma`: saturation, `0` to `1`.
+- `--ui-palette-hue`: a hue angle in degrees.
+- `--ui-palette-hue-rotate-by`: degrees of hue per step.
+
+Or set `--ui-palette-source` to any color. Recolor a severity scope through its intent token, like `--ui-warning`. The library's own rule:
+
+```css
+:where(.ui-warning) {
+  --ui-palette-source: oklch(from var(--ui-warning) 0.58 0.21 h);
+  --ui-palette-hue-rotate-by: 1;
+}
+```
+
+## Scopes
+
+A scope class re-themes an element and everything inside it:
+
+- `.ui-scope`: re-derives every token from the primitive tokens it sets.
+- `.ui-critical` and the other severities: swap the palette for the intent color.
+- `.ui-light` and `.ui-dark`: force a color scheme, except in print, which is always light. Builds that rewrite `light-dark()` only follow them on `html`, see the [README](https://github.com/felix-bohlin/ui/blob/main/packages/opui/README.md#builds-that-rewrite-light-dark).
+
+## Any color
+
+The theme names its colors by job: the primary and the intents critical, info, success, warning and neutral. For any other color, give that part of the page a palette of its own. `.ui-scope` with `--ui-palette-hue` derives the 16 palette steps and the palette shades from that hue, within the same contrast limits as the page palette:
+
+```html
+<div class="ui-scope" style="--ui-palette-hue: 300">
+  <span class="ui-chip ui-accent"><span class="ui-text">Funk</span></span>
+  <button class="ui-button ui-filled ui-primary" type="button">Purple</button>
+</div>
+```
+
+Set `--ui-palette-source` instead to start from an exact color, such as a brand color: the palette keeps its hue and chroma and sets the lightness of each step. Primary buttons and buttons without an intent, avatars, links, and checked checkboxes, radios, switches and toggle buttons follow the palette. Chips, callouts and badges follow it with `color="accent"` (`.ui-accent`).
+
+## Surfaces
+
+- `--ui-surface` The page
+- `--ui-surface-raised` Elevated cards and accordions, dialogs, drawers, menus
+- `--ui-surface-tonal` Tonal variants
+- `--ui-surface-filled` Lists, tracks, table headers
+- `--ui-surface-inverse` Tooltips
+- `--ui-text-strong` Headings, labels, values
+- `--ui-text` Body copy
+- `--ui-border-color` Dividers, outlined variants
+- `--ui-field-border-color` Fields
+
+Each global token with its current value, live with the theme.
+
+`--ui-border-color` and `--ui-field-border-color` are translucent, so one value reads the same on every surface: inside a card, a dialog, a menu or a filled list as on the page. Change how strong they are with `--ui-border-strength-light`, `--ui-border-strength-dark` and `--ui-field-border-strength`, which more contrast keeps tightening, or set a color. `--ui-border-color-raised` sets the edge of raised components.
+
+## Density
+
+Use `--ui-density` to change the size of every control.
+
+```css
+:where(html) {
+  --ui-density: 0.875;
+}
+```
+
+A `Button` in a field's start or end, a checkbox, radio or switch whose label is hidden, the stars of a rating and the markers of a carousel stay at least `--ui-target-min-size` (24px, the minimum target size) at any density. A field with less than 24px inside its border grows to fit its button, such as an x-small field at `0.875` or a small one at `0.75`.
+
+The sizes are computed where the scope classes are, so set the density of a part of the page on an element with `.ui-scope`, like a compact toolbar:
+
+```html
+<div class="ui-scope" style="--ui-density: 0.75">
+  <button class="ui-button ui-small" type="button">Bold</button>
+</div>
+```
+
+A theme that sets a size keeps `--ui-density` in it, so the size still follows density: `calc(2.25rem * var(--ui-density))`. A theme that also sets its own density writes the length it wants at that density, `calc(2rem * var(--ui-density) / 0.9)`. The same goes for the spacing steps and `--ui-space-scale`. Each size token says which primitive token it follows in `tokens.json`, as `scaledBy`.
+
+## Spacing
+
+Use `--ui-space-scale` to change spacing. Controls follow density instead.
+
+Each step is named by its size in quarter rems, so `--ui-space-3` is 0.75rem and `--ui-space-12` is 3rem, and a new step never renames another.
+
+```css
+:where(html) {
+  --ui-space-scale: 1.25;
+}
+
+/* Or tie spacing to density */
+:where(html) {
+  --ui-density: 0.875;
+  --ui-space-scale: var(--ui-density);
+}
+```
+
+## Corners
+
+Use `--ui-radius` to round every component.
+
+```css
+:where(html) {
+  --ui-radius: 0;
+}
+```
+
+## Fonts
+
+Headings follow the body font until you set one.
+
+```css
+:where(html) {
+  --ui-font-family-body: "Inter", system-ui, sans-serif;
+  --ui-font-family-code: "JetBrains Mono", ui-monospace, monospace;
+  --ui-font-family-heading: "Fraunces", serif;
+}
+```
+
+Pin a size token, or replace the scale:
+
+```css
+:where(html, .ui-scope, .ui-contrast-more) {
+  /* Pin one token */
+  --ui-font-size-caption: 0.8125rem;
+}
+
+:where(html) {
+  /* Or a modular scale: 1rem base, minor third */
+  --ui-font-size-100: calc(1rem * pow(1.2, -2));
+  --ui-font-size-200: calc(1rem * pow(1.2, -1));
+  --ui-font-size-300: 1rem;
+  --ui-font-size-400: calc(1rem * pow(1.2, 1));
+  --ui-font-size-500: calc(1rem * pow(1.2, 2));
+  --ui-font-size-600: calc(1rem * pow(1.2, 3));
+  --ui-font-size-700: calc(1rem * pow(1.2, 4));
+  --ui-font-size-800: calc(1rem * pow(1.2, 5));
+  --ui-font-size-900: calc(1rem * pow(1.2, 6));
+}
+```
+
+### Fluid headings
+
+Headings grow with the viewport. Move the window, reuse the ramp, or pin a heading:
+
+```css
+:where(html) {
+  /* Headings reach full size on wider screens */
+  --ui-fluid-min-inline-size: 24rem;
+  --ui-fluid-max-inline-size: 64rem;
+
+  /* Tighter spacing on narrow screens, on the same ramp */
+  --ui-space-scale: calc(0.875 + 0.125 * var(--ui-fluid-progress));
+}
+
+:where(html, .ui-scope, .ui-contrast-more) {
+  /* Or pin a heading */
+  --ui-font-size-h1: var(--ui-font-size-800);
+}
+```
+
+## Elevation
+
+- `--ui-shadow-control`: controls. Off by default.
+- `--ui-shadow-elevated`: elevated cards and accordions.
+- `--ui-shadow-overlay`: dialogs, drawers, menus, the select picker and toasts.
+- `--ui-shadow-scroll`: scrolled edges.
+- `--ui-shadow-surface`: tonal and outlined surfaces. Off by default.
+- `--ui-shadow-selected`: the selected tab.
+- `--ui-shadow-color`: every shadow's base color.
+
+```css
+:where(html, .ui-scope, .ui-contrast-more) {
+  --ui-shadow-color: light-dark(oklch(0.28 0.055 290 / 2%), oklch(0 0 0 / 30%));
+  --ui-shadow-elevated: none;
+}
+```
+
+## Motion
+
+`--ui-motion` multiplies every duration. It's `0` with reduced motion.
+
+### Global classes
+
+On `html`, these override the OS preference:
+
+- `.ui-motion-off`: sets `--ui-motion: 0`.
+- `.ui-motion-on`: sets `--ui-motion: 1`.
+- `.ui-motion-debug`: sets `--ui-motion: 10`.
+
+```html
+<html lang="en" class="ui-motion-debug">
+```
+
+### Local overrides
+
+Use `--_motion` on one component:
+
+```html
+<button class="ui-button" style="--_motion: 0" type="button">
+  Instant interaction
+</button>
+```
+
+### Springy movement
+
+Off by default. Set `--ui-ease-move` and `--ui-state-active-scale` to turn them on.
+
+```css
+:where(html) {
+  --ui-ease-move: linear(0, 0.066, 0.218, 0.4, 0.578, 0.731, 0.852, 0.94, 0.998,
+    1.031, 1.047, 1.05, 1.046, 1.038, 1.029, 1.02, 1.012, 1.007, 1.002, 1, 1);
+  --ui-state-active-scale: 0.97;
+}
+```
+
+To follow it in your own CSS:
+
+```css
+transition: transform calc(var(--ui-duration) * var(--ui-motion)) var(--ui-ease);
+```
+
+## Icons
+
+Every icon a component draws itself reads a `--ui-icon-*` token, one for each use, such as `--ui-icon-close` and `--ui-icon-expand`. Each is an SVG image used as a mask, so only its shape counts and it takes the text color. The defaults are Fluent UI System Icons, and [Theme tokens](https://opui.dev/html/guide/theme-tokens.md#icons) lists them all. Set them to the icons of your icon set:
+
+```css
+:where(html) {
+  --ui-icon-close: url("/icons/x.svg");
+  --ui-icon-expand: url("/icons/chevron-down.svg");
+}
+```
+
+### Icon sets
+
+The package has a stylesheet for each of five icon sets that sets every icon token: `fluent`, `lucide`, `material-symbols`, `phosphor` and `tabler`. Import one to draw every component icon from that set:
+
+```css
+@import "opui-css/icons/lucide.css";
+```
+
+Each file names the set's version, licence and SVG package in a comment, and `THIRD-PARTY-NOTICES` in the package holds the licences.
+
+### Your own icons
+
+An icon slot takes any `svg` with a `viewBox`. The slot sizes it, and it takes the text color through `currentColor`, which `normalize.css` sets as the fill of an `svg` without one. Take them from the same set as the tokens so every icon matches. Icon fonts aren't supported.
+
+In HTML, some icons are an `svg` you write: the Accordion marker, the Callout severity icon, the close buttons of a Callout, Dialog and Drawer, the Number field buttons and the password toggle. Left empty, with a `viewBox` and nothing between its tags, not even a line break, it shows the token's icon. With shapes inside it shows those. The components render the empty `svg` themselves, and their icon slots replace it.
+
+## Contrast
+
+More contrast tightens the primitive tokens, and every global token follows. Their values are on [Theme tokens](https://opui.dev/html/guide/theme-tokens.md#contrast).
+
+The global tokens are derived within lightness and chroma limits that `theme.css` keeps private, as `--_ui-*` properties that can change in any release. To keep an exact brand color, pin the global token, such as `--ui-primary-text` or `--ui-critical-fill`. The one limit a theme sets is for the accents its optional global tokens supply: `--ui-control-accent-min-lightness-dark` and `--ui-control-accent-max-chroma-dark` keep a dark accent readable as text in dark mode.
+
+A global token a theme pins stays pinned in every contrast mode. Hand it back with `revert-layer`:
+
+```css
+@layer theme.custom {
+  :where(html, .ui-scope, .ui-contrast-more) {
+    --ui-border-color: oklch(0.95 0 0);
+  }
+
+  @media (prefers-contrast: more) {
+    :where(
+      html:not(.ui-contrast-normal),
+      html:not(.ui-contrast-normal) .ui-scope
+    ) {
+      --ui-border-color: revert-layer;
+    }
+  }
+
+  :where(.ui-contrast-more, .ui-contrast-more .ui-scope) {
+    --ui-border-color: revert-layer;
+  }
+}
+```
+
+### Classes
+
+- `.ui-contrast-more`: more contrast, on `html` or any element.
+- `.ui-contrast-normal`: on `html`, ignores the OS preference.
+
+```html
+<html lang="en" class="ui-contrast-more">
+```
+
+### Custom values
+
+Set the primitive tokens under the media query and on `.ui-contrast-more`:
+
+```css
+@layer theme.custom {
+  @media (prefers-contrast: more) {
+    :where(html:not(.ui-contrast-normal)) {
+      --ui-border-strength-light: 70%;
+      --ui-field-border-strength: 80%;
+    }
+  }
+
+  :where(.ui-contrast-more) {
+    --ui-border-strength-light: 70%;
+    --ui-field-border-strength: 80%;
+  }
+}
+```
+
+### Forced colors
+
+Handled by the components. Nothing to configure.

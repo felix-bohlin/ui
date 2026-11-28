@@ -1,6 +1,19 @@
 import type * as Base from "./types"
-import type { JSX } from "solid-js"
+import type { ComponentProps, JSX } from "@solidjs/web"
 
 export type Props = Base.Props &
-  Partial<Base.Slots<JSX.Element>> &
-  JSX.HTMLAttributes<HTMLElement>
+  Base.Slots<JSX.Element> & {
+    onDismiss?: (event: Base.Events["dismiss"]) => void
+  } & ComponentProps<"div">
+
+export type CalloutActionsProps = Base.CalloutActionsProps &
+  ComponentProps<"div">
+
+export type CalloutContentProps = Base.CalloutContentProps &
+  ComponentProps<"div">
+
+export type CalloutIconProps = Base.CalloutIconProps &
+  Omit<
+    ComponentProps<"svg">,
+    "aria-hidden" | "children" | "height" | "viewBox" | "width" | "xmlns"
+  >

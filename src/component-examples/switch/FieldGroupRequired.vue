@@ -1,16 +1,22 @@
 <script setup lang="ts">
-import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
+import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/vue"
 </script>
 
 <template>
   <Form>
-    <FieldSet>
-      <FieldLegend>These are required!</FieldLegend>
-      <FieldGroup direction="row" name="switch-group-required">
-        <Switch required>Switch 1</Switch>
-        <Switch required>Switch 2</Switch>
-        <Switch required>Switch 3</Switch>
+    <Fieldset>
+      <FieldLegend>Admin security</FieldLegend>
+      <FieldGroup orientation="horizontal">
+        <Switch name="switch-group-required" required value="two-step-login"
+          >Two-step login</Switch
+        >
+        <Switch name="switch-group-required" required value="login-alerts"
+          >Login alerts</Switch
+        >
+        <Switch name="switch-group-required" required value="auto-lock"
+          >Auto-lock</Switch
+        >
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
   </Form>
 </template>

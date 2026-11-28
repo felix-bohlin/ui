@@ -1,0 +1,334 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import {
+  CharacterCount as UICharacterCount,
+  Field as UIField,
+} from "opui-css/astro"
+import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+
+import FieldBuild from "../../components/UnderTheHood/FieldBuild.astro"
+
+export const description =
+  "The label, hints and box around a form control you write: an input, a select or a textarea."
+
+export const keywords = ["form", "input", "label", "select", "textarea"]
+---
+
+<Component
+  description={description}
+  heroAnatomy
+  changelogPaths={[
+    { path: "packages/opui/css/components/text-field.css", type: "css" },
+  ]}
+>
+  <Fragment slot="preamble">
+    The label, text and box around your own <code>&lt;input&gt;</code>,
+    <code>&lt;select&gt;</code> or <code>&lt;textarea&gt;</code>. Each control
+    has its own page:
+    <DocLink href="/components/number-field">Number field</DocLink>,
+    <DocLink href="/components/range">Range</DocLink>,
+    <DocLink href="/components/select">Select</DocLink>,
+    <DocLink href="/components/text-field">Text field</DocLink> and
+    <DocLink href="/components/textarea">Textarea</DocLink>.
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">Any labelled input, select or textarea, like a name.</li>
+    <li slot="when">
+      A unit, a hint or an error next to it: <a href="#affix">affixes</a> and
+      <a href="#end-text">end text</a>.
+    </li>
+    <li slot="when-not">
+      A choice you check: use a
+      <DocLink href="/components/checkbox">Checkbox</DocLink>, a
+      <DocLink href="/components/radio">Radio</DocLink> or a
+      <DocLink href="/components/switch">Switch</DocLink>.
+    </li>
+    <li slot="when-not">
+      A code sent to the user: use a
+      <DocLink href="/components/one-time-code">One-time code</DocLink>.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Write the control inside, with its <code>id</code> set to
+        <code>for</code>.
+      </Fragment>
+      <Fragment slot="react">
+        Write the control inside, with its <code>id</code> set to
+        <code>htmlFor</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Put the control in <code>.ui-field-container</code>, and point the
+        label's <code>for</code> at its <code>id</code>.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Basics" column />
+    <Conditional as="p">
+      <Fragment slot="vue">
+        Write a static <code>value</code> as <code>:value.attr</code>, or Vue
+        resets it when the page hydrates.
+      </Fragment>
+    </Conditional>
+  </section>
+
+  <section id="variants">
+    <h2>Variants</h2>
+    <p>
+      Outlined by default. Use
+      <PropOrClass prop='variant="filled"' class=".ui-filled" /> for a filled
+      field.
+    </p>
+    <AutoExample name="Variants" row />
+  </section>
+
+  <section id="sizes">
+    <h2>Sizes</h2>
+    <AutoExample name="Sizes" row />
+  </section>
+
+  <section id="dense">
+    <h2>Dense</h2>
+    <p>
+      <PropOrClass prop="dense" class=".ui-dense" /> packs a select's options
+      tighter.
+    </p>
+    <AutoExample name="Dense" row spacious />
+  </section>
+
+  <section id="hidden-label">
+    <h2>Hidden label</h2>
+    <p>
+      <PropOrClass prop="hideLabel" class=".ui-sr-only" /> hides the label but
+      keeps the name.
+    </p>
+    <AutoExample name="HiddenLabel" />
+    <p>Without a label, give the control an <code>aria-label</code>.</p>
+    <AutoExample name="NoLabel" />
+  </section>
+
+  <section id="start-text">
+    <h2>Start text</h2>
+    <p>Use <PropOrClass prop="startText" class=".ui-start-text" />.</p>
+    <AutoExample name="StartText" row />
+  </section>
+
+  <section id="affix">
+    <h2>Affix</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Use <code>start</code> and <code>end</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Use <code>.ui-start</code> and <code>.ui-end</code>.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Affix" column />
+
+    <h3 id="top-and-bottom">Top and bottom</h3>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Use <code>top</code> and <code>bottom</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Use <code>.ui-top</code> and <code>.ui-bottom</code>.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="TopAndBottom" column />
+  </section>
+
+  <section id="end-text">
+    <h2>End text</h2>
+    <p>Use <PropOrClass prop="endText" class=".ui-end-text" />.</p>
+    <AutoExample name="EndText" centered />
+  </section>
+
+  <section id="character-count">
+    <h2>Character count</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Put a <code>CharacterCount</code> in
+        <Conditional>
+          <Fragment slot="components">the <code>end-text</code> slot</Fragment>
+          <Fragment slot="react"><code>endText</code></Fragment>
+          <Fragment slot="solid"><code>endText</code></Fragment>
+          <Fragment slot="svelte">the <code>endText</code> snippet</Fragment>
+        </Conditional
+        >, with
+        <Conditional
+          ><Fragment slot="components"><code>maxlength</code></Fragment
+          ><Fragment slot="react"><code>maxLength</code></Fragment></Conditional
+        >
+        on the control.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>&lt;opui-character-count&gt;</code> to the end text, with
+        <code>maxlength</code> on the control, and import
+        <code>opui-css/elements/character-count.js</code>.
+      </Fragment>
+      <Fragment slot="nunjucks">
+        Put a <code>CharacterCount</code> in <code>slots.endText</code>, with
+        <code>maxlength</code> on the control, and load
+        <code>opui-css/elements/character-count.js</code> on the page.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="CharacterCount" centered />
+  </section>
+
+  <section id="ids">
+    <h2>Ids</h2>
+    <Conditional as="p">
+      <Fragment slot="react">Make the id with <code>useId()</code>.</Fragment>
+      <Fragment slot="solid">
+        Make the id with <code>createUniqueId()</code>.
+      </Fragment>
+      <Fragment slot="svelte"
+        >Make the id with <code>$props.id()</code>.</Fragment
+      >
+      <Fragment slot="vue">Make the id with <code>useId()</code>.</Fragment>
+    </Conditional>
+    <AutoExample name="Ids" centered />
+    <Conditional as="p">
+      <Fragment slot="components">
+        Each part gets an id from
+        <Conditional
+          ><Fragment slot="components"><code>for</code></Fragment
+          ><Fragment slot="react"><code>htmlFor</code></Fragment></Conditional
+        >, like <code>x-end-text</code>. List the parts in the control's
+        <code>aria-describedby</code> in the order they're drawn, except parts
+        with nothing to read. Set it on your control, not on the Field.
+      </Fragment>
+      <Fragment slot="react">
+        Each part gets an id from <code>htmlFor</code>, like
+        <code>x-end-text</code>. List the parts in the control's
+        <code>aria-describedby</code> in the order they're drawn, except parts
+        with nothing to read. Set it on your control, not on the Field.
+      </Fragment>
+      <Fragment slot="html">
+        Give each part an id that starts with the control's, like
+        <code>x-end-text</code>, and list them in its
+        <code>aria-describedby</code> in the order they're drawn, except parts
+        with nothing to read.
+      </Fragment>
+    </Conditional>
+    <p>
+      A part that only holds buttons, an output or hidden content has nothing to
+      read. Keep the list in step with parts that come and go, like an end text
+      that only shows an error.
+    </p>
+    <p>
+      <code>npx opui-css check</code> finds fields that don't follow this in
+      HTML files, and <code>checkHtml</code> from <code>opui-css/check</code> in
+      the HTML of a page, such as <code>await page.content()</code> in an
+      end-to-end test after a failed submit.
+    </p>
+  </section>
+
+  <section id="validation">
+    <h2>Validation</h2>
+    <p>
+      Use <code>required</code>, and <code>aria-invalid="true"</code> for
+      errors. <code>:user-invalid</code> styles the field too.
+    </p>
+    <AutoExample name="Validation" column spacious />
+
+    <h3 id="bound-validation">Bound validation</h3>
+    <p>Set <code>aria-invalid</code> from your own check.</p>
+    <Conditional as="p">
+      <Fragment slot="svelte">
+        Give the input <code>defaultValue</code> too, so a form reset brings its
+        value back.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="ValidationBinding" centered />
+  </section>
+
+  <section id="disabled">
+    <h2>Disabled and read-only</h2>
+    <Conditional as="p">
+      <Fragment slot="react">
+        Set <code>disabled</code> or <code>readOnly</code> on the control.
+      </Fragment>
+      <Fragment slot="html">
+        Set <code>disabled</code> or <code>readonly</code> on the control.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Disabled" column />
+  </section>
+
+  <section id="spread">
+    <h2>Spread</h2>
+    <p>
+      <PropOrClass prop="spread" class=".ui-spread" /> puts the label beside the
+      control.
+    </p>
+    <AutoExample name="Spread" column spacious />
+  </section>
+
+  <section id="auto-fit">
+    <h2>Auto-fit</h2>
+    <p>
+      <PropOrClass prop="autoFit" class=".ui-auto-fit" /> sizes the field to its
+      content.
+    </p>
+    <AutoExample name="AutoFit" class="flex" />
+  </section>
+
+  <section id="drop-zone">
+    <h2>Drop zone</h2>
+    <p>
+      Use <PropOrClass prop="dropZone" class=".ui-drop-zone" /> on a
+      <DocLink href="/components/text-field#file">file input</DocLink>. To
+      upload files as they're picked, use a
+      <DocLink href="/components/file-upload">File upload</DocLink>.
+    </p>
+    <AutoExample name="DropZone" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        The label is the control's name. The parts in its
+        <code>aria-describedby</code> are read after it.
+      </li>
+      <li>
+        A character count is only read near the limit, so name the limit in the
+        end text.
+      </li>
+    </ul>
+    <KeyboardSupport />
+  </Fragment>
+
+  <FieldBuild slot="under-the-hood" />
+
+  <Fragment slot="anatomy">
+    <Anatomy zoom={1.25}>
+      <UIField for="field-anatomy" label="Label" startText="Start text">
+        <input
+          aria-describedby="field-anatomy-start-text field-anatomy-top field-anatomy-start field-anatomy-end field-anatomy-bottom field-anatomy-end-text"
+          id="field-anatomy"
+          maxlength={24}
+          placeholder="Placeholder"
+          value="Value"
+        />
+        <span slot="top">Top</span>
+        <span slot="start">€</span>
+        <span slot="end">EUR</span>
+        <span slot="bottom">Bottom</span>
+        <Fragment slot="end-text">
+          Supporting text
+          <UICharacterCount />
+        </Fragment>
+      </UIField>
+    </Anatomy>
+  </Fragment>
+</Component>

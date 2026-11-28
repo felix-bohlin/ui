@@ -1,16 +1,22 @@
 <script setup lang="ts">
-import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
+import { Checkbox, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/vue"
 </script>
 
 <template>
   <Form>
-    <FieldSet>
-      <FieldLegend>These are required!</FieldLegend>
-      <FieldGroup direction="row" name="checkbox-group-required">
-        <Checkbox required>Checkbox 1</Checkbox>
-        <Checkbox required>Checkbox 2</Checkbox>
-        <Checkbox required>Checkbox 3</Checkbox>
+    <Fieldset>
+      <FieldLegend>Agreements</FieldLegend>
+      <FieldGroup orientation="horizontal">
+        <Checkbox name="checkbox-group-required" required
+          >Terms of service</Checkbox
+        >
+        <Checkbox name="checkbox-group-required" required
+          >Privacy policy</Checkbox
+        >
+        <Checkbox name="checkbox-group-required" required
+          >Data processing</Checkbox
+        >
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
   </Form>
 </template>

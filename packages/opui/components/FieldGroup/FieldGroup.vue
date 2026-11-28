@@ -1,24 +1,16 @@
 <script setup lang="ts">
-import { provide } from "vue"
-import { CurrentFieldNameKey, type Props, type Slots } from "./types.d.vue"
+import type { Props, Slots } from "./types.vue-props"
 
-const props = defineProps<Props>()
+const { orientation } = defineProps<Props>()
 defineSlots<Slots>()
-
-if (props.name) {
-  provide(CurrentFieldNameKey, props.name)
-}
 </script>
 
 <template>
   <div
     :class="[
       'ui-field-group',
-      props.direction && `ui-${props.direction}`,
-      props.class,
+      orientation && orientation !== 'auto' && `ui-${orientation}`,
     ]"
-    v-bind="$attrs"
-    role="group"
   >
     <slot></slot>
   </div>

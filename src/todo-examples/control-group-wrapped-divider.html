@@ -1,0 +1,75 @@
+<p class="todo-note">
+  Each group is 15rem wide, so its last two buttons wrap to a second row. A is a
+  group of buttons only: the lines between the buttons are gap rules
+  (<code>column-rule</code>), which the browser draws between two items of a row
+  and never before the first, so Snooze starts its row clean. B has a field with
+  a visible label. A rule runs the full height of the row and would show beside
+  the label, above the controls, so this group keeps the older way: every button
+  after another control paints its own start border. Copy link is such a button
+  wherever it lands, so it starts the second row with a line. C is the same
+  group with the label hidden, which draws rules again.
+</p>
+<p class="todo-label">A: buttons only, drawn with rules</p>
+<div class="todo-row">
+  <div
+    class="ui-control-group ui-tonal"
+    role="group"
+    aria-label="Message"
+    style="inline-size: 15rem"
+  >
+    <button class="ui-button" type="button">Reply</button>
+    <button class="ui-button" type="button">Forward</button>
+    <button class="ui-button" type="button">Snooze</button>
+    <button class="ui-button" type="button">Archive</button>
+  </div>
+</div>
+<p class="todo-label">
+  B: a field with a visible label, drawn with start borders
+</p>
+<div class="todo-row">
+  <div
+    class="ui-control-group ui-tonal"
+    role="group"
+    aria-label="Invite"
+    style="inline-size: 15rem"
+  >
+    <div class="ui-field">
+      <label class="ui-label" for="todo-wrapped-b">Email</label>
+      <span class="ui-field-container">
+        <input
+          value="ada@example.com"
+          id="todo-wrapped-b"
+          name="email-b"
+          type="email"
+        />
+      </span>
+    </div>
+    <button class="ui-button" type="button">Invite</button>
+    <button class="ui-button" type="button">Copy link</button>
+    <button class="ui-button" type="button">Archive</button>
+  </div>
+</div>
+<p class="todo-label">C: the same field with its label hidden, rules again</p>
+<div class="todo-row">
+  <div
+    class="ui-control-group ui-tonal"
+    role="group"
+    aria-label="Invite"
+    style="inline-size: 15rem"
+  >
+    <div class="ui-field">
+      <label class="ui-sr-only" for="todo-wrapped-c">Email</label>
+      <span class="ui-field-container">
+        <input
+          value="ada@example.com"
+          id="todo-wrapped-c"
+          name="email-c"
+          type="email"
+        />
+      </span>
+    </div>
+    <button class="ui-button" type="button">Invite</button>
+    <button class="ui-button" type="button">Copy link</button>
+    <button class="ui-button" type="button">Archive</button>
+  </div>
+</div>

@@ -1,16 +1,29 @@
 <script setup lang="ts">
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/vue"
 </script>
 
 <template>
   <Form>
-    <FieldSet disabled>
-      <FieldLegend>Legend</FieldLegend>
-      <FieldGroup direction="row" name="radio-group-disabled">
-        <Radio value="1" checked>Radio 1</Radio>
-        <Radio value="2">Radio 2</Radio>
-        <Radio value="3">Radio 3</Radio>
+    <Fieldset disabled>
+      <FieldLegend>Band practice</FieldLegend>
+      <FieldGroup orientation="horizontal">
+        <Radio checked name="radio-group-disabled" value="weekly">Weekly</Radio>
+        <Radio name="radio-group-disabled" value="monthly">Monthly</Radio>
+        <Radio name="radio-group-disabled" value="drummer"
+          >When the drummer shows up</Radio
+        >
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
+    <Fieldset>
+      <FieldLegend>Delivery</FieldLegend>
+      <FieldGroup orientation="horizontal">
+        <Radio checked name="radio-group-disabled-single" value="standard"
+          >Standard</Radio
+        >
+        <Radio disabled name="radio-group-disabled-single" value="same-day"
+          >Same day</Radio
+        >
+      </FieldGroup>
+    </Fieldset>
   </Form>
 </template>

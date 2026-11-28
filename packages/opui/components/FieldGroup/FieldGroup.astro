@@ -2,21 +2,16 @@
 import type { Props } from "./types.astro"
 export const title = "Field Group"
 
-const { class: className, direction, name, ...rest } = Astro.props
-
-const slotHtml = (await Astro.slots.render("default")) ?? ""
-const escapedName = name?.replaceAll("&", "&amp;").replaceAll('"', "&quot;")
-const html = name
-  ? slotHtml.replace(
-      /<(input|select|textarea)\b(?![^>]*\sname=)/g,
-      (_, tag) => `<${tag} name="${escapedName}"`,
-    )
-  : slotHtml
+const { class: className, orientation, ...rest } = Astro.props
 ---
 
 <div
-  class:list={["ui-field-group", direction && `ui-${direction}`, className]}
+  class:list={[
+    "ui-field-group",
+    orientation && orientation !== "auto" && `ui-${orientation}`,
+    className,
+  ]}
   {...rest}
-  role="group"
-  set:html={html}
-/>
+>
+  <slot />
+</div>

@@ -1,0 +1,73 @@
+{% from "opui/Button.njk" import Button %}
+{% from "opui/Menu.njk" import Menu %}
+
+{% macro Breadcrumb(props = {}) %}
+  {%- set props = props | opuiProps("Breadcrumb") -%}
+  {%- set rest = props | opuiRest("Breadcrumb") -%}
+  {%- set lastIndex = props.items.length - 1 if props.items else -1 -%}
+  {%- set collapsed = opui.collapsedLevels(props.items)
+    if props.overflow == "menu" and props.items
+    else [] -%}
+  {%- set collapsing = collapsed.length > 0 -%}
+  {%- set menuId = opui.id("breadcrumb-menu") -%}
+  {%- set head = props.items.slice(0, 1) if collapsing else props.items -%}
+  {%- set tail = props.items.slice(1) if collapsing else undefined -%}
+  <nav
+    class="ui-breadcrumb
+      {%- if props.overflow and props.overflow != 'wrap' %} ui-overflow-{{ props.overflow }}
+      {%- endif %}
+      {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    <ol>
+      {%- for item in head %}
+        {%- set index = loop.index0 -%}
+        {%- set itemTag = "a" if item.href else "span" -%}
+        <li>
+          {%- if index > 0 and props.slots.separator != none -%}
+            <span aria-hidden="true" class="ui-separator">
+              {{- props.slots.separator | safe -}}
+            </span>
+          {%- endif %}<{{ itemTag | opuiTag }}{{ {
+            "aria-current": "page"
+              if (item.current if item.current != none else index === lastIndex)
+              else none,
+            href: item.href
+          } | opuiAttributes(itemTag) }}>{{ item.label | opuiText }}</{{ itemTag | opuiTag }}>
+        </li>
+      {%- endfor %}
+      {% if collapsing -%}
+        <li>
+          {%- if props.slots.separator != none -%}
+            <span aria-hidden="true" class="ui-separator">
+              {{- props.slots.separator | safe -}}
+            </span>
+          {%- endif %}{% call Button({
+            "aria-label": props.menuLabel,
+            command: "toggle-popover",
+            commandfor: menuId,
+            round: true,
+            size: "x-small"
+          }) %}…{% endcall %}{{ Menu({ id: menuId, items: collapsed }) -}}
+        </li>
+      {%- endif %}
+      {% for entry in tail %}
+        {%- set index = loop.index0 -%}
+        {%- set tailTag = "a" if entry.href else "span" -%}
+        <li>
+          {%- if props.slots.separator != none -%}
+            <span aria-hidden="true" class="ui-separator">
+              {{- props.slots.separator | safe -}}
+            </span>
+          {%- endif %}<{{ tailTag | opuiTag }}{{ {
+            "aria-current": "page"
+              if (entry.current if entry.current != none else index === lastIndex - 1)
+              else none,
+            href: entry.href
+          } | opuiAttributes(tailTag) }}>{{ entry.label | opuiText }}</{{ tailTag | opuiTag }}>
+        </li>
+      {%- endfor %}
+      {{ caller() if caller -}}
+    </ol>
+  </nav>
+{%- endmacro %}

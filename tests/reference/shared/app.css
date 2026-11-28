@@ -1,0 +1,153 @@
+@layer app {
+  .app-header {
+    align-items: center;
+    background: var(--ui-surface-default);
+    border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+    display: flex;
+    gap: var(--ui-space-2);
+    inset-block-start: 0;
+    padding: var(--ui-space-2) var(--ui-space-4);
+    position: sticky;
+    z-index: 1;
+  }
+
+  .app-brand {
+    color: inherit;
+    font-weight: var(--ui-font-weight-heading);
+    margin-inline-end: auto;
+    text-decoration: none;
+  }
+
+  .app-nav {
+    display: none;
+    gap: var(--ui-space-1);
+  }
+
+  @media (width >= 48rem) {
+    .app-nav {
+      display: flex;
+    }
+
+    .app-menu-button {
+      display: none;
+    }
+  }
+
+  .app-main {
+    margin-inline: auto;
+    max-inline-size: 48rem;
+    padding: var(--ui-space-5) var(--ui-space-4);
+  }
+
+  .app-main:focus {
+    outline: none;
+  }
+
+  .app-screen {
+    display: grid;
+    gap: var(--ui-space-5);
+  }
+
+  .app-posts,
+  .app-photo-grid {
+    display: grid;
+    gap: var(--ui-space-4);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .app-post-photos {
+    display: grid;
+    gap: var(--ui-space-1);
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  }
+
+  .app-post-photos img,
+  .app-profile-photos img {
+    aspect-ratio: 3 / 2;
+    border-radius: var(--ui-radius);
+    inline-size: 100%;
+    object-fit: cover;
+  }
+
+  .app-photo-grid {
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  }
+
+  .app-photo {
+    background: none;
+    border: 0;
+    border-radius: var(--ui-radius);
+    cursor: zoom-in;
+    display: block;
+    inline-size: 100%;
+    overflow: clip;
+    padding: 0;
+  }
+
+  .app-photo img {
+    aspect-ratio: 3 / 2;
+    display: block;
+    inline-size: 100%;
+    object-fit: cover;
+  }
+
+  .app-viewer {
+    block-size: 100%;
+    inline-size: 100%;
+    inset: 0;
+    margin: 0;
+    max-block-size: none;
+    max-inline-size: none;
+  }
+
+  .app-viewer img {
+    block-size: 100%;
+    inline-size: 100%;
+    min-block-size: 0;
+    object-fit: contain;
+  }
+
+  .app-viewer-body {
+    display: grid;
+    gap: var(--ui-space-2);
+    grid-template-rows: minmax(0, 1fr) auto;
+    min-block-size: 0;
+  }
+
+  .app-chat {
+    display: grid;
+    gap: var(--ui-space-5);
+  }
+
+  @media (width >= 48rem) {
+    .app-chat {
+      grid-template-columns: 16rem 1fr;
+    }
+  }
+
+  .app-profile-header {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-4);
+  }
+
+  .app-stats {
+    display: flex;
+    gap: var(--ui-space-6);
+  }
+
+  .app-profile-photos {
+    display: grid;
+    gap: var(--ui-space-2);
+    grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+  }
+
+  .app-empty,
+  .app-end {
+    color: var(--ui-text-subtle);
+    text-align: center;
+  }
+}

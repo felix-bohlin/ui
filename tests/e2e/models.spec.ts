@@ -1,0 +1,229 @@
+import { expect, test } from "@playwright/test"
+import { FRAMEWORKS, isHydratedFramework } from "../../src/utils/framework"
+import { expectation } from "../expectations"
+import { instantScrolling, pageErrors } from "./fixtures"
+
+for (const { id, label } of FRAMEWORKS) {
+  if (!isHydratedFramework(id)) continue
+  const oneWay = expectation({ check: "models", framework: id })
+  const refuses = !oneWay
+  const explain = (...reasons: (string | undefined)[]) =>
+    test
+      .info()
+      .annotations.push(
+        ...reasons.flatMap((description) =>
+          description ? [{ description, type: `${label} differs` }] : [],
+        ),
+      )
+
+  test.describe(label, () => {
+    test.beforeEach(async ({ page }) => {
+      await instantScrolling(page)
+      await page.goto(`/dev/fixtures/${id}-models/`)
+      await expect(page.getByLabel("City")).toBeVisible()
+    })
+
+    test("a control keeps what the user entered when another prop changes", async ({
+      page,
+    }) => {
+      const errors = pageErrors(page)
+      const city = page.getByLabel("City")
+      await city.fill("Malmo")
+      await page.getByLabel("Newsletter").check()
+      await page.getByLabel("Size").selectOption("large")
+      await page.getByRole("button", { name: "Toggle error" }).click()
+
+      await expect(city).toHaveAttribute("aria-invalid", "true")
+      await expect(city).toHaveValue("Malmo")
+      await expect(page.getByLabel("Newsletter")).toBeChecked()
+      await expect(page.getByLabel("Size")).toHaveValue("large")
+      expect(errors).toEqual([])
+    })
+
+    test("a shown password stays shown when another prop changes", async ({
+      page,
+    }) => {
+      const password = page.getByLabel("Password", { exact: true })
+      const toggle = page.getByRole("button", { name: "Show password" })
+      await password.fill("correct horse")
+      await toggle.click()
+      await expect(password).toHaveAttribute("type", "text")
+      await page.getByRole("button", { name: "Toggle error" }).click()
+
+      await expect(password).toHaveAttribute("aria-invalid", "true")
+      await expect(password).toHaveAttribute("type", "text")
+      await expect(toggle).toHaveAttribute("aria-pressed", "true")
+      await toggle.click()
+      await expect(password).toHaveAttribute("type", "password")
+      await page.getByRole("button", { name: "Toggle error" }).click()
+      await expect(password).toHaveAttribute("type", "password")
+      await expect(toggle).toHaveAttribute("aria-pressed", "false")
+    })
+
+    test("a select picks the child option its defaultValue names", async ({
+      page,
+    }) => {
+      await expect(page.getByLabel("Color")).toHaveValue("blue")
+      await expect(page.getByLabel("Size")).toHaveValue("small")
+    })
+
+    test("a control follows its value when it changes, and a reset returns an unbound control to its default", async ({
+      page,
+    }) => {
+      const name = page.getByLabel("Name")
+      const fruit = page.getByLabel("Fruit")
+      await name.fill("Edsger")
+      await page.getByRole("button", { name: "Set values" }).click()
+      await expect(name).toHaveValue("Grace")
+      await expect(page.getByLabel("Plan")).toHaveValue("paid")
+      await expect(page.locator("opui-character-count")).toHaveText("5/20")
+      await page.getByLabel("City").fill("Malmo")
+      await fruit.selectOption("cherry")
+
+      await page.getByRole("button", { name: "Reset" }).click()
+      await expect(page.getByLabel("City")).toHaveValue("Lund")
+      await expect(fruit).toHaveValue("apple")
+
+      await page.getByRole("button", { name: "Toggle error" }).click()
+      await expect(page.getByLabel("City")).toHaveAttribute(
+        "aria-invalid",
+        "true",
+      )
+      await expect(page.getByLabel("City")).toHaveValue("Lund")
+    })
+
+    test("a form reset leaves each value of a bound checkbox group once", async ({
+      page,
+    }) => {
+      const errors = pageErrors(page)
+      const toppings = page.locator("#models-toppings")
+      await expect(toppings.locator("output")).toHaveText('["basil","cheese"]')
+      await toppings.locator("input").evaluateAll((inputs) =>
+        inputs.forEach((input) => {
+          const box = input as HTMLInputElement
+          box.defaultChecked = box.checked
+        }),
+      )
+
+      const expectStart = async () => {
+        await expect(toppings.getByLabel("basil")).toBeChecked()
+        await expect(toppings.getByLabel("cheese")).toBeChecked()
+        await expect(toppings.getByLabel("olives")).not.toBeChecked()
+        await expect(toppings.locator("output")).toHaveText(
+          '["basil","cheese"]',
+        )
+      }
+      await page.getByRole("button", { name: "Reset" }).click()
+      await expectStart()
+      await page.getByRole("button", { name: "Reset" }).click()
+      await expectStart()
+      expect(errors).toEqual([])
+    })
+
+    test("a number field with a starting value can be emptied, stays empty when another prop changes, and a reset brings the value back", async ({
+      page,
+    }) => {
+      const errors = pageErrors(page)
+      const quantity = page.getByLabel("Quantity")
+      await expect(quantity).toHaveValue("1")
+      await quantity.fill("")
+      await expect(quantity).toHaveValue("")
+      await page.getByRole("button", { name: "Toggle error" }).click()
+      await expect(quantity).toHaveAttribute("aria-invalid", "true")
+      await expect(quantity).toHaveValue("")
+      await quantity.fill("-5")
+      await expect(quantity).toHaveValue("-5")
+
+      await page.getByRole("button", { name: "Reset" }).click()
+      await expect(quantity).toHaveValue("1")
+      expect(errors).toEqual([])
+    })
+
+    test(`a group with a one-way value ${refuses ? "puts the selection back" : "keeps the selection"} when the change isn't stored`, async ({
+      page,
+    }) => {
+      explain(oneWay?.reason)
+      const errors = pageErrors(page)
+      await page.getByText("Billing", { exact: true }).click()
+      await expect(page.getByRole("radio", { name: "Profile" })).toBeChecked({
+        checked: refuses,
+      })
+      await expect(page.getByRole("radio", { name: "Billing" })).toBeChecked({
+        checked: !refuses,
+      })
+
+      await page.getByText("Rows", { exact: true }).click()
+      await expect(page.getByRole("radio", { name: "Grid" })).toBeChecked({
+        checked: refuses,
+      })
+      await expect(page.getByRole("radio", { name: "Rows" })).toBeChecked({
+        checked: !refuses,
+      })
+
+      await page.getByText("Italic", { exact: true }).click()
+      await page.getByText("Bold", { exact: true }).click()
+      await expect(page.getByRole("checkbox", { name: "Bold" })).toBeChecked({
+        checked: refuses,
+      })
+      await expect(page.getByRole("checkbox", { name: "Italic" })).toBeChecked({
+        checked: !refuses,
+      })
+
+      await page.getByRole("radio", { name: "4 stars" }).click({ force: true })
+      await expect(
+        page.getByRole("radio", { name: refuses ? "2 stars" : "4 stars" }),
+      ).toBeChecked()
+
+      await page.getByText("Right", { exact: true }).click()
+      await expect(page.getByRole("radio", { name: "Right" })).toBeChecked()
+      await page.getByText("Roomy", { exact: true }).click()
+      await expect(page.getByRole("radio", { name: "Roomy" })).toBeChecked()
+      expect(errors).toEqual([])
+    })
+
+    test("a bound multiple group keeps the values that have no button", async ({
+      page,
+    }) => {
+      const errors = pageErrors(page)
+      const tags = page.locator("#models-tags")
+      await expect(tags).toHaveText('["archived","news"]')
+      await page.getByText("Sports", { exact: true }).click()
+      await expect(tags).toHaveText('["archived","news","sports"]')
+      await page.getByText("News", { exact: true }).click()
+      await expect(tags).toHaveText('["archived","sports"]')
+      expect(errors).toEqual([])
+    })
+
+    test("a list keeps its rows when its items are replaced by new objects", async ({
+      page,
+    }) => {
+      const errors = pageErrors(page)
+      await page.evaluate(() =>
+        document.getElementById("models-menu")!.showPopover(),
+      )
+      const refresh = page.getByRole("button", { name: "Refresh", exact: true })
+      await refresh.click()
+      await expect(page.getByRole("button", { name: "Round 1" })).toBeVisible()
+      await expect(refresh).toBeFocused()
+      await page.evaluate(() =>
+        document.getElementById("models-menu")!.hidePopover(),
+      )
+
+      const fruit = page.getByLabel("Fruit")
+      await fruit.selectOption("cherry")
+      await page.getByRole("button", { name: "Refresh fruits" }).click()
+      await expect(fruit.locator("option").first()).toHaveText("apple 1")
+      await expect(fruit).toHaveValue("cherry")
+
+      const account = page.getByRole("link", { name: "Account 0" })
+      await account.focus()
+      await page.evaluate(() =>
+        document.dispatchEvent(new Event("refresh-steps")),
+      )
+      const updated = page.getByRole("link", { name: "Account 1" })
+      await expect(updated).toBeVisible()
+      await expect(updated).toBeFocused()
+      expect(errors).toEqual([])
+    })
+  })
+}

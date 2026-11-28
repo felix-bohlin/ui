@@ -1,0 +1,338 @@
+import themeSource from "@opui/css/theme.css?raw"
+import { paletteSteps } from "./palette-steps"
+import { themeTokenTiers } from "./theme-token-tiers"
+
+type ThemeToken = {
+  dark?: string
+  moreContrast?: string
+  name: string
+  optional?: boolean
+  value: string
+}
+
+type ThemeSection = {
+  note?: string
+  title: string
+  tokens: ThemeToken[]
+}
+
+const HEADER = /^\s*\/\*\s*([^-.\s][^.]*?)(?:\s+-\s+(.*?))?\s*\*\/\s*$/
+const DECLARATION = /^(\s*)(--(?!_)[\w-]+):\s*(.*)$/
+const OPTIONAL = /^\s*\/\*\s*(--[\w-]+):\s*(.*?);?\s*\*\/\s*$/
+const CONTRAST_SCOPE =
+  /prefers-contrast:\s*more|:where\(\.ui-contrast-more\)|--ui-contrast:\s*more/
+const DARK_SCOPE = /\.ui-dark|prefers-color-scheme:\s*dark/
+const FALLBACK_SCOPE = /@supports not\b/
+// The right-to-left swap of a token, not another value of it.
+const RTL_SCOPE = /:dir\(rtl\)/
+const PRINT_SCOPE = /@media print\b/
+const THEME_SCOPE = /\bhtml\b/
+const SECTIONS = [
+  ["Color scheme", "color-scheme"],
+  ["Palette", "palette"],
+  ["Palette steps", "palette-steps"],
+  ["Palette shades", "palette-shades"],
+  ["Intent tokens", "intent"],
+  ["Primary", "primary"],
+  ["Text", "text"],
+  ["Surfaces", "surfaces"],
+  ["Borders", "borders"],
+  ["Field / input", "field"],
+  ["Focus ring", "focus-ring"],
+  ["Typography", "typography"],
+  ["Code", "code"],
+  ["Spacing", "spacing"],
+  ["Controls", "controls"],
+  ["Control sizes", "control-sizes"],
+  ["Button", "button"],
+  ["Tabs", "tabs"],
+  ["Divider", "divider"],
+  ["Motion", "motion"],
+  ["Contrast", "contrast"],
+  ["State", "state"],
+  ["Icons", "icons"],
+  ["Choice controls", "choice-controls"],
+  ["Elevation", "elevation"],
+  ["Overlays", "overlays"],
+  ["Safe areas", "safe-areas"],
+  ["Local tokens", "local-tokens"],
+]
+const sectionOrder = (title: string) => {
+  const index = SECTIONS.findIndex(([name]) => name === title)
+  return index < 0 ? SECTIONS.length : index
+}
+
+export const sectionKey = (title: string) => {
+  const key = SECTIONS.find(([name]) => name === title)?.[1]
+  if (!key) {
+    throw new Error(
+      `The theme.css section "${title}" has no key: give it one in SECTIONS in src/utils/theme-tokens.ts. The key names the group in tokens.json, so it never changes once released.`,
+    )
+  }
+  return key
+}
+
+type Line =
+  | { kind: "comment" }
+  | { kind: "close" }
+  | {
+      kind: "declaration"
+      contrast: boolean
+      dark: boolean
+      end: number
+      indent: string
+      name: string
+      value: string
+    }
+  | { kind: "header"; note?: string; title: string }
+  | { kind: "optional"; name: string; value: string }
+  | { kind: "open" }
+  | { kind: "other" }
+
+function* walk(lines: string[]): Generator<[number, Line]> {
+  const scopes: string[] = []
+  let inComment = false
+  let prelude = ""
+  for (let index = 0; index < lines.length; index++) {
+    const line = lines[index]
+    if (inComment) {
+      if (line.includes("*/")) inComment = false
+      yield [index, { kind: "comment" }]
+      continue
+    }
+    const header = line.match(HEADER)
+    if (header) {
+      yield [index, { kind: "header", note: header[2], title: header[1] }]
+      continue
+    }
+    if (line.includes("/*") && !line.includes("*/")) {
+      inComment = true
+      yield [index, { kind: "comment" }]
+      continue
+    }
+    const optional = line.match(OPTIONAL)
+    if (optional && scopes.some((scope) => THEME_SCOPE.test(scope))) {
+      yield [
+        index,
+        { kind: "optional", name: optional[1], value: optional[2].trim() },
+      ]
+      continue
+    }
+    if (/^\s*\/\*.*\*\/\s*$/.test(line)) {
+      yield [index, { kind: "comment" }]
+      continue
+    }
+    if (line.trimEnd().endsWith("{")) {
+      scopes.push(`${prelude} ${line}`)
+      prelude = ""
+      yield [index, { kind: "open" }]
+      continue
+    }
+    if (line.trim() === "}") {
+      scopes.pop()
+      prelude = ""
+      yield [index, { kind: "close" }]
+      continue
+    }
+    const declaration = line.match(DECLARATION)
+    const contrast = scopes.some((scope) => CONTRAST_SCOPE.test(scope))
+    if (
+      !declaration ||
+      scopes.some(
+        (scope) =>
+          FALLBACK_SCOPE.test(scope) ||
+          PRINT_SCOPE.test(scope) ||
+          RTL_SCOPE.test(scope),
+      ) ||
+      !(contrast || scopes.some((scope) => THEME_SCOPE.test(scope)))
+    ) {
+      prelude =
+        !declaration && line.trim() !== "" && !line.trimEnd().endsWith(";")
+          ? `${prelude} ${line.trim()}`
+          : ""
+      yield [index, { kind: "other" }]
+      continue
+    }
+    const start = index
+    let value = declaration[3]
+    while (!value.trimEnd().endsWith(";") && index + 1 < lines.length) {
+      value += ` ${lines[++index].trim()}`
+    }
+    yield [
+      start,
+      {
+        contrast,
+        dark: scopes.some((scope) => DARK_SCOPE.test(scope)),
+        end: index,
+        indent: declaration[1],
+        kind: "declaration",
+        name: declaration[2],
+        value: value.trim().replace(/;$/, ""),
+      },
+    ]
+  }
+}
+
+export const parseThemeTokens = (css = themeSource): ThemeSection[] => {
+  const sections: ThemeSection[] = []
+  let section: ThemeSection | undefined
+  for (const [, line] of walk(css.split("\n"))) {
+    if (line.kind === "header") {
+      section = sections.find((candidate) => candidate.title === line.title)
+      if (!section) {
+        section = {
+          note: line.note,
+          title: line.title,
+          tokens: [],
+        }
+        sections.push(section)
+      }
+      continue
+    }
+    if (line.kind === "optional" && section) {
+      if (!themeTokensIn(sections).some((token) => token.name === line.name)) {
+        section.tokens.push({
+          name: line.name,
+          optional: true,
+          value: line.value,
+        })
+      }
+      continue
+    }
+    if (line.kind !== "declaration" || !section) continue
+    const existing = sections
+      .flatMap((candidate) => candidate.tokens)
+      .find((token) => token.name === line.name)
+    if (line.contrast) {
+      if (existing && !existing.moreContrast) existing.moreContrast = line.value
+      continue
+    }
+    if (existing?.optional && !line.dark) {
+      existing.optional = undefined
+      existing.value = line.value
+      continue
+    }
+    if (existing) {
+      if (line.dark) existing.dark = line.value
+      continue
+    }
+    if (line.dark) continue
+    section.tokens.push({ name: line.name, value: line.value })
+  }
+  return sections.toSorted(
+    (a, b) => sectionOrder(a.title) - sectionOrder(b.title),
+  )
+}
+
+export const OPTIONAL_GLOBALS = [
+  "--ui-border-color-raised",
+  "--ui-choice-accent",
+  "--ui-control-accent",
+  "--ui-control-border-color",
+  "--ui-control-border-color-filled",
+  "--ui-control-on-accent",
+  "--ui-focus-border-color",
+  "--ui-menu-radius",
+  "--ui-on-selected",
+  "--ui-selected",
+  "--ui-track-bg-color",
+] as const
+
+export const LOCAL_TOKENS: ThemeToken[] = [
+  {
+    name: "--ui-anchor-position-area",
+    optional: true,
+    value: "self-start self-end",
+  },
+]
+
+export type TokenTier = "component" | "global" | "local" | "primitive" | "scale"
+
+export const tokenTiers = [
+  "primitive",
+  "scale",
+  "global",
+  "component",
+  "local",
+] as const satisfies TokenTier[]
+
+export const tokenTierNotes = {
+  component: "Changes one component, like the button's corners.",
+  global:
+    "Changes one job everywhere, like the corners of every component. Some are unset until you set them.",
+  local: "Changes one element. Set by a prop or a style, never by a theme.",
+  primitive: "Changes many things at once, like the brand color.",
+  scale: "A ready-made step for your own CSS. Components don't use it.",
+} satisfies Record<TokenTier, string>
+
+export const tokenTier = (name: string): TokenTier =>
+  LOCAL_TOKENS.some((token) => token.name === name)
+    ? "local"
+    : (themeTokenTiers[name] ?? "global")
+
+const themeTokensIn = (sections: ThemeSection[]) =>
+  sections.flatMap((section) => section.tokens)
+
+export const themeTokenSections = (): ThemeSection[] =>
+  [
+    ...parseThemeTokens(),
+    {
+      note: "The 16 steps `core/palette.css` derives from `--ui-palette-source` on `:root`, `.ui-scope` and every severity scope, and the grays at their lightness. Components read the palette tokens, not the steps.",
+      title: "Palette steps",
+      tokens: paletteSteps().map(({ name, value }) => ({ name, value })),
+    },
+    {
+      note: "Read by components but set on an element, by a prop or a style, for that element and everything inside it. A theme doesn't set them, and each component has its own default.",
+      title: "Local tokens",
+      tokens: LOCAL_TOKENS,
+    },
+  ]
+    .filter((section) => section.tokens.length > 0)
+    .toSorted((a, b) => sectionOrder(a.title) - sectionOrder(b.title))
+
+export const themeTokens = () =>
+  themeTokensIn(themeTokenSections()).filter(
+    (token) => tokenTier(token.name) !== "local",
+  )
+
+const SCALE_KNOBS = ["--ui-density", "--ui-space-scale"]
+
+export const scaledTokens = (tokens = themeTokens()) => {
+  const scaled = new Map<string, string>()
+  const knobOf = (value: string) =>
+    SCALE_KNOBS.find((knob) => value.includes(`var(${knob})`)) ??
+    [...scaled].find(([name]) => value.includes(`var(${name})`))?.[1]
+  let grew = true
+  while (grew) {
+    grew = false
+    for (const token of tokens) {
+      if (token.optional || scaled.has(token.name)) continue
+      const knob = knobOf(token.value)
+      if (knob) {
+        scaled.set(token.name, knob)
+        grew = true
+      }
+    }
+  }
+  return scaled
+}
+
+export const setThemeToken = (css: string, name: string, value: string) => {
+  const lines = css.split("\n")
+  for (const [index, line] of walk(lines)) {
+    if (
+      line.kind !== "declaration" ||
+      line.contrast ||
+      line.dark ||
+      line.name !== name
+    )
+      continue
+    lines.splice(
+      index,
+      line.end - index + 1,
+      `${line.indent}${name}: ${value};`,
+    )
+    return lines.join("\n")
+  }
+  throw new Error(`${name} is not declared in theme.css`)
+}

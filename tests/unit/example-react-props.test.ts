@@ -1,0 +1,549 @@
+import { createElement } from "react"
+import { renderToString } from "react-dom/server"
+import { afterAll, beforeAll, describe, expect, test, vi } from "vitest"
+import {
+  compileExample,
+  createRenderer,
+  REACT_FIXED_VALUE_TYPES,
+} from "../../scripts/build-examples.mjs"
+import { checkAttributeOrder } from "../../scripts/check-components.mjs"
+import {
+  astroPropsOf,
+  exportedTypes,
+  helperReturnsOf,
+  reactAttributeName,
+  reactBareAttribute,
+  reactKinds,
+  reactPropsOf,
+  resolveReactProp,
+  shapesOfSource,
+  typeDiagnostics,
+} from "../../scripts/example-react-props.mjs"
+
+const sampleFile = "src/component-examples/sample/Example.astro"
+
+const astro = (body: string, imports = "", consts = "") =>
+  `---\n${imports ? `import { ${imports} } from "opui-css/astro"\n` : ""}${consts}---\n\n${body}\n`
+
+let renderer: Awaited<ReturnType<typeof createRenderer>>
+
+beforeAll(async () => {
+  renderer = await createRenderer()
+}, 60_000)
+
+afterAll(() => renderer?.close())
+
+const compile = async (source: string, targets: string[]) => {
+  const { outputs, problems } = await compileExample(source, sampleFile, {
+    renderer,
+    targets,
+  })
+  if (problems.length > 0) throw new Error(problems.join("\n"))
+  return outputs
+}
+
+const react = async (body: string, imports = "", consts = "") =>
+  (await compile(astro(body, imports, consts), ["react"])).get(
+    "react",
+  ) as string
+
+const samples: (() => Promise<string>)[] = []
+
+const sample = (body: string, imports = "") => {
+  let code: Promise<string> | undefined
+  const convert = () => (code ??= react(body, imports))
+  samples.push(convert)
+  return convert
+}
+
+const sampleRows = (
+  rows: [body: string, imports: string, expected: string][],
+) =>
+  rows.map(
+    ([body, imports, expected]) =>
+      [body, sample(body, imports), expected] as const,
+  )
+
+describe("the React prop table", () => {
+  test.each([
+    ["td", false, "colspan", "colSpan", "number"],
+    ["td", false, "class", "className", "string"],
+    ["td", false, "tabindex", "tabIndex", "number"],
+    ["form", false, "novalidate", "noValidate", "boolean"],
+    ["input", false, "readonly", "readOnly", "boolean"],
+    ["input", false, "maxlength", "maxLength", "number"],
+    ["label", false, "for", "htmlFor", "string"],
+    ["svg", false, "stroke-width", "strokeWidth", "string"],
+    ["svg", false, "xmlns:xlink", "xmlnsXlink", "string"],
+    ["div", false, "popover", "popover", "string"],
+    ["div", false, "hidden", "hidden", "boolean"],
+    ["div", false, "interestfor", "interestfor", "string"],
+    ["p", false, "aria-label", "aria-label", "string"],
+    ["p", false, "data-anything", "data-anything", "string"],
+    ["Field", true, "variant", "variant", "string"],
+    ["ToggleGroup", true, "multiple", "multiple", "boolean"],
+    ["Carousel", true, "itemsPerView", "itemsPerView", "number"],
+    ["Table", true, "tabindex", "tabIndex", "number"],
+  ])("%s %s: %s is %s (%s)", (tag, component, name, expected, kind) => {
+    const table = reactPropsOf(tag, component)!
+    const resolved = resolveReactProp(table, name)
+    expect(resolved).toBe(expected)
+    expect([...reactKinds(table, resolved)]).toContain(kind)
+  })
+
+  test.each([
+    ["input", false, "novalidate"],
+    ["td", false, "nowrap"],
+    ["div", false, "disabled"],
+    ["p", false, "bogus"],
+  ])("%s %s has no %s", (tag, component, name) => {
+    expect(resolveReactProp(reactPropsOf(tag, component)!, name)).toBe(
+      undefined,
+    )
+  })
+
+  test("an element or component that React's types don't have is undefined", () => {
+    expect(reactPropsOf("nope", false)).toBe(undefined)
+    expect(reactPropsOf("Nope", true)).toBe(undefined)
+  })
+})
+
+describe("attribute names and value forms in React", () => {
+  test.each(
+    sampleRows([
+      ["<form novalidate></form>", "", "<form noValidate>"],
+      [
+        "<table><tbody><tr><td colspan='2'>x</td></tr></tbody></table>",
+        "",
+        "colSpan={2}",
+      ],
+      ["<div tabindex='0'>x</div>", "", "tabIndex={0}"],
+      ["<div popover>x</div>", "", 'popover=""'],
+      ["<div popover='manual'>x</div>", "", 'popover="manual"'],
+      ["<div hidden>x</div>", "", "<div hidden>"],
+      ["<svg stroke-width='2'></svg>", "", 'strokeWidth="2"'],
+      ["<label for='a'>x</label>", "", 'htmlFor="a"'],
+      [
+        "<p aria-hidden='true' data-x='1'>x</p>",
+        "",
+        'aria-hidden="true" data-x="1"',
+      ],
+      ["<input maxlength='20' />", "", "maxLength={20}"],
+      ["<input readonly value='x' />", "", 'readOnly value="x"'],
+      ["<Table tabindex='0'></Table>", "Table", "<Table tabIndex={0}"],
+      [
+        "<Carousel aria-label='Photos' itemsPerView='2'></Carousel>",
+        "Carousel",
+        "itemsPerView={2}",
+      ],
+      ["<img alt='' src='/a.png' />", "", 'alt="" src="/a.png"'],
+    ]),
+  )("%s", async (_, code, expected) => {
+    expect(await code()).toContain(expected)
+  })
+
+  test.each([
+    ["<input novalidate />", "", "the attribute novalidate on <input>"],
+    ["<td nowrap>x</td>", "", "the attribute nowrap on <td>"],
+    [
+      "<Nope></Nope>",
+      "Button as Nope",
+      "<Nope>, which React's types don't have",
+    ],
+    [
+      "<td colspan='x'>x</td>",
+      "",
+      'the string "x" for the prop colSpan of <td>',
+    ],
+    [
+      "<button disabled=''>x</button>",
+      "",
+      'the string "" for the prop disabled of <button>',
+    ],
+    ["<Table nonsense></Table>", "Table", "the attribute nonsense on <Table>"],
+  ])("rejects %s", async (body, imports, reason) => {
+    await expect(react(body, imports)).rejects.toThrow(reason)
+  })
+
+  test("rejects a slot that the component has no React prop for", async () => {
+    await expect(
+      react(
+        '<Badge label="x"><Fragment slot="nonsense">y</Fragment></Badge>',
+        "Badge",
+      ),
+    ).rejects.toThrow(
+      "the slot nonsense of <Badge>, which has no nonsense prop in React",
+    )
+  })
+})
+
+describe("the order of props", () => {
+  test("a component's props and slot props are sorted together in React", async () => {
+    const code = await react(
+      '<ListItem label="a" end="b"><Fragment slot="start">c</Fragment></ListItem>',
+      "ListItem",
+    )
+    expect(code).toContain('<ListItem end="b" label="a" start="c" />')
+  })
+
+  test("a native element keeps its attribute order", async () => {
+    expect(await react('<p id="b" class="a">x</p>')).toContain(
+      '<p id="b" className="a">',
+    )
+  })
+
+  test("a component's attributes are sorted in Svelte and Vue", async () => {
+    const source = astro(
+      '<Field variant="filled" label="x" spread for="x" />',
+      "Field",
+    )
+    const outputs = await compile(source, ["svelte", "vue"])
+    expect(outputs.get("svelte")).toContain(
+      '<Field for="x" label="x" spread variant="filled" />',
+    )
+    expect(outputs.get("vue")).toContain(
+      '<Field for="x" label="x" spread variant="filled" />',
+    )
+  })
+
+  test("checkAttributeOrder names the tag and the order to write", async () => {
+    expect(
+      await checkAttributeOrder(
+        astro('<Field variant="filled" label="x" spread for="x" />', "Field"),
+      ),
+    ).toEqual([
+      "the attributes of <Field> are not in alphabetical order: write for, label, spread, variant",
+    ])
+  })
+
+  test("checkAttributeOrder allows sorted components and any order on elements", async () => {
+    expect(
+      await checkAttributeOrder(
+        astro(
+          '<Field for="x" label="x" spread variant="filled" /><p id="b" class="a">x</p>',
+          "Field",
+        ),
+      ),
+    ).toEqual([])
+  })
+
+  test("checkAttributeOrder finds a nested component", async () => {
+    expect(
+      await checkAttributeOrder(
+        astro(
+          '<div><Card><Button variant="a" size="b" /></Card></div>',
+          "Button, Card",
+        ),
+      ),
+    ).toHaveLength(1)
+  })
+})
+
+describe("form state in React", () => {
+  test.each(
+    sampleRows([
+      ['<input type="checkbox" value="a" />', "", 'value="a"'],
+      ['<input type="radio" value="a" />', "", 'value="a"'],
+      ['<input type="submit" value="Go" />', "", 'value="Go"'],
+      ['<input type="text" value="a" />', "", 'defaultValue="a"'],
+      ['<input value="a" />', "", 'defaultValue="a"'],
+      ['<input type="number" value="1" />', "", 'defaultValue="1"'],
+      ['<input readonly value="a" />', "", 'readOnly value="a"'],
+      ["<input checked type='checkbox' />", "", "defaultChecked"],
+    ]),
+  )("%s", async (_, code, expected) => {
+    expect(await code()).toContain(expected)
+  })
+
+  test("rejects an input with a dynamic type", async () => {
+    await expect(
+      react("<input type={kind} />", "", 'const kind = "text"\n'),
+    ).rejects.toThrow("an <input> with a dynamic type")
+  })
+
+  test("REACT_FIXED_VALUE_TYPES is the set of input types react-dom accepts a value on", () => {
+    const types = [
+      "text",
+      "search",
+      "tel",
+      "url",
+      "email",
+      "password",
+      "date",
+      "month",
+      "week",
+      "time",
+      "datetime-local",
+      "number",
+      "range",
+      "color",
+      "file",
+      "checkbox",
+      "radio",
+      "submit",
+      "image",
+      "reset",
+      "button",
+      "hidden",
+    ]
+    const accepted = types.filter((type) => {
+      const spy = vi.spyOn(console, "error").mockImplementation(() => {})
+      try {
+        renderToString(createElement("input", { type, value: "x" }))
+        return spy.mock.calls.length === 0
+      } finally {
+        spy.mockRestore()
+      }
+    })
+    expect(accepted.toSorted()).toEqual([...REACT_FIXED_VALUE_TYPES].toSorted())
+  })
+
+  const optgroup = sample(
+    "<select><optgroup label='g'><option>a</option><option selected value='b'>B</option></optgroup></select>",
+  )
+
+  test("lifts the selected option to defaultValue, through optgroup", async () => {
+    const code = await optgroup()
+    expect(code).toContain('<select defaultValue="b">')
+    expect(code).not.toContain("selected")
+  })
+
+  const optionText = sample(
+    "<select><option selected>\n  Tom   &amp;\n  Jerry\n</option></select>",
+  )
+
+  test("takes the option value by the HTML rule from its text", async () => {
+    expect(await optionText()).toContain('defaultValue="Tom & Jerry"')
+    expect(
+      await react("<select><option selected>&nbsp;a</option></select>"),
+    ).toContain('defaultValue=" a"')
+  })
+
+  const multiple = sample(
+    "<select multiple><option selected>a</option><option>b</option><option selected value='c'>C</option></select>",
+  )
+
+  test("writes several selected options of a multiple select as an array", async () => {
+    expect(await multiple()).toContain('defaultValue={["a", "c"]}')
+  })
+
+  const nativeSelect = sample(
+    "<select><option selected value='x'>X</option></select>",
+  )
+
+  test("a native select works the same", async () => {
+    expect(await nativeSelect()).toContain('<select defaultValue="x">')
+  })
+
+  test.each([
+    [
+      "several selected options without multiple",
+      "<select><option selected>a</option><option selected>b</option></select>",
+      "several selected options in <select> without multiple",
+    ],
+    [
+      "a selected option next to a value",
+      "<select value='a'><option selected>a</option></select>",
+      "a selected <option> next to a value on <select>",
+    ],
+  ])("rejects %s", async (_, body, reason) => {
+    await expect(react(body)).rejects.toThrow(reason)
+  })
+
+  const textarea = sample("<textarea>Hello</textarea>")
+  const textareaLines = sample("<textarea>\nline 1\nline 2</textarea>")
+  const textareaEntities = sample(
+    "<textarea>&lt;p&gt;a &amp; <b>b</b></textarea>",
+  )
+
+  test("turns textarea text into defaultValue", async () => {
+    expect(await textarea()).toContain(
+      '<textarea defaultValue="Hello"></textarea>',
+    )
+    expect(await textareaLines()).toContain('defaultValue={"line 1\\nline 2"}')
+    expect(await textareaEntities()).toContain('defaultValue="<p>a & <b>b</b>"')
+    await expect(
+      react("<textarea>{text}</textarea>", "", 'const text = "Hello"\n'),
+    ).rejects.toThrow("a <textarea> with markup")
+  })
+})
+
+describe("the generated React type-checks", () => {
+  test("every sample above has no type errors", async () => {
+    const outputs = new Map(
+      await Promise.all(
+        samples.map(
+          async (convert, index) =>
+            [`Sample${index}.tsx`, await convert()] as const,
+        ),
+      ),
+    )
+    expect(outputs.size).toBeGreaterThan(20)
+    const result = typeDiagnostics(outputs)
+    expect(
+      [...result].filter(([, diagnostics]) => diagnostics.length > 0),
+    ).toEqual([])
+  }, 60_000)
+
+  test("a sample the check must flag: a string on a number prop", () => {
+    const result = typeDiagnostics(
+      new Map([
+        [
+          "Bad.tsx",
+          'export default function Bad() { return <td colSpan="2">x</td> }',
+        ],
+      ]),
+    )
+    expect(result.get("Bad.tsx")![0]).toContain(
+      "not assignable to type 'number'",
+    )
+  })
+})
+
+describe("the React form of an attribute", () => {
+  test("an attribute takes the name React's types give it on that element", () => {
+    expect(reactAttributeName("label", "for")).toBe("htmlFor")
+    expect(reactAttributeName("td", "colspan")).toBe("colSpan")
+    expect(reactAttributeName("div", "data-state")).toBe("data-state")
+    expect(reactAttributeName("div", "nope")).toBe("nope")
+  })
+
+  test("without an element only class and for are renamed", () => {
+    expect(reactAttributeName(undefined, "class")).toBe("className")
+    expect(reactAttributeName(undefined, "colspan")).toBe("colspan")
+  })
+
+  test("an attribute without a value is bare for a boolean and empty for a string", () => {
+    expect(reactBareAttribute("disabled", new Set(["boolean"]))).toBe(
+      "disabled",
+    )
+    expect(reactBareAttribute("download", new Set(["any"]))).toBe("download")
+    expect(reactBareAttribute("title", new Set(["string"]))).toBe('title=""')
+    expect(reactBareAttribute("cols", new Set(["number"]))).toBe(undefined)
+    expect(reactBareAttribute("nope", new Set())).toBe(undefined)
+  })
+})
+
+describe("the Astro prop types", () => {
+  test("every exported type alias and re-export is read, and a generic one needs defaults", () => {
+    expect(
+      exportedTypes(
+        [
+          'import type * as Base from "./types"',
+          "export type Props = Base.Props",
+          'export type { ItemProps, Other as RenamedProps } from "./types"',
+          "export type ListProps<T> = { items: T[] }",
+          "export type ValueProps<T = string> = { value: T }",
+          "type LocalProps = Base.Props",
+        ].join("\n"),
+      ),
+    ).toEqual(["Props", "ItemProps", "RenamedProps", "ValueProps"])
+  })
+
+  test("a list prop gives the kinds of its items' fields, and a missing type gives nothing", () => {
+    const items = astroPropsOf("Menu", "Props")?.get("items")
+    expect(items?.kinds).toEqual(new Set(["other"]))
+    expect(items?.list.fields.get("label")).toEqual(new Set(["string"]))
+    expect(items?.list.fields.get("disabled")).toEqual(new Set(["boolean"]))
+    expect(astroPropsOf("Menu", "Missing")).toBeUndefined()
+  })
+
+  test("a prop says whether its type takes null", () => {
+    const tabs = astroPropsOf("Tabs", "Props")
+    expect(tabs?.get("role")?.nullable).toBe(true)
+    expect(tabs?.get("orientation")?.nullable).toBe(false)
+  })
+
+  test("a prop type gives how deep its values nest, its fields, its lists and whether it takes null", () => {
+    const shapes = shapesOfSource(
+      [
+        "type Tree = { children?: Tree[]; label: string }",
+        "export type Props<T, S extends string, N extends string | null> = {",
+        "  anything: any",
+        "  constrained: S",
+        "  generic: T",
+        "  group: { ids: string[]; stars: (number | undefined)[] }",
+        "  items?: { label: string; meta: { count: number } }[]",
+        "  label?: string | null",
+        "  nullish: N",
+        "  open: unknown",
+        "  size: 'small' | 'large'",
+        "  style: { color: string; width: number }",
+        "  tree: Tree",
+        "}",
+      ].join("\n"),
+    )
+    const of = (key: "depth" | "nullable") =>
+      Object.fromEntries([...shapes].map(([name, shape]) => [name, shape[key]]))
+    expect(of("nullable")).toEqual({
+      anything: true,
+      constrained: false,
+      generic: true,
+      group: false,
+      items: false,
+      label: true,
+      nullish: true,
+      open: true,
+      size: false,
+      style: false,
+      tree: false,
+    })
+    expect(of("depth")).toEqual({
+      anything: Infinity,
+      constrained: 0,
+      generic: Infinity,
+      group: 2,
+      items: 3,
+      label: 0,
+      nullish: 0,
+      open: Infinity,
+      size: 0,
+      style: 1,
+      tree: Infinity,
+    })
+    expect(shapes.get("items")?.list).toEqual({
+      defined: true,
+      fields: new Map([
+        ["label", new Set(["string"])],
+        ["meta", new Set(["other"])],
+      ]),
+      items: new Set(["other"]),
+    })
+    expect(shapes.get("items")?.members).toEqual(new Map())
+    expect(shapes.get("group")?.lists).toEqual(
+      new Map([
+        [
+          "ids",
+          { defined: true, fields: new Map(), items: new Set(["string"]) },
+        ],
+        [
+          "stars",
+          { defined: false, fields: new Map(), items: new Set(["number"]) },
+        ],
+      ]),
+    )
+    expect(shapes.get("style")?.members).toEqual(
+      new Map([
+        ["color", new Set(["string"])],
+        ["width", new Set(["number"])],
+      ]),
+    )
+  })
+
+  test("a helper's return type gives its kinds and a list's item fields, and a generic list gives no fields", () => {
+    const returns = helperReturnsOf([
+      { file: "Reactions/pills.ts", name: "pillsOf" },
+      { file: "attrs.ts", name: "defined" },
+      { file: "group.ts", name: "toggleInGroup" },
+    ])
+    expect(returns.get("pillsOf")?.kinds).toEqual(new Set(["other"]))
+    expect(returns.get("pillsOf")?.list.fields.get("label")).toEqual(
+      new Set(["string"]),
+    )
+    expect(returns.get("pillsOf")?.list.fields.get("checked")).toEqual(
+      new Set(["boolean"]),
+    )
+    expect(returns.get("defined")?.kinds).toEqual(new Set(["other"]))
+    expect(returns.get("toggleInGroup")?.list.fields).toEqual(new Map())
+  })
+})

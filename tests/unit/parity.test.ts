@@ -1,61 +1,115 @@
-import { existsSync } from "node:fs"
-import { experimental_AstroContainer as AstroContainer } from "astro/container"
-import { getContainerRenderer } from "@astrojs/vue/container-renderer"
-import { loadRenderers } from "astro:container"
+import { existsSync, globSync } from "node:fs"
+import type { AstroInstance } from "astro"
 import { createTwoFilesPatch } from "diff"
-import { createSSRApp } from "vue"
-import { renderToString } from "vue/server-renderer"
-import { beforeAll, describe, expect, test } from "vitest"
-import { normalize } from "./normalize"
+import { createElement, type ComponentType } from "react"
+import type { Component as SvelteComponent } from "svelte"
+import type { Component as VueComponent } from "vue"
+import { beforeAll, describe, expect, test, vi } from "vitest"
+import { readExample } from "../../scripts/build-examples.mjs"
+import { parseHtml, serialize } from "../../scripts/html-tokens.mjs"
+import {
+  DEFAULT_FRAMEWORK,
+  exampleExtension,
+  FRAMEWORK_IDS as FRAMEWORKS,
+  type FrameworkId as Framework,
+} from "../../src/utils/framework"
+import { createIdGenerator, exampleIdBase } from "../../src/utils/id"
+import { derivedExpectations, expectation, expectStill } from "../expectations"
+import { idsOf, normalize, type Without } from "./normalize"
+import { render, renderNunjucks, type SolidComponent } from "./renderers"
 
 const RECORD = !!process.env.PARITY_RECORD
 
-const astroModules = import.meta.glob<{ default: any }>(
+const DERIVED = await derivedExpectations()
+
+const astroModules = import.meta.glob<AstroInstance>([
+  "../../src/blocks/**/*.astro",
   "../../src/component-examples/**/*.astro",
+])
+const nunjucksModules = import.meta.glob<string>(
+  ["../../src/blocks/**/*.njk", "../../src/component-examples/**/*.njk"],
+  { import: "default", query: "?raw" },
 )
-const vueModules = import.meta.glob<{ default: any }>(
+const reactModules = import.meta.glob<{ default: ComponentType }>([
+  "../../src/blocks/**/*.react.tsx",
+  "../../src/component-examples/**/*.react.tsx",
+])
+const solidModules = import.meta.glob<{ default: SolidComponent }>([
+  "../../src/blocks/**/*.solid.tsx",
+  "../../src/component-examples/**/*.solid.tsx",
+])
+const svelteModules = import.meta.glob<{ default: SvelteComponent }>([
+  "../../src/blocks/**/*.svelte",
+  "../../src/component-examples/**/*.svelte",
+])
+const vueModules = import.meta.glob<{ default: VueComponent }>([
+  "../../src/blocks/**/*.vue",
   "../../src/component-examples/**/*.vue",
-)
+])
 const exampleSources = import.meta.glob<string>(
-  "../../src/component-examples/**/*.{astro,html,vue}",
+  [
+    "../../src/blocks/**/*.{astro,html,njk,react.tsx,solid.tsx,svelte,vue}",
+    "../../src/component-examples/**/*.{astro,html,njk,react.tsx,solid.tsx,svelte,vue}",
+  ],
   { eager: true, import: "default", query: "?raw" },
 )
 const htmlSources = import.meta.glob<string>(
-  "../../src/component-examples/**/*.html",
+  ["../../src/blocks/**/*.html", "../../src/component-examples/**/*.html"],
   { import: "default", query: "?raw" },
 )
 
-const EXAMPLE_CLASSES = new Set([
-  "code",
-  "copy",
-  "ec-line",
-  "expressive-code",
-  "frame",
-  "header",
-  "indent",
-  ...Object.values(exampleSources).flatMap((source) =>
-    [...source.matchAll(/\bclass="([^"{]+)"/g)].flatMap((match) =>
+const EXAMPLE_CLASSES = new Set(
+  Object.values(exampleSources).flatMap((source) =>
+    [...source.matchAll(/\b(?:class|className)="([^"{]+)"/g)].flatMap((match) =>
       match[1].split(/\s+/),
     ),
   ),
-])
+)
 
-const FRAMEWORKS = ["html", "astro", "vue"] as const
+const REFERENCES: Record<Framework, Framework[]> = {
+  astro: ["html"],
+  html: [],
+  nunjucks: ["astro", "html"],
+  react: ["astro", "html"],
+  solid: ["astro", "html"],
+  svelte: ["astro", "html"],
+  vue: ["astro", "html"],
+}
 
-type Framework = (typeof FRAMEWORKS)[number]
+type Loaded = {
+  astro: AstroInstance
+  html: string
+  nunjucks: string
+  react: { default: ComponentType }
+  solid: { default: SolidComponent }
+  svelte: { default: SvelteComponent }
+  vue: { default: VueComponent }
+}
 
 type Example = {
   key: string
-  loaders: Partial<Record<Framework, () => Promise<unknown>>>
+  loaders: { [F in Framework]?: () => Promise<Loaded[F]> }
 }
 
+const BLOCKS = "blocks/"
+
 const keyOf = (path: string) =>
-  path.replace("../../src/component-examples/", "").replace(/\.[a-z]+$/, "")
+  path
+    .replace("../../src/blocks/", BLOCKS)
+    .replace("../../src/component-examples/", "")
+    .replace(/(\.react|\.solid)?\.[a-z]+$/, "")
+
+const sourceOf = (key: string, extension: string) =>
+  exampleSources[
+    key.startsWith(BLOCKS)
+      ? `../../src/${key}.${extension}`
+      : `../../src/component-examples/${key}.${extension}`
+  ]
 
 const examples = new Map<string, Example>()
-const register = (
-  framework: Framework,
-  modules: Record<string, () => Promise<unknown>>,
+const register = <F extends Framework>(
+  framework: F,
+  modules: Record<string, Example["loaders"][F]>,
 ) => {
   for (const [path, load] of Object.entries(modules)) {
     const key = keyOf(path)
@@ -65,69 +119,238 @@ const register = (
 }
 register("astro", astroModules)
 register("html", htmlSources)
+register("nunjucks", nunjucksModules)
+register("react", reactModules)
+register("solid", solidModules)
+register("svelte", svelteModules)
 register("vue", vueModules)
 
-const cases = [...examples.values()]
-  .filter(({ key }) => !key.endsWith("Code"))
-  .toSorted((a, b) => a.key.localeCompare(b.key))
+const cases = [...examples.values()].toSorted((a, b) =>
+  a.key.localeCompare(b.key),
+)
 
-const createIdGenerator = () => {
-  const counts = new Map<string, number>()
-  return (prefix: string) => {
-    const count = (counts.get(prefix) ?? 0) + 1
-    counts.set(prefix, count)
-    return `${prefix}-${count}`
-  }
-}
-
-let container: AstroContainer
-
-beforeAll(async () => {
-  const renderers = await loadRenderers([getContainerRenderer()])
-  container = await AstroContainer.create({ renderers })
-})
-
-const renderers: Record<
-  Framework,
-  (loaded: any, key: string) => Promise<string>
-> = {
+const renderers: {
+  [F in Framework]: (loaded: Loaded[F], key: string) => Promise<string>
+} = {
   astro: (loaded, key) =>
-    container.renderToString(loaded.default, {
-      locals: {
+    render.astro(
+      loaded.default,
+      {},
+      {},
+      {
         $id: createIdGenerator(),
-        _isInsideForm: false,
         componentSlug: key.split("/")[0],
+        framework: DEFAULT_FRAMEWORK,
         link: (path: string) => path,
       },
-    }),
+    ),
   html: async (loaded) => loaded,
-  vue: (loaded) => renderToString(createSSRApp(loaded.default)),
+  nunjucks: async (loaded) => renderNunjucks(loaded),
+  react: async (loaded, key) => {
+    const spy = vi.spyOn(console, "error").mockImplementation(() => {})
+    try {
+      const html = await render.react(loaded.default)
+      if (spy.mock.calls.length > 0) {
+        throw new Error(
+          `${key} logged a React error: ${String(spy.mock.calls[0][0]).slice(0, 200)}`,
+        )
+      }
+      return html.replace(/<link rel="preload" as="image"[^>]*\/>/g, "")
+    } finally {
+      spy.mockRestore()
+    }
+  },
+  solid: (loaded) => render.solid(loaded.default),
+  svelte: (loaded) => render.svelte(loaded.default),
+  vue: (loaded) => render.vue(loaded.default),
 }
 
-const cache = new Map<string, Promise<string>>()
-const markup = (example: Example, framework: Framework) => {
+const SNAPSHOT_FILE = /\.(?:html|(?:nunjucks|react|solid|svelte|vue)\.diff)$/
+
+const orphanSnapshots = (files: string[], keys: Set<string>) =>
+  files.filter((file) => !keys.has(file.replace(SNAPSHOT_FILE, "")))
+
+test("every markup snapshot and drift file belongs to an example or a block", () => {
+  const files = globSync("**/*.{diff,html}", {
+    cwd: new URL("__snapshots__/", import.meta.url),
+  }).toSorted()
+  expect(files.length).toBeGreaterThan(0)
+  expect(
+    orphanSnapshots(files, new Set(examples.keys())),
+    "these snapshots belong to no example or block any more: delete them",
+  ).toEqual([])
+})
+
+test("the snapshot check flags a snapshot and a drift file whose example is gone", () => {
+  expect(
+    orphanSnapshots(
+      ["a/Kept.html", "a/Kept.vue.diff", "a/Gone.html", "a/Gone.react.diff"],
+      new Set(["a/Kept"]),
+    ),
+  ).toEqual(["a/Gone.html", "a/Gone.react.diff"])
+})
+
+test("the data-hydrating check flags a marked root without the attribute, and only a marked one", () => {
+  const without = { attribute: "data-hydrating", on: ["opui-callout"] }
+  expect(
+    unmarked(
+      parseHtml(
+        "<opui-callout data-hydrating><p>Saved</p></opui-callout><opui-callout><div></div></opui-callout>",
+      ),
+      without,
+    ),
+  ).toEqual(["opui-callout"])
+  expect(
+    unmarked(
+      parseHtml(
+        "<opui-copy><opui-callout data-hydrating></opui-callout></opui-copy>",
+      ),
+      without,
+    ),
+  ).toEqual([])
+})
+
+test("the React renderer fails on a console.error", async () => {
+  const Controlled = () => createElement("input", { value: "x" })
+  await expect(
+    renderers.react({ default: Controlled }, "sample/Controlled"),
+  ).rejects.toThrow("sample/Controlled logged a React error")
+  expect(
+    await renderers.react(
+      { default: () => createElement("input", { defaultValue: "x" }) },
+      "sample/Uncontrolled",
+    ),
+  ).toBe('<input value="x"/>')
+})
+
+const renderExample = <F extends Framework>(example: Example, framework: F) =>
+  example.loaders[framework]!().then((loaded) =>
+    renderers[framework](loaded, example.key),
+  )
+
+const renders = new Map<string, Promise<string>>()
+const rendered = (example: Example, framework: Framework) => {
   const cacheKey = `${example.key}.${framework}`
+  if (!renders.has(cacheKey)) {
+    renders.set(cacheKey, renderExample(example, framework))
+  }
+  return renders.get(cacheKey)!
+}
+
+const styles = new Map<string, Promise<string[]>>()
+const exampleCss = (example: Example) => {
+  if (!styles.has(example.key)) {
+    const source = sourceOf(example.key, "astro")
+    styles.set(
+      example.key,
+      source
+        ? readExample(source, `${example.key}.astro`).then(
+            ({ styles }) => styles,
+          )
+        : Promise.resolve([]),
+    )
+  }
+  return styles.get(example.key)!
+}
+
+const COMMENTED: Framework[] = ["astro", "html", "nunjucks"]
+
+const cache = new Map<string, Promise<string>>()
+const markup = (
+  example: Example,
+  framework: Framework,
+  comments = COMMENTED.includes(framework),
+  without?: Without,
+) => {
+  const cacheKey = `${example.key}.${framework}.${comments}.${without?.attribute}.${without?.on.join(",")}`
   if (!cache.has(cacheKey)) {
     cache.set(
       cacheKey,
-      example.loaders[framework]!()
-        .then((loaded) => renderers[framework](loaded, example.key))
-        .then(normalize),
+      Promise.all([rendered(example, framework), exampleCss(example)]).then(
+        ([html, css]) => normalize(html, { comments, css, without }),
+      ),
     )
   }
   return cache.get(cacheKey)!
 }
+
+const idPattern = (key: string) =>
+  key.startsWith(BLOCKS)
+    ? new RegExp(`^${key.split("/")[1]}(-[a-z0-9]+)+$`)
+    : new RegExp(`^${exampleIdBase(key)}-\\d+(-[a-z]+)*(-\\d+)?$`)
+
+const authoredIds = async (example: Example, framework: Framework) => {
+  const source = sourceOf(example.key, exampleExtension(framework))
+  return idsOf(await rendered(example, framework)).filter((id) =>
+    source.includes(`"${id}"`),
+  )
+}
+
+const unmarked = (
+  nodes: ReturnType<typeof parseHtml>,
+  without: Without,
+): string[] =>
+  nodes.flatMap((node) =>
+    node.type === "element"
+      ? [
+          ...(without.on.includes(node.tag) &&
+          !node.attrs.some(
+            ({ name }: { name: string }) => name === without.attribute,
+          )
+            ? [node.tag]
+            : []),
+          ...unmarked(node.children, without),
+        ]
+      : [],
+  )
+
+const exposedSvgs = (
+  nodes: ReturnType<typeof parseHtml>,
+  hidden = false,
+): string[] =>
+  nodes.flatMap((node) => {
+    if (node.type !== "element") return []
+    const attribute = (name: string) =>
+      node.attrs.find((attr: { name: string }) => attr.name === name)?.value
+    const inner = hidden || attribute("aria-hidden") === "true"
+    const named =
+      attribute("aria-label") ||
+      attribute("aria-labelledby") ||
+      node.children.some(
+        (child: { type: string; tag?: string }) =>
+          child.type === "element" && child.tag === "title",
+      )
+    if (node.tag === "svg" && !inner && !named) {
+      return [
+        `<svg ${node.attrs.map(({ name, value }: { name: string; value: string }) => `${name}="${value}"`).join(" ")}>`,
+      ]
+    }
+    return exposedSvgs(node.children, inner)
+  })
+
+beforeAll(
+  () =>
+    Promise.allSettled(
+      FRAMEWORKS.filter((framework) => cases[0]?.loaders[framework]).map(
+        (framework) => markup(cases[0], framework),
+      ),
+    ),
+  15_000,
+)
 
 describe.each(cases)("$key", (example) => {
   const frameworks = FRAMEWORKS.filter(
     (framework) => example.loaders[framework],
   )
 
-  test(`${frameworks[0]} matches snapshot`, async () => {
-    await expect(await markup(example, frameworks[0])).toMatchFileSnapshot(
-      `__snapshots__/${example.key}.html`,
-    )
-  })
+  test.skipIf(example.key.startsWith(BLOCKS))(
+    `${frameworks[0]} matches snapshot`,
+    async () => {
+      await expect(await markup(example, frameworks[0])).toMatchFileSnapshot(
+        `__snapshots__/${example.key}.html`,
+      )
+    },
+  )
 
   test.each(frameworks.filter((framework) => framework !== "html"))(
     "%s only adds ui- prefixed classes",
@@ -142,15 +365,83 @@ describe.each(cases)("$key", (example) => {
     },
   )
 
+  test.each(frameworks)(
+    "%s parses back to its own markup",
+    async (framework) => {
+      const html = await rendered(example, framework)
+      expect(serialize(parseHtml(html))).toBe(html)
+    },
+  )
+
+  test.each(frameworks)("%s hides decorative svgs", async (framework) => {
+    expect(
+      exposedSvgs(parseHtml(await rendered(example, framework))),
+      'decorative svgs need aria-hidden="true"; name the others with aria-label or a <title>',
+    ).toEqual([])
+  })
+
+  test.each(frameworks)(
+    "%s ids follow <slug>-<example>-<n>, or <slug>-<name> in a block, and match html",
+    async (framework) => {
+      const pattern = idPattern(example.key)
+      const ids = await authoredIds(example, framework)
+      expect(
+        ids.filter((id) => !pattern.test(id)),
+        `ids must match ${pattern}`,
+      ).toEqual([])
+      if (framework === "html" || !example.loaders.html) return
+      const htmlIds = await authoredIds(example, "html")
+      expect(
+        ids.filter((id) => !htmlIds.includes(id)),
+        "ids must be the ones the html example uses",
+      ).toEqual([])
+    },
+  )
+
   test.each(
-    frameworks
-      .slice(1)
-      .map((framework, index) => [framework, frameworks[index]]),
+    frameworks.flatMap((framework) => {
+      const reference = REFERENCES[framework].find(
+        (candidate) => example.loaders[candidate],
+      )
+      return reference ? [[framework, reference]] : []
+    }),
   )("%s matches %s", async (framework, reference) => {
-    const [expected, actual] = await Promise.all([
-      markup(example, reference),
-      markup(example, framework),
+    const comments = [framework, reference].every((name) =>
+      COMMENTED.includes(name),
+    )
+    const [expected, rendering] = await Promise.all([
+      markup(example, reference, comments),
+      markup(example, framework, comments),
     ])
+    let actual = rendering
+    const late = {
+      aspect: "data-hydrating",
+      check: "parity",
+      example: example.key,
+      framework,
+    } as const
+    const derived = expectation(late, DERIVED)
+    if (derived) {
+      const marked = { attribute: late.aspect, on: derived.on ?? [] }
+      actual = await markup(example, framework, comments, marked)
+      expectStill(expect, actual !== rendering, derived, late)
+      expect(
+        unmarked(parseHtml(await rendered(example, framework)), marked),
+        `${framework} leaves ${late.aspect} off a root that hydratingRoots() in scripts/component-emit.mjs marks`,
+      ).toEqual([])
+    }
+    for (const name of [framework, reference]) {
+      const where = {
+        check: "parity",
+        example: example.key,
+        framework: name,
+      } as const
+      const known = expectation(where)
+      if (known) {
+        expectStill(expect, actual !== expected, known, where)
+        return
+      }
+    }
     const driftFile = `__snapshots__/${example.key}.${framework}.diff`
     const recorded = existsSync(new URL(driftFile, import.meta.url))
 

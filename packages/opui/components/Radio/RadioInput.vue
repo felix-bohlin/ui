@@ -1,35 +1,36 @@
 <script setup lang="ts">
-import { computed, inject, useAttrs } from "vue"
-import type { RadioInputProps } from "./types"
-import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
+import { type IntrinsicElementAttributes } from "vue"
+import { useBound, useRestAttrs } from "../vue"
+import { defined } from "../attrs"
+import { classAttrs } from "../cx"
+import type { RadioInputProps as Props } from "./types.vue-props"
+
+defineProps<Props>()
 
 defineOptions({
   inheritAttrs: false,
 })
 
-defineProps<RadioInputProps>()
-const attrs = useAttrs()
+const attrs = useRestAttrs<IntrinsicElementAttributes["input"]>()
+
 const modelValue = defineModel<string | number | boolean | undefined>({
   default: undefined,
 })
-const currentFieldName = inject(CurrentFieldNameKey, undefined)
 
-const checked = computed(() =>
-  modelValue.value === undefined
-    ? attrs.checked !== undefined && attrs.checked !== false
-    : modelValue.value === (attrs.value ?? true),
-)
-const select = () => {
-  modelValue.value = (attrs.value as string | number | undefined) ?? true
-}
+const bound = useBound()
 </script>
 
 <template>
   <input
+    v-if="bound"
     type="radio"
-    :name="currentFieldName"
-    v-bind="$attrs"
-    :checked="checked || undefined"
-    @change="select"
+    v-bind="{ ...defined(attrs), ...classAttrs($attrs.class) }"
+    :value="attrs.value"
+    v-model="modelValue"
+  />
+  <input
+    v-else
+    type="radio"
+    v-bind="{ ...defined(attrs), ...classAttrs($attrs.class) }"
   />
 </template>

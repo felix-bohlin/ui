@@ -1,0 +1,52 @@
+{% macro Field(props = {}) %}
+  {%- set props = props | opuiProps("Field") -%}
+  {%- set rest = props | opuiRest("Field") -%}
+  {%- set labelSlot = props.slots.label | opuiTrim -%}
+  {%- set hasStartText = props.startText or props.slots.startText != none -%}
+  {%- set hasEndText = props.endText or props.slots.endText != none -%}
+  {{- opui.warnControlAttributes("Field", rest) -}}
+  <div
+    class="ui-field
+      {%- if props.autoFit %} ui-auto-fit{% endif %}
+      {%- if props.dense %} ui-dense{% endif %}
+      {%- if props.dropZone %} ui-drop-zone{% endif %}
+      {%- if props.variant == 'filled' %} ui-filled{% endif %}
+      {%- if props.spread %} ui-spread{% endif %}
+      {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    {%- if props.label or labelSlot -%}
+      <label
+        class="{{ 'ui-sr-only' if props.hideLabel else 'ui-label' }}"
+        {%- if props.for != none %} for="{{ props.for }}"{% endif %}>{{ props.label }}
+        {{- labelSlot }}</label>
+    {%- endif %}
+    {% if hasStartText -%}
+      <span class="ui-start-text" id="{{ props.for ~ '-start-text' }}">{{ props.startText }}
+        {{- props.slots.startText | safe }}</span>
+    {%- endif %}
+    <span class="ui-field-container">
+      {%- if props.slots.top != none -%}
+        <span class="ui-top" id="{{ props.for ~ '-top' }}">
+          {{- props.slots.top | safe -}}
+        </span>
+      {%- endif %}
+      {% if props.slots.start != none -%}
+        <span class="ui-start" id="{{ props.for ~ '-start' }}">{{ props.slots.start | safe }}</span>
+      {%- endif %}
+      {{ caller() if caller }}
+      {% if props.slots.end != none -%}
+        <span class="ui-end" id="{{ props.for ~ '-end' }}">{{ props.slots.end | safe }}</span>
+      {%- endif %}
+      {% if props.slots.bottom != none -%}
+        <span class="ui-bottom" id="{{ props.for ~ '-bottom' }}">
+          {{- props.slots.bottom | safe -}}
+        </span>
+      {%- endif -%}
+    </span>
+    {% if hasEndText -%}
+      <span class="ui-end-text" id="{{ props.for ~ '-end-text' }}">{{ props.endText }}
+        {{- props.slots.endText | safe }}</span>
+    {%- endif -%}
+  </div>
+{%- endmacro %}

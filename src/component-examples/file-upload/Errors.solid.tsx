@@ -1,0 +1,29 @@
+/** @jsxImportSource @solidjs/web */
+import { FileUpload } from "opui-css/solid"
+
+export default function Errors() {
+  return (
+    <FileUpload
+      accept="image/*"
+      description="Or drop them here. PNG or JPG."
+      items={[
+        {
+          label: "kinga-headstock.png",
+          preview: "/photos/kinga-headstock.png",
+          state: "complete",
+          value: "kinga",
+        },
+        {
+          description: "The connection dropped. Remove it and choose it again.",
+          label: "adam-groove.png",
+          preview: "/photos/adam-groove.png",
+          state: "error",
+          value: "adam",
+        },
+      ]}
+      label="Choose photos"
+      multiple
+      status="1 photo didn't upload."
+    />
+  )
+}

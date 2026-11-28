@@ -1,0 +1,107 @@
+<div class="ui-field ui-auto-fit">
+  <label class="ui-label" for="number-field-validation-1">Bandmates</label>
+  <span class="ui-field-container">
+    <span class="ui-start" id="number-field-validation-1-start">
+      <opui-step-button>
+        <button
+          class="ui-button ui-round"
+          type="button"
+          aria-controls="number-field-validation-1"
+          aria-label="Decrease"
+          command="--step-down"
+          commandfor="number-field-validation-1"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          ></svg>
+        </button>
+      </opui-step-button>
+    </span>
+    <input id="number-field-validation-1" min="1" required type="number" />
+    <span class="ui-end" id="number-field-validation-1-end">
+      <opui-step-button>
+        <button
+          class="ui-button ui-round"
+          type="button"
+          aria-controls="number-field-validation-1"
+          aria-label="Increase"
+          command="--step-up"
+          commandfor="number-field-validation-1"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          ></svg>
+        </button>
+      </opui-step-button>
+    </span>
+  </span>
+</div>
+<div class="ui-field ui-auto-fit">
+  <label class="ui-label" for="number-field-validation-2">Quantity</label>
+  <span class="ui-field-container">
+    <span class="ui-start" id="number-field-validation-2-start">
+      <opui-step-button>
+        <button
+          class="ui-button ui-round"
+          type="button"
+          aria-controls="number-field-validation-2"
+          aria-label="Decrease"
+          command="--step-down"
+          commandfor="number-field-validation-2"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          ></svg>
+        </button>
+      </opui-step-button>
+    </span>
+    <input
+      aria-describedby="number-field-validation-2-end-text"
+      aria-invalid="true"
+      id="number-field-validation-2"
+      max="4"
+      min="1"
+      type="number"
+      value="6"
+    />
+    <span class="ui-end" id="number-field-validation-2-end">
+      <opui-step-button>
+        <button
+          class="ui-button ui-round"
+          type="button"
+          aria-controls="number-field-validation-2"
+          aria-label="Increase"
+          command="--step-up"
+          commandfor="number-field-validation-2"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          ></svg>
+        </button>
+      </opui-step-button>
+    </span>
+  </span>
+  <span class="ui-end-text" id="number-field-validation-2-end-text"
+    >Only 4 left in stock.</span
+  >
+</div>
+
+<script type="module">
+  import "opui-css/elements/step-button.js"
+</script>

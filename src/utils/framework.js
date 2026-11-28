@@ -1,6 +1,5 @@
-// Client-safe framework constants. Kept separate from `framework-routing.ts`
-// because that module imports `astro:i18n`, which is server-only and would
-// poison any client bundle that transitively pulls it in.
+// @ts-check
+// Client-safe framework constants and routing helpers.
 //
 // Authored as `.js` (with JSDoc types) so it can be imported from
 // `astro.config.mjs`, Node-only scripts in `scripts/`, TypeScript modules,
@@ -8,7 +7,7 @@
 //
 // Order convention: default framework first.
 
-/** @typedef {"html" | "astro" | "vue"} FrameworkId */
+/** @typedef {"html" | "astro" | "nunjucks" | "react" | "solid" | "svelte" | "vue"} FrameworkId */
 
 /** @type {FrameworkId} */
 export const DEFAULT_FRAMEWORK = "html"
@@ -17,6 +16,10 @@ export const DEFAULT_FRAMEWORK = "html"
 export const FRAMEWORKS = [
   { id: "html", label: "HTML" },
   { id: "astro", label: "Astro" },
+  { id: "nunjucks", label: "Nunjucks" },
+  { id: "react", label: "React" },
+  { id: "solid", label: "Solid" },
+  { id: "svelte", label: "Svelte" },
   { id: "vue", label: "Vue" },
 ]
 
@@ -24,6 +27,129 @@ export const FRAMEWORKS = [
 export const FRAMEWORK_IDS = FRAMEWORKS.map(
   (l) => /** @type {FrameworkId} */ (l.id),
 )
+
+/** @typedef {Exclude<FrameworkId, "html">} PackageFrameworkId */
+
+/** @type {PackageFrameworkId[]} */
+export const PACKAGE_FRAMEWORK_IDS = FRAMEWORK_IDS.filter(
+  (id) => id !== "html",
+).map((id) => /** @type {PackageFrameworkId} */ (id))
+
+/** @typedef {"astro" | "nunjucks"} ServerFrameworkId */
+
+/** @typedef {Exclude<PackageFrameworkId, ServerFrameworkId>} HydratedFrameworkId */
+
+/**
+ * @param {FrameworkId} framework
+ * @returns {framework is HydratedFrameworkId}
+ */
+export function isHydratedFramework(framework) {
+  return (
+    framework !== "html" && framework !== "astro" && framework !== "nunjucks"
+  )
+}
+
+/** @type {HydratedFrameworkId[]} */
+export const HYDRATED_FRAMEWORK_IDS =
+  PACKAGE_FRAMEWORK_IDS.filter(isHydratedFramework)
+
+/** @type {Record<FrameworkId, string>} */
+export const EXAMPLE_EXTENSIONS = {
+  astro: "astro",
+  html: "html",
+  nunjucks: "njk",
+  react: "react.tsx",
+  solid: "solid.tsx",
+  svelte: "svelte",
+  vue: "vue",
+}
+
+/** @type {Record<PackageFrameworkId, string>} */
+export const TYPES_FILES = {
+  astro: "types.astro.ts",
+  nunjucks: "types.astro.ts",
+  react: "types.react.ts",
+  solid: "types.solid.ts",
+  svelte: "types.svelte.ts",
+  vue: "types.vue-props.ts",
+}
+
+/** @param {FrameworkId} framework */
+export function codeLanguage(framework) {
+  if (framework === "react" || framework === "solid") return "tsx"
+  return framework === "nunjucks" ? "html" : framework
+}
+
+/** @param {FrameworkId} framework */
+export function exampleExtension(framework) {
+  return EXAMPLE_EXTENSIONS[framework]
+}
+
+/** @param {readonly FrameworkId[]} [frameworks] */
+export function extensionPattern(frameworks = FRAMEWORK_IDS) {
+  return frameworks
+    .map((framework) => EXAMPLE_EXTENSIONS[framework].replaceAll(".", "\\."))
+    .toSorted()
+    .join("|")
+}
+
+/**
+ * @param {string} file
+ * @returns {FrameworkId | undefined}
+ */
+export function frameworkOfFile(file) {
+  return FRAMEWORK_IDS.find((framework) =>
+    file.endsWith(`.${EXAMPLE_EXTENSIONS[framework]}`),
+  )
+}
+
+/**
+ * @param {string | null | undefined} value
+ * @returns {value is FrameworkId}
+ */
+export function isFrameworkId(value) {
+  return !!value && FRAMEWORKS.some((l) => l.id === value)
+}
+
+/**
+ * @param {FrameworkId} framework
+ * @param {(name: string) => boolean} has
+ */
+export function conditionalSlot(framework, has) {
+  return (
+    framework === "html"
+      ? [framework, DEFAULT_FRAMEWORK]
+      : framework === "nunjucks"
+        ? [framework, "astro", "components", DEFAULT_FRAMEWORK]
+        : [framework, "components", DEFAULT_FRAMEWORK]
+  ).find(has)
+}
+
+/**
+ * `getStaticPaths` payload for files under `src/pages/[framework]/`. Emits one
+ * route per framework; every framework gets a URL prefix.
+ */
+export function frameworkPaths() {
+  return FRAMEWORKS.map((l) => ({
+    params: { framework: l.id },
+  }))
+}
+
+export const FRAMEWORK_AGNOSTIC_EXAMPLES = ["typography/Default"]
+
+export const FRAMEWORK_FREE_PREFIXES = [
+  "/blocks",
+  "/blog",
+  "/dev",
+  "/theme-builder",
+]
+
+/** @param {string} sharedPath */
+export function isFrameworkFree(sharedPath) {
+  return FRAMEWORK_FREE_PREFIXES.some(
+    (prefix) => sharedPath === prefix || sharedPath.startsWith(`${prefix}/`),
+  )
+}
 
 /**
  * Build a fresh regex that matches a framework prefix at the start of a
@@ -33,3 +159,68 @@ export const FRAMEWORK_IDS = FRAMEWORKS.map(
 export function frameworkPrefixPattern() {
   return new RegExp(`^/(${FRAMEWORK_IDS.join("|")})(/|$)`)
 }
+
+/**
+ * Strip the framework prefix from a pathname, returning the path segment that
+ * is shared across framework variants. Used when computing the equivalent URL
+ * on a different framework.
+ *
+ * @param {string} pathname
+ */
+export function stripFrameworkPrefix(pathname) {
+  const match = pathname.match(frameworkPrefixPattern())
+  if (!match) return pathname || "/"
+  const stripped = pathname.slice(match[0].length - (match[2] === "/" ? 1 : 0))
+  return stripped || "/"
+}
+
+/** @param {string} pathname */
+export function canonicalPath(pathname) {
+  return stripFrameworkPrefix(pathname).replace(/\/$/, "")
+}
+
+/**
+ * Build the URL for the same logical page on a specific framework. Every
+ * framework has its own prefix and pages end in a slash. Preserves any query
+ * string and hash fragment on the input.
+ *
+ * @param {FrameworkId} framework
+ * @param {string} pathname
+ */
+export function hrefFor(framework, pathname) {
+  // Split off `?query` and `#hash` so we localize only the path portion.
+  const hashIndex = pathname.indexOf("#")
+  const queryIndex = pathname.indexOf("?")
+  const splitAt =
+    hashIndex === -1
+      ? queryIndex
+      : queryIndex === -1
+        ? hashIndex
+        : Math.min(hashIndex, queryIndex)
+  const path = splitAt === -1 ? pathname : pathname.slice(0, splitAt)
+  const suffix = splitAt === -1 ? "" : pathname.slice(splitAt)
+
+  const sharedPath = stripFrameworkPrefix(path)
+  if (isFrameworkFree(sharedPath)) return `${sharedPath}${suffix}`
+  const trimmed = sharedPath.replace(/^\/|\/$/g, "")
+  return `/${framework}/${trimmed ? `${trimmed}/` : ""}${suffix}`
+}
+
+/**
+ * Returns one entry per framework variant of the given pathname. Used for
+ * emitting canonical and alternate link tags.
+ *
+ * @param {string} pathname
+ * @returns {{ framework: FrameworkId, url: string, isDefault: boolean }[]}
+ */
+export function frameworkVariantsOf(pathname) {
+  const sharedPath = stripFrameworkPrefix(pathname)
+  if (isFrameworkFree(sharedPath)) return []
+  return FRAMEWORKS.map((l) => ({
+    framework: l.id,
+    url: hrefFor(l.id, pathname),
+    isDefault: l.id === DEFAULT_FRAMEWORK,
+  }))
+}
+
+export const FRAMEWORK_STORAGE_KEY = "opui-framework"

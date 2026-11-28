@@ -1,20 +1,47 @@
 import { expect, test } from "@playwright/test"
-import { COMPONENTS, openFixture } from "./fixtures"
+import { BLOCKS, FIXTURES, openFixture } from "./fixtures"
+import { BLOCK_WIDTHS } from "./screenshot-targets"
 
-for (const component of COMPONENTS) {
+for (const component of FIXTURES) {
   test(`${component} looks the same`, async ({ page }) => {
+    test.setTimeout(180_000)
+    if (component.startsWith("stress/")) {
+      await page.setViewportSize({ height: 4000, width: 1280 })
+    }
     await openFixture(page, "html", component)
+    await page.screenshot({ fullPage: true })
 
     const examples = page.locator("[data-example]")
     const count = await examples.count()
-    test.skip(count === 0, "no HTML examples")
 
     for (let index = 0; index < count; index++) {
       const example = examples.nth(index)
       const name = await example.getAttribute("data-example")
       await expect.soft(example).toHaveScreenshot(`${component}/${name}.png`, {
-        mask: [example.locator("img"), example.locator("video")],
+        mask: [
+          example.locator("iframe"),
+          example.locator("img"),
+          example.locator("video"),
+        ],
       })
     }
   })
+}
+
+for (const block of BLOCKS) {
+  for (const width of BLOCK_WIDTHS) {
+    test(`${block} looks the same at ${width}px`, async ({ page }) => {
+      test.setTimeout(180_000)
+      await page.setViewportSize({ height: 900, width })
+      await openFixture(page, "html", block)
+      const preview = page.locator(".block-preview")
+      await expect.soft(preview).toHaveScreenshot(`${block}/${width}.png`, {
+        mask: [
+          preview.locator("iframe"),
+          preview.locator("img"),
+          preview.locator("video"),
+        ],
+      })
+    })
+  }
 }

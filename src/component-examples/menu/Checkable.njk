@@ -1,0 +1,47 @@
+{% from "opui/index.njk" import
+  Button,
+  CheckboxInput,
+  ListItem,
+  Menu,
+  RadioInput
+%}
+
+{% call Button({
+  command: "toggle-popover",
+  commandfor: "menu-checkable-1",
+  variant: "outlined"
+}) %}
+  View
+{% endcall %}
+{% call Menu({ id: "menu-checkable-1" }) %}
+  {% set end %}{{ CheckboxInput() }}{% endset %}
+  {{ ListItem({
+    choice: "checkbox",
+    slots: { end: end, label: "Show hidden files" }
+  }) }}
+  {% set end %}{{ CheckboxInput({ checked: true }) }}{% endset %}
+  {{ ListItem({
+    choice: "checkbox",
+    slots: { end: end, label: "Show file extensions" }
+  }) }}
+  <li class="ui-border-top ui-heading" id="menu-checkable-1-sort">Sort by</li>
+  {% set end %}{{ RadioInput({
+    "aria-describedby": "menu-checkable-1-sort",
+    checked: true,
+    name: "menu-checkable-1-sort",
+    value: "name"
+  }) }}{% endset %}
+  {{ ListItem({ choice: "radio", slots: { end: end, label: "Name" } }) }}
+  {% set end %}{{ RadioInput({
+    "aria-describedby": "menu-checkable-1-sort",
+    name: "menu-checkable-1-sort",
+    value: "date"
+  }) }}{% endset %}
+  {{ ListItem({ choice: "radio", slots: { end: end, label: "Date modified" } }) }}
+  {% set end %}{{ RadioInput({
+    "aria-describedby": "menu-checkable-1-sort",
+    name: "menu-checkable-1-sort",
+    value: "size"
+  }) }}{% endset %}
+  {{ ListItem({ choice: "radio", slots: { end: end, label: "Size" } }) }}
+{% endcall %}

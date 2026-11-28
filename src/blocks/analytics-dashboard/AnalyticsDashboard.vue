@@ -1,0 +1,358 @@
+<script setup lang="ts">
+import {
+  Button,
+  Card,
+  CardContent,
+  Progress,
+  Stat,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+  ToggleButton,
+  ToggleGroup,
+} from "opui-css/vue"
+</script>
+
+<template>
+  <div
+    class="analytics-dashboard ui-layout-container ui-layout-column ui-gap-large"
+    style="--_max-inline-size: 80rem"
+  >
+    <div class="ui-layout-row ui-spread">
+      <hgroup class="ui-hgroup">
+        <p>bassbook.example/josh</p>
+        <h1 class="ui-h3">Your profile stats</h1>
+      </hgroup>
+      <div class="ui-layout-row ui-gap-small">
+        <ToggleGroup
+          aria-label="Date range"
+          name="analytics-range"
+          size="small"
+          model-value="7"
+        >
+          <ToggleButton label="7 days" value="7" />
+          <ToggleButton label="30 days" value="30" />
+          <ToggleButton label="90 days" value="90" />
+        </ToggleGroup>
+        <Button size="small" type="button" variant="outlined">
+          <svg
+            data-icon="download"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1M5 19a1 1 0 1 0 0 2h14a1 1 0 1 0 0-2z"
+            ></path></svg
+          ><span class="ui-text">Export</span>
+        </Button>
+      </div>
+    </div>
+    <ul class="ui-layout-grid ui-stretch" style="--_min-inline-size: 13rem">
+      <li>
+        <Card variant="outlined">
+          <CardContent>
+            <Stat label="Profile visits">
+              1 350
+              <template #description>
+                <span class="ui-caption ui-success">+12.4%</span> from last week
+              </template>
+            </Stat>
+          </CardContent>
+        </Card>
+      </li>
+      <li>
+        <Card variant="outlined">
+          <CardContent>
+            <Stat label="Wall scribbles">
+              86
+              <template #description>
+                <span class="ui-caption ui-success">+8.1%</span> from last week
+              </template>
+            </Stat>
+          </CardContent>
+        </Card>
+      </li>
+      <li>
+        <Card variant="outlined">
+          <CardContent>
+            <Stat label="Called “the tall guitarist”">
+              7 times
+              <template #description>
+                <span class="ui-caption ui-critical">+2</span> from last week
+              </template>
+            </Stat>
+          </CardContent>
+        </Card>
+      </li>
+      <li>
+        <Card variant="outlined">
+          <CardContent>
+            <Stat label="Leaderboard points">
+              4 820
+              <template #description>
+                <span class="ui-caption ui-success">+0.4%</span> from last week
+              </template>
+            </Stat>
+          </CardContent>
+        </Card>
+      </li>
+    </ul>
+    <div class="ui-layout-columns ui-gap-large" style="--_columns: 2fr 1fr">
+      <Card
+        aria-labelledby="analytics-dashboard-visitors-heading"
+        as="section"
+        class="analytics-chart-card"
+        variant="outlined"
+      >
+        <hgroup>
+          <h2 class="ui-h5" id="analytics-dashboard-visitors-heading">
+            Profile visits per day
+          </h2>
+          <p>Bassists who dropped by in the last 7 days.</p>
+        </hgroup>
+        <CardContent>
+          <ol class="analytics-chart">
+            <li>
+              <span class="analytics-bar" style="--value: 52%"></span>
+              <span class="analytics-day ui-caption"
+                ><span aria-hidden="true">Mon</span
+                ><span class="ui-sr-only">Monday: 156 visits</span></span
+              >
+            </li>
+            <li>
+              <span class="analytics-bar" style="--value: 64%"></span>
+              <span class="analytics-day ui-caption"
+                ><span aria-hidden="true">Tue</span
+                ><span class="ui-sr-only">Tuesday: 192 visits</span></span
+              >
+            </li>
+            <li>
+              <span class="analytics-bar" style="--value: 58%"></span>
+              <span class="analytics-day ui-caption"
+                ><span aria-hidden="true">Wed</span
+                ><span class="ui-sr-only">Wednesday: 174 visits</span></span
+              >
+            </li>
+            <li>
+              <span class="analytics-bar" style="--value: 80%"></span>
+              <span class="analytics-day ui-caption"
+                ><span aria-hidden="true">Thu</span
+                ><span class="ui-sr-only">Thursday: 240 visits</span></span
+              >
+            </li>
+            <li>
+              <span class="analytics-bar" style="--value: 72%"></span>
+              <span class="analytics-day ui-caption"
+                ><span aria-hidden="true">Fri</span
+                ><span class="ui-sr-only">Friday: 216 visits</span></span
+              >
+            </li>
+            <li>
+              <span class="analytics-bar" style="--value: 34%"></span>
+              <span class="analytics-day ui-caption"
+                ><span aria-hidden="true">Sat</span
+                ><span class="ui-sr-only">Saturday: 102 visits</span></span
+              >
+            </li>
+            <li>
+              <span class="analytics-bar" style="--value: 90%"></span>
+              <span class="analytics-day ui-caption"
+                ><span aria-hidden="true">Sun</span
+                ><span class="ui-sr-only">Sunday: 270 visits</span></span
+              >
+            </li>
+          </ol>
+        </CardContent>
+      </Card>
+      <Card
+        aria-labelledby="analytics-dashboard-sources-heading"
+        as="section"
+        variant="outlined"
+      >
+        <hgroup>
+          <h2 class="ui-h5" id="analytics-dashboard-sources-heading">
+            Where they came from
+          </h2>
+          <p>How folks found your awesome profile.</p>
+        </hgroup>
+        <CardContent>
+          <ul class="ui-layout-column">
+            <li class="ui-layout-column ui-gap-x-small">
+              <span
+                class="ui-layout-row ui-spread"
+                id="analytics-dashboard-source-friends"
+                ><span>Friend lists</span><span>46%</span></span
+              >
+              <Progress
+                aria-labelledby="analytics-dashboard-source-friends"
+                :max="100"
+                :value="46"
+              />
+            </li>
+            <li class="ui-layout-column ui-gap-x-small">
+              <span
+                class="ui-layout-row ui-spread"
+                id="analytics-dashboard-source-bassists-anonymous"
+                ><span>Bassists Anonymous</span><span>28%</span></span
+              >
+              <Progress
+                aria-labelledby="analytics-dashboard-source-bassists-anonymous"
+                :max="100"
+                :value="28"
+              />
+            </li>
+            <li class="ui-layout-column ui-gap-x-small">
+              <span
+                class="ui-layout-row ui-spread"
+                id="analytics-dashboard-source-gear"
+                ><span>Gear Talk</span><span>17%</span></span
+              >
+              <Progress
+                aria-labelledby="analytics-dashboard-source-gear"
+                :max="100"
+                :value="17"
+              />
+            </li>
+            <li class="ui-layout-column ui-gap-x-small">
+              <span
+                class="ui-layout-row ui-spread"
+                id="analytics-dashboard-source-band"
+                ><span>Your band (finally!)</span><span>9%</span></span
+              >
+              <Progress
+                aria-labelledby="analytics-dashboard-source-band"
+                :max="100"
+                :value="9"
+              />
+            </li>
+          </ul>
+        </CardContent>
+      </Card>
+    </div>
+    <Card
+      aria-labelledby="analytics-dashboard-pages-heading"
+      as="section"
+      variant="outlined"
+    >
+      <hgroup>
+        <h2 class="ui-h5" id="analytics-dashboard-pages-heading">
+          Most visited corners
+        </h2>
+      </hgroup>
+      <CardContent>
+        <Table
+          aria-labelledby="analytics-dashboard-pages-heading"
+          density="dense"
+          flush
+          overflow="scroll"
+          tabindex="0"
+        >
+          <TableHead>
+            <TableRow>
+              <TableHeaderCell scope="col">Page</TableHeaderCell>
+              <TableHeaderCell numeric scope="col">Visitors</TableHeaderCell>
+              <TableHeaderCell numeric scope="col">Views</TableHeaderCell>
+              <TableHeaderCell numeric scope="col">Bounce</TableHeaderCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            <TableRow>
+              <TableCell
+                ><a class="ui-link" href="#analytics-page-home"
+                  >/josh</a
+                ></TableCell
+              >
+              <TableCell numeric>612</TableCell>
+              <TableCell numeric>1 340</TableCell>
+              <TableCell numeric>32%</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <a class="ui-link" href="#analytics-page-wall">/josh/wall</a>
+              </TableCell>
+              <TableCell numeric>388</TableCell>
+              <TableCell numeric>902</TableCell>
+              <TableCell numeric>38%</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <a class="ui-link" href="#analytics-page-videos"
+                  >/josh/videos/slap-in-drop-d</a
+                >
+              </TableCell>
+              <TableCell numeric>245</TableCell>
+              <TableCell numeric>1 108</TableCell>
+              <TableCell numeric>24%</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <a class="ui-link" href="#analytics-page-gear"
+                  >/josh/gear/pedalboard</a
+                >
+              </TableCell>
+              <TableCell numeric>104</TableCell>
+              <TableCell numeric>130</TableCell>
+              <TableCell numeric>61%</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
+  </div>
+</template>
+
+<style>
+.analytics-dashboard {
+  container-type: inline-size;
+
+  .analytics-chart {
+    align-items: end;
+    block-size: 12rem;
+    border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+    display: grid;
+    gap: var(--ui-space-2);
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      align-items: center;
+      block-size: 100%;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      justify-items: center;
+      row-gap: var(--ui-space-1);
+    }
+
+    .analytics-bar {
+      align-self: end;
+      background-color: var(--ui-primary);
+      block-size: var(--value);
+      border-start-end-radius: var(--ui-radius-small);
+      border-start-start-radius: var(--ui-radius-small);
+      inline-size: min(100%, 2.5rem);
+      opacity: 0.85;
+    }
+
+    li:last-child .analytics-bar {
+      opacity: 1;
+    }
+
+    .analytics-day {
+      translate: 0 calc(100% + var(--ui-space-1));
+    }
+  }
+
+  .analytics-chart-card .ui-content {
+    padding-block-end: var(--ui-space-7);
+  }
+}
+</style>

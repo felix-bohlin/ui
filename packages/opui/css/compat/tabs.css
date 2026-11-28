@@ -1,0 +1,7 @@
+@layer components.compat {
+  @supports not (overflow-inline: auto) {
+    :where(.ui-tabs):not(.ui-overflow-wrap, .ui-vertical) {
+      overflow-x: auto;
+    }
+  }
+}

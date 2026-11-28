@@ -1,0 +1,7 @@
+@layer components.compat {
+  @supports not (overflow-block: auto) {
+    :where(.ui-dialog) > .ui-content {
+      overflow-y: auto;
+    }
+  }
+}

@@ -1,0 +1,44 @@
+---
+import type { Props } from "./types.astro"
+import StepperItem from "./StepperItem.astro"
+
+export const title = "Stepper"
+
+const {
+  class: className,
+  complete,
+  completeLabel,
+  current,
+  errorLabel,
+  items,
+  orientation,
+  size,
+  ...rest
+} = Astro.props
+---
+
+<ol
+  class:list={[
+    "ui-stepper",
+    orientation && orientation !== "auto" && `ui-${orientation}`,
+    size && size !== "medium" && `ui-${size}`,
+    className,
+  ]}
+  {...rest}
+>
+  {items?.map((item, index) => (
+    <StepperItem
+      completeLabel={completeLabel}
+      errorLabel={errorLabel}
+      {...item}
+      current={item.current || index === current}
+      state={
+        item.state ??
+        (complete || (current !== undefined && index < current)
+          ? "complete"
+          : undefined)
+      }
+    />
+  ))}
+  <slot />
+</ol>

@@ -1,0 +1,37 @@
+{% from "opui/index.njk" import Radio %}
+
+<div class="example-row">
+  {% call Radio({
+    checked: true,
+    hideLabel: true,
+    name: "radio-sizes-x-small",
+    size: "x-small",
+    value: "selected"
+  }) %}Selected{% endcall %}
+  {% call Radio({
+    checked: true,
+    hideLabel: true,
+    name: "radio-sizes-small",
+    size: "small",
+    value: "selected"
+  }) %}Selected{% endcall %}
+  {% call Radio({
+    checked: true,
+    hideLabel: true,
+    name: "radio-sizes-medium",
+    value: "selected"
+  }) %}Selected{% endcall %}
+  {% call Radio({
+    checked: true,
+    hideLabel: true,
+    name: "radio-sizes-large",
+    size: "large",
+    value: "selected"
+  }) %}Selected{% endcall %}
+</div>
+<div class="example-row">
+  {% call Radio({ name: "radio-sizes-x-small", size: "x-small", value: "other" }) %}X-small{% endcall %}
+  {% call Radio({ name: "radio-sizes-small", size: "small", value: "other" }) %}Small{% endcall %}
+  {% call Radio({ name: "radio-sizes-medium", value: "other" }) %}Medium{% endcall %}
+  {% call Radio({ name: "radio-sizes-large", size: "large", value: "other" }) %}Large{% endcall %}
+</div>

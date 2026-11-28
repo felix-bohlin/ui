@@ -1,0 +1,31 @@
+<script setup lang="ts">
+import { Avatar, Message, MessageList } from "opui-css/vue"
+</script>
+
+<template>
+  <div aria-label="Chat with Ellen" role="log">
+    <MessageList aria-label="Messages with Ellen" direct>
+      <Message author="Ellen" datetime="2026-10-08T14:02" time="14:02">
+        <template #start>
+          <Avatar>EN</Avatar>
+        </template>
+        <p>Heyyy! Did your band notice you changed strings yet?</p>
+      </Message>
+      <Message author="Ellen" datetime="2026-10-08T14:03" time="14:03">
+        <template #start>
+          <Avatar>EN</Avatar>
+        </template>
+        <p>Flatwounds, right? So rad.</p>
+      </Message>
+      <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
+        <p>Nope, not even the drummer. Bummer, but WE know.</p>
+      </Message>
+      <Message author="Ellen" datetime="2026-10-08T14:21" time="14:21">
+        <template #start>
+          <Avatar>EN</Avatar>
+        </template>
+        <p>Their loss. Tab's in your inbox!</p>
+      </Message>
+    </MessageList>
+  </div>
+</template>

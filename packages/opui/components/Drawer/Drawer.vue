@@ -1,46 +1,54 @@
 <script setup lang="ts">
-import { useId } from "vue"
-import type { DrawerSlots, Props } from "./types.d.vue"
+import "../../elements/close-on-navigate.js"
+import "../../elements/drawer-swipe.js"
+import { computed, provide, reactive } from "vue"
+import { useRestAttrs } from "../vue"
+import { DrawerKey } from "./context.vue"
+import { autoLabelledBy } from "../id"
+import { DEV, warnMissingId } from "../dev"
+import { defined } from "../attrs"
+import type { Props, Slots } from "./types.vue-props"
 
 const {
   backdrop = "blurred",
   closedby = "any",
+  closeOnNavigate,
   id,
-  scrollLock = true,
+  scrollLock,
   side = "inline-start",
 } = defineProps<Props>()
-const slots = defineSlots<DrawerSlots>()
+defineSlots<Slots>()
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const drawerId = id || useId()
+const attrs = useRestAttrs()
+
+const labelledBy = computed(() => autoLabelledBy(attrs.value, `${id}-title`))
+
+if (DEV) warnMissingId("Drawer", id)
+
+provide(DrawerKey, reactive({ id: computed(() => id), titleId: labelledBy }))
 </script>
 
 <template>
   <dialog
-    :id="drawerId"
+    :closedby="closedby"
     :class="[
       'ui-drawer',
-      side && `ui-${side}`,
       {
         'ui-backdrop-transparent': backdrop === 'transparent',
         'ui-scroll-lock': scrollLock,
       },
-      $props.class,
+      side && side !== 'inline-start' && `ui-${side}`,
+      $attrs.class,
     ]"
-    :closedby="closedby"
-    v-bind="$attrs"
+    :aria-labelledby="labelledBy"
+    :data-close-on-navigate="closeOnNavigate ? '' : undefined"
+    :id="id"
+    v-bind="defined(attrs)"
   >
-    <slot v-if="slots.header" name="header"></slot>
-
-    <div v-if="slots.content" class="ui-content">
-      <slot name="content"></slot>
-    </div>
-
     <slot></slot>
-
-    <slot v-if="slots.footer" name="footer"></slot>
   </dialog>
 </template>

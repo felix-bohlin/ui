@@ -1,0 +1,125 @@
+<style>
+  .todo-rating-group fieldset.ui-rating[aria-invalid="true"] {
+    --_empty-bg-color: oklch(from var(--ui-invalid) l c h / 60%);
+  }
+</style>
+
+<p class="todo-note">
+  The same rating with an error, two stars picked and not required, as after a
+  server-side check. Today every radio carries <code>aria-invalid</code>; the
+  other puts it on the fieldset, which then needs
+  <code>role="radiogroup"</code>, since ARIA doesn't list
+  <code>aria-invalid</code> on a plain <code>group</code> either, and needs the
+  invalid colors moved from <code>:has([aria-invalid="true"])</code> to the
+  fieldset (this page adds that rule). Both look the same. Under each is what
+  Chromium's accessibility tree exposes, measured with the same markup. Move
+  through the stars with a screen reader to hear the difference.
+</p>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Today, on every radio</p>
+    <fieldset class="ui-rating">
+      <legend>Rate your stay</legend>
+      <input
+        aria-describedby="todo-rating-radios-error"
+        aria-invalid="true"
+        aria-label="1 star"
+        name="todo-rating-radios"
+        type="radio"
+        value="1"
+      />
+      <input
+        aria-describedby="todo-rating-radios-error"
+        aria-invalid="true"
+        aria-label="2 stars"
+        checked
+        name="todo-rating-radios"
+        type="radio"
+        value="2"
+      />
+      <input
+        aria-describedby="todo-rating-radios-error"
+        aria-invalid="true"
+        aria-label="3 stars"
+        name="todo-rating-radios"
+        type="radio"
+        value="3"
+      />
+      <input
+        aria-describedby="todo-rating-radios-error"
+        aria-invalid="true"
+        aria-label="4 stars"
+        name="todo-rating-radios"
+        type="radio"
+        value="4"
+      />
+      <input
+        aria-describedby="todo-rating-radios-error"
+        aria-invalid="true"
+        aria-label="5 stars"
+        name="todo-rating-radios"
+        type="radio"
+        value="5"
+      />
+    </fieldset>
+    <p class="ui-caption" id="todo-rating-radios-error">
+      Ratings close after checkout.
+    </p>
+    <p class="todo-measure">
+      group "Rate your stay": valid radio "1 star" to "5 stars": invalid
+    </p>
+  </section>
+  <section class="todo-fixed todo-rating-group">
+    <p class="todo-label">On the group, role="radiogroup"</p>
+    <fieldset aria-invalid="true" class="ui-rating" role="radiogroup">
+      <legend>Rate your stay</legend>
+      <input
+        aria-describedby="todo-rating-group-error"
+        aria-label="1 star"
+        name="todo-rating-group"
+        type="radio"
+        value="1"
+      />
+      <input
+        aria-describedby="todo-rating-group-error"
+        aria-label="2 stars"
+        checked
+        name="todo-rating-group"
+        type="radio"
+        value="2"
+      />
+      <input
+        aria-describedby="todo-rating-group-error"
+        aria-label="3 stars"
+        name="todo-rating-group"
+        type="radio"
+        value="3"
+      />
+      <input
+        aria-describedby="todo-rating-group-error"
+        aria-label="4 stars"
+        name="todo-rating-group"
+        type="radio"
+        value="4"
+      />
+      <input
+        aria-describedby="todo-rating-group-error"
+        aria-label="5 stars"
+        name="todo-rating-group"
+        type="radio"
+        value="5"
+      />
+    </fieldset>
+    <p class="ui-caption" id="todo-rating-group-error">
+      Ratings close after checkout.
+    </p>
+    <p class="todo-measure">
+      radiogroup "Rate your stay": invalid radio "1 star" to "5 stars": valid
+    </p>
+  </section>
+</div>
+<p class="todo-note">
+  A required rating with nothing picked is the other case: native validation
+  makes every radio <code>:invalid</code>, and Chromium exposes each one as
+  invalid with or without the attribute, so there the attribute adds nothing.
+</p>

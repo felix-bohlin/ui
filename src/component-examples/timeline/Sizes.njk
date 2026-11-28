@@ -1,0 +1,17 @@
+{% from "opui/index.njk" import Timeline, TimelineItem %}
+
+{% call Timeline({ size: "small" }) %}
+  {% call TimelineItem({ datetime: "2026-10-08T09:12", time: "09:12" }) %}
+    <p>Soundcheck started.</p>
+  {% endcall %}
+  {% call TimelineItem({ datetime: "2026-10-08T09:15", time: "09:15" }) %}
+    <p>Bass turned up, finally.</p>
+  {% endcall %}
+  {% call TimelineItem({
+    color: "success",
+    datetime: "2026-10-08T09:16",
+    time: "09:16"
+  }) %}
+    <p>On stage and grooving.</p>
+  {% endcall %}
+{% endcall %}

@@ -4,31 +4,46 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/vue"
 </script>
 
 <template>
   <Form>
-    <FieldSet>
-      <FieldLegend>Legend</FieldLegend>
-      <FieldDescription>Field description above fields</FieldDescription>
-      <FieldGroup direction="row" name="checkbox-group-field-description-1">
-        <Checkbox checked>Checkbox 1</Checkbox>
-        <Checkbox>Checkbox 2</Checkbox>
-        <Checkbox>Checkbox 3</Checkbox>
+    <Fieldset
+      aria-describedby="checkbox-field-group-field-description-1-description"
+    >
+      <FieldLegend>Notifications</FieldLegend>
+      <FieldDescription
+        id="checkbox-field-group-field-description-1-description"
+        >How we tell you a bandmate finally replied.</FieldDescription
+      >
+      <FieldGroup orientation="horizontal">
+        <Checkbox checked name="checkbox-group-field-description-1"
+          >Email</Checkbox
+        >
+        <Checkbox name="checkbox-group-field-description-1">Push</Checkbox>
+        <Checkbox name="checkbox-group-field-description-1">SMS</Checkbox>
       </FieldGroup>
-    </FieldSet>
-
-    <FieldSet>
-      <FieldLegend>Legend</FieldLegend>
-      <FieldGroup direction="row" name="checkbox-group-field-description-2">
-        <Checkbox checked>Checkbox 1</Checkbox>
-        <Checkbox>Checkbox 2</Checkbox>
-        <Checkbox>Checkbox 3</Checkbox>
+    </Fieldset>
+    <Fieldset
+      aria-describedby="checkbox-field-group-field-description-2-description"
+    >
+      <FieldLegend>Newsletter topics</FieldLegend>
+      <FieldGroup orientation="horizontal">
+        <Checkbox checked name="checkbox-group-field-description-2"
+          >Bassbook news</Checkbox
+        >
+        <Checkbox name="checkbox-group-field-description-2">Events</Checkbox>
+        <Checkbox name="checkbox-group-field-description-2"
+          >Gear deals</Checkbox
+        >
       </FieldGroup>
-      <FieldDescription>Field description below fields</FieldDescription>
-    </FieldSet>
+      <FieldDescription
+        id="checkbox-field-group-field-description-2-description"
+        >Change these at any time in your account.</FieldDescription
+      >
+    </Fieldset>
   </Form>
 </template>

@@ -1,13 +1,35 @@
 packages:
   - packages/*
+  - tests/package/fixtures/*
   - .
 
 allowBuilds:
   esbuild: true
 
+engineStrict: true
+
+shellEmulator: true
+
 catalog:
-  astro: ^7.0.6
+  "@solidjs/web": ^2.0.4
+  "@types/nunjucks": ^3.2.6
+  "@types/react": ^19.3.2
+  "@types/react-dom": ^19.3.0
+  astro: ^7.4.13
+  nunjucks: ^3.2.4
   open-props: ^1.7.23
-  solid-js: ^1.9.13
-  svelte: ^5.56.4
-  vue: ^3.5.39
+  react: ^19.3.1
+  react-dom: ^19.3.1
+  solid-js: ^2.0.4
+  svelte: ^5.59.1
+  vue: ^3.5.46
+  web-features: ^3.47.0
+
+packageExtensions:
+  "@astrojs/astro2tsx":
+    dependencies:
+      "@emnapi/runtime": ^1.11.3
+
+minimumReleaseAgeExclude:
+  - "@solidjs/vite-plugin@3.0.1"
+  - vite@8.4.0

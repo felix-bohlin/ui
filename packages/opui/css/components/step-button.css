@@ -1,0 +1,65 @@
+@layer components.extended {
+  :where(
+    .ui-field:has(
+      > .ui-field-container > :is(.ui-start, .ui-end) > opui-step-button
+    )
+  ) {
+    --_min-inline-size: 4ch;
+
+    & > .ui-field-container input {
+      text-align: center;
+    }
+
+    &.ui-auto-fit > .ui-field-container input {
+      min-inline-size: var(--_min-inline-size);
+    }
+
+    & > .ui-field-container opui-step-button > .ui-button {
+      &[command="--step-down"] > svg:empty {
+        background-color: currentColor;
+        mask: var(--ui-icon-decrease) center / contain no-repeat;
+
+        @media (forced-colors: active) {
+          background-color: ButtonText;
+        }
+
+        @media print {
+          print-color-adjust: exact;
+        }
+      }
+
+      &[command="--step-up"] > svg:empty {
+        background-color: currentColor;
+        mask: var(--ui-icon-increase) center / contain no-repeat;
+
+        @media (forced-colors: active) {
+          background-color: ButtonText;
+        }
+
+        @media print {
+          print-color-adjust: exact;
+        }
+      }
+    }
+
+    &:has(opui-step-button:defined) > .ui-field-container input {
+      appearance: textfield;
+
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        appearance: none;
+        margin: 0;
+      }
+    }
+
+    &:has(opui-step-button:not(:defined)) > .ui-field-container {
+      & > :is(.ui-start, .ui-end):has(> opui-step-button) {
+        display: none;
+      }
+
+      & input {
+        padding-inline: var(--_field-padding-inline);
+      }
+    }
+  }
+}

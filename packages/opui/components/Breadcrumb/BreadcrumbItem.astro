@@ -1,0 +1,16 @@
+---
+import type { BreadcrumbItemProps as Props } from "./types.astro"
+
+const { class: className, current, href, label, ...rest } = Astro.props
+
+const Tag = href ? "a" : "span"
+---
+
+<li class:list={[className]} {...rest}>
+  {Astro.slots.has("separator") && <span aria-hidden="true" class="ui-separator"
+    ><slot name="separator"
+  /></span>}
+  <Tag aria-current={current ? "page" : undefined} href={href}
+    >{label}<slot
+  /></Tag>
+</li>

@@ -1,17 +1,44 @@
 <script setup lang="ts">
-import { Range } from "opui-css/vue"
+import { ref } from "vue"
+import { Field } from "opui-css/vue"
+
+const qualities = ["Low", "Medium", "High"]
+
+const opacity = ref(50)
+const quality = ref(1)
 </script>
 
 <template>
-  <Range
-    label="Tick marks with labels"
-    list="labeled-markers"
-    :options="[
-      { value: 0, label: '0%' },
-      { value: 25, label: '25%' },
-      { value: 50, label: '50%' },
-      { value: 75, label: '75%' },
-      { value: 100, label: '100%' },
-    ]"
-  />
+  <Field for="range-tick-marks-labels-1" label="Opacity">
+    <input
+      :aria-valuetext="`${opacity}%`"
+      id="range-tick-marks-labels-1"
+      list="range-tick-marks-labels-1-list"
+      step="25"
+      type="range"
+      v-model.number="opacity"
+    />
+    <datalist aria-hidden="true" id="range-tick-marks-labels-1-list">
+      <option label="0%" value="0"></option>
+      <option label="25%" value="25"></option>
+      <option label="50%" value="50"></option>
+      <option label="75%" value="75"></option>
+      <option label="100%" value="100"></option>
+    </datalist>
+  </Field>
+  <Field for="range-tick-marks-labels-2" label="Quality">
+    <input
+      :aria-valuetext="qualities[quality]"
+      id="range-tick-marks-labels-2"
+      list="range-tick-marks-labels-2-list"
+      max="2"
+      type="range"
+      v-model.number="quality"
+    />
+    <datalist aria-hidden="true" id="range-tick-marks-labels-2-list">
+      <option label="Low" value="0"></option>
+      <option label="Medium" value="1"></option>
+      <option label="High" value="2"></option>
+    </datalist>
+  </Field>
 </template>

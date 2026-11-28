@@ -1,0 +1,11 @@
+packages:
+  - "apps/*"
+  - "shared"
+
+allowBuilds:
+  esbuild: true
+
+minimumReleaseAgeExclude:
+  - "@astrojs/node@11.1.14"
+  - "@solidjs/vite-plugin@3.0.1"
+  - vite@8.4.0

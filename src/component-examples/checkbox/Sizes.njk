@@ -1,0 +1,29 @@
+{% from "opui/index.njk" import Checkbox %}
+
+<div class="example-row">
+  {% call Checkbox({
+    checked: true,
+    hideLabel: true,
+    name: "checkbox-sizes",
+    size: "x-small"
+  }) %}X-small{% endcall %}
+  {% call Checkbox({
+    checked: true,
+    hideLabel: true,
+    name: "checkbox-sizes",
+    size: "small"
+  }) %}Small{% endcall %}
+  {% call Checkbox({ checked: true, hideLabel: true, name: "checkbox-sizes" }) %}Medium{% endcall %}
+  {% call Checkbox({
+    checked: true,
+    hideLabel: true,
+    name: "checkbox-sizes",
+    size: "large"
+  }) %}Large{% endcall %}
+</div>
+<div class="example-row">
+  {% call Checkbox({ checked: true, name: "checkbox-sizes", size: "x-small" }) %}X-small{% endcall %}
+  {% call Checkbox({ checked: true, name: "checkbox-sizes", size: "small" }) %}Small{% endcall %}
+  {% call Checkbox({ checked: true, name: "checkbox-sizes" }) %}Medium{% endcall %}
+  {% call Checkbox({ checked: true, name: "checkbox-sizes", size: "large" }) %}Large{% endcall %}
+</div>

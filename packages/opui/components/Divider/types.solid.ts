@@ -1,4 +1,4 @@
 import type * as Base from "./types"
-import type { JSX } from "solid-js"
+import type { ComponentProps } from "@solidjs/web"
 
-export type Props = Base.Props & JSX.HTMLAttributes<HTMLHRElement>
+export type Props = Base.Props & ComponentProps<"hr">

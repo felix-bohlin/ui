@@ -1,0 +1,52 @@
+---
+import ToggleButton from "../ToggleButton/ToggleButton.astro"
+import ToggleGroup from "../ToggleGroup/ToggleGroup.astro"
+
+import type { Props } from "./types.astro"
+import { defined } from "../attrs"
+import { pillsOf, usedItem } from "./pills"
+
+export const title = "Reactions"
+
+const {
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledby,
+  class: className,
+  items = [],
+  name,
+  quick,
+  ...rest
+} = Astro.props
+
+const used = usedItem(items, quick)
+const pills = pillsOf(items, quick, used)
+---
+
+<opui-reactions
+  class:list={["ui-reactions", className]}
+  quick-label={quick?.["aria-label"]}
+  quick-text={quick?.label}
+  quick-value={quick?.value}
+  {...defined(rest)}
+>
+  <ToggleGroup
+    aria-label={ariaLabel}
+    aria-labelledby={ariaLabelledby}
+    multiple
+    name={name}
+  >
+    {pills.map((item, index) => <ToggleButton
+      aria-label={item["aria-label"]}
+      checked={!!item.checked}
+      class:list={[{ "ui-suggested": quick && !used && index === 0 }]}
+      value={item.value}
+      ><span aria-hidden="true">{item.label}</span></ToggleButton
+    >)}
+  </ToggleGroup>
+  <slot />
+  <span class="ui-sr-only" role="status" set:html="" />
+</opui-reactions>
+
+<script>
+  import "../../elements/reactions.js"
+</script>

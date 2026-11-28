@@ -1,0 +1,19 @@
+@layer components.compat {
+  @supports not selector(:interest-source) {
+    :where(.ui-copy):has(> .ui-floating:popover-open) {
+      & .ui-tooltip > .ui-floating[popover],
+      & + .ui-tooltip > .ui-floating[popover] {
+        display: none;
+      }
+    }
+  }
+
+  /* Firefox and older Chromium only take anchors-visible. Newer Chromium
+     deprecates it and can warn about it even here, where the rule never
+     applies. Remove once Firefox takes anchor-visible. */
+  @supports not (position-visibility: anchor-visible) {
+    :where(.ui-copy) > .ui-floating[popover] {
+      position-visibility: anchors-visible;
+    }
+  }
+}

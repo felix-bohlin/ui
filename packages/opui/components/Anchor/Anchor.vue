@@ -1,41 +1,44 @@
 <script setup lang="ts">
-import { useId } from "vue"
-import type { Props, Slots } from "./types.d.vue"
+import { computed, type HTMLAttributes, provide, reactive, useAttrs } from "vue"
+import { AnchorKey } from "./context.vue"
+import { DEV, warnMissingId } from "../dev"
+import { mergeStyle, styleAttrs } from "../style"
+import { extendsAnchor } from "./root"
+import { classAttrs } from "../cx"
+import type { Props, Slots } from "./types.vue-props"
 
-const { alignment, id: idProp, trigger = "always" } = defineProps<Props>()
+const { id: idProp, positionArea, trigger } = defineProps<Props>()
 defineSlots<Slots>()
 
-const isHover = trigger === "hover"
-const uid = useId()
-const id = isHover ? (idProp ?? uid) : undefined
+const attrs = useAttrs() as HTMLAttributes
 
-const insetMap: Record<string, string> = {
-  "start start": "auto 100% 100% auto",
-  "start end": "auto auto 100% 100%",
-  "end start": "100% 100% auto auto",
-  "end end": "100% auto auto 100%",
+const isHover = computed(() => trigger === "hover")
+
+const id = computed(() => (isHover.value ? idProp || undefined : undefined))
+
+if (DEV && isHover.value && !extendsAnchor(attrs.class)) {
+  warnMissingId("Anchor", id.value, "interestfor")
 }
 
-const positionArea = alignment
-  ? {
-      "--anchor-position-area": alignment,
-      "--_anchor-inset": insetMap[alignment],
-    }
-  : undefined
+provide(
+  AnchorKey,
+  reactive({
+    floatingId: id,
+    popover: computed(() => (isHover.value ? ("hint" as const) : undefined)),
+  }),
+)
 </script>
 
 <template>
   <span
-    :class="['ui-anchor', $props.class]"
-    v-bind="positionArea && { style: positionArea }"
+    v-bind="{
+      ...classAttrs([!extendsAnchor($attrs.class) && 'ui-anchor']),
+      ...styleAttrs(
+        mergeStyle({ '--ui-anchor-position-area': positionArea }, {}),
+      ),
+    }"
+    :id="isHover ? undefined : idProp"
   >
     <slot></slot>
-    <span
-      class="ui-anchor-floating"
-      :id="id"
-      :popover="isHover ? 'hint' : undefined"
-    >
-      <slot name="anchored"></slot>
-    </span>
   </span>
 </template>

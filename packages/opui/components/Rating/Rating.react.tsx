@@ -1,0 +1,99 @@
+"use client"
+
+import type { ComponentProps } from "react"
+import { cx } from "../cx"
+import { mergeStyle, pluralLabel } from "../style"
+import { ratingOf } from "./rating"
+import type { Props } from "./types.react"
+
+export default function Rating({
+  "aria-describedby": ariaDescribedBy,
+  "aria-invalid": ariaInvalid,
+  "aria-label": ariaLabel,
+  className,
+  clearLabel = "No rating",
+  defaultValue,
+  disabled,
+  error,
+  label,
+  lang,
+  max = 5,
+  name,
+  onValueChange,
+  required,
+  size,
+  starLabel = { one: "{count} star", other: "{count} stars" },
+  style,
+  value,
+  ...rest
+}: Props) {
+  const rating = ratingOf(max, value ?? defaultValue)
+  const invalid = error ? "true" : ariaInvalid
+
+  return name ? (
+    <fieldset
+      aria-label={ariaLabel}
+      className={cx([
+        "ui-rating",
+        size && size !== "medium" && `ui-${size}`,
+        className,
+      ])}
+      disabled={disabled}
+      lang={lang}
+      style={style}
+      {...(rest as ComponentProps<"fieldset">)}
+    >
+      <legend>{label}</legend>
+      {!required && (
+        <input
+          aria-describedby={ariaDescribedBy}
+          aria-invalid={invalid}
+          aria-label={clearLabel}
+          checked={value !== undefined ? rating.current === 0 : undefined}
+          defaultChecked={
+            value !== undefined ? undefined : rating.current === 0
+          }
+          onChange={() => onValueChange?.(0)}
+          name={name}
+          type="radio"
+          value={0}
+        />
+      )}
+      {rating.stars.map((star, index) => (
+        <input
+          key={index}
+          aria-describedby={ariaDescribedBy}
+          aria-invalid={invalid}
+          aria-label={pluralLabel(starLabel, star, lang)}
+          checked={value !== undefined ? rating.current === star : undefined}
+          defaultChecked={
+            value !== undefined ? undefined : rating.current === star
+          }
+          onChange={() => onValueChange?.(star)}
+          name={name}
+          required={required}
+          type="radio"
+          value={star}
+        />
+      ))}
+    </fieldset>
+  ) : (
+    <meter
+      aria-describedby={ariaDescribedBy}
+      aria-label={ariaLabel ?? label}
+      className={cx([
+        "ui-rating",
+        size && size !== "medium" && `ui-${size}`,
+        className,
+      ])}
+      lang={lang}
+      max={rating.max}
+      style={mergeStyle(
+        { "--_max": rating.count === 5 ? undefined : rating.count },
+        style ?? {},
+      )}
+      value={rating.value}
+      {...(rest as ComponentProps<"meter">)}
+    />
+  )
+}

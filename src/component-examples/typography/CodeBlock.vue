@@ -1,0 +1,16 @@
+<script setup lang="ts">
+const code = `.ui-card {
+  background: var(--ui-surface-raised);
+  border-radius: var(--ui-radius);
+  padding: var(--ui-space-5);
+}`
+</script>
+
+<template>
+  <pre
+    aria-label="Card styles"
+    class="ui-code-block"
+    role="region"
+    tabindex="0"
+  ><code>{{ code }}</code></pre>
+</template>

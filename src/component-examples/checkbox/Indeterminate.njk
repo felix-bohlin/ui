@@ -1,0 +1,27 @@
+{% from "opui/index.njk" import
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  SelectAll
+%}
+
+{% call SelectAll() %}
+  {% call Fieldset() %}
+    {% call FieldLegend() %}Notifications{% endcall %}
+    {% call FieldGroup() %}
+      {% call Checkbox({ "data-select-all": "" }) %}All notifications{% endcall %}
+      {% call Checkbox({
+        checked: true,
+        name: "checkbox-indeterminate",
+        value: "email"
+      }) %}Email{% endcall %}
+      {% call Checkbox({ name: "checkbox-indeterminate", value: "push" }) %}Push{% endcall %}
+      {% call Checkbox({ name: "checkbox-indeterminate", value: "sms" }) %}SMS{% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}
+
+<script type="module">
+  import "opui-css/elements/select-all.js"
+</script>

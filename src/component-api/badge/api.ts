@@ -2,26 +2,14 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Badge",
-  notes: {
-    html: "With an alignment class, also set `--anchor-position-area` to the same position, such as `start start`.",
-  },
   options: [
     {
-      cssVar: "--anchor-position-area",
-      description: "Where the indicator is placed.",
-      group: "Alignment",
-      prop: "alignment",
-      values: {
-        "end-end": ".ui-end-end",
-        "end-start": ".ui-end-start",
-        "start-start": ".ui-start-start",
-      },
-    },
-    {
-      description: "Optional colors.",
+      description:
+        "Optional colors. `accent` fills the badge with the current palette: put the badge or a parent in a `.ui-scope` with `--ui-palette-hue` to pick the color.",
       group: "Colors",
       prop: "color",
       values: {
+        accent: ".ui-accent",
         critical: ".ui-critical",
         info: ".ui-info",
         neutral: ".ui-neutral",
@@ -30,18 +18,47 @@ export default {
       },
     },
     {
+      default: '"start-end"',
+      description: "The corner the indicator sits on.",
+      group: "Position",
+      prop: "corner",
+      values: {
+        "end-end": ".ui-end-end",
+        "end-start": ".ui-end-start",
+        "start-end": null,
+        "start-start": ".ui-start-start",
+      },
+    },
+    {
       class: ".ui-dot",
       default: "false",
-      description: "Renders the indicator as a dot, without a label.",
-      group: "Variants",
+      description:
+        "Renders the indicator as a dot. `label` stays as screen reader text, and the `indicator` slot isn't shown.",
+      group: "Dot",
       prop: "dot",
+    },
+    {
+      class: ".ui-sr-only",
+      default: "false",
+      description:
+        'Hides `label` visually, for the whole sentence screen readers read, such as "5 unread messages". The `indicator` slot then holds the visible text and is hidden from screen readers.',
+      group: "Label",
+      htmlDescription:
+        'Hides the text visually, for the whole sentence screen readers read, such as "5 unread messages". Give the visible text `aria-hidden="true"`.',
+      part: ".ui-indicator > span",
+      prop: "hideLabel",
     },
     {
       class: ".ui-invisible",
       default: "false",
       description: "Hides the indicator.",
-      group: "Visibility",
+      group: "Invisible",
       prop: "invisible",
+    },
+    {
+      description:
+        "The indicator text, such as a count. With `hideLabel` or `dot`, only screen readers get it.",
+      prop: "label",
     },
   ],
   parts: [
@@ -52,15 +69,17 @@ export default {
       slots: ["default"],
     },
     {
-      description: "The indicator, inside `.ui-anchor-floating`.",
+      description:
+        "The indicator, inside `.ui-floating`. Holds `label`, as visible text, or as screen reader text only with `hideLabel` or `dot`.",
+      htmlDescription:
+        "The indicator, inside `.ui-floating`. Holds the label, as visible text, or as screen reader text only in a `.ui-sr-only` span or with `.ui-dot`.",
       props: ["label"],
-      selector: ".ui-badge-indicator",
+      selector: ".ui-indicator",
       slots: ["indicator"],
     },
   ],
   root: {
-    anchorName: "--anchor",
-    description: "Container element. Also takes `.ui-anchor`.",
+    description: "Container element.",
     selector: ".ui-badge",
   },
   source: "Badge",

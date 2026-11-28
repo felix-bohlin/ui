@@ -1,0 +1,17 @@
+{% from "opui/index.njk" import Button, ControlGroup, Menu %}
+
+{% call ControlGroup({ "aria-label": "Save options", variant: "outlined" }) %}
+  {% call Button() %}Save{% endcall %}
+  {% call Button({
+    "aria-label": "More save options",
+    command: "toggle-popover",
+    commandfor: "control-group-split-button-1"
+  }) %}
+    <svg aria-hidden="true"><!-- --></svg>
+  {% endcall %}
+  {{ Menu({
+    align: "end",
+    id: "control-group-split-button-1",
+    items: [{ label: "Save as draft" }, { label: "Save and publish" }]
+  }) }}
+{% endcall %}

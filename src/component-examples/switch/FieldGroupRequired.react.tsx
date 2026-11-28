@@ -1,0 +1,22 @@
+import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/react"
+
+export default function FieldGroupRequired() {
+  return (
+    <Form>
+      <Fieldset>
+        <FieldLegend>Admin security</FieldLegend>
+        <FieldGroup orientation="horizontal">
+          <Switch name="switch-group-required" required value="two-step-login">
+            Two-step login
+          </Switch>
+          <Switch name="switch-group-required" required value="login-alerts">
+            Login alerts
+          </Switch>
+          <Switch name="switch-group-required" required value="auto-lock">
+            Auto-lock
+          </Switch>
+        </FieldGroup>
+      </Fieldset>
+    </Form>
+  )
+}

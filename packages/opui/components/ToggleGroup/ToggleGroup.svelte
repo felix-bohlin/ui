@@ -1,0 +1,57 @@
+<script lang="ts">
+  import { untrack } from "svelte"
+  import { selectionOf } from "./selection"
+  import { setToggleGroupContext } from "./context.svelte"
+  import { DEV, warnUnnamedGroup } from "../dev"
+  import type { Props } from "./types.svelte"
+
+  let {
+    class: className,
+    multiple,
+    name,
+    orientation,
+    overflow,
+    role,
+    size,
+    value = $bindable(),
+
+    // Snippets
+    children,
+    ...rest
+  }: Props = $props()
+
+  const uid = $props.id()
+  const groupName = $derived(name || `toggle-group-${uid}`)
+  const inputType = $derived(multiple ? "checkbox" : "radio")
+  if (DEV) untrack(() => warnUnnamedGroup("ToggleGroup", rest))
+  setToggleGroupContext({
+    change(input) {
+      if (input.checked || input.type === "checkbox")
+        value = selectionOf(input, multiple, value)
+      else if (value === input.value) value = undefined
+    },
+    get groupName() {
+      return groupName
+    },
+    get inputType() {
+      return inputType
+    },
+    get value() {
+      return value
+    },
+  })
+</script>
+
+<div
+  class={[
+    "ui-toggle-group",
+    { "ui-vertical": orientation === "vertical" },
+    overflow && overflow !== "wrap" && `ui-overflow-${overflow}`,
+    size && size !== "medium" && `ui-${size}`,
+    className,
+  ]}
+  role={role ?? (multiple ? "group" : "radiogroup")}
+  {...rest}
+>
+  {@render children?.()}
+</div>

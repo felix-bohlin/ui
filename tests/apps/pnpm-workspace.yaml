@@ -1,0 +1,9 @@
+packages:
+  - "*"
+
+allowBuilds:
+  esbuild: true
+
+minimumReleaseAgeExclude:
+  - "@solidjs/vite-plugin@3.0.1"
+  - vite@8.4.0

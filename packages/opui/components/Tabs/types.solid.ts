@@ -1,12 +1,15 @@
 import type * as Base from "./types"
-import type { JSX } from "solid-js"
+import type { ComponentProps } from "@solidjs/web"
 
-export type Props = Base.Props & JSX.HTMLAttributes<HTMLDivElement>
+export type Props = Base.Props & {
+  defaultValue?: string
+  onValueChange?: (value: string) => void
+  value?: string
+} & Omit<ComponentProps<"div">, "defaultValue">
+
 export type TabsItemProps = Base.TabsItemProps &
-  JSX.InputHTMLAttributes<HTMLInputElement>
-export type TabsTabProps = Base.TabsTabProps &
-  Omit<JSX.LabelHTMLAttributes<HTMLLabelElement>, "for"> & {
-    for?: string
-  }
-export type TabsPanelProps = Base.TabsPanelProps &
-  JSX.HTMLAttributes<HTMLDivElement>
+  Omit<ComponentProps<"input">, "checked" | "name" | "type">
+
+export type TabsPanelProps = Base.TabsPanelProps & ComponentProps<"div">
+
+export type TabsLabelProps = Base.TabsLabelProps & ComponentProps<"label">

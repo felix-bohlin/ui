@@ -1,7 +1,11 @@
 import type * as Base from "./types"
 import type { SvelteHTMLElements } from "svelte/elements"
-import type { Snippet } from "svelte"
 
-type Snippets = Base.Slots<Snippet>
+export type Props = Base.Props & SvelteHTMLElements["div"]
 
-export type Props = Base.Props & Snippets & SvelteHTMLElements["div"]
+export type CardActionsProps = Base.CardActionsProps & SvelteHTMLElements["div"]
+
+export type CardContentProps = Base.CardContentProps & SvelteHTMLElements["div"]
+
+export type CardHeaderProps = Base.CardHeaderProps &
+  SvelteHTMLElements["hgroup"]

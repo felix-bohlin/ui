@@ -1,7 +1,7 @@
 ---
 import type { SwitchInputProps as Props } from "./types.astro"
 
-const { ...rest } = Astro.props
+const { ...rest } = Astro.props as Props
 ---
 
 <input type="checkbox" role="switch" {...rest} />

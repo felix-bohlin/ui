@@ -1,0 +1,23 @@
+{% macro ToggleGroup(props = {}) %}
+  {%- set props = props | opuiProps("ToggleGroup") -%}
+  {%- set rest = props | opuiRest("ToggleGroup") -%}
+  {%- set groupName = props.name or opui.id("toggle-group") -%}
+  {%- set inputType = "checkbox" if props.multiple else "radio" -%}
+  {{- opui.warnUnnamedGroup("ToggleGroup", rest) -}}
+  {%- set role = props.role | default('group' if props.multiple else 'radiogroup') -%}
+  <div
+    class="ui-toggle-group
+      {%- if props.orientation == 'vertical' %} ui-vertical{% endif %}
+      {%- if props.overflow and props.overflow != 'wrap' %} ui-overflow-{{ props.overflow }}
+      {%- endif %}
+      {%- if props.size and props.size != 'medium' %} ui-{{ props.size }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    role="{{ role }}"
+    {{- rest | opuiAttributes }}>
+    {{- opui.provide(
+      "ToggleGroup",
+      { groupName: groupName, inputType: inputType, value: props.value },
+      caller
+    ) -}}
+  </div>
+{%- endmacro %}

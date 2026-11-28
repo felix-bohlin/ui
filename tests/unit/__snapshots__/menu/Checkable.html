@@ -1,0 +1,54 @@
+<button class="ui-button ui-outlined" command="toggle-popover" commandfor="id-1" type="button">View</button>
+<menu class="ui-menu" id="id-1" popover>
+  <li>
+    <label class="ui-checkbox">
+      <div class="ui-text">
+        <p>Show hidden files</p>
+      </div>
+      <div class="ui-end">
+        <input type="checkbox">
+      </div>
+    </label>
+  </li>
+  <li>
+    <label class="ui-checkbox">
+      <div class="ui-text">
+        <p>Show file extensions</p>
+      </div>
+      <div class="ui-end">
+        <input checked type="checkbox">
+      </div>
+    </label>
+  </li>
+  <li class="ui-border-top ui-heading" id="id-2">Sort by</li>
+  <li>
+    <label class="ui-radio">
+      <div class="ui-text">
+        <p>Name</p>
+      </div>
+      <div class="ui-end">
+        <input aria-describedby="id-2" checked name="menu-checkable-1-sort" type="radio" value="name">
+      </div>
+    </label>
+  </li>
+  <li>
+    <label class="ui-radio">
+      <div class="ui-text">
+        <p>Date modified</p>
+      </div>
+      <div class="ui-end">
+        <input aria-describedby="id-2" name="menu-checkable-1-sort" type="radio" value="date">
+      </div>
+    </label>
+  </li>
+  <li>
+    <label class="ui-radio">
+      <div class="ui-text">
+        <p>Size</p>
+      </div>
+      <div class="ui-end">
+        <input aria-describedby="id-2" name="menu-checkable-1-sort" type="radio" value="size">
+      </div>
+    </label>
+  </li>
+</menu>

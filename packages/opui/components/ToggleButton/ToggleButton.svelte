@@ -1,0 +1,69 @@
+<script lang="ts">
+  import { untrack } from "svelte"
+  import { relayChecked } from "../svelte"
+  import { getToggleGroupContext } from "../ToggleGroup/context.svelte"
+  import { isSelected } from "../ToggleGroup/selection"
+  import { DEV, warnGroupedChecked } from "../dev"
+  import type { Props } from "./types.svelte"
+
+  let {
+    checked = $bindable(),
+    class: className,
+    defaultChecked,
+    label,
+    name,
+    size,
+    style,
+    type,
+    value,
+
+    // Snippets
+    children,
+    ...rest
+  }: Props = $props()
+
+  const group = getToggleGroupContext()
+  const finalName = $derived(name || group?.groupName)
+  const finalType = $derived(
+    group?.inputType === "radio" ? "radio" : (type ?? "checkbox"),
+  )
+  const grouped = $derived(isSelected(group?.value, value))
+  if (DEV)
+    untrack(() =>
+      warnGroupedChecked(
+        "ToggleButton",
+        grouped,
+        checked ?? defaultChecked,
+        "ToggleGroup",
+      ),
+    )
+  const isChecked = () => grouped ?? checked
+  const initialChecked = untrack(() => isChecked() ?? !!defaultChecked)
+  const change = (input: HTMLInputElement) => {
+    if (grouped === undefined) checked = input.checked
+    if (value !== undefined) group?.change?.(input)
+  }
+</script>
+
+<label
+  class={[
+    "ui-toggle-button",
+    size && size !== "medium" && `ui-${size}`,
+    className,
+  ]}
+  {style}
+>
+  <input
+    {@attach relayChecked(change, isChecked)}
+    defaultChecked={grouped === undefined
+      ? (defaultChecked ?? initialChecked)
+      : initialChecked}
+    name={finalName}
+    type={finalType}
+    {value}
+    {...rest}
+  />
+  {#if children}
+    {@render children()}
+  {:else}{label}{/if}
+</label>

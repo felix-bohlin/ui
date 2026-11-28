@@ -1,0 +1,101 @@
+---
+import Component from "../../layouts/Component.astro"
+import Usage from "./partials/Usage.astro"
+import DocLink from "../../components/DocLink.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+
+export const keywords = ["bar", "gauge", "measurement", "poll", "usage"]
+export const description =
+  "A bar on the native meter element, for a value in a known range, like disk usage or a poll option's share."
+---
+
+<Component description={description}>
+  <Fragment slot="preamble">
+    A value in a known range, like disk usage or a poll option's share. For how
+    far along a task is, use a
+    <DocLink href="/components/progress">Progress</DocLink> bar.
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      A measurement against a limit, like disk usage: a
+      <a href="#label">labelled meter</a>.
+    </li>
+    <li slot="when">
+      Shares of a whole, like the results of a <a href="#poll">poll</a>.
+    </li>
+    <li slot="when-not">
+      A task that moves toward its end, like an upload: use
+      <DocLink href="/components/progress">Progress</DocLink>.
+    </li>
+    <li slot="when-not">
+      A score out of five: use a
+      <DocLink href="/components/rating">Rating</DocLink>.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <AutoExample name="Basics" />
+  </section>
+
+  <section id="variants">
+    <h2>Variants</h2>
+    <p>
+      Tonal by default. Use
+      <PropOrClass prop='variant="filled"' class=".ui-filled" /> for a filled
+      track.
+    </p>
+    <AutoExample name="Variants" column />
+  </section>
+
+  <section id="size">
+    <h2>Size</h2>
+    <p>Set <code>--_block-size</code> for a taller bar.</p>
+    <AutoExample name="Size" />
+  </section>
+
+  <section id="label">
+    <h2>Label</h2>
+    <AutoExample name="Label" />
+  </section>
+
+  <section id="ranges">
+    <h2>Low, high and optimum</h2>
+    <p>
+      With <code>low</code>, <code>high</code> and <code>optimum</code>, the
+      fill is <code>--ui-warning</code> one range away from the optimum and
+      <code>--ui-critical</code> two ranges away.
+    </p>
+    <AutoExample name="Ranges" column />
+  </section>
+
+  <section id="poll">
+    <h2>Poll</h2>
+    <p>
+      Stack the meter and its label in one grid cell and set
+      <code>--_block-size: 100%</code>, so the row is the bar. The label names
+      the meter and has <code>aria-hidden="true"</code>, so it's read once.
+    </p>
+    <AutoExample name="Poll" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Name the meter with <code>aria-label</code> or
+        <code>aria-labelledby</code>.
+      </li>
+      <li>
+        Screen readers may read the value as a percentage of the range: put the
+        reading in the label, as the <a href="#poll">poll</a> does with a label
+        that is hidden from them as text.
+      </li>
+      <li>
+        The <a href="#ranges">range colors</a> say nothing on their own: put the
+        state in the label too.
+      </li>
+    </ul>
+  </Fragment>
+</Component>

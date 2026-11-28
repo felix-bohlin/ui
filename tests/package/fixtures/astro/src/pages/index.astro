@@ -1,0 +1,24 @@
+---
+import "opui-css/css/imports.css"
+import { Button, Checkbox, Field } from "opui-css/astro"
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>opui-css Astro fixture</title>
+  </head>
+  <body>
+    <form>
+      <Field for="index-name" label="Name">
+        <input id="index-name" name="name" />
+      </Field>
+      <Checkbox name="subscribe">Subscribe</Checkbox>
+      <Button type="submit" variant="filled" color="primary">Save</Button>
+    </form>
+    <button type="button" class="ui-button" interestfor="hint">Help</button>
+    <p id="hint" popover="hint">Fill in your name.</p>
+  </body>
+</html>

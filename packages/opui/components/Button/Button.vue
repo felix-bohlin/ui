@@ -1,11 +1,22 @@
 <script setup lang="ts">
-import type { Props, Slots } from "./types.d.vue"
+import { computed } from "vue"
+import { useRestAttrs } from "../vue"
+import { disabledLink, tagAttrs } from "../tag"
+import { defined } from "../attrs"
+import type { Props, Slots } from "./types.vue-props"
 
-const { as, color, disabled, href, size, variant } = defineProps<Props>()
+const { as, color, disabled, href, round, size, variant } = defineProps<Props>()
 defineSlots<Slots>()
 
-const Tag = as || (href ? "a" : "button")
-const isButton = Tag === "button"
+defineOptions({
+  inheritAttrs: false,
+})
+
+const attrs = useRestAttrs()
+
+const Tag = computed(() =>
+  disabledLink(as, disabled) ? "a" : as || (href ? "a" : "button"),
+)
 </script>
 
 <template>
@@ -13,13 +24,13 @@ const isButton = Tag === "button"
     :is="Tag"
     :class="[
       'ui-button',
-      size && `ui-${size}`,
-      variant && `ui-${variant}`,
+      { 'ui-round': round },
       color && `ui-${color}`,
-      $props.class,
+      size && size !== 'medium' && `ui-${size}`,
+      variant && variant !== 'transparent' && `ui-${variant}`,
+      $attrs.class,
     ]"
-    :disabled="isButton ? disabled : undefined"
-    :href="href"
+    v-bind="{ ...tagAttrs(Tag, disabled, href), ...defined(attrs) }"
   >
     <slot></slot>
   </component>

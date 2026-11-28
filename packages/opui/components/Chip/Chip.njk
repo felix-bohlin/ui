@@ -1,0 +1,26 @@
+{% macro Chip(props = {}) %}
+  {%- set props = props | opuiProps("Chip") -%}
+  {%- set rest = props | opuiRest("Chip") -%}
+  {%- set variant = props.variant | default("tonal") -%}
+  {%- set tag = "a"
+    if opui.disabledLink(props.as, props.disabled)
+    else props.as or ("a" if props.href else "div") -%}
+  {%- set classes = [
+    "ui-chip",
+    { "ui-dot": props.dot, "ui-multiline": props.multiline },
+    props.color and "ui-" ~ props.color,
+    props.severity and "ui-" ~ props.severity,
+    props.size and props.size != "medium" and "ui-" ~ props.size,
+    variant != "tonal" and "ui-" ~ variant,
+    props.class
+  ] | opuiClass -%}
+  <{{ tag | opuiTag }}{{ opui.merge(
+    { class: classes },
+    opui.tagAttrs(tag, props.disabled, props.href),
+    opui.defined(rest)
+  ) | opuiAttributes(tag) }}>
+    {{- props.slots.start | safe }}{% if props.label or props.slots.label != none -%}
+      <span class="ui-text">{{ props.label }}{{ props.slots.label | safe }}</span>
+    {%- endif %}{{ props.slots.end | safe -}}
+  </{{ tag | opuiTag }}>
+{%- endmacro %}

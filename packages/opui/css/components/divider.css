@@ -1,20 +1,61 @@
 @layer components.root {
   :where(.ui-divider) {
-    background-color: var(--border-color);
-    block-size: var(--border-size-1);
-    margin-block: var(--size-fluid-3);
+    --_divider-border-color: var(--ui-border-color);
+
+    block-size: 0;
+    border-block-start: var(--ui-border-width) solid
+      var(--_divider-border-color);
+    margin-block: var(--ui-divider-gap);
 
     /* Border color */
-    &.ui-border-filled {
-      background-color: var(--surface-filled);
+    &.ui-filled {
+      --_divider-border-color: var(--ui-surface-filled);
     }
 
-    &.ui-border-primary {
-      background-color: var(--primary);
+    &.ui-tonal {
+      --_divider-border-color: var(--ui-surface-tonal);
     }
 
-    &.ui-border-tonal {
-      background-color: var(--surface-tonal);
+    @container style(--ui-contrast: more) {
+      &.ui-filled,
+      &.ui-tonal {
+        --_divider-border-color: var(--ui-border-color);
+      }
     }
+
+    &.ui-primary {
+      --_divider-border-color: var(--ui-primary);
+    }
+
+    &:not(:empty) {
+      align-items: center;
+      block-size: auto;
+      border-block-start: 0;
+      color: var(--ui-text);
+      display: flex;
+      font-size: var(--ui-font-size-caption);
+      gap: var(--ui-space-4);
+      text-box: trim-both cap alphabetic;
+
+      &::before,
+      &::after {
+        block-size: 0;
+        border-block-start: var(--ui-border-width) solid
+          var(--_divider-border-color);
+        content: "";
+        flex: 1;
+        min-inline-size: var(--ui-space-5);
+      }
+    }
+
+    &.ui-align-start::before,
+    &.ui-align-end::after {
+      display: none;
+    }
+  }
+
+  :where(.ui-accordion, .ui-card, .ui-dialog) > :where(.ui-divider),
+  :where(.ui-form) > :where(hr, .ui-divider) {
+    margin-block: 0;
   }
 }

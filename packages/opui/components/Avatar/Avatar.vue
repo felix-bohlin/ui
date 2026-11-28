@@ -1,24 +1,46 @@
 <script setup lang="ts">
-import type { Props, Slots } from "./types.d.vue"
+import { computed } from "vue"
+import { useRestAttrs } from "../vue"
+import { DEV, warnUnnamedControl } from "../dev"
+import { disabledLink, tagAttrs } from "../tag"
+import { defined } from "../attrs"
+import type { Props, Slots } from "./types.vue-props"
 
-const { alt, as, href, isGroup, src, variant } = defineProps<Props>()
+const { as, disabled, href, label, shape, size, src, variant } =
+  defineProps<Props>()
 defineSlots<Slots>()
 
-const Tag = as || (href ? "a" : "div")
+defineOptions({
+  inheritAttrs: false,
+})
+
+const attrs = useRestAttrs()
+
+const Tag = computed(() =>
+  disabledLink(as, disabled) ? "a" : as || (href ? "a" : "div"),
+)
+
+if (DEV)
+  warnUnnamedControl("Avatar", as === "button" || href, {
+    ...attrs.value,
+    label,
+  })
 </script>
 
 <template>
   <component
     :is="Tag"
     :class="[
-      { 'ui-avatar': !isGroup },
-      !isGroup && variant && `ui-${variant}`,
-      $props.class,
+      'ui-avatar',
+      shape && shape !== 'circle' && `ui-${shape}`,
+      size && size !== 'medium' && `ui-${size}`,
+      variant && variant !== 'filled' && `ui-${variant}`,
+      $attrs.class,
     ]"
-    :href="href"
-    :role="isGroup ? 'group' : undefined"
+    v-bind="{ ...tagAttrs(Tag, disabled, href), ...defined(attrs) }"
   >
-    <img v-if="src" :src="src" :alt="alt" />
-    <slot v-else></slot>
+    <img v-if="src" :src="src" :alt="label ?? ''" />
+    <span v-else aria-hidden="true"><slot></slot></span
+    ><span v-if="!src && label" class="ui-sr-only">{{ label }}</span>
   </component>
 </template>

@@ -1,0 +1,5 @@
+{% from "opui/index.njk" import Stat %}
+
+{% call Stat({ label: "Small", size: "small" }) %}1,024{% endcall %}
+{% call Stat({ label: "Medium" }) %}1,024{% endcall %}
+{% call Stat({ label: "Large", size: "large" }) %}1,024{% endcall %}

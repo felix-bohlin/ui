@@ -1,35 +1,42 @@
 <script setup lang="ts">
-import type { Props, Slots } from "./types.d.vue"
+import { computed, provide, reactive, useId } from "vue"
+import { useRestAttrs } from "../vue"
+import { DialogKey } from "./context.vue"
+import { autoLabelledBy } from "../id"
+import { defined } from "../attrs"
+import type { Props, Slots } from "./types.vue-props"
 
-const { actionsAlign } = defineProps<Props>()
+const { closedby } = defineProps<Props>()
+defineSlots<Slots>()
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const slots = defineSlots<Slots>()
+const attrs = useRestAttrs()
+
+const uid = useId()
+
+const titleId = computed(() => `${attrs.value.id || `dialog-${uid}`}-title`)
+
+const labelledBy = computed(() => autoLabelledBy(attrs.value, titleId.value))
+
+provide(
+  DialogKey,
+  reactive({
+    id: computed(() => attrs.value.id || undefined),
+    titleId: labelledBy,
+  }),
+)
 </script>
 
 <template>
   <dialog
-    :class="['ui-dialog', 'ui-card', 'ui-elevated', $props.class]"
-    v-bind="$attrs"
+    :aria-labelledby="labelledBy"
+    :class="['ui-dialog', 'ui-elevated', $attrs.class]"
+    :closedby="closedby"
+    v-bind="defined(attrs)"
   >
-    <hgroup v-if="slots.header">
-      <slot name="header"></slot>
-    </hgroup>
-
-    <div v-if="slots.content" class="ui-content">
-      <slot name="content"></slot>
-    </div>
-
     <slot></slot>
-
-    <div
-      v-if="slots.actions"
-      :class="['ui-actions', actionsAlign && `ui-align-${actionsAlign}`]"
-    >
-      <slot name="actions"></slot>
-    </div>
   </dialog>
 </template>

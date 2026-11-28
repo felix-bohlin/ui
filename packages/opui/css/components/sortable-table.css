@@ -1,0 +1,68 @@
+@layer components.root {
+  :where(.ui-sortable-table) {
+    --_motion: var(--ui-motion);
+    --_arrow-image: var(--ui-icon-sort);
+    --_arrow-size: var(--ui-icon-size-small);
+    --_duration: calc(var(--ui-duration) * var(--_motion));
+    --_ease: var(--ui-ease);
+
+    display: contents;
+
+    & th[data-sort] > button {
+      align-items: center;
+      background: none;
+      border: 0;
+      border-radius: var(--ui-radius-small);
+      color: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      font: inherit;
+      gap: var(--ui-space-1);
+      margin: 0;
+      padding: 0;
+      text-align: inherit;
+
+      &::after {
+        background-color: currentColor;
+        block-size: var(--_arrow-size);
+        content: "";
+        flex-shrink: 0;
+        inline-size: var(--_arrow-size);
+        mask: var(--_arrow-image) center / contain no-repeat;
+        opacity: 0;
+        transition:
+          opacity var(--_duration) var(--_ease),
+          rotate var(--_duration) var(--_ease);
+
+        @media (forced-colors: active) {
+          background-color: ButtonText;
+        }
+
+        @media print {
+          print-color-adjust: exact;
+        }
+      }
+
+      &:focus-visible {
+        outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+          var(--ui-focus-ring-color);
+        outline-offset: var(--ui-focus-ring-offset);
+      }
+
+      @media (hover: hover) {
+        &:hover::after {
+          opacity: 0.5;
+        }
+      }
+    }
+
+    & th[aria-sort="ascending"] > button::after {
+      opacity: 1;
+      rotate: 180deg;
+    }
+
+    & th[aria-sort="descending"] > button::after {
+      opacity: 1;
+    }
+  }
+}

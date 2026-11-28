@@ -1,32 +1,31 @@
 <script setup lang="ts">
-import { Accordion, Card } from "opui-css/vue"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionSummary,
+  Card,
+} from "opui-css/vue"
 </script>
 
 <template>
-  <Card variant="outlined" role="group">
+  <Card aria-label="Shipping questions" role="group" variant="outlined">
     <Accordion>
-      <template #summary>Accordion title</template>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
-      </p>
+      <AccordionSummary>How long does delivery take?</AccordionSummary>
+      <AccordionContent>
+        <p>Two to four working days within the EU, and up to ten elsewhere.</p>
+      </AccordionContent>
     </Accordion>
     <Accordion>
-      <template #summary>Accordion title</template>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
-      </p>
+      <AccordionSummary>Can I change the delivery address?</AccordionSummary>
+      <AccordionContent>
+        <p>Yes, until the order ships. Edit it under Orders in your account.</p>
+      </AccordionContent>
     </Accordion>
     <Accordion>
-      <template #summary>Accordion title</template>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
-      </p>
+      <AccordionSummary>What does shipping cost?</AccordionSummary>
+      <AccordionContent>
+        <p>Orders over €50 ship free. Smaller orders cost €4.90.</p>
+      </AccordionContent>
     </Accordion>
   </Card>
 </template>

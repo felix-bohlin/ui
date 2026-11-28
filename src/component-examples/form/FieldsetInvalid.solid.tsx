@@ -1,0 +1,30 @@
+/** @jsxImportSource @solidjs/web */
+import {
+  Checkbox,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+} from "opui-css/solid"
+
+export default function FieldsetInvalid() {
+  return (
+    <Fieldset aria-describedby="form-fieldset-invalid-1-description form-fieldset-invalid-1-error">
+      <FieldLegend>Pet food</FieldLegend>
+      <FieldDescription id="form-fieldset-invalid-1-description">
+        Pick at least one.
+      </FieldDescription>
+      <FieldGroup>
+        <Checkbox error name="food" value="kibble">
+          Kibble
+        </Checkbox>
+        <Checkbox error name="food" value="wet-food">
+          Wet food
+        </Checkbox>
+      </FieldGroup>
+      <span class="ui-end-text" id="form-fieldset-invalid-1-error">
+        Choose at least one food.
+      </span>
+    </Fieldset>
+  )
+}

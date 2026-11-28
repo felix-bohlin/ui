@@ -1,0 +1,5 @@
+{
+  "SelectButton/SelectButton.react.tsx": "a <selectedcontent> that hydration leaves to the browser, which fills it with the selected option before React hydrates, which the Astro file doesn't express",
+  "SelectButton/SelectButton.svelte": "a literal <selectedcontent> element, where the compiler writes a svelte:element for the constant tag the Astro file needs, since the Astro compiler drops the end tag of a literal <selectedcontent>",
+  "SelectButton/SelectButton.vue": "a <selectedcontent> that hydration leaves to the browser (v-pre), which fills it with the selected option before Vue hydrates, which the Astro file doesn't express"
+}

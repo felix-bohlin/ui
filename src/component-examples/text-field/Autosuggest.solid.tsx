@@ -1,0 +1,35 @@
+/** @jsxImportSource @solidjs/web */
+import { Field } from "opui-css/solid"
+
+export default function Autosuggest() {
+  return (
+    <>
+      <Field for="text-field-autosuggest-1" label="Bassists">
+        <input
+          id="text-field-autosuggest-1"
+          list="text-field-autosuggest-1-list"
+          placeholder="Search bassists"
+        />
+        <datalist id="text-field-autosuggest-1-list">
+          <option value="Adam Groove"></option>
+          <option value="Kinga Headstock"></option>
+          <option value="Mohini Hertz"></option>
+        </datalist>
+      </Field>
+
+      <Field for="text-field-autosuggest-2" label="Emails" variant="filled">
+        <input
+          id="text-field-autosuggest-2"
+          list="text-field-autosuggest-2-list"
+          placeholder="name@bassmail.example"
+          type="email"
+        />
+        <datalist id="text-field-autosuggest-2-list">
+          <option value="adam@bassmail.example"></option>
+          <option value="kinga@bassmail.example"></option>
+          <option value="mohini@bassmail.example"></option>
+        </datalist>
+      </Field>
+    </>
+  )
+}

@@ -1,0 +1,39 @@
+---
+import { canonicalPath } from "../utils/framework"
+
+type SidebarLink = { href: string; isNew?: boolean; label: string }
+
+export type SidebarGroup = { label: string; links: SidebarLink[] }
+
+type Props = {
+  autofocusCurrent?: boolean
+  groups: SidebarGroup[]
+}
+
+const { autofocusCurrent = false, groups } = Astro.props
+
+const current = canonicalPath(Astro.url.pathname)
+const isCurrent = (href: string) => canonicalPath(href) === current
+---
+
+<nav aria-label={groups[0].label}>
+  {groups.map((group) => (
+    <>
+      <h3>{group.label}</h3>
+      <menu>
+        {group.links.map((link) => <li>
+          <a
+            aria-current={isCurrent(link.href) ? "page" : undefined}
+            autofocus={autofocusCurrent && isCurrent(link.href)}
+            href={link.href}
+          >
+            {link.label}
+            {link.isNew && <span class="new-dot">
+              <span class="ui-sr-only">New</span>
+            </span>}
+          </a>
+        </li>)}
+      </menu>
+    </>
+  ))}
+</nav>

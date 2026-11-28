@@ -1,0 +1,40 @@
+{% from "opui/index.njk" import ToggleButton, ToggleGroup %}
+
+<div class="example-row">
+  {% call ToggleButton({ size: "x-small" }) %}X-small{% endcall %}
+  {% call ToggleButton({ size: "small" }) %}Small{% endcall %}
+  {% call ToggleButton() %}Medium{% endcall %}
+  {% call ToggleButton({ size: "large" }) %}Large{% endcall %}
+</div>
+{% call ToggleGroup({
+  "aria-label": "View",
+  name: "toggle-sizes-x-small",
+  size: "x-small"
+}) %}
+  {% call ToggleButton({ value: "day" }) %}Day{% endcall %}
+  {% call ToggleButton({ value: "week" }) %}Week{% endcall %}
+  {% call ToggleButton({ value: "month" }) %}Month{% endcall %}
+{% endcall %}
+{% call ToggleGroup({
+  "aria-label": "View",
+  name: "toggle-sizes-small",
+  size: "small"
+}) %}
+  {% call ToggleButton({ value: "day" }) %}Day{% endcall %}
+  {% call ToggleButton({ value: "week" }) %}Week{% endcall %}
+  {% call ToggleButton({ value: "month" }) %}Month{% endcall %}
+{% endcall %}
+{% call ToggleGroup({ "aria-label": "View", name: "toggle-sizes-medium" }) %}
+  {% call ToggleButton({ value: "day" }) %}Day{% endcall %}
+  {% call ToggleButton({ value: "week" }) %}Week{% endcall %}
+  {% call ToggleButton({ value: "month" }) %}Month{% endcall %}
+{% endcall %}
+{% call ToggleGroup({
+  "aria-label": "View",
+  name: "toggle-sizes-large",
+  size: "large"
+}) %}
+  {% call ToggleButton({ value: "day" }) %}Day{% endcall %}
+  {% call ToggleButton({ value: "week" }) %}Week{% endcall %}
+  {% call ToggleButton({ value: "month" }) %}Month{% endcall %}
+{% endcall %}

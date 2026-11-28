@@ -1,0 +1,18 @@
+/** @jsxImportSource @solidjs/web */
+import { List, ListItem } from "opui-css/solid"
+
+export default function Text() {
+  return (
+    <List>
+      <ListItem label="Kinga Headstock" />
+      <ListItem
+        description="5-string slapper. Plays every root note with love, owns three pedalboards and still gets called the tall guitarist."
+        label="Adam Groove"
+      />
+      <ListItem label="Mohini Hertz">
+        <p>Flatwound fan</p>
+        <p>Replies between sound checks</p>
+      </ListItem>
+    </List>
+  )
+}

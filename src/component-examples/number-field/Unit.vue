@@ -1,0 +1,23 @@
+<script setup lang="ts">
+import { Field, StepButton } from "opui-css/vue"
+</script>
+
+<template>
+  <Field autoFit endText="kg" for="number-field-unit-1" label="Weight">
+    <input
+      aria-describedby="number-field-unit-1-end-text"
+      id="number-field-unit-1"
+      max="30"
+      min="0.5"
+      step="0.5"
+      type="number"
+      :value.attr="'2.5'"
+    />
+    <template #start>
+      <StepButton command="--step-down" for="number-field-unit-1" />
+    </template>
+    <template #end>
+      <StepButton command="--step-up" for="number-field-unit-1" />
+    </template>
+  </Field>
+</template>

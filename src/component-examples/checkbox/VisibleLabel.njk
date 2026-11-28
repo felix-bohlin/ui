@@ -1,0 +1,14 @@
+{% from "opui/index.njk" import Checkbox %}
+
+{% call Checkbox({ checked: true, name: "checkbox-visible-label" }) %}Remember me{% endcall %}
+{% call Checkbox({ disabled: true, name: "checkbox-visible-label" }) %}Sync over mobile data{% endcall %}
+{% call Checkbox({
+  checked: true,
+  disabled: true,
+  name: "checkbox-visible-label"
+}) %}Sync over Wi-Fi{% endcall %}
+{% call Checkbox({ name: "checkbox-visible-label" }) %}
+  Send me occasional emails about new features, slap tips and gear deals. I can
+  unsubscribe at any time and have read the 
+  <a class="ui-link" href="#visible-label">privacy policy</a>
+{% endcall %}

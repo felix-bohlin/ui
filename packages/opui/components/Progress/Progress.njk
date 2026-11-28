@@ -1,0 +1,17 @@
+{% macro Progress(props = {}) %}
+  {%- set props = props | opuiProps("Progress") -%}
+  {%- set rest = props | opuiRest("Progress") -%}
+  <div
+    class="ui-progress
+      {%- if props.round %} ui-round{% endif %}
+      {%- if props.variant and props.variant != 'tonal' %} ui-{{ props.variant }}{% endif %}
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- { style: props.style } | opuiAttributes }}>
+    <progress
+      {%- if props.max != none %} max="{{ props.max }}"{% endif %}
+      {%- if props.value != none %} value="{{ props.value }}"{% endif %}
+      {{- rest | opuiAttributes }}>
+      {{- caller() if caller -}}
+    </progress>
+  </div>
+{%- endmacro %}

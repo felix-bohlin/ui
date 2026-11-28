@@ -1,0 +1,19 @@
+{% from "opui/index.njk" import
+  Checkbox,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  Fieldset
+%}
+
+{% call Fieldset({
+  "aria-describedby": "form-fieldset-disabled-1-description",
+  disabled: true
+}) %}
+  {% call FieldLegend() %}Security alerts{% endcall %}
+  {% call FieldDescription({ id: "form-fieldset-disabled-1-description" }) %}Your administrator manages these settings.{% endcall %}
+  {% call FieldGroup() %}
+    {% call Checkbox({ checked: true, name: "alerts", value: "email" }) %}Email{% endcall %}
+    {% call Checkbox({ checked: true, name: "alerts", value: "sms" }) %}SMS{% endcall %}
+  {% endcall %}
+{% endcall %}

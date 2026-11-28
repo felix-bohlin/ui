@@ -1,4 +1,3 @@
 export type Props = {
-  direction?: "row" | "column"
-  name?: string
+  orientation?: "auto" | "horizontal" | "vertical"
 }

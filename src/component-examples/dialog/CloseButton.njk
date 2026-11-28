@@ -1,0 +1,30 @@
+{% from "opui/index.njk" import
+  Button,
+  DialogContent,
+  DialogHeader,
+  DialogTitle
+%}
+
+{% call Button({
+  command: "show-modal",
+  commandfor: "dialog-close-button-1",
+  variant: "outlined"
+}) %}
+  Show release notes
+{% endcall %}
+
+<dialog
+  aria-labelledby="dialog-close-button-1-title"
+  class="ui-dialog ui-elevated"
+  id="dialog-close-button-1"
+>
+  {% call DialogHeader({
+    closeButton: true,
+    commandfor: "dialog-close-button-1"
+  }) %}
+    {% call DialogTitle({ id: "dialog-close-button-1-title" }) %}Release notes{% endcall %}
+  {% endcall %}
+  {% call DialogContent() %}
+    <p>Version 2.4 adds shared folders and a faster search.</p>
+  {% endcall %}
+</dialog>

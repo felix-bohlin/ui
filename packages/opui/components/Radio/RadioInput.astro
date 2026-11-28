@@ -1,7 +1,7 @@
 ---
 import type { RadioInputProps as Props } from "./types.astro"
 
-const { ...props } = Astro.props
+const { ...rest } = Astro.props as Props
 ---
 
-<input type="radio" {...props} />
+<input type="radio" {...rest} />

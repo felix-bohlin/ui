@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import { Avatar } from "opui-css/vue"
+import { Avatar, AvatarGroup, Badge } from "opui-css/vue"
 </script>
 
 <template>
-  <Avatar isGroup>
-    <Avatar>AB</Avatar>
-    <Avatar>CD</Avatar>
-    <Avatar as="button">EF</Avatar>
-    <Avatar as="button">GH</Avatar>
-    <Avatar href="#">IJ</Avatar>
-    <Avatar href="#">KL</Avatar>
-  </Avatar>
+  <AvatarGroup aria-label="Band">
+    <Avatar label="Adam Groove">AG</Avatar>
+    <Avatar label="Ellen Nut">EN</Avatar>
+    <Avatar as="button" label="Josh Rootnote">JR</Avatar>
+    <Avatar as="button" label="Kinga Headstock">KH</Avatar>
+    <Avatar href="#" label="Mohini Hertz">MH</Avatar>
+    <Avatar href="#" label="Scott Humbucker">SH</Avatar>
+    <Badge dot label="Online">
+      <Avatar href="#" label="Yonit Bridge, online">YB</Avatar>
+    </Badge>
+  </AvatarGroup>
 </template>

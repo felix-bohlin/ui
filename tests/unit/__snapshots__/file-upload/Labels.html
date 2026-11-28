@@ -1,0 +1,31 @@
+<opui-file-upload class="ui-file-upload" lang="sv">
+  <div class="ui-content">
+    <div class="ui-field-container">
+      <label class="ui-label">
+        <input accept="image/*" aria-describedby="id-2" class="ui-sr-only" id="id-1" multiple type="file">
+        <span class="ui-button ui-outlined">Välj foton</span>
+        <svg aria-hidden="true" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"></svg>
+      </label>
+      <span class="ui-description" id="id-2">Eller släpp dem här. PNG eller JPG.</span>
+    </div>
+    <ul class="ui-list">
+      <li>
+        <div class="ui-start">
+          <img alt src="/photos/kinga-headstock.png">
+        </div>
+        <div class="ui-text">
+          <p dir="auto" id="id-3">kinga-headstock.png</p>
+          <div class="ui-progress">
+            <progress aria-label="Laddar upp kinga-headstock.png" value="0.3"></progress>
+          </div>
+        </div>
+        <div class="ui-end">
+          <button aria-label="Ta bort kinga-headstock.png från listan" class="ui-button ui-round ui-small" command="--remove" commandfor="id-1" type="button" value="kinga">
+            <svg aria-hidden="true" height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg"></svg>
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <span class="ui-sr-only" role="status"></span>
+</opui-file-upload>

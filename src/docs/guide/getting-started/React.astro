@@ -1,0 +1,152 @@
+---
+import Guide from "../../../layouts/Guide.astro"
+import Code from "../../../components/Code.astro"
+import DocLink from "../../../components/DocLink.astro"
+import Builds from "./partials/Builds.astro"
+import CssFiles from "./partials/CssFiles.astro"
+import InstallCommand from "./partials/InstallCommand.astro"
+import NextSteps from "./partials/NextSteps.astro"
+import PickAndChoose from "./partials/PickAndChoose.astro"
+import QuickStart from "./partials/QuickStart.astro"
+import ServerSupport from "./partials/ServerSupport.astro"
+
+export const keywords = ["install", "npm", "setup", "ssr"]
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Getting started</Fragment>
+  <Fragment slot="preamble">
+    OPUI ships first-class React 19 components. Install the package, import what
+    you need, and you're set.
+  </Fragment>
+
+  <section id="quick-start">
+    <h2>Quick start</h2>
+    <QuickStart
+      create={`npm create vite@latest my-app -- --template react-ts
+# or Next
+npx create-next-app@latest my-app`}
+      templateCss={["src/index.css", "src/App.css", "app/globals.css"]}
+    >
+      <Fragment slot="install">
+        <InstallCommand packages="react@19 react-dom@19" />
+        <Code
+          code={`// src/main.tsx, or app/layout.tsx in Next
+import "opui-css/css/imports.css"`}
+          lang="tsx"
+        />
+      </Fragment>
+      <Code
+        slot="use"
+        code={`import { Button } from "opui-css/react"
+
+export default function App() {
+  return <Button color="primary" variant="filled">Save</Button>
+}`}
+        lang="tsx"
+      />
+    </QuickStart>
+  </section>
+
+  <section id="whats-in-the-css">
+    <h2>What's in the CSS</h2>
+    <CssFiles />
+  </section>
+
+  <section id="css">
+    <h2>Import only what you use</h2>
+    <p>
+      List the files in a CSS file, and import that file in your entry instead
+      of <code>imports.css</code>:
+    </p>
+    <PickAndChoose file="src/styles/main.css" />
+    <Code
+      code={`// src/main.tsx, or app/layout.tsx in Next
+import "./styles/main.css"`}
+      lang="tsx"
+    />
+  </section>
+
+  <section id="builds">
+    <h2>Builds</h2>
+    <Builds tools={["next", "vite"]} />
+  </section>
+
+  <section id="typescript">
+    <h2>TypeScript</h2>
+    <p>
+      The types work with TypeScript 6 and 7, with <code>moduleResolution</code>
+      set to <code>"bundler"</code> or <code>"nodenext"</code>.
+    </p>
+  </section>
+
+  <section id="usage">
+    <h2>How to use</h2>
+    <p>
+      Slots are props: <code>children</code>, and camelCased names like
+      <code>endText</code>.
+    </p>
+    <p>
+      A <DocLink href="/components/field">Field</DocLink> wraps your own
+      control. Give the control an <code>id</code>, set <code>htmlFor</code> on
+      the field to it, and bind it like any input. For a hint, set the control's
+      <code>aria-describedby</code> to <code>&lt;id&gt;-end-text</code>.
+    </p>
+  </section>
+
+  <section id="element">
+    <h2>Reaching the element</h2>
+    <p>
+      Every component hands <code>ref</code> to its root element, typed for it:
+      a <code>Dialog</code> ref is an <code>HTMLDialogElement</code>. Most of
+      the time you need none: a <code>Button</code> with
+      <code>command="show-modal"</code> and <code>commandfor</code> opens a
+      dialog by its <code>id</code>, and its click handler can set your state at
+      the same time. When a script opens it, such as after a check, reach the
+      element:
+    </p>
+    <Code
+      code={`import { useRef } from "react"
+import { Button, Dialog, DialogContent } from "opui-css/react"
+
+export function Confirm() {
+  const dialog = useRef<HTMLDialogElement>(null)
+
+  return (
+    <>
+      <Button onClick={() => dialog.current?.showModal()}>Delete</Button>
+      <Dialog aria-label="Delete the file?" id="confirm" ref={dialog}>
+        <DialogContent>The file goes to the bin for 30 days.</DialogContent>
+      </Dialog>
+    </>
+  )
+}`}
+      lang="tsx"
+    />
+  </section>
+
+  <section id="ssr">
+    <h2>Server rendering</h2>
+    <p>
+      Every component renders full HTML on the server. Components with state or
+      effects are marked <code>"use client"</code>, the rest are Server
+      Components. The props in the last column need hydration.
+    </p>
+    <p>
+      A choice the user makes before the page hydrates stays on screen. The form
+      controls pass <code>value</code>, <code>checked</code>, their defaults and
+      <code>onChange</code> to the native input, and <code>Rating</code>,
+      <code>Tabs</code> and <code>ToggleGroup</code> render their inputs like
+      native radios, so they work like plain React inputs: React doesn't call
+      <code>onChange</code> or <code>onValueChange</code> for that choice, and a
+      controlled value misses it. A form that reads its values on submit gets
+      it.
+    </p>
+    <ServerSupport framework="react" />
+  </section>
+
+  <section id="next-steps">
+    <h2>Next steps</h2>
+    <NextSteps />
+  </section>
+</Guide>

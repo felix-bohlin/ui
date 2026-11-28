@@ -1,0 +1,30 @@
+{% from "opui/index.njk" import Checkbox %}
+
+<div class="example-row">
+  {% call Checkbox({ name: "checkbox-validation", required: true }) %}I accept the terms{% endcall %}
+  {% call Checkbox({
+    name: "checkbox-validation",
+    orientation: "vertical",
+    required: true
+  }) %}I am 18 or older{% endcall %}
+</div>
+<div class="example-row">
+  {% call Checkbox({
+    checked: true,
+    error: true,
+    name: "checkbox-validation",
+    slots: { endText: "Only in Bassbook Gold, sorry." }
+  }) %}
+    Daily tab backups
+    
+  {% endcall %}
+  {% call Checkbox({
+    error: true,
+    name: "checkbox-validation",
+    orientation: "vertical",
+    slots: { endText: "Accept the terms to continue." }
+  }) %}
+    I accept the terms
+    
+  {% endcall %}
+</div>

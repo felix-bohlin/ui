@@ -1,0 +1,235 @@
+import {
+  Avatar,
+  Card,
+  CardContent,
+  Carousel,
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+} from "opui-css/react"
+
+export default function Lightbox() {
+  return (
+    <>
+      <div className="lightbox">
+        <Card as="article" variant="outlined">
+          <CardContent className="ui-layout-column">
+            <div className="ui-layout-media">
+              <Avatar aria-hidden="true">TF</Avatar>
+              <div>
+                <p>Tal Fretless</p>
+                <p className="ui-caption">
+                  <time dateTime="2026-07-18">Jul 18, 2026</time>
+                </p>
+              </div>
+            </div>
+            <p>
+              Four days of bass camp in the mountains. No amps, no drummers,
+              just fjords and a very patient lighthouse keeper.
+            </p>
+          </CardContent>
+          <button
+            className="lightbox-open"
+            command="show-modal"
+            commandfor="lightbox-viewer"
+            type="button"
+          >
+            <span aria-hidden="true" className="lightbox-scene"></span>
+            <span>
+              <span className="ui-sr-only">View all </span>4 photos
+            </span>
+          </button>
+        </Card>
+        <Drawer
+          aria-label="Photos from bass camp"
+          className="lightbox-viewer"
+          id="lightbox-viewer"
+          side="block-end"
+          style={{ "--lightbox-photos": "4" }}
+        >
+          <DrawerHeader closeButton closeLabel="Close photos">
+            <span aria-hidden="true" className="lightbox-count"></span>
+          </DrawerHeader>
+          <DrawerContent>
+            <Carousel
+              aria-label="Photos from bass camp"
+              data-drawer-swipe=""
+              tabIndex={0}
+            >
+              <li>
+                <div
+                  aria-label="Photo 1 of 4: mountains under a low sun"
+                  className="lightbox-scene"
+                  role="img"
+                  style={{ "--_ratio": "1.7778", "--_shift": "0" }}
+                ></div>
+              </li>
+              <li>
+                <div
+                  aria-label="Photo 2 of 4: a sharp ridge at dusk"
+                  className="lightbox-scene"
+                  role="img"
+                  style={{ "--_ratio": "0.75", "--_shift": "140" }}
+                ></div>
+              </li>
+              <li>
+                <div
+                  aria-label="Photo 3 of 4: rolling hills at noon"
+                  className="lightbox-scene"
+                  role="img"
+                  style={{ "--_ratio": "1.7778", "--_shift": "220" }}
+                ></div>
+              </li>
+              <li>
+                <div
+                  aria-label="Photo 4 of 4: peaks in the evening haze"
+                  className="lightbox-scene"
+                  role="img"
+                  style={{ "--_ratio": "0.75", "--_shift": "300" }}
+                ></div>
+              </li>
+            </Carousel>
+          </DrawerContent>
+        </Drawer>
+      </div>
+      <style>{`
+        @property --lightbox-photo {
+          inherits: true;
+          initial-value: 1;
+          syntax: "<integer>";
+        }
+
+        @keyframes lightbox-count {
+          to {
+            --lightbox-photo: var(--lightbox-photos);
+          }
+        }
+
+        .lightbox-scene {
+          --_far: oklch(from var(--ui-primary) 0.62 0.09 calc(h + var(--_shift, 0)));
+          --_near: oklch(from var(--ui-primary) 0.36 0.08 calc(h + var(--_shift, 0)));
+          --_sky: oklch(from var(--ui-primary) 0.86 0.07 calc(h + var(--_shift, 0)));
+          --_sun: oklch(
+            from var(--ui-primary) 0.96 0.09 calc(h + var(--_shift, 0) + 60)
+          );
+
+          aspect-ratio: var(--_ratio, 16 / 9);
+          background-color: var(--_sky);
+          background-image:
+            conic-gradient(from 135deg at 50% 40%, var(--_near) 90deg, transparent 0),
+            conic-gradient(from 135deg at 50% 25%, var(--_far) 90deg, transparent 0),
+            radial-gradient(circle at 72% 28%, var(--_sun) 0 7%, transparent 7.5%),
+            linear-gradient(var(--_sky), var(--_sun));
+          background-position:
+            0 100%,
+            20% 100%,
+            0 0,
+            0 0;
+          background-repeat: repeat-x, repeat-x, no-repeat, no-repeat;
+          background-size:
+            45% 50%,
+            32% 72%,
+            100% 100%,
+            100% 100%;
+        }
+
+        .lightbox {
+          .lightbox-open {
+            background: none;
+            border: 0;
+            cursor: zoom-in;
+            display: grid;
+            padding: 0;
+
+            & > * {
+              grid-area: 1 / 1;
+            }
+
+            .lightbox-scene {
+              inline-size: 100%;
+            }
+
+            & > span:not(.lightbox-scene) {
+              background-color: oklch(0% 0 0 / 60%);
+              border-radius: var(--ui-radius-round);
+              color: oklch(100% 0 0);
+              font-size: var(--ui-font-size-caption);
+              font-weight: var(--ui-font-weight-label);
+              margin: var(--ui-space-4);
+              padding: var(--ui-space-1) var(--ui-space-4);
+              place-self: end;
+            }
+          }
+        }
+
+        /* Dark in either color scheme: photos look best on black. */
+        dialog.lightbox-viewer {
+          --_backdrop-bg-color: oklch(0% 0 0 / 60%);
+          --_bg-color: oklch(12% 0 0);
+          --_block-size: 100dvb;
+          --_border-width: 0px;
+          --_shadow: none;
+
+          color-scheme: dark;
+          timeline-scope: --lightbox-photos;
+
+          & > .ui-header {
+            justify-content: space-between;
+          }
+
+          & > .ui-content {
+            display: flex;
+            overflow: hidden;
+            padding: 0;
+          }
+
+          /* The number of the photo in view, from how far the row has scrolled.
+             Without scroll timelines it stays empty. */
+          .lightbox-count {
+            font-variant-numeric: tabular-nums;
+            font-weight: var(--ui-font-weight-label);
+
+            @supports (animation-timeline: scroll()) {
+              animation: lightbox-count linear both;
+              animation-timeline: --lightbox-photos;
+              counter-reset: photo var(--lightbox-photo) photos var(--lightbox-photos);
+
+              &::before {
+                content: counter(photo) " / " counter(photos);
+              }
+            }
+          }
+
+          /* One photo per view, whole. Sideways it scrolls, and a swipe down on
+             it closes the viewer (data-drawer-swipe). */
+          .ui-carousel {
+            --_block-room: 0px;
+            --_inline-room: 0px;
+
+            block-size: 100%;
+            flex: 1;
+            /* The row is as tall as the viewer, not as the tallest photo. */
+            grid-auto-rows: 100%;
+            min-block-size: 0;
+            scroll-timeline: --lightbox-photos inline;
+
+            &:focus-visible {
+              outline-offset: calc(-1 * var(--ui-focus-ring-width));
+            }
+
+            & > li {
+              container-type: size;
+              display: grid;
+              min-block-size: 0;
+              place-items: center;
+            }
+
+            .lightbox-scene {
+              inline-size: min(100cqi, 100cqb * var(--_ratio));
+            }
+          }
+        }
+      `}</style>
+    </>
+  )
+}

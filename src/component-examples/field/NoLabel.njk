@@ -1,0 +1,5 @@
+{% from "opui/index.njk" import Field %}
+
+{% call Field({ for: "field-no-label-1" }) %}
+  <input aria-label="Search" id="field-no-label-1" placeholder="Search" />
+{% endcall %}

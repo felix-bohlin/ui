@@ -1,187 +1,76 @@
 ---
 import Component from "../../layouts/Component.astro"
-import Anatomy from "../../components/Anatomy.astro"
-import { Textarea as UITextarea } from "@opui/astro"
+import DocLink from "../../components/DocLink.astro"
+import Usage from "./partials/Usage.astro"
 import AutoExample from "../../components/AutoExample.astro"
-import Conditional from "../../components/Conditional.astro"
 
-import FieldCSS from "@opui/css/components/text-field.css?raw"
-import TextareaCSS from "@opui/css/components/textarea.css?raw"
-
-import textareaApi from "../../component-api/textarea/api"
+import TextareaBuild from "../../components/UnderTheHood/TextareaBuild.astro"
 
 export const description =
-  "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states."
+  "A multi-line text input in a Field that grows with its text, with a character count."
+
+export const keywords = ["multiline", "text area"]
 ---
 
 <Component
   description={description}
-  slug="textarea"
-  browserSupport={[
-    "datalist",
-    "field-sizing",
-    "has",
-    "light-dark",
-    "relative-color",
-  ]}
-  heroAnatomy
-  apis={[{ title: "Textarea API", api: textareaApi }]}
   changelogPaths={[
-    {
-      path: "packages/opui/components/Textarea/Textarea.astro",
-      type: "component",
-    },
-    { path: "src/docs/components/textarea.astro", type: "docs" },
-    { path: "src/component-examples/textarea", type: "docs" },
-    {
-      path: "packages/opui/css/components/textarea.css",
-      type: "css",
-    },
-    {
-      path: "packages/opui/css/components/text-field.css",
-      type: "css",
-    },
-    { path: "src/component-api/textarea", type: "api" },
-    { path: "src/component-api/text-field", type: "api" },
-  ]}
-  installationTabs={[
-    {
-      title: "text-field.css",
-      code: FieldCSS,
-      lang: "css",
-      isDependency: true,
-    },
-    { title: "textarea.css", code: TextareaCSS, lang: "css" },
+    { path: "packages/opui/css/components/field.css", type: "css" },
+    { path: "packages/opui/css/components/text-field.css", type: "css" },
+    { path: "src/component-api/character-count", type: "api" },
   ]}
 >
-  <Fragment slot="title">Textarea</Fragment>
-
-  <section>
-    <h2 id="variants">Variants</h2>
-    <AutoExample name="Variants" row />
-  </section>
-
-  <section>
-    <h2 id="sizes">Sizes</h2>
-    <AutoExample name="Sizes" row />
-  </section>
-
-  <section>
-    <h2 id="end-text">End text</h2>
-    <AutoExample name="SupportingText" row />
-  </section>
-
-  <section>
-    <h2 id="affix">Affix</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
-        and <code>footer</code> slots to affix content inside the textarea's border.
-        Header and footer are particularly useful for filenames and character counters.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
-        and <code>footer</code> slots to affix content inside the textarea's border.
-        Header and footer are particularly useful for filenames and character counters.
-      </Fragment>
-      <Fragment slot="html">
-        Add <code>.ui-prefix</code>, <code>.ui-suffix</code>, <code
-          >.ui-header</code
-        >, or
-        <code>.ui-footer</code> elements inside <code>.ui-field</code> to affix content
-        inside the textarea's border.
-      </Fragment>
-    </Conditional>
-
-    <AutoExample name="Affix" />
-
-    <h3 id="headers-and-footers">Headers and footers</h3>
-
-    <AutoExample name="Headers" column />
-  </section>
-
-  <section>
-    <h2 id="validation">Validation</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Set <code>required</code> on the component to toggle required styles on the
-        textarea.
-      </Fragment>
-      <Fragment slot="vue">
-        Add the <code>required</code> attribute on the component. It is forwarded
-        to the underlying <code>&lt;textarea&gt;</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Add <code>[required]</code> to the <code>&lt;textarea&gt;</code> element to
-        toggle required styles.
-      </Fragment>
-    </Conditional>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Use the <code>error</code> prop to toggle invalid styles. It renders the
-        <code>data-invalid</code> attribute on the root element. Make use of the end
-        text to give extra feedback on the error.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>error</code> prop to toggle invalid styles. It renders
-        <code>data-invalid</code> on the root element. Make use of the end text to
-        give extra feedback on the error.
-      </Fragment>
-      <Fragment slot="html">
-        Add <code>data-invalid</code> on the root element to toggle invalid styles.
-        Make use of the end text to give extra feedback on the error.
-      </Fragment>
-    </Conditional>
-
-    <AutoExample name="Validation" />
-  </section>
-
-  <section>
-    <h2 id="spread">Spread</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Use the <code>spread</code> boolean prop to display the label and description
-        on the left with the textarea on the right. The layout collapses to a column
-        on narrow containers.
-      </Fragment>
-      <Fragment slot="html">
-        Add the <code>.ui-spread</code> class to display the label and description
-        on the left with the textarea on the right. The layout collapses to a column
-        on narrow containers.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>spread</code> boolean prop to display the label and description
-        on the left with the textarea on the right. The layout collapses to a column
-        on narrow containers.
-      </Fragment>
-    </Conditional>
-
-    <AutoExample name="Orientation" column spacious />
-  </section>
-
-  <section>
-    <h2 id="auto-fit">Auto-fit</h2>
-    <p>When enabled the Field changes size depending on its content.</p>
-
-    <AutoExample name="AutoFit" exampleClass="flex" />
-
-    <div class="ui-not-rich-text"></div>
-  </section>
-
-  <Fragment slot="anatomy">
-    <Anatomy>
-      <UITextarea
-        description="Description"
-        endText="Supporting text"
-        label="Label"
-        placeholder="Placeholder"
-        style="inline-size: 20rem"
-      >
-        <span slot="header">Header</span>
-        <span slot="prefix">¢</span>
-        <span slot="suffix">EUR</span>
-        <span slot="footer">Footer</span>
-      </UITextarea>
-    </Anatomy>
+  <Fragment slot="preamble">
+    Text over several lines, like a comment. For a single line, use a
+    <DocLink href="/components/text-field">Text field</DocLink>.
   </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">Text over several lines, like a comment.</li>
+    <li slot="when">Messages that <a href="#rows">grow as people type</a>.</li>
+    <li slot="when-not">
+      A single line: use a
+      <DocLink href="/components/text-field">Text field</DocLink>.
+    </li>
+    <li slot="when-not">Formatted text: use a rich text editor.</li>
+  </Usage>
+
+  <section id="textarea">
+    <h2>Textarea</h2>
+    <p>
+      A <DocLink href="/components/field">Field</DocLink> with a
+      <code>&lt;textarea&gt;</code> inside.
+    </p>
+    <AutoExample name="Basics" column />
+  </section>
+
+  <section id="rows">
+    <h2>Rows</h2>
+    <p>
+      Three lines tall by default, growing with its text. Use <code>rows</code>
+      to change it.
+    </p>
+
+    <AutoExample name="Rows" column />
+  </section>
+
+  <section id="character-count">
+    <h2>Character count</h2>
+    <p>
+      A
+      <DocLink href="/components/field#character-count"
+        >character count</DocLink
+      >
+      works the same on a textarea.
+    </p>
+    <AutoExample name="CharacterCount" centered />
+  </section>
+
+  <section id="affix">
+    <h2>Affix</h2>
+    <p>A button can go in an affix, like a send button.</p>
+    <AutoExample name="AffixButton" row />
+  </section>
+
+  <TextareaBuild slot="under-the-hood" />
 </Component>

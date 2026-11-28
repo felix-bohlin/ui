@@ -1,13 +1,100 @@
+import { elementNotes } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
+
+const icon =
+  'For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`.'
+
+const dismissEvent =
+  "Called before the callout hides, with its cancelable `dismiss` event. `preventDefault()` keeps the callout, for example to ask first."
+
+const closeButton = elementNotes(
+  "callout.js",
+  "With `closeButton`, the root is `<opui-callout>`, and the close button shows and works once the element runs.",
+)
 
 export default {
   component: "Callout",
+  elements: [
+    {
+      members: [
+        {
+          description:
+            "Fires on the callout before it hides. It bubbles, and `preventDefault()` keeps the callout.",
+          kind: "event",
+          name: "dismiss",
+        },
+        {
+          description:
+            "Fires `dismiss` and, unless a listener cancels it, sets `hidden` on the callout and moves focus that was inside it to the next focusable element after it, or else the one before. Returns whether the callout hid.",
+          kind: "method",
+          name: "dismiss()",
+        },
+      ],
+      tag: "opui-callout",
+    },
+  ],
+  keyboard: [
+    {
+      description:
+        "On the close button, hides the callout and moves focus to the next focusable element after it, or else the one before.",
+      keys: ["Enter", "Space"],
+    },
+  ],
   notes: {
-    html: 'The root needs `role="note"`.',
+    astro: `${icon} ${closeButton.astro} Listen for \`dismiss\` in a client script.`,
+    html: 'For a close button that hides the callout, use `<opui-callout class="ui-callout">` with an id, end it with a `.ui-button` with `commandfor` naming it and `command="--dismiss"`, and import `opui-css/elements/callout.js`. Until it loads, the button is hidden.',
+    nunjucks: `${icon} ${closeButton.nunjucks} Listen for \`dismiss\` in a client script.`,
+    react: `${icon} ${closeButton.react}`,
+    solid: `${icon} ${closeButton.solid}`,
+    svelte: `${icon} ${closeButton.svelte}`,
+    vue: `${icon} ${closeButton.vue}`,
   },
   options: [
     {
-      description: "The severity. Sets the color and the default icon.",
+      description: dismissEvent,
+      frameworks: ["vue"],
+      prop: "@dismiss",
+    },
+    {
+      default: "false",
+      description:
+        "Adds a close button at the end of the first row that hides the callout. The root becomes `<opui-callout>`, and the component loads `opui-css/elements/callout.js`, which runs the button. While the root has `data-hydrating`, which the React, Solid, Svelte and Vue components render until they hydrate, the button does nothing.",
+      group: "Close button",
+      prop: "closeButton",
+    },
+    {
+      default: '"Close"',
+      description:
+        "The accessible name of the close button. The types take it only with `closeButton`.",
+      prop: "closeLabel",
+    },
+    {
+      description:
+        "Paints the callout in the current palette, with no meaning and no icon. Put the callout or a parent in a `.ui-scope` with `--ui-palette-hue` to pick the color. A `severity` wins over it.",
+      group: "Colors",
+      prop: "color",
+      values: { accent: ".ui-accent" },
+    },
+    {
+      description:
+        "The id of the callout. With `closeButton`, the close button points at it with `commandfor`, so the component generates one when it's left out.",
+      inherited: true,
+      prop: "id",
+      type: "string",
+    },
+    {
+      description: dismissEvent,
+      frameworks: ["svelte"],
+      prop: "ondismiss",
+    },
+    {
+      description: dismissEvent,
+      frameworks: ["react", "solid"],
+      prop: "onDismiss",
+    },
+    {
+      description:
+        "The severity. Sets the color, and outside HTML the icon `CalloutIcon` renders.",
       group: "Severities",
       prop: "severity",
       values: {
@@ -29,26 +116,45 @@ export default {
   parts: [
     {
       code: "<svg>",
+      component: "CalloutIcon",
       description:
-        "An optional icon. `info`, `warning` and `critical` have a default icon.",
+        "An optional icon before the content. `CalloutIcon` renders the default one for critical, info, success and warning.",
+      htmlDescription: "An optional icon before the content.",
       selector: ".ui-callout > svg",
-      slots: ["icon"],
     },
     {
-      description: "The content.",
+      component: "CalloutContent",
+      description: "The content, with an optional heading first.",
       selector: ".ui-content",
-      slots: ["default"],
     },
     {
-      code: "<h3>",
-      description: "An optional title inside the content.",
-      selector: ".ui-content > h3",
-      slots: ["title"],
+      code: "<button>",
+      description:
+        'A close button at the end of the first row. With `closeButton`, the component renders it with `command="--dismiss"` and `commandfor` naming the callout, hidden until `<opui-callout>` is defined. Renders a close icon by default, or the `svg` in `close-icon`.',
+      htmlDescription:
+        'A close button, a `.ui-button` that is a direct child of the callout, at the end of the first row. With `command="--dismiss"` and `commandfor` naming the callout, it hides the callout, and stays hidden until `<opui-callout>` is defined.',
+      props: ["closeButton", "closeLabel"],
+      selector: ".ui-callout > .ui-button",
+      slots: ["close-icon"],
+    },
+    {
+      component: "CalloutActions",
+      description: "A row of buttons under the content.",
+      selector: ".ui-actions",
     },
   ],
   root: {
-    description: "Container element.",
+    description:
+      'Container element, a `<div>`. With `closeButton`, the `<opui-callout>` custom element, which a button with `commandfor` and `command="--dismiss"` dismisses.',
+    htmlDescription:
+      'Container element, a `<div>`, or the `<opui-callout>` custom element, which a button with `commandfor` and `command="--dismiss"` dismisses.',
     selector: ".ui-callout",
   },
+  slots: [
+    {
+      description: "The callout parts, and any other content.",
+      name: "default",
+    },
+  ],
   source: "Callout",
 } satisfies ComponentApi

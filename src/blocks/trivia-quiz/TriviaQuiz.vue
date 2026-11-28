@@ -1,0 +1,146 @@
+<script setup lang="ts">
+import {
+  Button,
+  Callout,
+  CalloutContent,
+  CalloutIcon,
+  Card,
+  CardActions,
+  CardContent,
+  Chip,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+  Meter,
+  Progress,
+  Radio,
+} from "opui-css/vue"
+</script>
+
+<template>
+  <div
+    class="trivia-quiz ui-layout-container ui-layout-column"
+    style="--_gap: var(--ui-space-6); --_max-inline-size: 48rem"
+  >
+    <div class="ui-layout-row ui-spread">
+      <hgroup class="ui-hgroup">
+        <p class="ui-overline">Bass Trivia, round 2</p>
+        <h1 class="ui-h4">Know your strings</h1>
+      </hgroup>
+      <div class="ui-layout-row ui-gap-small">
+        <Chip as="span" label="Score 6" size="small" />
+        <Chip as="span" label="Streak 4" severity="warning" size="small">
+          <template #start>
+            <svg
+              data-icon="bolt"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M13.6 2.2a1 1 0 0 1 .4 1.1L12.3 10H19a1 1 0 0 1 .78 1.63l-8 10a1 1 0 0 1-1.75-.88L11.7 14H5a1 1 0 0 1-.78-1.63l8-10a1 1 0 0 1 1.38-.17"
+              ></path>
+            </svg>
+          </template>
+        </Chip>
+      </div>
+    </div>
+    <div class="ui-layout-column ui-gap-x-small">
+      <span class="ui-layout-row ui-spread ui-caption" id="trivia-quiz-progress"
+        ><span>Question 7 of 10</span><span>70%</span></span
+      >
+      <Progress aria-labelledby="trivia-quiz-progress" :max="10" :value="7" />
+    </div>
+    <Card class="tq-card" variant="outlined">
+      <CardContent>
+        <div class="ui-layout-column ui-gap-x-small">
+          <span class="ui-layout-row ui-spread ui-caption" id="trivia-quiz-time"
+            ><span>Time left</span><span>12 seconds</span></span
+          >
+          <Meter
+            aria-labelledby="trivia-quiz-time"
+            :high="15"
+            :low="6"
+            :max="20"
+            :optimum="20"
+            :value="12"
+          />
+        </div>
+        <Form action="#" id="trivia-quiz-form">
+          <Fieldset>
+            <FieldLegend class="tq-question">
+              Which string is the lowest on a five-string bass?
+            </FieldLegend>
+            <FieldGroup class="tq-options">
+              <Radio card name="trivia-quiz-answer" value="e">Low E</Radio>
+              <Radio card checked name="trivia-quiz-answer" value="b"
+                >Low B</Radio
+              >
+              <Radio card name="trivia-quiz-answer" value="a">Low A</Radio>
+              <Radio card name="trivia-quiz-answer" value="d">Drop D</Radio>
+            </FieldGroup>
+          </Fieldset>
+        </Form>
+        <Callout severity="success">
+          <CalloutIcon />
+          <CalloutContent>
+            <h2>Correct, plus 10 points</h2>
+            <p>
+              The low B sits a fourth below the E. Your neighbours have noticed.
+            </p>
+          </CalloutContent>
+        </Callout>
+      </CardContent>
+      <CardActions>
+        <Button type="button" variant="transparent">Skip</Button>
+        <Button type="button" variant="filled">
+          <span class="ui-text">Next question</span>
+          <svg
+            data-icon="arrow-right"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M13.3 5.3a1 1 0 0 1 1.4 0l6 6a1 1 0 0 1 0 1.4l-6 6a1 1 0 0 1-1.4-1.4l4.29-4.3H4a1 1 0 1 1 0-2h13.59l-4.3-4.3a1 1 0 0 1 0-1.4"
+            ></path>
+          </svg>
+        </Button>
+      </CardActions>
+    </Card>
+  </div>
+</template>
+
+<style>
+.trivia-quiz {
+  container-type: inline-size;
+
+  .tq-card .ui-content {
+    display: grid;
+    gap: var(--ui-space-6);
+  }
+
+  .tq-question {
+    color: var(--ui-text-strong);
+    font-size: var(--ui-font-size-700);
+    line-height: var(--ui-line-height-tight);
+    margin-block-end: var(--ui-space-6);
+    text-wrap: balance;
+  }
+
+  .tq-options {
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(min(100%, max(14rem, 40%)), 1fr)
+    );
+  }
+}
+</style>

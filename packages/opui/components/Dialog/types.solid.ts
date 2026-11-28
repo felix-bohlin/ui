@@ -1,8 +1,14 @@
 import type * as Base from "./types"
-import type { JSX } from "solid-js"
+import type { ComponentProps, JSX } from "@solidjs/web"
 
-export type Props = Base.Props &
-  Partial<Base.Slots<JSX.Element>> &
-  JSX.DialogHtmlAttributes<HTMLDialogElement> & {
-    closedby?: "any" | "none" | "closerequest"
-  }
+export type Props = Base.Props & Omit<ComponentProps<"dialog">, "closedby">
+
+export type DialogContentProps = Base.DialogContentProps & ComponentProps<"div">
+
+export type DialogFooterProps = Base.DialogFooterProps & ComponentProps<"div">
+
+export type DialogHeaderProps = Base.DialogHeaderProps &
+  Base.DialogHeaderSlots<JSX.Element> &
+  ComponentProps<"div">
+
+export type DialogTitleProps = Base.DialogTitleProps & ComponentProps<"h2">

@@ -1,0 +1,198 @@
+---
+import ProgressCell from "./ProgressCell.astro"
+import { plainText } from "../../utils/todo"
+
+type Props = {
+  class?: string
+  complete: string[]
+  label: string
+  sections: {
+    id: string
+    items: { key: string; stage: string; text: string }[]
+    title: string
+  }[]
+}
+
+const { class: className, complete, label, sections } = Astro.props
+
+const items = sections.flatMap((section) => section.items)
+const doneIn = (list: typeof items) =>
+  list.filter((item) => complete.includes(item.stage)).length
+const done = doneIn(items)
+const ratio = items.length ? done / items.length : 0
+---
+
+<nav
+  aria-label="Sections"
+  class:list={["progress-map", className]}
+  data-progress-complete={complete.join(" ")}
+  data-progress-label={label}
+  data-progress-map
+  style={`--ratio: ${ratio}`}
+>
+  <div class="progress-map-total">
+    <span aria-hidden="true" class="progress-ring">
+      <span data-map-percent>{`${Math.round(ratio * 100)}%`}</span>
+    </span>
+    <p>
+      <strong data-map-done>{done}</strong>
+      {` of ${items.length} ${label}`}
+    </p>
+  </div>
+  <ol class="progress-map-sections">
+    {sections.map((section) => <li>
+      <a
+        class="progress-map-section"
+        data-map-complete={
+          doneIn(section.items) === section.items.length ? "" : undefined
+        }
+        data-map-section={section.id}
+        href={`#${section.id}`}
+      >
+        <span class="progress-map-title">{section.title}</span>
+        <span aria-hidden="true" class="progress-map-count" data-map-count
+          >{`${doneIn(section.items)}/${section.items.length}`}</span
+        >
+        <span class="ui-sr-only" data-map-count-text
+          >{`, ${doneIn(section.items)} of ${section.items.length} ${label}`}</span
+        >
+        <span aria-hidden="true" class="progress-map-cells">
+          {section.items.map((item) => (
+            <ProgressCell
+              data-map-key={item.key}
+              stage={item.stage}
+              title={plainText(item.text)}
+            />
+          ))}
+        </span>
+      </a>
+    </li>)}
+  </ol>
+</nav>
+
+<style>
+  @property --ratio {
+    inherits: true;
+    initial-value: 0;
+    syntax: "<number>";
+  }
+
+  .progress-map {
+    --_track: oklch(from var(--ui-text-strong) l c h / 12%);
+
+    display: grid;
+    font-size: var(--ui-font-size-small);
+    gap: var(--size-4);
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: --ratio var(--ui-duration-slow) var(--ui-ease);
+    }
+  }
+
+  .progress-map-total {
+    align-items: center;
+    display: flex;
+    gap: var(--size-3);
+
+    p {
+      color: var(--ui-text);
+      line-height: var(--ui-line-height-tight);
+      margin: 0;
+    }
+
+    strong {
+      color: var(--ui-text-strong);
+      display: block;
+      font-size: var(--ui-font-size-large);
+    }
+  }
+
+  .progress-ring {
+    aspect-ratio: 1;
+    background: conic-gradient(
+      var(--ui-success) calc(var(--ratio) * 1turn),
+      var(--_track) 0
+    );
+    border-radius: var(--ui-radius-round);
+    display: grid;
+    flex: none;
+    inline-size: var(--size-10);
+    place-items: center;
+
+    span {
+      align-items: center;
+      aspect-ratio: 1;
+      background-color: var(--ui-surface-filled);
+      border-radius: var(--ui-radius-round);
+      color: var(--ui-text-strong);
+      display: flex;
+      font-size: var(--ui-font-size-body);
+      font-variant-numeric: tabular-nums;
+      font-weight: var(--ui-font-weight-heading);
+      inline-size: calc(100% - var(--size-3));
+      justify-content: center;
+    }
+  }
+
+  .progress-map-sections {
+    display: grid;
+    gap: var(--size-1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .progress-map-section {
+    border-radius: var(--ui-radius);
+    color: var(--ui-text);
+    column-gap: var(--size-2);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    margin-inline: calc(var(--size-2) * -1);
+    padding: var(--size-1) var(--size-2);
+    row-gap: var(--size-1);
+    text-decoration: none;
+
+    &:hover {
+      background-color: oklch(from var(--ui-text-strong) l c h / 6%);
+      color: var(--ui-text-strong);
+    }
+
+    &:focus-visible {
+      outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+        var(--ui-focus-ring-color);
+      outline-offset: 0;
+    }
+
+    &[aria-current] {
+      background-color: oklch(from var(--ui-primary) l c h / 14%);
+      color: var(--ui-text-strong);
+    }
+  }
+
+  .progress-map-title {
+    font-weight: var(--ui-font-weight-emphasis);
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    [data-map-complete] > &::before {
+      color: var(--ui-success-text);
+      content: "\2713\00a0" / "";
+    }
+  }
+
+  .progress-map-count {
+    font-size: var(--ui-font-size-caption);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .progress-map-cells {
+    cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    grid-column: 1 / -1;
+  }
+</style>

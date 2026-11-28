@@ -1,0 +1,28 @@
+{% from "opui/index.njk" import Card, CardHeader, Carousel %}
+{% set places = [
+  { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
+  { description: "Ceviche by the Pacific.", title: "Lima" },
+  { description: "Tiles, trams and custard tarts.", title: "Lisbon" },
+  { description: "Fjords, saunas and modern architecture.", title: "Oslo" },
+  { description: "Medina markets and Mediterranean light.", title: "Tunis" }
+] %}
+
+{% call Carousel({
+  align: "center",
+  "aria-label": "Destinations",
+  buttons: "none",
+  markers: true,
+  peek: true
+}) %}
+  {% for place in places -%}
+    <li>
+      {% call Card({ variant: "tonal" }) %}
+        {% call CardHeader() %}
+          <p>Destination</p>
+          <h3>{{ place.title }}</h3>
+          <p>{{ place.description }}</p>
+        {% endcall %}
+      {% endcall %}
+    </li>
+  {%- endfor %}
+{% endcall %}

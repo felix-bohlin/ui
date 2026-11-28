@@ -1,0 +1,50 @@
+<script lang="ts">
+  import { content } from "../content.svelte"
+  import { disabledLink, tagAttrs } from "../tag"
+  import { defined } from "../attrs"
+  import type { Props } from "./types.svelte"
+
+  let {
+    as,
+    class: className,
+    color,
+    disabled,
+    dot,
+    href,
+    multiline,
+    severity,
+    size,
+    variant = "tonal",
+
+    // Snippets
+    end,
+    label,
+    start,
+    ...rest
+  }: Props = $props()
+
+  const Tag = $derived(
+    disabledLink(as, disabled) ? "a" : as || (href ? "a" : "div"),
+  )
+</script>
+
+<svelte:element
+  this={Tag}
+  class={[
+    "ui-chip",
+    { "ui-dot": dot, "ui-multiline": multiline },
+    color && `ui-${color}`,
+    severity && `ui-${severity}`,
+    size && size !== "medium" && `ui-${size}`,
+    variant !== "tonal" && `ui-${variant}`,
+    className,
+  ]}
+  {...tagAttrs(Tag, disabled, href)}
+  {...defined(rest)}
+>
+  {@render start?.()}{#if label}
+    <span class="ui-text">
+      {@render content(label)}
+    </span>
+  {/if}{@render end?.()}
+</svelte:element>

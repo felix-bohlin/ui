@@ -1,0 +1,10 @@
+{% macro FieldDescription(props = {}) %}
+  {%- set props = props | opuiProps("FieldDescription") -%}
+  {%- set rest = props | opuiRest("FieldDescription") -%}
+  <p
+    class="ui-description
+      {%- if props.class %} {{ props.class }}{% endif %}"
+    {{- rest | opuiAttributes }}>
+    {{- caller() if caller -}}
+  </p>
+{%- endmacro %}

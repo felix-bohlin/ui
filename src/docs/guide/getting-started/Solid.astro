@@ -1,0 +1,182 @@
+---
+import Guide from "../../../layouts/Guide.astro"
+import Code from "../../../components/Code.astro"
+import DocLink from "../../../components/DocLink.astro"
+import Builds from "./partials/Builds.astro"
+import CssFiles from "./partials/CssFiles.astro"
+import InstallCommand from "./partials/InstallCommand.astro"
+import NextSteps from "./partials/NextSteps.astro"
+import PickAndChoose from "./partials/PickAndChoose.astro"
+import QuickStart from "./partials/QuickStart.astro"
+import ServerSupport from "./partials/ServerSupport.astro"
+
+export const keywords = ["install", "npm", "setup", "ssr"]
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Getting started</Fragment>
+  <Fragment slot="preamble">
+    OPUI ships first-class Solid 2 components. Install the package, import what
+    you need, and you're set.
+  </Fragment>
+
+  <section id="quick-start">
+    <h2>Quick start</h2>
+    <QuickStart>
+      <Fragment slot="install">
+        <InstallCommand packages="solid-js@2 @solidjs/web@2" />
+        <Code
+          code={`// src/index.tsx
+import "opui-css/css/imports.css"`}
+          lang="tsx"
+        />
+      </Fragment>
+      <Code
+        slot="use"
+        code={`import { Button } from "opui-css/solid"
+
+export default function App() {
+  return <Button color="primary" variant="filled">Save</Button>
+}`}
+        lang="tsx"
+      />
+    </QuickStart>
+  </section>
+
+  <section id="whats-in-the-css">
+    <h2>What's in the CSS</h2>
+    <CssFiles />
+  </section>
+
+  <section id="css">
+    <h2>Import only what you use</h2>
+    <p>
+      List the files in a CSS file, and import that file in your entry instead
+      of <code>imports.css</code>:
+    </p>
+    <PickAndChoose file="src/styles/main.css" />
+    <Code
+      code={`// src/index.tsx
+import "./styles/main.css"`}
+      lang="tsx"
+    />
+  </section>
+
+  <section id="builds">
+    <h2>Builds</h2>
+    <p>
+      The components ship as <code>.jsx</code> files with their types, which
+      <code>@solidjs/vite-plugin</code> compiles with your Solid through the
+      package's <code>solid</code> export condition, for server rendering too.
+    </p>
+    <Builds tools={["vite"]} />
+  </section>
+
+  <section id="typescript">
+    <h2>TypeScript</h2>
+    <p>
+      The types work with TypeScript 6 and 7, with <code>moduleResolution</code>
+      set to <code>"bundler"</code> and <code>jsxImportSource</code> set to
+      <code>"@solidjs/web"</code>.
+    </p>
+  </section>
+
+  <section id="usage">
+    <h2>How to use</h2>
+    <p>
+      Slots are props: <code>children</code>, and camelCased names like
+      <code>endText</code>.
+    </p>
+    <p>
+      A <DocLink href="/components/field">Field</DocLink> wraps your own
+      control. Give the control an <code>id</code>, set <code>for</code> on the
+      field to it, and bind it like any input. For a hint, set the control's
+      <code>aria-describedby</code> to <code>&lt;id&gt;-end-text</code>.
+    </p>
+  </section>
+
+  <section id="element">
+    <h2>Reaching the element</h2>
+    <p>
+      Every component hands <code>ref</code> to its root element, typed for it:
+      a <code>Dialog</code> ref is an <code>HTMLDialogElement</code>. Most of
+      the time you need none: a <code>Button</code> with
+      <code>command="show-modal"</code> and <code>commandfor</code> opens a
+      dialog by its <code>id</code>, and its click handler can set your state at
+      the same time. When a script opens it, such as after a check, reach the
+      element:
+    </p>
+    <Code
+      code={`import { Button, Dialog, DialogContent } from "opui-css/solid"
+
+export function Confirm() {
+  let dialog: HTMLDialogElement | undefined
+
+  return (
+    <>
+      <Button onClick={() => dialog?.showModal()}>Delete</Button>
+      <Dialog
+        aria-label="Delete the file?"
+        id="confirm"
+        ref={(element) => (dialog = element)}
+      >
+        <DialogContent>The file goes to the bin for 30 days.</DialogContent>
+      </Dialog>
+    </>
+  )
+}`}
+      lang="tsx"
+    />
+  </section>
+
+  <section id="ssr">
+    <h2>Server rendering</h2>
+    <p>
+      Every component renders full HTML on the server and hydrates. Solid 2
+      renders on the server with the <code>start</code> and <code>ssr</code>
+      options of <code>@solidjs/vite-plugin</code>, which need no setting for
+      the package:
+    </p>
+    <Code
+      code={`// vite.config.ts
+import solid from "@solidjs/vite-plugin"
+import { defineConfig } from "vite"
+
+export default defineConfig({
+  plugins: [solid({ ssr: true, start: true })],
+})`}
+      lang="ts"
+    />
+    <p>
+      With <code>start</code>, the plugin builds its entries from
+      <code>src/App.tsx</code> instead of <code>index.html</code> and
+      <code>src/index.tsx</code>, so import the CSS there:
+    </p>
+    <Code
+      code={`// src/App.tsx
+import "opui-css/css/imports.css"`}
+      lang="ts"
+    />
+    <p>
+      A page with more than one root gives each its own <code>renderId</code> in
+      <code>renderToString</code> and <code>hydrate</code>, so the ids the
+      components generate differ between the roots. Roots hydrated in the same
+      task each claim their server markup. A root hydrated in a later task
+      renders again over its markup, so load the code of every root first and
+      call <code>hydrate</code> for all of them in one loop.
+    </p>
+    <p>The props in the last column need hydration.</p>
+    <p>
+      A choice the user makes before the page hydrates stays on screen, as on a
+      plain Solid input: Solid doesn't call <code>onChange</code> or
+      <code>onValueChange</code> for it, and a controlled value misses it. A
+      form that reads its values on submit gets it.
+    </p>
+    <ServerSupport framework="solid" />
+  </section>
+
+  <section id="next-steps">
+    <h2>Next steps</h2>
+    <NextSteps />
+  </section>
+</Guide>

@@ -1,0 +1,68 @@
+---
+import {
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+} from "opui-css/astro"
+---
+
+<Form>
+  <Fieldset>
+    <FieldLegend>Gold add-ons</FieldLegend>
+    <FieldGroup orientation="horizontal">
+      <Checkbox card checked name="checkbox-cards-end" spread value="support">
+        Priority bass help
+        <Fragment slot="end-text">€8 per month</Fragment>
+      </Checkbox>
+      <Checkbox
+        card
+        name="checkbox-cards-end"
+        spread
+        value="storage"
+        variant="elevated"
+      >
+        Extra slap video storage
+        <Fragment slot="end-text">€4 per month</Fragment>
+      </Checkbox>
+      <Checkbox
+        card
+        name="checkbox-cards-end"
+        spread
+        value="audit-log"
+        variant="tonal"
+      >
+        Gig diary
+        <Fragment slot="end-text">€6 per month</Fragment>
+      </Checkbox>
+    </FieldGroup>
+  </Fieldset>
+  <Fieldset>
+    <FieldLegend>Email updates</FieldLegend>
+    <FieldGroup orientation="horizontal">
+      <Checkbox card checked name="checkbox-cards-start" value="weekly">
+        Weekly jam recap
+        <Fragment slot="end-text">Every Monday morning.</Fragment>
+      </Checkbox>
+      <Checkbox
+        card
+        name="checkbox-cards-start"
+        value="usage"
+        variant="elevated"
+      >
+        Gig alerts
+        <Fragment slot="end-text">When your band books a gig.</Fragment>
+      </Checkbox>
+      <Checkbox
+        card
+        name="checkbox-cards-start"
+        value="invoices"
+        variant="tonal"
+      >
+        Gold receipts
+        <Fragment slot="end-text">After each payment.</Fragment>
+      </Checkbox>
+    </FieldGroup>
+  </Fieldset>
+</Form>

@@ -1,0 +1,46 @@
+{% from "opui/index.njk" import
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+  Radio
+%}
+
+{% call Form() %}
+  {% call Fieldset({
+    "aria-describedby": "radio-field-group-field-description-1-description"
+  }) %}
+    {% call FieldLegend() %}Contact method{% endcall %}
+    {% call FieldDescription({
+      id: "radio-field-group-field-description-1-description"
+    }) %}We only contact you about your order.{% endcall %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
+      {% call Radio({
+        checked: true,
+        name: "radio-group-field-description-1",
+        value: "email"
+      }) %}Email{% endcall %}
+      {% call Radio({ name: "radio-group-field-description-1", value: "phone" }) %}Phone{% endcall %}
+      {% call Radio({ name: "radio-group-field-description-1", value: "sms" }) %}SMS{% endcall %}
+    {% endcall %}
+  {% endcall %}
+
+  {% call Fieldset({
+    "aria-describedby": "radio-field-group-field-description-2-description"
+  }) %}
+    {% call FieldLegend() %}Theme{% endcall %}
+    {% call FieldGroup({ orientation: "horizontal" }) %}
+      {% call Radio({
+        checked: true,
+        name: "radio-group-field-description-2",
+        value: "system"
+      }) %}System{% endcall %}
+      {% call Radio({ name: "radio-group-field-description-2", value: "light" }) %}Light{% endcall %}
+      {% call Radio({ name: "radio-group-field-description-2", value: "dark" }) %}Dark{% endcall %}
+    {% endcall %}
+    {% call FieldDescription({
+      id: "radio-field-group-field-description-2-description"
+    }) %}System follows your device setting.{% endcall %}
+  {% endcall %}
+{% endcall %}

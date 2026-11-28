@@ -4,26 +4,50 @@ export default {
   component: "Avatar",
   options: [
     {
-      description: "Alternative text for the image.",
-      frameworks: ["astro", "vue"],
-      prop: "alt",
+      description:
+        "The accessible name of a link or button avatar, instead of `label`. A link or button needs one of `label`, `aria-label` and `aria-labelledby`.",
+      inherited: true,
+      prop: "aria-label",
       type: "string",
     },
     {
       description:
-        'The element to render. Defaults to `"a"` with `href`, otherwise `"div"`.',
+        "The id of the element that names a link or button avatar, instead of `label`.",
+      inherited: true,
+      prop: "aria-labelledby",
+      type: "string",
+    },
+    {
+      default: '"div"',
+      description: 'The element to render. Defaults to `"a"` with `href`.',
+      frameworks: ["astro", "nunjucks", "svelte"],
       prop: "as",
     },
     {
-      description: "The command to send to the `commandfor` target.",
-      prop: "command",
+      default: '"div"',
+      description:
+        'The element to render, or the link component of your router with `href`, such as Next\'s `Link`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.',
+      frameworks: ["react"],
+      prop: "as",
     },
     {
-      description: "The id of the element the command targets.",
-      prop: "commandfor",
+      default: '"div"',
+      description:
+        'The element to render, or the link component of your router with `href`, such as Solid Router\'s `A`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.',
+      frameworks: ["solid"],
+      prop: "as",
     },
     {
-      description: 'Disables the avatar when `as` is `"button"`.',
+      default: '"div"',
+      description:
+        'The element to render, or the link component of your router with `href`, such as Nuxt\'s `NuxtLink`, which gets the `href`. Defaults to `"a"` with `href`. With `disabled`, it renders a plain `<a>` with `role="link"` and `aria-disabled="true"` instead.',
+      frameworks: ["vue"],
+      prop: "as",
+    },
+    {
+      default: "false",
+      description:
+        'Disables a button avatar. A link avatar drops its `href` and gets `role="link"` and `aria-disabled="true"` instead.',
       prop: "disabled",
     },
     {
@@ -31,38 +55,67 @@ export default {
       prop: "href",
     },
     {
-      description: "The id of the element to show on interest.",
-      prop: "interestfor",
+      description:
+        "The name of the person or thing: the `alt` of the image, or visually hidden text next to the letters or icon. Leave it out when the name is shown next to the avatar, which then is decorative. A link or button avatar needs it.",
+      htmlDescription:
+        'The name of the person or thing: the `alt` of the image, or a `.ui-sr-only` element after the letters or icon. Leave it out when the name is shown next to the avatar, with `alt=""` on the image. A link or button avatar needs it.',
+      prop: "label",
     },
     {
-      attribute: '[role="group"]',
-      default: "false",
-      description: "Renders a container that groups avatars.",
-      group: "Group",
-      prop: "isGroup",
-    },
-    {
-      description: "The image source. Replaces the default slot.",
-      frameworks: ["astro", "vue"],
-      prop: "src",
-      type: "string",
-    },
-    {
-      description: "The variant to use.",
-      group: "Variants",
-      prop: "variant",
+      default: '"circle"',
+      description: "The shape of the avatar.",
+      group: "Shape",
+      prop: "shape",
       values: {
+        circle: null,
         rounded: ".ui-rounded",
         squared: ".ui-squared",
         squircle: ".ui-squircle",
       },
     },
+    {
+      default: '"medium"',
+      description: "The size of the element.",
+      group: "Sizes",
+      prop: "size",
+      values: {
+        large: ".ui-large",
+        medium: null,
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
+    },
+    {
+      description:
+        "The image source. Replaces the content. Without it, the avatar shows its content, so a missing photo falls back to the letters.",
+      prop: "src",
+    },
+    {
+      default: '"filled"',
+      description:
+        "The variant to use. `filled` is the primary color, `outlined` the border color with no fill and `tonal` the primary tint.",
+      group: "Variants",
+      prop: "variant",
+      values: {
+        filled: null,
+        outlined: ".ui-outlined",
+        tonal: ".ui-tonal",
+      },
+    },
+    {
+      description:
+        'Disables a button avatar. A link avatar, which can\'t take `disabled`, drops its `href` and takes `role="link"` and `aria-disabled="true"` instead.',
+      frameworks: ["html"],
+      group: "State",
+      prop: "state",
+      values: { button: "button[disabled]", link: 'a[aria-disabled="true"]' },
+    },
   ],
   parts: [
     {
       code: "<img>",
-      description: "The avatar image.",
-      props: ["src", "alt"],
+      description: "The avatar image. Its `alt` is `label`.",
+      props: ["label", "src"],
       selector: "img",
     },
   ],
@@ -72,7 +125,8 @@ export default {
   },
   slots: [
     {
-      description: "Letters or an icon, when there's no image.",
+      description:
+        "Letters or an icon, when there's no image. They are hidden from assistive technology: `label` names the avatar.",
       name: "default",
     },
   ],

@@ -1,75 +1,38 @@
-export async function getBaselineMappings() {
-  const modules = import.meta.glob("../docs/components/*.astro", {
-    query: "raw",
-    import: "default",
-    eager: true,
-  })
+import { featureOf } from "../../packages/opui/scripts/features.mjs"
+import { catalog } from "../component-api/catalog.glob"
+import { componentName } from "./components"
 
-  const featureToComponents: Record<string, { name: string; href: string }[]> =
+export async function getBaselineMappings() {
+  const featureToComponents: Record<string, { name: string; slug: string }[]> =
     {}
   const componentToFeatures: Record<string, string[]> = {}
 
-  for (const path in modules) {
-    const slug = path.split("/").pop()?.replace(".astro", "") || ""
-    const name = slug
-      .split("-")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ")
-    const href = `/components/${slug}`
+  for (const slug of catalog.pages) {
+    const name = componentName(slug)
+    const featuresInComponent = catalog.featuresOf(slug)
 
-    const content = modules[path] as string
-    const baselineRegex =
-      /<(?:Baseline|BrowserSupport|Component)[\s\S]*?(?:ids|browserSupport)=\{([\s\S]*?)\}/g
-    let match
-
-    const featuresInComponent: string[] = []
-
-    while ((match = baselineRegex.exec(content)) !== null) {
-      const idString = match[1]
-      const idArrayMatch = idString.match(/\[([\s\S]*?)\]/)
-      if (idArrayMatch) {
-        const individualIds = idArrayMatch[1]
-          .split(",")
-          .map((id) => id.trim().replace(/['"`]/g, ""))
-          .filter(Boolean)
-
-        individualIds.forEach((id) => {
-          featuresInComponent.push(id)
-          if (!featureToComponents[id]) {
-            featureToComponents[id] = []
-          }
-          if (!featureToComponents[id].some((c) => c.href === href)) {
-            featureToComponents[id].push({ name, href })
-          }
-        })
+    featuresInComponent.forEach((id) => {
+      if (!featureToComponents[id]) {
+        featureToComponents[id] = []
       }
-    }
+      featureToComponents[id].push({ name, slug })
+    })
 
     if (featuresInComponent.length > 0) {
-      componentToFeatures[name] = Array.from(new Set(featuresInComponent))
+      componentToFeatures[name] = featuresInComponent
     }
   }
 
-  return { featureToComponents, componentToFeatures }
-}
+  Object.values(featureToComponents).forEach((list) =>
+    list.sort((a, b) => a.name.localeCompare(b.name)),
+  )
 
-export async function getBaselineData() {
-  try {
-    const response = await fetch(
-      "https://cdn.jsdelivr.net/npm/web-features/data.json",
-    )
-    if (!response.ok) throw new Error("Failed to fetch web-features data")
-    return await response.json()
-  } catch (error) {
-    console.error("Error fetching baseline data:", error)
-    return { features: {} }
-  }
+  return { featureToComponents, componentToFeatures }
 }
 
 export async function getCategorizedBaselineIds() {
   const { featureToComponents } = await getBaselineMappings()
   const ids = Object.keys(featureToComponents)
-  const data = await getBaselineData()
 
   const categories: Record<string, string[]> = {
     limited: [],
@@ -77,13 +40,16 @@ export async function getCategorizedBaselineIds() {
   }
 
   ids.forEach((id) => {
-    const feature = data.features[id]
+    const feature = featureOf(id)
+    const status = feature && "status" in feature ? feature.status : undefined
     categories.all.push(id)
+    const year = status?.baseline
+      ? status.baseline_low_date?.match(/\d{4}/)?.[0]
+      : undefined
 
-    if (!feature || !feature.status || !feature.status.baseline) {
+    if (!year) {
       categories.limited.push(id)
     } else {
-      const year = feature.status.baseline_low_date.split("-")[0]
       if (!categories[year]) {
         categories[year] = []
       }

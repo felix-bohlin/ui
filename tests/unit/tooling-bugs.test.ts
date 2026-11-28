@@ -1,0 +1,263 @@
+import { readFileSync } from "node:fs"
+import { createRequire } from "node:module"
+import { pathToFileURL } from "node:url"
+import { experimental_AstroContainer as AstroContainer } from "astro/container"
+import nunjucks from "nunjucks"
+import { parseFragment } from "parse5"
+import { describe, expect, test } from "vitest"
+import { createRenderer, defineComponent, h, nextTick, ref } from "vue"
+import { compileTemplate } from "vue/compiler-sfc"
+import BooleanSpread from "./fixtures/BooleanSpread.astro"
+import EmptyUnknown from "./fixtures/EmptyUnknown.astro"
+import UndefinedSpread from "./fixtures/UndefinedSpread.astro"
+
+const fixed = (workaround: string) =>
+  `fixed upstream: remove the workaround in ${workaround}, then this entry`
+
+describe("tooling bugs the generator and the components work around", () => {
+  test("Astro drops the end tag of an empty element it doesn't know", async () => {
+    const container = await AstroContainer.create()
+    expect(
+      await container.renderToString(EmptyUnknown),
+      fixed(
+        "packages/opui/components/SelectButton/SelectButton.astro, which renders <selectedcontent> through the variable tag SelectedContent",
+      ),
+    ).not.toContain("</selectedcontent>")
+  })
+
+  test("Astro lets an undefined spread value remove an attribute set before it on a dynamic tag or a custom element, but not on a static tag", async () => {
+    const container = await AstroContainer.create()
+    const html = await container.renderToString(UndefinedSpread)
+    const roleOf = (shape: string) =>
+      new RegExp(`<[^>]*data-shape="${shape}"[^>]*data-state="set"`).test(html)
+    expect(roleOf("static")).toBe(true)
+    expect(
+      [roleOf("dynamic"), roleOf("custom")],
+      fixed(
+        "the defined(rest) spreads in the Avatar, Button, Chip, Copy, Fieldset, ListItem, SortableTable and Toaster Astro files",
+      ),
+    ).toEqual([false, false])
+  })
+
+  test('Astro writes multiple="true" for a true boolean attribute it doesn\'t list', async () => {
+    const container = await AstroContainer.create()
+    expect(
+      await container.renderToString(BooleanSpread),
+      fixed(
+        'attributeOf in scripts/example-html.mjs and normalizeAttribute in tests/unit/normalize.ts, which read a boolean attribute with the value "true" as the bare attribute, and BC211 in scripts/component-reader.mjs, which refuses a value bound to such an attribute unless it is undefined when off',
+      ),
+    ).toContain('multiple="true"')
+  })
+
+  test("the Astro compiler starts the position of an expression one character before its {", async () => {
+    const { parse } = await import("@astrojs/compiler")
+    const source = "<p>{label}</p>\n"
+    const { ast } = await parse(source, { position: true })
+    const [paragraph] = ast.children
+    const [expression] = paragraph?.type === "element" ? paragraph.children : []
+    expect(
+      source[expression?.position?.start.offset ?? 0],
+      fixed(
+        "startOf in scripts/component-reader.mjs, which finds the { of an expression from the offset before it",
+      ),
+    ).toBe(">")
+  })
+
+  test("Vue takes <search> for a component it can't resolve", () => {
+    const { code } = compileTemplate({
+      filename: "Search.vue",
+      id: "search",
+      source: "<search><form></form></search>",
+    })
+    expect(
+      code,
+      fixed(
+        'VUE_UNKNOWN_TAGS in scripts/print-vue.ts, which writes <search> as <component is="search"> in Vue',
+      ),
+    ).toContain("resolveComponent")
+  })
+
+  test("Vue keeps the attributes a component passed through to a component root once they are all removed", async () => {
+    type Node = {
+      children: Node[]
+      parent?: Node
+      props: Record<string, unknown>
+      tag: string
+      text?: string
+    }
+    const node = (tag: string, text?: string): Node => ({
+      children: [],
+      props: {},
+      tag,
+      text,
+    })
+    const { createApp } = createRenderer<Node, Node>({
+      createComment: (text) => node("#comment", text),
+      createElement: (tag) => node(tag),
+      createText: (text) => node("#text", text),
+      insert: (child, parent, anchor) => {
+        child.parent = parent
+        const index = anchor ? parent.children.indexOf(anchor) : -1
+        if (index < 0) parent.children.push(child)
+        else parent.children.splice(index, 0, child)
+      },
+      nextSibling: (child) =>
+        child.parent?.children[child.parent.children.indexOf(child) + 1] ??
+        null,
+      parentNode: (child) => child.parent ?? null,
+      patchProp: (element, key, _previous, next) => {
+        if (next == null) delete element.props[key]
+        else element.props[key] = next
+      },
+      remove: (child) => {
+        child.parent?.children.splice(child.parent.children.indexOf(child), 1)
+      },
+      setElementText: (element, text) => {
+        element.text = text
+      },
+      setText: (child, text) => {
+        child.text = text
+      },
+    })
+    const Inner = defineComponent({
+      template: "<span><slot /></span>",
+    })
+    const Outer = defineComponent({
+      components: { Inner },
+      props: ["tone"],
+      template: '<Inner :class="tone"><slot /></Inner>',
+    })
+    const attrs = ref<Record<string, string>>({ title: "Hint" })
+    const root = node("root")
+    createApp({ render: () => h(Outer, attrs.value) }).mount(root)
+    const span = () => root.children.find((child) => child.tag === "span")
+    expect(span()?.props.title).toBe("Hint")
+    attrs.value = {}
+    await nextTick()
+    expect(
+      span()?.props.title,
+      fixed(
+        'componentRoot in scripts/component-vue.mjs, which gives a component whose root is another component inheritAttrs: false and v-bind="$attrs" on that root (Badge, Tooltip)',
+      ),
+    ).toBe("Hint")
+  })
+
+  test("Vue's server renderer checks a v-model checkbox whose model holds its false-value", async () => {
+    const { code } = compileTemplate({
+      compilerOptions: { mode: "function" },
+      filename: "Box.vue",
+      id: "box",
+      source:
+        '<input type="checkbox" v-bind="attrs" v-model="model" true-value="yes" false-value="no">',
+      ssr: true,
+      ssrCssVars: [],
+    })
+    const modules: Record<string, unknown> = {
+      vue: await import("vue"),
+      "vue/server-renderer": await import("vue/server-renderer"),
+    }
+    const ssrRender = new Function("require", code)((id: string) => modules[id])
+    const { createSSRApp } = await import("vue")
+    const { renderToString } = await import("vue/server-renderer")
+    const html = await renderToString(
+      createSSRApp({ data: () => ({ attrs: {}, model: "no" }), ssrRender }),
+    )
+    expect(
+      html,
+      fixed(
+        "the Vue callout in src/docs/components/partials/VueTrueValueCallout.astro and its uses on the Checkbox, Switch and Toggle pages, which warn that a true-value model renders checked on the server (vuejs/core#15973)",
+      ),
+    ).toContain(" checked")
+  })
+
+  test("Astro's dev CSS collector compiles the files behind ?raw imports", () => {
+    const source = readFileSync(
+      createRequire(
+        createRequire(import.meta.url).resolve("astro/package.json"),
+      ).resolve(
+        "@astrojs/vite-plugin-astro/_internal/vite-plugin-css/collect.js",
+      ),
+      "utf-8",
+    )
+    const walk = source.slice(
+      source.indexOf("async function ensureModulesLoaded"),
+      source.indexOf("function* collectCSSWithOrder"),
+    )
+    expect(walk).toContain("importedModules")
+    expect(
+      walk,
+      fixed("astro.config.mjs, the opui-raw-without-module-edge plugin"),
+    ).not.toMatch(/raw/i)
+  })
+
+  test("Lightning CSS folds animation-timeline into the animation shorthand when Astro minifies", () => {
+    const astro = createRequire(import.meta.url).resolve("astro/package.json")
+    const vite = createRequire(astro).resolve("vite")
+    const { transform } = createRequire(vite)("lightningcss")
+    expect(
+      readFileSync(
+        new URL("dist/core/build/vite-build-config.js", pathToFileURL(astro)),
+        "utf-8",
+      ),
+    ).toContain('target: "esnext"')
+    expect(
+      transform({
+        code: Buffer.from(
+          ".a{animation:fill linear both;animation-timeline:scroll(root)}",
+        ),
+        filename: "a.css",
+        minify: true,
+      }).code.toString(),
+      fixed(
+        "the components that write animation-* longhands, and the timeline shorthand problem in scripts/check-dist.mjs",
+      ),
+    ).toBe(".a{animation:linear both fill scroll(root)}")
+  })
+
+  test("Lightning CSS rejects an anchored() container query", () => {
+    const astro = createRequire(import.meta.url).resolve("astro/package.json")
+    const vite = createRequire(astro).resolve("vite")
+    const { transform } = createRequire(vite)("lightningcss")
+    expect(
+      () =>
+        transform({
+          code: Buffer.from(
+            "@container anchored(fallback: flip-inline){.a{color:red}}",
+          ),
+          filename: "a.css",
+        }),
+      fixed(
+        "packages/opui/css/components/menu.css, the inset formula for submenus of submenus",
+      ),
+    ).toThrow('Function("anchored")')
+  })
+
+  test("Nunjucks runs a {% call %} body with the set variables and caller of the macro it calls when both sit in one template", () => {
+    const env = new nunjucks.Environment(null, { autoescape: true })
+    const card =
+      '{% macro card() %}{% set label = "card" %}<p>{{ caller() }}</p>{% endmacro %}'
+    expect(
+      env.renderString(
+        `${card}{% macro page() %}{% set label = "page" %}{% call card() %}{{ label }}{% endcall %}{% endmacro %}{{ page() }}`,
+        {},
+      ),
+      fixed(
+        "nunjucksOutputs in scripts/component-nunjucks.mjs, which writes each macro to a template of its own, the one-macro check in tests/unit/nunjucks.test.ts and the replacement rule on the Nunjucks getting-started page",
+      ),
+    ).toBe("<p>card</p>")
+  })
+
+  test("parse5 drops the button and div inside a select", () => {
+    const [select] = parseFragment(
+      "<select><button><selectedcontent></selectedcontent></button><div><option>a</option></div></select>",
+    ).childNodes
+    expect(
+      "childNodes" in select
+        ? select.childNodes.map((node) => node.nodeName)
+        : [],
+      fixed(
+        "scripts/html-tokens.mjs, where browserView and parse5View skip the children of a select",
+      ),
+    ).toEqual(["option"])
+  })
+})

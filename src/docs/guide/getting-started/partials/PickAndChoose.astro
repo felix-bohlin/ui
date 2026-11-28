@@ -1,0 +1,28 @@
+---
+import Code from "../../../../components/Code.astro"
+
+type Props = {
+  file?: string
+  from?: string
+}
+
+const { file, from = "opui-css" } = Astro.props
+
+const css = `@import "${from}/css/layers.css";
+@import "${from}/core/palette.css";
+@import "${from}/css/theme.css";
+@import "${from}/core/normalize.css";
+@import "${from}/css/components/button.css";
+@import "${from}/css/components/choice.css";
+@import "${from}/css/components/checkbox.css";
+@import "${from}/css/compat.css";
+@import "${from}/core/utils.css";`
+---
+
+<Code code={file ? `/* ${file} */\n${css}` : css} lang="css" />
+<p>
+  Keep the order from <a href="#whats-in-the-css">What's in the CSS</a>, and add
+  <code>choice.css</code> with <code>checkbox.css</code>, <code>radio.css</code>
+  or <code>switch.css</code>.
+</p>
+<slot />

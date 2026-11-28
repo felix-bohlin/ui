@@ -1,0 +1,24 @@
+---
+import { Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
+---
+
+<Callout
+  closeButton
+  closeLabel="Dismiss"
+  id="callout-dismissible-1"
+  severity="info"
+>
+  <CalloutIcon />
+  <CalloutContent>
+    The new tab editor is on for everyone. Your drafts from the old one are in
+    Settings.
+  </CalloutContent>
+</Callout>
+
+<script>
+  document
+    .querySelector("#callout-dismissible-1")
+    ?.addEventListener("dismiss", (event) => {
+      if (!confirm("Hide this message?")) event.preventDefault()
+    })
+</script>

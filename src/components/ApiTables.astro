@@ -3,6 +3,7 @@ import { TableCell, TableRow } from "opui-css/astro"
 import {
   htmlRows,
   hydrationRows,
+  partDescription,
   partLabel,
   propRows,
   slotRows,
@@ -42,7 +43,7 @@ const parts =
   component && api.parts.length === 0
     ? []
     : [api.root, ...api.parts].map((part) => ({
-        description: part.description,
+        description: partDescription(part, framework),
         name: partLabel(api, part, component ?? "html", part === api.root),
       }))
 const notes = [

@@ -34,7 +34,18 @@ A class on a native element. Options are classes too.
 
 #### Make it yours
 
-Load the `theme.css` the Theme builder exports after opui-css.
+Load the `theme.css` the Theme builder exports after opui-css:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opui-css@next/dist/opui.css" />
+<link rel="stylesheet" href="/theme.css" />
+```
+
+Or start from one of the [example themes](https://opui.dev/html/guide/customizing.md#example-themes), loaded the same way:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opui-css@next/themes/m3.css" />
+```
 
 [Theme builder](https://opui.dev/theme-builder.md)
 
@@ -75,7 +86,15 @@ Use `dist/opui.no-compat.css` without the [browser fallbacks](https://opui.dev/h
 
 ### Install manually
 
-No build step needed. Download the package (`npm pack opui-css@next`, or browse it on [jsDelivr](https://cdn.jsdelivr.net/npm/opui-css@next/)) as `opui`, and import the files:
+No build step needed. Download the package, or browse it on [jsDelivr](https://cdn.jsdelivr.net/npm/opui-css@next/). The tarball extracts to `package`, so rename it to `opui`:
+
+```sh
+npm pack opui-css@next
+tar -xzf opui-css-*.tgz
+mv package opui
+```
+
+Then import the files:
 
 ```css
 @import "./opui/css/layers.css";
@@ -137,7 +156,13 @@ opui
 
 ### Install via NPM
 
-For a bundler that resolves CSS `@import`s, like Vite, on Node 26.10 or later.
+For a bundler that resolves CSS `@import`s, like Vite, on Node 26.10 or later. Starting from an empty folder? Create the project first:
+
+```sh
+npm create vite@latest my-app -- --template vanilla-ts
+```
+
+The template's `src/style.css` is unlayered CSS, which beats every OPUI layer: delete it, or its import.
 
 `pnpm`
 
@@ -186,6 +211,19 @@ Or pick and choose the parts you want to include:
 ```
 
 Keep the order from [What's in the CSS](#whats-in-the-css), and add `choice.css` with `checkbox.css`, `radio.css` or `switch.css`.
+
+#### Builds
+
+Vite 8 rewrites `light-dark()` for older browsers by default. The colors still follow the OS, and `.ui-light` or `.ui-dark` on `html` still works, but on a part of the page it stops switching after a build. Target browsers that have `light-dark()`:
+
+```js
+// vite.config, or under `vite` in astro.config or nuxt.config
+build: {
+  cssTarget: ["chrome123", "edge123", "firefox120", "safari17.5"]
+}
+```
+
+Vite also prints warnings like `'scroll-button' is not recognized as a valid pseudo-element` for the Carousel, even without one on the page. They're harmless: the rules stay in the output.
 
 ### Scripts
 
@@ -246,6 +284,12 @@ OPUI ships first-class Astro 7 components. Install the package, import what you 
 
 Needs Node 26.10 or later. Import the CSS once, where your app starts.
 
+Starting from an empty folder? Create the project first:
+
+```sh
+npm create astro@latest my-app
+```
+
 ```sh
 pnpm add opui-css@next astro@7
 ```
@@ -288,6 +332,17 @@ import { Button } from "opui-css/astro"
 
 #### Make it yours
 
+```ts
+import "opui-css/css/imports.css"
+import "./theme.css"
+```
+
+Or start from one of the [example themes](https://opui.dev/astro/guide/customizing.md#example-themes), loaded the same way:
+
+```ts
+import "opui-css/themes/m3.css"
+```
+
 ### What's in the CSS
 
 ### Import only what you use
@@ -301,6 +356,12 @@ Same code as in the HTML section.
 import "../styles/global.css"
 ---
 ```
+
+### Builds
+
+Vite 8, which Astro builds with, rewrites `light-dark()` for older browsers by default. The colors still follow the OS, and `.ui-light` or `.ui-dark` on `html` still works, but on a part of the page it stops switching after a build. Target browsers that have `light-dark()`:
+
+Same code as in the HTML section.
 
 ### TypeScript
 
@@ -406,6 +467,23 @@ export default (eleventyConfig) => {
 | `variant: "filled"` | `.ui-filled` |
 
 #### Make it yours
+
+```html
+<link rel="stylesheet" href="/opui.css" />
+<link rel="stylesheet" href="/theme.css" />
+```
+
+Or start from one of the [example themes](https://opui.dev/nunjucks/guide/customizing.md#example-themes), loaded the same way:
+
+```js
+eleventyConfig.addPassthroughCopy({
+  "node_modules/opui-css/themes/m3.css": "m3.css",
+})
+```
+
+```html
+<link rel="stylesheet" href="/m3.css" />
+```
 
 ### What's in the CSS
 
@@ -540,6 +618,12 @@ OPUI ships first-class React 19 components. Install the package, import what you
 #### Install and import the CSS
 
 ```sh
+npm create vite@latest my-app -- --template react-ts
+# or Next
+npx create-next-app@latest my-app
+```
+
+```sh
 pnpm add opui-css@next react@19 react-dom@19
 ```
 
@@ -556,8 +640,11 @@ bun add opui-css@next react@19 react-dom@19
 ```
 
 ```tsx
+// src/main.tsx, or app/layout.tsx in Next
 import "opui-css/css/imports.css"
 ```
+
+The template's `src/index.css` , `src/App.css` or `app/globals.css` are unlayered CSS, which beats every OPUI layer: delete them, or their imports.
 
 #### Use a component
 
@@ -571,6 +658,10 @@ export default function App() {
 
 #### Make it yours
 
+Or start from one of the [example themes](https://opui.dev/react/guide/customizing.md#example-themes), loaded the same way:
+
+Same code as in the HTML section.
+
 ### What's in the CSS
 
 ### Import only what you use
@@ -580,6 +671,7 @@ List the files in a CSS file, and import that file in your entry instead of `imp
 Same code as in the HTML section.
 
 ```tsx
+// src/main.tsx, or app/layout.tsx in Next
 import "./styles/main.css"
 ```
 
@@ -594,15 +686,6 @@ experimental: {
   }
 }
 ```
-
-```js
-// vite.config, or under `vite` in nuxt.config
-build: {
-  cssTarget: ["chrome123", "edge123", "firefox120", "safari17.5"]
-}
-```
-
-Vite also prints warnings like `'scroll-button' is not recognized as a valid pseudo-element` for the Carousel, even without one on the page. They're harmless: the rules stay in the output.
 
 ### TypeScript
 
@@ -761,6 +844,10 @@ yarn add opui-css@next solid-js@2 @solidjs/web@2
 bun add opui-css@next solid-js@2 @solidjs/web@2
 ```
 
+```tsx
+import "opui-css/css/imports.css"
+```
+
 #### Use a component
 
 ```tsx
@@ -773,17 +860,21 @@ export default function App() {
 
 #### Make it yours
 
+Or start from one of the [example themes](https://opui.dev/solid/guide/customizing.md#example-themes), loaded the same way:
+
+Same code as in the HTML section.
+
 ### What's in the CSS
 
 ### Import only what you use
 
+```tsx
+import "./styles/main.css"
+```
+
 ### Builds
 
 The components ship as `.jsx` files with their types, which `@solidjs/vite-plugin` compiles with your Solid through the package's `solid` export condition, for server rendering too.
-
-Vite 8 rewrites `light-dark()` for older browsers by default. The colors still follow the OS, and `.ui-light` or `.ui-dark` on `html` still works, but on a part of the page it stops switching after a build. Target browsers that have `light-dark()`:
-
-Same code as in the HTML section.
 
 ### TypeScript
 
@@ -944,6 +1035,10 @@ OPUI ships first-class components for Svelte 5.57 and later. Install the package
 #### Install and import the CSS
 
 ```sh
+npx sv create my-app
+```
+
+```sh
 pnpm add opui-css@next svelte@5
 ```
 
@@ -980,6 +1075,10 @@ bun add opui-css@next svelte@5
 ```
 
 #### Make it yours
+
+Or start from one of the [example themes](https://opui.dev/svelte/guide/customizing.md#example-themes), loaded the same way:
+
+Same code as in the HTML section.
 
 ### What's in the CSS
 
@@ -1170,6 +1269,12 @@ OPUI ships first-class components for Vue 3.5.2 and later. Install the package, 
 #### Install and import the CSS
 
 ```sh
+npm create vue@latest my-app
+# or Nuxt
+npm create nuxt@latest my-app
+```
+
+```sh
 pnpm add opui-css@next vue@3
 ```
 
@@ -1193,6 +1298,16 @@ import App from "./App.vue"
 createApp(App).mount("#app")
 ```
 
+Nuxt has no `main.ts`: list the file in its config.
+
+```ts
+export default defineNuxtConfig({
+  css: ["opui-css/css/imports.css"],
+})
+```
+
+The template's `src/assets/main.css` is unlayered CSS, which beats every OPUI layer: delete it, or its import.
+
 #### Use a component
 
 ```vue
@@ -1206,6 +1321,10 @@ import { Button } from "opui-css/vue"
 ```
 
 #### Make it yours
+
+Or start from one of the [example themes](https://opui.dev/vue/guide/customizing.md#example-themes), loaded the same way:
+
+Same code as in the HTML section.
 
 ### What's in the CSS
 

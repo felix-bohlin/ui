@@ -13,7 +13,9 @@ export default {
     {
       code: "<textarea>",
       description:
-        "Your textarea, `rows` lines tall (3 by default), growing to `--_max-block-size` (20 lines). It resizes taller, and wider with `autoFit` (`.ui-auto-fit`).",
+        "Your textarea, `rows` lines tall (3 by default), growing to `--_max-block-size` (20 lines). It resizes taller, and wider with `autoFit` on the `Field`.",
+      htmlDescription:
+        "Your textarea, `rows` lines tall (3 by default), growing to `--_max-block-size` (20 lines). It resizes taller, and wider with `.ui-auto-fit` on the `.ui-field`.",
       selector: ".ui-field-container > textarea",
     },
   ],

@@ -5,7 +5,7 @@ export default {
   options: [
     {
       description:
-        "The accessible name of a link or button avatar, instead of `label`. The Astro, React, Solid and Svelte types require one of `label`, `aria-label` and `aria-labelledby` on a link or button. In Vue it passes through as an attribute.",
+        "The accessible name of a link or button avatar, instead of `label`. A link or button needs one of `label`, `aria-label` and `aria-labelledby`.",
       inherited: true,
       prop: "aria-label",
       type: "string",

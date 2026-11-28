@@ -2,6 +2,7 @@
 import Guide from "../../../layouts/Guide.astro"
 import Code from "../../../components/Code.astro"
 import DocLink from "../../../components/DocLink.astro"
+import Builds from "./partials/Builds.astro"
 import CssFiles from "./partials/CssFiles.astro"
 import InstallCommand from "./partials/InstallCommand.astro"
 import NextSteps from "./partials/NextSteps.astro"
@@ -20,7 +21,7 @@ export const keywords = ["install", "npm", "setup", "ssr"]
 
   <section id="quick-start">
     <h2>Quick start</h2>
-    <QuickStart>
+    <QuickStart create="npm create astro@latest my-app">
       <Fragment slot="install">
         <InstallCommand packages="astro@7" />
         <Code
@@ -62,6 +63,11 @@ import "../styles/global.css"
 ---`}
       lang="astro"
     />
+  </section>
+
+  <section id="builds">
+    <h2>Builds</h2>
+    <Builds tools={["vite"]} />
   </section>
 
   <section id="typescript">

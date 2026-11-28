@@ -15,7 +15,7 @@ The label, hints and box around a form control you write: an input, a select or 
 - `.ui-field-container`: The box around the control.
 - `.ui-field-container > .ui-top` (slot `top`): Content above the control, inside the box.
 - `.ui-field-container > .ui-start` (slot `start`): Content before the control, inside the box.
-- `<input>, <select> or <textarea>`: Your control, with the field's `for` as its `id`.
+- `<input>, <select> or <textarea>`: Your control, with the `id` the field's label names.
 - `.ui-field-container > .ui-end` (slot `end`): Content after the control, inside the box, like a `PasswordToggle`.
 - `.ui-field-container > .ui-bottom` (slot `bottom`): Content below the control, inside the box.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Text below the box, and a `CharacterCount`.
@@ -47,7 +47,7 @@ The label, hints and box around a form control you write: an input, a select or 
 
 ### Parts
 
-- `<opui-character-count>` (root): Shows the characters typed out of `maxlength`, `aria-hidden` so it stays out of the description. Screen readers hear the characters left once 10% or 10 remain, whichever is more.
+- `<opui-character-count>` (root): Shows the characters typed out of the control's maximum length, `aria-hidden` so it stays out of the description. Screen readers hear the characters left once 10% or 10 remain, whichever is more.
 
 ### Props and modifiers
 

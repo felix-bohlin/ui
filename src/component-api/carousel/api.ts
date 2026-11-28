@@ -35,11 +35,18 @@ export default {
     {
       attribute: "[aria-label]",
       description:
-        "The accessible name of the carousel. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.",
+        "The accessible name of the carousel. Give it one, or `aria-labelledby`.",
+      frameworks: ["html", "nunjucks", "vue"],
       group: "Label",
       inherited: true,
       prop: "aria-label",
       type: "string",
+    },
+    {
+      description:
+        "The accessible name of the carousel. The types require it, or `aria-labelledby`.",
+      frameworks: ["astro", "react", "solid", "svelte"],
+      prop: "aria-label",
     },
     {
       description:

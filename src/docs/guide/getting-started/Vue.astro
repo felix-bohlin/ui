@@ -22,7 +22,12 @@ export const keywords = ["install", "npm", "nuxt", "setup", "ssr"]
 
   <section id="quick-start">
     <h2>Quick start</h2>
-    <QuickStart>
+    <QuickStart
+      create={`npm create vue@latest my-app
+# or Nuxt
+npm create nuxt@latest my-app`}
+      templateCss={["src/assets/main.css"]}
+    >
       <Fragment slot="install">
         <InstallCommand packages="vue@3" />
         <Code
@@ -32,6 +37,14 @@ import "opui-css/css/imports.css"
 import App from "./App.vue"
 
 createApp(App).mount("#app")`}
+          lang="ts"
+        />
+        <p>Nuxt has no <code>main.ts</code>: list the file in its config.</p>
+        <Code
+          code={`// nuxt.config.ts
+export default defineNuxtConfig({
+  css: ["opui-css/css/imports.css"],
+})`}
           lang="ts"
         />
       </Fragment>

@@ -22,8 +22,10 @@ export default {
       class: ".ui-grouped",
       default: "false",
       description:
-        "Draws a dash between the two halves of the code. Use it with an even `maxlength`.",
+        "Draws a dash between the two halves of the code. Use it with an even maximum length.",
       group: "Grouped",
+      htmlDescription:
+        "Draws a dash between the two halves of the code. Use it with an even `maxlength`.",
       prop: "grouped",
     },
     {
@@ -69,7 +71,9 @@ export default {
     {
       code: "<input>",
       description:
-        'Your input, written directly inside `.ui-field-container` with its `id` set to `for`. Its `maxlength`, from 4 to 8, sets the number of boxes. `autocomplete="one-time-code"` lets the browser fill in a code it received; use `off` for a code read off another screen. Mark it `required`, `disabled` or `aria-invalid="true"` like any input.',
+        "Your input, written directly inside the container with the `id` the field's label names. Its maximum length, from 4 to 8, sets the number of boxes. One-time-code autocomplete lets the browser fill in a code it received; turn it off for a code read off another screen. Mark it required, disabled or invalid like any input.",
+      htmlDescription:
+        'Your input, written directly inside `.ui-field-container` with its `id` set to the label\'s `for`. Its `maxlength`, from 4 to 8, sets the number of boxes. `autocomplete="one-time-code"` lets the browser fill in a code it received; use `off` for a code read off another screen. Mark it `required`, `disabled` or `aria-invalid="true"` like any input.',
       selector: ".ui-field-container > input",
     },
     {

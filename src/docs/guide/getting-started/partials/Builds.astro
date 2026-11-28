@@ -8,7 +8,10 @@ type Props = {
 
 const { tools } = Astro.props
 const metaFramework = (
-  { svelte: "SvelteKit", vue: "Nuxt" } as Record<string, string | undefined>
+  { astro: "Astro", svelte: "SvelteKit", vue: "Nuxt" } as Record<
+    string,
+    string | undefined
+  >
 )[Astro.locals.framework]
 const vite = metaFramework
   ? `Vite 8, which ${metaFramework} builds with,`

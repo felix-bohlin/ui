@@ -21,6 +21,14 @@ describe("component api", () => {
     expect(apis.flatMap(checkApi)).toEqual([])
   }, 120_000)
 
+  test("a type the union repeats is listed once", () => {
+    const props = frameworkProps(
+      { component: "Button", source: "Button" },
+      "svelte",
+    )
+    expect(props.get("children")).toBe("Snippet")
+  }, 120_000)
+
   test("every exported component is documented", () => {
     expect(checkExports(apis)).toEqual([])
   })

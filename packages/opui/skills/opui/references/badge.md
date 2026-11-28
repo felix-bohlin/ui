@@ -11,7 +11,7 @@ A small count or status dot on the corner of another element.
 
 - `.ui-badge` (root): Container element.
 - `& > :first-child` (slot `default`): The element the badge is anchored to.
-- `.ui-indicator` (prop `label`, slot `indicator`): The indicator, inside `.ui-floating`. Holds `label`, the visible text with `hideLabel`, or only screen reader text with `dot`.
+- `.ui-indicator` (prop `label`, slot `indicator`): The indicator, inside `.ui-floating`. Holds `label`, as visible text, or as screen reader text only with `hideLabel` or `dot`.
 
 ### Props and modifiers
 

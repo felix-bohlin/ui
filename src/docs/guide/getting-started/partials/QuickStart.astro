@@ -1,6 +1,15 @@
 ---
 import { Button } from "opui-css/astro"
+import Code from "../../../../components/Code.astro"
+import DocLink from "../../../../components/DocLink.astro"
+import { npmTag } from "../../../../utils/release"
 
+type Props = {
+  create?: string
+  templateCss?: string[]
+}
+
+const { create, templateCss = [] } = Astro.props
 const { framework, link } = Astro.locals
 const html = framework === "html"
 const macros = framework === "nunjucks"
@@ -23,6 +32,36 @@ const mapping = html
         { code: 'variant="filled"', note: ".ui-filled" },
       ]
 
+const cdn = `https://cdn.jsdelivr.net/npm/opui-css@${npmTag}`
+const theme = html
+  ? `<link rel="stylesheet" href="${cdn}/dist/opui.css" />
+<link rel="stylesheet" href="/theme.css" />`
+  : macros
+    ? `<link rel="stylesheet" href="/opui.css" />
+<link rel="stylesheet" href="/theme.css" />`
+    : `import "opui-css/css/imports.css"
+import "./theme.css"`
+const exampleTheme = html
+  ? [
+      {
+        code: `<link rel="stylesheet" href="${cdn}/themes/m3.css" />`,
+        lang: "html",
+      },
+    ]
+  : macros
+    ? [
+        {
+          code: `// eleventy.config.mjs
+eleventyConfig.addPassthroughCopy({
+  "node_modules/opui-css/themes/m3.css": "m3.css",
+})`,
+          lang: "js",
+        },
+        { code: `<link rel="stylesheet" href="/m3.css" />`, lang: "html" },
+      ]
+    : [{ code: `import "opui-css/themes/m3.css"`, lang: "ts" }]
+const several = templateCss.length > 1
+
 const steps = Array.from({ length: 16 }, (_, index) => index + 1)
 ---
 
@@ -42,7 +81,21 @@ const steps = Array.from({ length: 16 }, (_, index) => index + 1)
           ? "Needs Node 26.10 or later. Configure Nunjucks once, and link the CSS in your layout."
           : "Needs Node 26.10 or later. Import the CSS once, where your app starts."}
     </p>
+    {create && <Fragment>
+      <p>Starting from an empty folder? Create the project first:</p>
+      <Code code={create} lang="sh" />
+    </Fragment>}
     <slot name="install" />
+    {templateCss.length > 0 && <p>
+      The template's
+      {templateCss.map((file, index) => <Fragment>
+        {index > 0 && (index === templateCss.length - 1 ? " or " : ", ")}
+        <code>{file}</code>
+      </Fragment>)}
+      {several ? " are" : " is"} unlayered CSS, which beats every OPUI layer:
+      delete {several ? "them" : "it"}, or
+      {several ? "their imports" : "its import"}.
+    </p>}
   </div>
   <div role="listitem">
     <h3>
@@ -81,8 +134,17 @@ const steps = Array.from({ length: 16 }, (_, index) => index + 1)
   <div role="listitem">
     <h3>Make it yours</h3>
     <p>
-      Load the <code>theme.css</code> the Theme builder exports after opui-css.
+      Load the <code>theme.css</code> the Theme builder exports after opui-css:
     </p>
+    <Code code={theme} lang={html || macros ? "html" : "ts"} />
+    <p>
+      Or start from one of the
+      <DocLink href="/guide/customizing#example-themes">example themes</DocLink
+      >, loaded the same way:
+    </p>
+    {exampleTheme.map(({ code, lang }) => (
+      <Code code={code} lang={lang} />
+    ))}
     <div class="quick-start-theme ui-not-rich-text">
       <span class="quick-start-palette" aria-hidden="true">
         {steps.map((step) => (

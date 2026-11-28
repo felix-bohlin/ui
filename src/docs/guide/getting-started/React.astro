@@ -22,11 +22,16 @@ export const keywords = ["install", "npm", "setup", "ssr"]
 
   <section id="quick-start">
     <h2>Quick start</h2>
-    <QuickStart>
+    <QuickStart
+      create={`npm create vite@latest my-app -- --template react-ts
+# or Next
+npx create-next-app@latest my-app`}
+      templateCss={["src/index.css", "src/App.css", "app/globals.css"]}
+    >
       <Fragment slot="install">
         <InstallCommand packages="react@19 react-dom@19" />
         <Code
-          code={`// src/main.tsx
+          code={`// src/main.tsx, or app/layout.tsx in Next
 import "opui-css/css/imports.css"`}
           lang="tsx"
         />
@@ -56,7 +61,7 @@ export default function App() {
     </p>
     <PickAndChoose file="src/styles/main.css" />
     <Code
-      code={`// src/main.tsx
+      code={`// src/main.tsx, or app/layout.tsx in Next
 import "./styles/main.css"`}
       lang="tsx"
     />

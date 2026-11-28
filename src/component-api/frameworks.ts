@@ -92,6 +92,13 @@ const listOf = (items: string[]) => {
     : code.join("")
 }
 
+const REACT_ATTRIBUTES: Record<string, string> = {
+  autofocus: "autoFocus",
+  maxlength: "maxLength",
+  readonly: "readOnly",
+  tabindex: "tabIndex",
+}
+
 export const passThrough = (
   element: string,
   root: string,
@@ -102,7 +109,7 @@ export const passThrough = (
     (Object.keys(frameworks) as ComponentFramework[]).map((framework) => [
       framework,
       [
-        `Attributes that aren't props go to the \`<${element}>\`, like ${listOf(examples)}, and \`${framework === "react" ? "className" : "class"}\` and \`style\` go to ${root.startsWith(".") ? `the \`${root}\` root` : `the root \`<${root}>\``}.`,
+        `Attributes that aren't props go to the \`<${element}>\`, like ${listOf(framework === "react" ? examples.map((name) => REACT_ATTRIBUTES[name] ?? name) : examples)}, and \`${framework === "react" ? "className" : "class"}\` and \`style\` go to ${root.startsWith(".") ? `the \`${root}\` root` : `the root \`<${root}>\``}.`,
         more[framework] ?? more.default,
       ]
         .filter(Boolean)

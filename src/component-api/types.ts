@@ -11,6 +11,7 @@ export type ApiPart = {
   code?: string
   component?: string
   description: string
+  htmlDescription?: string
   legacy?: { props?: string[]; slots?: string[] }
   model?: boolean
   props?: string[]
@@ -79,7 +80,10 @@ export type ComponentApi = {
   options: ApiOption[]
   page?: string
   parts: ApiPart[]
-  root: Pick<ApiPart, "anchorName" | "code" | "description" | "selector">
+  root: Pick<
+    ApiPart,
+    "anchorName" | "code" | "description" | "htmlDescription" | "selector"
+  >
   slots?: { description: string; name: string }[]
   source?: string
 }

@@ -59,7 +59,8 @@ Chat bubbles that group by sender, with attachments, reactions and a typing indi
 ### Props and modifiers
 
 - `@reaction` (Vue): `(event: CustomEvent<ReactionDetail>) => void`. Called when a pill is clicked or an emoji is picked, with the emoji's `value` and the `checked` state asked for in `event.detail`. Nothing changes until you change `items`.
-- `aria-label`: `string`. The accessible name of the group of pills. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.
+- `aria-label` (HTML, Nunjucks and Vue): `string`. The accessible name of the group of pills. Give it one, or `aria-labelledby`.
+- `aria-label` (Astro, React, Solid and Svelte): `string`. The accessible name of the group of pills. The types require it, or `aria-labelledby`.
 - `aria-labelledby`: `string`. The id of the element that names the group of pills, instead of `aria-label`.
 - `items`: `ReactionsItem[]`. The reactions in use, as `{ aria-label, checked, label, value }` objects: the name with the count in `aria-label`, such as `Thumbs up, 2`, the emoji with the count in `label`, and `checked` on the ones you reacted with.
 - `name`: `string`. The `name` of the checkboxes.

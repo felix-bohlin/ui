@@ -1,6 +1,6 @@
 ---
 import { List, ListItem } from "opui-css/astro"
-import { partLabel } from "../component-api/rows"
+import { partDescription, partLabel } from "../component-api/rows"
 import type { ComponentApi } from "../component-api/types"
 import { formatInline } from "../utils/format-inline"
 
@@ -109,7 +109,10 @@ const tour = [
         <code slot="label">{part.label}</code>
         <Fragment
           slot="description"
-          set:html={formatInline(part.description, Astro.locals.link)}
+          set:html={formatInline(
+            partDescription(part, framework),
+            Astro.locals.link,
+          )}
         />
         <span class="glow" aria-hidden="true" />
         <span class="frame" aria-hidden="true" />

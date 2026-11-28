@@ -1867,6 +1867,10 @@ describe("the ports of a sample", () => {
       "<div {...rest}>{Astro.slots.start && <b>start</b>}</div>",
       "an Astro reference the ports have no form for in `Astro.slots.start`",
     ],
+    [
+      '<button onclick="history.back()" type="button" {...rest} />',
+      'the handler string onclick="history.back()"',
+    ],
   ])("rejects %s", async (body, reason) => {
     await expect(compileComponent(astro(body), sampleFile())).rejects.toThrow(
       reason,

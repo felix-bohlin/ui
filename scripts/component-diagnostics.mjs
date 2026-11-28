@@ -102,7 +102,7 @@ export const DIAGNOSTICS = {
   BC108: {
     title: "An event handler written as a string",
     explain:
-      "React can't attach a string to an event, so a handler string has no form in the React port. Give the element the attribute through the markup, or write the behavior in a helper.",
+      "React can't attach a string to an event, so a handler string, written on the element or held in a const, has no form in the React port. Write the behavior in a helper.",
     sample: {
       astro: component(
         `${PROPS}\nconst { ...rest } = Astro.props\n\nconst close = { onclick: "this.closest('dialog').close()" }\n`,

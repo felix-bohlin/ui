@@ -587,6 +587,14 @@ const attributeOf = (item, context, element = false) => {
     if (!match) throw unsupported("BC201", context.file, `class={${code}}`)
     return { kind: "class", code: match[1].trim() }
   }
+  if (item.kind === "quoted" && /^on[a-z]/.test(item.name)) {
+    throw unsupported(
+      "BC108",
+      context.file,
+      `the handler string ${item.name}="${item.value}"`,
+      "React can't attach a string to an event; write the behavior in a helper",
+    )
+  }
   const read = attributeNode(item, (what) =>
     unsupported("BC201", context.file, what),
   )

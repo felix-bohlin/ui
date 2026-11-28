@@ -25,6 +25,7 @@ import {
   styleOption,
 } from "./component-emit.mjs"
 import {
+  arrowBody,
   asFragment,
   code,
   declaration,
@@ -869,7 +870,7 @@ export const toVue = (component) => {
           (derivedNames.has(source)
             ? reads(source === key ? key : `${key}: ${source}`, source)
             : uses(
-                code`${key}: computed(() => ${rewrite(source, script)})`,
+                code`${key}: computed(() => ${arrowBody(rewrite(source, script))})`,
                 COMPUTED,
               )),
       )
@@ -889,9 +890,9 @@ export const toVue = (component) => {
       fn
         ? code`const ${name} = ${rewrite(source, script)}`
         : getters.has(name)
-          ? code`const ${name} = () => ${rewrite(source, script)}`
+          ? code`const ${name} = () => ${arrowBody(rewrite(source, script))}`
           : uses(
-              code`const ${name} = computed(() => ${rewrite(source, script)})`,
+              code`const ${name} = computed(() => ${arrowBody(rewrite(source, script))})`,
               COMPUTED,
             ),
     ),

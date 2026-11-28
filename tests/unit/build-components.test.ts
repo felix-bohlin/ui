@@ -137,6 +137,21 @@ describe("the ports of a sample", () => {
     ])
   })
 
+  test("a derived object literal stays an object in the Solid accessor and the Vue computed", async () => {
+    const ports = await compile(
+      astro(
+        '<div class:list={["ui-sample", className]} {...state} {...rest} />',
+        "const state = { hidden: !rest.open }",
+      ),
+    )
+    expect(ports["solid.tsx"]).toContain(
+      "const state = () => ({ hidden: !rest.open })",
+    )
+    expect(ports.vue).toContain(
+      "const state = computed(() => ({ hidden: !attrs.value.open }))",
+    )
+  })
+
   test("casts rest on an element that isn't the one the types extend", async () => {
     const { outputs } = await compileComponent(
       astro(

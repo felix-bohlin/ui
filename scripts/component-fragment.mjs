@@ -37,6 +37,11 @@ export const code = (strings, ...parts) =>
     needsOf(parts),
   )
 
+export const arrowBody = (part) =>
+  asFragment(part).code.trimStart().startsWith("{")
+    ? code`(${part})`
+    : asFragment(part)
+
 export const named = (module, name) => ({ module, name })
 
 export const typed = (module, name) => ({ module, name, type: true })

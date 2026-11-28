@@ -13,6 +13,7 @@ import {
   slotOrder,
 } from "./component-emit.mjs"
 import {
+  arrowBody,
   asFragment,
   code,
   declaration,
@@ -291,7 +292,9 @@ const solidFile = (component, resolvedSlots) => {
     }
   }
   const functionBody = ({ locals, value }) =>
-    locals.length ? code`{\n${join(locals, "\n")}\nreturn ${value}\n}` : value
+    locals.length
+      ? code`{\n${join(locals, "\n")}\nreturn ${value}\n}`
+      : arrowBody(value)
   const accessorCode = ({ code: source, name, reads: valueReads }) =>
     declaration(
       name,
@@ -394,7 +397,7 @@ const solidFile = (component, resolvedSlots) => {
         return [
           declaration(
             lowered(name),
-            code`const ${lowered(name)} = () => ${rewrite(source)}`,
+            code`const ${lowered(name)} = () => ${arrowBody(rewrite(source))}`,
           ),
           declaration(
             name,
@@ -465,7 +468,7 @@ const solidFile = (component, resolvedSlots) => {
         ...(scope.loop ? [`item${capitalize(shortName(entry.name))}`] : []),
       ],
       value.code,
-      (name) => code`const ${name} = () => ${value}`,
+      (name) => code`const ${name} = () => ${arrowBody(value)}`,
     )
   const controlOf = (read, initial, scope) => {
     const control = uses(code`control(${read}, () => ${initial})`, CONTROL)
@@ -656,7 +659,7 @@ const solidFile = (component, resolvedSlots) => {
       if (reactiveIn(entry, eachScope)) {
         inner.set(name, call(local))
         if (loopTags.has(name)) eachScope.loopTags.set(name, `${local}()`)
-        return code`const ${local} = () => ${value}`
+        return code`const ${local} = () => ${arrowBody(value)}`
       }
       if (loopTags.has(name)) {
         inner.set(name, local)

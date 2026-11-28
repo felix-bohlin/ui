@@ -222,4 +222,12 @@ describe("the expectations derived from the compiler", () => {
     expect(late?.example).toContain("callout/Dismissible")
     expect(late?.example).not.toContain("callout/Variants")
   })
+
+  test("expect data-hydrating in the parity of the examples and blocks that render it, but in Solid", () => {
+    const [parity] = expectations({ check: "parity" }, DERIVED)
+    expect(parity?.example).toContain("blocks/data-table/DataTable")
+    expect(parity?.example).toContain("callout/Dismissible")
+    expect(parity?.example).not.toContain("callout/Variants")
+    expect(parity?.framework).not.toContain("solid")
+  })
 })

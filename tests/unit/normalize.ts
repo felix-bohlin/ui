@@ -120,9 +120,11 @@ const verbatimLine = (text: string) =>
 
 type Rendered = ReturnType<typeof renderedText>
 
+type Without = { attribute: string; on: string[] }
+
 const serialize = (
   nodes: Node[],
-  context: { ids: Map<string, string>; rendered: Rendered },
+  context: { ids: Map<string, string>; rendered: Rendered; without?: Without },
   depth: number,
 ): string[] => {
   const indent = "  ".repeat(depth)
@@ -147,6 +149,11 @@ const serialize = (
 
     const attrs = node.attrs
       .filter((attr: { name: string }) => !DROPPED_ATTRIBUTE.test(attr.name))
+      .filter(
+        (attr: { name: string }) =>
+          !context.without?.on.includes(node.tag) ||
+          attr.name !== context.without.attribute,
+      )
       .map((attr: { name: string; value: string }) => ({
         name: attr.name,
         value: normalizeAttribute(attr.name, attr.value, context.ids),
@@ -188,12 +195,16 @@ export const idsOf = (html: string) => {
 
 export const normalize = (
   html: string,
-  { comments = false, css = [] as string[] } = {},
+  {
+    comments = false,
+    css = [] as string[],
+    without,
+  }: { comments?: boolean; css?: string[]; without?: Without } = {},
 ) => {
   const parsed = parseHtml(html)
   const nodes = comments ? parsed : withoutComments(parsed)
   const ids = new Map<string, string>()
   collectIds(nodes, ids)
   const rendered = renderedText(nodes, { css })
-  return serialize(nodes, { ids, rendered }, 0).join("\n") + "\n"
+  return serialize(nodes, { ids, rendered, without }, 0).join("\n") + "\n"
 }

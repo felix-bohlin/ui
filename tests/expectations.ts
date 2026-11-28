@@ -24,7 +24,7 @@ export const FIREFOX_STICKY_ANCHOR_SCROLL =
   "Firefox moves a fixed element whose insets use anchor() down by the page scroll when it lays the element out again on a scrolled page and the anchor is inside a sticky header at the top, instead of keeping it on the stuck header"
 
 const HYDRATING =
-  "the root of a component that listens for events and is a custom element, or a tag that can be one, carries data-hydrating in the server markup, so the element ignores clicks until the framework has attached the listeners and takes it off: useHydrated in React, hydrated in the root's ref in Solid, the hydrated attachment in Svelte and v-hydrated in Vue. The contract test renders Solid with NoHydration, where hydrating() leaves it out"
+  "the root of a component that listens for events and is a custom element, or a tag that can be one, carries data-hydrating in the server markup, so the element ignores clicks until the framework has attached the listeners and takes it off: useHydrated in React, hydrated in the root's ref in Solid, the hydrated attachment in Svelte and v-hydrated in Vue. The contract and parity tests render Solid with NoHydration, where hydrating() leaves it out"
 
 const SOLID_ONE_WAY =
   "Solid writes a checked prop only when it changes, so a choice the parent doesn't store stays on screen, as on a native input"
@@ -211,6 +211,8 @@ export const EXPECTED: Expectation[] = [
 
 const COMPONENTS_DIR = new URL("../packages/opui/components/", import.meta.url)
 
+const BLOCKS_DIR = new URL("../src/blocks/", import.meta.url)
+
 const EXAMPLES_DIR = new URL("../src/component-examples/", import.meta.url)
 
 const foldersIn = (dir: URL) =>
@@ -250,15 +252,17 @@ export const derivedExpectations = async (): Promise<Expectation[]> => {
     }
   }
   const tags = [...hydrating.values()].flat().toSorted()
-  const examples = foldersIn(EXAMPLES_DIR).flatMap((slug) =>
-    filesIn(EXAMPLES_DIR, slug, ".html")
-      .filter((file) =>
-        htmlMarkup(
-          readFileSync(new URL(`${slug}/${file}`, EXAMPLES_DIR), "utf8"),
-        ).tags.some(({ name }) => tags.includes(name)),
-      )
-      .map((file) => `${slug}/${file.slice(0, -".html".length)}`),
-  )
+  const rendering = (dir: URL, prefix = "") =>
+    foldersIn(dir).flatMap((slug) =>
+      filesIn(dir, slug, ".html")
+        .filter((file) =>
+          htmlMarkup(
+            readFileSync(new URL(`${slug}/${file}`, dir), "utf8"),
+          ).tags.some(({ name }) => tags.includes(name)),
+        )
+        .map((file) => `${prefix}${slug}/${file.slice(0, -".html".length)}`),
+    )
+  const examples = rendering(EXAMPLES_DIR)
   const source = "hydratingRoots() in scripts/component-emit.mjs"
   return [
     ...[...hydrating].map(([component, on]): Expectation => ({
@@ -275,6 +279,15 @@ export const derivedExpectations = async (): Promise<Expectation[]> => {
       check: "hydration-late",
       example: examples,
       framework: HYDRATED_FRAMEWORK_IDS,
+      on: tags,
+      reason: HYDRATING,
+      source,
+    },
+    {
+      aspect: "data-hydrating",
+      check: "parity",
+      example: [...rendering(BLOCKS_DIR, "blocks/"), ...examples].toSorted(),
+      framework: HYDRATED_FRAMEWORK_IDS.filter((id) => id !== "solid"),
       on: tags,
       reason: HYDRATING,
       source,

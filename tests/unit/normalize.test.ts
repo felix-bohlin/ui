@@ -58,6 +58,16 @@ describe("normalize", () => {
     )
   })
 
+  test("drops an attribute only on the tags it is asked to", () => {
+    const without = { attribute: "data-hydrating", on: ["opui-callout"] }
+    expect(
+      normalize("<opui-callout data-hydrating>a</opui-callout>", { without }),
+    ).toBe(normalize("<opui-callout>a</opui-callout>"))
+    expect(normalize("<p data-hydrating>a</p>", { without })).not.toBe(
+      normalize("<p>a</p>"),
+    )
+  })
+
   test("marks the spaces that render", () => {
     expect(
       normalize(

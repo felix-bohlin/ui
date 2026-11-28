@@ -14,11 +14,13 @@ import {
   type FrameworkId as Framework,
 } from "../../src/utils/framework"
 import { createIdGenerator, exampleIdBase } from "../../src/utils/id"
-import { expectation, expectStill } from "../expectations"
+import { derivedExpectations, expectation, expectStill } from "../expectations"
 import { idsOf, normalize } from "./normalize"
 import { render, renderNunjucks, type SolidComponent } from "./renderers"
 
 const RECORD = !!process.env.PARITY_RECORD
+
+const DERIVED = await derivedExpectations()
 
 const astroModules = import.meta.glob<AstroInstance>([
   "../../src/blocks/**/*.astro",
@@ -238,13 +240,14 @@ const markup = (
   example: Example,
   framework: Framework,
   comments = COMMENTED.includes(framework),
+  without?: { attribute: string; on: string[] },
 ) => {
-  const cacheKey = `${example.key}.${framework}.${comments}`
+  const cacheKey = `${example.key}.${framework}.${comments}.${without?.attribute}`
   if (!cache.has(cacheKey)) {
     cache.set(
       cacheKey,
       Promise.all([rendered(example, framework), exampleCss(example)]).then(
-        ([html, css]) => normalize(html, { comments, css }),
+        ([html, css]) => normalize(html, { comments, css, without }),
       ),
     )
   }
@@ -368,10 +371,25 @@ describe.each(cases)("$key", (example) => {
     const comments = [framework, reference].every((name) =>
       COMMENTED.includes(name),
     )
-    const [expected, actual] = await Promise.all([
+    const [expected, rendering] = await Promise.all([
       markup(example, reference, comments),
       markup(example, framework, comments),
     ])
+    let actual = rendering
+    const late = {
+      aspect: "data-hydrating",
+      check: "parity",
+      example: example.key,
+      framework,
+    } as const
+    const derived = expectation(late, DERIVED)
+    if (derived) {
+      actual = await markup(example, framework, comments, {
+        attribute: late.aspect,
+        on: derived.on ?? [],
+      })
+      expectStill(expect, actual !== rendering, derived, late)
+    }
     for (const name of [framework, reference]) {
       const where = {
         check: "parity",
